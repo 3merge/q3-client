@@ -1,0 +1,8 @@
+{
+  "name": "example-rest",
+  "version": "1.0.0",
+  "dependencies": {
+    "q3-api": "^1.0.0",
+    "q3-api-plugin-addresses": "^1.0.0"
+  }
+}
