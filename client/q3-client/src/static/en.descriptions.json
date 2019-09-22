@@ -1,0 +1,13 @@
+{
+  "delete": "You are about to delete a resource from this application. This may have unwanted side-effects. To proceed, please type the code below.",
+  "deleteConfirmation": "Please enter the word DELETE",
+  "passwordChange": "Note that changing your password will not log you out; it only affects new authentication requests.",
+  "resetPassword": "Enter your email address to send a temporary password to your inbox.",
+  "login": "Before logging in, please ensure that your account has been verified.",
+  "reverify": "Never received your verification email? No problem, request another one right here. If you've already verified, this form will do nothing.",
+  "verify": "Please copy-and-paste the details from your verification email below",
+  "empty": "Looks like there are no results yet. Create a new resource and then come back.",
+  "error": "The server responded unexpectedly. Please refresh and report a bug if this issue persists",
+  "inclusions": "Move items from this column into the next to activate them. Remember, you can search and select in bulk. Likewise, you can set RegExp rules to future-proof your selection.",
+  "exceptions": "Items in this column are active either by precise selection or RegExp. To remove an automated item (one by rule), please delete the RegExp first or rewrite it to further exclude options."
+}

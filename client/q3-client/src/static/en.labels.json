@@ -1,0 +1,20 @@
+{
+  "add": "Add",
+  "delete": "Delete",
+  "nevermind": "Nevermind",
+  "continue": "Continue",
+  "name": "Name",
+  "dismiss": "Dismiss",
+  "email": "Email address",
+  "password": "Password",
+  "passwordReset": "Reset password",
+  "currentPassword": "Current password",
+  "reverify": "Re-verify",
+  "login": "Login",
+  "recaptcha": "Must pass this test before proceeding",
+  "id": "Account ID",
+  "code": "Account code",
+  "confirmPassword": "Confirm password",
+  "inclusions": "Options",
+  "exceptions": "Active items"
+}
