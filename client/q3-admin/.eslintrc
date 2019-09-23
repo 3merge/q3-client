@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "react-3merge"
+  ]
+}
