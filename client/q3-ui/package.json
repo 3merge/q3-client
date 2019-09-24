@@ -1,6 +1,6 @@
 {
   "name": "q3-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Material UI implementations",
   "main": "dist/index.js",
   "author": "Mike <mibberson@3merge.ca>",
@@ -62,13 +62,11 @@
   },
   "dependencies": {
     "@date-io/moment": "^1.3.9",
-    "@material-ui/core": "^4.3.3",
-    "@material-ui/icons": "^4.2.1",
     "@material-ui/lab": "^4.0.0-alpha.26",
     "@material-ui/pickers": "^3.2.4",
-    "@material-ui/styles": "^4.3.3",
     "@reach/router": "^1.2.1",
     "@storybook/react": "^5.1.11",
+    "@storybook/router": "^5.2.1",
     "@svgr/webpack": "^4.3.2",
     "@tinymce/tinymce-react": "^3.3.2",
     "classnames": "^2.2.6",
@@ -81,8 +79,6 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "q3-ui-permissions": "^1.0.0",
-    "q3-ui-rest": "^1.0.0",
     "react": "^16.9.0",
     "react-beautiful-dnd": "^11.0.5",
     "react-content-loader": "^4.2.2",
@@ -91,9 +87,15 @@
     "react-i18next": "^10.12.2",
     "react-json-pretty": "^2.1.0",
     "react-router-dom": "^5.0.1",
+    "react-social-icons": "^4.1.0",
     "react-window": "^1.8.5",
     "reaptcha": "^1.6.0",
     "url-loader": "^2.1.0",
     "yup": "^0.27.0"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/styles": "^4.4.3"
   }
 }
