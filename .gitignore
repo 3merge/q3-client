@@ -11,6 +11,8 @@ dist/
 
 # Coverage directory used by tools like istanbul
 coverage
+.jest-cache
+.jest-coverage
 
 # Dependency directories
 node_modules/
