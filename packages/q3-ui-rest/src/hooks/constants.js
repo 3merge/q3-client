@@ -1,0 +1,5 @@
+export const FETCHING = 'FETCHING';
+export const FETCHED = 'FETCHED';
+export const UPDATED = 'UPDATED';
+export const CREATED = 'CREATED';
+export const DELETED = 'DELETED';

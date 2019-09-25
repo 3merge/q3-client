@@ -6,7 +6,3 @@ Axios.interceptors.request.use((config) => {
   cls.headers = cls.tokens;
   return cls.config;
 });
-
-export const setDomain = (url) => {
-  Axios.defaults.baseURL = url;
-}

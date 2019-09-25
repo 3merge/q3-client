@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { Router } from '@reach/router';
 import {
   I18nextProvider,
   useTranslation,
 } from 'react-i18next';
-import Providers, { Views, Layouts, i18 } from 'q3-ui';
+import Providers, { Views, i18 } from 'q3-ui';
 import Authentication, {
+  Axios,
   authenticate,
 } from 'q3-ui-permissions';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-export * as Templates from './templates';
+import * as Templates from './templates';
 
 const { Login, PasswordReset, Reverify, Verify } = Views;
-const { External } = Layouts;
+const { Public } = Templates;
 
-const ApplicationGate = ({ name, logoImgSrc }) => {
+const ApplicationGate = ({
+  name,
+  logoImgSrc,
+  applicationIndex,
+}) => {
   const { t } = useTranslation();
   const links = [
     {
@@ -49,25 +48,19 @@ const ApplicationGate = ({ name, logoImgSrc }) => {
   return (
     <Authentication
       loading={CircularProgress}
-      renderPrivate={() => null}
+      renderPrivate={applicationIndex}
       renderPublic={() => (
-        <External
+        <Public
           companyName={name}
           links={links}
           logo={logoImgSrc}
         >
-          <Switch>
-            {links.map((link) => (
-              <Route
-                exact
-                key={link.to}
-                path={link.to}
-                component={link.render}
-              />
+          <Router>
+            {links.map(({ render: Renderer, ...rest }) => (
+              <Renderer key={rest.to} path={rest.to} />
             ))}
-            <Redirect exact to="login" />
-          </Switch>
-        </External>
+          </Router>
+        </Public>
       )}
     />
   );
@@ -79,13 +72,11 @@ ApplicationGate.propTypes = {
 };
 
 const Wrapper = ({ themeOptions, ...rest }) => (
-  <BrowserRouter>
-    <Providers settings={themeOptions}>
-      <I18nextProvider i18n={i18}>
-        <ApplicationGate {...rest} />
-      </I18nextProvider>
-    </Providers>
-  </BrowserRouter>
+  <Providers>
+    <I18nextProvider i18n={i18}>
+      <ApplicationGate {...rest} />
+    </I18nextProvider>
+  </Providers>
 );
 
 Wrapper.propTypes = {
@@ -96,3 +87,4 @@ Wrapper.propTypes = {
 };
 
 export default Wrapper;
+export { Templates, Axios };
