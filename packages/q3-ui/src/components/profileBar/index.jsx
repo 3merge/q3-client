@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import BugReport from '@material-ui/icons/BugReport';
 import Help from '@material-ui/icons/Help';
 import Menu from '@material-ui/core/Menu';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';

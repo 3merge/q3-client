@@ -12,17 +12,17 @@ const defaultProps = {
   customLogoHeight: 'auto',
   menuItems: [
     {
-      href: 'foo',
+      to: 'foo',
       label: 'Foo',
       visible: true,
     },
     {
-      href: 'bar',
+      to: 'bar',
       label: 'Bar',
       visible: true,
     },
     {
-      href: 'qux',
+      to: 'qux',
       label: 'Qux',
       visible: true,
     },
@@ -43,6 +43,11 @@ const PageDemo = ({ children }) => (
         color: '#FFF',
       }}
     />
+    <Router>
+      <Foo path="foo" />
+      <Bar path="bar" />
+      <Qux path="qux" />
+    </Router>
     <Typography>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -150,11 +155,6 @@ const PageDemo = ({ children }) => (
         Praesent tempus laoreet eros ut fringilla.
       </p>
     </Typography>
-    <Router>
-      <Foo path="foo" />
-      <Bar path="bar" />
-      <Qux path="qux" />
-    </Router>
   </>
 );
 

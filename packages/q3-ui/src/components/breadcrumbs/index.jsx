@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link as ReachLink } from 'react-router-dom';
+import { Location, Link as ReachLink } from '@reach/router';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -44,7 +44,7 @@ const RouterBreadcrumbs = ({ root }) => {
   }
 
   return (
-    <Route>
+    <Location>
       {({ location }) => {
         const { pathname } = location;
         const path = new PathBuilder();
@@ -73,7 +73,7 @@ const RouterBreadcrumbs = ({ root }) => {
           </Breadcrumbs>
         );
       }}
-    </Route>
+    </Location>
   );
 };
 

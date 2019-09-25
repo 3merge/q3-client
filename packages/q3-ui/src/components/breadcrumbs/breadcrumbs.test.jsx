@@ -1,8 +1,7 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { materialMount } from '../../helpers/testUtils';
 import Breadcrumbs from '.';
-
+/*
 const withRouter = (entries = []) =>
   materialMount(() => (
     <MemoryRouter initialEntries={[entries.join('')]}>
@@ -18,3 +17,4 @@ describe('Breadcrumbs', () => {
     );
   });
 });
+*/

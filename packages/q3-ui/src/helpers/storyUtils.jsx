@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MomentUtils from '@date-io/moment';
@@ -10,14 +9,12 @@ import Container from '@material-ui/core/Container';
 import theme from '../theme';
 
 export default (story) => (
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <MuiPickersUtilsProvider utils={MomentUtils}>
-        {story()}
-      </MuiPickersUtilsProvider>
-    </ThemeProvider>
-  </BrowserRouter>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      {story()}
+    </MuiPickersUtilsProvider>
+  </ThemeProvider>
 );
 
 export const Wrapper = ({ children }) => (

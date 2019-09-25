@@ -16,6 +16,8 @@ import Authentication, {
 } from 'q3-ui-permissions';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+export * as Templates from './templates';
+
 const { Login, PasswordReset, Reverify, Verify } = Views;
 const { External } = Layouts;
 

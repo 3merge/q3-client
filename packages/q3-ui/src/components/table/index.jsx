@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, withRouter } from 'react-router-dom';
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -88,17 +88,11 @@ export const Templated = ({ Component, root, ...rest }) => {
     <TableRow key={id} className={tableRowHover}>
       <Component {...rest}>
         <TableCell className="visible-on-hover">
-          <Route>
-            {({ history }) => (
-              <IconButton
-                onClick={() =>
-                  history.push(`${root}/${id}`)
-                }
-              >
-                <Apps />
-              </IconButton>
-            )}
-          </Route>
+          <IconButton
+            onClick={() => navigate(`${root}/${id}`)}
+          >
+            <Apps />
+          </IconButton>
         </TableCell>
       </Component>
     </TableRow>
@@ -159,12 +153,11 @@ export const TableView = ({
   error,
   header,
   total,
-  location,
   history,
   rowTemplate: Row,
 }) => {
   const { t } = useTranslation();
-  const params = new URLSearchParams(location.search);
+  const params = new URLSearchParams(window.location);
   const page = getDefaultPage(params.get('page'));
 
   const handlePageIncrementation = React.useCallback(
@@ -215,7 +208,7 @@ export const TableView = ({
     return rows.map((props, i) => (
       <Templated
         key={extractId(props, i)}
-        root={location.pathname}
+        root={window.location.pathname}
         Component={Row}
         {...props}
       />
@@ -286,4 +279,4 @@ TableView.defaultProps = {
   total: 0,
 };
 
-export default withRouter(TableView);
+export default TableView;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { navigate } from '@reach/router';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Searchbar = ({ location, history }) => {
+const Searchbar = () => {
   const ref = React.useRef();
   const [state, setState] = React.useState('');
   const { container, input, clearBtn } = useStyles();
@@ -46,17 +46,16 @@ const Searchbar = ({ location, history }) => {
 
   const onClear = React.useCallback(() => {
     setState('');
-    history.push();
     onFocus();
   }, []);
 
   const onKeyPress = React.useCallback(
     ({ key, target }) => {
       if (key === 'Enter') {
-        const { search } = location;
+        const { search } = window.location;
         const params = new URLSearchParams(search);
         params.set('search', target.value);
-        history.push(`?${params.toString()}`);
+        navigate(`?${params.toString()}`);
       }
     },
     [],
@@ -101,13 +100,6 @@ const Searchbar = ({ location, history }) => {
   );
 };
 
-Searchbar.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
-};
+Searchbar.propTypes = {};
 
-export default withRouter(Searchbar);
+export default Searchbar;

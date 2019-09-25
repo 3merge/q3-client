@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 import TableCell from '@material-ui/core/TableCell';
 import Label from '@material-ui/icons/Label';
@@ -46,8 +45,10 @@ storiesOf('Components|Table', module)
     </Wrapper>
   ))
   .add('With rows', () => {
-    const Simulated = withRouter(({ location }) => {
-      const params = new URLSearchParams(location.search);
+    const Simulated = () => {
+      const params = new URLSearchParams(
+        window.location.search,
+      );
       const paged = parseInt(params.get('page'), 10);
       const page = Number.isNaN(paged) ? 1 : paged;
       const data = stubs.slice(page - 1, page * 25);
@@ -77,7 +78,7 @@ storiesOf('Components|Table', module)
           />
         </Wrapper>
       );
-    });
+    };
 
     return <Simulated />;
   });

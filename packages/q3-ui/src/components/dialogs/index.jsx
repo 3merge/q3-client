@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
-import { Redirect } from 'react-router-dom';
+import { redirectTo } from '@reach/router';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -69,7 +69,6 @@ export const useChange = () => {
 };
 
 export const Delete = ({ next, redirect }) => {
-  const [shouldRedirect, setRedirect] = React.useState();
   const [hasError, setError] = React.useState(false);
   const { value, onChange, setValue } = useChange();
   const { isOpen, open, close } = useOpenState();
@@ -83,7 +82,7 @@ export const Delete = ({ next, redirect }) => {
 
     next().finally(() => {
       if (redirect) {
-        setRedirect(true);
+        redirectTo(redirect);
       } else {
         close();
         setValue('');
@@ -91,9 +90,7 @@ export const Delete = ({ next, redirect }) => {
     });
   }, [value]);
 
-  return shouldRedirect ? (
-    <Redirect to={redirect} />
-  ) : (
+  return (
     <>
       <Tooltip title={t('labels:delete')}>
         <IconButton type="button" onClick={open}>

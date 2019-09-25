@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Location } from '@reach/router';
 import { storiesOf } from '@storybook/react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -14,20 +14,18 @@ storiesOf('Components|SearchBar', module)
     },
   })
   .add('With router search params', () => (
-    <Route
-      render={({ location }) => {
-        return (
-          <>
-            <Search />
-            <Box p={2}>
-              <Typography>
-                {`Search output on enter: ${JSON.stringify(
-                  location.search,
-                )}`}
-              </Typography>
-            </Box>
-          </>
-        );
-      }}
-    />
+    <Location>
+      {({ location }) => (
+        <>
+          <Search />
+          <Box p={2}>
+            <Typography>
+              {`Search output on enter: ${JSON.stringify(
+                location.search,
+              )}`}
+            </Typography>
+          </Box>
+        </>
+      )}
+    </Location>
   ));

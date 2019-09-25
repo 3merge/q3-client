@@ -31,6 +31,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Offcanvas from '../offcanvas';
 import Menu from '../menu';
+import { LocationMatch } from '../tabs';
 
 const useStyles = makeStyles((theme) => ({
   logoSize: {
@@ -144,37 +145,28 @@ function a11yProps(index) {
 }
 
 const HorizontalMenuList = ({ items }) => (
-  <Location>
-    {({ location: { pathname } }) => {
-      const checkLocation = () => {
-        const index = items.findIndex(
-          ({ href }) => href !== '' && pathname === href,
-        );
-        return index;
-      };
-
-      return (
-        <StyledTabs
-          value={checkLocation()}
-          aria-label="Main navigation"
-          TabIndicatorProps={{ children: <div /> }}
-        >
-          {items.map(
-            ({ href, visible, label }, i) =>
-              visible && (
-                <StyledTab
-                  component={Link}
-                  to={href}
-                  key={href}
-                  label={label}
-                  {...a11yProps(i)}
-                />
-              ),
-          )}
-        </StyledTabs>
-      );
-    }}
-  </Location>
+  <LocationMatch views={items}>
+    {(value) => (
+      <StyledTabs
+        value={value}
+        aria-label="Main navigation"
+        TabIndicatorProps={{ children: <div /> }}
+      >
+        {items.map(
+          ({ to, visible, label }, i) =>
+            visible && (
+              <StyledTab
+                component={Link}
+                to={to}
+                key={to}
+                label={label}
+                {...a11yProps(i)}
+              />
+            ),
+        )}
+      </StyledTabs>
+    )}
+  </LocationMatch>
 );
 
 HorizontalMenuList.propTypes = {

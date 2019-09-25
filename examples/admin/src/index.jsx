@@ -1,15 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from 'q3-admin';
+import App, { Templates } from 'q3-admin';
+
+{/**   <App
+    name="Placeholder"
+    logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
+  /> */}
+
+const AppEntry = (
+  <Templates.Main
+    name="Placeholder"
+    renderAside={() => null}
+    render={() => null}
+  />
+);
 
 ReactDOM.render(
-  <App
-    logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-    name="Placeholder"
-    themeOptions={{
-      primary: '#4BC6B9',
-      secondary: '#4BC6B9',
-    }}
-  />,
+  AppEntry,
   document.getElementById('root'),
 );
