@@ -27,15 +27,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   negativeMargin: {
+    backgroundColor: theme.palette.primary.main,
+    boxShadow: theme.shadows[1],
     display: 'block',
     marginLeft: -theme.spacing(4),
     width: `calc(100% + ${theme.spacing(4)}px)`,
     borderRadius: 10,
     overflow: 'hidden',
-    paddingTop: '125%',
+    paddingTop: '150%',
     position: 'relative',
     height: 0,
     '& img': {
+      mixBlendMode: 'screen',
       position: 'absolute',
       objectFit: 'cover',
       height: '100%',
@@ -59,14 +62,16 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   iconThumb: {
-    left: theme.spacing(4),
-    height: 60,
+    left: theme.spacing(3.5),
+    height: 70,
     position: 'absolute',
-    top: 'calc(100% - 30px)',
-    width: 60,
+    top: 'calc(100% - 35px)',
+    width: 70,
   },
   iconBody: {
-    padding: `${theme.spacing(6)}px ${theme.spacing(4)}px`,
+    padding: `${theme.spacing(6)}px ${theme.spacing(
+      4,
+    )}px 0`,
   },
   iconText: {
     color: blueGrey[200],
@@ -75,7 +80,54 @@ const useStyles = makeStyles((theme) => ({
   spacing: {
     marginLeft: theme.spacing(1),
   },
+  root: {
+    display: 'block',
+    overflow: 'visible',
+    textDecoration: 'none',
+    position: 'relative',
+  },
+  ribbon: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#FFF',
+    fontSize: '0.85rem',
+    padding: '0.25rem 1rem',
+    borderTopLeftRadius: 3,
+    borderBottomLeftRadius: 3,
+    position: 'absolute',
+    top: theme.spacing(2),
+    left: theme.spacing(2),
+    textTransform: 'uppercase',
+    '&::before,&::after': {
+      content: "''",
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      left: '100%',
+      borderRight: '10px solid transparent',
+    },
+    '&::before': {
+      borderBottom: '20px solid transparent',
+      borderLeft: `10px solid ${theme.palette.primary.main}`,
+      top: 0,
+    },
+    '&::after': {
+      borderTop: '20px solid transparent',
+      borderBottom: `20px solid ${theme.palette.primary.main}`,
+      bottom: 0,
+    },
+  },
 }));
+
+const CardWrapper = ({ children, to, ...rest }) => {
+  const { root } = useStyles();
+  return (
+    <Grid item {...rest}>
+      <Card component={Link} className={root} to={to}>
+        {children}
+      </Card>
+    </Grid>
+  );
+};
 
 export const ResourceCard = ({
   imgSrc,
@@ -86,45 +138,52 @@ export const ResourceCard = ({
 }) => {
   const cls = useStyles();
   return (
-    <Grid
-      item
-      md={4}
-      sm={6}
-      xs={12}
-      style={{ marginTop: '2rem' }}
-    >
-      <Card style={{ overflow: 'visible' }}>
-        <Grid container spacing={4} alignItems="center">
-          <Grid item lg={4} md={5} sm={6} xs={12}>
-            <Link to={to} className={cls.negativeMargin}>
-              <img src={imgSrc} />
-            </Link>
-          </Grid>
-          <Grid item lg={8} md={7} sm={6} xs={12}>
-            <CardContent>
-              <Typography
-                className="MuiTypography--overline"
-                variant="overline"
-                gutterBottom
-              >
-                {name}
-              </Typography>
-              <Typography
-                className="MuiTypography--heading"
-                variant="h3"
-                gutterBottom
-              >
-                {title}
-              </Typography>
-              <Typography gutterBottom>
-                {description}
-              </Typography>
-            </CardContent>
-          </Grid>
+    <CardWrapper item md={6} sm={12} to={to}>
+      <Grid container spacing={4} alignItems="center">
+        <Grid item lg={4} md={5} sm={6} xs={12}>
+          <div className={cls.negativeMargin}>
+            <img src={imgSrc} alt={title} />
+          </div>
         </Grid>
-      </Card>
-    </Grid>
+        <Grid item lg={8} md={7} sm={6} xs={12}>
+          <CardContent>
+            <Typography
+              className="MuiTypography--overline"
+              variant="overline"
+              gutterBottom
+            >
+              {name}
+            </Typography>
+            <Typography
+              className="MuiTypography--heading"
+              variant="h3"
+              gutterBottom
+            >
+              {title}
+            </Typography>
+            <Typography gutterBottom>
+              {description}
+            </Typography>
+            <Button
+              tabIndex="-1"
+              variant="outlined"
+              color="primary"
+            >
+              More
+            </Button>
+          </CardContent>
+        </Grid>
+      </Grid>
+    </CardWrapper>
   );
+};
+
+ResourceCard.propTypes = {
+  imgSrc: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export const ProjectCard = ({
@@ -137,11 +196,7 @@ export const ProjectCard = ({
 }) => {
   const cls = useStyles();
   return (
-    <Card
-      component={Link}
-      to={to}
-      style={{ display: 'block', textDecoration: 'none' }}
-    >
+    <CardWrapper md={4} sm={6} xs={12} to={to}>
       <div className={cls.iconHead}>
         <Avatar className={cls.iconThumb} src={imgSrc} />
         <Typography
@@ -168,9 +223,14 @@ export const ProjectCard = ({
           {title}
         </Typography>
         <Typography gutterBottom>{description}</Typography>
-        <TrendingFlat />
+        <Typography
+          variant="subtitle2"
+          style={{ textDecoration: 'underline' }}
+        >
+          Read more
+        </Typography>
       </CardContent>
-    </Card>
+    </CardWrapper>
   );
 };
 
@@ -179,13 +239,15 @@ export const NewsCard = ({
   title,
   description,
   to,
+  label,
 }) => {
-  const { iconCls, spacing } = useStyles();
+  const { iconCls, spacing, ribbon } = useStyles();
   return (
-    <Card elevation={0} component="article">
-      <Link to={to} className={iconCls}>
+    <CardWrapper md={4} sm={6} xs={12} to={to}>
+      <div to={to} className={iconCls}>
         <img src={imgSrc} alt={title} />
-      </Link>
+        {label && <span className={ribbon}>{label}</span>}
+      </div>
       <CardContent>
         <Box px={3}>
           <Typography
@@ -199,23 +261,13 @@ export const NewsCard = ({
             {description}
           </Typography>
           <Typography component="div" align="right">
-            <Button to={to} component={Link}>
-              Go
-              <TrendingFlat className={spacing} />
-            </Button>
+            <TrendingFlat className={spacing} />
           </Typography>
         </Box>
       </CardContent>
-    </Card>
+    </CardWrapper>
   );
 };
 
-NewsCard.propTypes = {
-  Icon: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.func,
-  ]).isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
-};
+ProjectCard.propTypes = ResourceCard.propTypes;
+NewsCard.propTypes = ResourceCard.propTypes;

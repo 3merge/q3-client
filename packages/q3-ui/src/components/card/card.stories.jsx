@@ -1,9 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import docs from './README.md';
 import { NewsCard, ProjectCard, ResourceCard } from '.';
+
+const sharedProps = {
+  imgSrc:
+    'https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg',
+  name: 'Foobar',
+  title: 'Article title sits below',
+  description:
+    'Cards can have descriptions for context that only span a few lines',
+  label: 'Topic',
+  to: '/',
+};
+
+const CardContainer = ({ children }) => (
+  <Container style={{ marginTop: '1rem' }}>
+    <Grid container spacing={5} justify="center">
+      {children}
+    </Grid>
+  </Container>
+);
+
+CardContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 storiesOf('Components|Cards', module)
   .addParameters({
@@ -13,42 +37,17 @@ storiesOf('Components|Cards', module)
     },
   })
   .add('News', () => (
-    <Container style={{ marginTop: '1rem' }}>
-      <Grid container spacing={5} justify="center">
-        <Grid item md={4} xs={6}>
-          <NewsCard
-            to="/one"
-            imgSrc="https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"
-            title="Let's not go crazy with title lenghts"
-            description="So this is a description. Nice, eh?"
-          />
-        </Grid>
-      </Grid>
-    </Container>
+    <CardContainer>
+      <NewsCard {...sharedProps} />
+    </CardContainer>
   ))
   .add('Project', () => (
-    <Grid container justify="center">
-      <Grid
-        item
-        md={3}
-        xs={6}
-        style={{ marginTop: '2rem' }}
-      >
-        <ProjectCard
-          label="October 2019"
-          imgSrc="http://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Polymer_Project_logo.png/240px-Polymer_Project_logo.png"
-          title="70% time reductions doing this"
-          name="Polymer"
-          description="So this is a description. Nice, eh?"
-        />
-      </Grid>
-    </Grid>
+    <CardContainer>
+      <ProjectCard {...sharedProps} />
+    </CardContainer>
   ))
   .add('Resource', () => (
-    <Grid container justify="center">
-      <ResourceCard
-        title="Po"
-        imgSrc="https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"
-      />
-    </Grid>
+    <CardContainer>
+      <ResourceCard {...sharedProps} />
+    </CardContainer>
   ));

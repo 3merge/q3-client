@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     overflow: 'hidden',
     padding: theme.spacing(3),
+    paddingTop: `calc(100px + ${theme.spacing(3)}px)`,
     width: '100%',
   },
 }));

@@ -11,18 +11,10 @@ storiesOf('Components|Alert', module)
       sidebar: docs,
     },
   })
-  .add('Error', () => (
-    <Box p={4}>
-      <Alert label="whoops" type="error" />
-    </Box>
-  ))
+  .add('Error', () => <Alert label="whoops" type="error" />)
   .add('Warning', () => (
-    <Box p={4}>
-      <Alert label="hmm..." type="warning" />
-    </Box>
+    <Alert label="hmm..." type="warning" />
   ))
   .add('Success', () => (
-    <Box p={4}>
-      <Alert label="yay!" type="success" />
-    </Box>
+    <Alert label="yay!" type="success" />
   ));

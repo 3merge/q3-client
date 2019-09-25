@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import faker from 'faker';
 import { storiesOf } from '@storybook/react';
 import TableCell from '@material-ui/core/TableCell';
 import Label from '@material-ui/icons/Label';
@@ -18,7 +17,9 @@ const stubs = [];
 for (let i = 0; i < 50; i += 1) {
   stubs.push({
     id: i,
-    ...faker.helpers.userCard(),
+    name: 'Mike',
+    email: 'mike@demo.ca',
+    phone: '416-000-1234',
   });
 }
 

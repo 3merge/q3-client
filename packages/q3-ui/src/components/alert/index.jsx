@@ -49,7 +49,6 @@ const Alert = ({ label, type }) => {
   return (
     !dismissed && (
       <Box
-        my={4}
         role="alert"
         className={classNames(cls.container, cls[type])}
       >

@@ -2,7 +2,9 @@ import React from 'react';
 import { Router } from '@reach/router';
 import { storiesOf } from '@storybook/react';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import Header from '.';
+import Banner from '../banner';
 
 const defaultProps = {
   logoImgSrc:
@@ -34,6 +36,120 @@ const Qux = () => 'Qux';
 const PageDemo = ({ children }) => (
   <>
     {children}
+    <Banner
+      title="Example"
+      backgroundStyle={{
+        backgroundColor: 'blue',
+        color: '#FFF',
+      }}
+    />
+    <Typography>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>{' '}
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Sed ut lorem et leo tincidunt commodo.
+        Pellentesque mollis lectus non auctor aliquet.
+        Maecenas consequat tempus convallis. Aenean gravida
+        lorem id est ullamcorper tempor. Nulla placerat,
+        tortor ut placerat dapibus, felis sapien aliquam
+        lectus, vitae condimentum odio tortor at mi. Donec
+        feugiat magna vel malesuada sollicitudin. Nam
+        ullamcorper vehicula maximus. Pellentesque volutpat
+        metus eu aliquam porttitor. Integer efficitur risus
+        quis aliquet euismod. Aenean rutrum tellus sit amet
+        lectus bibendum, quis ultrices nisi ultrices.
+        Praesent tempus laoreet eros ut fringilla.
+      </p>
+    </Typography>
     <Router>
       <Foo path="foo" />
       <Bar path="bar" />
@@ -45,7 +161,7 @@ const PageDemo = ({ children }) => (
 storiesOf('Components|Header', module)
   .add('Default', () => (
     <PageDemo>
-      <Header {...defaultProps} />
+      <Header {...defaultProps} color="#FFF" />
     </PageDemo>
   ))
   .add('With search', () => (

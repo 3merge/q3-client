@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Location, Link } from '@reach/router';
 import { get, invoke } from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -39,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   appBar: {
+    backgroundColor: (props) =>
+      props.background || 'transparent',
+    boxShadow: 'none !important',
     padding: theme.spacing(2),
   },
   spacing: {
@@ -93,26 +98,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const LoginActions = () => (
-  <Grid container spacing={3} style={{ width: 'auto' }}>
-    <Grid item>
-      <Button component={Link} to="/sign-up">
-        Sign up
-      </Button>
-    </Grid>
-    <Grid item>
-      <Button
-        component={Link}
-        to="/login"
-        color="secondary"
-        variant="contained"
-      >
-        Login
-      </Button>
-    </Grid>
-  </Grid>
-);
 
 const StyledTabs = withStyles((theme) => ({
   indicator: {
@@ -336,20 +321,32 @@ Searchbar.defaultProps = {
   visible: true,
 };
 
+const Scroller = ({ children }) => {
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+};
+
 const Header = ({
   logoImgSrc,
   menuItems,
   menuPosition,
   search,
   searchVisible,
-  styleOnRoute,
   customLogoHeight,
-  loginActions,
+  background,
+  color,
   tel,
   ...rest
 }) => {
   const { logoSize, appBar } = useStyles();
-
   const hasMenu = (position) =>
     menuPosition === position && menuItems.length ? (
       <HorizontalMenuList items={menuItems} />
@@ -358,62 +355,59 @@ const Header = ({
   return (
     <Location>
       {({ location }) => (
-        <AppBar
-          color="inherit"
-          elevation={0}
-          position="static"
-          className={appBar}
-          style={get(
-            styleOnRoute,
-            get(location, 'pathname'),
-          )}
-        >
-          {console.log(location)}
-          <Container maxWidth="xl">
-            <Grid container justify="space-between">
-              <ToolbarWrapper {...rest}>
-                <Link to="/">
-                  <img
-                    src={logoImgSrc}
-                    alt="Logo"
-                    className={logoSize}
-                    style={{
-                      height: customLogoHeight,
-                      width: 'auto',
-                    }}
-                  />
-                </Link>
-                <Hidden smDown>
-                  {invoke(rest, 'renderLeft')}
-                  {hasMenu('left')}
-                </Hidden>
-              </ToolbarWrapper>
-              <Hidden smDown>
+        <Scroller>
+          <AppBar
+            color={background ? 'inherit' : 'primary'}
+            position="fixed"
+            className={appBar}
+            background={background}
+          >
+            <Container maxWidth="xl">
+              <Grid container justify="space-between">
                 <ToolbarWrapper {...rest}>
-                  {hasMenu('right')}
-                  {tel && (
-                    <FeaturedPhoneNumber number={tel} />
-                  )}
-                  {search && (
-                    <Searchbar visible={searchVisible} />
-                  )}
-                  {invoke(rest, 'renderRight')}
+                  <Link to="/">
+                    <img
+                      src={logoImgSrc}
+                      alt="Logo"
+                      className={logoSize}
+                      style={{
+                        height: customLogoHeight,
+                        width: 'auto',
+                      }}
+                    />
+                  </Link>
+                  <Hidden smDown>
+                    {invoke(rest, 'renderLeft')}
+                    {hasMenu('left')}
+                  </Hidden>
                 </ToolbarWrapper>
-              </Hidden>
-              <Hidden smUp>
-                <Offcanvas
-                  menu={() => <Menu items={menuItems} />}
-                >
-                  {(toggle) => (
-                    <Fab onClick={toggle}>
-                      <MenuIcon />
-                    </Fab>
-                  )}
-                </Offcanvas>
-              </Hidden>
-            </Grid>
-          </Container>
-        </AppBar>
+                <Hidden smDown>
+                  <ToolbarWrapper {...rest}>
+                    {hasMenu('right')}
+                    {tel && (
+                      <FeaturedPhoneNumber number={tel} />
+                    )}
+                    {search && (
+                      <Searchbar visible={searchVisible} />
+                    )}
+                    {invoke(rest, 'renderRight')}
+                  </ToolbarWrapper>
+                </Hidden>
+                <Hidden smUp>
+                  <Offcanvas
+                    menu={() => <Menu items={menuItems} />}
+                  >
+                    {(toggle) => (
+                      <Fab onClick={toggle}>
+                        <MenuIcon />
+                      </Fab>
+                    )}
+                  </Offcanvas>
+                </Hidden>
+              </Grid>
+            </Container>
+          </AppBar>
+        </Scroller>
       )}
     </Location>
   );
