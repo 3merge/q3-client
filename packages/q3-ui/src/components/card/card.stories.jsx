@@ -15,6 +15,7 @@ const sharedProps = {
     'Cards can have descriptions for context that only span a few lines',
   label: 'Topic',
   to: '/',
+  buttonText: 'Read more',
 };
 
 const CardContainer = ({ children }) => (
@@ -48,6 +49,9 @@ storiesOf('Components|Cards', module)
   ))
   .add('Resource', () => (
     <CardContainer>
-      <ResourceCard {...sharedProps} />
+      <ResourceCard
+        {...sharedProps}
+        imgSrc="http://www.hixle.co/wp-content/uploads/Gatsby-JS-min.jpg"
+      />
     </CardContainer>
   ));

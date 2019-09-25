@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Header from '.';
-import Banner from '../banner';
+import { FullWidthBanner } from '../banner';
 
 const defaultProps = {
   logoImgSrc:
@@ -33,10 +33,11 @@ const Foo = () => 'Foo';
 const Bar = () => 'Bar';
 const Qux = () => 'Qux';
 
+// eslint-disable-next-line
 const PageDemo = ({ children }) => (
   <>
     {children}
-    <Banner
+    <FullWidthBanner
       title="Example"
       backgroundStyle={{
         backgroundColor: 'blue',

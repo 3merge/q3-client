@@ -129,16 +129,45 @@ const CardWrapper = ({ children, to, ...rest }) => {
   );
 };
 
+CardWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  to: PropTypes.string.isRequired,
+};
+
+const CardHeader = ({ title, name, description }) => (
+  <>
+    {name && (
+      <Typography variant="overline" gutterBottom>
+        {name}
+      </Typography>
+    )}
+    <Typography variant="h3" gutterBottom>
+      {title}
+    </Typography>
+    <Typography gutterBottom>{description}</Typography>
+  </>
+);
+
+CardHeader.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  name: PropTypes.string,
+};
+
+CardHeader.defaultProps = {
+  name: null,
+};
+
 export const ResourceCard = ({
   imgSrc,
-  name,
   title,
+  buttonText,
   to,
-  description,
+  ...rest
 }) => {
   const cls = useStyles();
   return (
-    <CardWrapper item md={6} sm={12} to={to}>
+    <CardWrapper item md={6} sm={8} xs={10} to={to}>
       <Grid container spacing={4} alignItems="center">
         <Grid item lg={4} md={5} sm={6} xs={12}>
           <div className={cls.negativeMargin}>
@@ -147,29 +176,13 @@ export const ResourceCard = ({
         </Grid>
         <Grid item lg={8} md={7} sm={6} xs={12}>
           <CardContent>
-            <Typography
-              className="MuiTypography--overline"
-              variant="overline"
-              gutterBottom
-            >
-              {name}
-            </Typography>
-            <Typography
-              className="MuiTypography--heading"
-              variant="h3"
-              gutterBottom
-            >
-              {title}
-            </Typography>
-            <Typography gutterBottom>
-              {description}
-            </Typography>
+            <CardHeader title={title} {...rest} />
             <Button
               tabIndex="-1"
               variant="outlined"
               color="primary"
             >
-              More
+              {buttonText}
             </Button>
           </CardContent>
         </Grid>
@@ -180,19 +193,16 @@ export const ResourceCard = ({
 
 ResourceCard.propTypes = {
   imgSrc: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 };
 
 export const ProjectCard = ({
   imgSrc,
-  name,
-  title,
   to,
-  description,
   label,
+  buttonText,
+  ...rest
 }) => {
   const cls = useStyles();
   return (
@@ -208,58 +218,41 @@ export const ProjectCard = ({
       </div>
       <Divider light />
       <CardContent className={cls.iconBody}>
-        <Typography
-          className="MuiTypography--overline"
-          variant="overline"
-          gutterBottom
-        >
-          {name}
-        </Typography>
-        <Typography
-          className="MuiTypography--heading"
-          variant="h3"
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography gutterBottom>{description}</Typography>
+        <CardHeader {...rest} />
         <Typography
           variant="subtitle2"
           style={{ textDecoration: 'underline' }}
         >
-          Read more
+          {buttonText}
         </Typography>
       </CardContent>
     </CardWrapper>
   );
 };
 
+ProjectCard.propTypes = {
+  ...ResourceCard.propTypes,
+  label: PropTypes.string.isRequired,
+  buttonText: PropTypes.string.isRequired,
+};
+
 export const NewsCard = ({
   imgSrc,
   title,
-  description,
   to,
   label,
+  ...rest
 }) => {
   const { iconCls, spacing, ribbon } = useStyles();
   return (
     <CardWrapper md={4} sm={6} xs={12} to={to}>
-      <div to={to} className={iconCls}>
+      <div className={iconCls}>
         <img src={imgSrc} alt={title} />
         {label && <span className={ribbon}>{label}</span>}
       </div>
       <CardContent>
         <Box px={3}>
-          <Typography
-            gutterBottom
-            variant="h4"
-            component="h3"
-          >
-            {title}
-          </Typography>
-          <Typography component="p">
-            {description}
-          </Typography>
+          <CardHeader title={title} {...rest} />
           <Typography component="div" align="right">
             <TrendingFlat className={spacing} />
           </Typography>
@@ -269,5 +262,7 @@ export const NewsCard = ({
   );
 };
 
-ProjectCard.propTypes = ResourceCard.propTypes;
-NewsCard.propTypes = ResourceCard.propTypes;
+NewsCard.propTypes = {
+  ...ResourceCard.propTypes,
+  label: PropTypes.string.isRequired,
+};

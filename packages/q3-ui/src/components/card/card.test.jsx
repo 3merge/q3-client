@@ -1,21 +1,25 @@
 import React from 'react';
 import { materialMount } from '../../helpers/testUtils';
-import Card from '.';
+import { NewsCard } from '.';
 
-describe('Card', () => {
+describe('NewsCard', () => {
   it('should render all parts', () => {
     const props = {
       title: 'Card title',
+      imgSrc: 'https://google.ca',
       description: 'My first card',
+      label: 'testing',
       to: '/app',
-      Icon: 'https://google.ca',
     };
-    const mount = materialMount(() => <Card {...props} />);
-    expect(mount.find('img')).toHaveLength(1);
-    expect(mount.find('h2').text()).toBe(props.title);
+    const mount = materialMount(() => (
+      <NewsCard {...props} />
+    ));
     expect(mount.find('a').props()).toHaveProperty(
       'href',
       props.to,
     );
+    expect(mount.find('img')).toHaveLength(1);
+    expect(mount.find('h3').text()).toBe(props.title);
+    expect(mount.find('span').text()).toBe(props.label);
   });
 });
