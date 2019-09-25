@@ -1,0 +1,25 @@
+{
+  "name": "q3-admin",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files",
+    "test": "jest --runInBand",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --fix"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "q3-ui": "^1.0.0",
+    "q3-ui-permissions": "^1.0.0",
+    "q3-ui-rest": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/styles": "^4.4.3",
+    "i18next": "^17.0.16",
+    "react": "^16.9.0",
+    "react-i18next": "^10.12.5",
+    "react-router-dom": "^5.0.1"
+  }
+}
