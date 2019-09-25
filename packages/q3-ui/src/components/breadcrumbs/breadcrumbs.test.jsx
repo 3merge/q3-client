@@ -1,20 +1,23 @@
 import React from 'react';
 import { materialMount } from '../../helpers/testUtils';
 import Breadcrumbs from '.';
-/*
-const withRouter = (entries = []) =>
-  materialMount(() => (
-    <MemoryRouter initialEntries={[entries.join('')]}>
-      <Breadcrumbs />
-    </MemoryRouter>
-  ));
+
+jest.mock('@reach/router', () => ({
+  __esModule: true,
+  // eslint-disable-next-line
+  Link: ({ children }) => <a>{children}</a>,
+  Location: ({ children }) =>
+    children({
+      location: {
+        pathname: 'root/path/subpath',
+      },
+    }),
+}));
 
 describe('Breadcrumbs', () => {
   it('should walk the entries with slashes in between', () => {
-    const history = ['', '/foo', '/bar'];
-    expect(withRouter(history).find('li')).toHaveLength(
-      history.length * 2 - 1,
-    );
+    expect(
+      materialMount(Breadcrumbs).find('a'),
+    ).toHaveLength(3);
   });
 });
-*/
