@@ -1,6 +1,6 @@
 {
   "name": "q3-ui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Material UI implementations",
   "main": "dist/index.js",
   "author": "Mike <mibberson@3merge.ca>",
