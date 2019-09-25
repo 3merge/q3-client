@@ -1,34 +1,42 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { blueGrey } from '@material-ui/core/colors';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import imgSrc from '../../static/ready.png';
-import Banner from '.';
+import { FeaturedPhotoBanner, FullWidthBanner } from '.';
+import docs from './README.md';
 
 storiesOf('Components|Banner', module)
-  .add('Centered', () => (
-    <Banner
-      center
-      title="Hey"
-      subtitle="This is my subtitle"
-      backgroundStyle={{
-        backgroundColor: blueGrey[100],
+  .addParameters({
+    jest: ['banner'],
+    readme: {
+      sidebar: docs,
+    },
+  })
+  .add('Featured Photo', () => (
+    <FeaturedPhotoBanner
+      title="Render with a featured photo"
+      subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
+      imgSrc={imgSrc}
+      style={{
+        backgroundColor: '#FFF',
       }}
-    />
+    >
+      <Box my={2}>
+        <Button variant="contained">Hey!</Button>
+      </Box>
+    </FeaturedPhotoBanner>
   ))
-  .add('Custom right render', () => (
-    <Banner
-      label="overline"
-      title="Hey, this banner can render custom components on all sizes!"
-      subtitle="Just pass a node to `renderRight`, `renderLeft`, `renderTop` or `renderBottom`"
-      backgroundStyle={{
-        backgroundColor: '#fff',
+  .add('Full-Width', () => (
+    <FullWidthBanner
+      title="Render with a featured photo"
+      subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
+      style={{
+        backgroundColor: '#DDD',
       }}
-      renderRight={() => (
-        <img
-          src={imgSrc}
-          alt="Custom renderer"
-          width="550"
-        />
-      )}
-    />
+    >
+      <Box my={2}>
+        <Button variant="contained">Hey!</Button>
+      </Box>
+    </FullWidthBanner>
   ));

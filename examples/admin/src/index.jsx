@@ -1,30 +1,15 @@
+import './mock';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MockAdapter from 'axios-mock-adapter';
 import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core/styles';
-import { orange, blue } from '@material-ui/core/colors';
-import App, { Templates, Axios } from 'q3-admin';
-import { Components } from 'q3-ui';
- 
-const mock = new MockAdapter(Axios);
-const theme = createMuiTheme({
-  palette: {
-    primary: orange,
-    secondary: blue
-  },
-});
-
-mock.onGet('/profile').reply(200, {
-  profile: {
-    firstName: 'Mike',
-    lastName: 'Ibberson',
-  }
-});
+import { yellow, teal } from '@material-ui/core/colors';
+import App, { Components, Templates  } from 'q3-admin';
+import theme from './theme.json';
 
 const AppEntry = (
-  <ThemeProvider theme={theme}>
   <App
+    theme={createMuiTheme(theme)}
     name="Placeholder"
     logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
     applicationIndex={() =>
@@ -48,7 +33,6 @@ const AppEntry = (
   />
     }
   /> 
-  </ThemeProvider>
 );
 
 ReactDOM.render(

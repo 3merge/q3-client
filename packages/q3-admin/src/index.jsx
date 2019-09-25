@@ -5,12 +5,13 @@ import {
   I18nextProvider,
   useTranslation,
 } from 'react-i18next';
-import Providers, { Views, i18 } from 'q3-ui';
+import Providers, { Components, Views, i18 } from 'q3-ui';
 import Authentication, {
   Axios,
   authenticate,
 } from 'q3-ui-permissions';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { ThemeProvider } from '@material-ui/styles';
 import * as Templates from './templates';
 
 const { Login, PasswordReset, Reverify, Verify } = Views;
@@ -71,11 +72,13 @@ ApplicationGate.propTypes = {
   logoImgSrc: PropTypes.string.isRequired,
 };
 
-const Wrapper = ({ themeOptions, ...rest }) => (
+const Wrapper = ({ theme, ...rest }) => (
   <Providers>
-    <I18nextProvider i18n={i18}>
-      <ApplicationGate {...rest} />
-    </I18nextProvider>
+    <ThemeProvider theme={theme}>
+      <I18nextProvider i18n={i18}>
+        <ApplicationGate {...rest} />
+      </I18nextProvider>
+    </ThemeProvider>
   </Providers>
 );
 
@@ -87,4 +90,4 @@ Wrapper.propTypes = {
 };
 
 export default Wrapper;
-export { Templates, Axios };
+export { Components, Templates, Axios };

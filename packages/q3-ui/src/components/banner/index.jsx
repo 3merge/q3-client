@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -19,28 +18,16 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: `calc(100px + ${theme.spacing(3)}px)`,
     width: '100%',
   },
+  mobileDirection: {
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'center',
+      flexDirection: 'column-reverse',
+    },
+  },
 }));
 
 const defaultAligment = (bool) =>
   bool ? 'center' : 'flex-start';
-
-const defaultJustification = (bool) =>
-  bool ? 'center' : 'flex-start';
-
-const hasAction = (obj, render) =>
-  obj && typeof obj === 'object' && 'href' in obj ? (
-    <Grid item>{render(obj.href, obj.label)}</Grid>
-  ) : null;
-
-const IntersectionButton = ({
-  children,
-  href,
-  ...rest
-}) => (
-  <Button {...rest} to={href} size="large">
-    {children}
-  </Button>
-);
 
 export const Title = ({ title }) => (
   <Box mt={1} mb={2}>
@@ -51,52 +38,16 @@ export const Title = ({ title }) => (
 );
 
 Title.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
 };
-
-const BannerActions = ({
-  primaryAction,
-  secondaryAction,
-  justify,
-}) =>
-  primaryAction || secondaryAction ? (
-    <Box mt={4}>
-      <Grid
-        container
-        spacing={1}
-        alignItems="center"
-        justify={justify}
-      >
-        {hasAction(primaryAction, (href, label) => (
-          <IntersectionButton
-            href={href}
-            variant="contained"
-            color="secondary"
-            size="large"
-          >
-            {label}
-          </IntersectionButton>
-        ))}
-        {hasAction(secondaryAction, (href, label) => (
-          <IntersectionButton
-            href={href}
-            variant="outlined"
-            color="primary"
-            size="large"
-          >
-            {label}
-          </IntersectionButton>
-        ))}
-      </Grid>
-    </Box>
-  ) : null;
 
 const renderBannerBody = ({
   title,
   subtitle,
   label,
-  center,
-  ...rest
 }) => () => (
   <Box>
     <Typography variant="overline" color="inherit">
@@ -112,74 +63,123 @@ const renderBannerBody = ({
         {subtitle}
       </Typography>
     )}
-    <BannerActions
-      {...rest}
-      justify={defaultJustification(center)}
-    />
   </Box>
 );
 
-const GridItemRenderer = ({ render, size }) =>
-  render && typeof render === 'function' ? (
-    <Grid item sm={size} xs={12}>
+const GridItemRenderer = ({ children, render, size }) =>
+  render ? (
+    <Grid item md={size} sm={12}>
       {render()}
+      {children}
     </Grid>
   ) : null;
 
-const Banner = (props) => {
-  const { base, blob } = useStyles();
-  const {
-    backgroundStyle,
-    dense,
-    renderLeft,
-    renderRight,
-    renderTop,
-    renderBottom,
-    center,
-  } = props;
+GridItemRenderer.propTypes = {
+  children: PropTypes.node,
+  render: PropTypes.func.isRequired,
+  size: PropTypes.number,
+};
 
+GridItemRenderer.defaultProps = {
+  children: null,
+  size: 6,
+};
+
+export const BannerBase = ({
+  children,
+  center,
+  dense,
+  style,
+}) => {
+  const { base } = useStyles();
   return (
-    <Box
-      component="section"
-      className={base}
-      style={backgroundStyle}
-    >
-      <Container>
+    <Box component="section" className={base} style={style}>
+      <Container fixed>
         <Box
           my={dense ? 3 : 6}
           textAlign={defaultAligment(center)}
         >
-          <Grid
-            container
-            alignItems="center"
-            justify={defaultJustification(center)}
-            spacing={8}
-          >
-            <GridItemRenderer
-              size={12}
-              render={renderTop}
-            />
-            <GridItemRenderer
-              size={6}
-              render={renderLeft}
-            />
-            <GridItemRenderer
-              size={6}
-              render={renderBannerBody(props)}
-            />
-            <GridItemRenderer
-              size={6}
-              render={renderRight}
-            />
-            <GridItemRenderer
-              size={12}
-              render={renderBottom}
-            />
-          </Grid>
+          {children}
         </Box>
       </Container>
     </Box>
   );
 };
 
-export default Banner;
+BannerBase.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.shape({}),
+  dense: PropTypes.bool,
+  center: PropTypes.bool,
+};
+
+BannerBase.defaultProps = {
+  dense: false,
+  center: false,
+  style: null,
+};
+
+export const FeaturedPhotoBanner = ({
+  imgSrc,
+  children,
+  flip,
+  ...rest
+}) => {
+  const { mobileDirection } = useStyles();
+  return (
+    <BannerBase {...rest}>
+      <Grid
+        container
+        alignItems="center"
+        spacing={8}
+        direction={flip ? 'row-reverse' : 'reverse'}
+        className={mobileDirection}
+      >
+        <GridItemRenderer render={renderBannerBody(rest)}>
+          {children}
+        </GridItemRenderer>
+        <GridItemRenderer
+          render={() => (
+            <img src={imgSrc} alt={rest.title} />
+          )}
+        />
+      </Grid>
+    </BannerBase>
+  );
+};
+
+FeaturedPhotoBanner.propTypes = {
+  imgSrc: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  flip: PropTypes.bool,
+};
+
+FeaturedPhotoBanner.defaultProps = {
+  flip: false,
+};
+
+export const FullWidthBanner = ({
+  children,
+  flip,
+  ...rest
+}) => {
+  return (
+    <BannerBase center {...rest}>
+      {flip && children}
+      <GridItemRenderer
+        render={renderBannerBody(rest)}
+        size={12}
+      />
+      {!flip && children}
+    </BannerBase>
+  );
+};
+
+FullWidthBanner.propTypes = {
+  children: PropTypes.node.isRequired,
+  flip: PropTypes.bool,
+};
+
+FullWidthBanner.defaultProps = {
+  flip: false,
+};

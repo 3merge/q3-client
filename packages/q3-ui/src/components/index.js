@@ -1,7 +1,10 @@
 import Alert from './alert';
 import AutoComplete from './autocomplete';
 import Avatar from './avatar';
-import Banner from './banner';
+import {
+  FeaturedPhotoBanner,
+  FullWidthBanner,
+} from './banner';
 import {
   NewsCard,
   ProjectCard,
@@ -47,7 +50,8 @@ export {
   Alert,
   AutoComplete,
   Avatar,
-  Banner,
+  FeaturedPhotoBanner,
+  FullWidthBanner,
   Divider,
   Header,
   SplitPanel,
