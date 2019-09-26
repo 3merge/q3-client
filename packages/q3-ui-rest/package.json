@@ -1,4 +1,8 @@
 {
   "name": "q3-ui-rest",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "dependencies": {
+    "notistack": "^0.9.2"
+  }
 }

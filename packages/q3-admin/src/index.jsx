@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from '@reach/router';
+import { Redirect, Router } from '@reach/router';
 import {
   I18nextProvider,
   useTranslation,
 } from 'react-i18next';
 import Providers, { Components, Views, i18 } from 'q3-ui';
+import SnackbarProvider from 'q3-ui-rest';
 import Authentication, {
   Axios,
   authenticate,
+  destroySession,
 } from 'q3-ui-permissions';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { ThemeProvider } from '@material-ui/styles';
 import * as Templates from './templates';
 
 const { Login, PasswordReset, Reverify, Verify } = Views;
@@ -20,7 +22,8 @@ const { Public } = Templates;
 const ApplicationGate = ({
   name,
   logoImgSrc,
-  applicationIndex,
+  appIndex,
+  appNav,
 }) => {
   const { t } = useTranslation();
   const links = [
@@ -49,7 +52,24 @@ const ApplicationGate = ({
   return (
     <Authentication
       loading={CircularProgress}
-      renderPrivate={applicationIndex}
+      renderPrivate={() => (
+        <Templates.Main
+          name={name}
+          renderAside={appNav}
+          render={appIndex}
+          ProfileBarProps={{
+            offcanvas: appNav,
+            companyName: name,
+            name: 'Mike',
+            menuItems: [
+              {
+                onClick: destroySession,
+                label: 'Logout',
+              },
+            ],
+          }}
+        />
+      )}
       renderPublic={() => (
         <Public
           companyName={name}
@@ -60,6 +80,7 @@ const ApplicationGate = ({
             {links.map(({ render: Renderer, ...rest }) => (
               <Renderer key={rest.to} path={rest.to} />
             ))}
+            <Redirect noThrow from="/*" to="login" />
           </Router>
         </Public>
       )}
@@ -72,21 +93,18 @@ ApplicationGate.propTypes = {
   logoImgSrc: PropTypes.string.isRequired,
 };
 
-const Wrapper = ({ theme, ...rest }) => (
+const Wrapper = (props) => (
   <Providers>
-    <ThemeProvider theme={theme}>
+    <SnackbarProvider>
       <I18nextProvider i18n={i18}>
-        <ApplicationGate {...rest} />
+        <ApplicationGate {...props} />
       </I18nextProvider>
-    </ThemeProvider>
+    </SnackbarProvider>
   </Providers>
 );
 
 Wrapper.propTypes = {
-  themeOptions: PropTypes.shape({
-    primary: PropTypes.string,
-    secondary: PropTypes.string,
-  }).isRequired,
+  theme: PropTypes.shape({}).isRequired,
 };
 
 export default Wrapper;

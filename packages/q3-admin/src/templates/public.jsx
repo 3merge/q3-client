@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { redirect, Link as ReactLink } from '@reach/router';
+import { Redirect, Link as ReactLink } from '@reach/router';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -14,7 +14,7 @@ export default function PublicView({
   loggedIn,
   logo,
 }) {
-  if (loggedIn) return redirect('/');
+  if (loggedIn) return <Redirect to="/" />;
 
   return (
     <Box p={2} component="main">

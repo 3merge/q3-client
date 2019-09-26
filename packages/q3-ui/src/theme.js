@@ -42,6 +42,12 @@ export default responsiveFontSizes(
       background: {
         default: grey[200],
       },
+      primary: {
+        main: '#1e1434',
+      },
+      secondary: {
+        main: '#3A1540',
+      },
     },
     status: {
       danger: 'orange',

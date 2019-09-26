@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logo: {
-    fill: theme.palette.secondary.main,
+    fill: '#FFF',
     width: 32,
     height: 32,
     margin: '1rem auto 0.5rem',
@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   logoText: {
-    color: theme.palette.secondary.main,
+    color: '#FFF',
     textDecoration: 'none',
     fontWeight: 'bold',
     [theme.breakpoints.down('xs')]: {
@@ -96,6 +96,7 @@ const ProfileBar = ({
     mobile,
     logo,
     logoText,
+    vertical,
   } = useStyles();
 
   const [open, setOpen] = React.useState();
@@ -120,7 +121,7 @@ const ProfileBar = ({
         <Grid item>
           <Link
             to="/"
-            aria-label="Home"
+            aria-label={name}
             className={logoText}
           >
             <Hidden xsDown>
@@ -128,7 +129,6 @@ const ProfileBar = ({
                 <Logo />
               </Box>
             </Hidden>
-            <span>{String(companyName).toUpperCase()}</span>
           </Link>
         </Grid>
         <Grid item>
