@@ -8,39 +8,33 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   container: {
+    padding: '3px 16px',
     position: 'relative',
     '&>a': {
+      borderRadius: 2,
       transition: 'background-color 250ms',
-      '&::before': {
-        borderRadius: 20,
-        content: "''",
-        display: 'block',
-        left: 0,
-        position: 'absolute',
-        top: '50%',
-        height: '75%',
-        transform: 'translateY(-50%)',
-        transition: 'background-color 250ms',
-        width: 2,
-      },
     },
   },
-  selected: {
-    backgroundColor: 'rgba(255,255,255,0.05)',
-    '&::before': {
-      backgroundColor: theme.palette.secondary.main,
-    },
-  },
-}));
+  selected: {},
+});
 
 export const CollisionNavLink = React.forwardRef(
   (props, ref) => {
-    const { selected, container } = useStyles();
+    const { container } = useStyles();
     return (
       <div ref={ref} className={container}>
-        <NavLink activeClassName={selected} {...props} />
+        <NavLink
+          {...props}
+          getProps={({ isCurrent }) => ({
+            style: isCurrent
+              ? {
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                }
+              : null,
+          })}
+        />
       </div>
     );
   },
@@ -52,7 +46,7 @@ const MenuSubHeader = ({ title }) => (
     component="div"
     id="nested-list-subheader"
   >
-    {title}
+    {title.toUpperCase()}
   </ListSubheader>
 );
 

@@ -1,39 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import Close from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
+import Drawer from '@material-ui/core/Drawer';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Search from '@material-ui/icons/Search';
+import Close from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    backgroundColor: '#fff',
-    border: '1px solid transparent',
-    boxSizing: 'border-box',
-    borderRadius: 0,
-    margin: 0,
-    paddingLeft: theme.spacing(4),
-    paddingRight: theme.spacing(4),
-    transition: 'border-color 500ms ease-in-out',
-    width: '100%',
-  },
-  clearBtn: {
-    width: 45,
-  },
-  input: {
-    flex: 1,
-    lineHeight: 2,
+  bar: {
+    padding: theme.spacing(3),
   },
 }));
 
-const Searchbar = () => {
+const Searchbar = ({ visible, redirectPath }) => {
   const ref = React.useRef();
-  const [state, setState] = React.useState('');
-  const { container, input, clearBtn } = useStyles();
+  const [state, setState] = React.useState(false);
+  const [term, setTerm] = React.useState('');
+  const { bar } = useStyles();
+
+  const open = React.useCallback(() => {
+    setState(true);
+  }, [state]);
+
+  const close = React.useCallback(() => {
+    setState(false);
+  }, [state]);
 
   const onFocus = React.useCallback(() => {
     if (!ref.current) return;
@@ -41,11 +38,11 @@ const Searchbar = () => {
   }, []);
 
   const onChange = React.useCallback(({ target }) => {
-    setState(target.value);
+    setTerm(target.value);
   }, []);
 
   const onClear = React.useCallback(() => {
-    setState('');
+    setTerm('');
     onFocus();
   }, []);
 
@@ -55,51 +52,88 @@ const Searchbar = () => {
         const { search } = window.location;
         const params = new URLSearchParams(search);
         params.set('search', target.value);
-        navigate(`?${params.toString()}`);
+        navigate(`${redirectPath}?${params.toString()}`);
+        close();
       }
     },
     [],
   );
 
+  const inputProps = {
+    name: 'search',
+    type: 'text',
+    value: term,
+    onChange,
+    onKeyPress,
+  };
+
+  const renderSearchIcon = (size) => (
+    <Tooltip title="Click to enlarge">
+      <IconButton onClick={open} size={size}>
+        <Search />
+      </IconButton>
+    </Tooltip>
+  );
+
+  const renderClearIcon = () =>
+    term && (
+      <Tooltip title="Click to clear">
+        <IconButton onClick={onClear} size="small">
+          <Close />
+        </IconButton>
+      </Tooltip>
+    );
+
   return (
-    <Grid
-      container
-      alignItems="center"
-      className={container}
-      elevation={0}
-      spacing={5}
-      onClick={onFocus}
-    >
-      <SearchIcon />
-      <Grid item className={input}>
-        <InputBase
-          onKeyPress={onKeyPress}
+    <>
+      {visible ? (
+        <TextField
+          {...inputProps}
           inputRef={ref}
-          name="search"
-          type="text"
-          className={input}
-          value={state}
-          onChange={onChange}
+          id="header-searchbar"
+          placeholder="Search"
+          variant="outlined"
+          margin="dense"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {renderClearIcon() ||
+                  renderSearchIcon('small')}
+              </InputAdornment>
+            ),
+          }}
         />
-      </Grid>
-      <Grid item className={clearBtn}>
-        {state && (
-          <IconButton
-            size="small"
-            onClick={onClear}
-            aria-label="Clear search input"
-          >
-            <Close
-              fontSize="small"
-              style={{ color: grey[400] }}
-            />
-          </IconButton>
-        )}
-      </Grid>
-    </Grid>
+      ) : (
+        <Box>{renderSearchIcon()}</Box>
+      )}
+
+      <Drawer
+        anchor="top"
+        open={state}
+        onOpen={open}
+        onClose={close}
+        component="aside"
+      >
+        <Input
+          {...inputProps}
+          id="fullscreen-searchbar"
+          placeholder="Press enter to perform search"
+          className={bar}
+          autoFocus
+        />
+      </Drawer>
+    </>
   );
 };
 
-Searchbar.propTypes = {};
+Searchbar.propTypes = {
+  visible: PropTypes.bool,
+  redirectPath: PropTypes.string,
+};
+
+Searchbar.defaultProps = {
+  visible: true,
+  redirectPath: '',
+};
 
 export default Searchbar;

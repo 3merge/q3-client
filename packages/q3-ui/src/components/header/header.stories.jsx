@@ -162,7 +162,17 @@ const PageDemo = ({ children }) => (
 storiesOf('Components|Header', module)
   .add('Default', () => (
     <PageDemo>
-      <Header {...defaultProps} color="#FFF" />
+      <Header {...defaultProps} />
+    </PageDemo>
+  ))
+  .add('Without menu', () => (
+    <PageDemo>
+      <Header
+        name="Users"
+        search
+        searchVisible
+        breadcrumbs
+      />
     </PageDemo>
   ))
   .add('With search', () => (
@@ -170,6 +180,7 @@ storiesOf('Components|Header', module)
       <Header
         search
         searchVisible
+        searchRedirect="/bar"
         menuPosition="left"
         {...defaultProps}
       />

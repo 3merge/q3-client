@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
   muted: {
     flex: '1',
+    position: 'relative',
+    paddingTop: 140,
   },
   contrastBg: {
     backgroundColor: theme.palette.primary.main,

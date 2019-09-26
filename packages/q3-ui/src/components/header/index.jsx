@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Location, Link } from '@reach/router';
-import { get, invoke } from 'lodash';
+import { invoke } from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
@@ -13,37 +13,30 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import HeadsetMic from '@material-ui/icons/PermPhoneMsg';
 import Button from '@material-ui/core/Button';
-import Drawer from '@material-ui/core/Drawer';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Search from '@material-ui/icons/Search';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   makeStyles,
   withStyles,
+  styled,
 } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Offcanvas from '../offcanvas';
 import Menu from '../menu';
 import { LocationMatch } from '../tabs';
+import Breadcrumbs from '../breadcrumbs';
+import Searchbar from '../searchBar';
 
 const useStyles = makeStyles((theme) => ({
   logoSize: {
     maxHeight: 95,
     maxWidth: 165,
   },
-  bar: {
-    padding: theme.spacing(3),
-  },
   appBar: {
     backgroundColor: (props) =>
-      props.background || 'transparent',
+      props.transparent ? 'transparent' : '#FFF',
     boxShadow: 'none !important',
     padding: theme.spacing(2),
   },
@@ -233,86 +226,6 @@ ToolbarWrapper.defaultProps = {
   dividers: false,
 };
 
-const Searchbar = ({ visible }) => {
-  const [state, setState] = React.useState(false);
-  const [term, setTerm] = React.useState('');
-  const { bar } = useStyles();
-
-  const open = React.useCallback(() => {
-    setState(true);
-  }, [state]);
-
-  const close = React.useCallback(() => {
-    setState(false);
-  }, [state]);
-
-  const onChange = React.useCallback(({ target }) => {
-    setTerm(target.value);
-  }, []);
-
-  const inputProps = {
-    name: 'search',
-    type: 'search',
-    value: term,
-    onChange,
-  };
-
-  const renderSearchIcon = (size) => (
-    <Tooltip title="Click to enlarge">
-      <IconButton onClick={open} size={size}>
-        <Search />
-      </IconButton>
-    </Tooltip>
-  );
-
-  return (
-    <>
-      {visible ? (
-        <TextField
-          {...inputProps}
-          id="header-searchbar"
-          placeholder="Search"
-          variant="outlined"
-          margin="dense"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                {renderSearchIcon('small')}
-              </InputAdornment>
-            ),
-          }}
-        />
-      ) : (
-        <Box>{renderSearchIcon()}</Box>
-      )}
-
-      <Drawer
-        anchor="top"
-        open={state}
-        onOpen={open}
-        onClose={close}
-        component="aside"
-      >
-        <Input
-          {...inputProps}
-          id="fullscreen-searchbar"
-          placeholder="Press enter to perform search"
-          className={bar}
-          autoFocus
-        />
-      </Drawer>
-    </>
-  );
-};
-
-Searchbar.propTypes = {
-  visible: PropTypes.bool,
-};
-
-Searchbar.defaultProps = {
-  visible: true,
-};
-
 const Scroller = ({ children }) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
@@ -326,19 +239,44 @@ const Scroller = ({ children }) => {
   );
 };
 
+const Logo = styled('img')({
+  maxHeight: 95,
+  maxWidth: 165,
+  width: 'auto',
+});
+
+const Identifier = ({ logoImgSrc, name }) =>
+  logoImgSrc ? (
+    <Link to="/">
+      <Logo src={logoImgSrc} alt={name} />
+    </Link>
+  ) : (
+    <Typography variant="h3" component="h1">
+      {name}
+    </Typography>
+  );
+
+Identifier.propTypes = {
+  name: PropTypes.string.isRequired,
+  logoImgSrc: PropTypes.string,
+};
+
+Identifier.defaultProps = {
+  logoImgSrc: null,
+};
+
 const Header = ({
-  logoImgSrc,
   menuItems,
   menuPosition,
   search,
   searchVisible,
-  customLogoHeight,
-  background,
-  color,
+  searchRedirect,
+  transparent,
+  breadcrumbs,
   tel,
   ...rest
 }) => {
-  const { logoSize, appBar } = useStyles();
+  const { appBar } = useStyles();
   const hasMenu = (position) =>
     menuPosition === position && menuItems.length ? (
       <HorizontalMenuList items={menuItems} />
@@ -349,26 +287,19 @@ const Header = ({
       {({ location }) => (
         <Scroller>
           <AppBar
-            color={background ? 'inherit' : 'primary'}
-            position="fixed"
+            position="absolute"
+            color={transparent ? 'primary' : 'inherit'}
+            transparent={transparent}
             className={appBar}
-            background={background}
           >
             <Container maxWidth="xl">
               <Grid container justify="space-between">
                 <ToolbarWrapper {...rest}>
-                  <Link to="/">
-                    <img
-                      src={logoImgSrc}
-                      alt="Logo"
-                      className={logoSize}
-                      style={{
-                        height: customLogoHeight,
-                        width: 'auto',
-                      }}
-                    />
-                  </Link>
+                  <Identifier {...rest} />
                   <Hidden smDown>
+                    {breadcrumbs && (
+                      <Breadcrumbs root="/" />
+                    )}
                     {invoke(rest, 'renderLeft')}
                     {hasMenu('left')}
                   </Hidden>
@@ -380,7 +311,10 @@ const Header = ({
                       <FeaturedPhoneNumber number={tel} />
                     )}
                     {search && (
-                      <Searchbar visible={searchVisible} />
+                      <Searchbar
+                        visible={searchVisible}
+                        redirectPath={searchRedirect}
+                      />
                     )}
                     {invoke(rest, 'renderRight')}
                   </ToolbarWrapper>
@@ -406,13 +340,15 @@ const Header = ({
 };
 
 Header.propTypes = {
-  logoImgSrc: PropTypes.string.isRequired,
   search: PropTypes.bool,
   searchVisible: PropTypes.bool,
   loginActions: PropTypes.bool,
   renderLeft: PropTypes.func,
   tel: PropTypes.string,
-  menuPosition: PropTypes.oneOf(['left', 'right', 'none']),
+  transparent: PropTypes.bool,
+  breadcrumbs: PropTypes.bool,
+  searchRedirect: PropTypes.string,
+  menuPosition: PropTypes.oneOf(['left', 'right']),
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       href: PropTypes.string,
@@ -425,11 +361,14 @@ Header.propTypes = {
 Header.defaultProps = {
   renderLeft: null,
   search: false,
+  breadcrumbs: false,
   loginActions: false,
   searchVisible: null,
   tel: null,
   menuItems: [],
   menuPosition: 'right',
+  transparent: false,
+  searchRedirect: '',
 };
 
 export default Header;

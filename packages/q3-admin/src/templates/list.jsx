@@ -6,7 +6,7 @@ import { useRest } from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
 import { Components } from 'q3-ui';
 
-const { Table, Title, SearchBar } = Components;
+const { Table, Header } = Components;
 
 const List = ({
   rowComponent: RowComponent,
@@ -27,8 +27,12 @@ const List = ({
 
   return (
     <>
-      <SearchBar />
-      <Title title={t(`titles:${name}`)} />
+      <Header
+        name={t(`titles:${name}`)}
+        breadcrumbs
+        search
+        searchVisible
+      />
       <Container>
         <Table
           {...rest}
