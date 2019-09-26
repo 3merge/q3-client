@@ -1,5 +1,5 @@
 import React from 'react';
-import { Components, Templates } from 'q3-admin';
+import { Templates } from 'q3-admin';
 
 export default (props) => (
   <Templates.List
