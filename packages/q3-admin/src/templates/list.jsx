@@ -9,10 +9,9 @@ import { Components } from 'q3-ui';
 const { Table, Header } = Components;
 
 const List = ({
-  rowComponent: RowComponent,
   addComponent: AddComponent,
   name,
-  headers,
+  columns,
   enablePost,
   post,
   ...rest
@@ -41,8 +40,7 @@ const List = ({
           name={name}
           loading={state.fetching}
           rows={get(state, name, [])}
-          header={headers ? headers(t) : []}
-          rowTemplate={RowComponent}
+          columns={columns}
         />
         {AddComponent && post && enablePost && (
           <div
@@ -61,12 +59,10 @@ const List = ({
 };
 
 List.propTypes = {
-  title: PropTypes.string.isRequired,
-  rowComponent: PropTypes.node.isRequired,
   addComponent: PropTypes.node,
   fetching: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  headers: PropTypes.func.isRequired,
+  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
   enablePost: PropTypes.bool,
   totalDocs: PropTypes.number,
   post: PropTypes.func.isRequired,

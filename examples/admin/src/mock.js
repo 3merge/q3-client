@@ -26,6 +26,15 @@ mock.onGet('/profile').replyOnce(() => {
   return [401];
 });
 
+mock.onGet(/\/users\/\d+/).reply(200, {
+  user: {
+    id: 1,
+    name: 'Charles',
+    email: 'charles@example.app',
+    age: 32,
+  },
+});
+
 mock.onGet(/users\/?\?*/).reply(({ url }) => [
   200,
   {

@@ -27,12 +27,19 @@ export const CollisionNavLink = React.forwardRef(
       <div ref={ref} className={container}>
         <NavLink
           {...props}
-          getProps={({ isCurrent }) => ({
-            style: isCurrent
-              ? {
-                  backgroundColor: 'rgba(255,255,255,0.1)',
-                }
-              : null,
+          getProps={({
+            isCurrent,
+            isPartiallyCurrent,
+          }) => ({
+            style:
+              isCurrent ||
+              (isPartiallyCurrent &&
+                (props.to !== '/' || !props.to))
+                ? {
+                    backgroundColor:
+                      'rgba(255,255,255,0.1)',
+                  }
+                : null,
           })}
         />
       </div>

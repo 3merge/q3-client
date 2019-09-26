@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
@@ -16,6 +17,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Apps from '@material-ui/icons/Apps';
 import { grey } from '@material-ui/core/colors';
@@ -47,64 +49,88 @@ const useStyles = makeStyles(() => ({
 const extractId = (obj, i) =>
   typeof obj === 'object' && 'id' in obj ? obj.id : i;
 
-export const TableCellHeader = ({
-  name,
-  sub,
-  children,
-}) => (
+export const TableCellHeader = ({ name, sub, imgSrc }) => (
   <TableCell>
     <Grid container spacing={2} alignItems="center">
       <Grid item>
-        <Avatar word={name} />
-        {children}
+        <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
       <Grid item>
-        <strong>{name}</strong>
-        {sub && (
-          <div>
-            <small>{sub}</small>
-          </div>
-        )}
+        <Typography
+          variant="body1"
+          component="span"
+          style={{ lineHeight: 1 }}
+        >
+          <strong>{name}</strong>
+          {sub && (
+            <div>
+              <small>{sub}</small>
+            </div>
+          )}
+        </Typography>
       </Grid>
     </Grid>
   </TableCell>
 );
 
 TableCellHeader.propTypes = {
-  children: PropTypes.node,
+  imgSrc: PropTypes.string,
   name: PropTypes.string.isRequired,
   sub: PropTypes.string,
 };
 
 TableCellHeader.defaultProps = {
   sub: null,
-  children: null,
+  imgSrc: null,
 };
 
-export const Templated = ({ Component, root, ...rest }) => {
+export const Templated = ({ root, columns, ...rest }) => {
   const { id } = rest;
   const { tableRowHover } = useStyles();
+  const { t } = useTranslation('labels');
   return (
     <TableRow key={id} className={tableRowHover}>
-      <Component {...rest}>
-        <TableCell className="visible-on-hover">
+      {columns.map((key) =>
+        Array.isArray(key) ? (
+          <TableCellHeader
+            name={get(rest, key[0])}
+            sub={get(rest, key[1])}
+            imgSrc={get(rest, key[2])}
+            data={rest}
+          />
+        ) : (
+          <TableCell>
+            <Typography
+              variant="subtitle2"
+              component="span"
+            >
+              {get(rest, key)}
+            </Typography>
+          </TableCell>
+        ),
+      )}
+
+      <TableCell className="visible-on-hover">
+        <Tooltip title={t('view')}>
           <IconButton
             onClick={() => navigate(`${root}/${id}`)}
           >
             <Apps />
           </IconButton>
-        </TableCell>
-      </Component>
+        </Tooltip>
+      </TableCell>
     </TableRow>
   );
 };
 
 Templated.propTypes = {
   root: PropTypes.string.isRequired,
-  Component: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.func,
-  ]).isRequired,
+  columns: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
+  ).isRequired,
 };
 
 const DatalessView = ({
@@ -147,13 +173,16 @@ const getDefaultPage = (num, defaultNum = 1) => {
   return Number.isNaN(paged) ? defaultNum : paged;
 };
 
+/**
+@TODO FIX
+ */
+
 export const TableView = ({
   rows,
   loading,
   error,
-  header,
+  columns,
   total,
-  history,
   rowTemplate: Row,
 }) => {
   const { t } = useTranslation();
@@ -165,14 +194,14 @@ export const TableView = ({
       let nextPage = num + 1;
       if (nextPage === 0) nextPage = null;
       params.set('page', nextPage);
-      history.push(`?${params.toString()}`);
+      navigate(`?${params.toString()}`);
       window.scrollTo(0, 0);
     },
     [page],
   );
 
   const renderBody = React.useCallback(() => {
-    const span = header.length + 1;
+    const span = columns.length + 1;
     if (loading) {
       return (
         <DatalessView span={span}>
@@ -210,6 +239,7 @@ export const TableView = ({
         key={extractId(props, i)}
         root={window.location.pathname}
         Component={Row}
+        columns={columns}
         {...props}
       />
     ));
@@ -222,10 +252,16 @@ export const TableView = ({
     >
       <Table size="small">
         <TableHead>
-          {header && (
+          {columns && (
             <TableRow>
-              {header.map((text) => (
-                <TableCell key={text}>{text}</TableCell>
+              {columns.map((key) => (
+                <TableCell key={key[0]}>
+                  {t(
+                    `labels:${
+                      Array.isArray(key) ? key[0] : key
+                    }`,
+                  )}
+                </TableCell>
               ))}
               <TableCell />
             </TableRow>
@@ -249,18 +285,11 @@ export const TableView = ({
 };
 
 TableView.propTypes = {
-  header: PropTypes.arrayOf(PropTypes.string),
+  columns: PropTypes.arrayOf(PropTypes.string),
   loading: PropTypes.bool,
   error: PropTypes.bool,
   rowTemplate: PropTypes.func.isRequired,
   total: PropTypes.number,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-    pathname: PropTypes.string,
-  }).isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([
@@ -275,7 +304,7 @@ TableView.defaultProps = {
   loading: false,
   error: false,
   rows: [],
-  header: [],
+  columns: [],
   total: 0,
 };
 

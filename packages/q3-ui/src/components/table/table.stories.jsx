@@ -1,15 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import TableCell from '@material-ui/core/TableCell';
-import Label from '@material-ui/icons/Label';
-import Table, { TableCellHeader } from '.';
+import Table from '.';
 import { Wrapper } from '../../helpers/storyUtils';
 import sidebar from './README.md';
-import Avatar from '../avatar';
 
 const props = {
-  header: ['Column', 'Column two', 'Column three'],
-  onChange: () => null,
+  columns: [['name', 'email', 'profilePic'], 'phone'],
 };
 
 const stubs = [];
@@ -19,6 +15,7 @@ for (let i = 0; i < 50; i += 1) {
     name: 'Mike',
     email: 'mike@demo.ca',
     phone: '416-000-1234',
+    profilePic: 'https://picsum.photos/id/57/200/300',
   });
 }
 
@@ -60,21 +57,6 @@ storiesOf('Components|Table', module)
             loading={false}
             total={stubs.length}
             rows={data}
-            rowTemplate={({
-              name,
-              email,
-              phone,
-              children,
-            }) => (
-              <>
-                <TableCellHeader name={name} sub={email}>
-                  <Avatar word="hey" icon={Label} />
-                </TableCellHeader>
-                <TableCell>{email}</TableCell>
-                <TableCell>{phone}</TableCell>
-                {children}
-              </>
-            )}
           />
         </Wrapper>
       );

@@ -15,7 +15,7 @@ storiesOf('Components|Tabs', module)
       root="/"
       views={[
         {
-          to: '',
+          to: '/',
           label: 'Entry',
           component: () => <p>Default</p>,
         },

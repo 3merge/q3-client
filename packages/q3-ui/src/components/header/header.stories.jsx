@@ -49,7 +49,7 @@ const PageDemo = ({ children }) => (
       <Bar path="bar" />
       <Qux path="qux" />
     </Router>
-    <Typography>
+    <Typography component="div">
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing
         elit. Sed ut lorem et leo tincidunt commodo.

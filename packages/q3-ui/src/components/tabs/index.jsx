@@ -7,13 +7,21 @@ import Tab from '@material-ui/core/Tab';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
 
-export const LocationMatch = ({ views, children }) => {
+export const LocationMatch = ({
+  base,
+  views,
+  children,
+}) => {
   const checkLocation = React.useCallback(
-    (location) =>
-      views.findIndex(
+    (location) => {
+      const index = views.findIndex(
         ({ to }) =>
           to !== '' && location.pathname.includes(to),
-      ),
+      );
+      if (index !== -1) return index;
+      if (location.pathname === base) return 0;
+      return false;
+    },
     [views],
   );
 
@@ -34,22 +42,11 @@ const WrappedRoute = ({ renderer: Renderer }) => (
 
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
-  const makePath = React.useCallback(
-    (val) => {
-      if (!val) {
-        return root;
-      }
-      return `${root}${
-        root.substr(-1) === '/' ? '' : '/'
-      }${val}`;
-    },
-    [root],
-  );
 
   return (
     <Grid container spacing={5}>
       <Grid item>
-        <LocationMatch views={views}>
+        <LocationMatch base={root} views={views}>
           {(value) => (
             <Tabs
               value={value}
@@ -58,10 +55,10 @@ const TabsWithRouter = ({ views, root }) => {
             >
               {views.map((view) => (
                 <Tab
-                  key={view.href}
+                  key={view.to || view.label}
+                  to={view.to || root}
                   label={t(`labels:${view.label}`)}
                   component={Link}
-                  to={makePath(view.to)}
                 />
               ))}
             </Tabs>
@@ -73,9 +70,9 @@ const TabsWithRouter = ({ views, root }) => {
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
               default={!to}
-              path={makePath(to)}
-              key={to}
               renderer={Comp}
+              path={to}
+              key={to}
             />
           ))}
         </Router>
@@ -93,9 +90,6 @@ TabsWithRouter.propTypes = {
       disabled: PropTypes.bool,
     }),
   ).isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
 };
 
 TabsWithRouter.defaultProps = {

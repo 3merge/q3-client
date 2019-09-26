@@ -8,7 +8,7 @@ import Slide from '@material-ui/core/Slide';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { grey } from '@material-ui/core/colors';
+import { grey, blue } from '@material-ui/core/colors';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import HeadsetMic from '@material-ui/icons/PermPhoneMsg';
@@ -125,6 +125,8 @@ const StyledTab = withStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(1),
     '&:focus': {
+      border: `2px solid ${blue[200]}`,
+      borderRadius: 3,
       opacity: 1,
     },
   },
@@ -134,6 +136,7 @@ function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
+    value: index,
   };
 }
 
@@ -239,17 +242,26 @@ const Scroller = ({ children }) => {
   );
 };
 
-const Logo = styled('img')({
+const Logo = styled(Link)({
+  border: '2px solid transparent',
+  boxSizing: 'border-box',
+  padding: 0,
+  display: 'block',
   maxHeight: 95,
   maxWidth: 165,
   width: 'auto',
+  '&:focus': {
+    outline: 0,
+    border: `2px solid ${blue[200]}`,
+    borderRadius: 3,
+  },
 });
 
 const Identifier = ({ logoImgSrc, name }) =>
   logoImgSrc ? (
-    <Link to="/">
-      <Logo src={logoImgSrc} alt={name} />
-    </Link>
+    <Logo to="/">
+      <img src={logoImgSrc} alt={name} />
+    </Logo>
   ) : (
     <Typography variant="h3" component="h1">
       {name}

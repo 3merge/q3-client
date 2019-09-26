@@ -1,55 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { invoke } from 'lodash';
+import { get, invoke } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { Components } from 'q3-ui';
+import { useRest } from 'q3-ui-rest';
 
-const { Tabs, DeleteDialog } = Components;
+const { Header, Tabs, DeleteDialog } = Components;
 
 const Detail = ({
   name,
-  rootPath,
-  id,
+  pathToTitle,
   canDelete,
-  loading,
   views,
-  services,
-  data,
+  id,
+  ...rest
 }) => {
-  const root = React.useMemo(() => {
-    if (!id) return rootPath;
-    return `${rootPath}/${id}/`;
-  }, [rootPath, id]);
+  const url = `/${name}/${id}`;
+  const state = useRest({
+    runOnInit: true,
+    key: name,
+    url,
+    ...rest,
+  });
 
   return (
-    <Container title={name}>
-      {loading ? (
-        <CircularProgress />
-      ) : (
-        <>
-          <Tabs
-            root={root}
-            views={
-              typeof views === 'function'
-                ? views({ id, data, ...services })
-                : views
-            }
-          />
-          {canDelete && (
-            <Container maxWidth="lg" component="footer">
-              <Box textAlign="right">
-                <DeleteDialog
-                  next={invoke(services, 'delete', id)}
-                  redirect={rootPath}
-                />
-              </Box>
-            </Container>
-          )}
-        </>
-      )}
-    </Container>
+    <>
+      <Header name={get(state, pathToTitle)} breadcrumbs />
+      <Container>
+        {state.fetching ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <Tabs
+              root={url}
+              views={
+                typeof views === 'function'
+                  ? views({ id, ...state })
+                  : views
+              }
+            />
+            {canDelete && (
+              <Container maxWidth="lg" component="footer">
+                <Box textAlign="right">
+                  <DeleteDialog
+                    next={invoke(state, 'delete', id)}
+                    redirect={name}
+                  />
+                </Box>
+              </Container>
+            )}
+          </>
+        )}
+      </Container>
+    </>
   );
 };
 
