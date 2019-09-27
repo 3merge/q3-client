@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Location, Link } from '@reach/router';
+import { Link } from '@reach/router';
 import { invoke } from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -22,8 +22,6 @@ import Tab from '@material-ui/core/Tab';
 import Offcanvas from '../offcanvas';
 import Menu from '../menu';
 import { LocationMatch } from '../tabs';
-import Searchbar from '../searchBar';
-import Tel from '../tel';
 
 const useStyles = makeStyles((theme) => ({
   logoSize: {
@@ -235,6 +233,10 @@ const Scroller = ({ children }) => {
   );
 };
 
+Scroller.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const Identifier = ({ logoImgSrc, name }) => {
   const { logo } = useStyles();
   return logoImgSrc ? (
@@ -260,90 +262,63 @@ Identifier.defaultProps = {
 const Header = ({
   menuItems,
   menuPosition,
-  search,
-  searchVisibleOnMobile,
-  searchVisible,
-  searchRedirect,
   transparent,
-  tel,
   children,
   ...rest
 }) => {
   const { appBar, appBarPadding } = useStyles();
+
   const hasMenu = (position) =>
     menuPosition === position && menuItems.length ? (
       <HorizontalMenuList items={menuItems} />
     ) : null;
 
   return (
-    <Location>
-      {({ location }) => (
-        <Scroller>
-          <AppBar
-            position="absolute"
-            color={transparent ? 'primary' : 'inherit'}
-            transparent={transparent}
-            className={appBar}
-          >
-            {children}
-            <Container
-              maxWidth="xl"
-              className={appBarPadding}
-            >
-              <Grid container justify="space-between">
-                <ToolbarWrapper {...rest}>
-                  <Identifier {...rest} />
-                  <Hidden smDown>
-                    {invoke(rest, 'renderLeft')}
-                    {hasMenu('left')}
-                  </Hidden>
-                </ToolbarWrapper>
-                <ToolbarWrapper {...rest}>
-                  <Tel number={tel} />
-                  {search && (
-                    <Searchbar
-                      visible={searchVisible}
-                      redirectPath={searchRedirect}
-                    />
-                  )}
-                  {invoke(rest, 'renderRight')}
-                  {menuItems.length ? (
-                    <Hidden mdUp>
-                      <Offcanvas
-                        menu={() => (
-                          <Menu items={menuItems} />
-                        )}
-                      >
-                        {(toggle) => (
-                          <Fab
-                            onClick={toggle}
-                            size="small"
-                          >
-                            <MenuIcon />
-                          </Fab>
-                        )}
-                      </Offcanvas>
-                    </Hidden>
-                  ) : null}
-                </ToolbarWrapper>
-              </Grid>
-            </Container>
-          </AppBar>
-        </Scroller>
-      )}
-    </Location>
+    <Scroller>
+      <AppBar
+        position="absolute"
+        color={transparent ? 'primary' : 'inherit'}
+        transparent={transparent}
+        className={appBar}
+      >
+        {children}
+        <Container maxWidth="xl" className={appBarPadding}>
+          <Grid container justify="space-between">
+            <ToolbarWrapper {...rest}>
+              <Identifier {...rest} />
+              <Hidden smDown>
+                {invoke(rest, 'renderLeft')}
+                {hasMenu('left')}
+              </Hidden>
+            </ToolbarWrapper>
+            <ToolbarWrapper {...rest}>
+              {invoke(rest, 'renderRight')}
+              {menuItems.length ? (
+                <Hidden mdUp>
+                  <Offcanvas
+                    menu={() => <Menu items={menuItems} />}
+                  >
+                    {(toggle) => (
+                      <Fab onClick={toggle} size="small">
+                        <MenuIcon />
+                      </Fab>
+                    )}
+                  </Offcanvas>
+                </Hidden>
+              ) : null}
+            </ToolbarWrapper>
+          </Grid>
+        </Container>
+      </AppBar>
+    </Scroller>
   );
 };
 
 Header.propTypes = {
-  search: PropTypes.bool,
-  searchVisible: PropTypes.bool,
-  loginActions: PropTypes.bool,
   renderLeft: PropTypes.func,
-  tel: PropTypes.string,
+  renderRight: PropTypes.func,
+  children: PropTypes.node,
   transparent: PropTypes.bool,
-  breadcrumbs: PropTypes.bool,
-  searchRedirect: PropTypes.string,
   menuPosition: PropTypes.oneOf(['left', 'right']),
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -356,15 +331,11 @@ Header.propTypes = {
 
 Header.defaultProps = {
   renderLeft: null,
-  search: false,
-  breadcrumbs: false,
-  loginActions: false,
-  searchVisible: null,
-  tel: null,
+  renderRight: null,
+  children: null,
   menuItems: [],
   menuPosition: 'right',
   transparent: false,
-  searchRedirect: '',
 };
 
 export default Header;
