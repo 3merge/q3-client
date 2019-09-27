@@ -25,7 +25,7 @@ import Divider from './divider';
 import Editor from './editor';
 import Feature, { FeatureHorizontal } from './feature';
 import Header from './header';
-import Graphic from './graphic';
+import Graphic, { MissingGraphic } from './graphic';
 import Footer from './footer';
 import Menu from './menu';
 import Repeater from './repeater';
@@ -71,6 +71,7 @@ export {
   Input,
   Section,
   Graphic,
+  MissingGraphic,
   DesktopSelect,
   Check,
   DateSelect,

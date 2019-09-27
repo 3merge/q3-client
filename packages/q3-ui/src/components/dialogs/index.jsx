@@ -14,22 +14,36 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import Add from '@material-ui/icons/Add';
-import Appbar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import Toolbar from '@material-ui/core/Toolbar';
 import { Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   desktopOffset: {
     marginLeft: 337,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+    },
   },
   margin: {
     marginBottom: theme.spacing(2),
   },
   saddle: {
     maxWidth: 550,
+    paddingTop: theme.spacing(8),
+    paddingLeft: theme.spacing(6),
+  },
+  backBtn: {
+    position: 'absolute',
+    top: theme.spacing(1),
+    left: theme.spacing(1),
+  },
+  floatOnDesktop: {
+    position: 'fixed',
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
   },
 }));
 
@@ -139,36 +153,48 @@ Delete.defaultProps = {
 
 export const Create = ({ render }) => {
   const { isOpen, open, close } = useOpenState();
-  const { desktopOffset, saddle } = useStyles();
+  const {
+    desktopOffset,
+    floatOnDesktop,
+    saddle,
+    backBtn,
+  } = useStyles();
   const { t } = useTranslation();
 
   return render ? (
     <>
-      <Tooltip title={t('labels:add')}>
-        <Fab color="secondary" onClick={open}>
+      <Hidden mdUp>
+        <IconButton
+          onClick={open}
+          aria-label={t('labels:add')}
+        >
           <Add />
-        </Fab>
-      </Tooltip>
+        </IconButton>
+      </Hidden>
+      <Hidden smDown>
+        <Tooltip title={t('labels:add')}>
+          <Fab
+            color="secondary"
+            className={floatOnDesktop}
+            onClick={open}
+          >
+            <Add />
+          </Fab>
+        </Tooltip>
+      </Hidden>
       <Dialog
         fullScreen
         onClose={close}
         open={isOpen}
         className={desktopOffset}
       >
-        <Appbar
-          elevation={0}
-          color="inherit"
-          position="relative"
+        <IconButton
+          onClick={close}
+          className={backBtn}
+          aria-label={t('titles:back')}
         >
-          <Toolbar>
-            <IconButton
-              onClick={close}
-              aria-label={t('titles:back')}
-            >
-              <KeyboardBackspace />
-            </IconButton>
-          </Toolbar>
-        </Appbar>
+          <KeyboardBackspace />
+        </IconButton>
         <DialogContent className={saddle}>
           {render(close)}
         </DialogContent>

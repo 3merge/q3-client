@@ -4,20 +4,13 @@ import ProfileBar from '.';
 import Docs from './README.md';
 import Menu from '../menu';
 
-const menuItems = [
-  {
-    label: 'Profile',
-    onClick: () => null,
-  },
-];
-
 const OffcanvasMenu = () => (
   <Menu
     title="Common"
     items={[
       {
         label: 'Dashboard',
-        href: '/',
+        to: '/',
         visible: true,
       },
     ]}

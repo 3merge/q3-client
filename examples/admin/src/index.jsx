@@ -1,33 +1,15 @@
 import './mock';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, { Components } from 'q3-admin';
+import App from 'q3-admin';
+import Nav from './nav';
 import Pages from './pages';
 
-const AppMenu = () => (
-  <Components.Menu
-    title="Hey"
-    items={[
-      {
-        label: 'Dashboard',
-        href: '/',
-        visible: true,
-      },
-      {
-        label: 'Users',
-        href: '/users',
-        visible: true,
-      },
-    ]}
-  />
-);
+const logo =
+  'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png';
+const root = document.getElementById('root');
 
 ReactDOM.render(
-  <App
-    name="Placeholder Corp"
-    logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png"
-    appIndex={Pages}
-    appNav={AppMenu}
-  />,
-  document.getElementById('root'),
+  <App logoImgSrc={logo} appIndex={Pages} appNav={Nav} />,
+  root,
 );

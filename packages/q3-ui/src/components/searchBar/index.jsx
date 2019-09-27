@@ -133,7 +133,7 @@ const Searchbar = ({ expanded, redirectPath }) => {
                 <Adornment onClear={onClear} term={term}>
                   <SearchTrigger
                     onOpen={open}
-                    size="large"
+                    size="small"
                   />
                 </Adornment>
               ),
@@ -143,7 +143,7 @@ const Searchbar = ({ expanded, redirectPath }) => {
       )}
       <Hidden mdUp={expanded}>
         <Box>
-          <SearchTrigger onOpen={open} size="small" />
+          <SearchTrigger onOpen={open} size="large" />
         </Box>
       </Hidden>
       <Drawer

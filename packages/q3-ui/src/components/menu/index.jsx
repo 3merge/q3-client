@@ -74,9 +74,9 @@ const Menu = ({ title, items }) => (
         item.visible && (
           <ListItem
             exact={item.exact}
-            key={item.href}
+            key={item.to}
             component={CollisionNavLink}
-            to={item.href}
+            to={item.to}
             dense
           >
             {item.Icon && (

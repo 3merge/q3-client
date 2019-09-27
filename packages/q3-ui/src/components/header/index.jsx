@@ -155,28 +155,30 @@ function a11yProps(index) {
 }
 
 const HorizontalMenuList = ({ items }) => (
-  <LocationMatch views={items}>
-    {(value) => (
-      <StyledTabs
-        value={value}
-        aria-label="Main navigation"
-        TabIndicatorProps={{ children: <div /> }}
-      >
-        {items.map(
-          ({ to, visible, label }, i) =>
-            visible && (
-              <StyledTab
-                component={Link}
-                to={to}
-                key={to}
-                label={label}
-                {...a11yProps(i)}
-              />
-            ),
-        )}
-      </StyledTabs>
-    )}
-  </LocationMatch>
+  <Hidden smDown>
+    <LocationMatch views={items}>
+      {(value) => (
+        <StyledTabs
+          value={value}
+          aria-label="Main navigation"
+          TabIndicatorProps={{ children: <div /> }}
+        >
+          {items.map(
+            ({ to, visible, label }, i) =>
+              visible && (
+                <StyledTab
+                  component={Link}
+                  to={to}
+                  key={to}
+                  label={label}
+                  {...a11yProps(i)}
+                />
+              ),
+          )}
+        </StyledTabs>
+      )}
+    </LocationMatch>
+  </Hidden>
 );
 
 HorizontalMenuList.propTypes = {
@@ -274,43 +276,43 @@ const Header = ({
     ) : null;
 
   return (
-    <Scroller>
-      <AppBar
-        position="absolute"
-        color={transparent ? 'primary' : 'inherit'}
-        transparent={transparent}
-        className={appBar}
-      >
-        {children}
-        <Container maxWidth="xl" className={appBarPadding}>
-          <Grid container justify="space-between">
-            <ToolbarWrapper {...rest}>
-              <Identifier {...rest} />
-              <Hidden smDown>
-                {invoke(rest, 'renderLeft')}
-                {hasMenu('left')}
+    <AppBar
+      position="absolute"
+      color={transparent ? 'primary' : 'inherit'}
+      transparent={transparent}
+      className={appBar}
+    >
+      {children}
+      <Container maxWidth="xl" className={appBarPadding}>
+        <Grid container justify="space-between">
+          <ToolbarWrapper {...rest}>
+            {invoke(rest, 'renderPreIdentifier')}
+            <Identifier {...rest} />
+            <Hidden smDown>
+              {invoke(rest, 'renderLeft')}
+              {hasMenu('left')}
+            </Hidden>
+          </ToolbarWrapper>
+          <ToolbarWrapper {...rest}>
+            {hasMenu('right')}
+            {invoke(rest, 'renderRight')}
+            {menuItems.length ? (
+              <Hidden mdUp>
+                <Offcanvas
+                  menu={() => <Menu items={menuItems} />}
+                >
+                  {(toggle) => (
+                    <Fab onClick={toggle} size="small">
+                      <MenuIcon />
+                    </Fab>
+                  )}
+                </Offcanvas>
               </Hidden>
-            </ToolbarWrapper>
-            <ToolbarWrapper {...rest}>
-              {invoke(rest, 'renderRight')}
-              {menuItems.length ? (
-                <Hidden mdUp>
-                  <Offcanvas
-                    menu={() => <Menu items={menuItems} />}
-                  >
-                    {(toggle) => (
-                      <Fab onClick={toggle} size="small">
-                        <MenuIcon />
-                      </Fab>
-                    )}
-                  </Offcanvas>
-                </Hidden>
-              ) : null}
-            </ToolbarWrapper>
-          </Grid>
-        </Container>
-      </AppBar>
-    </Scroller>
+            ) : null}
+          </ToolbarWrapper>
+        </Grid>
+      </Container>
+    </AppBar>
   );
 };
 

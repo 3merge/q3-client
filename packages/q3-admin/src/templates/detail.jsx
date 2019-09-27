@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 import { get, invoke } from 'lodash';
+import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { Components } from 'q3-ui';
 import { useRest } from 'q3-ui-rest';
 
@@ -29,7 +32,13 @@ const Detail = ({
     <>
       <Header
         name={get(state, pathToTitle)}
-        renderLeft={() => 'LEts return'}
+        renderPreIdentifier={() => (
+          <div>
+            <IconButton component={Link} to={`/${name}`}>
+              <KeyboardBackspace />
+            </IconButton>
+          </div>
+        )}
       />
       <Container>
         {state.fetching ? (
