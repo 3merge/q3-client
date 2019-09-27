@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,8 +20,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Searchbar = ({ visible, redirectPath }) => {
+export const SearchTrigger = ({ onOpen, size }) => {
+  const { t } = useTranslation();
+  return (
+    <Tooltip title={t('label:enlarge')}>
+      <IconButton onClick={onOpen} size={size}>
+        <Search />
+      </IconButton>
+    </Tooltip>
+  );
+};
+
+SearchTrigger.propTypes = {
+  onOpen: PropTypes.func.isRequired,
+  size: PropTypes.string.isRequired,
+};
+
+export const Adornment = ({ children, term, onClear }) => {
+  const { t } = useTranslation();
+  return (
+    <InputAdornment position="end">
+      {term ? (
+        <Tooltip title={t('label:clear')}>
+          <IconButton onClick={onClear} size="small">
+            <Close />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        children
+      )}
+    </InputAdornment>
+  );
+};
+
+Adornment.propTypes = {
+  children: PropTypes.node,
+  onClear: PropTypes.func.isRequired,
+  term: PropTypes.string,
+};
+
+Adornment.defaultProps = {
+  children: null,
+  term: '',
+};
+
+const Searchbar = ({ expanded, redirectPath }) => {
   const ref = React.useRef();
+  const { t } = useTranslation();
   const [state, setState] = React.useState(false);
   const [term, setTerm] = React.useState('');
   const { bar } = useStyles();
@@ -61,54 +107,44 @@ const Searchbar = ({ visible, redirectPath }) => {
   );
 
   const inputProps = {
+    placeholder: t('labels:searchPlaceholder'),
     name: 'search',
     type: 'text',
     value: term,
     onChange,
     onKeyPress,
+    inputProps: {
+      'aria-label': t('labels:search'),
+    },
   };
-
-  const renderSearchIcon = (size) => (
-    <Tooltip title="Click to enlarge">
-      <IconButton onClick={open} size={size}>
-        <Search />
-      </IconButton>
-    </Tooltip>
-  );
-
-  const renderClearIcon = () =>
-    term && (
-      <Tooltip title="Click to clear">
-        <IconButton onClick={onClear} size="small">
-          <Close />
-        </IconButton>
-      </Tooltip>
-    );
 
   return (
     <>
-      {visible && (
+      {expanded && (
         <Hidden smDown>
           <TextField
             {...inputProps}
             inputRef={ref}
             id="header-searchbar"
-            placeholder="Search"
             variant="outlined"
             margin="dense"
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
-                  {renderClearIcon() ||
-                    renderSearchIcon('small')}
-                </InputAdornment>
+                <Adornment onClear={onClear} term={term}>
+                  <SearchTrigger
+                    onOpen={open}
+                    size="large"
+                  />
+                </Adornment>
               ),
             }}
           />
         </Hidden>
       )}
-      <Hidden mdUp={visible}>
-        <Box>{renderSearchIcon()}</Box>
+      <Hidden mdUp={expanded}>
+        <Box>
+          <SearchTrigger onOpen={open} size="small" />
+        </Box>
       </Hidden>
       <Drawer
         anchor="top"
@@ -120,7 +156,6 @@ const Searchbar = ({ visible, redirectPath }) => {
         <Input
           {...inputProps}
           id="fullscreen-searchbar"
-          placeholder="Press enter to perform search"
           className={bar}
           autoFocus
         />
@@ -130,12 +165,12 @@ const Searchbar = ({ visible, redirectPath }) => {
 };
 
 Searchbar.propTypes = {
-  visible: PropTypes.bool,
+  expanded: PropTypes.bool,
   redirectPath: PropTypes.string,
 };
 
 Searchbar.defaultProps = {
-  visible: true,
+  expanded: true,
   redirectPath: '',
 };
 

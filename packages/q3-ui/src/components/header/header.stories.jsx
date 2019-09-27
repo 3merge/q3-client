@@ -1,10 +1,12 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import { storiesOf } from '@storybook/react';
-import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Header from '.';
 import { FullWidthBanner } from '../banner';
+import Tel from '../tel';
+import Searchbar from '../searchBar';
 
 const defaultProps = {
   logoImgSrc:
@@ -165,51 +167,17 @@ storiesOf('Components|Header', module)
       <Header {...defaultProps} />
     </PageDemo>
   ))
-  .add('Without menu', () => (
-    <PageDemo>
-      <Header
-        name="Users"
-        search
-        searchVisible
-        breadcrumbs
-      />
-    </PageDemo>
-  ))
-  .add('With search', () => (
-    <PageDemo>
-      <Header
-        search
-        searchVisible
-        searchRedirect="/bar"
-        menuPosition="left"
-        {...defaultProps}
-      />
-    </PageDemo>
-  ))
-  .add('With telephone', () => (
-    <PageDemo>
-      <Header
-        search
-        tel="416-999-2131"
-        menuPosition="left"
-        {...defaultProps}
-      />
-    </PageDemo>
-  ))
   .add('With custom renders', () => (
     <PageDemo>
       <Header
+        {...defaultProps}
         renderLeft={() => 'with love'}
         renderRight={() => (
-          <Button
-            variant="outlined"
-            color="primary"
-            size="large"
-          >
-            Baz!
-          </Button>
+          <Hidden xsDown>
+            <Tel number="413-923-1233" />
+            <Searchbar />
+          </Hidden>
         )}
-        {...defaultProps}
       />
     </PageDemo>
   ));

@@ -17,5 +17,8 @@
   "confirmPassword": "Confirm password",
   "inclusions": "Options",
   "exceptions": "Active items",
-  "call": "Call now"
+  "call": "Call now",
+  "clear": "Clear input",
+  "enlarge": "Click to enlarge",
+  "searchPlaceholder": "Press Enter to search"
 }

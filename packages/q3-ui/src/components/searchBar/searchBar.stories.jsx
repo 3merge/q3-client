@@ -8,7 +8,7 @@ import Search from '.';
 
 storiesOf('Components|SearchBar', module)
   .addParameters({
-    jest: ['profileBar'],
+    jest: ['searchBar'],
     readme: {
       sidebar,
     },
