@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Offcanvas = ({ menu: Menu, children }) => {
+const Offcanvas = ({ menu: Menu, left, children }) => {
   const { list, listContainer } = useStyles();
   const [state, setState] = React.useState(false);
 
@@ -35,7 +35,7 @@ const Offcanvas = ({ menu: Menu, children }) => {
         onClose={toggleDrawer}
         onOpen={toggleDrawer}
         className={listContainer}
-        anchor="right"
+        anchor={left ? 'left' : 'right'}
       >
         <Box className={list}>
           <Menu />

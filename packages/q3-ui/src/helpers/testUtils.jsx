@@ -1,3 +1,4 @@
+import './i18next';
 import React from 'react';
 import {
   createShallow,

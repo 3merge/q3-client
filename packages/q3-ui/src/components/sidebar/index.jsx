@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   colourful: {
     backgroundColor: theme.palette.primary.main,
+    boxShadow: theme.shadows[1],
     boxSizing: 'border-box',
     color: '#FFF',
     height: '100vh',
@@ -65,7 +66,7 @@ const Sidebar = ({ renderTrigger, children }) => {
       <MobileDrawer open={open} toggle={toggleDrawer}>
         {children}
       </MobileDrawer>
-      <Hidden xsDown implementation="css">
+      <Hidden smDown implementation="css">
         <Box className={colourful} component="aside">
           {children}
         </Box>

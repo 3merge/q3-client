@@ -16,5 +16,6 @@
   "code": "Account code",
   "confirmPassword": "Confirm password",
   "inclusions": "Options",
-  "exceptions": "Active items"
+  "exceptions": "Active items",
+  "call": "Call now"
 }

@@ -27,7 +27,10 @@ const Detail = ({
 
   return (
     <>
-      <Header name={get(state, pathToTitle)} breadcrumbs />
+      <Header
+        name={get(state, pathToTitle)}
+        renderLeft={() => 'LEts return'}
+      />
       <Container>
         {state.fetching ? (
           <CircularProgress />

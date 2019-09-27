@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -86,27 +87,29 @@ const Searchbar = ({ visible, redirectPath }) => {
 
   return (
     <>
-      {visible ? (
-        <TextField
-          {...inputProps}
-          inputRef={ref}
-          id="header-searchbar"
-          placeholder="Search"
-          variant="outlined"
-          margin="dense"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                {renderClearIcon() ||
-                  renderSearchIcon('small')}
-              </InputAdornment>
-            ),
-          }}
-        />
-      ) : (
-        <Box>{renderSearchIcon()}</Box>
+      {visible && (
+        <Hidden smDown>
+          <TextField
+            {...inputProps}
+            inputRef={ref}
+            id="header-searchbar"
+            placeholder="Search"
+            variant="outlined"
+            margin="dense"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {renderClearIcon() ||
+                    renderSearchIcon('small')}
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Hidden>
       )}
-
+      <Hidden mdUp={visible}>
+        <Box>{renderSearchIcon()}</Box>
+      </Hidden>
       <Drawer
         anchor="top"
         open={state}

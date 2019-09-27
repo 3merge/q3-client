@@ -28,7 +28,6 @@ const List = ({
     <>
       <Header
         name={t(`titles:${name}`)}
-        breadcrumbs
         search
         searchVisible
       />

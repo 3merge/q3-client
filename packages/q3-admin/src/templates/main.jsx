@@ -8,7 +8,7 @@ import { Components } from 'q3-ui';
 const useStyles = makeStyles((theme) => ({
   offsetHeight: {
     position: 'relative',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
   },

@@ -4,17 +4,14 @@ import { Link } from '@reach/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
-import BugReport from '@material-ui/icons/BugReport';
-import Help from '@material-ui/icons/Help';
-import Menu from '@material-ui/core/Menu';
-import Hidden from '@material-ui/core/Hidden';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Grid, Paper, Tooltip } from '@material-ui/core';
-import Logo from '../logo';
+import Hidden from '@material-ui/core/Hidden';
+import { Grid, Paper } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import astronaut from '../../static/astronaut.png';
-import Avatar from '../avatar';
 import Offcanvas from '../offcanvas';
+import { AccountMenu } from '../toolbar';
+import Logo from '../logo';
 
 const useStyles = makeStyles((theme) => ({
   bar: {
@@ -24,7 +21,11 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100vh',
     padding: theme.spacing(2),
     textAlign: 'center',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
+      border: 'none',
+      backgroundColor: '#FFF',
+      color: theme.palette.primary.dark,
+      boxShadow: theme.shadows[1],
       minHeight: 'auto',
       flexDirection: 'row',
       paddingBottom: 0,
@@ -43,15 +44,16 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 85,
     position: 'relative',
     width: 'auto',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       height: 'auto',
       width: '100%',
     },
   },
   mobile: {
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       alignItems: 'center',
       flexDirection: 'row',
+      justifyContent: 'space-between',
     },
   },
   logo: {
@@ -72,42 +74,25 @@ const useStyles = makeStyles((theme) => ({
   logoText: {
     color: '#FFF',
     textDecoration: 'none',
-    fontWeight: 'bold',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: '1.3em',
     },
   },
 }));
 
 const ProfileBar = ({
-  supportDeskUrl,
-  supportDeskLabel,
-  docs,
+  offcanvas: MobileMenu,
   menuItems,
   name,
   imgSrc,
-  companyName,
-  offcanvas,
 }) => {
   const {
     bar,
-    img,
     relative,
     mobile,
     logo,
     logoText,
-    vertical,
   } = useStyles();
-
-  const [open, setOpen] = React.useState();
-
-  const openMenu = React.useCallback(({ target }) => {
-    setOpen(target);
-  }, []);
-
-  const closeMenu = React.useCallback(() => {
-    setOpen(null);
-  }, []);
 
   return (
     <Paper className={relative}>
@@ -118,20 +103,20 @@ const ProfileBar = ({
         justify="space-between"
         className={bar}
       >
-        <Grid item>
-          <Link
-            to="/"
-            aria-label={name}
-            className={logoText}
-          >
-            <Hidden xsDown>
+        <Hidden smDown>
+          <Grid item>
+            <Link
+              to="/"
+              aria-label={name}
+              className={logoText}
+            >
               <Box className={logo}>
                 <Logo />
               </Box>
-            </Hidden>
-          </Link>
-        </Grid>
-        <Grid item>
+            </Link>
+          </Grid>
+        </Hidden>
+        <Grid item xs={12}>
           <Grid
             container
             direction="column"
@@ -139,107 +124,31 @@ const ProfileBar = ({
             spacing={1}
           >
             <Grid item>
-              <Hidden xsDown>
-                {docs && (
-                  <Tooltip title="Docs">
-                    <IconButton
-                      size="small"
-                      color="inherit"
-                      component="a"
-                      href={docs}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      <Help />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </Hidden>
-            </Grid>
-            <Grid item>
-              <Offcanvas menu={offcanvas}>
+              <Offcanvas left menu={MobileMenu}>
                 {(toggle) => (
-                  <Hidden smUp>
-                    <IconButton
-                      onClick={toggle}
-                      size="small"
-                      color="inherit"
-                    >
-                      <MenuIcon />
-                    </IconButton>
+                  <Hidden mdUp>
+                    <Grid container align="center">
+                      <IconButton
+                        aria-label="Open menu"
+                        onClick={toggle}
+                        size="small"
+                        color="inherit"
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    </Grid>
                   </Hidden>
                 )}
               </Offcanvas>
             </Grid>
             <Grid item>
-              <Hidden xsDown>
-                {supportDeskLabel && (
-                  <Tooltip title={supportDeskLabel}>
-                    <IconButton
-                      size="small"
-                      color="inherit"
-                      component="a"
-                      href={supportDeskUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      <BugReport />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </Hidden>
+              <Box my={1}>
+                <AccountMenu
+                  profileImgSrc={imgSrc}
+                  items={menuItems}
+                />
+              </Box>
             </Grid>
-            {name && (
-              <Grid item>
-                <Box my={1}>
-                  <IconButton
-                    size="small"
-                    onClick={openMenu}
-                  >
-                    <Avatar
-                      word={name}
-                      className={img}
-                      imgSrc={imgSrc}
-                    />
-                  </IconButton>
-                </Box>
-              </Grid>
-            )}
-            <Menu
-              id="profile-menu"
-              anchorEl={open}
-              open={Boolean(open)}
-              keepMounted
-              onClose={closeMenu}
-            >
-              {menuItems.map((item) => (
-                <MenuItem
-                  dense
-                  key={item.label}
-                  onClick={item.onClick}
-                >
-                  {item.label}
-                </MenuItem>
-              ))}
-              <MenuItem
-                dense
-                component="a"
-                href={docs}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Docs
-              </MenuItem>
-              <MenuItem
-                dense
-                component="a"
-                href={supportDeskUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                Support
-              </MenuItem>
-            </Menu>
           </Grid>
         </Grid>
       </Grid>
@@ -248,12 +157,8 @@ const ProfileBar = ({
 };
 
 export const profileBarProps = {
-  companyName: PropTypes.string,
   name: PropTypes.string,
-  supportDeskUrl: PropTypes.string,
   imgSrc: PropTypes.string,
-  supportDeskLabel: PropTypes.string,
-  docs: PropTypes.string,
   offcanvas: PropTypes.node.isRequired,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -266,12 +171,8 @@ export const profileBarProps = {
 ProfileBar.propTypes = profileBarProps;
 
 ProfileBar.defaultProps = {
-  companyName: '3merge',
-  supportDeskLabel: 'Support desk',
   imgSrc: astronaut,
   name: null,
-  supportDeskUrl: null,
-  docs: null,
   menuItems: [],
 };
 

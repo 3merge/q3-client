@@ -11,23 +11,19 @@ import Grid from '@material-ui/core/Grid';
 import { grey, blue } from '@material-ui/core/colors';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
-import HeadsetMic from '@material-ui/icons/PermPhoneMsg';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   makeStyles,
   withStyles,
-  styled,
 } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Offcanvas from '../offcanvas';
 import Menu from '../menu';
 import { LocationMatch } from '../tabs';
-import Breadcrumbs from '../breadcrumbs';
 import Searchbar from '../searchBar';
+import Tel from '../tel';
 
 const useStyles = makeStyles((theme) => ({
   logoSize: {
@@ -38,7 +34,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) =>
       props.transparent ? 'transparent' : '#FFF',
     boxShadow: 'none !important',
+  },
+  appBarPadding: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: `${theme.spacing(1)}px 0`,
+      '& .MuiToolbar-root': {
+        padding: 0,
+      },
+    },
   },
   spacing: {
     overflow: 'hidden',
@@ -48,6 +52,25 @@ const useStyles = makeStyles((theme) => ({
   },
   bottomBorder: {
     borderBottom: `2px solid ${grey[200]}`,
+  },
+  logo: {
+    border: '2px solid transparent',
+    boxSizing: 'border-box',
+    padding: 0,
+    display: 'block',
+    marginLeft: '1rem',
+    maxHeight: 95,
+    maxWidth: 165,
+    width: 'auto',
+    '&:focus': {
+      outline: 0,
+      border: `2px solid ${blue[200]}`,
+      borderRadius: 3,
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: 75,
+      maxWidth: 145,
+    },
   },
   withDividers: {
     '&>:not(:last-child)': {
@@ -71,6 +94,11 @@ const useStyles = makeStyles((theme) => ({
     '&>*': {
       position: 'relative',
       padding: '0 1rem',
+      [theme.breakpoints.down('sm')]: {
+        '&:not(:last-child)': {
+          paddingRight: 0,
+        },
+      },
     },
   },
   listContainer: {
@@ -78,18 +106,6 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: 230,
-  },
-  phoneText: {
-    lineHeight: 1,
-    marginLeft: theme.spacing(1),
-    textAlign: 'left',
-    '&>span': {
-      display: 'block',
-      lineHeight: 1.1,
-      '&:last-child': {
-        fontWeight: 'bold',
-      },
-    },
   },
 }));
 
@@ -179,29 +195,6 @@ HorizontalMenuList.defaultProps = {
   items: [],
 };
 
-const FeaturedPhoneNumber = ({ number }) => {
-  const { phoneText } = useStyles();
-  return (
-    <Box>
-      <Button disableRipple>
-        <HeadsetMic color="secondary" />
-        <Box className={phoneText}>
-          <Typography component="span" variant="caption">
-            Call now
-          </Typography>
-          <Typography component="span" variant="subtitle1">
-            {number}
-          </Typography>
-        </Box>
-      </Button>
-    </Box>
-  );
-};
-
-FeaturedPhoneNumber.propTypes = {
-  number: PropTypes.string.isRequired,
-};
-
 const ToolbarWrapper = ({ children, dividers }) => {
   const { withDividers, withoutDividers } = useStyles();
   return (
@@ -242,31 +235,18 @@ const Scroller = ({ children }) => {
   );
 };
 
-const Logo = styled(Link)({
-  border: '2px solid transparent',
-  boxSizing: 'border-box',
-  padding: 0,
-  display: 'block',
-  maxHeight: 95,
-  maxWidth: 165,
-  width: 'auto',
-  '&:focus': {
-    outline: 0,
-    border: `2px solid ${blue[200]}`,
-    borderRadius: 3,
-  },
-});
-
-const Identifier = ({ logoImgSrc, name }) =>
-  logoImgSrc ? (
-    <Logo to="/">
+const Identifier = ({ logoImgSrc, name }) => {
+  const { logo } = useStyles();
+  return logoImgSrc ? (
+    <Link to="/" className={logo}>
       <img src={logoImgSrc} alt={name} />
-    </Logo>
+    </Link>
   ) : (
-    <Typography variant="h3" component="h1">
+    <Typography variant="h3" component="h1" color="inherit">
       {name}
     </Typography>
   );
+};
 
 Identifier.propTypes = {
   name: PropTypes.string.isRequired,
@@ -281,14 +261,15 @@ const Header = ({
   menuItems,
   menuPosition,
   search,
+  searchVisibleOnMobile,
   searchVisible,
   searchRedirect,
   transparent,
-  breadcrumbs,
   tel,
+  children,
   ...rest
 }) => {
-  const { appBar } = useStyles();
+  const { appBar, appBarPadding } = useStyles();
   const hasMenu = (position) =>
     menuPosition === position && menuItems.length ? (
       <HorizontalMenuList items={menuItems} />
@@ -304,44 +285,47 @@ const Header = ({
             transparent={transparent}
             className={appBar}
           >
-            <Container maxWidth="xl">
+            {children}
+            <Container
+              maxWidth="xl"
+              className={appBarPadding}
+            >
               <Grid container justify="space-between">
                 <ToolbarWrapper {...rest}>
                   <Identifier {...rest} />
                   <Hidden smDown>
-                    {breadcrumbs && (
-                      <Breadcrumbs root="/" />
-                    )}
                     {invoke(rest, 'renderLeft')}
                     {hasMenu('left')}
                   </Hidden>
                 </ToolbarWrapper>
-                <Hidden smDown>
-                  <ToolbarWrapper {...rest}>
-                    {hasMenu('right')}
-                    {tel && (
-                      <FeaturedPhoneNumber number={tel} />
-                    )}
-                    {search && (
-                      <Searchbar
-                        visible={searchVisible}
-                        redirectPath={searchRedirect}
-                      />
-                    )}
-                    {invoke(rest, 'renderRight')}
-                  </ToolbarWrapper>
-                </Hidden>
-                <Hidden smUp>
-                  <Offcanvas
-                    menu={() => <Menu items={menuItems} />}
-                  >
-                    {(toggle) => (
-                      <Fab onClick={toggle}>
-                        <MenuIcon />
-                      </Fab>
-                    )}
-                  </Offcanvas>
-                </Hidden>
+                <ToolbarWrapper {...rest}>
+                  <Tel number={tel} />
+                  {search && (
+                    <Searchbar
+                      visible={searchVisible}
+                      redirectPath={searchRedirect}
+                    />
+                  )}
+                  {invoke(rest, 'renderRight')}
+                  {menuItems.length ? (
+                    <Hidden mdUp>
+                      <Offcanvas
+                        menu={() => (
+                          <Menu items={menuItems} />
+                        )}
+                      >
+                        {(toggle) => (
+                          <Fab
+                            onClick={toggle}
+                            size="small"
+                          >
+                            <MenuIcon />
+                          </Fab>
+                        )}
+                      </Offcanvas>
+                    </Hidden>
+                  ) : null}
+                </ToolbarWrapper>
               </Grid>
             </Container>
           </AppBar>
