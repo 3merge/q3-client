@@ -9,6 +9,7 @@ const Content = () => (
   </Typography>
 );
 
+/*
 const IndexPage = () => (
   <div style={{ paddingBottom: '10vh' }}>
     <Components.Banner
@@ -87,4 +88,6 @@ const IndexPage = () => (
   </div>
 );
 
-export default IndexPage;
+*/
+
+export default () => 'Hey';

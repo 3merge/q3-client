@@ -19,14 +19,17 @@ const generateTemplatesAsPages = [
     templatePath: './src/templates/reverify.jsx',
     path: '/reverify',
   },
-];
+]; /*
 
 exports.createPages = async ({ actions }) => {
-  const { createPage } = actions;
+  // const { createPage } = actions;
+
   generateTemplatesAsPages.map(({ templatePath, path }) =>
     createPage({
       component: require.resolve(templatePath),
       path,
     }),
   );
+
 };
+  */

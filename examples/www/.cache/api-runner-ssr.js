@@ -1,11 +1,11 @@
 var plugins = [{
-      plugin: require('C:/Users/ibber/Documents/Q3/node_modules/gatsby-plugin-canonical-urls/gatsby-ssr'),
+      plugin: require('C:/Users/ibber/Documents/Q3-Client/node_modules/gatsby-plugin-canonical-urls/gatsby-ssr'),
       options: {"plugins":[],"stripQueryString":true,"siteUrl":"https://3merge.ca"},
     },{
-      plugin: require('C:/Users/ibber/Documents/Q3/node_modules/gatsby-plugin-sitemap/gatsby-ssr'),
+      plugin: require('C:/Users/ibber/Documents/Q3-Client/node_modules/gatsby-plugin-sitemap/gatsby-ssr'),
       options: {"plugins":[]},
     },{
-      plugin: require('C:/Users/ibber/Documents/Q3/node_modules/gatsby-plugin-polyfill-io/gatsby-ssr'),
+      plugin: require('C:/Users/ibber/Documents/Q3-Client/node_modules/gatsby-plugin-polyfill-io/gatsby-ssr'),
       options: {"plugins":[]},
     }]
 // During bootstrap, we write requires at top of this file which looks like:

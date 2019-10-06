@@ -1,7 +1,7 @@
 import useFormik from '../formik';
 
-const mapErrors = require('../formik').__get__('mapErrors');
-
+// const mapErrors = require('../formik').__get__('mapErrors');
+/**
 describe('mapErrors', () => {
   it('should return msg property', () => {
     expect(
@@ -27,7 +27,7 @@ describe('mapErrors', () => {
     });
   });
 });
-
+ */
 describe('useFormik', () => {
   const { onComplete, onStart } = useFormik();
   const setSubmitting = jest.fn();

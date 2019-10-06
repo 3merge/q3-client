@@ -1,11 +1,9 @@
 import React from 'react';
 import { Components } from 'q3-ui';
-import { SplitPanel } from 'q3-ui/dist/components';
-import Typography from '@material-ui/core/Typography';
 
 const IndexPage = () => (
   <div>
-    <Components.Banner
+    <Components.FullWidthBanner
       title="Material Design Theme"
       subtitle="A custom Q3 theme for Gatsby JS"
       backgroundStyle={{
@@ -41,7 +39,8 @@ const IndexPage = () => (
         }
       />
     </Components.Section>
-    <SplitPanel
+    {/** 
+    <ComponentsSplitPanel
       size="lg"
       columnLeft={
         <>
@@ -95,6 +94,7 @@ const IndexPage = () => (
         />
       }
     />
+
     <Components.Wrapper backgroundColor="#FFF">
       <Components.Section
         title="This is a section"
@@ -143,6 +143,7 @@ const IndexPage = () => (
         />
       </Components.Section>
     </Components.Wrapper>
+        */}
   </div>
 );
 

@@ -3,13 +3,20 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Container from '@material-ui/core/Container';
-import { Hero } from '../components';
+import { Banner } from 'q3-ui';
 
 const Post = ({ children }) => (
   <Box component="mail">
-    <Hero
+    <Banner
       title={() => (
-        <Box pt={3} pr={3} style={{ background: '#FFF', position: 'relative' }}>
+        <Box
+          pt={3}
+          pr={3}
+          style={{
+            background: '#FFF',
+            position: 'relative',
+          }}
+        >
           "A full-span hero with custom renders"
         </Box>
       )}
@@ -39,7 +46,10 @@ const Post = ({ children }) => (
       )}
     />
     <Container maxWidth="lg" section="article">
-      <Container maxWidth="md" style={{ margin: '0 0 0 auto' }}>
+      <Container
+        maxWidth="md"
+        style={{ margin: '0 0 0 auto' }}
+      >
         {children}
       </Container>
     </Container>

@@ -1,8 +1,5 @@
 module.exports = {
-  plugins: [
-    'rewire',
-    '@babel/plugin-proposal-export-namespace-from',
-  ],
+  plugins: ['@babel/plugin-proposal-export-namespace-from'],
   presets: [
     [
       '@babel/preset-env',
