@@ -265,6 +265,7 @@ const Header = ({
   menuItems,
   menuPosition,
   transparent,
+  color,
   children,
   ...rest
 }) => {
@@ -280,7 +281,7 @@ const Header = ({
   return (
     <AppBar
       position="absolute"
-      color={transparent ? 'primary' : 'inherit'}
+      color={color}
       className={appBar}
     >
       {children}
@@ -323,6 +324,7 @@ Header.propTypes = {
   children: PropTypes.node,
   transparent: PropTypes.bool,
   menuPosition: PropTypes.oneOf(['left', 'right']),
+  color: PropTypes.oneOf(['primary', 'inherit']),
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       href: PropTypes.string,
@@ -339,6 +341,7 @@ Header.defaultProps = {
   menuItems: [],
   menuPosition: 'right',
   transparent: false,
+  color: 'inherit',
 };
 
 export default Header;

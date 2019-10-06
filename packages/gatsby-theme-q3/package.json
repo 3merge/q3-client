@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
-    "@material-ui/core": "^4.4.0",
-    "@material-ui/icons": "^4.2.1",
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
     "@material-ui/styles": "^4.4.3",
     "gatsby": "^2.6.0",
     "q3-ui": "^1.0.0"
