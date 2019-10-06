@@ -7,6 +7,7 @@ import { blueGrey } from '@material-ui/core/colors';
 const useStyles = makeStyles({
   root: {
     left: 0,
+    height: 125,
     width: '100%',
     overflow: 'hidden',
     fill: (props) => props.fill,
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
     marginBottom: (props) =>
       props.gutterBottom ? 48 : -10,
     '&>svg': {
-      height: 125,
+      height: '100%',
       width: '100%',
     },
   },

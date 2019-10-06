@@ -171,6 +171,7 @@ storiesOf('Components|Header', module)
     <PageDemo>
       <Header
         {...defaultProps}
+        transparent
         renderLeft={() => 'with love'}
         renderRight={() => (
           <Hidden xsDown>

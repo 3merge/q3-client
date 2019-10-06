@@ -268,7 +268,9 @@ const Header = ({
   children,
   ...rest
 }) => {
-  const { appBar, appBarPadding } = useStyles();
+  const { appBar, appBarPadding } = useStyles({
+    transparent,
+  });
 
   const hasMenu = (position) =>
     menuPosition === position && menuItems.length ? (
@@ -279,7 +281,6 @@ const Header = ({
     <AppBar
       position="absolute"
       color={transparent ? 'primary' : 'inherit'}
-      transparent={transparent}
       className={appBar}
     >
       {children}
