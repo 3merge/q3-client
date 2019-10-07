@@ -121,6 +121,7 @@ export const FeaturedPhotoBanner = ({
   imgSrc,
   children,
   flip,
+  customImgRender,
   ...rest
 }) => {
   const { mobileDirection } = useStyles();
@@ -137,9 +138,15 @@ export const FeaturedPhotoBanner = ({
           {children}
         </GridItemRenderer>
         <GridItemRenderer
-          render={() => (
-            <img src={imgSrc} alt={rest.title} />
-          )}
+          render={() =>
+            customImgRender || (
+              <img
+                src={imgSrc}
+                alt={rest.title}
+                style={{ maxHeight: 500 }}
+              />
+            )
+          }
         />
       </Grid>
     </BannerBase>

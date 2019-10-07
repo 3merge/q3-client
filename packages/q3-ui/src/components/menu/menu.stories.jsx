@@ -8,18 +8,20 @@ import Menu from '.';
 const MenuImplementationStory = () => (
   <Menu
     title="My menu"
+    color="orange"
     items={[
       {
-        href: '#one',
+        to: '#one',
         label: 'Link One',
         Icon: Assignment,
         visible: true,
       },
       {
+        to: 'huu',
         visible: false,
       },
       {
-        href: '#three',
+        to: '#three',
         label: 'Link Three (Link Two Invisible)',
         Icon: AccountCircle,
         visible: true,

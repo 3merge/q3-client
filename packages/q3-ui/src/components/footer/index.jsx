@@ -35,7 +35,12 @@ SocialLinks.defaultProps = {
   links: [],
 };
 
-const Footer = ({ dense, children, socialLinks }) => {
+const Footer = ({
+  dense,
+  children,
+  socialLinks,
+  copyright,
+}) => {
   const { primary } = useStyles();
   return (
     <Box
@@ -54,6 +59,7 @@ const Footer = ({ dense, children, socialLinks }) => {
       )}
       <Box mt={2} mb={1} textAlign="center">
         <small>&copy; {new Date().getFullYear()}</small>
+        {copyright}
       </Box>
     </Box>
   );

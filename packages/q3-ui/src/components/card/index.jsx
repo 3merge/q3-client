@@ -202,11 +202,23 @@ export const ProjectCard = ({
   to,
   label,
   buttonText,
+  fullWidth,
   ...rest
 }) => {
   const cls = useStyles();
+  const sizing = {
+    md: 4,
+    sm: 6,
+    xs: 12,
+  };
+
+  if (fullWidth) {
+    delete sizing.sm;
+    delete sizing.md;
+  }
+
   return (
-    <CardWrapper md={4} sm={6} xs={12} to={to}>
+    <CardWrapper {...sizing} to={to}>
       <div className={cls.iconHead}>
         <Avatar className={cls.iconThumb} src={imgSrc} />
         <Typography

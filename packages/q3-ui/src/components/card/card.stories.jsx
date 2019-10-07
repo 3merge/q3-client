@@ -47,6 +47,15 @@ storiesOf('Components|Cards', module)
       <ProjectCard {...sharedProps} />
     </CardContainer>
   ))
+  .add('Project full-width', () => (
+    <CardContainer>
+      <ProjectCard
+        {...sharedProps}
+        fullWidth
+        imgSrc="http://www.hixle.co/wp-content/uploads/Gatsby-JS-min.jpg"
+      />
+    </CardContainer>
+  ))
   .add('Resource', () => (
     <CardContainer>
       <ResourceCard

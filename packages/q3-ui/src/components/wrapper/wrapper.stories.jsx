@@ -12,4 +12,9 @@ storiesOf('Components|Wrapper', module)
       <Box py={10} style={{ background: 'lightblue' }} />
       <Wrapper backgroundColor="#FFF" negativeMargin />
     </>
+  ))
+  .add('Full-width', () => (
+    <>
+      <Wrapper backgroundColor="#FFF" fullWidth />
+    </>
   ));

@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     backgroundColor: blueGrey[50],
-    borderRadius: '5px',
-    margin: '4rem auto',
+    borderRadius: (props) => (props.fullWidth ? 0 : 5),
+    margin: (props) => (props.fullWidth ? 0 : '0 auto'),
     maxWidth: (props) => (props.fullWidth ? '100%' : 1440),
     padding: '4rem 0',
   },
@@ -29,17 +29,15 @@ const Wrapper = ({
 }) => {
   const { offset, root } = useStyles({ fullWidth });
   return (
-    <Container maxWidth="xl">
-      <Box
-        style={{ backgroundColor }}
-        className={classnames(
-          root,
-          negativeMargin ? offset : null,
-        )}
-      >
-        {children}
-      </Box>
-    </Container>
+    <Box
+      style={{ backgroundColor }}
+      className={classnames(
+        root,
+        negativeMargin ? offset : null,
+      )}
+    >
+      {children}
+    </Box>
   );
 };
 
@@ -47,11 +45,13 @@ Wrapper.propTypes = {
   backgroundColor: PropTypes.string,
   children: PropTypes.node.isRequired,
   negativeMargin: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 Wrapper.defaultProps = {
   backgroundColor: null,
   negativeMargin: false,
+  fullWidth: false,
 };
 
 export default Wrapper;

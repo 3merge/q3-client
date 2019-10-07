@@ -61,7 +61,7 @@ MenuSubHeader.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-const Menu = ({ title, items }) => (
+const Menu = ({ title, items, color }) => (
   <List
     aria-labelledby="nested-list-subheader"
     component="nav"
@@ -81,10 +81,16 @@ const Menu = ({ title, items }) => (
           >
             {item.Icon && (
               <ListItemIcon>
-                <item.Icon fontSize="small" />
+                <item.Icon
+                  fontSize="small"
+                  style={{ color }}
+                />
               </ListItemIcon>
             )}
-            <ListItemText primary={item.label} />
+            <ListItemText
+              style={{ color }}
+              primary={item.label}
+            />
           </ListItem>
         ),
     )}

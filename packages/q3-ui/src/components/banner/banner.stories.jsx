@@ -29,15 +29,23 @@ storiesOf('Components|Banner', module)
   ))
   .add('Full-Width', () => (
     <FullWidthBanner
-      color="primary"
+      color="inherit"
       title="Render with a featured photo"
       subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
       style={{
-        backgroundColor: '#DDD',
+        backgroundColor: 'lightblue',
+        color: '#FFF',
       }}
     >
       <Box my={2}>
         <Button variant="contained">Hey!</Button>
       </Box>
     </FullWidthBanner>
+  ))
+  .add('Custom renderer', () => (
+    <FeaturedPhotoBanner
+      customImgRender="HEY"
+      title="Render with a featured photo"
+      subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
+    />
   ));
