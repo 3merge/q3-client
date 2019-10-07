@@ -47,14 +47,18 @@ const Panel = ({
   slug,
   ...rest
 }) => (
-  <ExpansionPanel expanded={active} onChange={onChange}>
+  <ExpansionPanel
+    elevation={0}
+    expanded={active}
+    onChange={onChange}
+  >
     <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-      <Typography variant="h5" component="p">
+      <Typography variant="h3" component="p">
         {title}
       </Typography>
     </ExpansionPanelSummary>
     <ExpansionPanelDetails>
-      <Typography>
+      <Typography variant="body2">
         {description}
         <Box mt={2}>
           <Button component={Link} to={slug}>
@@ -95,21 +99,6 @@ const DynamicAccordion = ({ panels }) => {
           ))}
         </Grid>
         <Grid item xs={6}>
-          <Grid container justify="space-around">
-            {panels.map((item, i) => (
-              <Button
-                disableRipple
-                onClick={setChanged(i)}
-                className={getClassName(i)}
-                key={get(item, 'id')}
-              >
-                <img
-                  src={get(item, 'imgSrc')}
-                  alt={get(item, 'title')}
-                />
-              </Button>
-            ))}
-          </Grid>
           {panels.map(
             (item, i) =>
               expanded === i && (

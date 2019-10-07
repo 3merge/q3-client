@@ -55,7 +55,7 @@ export default responsiveFontSizes(
     typography: {
       h1: {
         ...headingFont,
-        fontSize: 3.3,
+        fontSize: 3.8,
         fontWeight: 800,
       },
       h2: {
@@ -105,6 +105,7 @@ export default responsiveFontSizes(
       `,
     },
     shadows: [
+      'none',
       'rgba(0, 0, 0, 0.05) 0px 3px 5px 0px',
       'rgba(0, 0, 0, 0.07) 0px 5px 14px 2px',
       '0 16px 70px -12.125px rgba(0,0,0,0.3)',

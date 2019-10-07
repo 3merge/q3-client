@@ -29,9 +29,9 @@ const useStyles = makeStyles((theme) => ({
 const defaultAligment = (bool) =>
   bool ? 'center' : 'flex-start';
 
-export const Title = ({ title }) => (
+export const Title = ({ title, color }) => (
   <Box mt={1} mb={2}>
-    <Typography variant="h1" color="inherit">
+    <Typography variant="h1" color={color}>
       {typeof title === 'function' ? title() : title}
     </Typography>
   </Box>
@@ -42,18 +42,16 @@ Title.propTypes = {
     PropTypes.string,
     PropTypes.func,
   ]).isRequired,
+  color: PropTypes.string,
 };
 
-const renderBannerBody = ({
-  title,
-  subtitle,
-  label,
-}) => () => (
+Title.defaultProps = {
+  color: undefined,
+};
+
+const renderBannerBody = ({ subtitle, ...rest }) => () => (
   <Box>
-    <Typography variant="overline" color="inherit">
-      {label}
-    </Typography>
-    <Title title={title} />
+    <Title {...rest} />
     {subtitle && (
       <Typography
         variant="subtitle1"

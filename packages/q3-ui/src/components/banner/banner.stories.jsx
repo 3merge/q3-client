@@ -29,6 +29,7 @@ storiesOf('Components|Banner', module)
   ))
   .add('Full-Width', () => (
     <FullWidthBanner
+      color="primary"
       title="Render with a featured photo"
       subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
       style={{

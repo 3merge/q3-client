@@ -19,6 +19,7 @@ export const wrapPageElement = ({ element }) => (
     <Components.Header
       menuItems={menuItems}
       logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png"
+      name="Placeholder"
     />
     {element}
     <Components.Divider
