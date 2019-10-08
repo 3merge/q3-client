@@ -1,4 +1,4 @@
-import * as Components from './src/components';
-import * as Templates from './src/templates';
+import contentfulRichTextRendering from './src/lib/contentful';
 
-export { Components, Templates };
+export const renderJSON = contentfulRichTextRendering;
+export default null;

@@ -11,6 +11,7 @@ storiesOf('Components|Panel', module)
   .add('Split', () => (
     <SplitPanel
       size="md"
+      align="center"
       columnLeft={
         <Typography variant="body1" component="div">
           <p>

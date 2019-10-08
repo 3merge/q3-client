@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   iconCls: {
     display: 'block',
-    margin: `0 auto ${theme.spacing(2)}px`,
+    margin: `0 auto ${theme.spacing(2)}`,
     maxWidth: '100%',
     height: 210,
     '& img': {
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: theme.shadows[1],
     display: 'block',
-    marginLeft: -theme.spacing(4),
-    width: `calc(100% + ${theme.spacing(4)}px)`,
+    marginLeft: `-${theme.spacing(3)}`,
+    width: `calc(100% + ${theme.spacing(4)})`,
     borderRadius: 10,
     overflow: 'hidden',
     paddingTop: '150%',
@@ -58,20 +58,22 @@ const useStyles = makeStyles((theme) => ({
   iconHead: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: theme.spacing(4),
+    padding: theme.spacing(2.5),
     position: 'relative',
   },
   iconThumb: {
-    left: theme.spacing(3.5),
+    borderRadius: ({ square }) => (square ? 5 : '50%'),
+    left: theme.spacing(1.5),
     height: 70,
     position: 'absolute',
     top: 'calc(100% - 35px)',
     width: 70,
+    '& > img': {
+      objectFit: 'contain',
+    },
   },
   iconBody: {
-    padding: `${theme.spacing(6)}px ${theme.spacing(
-      4,
-    )}px 0`,
+    padding: `${theme.spacing(4)} ${theme.spacing(2)} 0`,
   },
   iconText: {
     color: blueGrey[200],
@@ -168,7 +170,7 @@ export const ResourceCard = ({
   const cls = useStyles();
   return (
     <CardWrapper item md={6} sm={8} xs={10} to={to}>
-      <Grid container spacing={4} alignItems="center">
+      <Grid container spacing={2} alignItems="center">
         <Grid item lg={4} md={5} sm={6} xs={12}>
           <div className={cls.negativeMargin}>
             <img src={imgSrc} alt={title} />
@@ -203,9 +205,12 @@ export const ProjectCard = ({
   label,
   buttonText,
   fullWidth,
+  square,
   ...rest
 }) => {
-  const cls = useStyles();
+  const cls = useStyles({
+    square,
+  });
   const sizing = {
     md: 4,
     sm: 6,
@@ -263,7 +268,7 @@ export const NewsCard = ({
         {label && <span className={ribbon}>{label}</span>}
       </div>
       <CardContent>
-        <Box px={3}>
+        <Box px={1}>
           <CardHeader title={title} {...rest} />
           <Typography component="div" align="right">
             <TrendingFlat className={spacing} />

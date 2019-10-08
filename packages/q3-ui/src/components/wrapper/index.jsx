@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: (props) => (props.fullWidth ? 0 : 5),
     margin: (props) => (props.fullWidth ? 0 : '0 auto'),
     maxWidth: (props) => (props.fullWidth ? '100%' : 1440),
-    padding: '4rem 0',
+    padding: '2rem 0',
   },
 }));
 

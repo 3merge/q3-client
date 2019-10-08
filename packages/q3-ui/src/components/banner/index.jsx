@@ -14,8 +14,10 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     boxSizing: 'border-box',
     overflow: 'hidden',
-    padding: theme.spacing(3),
-    paddingTop: `calc(100px + ${theme.spacing(3)}px)`,
+    paddingTop: ({ removeOffset }) =>
+      removeOffset
+        ? 0
+        : `calc(100px + ${theme.spacing(3)})`,
     width: '100%',
   },
   mobileDirection: {
@@ -88,13 +90,14 @@ export const BannerBase = ({
   center,
   dense,
   style,
+  removeOffset,
 }) => {
-  const { base } = useStyles();
+  const { base } = useStyles({ removeOffset });
   return (
     <Box component="section" className={base} style={style}>
       <Container fixed>
         <Box
-          my={dense ? 3 : 6}
+          my={dense ? 2 : 6}
           textAlign={defaultAligment(center)}
         >
           {children}
@@ -109,12 +112,14 @@ BannerBase.propTypes = {
   style: PropTypes.shape({}),
   dense: PropTypes.bool,
   center: PropTypes.bool,
+  removeOffset: PropTypes.bool,
 };
 
 BannerBase.defaultProps = {
   dense: false,
   center: false,
   style: null,
+  removeOffset: false,
 };
 
 export const FeaturedPhotoBanner = ({
@@ -130,7 +135,7 @@ export const FeaturedPhotoBanner = ({
       <Grid
         container
         alignItems="center"
-        spacing={8}
+        spacing={4}
         direction={flip ? 'row-reverse' : 'reverse'}
         className={mobileDirection}
       >
@@ -139,13 +144,14 @@ export const FeaturedPhotoBanner = ({
         </GridItemRenderer>
         <GridItemRenderer
           render={() =>
-            customImgRender || (
+            customImgRender ||
+            (imgSrc ? (
               <img
                 src={imgSrc}
                 alt={rest.title}
                 style={{ maxHeight: 500 }}
               />
-            )
+            ) : null)
           }
         />
       </Grid>
@@ -154,13 +160,16 @@ export const FeaturedPhotoBanner = ({
 };
 
 FeaturedPhotoBanner.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string,
+  customImgRender: PropTypes.node,
   children: PropTypes.node.isRequired,
   flip: PropTypes.bool,
 };
 
 FeaturedPhotoBanner.defaultProps = {
   flip: false,
+  imgSrc: null,
+  customImgRender: null,
 };
 
 export const FullWidthBanner = ({

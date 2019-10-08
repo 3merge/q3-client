@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
 import Feature, { FeatureHorizontal } from '.';
 
 storiesOf('Components|Feature', module)
@@ -24,5 +25,6 @@ storiesOf('Components|Feature', module)
     <FeatureHorizontal
       title="This is a feature"
       body="Lem ipsum dolor sit amet, consectetur adipiscing elit. Donec ullamcorper, justo sed pellentesque pharetra, sem nibh feugiat ipsum, ac pellentesque mauris mi at dolor"
+      icon={<AcUnitIcon fontSize="large" />}
     />
   ));

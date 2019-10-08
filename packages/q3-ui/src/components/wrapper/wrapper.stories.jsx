@@ -10,7 +10,9 @@ storiesOf('Components|Wrapper', module)
   .add('Negative margin', () => (
     <>
       <Box py={10} style={{ background: 'lightblue' }} />
-      <Wrapper backgroundColor="#FFF" negativeMargin />
+      <Wrapper backgroundColor="#FFF" negativeMargin>
+        HI
+      </Wrapper>
     </>
   ))
   .add('Full-width', () => (

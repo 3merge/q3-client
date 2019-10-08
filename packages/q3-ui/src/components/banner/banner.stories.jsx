@@ -18,6 +18,8 @@ storiesOf('Components|Banner', module)
       title="Render with a featured photo"
       subtitle="This is a subtitle! It will auto-wrap inside the container, so feel free to write a paragraph."
       imgSrc={imgSrc}
+      removeOffset
+      dense
       style={{
         backgroundColor: '#FFF',
       }}

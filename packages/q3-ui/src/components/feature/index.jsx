@@ -10,64 +10,67 @@ const useStyles = makeStyles({
   },
 });
 
+const Media = ({ icon, title, imgSrc, imageSizeSmall }) => {
+  const { media } = useStyles({ imageSizeSmall });
+  return (
+    <>
+      {imgSrc && (
+        <img alt={title} className={media} src={imgSrc} />
+      )}
+      {icon}
+    </>
+  );
+};
+
 export const FeatureHorizontal = ({
   body,
   title,
-  imgSrc,
-}) => {
-  const { media } = useStyles({ imageSizeSmall: true });
-  return (
-    <Grid item xs={4}>
-      <Box p={4}>
-        <Grid container spacing={4}>
-          <Grid item xs={3}>
-            <img
-              alt={title}
-              className={media}
-              src={imgSrc}
-            />
-          </Grid>
-          <Grid item xs={9}>
-            <Typography variant="body2" gutterBottom>
-              {title}
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              {body}
-            </Typography>
-          </Grid>
+  ...rest
+}) => (
+  <Grid item md={4} sm={6} xs={12}>
+    <Box p={4}>
+      <Grid container spacing={4}>
+        <Grid item xs={3}>
+          <Box textAlign="center">
+            <Media {...rest} title={title} imageSizeSmall />
+          </Box>
         </Grid>
-      </Box>
-    </Grid>
-  );
-};
+        <Grid item xs={9}>
+          <Typography variant="body2" gutterBottom>
+            {title}
+          </Typography>
+          <Typography variant="body1" gutterBottom>
+            {body}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Box>
+  </Grid>
+);
 
 const Feature = ({
   align,
   body,
-  imageSizeSmall,
   columnSize,
   title,
   children,
-  imgSrc,
-}) => {
-  const { media } = useStyles({ imageSizeSmall });
-  return (
-    <Grid item xs={columnSize}>
-      <Box p={4} textAlign={align}>
-        <Box mb={2}>
-          <img alt={title} className={media} src={imgSrc} />
-        </Box>
-        <Typography variant="h3" gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant="body1" gutterBottom>
-          {body}
-        </Typography>
-        {children}
+  ...rest
+}) => (
+  <Grid item lg={columnSize} sm={6} xs={12}>
+    <Box p={2} textAlign={align}>
+      <Box mb={1}>
+        <Media {...rest} title={title} />
       </Box>
-    </Grid>
-  );
-};
+      <Typography variant="h3" gutterBottom>
+        {title}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {body}
+      </Typography>
+      {children}
+    </Box>
+  </Grid>
+);
 
 Feature.propTypes = {};
 Feature.defaultProps = {

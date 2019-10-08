@@ -58,6 +58,7 @@ export const SplitPanel = ({
   columnLeft,
   columnRight,
   size,
+  align,
 }) => {
   const { removeMobileSpacing } = useStyles();
   return (
@@ -67,6 +68,7 @@ export const SplitPanel = ({
         spacing={10}
         direction={invert ? 'row-reverse' : 'row'}
         className={removeMobileSpacing}
+        alignItems={align}
       >
         <Grid item md={6} xs={12}>
           {columnLeft}
@@ -84,11 +86,13 @@ SplitPanel.propTypes = {
   columnRight: PropTypes.node.isRequired,
   invert: PropTypes.bool,
   size: PropTypes.string,
+  align: PropTypes.string,
 };
 
 SplitPanel.defaultProps = {
   invert: false,
   size: 'md',
+  align: null,
 };
 
 export const TwoColumnPanel = ({

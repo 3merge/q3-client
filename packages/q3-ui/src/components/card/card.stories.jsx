@@ -44,15 +44,19 @@ storiesOf('Components|Cards', module)
   ))
   .add('Project', () => (
     <CardContainer>
-      <ProjectCard {...sharedProps} />
+      <ProjectCard
+        {...sharedProps}
+        imgSrc="http://www.hixle.co/wp-content/uploads/Gatsby-JS-min.jpg"
+      />
     </CardContainer>
   ))
   .add('Project full-width', () => (
     <CardContainer>
       <ProjectCard
         {...sharedProps}
+        imgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
         fullWidth
-        imgSrc="http://www.hixle.co/wp-content/uploads/Gatsby-JS-min.jpg"
+        square
       />
     </CardContainer>
   ))

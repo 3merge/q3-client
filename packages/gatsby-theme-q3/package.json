@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@contentful/gatsby-transformer-contentful-richtext": "^13.1.0",
+    "@contentful/rich-text-react-renderer": "^13.4.0",
+    "@contentful/rich-text-types": "^13.4.0",
     "@reach/router": "^1.2.1",
     "babel-preset-gatsby": "^0.2.11",
     "clean-css": "^4.2.1",

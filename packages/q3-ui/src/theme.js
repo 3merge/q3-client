@@ -110,6 +110,7 @@ export default responsiveFontSizes(
       'rgba(0, 0, 0, 0.07) 0px 5px 14px 2px',
       '0 16px 70px -12.125px rgba(0,0,0,0.3)',
     ],
+    spacing: (factor) => `${0.75 * factor}rem`,
     overrides: {
       MuiCssBaseline: {
         '@global': {
