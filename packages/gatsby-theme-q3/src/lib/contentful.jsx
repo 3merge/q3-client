@@ -3,7 +3,9 @@ import { get } from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 
@@ -71,7 +73,12 @@ export default (json, locale = 'en-CA') =>
         <List component="ul">{children}</List>
       ),
       [BLOCKS.LIST_ITEM]: (node, children) => (
-        <ListItem>{children}</ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <CheckCircleIcon />
+          </ListItemIcon>
+          {children}
+        </ListItem>
       ),
       [BLOCKS.HR]: () => <Divider />,
       [BLOCKS.QUOTE]: (node, children) => (

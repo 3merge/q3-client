@@ -13,7 +13,7 @@ const Section = ({
 }) => (
   <Container maxWidth="lg" component="section">
     <Container maxWidth="md" align="center">
-      <Box mb={8} pt={margin ? 8 : 0}>
+      <Box mb={2} pt={margin ? 2 : 0}>
         <Typography
           variant="overline"
           gutterBottom

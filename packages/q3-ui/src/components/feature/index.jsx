@@ -6,16 +6,27 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   media: {
-    height: (props) => (props.imageSizeSmall ? 80 : 190),
+    height: (props) => (props.imageSizeSmall ? 60 : 190),
   },
 });
 
-const Media = ({ icon, title, imgSrc, imageSizeSmall }) => {
+const Media = ({
+  icon,
+  title,
+  imgSrc,
+  imageSizeSmall,
+  imgStyle,
+}) => {
   const { media } = useStyles({ imageSizeSmall });
   return (
     <>
       {imgSrc && (
-        <img alt={title} className={media} src={imgSrc} />
+        <img
+          alt={title}
+          className={media}
+          src={imgSrc}
+          style={imgStyle}
+        />
       )}
       {icon}
     </>

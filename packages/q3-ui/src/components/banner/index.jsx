@@ -15,10 +15,14 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     overflow: 'hidden',
     paddingTop: ({ removeOffset }) =>
-      removeOffset
-        ? 0
-        : `calc(100px + ${theme.spacing(3)})`,
+      removeOffset ? 0 : `calc(85px + ${theme.spacing(2)})`,
     width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: ({ removeOffset }) =>
+        removeOffset
+          ? 0
+          : `calc(25px + ${theme.spacing(2)})`,
+    },
   },
   mobileDirection: {
     [theme.breakpoints.down('sm')]: {
@@ -142,18 +146,19 @@ export const FeaturedPhotoBanner = ({
         <GridItemRenderer render={renderBannerBody(rest)}>
           {children}
         </GridItemRenderer>
-        <GridItemRenderer
-          render={() =>
-            customImgRender ||
-            (imgSrc ? (
-              <img
-                src={imgSrc}
-                alt={rest.title}
-                style={{ maxHeight: 500 }}
-              />
-            ) : null)
-          }
-        />
+        {(imgSrc || customImgRender) && (
+          <GridItemRenderer
+            render={() =>
+              customImgRender || (
+                <img
+                  src={imgSrc}
+                  alt={rest.title}
+                  style={{ maxHeight: 500 }}
+                />
+              )
+            }
+          />
+        )}
       </Grid>
     </BannerBase>
   );

@@ -104,13 +104,15 @@ export const TwoColumnPanel = ({
     columnLeft={
       <>
         <PanelHeader {...rest} headingSize="h2" />
-        <Typography
-          variant="subtitle1"
-          component="p"
-          gutterBottom
-        >
-          {subtitle}
-        </Typography>
+        {subtitle && (
+          <Typography
+            variant="subtitle1"
+            component="p"
+            gutterBottom
+          >
+            {subtitle}
+          </Typography>
+        )}
       </>
     }
     columnRight={

@@ -56,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     padding: 0,
     display: 'block',
-    marginLeft: '1rem',
     maxHeight: 95,
     maxWidth: 165,
     width: 'auto',

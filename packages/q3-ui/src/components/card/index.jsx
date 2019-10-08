@@ -68,9 +68,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     top: 'calc(100% - 35px)',
     width: 70,
-    '& > img': {
-      objectFit: 'contain',
-    },
   },
   iconBody: {
     padding: `${theme.spacing(4)} ${theme.spacing(2)} 0`,
@@ -87,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     textDecoration: 'none',
     position: 'relative',
+    height: '100%',
   },
   ribbon: {
     backgroundColor: theme.palette.primary.main,
