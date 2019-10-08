@@ -23,6 +23,6 @@ module.exports = ({
     'gatsby-plugin-remove-trailing-slashes',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-polyfill-io',
-    // 'gatsby-plugin-react-helmet',
+    'gatsby-plugin-material-ui',
   ],
 });

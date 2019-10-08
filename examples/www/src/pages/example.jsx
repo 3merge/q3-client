@@ -135,20 +135,6 @@ export default IndexPage;
 export const query = graphql`
   query {
     contentfulIndex {
-      seoTitle
-      hero {
-        title
-        label
-        subtitle {
-          subtitle
-        }
-        image {
-          title
-          file {
-            url
-          }
-        }
-      }
       serviceHeader {
         title
         label

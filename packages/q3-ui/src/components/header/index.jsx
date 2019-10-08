@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { grey, blue } from '@material-ui/core/colors';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
-import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {
   makeStyles,
@@ -61,9 +61,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 165,
     width: 'auto',
     '&:focus': {
-      outline: 0,
-      border: `2px solid ${blue[200]}`,
+      outline: 1,
       borderRadius: 3,
+      fontWeight: 800,
     },
     [theme.breakpoints.down('sm')]: {
       maxHeight: 75,
@@ -139,7 +139,6 @@ const StyledTab = withStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     marginRight: theme.spacing(1),
     '&:focus': {
-      border: `2px solid ${blue[200]}`,
       borderRadius: 3,
       opacity: 1,
     },
@@ -304,9 +303,12 @@ const Header = ({
                   menu={() => <Menu items={menuItems} />}
                 >
                   {(toggle) => (
-                    <Fab onClick={toggle} size="small">
+                    <IconButton
+                      onClick={toggle}
+                      aria-label="Open menu"
+                    >
                       <MenuIcon />
-                    </Fab>
+                    </IconButton>
                   )}
                 </Offcanvas>
               </Hidden>

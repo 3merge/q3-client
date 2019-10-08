@@ -1,10 +1,15 @@
 require('dotenv').config();
 
-const { CONTENTFUL_ACCESS_TOKEN, CONTENTFUL_SPACE_ID, URL } = process.env;
+const {
+  CONTENTFUL_ACCESS_TOKEN,
+  CONTENTFUL_SPACE_ID,
+  URL,
+} = process.env;
 
 module.exports = {
   siteMetadata: {
     title: '3merge inc.',
+    siteUrl: URL,
   },
   plugins: [
     {

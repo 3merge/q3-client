@@ -7,15 +7,6 @@ const IndexPage = () => (
     <Components.FullWidthBanner
       title="Material Design Theme"
       subtitle="A custom Q3 theme for Gatsby JS"
-      backgroundStyle={{
-        color: '#FFF',
-        backgroundColor: '#252525',
-        backgroundBlendMode: 'multiply',
-        paddingTop: '10vh',
-        paddingBottom: '10vh',
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1541960071727-c531398e7494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)',
-      }}
     />
     <Components.Section
       title="This is a section"

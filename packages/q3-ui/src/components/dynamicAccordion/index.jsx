@@ -88,7 +88,7 @@ const DynamicAccordion = ({ panels }) => {
   return (
     <Container style={{ margin: '3rem auto' }}>
       <Grid container spacing={8}>
-        <Grid item xs={6}>
+        <Grid item md={6} xs={12}>
           {panels.map((item, i) => (
             <Panel
               active={expanded === i}
@@ -98,7 +98,7 @@ const DynamicAccordion = ({ panels }) => {
             />
           ))}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item md={6} xs={12}>
           {panels.map(
             (item, i) =>
               expanded === i && (

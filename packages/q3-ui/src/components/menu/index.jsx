@@ -47,32 +47,28 @@ export const CollisionNavLink = React.forwardRef(
   },
 );
 
-const MenuSubHeader = ({ title }) => (
-  <ListSubheader
-    disableSticky
-    component="div"
-    id="nested-list-subheader"
-  >
-    {title.toUpperCase()}
-  </ListSubheader>
-);
-
-MenuSubHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-};
-
 const Menu = ({ title, items, color }) => (
   <List
     aria-labelledby="nested-list-subheader"
     component="nav"
     subheader={
-      title ? <MenuSubHeader title={title} /> : null
+      title ? (
+        <ListSubheader
+          disableSticky
+          component="div"
+          id="nested-list-subheader"
+          style={{ color }}
+        >
+          {title.toUpperCase()}
+        </ListSubheader>
+      ) : null
     }
   >
     {items.map(
       (item) =>
         item.visible && (
           <ListItem
+            button
             exact={item.exact}
             key={item.to}
             component={CollisionNavLink}
@@ -98,6 +94,7 @@ const Menu = ({ title, items, color }) => (
 );
 
 Menu.propTypes = {
+  color: PropTypes.string,
   title: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
@@ -107,6 +104,10 @@ Menu.propTypes = {
       visible: PropTypes.bool,
     }),
   ).isRequired,
+};
+
+Menu.defaultProps = {
+  color: null,
 };
 
 export default Menu;

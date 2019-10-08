@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
   listContainer: {
     padding: theme.spacing(3),
   },
-  list: {
-    width: 230,
-  },
 }));
 
 const Offcanvas = ({ menu: Menu, left, children }) => {
