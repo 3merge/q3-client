@@ -7,6 +7,7 @@ import Header from '.';
 import { FullWidthBanner } from '../banner';
 import Tel from '../tel';
 import Searchbar from '../searchBar';
+import Toolbar from '../toolbar';
 
 const defaultProps = {
   logoImgSrc:
@@ -41,9 +42,9 @@ const PageDemo = ({ children }) => (
     {children}
     <FullWidthBanner
       title="Example"
-      backgroundStyle={{
-        backgroundColor: 'blue',
-        color: '#FFF',
+      negativeMargin
+      style={{
+        backgroundColor: 'lightblue',
       }}
     />
     <Router>
@@ -179,6 +180,8 @@ storiesOf('Components|Header', module)
             <Searchbar />
           </Hidden>
         )}
-      />
+      >
+        <Toolbar />
+      </Header>
     </PageDemo>
   ));

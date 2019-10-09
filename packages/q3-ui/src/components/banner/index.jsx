@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
+const generateNegative = (num) => ({ negativeMargin }) =>
+  !negativeMargin ? 0 : num;
+
 const useStyles = makeStyles((theme) => ({
   base: {
     backgroundRepeat: 'no-repeat',
@@ -14,14 +17,15 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     boxSizing: 'border-box',
     overflow: 'hidden',
-    paddingTop: ({ removeOffset }) =>
-      removeOffset ? 0 : `calc(85px + ${theme.spacing(2)})`,
+    marginTop: generateNegative(-150),
+    paddingTop: generateNegative(150),
     width: '100%',
     [theme.breakpoints.down('sm')]: {
-      paddingTop: ({ removeOffset }) =>
-        removeOffset
-          ? 0
-          : `calc(25px + ${theme.spacing(2)})`,
+      marginTop: generateNegative(-100),
+      paddingTop: generateNegative(100),
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginTop: generateNegative(-120),
     },
   },
   mobileDirection: {
@@ -94,9 +98,9 @@ export const BannerBase = ({
   center,
   dense,
   style,
-  removeOffset,
+  negativeMargin,
 }) => {
-  const { base } = useStyles({ removeOffset });
+  const { base } = useStyles({ negativeMargin });
   return (
     <Box component="section" className={base} style={style}>
       <Container fixed>
@@ -116,14 +120,14 @@ BannerBase.propTypes = {
   style: PropTypes.shape({}),
   dense: PropTypes.bool,
   center: PropTypes.bool,
-  removeOffset: PropTypes.bool,
+  negativeMargin: PropTypes.bool,
 };
 
 BannerBase.defaultProps = {
   dense: false,
   center: false,
   style: null,
-  removeOffset: false,
+  negativeMargin: false,
 };
 
 export const FeaturedPhotoBanner = ({

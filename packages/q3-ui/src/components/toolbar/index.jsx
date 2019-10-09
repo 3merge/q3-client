@@ -7,14 +7,12 @@ import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 import { blueGrey } from '@material-ui/core/colors';
 import { styled } from '@material-ui/styles';
 
-export const AccountMenu = ({
-  profileImgSrc,
-  name,
-  items,
-}) => {
+export const DropDownMenu = ({ id, children, items }) => {
   const [open, setOpen] = React.useState();
   const openMenu = React.useCallback(({ target }) => {
     setOpen(target);
@@ -25,27 +23,10 @@ export const AccountMenu = ({
   }, []);
 
   return (
-    <div>
-      {name ? (
-        <Button color="inherit" onClick={openMenu}>
-          {name}
-          <KeyboardArrowDown style={{ marginRight: 16 }} />
-          <Avatar alt={name} src={profileImgSrc} />
-        </Button>
-      ) : (
-        <IconButton
-          size="small"
-          onClick={openMenu}
-          aria-label="Toggle menu"
-        >
-          <Avatar
-            alt="Default profile picture"
-            src={profileImgSrc}
-          />
-        </IconButton>
-      )}
+    <>
+      {children(openMenu)}
       <Menu
-        id="profile-menu"
+        id={id}
         anchorEl={open}
         open={Boolean(open)}
         keepMounted
@@ -66,7 +47,56 @@ export const AccountMenu = ({
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
+  );
+};
+
+export const AccountMenu = ({
+  isLoggedIn,
+  profileImgSrc,
+  name,
+  items,
+}) => {
+  if (!isLoggedIn) {
+    return (
+      <Grid container spacing={1} justify="flex-end">
+        <Grid item>
+          <Button color="inherit">Signup</Button>
+        </Grid>
+        <Grid item>
+          <Button color="inherit" variant="outlined">
+            Login
+          </Button>
+        </Grid>
+      </Grid>
+    );
+  }
+
+  return (
+    <DropDownMenu id="profile-dropdown" items={items}>
+      {(toggle) =>
+        name ? (
+          <Button color="inherit" onClick={toggle}>
+            {name}
+            <KeyboardArrowDown
+              style={{ marginRight: 16 }}
+            />
+            <Avatar alt={name} src={profileImgSrc} />
+          </Button>
+        ) : (
+          <IconButton
+            size="small"
+            onClick={toggle}
+            aria-label="Toggle menu"
+          >
+            <Avatar
+              alt="Default profile picture"
+              src={profileImgSrc}
+            />
+          </IconButton>
+        )
+      }
+    </DropDownMenu>
   );
 };
 

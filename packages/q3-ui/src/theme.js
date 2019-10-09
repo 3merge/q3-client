@@ -3,36 +3,9 @@ import {
   responsiveFontSizes,
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
-import mont from './static/Montserrat-SemiBold.ttf';
-import play from './static/PlayfairDisplay-Bold.ttf';
-
-const Montserrat = {
-  fontFamily: 'Montserrat',
-  fontStyle: 'normal',
-  fontDisplay: 'swap',
-  fontWeight: 400,
-  src: `
-    local('Montserrat'),
-    local('Montserrat-Regular'),
-    url(${mont}) format('ttf')
-  `,
-};
-
-const PlayfairDisplay = {
-  fontFamily: 'PlayfairDisplay',
-  fontStyle: 'normal',
-  fontDisplay: 'swap',
-  fontWeight: 400,
-  src: `
-    local('PlayfairDisplay'),
-    local('PlayfairDisplay-Regular'),
-    url(${play}) format('ttf')
-  `,
-};
 
 const headingFont = {
   color: '#3f3d56',
-  fontFamily: '"PlayfairDisplay", serif',
   fontWeight: 400,
 };
 
@@ -97,12 +70,6 @@ export default responsiveFontSizes(
         fontSize: 1.15,
         fontWeight: 600,
       },
-      fontFamily: `
-        'Montserrat',
-        'Segoe UI',
-        'Helvetica Neue',
-        sans-serif
-      `,
     },
     shadows: [
       'none',
@@ -114,10 +81,15 @@ export default responsiveFontSizes(
     overrides: {
       MuiCssBaseline: {
         '@global': {
-          '@font-face': [Montserrat, PlayfairDisplay],
           img: {
             maxWidth: '100%',
           },
+        },
+      },
+      MuiToolbar: {
+        dense: {
+          paddingLeft: 0,
+          paddingRight: 0,
         },
       },
       MuiListItemIcon: {

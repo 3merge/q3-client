@@ -35,12 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   appBarPadding: {
     padding: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      padding: `${theme.spacing(1)} 0`,
-      '& .MuiToolbar-root': {
-        padding: 0,
-      },
-    },
   },
   spacing: {
     overflow: 'hidden',
@@ -193,31 +187,22 @@ HorizontalMenuList.defaultProps = {
   items: [],
 };
 
-const ToolbarWrapper = ({ children, dividers }) => {
-  const { withDividers, withoutDividers } = useStyles();
-  return (
-    <Grid item>
-      <Toolbar
-        className={
-          dividers ? withDividers : withoutDividers
-        }
-        style={{
-          height: '100%',
-        }}
-      >
-        {children}
-      </Toolbar>
-    </Grid>
-  );
-};
+const ToolbarWrapper = ({ children }) => (
+  <Grid item>
+    <Toolbar
+      dense
+      variant="dense"
+      style={{
+        height: '100%',
+      }}
+    >
+      {children}
+    </Toolbar>
+  </Grid>
+);
 
 ToolbarWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  dividers: PropTypes.bool,
-};
-
-ToolbarWrapper.defaultProps = {
-  dividers: false,
 };
 
 const Scroller = ({ children }) => {
@@ -244,7 +229,12 @@ const Identifier = ({ logoImgSrc, name }) => {
       <img src={logoImgSrc} alt={name} />
     </Link>
   ) : (
-    <Typography variant="h3" component="h1" color="inherit">
+    <Typography
+      variant="h3"
+      style={{ padding: '0 1rem' }}
+      component="h1"
+      color="inherit"
+    >
       {name}
     </Typography>
   );
@@ -278,7 +268,7 @@ const Header = ({
 
   return (
     <AppBar
-      position="absolute"
+      position="sticky"
       color={color}
       className={appBar}
     >
