@@ -9,12 +9,16 @@ import { renderIf } from '../../helpers';
 
 export const useStyles = makeStyles((theme) => ({
   primary: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: ({ backgroundColor }) =>
+      backgroundColor || theme.palette.primary.dark,
     color: '#FFF',
+  },
+  copy: {
+    marginRight: theme.spacing(1),
   },
 }));
 
-const SocialLinks = ({ links }) => (
+export const SocialLinks = ({ links }) => (
   <Box align="center">
     {links.map((link) => (
       <SocialIcon
@@ -35,32 +39,39 @@ SocialLinks.defaultProps = {
   links: [],
 };
 
+export const Copyright = ({ text }) => {
+  const { copy } = useStyles();
+  return (
+    <small>
+      <span className={copy}>
+        &copy; {new Date().getFullYear()}
+      </span>
+      {text}
+    </small>
+  );
+};
+
 const Footer = ({
   dense,
-  children,
-  socialLinks,
-  copyright,
+  render,
+  renderBottom,
+  bottom,
+  backgroundColor,
 }) => {
-  const { primary } = useStyles();
+  const invoke = (fn) => (fn ? fn() : null);
+  const { primary } = useStyles({
+    backgroundColor,
+  });
   return (
-    <Box
-      py={dense ? 2 : 8}
-      className={primary}
-      component="footer"
-    >
+    <Box className={primary} component="footer">
       <Container>
-        <Grid container justify="space-between">
-          {children}
-        </Grid>
+        <Box py={dense ? 2 : 4}>
+          <Grid container justify="space-between">
+            {invoke(render)}
+          </Grid>
+        </Box>
       </Container>
-      {renderIf(
-        socialLinks,
-        <SocialLinks links={socialLinks} />,
-      )}
-      <Box mt={2} mb={1} textAlign="center">
-        <small>&copy; {new Date().getFullYear()}</small>
-        {copyright}
-      </Box>
+      {invoke(renderBottom)}
     </Box>
   );
 };

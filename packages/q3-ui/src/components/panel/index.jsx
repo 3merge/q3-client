@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +19,14 @@ const useStyles = makeStyles((theme) => ({
           marginTop: 0,
         },
       },
+    },
+  },
+  columnSpacing: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
   },
 }));
@@ -65,7 +74,7 @@ export const SplitPanel = ({
     <Container maxWidth={size}>
       <Grid
         container
-        spacing={10}
+        spacing={1}
         direction={invert ? 'row-reverse' : 'row'}
         className={removeMobileSpacing}
         alignItems={align}
@@ -99,29 +108,34 @@ export const TwoColumnPanel = ({
   subtitle,
   body,
   ...rest
-}) => (
-  <SplitPanel
-    columnLeft={
-      <>
-        <PanelHeader {...rest} headingSize="h2" />
-        {subtitle && (
-          <Typography
-            variant="subtitle1"
-            component="p"
-            gutterBottom
-          >
-            {subtitle}
+}) => {
+  const { columnSpacing } = useStyles();
+  return (
+    <SplitPanel
+      columnLeft={
+        <Box className={columnSpacing}>
+          <PanelHeader {...rest} headingSize="h2" />
+          {subtitle && (
+            <Typography
+              variant="subtitle1"
+              component="p"
+              gutterBottom
+            >
+              {subtitle}
+            </Typography>
+          )}
+        </Box>
+      }
+      columnRight={
+        <Box className={columnSpacing}>
+          <Typography variant="body2" component="div">
+            {body}
           </Typography>
-        )}
-      </>
-    }
-    columnRight={
-      <Typography variant="body2" component="div">
-        {body}
-      </Typography>
-    }
-  />
-);
+        </Box>
+      }
+    />
+  );
+};
 
 TwoColumnPanel.propTypes = {
   title: PropTypes.string.isRequired,

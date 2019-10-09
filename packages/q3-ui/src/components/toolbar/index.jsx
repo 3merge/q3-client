@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Toolbar from '@material-ui/core/Toolbar';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
@@ -60,9 +61,11 @@ export const AccountMenu = ({
   if (!isLoggedIn) {
     return (
       <Grid container spacing={1} justify="flex-end">
-        <Grid item>
-          <Button color="inherit">Signup</Button>
-        </Grid>
+        <Hidden smDown>
+          <Grid item>
+            <Button color="inherit">Signup</Button>
+          </Grid>
+        </Hidden>
         <Grid item>
           <Button color="inherit" variant="outlined">
             Login

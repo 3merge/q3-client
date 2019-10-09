@@ -7,17 +7,17 @@ import Offcanvas from '.';
 
 const menuItems = [
   {
-    href: 'foo',
+    to: 'foo',
     label: 'Foo',
     visible: true,
   },
   {
-    href: 'bar',
+    to: 'bar',
     label: 'Bar',
     visible: true,
   },
   {
-    href: 'qux',
+    to: 'qux',
     label: 'Qux',
     visible: true,
   },
@@ -27,8 +27,12 @@ storiesOf('Components|Offcanvas', module).add(
   'Default',
   () => (
     <Offcanvas
-      menu={() => (
-        <Menu title="Subtitle" items={menuItems} />
+      menu={({ close }) => (
+        <Menu
+          title="Subtitle"
+          items={menuItems}
+          done={close}
+        />
       )}
     >
       {(toggle) => (

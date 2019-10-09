@@ -1,12 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Fab from '@material-ui/core/Fab';
-import Menu from '@material-ui/icons/Menu';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -35,7 +28,7 @@ const Offcanvas = ({ menu: Menu, left, children }) => {
         anchor={left ? 'left' : 'right'}
       >
         <Box className={list}>
-          <Menu />
+          <Menu close={toggleDrawer} />
         </Box>
       </SwipeableDrawer>
     </Box>

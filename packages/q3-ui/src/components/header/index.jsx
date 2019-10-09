@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: (props) =>
       props.transparent ? 'transparent' : '#FFF',
     boxShadow: 'none !important',
+    willChange: 'background, color',
+    transition: 'background 500ms',
   },
   appBarPadding: {
     padding: theme.spacing(2),
@@ -251,12 +253,17 @@ Identifier.defaultProps = {
 
 const Header = ({
   menuItems,
+  mobileMenuItems,
+  offcanvasRenderTop,
+  offcanvasRenderBottom,
   menuPosition,
   transparent,
   color,
   children,
   ...rest
 }) => {
+  const [scrolled, setScrolled] = React.useState(false);
+
   const { appBar, appBarPadding } = useStyles({
     transparent,
   });
@@ -266,11 +273,22 @@ const Header = ({
       <HorizontalMenuList items={menuItems} />
     ) : null;
 
+  React.useEffect(() => {
+    window.addEventListener(
+      'scroll',
+      function listenForScroll() {
+        setScrolled(this.scrollY !== 0);
+      },
+      { passive: true },
+    );
+  }, []);
+
   return (
     <AppBar
       position="sticky"
-      color={color}
       className={appBar}
+      color={scrolled ? 'inherit' : color}
+      style={{ backgroundColor: scrolled ? '#FFF' : null }}
     >
       {children}
       <Container maxWidth="xl" className={appBarPadding}>
@@ -289,7 +307,16 @@ const Header = ({
             {menuItems.length ? (
               <Hidden mdUp>
                 <Offcanvas
-                  menu={() => <Menu items={menuItems} />}
+                  menu={({ close }) => (
+                    <>
+                      {offcanvasRenderTop}
+                      <Menu
+                        items={menuItems || menuItems}
+                        done={close}
+                      />
+                      {offcanvasRenderBottom}
+                    </>
+                  )}
                 >
                   {(toggle) => (
                     <IconButton

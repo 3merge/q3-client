@@ -2,6 +2,7 @@ import React from 'react';
 import { Router } from '@reach/router';
 import { storiesOf } from '@storybook/react';
 import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Header from '.';
 import { FullWidthBanner } from '../banner';
@@ -173,15 +174,22 @@ storiesOf('Components|Header', module)
       <Header
         {...defaultProps}
         transparent
+        color="primary"
         renderLeft={() => 'with love'}
+        offcanvasRenderTop={<p>Top</p>}
+        offcanvasRenderBottom={<Box p={2}>Bottom</Box>}
         renderRight={() => (
           <Hidden xsDown>
-            <Tel number="413-923-1233" />
+            <Tel hideIcon number="413-923-1233" />
             <Searchbar />
           </Hidden>
         )}
       >
-        <Toolbar />
+        <Toolbar>
+          <Hidden smUp>
+            <Tel number="413-923-1233" />
+          </Hidden>
+        </Toolbar>
       </Header>
     </PageDemo>
   ));

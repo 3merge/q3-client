@@ -47,7 +47,7 @@ export const CollisionNavLink = React.forwardRef(
   },
 );
 
-const Menu = ({ title, items, color }) => (
+const Menu = ({ title, items, color, done }) => (
   <List
     aria-labelledby="nested-list-subheader"
     component="nav"
@@ -72,6 +72,7 @@ const Menu = ({ title, items, color }) => (
             exact={item.exact}
             key={item.to}
             component={CollisionNavLink}
+            onClick={done}
             to={item.to}
             dense
           >
@@ -95,6 +96,7 @@ const Menu = ({ title, items, color }) => (
 
 Menu.propTypes = {
   color: PropTypes.string,
+  done: PropTypes.func,
   title: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
@@ -108,6 +110,7 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   color: null,
+  done: null,
 };
 
 export default Menu;

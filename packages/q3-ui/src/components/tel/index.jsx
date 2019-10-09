@@ -59,7 +59,7 @@ const FeaturedPhoneNumber = ({ number }) => {
         <IconButton
           {...opts}
           aria-label={label}
-          color="secondary"
+          color="inherit"
         >
           <HeadsetMic />
         </IconButton>
@@ -70,10 +70,12 @@ const FeaturedPhoneNumber = ({ number }) => {
 
 FeaturedPhoneNumber.propTypes = {
   number: PropTypes.string,
+  hideIcon: PropTypes.bool,
 };
 
 FeaturedPhoneNumber.defaultProps = {
   number: null,
+  hideIcon: false,
 };
 
 export default FeaturedPhoneNumber;
