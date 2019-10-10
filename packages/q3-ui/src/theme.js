@@ -34,7 +34,7 @@ export default responsiveFontSizes(
       h2: {
         ...headingFont,
         marginTop: 8,
-        fontSize: 2.6,
+        fontSize: 2.4,
       },
       h3: {
         ...headingFont,

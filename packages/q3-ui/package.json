@@ -2,7 +2,7 @@
   "name": "q3-ui",
   "version": "1.0.16",
   "description": "Material UI implementations",
-  "main": "dist/index.js",
+  "main": "dist/components/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "scripts": {
