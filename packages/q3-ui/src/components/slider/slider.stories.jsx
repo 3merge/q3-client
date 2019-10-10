@@ -1,7 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import Slider from '.';
-import { ProjectCard } from '../card';
 
 const getSlides = () => {
   const slides = [];
@@ -9,13 +10,9 @@ const getSlides = () => {
     slides.push({
       id: i,
       Component: () => (
-        <ProjectCard
-          fullWidth
-          to="/"
-          title="Test"
-          name="Foo"
-          buttonText="Read more"
-        />
+        <Paper>
+          <Box p={4}>HEY {i + 1}</Box>
+        </Paper>
       ),
     });
   }
@@ -23,7 +20,18 @@ const getSlides = () => {
   return slides;
 };
 
-storiesOf('Components|Slider', module).add(
-  'Default',
-  () => <Slider slides={getSlides()} />,
-);
+storiesOf('Components|Slider', module)
+  .add('Side buttons', () => (
+    <Slider withButtons slides={getSlides()} />
+  ))
+  .add('Dots', () => (
+    <Slider withButtons withSteppers slides={getSlides()} />
+  ))
+  .add('Breakpoints', () => (
+    <Slider
+      withSteppers
+      md={2}
+      lg={3}
+      slides={getSlides()}
+    />
+  ));
