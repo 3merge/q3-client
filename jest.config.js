@@ -16,6 +16,9 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|git f|webp|svg)$':
       '<rootDir>/packages/q3-ui/__mocks__/fileMock.js',
+    '\\.(css|less)$': 'identity-obj-proxy',
   },
-  'setupFilesAfterEnv': ['<rootDir>/jest.setup.js'],
+  'setupFilesAfterEnv': [
+    '<rootDir>/packages/q3-ui-test-utils',
+  ],
 };

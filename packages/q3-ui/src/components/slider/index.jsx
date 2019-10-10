@@ -32,7 +32,7 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const PaginationButtons = ({
+export const PaginationButtons = ({
   back,
   next,
   isFirst,
@@ -72,7 +72,7 @@ PaginationButtons.propTypes = {
   next: PropTypes.func.isRequired,
 };
 
-const PaginationSteppers = ({
+export const PaginationSteppers = ({
   withButtons,
   isFirst,
   isLast,
