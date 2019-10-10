@@ -133,8 +133,8 @@ const HorizontalMenu = styled('div')({
   listStyle: 'none',
 });
 
-const SessionToolbar = ({ children, ...rest }) => (
-  <Bar>
+const SessionToolbar = ({ children, style, ...rest }) => (
+  <Bar style={style}>
     <HorizontalMenu>{children}</HorizontalMenu>
     <AccountMenu {...rest} />
   </Bar>
@@ -142,10 +142,15 @@ const SessionToolbar = ({ children, ...rest }) => (
 
 SessionToolbar.propTypes = {
   children: PropTypes.node,
+  style: PropTypes.shape({
+    backgroundColor: PropTypes.string,
+    color: PropTypes.string,
+  }),
 };
 
 SessionToolbar.defaultProps = {
   children: null,
+  style: null,
 };
 
 export default SessionToolbar;

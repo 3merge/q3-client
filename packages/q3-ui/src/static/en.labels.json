@@ -20,5 +20,6 @@
   "call": "Call now",
   "clear": "Clear input",
   "enlarge": "Click to enlarge",
-  "searchPlaceholder": "Press Enter to search"
+  "searchPlaceholder": "Press Enter to search",
+  "submit": "Send"
 }

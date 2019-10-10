@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import Input from '../inputs';
 import Docs from './README.md';
 import Form from '.';
@@ -15,8 +14,7 @@ storiesOf('Components|Form', module)
   })
   .add('Default render', () => (
     <Form
-      title="My form"
-      description="This wrapper passes props along to Formik, such as an initial value for 'Foo'"
+      title="demo"
       initialValues={{
         foo: 'bar',
       }}
@@ -26,7 +24,8 @@ storiesOf('Components|Form', module)
   ))
   .add('With loading state', () => (
     <Form
-      title="My form"
+      title="example"
+      dividers={false}
       description="The wrapper's underlying Tile component listens for submissions"
     >
       {({ setSubmitting, isSubmitting }) => (

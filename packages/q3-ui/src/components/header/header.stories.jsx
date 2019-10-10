@@ -185,7 +185,7 @@ storiesOf('Components|Header', module)
           </Hidden>
         )}
       >
-        <Toolbar>
+        <Toolbar style={{ backgroundColor: 'blue' }}>
           <Hidden smUp>
             <Tel number="413-923-1233" />
           </Hidden>

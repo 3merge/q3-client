@@ -8,7 +8,7 @@ import Slide from '@material-ui/core/Slide';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { grey, blue } from '@material-ui/core/colors';
+import { grey } from '@material-ui/core/colors';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     display: 'block',
     maxHeight: 95,
+    marginRight: theme.spacing(2),
     maxWidth: 165,
     width: 'auto',
     '&:focus': {
@@ -63,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       maxHeight: 75,
       maxWidth: 145,
+      marginRight: theme.spacing(1),
     },
   },
   withDividers: {
@@ -277,7 +279,7 @@ const Header = ({
     window.addEventListener(
       'scroll',
       function listenForScroll() {
-        setScrolled(this.scrollY !== 0);
+        setScrolled(this.scrollY > 5);
       },
       { passive: true },
     );

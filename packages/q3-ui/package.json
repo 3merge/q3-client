@@ -33,16 +33,20 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
+    "pure-react-carousel": "^1.23.0",
     "react": "^16.9.0",
     "react-beautiful-dnd": "^11.0.5",
     "react-content-loader": "^4.2.2",
     "react-helmet": "^5.2.1",
     "react-i18next": "^10.12.2",
+    "react-id-swiper": "^2.3.2",
     "react-json-pretty": "^2.1.0",
+    "react-responsive-carousel": "^3.1.50",
     "react-router-dom": "^5.0.1",
     "react-social-icons": "^4.1.0",
     "react-window": "^1.8.5",
     "reaptcha": "^1.6.0",
+    "swiper": "^5.0.4",
     "url-loader": "^2.1.0",
     "yup": "^0.27.0"
   },
@@ -51,6 +55,7 @@
     "@material-ui/icons": "^4.4.3",
     "@material-ui/styles": "^4.4.3",
     "@reach/router": "^1.2.1",
+    "@types/swiper": "^4.4.5",
     "react-dom": "^16.9.0"
   }
 }

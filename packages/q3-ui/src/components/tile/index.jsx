@@ -28,11 +28,15 @@ const useStyles = makeStyles((theme) => ({
 const Tile = ({
   children,
   title,
+  subtitle,
   loading,
   error,
   renderFooter,
+  dividers,
 }) => {
   const { tiled, errorBar } = useStyles();
+  const hasSubtitle = subtitle && subtitle !== title;
+
   return (
     <Paper
       elevation={0}
@@ -47,29 +51,34 @@ const Tile = ({
       )}
       {error && <Divider className={errorBar} />}
 
-      <Box px={4} py={2} component="header">
-        <Typography variant="h2">{title}</Typography>
+      <Box px={3} py={2} component="header">
+        <Typography variant="h2" gutterBottom={hasSubtitle}>
+          {title}
+        </Typography>
+        {hasSubtitle && (
+          <Typography variant="body1">
+            {subtitle}
+          </Typography>
+        )}
       </Box>
-      <Divider />
-      <Box py={2}>
-        <Container maxWidth="md">
-          {loading ? (
-            <Box>
-              <Skeleton height={6} width="80%" />
-              <Skeleton height={6} width="80%" />
-              <Skeleton height={6} width="60%" />
-              <Skeleton height={6} width="70%" />
-              <Skeleton height={6} width="40%" />
-            </Box>
-          ) : (
-            children
-          )}
-        </Container>
+      {dividers && <Divider />}
+      <Box py={dividers ? 2 : 0} px={3}>
+        {loading ? (
+          <>
+            <Skeleton height={6} width="80%" />
+            <Skeleton height={6} width="80%" />
+            <Skeleton height={6} width="60%" />
+            <Skeleton height={6} width="70%" />
+            <Skeleton height={6} width="40%" />
+          </>
+        ) : (
+          children
+        )}
       </Box>
       {renderFooter && (
         <>
-          <Divider />
-          <Box px={4} py={2} component="footer">
+          {dividers && <Divider />}
+          <Box px={3} py={2} component="footer">
             {renderFooter()}
           </Box>
         </>
@@ -81,15 +90,19 @@ const Tile = ({
 Tile.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   loading: PropTypes.bool,
   error: PropTypes.bool,
   renderFooter: PropTypes.func,
+  dividers: PropTypes.bool,
 };
 
 Tile.defaultProps = {
   loading: false,
   renderFooter: null,
+  subtitle: null,
   error: false,
+  dividers: true,
 };
 
 export default Tile;
