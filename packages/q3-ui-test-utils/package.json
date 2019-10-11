@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-test-utils",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "dependencies": {
     "enzyme": "^3.10.0",
@@ -8,5 +8,6 @@
   },
   "peerDependencies": {
     "@material-ui/core": "^4.4.3"
-  }
+  },
+  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a"
 }
