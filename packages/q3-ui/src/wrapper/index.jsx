@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: (props) => (props.fullWidth ? 0 : 5),
     margin: (props) => (props.fullWidth ? 0 : '0 auto'),
     maxWidth: (props) => (props.fullWidth ? '100%' : 1440),
-    padding: '4rem 0',
+    padding: (props) => (props.dense ? '1rem 0' : '4rem 0'),
   },
 }));
 
@@ -25,8 +25,9 @@ const Wrapper = ({
   children,
   negativeMargin,
   fullWidth,
+  dense,
 }) => {
-  const { offset, root } = useStyles({ fullWidth });
+  const { offset, root } = useStyles({ fullWidth, dense });
   return (
     <Box
       style={{ backgroundColor }}
@@ -45,12 +46,14 @@ Wrapper.propTypes = {
   children: PropTypes.node.isRequired,
   negativeMargin: PropTypes.bool,
   fullWidth: PropTypes.bool,
+  dense: PropTypes.bool,
 };
 
 Wrapper.defaultProps = {
   backgroundColor: null,
   negativeMargin: false,
   fullWidth: false,
+  dense: false,
 };
 
 export default Wrapper;

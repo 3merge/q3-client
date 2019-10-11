@@ -99,6 +99,8 @@ export const BannerBase = ({
   dense,
   style,
   negativeMargin,
+  top,
+  bottom,
 }) => {
   const { base } = useStyles({ negativeMargin });
   return (
@@ -108,7 +110,9 @@ export const BannerBase = ({
           my={dense ? 2 : 6}
           textAlign={defaultAligment(center)}
         >
+          {top}
           {children}
+          {bottom}
         </Box>
       </Container>
     </Box>
@@ -117,6 +121,8 @@ export const BannerBase = ({
 
 BannerBase.propTypes = {
   children: PropTypes.node.isRequired,
+  top: PropTypes.node,
+  bottom: PropTypes.node,
   style: PropTypes.shape({}),
   dense: PropTypes.bool,
   center: PropTypes.bool,
@@ -128,6 +134,8 @@ BannerBase.defaultProps = {
   center: false,
   style: null,
   negativeMargin: false,
+  top: null,
+  bottom: null,
 };
 
 export const FeaturedPhotoBanner = ({

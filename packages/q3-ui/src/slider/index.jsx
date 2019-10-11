@@ -5,6 +5,7 @@ import { invoke } from 'lodash';
 import Swiper from 'react-id-swiper';
 import { makeStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -136,6 +137,7 @@ const Slider = ({
   sm,
   md,
   lg,
+  slidesPerView,
 }) => {
   const [swiper, updateSwiper] = React.useState(null);
   const { root } = useStyle();
@@ -143,23 +145,29 @@ const Slider = ({
     0,
   );
 
-  const params = {
-    spaceBetween: 15,
-    breakpoints: {
-      1024: {
-        slidesPerView: lg,
-      },
-      768: {
-        slidesPerView: md,
-      },
-      640: {
-        slidesPerView: sm,
-      },
-      320: {
-        slidesPerView: xs,
-      },
-    },
-  };
+  const params =
+    slidesPerView === 'auto'
+      ? {
+          spaceBetween: 30,
+          slidesPerView: 'auto',
+        }
+      : {
+          spaceBetween: 15,
+          breakpoints: {
+            1024: {
+              slidesPerView: lg,
+            },
+            768: {
+              slidesPerView: md,
+            },
+            640: {
+              slidesPerView: sm,
+            },
+            320: {
+              slidesPerView: xs,
+            },
+          },
+        };
 
   const toggle = {
     isFirst: currentIndex === 0,
@@ -181,13 +189,15 @@ const Slider = ({
 
   return (
     <Container maxWidth="xl" className={root}>
-      <Swiper {...params} getSwiper={updateSwiper}>
-        {slides.map(({ id, Component }) => (
-          <div key={id}>
-            <Component />
-          </div>
-        ))}
-      </Swiper>
+      <Box>
+        <Swiper {...params} getSwiper={updateSwiper}>
+          {slides.map(({ id, Component, style }) => (
+            <div key={id} style={style}>
+              <Component />
+            </div>
+          ))}
+        </Swiper>
+      </Box>
       {!withSteppers && withButtons && (
         <PaginationButtons {...toggle} />
       )}
@@ -208,6 +218,10 @@ Slider.propTypes = {
   sm: PropTypes.number,
   md: PropTypes.number,
   lg: PropTypes.number,
+  slidesPerView: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   withButtons: PropTypes.bool,
   withSteppers: PropTypes.bool,
   slides: PropTypes.arrayOf(
@@ -225,6 +239,7 @@ Slider.defaultProps = {
   slides: [],
   withSteppers: false,
   withButtons: false,
+  slidesPerView: null,
   xs: 1,
   sm: 1,
   md: 1,

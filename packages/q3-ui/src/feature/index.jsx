@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -62,12 +63,14 @@ export const FeatureHorizontal = ({
 const Feature = ({
   align,
   body,
-  columnSize,
+  lg,
+  sm,
+  xs,
   title,
   children,
   ...rest
 }) => (
-  <Grid item lg={columnSize} sm={6} xs={12}>
+  <Grid item lg={lg} sm={sm} xs={xs}>
     <Box p={2} textAlign={align}>
       <Box mb={1}>
         <Media {...rest} title={title} />
@@ -83,10 +86,17 @@ const Feature = ({
   </Grid>
 );
 
-Feature.propTypes = {};
+Feature.propTypes = {
+  lg: PropTypes.number,
+  sm: PropTypes.number,
+  xs: PropTypes.number,
+};
+
 Feature.defaultProps = {
   align: 'center',
-  columnSize: 4,
+  lg: 4,
+  sm: 6,
+  xs: 12,
 };
 
 export default Feature;

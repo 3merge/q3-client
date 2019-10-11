@@ -13,7 +13,7 @@ const CallToAction = ({
   buttonText,
 }) => (
   <Container component="aside" align="center" maxWidth="md">
-    <Box py={8}>
+    <Box py={2}>
       <Typography
         color="inherit"
         variant="h2"

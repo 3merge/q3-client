@@ -17,14 +17,18 @@ export const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const SocialLinks = ({ links }) => (
+export const SocialLinks = ({ links, size }) => (
   <Box align="center">
     {links.map((link) => (
       <SocialIcon
         url={link}
         key={link}
         target="_blank"
-        style={{ margin: '0.25rem' }}
+        style={{
+          margin: '0.25rem',
+          height: size,
+          width: size,
+        }}
       />
     ))}
   </Box>
@@ -32,10 +36,12 @@ export const SocialLinks = ({ links }) => (
 
 SocialLinks.propTypes = {
   links: PropTypes.arrayOf(PropTypes.string),
+  size: PropTypes.number,
 };
 
 SocialLinks.defaultProps = {
   links: [],
+  size: 42,
 };
 
 export const Copyright = ({ text }) => {

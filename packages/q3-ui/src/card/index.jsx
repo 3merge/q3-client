@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   iconCls: {
     display: 'block',
-    margin: `0 auto ${theme.spacing(2)}`,
+    margin: `0 auto ${theme.spacing(1)}`,
     maxWidth: '100%',
     height: 210,
     '& img': {
@@ -137,7 +137,11 @@ CardWrapper.propTypes = {
 const CardHeader = ({ title, name, description }) => (
   <>
     {name && (
-      <Typography variant="overline" gutterBottom>
+      <Typography
+        variant="overline"
+        gutterBottom
+        color="primary"
+      >
         {name}
       </Typography>
     )}
@@ -163,33 +167,43 @@ export const ResourceCard = ({
   title,
   buttonText,
   to,
+  secondaryButtonText,
+  secondaryTo,
   ...rest
-}) => {
-  const cls = useStyles();
-  return (
-    <CardWrapper item md={6} sm={8} xs={10} to={to}>
-      <Grid container spacing={2} alignItems="center">
+}) => (
+  <Grid item md={6} sm={8} xs={10}>
+    <Card>
+      <Grid container spacing={1} alignItems="center">
         <Grid item lg={4} md={5} sm={6} xs={12}>
-          <div className={cls.negativeMargin}>
+          <Box p={1}>
             <img src={imgSrc} alt={title} />
-          </div>
+          </Box>
         </Grid>
         <Grid item lg={8} md={7} sm={6} xs={12}>
           <CardContent>
             <CardHeader title={title} {...rest} />
             <Button
               tabIndex="-1"
-              variant="outlined"
+              size="small"
               color="primary"
             >
               {buttonText}
             </Button>
+            {secondaryButtonText && (
+              <Button
+                tabIndex="-1"
+                size="small"
+                to={secondaryTo}
+              >
+                {secondaryButtonText}
+              </Button>
+            )}
           </CardContent>
         </Grid>
       </Grid>
-    </CardWrapper>
-  );
-};
+    </Card>
+  </Grid>
+);
 
 ResourceCard.propTypes = {
   imgSrc: PropTypes.string.isRequired,
@@ -256,21 +270,21 @@ export const NewsCard = ({
   title,
   to,
   label,
+  md,
   ...rest
 }) => {
-  const { iconCls, spacing, ribbon } = useStyles();
+  const { arrow, iconCls, spacing, ribbon } = useStyles();
   return (
-    <CardWrapper md={4} sm={6} xs={12} to={to}>
-      <div className={iconCls}>
-        <img src={imgSrc} alt={title} />
-        {label && <span className={ribbon}>{label}</span>}
-      </div>
+    <CardWrapper md={md} sm={6} xs={12} to={to}>
+      {imgSrc && (
+        <div className={iconCls}>
+          <img src={imgSrc} alt={title} />
+          {label && <span className={ribbon}>{label}</span>}
+        </div>
+      )}
       <CardContent>
         <Box px={1}>
           <CardHeader title={title} {...rest} />
-          <Typography component="div" align="right">
-            <TrendingFlat className={spacing} />
-          </Typography>
         </Box>
       </CardContent>
     </CardWrapper>
@@ -280,4 +294,9 @@ export const NewsCard = ({
 NewsCard.propTypes = {
   ...ResourceCard.propTypes,
   label: PropTypes.string.isRequired,
+  md: PropTypes.number,
+};
+
+NewsCard.defaultProps = {
+  md: 4,
 };
