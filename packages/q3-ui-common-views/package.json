@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-common-views",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Common views",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
