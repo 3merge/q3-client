@@ -1,0 +1,29 @@
+{
+  "name": "q3-ui-common-views",
+  "version": "1.0.1",
+  "description": "Common views",
+  "main": "lib/index.js",
+  "author": "Mike <mibberson@3merge.ca>",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "scripts": {
+    "storybook": "start-storybook"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/styles": "^4.4.3",
+    "@reach/router": "^1.2.1",
+    "prop-types": "^15.7.2",
+    "q3-ui": "^1.0.0",
+    "react": "^16.9.0",
+    "react-i18next": "^10.13.1",
+    "yup": "^0.27.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "^5.2.3",
+    "react": "^16.10.2"
+  }
+}

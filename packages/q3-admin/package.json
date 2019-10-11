@@ -1,7 +1,7 @@
 {
   "name": "q3-admin",
   "version": "1.0.3",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "prop-types": "^15.7.2",
     "q3-ui-permissions": "^1.0.0",

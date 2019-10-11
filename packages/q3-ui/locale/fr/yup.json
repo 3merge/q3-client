@@ -1,0 +1,11 @@
+{
+  "mixed": {
+    "required": "This is a required field"
+  },
+  "string": {
+    "default": "Must be a string",
+    "email": "Must be a valid email",
+    "min": "Must be at least ${min} characters",
+    "max": "Cannot exceed ${max} characters"
+  }
+}

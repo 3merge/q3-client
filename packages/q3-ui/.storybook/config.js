@@ -7,9 +7,9 @@ import { withTests } from '@storybook/addon-jest';
 import { addReadme } from 'storybook-readme';
 import { withA11y } from '@storybook/addon-a11y';
 import path from 'path';
-import withProviders from '../src/helpers/storyUtils';
+import withProviders from '../src/_helpers/storyUtils';
 import results from './jestResults.json';
-import '../src/helpers/i18next';
+import '../src/_helpers/i18next';
 
 const req = require.context(
   '../src',

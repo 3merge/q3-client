@@ -4,11 +4,11 @@ module.exports = {
   coverageDirectory: '.jest-coverage',
   coverageReporters: ['json-summary', 'text', 'lcov'],
   testPathIgnorePatterns: [
-    '<rootDir>/packages/(?:.+?)/dist/',
+    '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
   ],
   coveragePathIgnorePatterns: [
-    '<rootDir>/packages/(?:.+?)/dist/',
+    '<rootDir>/packages/(?:.+?)/lib/',
   ],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',

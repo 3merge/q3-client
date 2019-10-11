@@ -1,7 +1,7 @@
 {
   "name": "q3-ui-permissions",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "axios": "^0.19.0",
     "js-cookie": "^2.2.1"
