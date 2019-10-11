@@ -9,7 +9,7 @@
     "@material-ui/styles": "^4.4.3",
     "gatsby": "^2.6.0",
     "q3-ui": "^1.0.0",
-    "q3-ui-common-views": "^1.0.0"
+    "q3-ui-commons": "^1.0.0"
   },
   "dependencies": {
     "@contentful/gatsby-transformer-contentful-richtext": "^13.1.0",
@@ -33,5 +33,6 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1"
-  }
+  },
+  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a"
 }

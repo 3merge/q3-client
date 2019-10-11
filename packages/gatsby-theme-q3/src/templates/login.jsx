@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import Login from 'q3-ui-common-views/lib/login';
+import Login from 'q3-ui-commons/lib/login';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';

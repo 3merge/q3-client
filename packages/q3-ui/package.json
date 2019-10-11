@@ -55,5 +55,6 @@
     "@types/swiper": "^4.4.5",
     "react-dom": "^16.9.0",
     "react-i18next": "^10.12.2"
-  }
+  },
+  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a"
 }
