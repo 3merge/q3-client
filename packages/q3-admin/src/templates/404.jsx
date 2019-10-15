@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
-import { Components } from 'q3-ui';
+import { MissingGraphic } from 'q3-ui/lib/graphic';
 
 const useStyles = makeStyles(() => ({
   bg: {
@@ -20,7 +20,7 @@ export default () => {
 
   return (
     <Box className={bg} textAlign="center">
-      <Components.MissingGraphic className={foreground} />
+      <MissingGraphic className={foreground} />
     </Box>
   );
 };

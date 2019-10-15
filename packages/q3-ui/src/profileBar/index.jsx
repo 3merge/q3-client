@@ -84,6 +84,7 @@ const ProfileBar = ({
   menuItems,
   name,
   imgSrc,
+  ...rest
 }) => {
   const {
     bar,
@@ -145,6 +146,7 @@ const ProfileBar = ({
                 <AccountMenu
                   profileImgSrc={imgSrc}
                   items={menuItems}
+                  {...rest}
                 />
               </Box>
             </Grid>

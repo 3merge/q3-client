@@ -7,10 +7,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import { Components } from 'q3-ui';
+import { DeleteDialog } from 'q3-ui/lib/dialogs';
+import Header from 'q3-ui/lib/header';
+import Tabs from 'q3-ui/lib/tabs';
 import { useRest } from 'q3-ui-rest';
-
-const { Header, Tabs, DeleteDialog } = Components;
 
 const Detail = ({
   name,

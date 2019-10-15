@@ -30,6 +30,7 @@ const FormWrapper = ({
             loading={utils.isSubmitting}
             renderFooter={() => (
               <Button
+                disabled={utils.isSubmitting}
                 type="submit"
                 color="secondary"
                 variant="contained"
@@ -46,7 +47,7 @@ const FormWrapper = ({
                 >
                   {utils.isSubmitting ? (
                     <CircularProgress
-                      color="inherit"
+                      color="primary"
                       size={22}
                     />
                   ) : (

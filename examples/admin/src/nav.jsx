@@ -1,9 +1,11 @@
 import React from 'react';
-import { Components } from 'q3-admin';
+import { get } from 'lodash';
+import Menu from 'q3-ui/lib/menu';
 
-export default () => (
+export default (props) => (
   <>
-    <Components.Menu
+    <Menu
+      done={get(props, 'close')}
       title="Commons"
       items={[
         {
@@ -18,7 +20,8 @@ export default () => (
         },
       ]}
     />
-    <Components.Menu
+    <Menu
+      done={get(props, 'close')}
       title="Catalogue"
       items={[
         {

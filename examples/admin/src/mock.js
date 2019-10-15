@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import Cookies from 'js-cookie';
-import { Axios } from 'q3-admin';
+import Axios from 'axios';
 
 const mock = new MockAdapter(Axios, {
   delayResponse: 1000,

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import { Components } from 'q3-ui';
+import ProfileBar from 'q3-ui/lib/profileBar';
+import Sidebar from 'q3-ui/lib/sidebar';
 
 const useStyles = makeStyles((theme) => ({
   offsetHeight: {
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   muted: {
     flex: '1',
     position: 'relative',
-    paddingTop: 140,
   },
   contrastBg: {
     backgroundColor: theme.palette.primary.main,
@@ -39,8 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const { Sidebar, ProfileBar } = Components;
-
 const AppLayout = ({
   render,
   renderAside,
@@ -56,6 +54,7 @@ const AppLayout = ({
               <ProfileBar
                 {...ProfileBarProps}
                 offcanvas={renderAside}
+                isLoggedIn
               />
               <Sidebar renderTrigger={() => null}>
                 {renderAside()}

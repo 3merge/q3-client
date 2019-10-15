@@ -3,9 +3,7 @@
   "version": "1.0.5",
   "main": "lib/index.js",
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "q3-ui-permissions": "^1.0.2",
-    "q3-ui-rest": "^1.0.4"
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.4.3",
@@ -14,6 +12,9 @@
     "@reach/router": "^1.2.1",
     "i18next": "^17.0.16",
     "q3-ui": "^1.0.0",
+    "q3-ui-commons": "^1.0.0",
+    "q3-ui-permissions": "^1.0.2",
+    "q3-ui-rest": "^1.0.4",
     "react": "^16.9.0",
     "react-i18next": "^10.12.5",
     "react-router-dom": "^5.0.1"

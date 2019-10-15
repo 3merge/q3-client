@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Router } from '@reach/router';
+import { useTranslation } from 'react-i18next';
+import Providers from 'q3-ui';
 import {
-  I18nextProvider,
-  useTranslation,
-} from 'react-i18next';
-import Providers, { Components, Views, i18 } from 'q3-ui';
+  Login,
+  PasswordReset,
+  Reverify,
+  Verify,
+} from 'q3-ui-commons';
 import SnackbarProvider from 'q3-ui-rest';
 import Authentication, {
-  Axios,
   authenticate,
   destroySession,
 } from 'q3-ui-permissions';
@@ -16,7 +18,6 @@ import Authentication, {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as Templates from './templates';
 
-const { Login, PasswordReset, Reverify, Verify } = Views;
 const { Public } = Templates;
 
 const ApplicationGate = ({
@@ -96,9 +97,7 @@ ApplicationGate.propTypes = {
 const Wrapper = (props) => (
   <Providers>
     <SnackbarProvider>
-      <I18nextProvider i18n={i18}>
-        <ApplicationGate {...props} />
-      </I18nextProvider>
+      <ApplicationGate {...props} />
     </SnackbarProvider>
   </Providers>
 );
@@ -108,4 +107,3 @@ Wrapper.propTypes = {
 };
 
 export default Wrapper;
-export { Components, Templates, Axios };

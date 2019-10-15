@@ -1,8 +1,8 @@
 import React from 'react';
-import { Templates } from 'q3-admin';
+import { List } from 'q3-admin/lib/templates';
 
 export default (props) => (
-  <Templates.List
+  <List
     {...props}
     name="users"
     enablePost={false}

@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import { Components } from 'q3-ui';
-
-const { Header } = Components;
+import Header from 'q3-ui/lib/header';
 
 const Page = ({ title, children }) => {
   return (
     <>
-      <Header name={title} breadcrumbs />
+      <Header name={title} />
       <Container>{children}</Container>
     </>
   );

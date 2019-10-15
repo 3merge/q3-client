@@ -1,20 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import Link from '@reach/router';
-import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
-import Home from '@material-ui/icons/Home';
 import { useRest } from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
-import { Components } from 'q3-ui';
-
-const {
-  CreateDialog,
-  SearchBar,
-  Table,
-  Header,
-} = Components;
+import { CreateDialog } from 'q3-ui/lib/dialogs';
+import Table from 'q3-ui/lib/table';
+import Header from 'q3-ui/lib/header';
+import Box from '@material-ui/core/Box';
+import SearchBar from 'q3-ui/lib/searchBar';
 
 const List = ({
   addComponent: AddComponent,
@@ -37,24 +31,21 @@ const List = ({
         renderRight={() => (
           <div style={{ display: 'flex' }}>
             <SearchBar expanded />
-            {AddComponent && (
-              <CreateDialog
-                render={() => <AddComponent {...state} />}
-              />
-            )}
           </div>
         )}
       />
       <Container>
-        <Table
-          {...rest}
-          {...state}
-          data={state}
-          name={name}
-          loading={state.fetching}
-          rows={get(state, name, [])}
-          columns={columns}
-        />
+        <Box my={6}>
+          <Table
+            {...rest}
+            {...state}
+            data={state}
+            name={name}
+            loading={state.fetching}
+            rows={get(state, name, [])}
+            columns={columns}
+          />
+        </Box>
       </Container>
     </>
   );
