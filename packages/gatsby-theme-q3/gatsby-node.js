@@ -1,5 +1,12 @@
-exports.createPages = async ({ actions }) => {
+exports.createPages = async (
+  { actions },
+  themeOptions = {},
+) => {
   const { createPage } = actions;
-  // eslint-disable-next-line
-  await require('./src/utils/loader')(createPage);
+  const { generateAccountPages } = themeOptions;
+
+  if (generateAccountPages) {
+    // eslint-disable-next-line
+    await require('./src/utils/loader')(createPage);
+  }
 };

@@ -8,8 +8,7 @@
     "@material-ui/icons": "^4.4.3",
     "@material-ui/styles": "^4.4.3",
     "gatsby": "^2.6.0",
-    "q3-ui": "^1.0.0",
-    "q3-ui-commons": "^1.0.0"
+    "q3-ui": "^1.0.0"
   },
   "dependencies": {
     "@contentful/gatsby-transformer-contentful-richtext": "^13.1.0",
@@ -29,6 +28,7 @@
     "gatsby-source-contentful": "^2.1.36",
     "gatsby-transformer-sharp": "^2.2.14",
     "lodash": "^4.17.15",
+    "q3-ui-commons": "^1.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
