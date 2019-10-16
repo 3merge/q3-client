@@ -2,7 +2,7 @@
   "name": "www",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.4.3",
@@ -16,7 +16,7 @@
     "gatsby-plugin-react-helmet": "^3.1.8",
     "gatsby-plugin-sharp": "^2.2.25",
     "gatsby-source-filesystem": "^2.1.26",
-    "gatsby-theme-q3": "^1.0.13",
+    "gatsby-theme-q3": "^1.0.14",
     "gatsby-transformer-sharp": "^2.2.16",
     "prop-types": "^15.7.2",
     "q3-ui": "^1.0.20",
