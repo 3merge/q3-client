@@ -21,5 +21,10 @@
   "clear": "Clear input",
   "enlarge": "Click to enlarge",
   "searchPlaceholder": "Press Enter to search",
-  "submit": "Send"
+  "submit": "Send",
+  "coll": "Collection",
+  "op": "Action",
+  "role": "Role type",
+  "q3-api-users": "UserModel",
+  "q3-api-permissions": "PermissionModel"
 }

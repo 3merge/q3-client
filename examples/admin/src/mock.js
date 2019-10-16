@@ -70,3 +70,12 @@ mock.onGet(/users\/?\?*/).reply(({ url }) => [
     ],
   },
 ]);
+
+mock.onGet(/permissions\/?\?*/).reply(200, {
+  permissions: {
+    id: 1,
+    role: 'Admin',
+    op: 'Read',
+    coll: 'q3-api-permissions',
+  },
+});

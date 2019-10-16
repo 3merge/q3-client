@@ -14,7 +14,6 @@ import Authentication, {
   authenticate,
   destroySession,
 } from 'q3-ui-permissions';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as Templates from './templates';
 

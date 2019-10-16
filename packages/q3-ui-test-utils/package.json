@@ -8,6 +8,5 @@
   },
   "peerDependencies": {
     "@material-ui/core": "^4.4.3"
-  },
-  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a"
+  }
 }

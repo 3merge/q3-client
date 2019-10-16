@@ -7,9 +7,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import { DeleteDialog } from 'q3-ui/lib/dialogs';
-import Header from 'q3-ui/lib/header';
-import Tabs from 'q3-ui/lib/tabs';
+import { DeleteDialog } from 'q3-ui/dialogs';
+import Header from 'q3-ui/header';
+import Tabs from 'q3-ui/tabs';
 import { useRest } from 'q3-ui-rest';
 
 const Detail = ({
@@ -41,30 +41,32 @@ const Detail = ({
         )}
       />
       <Container>
-        {state.fetching ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <Tabs
-              root={url}
-              views={
-                typeof views === 'function'
-                  ? views({ id, ...state })
-                  : views
-              }
-            />
-            {canDelete && (
-              <Container maxWidth="lg" component="footer">
-                <Box textAlign="right">
-                  <DeleteDialog
-                    next={invoke(state, 'delete', id)}
-                    redirect={name}
-                  />
-                </Box>
-              </Container>
-            )}
-          </>
-        )}
+        <Box my={6}>
+          {state.fetching ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Tabs
+                root={url}
+                views={
+                  typeof views === 'function'
+                    ? views({ id, ...state })
+                    : views
+                }
+              />
+              {canDelete && (
+                <Container maxWidth="lg" component="footer">
+                  <Box textAlign="right">
+                    <DeleteDialog
+                      next={invoke(state, 'delete', id)}
+                      redirect={name}
+                    />
+                  </Box>
+                </Container>
+              )}
+            </>
+          )}
+        </Box>
       </Container>
     </>
   );

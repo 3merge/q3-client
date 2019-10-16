@@ -7,6 +7,7 @@
     "js-cookie": "^2.2.1",
     "q3-admin": "^1.0.6",
     "q3-ui": "^1.0.20",
+    "q3-ui-rest": "^1.0.20",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.2"

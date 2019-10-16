@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
-import Header from 'q3-ui/lib/header';
+import Header from 'q3-ui/header';
 
 const Page = ({ title, children }) => {
   return (

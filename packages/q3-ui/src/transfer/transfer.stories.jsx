@@ -34,7 +34,7 @@ const withFormik = ({ name, ...rest }, form = {}) => (
       actions.setSubmitting(false);
     }}
     initialValues={{
-      [name]: 'Rick Sanchez, (Morty+)',
+      [name]: 'Rick Sanchez, Morty*',
     }}
     render={() => (
       <Form>
@@ -46,7 +46,7 @@ const withFormik = ({ name, ...rest }, form = {}) => (
   />
 );
 
-storiesOf('Components|Transfer List', module).add(
+storiesOf('Components|Transfer', module).add(
   'Without initial value',
   () =>
     withFormik({

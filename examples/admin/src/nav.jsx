@@ -18,6 +18,11 @@ export default (props) => (
           to: '/users',
           visible: true,
         },
+        {
+          label: 'Permissions',
+          to: '/permissions',
+          visible: true,
+        },
       ]}
     />
     <Menu

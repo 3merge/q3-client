@@ -131,6 +131,7 @@ IntegratedTextField.defaultProps = {
 
 const MenuProps = {
   PaperProps: {
+    elevation: 3,
     style: {
       maxHeight: 48 * 4.5 + 8,
       width: 250,

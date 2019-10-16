@@ -1,36 +1,21 @@
 {
   "name": "q3-ui",
   "version": "1.0.20",
-  "description": "Material UI implementations",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
-  "scripts": {
-    "storybook": "start-storybook",
-    "test": "jest --runInBand --json --outputFile=.storybook/jestResults.json",
-    "deploy": "storybook-to-ghpages && yarn test"
-  },
-  "devDependencies": {
-    "@storybook/addon-a11y": "^5.1.11",
-    "@storybook/addon-jest": "^5.1.11",
-    "@storybook/addon-viewport": "^5.1.11",
-    "@storybook/storybook-deployer": "^2.8.1",
-    "react-test-renderer": "^16.9.0",
-    "storybook-readme": "^5.0.8"
-  },
   "dependencies": {
     "@date-io/moment": "^1.3.9",
     "@material-ui/lab": "^4.0.0-alpha.26",
     "@material-ui/pickers": "^3.2.4",
-    "@storybook/react": "^5.1.11",
-    "@storybook/router": "^5.2.1",
-    "@svgr/webpack": "^4.3.2",
     "@tinymce/tinymce-react": "^3.3.2",
     "classnames": "^2.2.6",
     "downshift": "^3.2.12",
     "formik": "^1.5.8",
     "i18next": "^17.0.12",
+    "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
+    "minimatch": "^3.0.4",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -38,11 +23,9 @@
     "react-helmet": "^5.2.1",
     "react-id-swiper": "^2.3.2",
     "react-json-pretty": "^2.1.0",
-    "react-responsive-carousel": "^3.1.50",
     "react-router-dom": "^5.0.1",
     "react-social-icons": "^4.1.0",
     "react-window": "^1.8.5",
-    "reaptcha": "^1.6.0",
     "swiper": "^5.0.4",
     "url-loader": "^2.1.0",
     "yup": "^0.27.0"
@@ -55,6 +38,5 @@
     "@types/swiper": "^4.4.5",
     "react-dom": "^16.9.0",
     "react-i18next": "^10.12.2"
-  },
-  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a"
+  }
 }

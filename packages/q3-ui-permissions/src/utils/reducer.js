@@ -23,7 +23,7 @@ export const destroySession = () => {
   window.location.replace('/login');
 };
 
-export const authenticate = (values, actions) =>
+export const authenticate = (values) =>
   Axios.post('/authenticate', values)
     .then(({ data }) => {
       const { token, nonce } = data;

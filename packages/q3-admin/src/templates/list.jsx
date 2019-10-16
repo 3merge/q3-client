@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import Container from '@material-ui/core/Container';
-import { useRest } from 'q3-ui-rest';
-import { useTranslation } from 'react-i18next';
-import { CreateDialog } from 'q3-ui/lib/dialogs';
-import Table from 'q3-ui/lib/table';
-import Header from 'q3-ui/lib/header';
 import Box from '@material-ui/core/Box';
-import SearchBar from 'q3-ui/lib/searchBar';
+import Container from '@material-ui/core/Container';
+import { useTranslation } from 'react-i18next';
+import { useRest } from 'q3-ui-rest';
+import Table from 'q3-ui/table';
+import Header from 'q3-ui/header';
+import SearchBar from 'q3-ui/searchBar';
 
 const List = ({
   addComponent: AddComponent,
@@ -23,6 +22,8 @@ const List = ({
     runOnInit: true,
     ...rest,
   });
+
+  console.log(rest);
 
   return (
     <>

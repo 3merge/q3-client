@@ -5,14 +5,20 @@ export function extractAction(action = '') {
   return action.split(':');
 }
 
-export function compareActionLevels(pairState = [], pairComponent = []) {
+export function compareActionLevels(
+  pairState = [],
+  pairComponent = [],
+) {
   if (pairState[0] !== pairComponent[0]) return false;
   if (pairState[1] === 'any') return true;
   if (pairComponent[1] === 'any') return false;
   return pairState[1] === pairComponent[1];
 }
 
-export function compareAttributes(attributeState = '', attributeComponent = '') {
+export function compareAttributes(
+  attributeState = '',
+  attributeComponent = '',
+) {
   if (attributeState.includes(`!${attributeComponent}`)) {
     return false;
   }
@@ -22,7 +28,10 @@ export function compareAttributes(attributeState = '', attributeComponent = '') 
   return attributeState.includes(attributeComponent);
 }
 
-export function iteratePermissions(permissions = {}, opts = {}) {
+export function iteratePermissions(
+  permissions = {},
+  opts = {},
+) {
   const { resource, action, attributes } = opts;
   const selected = permissions[resource];
 
@@ -31,7 +40,10 @@ export function iteratePermissions(permissions = {}, opts = {}) {
   }
 
   return Object.entries(selected).some(([key, val]) => {
-    const level = compareActionLevels(extractAction(key), extractAction(action));
+    const level = compareActionLevels(
+      extractAction(key),
+      extractAction(action),
+    );
 
     if (!level) return false;
     if (!attributes) return true;
@@ -39,11 +51,18 @@ export function iteratePermissions(permissions = {}, opts = {}) {
   });
 }
 
-export default (ctx) => (resource, permissionType = 'read:own') => {
+export default (ctx) => (
+  resource,
+  permissionType = 'read:own',
+) => {
   const { state } = React.useContext(ctx);
   const { permissions } = state;
 
-  const Can = ({ component: Element, children, ...rest }) => {
+  const Can = ({
+    component: Element,
+    children,
+    ...rest
+  }) => {
     const { name } = rest;
 
     function checkPermissions(action) {
@@ -56,7 +75,10 @@ export default (ctx) => (resource, permissionType = 'read:own') => {
 
     return (
       checkPermissions(permissionType) && (
-        <Element {...rest} readOnly={!checkPermissions('update:own')}>
+        <Element
+          {...rest}
+          readOnly={!checkPermissions('update:own')}
+        >
           {children}
         </Element>
       )
@@ -75,7 +97,10 @@ export default (ctx) => (resource, permissionType = 'read:own') => {
   return Can;
 };
 
-export const isVisible = (ctx) => (resource, action = 'read') => {
+export const isVisible = (ctx) => (
+  resource,
+  action = 'read',
+) => {
   const { state } = React.useContext(ctx);
   const { permissions } = state;
   return iteratePermissions(permissions, {

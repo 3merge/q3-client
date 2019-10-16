@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import Box from '@material-ui/core/Box';
-import { MissingGraphic } from 'q3-ui/lib/graphic';
+import { MissingGraphic } from 'q3-ui/graphic';
 
 const useStyles = makeStyles(() => ({
   bg: {

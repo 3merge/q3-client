@@ -8,9 +8,11 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "build": "lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files",
+    "build": "set NODE_ENV=production&& lerna exec --parallel -- babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files",
     "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
-    "lerna-publish": "lerna publish"
+    "storybook": "set NODE_ENV=development&& start-storybook",
+    "test": "jest --runInBand --json --outputFile=.storybook/jestResults.json",
+    "lerna-publish": "set NODE_ENV=production&&lerna publish && storybook-to-ghpages"
   },
   "workspaces": [
     "packages/*",
@@ -28,6 +30,7 @@
     "@shelf/jest-mongodb": "^1.1.1",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-rewire": "^1.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -36,8 +39,11 @@
     "eslint-config-node-3merge": "^1.0.1",
     "eslint-config-prettier": "^6.3.0",
     "eslint-config-react-3merge": "^1.0.1",
+    "eslint-import-resolver-babel-module": "^5.1.0",
+    "eslint-import-resolver-lerna": "^1.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-module-resolver": "^0.15.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.9.0",
     "lerna": "^3.16.4",
@@ -46,5 +52,14 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "rewire": "^4.0.1"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "^5.2.4",
+    "@storybook/addon-jest": "^5.2.4",
+    "@storybook/addon-viewport": "^5.2.4",
+    "@storybook/react": "^5.2.4",
+    "@storybook/storybook-deployer": "^2.8.1",
+    "@svgr/webpack": "^4.3.3",
+    "storybook-readme": "^5.0.8"
   }
 }

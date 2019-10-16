@@ -93,8 +93,8 @@ export const Templated = ({ root, columns, ...rest }) => {
       {columns.map((key) =>
         Array.isArray(key) ? (
           <TableCellHeader
-            name={get(rest, key[0])}
-            sub={get(rest, key[1])}
+            name={t(get(rest, key[0]))}
+            sub={t(get(rest, key[1]))}
             imgSrc={get(rest, key[2])}
             data={rest}
           />
@@ -104,7 +104,7 @@ export const Templated = ({ root, columns, ...rest }) => {
               variant="subtitle2"
               component="span"
             >
-              {get(rest, key)}
+              {t(get(rest, key))}
             </Typography>
           </TableCell>
         ),
@@ -184,6 +184,7 @@ export const TableView = ({
   columns,
   total,
   rowTemplate: Row,
+  root,
 }) => {
   const { t } = useTranslation();
   const params = new URLSearchParams(window.location);
@@ -237,7 +238,7 @@ export const TableView = ({
     return rows.map((props, i) => (
       <Templated
         key={extractId(props, i)}
-        root={window.location.pathname}
+        root={root || window.location.pathname}
         Component={Row}
         columns={columns}
         {...props}

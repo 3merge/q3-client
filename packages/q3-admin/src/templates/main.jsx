@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import ProfileBar from 'q3-ui/lib/profileBar';
-import Sidebar from 'q3-ui/lib/sidebar';
+import ProfileBar from 'q3-ui/profileBar';
+import Sidebar from 'q3-ui/sidebar';
 
 const useStyles = makeStyles((theme) => ({
   offsetHeight: {

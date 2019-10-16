@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniq, difference } from 'lodash';
 import { FixedSizeList } from 'react-window';
+import minimatch from 'minimatch';
+import isGlob from 'is-glob';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -42,10 +44,7 @@ export const transformDelineatedString = (str = []) =>
   str.split(',').map((w) => w.trim());
 
 export const filterByExpressions = (a = []) => (b) =>
-  a.some((re) => {
-    const exp = new RegExp(re, 'gmi');
-    return exp.test(b);
-  });
+  a.some((re) => minimatch(b, re));
 
 export const intersects = (a = [], b = [], c = []) => {
   const has = (item) => !c.includes(item);
@@ -76,14 +75,7 @@ export const getUniquelyAgainstRegex = (
   );
 
 export const filterBySearch = (a = [], s) =>
-  a.filter((i) => {
-    try {
-      const re = new RegExp(s, 'gmi');
-      return re.test(i);
-    } catch (err) {
-      return false;
-    }
-  });
+  a.filter(minimatch.filter(s));
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -142,6 +134,7 @@ const useStyles = makeStyles(() => ({
 function Search({ search, term, toggle, addRule }) {
   const classes = useStyles();
   const { t } = useTranslation('labels');
+  const [err, setError] = React.useState(false);
 
   return (
     <Box m={2}>
@@ -151,7 +144,10 @@ function Search({ search, term, toggle, addRule }) {
         className={classes.input}
         label="Start typing..."
         fullWidth
-        helperText="Search to filter or construct regular expressions"
+        helperText={
+          !err ? t('searchByGlob') : t('notAGlob')
+        }
+        error={err}
         InputProps={{
           endAdornment: (
             <>
@@ -169,7 +165,7 @@ function Search({ search, term, toggle, addRule }) {
                 <Tooltip title={t('create_rule')}>
                   <IconButton
                     color="primary"
-                    onClick={addRule}
+                    onClick={() => setError(!addRule())}
                     className={classes.iconButton}
                     aria-label={t('create_rule')}
                   >
@@ -210,7 +206,7 @@ function Chips({ data, pullRule }) {
           avatar={renderAvatar()}
           key={item}
           onDelete={utils.fn(pullRule, item)}
-          label={`fn${item}`}
+          label={item}
         />
       ))}
     </Box>
@@ -341,15 +337,18 @@ export function TransferList({
   const [rules, words] = findNestedExpressions(initAsArray);
   const isSelected = (item) => selected.includes(item);
 
-  const inactive = filterBySearch(
-    getUniquelyAgainstRegex(words, items, rules),
-    search,
+  const active = uniq(
+    words.flatMap((word) =>
+      items.filter(minimatch.filter(word)),
+    ),
   );
 
-  const active = getUniquelyWithoutRegex(
-    words,
-    items,
-    rules,
+  const inactive = uniq(
+    items
+      .filter((i) => !active.includes(i))
+      .filter(
+        (i) => i.includes(search) || minimatch(i, search),
+      ),
   );
 
   const addToSelected = (item) => {
@@ -372,12 +371,14 @@ export function TransferList({
   };
 
   const addRule = () => {
+    if (!isGlob(search)) return false;
     formik.setFieldValue(
       name,
-      initAsArray.concat(`(${search})`).join(', '),
+      initAsArray.concat(search).join(', '),
     );
     setSelected([]);
     setSearchValue('');
+    return true;
   };
 
   const removeRule = (term) => {
@@ -464,7 +465,10 @@ export function TransferList({
                   <CompareArrows />
                 </Fab>
               </Grid>
-              <Chips data={rules} pullRule={removeRule} />
+              <Chips
+                data={words.filter(isGlob)}
+                pullRule={removeRule}
+              />
             </Container>
           </Fade>
         )}
