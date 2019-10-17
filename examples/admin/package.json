@@ -3,14 +3,18 @@
   "version": "0.1.8",
   "private": true,
   "dependencies": {
+    "@reach/router": "^1.2.1",
     "axios": "^0.19.0",
     "js-cookie": "^2.2.1",
     "q3-admin": "^1.0.8",
+    "q3-axios-mock": "^1.0.0",
     "q3-ui": "^1.0.22",
     "q3-ui-rest": "^1.0.6",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.2"
+    "react-i18next": "^10.13.1",
+    "react-scripts": "3.1.2",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -22,7 +22,11 @@ export default (state, action) => {
 export const destroySession = () => {
   Cookies.remove(TOKEN);
   Cookies.remove(NONCE);
-  window.location.replace('/login');
+};
+
+export const setSession = ({ token, nonce }) => {
+  Cookies.set(TOKEN, token);
+  Cookies.set(NONCE, nonce);
 };
 
 export const getSession = (dispatch) =>

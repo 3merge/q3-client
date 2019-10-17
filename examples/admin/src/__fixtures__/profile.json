@@ -1,0 +1,16 @@
+{
+  "profile": {
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "email": "foo@bar.com",
+    "role": "Developer",
+    "featuredPhoto": "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  "permissions": [
+    {
+      "coll": "q3-api-users",
+      "fields": "*",
+      "op": "Read"
+    }
+  ]
+}

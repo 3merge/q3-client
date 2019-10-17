@@ -40,12 +40,17 @@ const define = (mock) => {
     permissions: [
       {
         coll: 'q3-api-permissions',
-        fields: '*, !role, !condition',
-        op: 'Update',
+        fields: '*, !fields',
+        op: 'Create',
       },
       {
         coll: 'q3-api-permissions',
         fields: '*',
+        op: 'Update',
+      },
+      {
+        coll: 'q3-api-permissions',
+        fields: '*, !fields',
         op: 'Read',
       },
     ],

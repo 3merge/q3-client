@@ -1,8 +1,53 @@
 import React from 'react';
-import { Redirect as RouterRedirect } from '@reach/router';
+import {
+  Redirect as RouterRedirect,
+  navigate,
+} from '@reach/router';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import minimatch from 'minimatch';
+
+const getGrants = (a, name) =>
+  a.filter((v) => v.coll.localeCompare(name) === 0);
+
+const getSingleGrant = (a, op) =>
+  a && a.length ? a.find((grant) => grant.op === op) : null;
+
+export const asProtectedRoute = (ctx) => {
+  const ProtectedRoute = ({
+    component: Component,
+    coll,
+    to,
+    ...rest
+  }) => {
+    const permissions = get(
+      React.useContext(ctx),
+      'state.permissions',
+      [],
+    );
+
+    if (
+      !getSingleGrant(getGrants(permissions, coll), 'Read')
+    ) {
+      navigate(to);
+      return null;
+    }
+
+    return <Component {...rest} />;
+  };
+
+  ProtectedRoute.propTypes = {
+    component: PropTypes.node.isRequired,
+    coll: PropTypes.string.isRequired,
+    to: PropTypes.string,
+  };
+
+  ProtectedRoute.defaultProps = {
+    to: '/login',
+  };
+
+  return ProtectedRoute;
+};
 
 export default (ctx) => (coll) => {
   const permissions = get(
@@ -11,14 +56,8 @@ export default (ctx) => (coll) => {
     [],
   );
 
-  const grants = permissions.filter(
-    (v) => v.coll.localeCompare(coll) === 0,
-  );
-
   const getOp = (name) =>
-    grants && grants.length
-      ? grants.find((grant) => grant.op === name)
-      : null;
+    getSingleGrant(getGrants(permissions, coll), name);
 
   const getField = (name, grant) =>
     grant
@@ -58,26 +97,6 @@ export default (ctx) => (coll) => {
     to: '/login',
   };
 
-  const ProtectedRoute = ({
-    component: Component,
-    to,
-    ...rest
-  }) =>
-    getOp('Read') ? (
-      <Component {...rest} />
-    ) : (
-      <RouterRedirect to={to} />
-    );
-
-  ProtectedRoute.propTypes = {
-    component: PropTypes.node.isRequired,
-    to: PropTypes.string,
-  };
-
-  ProtectedRoute.defaultProps = {
-    to: '/login',
-  };
-
   return {
     canSee: isDefined(getOp('Read')),
     canEdit: isDefined(getOp('Update')),
@@ -86,6 +105,5 @@ export default (ctx) => (coll) => {
     isDisabled,
     Hide,
     Redirect,
-    ProtectedRoute,
   };
 };

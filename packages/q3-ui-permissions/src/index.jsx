@@ -1,15 +1,18 @@
 import './config/axios';
 import React from 'react';
 import PropTypes from 'prop-types';
-import composePermissionHook from './utils/permissions';
+import composePermissionHook, {
+  asProtectedRoute,
+} from './utils/permissions';
 import reducer, { getSession } from './utils/reducer';
 
 export * from './utils/reducer';
 export const AuthContext = React.createContext();
 export const useAuth = composePermissionHook(AuthContext);
+export const Protected = asProtectedRoute(AuthContext);
 
-const invoke = (fn) =>
-  typeof fn === 'function' ? fn() : null;
+const invoke = (fn, args) =>
+  typeof fn === 'function' ? fn(args) : null;
 
 export const Provider = ({
   renderPublic,
@@ -29,7 +32,7 @@ export const Provider = ({
   return state.init ? (
     <AuthContext.Provider value={{ state, dispatch }}>
       {state.profile
-        ? invoke(renderPrivate)
+        ? invoke(renderPrivate, state.profile)
         : invoke(renderPublic)}
       {children}
     </AuthContext.Provider>

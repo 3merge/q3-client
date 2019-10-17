@@ -4,13 +4,13 @@ import { Link } from '@reach/router';
 import { Redirect, Router } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Providers from 'q3-ui';
-import {
+import init, {
   Login,
   PasswordReset,
   Reverify,
   Verify,
 } from 'q3-ui-commons';
-import SnackbarProvider from 'q3-ui-rest';
+import SnackbarProvider from 'q3-ui-forms';
 import Authentication, {
   authenticate,
   destroySession,
@@ -33,6 +33,8 @@ export const ApplicationGate = ({
   appNav,
 }) => {
   const { t } = useTranslation();
+  React.useEffect(init, []);
+
   const links = [
     {
       to: '/login',
@@ -80,7 +82,7 @@ export const ApplicationGate = ({
   return (
     <Authentication
       loading={CircularProgress}
-      renderPrivate={() => (
+      renderPrivate={({ firstName, featuredPhoto }) => (
         <Templates.Main
           name={name}
           renderAside={appNav}
@@ -88,7 +90,8 @@ export const ApplicationGate = ({
           ProfileBarProps={{
             offcanvas: appNav,
             companyName: name,
-            name: 'Mike',
+            name: firstName,
+            imgSrc: featuredPhoto,
             menuItems: [
               {
                 onClick: destroySession,
@@ -121,16 +124,10 @@ ApplicationGate.propTypes = {
   logoImgSrc: PropTypes.string.isRequired,
 };
 
-const Wrapper = (props) => (
+export default (props) => (
   <Providers>
     <SnackbarProvider>
       <ApplicationGate {...props} />
     </SnackbarProvider>
   </Providers>
 );
-
-Wrapper.propTypes = {
-  theme: PropTypes.shape({}).isRequired,
-};
-
-export default Wrapper;

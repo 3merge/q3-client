@@ -1,6 +1,12 @@
 import React from 'react';
 import { get } from 'lodash';
 import Menu from 'q3-ui/lib/menu';
+import { useAuth } from 'q3-ui-permissions';
+import {
+  USER_COLLECTION,
+  PERMISSION_COLLECTION,
+  PRODUCT_COLLECTION,
+} from './constants';
 
 export default (props) => (
   <>
@@ -14,14 +20,14 @@ export default (props) => (
           visible: true,
         },
         {
+          visible: useAuth(USER_COLLECTION).canSee,
           label: 'Users',
           to: '/users',
-          visible: true,
         },
         {
+          visible: useAuth(PRODUCT_COLLECTION).canSee,
           label: 'Permissions',
           to: '/permissions',
-          visible: true,
         },
       ]}
     />
@@ -30,14 +36,9 @@ export default (props) => (
       title="Catalogue"
       items={[
         {
+          visible: useAuth(PRODUCT_COLLECTION).canSee,
           label: 'Products',
           to: '/products',
-          visible: true,
-        },
-        {
-          label: 'Categories',
-          to: '/categories',
-          visible: true,
         },
       ]}
     />

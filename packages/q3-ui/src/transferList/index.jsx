@@ -414,7 +414,6 @@ export function TransferList({
         label={t(`labels:${name}`)}
         helperText={t(`helperText:${name}`)}
         value={exceptions.data.join(',')}
-        disabled
         InputProps={{
           endAdornment: !readOnly && (
             <Badge

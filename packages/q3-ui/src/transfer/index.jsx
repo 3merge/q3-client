@@ -284,13 +284,7 @@ TransferListColumn.propTypes = {
   select: PropTypes.func.isRequired,
 };
 
-const Input = ({
-  name,
-  applied,
-  readOnly,
-  open,
-  hasOptions,
-}) => {
+const Input = ({ name, applied, readOnly, open }) => {
   const { t } = useTranslation();
 
   return (
@@ -307,7 +301,6 @@ const Input = ({
             color="secondary"
           >
             <IconButton
-              disabled={!hasOptions}
               onClick={open}
               size="small"
               color="primary"
@@ -359,8 +352,6 @@ export function TransferList({
       items.filter(minimatch.filter(word)),
     ),
   );
-
-  console.log(initAsArray);
 
   const inactive = uniq(
     items
@@ -446,7 +437,6 @@ export function TransferList({
         name={name}
         readOnly={readOnly}
         applied={initAsArray}
-        hasOptions={items.length}
         open={open}
       />
       <Drawer anchor="bottom" open={isOpen} onClose={close}>

@@ -7,12 +7,6 @@ import Form from 'q3-ui/form';
 
 const PasswordReset = ({ onSubmit }) => {
   const { t } = useTranslation();
-  const passwordResetSchema = yup.object().shape({
-    email: yup
-      .string()
-      .email()
-      .required(),
-  });
 
   return (
     <Form

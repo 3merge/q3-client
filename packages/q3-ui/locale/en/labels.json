@@ -26,5 +26,6 @@
   "op": "Action",
   "role": "Role type",
   "q3-api-users": "UserModel",
-  "q3-api-permissions": "PermissionModel"
+  "q3-api-permissions": "PermissionModel",
+  "forgotPassword": "Forgot your password?"
 }
