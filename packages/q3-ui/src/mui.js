@@ -112,6 +112,19 @@ export default responsiveFontSizes(
           boxShadow: 'none',
         },
       },
+      MuiTableCell: {
+        head: {
+          color: grey[500],
+          fontSize: '0.88rem',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+        },
+      },
+      MuiTablePagination: {
+        caption: {
+          fontSize: '0.88rem',
+        },
+      },
       MuiBadge: {
         root: {
           '&:not(:first-of-type)': {

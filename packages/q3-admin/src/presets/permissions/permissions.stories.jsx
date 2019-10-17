@@ -1,8 +1,7 @@
-import Axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
+import MockAPI from '../../utils/mocker';
 import Permissions from './index';
 
 const stub = {
@@ -13,76 +12,78 @@ const stub = {
   fields: '*',
 };
 
-const mock = new MockAdapter(Axios, {
-  delayResponse: 200,
-});
-
-mock.onGet('/system').reply(200, {
-  collections: {
-    'q3-api-users': [
-      'id',
-      'name',
-      'email',
-      'address.streetLine1',
-      'address.city',
-      'address.country',
-      'tel',
-    ],
-    'q3-api-permissions': [
-      'fields',
-      'ownership',
-      'coll',
-      'op',
-      'role',
-    ],
-  },
-  roles: ['Admin', 'Editor'],
-  conditions: ['isValidated'],
-});
-
-mock.onGet('/profile').reply(200, {
-  permissions: [
-    {
-      coll: 'q3-api-permissions',
-      fields: '*, !role, !condition',
-      op: 'Update',
+const define = (mock) => {
+  mock.onGet('/system').reply(200, {
+    collections: {
+      'q3-api-users': [
+        'id',
+        'name',
+        'email',
+        'address.streetLine1',
+        'address.city',
+        'address.country',
+        'tel',
+      ],
+      'q3-api-permissions': [
+        'fields',
+        'ownership',
+        'coll',
+        'op',
+        'role',
+      ],
     },
-    {
-      coll: 'q3-api-permissions',
-      fields: '*',
-      op: 'Read',
-    },
-  ],
-});
+    roles: ['Admin', 'Editor'],
+    conditions: ['isValidated'],
+  });
 
-mock.onGet('/permissions').reply(200, {
-  permissions: [stub, stub, stub],
-});
+  mock.onGet('/profile').reply(200, {
+    permissions: [
+      {
+        coll: 'q3-api-permissions',
+        fields: '*, !role, !condition',
+        op: 'Update',
+      },
+      {
+        coll: 'q3-api-permissions',
+        fields: '*',
+        op: 'Read',
+      },
+    ],
+  });
 
-mock.onGet(/\/permissions\/\d+/).reply(200, {
-  permission: stub,
-});
+  mock.onGet('/permissions').reply(200, {
+    permissions: [stub, stub, stub],
+  });
 
-mock.onPatch(/\/permissions\/\d+/).reply(200, {
-  message: 'Permission has been successfully updated',
-  permission: stub,
-});
+  mock.onGet(/\/permissions\/\d+/).reply(200, {
+    permission: stub,
+  });
 
-mock.onDelete(/\/permissions\/\d+/).reply(204, {
-  message: 'Permission has been successfully removed',
-});
+  mock.onPatch(/\/permissions\/\d+/).reply(200, {
+    message: 'Permission has been successfully updated',
+    permission: stub,
+  });
 
-mock.onPost('/permissions').reply(201, {
-  message: 'Permission has been created',
-});
+  mock.onDelete(/\/permissions\/\d+/).reply(204, {
+    message: 'Permission has been successfully removed',
+  });
+
+  mock.onPost('/permissions').reply(201, {
+    message: 'Permission has been created',
+  });
+
+  return mock;
+};
 
 storiesOf('Presets|Permissions', module)
   .add(
     'List',
     () => (
-      <Auth>
-        <Permissions />
-      </Auth>
+      <MockAPI define={define}>
+        <Auth>
+          <Permissions />
+        </Auth>
+      </MockAPI>
     ),
     {
       router: '/permissions',
@@ -91,9 +92,11 @@ storiesOf('Presets|Permissions', module)
   .add(
     'Detail',
     () => (
-      <Auth>
-        <Permissions />
-      </Auth>
+      <MockAPI define={define}>
+        <Auth>
+          <Permissions />
+        </Auth>
+      </MockAPI>
     ),
     {
       router: '/permissions/1',

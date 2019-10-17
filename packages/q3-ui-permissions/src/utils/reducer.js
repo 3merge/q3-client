@@ -49,14 +49,14 @@ export const validateAccountEmail = (
   actions,
 ) => {
   onStart(actions);
-  Axios.get(`/authenticate?email=${values.email}`)
+  return Axios.get(`/authenticate?email=${values.email}`)
     .then(() => {
       onComplete(null, actions);
       return values.email;
     })
     .catch((err) => {
       onComplete(err, actions);
-      return '';
+      return null;
     });
 };
 

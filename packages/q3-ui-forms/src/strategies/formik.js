@@ -1,4 +1,4 @@
-import { setWith } from 'lodash';
+import { get, setWith } from 'lodash';
 
 const extractMsg = (v) =>
   typeof v === 'object' ? v.msg : v;
@@ -10,6 +10,9 @@ const mapErrors = (errors) =>
     {},
   );
 
+const hasErrors = (err) =>
+  err || get(err, 'data.errors') || get(err, 'errors');
+
 export default () => ({
   onStart(actions = {}) {
     if ('setSubmitting' in actions) {
@@ -20,11 +23,10 @@ export default () => ({
   onComplete(err, actions) {
     if (typeof actions === 'object') {
       actions.setSubmitting(false);
-
-      if (!err || !err.errors) {
+      if (!hasErrors(err)) {
         actions.resetForm();
       } else {
-        const { errors = [] } = err;
+        const { errors = {} } = err.data || err;
         actions.setErrors(mapErrors(errors));
         Object.assign(actions, {
           isTouched: true,

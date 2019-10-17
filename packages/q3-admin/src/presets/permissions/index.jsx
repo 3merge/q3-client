@@ -208,6 +208,7 @@ export default () => {
   });
 
   Object.assign(sys, auth);
+  console.log(auth);
 
   return (
     <Router basepath="/permissions">

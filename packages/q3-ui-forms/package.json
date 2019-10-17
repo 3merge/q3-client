@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "lib/index.js",
   "dependencies": {
-    "formik": "^1.5.8",
     "lodash": "^4.17.15",
     "notistack": "^0.9.5"
   },

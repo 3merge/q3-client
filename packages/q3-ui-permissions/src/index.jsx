@@ -1,17 +1,15 @@
 import './config/axios';
 import React from 'react';
-import { invoke } from 'lodash';
 import PropTypes from 'prop-types';
-import reducer, {
-  getSession,
-  authenticate,
-  destroySession,
-} from './utils/reducer';
 import composePermissionHook from './utils/permissions';
+import reducer, { getSession } from './utils/reducer';
 
-export { authenticate, destroySession };
+export * from './utils/reducer';
 export const AuthContext = React.createContext();
 export const useAuth = composePermissionHook(AuthContext);
+
+const invoke = (fn) =>
+  typeof fn === 'function' ? fn() : null;
 
 export const Provider = ({
   renderPublic,

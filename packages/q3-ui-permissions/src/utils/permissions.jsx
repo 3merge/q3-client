@@ -28,6 +28,9 @@ export default (ctx) => (coll) => {
           .every((i) => minimatch(name, i))
       : false;
 
+  const isDefined = (arg) =>
+    arg !== undefined && arg !== null;
+
   const isDisabled = ({ op, name }) =>
     !getField(name, getOp(op)) && {
       disabled: true,
@@ -76,10 +79,10 @@ export default (ctx) => (coll) => {
   };
 
   return {
-    canSee: getOp('Read'),
-    canEdit: getOp('Update'),
-    canDelete: getOp('Delete'),
-    canCreate: getOp('Create'),
+    canSee: isDefined(getOp('Read')),
+    canEdit: isDefined(getOp('Update')),
+    canDelete: isDefined(getOp('Delete')),
+    canCreate: isDefined(getOp('Create')),
     isDisabled,
     Hide,
     Redirect,

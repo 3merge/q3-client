@@ -52,7 +52,7 @@ const Tile = ({
       {error && <Divider className={errorBar} />}
 
       <Box px={3} py={2} component="header">
-        <Typography variant="h2" gutterBottom={hasSubtitle}>
+        <Typography variant="h3" gutterBottom={hasSubtitle}>
           {title}
         </Typography>
         {hasSubtitle && (

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Input from 'q3-ui/inputs';
 import Form from 'q3-ui/form';
+import Collapse from '@material-ui/core/Collapse';
+import Fade from '@material-ui/core/Fade';
 
 const Login = ({
   formProps,
@@ -22,48 +24,31 @@ const Login = ({
     password: yup.string().required(),
   });
 
-  return hasAccount ? (
+  return (
     <Form
       {...formProps}
       title={t('titles:login')}
       description={t('descriptions:login')}
-      validationSchema={loginSchema}
-      onSubmit={onSubmit}
-      initialValues={{
-        email: hasAccount,
-        password: '',
-      }}
-    >
-      {() => <Input name="password" type="password" />}
-    </Form>
-  ) : (
-    <Form
-      {...formProps}
-      title={t('titles:login')}
-      description={t('descriptions:login')}
-      onSubmit={({ email }, actions) =>
-        onCheck(email)
-          .then((v) => {
-            setHasAccount(v);
-            actions.setSubmitting(false);
-          })
-          .catch(() => {
-            actions.setErrors({
-              email: t('validations:unknownEmail'),
-            });
-            actions.setSubmitting(false);
-            Object.assign(actions, {
-              isTouched: true,
-            });
-          })
+      onSubmit={(...args) =>
+        hasAccount
+          ? onSubmit(...args)
+          : onCheck(...args).then((e) => {
+              if (e) setHasAccount(e);
+            })
       }
       initialValues={{
         email: '',
+        password: '',
       }}
     >
       {() => (
         <>
-          <Input name="email" type="email" required />
+          <Collapse in={!hasAccount}>
+            <Input name="email" type="email" />
+          </Collapse>
+          <Collapse in={hasAccount} timeout={500}>
+            <Input name="password" type="password" />
+          </Collapse>
           {children}
         </>
       )}

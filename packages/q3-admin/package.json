@@ -12,7 +12,6 @@
     "@material-ui/icons": "^4.4.3",
     "@material-ui/styles": "^4.4.3",
     "@reach/router": "^1.2.1",
-    "i18next": "^17.0.16",
     "q3-ui": "^1.0.0",
     "q3-ui-commons": "^1.0.0",
     "q3-ui-permissions": "^1.0.2",
@@ -20,5 +19,8 @@
     "react": "^16.9.0",
     "react-i18next": "^10.12.5",
     "react-router-dom": "^5.0.1"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.17.0"
   }
 }
