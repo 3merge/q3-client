@@ -1,11 +1,15 @@
 import React from 'react';
 import { Redirect as RouterRedirect } from '@reach/router';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import minimatch from 'minimatch';
 
 export default (ctx) => (coll) => {
-  const { state } = React.useContext(ctx);
-  const { permissions = [] } = state;
+  const permissions = get(
+    React.useContext(ctx),
+    'state.permissions',
+    [],
+  );
 
   const grants = permissions.filter(
     (v) => v.coll.localeCompare(coll) === 0,
@@ -21,48 +25,54 @@ export default (ctx) => (coll) => {
       ? String(grant.fields || '')
           .split(',')
           .map((i) => i.trim())
-          .some((i) => minimatch(name, i))
+          .every((i) => minimatch(name, i))
       : false;
 
-  const Hide = ({ children, op }) => getOp(op) && children;
+  const isDisabled = ({ op, name }) =>
+    !getField(name, getOp(op)) && {
+      disabled: true,
+      readOnly: true,
+    };
+
+  const Hide = ({ children, op }) =>
+    getOp(op) ? children : null;
 
   Hide.propTypes = {
     children: PropTypes.node.isRequired,
     op: PropTypes.string.isRequired,
   };
 
-  const Disable = ({
-    component: Component,
-    op,
-    name,
-    ...rest
-  }) =>
-    getField(name, getOp(op)) ? (
-      <Component {...rest} />
-    ) : (
-      <Component {...rest} disabled readOnly />
-    );
-
-  Disable.propTypes = {
-    component: PropTypes.func.isRequired,
-    op: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-  };
-
-  const Redirect = ({
-    component: Component,
-    op,
-    ...rest
-  }) =>
-    getOp(op) ? (
-      <Component {...rest} />
-    ) : (
-      <RouterRedirect to="/login" />
-    );
+  const Redirect = ({ children, to, op }) =>
+    getOp(op) ? children : <RouterRedirect to={to} />;
 
   Redirect.propTypes = {
     op: PropTypes.string.isRequired,
-    component: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    to: PropTypes.string,
+  };
+
+  Redirect.defaultProps = {
+    to: '/login',
+  };
+
+  const ProtectedRoute = ({
+    component: Component,
+    to,
+    ...rest
+  }) =>
+    getOp('Read') ? (
+      <Component {...rest} />
+    ) : (
+      <RouterRedirect to={to} />
+    );
+
+  ProtectedRoute.propTypes = {
+    component: PropTypes.node.isRequired,
+    to: PropTypes.string,
+  };
+
+  ProtectedRoute.defaultProps = {
+    to: '/login',
   };
 
   return {
@@ -70,9 +80,9 @@ export default (ctx) => (coll) => {
     canEdit: getOp('Update'),
     canDelete: getOp('Delete'),
     canCreate: getOp('Create'),
-
+    isDisabled,
     Hide,
-    Disable,
     Redirect,
+    ProtectedRoute,
   };
 };

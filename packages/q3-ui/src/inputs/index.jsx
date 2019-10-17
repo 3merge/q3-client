@@ -47,6 +47,7 @@ export const useFormikIntegration = ({
   formik,
   readOnly,
   required,
+  authFn,
   ...rest
 }) => {
   const { t } = useTranslation();
@@ -73,11 +74,18 @@ export const useFormikIntegration = ({
     );
   }, []);
 
+  const overrides =
+    typeof authFn === 'function'
+      ? authFn({
+          op: rest.isNew ? 'Create' : 'Update',
+          name,
+        })
+      : {};
+
   return {
     ...rest,
     id: name,
-    disabled: readOnly || (formik.isSubmitting || disabled),
-    readOnly,
+    disabled: formik.isSubmitting || disabled,
     label,
     helperText,
     value,
@@ -85,6 +93,7 @@ export const useFormikIntegration = ({
     onChange,
     name,
     required,
+    ...overrides,
   };
 };
 

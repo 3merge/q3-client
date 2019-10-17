@@ -1,5 +1,6 @@
 import './config/axios';
 import React from 'react';
+import { invoke } from 'lodash';
 import PropTypes from 'prop-types';
 import reducer, {
   getSession,
@@ -10,14 +11,13 @@ import composePermissionHook from './utils/permissions';
 
 export { authenticate, destroySession };
 export const AuthContext = React.createContext();
-export const usePermission = composePermissionHook(
-  AuthContext,
-);
+export const useAuth = composePermissionHook(AuthContext);
 
 export const Provider = ({
   renderPublic,
   renderPrivate,
   loading: Loading,
+  children,
 }) => {
   const [state, dispatch] = React.useReducer(reducer, {
     profile: {},
@@ -30,7 +30,10 @@ export const Provider = ({
 
   return state.init ? (
     <AuthContext.Provider value={{ state, dispatch }}>
-      {state.profile ? renderPrivate() : renderPublic()}
+      {state.profile
+        ? invoke(renderPrivate)
+        : invoke(renderPublic)}
+      {children}
     </AuthContext.Provider>
   ) : (
     <div
@@ -41,7 +44,7 @@ export const Provider = ({
         transform: 'translate(-50%,-50%)',
       }}
     >
-      <Loading />
+      {Loading ? <Loading /> : 'Please wait...'}
     </div>
   );
 };
@@ -50,6 +53,11 @@ Provider.propTypes = {
   renderPublic: PropTypes.func.isRequired,
   renderPrivate: PropTypes.func.isRequired,
   loading: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Provider.defaultProps = {
+  children: null,
 };
 
 export default Provider;

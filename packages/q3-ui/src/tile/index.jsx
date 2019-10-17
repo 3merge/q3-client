@@ -32,6 +32,7 @@ const Tile = ({
   error,
   renderFooter,
   dividers,
+  disableSkeleton,
 }) => {
   const { tiled, errorBar } = useStyles();
   const hasSubtitle = subtitle && subtitle !== title;
@@ -43,7 +44,7 @@ const Tile = ({
       className={tiled}
       square
     >
-      {loading && (
+      {loading && dividers && (
         <Collapse in={loading}>
           <LinearProgress />
         </Collapse>
@@ -62,7 +63,7 @@ const Tile = ({
       </Box>
       {dividers && <Divider />}
       <Box py={dividers ? 2 : 0} px={3}>
-        {loading ? (
+        {loading && !disableSkeleton ? (
           <>
             <Skeleton height={6} width="80%" />
             <Skeleton height={6} width="80%" />

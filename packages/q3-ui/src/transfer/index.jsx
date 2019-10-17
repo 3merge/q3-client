@@ -40,8 +40,16 @@ export const findNestedExpressions = (a = []) =>
     [[], []],
   );
 
-export const transformDelineatedString = (str = []) =>
-  str.split(',').map((w) => w.trim());
+const sanitizeArrayStrings = (a = []) =>
+  a.map((w) => w.trim()).filter(Boolean);
+
+export const transformDelineatedStringIntoArray = (
+  str = '',
+) => sanitizeArrayStrings(str.split(','));
+
+export const transformArrayIntoDelineatedString = (
+  arr = [],
+) => sanitizeArrayStrings(arr).join(',');
 
 export const filterByExpressions = (a = []) => (b) =>
   a.some((re) => minimatch(b, re));
@@ -276,7 +284,13 @@ TransferListColumn.propTypes = {
   select: PropTypes.func.isRequired,
 };
 
-const Input = ({ name, applied, readOnly, open }) => {
+const Input = ({
+  name,
+  applied,
+  readOnly,
+  open,
+  hasOptions,
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -293,6 +307,7 @@ const Input = ({ name, applied, readOnly, open }) => {
             color="secondary"
           >
             <IconButton
+              disabled={!hasOptions}
               onClick={open}
               size="small"
               color="primary"
@@ -333,7 +348,9 @@ export function TransferList({
   const cls = useStyles();
 
   const init = getIn(formik.values, name);
-  const initAsArray = transformDelineatedString(init);
+  const initAsArray = transformDelineatedStringIntoArray(
+    init,
+  );
   const [rules, words] = findNestedExpressions(initAsArray);
   const isSelected = (item) => selected.includes(item);
 
@@ -342,6 +359,8 @@ export function TransferList({
       items.filter(minimatch.filter(word)),
     ),
   );
+
+  console.log(initAsArray);
 
   const inactive = uniq(
     items
@@ -363,9 +382,9 @@ export function TransferList({
     const [val] = intersects(words, inactive, selected);
     formik.setFieldValue(
       name,
-      uniq(val)
-        .concat(rules)
-        .join(', '),
+      transformArrayIntoDelineatedString(
+        uniq(val).concat(rules),
+      ),
     );
     setSelected([]);
   };
@@ -416,12 +435,18 @@ export function TransferList({
     [isOpen],
   );
 
+  React.useEffect(() => {
+    if (options !== items && Array.isArray(options))
+      setItems(options);
+  }, [options]);
+
   return (
     <>
       <Input
         name={name}
         readOnly={readOnly}
         applied={initAsArray}
+        hasOptions={items.length}
         open={open}
       />
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
