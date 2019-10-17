@@ -1,5 +1,5 @@
 import { useSnackbar } from 'notistack';
-import useNotiFacade from '../noti';
+import useNotiFacade from '../notistack';
 
 const { enqueueSnackbar } = useSnackbar();
 

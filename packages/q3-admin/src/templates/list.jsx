@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { useTranslation } from 'react-i18next';
-import { useRest } from 'q3-ui-rest';
+import useRest from 'q3-ui-rest';
 import Table from 'q3-ui/table';
 import Header from 'q3-ui/header';
 import SearchBar from 'q3-ui/searchBar';

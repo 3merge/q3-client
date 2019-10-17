@@ -1,8 +1,10 @@
 import Axios from 'axios';
 import Cookies from 'js-cookie';
+import { useFormHandler } from 'q3-ui-forms';
 import { NONCE, TOKEN } from './constants';
 
 const INIT = 'AUTHENTICATING';
+const { onStart, onComplete } = useFormHandler();
 
 export default (state, action) => {
   const { type, data } = action;
@@ -23,19 +25,6 @@ export const destroySession = () => {
   window.location.replace('/login');
 };
 
-export const authenticate = (values) =>
-  Axios.post('/authenticate', values)
-    .then(({ data }) => {
-      const { token, nonce } = data;
-      Cookies.set(TOKEN, token);
-      Cookies.set(NONCE, nonce);
-      window.location.replace('/');
-      return null;
-    })
-    .catch((err) => {
-      return err;
-    });
-
 export const getSession = (dispatch) =>
   Axios.get('/profile')
     .then(({ data }) => {
@@ -54,3 +43,72 @@ export const getSession = (dispatch) =>
         data: null,
       }),
     );
+
+export const validateAccountEmail = (
+  values = {},
+  actions,
+) => {
+  onStart(actions);
+  Axios.get(`/authenticate?email=${values.email}`)
+    .then(() => {
+      onComplete(null, actions);
+      return values.email;
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+      return '';
+    });
+};
+
+export const authenticate = (values, actions) => {
+  onStart(actions);
+  return Axios.post('/authenticate', values)
+    .then(({ data }) => {
+      const { token, nonce } = data;
+      Cookies.set(TOKEN, token);
+      Cookies.set(NONCE, nonce);
+      window.location.replace('/');
+      return null;
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+      throw err.data;
+    });
+};
+
+export const resetPassword = (values, actions) => {
+  onStart(actions);
+
+  return Axios.post('/password-reset', values)
+    .then(({ data }) => {
+      window.location.replace('/login?from=password-reset');
+      return data;
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+    });
+};
+
+export const verify = (values, actions) => {
+  onStart(actions);
+  return Axios.post('/password-reset', values)
+    .then(() => {
+      window.location.replace('/login?from=verify');
+      onComplete(null, actions);
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+    });
+};
+
+export const reverify = (values, actions) => {
+  onStart(actions);
+  return Axios.post('/reverify', values)
+    .then(() => {
+      window.location.replace('/verify?from=reverify');
+      onComplete(null, actions);
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+    });
+};

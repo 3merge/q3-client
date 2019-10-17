@@ -1,6 +1,10 @@
 import React from 'react';
 import Axios from 'axios';
 import { get, invoke } from 'lodash';
+import {
+  useNotification,
+  useFormHandler,
+} from 'q3-ui-forms';
 import { makePath } from '../utils';
 import reducer from './reducer';
 import {
@@ -10,8 +14,6 @@ import {
   UPDATED,
   DELETED,
 } from './constants';
-import useNotiFacade from '../lib/noti';
-import useStrategy from '../strategies';
 
 export default ({
   url,
@@ -25,8 +27,8 @@ export default ({
 }) => {
   if (!url) throw new Error('Requires a valid URL');
   const { search } = location;
-  const { onStart, onComplete } = useStrategy(strategy);
-  const { onSuccess, onFail } = useNotiFacade();
+  const { onStart, onComplete } = useFormHandler(strategy);
+  const { onSuccess, onFail } = useNotification();
 
   const [state, dispatch] = React.useReducer(reducer, {
     fetching: runOnInit,

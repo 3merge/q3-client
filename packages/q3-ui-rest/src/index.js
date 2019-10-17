@@ -1,5 +1,3 @@
-import './lib/axios';
-import { SnackbarProvider } from 'notistack';
+import './axios';
 
-export default SnackbarProvider;
-export { default as useRest } from './hooks';
+export { default } from './hooks';

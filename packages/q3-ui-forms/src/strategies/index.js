@@ -5,7 +5,7 @@ const strategies = {
   formik,
 };
 
-export default (strategy) => {
+export default (strategy = 'formik') => {
   if (!(strategy in strategies))
     throw new Error(
       `${strategy} is not a recognized strategy`,

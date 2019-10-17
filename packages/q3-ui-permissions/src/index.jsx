@@ -1,22 +1,18 @@
-import './lib/axios';
+import './config/axios';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Axios from 'axios';
 import reducer, {
   getSession,
   authenticate,
   destroySession,
 } from './utils/reducer';
-import composePermissionHook, {
-  isVisible,
-} from './utils/withPermission';
+import composePermissionHook from './utils/permissions';
 
-export { authenticate, destroySession, isVisible };
+export { authenticate, destroySession };
 export const AuthContext = React.createContext();
 export const usePermission = composePermissionHook(
   AuthContext,
 );
-export const usePermissionChecker = isVisible(AuthContext);
 
 export const Provider = ({
   renderPublic,
@@ -53,7 +49,7 @@ export const Provider = ({
 Provider.propTypes = {
   renderPublic: PropTypes.func.isRequired,
   renderPrivate: PropTypes.func.isRequired,
+  loading: PropTypes.node.isRequired,
 };
 
 export default Provider;
-export { Axios };

@@ -5,7 +5,7 @@ import {
   addDecorator,
 } from '@storybook/react';
 import Providers from 'q3-ui';
-import Snackbar from 'q3-ui-rest';
+import Snackbar from 'q3-ui-forms';
 import { withTests } from '@storybook/addon-jest';
 import { addReadme } from 'storybook-readme';
 import { withA11y } from '@storybook/addon-a11y';

@@ -6,6 +6,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
+    '<rootDir>/examples/',
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import { NONCE, TOKEN } from './constants'
+import { NONCE, TOKEN } from './constants';
 
 export default class AuthenticationDependencyInjection {
   constructor(config = {}) {
@@ -15,11 +15,7 @@ export default class AuthenticationDependencyInjection {
 
   set headers({ token, nonce }) {
     this.config.headers = {};
-    if (token) {
-      this.config.headers.authorization = `Bearer ${token}`;
-    }
-    if (nonce) {
-      this.config.headers[NONCE] = nonce;
-    }
+    this.config.headers.authorization = `Bearer ${token}`;
+    this.config.headers[NONCE] = nonce;
   }
 }

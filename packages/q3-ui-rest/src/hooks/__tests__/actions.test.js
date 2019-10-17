@@ -7,10 +7,7 @@ import {
   DELETED,
 } from '../constants';
 import useRest from '../actions';
-// eslint-disable-next-line
-import { onSuccess, onFail } from '../../lib/noti';
 
-jest.mock('../../lib/noti');
 const dispatch = jest.fn();
 let spy;
 
@@ -25,8 +22,6 @@ beforeAll(() => {
 
 beforeEach(() => {
   dispatch.mockReset();
-  onFail.mockReset();
-  onSuccess.mockReset();
 });
 
 describe('useRest', () => {
@@ -83,7 +78,6 @@ describe('useRest', () => {
       err: expect.any(Object),
       data: expect.any(Object),
     });
-    expect(onFail).toHaveBeenCalledWith('Whoops');
   });
 
   it('should fail to fetch', () => {
@@ -92,14 +86,12 @@ describe('useRest', () => {
     mockAxios.mockError({
       message: 'Whoops',
     });
-    expect(onFail).toHaveBeenCalledWith('Whoops');
   });
 
   it('should delete by ID', () => {
     remove(1)();
     expect(mockAxios.delete).toHaveBeenCalledWith('/foo/1');
     mockAxios.mockResponse();
-    expect(onSuccess).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: DELETED,
@@ -118,7 +110,6 @@ describe('useRest', () => {
         bar: 1,
       },
     });
-    expect(onSuccess).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: UPDATED,
@@ -136,7 +127,6 @@ describe('useRest', () => {
       expect.any(Object),
     );
     mockAxios.mockError();
-    expect(onFail).toHaveBeenCalled();
   });
 
   it('should patch by ID', () => {
@@ -151,7 +141,6 @@ describe('useRest', () => {
         bar: 1,
       },
     });
-    expect(onSuccess).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: UPDATED,
@@ -168,7 +157,6 @@ describe('useRest', () => {
       modified: true,
     });
     mockAxios.mockResponse();
-    expect(onSuccess).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
         type: CREATED,
@@ -182,7 +170,6 @@ describe('useRest', () => {
       modified: true,
     });
     mockAxios.mockError();
-    expect(onFail).toHaveBeenCalled();
   });
 });
 

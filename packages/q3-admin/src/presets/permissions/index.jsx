@@ -3,7 +3,7 @@ import { Router } from '@reach/router';
 import Form from 'q3-ui/form';
 import { DesktopSelect } from 'q3-ui/inputs';
 import Transfer from 'q3-ui/transfer';
-import { useRest } from 'q3-ui-rest';
+import useRest from 'q3-ui-rest';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
 
