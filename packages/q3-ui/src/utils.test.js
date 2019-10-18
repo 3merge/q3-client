@@ -19,7 +19,6 @@ describe('getLinkAttributes', () => {
     expect(
       getLinkAttributes('https://www.example.com'),
     ).toMatchObject({
-      component: 'a',
       href: '//www.example.com',
       target: '_blank',
       rel: 'noopener noreferrer',

@@ -1,3 +1,4 @@
+import ButtonLink from '@material-ui/core/Link';
 import { Link } from '@reach/router';
 
 export const getLinkAttributes = (url = '', Component) => {
@@ -5,7 +6,7 @@ export const getLinkAttributes = (url = '', Component) => {
 
   if (url.startsWith('http') || url.startsWith('www')) {
     return {
-      component: 'a',
+      component: ButtonLink,
       target: '_blank',
       rel: 'noopener noreferrer',
       href: url.replace(/^https?:\/\//, '//'),

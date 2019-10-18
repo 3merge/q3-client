@@ -26,6 +26,12 @@ const MenuImplementationStory = () => (
         Icon: AccountCircle,
         visible: true,
       },
+      {
+        to: 'https://google.ca',
+        label: 'Link Four (External)',
+        Icon: AccountCircle,
+        visible: true,
+      },
     ]}
   />
 );

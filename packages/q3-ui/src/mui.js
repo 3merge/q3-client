@@ -70,6 +70,7 @@ export default responsiveFontSizes(
         fontSize: 1.15,
         fontWeight: 600,
       },
+      fontFamily: '"Lato", sans-serif',
     },
     shadows: [
       'none',

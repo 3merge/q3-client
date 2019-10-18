@@ -22,80 +22,76 @@ const useStyles = makeStyles({
 });
 
 export const CollisionNavLink = React.forwardRef(
-  (props, ref) => {
-    const { container } = useStyles();
-    return (
-      <div ref={ref} className={container}>
-        <NavLink
-          {...props}
-          getProps={({
-            isCurrent,
-            isPartiallyCurrent,
-          }) => ({
-            style:
-              isCurrent ||
-              (isPartiallyCurrent &&
-                (props.to !== '/' || !props.to))
-                ? {
-                    backgroundColor:
-                      'rgba(255,255,255,0.1)',
-                  }
-                : null,
-          })}
-        />
-      </div>
-    );
-  },
+  (props, ref) => (
+    <NavLink
+      {...props}
+      getProps={({ isCurrent, isPartiallyCurrent }) => ({
+        style:
+          isCurrent ||
+          (isPartiallyCurrent &&
+            (props.to !== '/' || !props.to))
+            ? {
+                backgroundColor: 'rgba(255,255,255,0.1)',
+              }
+            : null,
+      })}
+    />
+  ),
 );
 
-const Menu = ({ title, items, color, done }) => (
-  <List
-    aria-labelledby="nested-list-subheader"
-    component="nav"
-    subheader={
-      title ? (
-        <ListSubheader
-          disableSticky
-          component="div"
-          id="nested-list-subheader"
-          style={{ color }}
-        >
-          {title.toUpperCase()}
-        </ListSubheader>
-      ) : null
-    }
-  >
-    {items.map(
-      (item) =>
-        item.visible && (
-          <ListItem
-            {...getLinkAttributes(
-              item.to,
-              CollisionNavLink,
-            )}
-            exact={item.exact}
-            key={item.to}
-            onClick={done}
-            dense
-            button
+const Menu = ({ title, items, color, done }) => {
+  const { container } = useStyles();
+  return (
+    <List
+      aria-labelledby="nested-list-subheader"
+      component="nav"
+      subheader={
+        title ? (
+          <ListSubheader
+            disableSticky
+            component="div"
+            id="nested-list-subheader"
+            style={{ color }}
           >
-            {item.Icon && (
-              <ListItemIcon>
-                <item.Icon
-                  fontSize="small"
+            {title.toUpperCase()}
+          </ListSubheader>
+        ) : null
+      }
+    >
+      {items.map(
+        (item) =>
+          item.visible && (
+            <div className={container}>
+              <ListItem
+                {...getLinkAttributes(
+                  item.to,
+                  CollisionNavLink,
+                )}
+                exact={item.exact}
+                key={item.to}
+                onClick={done}
+                dense
+                button
+              >
+                {item.Icon && (
+                  <ListItemIcon>
+                    <item.Icon
+                      fontSize="small"
+                      style={{ color }}
+                    />
+                  </ListItemIcon>
+                )}
+                <ListItemText
                   style={{ color }}
+                  primary={item.label}
                 />
-              </ListItemIcon>
-            )}
-            <ListItemText
-              style={{ color }}
-              primary={item.label}
-            />
-          </ListItem>
-        ),
-    )}
-  </List>
-);
+              </ListItem>
+            </div>
+          ),
+      )}
+    </List>
+  );
+};
 
 Menu.propTypes = {
   color: PropTypes.string,

@@ -10,10 +10,8 @@ storiesOf('Components|Alert', module)
       sidebar: docs,
     },
   })
+  .add('Default', () => <Alert label="cookies" link="/" />)
   .add('Error', () => <Alert label="whoops" type="error" />)
-  .add('Warning', () => (
-    <Alert label="hmm..." type="warning" />
-  ))
   .add('Success', () => (
     <Alert label="yay!" type="success" />
   ));

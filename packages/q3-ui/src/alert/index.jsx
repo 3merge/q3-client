@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
+import { Link } from '@reach/router';
+import MULink from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
+import Typography from '@material-ui/core/Typography';
 import {
   red,
   orange,
@@ -15,9 +17,14 @@ import {
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginLeft: theme.spacing(1),
+  },
   container: {
     display: 'flex',
-    paddingLeft: theme.spacing(2),
+    padding: `${theme.spacing(1)} ${theme.spacing(
+      1,
+    )} ${theme.spacing(1)} ${theme.spacing(2)}`,
     textAlign: 'left',
   },
   error: {
@@ -33,11 +40,16 @@ const useStyles = makeStyles((theme) => ({
   success: {
     backgroundColor: green[50],
     border: `1px solid ${green[100]}`,
-    olor: green[900],
+    color: green[900],
+  },
+  info: {
+    border: `1px solid ${theme.palette.primary.dark}`,
+    backgroundColor: theme.palette.primary.main,
+    color: '#FFF',
   },
 }));
 
-const Alert = ({ label, type }) => {
+const Alert = ({ label, link, type }) => {
   const [dismissed, setDismissed] = React.useState(false);
   const cls = useStyles();
   const { t } = useTranslation();
@@ -59,18 +71,26 @@ const Alert = ({ label, type }) => {
           justify="space-between"
         >
           <Grid item>
-            <Typography>
-              {t(`notifications:${label}`)}
+            <Typography color="inherit">
+              {t(`descriptions:${label}`)}
+              {link && (
+                <MULink
+                  component={Link}
+                  to={link}
+                  className={cls.icon}
+                  style={{ textDecoration: 'underline' }}
+                  color="inherit"
+                >
+                  {t('labels:learn')}
+                </MULink>
+              )}
             </Typography>
           </Grid>
           <Grid item>
-            <IconButton
-              onClick={onDismiss}
-              aria-label={t('labels:dismiss')}
-              color="primary"
-            >
-              <Close />
-            </IconButton>
+            <Button onClick={onDismiss} color="inherit">
+              {t('labels:ok')}
+              <Close className={cls.icon} />
+            </Button>
           </Grid>
         </Grid>
       </Box>
@@ -80,11 +100,16 @@ const Alert = ({ label, type }) => {
 
 Alert.propTypes = {
   label: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['error', 'warning', 'success']),
+  type: PropTypes.oneOf([
+    'error',
+    'warning',
+    'success',
+    'info',
+  ]),
 };
 
 Alert.defaultProps = {
-  type: 'error',
+  type: 'info',
 };
 
 export default Alert;
