@@ -35,7 +35,7 @@ const Tile = ({
   disableSkeleton,
 }) => {
   const { tiled, errorBar } = useStyles();
-  const hasSubtitle = subtitle && subtitle !== title;
+  const hasSubtitle = Boolean(subtitle);
 
   return (
     <Paper

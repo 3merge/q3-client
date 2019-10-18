@@ -12,5 +12,5 @@
   "inclusions": "Move items from this column into the next to activate them. Remember, you can search and select in bulk. Likewise, you can set RegExp rules to future-proof your selection.",
   "exceptions": "Items in this column are active either by precise selection or RegExp. To remove an automated item (one by rule), please delete the RegExp first or rewrite it to further exclude options.",
   "spam": "Hang tight. Checking the browser for spam before serving this form.",
-  "cookies": "This website uses cookies"
+  "cookies": "Note that this website uses cookies to improve the user experience."
 }

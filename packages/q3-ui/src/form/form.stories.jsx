@@ -15,6 +15,7 @@ storiesOf('Components|Form', module)
   .add('Default render', () => (
     <Form
       title="demo"
+      subtitle="demo"
       initialValues={{
         foo: 'bar',
       }}

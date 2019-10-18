@@ -13,6 +13,6 @@ storiesOf('Components|Tile', module)
   .add('Default render', () => (
     <Title
       title="Title!"
-      summary="This is a long description for a super basic container element. This is a long description for a super basic container element. This is a long description for a super basic container element."
+      subtitle="This is a long description for a super basic container element. This is a long description for a super basic container element. This is a long description for a super basic container element."
     />
   ));

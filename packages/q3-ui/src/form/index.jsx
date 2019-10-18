@@ -12,6 +12,7 @@ import Tile from '../tile';
 const FormWrapper = ({
   children,
   title,
+  subtitle,
   readOnly,
   description,
   dividers,
@@ -30,7 +31,11 @@ const FormWrapper = ({
             loading={utils.isSubmitting}
             dividers={dividers}
             title={t(`titles:${title}`)}
-            subtitle={t(`descriptions:${title}`)}
+            subtitle={
+              subtitle
+                ? t(`descriptions:${subtitle}`)
+                : null
+            }
             renderFooter={() =>
               readOnly ? (
                 <Avatar color="secondary">
