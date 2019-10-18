@@ -15,6 +15,19 @@ import {
   DELETED,
 } from './constants';
 
+export const getOptions = (url, key, pathToLabel) => {
+  return Axios.get(url)
+    .then(({ data }) =>
+      get(data, key, []).map((i) => ({
+        label: get(i, pathToLabel),
+        value: i.id,
+      })),
+    )
+    .catch(() => {
+      return [];
+    });
+};
+
 export default ({
   url,
   redirectOnSearch,
@@ -74,10 +87,12 @@ export default ({
       return Axios.get(`${url}${query}`)
         .then(({ data }) => {
           call(FETCHED, data);
+          return data;
         })
         .catch((err) => {
           call(FETCHED, null, err);
           onFail(get(err, 'message'));
+          return null;
         });
     },
 
