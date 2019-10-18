@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -9,9 +8,10 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import TrendingFlat from '@material-ui/icons/TrendingFlat';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { blueGrey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
+import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles((theme) => ({
   iconCls: {
@@ -122,7 +122,11 @@ const CardWrapper = ({ children, to, ...rest }) => {
   const { root } = useStyles();
   return (
     <Grid item {...rest}>
-      <Card component={Link} className={root} to={to}>
+      <Card
+        {...getLinkAttributes(to)}
+        className={root}
+        to={to}
+      >
         {children}
       </Card>
     </Grid>
@@ -176,7 +180,7 @@ export const ResourceCard = ({
       <Grid container spacing={1} alignItems="center">
         <Grid item lg={4} md={5} sm={6} xs={12}>
           <Box p={1}>
-            <img src={imgSrc} alt={title} />
+            <LazyLoadImage src={imgSrc} alt={title} />
           </Box>
         </Grid>
         <Grid item lg={8} md={7} sm={6} xs={12}>
@@ -273,12 +277,12 @@ export const NewsCard = ({
   md,
   ...rest
 }) => {
-  const { arrow, iconCls, spacing, ribbon } = useStyles();
+  const { iconCls, ribbon } = useStyles();
   return (
     <CardWrapper md={md} sm={6} xs={12} to={to}>
       {imgSrc && (
         <div className={iconCls}>
-          <img src={imgSrc} alt={title} />
+          <LazyLoadImage src={imgSrc} alt={title} />
           {label && <span className={ribbon}>{label}</span>}
         </div>
       )}

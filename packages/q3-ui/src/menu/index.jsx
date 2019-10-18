@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { makeStyles } from '@material-ui/core/styles';
+import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles({
   container: {
@@ -68,13 +69,15 @@ const Menu = ({ title, items, color, done }) => (
       (item) =>
         item.visible && (
           <ListItem
-            button
+            {...getLinkAttributes(
+              item.to,
+              CollisionNavLink,
+            )}
             exact={item.exact}
             key={item.to}
-            component={CollisionNavLink}
             onClick={done}
-            to={item.to}
             dense
+            button
           >
             {item.Icon && (
               <ListItemIcon>

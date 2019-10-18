@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Empty from '../../images/empty.png';
@@ -20,7 +21,7 @@ const Graphic = ({ alt, src, className }) => {
   const { t } = useTranslation();
   const { centered } = useStyles();
   return (
-    <img
+    <LazyLoadImage
       alt={t(`labels:${alt}`)}
       className={classNames(centered, className)}
       src={src}

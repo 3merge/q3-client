@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { makeStyles } from '@material-ui/core/styles';
 
 const generateNegative = (num) => ({ negativeMargin }) =>
@@ -162,7 +163,7 @@ export const FeaturedPhotoBanner = ({
           <GridItemRenderer
             render={() =>
               customImgRender || (
-                <img
+                <LazyLoadImage
                   src={imgSrc}
                   alt={rest.title}
                   style={{ maxHeight: 500 }}

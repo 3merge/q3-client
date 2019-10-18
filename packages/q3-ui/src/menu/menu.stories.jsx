@@ -11,7 +11,7 @@ const MenuImplementationStory = () => (
     color="orange"
     items={[
       {
-        to: '#one',
+        to: 'one',
         label: 'Link One',
         Icon: Assignment,
         visible: true,
@@ -21,7 +21,7 @@ const MenuImplementationStory = () => (
         visible: false,
       },
       {
-        to: '#three',
+        to: 'three',
         label: 'Link Three (Link Two Invisible)',
         Icon: AccountCircle,
         visible: true,
@@ -39,4 +39,6 @@ storiesOf('Components|Menu', module)
       sidebar: Docs,
     },
   })
-  .add('Default', () => <MenuImplementationStory />);
+  .add('Default', () => <MenuImplementationStory />, {
+    router: 'one',
+  });

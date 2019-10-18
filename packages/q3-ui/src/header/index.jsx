@@ -13,6 +13,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {
   makeStyles,
   withStyles,
@@ -230,7 +231,7 @@ const Identifier = ({ logoImgSrc, name }) => {
   const { logo } = useStyles();
   return logoImgSrc ? (
     <Link to="/" className={logo}>
-      <img src={logoImgSrc} alt={name} />
+      <LazyLoadImage src={logoImgSrc} alt={name} />
     </Link>
   ) : (
     <Typography

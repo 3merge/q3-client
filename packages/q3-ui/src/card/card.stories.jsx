@@ -14,7 +14,7 @@ const sharedProps = {
   description:
     'Cards can have descriptions for context that only span a few lines',
   label: 'Topic',
-  to: '/',
+  to: 'https://google.ca',
   buttonText: 'Read more',
 };
 

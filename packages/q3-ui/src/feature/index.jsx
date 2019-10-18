@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -22,7 +23,7 @@ const Media = ({
   return (
     <>
       {imgSrc && (
-        <img
+        <LazyLoadImage
           alt={title}
           className={media}
           src={imgSrc}
