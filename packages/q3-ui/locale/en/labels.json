@@ -29,5 +29,7 @@
   "q3-api-permissions": "PermissionModel",
   "forgotPassword": "Forgot your password?",
   "ok": "OK, thanks",
-  "learn": "Learn more"
+  "learn": "Learn more",
+  "tel": "Phone phone",
+  "message": "Provide some details"
 }

@@ -6,11 +6,13 @@ const {
   URL,
 } = process.env;
 
+const siteMetadata = {
+  title: '3merge inc.',
+  siteUrl: URL,
+};
+
 module.exports = {
-  siteMetadata: {
-    title: '3merge inc.',
-    siteUrl: URL,
-  },
+  siteMetadata,
   plugins: [
     {
       resolve: 'gatsby-theme-q3',
@@ -18,7 +20,9 @@ module.exports = {
         generateAccountPages: true,
         contentfulSpaceID: CONTENTFUL_SPACE_ID,
         contentfulAccessToken: CONTENTFUL_ACCESS_TOKEN,
-        siteUrl: URL,
+        brandingColor: 'purple',
+        icon: './src/images/fav.png',
+        ...siteMetadata,
       },
     },
   ],

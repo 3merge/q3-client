@@ -6,15 +6,15 @@ import Box from '@material-ui/core/Box';
 import { Link } from '@reach/router';
 import MULink from '@material-ui/core/Link';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Close from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import {
   red,
   orange,
   green,
 } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
+import Collapse from '@material-ui/core/Collapse';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -22,10 +22,19 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     display: 'flex',
-    padding: `${theme.spacing(1)} ${theme.spacing(
-      1,
-    )} ${theme.spacing(1)} ${theme.spacing(2)}`,
+    boxSizing: 'border-box',
+    maxWidth: '100%',
+    padding: theme.spacing(1),
+    justifyContent: 'space-between',
+    alignItems: 'center',
     textAlign: 'left',
+    margin: 0,
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
   },
   error: {
     backgroundColor: red[50],
@@ -49,52 +58,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Alert = ({ label, link, type }) => {
+const Alert = ({ label, link, type, done }) => {
   const [dismissed, setDismissed] = React.useState(false);
   const cls = useStyles();
   const { t } = useTranslation();
 
   const onDismiss = React.useCallback(() => {
     setDismissed(true);
+    if (done) done();
   }, []);
 
   return (
-    !dismissed && (
+    <Collapse in={!dismissed}>
       <Box
         role="alert"
         className={classNames(cls.container, cls[type])}
+        component="p"
       >
-        <Grid
-          container
-          spacing={3}
-          alignItems="center"
-          justify="space-between"
-        >
-          <Grid item>
-            <Typography color="inherit">
-              {t(`descriptions:${label}`)}
-              {link && (
-                <MULink
-                  component={Link}
-                  to={link}
-                  className={cls.icon}
-                  style={{ textDecoration: 'underline' }}
-                  color="inherit"
-                >
-                  {t('labels:learn')}
-                </MULink>
-              )}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Button onClick={onDismiss} color="inherit">
-              {t('labels:ok')}
-              <Close className={cls.icon} />
-            </Button>
-          </Grid>
-        </Grid>
+        <div>
+          {t(`descriptions:${label}`)}
+          {link && (
+            <MULink
+              component={Link}
+              to={link}
+              className={cls.icon}
+              style={{ textDecoration: 'underline' }}
+              color="inherit"
+            >
+              {t('labels:learn')}
+            </MULink>
+          )}
+        </div>
+
+        <Button onClick={onDismiss} color="inherit">
+          <Hidden smDown>{t('labels:ok')}</Hidden>
+          <Close className={cls.icon} />
+        </Button>
       </Box>
-    )
+    </Collapse>
   );
 };
 

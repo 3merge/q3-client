@@ -87,6 +87,11 @@ export default responsiveFontSizes(
           },
         },
       },
+      MuiLink: {
+        root: {
+          textDecoration: 'none !important',
+        },
+      },
       MuiToolbar: {
         dense: {
           paddingLeft: 0,
