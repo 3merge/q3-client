@@ -1,12 +1,12 @@
 {
   "name": "q3-ui-commons",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.15",
-    "q3-axios-mock": "^0.0.7",
+    "q3-axios-mock": "^0.0.8",
     "react-recaptcha": "^2.3.10",
     "react-recaptcha-google": "^1.1.1"
   },
