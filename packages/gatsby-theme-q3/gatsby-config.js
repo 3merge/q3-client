@@ -39,6 +39,5 @@ module.exports = ({
     'gatsby-plugin-sitemap',
     'gatsby-plugin-polyfill-io',
     'gatsby-plugin-material-ui',
-    // 'gatsby-plugin-offline',
   ],
 });
