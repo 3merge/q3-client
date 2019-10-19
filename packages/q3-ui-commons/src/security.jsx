@@ -5,7 +5,7 @@ import CirclularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-const Security = ({ children, done }) => {
+const Security = ({ api, children, done }) => {
   const ref = React.createRef();
   const { t } = useTranslation('descriptions');
   const [token, setToken] = React.useState(null);
@@ -25,7 +25,7 @@ const Security = ({ children, done }) => {
         ref={ref}
         size="invisible"
         render="explicit"
-        sitekey="6LcaL74UAAAAAFk493-sZj7Ci72W5EqMxnpPzbbC"
+        sitekey={api}
         onloadCallback={reload}
         verifyCallback={(v) => {
           setToken(v);
@@ -44,6 +44,10 @@ const Security = ({ children, done }) => {
       )}
     </>
   );
+};
+
+Security.defaultProps = {
+  api: '6LcaL74UAAAAAFk493-sZj7Ci72W5EqMxnpPzbbC',
 };
 
 export default Security;
