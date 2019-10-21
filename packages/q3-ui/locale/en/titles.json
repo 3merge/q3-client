@@ -12,5 +12,6 @@
   "back": "Go back",
   "fetchingError": "Could not fetch data for ",
   "demo": "Demonstration",
-  "message": "Send us a message"
+  "message": "Send us a message",
+  "serverError": "This is embarrassing"
 }

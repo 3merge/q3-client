@@ -6,6 +6,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export const LocationMatch = ({
   base,
@@ -42,6 +43,7 @@ const WrappedRoute = ({ renderer: Renderer }) => (
 
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
+  const isMobile = useMediaQuery('(max-width:960px)');
 
   return (
     <Grid container spacing={5}>
@@ -50,8 +52,10 @@ const TabsWithRouter = ({ views, root }) => {
           {(value) => (
             <Tabs
               value={value}
-              orientation="vertical"
               variant="scrollable"
+              orientation={
+                isMobile ? 'horizontal' : 'vertical'
+              }
             >
               {views.map((view) => (
                 <Tab

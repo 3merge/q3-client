@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Downshift from 'downshift';
+import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
@@ -8,17 +10,30 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Lock from '@material-ui/icons/Lock';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Popper from '@material-ui/core/Popper';
 import { connect, getIn } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
-import { styleProps } from '../inputs';
+import {
+  styleProps,
+  useFormikIntegration,
+} from '../inputs';
 
-const useStyles = makeStyles(() => ({
-  absolute: {
-    position: 'absolute',
-    left: 0,
-    top: 56,
-    width: '100%',
-    zIndex: 100,
+Yup.addMethod(Yup.mixed, 'autocomplete', function() {
+  return this.test(
+    'nestedValue',
+    'A selection is required',
+    function(v) {
+      const { createError } = this;
+      return (
+        (v && v.value && v.value !== '') || createError()
+      );
+    },
+  );
+});
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    zIndex: theme.zIndex.modal + 200,
   },
   dropdown: {
     maxHeight: 215,
@@ -30,10 +45,11 @@ export const DropDownMenu = ({
   isOpen,
   children,
   menuProps,
+  style,
 }) => {
-  const { absolute, dropdown } = useStyles();
+  const { dropdown } = useStyles();
   return (
-    <Paper {...menuProps} className={absolute}>
+    <Paper elevation={2} {...menuProps} style={style}>
       {isOpen && (
         <List className={dropdown} dense>
           {children}
@@ -75,42 +91,40 @@ DropDownMenuItems.propTypes = {
   selected: PropTypes.number.isRequired,
 };
 
-export const AutoCompleteField = ({
-  inputProps,
-  loading,
-  name,
-  label,
-  readOnly,
-  disabled,
-  ...rest
-}) => (
-  <TextField
-    {...inputProps}
-    {...rest}
-    {...styleProps}
-    autoComplete={false}
-    id="auto-suggest"
-    label={name}
-    name={name}
-    aria-busy={loading}
-    disabled={disabled}
-    InputProps={{
-      autoComplete: 'auto-suggest',
-      required: true,
-      endAdornment: (
-        <>
-          {loading && (
-            <CircularProgress
-              size={16}
-              aria-describedby="auto-suggest"
-            />
-          )}
-          {readOnly && <Lock />}
-        </>
-      ),
-    }}
-  />
-);
+export const AutoCompleteField = (props) => {
+  const { t } = useTranslation('labels');
+  const inputProps = useFormikIntegration(props);
+  const { readOnly, name, loading } = inputProps;
+
+  // important to be uncontrolled
+  delete inputProps.value;
+
+  return (
+    <TextField
+      {...inputProps}
+      {...styleProps}
+      autoComplete={false}
+      id="auto-suggest"
+      label={t(name)}
+      aria-busy={loading}
+      InputProps={{
+        autoComplete: 'auto-suggest',
+        required: true,
+        endAdornment: (
+          <>
+            {loading && (
+              <CircularProgress
+                size={16}
+                aria-describedby="auto-suggest"
+              />
+            )}
+            {readOnly && <Lock />}
+          </>
+        ),
+      }}
+    />
+  );
+};
 
 AutoCompleteField.propTypes = {
   label: PropTypes.string.isRequired,
@@ -131,7 +145,9 @@ export const AutoCompleteWrapper = ({
   loadOptions,
   formik,
   inputProps,
+  innerRef,
 }) => {
+  const { container } = useStyles();
   const { name } = inputProps;
   const error = getIn(formik.errors, name);
   const term = getIn(formik.values, name) || {
@@ -185,24 +201,40 @@ export const AutoCompleteWrapper = ({
         isOpen,
         highlightedIndex,
       }) => (
-        <div style={{ position: 'relative' }}>
+        <div>
           <AutoCompleteField
             error={error}
             loading={loading}
             disabled={formik.isSubmitting}
             inputProps={getInputProps()}
+            formik={formik}
             {...inputProps}
           />
-          <DropDownMenu
-            menuProps={getMenuProps()}
-            isOpen={Boolean(isOpen && items.length)}
+          <Popper
+            anchorEl={innerRef.current}
+            open={Boolean(isOpen && items.length)}
+            className={container}
           >
-            <DropDownMenuItems
-              options={items}
-              itemProps={getItemProps}
-              selected={highlightedIndex}
-            />
-          </DropDownMenu>
+            <DropDownMenu
+              menuProps={getMenuProps(
+                {},
+                { suppressRefError: true },
+              )}
+              isOpen={Boolean(isOpen && items.length)}
+              style={{
+                marginTop: 8,
+                width: innerRef.current
+                  ? innerRef.current.clientWidth
+                  : undefined,
+              }}
+            >
+              <DropDownMenuItems
+                options={items}
+                itemProps={getItemProps}
+                selected={highlightedIndex}
+              />
+            </DropDownMenu>
+          </Popper>
         </div>
       )}
     </Downshift>
@@ -224,4 +256,14 @@ AutoCompleteWrapper.propTypes = {
   }).isRequired,
 };
 
-export default connect(AutoCompleteWrapper);
+const IntegratedAutoComplete = connect(AutoCompleteWrapper);
+
+export default (props) => {
+  const ref = React.createRef();
+
+  return (
+    <div ref={ref} style={{ position: 'relative' }}>
+      <IntegratedAutoComplete innerRef={ref} {...props} />
+    </div>
+  );
+};

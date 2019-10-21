@@ -4,10 +4,11 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Grow from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import List from '../list';
 import Tile from '../tile';
-import { ErrorGraphic } from '../graphic';
+import Graphic from '../graphic';
+import ServerError from '../error';
+import unpopulated from '../../images/unpopulated.png';
 
 const isObject = (item) => typeof item === 'object';
 
@@ -42,6 +43,41 @@ const Repeater = ({
   fetching,
 }) => {
   const { t } = useTranslation();
+  const list = assignIDs(data);
+
+  const renderInterior = () => {
+    if (fetchingError)
+      return (
+        <GrowIn>
+          <ServerError />
+        </GrowIn>
+      );
+
+    if (!list.length)
+      return (
+        <GrowIn>
+          <Graphic
+            src={unpopulated}
+            alt={t('labels:unpopulated')}
+          />
+        </GrowIn>
+      );
+
+    return (
+      <List
+        subtitle={subtitle}
+        img={img}
+        items={assignIDs(data).map((item) => ({
+          ...item,
+          primary: get(item, primary),
+          secondary: get(item, secondary),
+          render: () => (
+            <Grid container>{renderRowToolbar(item)}</Grid>
+          ),
+        }))}
+      />
+    );
+  };
 
   return (
     <Tile
@@ -49,30 +85,7 @@ const Repeater = ({
       loading={fetching}
       error={fetchingError}
     >
-      <Container maxWidth="md">
-        {fetchingError ? (
-          <GrowIn>
-            <ErrorGraphic />
-          </GrowIn>
-        ) : (
-          <GrowIn>
-            <List
-              subtitle={subtitle}
-              img={img}
-              items={assignIDs(data).map((item) => ({
-                ...item,
-                primary: get(item, primary),
-                secondary: get(item, secondary),
-                render: () => (
-                  <Grid container>
-                    {renderRowToolbar(item)}
-                  </Grid>
-                ),
-              }))}
-            />
-          </GrowIn>
-        )}
-      </Container>
+      {renderInterior()}
       {renderPost()}
     </Tile>
   );

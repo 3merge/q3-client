@@ -6,7 +6,7 @@ import Form from 'q3-ui/form';
 import { DesktopSelect } from 'q3-ui/inputs';
 import Transfer from 'q3-ui/transfer';
 import useRest from 'q3-ui-rest';
-import { useAuth } from 'q3-ui-permissions';
+import { useAuth, Protected } from 'q3-ui-permissions';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
 
@@ -211,13 +211,15 @@ export default () => {
 
   return (
     <Router basepath="/permissions">
-      <auth.ProtectedRoute
+      <Protected
+        coll="q3-api-permissions"
         component={PermissionsList}
         path="/"
         to="/"
         {...sys}
       />
-      <auth.ProtectedRoute
+      <Protected
+        coll="q3-api-permissions"
         component={PermissionsDetail}
         path=":id/*"
         to="/"

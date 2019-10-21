@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import { Tooltip } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useOpenState } from '../dialogs';
 
 const Wizard = ({
@@ -22,6 +23,7 @@ const Wizard = ({
   fab,
   ...rest
 }) => {
+  const isMobile = useMediaQuery('(max-width:960px)');
   const [step, setStep] = React.useState(0);
   const { isOpen, open, close } = useOpenState();
   const { t } = useTranslation();
@@ -39,17 +41,25 @@ const Wizard = ({
     <Formik
       {...rest}
       enableReinitialize
+      validateOnBlur={false}
+      validateOnChange={false}
       onSubmit={closeOnSuccess}
-      render={({ submitForm, isSubmitting, ...utils }) => (
+      render={({
+        submitForm,
+        isSubmitting,
+        validateForm,
+        ...utils
+      }) => (
         <Form>
           <Tooltip title={t('labels:launch')}>
-            <IconButton onClick={open}>
+            <IconButton type="button" onClick={open}>
               <Icon />
             </IconButton>
           </Tooltip>
           <Dialog
             fullWidth
-            maxWidth="sm"
+            maxWidth="md"
+            fullScreen={isMobile}
             open={isOpen}
             onClose={close}
           >
@@ -64,7 +74,7 @@ const Wizard = ({
               />
             )}
 
-            <DialogTitle>
+            <DialogTitle disableTypography>
               {t(`titles:${title}`)}
             </DialogTitle>
 
@@ -106,7 +116,15 @@ const Wizard = ({
                       {t('labels:back')}
                     </Button>
                   )}
-                  <Button onClick={next}>
+                  <Button
+                    onClick={() =>
+                      validateForm().then((errors) => {
+                        if (!Object.keys(errors).length) {
+                          next();
+                        }
+                      })
+                    }
+                  >
                     {t('labels:next')}
                   </Button>
                 </DialogActions>

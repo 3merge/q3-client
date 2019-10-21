@@ -7,9 +7,8 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 import Avatar from '../avatar';
-import Graphic from '../graphic';
-import Unpopulated from '../../images/unpopulated.png';
 
 const useStyles = makeStyles(() => ({
   listcls: {
@@ -26,44 +25,51 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Listing = ({ items, subtitle, img }) => {
+const Listing = ({ items, subtitle }) => {
   const { listcls } = useStyles();
-  return items.length ? (
+  return (
     <List
       subheader={
         subtitle && (
-          <ListSubheader component="div" id={subtitle}>
+          <ListSubheader component="li" id={subtitle}>
             {subtitle}
           </ListSubheader>
         )
       }
     >
-      {items.map(({ primary, secondary, render }, i) => (
-        <div key={i} className={listcls}>
-          <ListItem dense>
-            <ListItemAvatar>
-              <Avatar word={primary || '?'} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={primary || '--'}
-              secondary={secondary}
-            />
-            {render && (
-              <ListItemSecondaryAction>
-                {render()}
-              </ListItemSecondaryAction>
+      {items.map(
+        ({ primary, secondary, render, icon }, i) => (
+          <>
+            <li key={i} className={listcls}>
+              <ListItem component="div" dense>
+                <ListItemAvatar>
+                  <Avatar
+                    icon={icon}
+                    word={primary || '?'}
+                  />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={primary || '--'}
+                  secondary={secondary}
+                />
+                {render && (
+                  <ListItemSecondaryAction>
+                    {render()}
+                  </ListItemSecondaryAction>
+                )}
+              </ListItem>
+            </li>
+            {i !== items.length - 1 && (
+              <Divider variant="inset" component="li" />
             )}
-          </ListItem>
-        </div>
-      ))}
+          </>
+        ),
+      )}
     </List>
-  ) : (
-    <Graphic src={img || Unpopulated} alt="unpopulated" />
   );
 };
 
 Listing.propTypes = {
-  img: PropTypes.string,
   subtitle: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
@@ -80,7 +86,6 @@ Listing.propTypes = {
 Listing.defaultProps = {
   items: [],
   subtitle: '',
-  img: null,
 };
 
 export default Listing;

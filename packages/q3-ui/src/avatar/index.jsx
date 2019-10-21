@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import * as colors from '@material-ui/core/colors';
 
 const ColoredAvatar = ({
@@ -11,6 +12,11 @@ const ColoredAvatar = ({
   imgSrc,
   icon: Icon,
 }) => {
+  const [src, setSrc] = React.useState(imgSrc);
+  const [text, setText] = React.useState(
+    Icon ? <Icon /> : null,
+  );
+
   const normalized = word.toUpperCase();
   const letter = normalized.charAt(0);
   if (!letter) return null;
@@ -90,11 +96,23 @@ const ColoredAvatar = ({
       break;
   }
 
+  const onError = function catchBrokenLinks() {
+    setSrc(null);
+    setText(<BrokenImageIcon />);
+  };
+
+  React.useEffect(() => {
+    if (!text && !src) {
+      setText(letter);
+    }
+  }, []);
+
   return (
     <Tooltip title={normalized}>
       <Badge badgeContent={superscript} style={{ color }}>
         <Avatar
-          src={imgSrc}
+          imgProps={{ onError }}
+          src={src}
           alt={word}
           style={{
             border: '1px solid #fff',
@@ -102,7 +120,7 @@ const ColoredAvatar = ({
             color,
           }}
         >
-          {Icon ? <Icon /> : letter}
+          {text}
         </Avatar>
       </Badge>
     </Tooltip>

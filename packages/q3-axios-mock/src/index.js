@@ -32,7 +32,6 @@ export default ({ define, children, delay = 200 }) => {
   );
 
   if (define && typeof define === 'function') {
-    console.log(define);
     define(mock);
   }
 

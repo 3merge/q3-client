@@ -11,9 +11,13 @@ const CallToAction = ({
   description,
   to,
   buttonText,
+  imgSrc,
 }) => (
   <Container component="aside" align="center" maxWidth="md">
     <Box py={2}>
+      {imgSrc && (
+        <img src={imgSrc} alt={title} width="450" />
+      )}
       <Typography
         color="inherit"
         variant="h2"
@@ -30,17 +34,19 @@ const CallToAction = ({
       >
         {description}
       </Typography>
-      <Box mt={3}>
-        <Button
-          component={Link}
-          color="primary"
-          size="large"
-          variant="contained"
-          to={to}
-        >
-          {buttonText}
-        </Button>
-      </Box>
+      {to && (
+        <Box mt={3}>
+          <Button
+            component={Link}
+            color="primary"
+            size="large"
+            variant="contained"
+            to={to}
+          >
+            {buttonText}
+          </Button>
+        </Box>
+      )}
     </Box>
   </Container>
 );

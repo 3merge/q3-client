@@ -50,11 +50,9 @@ export const asProtectedRoute = (ctx) => {
 };
 
 export default (ctx) => (coll) => {
-  const permissions = get(
-    React.useContext(ctx),
-    'state.permissions',
-    [],
-  );
+  const a = React.useContext(ctx);
+  const permissions = get(a, 'state.permissions', []);
+  const id = get(a, 'state.profile.id', []);
 
   const getOp = (name) =>
     getSingleGrant(getGrants(permissions, coll), name);
@@ -102,7 +100,7 @@ export default (ctx) => (coll) => {
     canEdit: isDefined(getOp('Update')),
     canDelete: isDefined(getOp('Delete')),
     canCreate: isDefined(getOp('Create')),
-    isDisabled,
+    matchID: (v) => id === v,
     Hide,
     Redirect,
   };

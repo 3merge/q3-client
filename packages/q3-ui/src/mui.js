@@ -50,7 +50,7 @@ export default responsiveFontSizes(
       },
       h6: {
         ...headingFont,
-        fontSize: 0.8,
+        fontSize: '0.8rem',
       },
       overline: {
         fontWeight: 600,

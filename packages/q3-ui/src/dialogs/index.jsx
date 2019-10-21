@@ -215,10 +215,48 @@ export const Capture = ({
   icon: Icon,
   title,
   fab,
+  asButton,
+  label,
   ...rest
 }) => {
   const { isOpen, open, close } = useOpenState();
   const { t } = useTranslation();
+  const openLabel = t(`labels:${label}`);
+
+  const renderTrigger = () => {
+    if (fab)
+      return (
+        <Tooltip title={openLabel}>
+          <Fab
+            onClick={open}
+            color="secondary"
+            aria-label={openLabel}
+          >
+            <Icon />
+          </Fab>
+        </Tooltip>
+      );
+
+    if (asButton)
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={open}
+        >
+          {openLabel}
+          <Icon />
+        </Button>
+      );
+
+    return (
+      <Tooltip title={openLabel}>
+        <IconButton onClick={open} aria-label={openLabel}>
+          <Icon />
+        </IconButton>
+      </Tooltip>
+    );
+  };
 
   return (
     <Formik
@@ -228,24 +266,7 @@ export const Capture = ({
       validateOnChange={false}
       render={({ submitForm, isSubmitting }) => (
         <Form>
-          <Tooltip title={t('labels:open')}>
-            {fab ? (
-              <Fab
-                onClick={open}
-                color="secondary"
-                aria-label={t('labels:openEditor')}
-              >
-                <Icon />
-              </Fab>
-            ) : (
-              <IconButton
-                onClick={open}
-                aria-label={t('labels:openEditor')}
-              >
-                <Icon />
-              </IconButton>
-            )}
-          </Tooltip>
+          {renderTrigger()}
           <Dialog
             fullWidth
             maxWidth="sm"
@@ -278,4 +299,9 @@ Capture.propTypes = {
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   fab: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+};
+
+Capture.defaultProps = {
+  label: 'openEditor',
 };

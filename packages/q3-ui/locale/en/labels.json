@@ -31,5 +31,9 @@
   "ok": "OK, thanks",
   "learn": "Learn more",
   "tel": "Phone phone",
-  "message": "Provide some details"
+  "message": "Provide some details",
+  "country": "Country",
+  "openEditor": "Launch editor",
+  "dropNdrop": "Drag files into this panel or click to upload individually.",
+  "upload": "Upload"
 }
