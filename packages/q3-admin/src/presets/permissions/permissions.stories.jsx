@@ -45,35 +45,42 @@ const define = (mock) => {
       },
       {
         coll: 'q3-api-permissions',
-        fields: '*',
+        fields: '*, !ownership',
         op: 'Update',
       },
       {
         coll: 'q3-api-permissions',
-        fields: '*, !fields',
+        fields: '*',
         op: 'Read',
       },
     ],
   });
 
-  mock.onGet('/permissions').reply(200, {
+  mock.onGet('/q3-api-permissions').reply(200, {
     permissions: [stub, stub, stub],
   });
 
-  mock.onGet(/\/permissions\/\d+/).reply(200, {
+  mock.onGet(/\/q3-api-permissions\/\d+/).reply(200, {
     permission: stub,
   });
 
-  mock.onPatch(/\/permissions\/\d+/).reply(200, {
-    message: 'Permission has been successfully updated',
-    permission: stub,
+  mock.onPatch(/\/q3-api-permissions\/\d+/).reply(422, {
+    message: 'Permission has failed',
+    errors: {
+      action: {
+        msg: 'Bad',
+      },
+      ownership: {
+        msg: 'Bad',
+      },
+    },
   });
 
-  mock.onDelete(/\/permissions\/\d+/).reply(204, {
+  mock.onDelete(/\/q3-api-permissions\/\d+/).reply(204, {
     message: 'Permission has been successfully removed',
   });
 
-  mock.onPost('/permissions').reply(201, {
+  mock.onPost('/q3-api-permissions').reply(201, {
     message: 'Permission has been created',
   });
 

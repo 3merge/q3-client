@@ -10,7 +10,7 @@ import { useAuth, Protected } from 'q3-ui-permissions';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
 
-const ROOT = 'permissions';
+const ROOT = 'q3-api-permissions';
 const OPS = ['Read', 'Create', 'Update', 'Delete'];
 const OWNERSHIP = ['Any', 'Shared', 'Own'];
 
@@ -145,6 +145,7 @@ const PermissionsList = (props) => (
     {...props}
     root={`/${ROOT}`}
     name={ROOT}
+    resourceName="permissions"
     columns={['role', 'op', 'coll']}
     coll="q3-api-permissions"
     addComponent={() => <PermissionsCreate {...props} />}
@@ -157,14 +158,16 @@ const PermissionsUpdate = ({
   canEdit,
   ...rest
 }) => (
-  <Form
-    title="grant"
-    onSubmit={patch}
-    initialValues={{ ...FIELDS, ...permission }}
-    readOnly={!canEdit}
-  >
-    {withFieldOptions(rest)}
-  </Form>
+  <>
+    <Form
+      title="grant"
+      onSubmit={patch}
+      initialValues={{ ...FIELDS, ...permission }}
+      readOnly={!canEdit}
+    >
+      {withFieldOptions(rest)}
+    </Form>
+  </>
 );
 
 PermissionsUpdate.propTypes = {
@@ -183,6 +186,7 @@ const PermissionsDetail = (props) => (
   <Detail
     {...props}
     name={ROOT}
+    resourceName="permissions"
     pathToTitle="permission.coll"
     views={({ permission, patch, id }) => [
       {
@@ -203,6 +207,7 @@ export default () => {
   const auth = useAuth('q3-api-permissions');
   const sys = useRest({
     runOnInit: true,
+    resourceName: 'permissions',
     url: 'system',
     key: 'sys',
   });

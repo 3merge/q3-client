@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { navigate, Link } from '@reach/router';
+import { Link } from '@reach/router';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +37,7 @@ export const authenticate = (values, actions) => {
     .then(({ data }) => {
       setSession(data);
       onComplete(null, actions);
-      navigate('/');
+      window.location.replace('/');
       return data;
     })
     .catch((err) => {

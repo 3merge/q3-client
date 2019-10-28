@@ -15,6 +15,7 @@ import useRest from 'q3-ui-rest';
 const Detail = ({
   name,
   pathToTitle,
+  resourceName,
   canDelete,
   views,
   id,
@@ -23,7 +24,7 @@ const Detail = ({
   const url = `/${name}/${id}`;
   const state = useRest({
     runOnInit: true,
-    key: name,
+    key: resourceName,
     url,
     ...rest,
   });
@@ -34,7 +35,10 @@ const Detail = ({
         name={get(state, pathToTitle)}
         renderPreIdentifier={() => (
           <div>
-            <IconButton component={Link} to={`/${name}`}>
+            <IconButton
+              component={Link}
+              to={`/${resourceName}`}
+            >
               <KeyboardBackspace />
             </IconButton>
           </div>

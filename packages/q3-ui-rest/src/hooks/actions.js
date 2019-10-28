@@ -65,7 +65,6 @@ export default ({
         return null;
       })
       .catch((err) => {
-        call(verb, null, err);
         onComplete(get(err, 'data'), actions);
         onFail(get(err, 'data.message'));
         return err;

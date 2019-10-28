@@ -13,6 +13,7 @@ import { useAuth } from 'q3-ui-permissions';
 
 const List = ({
   addComponent: AddComponent,
+  resourceName,
   coll,
   name,
   columns,
@@ -22,7 +23,7 @@ const List = ({
   const { t } = useTranslation();
   const state = useRest({
     url: `/${name}`,
-    key: name,
+    key: resourceName,
     runOnInit: true,
     ...rest,
   });
@@ -30,13 +31,19 @@ const List = ({
   return (
     <Redirect op="Read" to="/">
       <Header
-        name={t(`titles:${name}`)}
+        name={t(`titles:${resourceName}`)}
         renderRight={() => (
           <div style={{ display: 'flex' }}>
             <SearchBar expanded />
-            <Hide op="Create">
-              <CreateDialog render={AddComponent} />
-            </Hide>
+            {AddComponent && (
+              <Hide op="Create">
+                <CreateDialog
+                  render={(done) => (
+                    <AddComponent done={done} {...state} />
+                  )}
+                />
+              </Hide>
+            )}
           </div>
         )}
       />
@@ -46,9 +53,9 @@ const List = ({
             {...rest}
             {...state}
             data={state}
-            name={name}
+            name={resourceName}
             loading={state.fetching}
-            rows={get(state, name, [])}
+            rows={get(state, resourceName, [])}
             columns={columns}
           />
         </Box>

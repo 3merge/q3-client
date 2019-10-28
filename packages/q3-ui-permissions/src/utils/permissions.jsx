@@ -68,11 +68,22 @@ export default (ctx) => (coll) => {
   const isDefined = (arg) =>
     arg !== undefined && arg !== null;
 
-  const isDisabled = ({ op, name }) =>
-    !getField(name, getOp(op)) && {
-      disabled: true,
-      readOnly: true,
-    };
+  const isDisabled = ({ op, name }) => {
+    if (!getField(name, getOp('Read')))
+      return {
+        disabled: true,
+        readOnly: true,
+        type: 'hidden',
+        style: { display: 'none' },
+      };
+
+    return (
+      !getField(name, getOp(op)) && {
+        disabled: true,
+        readOnly: true,
+      }
+    );
+  };
 
   const Hide = ({ children, op }) =>
     getOp(op) ? children : null;
@@ -97,10 +108,13 @@ export default (ctx) => (coll) => {
 
   return {
     canSee: isDefined(getOp('Read')),
-    canEdit: isDefined(getOp('Update')),
+    canEdit:
+      isDefined(getOp('Read')) &&
+      isDefined(getOp('Update')),
     canDelete: isDefined(getOp('Delete')),
     canCreate: isDefined(getOp('Create')),
     matchID: (v) => id === v,
+    isDisabled,
     Hide,
     Redirect,
   };

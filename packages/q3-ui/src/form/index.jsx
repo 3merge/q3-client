@@ -16,14 +16,22 @@ const FormWrapper = ({
   readOnly,
   description,
   dividers,
-  ...rest
+  initialValues,
+  onSubmit,
 }) => {
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    console.log('goodbye..');
+  });
+
   return (
     <Formik
-      {...rest}
+      validateOnBlur
       enableReinitialize
       validateOnChange={false}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={(utils) => (
         <Form>
           <Tile

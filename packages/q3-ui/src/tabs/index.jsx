@@ -43,10 +43,10 @@ const WrappedRoute = ({ renderer: Renderer }) => (
 
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
-  const isMobile = useMediaQuery('(max-width:960px)');
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   return (
-    <Grid container spacing={5}>
+    <Grid container spacing={1}>
       <Grid item>
         <LocationMatch base={root} views={views}>
           {(value) => (
@@ -69,7 +69,13 @@ const TabsWithRouter = ({ views, root }) => {
           )}
         </LocationMatch>
       </Grid>
-      <Grid item style={{ flex: 1 }}>
+      <Grid
+        item
+        style={{
+          flex: isMobile ? 'auto' : 1,
+          display: isMobile ? 'block' : 'flex',
+        }}
+      >
         <Router>
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute

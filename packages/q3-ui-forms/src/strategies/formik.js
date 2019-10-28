@@ -1,7 +1,9 @@
 import { get, setWith } from 'lodash';
 
+const checkMsgFieldVariants = (v) => v.msg || v.message;
+
 const extractMsg = (v) =>
-  typeof v === 'object' ? v.msg : v;
+  typeof v === 'object' ? checkMsgFieldVariants(v) : v;
 
 const mapErrors = (errors) =>
   Object.entries(errors).reduce(
@@ -17,6 +19,10 @@ export default () => ({
   onStart(actions = {}) {
     if ('setSubmitting' in actions) {
       actions.setSubmitting(true);
+
+      Object.assign(actions, {
+        isTouched: true,
+      });
     }
   },
 

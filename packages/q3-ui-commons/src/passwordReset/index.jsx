@@ -11,6 +11,7 @@ import { useFormHandler } from 'q3-ui-forms';
 import { setSession } from 'q3-ui-permissions';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Security from '../security';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
@@ -32,7 +33,7 @@ export const handleSubmit = (values, actions) => {
 const PasswordReset = ({ formProps }) => {
   const { t } = useTranslation();
 
-  const passwordResetSchema = yup.object().shape({
+  const validationSchema = yup.object().shape({
     email: yup
       .string()
       .email()
@@ -42,24 +43,23 @@ const PasswordReset = ({ formProps }) => {
   return (
     <Form
       {...formProps}
-      title={t('titles:login')}
-      description={t('descriptions:login')}
-      validationSchema={passwordResetSchema}
+      title={t('titles:passwordReset')}
+      description={t('descriptions:passwordReset')}
+      validationSchema={validationSchema}
       onSubmit={handleSubmit}
       initialValues={{
         email: '',
       }}
     >
       {() => (
-        <>
+        <Security>
           <Input name="email" type="email" />
-          <Recaptcha sitekey="6LcyLr4UAAAAAC25-2HkOS5HpQiWCaWU4aJh89_w" />
           <Box align="right">
             <Button component={Link} to="/login">
               {t('returnToLogin')}
             </Button>
           </Box>
-        </>
+        </Security>
       )}
     </Form>
   );
