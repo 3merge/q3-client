@@ -184,11 +184,24 @@ export const TableView = ({
   columns,
   total,
   rowTemplate: Row,
+  progress,
   root,
 }) => {
   const { t } = useTranslation();
   const params = new URLSearchParams(window.location);
   const page = getDefaultPage(params.get('page'));
+  const [prog, setTotal] = React.useState(
+    !loading ? 20 : 0,
+  );
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (progress >= 100) {
+        setTotal(20);
+        clearTimeout(timer);
+      }
+    }, 200);
+  }, []);
 
   const handlePageIncrementation = React.useCallback(
     (e, num) => {
@@ -203,10 +216,14 @@ export const TableView = ({
 
   const renderBody = React.useCallback(() => {
     const span = columns.length + 1;
-    if (loading) {
+    if (prog !== 20) {
       return (
         <DatalessView span={span}>
-          <LinearProgress />
+          <LinearProgress
+            variant="buffer"
+            value={progress + prog}
+            valueBuffer={progress * 1.2 + prog}
+          />
         </DatalessView>
       );
     }
@@ -244,7 +261,7 @@ export const TableView = ({
         {...props}
       />
     ));
-  }, [loading, error, rows]);
+  }, [loading, error, rows, progress]);
 
   return (
     <Paper

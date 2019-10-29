@@ -42,9 +42,10 @@ export default ({
   const { search } = location;
   const { onStart, onComplete } = useFormHandler(strategy);
   const { onSuccess, onFail } = useNotification();
-
+  const [progress, updateProgress] = React.useState();
   const [state, dispatch] = React.useReducer(reducer, {
     fetching: runOnInit,
+    progress: 0,
   });
 
   const call = (type, data = {}, err = {}) =>
@@ -74,7 +75,10 @@ export default ({
   const wrapUpdateFn = (id, verb) => (values, actions) => {
     invoke(decorators, verb, values);
     return handleRequest(
-      invoke(Axios, verb, makePath([url, id]), values),
+      invoke(Axios, verb, makePath([url, id]), values, {
+        onUploadProgress: (progressEvent) =>
+          updateProgress(progressEvent.loaded),
+      }),
       actions,
       UPDATED,
     );
@@ -121,8 +125,9 @@ export default ({
 
     post(values, actions) {
       const { name } = methods.post;
+      invoke(decorators, name, values);
       return handleRequest(
-        Axios.post(url, invoke(decorators, name, values)),
+        Axios.post(url, values),
         actions,
         CREATED,
       );
@@ -138,5 +143,5 @@ export default ({
     }
   }, [search]);
 
-  return { ...state, ...methods };
+  return { ...state, ...methods, progress };
 };

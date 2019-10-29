@@ -31,6 +31,7 @@ export const ApplicationGate = ({
   logoImgSrc,
   appIndex,
   appNav,
+  postAuthVerification,
 }) => {
   const { t } = useTranslation();
   React.useEffect(init, []);
@@ -82,25 +83,32 @@ export const ApplicationGate = ({
   return (
     <Authentication
       loading={CircularProgress}
-      renderPrivate={({ firstName, featuredPhoto }) => (
-        <Templates.Main
-          name={name}
-          renderAside={appNav}
-          render={appIndex}
-          ProfileBarProps={{
-            offcanvas: appNav,
-            companyName: name,
-            name: firstName,
-            imgSrc: featuredPhoto,
-            menuItems: [
-              {
-                onClick: destroySession,
-                label: 'Logout',
-              },
-            ],
-          }}
-        />
-      )}
+      renderPrivate={(args) => {
+        if (postAuthVerification) {
+          postAuthVerification(args);
+        }
+
+        const { firstName, photo } = args;
+        return (
+          <Templates.Main
+            name={name}
+            renderAside={appNav}
+            render={appIndex}
+            ProfileBarProps={{
+              offcanvas: appNav,
+              companyName: name,
+              name: firstName,
+              imgSrc: photo,
+              menuItems: [
+                {
+                  onClick: destroySession,
+                  label: 'Logout',
+                },
+              ],
+            }}
+          />
+        );
+      }}
       renderPublic={() => (
         <Public
           companyName={name}
@@ -124,10 +132,8 @@ ApplicationGate.propTypes = {
   logoImgSrc: PropTypes.string.isRequired,
 };
 
-export default (props) => (
+export default ({ children }) => (
   <Providers>
-    <SnackbarProvider>
-      <ApplicationGate {...props} />
-    </SnackbarProvider>
+    <SnackbarProvider>{children}</SnackbarProvider>
   </Providers>
 );

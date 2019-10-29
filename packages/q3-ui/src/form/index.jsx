@@ -18,12 +18,9 @@ const FormWrapper = ({
   dividers,
   initialValues,
   onSubmit,
+  ...rest
 }) => {
   const { t } = useTranslation();
-
-  React.useEffect(() => {
-    console.log('goodbye..');
-  });
 
   return (
     <Formik
@@ -32,7 +29,9 @@ const FormWrapper = ({
       validateOnChange={false}
       initialValues={initialValues}
       onSubmit={onSubmit}
-      render={(utils) => (
+      {...rest}
+    >
+      {(utils) => (
         <Form>
           <Tile
             disableSkeleton
@@ -83,7 +82,7 @@ const FormWrapper = ({
           </Tile>
         </Form>
       )}
-    />
+    </Formik>
   );
 };
 

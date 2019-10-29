@@ -26,11 +26,20 @@ storiesOf('Components|Table', module)
       sidebar,
     },
   })
-  .add('With loading', () => (
-    <Wrapper>
-      <Table {...props} loading />
-    </Wrapper>
-  ))
+  .add('With loading', () => {
+    const [v, setV] = React.useState(0);
+
+    const timer = setTimeout(() => {
+      if (v < 100) setV(v + 2);
+      clearTimeout(timer);
+    }, 100);
+
+    return (
+      <Wrapper>
+        <Table {...props} loading progress={v} />
+      </Wrapper>
+    );
+  })
   .add('With error', () => (
     <Wrapper>
       <Table {...props} error />
