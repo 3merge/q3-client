@@ -45,11 +45,19 @@ const Listing = ({ items, subtitle }) => {
                 <ListItemAvatar>
                   <Avatar
                     icon={icon}
-                    word={primary || '?'}
+                    word={
+                      Array.isArray(primary)
+                        ? primary.join(', ')
+                        : String(primary || '--')
+                    }
                   />
                 </ListItemAvatar>
                 <ListItemText
-                  primary={primary || '--'}
+                  primary={
+                    Array.isArray(primary)
+                      ? primary.join(', ')
+                      : String(primary || '--')
+                  }
                   secondary={secondary}
                 />
                 {render && (

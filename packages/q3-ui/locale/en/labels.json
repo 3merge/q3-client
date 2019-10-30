@@ -35,5 +35,6 @@
   "country": "Country",
   "openEditor": "Launch editor",
   "dropNdrop": "Drag files into this panel or click to upload individually.",
-  "upload": "Upload"
+  "upload": "Upload",
+  "featuredUpload": "Featured upload"
 }

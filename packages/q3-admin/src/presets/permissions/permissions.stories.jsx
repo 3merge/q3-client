@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
 import MockAPI from '../../utils/mocker';
-import Permissions from './index';
+import Permissions, { PermissionDetail } from './index';
 
 const stub = {
   id: 1,
@@ -40,12 +40,17 @@ const define = (mock) => {
     permissions: [
       {
         coll: 'q3-api-permissions',
+        fields: '*',
+        op: 'Delete',
+      },
+      {
+        coll: 'q3-api-permissions',
         fields: '*, !fields',
         op: 'Create',
       },
       {
         coll: 'q3-api-permissions',
-        fields: '*, !ownership',
+        fields: 'owner*',
         op: 'Update',
       },
       {
@@ -82,6 +87,7 @@ const define = (mock) => {
 
   mock.onPost('/q3-api-permissions').reply(201, {
     message: 'Permission has been created',
+    permission: {},
   });
 
   return mock;
@@ -106,7 +112,7 @@ storiesOf('Presets|Permissions', module)
     () => (
       <MockAPI define={define}>
         <Auth>
-          <Permissions />
+          <PermissionDetail id="1" />
         </Auth>
       </MockAPI>
     ),

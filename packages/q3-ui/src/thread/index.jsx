@@ -22,7 +22,7 @@ const Thread = ({ entries, toolbar }) =>
           style={{ fontSize: '1rem' }}
           // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
-            __html: entry.comment,
+            __html: entry.message,
           }}
         />
       </Box>
@@ -36,7 +36,7 @@ Thread.propTypes = {
       id: PropTypes.string,
       date: PropTypes.date,
       user: PropTypes.object,
-      comment: PropTypes.obj,
+      message: PropTypes.obj,
     }),
   ),
 };

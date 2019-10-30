@@ -10,9 +10,14 @@ import {
 const name = 'country';
 
 const loadOptions = mockRequest((term) =>
-  countries.filter(({ value, label }) =>
-    String(`${value} ${label}`).includes(term),
-  ),
+  countries
+    .filter(({ value, label }) =>
+      String(`${value} ${label}`).includes(term),
+    )
+    .map((o) => ({
+      ...o,
+      foo: 'bar',
+    })),
 );
 
 storiesOf('Components|AutoComplete', module)
@@ -23,14 +28,22 @@ storiesOf('Components|AutoComplete', module)
     },
   })
   .add('With options', () =>
-    withFormik(Auto, {
-      loadOptions,
-      inputProps: {
-        label: 'Countries',
-        helperText: 'Search by name',
-        name,
+    withFormik(
+      Auto,
+      {
+        loadOptions,
+        inputProps: {
+          label: 'Countries',
+          helperText: 'Search by name',
+          name,
+        },
       },
-    }),
+      {
+        initialValues: {
+          country: '',
+        },
+      },
+    ),
   )
   .add('With formik value', () =>
     withFormik(

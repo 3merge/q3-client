@@ -6,15 +6,18 @@ import {
   CREATED,
   DELETED,
 } from './constants';
-import { pluralize, isEmpty, getFn } from '../utils';
+import { isEmpty, getFn } from '../utils';
 
-export default (state = {}, { type, data, err, key }) => {
+export default (
+  state = {},
+  { type, data, err, key, pluralized },
+) => {
   if (!key) {
     throw new Error('Key required for managing state');
   }
 
   const resource = key;
-  const resources = pluralize(key);
+  const resources = pluralized;
 
   const handlers = {
     [FETCHING]() {

@@ -24,7 +24,7 @@ const getFileIcon = (t) => {
 };
 
 const Files = ({ path }) => {
-  const { uploads = [], put } = useRest({
+  const { uploads = [], post } = useRest({
     runOnInit: true,
     url: `${path}/uploads`,
     key: 'uploads',
@@ -33,7 +33,7 @@ const Files = ({ path }) => {
   return (
     <>
       <Tile title="uploadFiles" dividers={false}>
-        <Upload fn={put(null)} />
+        <Upload fn={post} />
         <List
           title="He"
           items={uploads.map((file) => ({

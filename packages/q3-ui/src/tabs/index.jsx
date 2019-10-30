@@ -1,5 +1,6 @@
 import React from 'react';
 import { Location, Link, Router } from '@reach/router';
+import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
@@ -7,6 +8,17 @@ import Tab from '@material-ui/core/Tab';
 import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+const useStyles = makeStyles(() => ({
+  routes: {
+    flex: ({ isMobile }) => (isMobile ? 'auto' : 1),
+    display: ({ isMobile }) =>
+      isMobile ? 'block' : 'flex',
+    '& > *': {
+      width: '100%',
+    },
+  },
+}));
 
 export const LocationMatch = ({
   base,
@@ -35,7 +47,7 @@ export const LocationMatch = ({
 
 const WrappedRoute = ({ renderer: Renderer }) => (
   <Fade in>
-    <div>
+    <div style={{ width: '100%' }}>
       <Renderer />
     </div>
   </Fade>
@@ -44,6 +56,7 @@ const WrappedRoute = ({ renderer: Renderer }) => (
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery('(max-width:600px)');
+  const { routes } = useStyles({ isMobile });
 
   return (
     <Grid container spacing={1}>
@@ -69,13 +82,7 @@ const TabsWithRouter = ({ views, root }) => {
           )}
         </LocationMatch>
       </Grid>
-      <Grid
-        item
-        style={{
-          flex: isMobile ? 'auto' : 1,
-          display: isMobile ? 'block' : 'flex',
-        }}
-      >
+      <Grid item className={routes}>
         <Router>
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute

@@ -13,5 +13,6 @@
   "exceptions": "Items in this column are active either by precise selection or RegExp. To remove an automated item (one by rule), please delete the RegExp first or rewrite it to further exclude options.",
   "spam": "Hang tight. Checking the browser for spam before serving this form.",
   "cookies": "Note that this website uses cookies to improve the user experience.",
-  "serverError": "Looks like something unexpected occurred. Please refresh the page and try again."
+  "serverError": "Looks like something unexpected occurred. Please refresh the page and try again.",
+  "featuredUpload": "Note that this image is public"
 }

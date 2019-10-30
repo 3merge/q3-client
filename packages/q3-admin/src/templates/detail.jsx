@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
+import { useAuth } from 'q3-ui-permissions';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { Delete as DeleteDialog } from 'q3-ui/dialogs';
 import Header from 'q3-ui/header';
@@ -16,15 +17,18 @@ const Detail = ({
   name,
   pathToTitle,
   resourceName,
-  canDelete,
+  resourceNameSingular,
+  coll,
   views,
   id,
   ...rest
 }) => {
   const url = `/${name}/${id}`;
+  const { canDelete } = useAuth(coll);
   const state = useRest({
     runOnInit: true,
-    key: resourceName,
+    key: resourceNameSingular,
+    pluralized: resourceName,
     url,
     ...rest,
   });
@@ -51,7 +55,7 @@ const Detail = ({
           ) : (
             <>
               <Tabs
-                root={url}
+                root={`${resourceName}/${id}`}
                 views={
                   typeof views === 'function'
                     ? views({ id, ...state })
@@ -59,14 +63,12 @@ const Detail = ({
                 }
               />
               {canDelete && (
-                <Container maxWidth="lg" component="footer">
-                  <Box textAlign="right">
-                    <DeleteDialog
-                      next={invoke(state, 'delete', id)}
-                      redirect={name}
-                    />
-                  </Box>
-                </Container>
+                <Box textAlign="right" component="footer">
+                  <DeleteDialog
+                    next={invoke(state, 'delete', id)}
+                    redirect={resourceName}
+                  />
+                </Box>
               )}
             </>
           )}

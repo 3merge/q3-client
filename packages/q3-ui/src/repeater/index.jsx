@@ -32,6 +32,7 @@ GrowIn.propTypes = {
 
 const Repeater = ({
   name,
+  description,
   subtitle,
   img,
   primary,
@@ -82,6 +83,11 @@ const Repeater = ({
   return (
     <Tile
       title={t(`titles:${name}`)}
+      subtitle={
+        description
+          ? t(`descriptions:${description}`)
+          : null
+      }
       loading={fetching}
       error={fetchingError}
     >

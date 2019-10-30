@@ -83,7 +83,7 @@ const Wizard = ({
                 />
               )}
 
-              <DialogTitle disableTypography>
+              <DialogTitle>
                 {t(`titles:${title}`)}
               </DialogTitle>
 

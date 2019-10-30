@@ -14,13 +14,7 @@ const useStyles = makeStyles((theme) => ({
   tiled: {
     position: 'relative',
     marginBottom: theme.spacing(4),
-    minWidth: 650,
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '450',
-    },
-    [theme.breakpoints.down('xs')]: {
-      minWidth: 'auto',
-    },
+    width: '100%',
   },
   errorBar: {
     backgroundColor: red[900],

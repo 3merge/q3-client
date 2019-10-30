@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
-import { redirectTo } from '@reach/router';
+import { navigate } from '@reach/router';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -95,11 +95,11 @@ export const Delete = ({ next, redirect }) => {
     }
 
     next().finally(() => {
+      close();
+      setValue('');
+
       if (redirect) {
-        redirectTo(redirect);
-      } else {
-        close();
-        setValue('');
+        navigate(redirect);
       }
     });
   }, [value]);
@@ -259,37 +259,44 @@ export const Capture = ({
   };
 
   return (
-    <Formik
-      {...rest}
-      enableReinitialize
-      onSubmit={(...args) => onSubmit(...args).then(close)}
-      validateOnChange={false}
-      render={({ submitForm, isSubmitting }) => (
-        <Form>
-          {renderTrigger()}
-          <Dialog
-            fullWidth
-            maxWidth="sm"
-            open={isOpen}
-            onClose={close}
-          >
-            {isSubmitting && <LinearProgress />}
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>
-              {children}
-              <DialogActions>
-                <Button type="button" onClick={close}>
-                  {t('labels:nevermind')}
-                </Button>
-                <Button type="button" onClick={submitForm}>
-                  {t('labels:save')}
-                </Button>
-              </DialogActions>
-            </DialogContent>
-          </Dialog>
-        </Form>
-      )}
-    />
+    <>
+      {renderTrigger()}
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        open={isOpen}
+        onClose={close}
+      >
+        <Formik
+          {...rest}
+          enableReinitialize
+          onSubmit={(...args) =>
+            onSubmit(...args).then(close)
+          }
+          validateOnChange={false}
+          render={({ submitForm, isSubmitting }) => (
+            <Form>
+              {isSubmitting && <LinearProgress />}
+              <DialogTitle>{title}</DialogTitle>
+              <DialogContent>
+                {children}
+                <DialogActions>
+                  <Button type="button" onClick={close}>
+                    {t('labels:nevermind')}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={submitForm}
+                  >
+                    {t('labels:save')}
+                  </Button>
+                </DialogActions>
+              </DialogContent>
+            </Form>
+          )}
+        />
+      </Dialog>
+    </>
   );
 };
 

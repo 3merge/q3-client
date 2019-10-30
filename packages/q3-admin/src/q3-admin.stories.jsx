@@ -76,6 +76,13 @@ storiesOf('Presets|Application', module)
             logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
             appIndex={() => null}
             appNav={() => null}
+            popoutMenuItems={[
+              {
+                // eslint-disable-next-line
+              onClick: () => alert('Boom'),
+                label: 'Heyo',
+              },
+            ]}
           />
         </ThemeProvider>
       </MockAPI>

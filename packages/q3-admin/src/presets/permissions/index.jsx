@@ -12,7 +12,12 @@ import List from '../../templates/list';
 
 const ROOT = 'q3-api-permissions';
 const OPS = ['Read', 'Create', 'Update', 'Delete'];
-const OWNERSHIP = ['Any', 'Shared', 'Own'];
+const OWNERSHIP = ['Any', 'Own'];
+
+const RESOURCE = {
+  resourceName: 'permissions',
+  resourceNameSingular: 'permission',
+};
 
 const FIELDS = {
   op: '',
@@ -81,12 +86,13 @@ const PermissionFormFields = ({
       isNew={isNew}
       required
     />
+    {/*
     <DesktopSelect
       name="condition"
       options={transformFlatArray(conditions)}
       authFn={isDisabled}
       isNew={isNew}
-    />
+    /> */}
     <Transfer
       name="fields"
       options={fieldOptions}
@@ -140,17 +146,34 @@ PermissionsCreate.propTypes = {
   post: PropTypes.func.isRequired,
 };
 
-const PermissionsList = (props) => (
-  <List
-    {...props}
-    root={`/${ROOT}`}
-    name={ROOT}
-    resourceName="permissions"
-    columns={['role', 'op', 'coll']}
-    coll="q3-api-permissions"
-    addComponent={() => <PermissionsCreate {...props} />}
-  />
-);
+const PermissionsList = (props) => {
+  const auth = useAuth('q3-api-permissions');
+  const sys = useRest({
+    runOnInit: true,
+    url: 'system',
+    key: 'permissions',
+  });
+
+  Object.assign(sys, auth);
+
+  return (
+    <List
+      {...props}
+      {...RESOURCE}
+      name={ROOT}
+      columns={['role', 'op', 'coll']}
+      coll="q3-api-permissions"
+      addComponent={({ post }) => (
+        <PermissionsCreate
+          {...auth}
+          {...sys}
+          {...props}
+          post={post}
+        />
+      )}
+    />
+  );
+};
 
 const PermissionsUpdate = ({
   permission,
@@ -182,54 +205,39 @@ PermissionsUpdate.propTypes = {
   }).isRequired,
 };
 
-const PermissionsDetail = (props) => (
-  <Detail
-    {...props}
-    name={ROOT}
-    resourceName="permissions"
-    pathToTitle="permission.coll"
-    views={({ permission, patch, id }) => [
-      {
-        label: 'general',
-        component: () => (
-          <PermissionsUpdate
-            {...props}
-            permission={permission}
-            patch={patch(id)}
-          />
-        ),
-      },
-    ]}
-  />
-);
-
-export default () => {
+const PermissionDetail = (props) => {
   const auth = useAuth('q3-api-permissions');
   const sys = useRest({
     runOnInit: true,
-    resourceName: 'permissions',
     url: 'system',
-    key: 'sys',
+    key: 'permissions',
   });
 
-  Object.assign(sys, auth);
-
   return (
-    <Router basepath="/permissions">
-      <Protected
-        coll="q3-api-permissions"
-        component={PermissionsList}
-        path="/"
-        to="/"
-        {...sys}
-      />
-      <Protected
-        coll="q3-api-permissions"
-        component={PermissionsDetail}
-        path=":id/*"
-        to="/"
-        {...sys}
-      />
-    </Router>
+    <Detail
+      {...props}
+      {...RESOURCE}
+      name={ROOT}
+      pathToTitle="permission.coll"
+      coll="q3-api-permissions"
+      views={({ permission, patch, id }) => [
+        {
+          to: '/',
+          label: 'general',
+          component: () => (
+            <PermissionsUpdate
+              {...props}
+              {...sys}
+              {...auth}
+              permission={permission}
+              patch={patch(id)}
+            />
+          ),
+        },
+      ]}
+    />
   );
 };
+
+export default PermissionsList;
+export { PermissionDetail };

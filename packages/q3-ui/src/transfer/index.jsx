@@ -40,12 +40,15 @@ export const findNestedExpressions = (a = []) =>
     [[], []],
   );
 
-const sanitizeArrayStrings = (a = []) =>
-  a.map((w) => w.trim()).filter(Boolean);
+const castToLowercase = (s = '') => s.toLowerCase().trim();
 
-export const transformDelineatedStringIntoArray = (
-  str = '',
-) => sanitizeArrayStrings(str.split(','));
+const sanitizeArrayStrings = (a = []) =>
+  a.map(castToLowercase).filter(Boolean);
+
+export const transformDelineatedStringIntoArray = (str) =>
+  Array.isArray(str)
+    ? str.map(castToLowercase).filter((i) => i)
+    : sanitizeArrayStrings(str.split(','));
 
 export const transformArrayIntoDelineatedString = (
   arr = [],
@@ -344,20 +347,24 @@ export function TransferList({
   const initAsArray = transformDelineatedStringIntoArray(
     init,
   );
+
   const [rules, words] = findNestedExpressions(initAsArray);
   const isSelected = (item) => selected.includes(item);
+  const transformedItems = items.map(castToLowercase);
 
   const active = uniq(
     words.flatMap((word) =>
-      items.filter(minimatch.filter(word)),
+      transformedItems.filter(minimatch.filter(word)),
     ),
   );
 
   const inactive = uniq(
-    items
+    transformedItems
       .filter((i) => !active.includes(i))
       .filter(
-        (i) => i.includes(search) || minimatch(i, search),
+        (i) =>
+          i.toLowerCase().includes(search.toLowerCase()) ||
+          minimatch(i.toLowerCase(), search.toLowerCase()),
       ),
   );
 

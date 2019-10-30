@@ -65,7 +65,9 @@ export default ({ path }) => {
         entries={threads}
         toolbar={(entry) => (
           <RemoveThread
-            userID={entry.user.id}
+            userID={
+              entry.createdBy ? entry.createdBy.id : null
+            }
             next={remove(entry.id)}
           />
         )}
@@ -82,8 +84,11 @@ export default ({ path }) => {
             title="newNote"
             onSubmit={post}
             icon={Create}
+            initialValues={{
+              message: '',
+            }}
           >
-            <Input name="comment" multiline rows={8} />
+            <Input name="message" multiline rows={8} />
           </Capture>
         </Box>
       )}

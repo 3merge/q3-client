@@ -165,7 +165,9 @@ export const AutoCompleteWrapper = ({
   }, []);
 
   const onChange = React.useCallback(
-    (e) => formik.setFieldValue(name, e),
+    (e) => {
+      formik.setFieldValue(name, e);
+    },
     [formik, name],
   );
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import { useTranslation } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 import IconButton from '@material-ui/core/IconButton';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import { makeStyles } from '@material-ui/core/styles';
-import empty from '../../images/unpopulated.png';
+import upload from '../../images/upload.png';
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     backgroundSize: 'contain',
-    height: 175,
+    height: 225,
     filter: 'grayscale(1)',
     transition: 'filter 250ms',
     '&:hover': {
@@ -22,10 +24,18 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     margin: theme.spacing(1),
-    maxWidth: 225,
+    maxWidth: '100%',
+    position: 'relative',
   },
   title: {
     fontSize: 'small',
+  },
+  center: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    zIndex: 10,
   },
 }));
 
@@ -42,49 +52,61 @@ const getServiceParams = (files) => {
   return [formData, config];
 };
 
-const Picture = ({ service }) => {
-  const { root, input, img } = useStyles();
-  const ref = React.createRef();
-  const [url, setURL] = React.useState(empty);
+const Picture = ({ photo, service }) => {
+  const { root, input, img, center } = useStyles();
+  const ref = React.useRef();
+  const [url, setURL] = React.useState(photo || upload);
+  const { t } = useTranslation();
+  const [uploading, startUpload] = React.useState(false);
 
   const triggerFileUploadManager = () => {
     ref.current.click();
   };
 
-  const updateImage = () => {
-    const reader = new FileReader();
-    reader.readAsDataURL(ref.current.files[0]);
-    reader.onload = (e) => {
-      setURL(e.target.result);
-    };
-  };
-
   const uploadPhoto = () => {
-    if (service)
-      service(getServiceParams(ref.current.files)).then(
-        updateImage,
-      );
+    try {
+      if (service) {
+        const reader = new FileReader();
+        startUpload(true);
+        reader.readAsDataURL(ref.current.files[0]);
+        reader.onload = (e) => {
+          setURL(e.currentTarget.result);
+        };
+
+        service(getServiceParams(ref.current.files)).then(
+          () => startUpload(false),
+        );
+      }
+    } catch (e) {
+      // console.log(e);
+    }
   };
 
   return (
     <Card className={root}>
+      {uploading && (
+        <div className={center}>
+          <CircularProgress />
+        </div>
+      )}
       <input
         id="picture-upload"
         onChange={uploadPhoto}
         ref={ref}
         accept=".png,.jpg,.jpeg,.svg"
-        name="featuredPhot"
+        name={t('labels:featuredUpload')}
         className={input}
         type="file"
       />
       <CardMedia
         onClick={triggerFileUploadManager}
         className={img}
-        title="Featured photo"
+        title={t('labels:featuredUpload')}
         image={url}
       />
       <CardHeader
-        title="Featured photo"
+        title={t('labels:featuredUpload')}
+        subheader={t('descriptions:featuredUpload')}
         action={
           <IconButton onClick={triggerFileUploadManager}>
             <UploadIcon />

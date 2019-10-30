@@ -32,6 +32,7 @@ export const ApplicationGate = ({
   appIndex,
   appNav,
   postAuthVerification,
+  popoutMenuItems,
 }) => {
   const { t } = useTranslation();
   React.useEffect(init, []);
@@ -100,6 +101,7 @@ export const ApplicationGate = ({
               name: firstName,
               imgSrc: photo,
               menuItems: [
+                ...popoutMenuItems,
                 {
                   onClick: destroySession,
                   label: 'Logout',
@@ -130,6 +132,16 @@ export const ApplicationGate = ({
 ApplicationGate.propTypes = {
   name: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string.isRequired,
+  popoutMenuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      onClick: PropTypes.func,
+      label: PropTypes.string,
+    }),
+  ),
+};
+
+ApplicationGate.defaultProps = {
+  popoutMenuItems: [],
 };
 
 export default ({ children }) => (

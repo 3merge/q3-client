@@ -15,7 +15,7 @@ storiesOf('Components|Repeater', module)
       const [data, setData] = React.useState([
         {
           id: 1,
-          demo: 'Foo',
+          demo: ['Foo', 'Bar'],
         },
       ]);
 
@@ -77,6 +77,7 @@ storiesOf('Components|Repeater', module)
         <Container maxWidth="md" style={{ marginTop: 15 }}>
           <Repeater
             subtitle="Ordered by newest"
+            description="hi"
             name="contacts"
             primary="demo"
             secondary="id"

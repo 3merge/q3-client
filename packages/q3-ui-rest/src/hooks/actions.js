@@ -32,6 +32,7 @@ export default ({
   url,
   redirectOnSearch,
   key,
+  pluralized,
   runOnInit = false,
   strategy = 'formik',
   decorators = {},
@@ -51,6 +52,7 @@ export default ({
     dispatch({
       key,
       data,
+      pluralized,
       err,
       type,
     });

@@ -14,6 +14,7 @@ import { useAuth } from 'q3-ui-permissions';
 const List = ({
   addComponent: AddComponent,
   resourceName,
+  resourceNameSingular,
   coll,
   name,
   columns,
@@ -23,7 +24,8 @@ const List = ({
   const { t } = useTranslation();
   const state = useRest({
     url: `/${name}`,
-    key: resourceName,
+    key: resourceNameSingular,
+    pluralized: resourceName,
     runOnInit: true,
     ...rest,
   });
