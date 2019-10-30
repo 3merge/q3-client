@@ -10,25 +10,31 @@ storiesOf('Components|Tabs', module)
       sidebar,
     },
   })
-  .add('With router', () => (
-    <Tabs
-      root="/"
-      views={[
-        {
-          to: '/',
-          label: 'Entry',
-          component: () => <p>Default</p>,
-        },
-        {
-          to: 'foo',
-          label: 'Foo',
-          component: () => <p>ONE</p>,
-        },
-        {
-          to: 'bar',
-          label: 'Bar',
-          component: () => <p>TWO</p>,
-        },
-      ]}
-    />
-  ));
+  .add(
+    'With router',
+    () => (
+      <Tabs
+        root="/"
+        views={[
+          {
+            to: '/',
+            label: 'Entry',
+            component: () => <p>Default</p>,
+          },
+          {
+            to: 'foo',
+            label: 'Foo',
+            component: () => <p>ONE</p>,
+          },
+          {
+            to: 'bar',
+            label: 'Bar',
+            component: () => <p>TWO</p>,
+          },
+        ]}
+      />
+    ),
+    {
+      router: '/',
+    },
+  );

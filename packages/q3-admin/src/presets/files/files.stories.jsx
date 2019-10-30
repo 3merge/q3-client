@@ -4,7 +4,7 @@ import Auth from 'q3-ui-permissions';
 import MockAPI from '../../utils/mocker';
 import Detail from '../../templates/detail';
 import Files from './index';
-import files from './data.json';
+import uploads from './data.json';
 
 storiesOf('Presets|Files', module).add(
   'Threaded',
@@ -24,11 +24,11 @@ storiesOf('Presets|Files', module).add(
           ],
         });
 
-        m.onGet('/files?topic=1').reply(200, {
-          files,
+        m.onGet('/orders/1/uploads').reply(200, {
+          uploads,
         });
 
-        m.onDelete(/files\/\d+?topic=1/).reply(204);
+        m.onDelete(/uploads\/\d+/).reply(204);
 
         m.onGet('/orders/1').reply(200, {
           order: {
@@ -41,11 +41,13 @@ storiesOf('Presets|Files', module).add(
         <Detail
           id="1"
           name="orders"
+          resourceName="order"
           pathToTitle="order.po"
           views={[
             {
-              label: 'thread',
-              component: () => <Files id="1" />,
+              to: '/',
+              label: 'notes',
+              component: () => <Files path="/orders/1" />,
             },
           ]}
         />
@@ -53,6 +55,6 @@ storiesOf('Presets|Files', module).add(
     </MockAPI>
   ),
   {
-    router: '/',
+    router: '/orders/1',
   },
 );

@@ -13,11 +13,17 @@ const schema = yup.object().shape({
   countries: yup.mixed().autocomplete(),
 });
 
+const schema2 = yup.object().shape({
+  age: yup.number().required(),
+  height: yup.number().required(),
+  weight: yup.number().autocomplete(),
+});
+
 storiesOf('Components|Wizard', module).add('Create', () => (
   <Wizard
     icon={Add}
     title="Wizardry"
-    validationSchema={schema}
+    getValidation={(i) => (i === 0 ? schema : schema2)}
     initialValues={{
       firstName: '',
       lastName: '',

@@ -16,6 +16,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useOpenState } from '../dialogs';
 
 const Wizard = ({
+  getValidation,
   onSubmit,
   icon: Icon,
   steps,
@@ -37,103 +38,111 @@ const Wizard = ({
   const back = () => setStep(step - 1);
   const next = () => setStep(step + 1);
 
+  const clearForm = () => {
+    close();
+    setStep(0);
+  };
+
   return (
-    <Formik
-      {...rest}
-      enableReinitialize
-      validateOnBlur={false}
-      validateOnChange={false}
-      onSubmit={closeOnSuccess}
-      render={({
-        submitForm,
-        isSubmitting,
-        validateForm,
-        ...utils
-      }) => (
-        <Form>
-          <Tooltip title={t('labels:launch')}>
-            <IconButton type="button" onClick={open}>
-              <Icon />
-            </IconButton>
-          </Tooltip>
-          <Dialog
-            fullWidth
-            maxWidth="md"
-            fullScreen={isMobile}
-            open={isOpen}
-            onClose={close}
-          >
-            {isSubmitting && <LinearProgress />}
+    <>
+      <Tooltip title={t('labels:launch')}>
+        <IconButton type="button" onClick={open}>
+          <Icon />
+        </IconButton>
+      </Tooltip>
+      <Dialog
+        fullWidth
+        maxWidth="md"
+        fullScreen={isMobile}
+        onClose={clearForm}
+        open={isOpen}
+      >
+        <Formik
+          {...rest}
+          enableReinitialize
+          validateOnBlur={false}
+          validateOnChange={false}
+          validationSchema={() => getValidation(step)}
+          onSubmit={closeOnSuccess}
+          render={({
+            submitForm,
+            isSubmitting,
+            validateForm,
+            resetForm,
+            ...utils
+          }) => (
+            <Form>
+              {isSubmitting && <LinearProgress />}
 
-            {steps.length > 1 && (
-              <MobileStepper
-                steps={steps.length}
-                variant="dots"
-                position="static"
-                activeStep={step}
-              />
-            )}
-
-            <DialogTitle disableTypography>
-              {t(`titles:${title}`)}
-            </DialogTitle>
-
-            <DialogContent>
-              {steps.map(
-                (Step, i) =>
-                  step === i && (
-                    <Fade in key={i}>
-                      <div>
-                        <Step {...utils} />
-                      </div>
-                    </Fade>
-                  ),
+              {steps.length > 1 && (
+                <MobileStepper
+                  steps={steps.length}
+                  variant="dots"
+                  position="static"
+                  activeStep={step}
+                />
               )}
 
-              {steps.length - 1 === step ? (
-                <DialogActions>
-                  {step === 0 ? (
-                    <Button onClick={close}>
-                      {t('labels:nevermind')}
+              <DialogTitle disableTypography>
+                {t(`titles:${title}`)}
+              </DialogTitle>
+
+              <DialogContent>
+                {steps.map(
+                  (Step, i) =>
+                    step === i && (
+                      <Fade in key={i}>
+                        <div>
+                          <Step {...utils} />
+                        </div>
+                      </Fade>
+                    ),
+                )}
+                {steps.length - 1 === step ? (
+                  <DialogActions>
+                    {step === 0 ? (
+                      <Button onClick={close}>
+                        {t('labels:nevermind')}
+                      </Button>
+                    ) : (
+                      <Button onClick={back}>
+                        {t('labels:back')}
+                      </Button>
+                    )}
+                    <Button onClick={submitForm}>
+                      {t('labels:save')}
                     </Button>
-                  ) : (
-                    <Button onClick={back}>
-                      {t('labels:back')}
+                  </DialogActions>
+                ) : (
+                  <DialogActions>
+                    {step === 0 ? (
+                      <Button onClick={close}>
+                        {t('labels:nevermind')}
+                      </Button>
+                    ) : (
+                      <Button onClick={back}>
+                        {t('labels:back')}
+                      </Button>
+                    )}
+                    <Button
+                      onClick={() =>
+                        validateForm().then((errors) => {
+                          if (!Object.keys(errors).length) {
+                            next();
+                          }
+                        })
+                      }
+                    >
+                      {t('labels:next')}
                     </Button>
-                  )}
-                  <Button onClick={submitForm}>
-                    {t('labels:save')}
-                  </Button>
-                </DialogActions>
-              ) : (
-                <DialogActions>
-                  {step === 0 ? (
-                    <Button onClick={close}>
-                      {t('labels:nevermind')}
-                    </Button>
-                  ) : (
-                    <Button onClick={back}>
-                      {t('labels:back')}
-                    </Button>
-                  )}
-                  <Button
-                    onClick={() =>
-                      validateForm().then((errors) => {
-                        if (!Object.keys(errors).length) {
-                          next();
-                        }
-                      })
-                    }
-                  >
-                    {t('labels:next')}
-                  </Button>
-                </DialogActions>
-              )}
-            </DialogContent>
-          </Dialog>
-        </Form>
-      )}
-    />
+                  </DialogActions>
+                )}
+              </DialogContent>
+            </Form>
+          )}
+        />
+      </Dialog>
+    </>
   );
 };
 

@@ -18,9 +18,11 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import Apps from '@material-ui/icons/Apps';
 import { grey } from '@material-ui/core/colors';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Avatar from '../avatar';
 import { EmptyGraphic, ErrorGraphic } from '../graphic';
 
@@ -184,24 +186,14 @@ export const TableView = ({
   columns,
   total,
   rowTemplate: Row,
-  progress,
   root,
 }) => {
   const { t } = useTranslation();
   const params = new URLSearchParams(window.location);
   const page = getDefaultPage(params.get('page'));
-  const [prog, setTotal] = React.useState(
-    !loading ? 20 : 0,
+  const [showResults, setShowResults] = React.useState(
+    false,
   );
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      if (progress >= 100) {
-        setTotal(20);
-        clearTimeout(timer);
-      }
-    }, 200);
-  }, []);
 
   const handlePageIncrementation = React.useCallback(
     (e, num) => {
@@ -216,17 +208,6 @@ export const TableView = ({
 
   const renderBody = React.useCallback(() => {
     const span = columns.length + 1;
-    if (prog !== 20) {
-      return (
-        <DatalessView span={span}>
-          <LinearProgress
-            variant="buffer"
-            value={progress + prog}
-            valueBuffer={progress * 1.2 + prog}
-          />
-        </DatalessView>
-      );
-    }
 
     if (error) {
       return (
@@ -261,43 +242,69 @@ export const TableView = ({
         {...props}
       />
     ));
-  }, [loading, error, rows, progress]);
+  }, [showResults, error, rows]);
+
+  React.useEffect(() => {
+    if (!loading) {
+      const clear = setTimeout(() => {
+        setShowResults(true);
+        clearTimeout(clear);
+      }, 500);
+    }
+  }, [loading]);
 
   return (
     <Paper
       style={{ maxWidth: '100%', overflow: 'auto' }}
       elevation={0}
     >
-      <Table size="small">
-        <TableHead>
-          {columns && (
-            <TableRow>
-              {columns.map((key) => (
-                <TableCell key={key[0]}>
-                  {t(
-                    `labels:${
-                      Array.isArray(key) ? key[0] : key
-                    }`,
-                  )}
-                </TableCell>
-              ))}
-              <TableCell />
-            </TableRow>
-          )}
-        </TableHead>
-        <TableBody>{renderBody()}</TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              page={page - 1}
-              rowsPerPageOptions={[]}
-              count={total}
-              rowsPerPage={25}
-              onChangePage={handlePageIncrementation}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
+      {!showResults ? (
+        <Box p={3}>
+          <Skeleton />
+          <Skeleton width="60%" />
+          <Skeleton width="25%" />
+          <Skeleton width="80%" />
+          <Skeleton width="42%" />
+          <Skeleton width="90%" />
+        </Box>
+      ) : (
+        <Fade in={showResults}>
+          <div>
+            <Table size="small">
+              <TableHead>
+                {columns && (
+                  <TableRow>
+                    {columns.map((key) => (
+                      <TableCell key={key[0]}>
+                        {t(
+                          `labels:${
+                            Array.isArray(key)
+                              ? key[0]
+                              : key
+                          }`,
+                        )}
+                      </TableCell>
+                    ))}
+                    <TableCell />
+                  </TableRow>
+                )}
+              </TableHead>
+              <TableBody>{renderBody()}</TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    page={page - 1}
+                    rowsPerPageOptions={[]}
+                    count={total}
+                    rowsPerPage={25}
+                    onChangePage={handlePageIncrementation}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </div>
+        </Fade>
+      )}
     </Paper>
   );
 };

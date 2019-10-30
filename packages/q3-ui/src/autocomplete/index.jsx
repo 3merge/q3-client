@@ -184,8 +184,13 @@ export const AutoCompleteWrapper = ({
     [term, onChange],
   );
 
-  React.useEffect(onSearch, [loading]);
-  React.useEffect(onLoad, []);
+  React.useEffect(() => {
+    onSearch();
+  }, [loading]);
+
+  React.useEffect(() => {
+    onLoad();
+  }, []);
 
   return (
     <Downshift

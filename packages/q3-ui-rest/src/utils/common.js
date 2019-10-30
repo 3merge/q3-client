@@ -1,11 +1,13 @@
 import Axios from 'axios';
 
-export const getAutoComplete = (resource, labelProp) => (
-  term,
-) =>
+export const getAutoComplete = (
+  resource,
+  key,
+  labelProp,
+) => (term) =>
   Axios.get(`${resource}?search=${term}`)
     .then(({ data }) =>
-      data[resource].map((item) => ({
+      data[key].map((item) => ({
         ...item,
         value: item.id,
         label: item[labelProp],

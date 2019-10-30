@@ -35,7 +35,7 @@ export function IntegratedTiny(props) {
         <Editor
           value={value}
           disabled={disabled}
-          apiKey={process.env.TINY}
+          apiKey="d8ty5nlimfbx3um6di4gxzs4tpbp0k2ugxhhdu3ewhxdb8sk"
           onEditorChange={onChange}
           init={{
             images_upload_handler: uploadImage,

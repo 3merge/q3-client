@@ -23,25 +23,31 @@ const getFileIcon = (t) => {
   }
 };
 
-const Files = ({ id }) => {
-  const { files = [] } = useRest({
-    url: `/files?topic=${id}`,
-    key: 'files',
+const Files = ({ path }) => {
+  const { uploads = [], put } = useRest({
     runOnInit: true,
+    url: `${path}/uploads`,
+    key: 'uploads',
   });
 
   return (
     <>
       <Tile title="uploadFiles" dividers={false}>
-        <Upload />
+        <Upload fn={put(null)} />
         <List
           title="He"
-          items={files.map((file) => ({
+          items={uploads.map((file) => ({
             primary: file.name,
             secondary: file.type.toUpperCase(),
             icon: getFileIcon(file.type),
             render: () => (
-              <IconButton>
+              <IconButton
+                component="a"
+                href={file.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Download file"
+              >
                 <CloudDownload />
               </IconButton>
             ),

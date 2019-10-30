@@ -26,6 +26,7 @@ function createHistory(initialPath) {
   }
 
   const source = createMemorySource(initialPath);
+ 
   firstHistoryObject = createRouterHistory(source);
   firstHistoryObject.listen(() =>
     console.log(
@@ -33,6 +34,7 @@ function createHistory(initialPath) {
       source.location,
     ),
   );
+
   return firstHistoryObject;
 }
 

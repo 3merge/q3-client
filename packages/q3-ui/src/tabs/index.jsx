@@ -17,7 +17,7 @@ export const LocationMatch = ({
     (location) => {
       const index = views.findIndex(
         ({ to }) =>
-          to !== '' && location.pathname.includes(to),
+          to !== '/' && location.pathname.includes(to),
       );
       if (index !== -1) return index;
       if (location.pathname === base) return 0;
@@ -59,8 +59,8 @@ const TabsWithRouter = ({ views, root }) => {
             >
               {views.map((view) => (
                 <Tab
-                  key={view.to || view.label}
-                  to={view.to || root}
+                  key={`${root}${view.to}`}
+                  to={`${root}${view.to}`}
                   label={t(`labels:${view.label}`)}
                   component={Link}
                 />
@@ -79,9 +79,8 @@ const TabsWithRouter = ({ views, root }) => {
         <Router>
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
-              default={!to}
               renderer={Comp}
-              path={to}
+              path={`${root}${to}`}
               key={to}
             />
           ))}

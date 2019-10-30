@@ -31,17 +31,17 @@ const RemoveThread = ({ next, userID }) => {
   ) : null;
 };
 
-export default ({ id }) => {
+export default ({ path }) => {
   const { t } = useTranslation();
   const {
-    notes,
     post,
     remove,
     fetching,
     fetchingError,
+    threads = [],
   } = useRest({
-    url: `/notes?topic=${id}`,
-    key: 'notes',
+    url: `${path}/threads`,
+    key: 'threads',
     runOnInit: true,
   });
 
@@ -49,7 +49,7 @@ export default ({ id }) => {
     if (fetching) return <TimelineSkeleton />;
     if (fetchingError) return <ServerError />;
 
-    if (!notes.length)
+    if (!threads.length)
       return (
         <Paper>
           <CallToAction
@@ -62,7 +62,7 @@ export default ({ id }) => {
 
     return (
       <Thread
-        entries={notes}
+        entries={threads}
         toolbar={(entry) => (
           <RemoveThread
             userID={entry.user.id}

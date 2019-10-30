@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
-import data from 'q3-ui/thread/data.json';
+import threads from 'q3-ui/thread/data.json';
 import MockAPI from '../../utils/mocker';
 import Notes from './index';
 import Detail from '../../templates/detail';
@@ -25,8 +25,13 @@ storiesOf('Presets|Notes', module)
             ],
           });
 
-          m.onGet('/notes?topic=1').reply(200, {
-            notes: data,
+          m.onGet('/orders/1/threads').reply(200, {
+            threads,
+          });
+
+          m.onPut('/orders/1/threads').reply(201, {
+            message: 'Note added',
+            threads,
           });
 
           m.onDelete(/notes\/\d+?topic=1/).reply(204);
@@ -42,11 +47,13 @@ storiesOf('Presets|Notes', module)
           <Detail
             id="1"
             name="orders"
+            resourceName="order"
             pathToTitle="order.po"
             views={[
               {
-                label: 'thread',
-                component: () => <Notes id="1" />,
+                to: '/',
+                label: 'notes',
+                component: () => <Notes path="orders/1" />,
               },
             ]}
           />
@@ -54,7 +61,8 @@ storiesOf('Presets|Notes', module)
       </MockAPI>
     ),
     {
-      router: '/',
+      to: '/',
+      router: '/orders/1',
     },
   )
   .add(
@@ -90,7 +98,8 @@ storiesOf('Presets|Notes', module)
       </MockAPI>
     ),
     {
-      router: '/',
+      to: '/',
+      router: '/orders/1',
     },
   )
   .add(
@@ -113,6 +122,7 @@ storiesOf('Presets|Notes', module)
             pathToTitle="order.po"
             views={[
               {
+                to: '/',
                 label: 'thread',
                 component: () => <Notes id="1" />,
               },
@@ -122,6 +132,6 @@ storiesOf('Presets|Notes', module)
       </MockAPI>
     ),
     {
-      router: '/',
+      router: '/orders/1',
     },
   );

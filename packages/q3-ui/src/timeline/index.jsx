@@ -40,7 +40,7 @@ export const TimelineSkeleton = () => (
 export const TimelineMeta = ({
   firstName,
   lastName,
-  featuredPhoto,
+  photo,
   date,
 }) => {
   const name = `${firstName} ${lastName}`;
@@ -52,7 +52,7 @@ export const TimelineMeta = ({
     <Grid item md={3} sm={4} xs={12}>
       <Box textAlign="right">
         <Box mb={1}>
-          <Avatar imgSrc={featuredPhoto} word={name} />
+          <Avatar imgSrc={photo} word={name} />
         </Box>
         <BlockText variant="overline" gutterBottom>
           {name}
@@ -66,7 +66,7 @@ export const TimelineMeta = ({
 TimelineMeta.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
-  featuredPhoto: PropTypes.string,
+  photo: PropTypes.string,
   date: PropTypes.instanceOf(Date),
 };
 
@@ -74,7 +74,7 @@ TimelineMeta.defaultProps = {
   date: new Date(),
   firstName: 'SYS',
   lastName: null,
-  featuredPhoto: null,
+  photo: null,
 };
 
 export const TimelineContainer = ({
