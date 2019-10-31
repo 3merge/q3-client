@@ -24,7 +24,6 @@ const Detail = ({
   ...rest
 }) => {
   const url = `/${name}/${id}`;
-  const { canDelete } = useAuth(coll);
   const state = useRest({
     runOnInit: true,
     key: resourceNameSingular,
@@ -32,6 +31,11 @@ const Detail = ({
     url,
     ...rest,
   });
+
+  const { canDelete, ...authy } = useAuth(
+    coll,
+    get(state, `${resourceNameSingular}.createdBy.id`),
+  );
 
   return (
     <>
@@ -58,7 +62,7 @@ const Detail = ({
                 root={`/${resourceName}/${id}`}
                 views={
                   typeof views === 'function'
-                    ? views({ id, ...state })
+                    ? views({ id, ...state, ...authy })
                     : views
                 }
               />

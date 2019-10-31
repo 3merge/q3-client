@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Input from 'q3-ui/inputs';
 import Form from 'q3-ui/form';
-import { usePassword } from './verify';
+import { usePassword } from '../verify';
 
 const PasswordChange = ({ onSubmit }) => {
   const password = usePassword();

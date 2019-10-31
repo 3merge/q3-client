@@ -33,8 +33,8 @@ export const FormWithAlert = ({
       {...formProps}
       readOnly={!init}
       onSubmit={(values, actions) =>
-        handleSubmit(values, actions).then(() => {
-          setHasSent(true);
+        handleSubmit(values, actions).then((e) => {
+          if (!e) setHasSent(true);
         })
       }
     >

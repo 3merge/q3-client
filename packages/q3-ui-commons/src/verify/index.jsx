@@ -58,7 +58,7 @@ export const usePassword = () => {
   };
 };
 
-const Verify = ({ onSubmit }) => {
+const Verify = () => {
   const { t } = useTranslation();
   const password = usePassword();
 
@@ -72,8 +72,8 @@ const Verify = ({ onSubmit }) => {
     <FormWithAlert
       title={t('titles:verify')}
       subtitle={t('descriptions:verify')}
-      handleSubmit={onSubmit}
-      hasSent="loginReady"
+      handleSubmit={handleSubmit}
+      sentLabel="loginReady"
       redirect="login"
       validationSchema={verificationSchema}
       initialValues={{

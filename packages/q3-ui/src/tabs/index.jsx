@@ -98,7 +98,7 @@ const TabsWithRouter = ({ views, root }) => {
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
               renderer={Comp}
-              path={slug(root, to)}
+              path={to}
               key={to}
             />
           ))}

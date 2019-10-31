@@ -10,6 +10,9 @@ const stub = {
   coll: 'q3-api-users',
   role: 'Admin',
   fields: '*',
+  createdBy: {
+    id: '23456',
+  },
 };
 
 const define = (mock) => {
@@ -43,6 +46,9 @@ const define = (mock) => {
   });
 
   mock.onGet('/profile').reply(200, {
+    profile: {
+      id: '123456',
+    },
     permissions: [
       {
         coll: 'q3-api-permissions',
@@ -58,6 +64,7 @@ const define = (mock) => {
         coll: 'q3-api-permissions',
         fields: 'owner*',
         op: 'Update',
+        ownership: 'Own',
       },
       {
         coll: 'q3-api-permissions',
@@ -123,6 +130,6 @@ storiesOf('Presets|Permissions', module)
       </MockAPI>
     ),
     {
-      router: '/permissions/1',
+      router: '/',
     },
   );

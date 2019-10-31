@@ -222,7 +222,6 @@ PermissionsUpdate.propTypes = {
 };
 
 const PermissionDetail = (props) => {
-  const auth = useAuth('q3-api-permissions');
   const sys = useRest({
     runOnInit: true,
     url: 'system',
@@ -237,7 +236,7 @@ const PermissionDetail = (props) => {
       name={ROOT}
       pathToTitle="permission.coll"
       coll="q3-api-permissions"
-      views={({ permission, patch, id }) => [
+      views={({ permission, patch, id, ...rest }) => [
         {
           to: '/',
           label: 'general',
@@ -245,7 +244,7 @@ const PermissionDetail = (props) => {
             <PermissionsUpdate
               {...props}
               {...sys}
-              {...auth}
+              {...rest}
               permission={permission}
               patch={patch(id)}
             />

@@ -61,13 +61,24 @@ const readOnly = {
   readOnly: true,
 };
 
-export default (ctx) => (coll) => {
+export default (ctx) => (coll, createdBy) => {
   const a = React.useContext(ctx);
-  const permissions = get(a, 'state.permissions', []);
-  const id = get(a, 'state.profile.id', []);
 
-  const getOp = (name) =>
-    getSingleGrant(getGrants(permissions, coll), name);
+  const permissions = get(a, 'state.permissions', []);
+  const id = get(a, 'state.profile.id', '');
+
+  const getOp = (name) => {
+    const grant = getSingleGrant(
+      getGrants(permissions, coll),
+      name,
+    );
+
+    if (grant.ownership === 'Own') {
+      return id === createdBy ? grant : null;
+    }
+
+    return grant;
+  };
 
   const getField = (name, grant) =>
     grant

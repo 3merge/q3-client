@@ -49,5 +49,7 @@
   "condition": "Condition",
   "ownership": "Ownership",
   "fields": "Fields",
-  "ownershipAliases": "Ownership aliases"
+  "ownershipAliases": "Ownership aliases",
+  "unknownAccount": "Hmm, not what we were expecting...",
+  "sentLabel": "Nice! Head to the login screen now."
 }
