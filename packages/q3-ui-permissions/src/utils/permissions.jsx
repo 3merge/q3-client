@@ -73,7 +73,11 @@ export default (ctx) => (coll, createdBy) => {
       name,
     );
 
-    if (grant.ownership === 'Own') {
+    if (
+      grant &&
+      grant.ownership === 'Own' &&
+      grant.op !== 'Create'
+    ) {
       return id === createdBy ? grant : null;
     }
 
