@@ -13,5 +13,9 @@
   "fetchingError": "Could not fetch data for ",
   "demo": "Demonstration",
   "message": "Send us a message",
-  "serverError": "This is embarrassing"
+  "serverError": "This is embarrassing",
+  "noNotes": "Start the conversation",
+  "onTheMind": "What's on your mind?",
+  "passwordReset": "Password reset",
+  "newPermission": "New permission grant"
 }

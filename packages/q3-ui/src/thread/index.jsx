@@ -12,7 +12,10 @@ const Thread = ({ entries, toolbar }) =>
     <TimelineContainer
       key={entry.id}
       meta={
-        <TimelineMeta date={entry.date} {...entry.user} />
+        <TimelineMeta
+          date={entry.date}
+          {...entry.createdBy}
+        />
       }
     >
       <FormatQuoteIcon />

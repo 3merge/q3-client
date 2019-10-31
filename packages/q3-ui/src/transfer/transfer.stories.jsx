@@ -27,14 +27,14 @@ const mockRequest = () =>
     });
 
 // eslint-disable-next-line
-const withFormik = ({ name, ...rest }, form = {}) => (
+const withFormik = ({ name, value, ...rest }, form = {}) => (
   <Formik
     {...form}
     onSubmit={(_, actions) => {
       actions.setSubmitting(false);
     }}
     initialValues={{
-      [name]: 'Rick Sanchez, Morty*',
+      [name]: value,
     }}
     render={() => (
       <Form>
@@ -46,11 +46,17 @@ const withFormik = ({ name, ...rest }, form = {}) => (
   />
 );
 
-storiesOf('Components|Transfer', module).add(
-  'Without initial value',
-  () =>
+storiesOf('Components|Transfer', module)
+  .add('With initial value', () =>
+    withFormik({
+      name: 'transfer',
+      loadOptions: mockRequest,
+      value: 'Rick Sanchez, Morty*',
+    }),
+  )
+  .add('Without initial value', () =>
     withFormik({
       name: 'transfer',
       loadOptions: mockRequest,
     }),
-);
+  );

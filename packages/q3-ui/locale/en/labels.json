@@ -36,5 +36,18 @@
   "openEditor": "Launch editor",
   "dropNdrop": "Drag files into this panel or click to upload individually.",
   "upload": "Upload",
-  "featuredUpload": "Featured upload"
+  "featuredUpload": "Featured upload",
+  "onTheMind": "What's on your mind?",
+  "returnToLogin": "Back to login",
+  "incorrectLogin": "Doesn't look like you have an account",
+  "emailSent": "If this account exists, you'll get an email.",
+  "verify": "Verify",
+  "reset-password": "Reset password",
+  "loginReady": "All set to login!",
+  "newPassword": "New password",
+  "confirmNewPassword": "Confirm new password",
+  "condition": "Condition",
+  "ownership": "Ownership",
+  "fields": "Fields",
+  "ownershipAliases": "Ownership aliases"
 }

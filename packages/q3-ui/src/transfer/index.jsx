@@ -45,7 +45,9 @@ const castToLowercase = (s = '') => s.toLowerCase().trim();
 const sanitizeArrayStrings = (a = []) =>
   a.map(castToLowercase).filter(Boolean);
 
-export const transformDelineatedStringIntoArray = (str) =>
+export const transformDelineatedStringIntoArray = (
+  str = [],
+) =>
   Array.isArray(str)
     ? str.map(castToLowercase).filter((i) => i)
     : sanitizeArrayStrings(str.split(','));
@@ -321,12 +323,14 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   open: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   applied: PropTypes.arrayOf(PropTypes.string),
 };
 
 Input.defaultProps = {
   applied: [],
   readOnly: false,
+  disabled: false,
 };
 
 export function TransferList({
@@ -335,6 +339,9 @@ export function TransferList({
   readOnly,
   loadOptions,
   formik,
+  disabled,
+  authFn,
+  isNew,
 }) {
   const [search, setSearchValue] = React.useState('');
   const [selected, setSelected] = React.useState([]);
@@ -438,13 +445,23 @@ export function TransferList({
       setItems(options);
   }, [options]);
 
+  let auth = {};
+
+  if (authFn)
+    auth = authFn({
+      op: isNew ? 'Create' : 'Update',
+      name,
+    });
+
   return (
     <>
       <Input
         name={name}
         readOnly={readOnly}
         applied={initAsArray}
+        disabled={disabled}
         open={open}
+        {...auth}
       />
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
         <Search

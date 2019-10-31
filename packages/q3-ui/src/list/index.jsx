@@ -39,38 +39,33 @@ const Listing = ({ items, subtitle }) => {
     >
       {items.map(
         ({ primary, secondary, render, icon }, i) => (
-          <>
-            <li key={i} className={listcls}>
-              <ListItem component="div" dense>
-                <ListItemAvatar>
-                  <Avatar
-                    icon={icon}
-                    word={
-                      Array.isArray(primary)
-                        ? primary.join(', ')
-                        : String(primary || '--')
-                    }
-                  />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={
+          <li key={i} className={listcls}>
+            <ListItem component="div" dense>
+              <ListItemAvatar>
+                <Avatar
+                  icon={icon}
+                  word={
                     Array.isArray(primary)
                       ? primary.join(', ')
                       : String(primary || '--')
                   }
-                  secondary={secondary}
                 />
-                {render && (
-                  <ListItemSecondaryAction>
-                    {render()}
-                  </ListItemSecondaryAction>
-                )}
-              </ListItem>
-            </li>
-            {i !== items.length - 1 && (
-              <Divider variant="inset" component="li" />
-            )}
-          </>
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  Array.isArray(primary)
+                    ? primary.join(', ')
+                    : String(primary || '--')
+                }
+                secondary={secondary}
+              />
+              {render && (
+                <ListItemSecondaryAction>
+                  {render()}
+                </ListItemSecondaryAction>
+              )}
+            </ListItem>
+          </li>
         ),
       )}
     </List>

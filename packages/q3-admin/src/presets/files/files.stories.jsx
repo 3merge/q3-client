@@ -41,7 +41,8 @@ storiesOf('Presets|Files', module).add(
         <Detail
           id="1"
           name="orders"
-          resourceName="order"
+          resourceName="orders"
+          resourceNameSingular="order"
           pathToTitle="order.po"
           views={[
             {

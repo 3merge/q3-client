@@ -1,19 +1,18 @@
 import React from 'react';
+import Axios from 'axios';
 import Picture from 'q3-ui/picture';
-import useRest from 'q3-ui-rest';
 
-const PictureUpload = ({ path, photo }) => {
-  const { post } = useRest({
-    url: path,
-    key: 'n',
-  });
-
-  return (
-    <Picture
-      photo={photo}
-      service={(formData) => post(formData)}
-    />
-  );
-};
+const PictureUpload = ({ path, photo }) => (
+  <Picture
+    photo={photo}
+    service={(data) =>
+      Axios.post(`${path}/uploads`, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    }
+  />
+);
 
 export default PictureUpload;

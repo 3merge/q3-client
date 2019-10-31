@@ -25,16 +25,14 @@ storiesOf('Presets|Notes', module)
             ],
           });
 
-          m.onGet('/orders/1/threads').reply(200, {
+          m.onGet('/orders/1/thread').reply(200, {
             threads,
           });
 
-          m.onPut('/orders/1/threads').reply(201, {
+          m.onPut('/orders/1/thread').reply(201, {
             message: 'Note added',
             threads,
           });
-
-          m.onDelete(/notes\/\d+?topic=1/).reply(204);
 
           m.onGet('/orders/1').reply(200, {
             order: {
@@ -47,7 +45,8 @@ storiesOf('Presets|Notes', module)
           <Detail
             id="1"
             name="orders"
-            resourceName="order"
+            resourceName="orders"
+            resourceNameSingular="order"
             pathToTitle="order.po"
             views={[
               {
@@ -61,7 +60,6 @@ storiesOf('Presets|Notes', module)
       </MockAPI>
     ),
     {
-      to: '/',
       router: '/orders/1',
     },
   )
@@ -86,9 +84,12 @@ storiesOf('Presets|Notes', module)
           <Detail
             id="1"
             name="orders"
+            resourceName="orders"
+            resourceNameSingular="order"
             pathToTitle="order.po"
             views={[
               {
+                to: '/',
                 label: 'thread',
                 component: () => <Notes id="1" />,
               },
@@ -118,6 +119,8 @@ storiesOf('Presets|Notes', module)
         <Auth>
           <Detail
             id="1"
+            resourceName="orders"
+            resourceNameSingular="order"
             name="orders"
             pathToTitle="order.po"
             views={[

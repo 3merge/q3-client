@@ -52,7 +52,7 @@ const Wizard = ({
       </Tooltip>
       <Dialog
         fullWidth
-        maxWidth="md"
+        maxWidth="sm"
         fullScreen={isMobile}
         onClose={clearForm}
         open={isOpen}

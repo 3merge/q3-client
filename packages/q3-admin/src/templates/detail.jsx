@@ -55,7 +55,7 @@ const Detail = ({
           ) : (
             <>
               <Tabs
-                root={`${resourceName}/${id}`}
+                root={`/${resourceName}/${id}`}
                 views={
                   typeof views === 'function'
                     ? views({ id, ...state })

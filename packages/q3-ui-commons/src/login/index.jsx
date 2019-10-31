@@ -1,17 +1,13 @@
 import React from 'react';
 import Axios from 'axios';
-import { Link } from '@reach/router';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Input from 'q3-ui/inputs';
-import Form from 'q3-ui/form';
 import { useFormHandler } from 'q3-ui-forms';
 import { setSession } from 'q3-ui-permissions';
 import Collapse from '@material-ui/core/Collapse';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import Security from '../security';
+import { FormWithAlert } from '../shared';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
@@ -25,8 +21,7 @@ export const validateAccountEmail = (
       onComplete(null, actions);
       return values.email;
     })
-    .catch((err) => {
-      onComplete(err, actions);
+    .catch(() => {
       return null;
     });
 };
@@ -46,10 +41,9 @@ export const authenticate = (values, actions) => {
     });
 };
 
-const Login = ({ formProps }) => {
+const Login = () => {
   const { t } = useTranslation();
   const [hasAccount, setHasAccount] = React.useState('');
-  const [init, setInit] = React.useState(false);
 
   const customTest = function conditionalRequire(v) {
     return !hasAccount || (hasAccount && v);
@@ -74,49 +68,26 @@ const Login = ({ formProps }) => {
   });
 
   return (
-    <Form
-      {...formProps}
-      readOnly={!init}
+    <FormWithAlert
+      redirect="reset-password"
       title={t('titles:login')}
       description={t('descriptions:login')}
+      sentLabel="unknownAccount"
       validationSchema={loginSchema}
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
       initialValues={{
         email: hasAccount,
         password: '',
       }}
     >
-      {() => (
-        <Security done={setInit}>
-          <Collapse in={!hasAccount}>
-            <Input name="email" type="email" />
-          </Collapse>
-          <Collapse in={hasAccount} timeout={500}>
-            <Input name="password" type="password" />
-          </Collapse>{' '}
-          <Box align="right">
-            <Button component={Link} to="/reset-password">
-              {t('labels:forgotPassword')}
-            </Button>
-          </Box>
-        </Security>
-      )}
-    </Form>
+      <Collapse in={!hasAccount}>
+        <Input name="email" type="email" />
+      </Collapse>
+      <Collapse in={hasAccount} timeout={500}>
+        <Input name="password" type="password" />
+      </Collapse>
+    </FormWithAlert>
   );
-};
-
-Login.propTypes = {
-  onSubmit: PropTypes.func,
-  onCheck: PropTypes.func,
-  formProps: PropTypes.shape({}),
-  children: PropTypes.node,
-};
-
-Login.defaultProps = {
-  onCheck: () => Promise.resolve(),
-  onSubmit: () => Promise.resolve(),
-  formProps: null,
-  children: null,
 };
 
 export default Login;

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   saddle: {
-    maxWidth: 550,
+    maxWidth: 750,
     paddingTop: theme.spacing(8),
     paddingLeft: theme.spacing(6),
   },
@@ -94,14 +94,18 @@ export const Delete = ({ next, redirect }) => {
       return;
     }
 
-    next().finally(() => {
-      close();
-      setValue('');
+    next()
+      .then(() => {
+        close();
+        setValue('');
 
-      if (redirect) {
-        navigate(redirect);
-      }
-    });
+        if (redirect) {
+          navigate(redirect);
+        }
+      })
+      .catch(() => {
+        // noop
+      });
   }, [value]);
 
   return (

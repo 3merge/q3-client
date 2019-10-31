@@ -15,22 +15,28 @@ const stub = {
 const define = (mock) => {
   mock.onGet('/system').reply(200, {
     collections: {
-      'q3-api-users': [
-        'id',
-        'name',
-        'email',
-        'address.streetLine1',
-        'address.city',
-        'address.country',
-        'tel',
-      ],
-      'q3-api-permissions': [
-        'fields',
-        'ownership',
-        'coll',
-        'op',
-        'role',
-      ],
+      'q3-api-users': {
+        paths: [
+          'id',
+          'name',
+          'email',
+          'address.streetLine1',
+          'address.city',
+          'address.country',
+          'tel',
+        ],
+        refs: ['tel'],
+      },
+      'q3-api-permissions': {
+        paths: [
+          'fields',
+          'ownership',
+          'coll',
+          'op',
+          'role',
+        ],
+        refs: [],
+      },
     },
     roles: ['Admin', 'Editor'],
     conditions: ['isValidated'],

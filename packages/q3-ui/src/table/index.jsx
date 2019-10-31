@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { navigate } from '@reach/router';
+import { Location, navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -189,22 +189,16 @@ export const TableView = ({
   root,
 }) => {
   const { t } = useTranslation();
-  const params = new URLSearchParams(window.location);
-  const page = getDefaultPage(params.get('page'));
   const [showResults, setShowResults] = React.useState(
     false,
   );
 
-  const handlePageIncrementation = React.useCallback(
-    (e, num) => {
-      let nextPage = num + 1;
-      if (nextPage === 0) nextPage = null;
-      params.set('page', nextPage);
-      navigate(`?${params.toString()}`);
-      window.scrollTo(0, 0);
-    },
-    [page],
-  );
+  const handlePageIncrementation = (params) => (e, num) => {
+    if (num < 0) return;
+    params.set('page', num);
+    navigate(`?${params.toString()}`);
+    window.scrollTo(0, 0);
+  };
 
   const renderBody = React.useCallback(() => {
     const span = columns.length + 1;
@@ -292,13 +286,24 @@ export const TableView = ({
               <TableBody>{renderBody()}</TableBody>
               <TableFooter>
                 <TableRow>
-                  <TablePagination
-                    page={page - 1}
-                    rowsPerPageOptions={[]}
-                    count={total}
-                    rowsPerPage={25}
-                    onChangePage={handlePageIncrementation}
-                  />
+                  <Location>
+                    {({ location }) => {
+                      const params = new URLSearchParams(
+                        location.search,
+                      );
+                      return (
+                        <TablePagination
+                          page={params.get('page')}
+                          rowsPerPageOptions={[]}
+                          count={total}
+                          rowsPerPage={25}
+                          onChangePage={handlePageIncrementation(
+                            params,
+                          )}
+                        />
+                      );
+                    }}
+                  </Location>
                 </TableRow>
               </TableFooter>
             </Table>

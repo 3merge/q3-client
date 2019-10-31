@@ -1,19 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Link as ReactLink } from '@reach/router';
+import { Redirect } from '@reach/router';
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 
 export default function PublicView({
-  children,
-  links,
   companyName,
   loggedIn,
   logo,
+  children,
 }) {
   if (loggedIn) return <Redirect to="/" />;
 
@@ -24,7 +20,7 @@ export default function PublicView({
           <img
             src={logo}
             alt={companyName}
-            style={{ maxHeight: 35 }}
+            style={{ maxHeight: 35, marginBottom: '.5rem' }}
           />
           <Typography variant="h1">
             {companyName}
@@ -40,15 +36,10 @@ PublicView.propTypes = {
   companyName: PropTypes.string,
   children: PropTypes.node.isRequired,
   loggedIn: PropTypes.bool.isRequired,
-  links: PropTypes.arrayOf(
-    PropTypes.shape({
-      to: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  ),
+  logo: PropTypes.string,
 };
 
 PublicView.defaultProps = {
   companyName: '3merge',
-  links: [],
+  logo: null,
 };

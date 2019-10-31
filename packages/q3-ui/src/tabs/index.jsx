@@ -18,6 +18,10 @@ const useStyles = makeStyles(() => ({
       width: '100%',
     },
   },
+  tabber: {
+    maxWidth: '100%',
+    maxHeight: 380,
+  },
 }));
 
 export const LocationMatch = ({
@@ -31,9 +35,9 @@ export const LocationMatch = ({
         ({ to }) =>
           to !== '/' && location.pathname.includes(to),
       );
+
       if (index !== -1) return index;
-      if (location.pathname === base) return 0;
-      return false;
+      return 0;
     },
     [views],
   );
@@ -53,18 +57,25 @@ const WrappedRoute = ({ renderer: Renderer }) => (
   </Fade>
 );
 
+const slug = (a, b) =>
+  `${a}${b}`
+    .replace(/([^:]\/)\/+/g, '$1')
+    .replace(/\/$/, '');
+
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery('(max-width:600px)');
-  const { routes } = useStyles({ isMobile });
+  const { routes, tabber } = useStyles({ isMobile });
 
   return (
     <Grid container spacing={1}>
-      <Grid item>
+      <Grid item style={{ maxWidth: '100%' }}>
         <LocationMatch base={root} views={views}>
           {(value) => (
             <Tabs
+              className={tabber}
               value={value}
+              scrollButtons="auto"
               variant="scrollable"
               orientation={
                 isMobile ? 'horizontal' : 'vertical'
@@ -73,7 +84,7 @@ const TabsWithRouter = ({ views, root }) => {
               {views.map((view) => (
                 <Tab
                   key={`${root}${view.to}`}
-                  to={`${root}${view.to}`}
+                  to={slug(root, view.to)}
                   label={t(`labels:${view.label}`)}
                   component={Link}
                 />
@@ -87,7 +98,7 @@ const TabsWithRouter = ({ views, root }) => {
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
               renderer={Comp}
-              path={`${root}${to}`}
+              path={slug(root, to)}
               key={to}
             />
           ))}

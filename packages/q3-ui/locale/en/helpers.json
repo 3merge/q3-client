@@ -4,5 +4,10 @@
   "uppercase": "Must contain at least one uppercase letter",
   "numbers": "Must contain at least one number",
   "special": "Must contain at least one special character",
-  "currentPassword": "Log out and request a temporary password if you do not know this"
+  "currentPassword": "Log out and request a temporary password if you do not know this",
+  "condition": "Like a state or step (i.e. `is-verified`)",
+  "fields": "Which parts of the collection this user can access",
+  "ownership": "Can the user see what others make?",
+  "collection": "A fancy word for a set of similar data",
+  "ownershipAliases": "A property that acts like ownership when matched"
 }

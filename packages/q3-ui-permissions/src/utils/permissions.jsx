@@ -49,6 +49,18 @@ export const asProtectedRoute = (ctx) => {
   return ProtectedRoute;
 };
 
+const hidden = {
+  disabled: true,
+  readOnly: true,
+  type: 'hidden',
+  style: { display: 'none' },
+};
+
+const readOnly = {
+  disabled: true,
+  readOnly: true,
+};
+
 export default (ctx) => (coll) => {
   const a = React.useContext(ctx);
   const permissions = get(a, 'state.permissions', []);
@@ -68,25 +80,28 @@ export default (ctx) => (coll) => {
   const isDefined = (arg) =>
     arg !== undefined && arg !== null;
 
-  const isDisabled = ({ op, name }) => {
-    if (!getField(name, getOp('Read')))
-      return {
-        disabled: true,
-        readOnly: true,
-        type: 'hidden',
-        style: { display: 'none' },
-      };
+  const isDisabledPrefix = (path) => ({ op, name }) => {
+    if (!getField(`${path},${name}`, getOp('Read')))
+      return hidden;
 
-    return (
-      !getField(name, getOp(op)) && {
-        disabled: true,
-        readOnly: true,
-      }
-    );
+    if (!getField(`${path},${name}`, getOp(op)))
+      return readOnly;
+
+    return {};
+  };
+
+  const isDisabled = ({ op, name }) => {
+    if (!getField(name, getOp('Read'))) return hidden;
+    if (!getField(name, getOp(op))) return readOnly;
+
+    return {};
   };
 
   const Hide = ({ children, op }) =>
     getOp(op) ? children : null;
+
+  const HideByField = ({ path, children, op }) =>
+    getField(path, getOp(op)) ? children : null;
 
   Hide.propTypes = {
     children: PropTypes.node.isRequired,
@@ -113,9 +128,15 @@ export default (ctx) => (coll) => {
       isDefined(getOp('Update')),
     canDelete: isDefined(getOp('Delete')),
     canCreate: isDefined(getOp('Create')),
+    canCreateSub: (sub) => getField(sub, getOp('Create')),
+    canEditSub: (sub) => getField(sub, getOp('Update')),
+    canDeleteSub: (sub) => getField(sub, getOp('Delete')),
+    canReadSub: (sub) => getField(sub, getOp('Read')),
     matchID: (v) => id === v,
     isDisabled,
-    Hide,
+    isDisabledPrefix,
+    HideByField,
     Redirect,
+    Hide,
   };
 };

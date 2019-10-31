@@ -31,6 +31,46 @@ storiesOf('Components|Tabs', module)
             label: 'Bar',
             component: () => <p>TWO</p>,
           },
+          {
+            to: 'quux',
+            label: 'Quux',
+            component: () => <p>THREE</p>,
+          },
+          {
+            to: 'garply',
+            label: 'Garply',
+            component: () => <p>FOUR</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'uno',
+            label: 'Uno',
+            component: () => <p>Size</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'uno',
+            label: 'Uno',
+            component: () => <p>Size</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
         ]}
       />
     ),

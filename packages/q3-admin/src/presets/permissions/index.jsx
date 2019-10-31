@@ -1,12 +1,11 @@
 import React from 'react';
-import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Form from 'q3-ui/form';
 import { DesktopSelect } from 'q3-ui/inputs';
 import Transfer from 'q3-ui/transfer';
 import useRest from 'q3-ui-rest';
-import { useAuth, Protected } from 'q3-ui-permissions';
+import { useAuth } from 'q3-ui-permissions';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
 
@@ -26,6 +25,7 @@ const FIELDS = {
   fields: '',
   role: '',
   condition: '',
+  ownershipAliases: [],
 };
 
 const SYS_PROPS = {
@@ -56,6 +56,7 @@ const PermissionFormFields = ({
   collections,
   fieldOptions,
   isDisabled,
+  aliases,
   isNew,
 }) => (
   <>
@@ -86,15 +87,23 @@ const PermissionFormFields = ({
       isNew={isNew}
       required
     />
-    {/*
     <DesktopSelect
       name="condition"
       options={transformFlatArray(conditions)}
       authFn={isDisabled}
       isNew={isNew}
-    /> */}
+    />
+    <DesktopSelect
+      name="ownershipAliases"
+      options={transformFlatArray(aliases)}
+      disabled={!aliases.length}
+      authFn={isDisabled}
+      isNew={isNew}
+      multiple
+    />
     <Transfer
       name="fields"
+      disabled={!fieldOptions.length}
       options={fieldOptions}
       authFn={isDisabled}
       isNew={isNew}
@@ -108,7 +117,12 @@ PermissionFormFields.defaultProps = SYS_DEFAULT;
 const withFieldOptions = (props) => {
   const InnerFields = ({ values: { coll } }) => (
     <PermissionFormFields
-      fieldOptions={get(props, `collections.${[coll]}`, [])}
+      aliases={get(props, `collections.${[coll]}.refs`, [])}
+      fieldOptions={get(
+        props,
+        `collections.${[coll]}.paths`,
+        [],
+      )}
       {...props}
     />
   );
@@ -128,11 +142,12 @@ const PermissionsCreate = ({
   ...rest
 }) => (
   <Form
-    title="create"
+    readOnly={!canCreate}
+    title="newPermission"
+    subtitle="newPermission"
     dividers={false}
     initialValues={FIELDS}
     onSubmit={post}
-    readOnly={!canCreate}
   >
     {withFieldOptions({
       isNew: true,
@@ -151,7 +166,8 @@ const PermissionsList = (props) => {
   const sys = useRest({
     runOnInit: true,
     url: 'system',
-    key: 'permissions',
+    pluralized: 'permissions',
+    key: 'permission',
   });
 
   Object.assign(sys, auth);
@@ -210,7 +226,8 @@ const PermissionDetail = (props) => {
   const sys = useRest({
     runOnInit: true,
     url: 'system',
-    key: 'permissions',
+    pluralized: 'permissions',
+    key: 'permission',
   });
 
   return (

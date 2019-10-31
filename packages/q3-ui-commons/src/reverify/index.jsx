@@ -10,10 +10,10 @@ const { onStart, onComplete } = useFormHandler('formik');
 
 export const handleSubmit = (values, actions) => {
   onStart(actions);
-  return Axios.post('/password-reset', values)
+  return Axios.post('/reverify', values)
     .then(({ data }) => {
       onComplete(null, actions);
-      navigate('/login');
+      navigate('/verify');
       return data;
     })
     .catch(() => {
@@ -21,17 +21,17 @@ export const handleSubmit = (values, actions) => {
     });
 };
 
-const PasswordReset = () => {
+const Reverify = () => {
   const { t } = useTranslation();
 
   return (
     <FormWithAlert
-      title={t('titles:passwordReset')}
-      description={t('descriptions:passwordReset')}
+      title={t('titles:reverify')}
+      subtitle={t('descriptions:reverify')}
       validationSchema={emailValidation}
       handleSubmit={handleSubmit}
       sentLabel="emailSent"
-      redirect="login"
+      redirect="verify"
       initialValues={{
         email: '',
       }}
@@ -41,4 +41,4 @@ const PasswordReset = () => {
   );
 };
 
-export default PasswordReset;
+export default Reverify;

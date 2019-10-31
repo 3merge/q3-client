@@ -98,7 +98,12 @@ const Searchbar = ({ expanded, redirectPath }) => {
       if (key === 'Enter') {
         const { search } = window.location;
         const params = new URLSearchParams(search);
-        params.set('search', target.value);
+        if (target.value === '' || !target.value) {
+          params.delete('search');
+        } else {
+          params.set('search', target.value);
+        }
+
         navigate(`${redirectPath}?${params.toString()}`);
         close();
       }

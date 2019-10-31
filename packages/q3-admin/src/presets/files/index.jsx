@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React from 'react';
 import Upload from 'q3-ui/upload';
 import List from 'q3-ui/list';
@@ -33,7 +34,15 @@ const Files = ({ path }) => {
   return (
     <>
       <Tile title="uploadFiles" dividers={false}>
-        <Upload fn={post} />
+        <Upload
+          fn={(data) =>
+            Axios.post(`${path}/uploads`, data, {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+          }
+        />
         <List
           title="He"
           items={uploads.map((file) => ({

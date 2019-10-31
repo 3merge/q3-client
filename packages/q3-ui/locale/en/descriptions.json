@@ -14,5 +14,7 @@
   "spam": "Hang tight. Checking the browser for spam before serving this form.",
   "cookies": "Note that this website uses cookies to improve the user experience.",
   "serverError": "Looks like something unexpected occurred. Please refresh the page and try again.",
-  "featuredUpload": "Note that this image is public"
+  "featuredUpload": "Note that this image is public",
+  "noNotes": "Looks like no one has said anything yet. Write the first post.",
+  "newPermission": "This app uses an intricate permissions system comprising roles and attributes. Roles are like groups and attributes define the actions a group can take."
 }

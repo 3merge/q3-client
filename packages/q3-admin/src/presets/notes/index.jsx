@@ -13,6 +13,7 @@ import {
 } from 'q3-ui/dialogs';
 import Create from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { TimelineSkeleton } from 'q3-ui/timeline';
 import noNotesImg from '../../images/no-notes.png';
 
@@ -38,20 +39,27 @@ export default ({ path }) => {
     remove,
     fetching,
     fetchingError,
-    threads = [],
+    thread = [],
   } = useRest({
-    url: `${path}/threads`,
-    key: 'threads',
+    url: `${path}/thread`,
+    key: 'thread',
+    pluralize: 'thread',
     runOnInit: true,
   });
 
   const renderNotes = () => {
-    if (fetching) return <TimelineSkeleton />;
+    if (fetching)
+      return (
+        <div style={{ marginTop: '1rem' }}>
+          <TimelineSkeleton />
+        </div>
+      );
+
     if (fetchingError) return <ServerError />;
 
-    if (!threads.length)
+    if (!thread.length)
       return (
-        <Paper>
+        <Paper style={{ marginTop: '1rem' }}>
           <CallToAction
             imgSrc={noNotesImg}
             title={t('titles:noNotes')}
@@ -62,7 +70,7 @@ export default ({ path }) => {
 
     return (
       <Thread
-        entries={threads}
+        entries={thread}
         toolbar={(entry) => (
           <RemoveThread
             userID={
@@ -88,6 +96,9 @@ export default ({ path }) => {
               message: '',
             }}
           >
+            <Typography variant="h4" gutterBottom>
+              {t('titles:onTheMind')}
+            </Typography>
             <Input name="message" multiline rows={8} />
           </Capture>
         </Box>

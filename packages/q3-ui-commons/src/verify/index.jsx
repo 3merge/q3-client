@@ -1,16 +1,33 @@
 import React from 'react';
+import Axios from 'axios';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Input from 'q3-ui/inputs';
-import Form from 'q3-ui/form';
+import { useFormHandler } from 'q3-ui-forms';
+import { FormWithAlert } from '../shared';
+
+const { onStart, onComplete } = useFormHandler('formik');
+
+export const handleSubmit = (values, actions) => {
+  onStart(actions);
+  return Axios.post('/verify', values)
+    .then(({ data }) => {
+      onComplete(null, actions);
+      navigate('/login');
+      return data;
+    })
+    .catch(() => {
+      return null;
+    });
+};
 
 export const usePassword = () => {
   const { t } = useTranslation();
 
   return {
     validate: () => ({
-      password: yup
+      newPassword: yup
         .string()
         .min(8)
         .max(16)
@@ -27,15 +44,15 @@ export const usePassword = () => {
           message: t('helpers:special'),
         })
         .required(),
-      confirmPassword: yup
+      confirmNewPassword: yup
         .string()
-        .oneOf([yup.ref('password'), null], 'MUST MATCH')
+        .oneOf([yup.ref('newPassword'), null], 'MUST MATCH')
         .required(),
     }),
     render: () => (
       <>
-        <Input name="password" type="password" />
-        <Input name="confirmPassword" type="password" />
+        <Input name="newPassword" type="password" />
+        <Input name="confirmNewPassword" type="password" />
       </>
     ),
   };
@@ -52,28 +69,25 @@ const Verify = ({ onSubmit }) => {
   });
 
   return (
-    <Form
+    <FormWithAlert
       title={t('titles:verify')}
-      description={t('descriptions:verify')}
-      onSubmit={onSubmit}
+      subtitle={t('descriptions:verify')}
+      handleSubmit={onSubmit}
+      hasSent="loginReady"
+      redirect="login"
       validationSchema={verificationSchema}
       initialValues={{
-        email: '',
+        code: '',
+        id: '',
+        confirmNewPassword: '',
+        newPassword: '',
       }}
     >
-      {() => (
-        <>
-          <Input name="id" type="string" />
-          <Input name="code" type="string" />
-          {password.render()}
-        </>
-      )}
-    </Form>
+      <Input name="id" type="string" />
+      <Input name="code" type="string" />
+      {password.render()}
+    </FormWithAlert>
   );
-};
-
-Verify.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Verify;
