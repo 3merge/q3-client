@@ -16,5 +16,6 @@
   "serverError": "Looks like something unexpected occurred. Please refresh the page and try again.",
   "featuredUpload": "Note that this image is public",
   "noNotes": "Looks like no one has said anything yet. Write the first post.",
-  "newPermission": "This app uses an intricate permissions system comprising roles and attributes. Roles are like groups and attributes define the actions a group can take."
+  "newPermission": "This app uses an intricate permissions system comprising roles and attributes. Roles are like groups and attributes define the actions a group can take.",
+  "cart": "Last updated on {{date}}"
 }

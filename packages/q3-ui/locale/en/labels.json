@@ -51,5 +51,7 @@
   "fields": "Fields",
   "ownershipAliases": "Ownership aliases",
   "unknownAccount": "Hmm, not what we were expecting...",
-  "sentLabel": "Nice! Head to the login screen now."
+  "sentLabel": "Nice! Head to the login screen now.",
+  "checkout": "Checkout",
+  "shop": "Shop all products"
 }
