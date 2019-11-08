@@ -1,4 +1,5 @@
 import React from 'react';
+import Axios from 'axios';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
@@ -20,7 +21,7 @@ const List = ({
   columns,
   ...rest
 }) => {
-  const { Hide, Redirect } = useAuth(coll);
+  const { Hide, Redirect, canDelete } = useAuth(coll);
   const { t } = useTranslation();
   const state = useRest({
     url: `/${name}`,
@@ -57,8 +58,16 @@ const List = ({
             data={state}
             name={resourceName}
             loading={state.fetching}
+            poll={state.get}
             rows={get(state, resourceName, [])}
             columns={columns}
+            mark={state.patch}
+            downloadMany={(ids) =>
+              Axios.get(`/${name}?_id=${ids.join(',')}`, {
+                headers: { 'accept': 'text/csv,*/*' },
+                responseType: 'text',
+              })
+            }
           />
         </Box>
       </Container>

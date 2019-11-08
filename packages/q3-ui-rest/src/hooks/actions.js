@@ -13,6 +13,7 @@ import {
   CREATED,
   UPDATED,
   DELETED,
+  DELETED_MANY,
 } from './constants';
 
 export const getOptions = (url, key, pathToLabel) => {
@@ -38,6 +39,7 @@ export default ({
   decorators = {},
   location = {},
   history = {},
+  headers = {},
 }) => {
   if (!url) throw new Error('Requires a valid URL');
   const { search } = location;
@@ -111,6 +113,21 @@ export default ({
           });
     },
 
+    removeBulk(ids = []) {
+      return Axios.delete(
+        `${url}?ids[]=${ids.join('&ids[]=')}`,
+      )
+        .then(({ data }) => {
+          onSuccess(get(data, 'message'));
+          call(DELETED_MANY, { ids });
+          return null;
+        })
+        .catch((err) => {
+          onFail(get(err, 'message'));
+          return err;
+        });
+    },
+
     patch(id) {
       const { name } = methods.patch;
       return wrapUpdateFn(id, name);
@@ -125,7 +142,7 @@ export default ({
       const { name } = methods.post;
       invoke(decorators, name, values);
       return handleRequest(
-        Axios.post(url, values),
+        Axios.post(url, values, { headers }),
         actions,
         CREATED,
       );

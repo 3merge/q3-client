@@ -1,5 +1,5 @@
 import React from 'react';
-import Add from '@material-ui/icons/Add';
+import Add from '@material-ui/icons/ShoppingCart';
 import Form from 'q3-ui/lib/form';
 import Input from 'q3-ui/lib/inputs';
 import Repeater from 'q3-ui/lib/repeater';
@@ -7,50 +7,55 @@ import { Delete as DeleteDialog } from 'q3-ui/lib/dialogs';
 import Wizard from 'q3-ui/lib/wizard';
 import { List } from 'q3-admin/lib/templates';
 import { Detail } from 'q3-admin/lib/templates';
+import Picture from 'q3-admin/lib/presets/picture';
+import Uploads from 'q3-admin/lib/presets/files';
 import { USER_COLLECTION } from '../constants';
 
 export const UserDetail = (props) => (
   <Detail
     {...props}
-    name="users"
-    pathToTitle="user.first_name"
-    views={({ user, put, remove, id }) => [
+    name={USER_COLLECTION}
+    coll={USER_COLLECTION}
+    pathToTitle="user.firstName"
+    resourceName="users"
+    resourceNameSingular="user"
+    views={({ user, put, id }) => [
       {
+        to: '/',
         label: 'General',
         component: () => (
-          <Form
-            title="contact"
-            onSubmit={put(id)}
-            initialValues={user}
-          >
-            {() => (
-              <>
-                <Input name="first_name" />
-                <Input name="last_name" />
-                <Input name="gender" />
-              </>
-            )}
-          </Form>
+          <div>
+            <Form
+              title="contact"
+              onSubmit={put(id)}
+              initialValues={user}
+            >
+              {() => (
+                <>
+                  <Input name="firstName" />
+                  <Input name="lastName" />
+                  <Input name="email" />
+                </>
+              )}
+            </Form>
+          </div>
         ),
       },
       {
-        to: 'about',
-        label: 'About',
+        to: '/profile',
+        label: 'Profile',
         component: () => (
-          <Repeater
-            name="about"
-            primary="year"
-            secondary="achievement"
-            data={user.history}
-            renderRowToolbar={() => (
-              <>
-                <DeleteDialog next={remove(id)} />
-              </>
-            )}
-            renderPost={() => (
-              <Wizard icon={Add} steps={[]} />
-            )}
+          <Picture
+            path={`${USER_COLLECTION}/${id}`}
+            photo={user.photo}
           />
+        ),
+      },
+      {
+        to: '/uploads',
+        label: 'Uploads',
+        component: () => (
+          <Uploads path={`${USER_COLLECTION}/${id}`} />
         ),
       },
     ]}
@@ -60,11 +65,12 @@ export const UserDetail = (props) => (
 export const UserList = (props) => (
   <List
     {...props}
-    name="users"
-    enablePost={false}
+    resourceName="users"
+    resourceNameSingular="user"
     coll={USER_COLLECTION}
+    name={USER_COLLECTION}
     columns={[
-      ['first_name', 'email', 'featuredPhoto'],
+      ['firstName', 'email', 'photo'],
       'gender',
       'ip_address',
     ]}

@@ -90,6 +90,10 @@ const Searchbar = ({ expanded, redirectPath }) => {
 
   const onClear = React.useCallback(() => {
     setTerm('');
+    const { search } = window.location;
+    const params = new URLSearchParams(search);
+    params.delete('search');
+    navigate(`${redirectPath}?${params.toString()}`);
     onFocus();
   }, []);
 
@@ -110,6 +114,13 @@ const Searchbar = ({ expanded, redirectPath }) => {
     },
     [],
   );
+
+  React.useEffect(() => {
+    const { search } = window.location;
+    const params = new URLSearchParams(search);
+    const url = params.get('search');
+    if (url !== term) setTerm(url);
+  }, []);
 
   const inputProps = {
     placeholder: t('labels:searchPlaceholder'),

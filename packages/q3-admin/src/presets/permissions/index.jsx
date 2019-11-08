@@ -8,6 +8,7 @@ import useRest from 'q3-ui-rest';
 import { useAuth } from 'q3-ui-permissions';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
+import Trash from '../trash';
 
 const ROOT = 'q3-api-permissions';
 const OPS = ['Read', 'Create', 'Update', 'Delete'];
@@ -170,12 +171,56 @@ const PermissionsList = (props) => {
     key: 'permission',
   });
 
+  const search = useRest({
+    url:
+      '/search?coll=q3-api-permissions&fields[]=role&fields[]=op&fields[]=coll',
+    key: 'fields',
+    pluralized: 'fields',
+    runOnInit: true,
+  });
+
   Object.assign(sys, auth);
 
   return (
     <List
       {...props}
       {...RESOURCE}
+      filterProps={{
+        render: () => (
+          <>
+            <DesktopSelect
+              name="role"
+              options={get(search, 'fields.role', []).map(
+                (v) => ({
+                  value: v,
+                  label: v,
+                }),
+              )}
+            />
+            <DesktopSelect
+              name="op"
+              options={get(search, 'fields.op', []).map(
+                (v) => ({
+                  value: v,
+                  label: v,
+                }),
+              )}
+            />
+            <DesktopSelect
+              name="coll"
+              options={get(search, 'fields.coll', []).map(
+                (v) => ({
+                  value: v,
+                  label: v,
+                }),
+              )}
+            />
+          </>
+        ),
+        initialValues: {
+          role: '',
+        },
+      }}
       name={ROOT}
       columns={['role', 'op', 'coll']}
       coll="q3-api-permissions"
@@ -246,7 +291,7 @@ const PermissionDetail = (props) => {
               {...sys}
               {...rest}
               permission={permission}
-              patch={patch(id)}
+              patch={patch()}
             />
           ),
         },

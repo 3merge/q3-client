@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import { SplitPanel } from 'q3-ui/panel';
 import graphic from '../../images/remove.png';
 
-const PictureUpload = () => {
+const PictureUpload = (props) => {
   const { t } = useTranslation();
   return (
     <Paper elevation={0}>
@@ -23,7 +23,7 @@ const PictureUpload = () => {
               {t('descriptions:delete')}
             </Typography>
             <DeleteConfirmation
-              next={() => Promise.resolve()}
+              {...props}
               customButton={(launch) => (
                 <Button
                   onClick={launch}

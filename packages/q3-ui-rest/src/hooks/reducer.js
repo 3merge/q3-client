@@ -5,6 +5,7 @@ import {
   UPDATED,
   CREATED,
   DELETED,
+  DELETED_MANY,
 } from './constants';
 import { isEmpty, getFn } from '../utils';
 
@@ -84,6 +85,28 @@ export default (
             [resources]: Array.isArray(state[resources])
               ? state[resources].filter(
                   ({ id }) => id !== data.id,
+                )
+              : null,
+          };
+    },
+
+    /**
+     * @TODO:
+     * Find better solution.
+     */
+    [DELETED_MANY]() {
+      return isEmpty(data)
+        ? state
+        : {
+            ...state,
+            [resource]: Array.isArray(state[resource])
+              ? state[resource].filter(
+                  ({ id }) => !data.ids.includes(id),
+                )
+              : null,
+            [resources]: Array.isArray(state[resources])
+              ? state[resources].filter(
+                  ({ id }) => !data.ids.includes(id),
                 )
               : null,
           };

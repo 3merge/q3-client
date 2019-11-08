@@ -40,16 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const getServiceParams = (files) => {
-  const config = {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  };
-
   const formData = new FormData();
-  files.forEach((file) => {
-    formData.append(file.name, file);
-  });
-
-  return [formData, config];
+  formData.append('photo', files[0]);
+  return formData;
 };
 
 const Picture = ({ photo, service }) => {
@@ -78,6 +71,7 @@ const Picture = ({ photo, service }) => {
         service(data).then(() => startUpload(false));
       }
     } catch (e) {
+      console.log(e);
       // noop
       // console.log(e);
     }

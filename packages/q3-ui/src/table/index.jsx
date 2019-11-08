@@ -382,7 +382,7 @@ const Favourite = ({ id, featured, mark }) => {
   return (
     <IconButton
       aria-label={t('labels:favourite')}
-      onClick={mark(id, !featured)}
+      onClick={() => mark(id)({ featured: !featured })}
       className={starred}
     >
       <Star />
@@ -507,11 +507,11 @@ export const TableView = ({
   );
 
   React.useEffect(() => {
-    if (!loading) {
+    if (!loading && !showResults) {
       const clear = setTimeout(() => {
         setShowResults(true);
         clearTimeout(clear);
-      }, 500);
+      }, 120);
     }
   }, [loading]);
 

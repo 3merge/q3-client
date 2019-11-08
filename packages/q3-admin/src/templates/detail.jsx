@@ -12,6 +12,7 @@ import { Delete as DeleteDialog } from 'q3-ui/dialogs';
 import Header from 'q3-ui/header';
 import Tabs from 'q3-ui/tabs';
 import useRest from 'q3-ui-rest';
+import Trash from '../presets/trash';
 
 const Detail = ({
   name,
@@ -37,6 +38,23 @@ const Detail = ({
     get(state, `${resourceNameSingular}.createdBy.id`),
   );
 
+  const tabs =
+    typeof views === 'function'
+      ? views({ id, ...state, ...authy })
+      : views;
+
+  if (canDelete)
+    tabs.push({
+      label: 'Trash',
+      to: '/trash',
+      component: () => (
+        <Trash
+          next={state.remove()}
+          redirect={`/${name}`}
+        />
+      ),
+    });
+
   return (
     <>
       <Header
@@ -60,20 +78,8 @@ const Detail = ({
             <>
               <Tabs
                 root={`/${resourceName}/${id}`}
-                views={
-                  typeof views === 'function'
-                    ? views({ id, ...state, ...authy })
-                    : views
-                }
+                views={tabs}
               />
-              {canDelete && (
-                <Box textAlign="right" component="footer">
-                  <DeleteDialog
-                    next={invoke(state, 'delete', id)}
-                    redirect={resourceName}
-                  />
-                </Box>
-              )}
             </>
           )}
         </Box>

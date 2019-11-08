@@ -12,12 +12,12 @@ import CloudDownload from '@material-ui/icons/CloudDownload';
 
 const getFileIcon = (t) => {
   switch (t) {
-    case 'png':
-    case 'jpg':
-    case 'jpeg':
-    case 'svg':
+    case 'PNG':
+    case 'JPG':
+    case 'JPEG':
+    case 'SVG':
       return Image;
-    case 'pdf':
+    case 'PDF':
       return PictureAsPdf;
     default:
       return Description;
@@ -35,20 +35,15 @@ const Files = ({ path }) => {
     runOnInit: true,
     url: `${path}/uploads`,
     key: 'uploads',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   });
 
   return (
     <>
       <Tile title="uploadFiles" dividers={false}>
-        <Upload
-          fn={(data) =>
-            Axios.post(`${path}/uploads`, data, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            })
-          }
-        />
+        <Upload fn={post} />
         <List
           title="He"
           items={uploads.map((file) => ({
