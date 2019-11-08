@@ -64,7 +64,7 @@ const Verify = () => {
 
   const verificationSchema = yup.object().shape({
     id: yup.string().required(),
-    code: yup.string().required(),
+    verificationCode: yup.string().required(),
     ...password.validate(),
   });
 
@@ -77,14 +77,14 @@ const Verify = () => {
       redirect="login"
       validationSchema={verificationSchema}
       initialValues={{
-        code: '',
         id: '',
+        verificationCode: '',
         confirmNewPassword: '',
         newPassword: '',
       }}
     >
       <Input name="id" type="string" />
-      <Input name="code" type="string" />
+      <Input name="verificationCode" type="string" />
       {password.render()}
     </FormWithAlert>
   );
