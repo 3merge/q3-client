@@ -1,13 +1,13 @@
 {
   "name": "q3-ui-commons",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
     "@bambora/checkout-sdk-web": "^3.0.2",
     "lodash": "^4.17.15",
-    "q3-axios-mock": "^0.0.15",
+    "q3-axios-mock": "^0.0.16",
     "react-recaptcha": "^2.3.10",
     "react-recaptcha-google": "^1.1.1"
   },
