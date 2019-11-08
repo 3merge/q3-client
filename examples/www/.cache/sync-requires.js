@@ -5,6 +5,7 @@ const preferDefault = m => m && m.default || m
 
 
 exports.components = {
+  "component---packages-gatsby-theme-q-3-src-templates-checkout-jsx": hot(preferDefault(require("C:\\Users\\ibber\\Documents\\Q3-Client\\packages\\gatsby-theme-q3\\src\\templates\\checkout.jsx"))),
   "component---packages-gatsby-theme-q-3-src-templates-contact-jsx": hot(preferDefault(require("C:\\Users\\ibber\\Documents\\Q3-Client\\packages\\gatsby-theme-q3\\src\\templates\\contact.jsx"))),
   "component---packages-gatsby-theme-q-3-src-templates-login-jsx": hot(preferDefault(require("C:\\Users\\ibber\\Documents\\Q3-Client\\packages\\gatsby-theme-q3\\src\\templates\\login.jsx"))),
   "component---packages-gatsby-theme-q-3-src-templates-reset-password-jsx": hot(preferDefault(require("C:\\Users\\ibber\\Documents\\Q3-Client\\packages\\gatsby-theme-q3\\src\\templates\\reset-password.jsx"))),

@@ -24,7 +24,6 @@ const FormWrapper = ({
 
   return (
     <Formik
-      validateOnBlur
       enableReinitialize
       validateOnChange={false}
       initialValues={initialValues}

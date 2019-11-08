@@ -9,7 +9,8 @@ import Snackbar from 'q3-ui-forms';
 import { withTests } from '@storybook/addon-jest';
 import { addReadme } from 'storybook-readme';
 import { withA11y } from '@storybook/addon-a11y';
-
+import { withInfo } from '@storybook/addon-info';
+ 
 import path from 'path';
 import {
   LocationProvider,
@@ -54,12 +55,13 @@ export const withRouter = makeDecorator({
 
 const req = require.context(
   '../packages', true, 
-  /^\.\/[^\/]+\/src\/.*stories\.jsx?$/,
+  /^\.\/[^\/]+\/src\/.*stories\.(jsx|mdx)?$/
 );
 
 addDecorator(withRouter);
 addDecorator(addReadme);
 addDecorator(withA11y);
+addDecorator(withInfo);
 addDecorator((story) => (
   <Providers>
     <Snackbar>

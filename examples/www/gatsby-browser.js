@@ -1,4 +1,5 @@
 import React from 'react';
+import Cart from 'q3-ui/lib/cart';
 import Header from 'q3-ui/lib/header';
 import Footer from 'q3-ui/lib/footer';
 import Divider from 'q3-ui/lib/divider';
@@ -22,6 +23,7 @@ export const wrapPageElement = ({ element }) => (
       menuItems={menuItems}
       logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png"
       name="Placeholder"
+      renderRight={() => <Cart />}
     />
     {element}
     <Divider fill="#303f9f" variant="mountains" invert />

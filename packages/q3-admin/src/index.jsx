@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Router } from '@reach/router';
 import Providers from 'q3-ui';
-import init, {
+import init from 'q3-ui-commons';
+import {
   Login,
   PasswordReset,
   Reverify,
   Verify,
-} from 'q3-ui-commons';
+} from 'q3-ui-commons/views';
 import SnackbarProvider from 'q3-ui-forms';
 import Authentication, {
   destroySession,

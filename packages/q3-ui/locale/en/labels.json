@@ -53,5 +53,10 @@
   "unknownAccount": "Hmm, not what we were expecting...",
   "sentLabel": "Nice! Head to the login screen now.",
   "checkout": "Checkout",
-  "shop": "Shop all products"
+  "shop": "Shop all products",
+  "region": "State/province",
+  "city": "City",
+  "streetLine1": "Street line 1",
+  "streetLine2": "Street line 2",
+  "postal": "Postal"
 }

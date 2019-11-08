@@ -33,9 +33,12 @@ const useStyles = makeStyles(() => ({
 const Upload = ({ fn }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = React.useState();
+
   const onDrop = React.useCallback((acceptedFiles) => {
     setLoading(true);
-    fn(acceptedFiles).finally(setLoading);
+    const formData = new FormData();
+    acceptedFiles.map((f) => formData.append(f.name, f));
+    fn(formData).finally(setLoading);
   }, []);
 
   const {

@@ -9,6 +9,8 @@ import Tile from '../tile';
 import Graphic from '../graphic';
 import ServerError from '../error';
 import unpopulated from '../../images/unpopulated.png';
+import { useCheckboxes } from '../table';
+import { Delete as DeleteConfirmation } from '../dialogs';
 
 const isObject = (item) => typeof item === 'object';
 
@@ -42,7 +44,9 @@ const Repeater = ({
   renderPost,
   fetchingError,
   fetching,
+  deleteMany,
 }) => {
+  const { checked, clear, ...controls } = useCheckboxes();
   const { t } = useTranslation();
   const list = assignIDs(data);
 
@@ -66,8 +70,9 @@ const Repeater = ({
 
     return (
       <List
-        subtitle={subtitle}
+        {...(deleteMany ? controls : {})}
         img={img}
+        subtitle={subtitle}
         items={assignIDs(data).map((item) => ({
           ...item,
           primary: get(item, primary),
@@ -92,7 +97,25 @@ const Repeater = ({
       error={fetchingError}
     >
       {renderInterior()}
-      {renderPost()}
+      <Grid
+        container
+        alignItems="center"
+        spacing={1}
+        style={{ marginTop: '1rem' }}
+      >
+        <Grid item>{renderPost()}</Grid>
+        {deleteMany && (
+          <Grid item>
+            <Grow in={checked.length}>
+              <div>
+                <DeleteConfirmation
+                  next={deleteMany(checked, clear)}
+                />
+              </div>
+            </Grow>
+          </Grid>
+        )}
+      </Grid>
     </Tile>
   );
 };
@@ -102,6 +125,7 @@ Repeater.propTypes = {
   img: PropTypes.string,
   subtitle: PropTypes.string,
   primary: PropTypes.string.isRequired,
+  description: PropTypes.string,
   secondary: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   initialValues: PropTypes.object.isRequired,
@@ -117,6 +141,7 @@ Repeater.defaultProps = {
   renderRowToolbar: () => null,
   fetching: false,
   fetchingError: false,
+  description: null,
   subtitle: null,
   data: [],
   img: null,

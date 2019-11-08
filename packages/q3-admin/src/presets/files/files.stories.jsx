@@ -56,6 +56,6 @@ storiesOf('Presets|Files', module).add(
     </MockAPI>
   ),
   {
-    router: '/orders/1',
+    router: '/',
   },
 );

@@ -162,6 +162,31 @@ const IntegratedSelect = ({ options, ...rest }) => {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
 
+  const matchWithOptions = (v) => {
+    const match = items.find(({ value: c }) => c === v);
+    return match ? match.label : v;
+  };
+
+  const renderValueFromSelectOptions = (selected) => {
+    if (typeof selected === 'object' && 'label' in selected)
+      return selected.label;
+
+    if (Array.isArray(selected))
+      return selected
+        .map((v) =>
+          typeof v === 'object'
+            ? v.label
+            : matchWithOptions(v),
+        )
+        .join(', ');
+
+    return matchWithOptions(selected);
+  };
+
+  if (!options || !options.length) {
+    props.disabled = true;
+  }
+
   React.useEffect(() => {
     if (Array.isArray(options)) {
       setItems(options);
@@ -181,21 +206,7 @@ const IntegratedSelect = ({ options, ...rest }) => {
       <Select
         {...props}
         MenuProps={MenuProps}
-        renderValue={(selected) =>
-          Array.isArray(selected)
-            ? selected
-                .map((v) => {
-                  if (typeof v === 'object') {
-                    return v.label;
-                  }
-                  const match = items.find(
-                    ({ value: c }) => c === v,
-                  );
-                  return match ? match.label : v;
-                })
-                .join(', ')
-            : selected
-        }
+        renderValue={renderValueFromSelectOptions}
         input={
           <FilledInput
             id={id}

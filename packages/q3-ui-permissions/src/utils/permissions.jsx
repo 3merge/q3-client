@@ -63,7 +63,6 @@ const readOnly = {
 
 export default (ctx) => (coll, createdBy) => {
   const a = React.useContext(ctx);
-
   const permissions = get(a, 'state.permissions', []);
   const id = get(a, 'state.profile.id', '');
 

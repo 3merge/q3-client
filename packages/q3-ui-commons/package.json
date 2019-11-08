@@ -5,6 +5,7 @@
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
+    "@bambora/checkout-sdk-web": "^3.0.2",
     "lodash": "^4.17.15",
     "q3-axios-mock": "^0.0.15",
     "react-recaptcha": "^2.3.10",

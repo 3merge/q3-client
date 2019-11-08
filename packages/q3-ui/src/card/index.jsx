@@ -124,6 +124,7 @@ const CardWrapper = ({ children, to, ...rest }) => {
     <Grid item {...rest}>
       <Card
         {...getLinkAttributes(to)}
+        elevation={1}
         className={root}
         to={to}
       >

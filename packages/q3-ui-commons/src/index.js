@@ -1,8 +1,5 @@
 import { loadReCaptcha } from 'react-recaptcha-google';
-import Login from './login';
-import PasswordReset from './passwordReset';
-import Reverify from './reverify';
-import Verify from './verify';
+import * as Views from './views';
 
-export { Login, PasswordReset, Reverify, Verify };
 export default () => loadReCaptcha();
+export { Views };

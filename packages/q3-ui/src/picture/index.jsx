@@ -69,15 +69,16 @@ const Picture = ({ photo, service }) => {
         const reader = new FileReader();
         startUpload(true);
         reader.readAsDataURL(ref.current.files[0]);
+
         reader.onload = (e) => {
           setURL(e.currentTarget.result);
         };
 
-        service(getServiceParams(ref.current.files)).then(
-          () => startUpload(false),
-        );
+        const data = getServiceParams(ref.current.files);
+        service(data).then(() => startUpload(false));
       }
     } catch (e) {
+      // noop
       // console.log(e);
     }
   };

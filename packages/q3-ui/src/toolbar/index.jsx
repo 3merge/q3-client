@@ -13,8 +13,11 @@ import Grid from '@material-ui/core/Grid';
 import { blueGrey } from '@material-ui/core/colors';
 import { styled } from '@material-ui/styles';
 
-export const DropDownMenu = ({ id, children, items }) => {
+export const useOpen = () => {
   const [open, setOpen] = React.useState();
+
+  const toggleMenu = () => setOpen(!open);
+
   const openMenu = React.useCallback(({ target }) => {
     setOpen(target);
   }, []);
@@ -23,9 +26,20 @@ export const DropDownMenu = ({ id, children, items }) => {
     setOpen(null);
   }, []);
 
+  return {
+    open,
+    openMenu,
+    closeMenu,
+    toggleMenu,
+  };
+};
+
+export const DropDownMenu = ({ id, children, items }) => {
+  const { open, openMenu, closeMenu } = useOpen();
+
   return (
     <>
-      {children(openMenu)}
+      {children(openMenu, open)}
       <Menu
         id={id}
         anchorEl={open}

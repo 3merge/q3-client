@@ -92,7 +92,7 @@ export default ({
         })
         .catch((err) => {
           call(FETCHED, null, err);
-          onFail(get(err, 'message'));
+          onFail(get(err, 'data.message'));
           return null;
         });
     },

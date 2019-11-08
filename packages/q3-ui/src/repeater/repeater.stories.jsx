@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import Container from '@material-ui/core/Container';
 import Add from '@material-ui/icons/Add';
 import Edit from '@material-ui/icons/Edit';
+import Checkbox from '@material-ui/core/Checkbox';
 import Input from '../inputs';
 import Repeater from '.';
 import Wizard from '../wizard';
@@ -46,6 +47,15 @@ storiesOf('Components|Repeater', module)
           resolve();
         });
 
+      const onDeleteMany = (ids, done) => () =>
+        new Promise((resolve) => {
+          setData(
+            data.filter((item) => !ids.includes(item.id)),
+          );
+          done();
+          resolve();
+        });
+
       const validation = yup.object().shape({
         id: yup
           .string()
@@ -82,14 +92,16 @@ storiesOf('Components|Repeater', module)
             primary="demo"
             secondary="id"
             data={data}
+            deleteMany={onDeleteMany}
             renderPost={() => (
               <Wizard
                 icon={Add}
-                validationSchema={validation}
+                getValidation={() => validation}
                 initialValues={{ id: '', demo: '' }}
                 onSubmit={onCreate}
                 title="Create"
                 steps={[Form]}
+                asButton
               />
             )}
             renderRowToolbar={({ id }) => (

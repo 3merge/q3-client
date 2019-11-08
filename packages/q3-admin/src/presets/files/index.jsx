@@ -24,6 +24,12 @@ const getFileIcon = (t) => {
   }
 };
 
+const fileType = (file) =>
+  file.name
+    .toUpperCase()
+    .split('.')
+    .pop();
+
 const Files = ({ path }) => {
   const { uploads = [], post } = useRest({
     runOnInit: true,
@@ -47,8 +53,8 @@ const Files = ({ path }) => {
           title="He"
           items={uploads.map((file) => ({
             primary: file.name,
-            secondary: file.type.toUpperCase(),
-            icon: getFileIcon(file.type),
+            secondary: fileType(file),
+            icon: getFileIcon(fileType(file)),
             render: () => (
               <IconButton
                 component="a"

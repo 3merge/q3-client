@@ -22,6 +22,7 @@ const Wizard = ({
   steps,
   title,
   fab,
+  asButton,
   ...rest
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
@@ -45,11 +46,22 @@ const Wizard = ({
 
   return (
     <>
-      <Tooltip title={t('labels:launch')}>
-        <IconButton type="button" onClick={open}>
-          <Icon />
-        </IconButton>
-      </Tooltip>
+      {asButton ? (
+        <Button
+          type="button"
+          variant="contained"
+          color="primary"
+          onClick={open}
+        >
+          {t('labels:start')}
+        </Button>
+      ) : (
+        <Tooltip title={t('labels:launch')}>
+          <IconButton type="button" onClick={open}>
+            <Icon />
+          </IconButton>
+        </Tooltip>
+      )}
       <Dialog
         fullWidth
         maxWidth="sm"
@@ -152,10 +164,12 @@ Wizard.propTypes = {
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   fab: PropTypes.bool.isRequired,
+  asButton: PropTypes.bool,
 };
 
 Wizard.defaultProps = {
   steps: [],
+  asButton: false,
 };
 
 export default Wizard;

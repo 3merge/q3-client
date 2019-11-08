@@ -1,6 +1,6 @@
 {
   "demo": "Welcome to your new component! Descriptions auto-populate from the locale file and will not display if they aren't set.",
-  "delete": "You are about to delete a resource from this application. This may have unwanted side-effects. To proceed, please type the code below.",
+  "softDelete": "You are about to delete a resource from this application. This may have unwanted side-effects. To proceed, please type the code below.",
   "deleteConfirmation": "Please enter the word DELETE",
   "passwordChange": "Note that changing your password will not log you out; it only affects new authentication requests.",
   "resetPassword": "Enter your email address to send a temporary password to your inbox.",
@@ -17,5 +17,7 @@
   "featuredUpload": "Note that this image is public",
   "noNotes": "Looks like no one has said anything yet. Write the first post.",
   "newPermission": "This app uses an intricate permissions system comprising roles and attributes. Roles are like groups and attributes define the actions a group can take.",
-  "cart": "Last updated on {{date}}"
+  "cart": "Last updated on {{date}}",
+  "delete": "Deleting this resource will not nuke it from history, but it will prevent you from accessing it again. Parent resources, such as this, go into an archive-state once deleted so that references remain intact.",
+  "filter": "Select parameters to accentuate your search query."
 }

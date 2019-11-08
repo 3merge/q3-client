@@ -9,6 +9,15 @@ const headingFont = {
   fontWeight: 400,
 };
 
+const generateShadows = () => {
+  const arr = ['none'];
+  for (let i = 0; i < 23; i += 1) {
+    arr.push(`rgba(0, 0, 0, 0.05) 0px 5px 20px ${i}px`);
+  }
+
+  return arr;
+};
+
 export default responsiveFontSizes(
   createMuiTheme({
     palette: {
@@ -72,12 +81,7 @@ export default responsiveFontSizes(
       },
       fontFamily: '"Lato", sans-serif',
     },
-    shadows: [
-      'none',
-      'rgba(0, 0, 0, 0.05) 0px 3px 5px 0px',
-      'rgba(0, 0, 0, 0.07) 0px 5px 14px 2px',
-      '0 16px 70px -12.125px rgba(0,0,0,0.3)',
-    ],
+    shadows: generateShadows(),
     spacing: (factor) => `${0.75 * factor}rem`,
     overrides: {
       MuiCssBaseline: {

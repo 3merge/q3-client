@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+
 import Table from '.';
 import { Wrapper } from '../_helpers/storyUtils';
 import sidebar from './README.md';
@@ -16,6 +17,7 @@ for (let i = 0; i < 50; i += 1) {
     email: 'mike@demo.ca',
     phone: '416-000-1234',
     profilePic: 'https://picsum.photos/id/57/200/300',
+    featured: i % 2,
   });
 }
 
@@ -50,22 +52,80 @@ storiesOf('Components|Table', module)
       <Table {...props} rows={[]} />
     </Wrapper>
   ))
-  .add('With rows', () => {
+  .add('With rows', () => (
+    <Wrapper>
+      <Table
+        {...props}
+        loading={false}
+        total={stubs.length}
+        rows={stubs}
+      />
+    </Wrapper>
+  ))
+  .add('With rows and services', () => {
     const Simulated = () => {
+      const [seed, setSeed] = React.useState(stubs);
       const params = new URLSearchParams(
         window.location.search,
       );
+
       const paged = parseInt(params.get('page'), 10);
       const page = Number.isNaN(paged) ? 1 : paged;
-      const data = stubs.slice(page - 1, page * 25);
+      const data = seed.slice(page - 1, page * 25);
+
+      const deleteMany = (ids = []) =>
+        new Promise((resolve) => {
+          setSeed(seed.filter((v, i) => !ids.includes(i)));
+          resolve();
+        });
+
+      const refresh = () =>
+        new Promise((resolve) => {
+          setSeed(stubs);
+          resolve();
+        });
+
+      const mark = (id, featured) => () =>
+        setSeed(
+          seed.map((v, i) =>
+            i === id ? { ...v, featured } : v,
+          ),
+        );
+
+      // eslint-disable-next-line
+      const downloadMany = () => alert('Download');
 
       return (
         <Wrapper>
           <Table
             {...props}
             loading={false}
-            total={stubs.length}
+            total={seed.length}
             rows={data}
+            mark={mark}
+            deleteMany={deleteMany}
+            downloadMany={downloadMany}
+            poll={refresh}
+            rowToolbar={[
+              {
+                onClick: () => null,
+                label: 'Export',
+              },
+              {
+                onClick: () => null,
+                label: 'Start order',
+              },
+            ]}
+            filterProps={{
+              onChange: () => null,
+              total: 1,
+              initialValues: {
+                foo: '',
+              },
+              render: () => {
+                <p>HEY!</p>;
+              },
+            }}
           />
         </Wrapper>
       );

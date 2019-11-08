@@ -82,7 +82,11 @@ export const useChange = () => {
   };
 };
 
-export const Delete = ({ next, redirect }) => {
+export const Delete = ({
+  next,
+  redirect,
+  customButton,
+}) => {
   const [hasError, setError] = React.useState(false);
   const { value, onChange, setValue } = useChange();
   const { isOpen, open, close } = useOpenState();
@@ -110,18 +114,23 @@ export const Delete = ({ next, redirect }) => {
 
   return (
     <>
-      <Tooltip title={t('labels:delete')}>
-        <IconButton type="button" onClick={open}>
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
+      {customButton ? (
+        customButton(open)
+      ) : (
+        <Tooltip title={t('labels:delete')}>
+          <IconButton type="button" onClick={open}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+      )}
       <Dialog open={isOpen} onClose={close}>
         <DialogTitle>{t('titles:delete')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {t('descriptions:delete')}
+            {t('descriptions:softDelete')}
           </DialogContentText>
           <TextField
+            variant="filled"
             value={value}
             onChange={onChange}
             label={t('descriptions:deleteConfirmation')}

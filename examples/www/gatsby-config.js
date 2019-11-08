@@ -23,6 +23,15 @@ module.exports = {
         brandingColor: 'purple',
         icon: './src/images/fav.png',
         ...siteMetadata,
+        checkout: true,
+        guestCheckout: true,
+        shipping: {
+          flat: false,
+          strategy: 'Purolator',
+        },
+        payment: {
+          strategy: 'Bambora',
+        },
       },
     },
   ],

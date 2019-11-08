@@ -4,11 +4,10 @@ import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import Alert from 'q3-ui/alert';
 import { useTranslation } from 'react-i18next';
-import Input from 'q3-ui/inputs';
 import Form from 'q3-ui/form';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Security from './security';
+import Security from '../security';
 
 export const emailValidation = yup.object().shape({
   email: yup

@@ -14,7 +14,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import { blueGrey } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,6 +25,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import MobileStepper from '@material-ui/core/Stepper';
 import { useOpenState } from '../dialogs';
 import graphic from '../../images/waiting.png';
 
@@ -124,13 +124,7 @@ const Cart = ({ items, total, updated }) => {
           <ShoppingCart />
         </Badge>
       </IconButton>
-      <Drawer
-        open={isOpen}
-        anchor="right"
-        PaperProps={{
-          style: { backgroundColor: blueGrey[50] },
-        }}
-      >
+      <Drawer open={isOpen} anchor="right">
         <Box py={2}>
           <Toolbar
             style={{ justifyContent: 'space-between' }}

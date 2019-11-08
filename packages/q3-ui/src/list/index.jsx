@@ -4,10 +4,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Checkbox from '@material-ui/core/Checkbox';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core';
-import Divider from '@material-ui/core/Divider';
 import Avatar from '../avatar';
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Listing = ({ items, subtitle }) => {
+const Listing = ({
+  items,
+  subtitle,
+  isChecked,
+  onCheck,
+}) => {
   const { listcls } = useStyles();
   return (
     <List
@@ -38,18 +43,25 @@ const Listing = ({ items, subtitle }) => {
       }
     >
       {items.map(
-        ({ primary, secondary, render, icon }, i) => (
+        ({ id, primary, secondary, render, icon }, i) => (
           <li key={i} className={listcls}>
             <ListItem component="div" dense>
               <ListItemAvatar>
-                <Avatar
-                  icon={icon}
-                  word={
-                    Array.isArray(primary)
-                      ? primary.join(', ')
-                      : String(primary || '--')
-                  }
-                />
+                {onCheck ? (
+                  <Checkbox
+                    value={isChecked(id)}
+                    onClick={onCheck(id)}
+                  />
+                ) : (
+                  <Avatar
+                    icon={icon}
+                    word={
+                      Array.isArray(primary)
+                        ? primary.join(', ')
+                        : String(primary || '--')
+                    }
+                  />
+                )}
               </ListItemAvatar>
               <ListItemText
                 primary={
