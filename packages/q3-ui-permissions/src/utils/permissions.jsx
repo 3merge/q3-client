@@ -88,7 +88,7 @@ export default (ctx) => (coll, createdBy) => {
       ? String(grant.fields || '')
           .split(',')
           .map((i) => i.trim())
-          .every((i) => minimatch(name, i))
+          .some((i) => minimatch(name, i))
       : false;
 
   const isDefined = (arg) =>

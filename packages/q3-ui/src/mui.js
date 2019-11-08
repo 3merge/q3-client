@@ -129,10 +129,22 @@ export default responsiveFontSizes(
           fontWeight: 600,
           textTransform: 'uppercase',
         },
+        root: {
+          minWidth: 150,
+        },
       },
       MuiTablePagination: {
         caption: {
           fontSize: '0.88rem',
+        },
+      },
+      MuiListItemText: {
+        primary: {
+          width: 225,
+          overflow: 'hidden',
+          whiteSpace: 'nowrap',
+          textOverflow: 'ellipsis',
+          display: 'inline-block',
         },
       },
       MuiBadge: {

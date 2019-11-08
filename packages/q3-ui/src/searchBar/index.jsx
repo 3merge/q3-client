@@ -102,6 +102,8 @@ const Searchbar = ({ expanded, redirectPath }) => {
       if (key === 'Enter') {
         const { search } = window.location;
         const params = new URLSearchParams(search);
+        params.delete('page');
+
         if (target.value === '' || !target.value) {
           params.delete('search');
         } else {

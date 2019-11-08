@@ -70,7 +70,7 @@ const useStyles = makeStyles(() => ({
     float: 'right',
   },
   boxes: {
-    width: 130,
+    width: 1,
   },
 }));
 
@@ -78,7 +78,7 @@ const extractId = (obj, i) =>
   typeof obj === 'object' && 'id' in obj ? obj.id : i;
 
 export const TableCellHeader = ({ name, sub, imgSrc }) => (
-  <TableCell>
+  <TableCell style={{ minWidth: 230 }}>
     <Grid container spacing={2} alignItems="center">
       <Grid item>
         <Avatar word={name} imgSrc={imgSrc} />
@@ -151,7 +151,13 @@ export const Templated = ({
       )}
       <TableCell className="visible-on-hover">
         {rowToolbar && rowToolbar.length ? (
-          <DropDownMenu items={rowToolbar}>
+          <DropDownMenu
+            items={
+              typeof rowToolbar === 'function'
+                ? rowToolbar(rest)
+                : rowToolbar
+            }
+          >
             {(open, isOpen) => (
               <Tooltip title={t('menu')}>
                 <IconButton
@@ -538,7 +544,7 @@ export const TableView = ({
 
   return (
     <TablePaper>
-      <Table size="small">
+      <Table size="small" stickyHeader>
         <TableHead>
           <Toolbar>
             <TableRow>

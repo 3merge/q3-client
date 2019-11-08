@@ -50,6 +50,7 @@ const Files = ({ path }) => {
             primary: file.name,
             secondary: fileType(file),
             icon: getFileIcon(fileType(file)),
+
             render: () => (
               <IconButton
                 component="a"

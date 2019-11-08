@@ -91,6 +91,7 @@ storiesOf('Components|Repeater', module)
             name="contacts"
             primary="demo"
             secondary="id"
+            secondaryPrefix="$"
             data={data}
             deleteMany={onDeleteMany}
             renderPost={() => (

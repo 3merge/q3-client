@@ -39,6 +39,9 @@ const Repeater = ({
   img,
   primary,
   secondary,
+  primaryPrefix,
+  secondaryPrefix,
+  iconRender,
   data,
   renderRowToolbar,
   renderPost,
@@ -75,8 +78,11 @@ const Repeater = ({
         subtitle={subtitle}
         items={assignIDs(data).map((item) => ({
           ...item,
-          primary: get(item, primary),
-          secondary: get(item, secondary),
+          primary: `${primaryPrefix}${get(item, primary)}`,
+          secondary: `${secondaryPrefix}${get(
+            item,
+            secondary,
+          )}`,
           render: () => (
             <Grid container>{renderRowToolbar(item)}</Grid>
           ),
@@ -134,6 +140,8 @@ Repeater.propTypes = {
   fetchingError: PropTypes.bool,
   fetching: PropTypes.bool,
   renderPost: PropTypes.func,
+  primaryPrefix: PropTypes.string,
+  secondaryPrefix: PropTypes.string,
 };
 
 Repeater.defaultProps = {
@@ -145,6 +153,8 @@ Repeater.defaultProps = {
   subtitle: null,
   data: [],
   img: null,
+  primaryPrefix: '',
+  secondaryPrefix: '',
 };
 
 export default Repeater;
