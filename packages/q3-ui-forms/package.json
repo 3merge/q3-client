@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "main": "lib/index.js",
   "dependencies": {
     "lodash": "^4.17.15",
