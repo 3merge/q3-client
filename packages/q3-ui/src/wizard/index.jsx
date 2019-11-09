@@ -30,19 +30,19 @@ const Wizard = ({
   const { isOpen, open, close } = useOpenState();
   const { t } = useTranslation();
 
+  const clearForm = () => {
+    close();
+    setStep(0);
+  };
+
   const closeOnSuccess = (values, actions) =>
     onSubmit(values, actions).then((err) => {
-      if (!err) close();
+      if (!err) clearForm();
       return err;
     });
 
   const back = () => setStep(step - 1);
   const next = () => setStep(step + 1);
-
-  const clearForm = () => {
-    close();
-    setStep(0);
-  };
 
   return (
     <>

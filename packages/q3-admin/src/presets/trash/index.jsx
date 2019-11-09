@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import { SplitPanel } from 'q3-ui/panel';
 import graphic from '../../images/remove.png';
 
-const PictureUpload = (props) => {
+const Trash = (props) => {
   const { t } = useTranslation();
   return (
     <Paper elevation={0}>
@@ -45,4 +45,4 @@ const PictureUpload = (props) => {
   );
 };
 
-export default PictureUpload;
+export default Trash;

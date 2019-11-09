@@ -205,6 +205,7 @@ const IntegratedSelect = ({ options, ...rest }) => {
       </InputLabel>
       <Select
         {...props}
+        isClearable
         MenuProps={MenuProps}
         renderValue={renderValueFromSelectOptions}
         input={
@@ -223,6 +224,7 @@ const IntegratedSelect = ({ options, ...rest }) => {
           />
         }
       >
+        <MenuItem dense>--</MenuItem>
         {items.map((obj) => (
           <MenuItem dense key={obj.value} value={obj.value}>
             {t(obj.label)}

@@ -19,7 +19,7 @@ export const initialData = [
   },
 ];
 
-const states = {
+export const states = {
   'AL': 'Alabama',
   'AK': 'Alaska',
   'AS': 'American Samoa',
@@ -81,7 +81,7 @@ const states = {
   'WY': 'Wyoming',
 };
 
-const provinces = {
+export const provinces = {
   AB: 'Alberta',
   BC: 'British Columbia',
   MB: 'Manitoba',

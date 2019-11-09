@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
   muted: {
     flex: '1',
     position: 'relative',
+    width: 1,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   contrastBg: {
     backgroundColor: theme.palette.primary.main,

@@ -49,8 +49,8 @@ const Detail = ({
       to: '/trash',
       component: () => (
         <Trash
-          next={state.remove()}
-          redirect={`/${name}`}
+          next={state.remove(null)}
+          redirect={`/${resourceName}`}
         />
       ),
     });

@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     boxSizing: 'border-box',
     color: '#FFF',
     height: '100vh',
-    overflow: 'auto',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     paddingTop: theme.spacing(2),
     width: 250,
     '& *': {
