@@ -94,7 +94,7 @@ const TabsWithRouter = ({ views, root }) => {
         </LocationMatch>
       </Grid>
       <Grid item className={routes}>
-        <Router>
+        <Router primary={false}>
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
               renderer={Comp}

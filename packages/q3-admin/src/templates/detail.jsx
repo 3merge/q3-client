@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import { get, invoke } from 'lodash';
+import { get } from 'lodash';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import { Delete as DeleteDialog } from 'q3-ui/dialogs';
 import Header from 'q3-ui/header';
 import Tabs from 'q3-ui/tabs';
 import useRest from 'q3-ui-rest';
@@ -33,15 +32,19 @@ const Detail = ({
     ...rest,
   });
 
-  const { canDelete, ...authy } = useAuth(
+  const { canDelete, canReadSub, ...authy } = useAuth(
     coll,
     get(state, `${resourceNameSingular}.createdBy.id`),
   );
 
-  const tabs =
+  const tabs = Array.from(
     typeof views === 'function'
       ? views({ id, ...state, ...authy })
-      : views;
+      : views,
+  ).filter(({ field }) => {
+    if (!field) return true;
+    return canReadSub(field);
+  });
 
   if (canDelete)
     tabs.push({
