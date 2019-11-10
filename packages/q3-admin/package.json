@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "lib/index.js",
   "dependencies": {
     "lodash": "^4.17.15",
