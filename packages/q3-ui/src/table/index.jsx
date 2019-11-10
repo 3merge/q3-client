@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -20,7 +20,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import Apps from '@material-ui/icons/Apps';
+import Apps from '@material-ui/icons/MoreVert';
+import Pageview from '@material-ui/icons/Link';
+
 import SelectAll from '@material-ui/icons/SelectAll';
 import Refresh from '@material-ui/icons/Refresh';
 import Clear from '@material-ui/icons/Clear';
@@ -38,7 +40,7 @@ import Filter, {
   withLocation,
 } from '../filter';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   tableRowHover: {
     transition: 'all 500ms',
     '&:nth-child(even)': {
@@ -57,6 +59,11 @@ const useStyles = makeStyles(() => ({
     '&:hover>.visible-on-hover button': {
       opacity: 1,
     },
+    [theme.breakpoints.down('sm')]: {
+      '&>.visible-on-hover button': {
+        opacity: 1,
+      },
+    },
   },
   starred: {
     color: ({ featured }) =>
@@ -70,7 +77,15 @@ const useStyles = makeStyles(() => ({
     float: 'right',
   },
   boxes: {
-    width: 1,
+    width: 250,
+  },
+  leader: {
+    width: 350,
+  },
+  mobile: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 
@@ -78,8 +93,8 @@ const extractId = (obj, i) =>
   typeof obj === 'object' && 'id' in obj ? obj.id : i;
 
 export const TableCellHeader = ({ name, sub, imgSrc }) => (
-  <TableCell style={{ minWidth: 230 }}>
-    <Grid container spacing={2} alignItems="center">
+  <TableCell>
+    <Grid container alignItems="center" spacing={1}>
       <Grid item>
         <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
@@ -121,16 +136,11 @@ export const Templated = ({
   ...rest
 }) => {
   const { id } = rest;
-  const { tableRowHover, boxes } = useStyles();
   const { t } = useTranslation('labels');
-  const redirect = () => navigate(`${root}/${id}`);
 
   return (
-    <TableRow key={id} className={tableRowHover}>
-      {showChildren && (
-        <TableCell className={boxes}>{children}</TableCell>
-      )}
-      {columns.map((key) =>
+    <TableRow key={id}>
+      {columns.map((key, i) =>
         Array.isArray(key) ? (
           <TableCellHeader
             name={t(get(rest, key[0]))}
@@ -139,7 +149,7 @@ export const Templated = ({
             data={rest}
           />
         ) : (
-          <TableCell>
+          <TableCell data-title={t(`labels:${columns[i]}`)}>
             <Typography
               variant="subtitle2"
               component="span"
@@ -149,7 +159,16 @@ export const Templated = ({
           </TableCell>
         ),
       )}
-      <TableCell className="visible-on-hover">
+
+      <TableCell style={{ textAlign: 'right' }}>
+        {children}
+        <IconButton
+          component={Link}
+          to={`${root}/${id}`}
+          aria-label="View"
+        >
+          <Pageview />
+        </IconButton>
         {rowToolbar && rowToolbar.length ? (
           <DropDownMenu
             items={
@@ -169,13 +188,7 @@ export const Templated = ({
               </Tooltip>
             )}
           </DropDownMenu>
-        ) : (
-          <Tooltip title={t('view')}>
-            <IconButton onClick={redirect}>
-              <Apps />
-            </IconButton>
-          </Tooltip>
-        )}
+        ) : null}
       </TableCell>
     </TableRow>
   );
@@ -207,7 +220,7 @@ Templated.defaultProps = {
 
 const TablePaper = ({ children }) => (
   <Paper
-    elevation={4}
+    elevation={2}
     style={{ maxWidth: '100%', overflow: 'auto' }}
   >
     {children}
@@ -249,30 +262,24 @@ const TableToolbar = ({
   checked,
   executeBulkDelete,
   executeBulkDownload,
-  clear,
-  hasServices,
-  children,
   canDelete,
   canDownload,
+  children,
 }) => {
-  const { float } = useStyles();
   const { t } = useTranslation();
 
-  if (!checked.length) return children;
-  if (!hasServices) return null;
-
   return (
-    <TableRow>
-      <TableCell colSpan="10">
-        <IconButton
-          aria-label={t('labels:clearAll')}
-          onClick={clear}
-        >
-          <Badge badgeContent={checked.length}>
-            <Clear />
-          </Badge>
-        </IconButton>
-        <Box className={float}>
+    <Box
+      textAlign="right"
+      style={{
+        padding: '0.5rem',
+        backgroundColor: grey[200],
+        borderBottom: `1px solid ${grey[300]}`,
+      }}
+    >
+      {children}
+      {checked.length ? (
+        <>
           {canDelete && (
             <DeleteConfirmation next={executeBulkDelete} />
           )}
@@ -284,15 +291,13 @@ const TableToolbar = ({
               <CloudDownload />
             </IconButton>
           )}
-        </Box>
-      </TableCell>
-    </TableRow>
+        </>
+      ) : null}
+    </Box>
   );
 };
 
 TableToolbar.propTypes = {
-  hasServices: PropTypes.bool.isRequired,
-  clear: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
   checked: PropTypes.arrayOf(PropTypes.string),
   executeBulkDelete: PropTypes.func,
@@ -313,19 +318,26 @@ const SelectAllButton = ({
   hasServices,
   ids,
   setChecked,
+  clear,
+  checked,
 }) => {
   const { t } = useTranslation();
+  const label = checked.length
+    ? t('labels:clearAll')
+    : t('labels:selectAll');
+  const onClick = checked.length
+    ? clear
+    : () => setChecked(ids);
+  const Icon = checked.length ? Clear : SelectAll;
+
   if (!hasServices) return null;
 
   return (
-    <TableCell>
-      <IconButton
-        aria-label={t('labels:selectAll')}
-        onClick={() => setChecked(ids)}
-      >
-        <SelectAll />
-      </IconButton>
-    </TableCell>
+    <IconButton aria-label={label} onClick={onClick}>
+      <Badge badgeContent={checked.length}>
+        <Icon />
+      </Badge>
+    </IconButton>
   );
 };
 
@@ -502,10 +514,16 @@ export const TableView = ({
     Mark,
     hasServices,
   } = useActionBar(etc);
+  const { leader, mobile, boxes } = useStyles();
   const { t } = useTranslation();
   const [showResults, setShowResults] = React.useState(
     false,
   );
+
+  const getClassName = (v) => {
+    if (v === 0) return leader;
+    return null;
+  };
 
   const getId = React.useCallback(
     (k) => (Array.isArray(k) ? k[0] : k),
@@ -544,22 +562,24 @@ export const TableView = ({
 
   return (
     <TablePaper>
+      <Toolbar>
+        <CheckboxMaster ids={rows.map(extractId)} />
+        <Poll />
+        <Filter {...filterProps} />
+      </Toolbar>
       <Table size="small" stickyHeader>
         <TableHead>
-          <Toolbar>
-            <TableRow>
-              <CheckboxMaster ids={rows.map(extractId)} />
-              {columns.map((key) => (
-                <TableCell key={getId(key)}>
-                  {t(`labels:${getId(key)}`)}
-                </TableCell>
-              ))}
-              <TableCell style={{ textAlign: 'right' }}>
-                <Poll />
-                <Filter {...filterProps} />
+          <TableRow className={mobile}>
+            {columns.map((key, i) => (
+              <TableCell
+                key={getId(key)}
+                className={getClassName(i)}
+              >
+                {t(`labels:${getId(key)}`)}
               </TableCell>
-            </TableRow>
-          </Toolbar>
+            ))}
+            <TableCell className={boxes} />
+          </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((props, i) => {

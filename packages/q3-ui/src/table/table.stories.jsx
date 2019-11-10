@@ -6,16 +6,17 @@ import { Wrapper } from '../_helpers/storyUtils';
 import sidebar from './README.md';
 
 const props = {
-  columns: [['name', 'email', 'profilePic'], 'phone'],
+  columns: [['name', 'email', 'profilePic'], 'phone', 'age'],
 };
 
 const stubs = [];
 for (let i = 0; i < 50; i += 1) {
   stubs.push({
     id: i,
-    name: 'Mike',
+    name: 'Mike Ibberson - My name',
     email: 'mike@demo.ca',
     phone: '416-000-1234',
+        age: 27,
     profilePic: 'https://picsum.photos/id/57/200/300',
     featured: i % 2,
   });
