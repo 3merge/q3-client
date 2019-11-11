@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Downshift from 'downshift';
-import Autocomplete from '@material-ui/lab/autocomplete';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import * as Yup from 'yup';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
