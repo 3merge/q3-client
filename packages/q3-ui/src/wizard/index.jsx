@@ -143,7 +143,6 @@ const Wizard = ({
             </DialogContent>
             <MobileStepper
               steps={steps.length}
-              variant="progress"
               position="static"
               activeStep={step}
               nextButton={renderNextButton(

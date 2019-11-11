@@ -22,6 +22,7 @@ export const getOptions = (url, key, pathToLabel) => {
       get(data, key, []).map((i) => ({
         label: get(i, pathToLabel),
         value: i.id,
+        ...i,
       })),
     )
     .catch(() => {

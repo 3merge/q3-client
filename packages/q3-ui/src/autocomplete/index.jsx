@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Downshift from 'downshift';
 import Autocomplete from '@material-ui/lab/autocomplete';
 import * as Yup from 'yup';
-import { get } from 'lodash'
+import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
 }));
- 
-    
+
 export const AutoCompleteWrapper = ({
   loadOptions,
   inputProps,
@@ -53,12 +52,23 @@ export const AutoCompleteWrapper = ({
 }) => {
   const { container } = useStyles();
   const { t } = useTranslation('labels');
-  const integrated = useFormikIntegration({ ...etc, ...inputProps, formik });
-  const { readOnly, disabled, value, ...decoratedInputProps } = integrated;
+  const integrated = useFormikIntegration({
+    ...etc,
+    ...inputProps,
+    formik,
+  });
+  const {
+    readOnly,
+    disabled,
+    value,
+    ...decoratedInputProps
+  } = integrated;
 
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [searchTerm, setSearchTerm] = React.useState(get(value, 'value'));
+  const [searchTerm, setSearchTerm] = React.useState(
+    get(value, 'value'),
+  );
 
   const onInputChange = React.useCallback(({ target }) => {
     setSearchTerm(target.value);
@@ -66,7 +76,11 @@ export const AutoCompleteWrapper = ({
   }, []);
 
   const onChange = React.useCallback(
-    (e) => formik.setFieldValue(name, get(e, 'target.value', '')),
+    (e) =>
+      formik.setFieldValue(
+        name,
+        get(e, 'target.value', ''),
+      ),
     [formik, name],
   );
 
@@ -104,6 +118,10 @@ export const AutoCompleteWrapper = ({
           variant="filled"
           aria-busy={loading}
           onChange={onInputChange}
+          inputProps={{
+            autocomplete: 'off',
+            ...params.inputProps,
+          }}
           InputProps={{
             endAdornment: (
               <>
@@ -120,7 +138,7 @@ export const AutoCompleteWrapper = ({
         />
       )}
     />
-  ); 
+  );
 };
 
 AutoCompleteWrapper.propTypes = {
@@ -139,4 +157,3 @@ AutoCompleteWrapper.propTypes = {
 };
 
 export default connect(AutoCompleteWrapper);
- 
