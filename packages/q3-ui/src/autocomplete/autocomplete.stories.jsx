@@ -53,6 +53,27 @@ storiesOf('Components|AutoComplete', module)
         inputProps: {
           label: 'Countries',
           helperText: 'Search by name',
+          required: true,
+          name,
+        },
+      },
+      {
+        initialValues: {
+          country: countries[0],
+        },
+      },
+    ),
+  )
+  .add('As disabled', () =>
+    withFormik(
+      Auto,
+      {
+        loadOptions,
+        inputProps: {
+          label: 'Countries',
+          helperText: 'Search by name',
+          disabled: true,
+          required: true,
           name,
         },
       },

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Downshift from 'downshift';
+import Autocomplete from '@material-ui/lab/autocomplete';
 import * as Yup from 'yup';
+import { get } from 'lodash'
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
@@ -40,134 +42,31 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
 }));
-
-export const DropDownMenu = ({
-  isOpen,
-  children,
-  menuProps,
-  style,
-}) => {
-  const { dropdown } = useStyles();
-  return (
-    <Paper elevation={2} {...menuProps} style={style}>
-      {isOpen && (
-        <List className={dropdown} dense>
-          {children}
-        </List>
-      )}
-    </Paper>
-  );
-};
-
-DropDownMenu.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  menuProps: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-};
-
-export const DropDownMenuItems = ({
-  options,
-  itemProps,
-  selected,
-}) =>
-  options.map((item, i) => (
-    <ListItem
-      {...itemProps({ item })}
-      key={item.value}
-      className={selected === i ? 'Mui-selected' : null}
-    >
-      <ListItemText primary={item.label} />
-    </ListItem>
-  ));
-
-DropDownMenuItems.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  ).isRequired,
-  itemProps: PropTypes.func.isRequired,
-  selected: PropTypes.number.isRequired,
-};
-
-export const AutoCompleteField = (props) => {
-  const { t } = useTranslation('labels');
-  const inputProps = useFormikIntegration(props);
-  const { readOnly, name, loading } = inputProps;
-
-  // important to be uncontrolled
-  delete inputProps.value;
-
-  return (
-    <TextField
-      {...inputProps}
-      {...styleProps}
-      autoComplete={false}
-      id="auto-suggest"
-      label={t(name)}
-      aria-busy={loading}
-      InputProps={{
-        autoComplete: 'auto-suggest',
-        required: true,
-        endAdornment: (
-          <>
-            {loading && (
-              <CircularProgress
-                size={16}
-                aria-describedby="auto-suggest"
-              />
-            )}
-            {readOnly && <Lock />}
-          </>
-        ),
-      }}
-    />
-  );
-};
-
-AutoCompleteField.propTypes = {
-  label: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  inputProps: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
-  readOnly: PropTypes.bool,
-  disabled: PropTypes.bool,
-};
-
-AutoCompleteField.defaultProps = {
-  readOnly: false,
-  loading: false,
-  disabled: false,
-};
-
+ 
+    
 export const AutoCompleteWrapper = ({
   loadOptions,
-  formik,
   inputProps,
   innerRef,
+  formik,
+  ...etc
 }) => {
   const { container } = useStyles();
-  const { name } = inputProps;
-  const error = getIn(formik.errors, name);
-  const term = getIn(formik.values, name) || {
-    label: '',
-    value: '',
-  };
+  const { t } = useTranslation('labels');
+  const integrated = useFormikIntegration({ ...etc, ...inputProps, formik });
+  const { readOnly, disabled, value, ...decoratedInputProps } = integrated;
 
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [searchTerm, setSearchTerm] = React.useState(term);
+  const [searchTerm, setSearchTerm] = React.useState(get(value, 'value'));
 
-  const onInputChange = React.useCallback((val) => {
-    setSearchTerm(val);
+  const onInputChange = React.useCallback(({ target }) => {
+    setSearchTerm(target.value);
     setLoading(true);
   }, []);
 
   const onChange = React.useCallback(
-    (e) => {
-      formik.setFieldValue(name, e);
-    },
+    (e) => formik.setFieldValue(name, get(e, 'target.value', '')),
     [formik, name],
   );
 
@@ -181,71 +80,47 @@ export const AutoCompleteWrapper = ({
       });
   }, [searchTerm, loading]);
 
-  const onLoad = React.useCallback(
-    () => (term ? onChange(term) : undefined),
-    [term, onChange],
-  );
-
   React.useEffect(() => {
     onSearch();
   }, [loading]);
 
-  React.useEffect(() => {
-    onLoad();
-  }, []);
-
   return (
-    <Downshift
-      onInputValueChange={onInputChange}
-      itemToString={(item) => (item ? item.label : '')}
-      selectedItem={typeof term === 'object' ? term : null}
+    <Autocomplete
+      autoHighlight
+      clearOnEscape
+      freeSolo={false}
       onChange={onChange}
-    >
-      {({
-        getInputProps,
-        getItemProps,
-        getMenuProps,
-        isOpen,
-        highlightedIndex,
-      }) => (
-        <div>
-          <AutoCompleteField
-            error={error}
-            loading={loading}
-            disabled={formik.isSubmitting}
-            inputProps={getInputProps()}
-            formik={formik}
-            {...inputProps}
-          />
-          <Popper
-            anchorEl={innerRef.current}
-            open={Boolean(isOpen && items.length)}
-            className={container}
-          >
-            <DropDownMenu
-              menuProps={getMenuProps(
-                {},
-                { suppressRefError: true },
-              )}
-              isOpen={Boolean(isOpen && items.length)}
-              style={{
-                marginTop: 8,
-                width: innerRef.current
-                  ? innerRef.current.clientWidth
-                  : undefined,
-              }}
-            >
-              <DropDownMenuItems
-                options={items}
-                itemProps={getItemProps}
-                selected={highlightedIndex}
-              />
-            </DropDownMenu>
-          </Popper>
-        </div>
+      options={items}
+      loading={loading}
+      disabled={disabled}
+      readOnly={readOnly}
+      getOptionLabel={(option) => option.label}
+      defaultValue={value}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          {...decoratedInputProps}
+          fullWidth
+          variant="filled"
+          aria-busy={loading}
+          onChange={onInputChange}
+          InputProps={{
+            endAdornment: (
+              <>
+                {loading ? (
+                  <CircularProgress
+                    color="inherit"
+                    size={20}
+                  />
+                ) : null}
+                {params.InputProps.endAdornment}
+              </>
+            ),
+          }}
+        />
       )}
-    </Downshift>
-  );
+    />
+  ); 
 };
 
 AutoCompleteWrapper.propTypes = {
@@ -263,14 +138,5 @@ AutoCompleteWrapper.propTypes = {
   }).isRequired,
 };
 
-const IntegratedAutoComplete = connect(AutoCompleteWrapper);
-
-export default (props) => {
-  const ref = React.createRef();
-
-  return (
-    <div ref={ref} style={{ position: 'relative' }}>
-      <IntegratedAutoComplete innerRef={ref} {...props} />
-    </div>
-  );
-};
+export default connect(AutoCompleteWrapper);
+ 
