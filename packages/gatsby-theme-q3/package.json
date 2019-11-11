@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -33,7 +33,7 @@
     "gatsby-transformer-sharp": "^2.2.14",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
-    "q3-ui-commons": "^0.0.20",
+    "q3-ui-commons": "^0.0.21",
     "react-helmet": "^5.2.1"
   }
 }
