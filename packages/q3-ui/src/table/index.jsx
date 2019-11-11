@@ -22,14 +22,16 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import Apps from '@material-ui/icons/MoreVert';
 import Pageview from '@material-ui/icons/Link';
-
 import SelectAll from '@material-ui/icons/SelectAll';
 import Refresh from '@material-ui/icons/Refresh';
 import Clear from '@material-ui/icons/Clear';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { grey, yellow } from '@material-ui/core/colors';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { Delete as DeleteConfirmation } from '../dialogs';
+import {
+  useOpenState,
+  Delete as DeleteConfirmation,
+} from '../dialogs';
 import Avatar from '../avatar';
 import { DropDownMenu } from '../toolbar';
 import ErrorComponent, {
@@ -267,6 +269,7 @@ const TableToolbar = ({
   children,
 }) => {
   const { t } = useTranslation();
+  const openState = useOpenState();
 
   return (
     <Box
@@ -281,7 +284,7 @@ const TableToolbar = ({
       {checked.length ? (
         <>
           {canDelete && (
-            <DeleteConfirmation next={executeBulkDelete} />
+            <DeleteConfirmation {...openState} next={executeBulkDelete} />
           )}
           {canDownload && (
             <IconButton

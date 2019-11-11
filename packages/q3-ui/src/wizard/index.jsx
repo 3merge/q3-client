@@ -3,31 +3,54 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import TransitEnterexit from '@material-ui/icons/TransitEnterexit';
+import Publish from '@material-ui/icons/Publish';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import { Tooltip } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useOpenState } from '../dialogs';
+
+const WizardHeader = ({ title, name }) => {
+  const { t } = useTranslation();
+  return name ? (
+    <Box px={2} mt={1}>
+      <Typography variant="overline" gutterBottom>
+        {t(`titles:${title}`)}
+      </Typography>
+      <Typography variant="h3" gutterBottom>
+        {t(`titles:${name}`)}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        {t(`descriptions:${name}`)}
+      </Typography>
+    </Box>
+  ) : null;
+};
+
+WizardHeader.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 const Wizard = ({
   getValidation,
+  getContent,
   onSubmit,
   icon: Icon,
   steps,
   title,
-  fab,
-  asButton,
+  isOpen,
+  close,
   ...rest
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
   const [step, setStep] = React.useState(0);
-  const { isOpen, open, close } = useOpenState();
   const { t } = useTranslation();
 
   const clearForm = () => {
@@ -44,117 +67,95 @@ const Wizard = ({
   const back = () => setStep(step - 1);
   const next = () => setStep(step + 1);
 
-  return (
-    <>
-      {asButton ? (
-        <Button
-          type="button"
-          variant="contained"
-          color="primary"
-          onClick={open}
-        >
-          {t('labels:start')}
-        </Button>
-      ) : (
-        <Tooltip title={t('labels:launch')}>
-          <IconButton type="button" onClick={open}>
-            <Icon />
-          </IconButton>
-        </Tooltip>
-      )}
-      <Dialog
-        fullWidth
-        maxWidth="sm"
-        fullScreen={isMobile}
-        onClose={clearForm}
-        open={isOpen}
+  const renderBackButton = () =>
+    step === 0 ? (
+      <Button onClick={clearForm}>
+        <TransitEnterexit />
+        {t('labels:nevermind')}
+      </Button>
+    ) : (
+      <Button onClick={back}>
+        <KeyboardArrowLeft />
+        {t('labels:back')}
+      </Button>
+    );
+
+  const renderNextButton = (fn, done) =>
+    steps.length - 1 === step ? (
+      <Button onClick={done}>
+        {t('labels:save')}
+        <Publish />
+      </Button>
+    ) : (
+      <Button
+        onClick={() =>
+          fn().then((errors) => {
+            if (!Object.keys(errors).length) next();
+          })
+        }
       >
-        <Formik
-          {...rest}
-          enableReinitialize
-          validateOnBlur={false}
-          validateOnChange={false}
-          validationSchema={() => getValidation(step)}
-          onSubmit={closeOnSuccess}
-          render={({
-            submitForm,
-            isSubmitting,
-            validateForm,
-            resetForm,
-            ...utils
-          }) => (
-            <Form>
-              {isSubmitting && <LinearProgress />}
+        {t('labels:next')}
+        <KeyboardArrowRight />
+      </Button>
+    );
 
-              {steps.length > 1 && (
-                <MobileStepper
-                  steps={steps.length}
-                  variant="dots"
-                  position="static"
-                  activeStep={step}
-                />
+  return (
+    <Dialog
+      fullWidth
+      maxWidth="sm"
+      fullScreen={isMobile}
+      onClose={clearForm}
+      open={isOpen}
+    >
+      <Formik
+        {...rest}
+        enableReinitialize
+        validateOnBlur={false}
+        validateOnChange={false}
+        validationSchema={() => getValidation(step)}
+        onSubmit={closeOnSuccess}
+        render={({
+          submitForm,
+          isSubmitting,
+          validateForm,
+          resetForm,
+          ...utils
+        }) => (
+          <Form>
+            {isSubmitting && <LinearProgress />}
+            {getContent && (
+              <WizardHeader
+                title={title}
+                name={getContent(step)}
+              />
+            )}
+            <DialogContent>
+              {steps.map(
+                (Step, i) =>
+                  step === i && (
+                    <Fade in key={i}>
+                      <div>
+                        <Step {...utils} />
+                      </div>
+                    </Fade>
+                  ),
               )}
-
-              <DialogTitle>
-                {t(`titles:${title}`)}
-              </DialogTitle>
-
-              <DialogContent>
-                {steps.map(
-                  (Step, i) =>
-                    step === i && (
-                      <Fade in key={i}>
-                        <div>
-                          <Step {...utils} />
-                        </div>
-                      </Fade>
-                    ),
-                )}
-                {steps.length - 1 === step ? (
-                  <DialogActions>
-                    {step === 0 ? (
-                      <Button onClick={close}>
-                        {t('labels:nevermind')}
-                      </Button>
-                    ) : (
-                      <Button onClick={back}>
-                        {t('labels:back')}
-                      </Button>
-                    )}
-                    <Button onClick={submitForm}>
-                      {t('labels:save')}
-                    </Button>
-                  </DialogActions>
-                ) : (
-                  <DialogActions>
-                    {step === 0 ? (
-                      <Button onClick={close}>
-                        {t('labels:nevermind')}
-                      </Button>
-                    ) : (
-                      <Button onClick={back}>
-                        {t('labels:back')}
-                      </Button>
-                    )}
-                    <Button
-                      onClick={() =>
-                        validateForm().then((errors) => {
-                          if (!Object.keys(errors).length) {
-                            next();
-                          }
-                        })
-                      }
-                    >
-                      {t('labels:next')}
-                    </Button>
-                  </DialogActions>
-                )}
-              </DialogContent>
-            </Form>
-          )}
-        />
-      </Dialog>
-    </>
+            </DialogContent>
+            <MobileStepper
+              steps={steps.length}
+              variant="progress"
+              position="static"
+              activeStep={step}
+              nextButton={renderNextButton(
+                validateForm,
+                submitForm,
+              )}
+              backButton={renderBackButton()}
+            />
+          </Form>
+        )}
+      />
+    </Dialog>
   );
 };
 
@@ -163,13 +164,15 @@ Wizard.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  fab: PropTypes.bool.isRequired,
-  asButton: PropTypes.bool,
+  getValidation: PropTypes.func.isRequired,
+  getContent: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
 };
 
 Wizard.defaultProps = {
   steps: [],
-  asButton: false,
+  isOpen: false,
 };
 
 export default Wizard;

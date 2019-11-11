@@ -10,6 +10,8 @@ import graphic from '../../images/remove.png';
 
 const Trash = (props) => {
   const { t } = useTranslation();
+  const [open, setOpen] = React.useState();
+
   return (
     <Paper elevation={0}>
       <SplitPanel
@@ -22,19 +24,20 @@ const Trash = (props) => {
             <Typography variant="body1" gutterBottom>
               {t('descriptions:delete')}
             </Typography>
-            <DeleteConfirmation
-              {...props}
-              customButton={(launch) => (
+ 
                 <Button
-                  onClick={launch}
+                  onClick={() => setOpen(true)}
                   variant="contained"
                   color="primary"
                   size="large"
                 >
                   {t('labels:delete')}
                 </Button>
-              )}
-            />
+          
+        <DeleteConfirmation
+        isOpen={open}
+        close={() => setOpen(false)}
+              {...props} />
           </Box>
         }
         columnRight={

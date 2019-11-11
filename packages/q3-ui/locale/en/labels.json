@@ -58,5 +58,6 @@
   "city": "City",
   "streetLine1": "Street line 1",
   "streetLine2": "Street line 2",
-  "postal": "Postal"
+  "postal": "Postal",
+  "edit": "View/edit"
 }

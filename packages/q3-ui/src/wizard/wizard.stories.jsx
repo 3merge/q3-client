@@ -21,6 +21,9 @@ const schema2 = yup.object().shape({
 
 storiesOf('Components|Wizard', module).add('Create', () => (
   <Wizard
+    close={() => null}
+    isOpen
+    getContent={() => 'demo'}
     icon={Add}
     title="Wizardry"
     getValidation={(i) => (i === 0 ? schema : schema2)}

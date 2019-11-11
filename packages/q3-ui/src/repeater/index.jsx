@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Grow from '@material-ui/core/Fade';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import List from '../list';
 import Tile from '../tile';
 import Graphic from '../graphic';
 import ServerError from '../error';
 import unpopulated from '../../images/unpopulated.png';
-import { useCheckboxes } from '../table';
-import { Delete as DeleteConfirmation } from '../dialogs';
+import { useOpenState } from '../dialogs';
+import Wizard from '../wizard';
 
 const isObject = (item) => typeof item === 'object';
 
@@ -32,26 +33,67 @@ GrowIn.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const renderTextWithPrefix = (s = '', pre) => `${pre}${s}`;
+
+const renderText = (s = '', args) =>
+  typeof s === 'function' ? s(args) : get(args, s);
+
+const AddNewWizard = (props) => {
+  const { onSubmit } = props;
+  const { t } = useTranslation();
+  const { open, ...openState } = useOpenState();
+
+  return onSubmit ? (
+    <Box mt={1}>
+      <Button
+        onClick={open}
+        variant="contained"
+        color="primary"
+      >
+        {t('labels:create')}
+      </Button>
+      <Wizard
+        title={t('titles:add')}
+        {...openState}
+        {...props}
+      />
+    </Box>
+  ) : null;
+};
+
+AddNewWizard.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
 const Repeater = ({
   name,
   description,
-  subtitle,
-  img,
+
+  /** textual elements */
   primary,
   secondary,
   primaryPrefix,
   secondaryPrefix,
-  iconRender,
+  renderIcon,
+
+  /** seed */
   data,
-  renderRowToolbar,
-  renderPost,
   fetchingError,
   fetching,
-  deleteMany,
+
+  /** services */
+  deleteOne,
+  edit,
+  create,
+
+  /** wizard base props  */
+  wizardProps,
 }) => {
-  const { checked, clear, ...controls } = useCheckboxes();
   const { t } = useTranslation();
   const list = assignIDs(data);
+
+  const executeRenderTextOptions = (item, key, prefix) =>
+    renderTextWithPrefix(renderText(key, item), prefix);
 
   const renderInterior = () => {
     if (fetchingError)
@@ -65,28 +107,36 @@ const Repeater = ({
       return (
         <GrowIn>
           <Graphic
-            src={unpopulated}
             alt={t('labels:unpopulated')}
+            src={unpopulated}
           />
         </GrowIn>
       );
 
     return (
       <List
-        {...(deleteMany ? controls : {})}
-        img={img}
-        subtitle={subtitle}
-        items={assignIDs(data).map((item) => ({
-          ...item,
-          primary: `${primaryPrefix}${get(item, primary)}`,
-          secondary: `${secondaryPrefix}${get(
-            item,
-            secondary,
-          )}`,
-          render: () => (
-            <Grid container>{renderRowToolbar(item)}</Grid>
-          ),
-        }))}
+        updateOne={edit}
+        deleteOne={deleteOne}
+        items={assignIDs(data).map((item) => {
+          const getIcon = () =>
+            renderIcon && typeof renderIcon === 'function'
+              ? renderIcon(item)
+              : null;
+
+          return Object.assign(item, wizardProps, {
+            icon: getIcon(),
+            primary: executeRenderTextOptions(
+              item,
+              primary,
+              primaryPrefix,
+            ),
+            secondary: executeRenderTextOptions(
+              item,
+              secondary,
+              secondaryPrefix,
+            ),
+          });
+        })}
       />
     );
   };
@@ -94,67 +144,62 @@ const Repeater = ({
   return (
     <Tile
       title={t(`titles:${name}`)}
+      loading={fetching}
+      error={fetchingError}
       subtitle={
         description
           ? t(`descriptions:${description}`)
           : null
       }
-      loading={fetching}
-      error={fetchingError}
     >
       {renderInterior()}
-      <Grid
-        container
-        alignItems="center"
-        spacing={1}
-        style={{ marginTop: '1rem' }}
-      >
-        <Grid item>{renderPost()}</Grid>
-        {deleteMany && (
-          <Grid item>
-            <Grow in={checked.length}>
-              <div>
-                <DeleteConfirmation
-                  next={deleteMany(checked, clear)}
-                />
-              </div>
-            </Grow>
-          </Grid>
-        )}
-      </Grid>
+      <AddNewWizard {...wizardProps} onSubmit={create} />
     </Tile>
   );
 };
 
 Repeater.propTypes = {
   name: PropTypes.string.isRequired,
-  img: PropTypes.string,
   subtitle: PropTypes.string,
-  primary: PropTypes.string.isRequired,
+  primary: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
+  secondary: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
   description: PropTypes.string,
-  secondary: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
-  initialValues: PropTypes.object.isRequired,
-  validationSchema: PropTypes.object.isRequired,
-  renderRowToolbar: PropTypes.func,
   fetchingError: PropTypes.bool,
   fetching: PropTypes.bool,
-  renderPost: PropTypes.func,
   primaryPrefix: PropTypes.string,
   secondaryPrefix: PropTypes.string,
+  renderIcon: PropTypes.func,
+  deleteMany: PropTypes.func,
+  deleteOne: PropTypes.func,
+  edit: PropTypes.func,
+  create: PropTypes.func,
+  wizardProps: PropTypes.shape({
+    getValidation: PropTypes.func,
+    getContent: PropTypes.func,
+    initialValues: PropTypes.object,
+  }).isRequired,
 };
 
 Repeater.defaultProps = {
-  renderPost: () => null,
-  renderRowToolbar: () => null,
   fetching: false,
   fetchingError: false,
   description: null,
   subtitle: null,
   data: [],
-  img: null,
   primaryPrefix: '',
   secondaryPrefix: '',
+  renderIcon: null,
+  deleteMany: null,
+  deleteOne: null,
+  edit: null,
+  create: null,
 };
 
 export default Repeater;

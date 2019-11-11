@@ -1,88 +1,140 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { makeStyles } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import Apps from '@material-ui/icons/MoreVert';
 import Avatar from '../avatar';
+import {
+  useOpenState,
+  Delete as DeleteConfirmation,
+} from '../dialogs';
+import { DropDownMenu } from '../toolbar';
+import Wizard from '../wizard';
 
-const useStyles = makeStyles(() => ({
-  listcls: {
-    '& .MuiListItemSecondaryAction-root': {
-      opacity: 0,
-      transition: 'opacity 500ms',
-    },
-    '&:hover .MuiListItemSecondaryAction-root': {
-      opacity: 1,
-    },
-    '&:focus-within .MuiListItemSecondaryAction-root': {
-      opacity: 1,
-    },
-  },
-}));
+const extractStringValue = (v) =>
+  Array.isArray(v) ? v.join(', ') : String(v || '--');
 
-const Listing = ({
-  items,
-  subtitle,
-  isChecked,
-  onCheck,
+const ListItemIcon = ({ icon }) =>
+  icon && Array.isArray(icon) ? (
+    <ListItemAvatar>
+      <Avatar icon={icon[1]} word={icon[0]} />
+    </ListItemAvatar>
+  ) : null;
+
+ListItemIcon.propTypes = {
+  icon: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.node,
+  ]),
+};
+
+ListItemIcon.defaultProps = {
+  icon: null,
+};
+
+const ListItemActions = ({ actions }) =>
+  actions.length ? (
+    <ListItemSecondaryAction>
+      <DropDownMenu items={actions}>
+        {(open) => (
+          <IconButton onClick={open}>
+            <Apps />
+          </IconButton>
+        )}
+      </DropDownMenu>
+    </ListItemSecondaryAction>
+  ) : null;
+
+ListItemActions.propTypes = {
+  actions: PropTypes.arrayOf({
+    onClick: PropTypes.func,
+    label: PropTypes.string,
+  }),
+};
+
+ListItemActions.defaultProps = {
+  actions: [],
+};
+
+const InteractiveListItem = ({
+  id,
+  icon,
+  primary,
+  secondary,
+  updateOne,
+  deleteOne,
+  data,
+  ...etc
 }) => {
-  const { listcls } = useStyles();
+  const actions = [];
+  const editorOpenState = useOpenState();
+  const confirmationOpenState = useOpenState();
+  const { t } = useTranslation();
+
+  if (updateOne)
+    actions.push({
+      onClick: editorOpenState.open,
+      label: t('labels:edit'),
+    });
+
+  if (deleteOne)
+    actions.push({
+      onClick: confirmationOpenState.open,
+      label: t('labels:delete'),
+    });
+
   return (
-    <List
-      subheader={
-        subtitle && (
-          <ListSubheader component="li" id={subtitle}>
-            {subtitle}
-          </ListSubheader>
-        )
-      }
-    >
-      {items.map(
-        ({ id, primary, secondary, render, icon }, i) => (
-          <li key={i} className={listcls}>
-            <ListItem component="div" dense>
-              <ListItemAvatar>
-                {onCheck ? (
-                  <Checkbox
-                    value={isChecked(id)}
-                    onClick={onCheck(id)}
-                  />
-                ) : (
-                  <Avatar
-                    icon={icon}
-                    word={
-                      Array.isArray(primary)
-                        ? primary.join(', ')
-                        : String(primary || '--')
-                    }
-                  />
-                )}
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  Array.isArray(primary)
-                    ? primary.join(', ')
-                    : String(primary || '--')
-                }
-                secondary={secondary}
-              />
-              {render && (
-                <ListItemSecondaryAction>
-                  {render()}
-                </ListItemSecondaryAction>
-              )}
-            </ListItem>
-          </li>
-        ),
+    <ListItem disableGutters key={id} component="li" dense>
+      <ListItemIcon icon={icon} />
+      <ListItemActions actions={actions} />
+      <ListItemText
+        primary={extractStringValue(primary)}
+        secondary={secondary}
+      />
+      {updateOne && (
+        <Wizard
+          {...etc}
+          {...editorOpenState}
+          initialValues={data}
+          onSubmit={updateOne(id)}
+          title={t('titles:edit')}
+        />
       )}
-    </List>
+      {deleteOne && (
+        <DeleteConfirmation
+          {...confirmationOpenState}
+          next={deleteOne(id)}
+        />
+      )}
+    </ListItem>
   );
 };
+
+const Listing = ({ items, subtitle, ...rest }) => (
+  <List
+    subheader={
+      subtitle && (
+        <ListSubheader component="li" id={subtitle}>
+          {subtitle}
+        </ListSubheader>
+      )
+    }
+  >
+    {items.map((item) => (
+      <InteractiveListItem
+        {...item}
+        {...rest}
+        data={item}
+      />
+    ))}
+  </List>
+);
 
 Listing.propTypes = {
   subtitle: PropTypes.string,

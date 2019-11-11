@@ -11,7 +11,6 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Fab from '@material-ui/core/Fab';
 import Add from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
@@ -86,10 +85,11 @@ export const Delete = ({
   next,
   redirect,
   customButton,
+  isOpen,
+  close,
 }) => {
   const [hasError, setError] = React.useState(false);
   const { value, onChange, setValue } = useChange();
-  const { isOpen, open, close } = useOpenState();
   const { t } = useTranslation();
 
   const submit = React.useCallback(() => {
@@ -113,45 +113,34 @@ export const Delete = ({
   }, [value]);
 
   return (
-    <>
-      {customButton ? (
-        customButton(open)
-      ) : (
-        <Tooltip title={t('labels:delete')}>
-          <IconButton type="button" onClick={open}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-      <Dialog open={isOpen} onClose={close}>
-        <DialogTitle>{t('titles:delete')}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t('descriptions:softDelete')}
-          </DialogContentText>
-          <TextField
-            variant="filled"
-            value={value}
-            onChange={onChange}
-            label={t('descriptions:deleteConfirmation')}
-            margin="dense"
-            fullWidth
-            autoFocus
-            name="confirm"
-            type="text"
-            error={hasError}
-          />
-          <DialogActions>
-            <Button type="button" onClick={close}>
-              {t('labels:nevermind')}
-            </Button>
-            <Button type="button" onClick={submit}>
-              {t('labels:continue')}
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Dialog>
-    </>
+    <Dialog open={isOpen} onClose={close}>
+      <DialogTitle>{t('titles:delete')}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {t('descriptions:softDelete')}
+        </DialogContentText>
+        <TextField
+          variant="filled"
+          value={value}
+          onChange={onChange}
+          label={t('descriptions:deleteConfirmation')}
+          margin="dense"
+          fullWidth
+          autoFocus
+          name="confirm"
+          type="text"
+          error={hasError}
+        />
+        <DialogActions>
+          <Button type="button" onClick={close}>
+            {t('labels:nevermind')}
+          </Button>
+          <Button type="button" onClick={submit}>
+            {t('labels:continue')}
+          </Button>
+        </DialogActions>
+      </DialogContent>
+    </Dialog>
   );
 };
 

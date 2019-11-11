@@ -3,34 +3,15 @@ import Thread from 'q3-ui/thread';
 import Input from 'q3-ui/inputs';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
-import { useAuth } from 'q3-ui-permissions';
 import CallToAction from 'q3-ui/callToAction';
 import ServerError from 'q3-ui/error';
 import { useTranslation } from 'react-i18next';
-import {
-  Capture,
-  Delete as DeleteConfirmation,
-} from 'q3-ui/dialogs';
+import { Capture } from 'q3-ui/dialogs';
 import Create from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { TimelineSkeleton } from 'q3-ui/timeline';
 import noNotesImg from '../../images/no-notes.png';
-
-const RemoveThread = ({ next, userID }) => {
-  const { canDelete, matchID } = useAuth('q3-api-notes');
-  return canDelete && matchID(userID) ? (
-    <div
-      style={{
-        position: 'absolute',
-        left: 'calc(100% + 1rem)',
-        top: '-3rem',
-      }}
-    >
-      <DeleteConfirmation next={next} />
-    </div>
-  ) : null;
-};
 
 export default ({ path }) => {
   const { t } = useTranslation();
@@ -68,19 +49,7 @@ export default ({ path }) => {
         </Paper>
       );
 
-    return (
-      <Thread
-        entries={thread}
-        toolbar={(entry) => (
-          <RemoveThread
-            userID={
-              entry.createdBy ? entry.createdBy.id : null
-            }
-            next={remove(entry.id)}
-          />
-        )}
-      />
-    );
+    return <Thread entries={thread} />;
   };
 
   return (

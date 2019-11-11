@@ -2,13 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import * as yup from 'yup';
 import Container from '@material-ui/core/Container';
-import Add from '@material-ui/icons/Add';
-import Edit from '@material-ui/icons/Edit';
-import Checkbox from '@material-ui/core/Checkbox';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Input from '../inputs';
 import Repeater from '.';
-import Wizard from '../wizard';
-import { Delete as Confirmation } from '../dialogs';
 
 storiesOf('Components|Repeater', module)
   .add('With simple array', () => {
@@ -89,35 +85,25 @@ storiesOf('Components|Repeater', module)
             subtitle="Ordered by newest"
             description="hi"
             name="contacts"
-            primary="demo"
+            primary={({ demo }) =>
+              `Active options: ${
+                Array.isArray(demo) ? demo.join(', ') : demo
+              }`
+            }
             secondary="id"
             secondaryPrefix="$"
             data={data}
+            renderIcon={() => ['Shopping', ShoppingCart]}
+            edit={onEdit}
             deleteMany={onDeleteMany}
-            renderPost={() => (
-              <Wizard
-                icon={Add}
-                getValidation={() => validation}
-                initialValues={{ id: '', demo: '' }}
-                onSubmit={onCreate}
-                title="Create"
-                steps={[Form]}
-                asButton
-              />
-            )}
-            renderRowToolbar={({ id }) => (
-              <>
-                <Wizard
-                  icon={Edit}
-                  onSubmit={onEdit(id)}
-                  validationSchema={validation}
-                  initialValues={{ id: '', demo: '' }}
-                  title="Update"
-                  steps={[Form]}
-                />
-                <Confirmation next={onDelete(id)} />
-              </>
-            )}
+            deleteOne={onDelete}
+            create={onCreate}
+            wizardProps={{
+              getContent: () => 'demo',
+              getValidation: () => validation,
+              initialValues: { id: '', demo: '' },
+              steps: [Form],
+            }}
           />
         </Container>
       );

@@ -155,8 +155,8 @@ Object.assign(theme, {
             textTransform: 'uppercase',
             fontWeight: 'bold',
             marginRight: '1rem',
-            fontSize: '0.833rem'
-          }
+            fontSize: '0.833rem',
+          },
         },
       },
       sizeSmall: {
@@ -166,15 +166,6 @@ Object.assign(theme, {
     MuiTablePagination: {
       caption: {
         fontSize: '0.88rem',
-      },
-    },
-    MuiListItemText: {
-      primary: {
-        width: 225,
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        display: 'inline-block',
       },
     },
     MuiBadge: {
@@ -200,6 +191,11 @@ Object.assign(theme, {
       },
       separator: {
         fontSize: 8,
+      },
+    },
+    MuiMobileStepper: {
+      root: {
+        background: '#FFF',
       },
     },
     MuiCard: {

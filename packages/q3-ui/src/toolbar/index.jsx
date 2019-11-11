@@ -46,7 +46,7 @@ export const DropDownMenu = ({ id, children, items }) => {
         open={Boolean(open)}
         keepMounted
         onClose={closeMenu}
-        elevation={2}
+        elevation={15}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center',
@@ -56,7 +56,10 @@ export const DropDownMenu = ({ id, children, items }) => {
           <MenuItem
             dense
             key={item.label}
-            onClick={item.onClick}
+            onClick={(e) => {
+              item.onClick(e);
+              closeMenu();
+            }}
           >
             {item.label}
           </MenuItem>
