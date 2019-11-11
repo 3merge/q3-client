@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from '@reach/router';
@@ -25,6 +26,7 @@ import Pageview from '@material-ui/icons/Link';
 import SelectAll from '@material-ui/icons/SelectAll';
 import Refresh from '@material-ui/icons/Refresh';
 import Clear from '@material-ui/icons/Clear';
+import Trash from '@material-ui/icons/DeleteForever';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { grey, yellow } from '@material-ui/core/colors';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -97,10 +99,10 @@ const extractId = (obj, i) =>
 export const TableCellHeader = ({ name, sub, imgSrc }) => (
   <TableCell>
     <Grid container alignItems="center" spacing={1}>
-      <Grid item>
+      <Grid item md={2} sm={1} xs={2}>
         <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
-      <Grid item>
+      <Grid item md={10} sm={11} xs={10}>
         <Typography
           variant="body1"
           component="span"
@@ -140,6 +142,12 @@ export const Templated = ({
   const { id } = rest;
   const { t } = useTranslation('labels');
 
+  const getText = (k) => {
+    const v = get(rest, k);
+    const d = moment(v, moment.ISO_8601, true);
+    return d.isValid() ? d.format('MMM Do YYYY') : t(v);
+  };
+
   return (
     <TableRow key={id}>
       {columns.map((key, i) =>
@@ -156,7 +164,7 @@ export const Templated = ({
               variant="subtitle2"
               component="span"
             >
-              {t(get(rest, key))}
+              {getText(key)}
             </Typography>
           </TableCell>
         ),
@@ -284,7 +292,15 @@ const TableToolbar = ({
       {checked.length ? (
         <>
           {canDelete && (
-            <DeleteConfirmation {...openState} next={executeBulkDelete} />
+            <>
+            <IconButton onClick={openState.open} aria-label="Delete">
+              <Trash />
+            </IconButton>
+            <DeleteConfirmation
+              {...openState}
+              next={executeBulkDelete}
+            />
+            </>
           )}
           {canDownload && (
             <IconButton

@@ -167,6 +167,11 @@ export default [
       expected: 'checkbox',
       validate: yup.boolean(),
     },
+    primary: {
+      type: Check,
+      expected: 'checkbox',
+      validate: yup.boolean(),
+    },
   },
   {
     company: {

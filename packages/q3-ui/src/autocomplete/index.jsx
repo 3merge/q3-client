@@ -33,25 +33,12 @@ Yup.addMethod(Yup.mixed, 'autocomplete', function() {
   );
 });
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    zIndex: theme.zIndex.modal + 200,
-  },
-  dropdown: {
-    maxHeight: 215,
-    overflow: 'auto',
-  },
-}));
-
 export const AutoCompleteWrapper = ({
   loadOptions,
   inputProps,
-  innerRef,
   formik,
   ...etc
 }) => {
-  const { container } = useStyles();
-  const { t } = useTranslation('labels');
   const integrated = useFormikIntegration({
     ...etc,
     ...inputProps,
@@ -76,12 +63,9 @@ export const AutoCompleteWrapper = ({
   }, []);
 
   const onChange = React.useCallback(
-    (e) =>
-      formik.setFieldValue(
-        name,
-        get(e, 'target.value', ''),
-      ),
-    [formik, name],
+    (e, val) =>
+      formik.setFieldValue(decoratedInputProps.name, val),
+    [formik],
   );
 
   const onSearch = React.useCallback(() => {

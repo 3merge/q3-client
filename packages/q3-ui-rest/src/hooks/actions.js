@@ -5,6 +5,7 @@ import {
   useNotification,
   useFormHandler,
 } from 'q3-ui-forms';
+import FileDownload from 'js-file-download';
 import { makePath } from '../utils';
 import reducer from './reducer';
 import {
@@ -29,6 +30,25 @@ export const getOptions = (url, key, pathToLabel) => {
       return [];
     });
 };
+
+export const getAsCSV = (url, params = {}) => Axios({
+    url,
+    method: 'get',
+    transformRequest: [
+      (data, headers) => {
+        Object.assign(headers, params, {
+          'Accept': 'text/csv',
+        });
+        return data;
+      },
+    ],
+  })
+    .then((e) => {
+      FileDownload(e.data, 'file.csv');
+    })
+    .catch(() => {
+      // noop
+    });
 
 export default ({
   url,

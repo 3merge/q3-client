@@ -10,5 +10,8 @@
   "ownership": "Can the user see what others make?",
   "collection": "A fancy word for a set of similar data",
   "ownershipAliases": "A property that acts like ownership when matched",
-  "region": "Select a country before choosing a region"
+  "region": "Select a country before choosing a region",
+  "branch": "This does not represent a third-party recipient",
+  "primary": "Acts as a default",
+  "postal": "No spaces allowed"
 }
