@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import 'react-id-swiper/lib/styles/css/swiper.css';
 
 const float = {
   position: 'absolute',
