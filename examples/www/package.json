@@ -26,19 +26,18 @@
     "react-i18next": "^10.13.1"
   },
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "q3-ui-script": "0.0.25"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
   "scripts": {
+    "peer-deps": "yarn run q3-peers",
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "serve": "gatsby serve"
   },
   "repository": {
     "type": "git",
