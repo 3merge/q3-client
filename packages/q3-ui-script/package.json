@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-script",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "main": "index.js",
   "bin": {
     "q3-peers": "./index"
