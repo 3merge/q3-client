@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.0.28](https://github.com/3merge/q3-client/compare/v0.0.27...v0.0.28) (2019-11-18)
+
+
+### Bug Fixes
+
+* src directory placeholder for build ([b7cfd12](https://github.com/3merge/q3-client/commit/b7cfd127b6557e899860176f6efd900868498ef6))
