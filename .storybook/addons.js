@@ -1,3 +1,3 @@
-import 'storybook-readme/register';
+import '@storybook/addon-docs';
 import '@storybook/addon-jest/register';
 import '@storybook/addon-a11y/register';

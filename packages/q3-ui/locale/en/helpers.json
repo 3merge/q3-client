@@ -13,5 +13,7 @@
   "region": "Select a country before choosing a region",
   "branch": "This does not represent a third-party recipient",
   "primary": "Acts as a default",
-  "postal": "No spaces allowed"
+  "postal": "No spaces allowed",
+  "moreThan1": "Cannot be negative or null",
+  "quantity": "Specify an amount or use the toggles"
 }
