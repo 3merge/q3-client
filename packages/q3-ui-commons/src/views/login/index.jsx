@@ -3,7 +3,7 @@ import Axios from 'axios';
 import * as yup from 'yup';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Input from 'q3-ui/inputs';
+import Input from 'q3-ui/lib/inputs';
 import { useFormHandler } from 'q3-ui-forms';
 import { setSession } from 'q3-ui-permissions';
 import Collapse from '@material-ui/core/Collapse';

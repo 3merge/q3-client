@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
-import threads from 'q3-ui/thread/data.json';
+import threads from 'q3-ui/lib/thread/data.json';
 import MockAPI from '../../utils/mocker';
 import Notes from './index';
 import Detail from '../../templates/detail';

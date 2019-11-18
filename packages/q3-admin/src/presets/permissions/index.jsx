@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import Form from 'q3-ui/form';
-import { DesktopSelect } from 'q3-ui/inputs';
-import Transfer from 'q3-ui/transfer';
+import Form from 'q3-ui/lib/form';
+import { DesktopSelect } from 'q3-ui/lib/inputs';
+import Transfer from 'q3-ui/lib/transfer';
 import useRest from 'q3-ui-rest';
 import { useAuth } from 'q3-ui-permissions';
 import Detail from '../../templates/detail';
 import List from '../../templates/list';
-import Trash from '../trash';
 
 const ROOT = 'q3-api-permissions';
 const OPS = ['Read', 'Create', 'Update', 'Delete'];

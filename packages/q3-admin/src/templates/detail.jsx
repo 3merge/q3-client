@@ -8,10 +8,12 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import Header from 'q3-ui/header';
-import Tabs from 'q3-ui/tabs';
+import Header from 'q3-ui/lib/header';
+import Tabs from 'q3-ui/lib/tabs';
 import useRest from 'q3-ui-rest';
 import Trash from '../presets/trash';
+
+console.log(useAuth);
 
 const Detail = ({
   name,

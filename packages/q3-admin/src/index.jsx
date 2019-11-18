@@ -8,7 +8,7 @@ import {
   PasswordReset,
   Reverify,
   Verify,
-} from 'q3-ui-commons/views';
+} from 'q3-ui-commons/lib/views';
 import SnackbarProvider from 'q3-ui-forms';
 import Authentication, {
   destroySession,

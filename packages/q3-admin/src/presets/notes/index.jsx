@@ -1,16 +1,16 @@
 import React from 'react';
-import Thread from 'q3-ui/thread';
-import Input from 'q3-ui/inputs';
+import Thread from 'q3-ui/lib/thread';
+import Input from 'q3-ui/lib/inputs';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
-import CallToAction from 'q3-ui/callToAction';
-import ServerError from 'q3-ui/error';
+import CallToAction from 'q3-ui/lib/callToAction';
+import ServerError from 'q3-ui/lib/error';
 import { useTranslation } from 'react-i18next';
-import { Capture } from 'q3-ui/dialogs';
+import { Capture } from 'q3-ui/lib/dialogs';
 import Create from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { TimelineSkeleton } from 'q3-ui/timeline';
+import { TimelineSkeleton } from 'q3-ui/lib/timeline';
 import noNotesImg from '../../images/no-notes.png';
 
 export default ({ path }) => {

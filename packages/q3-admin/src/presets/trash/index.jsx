@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Delete as DeleteConfirmation } from 'q3-ui/dialogs';
+import { Delete as DeleteConfirmation } from 'q3-ui/lib/dialogs';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
-import { SplitPanel } from 'q3-ui/panel';
+import { SplitPanel } from 'q3-ui/lib/panel';
 import graphic from '../../images/remove.png';
 
 const Trash = (props) => {
@@ -24,20 +24,21 @@ const Trash = (props) => {
             <Typography variant="body1" gutterBottom>
               {t('descriptions:delete')}
             </Typography>
- 
-                <Button
-                  onClick={() => setOpen(true)}
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                >
-                  {t('labels:delete')}
-                </Button>
-          
-        <DeleteConfirmation
-        isOpen={open}
-        close={() => setOpen(false)}
-              {...props} />
+
+            <Button
+              onClick={() => setOpen(true)}
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              {t('labels:delete')}
+            </Button>
+
+            <DeleteConfirmation
+              isOpen={open}
+              close={() => setOpen(false)}
+              {...props}
+            />
           </Box>
         }
         columnRight={

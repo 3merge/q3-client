@@ -44,6 +44,7 @@ describe('reducer', () => {
     expect(
       reducer(prev, {
         key: 'resource',
+        pluralized: 'resources',
         type: UPDATED,
         data,
       }),
@@ -77,6 +78,7 @@ describe('reducer', () => {
     expect(
       reducer(prev, {
         key: 'resource',
+        pluralized: 'resources',
         type: UPDATED,
         data,
       }),
@@ -104,6 +106,7 @@ describe('reducer', () => {
     expect(
       reducer(prev, {
         key: 'resource',
+        pluralized: 'resources',
         type: CREATED,
         data,
       }),
@@ -127,6 +130,7 @@ describe('reducer', () => {
     expect(
       reducer(prev, {
         key: 'resource',
+        pluralized: 'resources',
         type: DELETED,
         data,
       }),

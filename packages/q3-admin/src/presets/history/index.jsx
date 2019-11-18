@@ -1,10 +1,10 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
-import CallToAction from 'q3-ui/callToAction';
+import CallToAction from 'q3-ui/lib/callToAction';
 import Paper from '@material-ui/core/Paper';
-import Timeline, { TimelineSkeleton } from 'q3-ui/timeline';
-import ServerError from 'q3-ui/error';
+import Timeline, { TimelineSkeleton } from 'q3-ui/lib/timeline';
+import ServerError from 'q3-ui/lib/error';
 import noNotesImg from '../../images/no-notes.png';
 
 export default ({ id }) => {

@@ -6,12 +6,12 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { useTranslation } from 'react-i18next';
 import useRest, { getCSV } from 'q3-ui-rest';
-import Table from 'q3-ui/table';
-import Header from 'q3-ui/header';
-import SearchBar from 'q3-ui/searchBar';
-import { Create as CreateDialog } from 'q3-ui/dialogs';
+import Table from 'q3-ui/lib/table';
+import Header from 'q3-ui/lib/header';
+import SearchBar from 'q3-ui/lib/searchBar';
+import { Create as CreateDialog } from 'q3-ui/lib/dialogs';
 import { useAuth } from 'q3-ui-permissions';
- 
+
 const List = ({
   addComponent: AddComponent,
   resourceName,
@@ -63,7 +63,9 @@ const List = ({
             columns={columns}
             mark={state.patch}
             deleteMany={canDelete ? state.removeBulk : null}
-            downloadMany={(ids) => getCSV(`/${name}?_id=${ids.join(',')}`)}
+            downloadMany={(ids) =>
+              getCSV(`/${name}?_id=${ids.join(',')}`)
+            }
           />
         </Box>
       </Container>

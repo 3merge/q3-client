@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import Picture from 'q3-ui/picture';
+import Picture from 'q3-ui/lib/picture';
 
 const PictureUpload = ({ path, photo }) => (
   <Picture

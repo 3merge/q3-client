@@ -1,5 +1,5 @@
 {
-  "name": "Q3-Client",
+  "name": "q3-client",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
@@ -9,11 +9,12 @@
   },
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "build": "set NODE_ENV=production&& lerna exec --no-bail --parallel -- babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files",
+    "build": "lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
     "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
+    "test": "jest --runInBand --collectCoverage --json --outputFile=.storybook/jestResults.json",
     "storybook": "set NODE_ENV=development&& start-storybook",
-    "test": "jest --runInBand --json --outputFile=.storybook/jestResults.json",
-    "deploy": "yarn build && lerna publish && storybook-to-ghpages"
+    "upload": "set NODE_ENV=publish&& yarn build && lerna publish",
+    "docs": "storybook-to-ghpages"
   },
   "workspaces": [
     "packages/*",
@@ -65,6 +66,7 @@
     "@svgr/webpack": "^4.3.3",
     "axios": "^0.19.0",
     "babel-loader": "^8.0.0-beta.1",
+    "formik": "^2.0.4",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-i18next": "^10.13.1",

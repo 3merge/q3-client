@@ -1,23 +1,37 @@
-const withAlias = (folder, path = '') => ({
+const withPackageOpts = (s) => `./packages/${s}/src`;
+const withBundledDir = (s) => `${s}/lib`;
+
+const alias = [
+  'q3-admin',
+  'q3-axios-mock',
+  'q3-ui',
+  'q3-ui-commons',
+  'q3-ui-forms',
+  'q3-ui-permissions',
+  'q3-ui-rest',
+].reduce(
+  (acc, curr) =>
+    Object.assign(acc, {
+      [withBundledDir(curr)]: withPackageOpts(curr),
+      [curr]: withPackageOpts(curr), // default exports
+    }),
+  {},
+);
+
+const withAlias = {
   plugins: [
     [
-      'babel-plugin-module-resolver',
+      'module-resolver',
       {
-        root: ['./'],
-        alias: {
-          'q3-admin': `${path}q3-admin/${folder}`,
-          'q3-ui': `${path}q3-ui/${folder}`,
-          'q3-ui-commons': `${path}q3-ui-commons/${folder}`,
-          'q3-ui-forms': `${path}q3-ui-forms/${folder}`,
-          'q3-ui-permissions': `${path}q3-ui-permissions/${folder}`,
-          'q3-ui-rest': `${path}q3-ui-rest/${folder}`,
-        },
+        extensions: ['.js', '.jsx', '.json'],
+        root: ['.'],
+        alias,
       },
     ],
   ],
-});
+};
 
-module.exports = {
+const config = {
   plugins: ['@babel/plugin-proposal-export-namespace-from'],
   presets: [
     [
@@ -31,8 +45,10 @@ module.exports = {
     '@babel/preset-react',
   ],
   env: {
-    test: withAlias('src', './packages/'),
-    development: withAlias('src', './packages/'),
-    production: withAlias('lib'),
+    test: withAlias,
+    development: withAlias,
+    production: withAlias,
   },
 };
+
+module.exports = config;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from 'q3-ui/form';
+import Form from 'q3-ui/lib/form';
 import * as yup from 'yup';
 import { useAuth } from 'q3-ui-permissions';
 

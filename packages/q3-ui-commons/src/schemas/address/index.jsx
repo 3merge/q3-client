@@ -1,5 +1,8 @@
 import * as yup from 'yup';
-import Input, { Check, DesktopSelect } from 'q3-ui/inputs';
+import Input, {
+  Check,
+  DesktopSelect,
+} from 'q3-ui/lib/inputs';
 
 export const initialData = [
   {

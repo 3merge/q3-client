@@ -24,7 +24,7 @@
     "**/.DS_Store": true,
     "**/.jest-cache": true,
     "**/.jest-coverage": true,
-    //  "**/node_modules/": true,
-    "**/packages/*/lib": true
+    "**/node_modules/": true,
+    "**/lib/": true,
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
-import Input from 'q3-ui/inputs';
+import Input from 'q3-ui/lib/inputs';
 import { useFormHandler } from 'q3-ui-forms';
 import { FormWithAlert, emailValidation } from '../shared';
 
