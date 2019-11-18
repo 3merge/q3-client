@@ -1,5 +1,5 @@
 {
-  "name": "admin",
+  "name": "q3-admin-example",
   "version": "0.0.27",
   "private": true,
   "dependencies": {
