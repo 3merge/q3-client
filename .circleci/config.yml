@@ -51,9 +51,6 @@ workflows:
   build_test_publish:
     jobs:
       - build
-      - test:
-          requires:
-              - build
       - publish:
           filters:
             branches:
