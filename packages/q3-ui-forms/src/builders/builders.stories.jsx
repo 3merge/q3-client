@@ -1,37 +1,35 @@
 import React from 'react';
-import { createHistory } from '@reach/router';
 import { storiesOf } from '@storybook/react';
-import LocationFormBuilder from './location';
+import Inputs, { CheckSet } from 'q3-ui/lib/inputs';
+import { QueryLayer, DataLayer } from './location';
 
-storiesOf('Form Builders', module).add(
-  'LocationFormBuilder',
-  () => (
-    <LocationFormBuilder
-      nodes={['Data item post-filter']}
-      searchForm={({ values, setFieldValue }) => (
-        <input
-          name="search"
-          type="search"
-          value={values.search}
-          onChange={({ target: { value } }) =>
-            setFieldValue('search', value)
-          }
-        />
-      )}
-      initialValues={{
-        search: '',
-      }}
-      render={(SearchForm, data) => (
-        <div>
-          {SearchForm}
-          <p>{JSON.stringify(createHistory(window))}</p>
-          <ul>
-            {data.map((i) => (
-              <li key={i}>{i}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    />
-  ),
-);
+storiesOf('Form Builders', module).add('Location', () => {
+  const init = {
+    search: '',
+    categories: [],
+  };
+
+  return (
+    <>
+      <QueryLayer initialValues={init}>
+        {(data) => (
+          <div>
+            <p>{JSON.stringify(data)}</p>
+          </div>
+        )}
+      </QueryLayer>
+      <DataLayer initialValues={init}>
+        {() => (
+          <>
+            <Inputs name="search" type="search" />
+            <CheckSet name="categories" options={[
+              { label: 'One', value: 1 },
+              { label: 'Two', value: 2 },
+              { label: 'Three', value: 3 },
+              ]} />
+          </>
+        )}
+      </DataLayer>
+    </>
+  );
+});

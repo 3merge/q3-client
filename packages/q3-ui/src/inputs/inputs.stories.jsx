@@ -3,7 +3,13 @@ import { storiesOf } from '@storybook/react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Docs from './README.md';
-import Field, { DesktopSelect, DateSelect, Check } from '.';
+import Field, {
+  DesktopSelect,
+  DateSelect,
+  Check,
+  RadioSet,
+  CheckSet,
+} from '.';
 import { countries } from '../_helpers/fakeData';
 import { mockRequest } from '../_helpers/testUtils';
 import Auto from '../autocomplete';
@@ -23,6 +29,7 @@ const mockAPIErrorResponse = (fn) => () =>
     name: 'Not a recognized name',
     subscribe: 'Not allowed!',
     favouriteFood: [undefined, 'Oops!'],
+    foods: 'Unknown',
   });
 
 storiesOf('Components|Inputs', module)
@@ -42,8 +49,9 @@ storiesOf('Components|Inputs', module)
           friends: [{ value: 'joe', label: 'Joe' }, 'jane'],
         }}
       >
-        {({ setErrors }) => (
+        {({ setErrors, values }) => (
           <>
+            <code>{JSON.stringify(values)}</code>
             <Auto
               inputProps={{
                 name: 'countries',
@@ -94,6 +102,22 @@ storiesOf('Components|Inputs', module)
                   }, 2500);
                 })
               }
+            />
+            <RadioSet
+              disabled
+              name="foods"
+              options={[
+                { label: 'French', value: 'French' },
+                { label: 'Greek', value: 'Greek' },
+              ]}
+            />
+            <CheckSet
+              name="colours"
+              options={[
+                { label: 'Green', value: 'Green' },
+                { label: 'Red', value: 'Red' },
+                { label: 'Yellow', value: 'Yellow' },
+              ]}
             />
             <Check name="subscribe" />
             <Button
