@@ -1,4 +1,18 @@
 {
   "name": "q3-ui-rest",
-  "version": "1.0.0"
+  "version": "0.0.26",
+  "main": "lib/index.js",
+  "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a",
+  "devDependencies": {
+    "jest-mock-axios": "^3.1.1",
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "axios": "^0.19.0",
+    "q3-ui-forms": "^1.0.0",
+    "react": "^16.10.2"
+  },
+  "dependencies": {
+    "js-file-download": "^0.4.8"
+  }
 }

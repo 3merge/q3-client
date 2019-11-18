@@ -1,8 +1,1 @@
-import * as Components from './components';
-import * as Layouts from './layouts';
-import * as Views from './views';
-import i18 from './helpers/i18next';
-import theme from './theme';
-
-export { default } from './helpers/providers';
-export { i18, Components, Layouts, Views, theme };
+export { default } from './_helpers/providers';

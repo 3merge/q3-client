@@ -1,1 +1,0 @@
-The search bar integrates MD's TextField with React Router Dom's location API. It pushes all submissions to the search param. It does not accept any props as it assumes search handling will happen in an external component.

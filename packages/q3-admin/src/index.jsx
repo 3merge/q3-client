@@ -1,71 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect, Router } from '@reach/router';
+import Providers from 'q3-ui';
+import init from 'q3-ui-commons';
 import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
-import {
-  I18nextProvider,
-  useTranslation,
-} from 'react-i18next';
-import Providers, { Views, Layouts, i18 } from 'q3-ui';
+  Login,
+  PasswordReset,
+  Reverify,
+  Verify,
+} from 'q3-ui-commons/lib/views';
+import SnackbarProvider from 'q3-ui-forms';
 import Authentication, {
-  authenticate,
+  destroySession,
 } from 'q3-ui-permissions';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as Templates from './templates';
 
-const { Login, PasswordReset, Reverify, Verify } = Views;
-const { External } = Layouts;
+const { Public } = Templates;
 
-const ApplicationGate = ({ name, logoImgSrc }) => {
-  const { t } = useTranslation();
-  const links = [
-    {
-      to: '/login',
-      label: t('labels:login'),
-      render: () => <Login onSubmit={authenticate} />,
-    },
-    {
-      to: '/reset-password',
-      label: t('labels:passwordReset'),
-      render: () => <PasswordReset onSubmit={() => null} />,
-    },
-    {
-      to: '/verify',
-      label: t('labels:verify'),
-      render: () => <Verify onSubmit={() => null} />,
-    },
-    {
-      to: '/reverify',
-      label: t('labels:reverify'),
-      render: () => <Reverify onSubmit={() => null} />,
-    },
-  ];
+export const ApplicationGate = ({
+  name,
+  logoImgSrc,
+  appIndex,
+  appNav,
+  postAuthVerification,
+  popoutMenuItems,
+}) => {
+  React.useEffect(init, []);
 
   return (
     <Authentication
       loading={CircularProgress}
-      renderPrivate={() => null}
+      renderPrivate={(args) => {
+        if (postAuthVerification) {
+          postAuthVerification(args);
+        }
+
+        const { firstName, photo } = args;
+        return (
+          <Templates.Main
+            name={name}
+            renderAside={appNav}
+            render={appIndex}
+            ProfileBarProps={{
+              offcanvas: appNav,
+              companyName: name,
+              name: firstName,
+              imgSrc: photo,
+              menuItems: [
+                ...popoutMenuItems,
+                {
+                  onClick: destroySession,
+                  label: 'Logout',
+                },
+              ],
+            }}
+          />
+        );
+      }}
       renderPublic={() => (
-        <External
-          companyName={name}
-          links={links}
-          logo={logoImgSrc}
-        >
-          <Switch>
-            {links.map((link) => (
-              <Route
-                exact
-                key={link.to}
-                path={link.to}
-                component={link.render}
-              />
-            ))}
-            <Redirect exact to="login" />
-          </Switch>
-        </External>
+        <Public companyName={name} logo={logoImgSrc}>
+          <Router>
+            <Login path="/login" />
+            <PasswordReset path="/reset-password" />
+            <Verify path="/verify" />
+            <Reverify path="/reverify" />
+            <Redirect noThrow from="/*" to="login" />
+          </Router>
+        </Public>
       )}
     />
   );
@@ -74,23 +76,20 @@ const ApplicationGate = ({ name, logoImgSrc }) => {
 ApplicationGate.propTypes = {
   name: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string.isRequired,
+  popoutMenuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      onClick: PropTypes.func,
+      label: PropTypes.string,
+    }),
+  ),
 };
 
-const Wrapper = ({ themeOptions, ...rest }) => (
-  <BrowserRouter>
-    <Providers settings={themeOptions}>
-      <I18nextProvider i18n={i18}>
-        <ApplicationGate {...rest} />
-      </I18nextProvider>
-    </Providers>
-  </BrowserRouter>
+ApplicationGate.defaultProps = {
+  popoutMenuItems: [],
+};
+
+export default ({ children }) => (
+  <Providers>
+    <SnackbarProvider>{children}</SnackbarProvider>
+  </Providers>
 );
-
-Wrapper.propTypes = {
-  themeOptions: PropTypes.shape({
-    primary: PropTypes.string,
-    secondary: PropTypes.string,
-  }).isRequired,
-};
-
-export default Wrapper;

@@ -8,6 +8,7 @@ yarn-error.log*
 # Build directories
 build/
 dist/
+lib/
 
 # Coverage directory used by tools like istanbul
 coverage
@@ -19,6 +20,7 @@ node_modules/
 
 # Optional eslint cache
 .eslintcache
+.cache/
 
 # Yarn Integrity file
 .yarn-integrity

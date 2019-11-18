@@ -4,11 +4,12 @@ module.exports = {
   coverageDirectory: '.jest-coverage',
   coverageReporters: ['json-summary', 'text', 'lcov'],
   testPathIgnorePatterns: [
-    '<rootDir>/packages/(?:.+?)/dist/',
+    '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
+    '<rootDir>/examples/',
   ],
   coveragePathIgnorePatterns: [
-    '<rootDir>/packages/(?:.+?)/dist/',
+    '<rootDir>/packages/(?:.+?)/lib/',
   ],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
@@ -16,6 +17,9 @@ module.exports = {
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|git f|webp|svg)$':
       '<rootDir>/packages/q3-ui/__mocks__/fileMock.js',
+    '\\.(css|less)$': 'identity-obj-proxy',
   },
-  'setupFilesAfterEnv': ['<rootDir>/jest.setup.js'],
+  'setupFilesAfterEnv': [
+    '<rootDir>/packages/q3-ui-test-utils',
+  ],
 };

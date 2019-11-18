@@ -1,149 +1,59 @@
 import React from 'react';
-import { Components } from 'q3-ui';
-import { SplitPanel } from 'q3-ui/dist/components';
+import i18 from 'q3-ui/lib/i18n';
+import { FullWidthBanner } from 'q3-ui/lib/banner';
+import { TwoColumnPanel } from 'q3-ui/lib/panel';
+import Form from 'q3-ui/lib/form';
+import Input from 'q3-ui/lib/inputs';
+import Section from 'q3-ui/lib/section';
 import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
 
-const IndexPage = () => (
-  <div>
-    <Components.Banner
-      title="Material Design Theme"
-      subtitle="A custom Q3 theme for Gatsby JS"
-      backgroundStyle={{
-        color: '#FFF',
-        backgroundColor: '#252525',
-        backgroundBlendMode: 'multiply',
-        paddingTop: '10vh',
-        paddingBottom: '10vh',
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1541960071727-c531398e7494?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80)',
-      }}
-    />
-    <Components.Section
-      title="This is a section"
-      subtitle="Easy containers to create common layouts. Semantic by default!"
-    >
-      <Components.TwoColumnPanel
-        label="Microservices"
-        title="Q3 Components"
-        body={
-          <>
-            <p>
-              We wanted to standardize how our clients
-              interact with Q3 API services, namely our rest
-              packages.
-            </p>
-            <p>
-              We wanted to standardize how our clients
-              interact with Q3 API services, namely our rest
-              packages.
-            </p>
-          </>
-        }
+const IndexPage = () => {
+  const { t } = useTranslation();
+
+  i18.addResources('en', 'foo', {
+    bar: 'heyyy',
+  });
+
+  return (
+    <div>
+      <FullWidthBanner
+        title="Material Design Theme"
+        subtitle="A custom Q3 theme for Gatsby JS"
       />
-    </Components.Section>
-    <SplitPanel
-      size="lg"
-      columnLeft={
-        <>
-          <Typography variant="h2" gutterBottom>
-            We wanted to standardize how our clients
-          </Typography>
-          <Typography variant="body2" component="div">
-            <p>
-              We wanted to standardize how our clients
-              interact with Q3 API services, namely our rest
-              packages. We wanted to standardize how our
-              clients interact with Q3 API services, namely
-              our rest packages. We wanted to standardize
-              how our clients interact with Q3 API services,
-              namely our rest packages.
-            </p>
-            <p>
-              We wanted to standardize how our clients
-              interact with Q3 API services, namely our rest
-              packages.
-            </p>
-          </Typography>
-        </>
-      }
-      columnRight={
-        <img
-          src="https://images.unsplash.com/photo-1569255726446-50c4f6b6fe74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
-          alt="demo"
-        />
-      }
-    />
-    <SplitPanel
-      invert
-      size="lg"
-      columnLeft={
-        <>
-          <Typography variant="h2" gutterBottom>
-            We wanted to standardize how our clients
-          </Typography>
-          <Typography variant="body2">
-            We wanted to standardize how our clients
-            interact with Q3 API services, namely our rest
-            packages.
-          </Typography>
-        </>
-      }
-      columnRight={
-        <img
-          src="https://images.unsplash.com/photo-1569255726446-50c4f6b6fe74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
-          alt="demo"
-        />
-      }
-    />
-    <Components.Wrapper backgroundColor="#FFF">
-      <Components.Section
-        title="This is a section"
+
+      {t('foo:bar')}
+
+      <Section
+        title="Hey"
         subtitle="Easy containers to create common layouts. Semantic by default!"
       >
-        <SplitPanel
-          columnLeft={
-            <>
-              <Typography variant="h2" gutterBottom>
-                We wanted to standardize how our clients
-              </Typography>
-              <Typography variant="body2">
-                We wanted to standardize how our clients
-                interact with Q3 API services, namely our
-                rest packages.
-              </Typography>
-            </>
-          }
-          columnRight={
-            <img
-              src="https://images.unsplash.com/photo-1569255726446-50c4f6b6fe74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
-              alt="demo"
-            />
-          }
-        />
-        <SplitPanel
-          invert
-          columnLeft={
-            <>
-              <Typography variant="h2" gutterBottom>
-                We wanted to standardize how our clients
-              </Typography>
-              <Typography variant="body2">
+        <TwoColumnPanel
+          label="Microservices"
+          title="Q3 Components"
+          body={
+            <Typography variant="subtitle1" component="div">
+              <p>
                 We wanted to standardize how our clients
                 interact with Q3 API services, namely our
                 rest packages.
-              </Typography>
-            </>
-          }
-          columnRight={
-            <img
-              src="https://images.unsplash.com/photo-1569255726446-50c4f6b6fe74?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
-              alt="demo"
-            />
+              </p>
+              <p>
+                We wanted to standardize how our clients
+                interact with Q3 API services, namely our
+                rest packages.
+              </p>
+            </Typography>
           }
         />
-      </Components.Section>
-    </Components.Wrapper>
-  </div>
-);
+        <Form>
+          {() => (
+            <Input name="email" required type="email" />
+          )}
+        </Form>
+      </Section>
+    </div>
+  );
+};
 
 export default IndexPage;

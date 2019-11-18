@@ -1,15 +1,25 @@
-import './lib/axios';
+import './config/axios';
 import React from 'react';
 import PropTypes from 'prop-types';
-import reducer, { getSession, authenticate, destroySession } from './utils/reducer';
-import composePermissionHook, { isVisible } from './utils/withPermission';
+import composePermissionHook, {
+  asProtectedRoute,
+} from './utils/permissions';
+import reducer, { getSession } from './utils/reducer';
 
-export { authenticate, destroySession, isVisible };
+export * from './utils/reducer';
 export const AuthContext = React.createContext();
-export const usePermission = composePermissionHook(AuthContext);
-export const usePermissionChecker = isVisible(AuthContext);
+export const useAuth = composePermissionHook(AuthContext);
+export const Protected = asProtectedRoute(AuthContext);
 
-export const Provider = ({ renderPublic, renderPrivate, loading: Loading }) => {
+const invoke = (fn, args) =>
+  typeof fn === 'function' ? fn(args) : null;
+
+export const Provider = ({
+  renderPublic,
+  renderPrivate,
+  loading: Loading,
+  children,
+}) => {
   const [state, dispatch] = React.useReducer(reducer, {
     profile: {},
     permissions: [],
@@ -21,7 +31,10 @@ export const Provider = ({ renderPublic, renderPrivate, loading: Loading }) => {
 
   return state.init ? (
     <AuthContext.Provider value={{ state, dispatch }}>
-      {state.profile ? renderPrivate() : renderPublic()}
+      {state.profile
+        ? invoke(renderPrivate, state.profile)
+        : invoke(renderPublic)}
+      {children}
     </AuthContext.Provider>
   ) : (
     <div
@@ -32,7 +45,7 @@ export const Provider = ({ renderPublic, renderPrivate, loading: Loading }) => {
         transform: 'translate(-50%,-50%)',
       }}
     >
-      <Loading />
+      {Loading ? <Loading /> : 'Please wait...'}
     </div>
   );
 };
@@ -40,6 +53,12 @@ export const Provider = ({ renderPublic, renderPrivate, loading: Loading }) => {
 Provider.propTypes = {
   renderPublic: PropTypes.func.isRequired,
   renderPrivate: PropTypes.func.isRequired,
+  loading: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+Provider.defaultProps = {
+  children: null,
 };
 
 export default Provider;

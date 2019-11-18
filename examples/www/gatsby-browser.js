@@ -1,15 +1,17 @@
 import React from 'react';
-import { Components as ThemeComponents } from 'gatsby-theme-q3';
-import { Components } from 'q3-ui';
+import Cart from 'q3-ui/lib/cart';
+import Header from 'q3-ui/lib/header';
+import Footer from 'q3-ui/lib/footer';
+import Divider from 'q3-ui/lib/divider';
 
 const menuItems = [
   {
-    href: '/about',
+    to: '/about',
     label: 'About',
     visible: true,
   },
   {
-    href: '/about',
+    to: '/',
     label: 'Repository',
     visible: true,
   },
@@ -17,19 +19,14 @@ const menuItems = [
 
 export const wrapPageElement = ({ element }) => (
   <>
-    <Components.Header
+    <Header
       menuItems={menuItems}
       logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo4.png"
-      renderRight={() => <ThemeComponents.LoginActions />}
+      name="Placeholder"
+      renderRight={() => <Cart />}
     />
     {element}
-    <Components.Divider
-      fill="#303f9f"
-      variant="mountains"
-      invert
-    />
-    <Components.Footer
-      socialLinks={['https://github.com/3merge']}
-    />
+    <Divider fill="#303f9f" variant="mountains" invert />
+    <Footer socialLinks={['https://github.com/3merge']} />
   </>
 );

@@ -15,5 +15,16 @@
       "language": "typescriptreact",
       "autoFix": true
     }
-  ]
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/.jest-cache": true,
+    "**/.jest-coverage": true,
+    "**/node_modules/": true,
+    "**/lib/": true,
+  }
 }
