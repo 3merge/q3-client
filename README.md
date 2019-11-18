@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="3merge" src="https://github.com/3merge/q3-client/blob/master/logo.png" width="175" />
+    <img alt="3merge" src="https://github.com/3merge/q3-client/blob/master/logo.png" width="22" />
 </p>
 <h1 align="center">
   Q3 Client
@@ -15,4 +15,5 @@
     <img src="https://img.shields.io/twitter/follow/3mergeinc.svg?label=3merge" alt="@3mergeinc" />
   </a>
 </p>
-<p>COMING SOON!</p>
+<h2>COMING SOON!</h2>
+<p>Will be released Jan 2020</p>
