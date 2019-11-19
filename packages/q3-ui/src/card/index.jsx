@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Link } from '@reach/router'
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
@@ -16,7 +18,7 @@ import { getLinkAttributes } from '../utils';
 const useStyles = makeStyles((theme) => ({
   iconCls: {
     display: 'block',
-    margin: `0 auto ${theme.spacing(1)}`,
+    margin: '0 auto',
     maxWidth: '100%',
     height: 210,
     '& img': {
@@ -70,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     width: 70,
   },
   iconBody: {
-    padding: `${theme.spacing(4)} ${theme.spacing(2)} 0`,
+    padding: `${theme.spacing(3)} ${theme.spacing(2)} 0`,
   },
   iconText: {
     color: blueGrey[200],
@@ -89,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   ribbon: {
     backgroundColor: theme.palette.primary.main,
     color: '#FFF',
-    fontSize: '0.85rem',
+    fontSize: '0.75rem',
     padding: '0.25rem 1rem',
     borderTopLeftRadius: 3,
     borderBottomLeftRadius: 3,
@@ -140,7 +142,7 @@ CardWrapper.propTypes = {
 };
 
 const CardHeader = ({ title, name, description }) => (
-  <>
+  <Box my={1}>
     {name && (
       <Typography
         variant="overline"
@@ -154,7 +156,7 @@ const CardHeader = ({ title, name, description }) => (
       {title}
     </Typography>
     <Typography gutterBottom>{description}</Typography>
-  </>
+  </Box>
 );
 
 CardHeader.propTypes = {
@@ -180,7 +182,7 @@ export const ResourceCard = ({
     <Card>
       <Grid container spacing={1} alignItems="center">
         <Grid item lg={4} md={5} sm={6} xs={12}>
-          <Box p={1}>
+          <Box p={2}>
             <LazyLoadImage src={imgSrc} alt={title} />
           </Box>
         </Grid>
@@ -191,6 +193,9 @@ export const ResourceCard = ({
               tabIndex="-1"
               size="small"
               color="primary"
+              variant="contained"
+              component={Link}
+              to={to}
             >
               {buttonText}
             </Button>
@@ -199,6 +204,7 @@ export const ResourceCard = ({
                 tabIndex="-1"
                 size="small"
                 to={secondaryTo}
+                component={Link}
               >
                 {secondaryButtonText}
               </Button>
@@ -214,6 +220,10 @@ ResourceCard.propTypes = {
   imgSrc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
+};
+
+ResourceCard.defaultProps = {
+  to: '/',
 };
 
 export const ProjectCard = ({
@@ -276,6 +286,7 @@ export const NewsCard = ({
   to,
   label,
   md,
+  date,
   ...rest
 }) => {
   const { iconCls, ribbon } = useStyles();
@@ -284,12 +295,17 @@ export const NewsCard = ({
       {imgSrc && (
         <div className={iconCls}>
           <LazyLoadImage src={imgSrc} alt={title} />
-          {label && <span className={ribbon}>{label}</span>}
         </div>
       )}
       <CardContent>
+        {label && <span className={ribbon}>{label}</span>}
         <Box px={1}>
           <CardHeader title={title} {...rest} />
+          {date && (
+            <Typography align="right" variant="subtitle2">
+              {moment(date).format('ddd, MMMM, YYYY')}
+            </Typography>
+          )}
         </Box>
       </CardContent>
     </CardWrapper>
@@ -300,8 +316,10 @@ NewsCard.propTypes = {
   ...ResourceCard.propTypes,
   label: PropTypes.string.isRequired,
   md: PropTypes.number,
+  date: PropTypes.date,
 };
 
 NewsCard.defaultProps = {
   md: 4,
+  date: null,
 };

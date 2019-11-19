@@ -61,5 +61,7 @@
   "postal": "Postal",
   "edit": "View/edit",
   "branch": "Company branch",
-  "primary": "Primary address?"
+  "primary": "Primary address?",
+  "quantity": "Quantity",
+  "addToCart": "Add to cart"
 }

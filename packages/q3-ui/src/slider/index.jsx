@@ -30,6 +30,11 @@ const useStyle = makeStyles(() => ({
   root: {
     position: 'relative',
   },
+  whiteSpace: {
+                whiteSpace: 'nowrap',
+            display: 'block',
+            overflow: 'hidden',
+  }
 }));
 
 export const PaginationButtons = ({
@@ -139,7 +144,7 @@ const Slider = ({
   slidesPerView,
 }) => {
   const [swiper, updateSwiper] = React.useState(null);
-  const { root } = useStyle();
+  const { root,whiteSpace } = useStyle();
   const [currentIndex, updateCurrentIndex] = React.useState(
     0,
   );
@@ -189,9 +194,18 @@ const Slider = ({
   return (
     <Container maxWidth="xl" className={root}>
       <Box>
-        <Swiper {...params} getSwiper={updateSwiper}>
-          {slides.map(({ id, Component, style }) => (
-            <div key={id} style={style}>
+        <Swiper
+          {...params}
+          getSwiper={updateSwiper}
+          containerClass={whiteSpace}
+        >
+          {slides.map(({ id, Component, style = {} }) => (
+            <div
+              key={id}
+              style={Object.assign(style, {
+                display: 'inline-block',
+              })}
+            >
               <Component />
             </div>
           ))}

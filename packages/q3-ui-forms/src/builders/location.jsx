@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Location } from '@reach/router';
-import { Formik } from 'formik';
+import { Location, navigate } from '@reach/router';
+import { Formik, Form } from 'formik';
+import Button from '@material-ui/core/Button';
 
-export const transformSearchParams = (s, init = {}) => {
+export const readFromState = (s, init = {}) => {
   const params = new URLSearchParams(s);
   return Object.entries(init).reduce(
     (acc, [key, value]) =>
@@ -16,94 +17,68 @@ export const transformSearchParams = (s, init = {}) => {
   );
 };
 
-export const pushSearchParamsToHistory = (values) => {
+export const pushToState = (values) => {
   const query = new URLSearchParams();
   Object.entries(values).forEach(([key, v]) => {
     if (!v || (Array.isArray(v) && !v.length)) {
       query.delete(key);
+    } else if (Array.isArray(v)) {
+      query.set(`${key}[]`, v);
     } else {
       query.set(key, v);
     }
   });
 
-  const s = `?${query.toString()}`;
-  window.history.pushState('', '', s);
+  navigate(`?${query.toString()}`);
 };
 
-const isNode = PropTypes.oneOfType([
-  PropTypes.arrayOf(PropTypes.node),
-  PropTypes.node,
-  PropTypes.func,
-]);
+const props = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+    PropTypes.func,
+  ]).isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
+};
 
-const DataLayer = ({ children, initialValues }) => (
+export const DataLayer = ({ children, initialValues }) => (
   <Location>
     {(l) => (
       <Formik
         reinitialize
-        initialValues={transformSearchParams(
+        onSubmit={pushToState}
+        initialValues={readFromState(
           l.location.search,
           initialValues,
         )}
       >
-        {children}
+        {(utils) => (
+          <Form>
+            {children(utils)}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
+              Search
+            </Button>
+          </Form>
+        )}
       </Formik>
     )}
   </Location>
 );
 
-DataLayer.propTypes = {
-  children: isNode.isRequired,
-  initialValues: PropTypes.shape({}).isRequired,
-};
+DataLayer.propTypes = props;
 
-const QueryLayer = ({ children, data }) => {
-  const [store, setStore] = React.useState(data);
-  const updateCache = React.useCallback(
-    (v) => {
-      if (v.length !== store.length) setStore(v);
-    },
-    [store],
-  );
-
-  return children({
-    data,
-    updateCache,
-    store,
-  });
-};
-
-QueryLayer.propTypes = {
-  children: isNode.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-const LocationAsStateForm = ({
-  render,
-  nodes,
-  initialValues,
-  searchForm: SearchForm,
-}) => (
-  <DataLayer initialValues={initialValues}>
-    {(utils) => (
-      <QueryLayer data={nodes}>
-        {(data) => {
-          pushSearchParamsToHistory(utils.values);
-          return render(
-            <SearchForm {...data} {...utils} />,
-            data.store,
-          );
-        }}
-      </QueryLayer>
-    )}
-  </DataLayer>
+export const QueryLayer = ({ children, initialValues }) => (
+  <Location>
+    {(l) =>
+      children(
+        readFromState(l.location.search, initialValues),
+      )
+    }
+  </Location>
 );
 
-LocationAsStateForm.propTypes = {
-  render: PropTypes.func.isRequired,
-  searchForm: isNode.isRequired,
-  nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  initialValues: PropTypes.shape({}).isRequired,
-};
-
-export default LocationAsStateForm;
+QueryLayer.propTypes = props;

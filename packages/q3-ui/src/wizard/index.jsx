@@ -16,6 +16,68 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+export const useSteps = () => {
+  const [step, setStep] = React.useState(0);
+  const back = () => setStep(step - 1);
+  const next = () => setStep(step + 1);
+  const reset = () => setStep(0);
+
+  return {
+    step,
+    reset,
+    back,
+    next,
+  };
+};
+
+export const MultiStepFormik = ({
+  done,
+  onSubmit,
+  getValidation,
+  children,
+  steps,
+  ...rest
+}) => {
+  const { step, back, next, reset } = useSteps();
+  const isFirst = step === 0;
+  const isLast = step === steps.length - 1;
+
+  return (
+    <Formik
+      {...rest}
+      enableReinitialize
+      validateOnBlur={false}
+      validateOnChange={false}
+      validationSchema={() => getValidation(step)}
+      onSubmit={(values, actions) => {
+        onSubmit(values, actions);
+        if (done) done();
+      }}
+    >
+      {({ validateForm, submitForm, ...etc }) => (
+        <Form>
+          {children({
+            ...etc,
+            isFirst,
+            isLast,
+            activeStep: step,
+            back() {
+              return isFirst ? reset() : back();
+            },
+            next() {
+              return isLast
+                ? submitForm
+                : validateForm().then((errors) => {
+                    if (!Object.keys(errors).length) next();
+                  });
+            },
+          })}
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
 const WizardHeader = ({ title, name }) => {
   const { t } = useTranslation();
   return name ? (
@@ -39,9 +101,7 @@ WizardHeader.propTypes = {
 };
 
 const Wizard = ({
-  getValidation,
   getContent,
-  onSubmit,
   icon: Icon,
   steps,
   title,
@@ -50,50 +110,29 @@ const Wizard = ({
   ...rest
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
-  const [step, setStep] = React.useState(0);
   const { t } = useTranslation();
 
-  const clearForm = () => {
-    close();
-    setStep(0);
-  };
-
-  const closeOnSuccess = (values, actions) =>
-    onSubmit(values, actions).then((err) => {
-      if (!err) clearForm();
-      return err;
-    });
-
-  const back = () => setStep(step - 1);
-  const next = () => setStep(step + 1);
-
-  const renderBackButton = () =>
-    step === 0 ? (
-      <Button onClick={clearForm}>
+  const renderBackButton = (fn, isFirst) =>
+    isFirst ? (
+      <Button onClick={fn}>
         <TransitEnterexit />
         {t('labels:nevermind')}
       </Button>
     ) : (
-      <Button onClick={back}>
+      <Button onClick={fn}>
         <KeyboardArrowLeft />
         {t('labels:back')}
       </Button>
     );
 
-  const renderNextButton = (fn, done) =>
-    steps.length - 1 === step ? (
-      <Button onClick={done}>
+  const renderNextButton = (fn, isLast) =>
+    isLast ? (
+      <Button onClick={fn}>
         {t('labels:save')}
         <Publish />
       </Button>
     ) : (
-      <Button
-        onClick={() =>
-          fn().then((errors) => {
-            if (!Object.keys(errors).length) next();
-          })
-        }
-      >
+      <Button onClick={fn}>
         {t('labels:next')}
         <KeyboardArrowRight />
       </Button>
@@ -104,38 +143,33 @@ const Wizard = ({
       fullWidth
       maxWidth="sm"
       fullScreen={isMobile}
-      onClose={clearForm}
+      onClose={close}
       open={isOpen}
     >
-      <Formik
-        {...rest}
-        enableReinitialize
-        validateOnBlur={false}
-        validateOnChange={false}
-        validationSchema={() => getValidation(step)}
-        onSubmit={closeOnSuccess}
-        render={({
-          submitForm,
+      <MultiStepFormik steps={steps} done={close} {...rest}>
+        {({
+          activeStep,
+          isFirst,
+          isLast,
+          next,
+          back,
           isSubmitting,
-          validateForm,
-          resetForm,
-          ...utils
         }) => (
-          <Form>
+          <>
             {isSubmitting && <LinearProgress />}
             {getContent && (
               <WizardHeader
                 title={title}
-                name={getContent(step)}
+                name={getContent(activeStep)}
               />
             )}
             <DialogContent>
               {steps.map(
                 (Step, i) =>
-                  step === i && (
+                  activeStep === i && (
                     <Fade in key={i}>
                       <div>
-                        <Step {...utils} />
+                        <Step />
                       </div>
                     </Fade>
                   ),
@@ -144,16 +178,13 @@ const Wizard = ({
             <MobileStepper
               steps={steps.length}
               position="static"
-              activeStep={step}
-              nextButton={renderNextButton(
-                validateForm,
-                submitForm,
-              )}
-              backButton={renderBackButton()}
+              activeStep={activeStep}
+              backButton={renderBackButton(back, isFirst)}
+              nextButton={renderNextButton(next, isLast)}
             />
-          </Form>
+          </>
         )}
-      />
+      </MultiStepFormik>
     </Dialog>
   );
 };

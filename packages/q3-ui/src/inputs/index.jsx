@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { connect, getIn } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Collapse from '@material-ui/core/Collapse';
 import MenuItem from '@material-ui/core/MenuItem';
 import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
@@ -16,7 +17,13 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormLabel from '@material-ui/core/FormLabel';
 import { red, grey } from '@material-ui/core/colors';
+import KeyboardDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardUp from '@material-ui/icons/KeyboardArrowUp';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
@@ -32,6 +39,11 @@ const useStyles = makeStyles(() => ({
       display: 'block',
     },
   },
+  selectable: {
+    display: 'flex',
+    cursor: 'pointer',
+    userSelect: 'none'
+  }
 }));
 
 export const styleProps = {
@@ -332,7 +344,142 @@ IntegratedCheckbox.defaultProps = {
   isPublic: false,
 };
 
+const CollapseableFieldset = ({
+  label,
+  error,
+  helperText,
+  children,
+}) => {
+  const { selectable } = useStyles();
+  const [show, setShow] = React.useState(true);
+  const toggle = () => setShow(!show);
+
+  return (
+    <Box my={2}>
+      <FormControl component="fieldset">
+        <FormLabel
+          className={selectable}
+          component="legend"
+          onClick={toggle}
+          tabIndex={0}
+        >
+          {show ? <KeyboardUp /> : <KeyboardDown />}
+          <Typography component="span" variant="body2">
+            {label}
+          </Typography>
+        </FormLabel>
+        <Collapse in={show}>{children}</Collapse>
+        {helperText && (
+          <FormHelperText error={error}>
+            {helperText}
+          </FormHelperText>
+        )}
+      </FormControl>
+    </Box>
+  );
+};
+
+CollapseableFieldset.propTypes = {
+  children: PropTypes.node.isRequired,
+  error: PropTypes.bool,
+  helperText: PropTypes.string,
+  label: PropTypes.string.isRequired,
+};
+
+CollapseableFieldset.defaultProps = {
+  error: false,
+  helperText: null,
+};
+
+const IntegrationRadioFields = (props) => {
+  const {
+    label,
+    helperText,
+    error,
+    options,
+    ...rest
+  } = useFormikIntegration(props);
+  const { t } = useTranslation('labels');
+
+  return Array.isArray(options) && options.length ? (
+    <CollapseableFieldset
+      label={label}
+      error={error}
+      helperText={helperText}
+    >
+      <RadioGroup aria-label={label} {...rest}>
+        {options.map((option) => (
+          <FormControlLabel
+            control={
+              <Radio
+                disabled={rest.disabled}
+                readOnly={rest.readOnly}
+              />
+            }
+            name={option.label}
+            label={t(option.label)}
+            key={option.value}
+            value={option.value}
+          />
+        ))}
+      </RadioGroup>
+    </CollapseableFieldset>
+  ) : null;
+};
+
+const IntegrationCheckboxFields = (props) => {
+  const {
+    label,
+    helperText,
+    error,
+    options,
+    ...rest
+  } = useFormikIntegration(props);
+  const { t } = useTranslation('labels');
+
+  const pushToState = (e, v) => {
+    const item = e.target.value;
+    const {
+      name,
+      formik: { values, setFieldValue },
+    } = props;
+
+    const prevItems = values[name] || [];
+    const newItems = v
+      ? prevItems.concat(item)
+      : prevItems.filter((i) => i !== item);
+
+    setFieldValue(name, newItems);
+  };
+
+  return Array.isArray(options) && options.length ? (
+    <CollapseableFieldset
+      label={label}
+      error={error}
+      helperText={helperText}
+    >
+      {options.map((option) => (
+        <FormControlLabel
+          control={
+            <Checkbox
+              {...rest}
+              name={option.label}
+              value={option.value}
+              onChange={pushToState}
+            />
+          }
+          label={t(option.label)}
+          key={option.value}
+          style={{ display: 'block' }}
+        />
+      ))}
+    </CollapseableFieldset>
+  ) : null;
+};
+
 export default connect(IntegratedTextField);
 export const DesktopSelect = connect(IntegratedSelect);
 export const DateSelect = connect(IntegratedDatePicker);
 export const Check = connect(IntegratedCheckbox);
+export const RadioSet = connect(IntegrationRadioFields);
+export const CheckSet = connect(IntegrationCheckboxFields);
