@@ -10,7 +10,6 @@
     "@tinymce/tinymce-react": "^3.3.2",
     "classnames": "^2.2.6",
     "downshift": "^3.2.12",
-    "i18next": "^17.0.12",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
     "material-ui-dropzone": "^2.4.5",
@@ -39,6 +38,7 @@
     "@reach/router": "^1.2.1",
     "@types/swiper": "^4.4.5",
     "formik": "^2.0.3",
+    "i18next": "^17.0.12",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-i18next": "^10.12.2"
