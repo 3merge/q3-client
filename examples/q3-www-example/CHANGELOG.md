@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/gatsbyjs/gatsby-starter-default/compare/v0.1.1...v0.2.0) (2019-11-19)
+
+
+### Features
+
+* checkout steps rough ([10c3539](https://github.com/gatsbyjs/gatsby-starter-default/commit/10c3539af209e0aedbdc6403606adce2cdb2537c))
+
+
+
+
+
 ## [0.1.1](https://github.com/gatsbyjs/gatsby-starter-default/compare/v0.1.0...v0.1.1) (2019-11-19)
 
 **Note:** Version bump only for package q3-www-example

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/3merge/q3-client/compare/v0.1.1...v0.2.0) (2019-11-19)
+
+
+### Features
+
+* payment form via bambora ([075f1a0](https://github.com/3merge/q3-client/commit/075f1a00b8e86f5b4df6a135abdec50e9481cd2d))
+
+
+
+
+
 ## [0.1.1](https://github.com/3merge/q3-client/compare/v0.1.0...v0.1.1) (2019-11-19)
 
 
