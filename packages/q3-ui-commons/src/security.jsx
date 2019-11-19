@@ -5,9 +5,21 @@ import CirclularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+export const SecuringNotice = () => {
+  const { t } = useTranslation('descriptions');
+
+  return (
+    <Box p={6} align="center">
+      <Typography variant="subtitle1" gutterBottom>
+        {t('spam')}
+      </Typography>
+      <CirclularProgress />
+    </Box>
+  );
+};
+
 const Security = ({ api, children, done }) => {
   const ref = React.createRef();
-  const { t } = useTranslation('descriptions');
   const [token, setToken] = React.useState(null);
 
   const reload = () => {
@@ -32,16 +44,7 @@ const Security = ({ api, children, done }) => {
           done(true);
         }}
       />
-      {token ? (
-        children
-      ) : (
-        <Box p={6} align="center">
-          <Typography variant="subtitle1" gutterBottom>
-            {t('spam')}
-          </Typography>
-          <CirclularProgress />
-        </Box>
-      )}
+      {token ? children : <SecuringNotice />}
     </>
   );
 };
