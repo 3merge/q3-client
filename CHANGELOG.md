@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/3merge/q3-client/compare/v0.1.0...v0.1.1) (2019-11-19)
+
+
+### Bug Fixes
+
+* 18next peer dep ([97d639a](https://github.com/3merge/q3-client/commit/97d639a9aa91a933bbc85610a5250d70302dc510))
+* peer dep ([7eef21d](https://github.com/3merge/q3-client/commit/7eef21d81ea220b6bbb0daa1c382622e676ae3b2))
+
+
+
+
+
 # [0.1.0](https://github.com/3merge/q3-client/compare/v0.0.28...v0.1.0) (2019-11-19)
 
 

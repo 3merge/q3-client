@@ -1,6 +1,6 @@
 {
   "name": "q3-admin-example",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@reach/router": "^1.2.1",
@@ -8,7 +8,7 @@
     "js-cookie": "^2.2.1",
     "q3-admin": "^0.1.0",
     "q3-axios-mock": "^0.1.0",
-    "q3-ui": "^0.1.0",
+    "q3-ui": "^0.1.1",
     "q3-ui-rest": "^0.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
