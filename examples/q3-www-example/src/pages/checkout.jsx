@@ -48,16 +48,12 @@ const Checkout = ({ enableGuestCheckout }) => {
 
   return (
     <CheckoutLayout>
-      <Grid container>
-        <Grid item xs={8}>
-          <VerticalWizard
-            getContent={getContent}
-            getValidation={getValidation}
-            onSubmit={() => null}
-            steps={steps}
-          />
-        </Grid>
-      </Grid>
+      <VerticalWizard
+        getContent={getContent}
+        getValidation={getValidation}
+        onSubmit={() => null}
+        steps={steps}
+      />
     </CheckoutLayout>
   );
 };
