@@ -41,7 +41,7 @@ export const authenticate = (values, actions) => {
     });
 };
 
-const Login = () => {
+const Login = (props) => {
   const { t } = useTranslation();
   const [hasAccount, setHasAccount] = React.useState('');
 
@@ -69,6 +69,7 @@ const Login = () => {
 
   return (
     <FormWithAlert
+      {...props}
       redirect="reset-password"
       title={t('titles:login')}
       description={t('descriptions:login')}

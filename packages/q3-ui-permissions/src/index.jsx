@@ -14,6 +14,11 @@ export const Protected = asProtectedRoute(AuthContext);
 const invoke = (fn, args) =>
   typeof fn === 'function' ? fn(args) : null;
 
+export const isLoggedIn = () => {
+  const a = React.useContext(AuthContext);
+  return a && a.state && a.state.profile;
+};
+
 export const Provider = ({
   renderPublic,
   renderPrivate,

@@ -168,6 +168,11 @@ Object.assign(theme, {
         fontSize: '0.88rem',
       },
     },
+    MuiStep: {
+      horizontal: {
+        background: 'transparent',
+      },
+    },
     MuiBadge: {
       root: {
         '&:not(:first-of-type)': {

@@ -84,9 +84,7 @@ export const AutoCompleteWrapper = ({
 
   return (
     <Autocomplete
-      autoHighlight
-      clearOnEscape
-      freeSolo={false}
+      {...etc}
       onChange={onChange}
       options={items}
       loading={loading}
@@ -103,21 +101,8 @@ export const AutoCompleteWrapper = ({
           aria-busy={loading}
           onChange={onInputChange}
           inputProps={{
-            autocomplete: 'off',
             ...params.inputProps,
-          }}
-          InputProps={{
-            endAdornment: (
-              <>
-                {loading ? (
-                  <CircularProgress
-                    color="inherit"
-                    size={20}
-                  />
-                ) : null}
-                {params.InputProps.endAdornment}
-              </>
-            ),
+            autoComplete: 'off',
           }}
         />
       )}
