@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.7](https://github.com/3merge/q/compare/v0.2.6...v0.2.7) (2019-11-20)
+
+
+### Bug Fixes
+
+* not sure how to fix this rendering issue ([8bda346](https://github.com/3merge/q/commit/8bda346026b934667e3c7f2a709a600c46009b63))
+
+
+
+
+
 ## [0.2.6](https://github.com/3merge/q/compare/v0.2.5...v0.2.6) (2019-11-20)
 
 **Note:** Version bump only for package gatsby-theme-q3
