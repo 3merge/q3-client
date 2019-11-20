@@ -25,6 +25,6 @@
     "**/.jest-cache": true,
     "**/.jest-coverage": true,
     "**/node_modules/": true,
-    "**/lib/": true,
+    //  "**/lib/": true,
   }
 }
