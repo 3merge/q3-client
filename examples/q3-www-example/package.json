@@ -26,8 +26,7 @@
     "react-i18next": "^10.13.1"
   },
   "devDependencies": {
-    "prettier": "^1.18.2",
-    "q3-ui-script": "^0.0.26"
+    "prettier": "^1.18.2"
   },
   "keywords": [
     "gatsby"
