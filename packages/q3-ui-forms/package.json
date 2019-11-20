@@ -3,11 +3,11 @@
   "version": "0.2.0",
   "main": "lib/index.js",
   "dependencies": {
-    "@reach/router": "^1.2.1",
     "lodash": "^4.17.15",
     "notistack": "^0.9.5"
   },
   "peerDependencies": {
+    "@reach/router": "^1.2.1",
     "formik": "^2.0.4",
     "react": "^16.10.2"
   }
