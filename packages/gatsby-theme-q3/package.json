@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -13,12 +13,12 @@
     "formik": "^2.0.3",
     "gatsby": "^2.6.0",
     "i18next": "^17.0.12",
+    "q3-test-utils": "^0.2.0",
     "q3-ui": "^0.2.0",
     "q3-ui-commons": "^0.2.0",
     "q3-ui-forms": "^0.2.0",
     "q3-ui-permissions": "^0.2.0",
     "q3-ui-rest": "^0.2.0",
-    "q3-test-utils": "^0.2.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-i18next": "^10.12.2",
