@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/3merge/q/compare/v0.2.2...v0.2.3) (2019-11-20)
+
+
+### Bug Fixes
+
+* removed unnecessary files ([a879274](https://github.com/3merge/q/commit/a8792749fec8fcbbd14163a614ac607841b3ba91))
+
+
+
+
+
+
 ## [0.2.2](https://github.com/3merge/q3-client/compare/v0.2.1...v0.2.2) (2019-11-20)
 
 
