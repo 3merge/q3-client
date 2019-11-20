@@ -8,6 +8,7 @@
     "node": "^12.9.0"
   },
   "scripts": {
+    "postinstall": "yarnw-sync-deps && yarn --ignore-scripts",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
     "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
@@ -45,7 +46,8 @@
     "jest": "^24.9.0",
     "lerna": "^3.18.1",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "yarn-workspace-sync-deps": "^0.2.1"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
@@ -66,6 +68,7 @@
     "babel-loader": "^8.0.0-beta.1",
     "formik": "^2.0.4",
     "i18next": "^19.0.1",
+    "lodash": "^4.17.15",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-i18next": "^10.13.1",
