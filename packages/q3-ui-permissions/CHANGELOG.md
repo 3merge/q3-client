@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.9](https://github.com/3merge/q/compare/v0.2.8...v0.2.9) (2019-12-03)
+
+
+### Bug Fixes
+
+* postal code and race conditioning ([007f19c](https://github.com/3merge/q/commit/007f19c74343a6a8ab95bc400266515d41bcb618))
+
+
+
+
+
 ## [0.2.8](https://github.com/3merge/q/compare/v0.2.7...v0.2.8) (2019-11-20)
 
 **Note:** Version bump only for package q3-ui-permissions
