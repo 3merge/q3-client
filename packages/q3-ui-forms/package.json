@@ -3,12 +3,15 @@
   "version": "0.2.9",
   "main": "lib/index.js",
   "dependencies": {
+    "comparisons": "^1.1.0",
     "lodash": "^4.17.15",
-    "notistack": "^0.9.5"
+    "notistack": "^0.9.5",
+    "yup": "^0.27.0"
   },
   "peerDependencies": {
     "@reach/router": "^1.2.1",
     "formik": "^2.0.4",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2"
   }
 }

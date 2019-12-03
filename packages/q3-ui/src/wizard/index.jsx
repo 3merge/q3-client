@@ -107,6 +107,7 @@ const Wizard = ({
   title,
   isOpen,
   close,
+  authFn,
   ...rest
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
@@ -114,7 +115,7 @@ const Wizard = ({
 
   const renderBackButton = (fn, isFirst) =>
     isFirst ? (
-      <Button onClick={fn}>
+      <Button onClick={close}>
         <TransitEnterexit />
         {t('labels:nevermind')}
       </Button>
@@ -169,7 +170,7 @@ const Wizard = ({
                   activeStep === i && (
                     <Fade in key={i}>
                       <div>
-                        <Step />
+                        <Step authFn={authFn} {...rest} />
                       </div>
                     </Fade>
                   ),
@@ -198,11 +199,13 @@ Wizard.propTypes = {
   getContent: PropTypes.func.isRequired,
   close: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
+  authFn: PropTypes.func,
 };
 
 Wizard.defaultProps = {
   steps: [],
   isOpen: false,
+  authFn: null,
 };
 
 export default Wizard;

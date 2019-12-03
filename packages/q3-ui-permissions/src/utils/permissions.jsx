@@ -87,18 +87,17 @@ export default (ctx) => (coll, createdBy) => {
     grant
       ? String(grant.fields || '')
           .split(',')
-          .map((i) => i.trim())
-          .some((i) => minimatch(name, i))
+          .every((i) => minimatch(name, i.trim()))
       : false;
 
   const isDefined = (arg) =>
     arg !== undefined && arg !== null;
 
   const isDisabledPrefix = (path) => ({ op, name }) => {
-    if (!getField(`${path},${name}`, getOp('Read')))
+    if (!getField(`${path}.${name}`, getOp('Read')))
       return hidden;
 
-    if (!getField(`${path},${name}`, getOp(op)))
+    if (!getField(`${path}.${name}`, getOp(op)))
       return readOnly;
 
     return {};
