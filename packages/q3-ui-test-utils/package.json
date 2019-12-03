@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-test-utils",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "main": "index.js",
   "dependencies": {
     "enzyme": "^3.10.0",
