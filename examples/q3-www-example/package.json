@@ -1,7 +1,7 @@
 {
   "name": "q3-www-example",
   "private": true,
-  "version": "0.2.9",
+  "version": "0.2.10",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
@@ -21,7 +21,7 @@
     "q3-ui-commons": "^0.2.9",
     "q3-ui-forms": "^0.2.9",
     "q3-ui-permissions": "^0.2.9",
-    "q3-ui-rest": "^0.2.9",
+    "q3-ui-rest": "^0.2.10",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",

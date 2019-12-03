@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.10](https://github.com/3merge/q/compare/v0.2.9...v0.2.10) (2019-12-03)
+
+
+### Bug Fixes
+
+* interceptors ([f4acfed](https://github.com/3merge/q/commit/f4acfedceb0cb67a4fa36c7169713f436d6438e1))
+
+
+
+
+
 ## [0.2.9](https://github.com/3merge/q/compare/v0.2.8...v0.2.9) (2019-12-03)
 
 
