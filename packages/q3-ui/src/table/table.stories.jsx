@@ -6,7 +6,12 @@ import { Wrapper } from '../_helpers/storyUtils';
 import sidebar from './README.md';
 
 const props = {
-  columns: [['name', 'email', 'profilePic'], 'phone', 'date', 'age'],
+  columns: [
+    ['name', 'email', 'profilePic'],
+    'phone',
+    'date',
+    'age',
+  ],
 };
 
 const stubs = [];
@@ -14,12 +19,13 @@ for (let i = 0; i < 50; i += 1) {
   stubs.push({
     id: i,
     name: 'Mike Ibberson - My name',
-    email: 'mike@demo.ca, mike2@demo.ca, mike3@demo.ca, mike4@demo.ca, mike5@demo.ca',
+    email:
+      'mike@demo.ca, mike2@demo.ca, mike3@demo.ca, mike4@demo.ca, mike5@demo.ca',
     phone: '416-000-1234',
-        date: '2020-01-17T13:25:00.000Z',
+    date: '2020-01-17T13:25:00.000Z',
     profilePic: 'https://picsum.photos/id/57/200/300',
     featured: i % 2,
-    age: 28
+    age: 28,
   });
 }
 

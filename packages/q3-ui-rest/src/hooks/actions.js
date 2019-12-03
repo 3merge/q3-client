@@ -31,7 +31,8 @@ export const getOptions = (url, key, pathToLabel) => {
     });
 };
 
-export const getAsCSV = (url, params = {}) => Axios({
+export const getAsCSV = (url, params = {}) =>
+  Axios({
     url,
     method: 'get',
     transformRequest: [

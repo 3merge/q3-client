@@ -293,13 +293,16 @@ const TableToolbar = ({
         <>
           {canDelete && (
             <>
-            <IconButton onClick={openState.open} aria-label="Delete">
-              <Trash />
-            </IconButton>
-            <DeleteConfirmation
-              {...openState}
-              next={executeBulkDelete}
-            />
+              <IconButton
+                onClick={openState.open}
+                aria-label="Delete"
+              >
+                <Trash />
+              </IconButton>
+              <DeleteConfirmation
+                {...openState}
+                next={executeBulkDelete}
+              />
             </>
           )}
           {canDownload && (
@@ -419,7 +422,7 @@ const Favourite = ({ id, featured, mark }) => {
   return (
     <IconButton
       aria-label={t('labels:favourite')}
-      onClick={() => mark(id)({ featured: !featured })}
+      onClick={mark(id, !featured)}
       className={starred}
     >
       <Star />

@@ -108,7 +108,10 @@ const selectify = (o) =>
 
 yup.addMethod(yup.string, 'postal', function postal() {
   return this.test((v) =>
-    /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z] \d[A-Z]\d$/.test(v),
+    new RegExp(
+      /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z]\s?\d[A-Z]\d$/,
+      'i',
+    ).test(v),
   );
 });
 
