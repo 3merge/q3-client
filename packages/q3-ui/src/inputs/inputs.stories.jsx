@@ -9,6 +9,7 @@ import Field, {
   Check,
   RadioSet,
   CheckSet,
+  Multitext,
 } from '.';
 import { countries } from '../_helpers/fakeData';
 import { mockRequest } from '../_helpers/testUtils';
@@ -111,6 +112,7 @@ storiesOf('Components|Inputs', module)
                 { label: 'Greek', value: 'Greek' },
               ]}
             />
+            <Multitext name="places" />
             <CheckSet
               name="colours"
               options={[

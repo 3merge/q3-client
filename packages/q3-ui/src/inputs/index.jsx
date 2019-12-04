@@ -24,6 +24,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import { red, grey } from '@material-ui/core/colors';
 import KeyboardDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardUp from '@material-ui/icons/KeyboardArrowUp';
+import ChipInput from 'material-ui-chip-input';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
@@ -42,8 +43,8 @@ const useStyles = makeStyles(() => ({
   selectable: {
     display: 'flex',
     cursor: 'pointer',
-    userSelect: 'none'
-  }
+    userSelect: 'none',
+  },
 }));
 
 export const styleProps = {
@@ -477,9 +478,49 @@ const IntegrationCheckboxFields = (props) => {
   ) : null;
 };
 
+const IntegratedMultiText = (props) => {
+  const rest = useFormikIntegration(props);
+  const pushToState = (chip) => {
+    const {
+      name,
+      formik: { values, setFieldValue },
+    } = props;
+
+    const prevItems = values[name] || [];
+    const newItems = chip
+      ? prevItems.concat(chip)
+      : prevItems.filter((i) => i !== chip);
+
+    setFieldValue(name, newItems);
+  };
+
+  const removeFromState = (chip) => {
+    const {
+      name,
+      formik: { values, setFieldValue },
+    } = props;
+
+    const prevItems = values[name] || [];
+    setFieldValue(
+      name,
+      prevItems.filter((i) => i !== chip),
+    );
+  };
+
+  return (
+    <ChipInput
+      {...rest}
+      onAdd={pushToState}
+      onDelete={removeFromState}
+     {...styleProps}
+    />
+  );
+};
+
 export default connect(IntegratedTextField);
 export const DesktopSelect = connect(IntegratedSelect);
 export const DateSelect = connect(IntegratedDatePicker);
 export const Check = connect(IntegratedCheckbox);
 export const RadioSet = connect(IntegrationRadioFields);
 export const CheckSet = connect(IntegrationCheckboxFields);
+export const Multitext = connect(IntegratedMultiText);
