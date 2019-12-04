@@ -154,9 +154,9 @@ const Repeater = ({
     >
       {renderInterior()}
       <AddNewWizard
-        {...wizardProps}
         isNew
         onSubmit={create}
+        {...wizardProps}
       />
     </Tile>
   );

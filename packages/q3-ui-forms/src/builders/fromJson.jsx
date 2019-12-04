@@ -94,42 +94,56 @@ ComponentSwitcher.defaultProps = {
   colSm: 12,
 };
 
-export default connect(
-  ({
-    formik: { values, errors },
-    json: {
-      createdBy,
-      subfield,
-      fields,
-      collectionName,
-      isNew,
-    },
-  }) => {
-    const { isDisabled, isDisabledPrefix } = useAuth(
-      collectionName,
-      get(createdBy, 'id'),
-    );
-
-    const authFn = subfield
-      ? isDisabledPrefix(subfield)
-      : isDisabled;
-
-      console.log(subfield, authFn({op: 'Create',name: 'company' }))
-
-    return (
-      <Grid container spacing={1}>
-        {Object.entries(fields).map(([key, value]) => (
-          <ComponentSwitcher
-            {...value}
-            key={key}
-            name={key}
-            values={values}
-            errors={errors}
-            authFn={authFn}
-            isNew={isNew}
-          />
-        ))}
-      </Grid>
-    );
+const FromJson = ({
+  formik: { values, errors },
+  json: {
+    createdBy,
+    subfield,
+    fields,
+    collectionName,
+    bypassAuthorization,
+    isNew,
   },
+}) => {
+  const { isDisabled, isDisabledPrefix } = useAuth(
+    collectionName,
+    get(createdBy, 'id'),
+  );
+
+  let authFn = subfield
+    ? isDisabledPrefix(subfield)
+    : isDisabled;
+
+  if (bypassAuthorization) authFn = null;
+
+  return (
+    <Grid container spacing={1}>
+      {Object.entries(fields).map(([key, value]) => (
+        <ComponentSwitcher
+          {...value}
+          key={key}
+          name={key}
+          values={values}
+          errors={errors}
+          authFn={authFn}
+          isNew={isNew}
+        />
+      ))}
+    </Grid>
+  );
+};
+
+export const withValidation = (args) => () =>
+  findValidations(args);
+
+export const withJsonFields = (json) => ({
+  isNew,
+  ...args
+}) => (
+  <FromJson
+    formik={args}
+    json={Object.assign(json, { isNew })}
+  />
 );
+
+export default connect(FromJson);

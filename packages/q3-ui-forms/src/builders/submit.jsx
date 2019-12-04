@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Form from 'q3-ui/lib/form';
 import { useAuth } from 'q3-ui-permissions';
-import FromJson from './fromJson';
+import FromJson, { findValidations } from './fromJson';
 
 const getCreatedByMeta = (data) => {
   if (!data) return null;
@@ -14,13 +14,14 @@ const getCreatedByMeta = (data) => {
 const FormBuilder = ({
   data,
   title,
+  subtitle,
   collectionName,
-  ignoreAuth,
   onSubmit,
   isNew,
   children,
   fields,
-  validationSchema,
+  ignoreAuth,
+  deriveSubtitle,
   ...rest
 }) => {
   let readOnly = false;
@@ -46,9 +47,10 @@ const FormBuilder = ({
   return (
     <Form
       title={title}
+      subtitle={deriveSubtitle ? title : subtitle}
       readOnly={readOnly}
       onSubmit={onSubmit}
-      validationSchema={validationSchema}
+      validationSchema={findValidations(fields)}
       initialValues={data}
       {...rest}
     >
@@ -76,11 +78,30 @@ FormBuilder.propTypes = {
   collectionName: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
+  deriveSubtitle: PropTypes.bool,
   isNew: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  fields: PropTypes.shape({}).isRequired,
+  ignoreAuth: PropTypes.bool,
 };
+
+FormBuilder.defaultProps = {
+  ignoreAuth: false,
+  deriveSubtitle: false,
+  subtitle: null,
+};
+
+export const iterateSchemas = (fieldset = {}, opts = {}) =>
+  Object.entries(fieldset).map(([key, v], i) => ({
+    to: i === 0 ? '/' : `/${key}`,
+    label: key,
+    component: () => (
+      <FormBuilder title={key} fields={v} {...opts} />
+    ),
+  }));
 
 export default FormBuilder;

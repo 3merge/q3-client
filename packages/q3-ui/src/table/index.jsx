@@ -96,6 +96,11 @@ const useStyles = makeStyles((theme) => ({
 const extractId = (obj, i) =>
   typeof obj === 'object' && 'id' in obj ? obj.id : i;
 
+const ellpisis = (sub = '', num) =>
+  sub && sub.length > num
+    ? `${sub.substring(0, num)}...`
+    : sub;
+
 export const TableCellHeader = ({ name, sub, imgSrc }) => (
   <TableCell>
     <Grid container alignItems="center" spacing={1}>
@@ -103,15 +108,11 @@ export const TableCellHeader = ({ name, sub, imgSrc }) => (
         <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
       <Grid item md={10} sm={11} xs={10}>
-        <Typography
-          variant="body1"
-          component="span"
-          style={{ lineHeight: 1 }}
-        >
-          <strong>{name}</strong>
+        <Typography variant="body1" component="span" style={{ margin: 0 }}>
+          <strong>{ellpisis(name, 25)}</strong>
           {sub && (
             <div>
-              <small>{sub}</small>
+              <small>{ellpisis(sub, 75)}</small>
             </div>
           )}
         </Typography>
@@ -173,8 +174,8 @@ export const Templated = ({
       <TableCell style={{ textAlign: 'right' }}>
         {children}
         <IconButton
+          to={`${id}`}
           component={Link}
-          to={`${root}/${id}`}
           aria-label="View"
         >
           <Pageview />
@@ -589,7 +590,7 @@ export const TableView = ({
         <Poll />
         <Filter {...filterProps} />
       </Toolbar>
-      <Table size="small" stickyHeader>
+      <Table stickyHeader>
         <TableHead>
           <TableRow className={mobile}>
             {columns.map((key, i) => (

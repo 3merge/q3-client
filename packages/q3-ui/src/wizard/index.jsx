@@ -49,10 +49,12 @@ export const MultiStepFormik = ({
       validateOnBlur={false}
       validateOnChange={false}
       validationSchema={() => getValidation(step)}
-      onSubmit={(values, actions) => {
-        onSubmit(values, actions);
-        if (done) done();
-      }}
+      onSubmit={(values, actions) =>
+        onSubmit(values, actions).then((e) => {
+          if (done) done();
+          return e;
+        })
+      }
     >
       {({ validateForm, submitForm, ...etc }) => (
         <Form>
@@ -100,18 +102,28 @@ WizardHeader.propTypes = {
   title: PropTypes.string.isRequired,
 };
 
-const Wizard = ({
+export const getContentFromProps = ({
   getContent,
+  position = 0,
+}) =>
+  Array.isArray(getContent)
+    ? getContent[position]
+    : getContent;
+
+export const getSteps = ({ steps }) =>
+  (Array.isArray(steps) ? steps : [steps]).filter(Boolean);
+
+const Wizard = ({
   icon: Icon,
-  steps,
   title,
   isOpen,
   close,
-  authFn,
+  isNew,
   ...rest
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
   const { t } = useTranslation();
+  const steps = getSteps(rest);
 
   const renderBackButton = (fn, isFirst) =>
     isFirst ? (
@@ -128,7 +140,7 @@ const Wizard = ({
 
   const renderNextButton = (fn, isLast) =>
     isLast ? (
-      <Button onClick={fn}>
+      <Button type="submit">
         {t('labels:save')}
         <Publish />
       </Button>
@@ -155,22 +167,29 @@ const Wizard = ({
           next,
           back,
           isSubmitting,
+          values,
+          errors,
         }) => (
           <>
             {isSubmitting && <LinearProgress />}
-            {getContent && (
-              <WizardHeader
-                title={title}
-                name={getContent(activeStep)}
-              />
-            )}
+            <WizardHeader
+              title={title}
+              name={getContentFromProps({
+                position: activeStep,
+                ...rest,
+              })}
+            />
             <DialogContent>
               {steps.map(
                 (Step, i) =>
                   activeStep === i && (
                     <Fade in key={i}>
                       <div>
-                        <Step authFn={authFn} {...rest} />
+                        <Step
+                          values={values}
+                          errors={errors}
+                          isNew={isNew}
+                        />
                       </div>
                     </Fade>
                   ),
@@ -191,12 +210,18 @@ const Wizard = ({
 };
 
 Wizard.propTypes = {
-  steps: PropTypes.arrayOf(PropTypes.node),
   onSubmit: PropTypes.func.isRequired,
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   getValidation: PropTypes.func.isRequired,
-  getContent: PropTypes.func.isRequired,
+  getContent: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]).isRequired,
+  steps: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
   close: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
   authFn: PropTypes.func,

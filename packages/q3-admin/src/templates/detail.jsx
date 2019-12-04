@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
@@ -13,18 +14,26 @@ import Tabs from 'q3-ui/lib/tabs';
 import useRest from 'q3-ui-rest';
 import Trash from '../presets/trash';
 
-console.log(useAuth);
+const ellpisis = (title = '') =>
+  title && title.length > 35
+    ? `${title.substring(0, 35)}...`
+    : title;
 
 const Detail = ({
   name,
   pathToTitle,
   resourceName,
   resourceNameSingular,
-  coll,
+  inheritCollectionName,
+  inheritResourceName,
+  collectionName,
   views,
   id,
   ...rest
 }) => {
+  if (inheritCollectionName) collectionName = name;
+  if (inheritResourceName) resourceName = name;
+
   const url = `/${name}/${id}`;
   const state = useRest({
     runOnInit: true,
@@ -35,7 +44,7 @@ const Detail = ({
   });
 
   const { canDelete, canReadSub, ...authy } = useAuth(
-    coll,
+    collectionName,
     get(state, `${resourceNameSingular}.createdBy.id`),
   );
 
@@ -63,7 +72,7 @@ const Detail = ({
   return (
     <>
       <Header
-        name={get(state, pathToTitle)}
+        name={ellpisis(get(state, pathToTitle))}
         renderPreIdentifier={() => (
           <div>
             <IconButton
@@ -94,26 +103,26 @@ const Detail = ({
 };
 
 Detail.propTypes = {
-  name: PropTypes.string.isRequired,
-  rootPath: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  canDelete: PropTypes.bool,
-  loading: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  resourceNameSingular: PropTypes.string.isRequired,
+  resourceName: PropTypes.string,
+  collectionName: PropTypes.string,
+  pathToTitle: PropTypes.string.isRequired,
+  rootPath: PropTypes.string.isRequired,
   views: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.func,
   ]),
-  services: PropTypes.shape({
-    post: PropTypes.func,
-    put: PropTypes.func,
-    patch: PropTypes.func,
-    delete: PropTypes.func,
-  }).isRequired,
+  inheritCollectionName: PropTypes.bool,
+  inheritResourceName: PropTypes.bool,
 };
 
 Detail.defaultProps = {
-  canDelete: false,
-  loading: false,
+  inheritCollectionName: false,
+  inheritResourceName: false,
+  resourceName: null,
+  collectionName: null,
   views: [],
 };
 

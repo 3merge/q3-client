@@ -45,9 +45,6 @@ const RepeaterFormBuilder = ({
 
   return (
     <Repeater
-      data={applyMixin(data, mixin)}
-      description={resourceName}
-      name={resourceName}
       {...{
         ...opts,
         ...rest,
@@ -57,6 +54,9 @@ const RepeaterFormBuilder = ({
           deleteOne: remove,
         }),
       }}
+      data={applyMixin(data, mixin)}
+      description={resourceName}
+      name={resourceName}
     />
   );
 };
