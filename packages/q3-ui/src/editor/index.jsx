@@ -7,17 +7,14 @@ import { Editor } from '@tinymce/tinymce-react';
 import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { useFormikIntegration } from '../inputs';
+import useFormik from '../inputs/useFormik';
 
 export function IntegratedTiny(props) {
   const { name, required } = props;
   const { t } = useTranslation();
-  const {
-    value,
-    error,
-    onChange,
-    disabled,
-  } = useFormikIntegration(props);
+  const { value, error, onChange, disabled } = useFormik(
+    props,
+  );
 
   async function uploadImage() {
     return null;

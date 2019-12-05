@@ -2,6 +2,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 
 const headingFont = {
@@ -112,6 +113,16 @@ Object.assign(theme, {
     MuiFilledInput: {
       root: {
         backgroundColor: grey[100],
+        '&:hover': {
+          backgroundColor: `${grey[50]} !important`,
+          transition: 'all 500ms',
+        },
+        '&:focus-within': {
+          backgroundColor: `${grey[50]} !important`,
+          borderRadius: 4,
+          borderColor: blue[100],
+          boxShadow: '0 0 0 0.1rem rgba(0,123,255,.25)',
+        },
       },
     },
     MuiButton: {

@@ -1,194 +1,77 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { getForTransfer } from 'q3-ui-rest';
 import Detail from 'q3-admin/lib/templates/detail';
 import List from 'q3-admin/lib/templates/list';
 import FormBuilder, {
   iterateSchemas,
 } from 'q3-ui-forms/lib/builders/submit';
 import RepeaterBuilder from 'q3-ui-forms/lib/builders/repeater';
-import {
-  withJsonFields,
-  withValidation,
-} from 'q3-ui-forms/lib/builders/fromJson';
+import { withJsonFields } from 'q3-ui-forms/lib/builders/fromJson';
+import { withValidation } from 'q3-ui-forms/lib/validations';
 import { formatTierValueStatment } from './utils';
+import {
+  general,
+  conditions,
+  tiers,
+} from './__fields.json';
 
-const rebateTabsSchema = {
-  general: {
-    name: {
-      type: 'text',
-      required: true,
-      validate: yup.string().required(),
-    },
-    description: {
-      type: 'text',
-      required: true,
-      validate: yup.string().required(),
-      multiline: true,
-      rows: 5,
-    },
-    couponCode: {
-      type: 'string',
-      validate: yup.string(),
-    },
-    value: {
-      type: 'number',
-      validate: yup
-        .number()
-        .min(0)
-        .required(),
-    },
-    currency: {
-      type: 'select',
-      options: ['CAD', 'USD'].map((value) => ({
-        label: value,
-        value,
-      })),
-      validate: yup
-        .mixed()
-        .oneOf(['CAD', 'USD'])
-        .required(),
-    },
-    symbol: {
-      type: 'select',
-      options: ['$', '%'].map((value) => ({
-        label: value,
-        value,
-      })),
-      validate: yup
-        .mixed()
-        .oneOf(['$', '%'])
-        .required(),
-    },
-  },
-  conditions: {
-    effectiveFrom: {
-      type: 'date',
-    },
-    expiresOn: {
-      type: 'date',
-    },
-    maximumPerProduct: {
-      type: 'number',
-      validate: yup.number(),
-    },
-    maximumPerOrder: {
-      type: 'number',
-      validate: yup.number(),
-    },
-    maximumPerHistory: {
-      type: 'number',
-      validate: yup.number(),
-    },
-    requiredSkus: {
-      type: 'transfer',
-      loadOptions: getForTransfer(
-        '/products',
-        'products',
-        'sku',
-      ),
-    },
-    conditionalSkus: {
-      type: 'transfer',
-      loadOptions: getForTransfer(
-        '/products',
-        'products',
-        'sku',
-      ),
-    },
-    conditionalSkuThreshold: {
-      type: 'number',
-      validate: yup.number(),
-    },
-  },
-};
-
-const tierFields = {
-  quantity: {
-    type: 'number',
-    required: true,
-    validate: yup
-      .number()
-      .min(0)
-      .required(),
-  },
-  value: {
-    type: 'number',
-    required: true,
-    validate: yup
-      .number()
-      .min(0)
-      .required(),
-  },
-};
-
-export const withRepeater = (rebate, id) => {
+export const withTierRepeater = ({
+  rebate,
+  id,
+  collectionName,
+}) => {
   const { t } = useTranslation();
   const subfield = 'tiers';
-  const collectionName = 'rebates';
 
-  return () => (
-    <RepeaterBuilder
-      id={id}
-      resourceName={subfield}
-      collectionName={collectionName}
-      primary="quantity"
-      secondary={formatTierValueStatment(rebate)}
-      primaryPrefix={`${t('labels:quantity')}: `}
-      wizardProps={{
-        steps: withJsonFields({
-          fields: tierFields,
-          subfield,
-          collectionName,
-        }),
-        getValidation: withValidation(tierFields),
-        getContent: 'tier',
-        initialValues: {
-          quantity: '',
-          value: '',
-        },
-      }}
-      data={{
-        quantity: '',
-        value: '',
-      }}
-    />
-  );
+  return {
+    label: subfield,
+    to: '/tiers',
+    component: () => (
+      <RepeaterBuilder
+        id={id}
+        resourceName={subfield}
+        collectionName={collectionName}
+        primary="quantity"
+        primaryPrefix={`${t('labels:quantity')}: `}
+        secondary={formatTierValueStatment(rebate)}
+        wizardProps={{
+          steps: withJsonFields({
+            fields: tiers,
+            collectionName,
+            subfield,
+          }),
+          getValidation: withValidation(tiers),
+          getContent: 'tier',
+          initialValues: {
+            quantity: '',
+            value: '',
+          },
+        }}
+      />
+    ),
+  };
 };
 
-const createTabs = ({ id, patch, rebate = {}, ...etc }) =>
-  iterateSchemas(rebateTabsSchema, {
-    collectionName: 'rebates',
-    onSubmit: patch(null),
-    data: rebate,
-    ...etc,
-  }).concat({
-    component: withRepeater(rebate, id),
-    label: 'tiers',
-    to: '/tiers',
-  });
-
-const NewRebateForm = ({ post }) => (
+const NewRebateForm = (props) => (
   <FormBuilder
-    isNew
-    deriveSubtitle
-    collectionName="rebates"
+    {...props}
     title="newRebate"
-    onSubmit={post}
+    deriveSubtitle
     dividers={false}
-    fields={rebateTabsSchema.general}
+    fields={general}
     initialValues={{
-      name: '',
-      description: '',
-      value: 0,
       currency: 'CAD',
-      maximum: '',
-      symbol: '$',
+      symbol: '%',
     }}
   />
 );
+
+const createTabs = ({ patch, ...etc }) =>
+  iterateSchemas(
+    { general, conditions },
+    { onSubmit: patch(), ...etc },
+  ).concat(withTierRepeater(etc));
 
 export default (props) => (
   <Router>

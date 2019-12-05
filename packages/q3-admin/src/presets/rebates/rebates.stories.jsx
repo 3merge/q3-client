@@ -28,11 +28,11 @@ const Story = () => (
   >
     <Auth>
       <Rebates
-        inheritCollectionName
-        inheritResourceName
         name="rebates"
         resourceNameSingular="rebate"
         pathToTitle="rebate.name"
+        inheritCollectionName
+        inheritResourceName
       />
     </Auth>
   </MockAPI>

@@ -17,8 +17,8 @@ import { connect, getIn } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   styleProps,
-  useFormikIntegration,
 } from '../inputs';
+import useFormik from '../inputs/useFormik'
 
 Yup.addMethod(Yup.mixed, 'autocomplete', function() {
   return this.test(
@@ -39,7 +39,7 @@ export const AutoCompleteWrapper = ({
   formik,
   ...etc
 }) => {
-  const integrated = useFormikIntegration({
+  const integrated = useFormik({
     ...etc,
     ...inputProps,
     formik,

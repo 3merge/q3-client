@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Form from 'q3-ui/lib/form';
 import { useAuth } from 'q3-ui-permissions';
-import FromJson, { findValidations } from './fromJson';
+import FromJson from './fromJson';
+import validations from '../validations';
 
 const getCreatedByMeta = (data) => {
   if (!data) return null;
@@ -10,6 +11,11 @@ const getCreatedByMeta = (data) => {
     ? data.createdBy.id
     : data.createdBy;
 };
+
+const getPlaceholderData = (fields = {}) => fields ? 
+  Object.entries(fields).reduce((prev,[key]) => Object.assign(prev, { [key]: '' }), {}) : {};
+
+const mergeValues = (a = {},b = {},c = {}) => Object.assign(getPlaceholderData(a), b, c);
 
 const FormBuilder = ({
   data,
@@ -22,6 +28,7 @@ const FormBuilder = ({
   fields,
   ignoreAuth,
   deriveSubtitle,
+  initialValues,
   ...rest
 }) => {
   let readOnly = false;
@@ -47,11 +54,11 @@ const FormBuilder = ({
   return (
     <Form
       title={title}
+      validationSchema={validations(fields)}
+      initialValues={mergeValues(fields, initialValues, data)}
       subtitle={deriveSubtitle ? title : subtitle}
       readOnly={readOnly}
       onSubmit={onSubmit}
-      validationSchema={findValidations(fields)}
-      initialValues={data}
       {...rest}
     >
       {(all) =>
@@ -73,14 +80,15 @@ const FormBuilder = ({
 };
 
 FormBuilder.propTypes = {
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({}),
+  initialValues: PropTypes.shape({}),
   schema: PropTypes.shape({}).isRequired,
   collectionName: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
   deriveSubtitle: PropTypes.bool,
-  isNew: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -93,6 +101,9 @@ FormBuilder.defaultProps = {
   ignoreAuth: false,
   deriveSubtitle: false,
   subtitle: null,
+  isNew: false,
+  initialValues: {},
+  data: {},
 };
 
 export const iterateSchemas = (fieldset = {}, opts = {}) =>

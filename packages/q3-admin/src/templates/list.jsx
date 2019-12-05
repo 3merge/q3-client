@@ -37,8 +37,6 @@ export const ListHeader = ({
     fields: searchFields,
   });
 
-  console.log(filters)
-
   return (
     <div style={{ display: 'flex' }}>
       <SearchBar
@@ -160,7 +158,12 @@ const List = ({
             {AddComponent && (
               <CreateDialog
                 render={(done) => (
-                  <AddComponent done={done} {...state} />
+                  <AddComponent
+                    isNew
+                    collectionName={collectionName}
+                    done={done}
+                    onSubmit={state.post}
+                  />
                 )}
               />
             )}

@@ -523,13 +523,14 @@ TransferList.propTypes = {
     setFieldValue: PropTypes.func,
     values: PropTypes.object,
   }).isRequired,
-  options: PropTypes.arrayOf(PropTypes.any).isRequired,
+  options: PropTypes.arrayOf(PropTypes.any),
   name: PropTypes.string.isRequired,
   loadOptions: PropTypes.func,
   readOnly: PropTypes.bool,
 };
 
 TransferList.defaultProps = {
+  options: [],
   loadOptions: null,
   readOnly: false,
 };

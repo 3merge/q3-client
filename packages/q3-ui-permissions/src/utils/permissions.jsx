@@ -113,8 +113,13 @@ export default (ctx) => (coll, createdBy) => {
   const Hide = ({ children, op }) =>
     getOp(op) ? children : null;
 
-  const HideByField = ({ path, children, op }) =>
-    getField(path, getOp(op)) ? children : null;
+  const HideByField = ({ path, subfield, children, op }) =>
+    getField(
+      subfield ? `${subfield}.${path}` : path,
+      getOp(op),
+    )
+      ? children
+      : null;
 
   Hide.propTypes = {
     children: PropTypes.node.isRequired,

@@ -1,33 +1,5 @@
 import useFormik from '../formik';
 
-// const mapErrors = require('../formik').__get__('mapErrors');
-/**
-describe('mapErrors', () => {
-  it('should return msg property', () => {
-    expect(
-      mapErrors({
-        'hello.dolly': 'foo',
-      }),
-    ).toMatchObject({
-      hello: {
-        dolly: 'foo',
-      },
-    });
-  });
-
-  it('should return msg string', () => {
-    expect(
-      mapErrors({
-        'foo': {
-          msg: 'bar',
-        },
-      }),
-    ).toMatchObject({
-      foo: 'bar',
-    });
-  });
-});
- */
 describe('useFormik', () => {
   const { onComplete, onStart } = useFormik();
   const setSubmitting = jest.fn();

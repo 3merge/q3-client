@@ -1,0 +1,139 @@
+{
+  "profile": {
+    "profile": {
+      "id": "5de7a9f5fc13ae72cd000000",
+      "firstName": "Germain",
+      "lastName": "Bayless",
+      "role": "Developer",
+      "lang": "en-CA"
+    },
+    "permissions": [
+      {
+        "coll": "rates",
+        "op": "Read",
+        "fields": "*",
+        "role": "Developer",
+        "ownership": "All"
+      },
+      {
+        "coll": "rates",
+        "op": "Update",
+        "fields": "*, !name",
+        "role": "Developer",
+        "ownership": "All"
+      },
+      {
+        "coll": "rates",
+        "op": "Create",
+        "fields": "*",
+        "role": "Developer",
+        "ownership": "All"
+      },
+      {
+        "coll": "rates",
+        "op": "Delete",
+        "fields": "!*",
+        "role": "Developer",
+        "ownership": "All"
+      }
+    ]
+  },
+  "rates": {
+    "total": 25,
+    "hasPrevPage": false,
+    "hasNextPage": true,
+    "rates": [
+      {
+        "name": "Jabbersphere",
+        "label": "magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum",
+        "value": 11,
+        "threshold": 32,
+        "regions": "QC",
+        "id": 1,
+        "description": "Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem."
+      },
+      {
+        "name": "Voonyx",
+        "label": "odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet",
+        "value": 41,
+        "threshold": 93,
+        "regions": "NT",
+        "id": 2,
+        "description": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis."
+      },
+      {
+        "name": "Youspan",
+        "label": "magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis",
+        "value": 21,
+        "threshold": 2,
+        "regions": "NL",
+        "id": 3,
+        "description": "Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla."
+      },
+      {
+        "name": "Skinder",
+        "label": "felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis",
+        "value": 1,
+        "threshold": 89,
+        "regions": "YT",
+        "id": 4,
+        "description": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue."
+      },
+      {
+        "name": "Devify",
+        "label": "luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien",
+        "value": 14,
+        "threshold": 97,
+        "regions": "SK",
+        "id": 5,
+        "description": "In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem. Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit. Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus."
+      },
+      {
+        "name": "Jabbertype",
+        "label": "odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla",
+        "value": 94,
+        "threshold": 2,
+        "regions": "NB",
+        "id": 6,
+        "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante."
+      },
+      {
+        "name": "Eare",
+        "label": "felis fusce posuere felis sed lacus morbi sem mauris laoreet",
+        "value": 77,
+        "threshold": 3,
+        "regions": "MB",
+        "id": 7,
+        "description": "In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl."
+      },
+      {
+        "name": "Chatterbridge",
+        "label": "ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
+        "value": 39,
+        "threshold": 37,
+        "regions": "ON",
+        "id": 8,
+        "description": "Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh."
+      }
+    ]
+  },
+  "rate": {
+    "rate": {
+      "name": "Chatterbridge",
+      "label": "ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida",
+      "value": 39,
+      "threshold": 37,
+      "regions": "ON",
+      "id": 8,
+      "description": "Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh."
+    }
+  },
+  "search": {
+    "filters": {
+      "regions": [
+        "ON",
+        "QC"
+      ]
+    }
+  }
+}

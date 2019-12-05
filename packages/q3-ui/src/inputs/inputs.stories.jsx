@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Docs from './README.md';
 import Field, {
   DesktopSelect,
   DateSelect,
@@ -10,6 +9,7 @@ import Field, {
   RadioSet,
   CheckSet,
   Multitext,
+  Multiselect,
 } from '.';
 import { countries } from '../_helpers/fakeData';
 import { mockRequest } from '../_helpers/testUtils';
@@ -33,21 +33,16 @@ const mockAPIErrorResponse = (fn) => () =>
     foods: 'Unknown',
   });
 
-storiesOf('Components|Inputs', module)
-  .addParameters({
-    jest: ['menu'],
-    readme: {
-      sidebar: Docs,
-    },
-  })
-  .add('Formik integration', () => (
+storiesOf('Components|Inputs', module).add(
+  'Formik integration',
+  () => (
     <Box p={8}>
       <Form
         title="Demonstration"
         description="Showcases the input components and their dynamic states"
         initialValues={{
           language: 'en',
-          friends: [{ value: 'joe', label: 'Joe' }, 'jane'],
+          friends: ['jane'],
         }}
       >
         {({ setErrors, values }) => (
@@ -76,9 +71,8 @@ storiesOf('Components|Inputs', module)
                 },
               ]}
             />
-            <DesktopSelect
+            <Multiselect
               name="friends"
-              multiple
               options={
                 new Promise((resolve) => {
                   setTimeout(() => {
@@ -100,7 +94,7 @@ storiesOf('Components|Inputs', module)
                         label: 'Percy',
                       },
                     ]);
-                  }, 2500);
+                  }, 500);
                 })
               }
             />
@@ -131,4 +125,5 @@ storiesOf('Components|Inputs', module)
         )}
       </Form>
     </Box>
-  ));
+  ),
+);

@@ -1,22 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'formik';
-import { get } from 'lodash';
 import Input, {
   DesktopSelect,
   DateSelect,
   Check,
   RadioSet,
   CheckSet,
+  Multitext,
+  Multiselect,
 } from 'q3-ui/lib/inputs';
 import Grid from '@material-ui/core/Grid';
 import Autocomplete from 'q3-ui/lib/autocomplete';
 import Transfer from 'q3-ui/lib/transfer';
-import { useAuth } from 'q3-ui-permissions';
-import * as yup from 'yup';
+import { getForTransfer } from 'q3-ui-rest';
 import Comparison from 'comparisons';
+import { getOptions, mapToValue } from '../validations';
+import withAuthorization from '../authorization';
 
-const inputMap = {
+const htmlFieldTypes = [
+  'text',
+  'number',
+  'tel',
+  'email',
+  'url',
+  'checkbox',
+  'password',
+  'search',
+  'color',
+];
+
+const internalFieldTypes = {
   select: DesktopSelect,
   date: DateSelect,
   text: Input,
@@ -26,115 +40,104 @@ const inputMap = {
   radio: RadioSet,
   transfer: Transfer,
   autocomplete: Autocomplete,
+  multi: Multitext,
+  multiselect: Multiselect,
 };
 
-export const findValidations = (fields = {}) =>
-  yup.object().shape(
-    Object.entries(fields).reduce(
-      (acc, [key, { validate }]) => {
-        if (validate) acc[key] = validate;
-        return acc;
-      },
-      {},
-    ),
-  );
+export class FieldBuilder {
+  constructor(type, props = {}, values = {}) {
+    Object.assign(this, props, {
+      type: htmlFieldTypes.includes(type) ? type : null,
+      values,
+    });
+  }
+
+  static is(type) {
+    return (
+      internalFieldTypes[type] || internalFieldTypes.default
+    );
+  }
+
+  show() {
+    return (
+      !this.conditional ||
+      (this.values &&
+        new Comparison(this.conditional).eval(this.values))
+    );
+  }
+
+  getOptions() {
+    if (typeof this.loadOptions === 'object')
+      Object.assign(this, {
+        loadOptions: getForTransfer(
+          this.loadOptions.url,
+          this.loadOptions.key,
+          this.loadOptions.field,
+        ),
+      });
+
+    if (typeof this.options === 'function') {
+      Object.assign(this, {
+        options: this.options(this.values),
+      });
+    } else if (!this.options && this.enum) {
+      Object.assign(this, mapToValue(this.enum));
+    }
+  }
+
+  build() {
+    this.getOptions();
+    return this.show() ? this : null;
+  }
+}
 
 export const ComponentSwitcher = ({
-  name,
   type,
   values,
-  conditional,
-  colMd,
-  colSm,
   ...rest
 }) => {
-  const FormElement = inputMap[type] || inputMap.default;
-  const dynamicProp = {};
+  const FormElement = FieldBuilder.is(type);
+  const inputProps = new FieldBuilder(
+    type,
+    rest,
+    values,
+  ).build();
 
-  const meetsConditionalRequirements =
-    !conditional ||
-    (values && new Comparison(conditional).eval(values));
-
-  if (['number', 'tel', 'email'].includes(type))
-    dynamicProp.type = type;
-
-  if (typeof rest.options === 'function')
-    Object.assign(dynamicProp, {
-      options: rest.options(values),
-    });
-
-  return meetsConditionalRequirements ? (
-    <Grid
-      item
-      md={colMd}
-      sm={colSm}
-      xs={12}
-      style={{ paddingTop: 0, paddingBottom: 0 }}
-    >
-      <FormElement name={name} {...rest} {...dynamicProp} />
-    </Grid>
-  ) : null;
+  return inputProps && <FormElement {...inputProps} />;
 };
 
 ComponentSwitcher.propTypes = {
-  name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   values: PropTypes.shape({}).isRequired,
-  conditional: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
-  colMd: PropTypes.number,
-  colSm: PropTypes.number,
 };
 
 ComponentSwitcher.defaultProps = {
   conditional: null,
-  colMd: 12,
-  colSm: 12,
 };
 
 const FromJson = ({
+  json: { fields, ...rest },
   formik: { values, errors },
-  json: {
-    createdBy,
-    subfield,
-    fields,
-    collectionName,
-    bypassAuthorization,
-    isNew,
-  },
-}) => {
-  const { isDisabled, isDisabledPrefix } = useAuth(
-    collectionName,
-    get(createdBy, 'id'),
+}) =>
+  Object.entries(fields).map(([key, value]) =>
+    withAuthorization(ComponentSwitcher, {
+      ...rest,
+      ...getOptions(value),
+      name: key,
+      values,
+      errors,
+    }),
   );
 
-  let authFn = subfield
-    ? isDisabledPrefix(subfield)
-    : isDisabled;
-
-  if (bypassAuthorization) authFn = null;
-
-  return (
-    <Grid container spacing={1}>
-      {Object.entries(fields).map(([key, value]) => (
-        <ComponentSwitcher
-          {...value}
-          key={key}
-          name={key}
-          values={values}
-          errors={errors}
-          authFn={authFn}
-          isNew={isNew}
-        />
-      ))}
-    </Grid>
-  );
+FromJson.propTypes = {
+  json: PropTypes.shape({
+    fields: PropTypes.object,
+  }).isRequired,
+  formik: PropTypes.shape({
+    values: PropTypes.object,
+    errors: PropTypes.object,
+  }).isRequired,
 };
-
-export const withValidation = (args) => () =>
-  findValidations(args);
 
 export const withJsonFields = (json) => ({
   isNew,
@@ -142,7 +145,9 @@ export const withJsonFields = (json) => ({
 }) => (
   <FromJson
     formik={args}
-    json={Object.assign(json, { isNew })}
+    json={Object.assign(json, {
+      isNew,
+    })}
   />
 );
 

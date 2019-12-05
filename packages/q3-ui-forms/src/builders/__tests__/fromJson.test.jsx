@@ -8,9 +8,17 @@ import Input, {
   RadioSet,
 } from 'q3-ui/lib/inputs';
 import { useAuth } from 'q3-ui-permissions';
-import FromJSON, { ComponentSwitcher } from '../fromJson';
+import { getForTransfer } from 'q3-ui-rest';
+import FromJSON, {
+  FieldBuilder,
+  ComponentSwitcher,
+} from '../fromJson';
 
 jest.unmock('formik');
+
+jest.mock('q3-ui-rest', () => ({
+  getForTransfer: jest.fn().mockReturnValue(jest.fn()),
+}));
 
 jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn().mockReturnValue({
@@ -20,6 +28,57 @@ jest.mock('q3-ui-permissions', () => ({
 }));
 
 describe('FromJSON', () => {
+  describe('FieldBuilder', () => {
+    it('should set valid HTML types', () => {
+      expect(new FieldBuilder('url').type).toBe('url');
+      expect(new FieldBuilder('tel').type).toBe('tel');
+      expect(new FieldBuilder('unknown').type).toBeNull();
+    });
+
+    it('should return null', () => {
+      expect(
+        new FieldBuilder(
+          'url',
+          { conditional: ['foo=bar'] },
+          { foo: 'quux' },
+        ).build(),
+      ).toBeNull();
+    });
+
+    it('should set options props', () => {
+      const options = jest.fn().mockReturnValue('ok');
+      expect(
+        new FieldBuilder(
+          'url',
+          { options },
+          { foo: 'bar' },
+        ).build(),
+      ).toMatchObject({
+        options: 'ok',
+      });
+      expect(options).toHaveBeenCalledWith({ foo: 'bar' });
+    });
+
+    it('should set loadOptions props', () => {
+      expect(
+        new FieldBuilder('url', {
+          loadOptions: {
+            url: '/',
+            key: 'foo',
+            field: 'name',
+          },
+        }).build(),
+      ).toMatchObject({
+        loadOptions: expect.any(Function),
+      });
+      expect(getForTransfer).toHaveBeenCalledWith(
+        '/',
+        'foo',
+        'name',
+      );
+    });
+  });
+
   describe('ComponentSwitcher', () => {
     it('should return a text field', () => {
       const mount = global.shallow(

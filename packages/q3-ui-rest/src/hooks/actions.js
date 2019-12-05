@@ -32,11 +32,11 @@ export const getOptions = (url, key, pathToLabel) =>
       return [];
     });
 
-export const getFlatOptions = () => (
+export const getFlatOptions = (
   url,
   key,
   pathToLabel,
-) =>
+) => () =>
   Axios.get(url)
     .then(({ data }) => {
       return get(data, key, []).map((i) =>

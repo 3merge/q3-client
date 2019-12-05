@@ -50,7 +50,13 @@ const Detail = ({
 
   const tabs = Array.from(
     typeof views === 'function'
-      ? views({ id, ...state, ...authy })
+      ? views({
+          id,
+          collectionName,
+          data: state[resourceNameSingular],
+          ...state,
+          ...authy,
+        })
       : views,
   ).filter(({ field }) => {
     if (!field) return true;

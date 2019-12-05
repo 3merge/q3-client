@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { connect, getIn } from 'formik';
+import { connect } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Collapse from '@material-ui/core/Collapse';
@@ -15,8 +15,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Select from '@material-ui/core/Select';
 import FilledInput from '@material-ui/core/FilledInput';
+import ListItemText from '@material-ui/core/ListItemText';
+import Select from '@material-ui/core/Select';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -26,6 +27,7 @@ import KeyboardDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardUp from '@material-ui/icons/KeyboardArrowUp';
 import ChipInput from 'material-ui-chip-input';
 import { makeStyles } from '@material-ui/core/styles';
+import useFormik from './useFormik';
 
 const useStyles = makeStyles(() => ({
   error: {
@@ -51,79 +53,19 @@ export const styleProps = {
   variant: 'filled',
   fullWidth: true,
   margin: 'dense',
-  disableUnderline: true,
 };
 
-export const useFormikIntegration = ({
-  disabled,
-  name,
-  formik,
-  readOnly,
-  required,
-  authFn,
-  ...rest
-}) => {
-  const { t } = useTranslation();
-
-  if (!formik) {
-    throw new Error('Requires formik bag');
-  }
-
-  const error = getIn(formik.errors, name);
-  const value = getIn(formik.values, name) || '';
-  const label = t(`labels:${name}`);
-  let helperText = t(`helpers:${name}`);
-
-  if (error) {
-    helperText = error;
-  } else if (helperText.localeCompare(name) === 0) {
-    helperText = null;
-  }
-
-  const onChange = React.useCallback((e) => {
-    formik.setFieldValue(
-      name,
-      e.target ? e.target.value : e,
-    );
-  }, []);
-
-  const overrides =
-    typeof authFn === 'function'
-      ? authFn({
-          op: rest.isNew ? 'Create' : 'Update',
-          name,
-        })
-      : {};
-
-  return {
-    ...rest,
-    id: name,
-    disabled: formik.isSubmitting || disabled,
-    label,
-    helperText,
-    value,
-    error,
-    onChange,
-    name,
-    required,
-    ...overrides,
-  };
-};
-
-const IntegratedTextField = ({
-  type,
-  autoFocus,
-  ...rest
-}) => (
+const IntegratedTextField = ({ type, ...rest }) => (
   <TextField
-    {...useFormikIntegration(rest)}
     {...styleProps}
-    autoFocus={autoFocus}
+    {...useFormik(rest)}
     type={type}
     InputProps={{
-      ...(rest.readOnly && {
-        endAdornment: <Lock />,
-      }),
+      disableUnderline: true,
+      ...(rest.disabled ||
+        (rest.readOnly && {
+          endAdornment: <Lock />,
+        })),
     }}
   />
 );
@@ -161,44 +103,25 @@ const MenuProps = {
   },
 };
 
-const IntegratedSelect = ({ options, ...rest }) => {
-  const {
-    id,
-    name,
-    label,
-    helperText,
-    value,
-    ...props
-  } = useFormikIntegration(rest);
+const SelectWrapper = ({
+  name,
+  label,
+  children,
+  helperText,
+  ...rest
+}) => (
+  <FormControl {...styleProps} {...rest}>
+    <InputLabel htmlFor={name}>{label}</InputLabel>
+    {children}
+    <Collapse in={Boolean(helperText)}>
+      <FormHelperText>{helperText}</FormHelperText>
+    </Collapse>
+  </FormControl>
+);
 
-  const { t } = useTranslation();
+const useSelectOptions = (options) => {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-
-  const matchWithOptions = (v) => {
-    const match = items.find(({ value: c }) => c === v);
-    return match ? match.label : v;
-  };
-
-  const renderValueFromSelectOptions = (selected) => {
-    if (typeof selected === 'object' && 'label' in selected)
-      return selected.label;
-
-    if (Array.isArray(selected))
-      return selected
-        .map((v) =>
-          typeof v === 'object'
-            ? v.label
-            : matchWithOptions(v),
-        )
-        .join(', ');
-
-    return matchWithOptions(selected);
-  };
-
-  if (!options || !options.length) {
-    props.disabled = true;
-  }
 
   React.useEffect(() => {
     if (Array.isArray(options)) {
@@ -211,21 +134,37 @@ const IntegratedSelect = ({ options, ...rest }) => {
     }
   }, [options]);
 
+  return [loading, items];
+};
+
+const IntegratedMultiSelect = ({ options, ...rest }) => {
+  const {
+    name,
+    label,
+    value,
+    helperText,
+    onArrayPush,
+    onArrayPull,
+    ...props
+  } = useFormik(rest);
+
+  const { t } = useTranslation();
+  const [loading, items] = useSelectOptions(options);
+
   return (
-    <FormControl value={value} {...props} {...styleProps}>
-      <InputLabel htmlFor={name} {...styleProps}>
-        {label}
-      </InputLabel>
+    <SelectWrapper
+      name={name}
+      label={label}
+      helperText={helperText}
+      {...props}
+    >
       <Select
         {...props}
-        isClearable
-        MenuProps={MenuProps}
-        renderValue={renderValueFromSelectOptions}
+        multiple
+        value={value.flat()}
+        onChange={onArrayPush}
         input={
           <FilledInput
-            id={id}
-            name={name}
-            value={value}
             endAdornment={
               loading && (
                 <CircularProgress
@@ -236,18 +175,62 @@ const IntegratedSelect = ({ options, ...rest }) => {
             }
           />
         }
+        MenuProps={MenuProps}
+        renderValue={(selected) => selected.join(', ')}
       >
-        <MenuItem dense>--</MenuItem>
         {items.map((obj) => (
-          <MenuItem dense key={obj.value} value={obj.value}>
-            {t(obj.label)}
+          <MenuItem
+            dense
+            key={obj.value}
+            value={obj.value}
+            style={{ margin: 0 }}
+          >
+            <Checkbox
+              checked={value.indexOf(obj.value) > -1}
+            />
+            <ListItemText
+              primary={t(`labels:${obj.label}`)}
+            />
           </MenuItem>
         ))}
       </Select>
-      {helperText && (
-        <FormHelperText>{helperText}</FormHelperText>
-      )}
-    </FormControl>
+    </SelectWrapper>
+  );
+};
+
+const IntegratedSelect = ({ options, ...rest }) => {
+  const {
+    id,
+    name,
+    label,
+    value,
+    helperText,
+    ...props
+  } = useFormik(rest);
+
+  const { t } = useTranslation();
+  const [loading, items] = useSelectOptions(options);
+
+  return (
+    <SelectWrapper
+      name={name}
+      label={label}
+      helperText={helperText}
+      {...props}
+    >
+      <Select {...props} native>
+        <option>
+          {loading
+            ? `${t('labels:loading')}...`
+            : t('labels:none')}
+        </option>
+        {items.map((obj) => (
+          <option key={obj.value} value={obj.value}>
+            {t(`labels:${obj.label}`)}
+          </option>
+        ))}
+      </Select>
+    </SelectWrapper>
   );
 };
 
@@ -269,9 +252,7 @@ IntegratedSelect.defaultProps = {
 };
 
 const IntegratedDatePicker = (props) => {
-  const { onChange, value, ...rest } = useFormikIntegration(
-    props,
-  );
+  const { onChange, value, ...rest } = useFormik(props);
   const intercept = (newValue) =>
     onChange({
       target: {
@@ -284,6 +265,9 @@ const IntegratedDatePicker = (props) => {
       {...rest}
       {...styleProps}
       inputVariant="filled"
+      InputProps={{
+        disableUnderline: true,
+      }}
       value={value || null}
       onChange={intercept}
       placeholder="yyyy/mm/dd"
@@ -300,7 +284,7 @@ const IntegratedCheckbox = (props) => {
     helperText,
     onChange,
     ...rest
-  } = useFormikIntegration(props);
+  } = useFormik(props);
   const { control, error, normal } = useStyles();
 
   const renderLabel = () => (
@@ -330,7 +314,6 @@ const IntegratedCheckbox = (props) => {
 
 IntegratedCheckbox.propTypes = {
   name: PropTypes.string.isRequired,
-  isPublic: PropTypes.bool,
   label: PropTypes.string,
   formik: PropTypes.shape({
     isSubmitting: PropTypes.bool,
@@ -342,7 +325,6 @@ IntegratedCheckbox.propTypes = {
 
 IntegratedCheckbox.defaultProps = {
   label: '',
-  isPublic: false,
 };
 
 const CollapseableFieldset = ({
@@ -399,7 +381,7 @@ const IntegrationRadioFields = (props) => {
     error,
     options,
     ...rest
-  } = useFormikIntegration(props);
+  } = useFormik(props);
   const { t } = useTranslation('labels');
 
   return Array.isArray(options) && options.length ? (
@@ -435,7 +417,7 @@ const IntegrationCheckboxFields = (props) => {
     error,
     options,
     ...rest
-  } = useFormikIntegration(props);
+  } = useFormik(props);
   const { t } = useTranslation('labels');
 
   const pushToState = (e, v) => {
@@ -479,40 +461,16 @@ const IntegrationCheckboxFields = (props) => {
 };
 
 const IntegratedMultiText = (props) => {
-  const rest = useFormikIntegration(props);
-  const pushToState = (chip) => {
-    const {
-      name,
-      formik: { values, setFieldValue },
-    } = props;
-
-    const prevItems = values[name] || [];
-    const newItems = chip
-      ? prevItems.concat(chip)
-      : prevItems.filter((i) => i !== chip);
-
-    setFieldValue(name, newItems);
-  };
-
-  const removeFromState = (chip) => {
-    const {
-      name,
-      formik: { values, setFieldValue },
-    } = props;
-
-    const prevItems = values[name] || [];
-    setFieldValue(
-      name,
-      prevItems.filter((i) => i !== chip),
-    );
-  };
+  const { onArrayPush, onArrayPull, ...rest } = useFormik(
+    props,
+  );
 
   return (
     <ChipInput
       {...rest}
-      onAdd={pushToState}
-      onDelete={removeFromState}
-     {...styleProps}
+      onAdd={onArrayPush}
+      onDelete={onArrayPull}
+      {...styleProps}
     />
   );
 };
@@ -524,3 +482,4 @@ export const Check = connect(IntegratedCheckbox);
 export const RadioSet = connect(IntegrationRadioFields);
 export const CheckSet = connect(IntegrationCheckboxFields);
 export const Multitext = connect(IntegratedMultiText);
+export const Multiselect = connect(IntegratedMultiSelect);
