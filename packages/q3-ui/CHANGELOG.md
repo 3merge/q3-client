@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/3merge/q/compare/v0.3.0...v0.4.0) (2019-12-05)
+
+
+### Bug Fixes
+
+* array default for multiselect ([0b1c5fc](https://github.com/3merge/q/commit/0b1c5fcf399d0821f413189cf620df9d2999cdf3))
+
+
+### Features
+
+* input validation builder ([4aca3f1](https://github.com/3merge/q/commit/4aca3f173a005861b791fcc8b337b2954c217131))
+* multitext input integration ([d974bf3](https://github.com/3merge/q/commit/d974bf393d9b4fab7644cc67666ab39b75ba2958))
+* rebate preset ([a76621e](https://github.com/3merge/q/commit/a76621efd6f8111e48ea6074bf49a24e154b3614))
+
+
+
+
+
 # [0.3.0](https://github.com/3merge/q/compare/v0.2.10...v0.3.0) (2019-12-03)
 
 
