@@ -6,11 +6,6 @@
       "size": 6
     },
     "label": "text",
-    "description": {
-      "type": "text",
-      "multiline": true,
-      "rows": 6
-    },
     "value": {
       "type": "number",
       "required": true,
@@ -21,8 +16,7 @@
       "size": 6
     },
     "regions": {
-      "type": "select",
-      "multiple": true,
+      "type": "multiselect",
       "enum": [
         "AB",
         "BC",
@@ -93,6 +87,11 @@
         }
       ],
       "size": 6
+    },
+    "description": {
+      "type": "text",
+      "multiline": true,
+      "rows": 6
     }
   }
 }

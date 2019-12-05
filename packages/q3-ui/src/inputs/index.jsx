@@ -161,7 +161,7 @@ const IntegratedMultiSelect = ({ options, ...rest }) => {
       <Select
         {...props}
         multiple
-        value={value.flat()}
+        value={Array.isArray(value) ? value.flat() : []}
         onChange={onArrayPush}
         input={
           <FilledInput

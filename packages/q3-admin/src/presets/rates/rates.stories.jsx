@@ -24,7 +24,7 @@ const Story = () => (
     <Auth>
       <Rates
         name="rates"
-        resourceNameSingular="rates"
+        resourceNameSingular="rate"
         pathToTitle="rate.name"
         inheritCollectionName
         inheritResourceName

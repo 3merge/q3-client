@@ -54,6 +54,8 @@ class Validator {
         this.$base = this.$base.date();
         break;
       case 'multi':
+      case 'multiselect':
+      case 'multitext':
         this.$base = this.$base.array();
         break;
       case 'autocomplete':
