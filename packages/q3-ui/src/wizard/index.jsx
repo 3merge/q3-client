@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -97,7 +96,10 @@ const withFormControls = ({
 
   const renderBackButton = () =>
     !isFirst ? (
-      <Button onClick={executeBack}>
+      <Button
+        onClick={executeBack}
+        style={{ marginRight: '1rem' }}
+      >
         <KeyboardArrowLeft />
         {t('labels:back')}
       </Button>
@@ -145,6 +147,8 @@ export const MultiStepFormik = ({
   return (
     <Formik
       enableReinitialize
+      validateOnBlur={false}
+      validateOnChange={false}
       validationSchema={reader.getValidation(step)}
       initialValues={reader.getValues()}
       onSubmit={(values, actions) =>
@@ -175,12 +179,13 @@ const DialogWizard = ({
   children,
   onSubmit,
 }) => {
+  const { t } = useTranslation();
   const isMobile = useMediaQuery('(max-width:960px)');
 
   return (
     <Dialog
       fullWidth
-      maxWidth="sm"
+      maxWidth="md"
       fullScreen={isMobile}
       onClose={close}
       open={isOpen}
@@ -199,32 +204,26 @@ const DialogWizard = ({
           renderBackButton,
         }) => (
           <Box>
+          <Container maxWidth="md">
             {isSubmitting && <LinearProgress />}
             <DialogTitle disableTypography>
-              <Typography variant="h4">
-                {StepReader.getName(activeChild)}
+              <Typography
+                variant="h4"
+                style={{ marginBottom: '-1rem' }}
+              >
+                {t(
+                  `titles:${StepReader.getName(
+                    activeChild,
+                  )}`,
+                )}
               </Typography>
             </DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                {StepReader.getName(activeChild)}
-              </DialogContentText>
-              {activeChild}
-            </DialogContent>
-            {steps.length > 1 ? (
-              <MobileStepper
-                steps={steps.length}
-                activeStep={activeStep}
-                position="static"
-                variant="text"
-                backButton={renderBackButton()}
-                nextButton={renderNextButton()}
-              />
-            ) : (
-              <Box textAlign="right" mb={1} px={1}>
-                {renderNextButton()}
-              </Box>
-            )}
+            <DialogContent>{activeChild}</DialogContent>
+            <Box mb={1} px={2} textAlign="right">
+              {renderBackButton()}
+              {renderNextButton()}
+            </Box>
+            </Container>
           </Box>
         )}
       </MultiStepFormik>

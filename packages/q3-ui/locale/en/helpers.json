@@ -15,5 +15,6 @@
   "primary": "Acts as a default",
   "postal": "No spaces allowed",
   "moreThan1": "Cannot be negative or null",
-  "quantity": "Specify an amount or use the toggles"
+  "quantity": "Specify an amount or use the toggles",
+  "multi": "This is a multi-text field. Press enter to add options."
 }

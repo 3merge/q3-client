@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
 import Tabs from 'q3-ui/lib/tabs';
 import Context from './state';
+import Notes from '../views/notes';
+import Picture from '../views/picture';
 import Trash from '../views/trash';
 import { isArray, getPath } from './utils';
 
@@ -54,7 +56,7 @@ const Detail = ({
     tabs.push({
       label: 'picture',
       to: '/picture',
-      component: Trash,
+      component: Picture,
     });
 
   if (featured)
@@ -75,7 +77,7 @@ const Detail = ({
     tabs.push({
       label: 'notes',
       to: '/notes',
-      component: Trash,
+      component: Notes,
     });
 
   if (history)
@@ -93,7 +95,7 @@ const Detail = ({
     });
 
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Box my={4}>
         {state.fetching ? (
           <CircularProgress />

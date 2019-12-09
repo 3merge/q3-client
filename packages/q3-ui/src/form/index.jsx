@@ -53,25 +53,18 @@ const FormWrapper = ({
                   variant="contained"
                   type="submit"
                   color="secondary"
+                  size="large"
                 >
                   {t('labels:submit')}
-                  <Avatar
-                    color="primary"
-                    style={{
-                      backgroundColor:
-                        'rgba(255,255,255,0.1)',
-                      marginLeft: '.5rem',
-                    }}
-                  >
-                    {utils.isSubmitting ? (
-                      <CircularProgress
-                        color="primary"
-                        size={22}
-                      />
-                    ) : (
-                      <Publish />
-                    )}
-                  </Avatar>
+
+                  {utils.isSubmitting ? (
+                    <CircularProgress
+                      color="primary"
+                      size={22}
+                    />
+                  ) : (
+                    <Publish />
+                  )}
                 </Button>
               )
             }

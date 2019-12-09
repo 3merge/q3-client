@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
 import MockAPI from '../../mock';
-import Permissions, { PermissionDetail } from './index';
+import Permissions from './index';
 
 const stub = {
   id: 1,
@@ -78,6 +78,14 @@ const define = (mock) => {
     permissions: [stub, stub, stub],
   });
 
+  mock.onGet(/^\/search/).reply(200, {
+    fields: {
+      role: ['Admin'],
+      op: ['Read', 'Create'],
+      coll: ['users', 'permissions'],
+    },
+  });
+
   mock.onGet(/\/permissions\/\d+/).reply(200, {
     permission: stub,
   });
@@ -125,11 +133,11 @@ storiesOf('Presets|Permissions', module)
     () => (
       <MockAPI define={define}>
         <Auth>
-          <PermissionDetail id="1" />
+          <Permissions />
         </Auth>
       </MockAPI>
     ),
     {
-      router: '/',
+      router: '/permissions/id',
     },
   );

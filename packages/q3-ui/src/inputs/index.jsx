@@ -52,7 +52,6 @@ const useStyles = makeStyles(() => ({
 export const styleProps = {
   variant: 'filled',
   fullWidth: true,
-  margin: 'dense',
 };
 
 const IntegratedTextField = ({ type, ...rest }) => (
@@ -165,6 +164,7 @@ const IntegratedMultiSelect = ({ options, ...rest }) => {
         onChange={onArrayPush}
         input={
           <FilledInput
+            disableUnderline
             endAdornment={
               loading && (
                 <CircularProgress
@@ -203,7 +203,6 @@ const IntegratedSelect = ({ options, ...rest }) => {
     id,
     name,
     label,
-    value,
     helperText,
     ...props
   } = useFormik(rest);
@@ -218,7 +217,7 @@ const IntegratedSelect = ({ options, ...rest }) => {
       helperText={helperText}
       {...props}
     >
-      <Select {...props} native>
+      <Select {...props} native disableUnderline>
         <option>
           {loading
             ? `${t('labels:loading')}...`
@@ -461,17 +460,25 @@ const IntegrationCheckboxFields = (props) => {
 };
 
 const IntegratedMultiText = (props) => {
+  const {t} = useTranslation();
   const { onArrayPush, onArrayPull, ...rest } = useFormik(
     props,
   );
 
   return (
+    <>
     <ChipInput
       {...rest}
+      {...styleProps}
       onAdd={onArrayPush}
       onDelete={onArrayPull}
-      {...styleProps}
+      InputProps={{
+        disableUnderline: true
+      }}
+      helperText={t('helpers:multi')}
     />
+    <div style={{ height: 20 }} />
+    </>
   );
 };
 

@@ -52,18 +52,19 @@ const Tile = ({
       )}
       {error && <Divider className={errorBar} />}
 
-      <Box p={2} component="header">
-        <Typography variant="h3" gutterBottom={hasSubtitle}>
+      <Box p={2}>
+        <Typography
+          variant="h3"
+          gutterBottom={!hasSubtitle}
+        >
           {title}
         </Typography>
         {hasSubtitle && (
-          <Typography variant="body1">
+          <Typography variant="body1" gutterBottom>
             {subtitle}
           </Typography>
         )}
-      </Box>
-      {dividers && <Divider />}
-      <Box py={dividers ? 2 : 0} px={2}>
+
         {loading && !disableSkeleton ? (
           <>
             <Skeleton height={6} width="80%" />
@@ -75,15 +76,9 @@ const Tile = ({
         ) : (
           children
         )}
+
+        {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>
-      {renderFooter && (
-        <>
-          {dividers && <Divider />}
-          <Box p={2} component="footer">
-            {renderFooter()}
-          </Box>
-        </>
-      )}
     </Paper>
   );
 };

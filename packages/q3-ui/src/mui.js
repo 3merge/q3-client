@@ -22,7 +22,7 @@ const generateShadows = () => {
 const theme = createMuiTheme({
   palette: {
     background: {
-      default: grey[200],
+      default: grey[100],
     },
     primary: {
       main: '#1e1434',
@@ -47,7 +47,7 @@ const theme = createMuiTheme({
     },
     h3: {
       ...headingFont,
-      fontSize: 2,
+      fontSize: 1.7,
     },
     h4: {
       ...headingFont,
@@ -110,18 +110,24 @@ Object.assign(theme, {
         minWidth: 32,
       },
     },
+    MuiFormControl: {
+      root: {
+        marginBottom: 4,
+        marginTop: 4,
+      },
+    },
     MuiFilledInput: {
       root: {
-        backgroundColor: grey[100],
+        backgroundColor: grey[200],
+        borderRadius: '0 !important',
         '&:hover': {
-          backgroundColor: `${grey[50]} !important`,
-          transition: 'all 500ms',
+          backgroundColor: `${grey[100]} !important`,
+          transition: 'all 250ms',
         },
         '&:focus-within': {
-          backgroundColor: `${grey[50]} !important`,
-          borderRadius: 4,
-          borderColor: blue[100],
-          boxShadow: '0 0 0 0.1rem rgba(0,123,255,.25)',
+          backgroundColor: `${grey[100]} !important`,
+          borderColor: blue[50],
+          boxShadow: '0 0 0 0.12rem rgba(0,123,255,.25)',
         },
       },
     },

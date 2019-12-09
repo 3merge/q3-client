@@ -21,7 +21,6 @@ const Page = ({
     url,
   });
 
-console.log(children)
   return (
     <Context.Provider
       value={{

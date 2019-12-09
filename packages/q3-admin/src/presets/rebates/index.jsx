@@ -62,7 +62,7 @@ export default () => (
     </Page>
     <Page id>
       <Header titleProp="name" />
-      <Detail trash history>
+      <Detail trash history picture notes>
         <General />
         <Conditions />
         <Tiers />

@@ -18,7 +18,7 @@ const Trash = (props) => {
         align="center"
         columnLeft={
           <Box my={2}>
-            <Typography variant="h2" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               {t('titles:caution')}
             </Typography>
             <Typography variant="body1" gutterBottom>

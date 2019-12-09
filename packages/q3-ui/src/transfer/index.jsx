@@ -300,6 +300,7 @@ const Input = ({ name, applied, readOnly, open }) => {
       helperText={t(`helpers:${name}`)}
       value={applied.join(', ')}
       InputProps={{
+        disableUnderline: true,
         endAdornment: !readOnly && (
           <Badge
             badgeContent={applied.length}

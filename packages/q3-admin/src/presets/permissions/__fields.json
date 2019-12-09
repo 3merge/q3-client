@@ -1,0 +1,26 @@
+{
+  "general": {
+    "op": {
+      "type": "select",
+      "enum": [
+        "Read",
+        "Create",
+        "Update",
+        "Delete"
+      ]
+    },
+    "ownership": {
+      "type": "select",
+      "enum": [
+        "Own",
+        "Any"
+      ]
+    },
+    "ownershipConditions": {
+      "type": "multi"
+    },
+    "documentConditions": {
+      "type": "multi"
+    }
+  }
+}

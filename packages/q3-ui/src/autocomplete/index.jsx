@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import { get } from 'lodash';
+import { get, merge } from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'formik';
 import { styleProps } from '../inputs';
@@ -68,14 +68,16 @@ export const AutoCompleteWrapper = ({
       defaultValue={value}
       renderInput={(params) => (
         <TextField
-          {...params}
-          {...decoratedInputProps}
-          {...styleProps}
+          {...merge(params, decoratedInputProps,styleProps, {
+            InputProps: {
+              disableUnderline: true,
+            }
+          })}
+          merge
           aria-busy={loading}
           onChange={onInputChange}
           inputProps={{
             ...params.inputProps,
-            autoComplete: 'off',
           }}
         />
       )}
