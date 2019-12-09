@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
 import Rebates from './index';
 import JSON from './__api.json';
-import MockAPI from '../../utils/mocker';
+import MockAPI from '../../mock';
 
 const Story = () => (
   <MockAPI
@@ -27,13 +27,7 @@ const Story = () => (
     }}
   >
     <Auth>
-      <Rebates
-        name="rebates"
-        resourceNameSingular="rebate"
-        pathToTitle="rebate.name"
-        inheritCollectionName
-        inheritResourceName
-      />
+      <Rebates />
     </Auth>
   </MockAPI>
 );

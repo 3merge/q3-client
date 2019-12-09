@@ -98,13 +98,9 @@ storiesOf('Components|Repeater', module)
             deleteMany={onDeleteMany}
             deleteOne={onDelete}
             create={onCreate}
-            wizardProps={{
-              getContent: () => 'demo',
-              getValidation: () => validation,
-              initialValues: { id: '', demo: '' },
-              steps: [Form],
-            }}
-          />
+          >
+            <Form />
+          </Repeater>
         </Container>
       );
     };

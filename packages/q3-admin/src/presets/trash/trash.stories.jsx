@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
-import MockAPI from '../../utils/mocker';
+import MockAPI from '../../mock';
 import Detail from '../../templates/detail';
 import Trash from './index';
 

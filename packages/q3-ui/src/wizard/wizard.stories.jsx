@@ -2,7 +2,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Add from '@material-ui/icons/Add';
 import * as yup from 'yup';
-import Wizard from '.';
+import {
+  DialogWizard,
+  HorizontalWizard,
+  VerticalWizard,
+} from '.';
 import Input from '../inputs';
 import Autocomplete from '../autocomplete';
 import { countries } from '../_helpers/fakeData';
@@ -19,37 +23,67 @@ const schema2 = yup.object().shape({
   weight: yup.number().autocomplete(),
 });
 
-storiesOf('Components|Wizard', module).add('Create', () => (
-  <Wizard
-    close={() => null}
-    isOpen
-    getContent={() => 'demo'}
-    icon={Add}
-    title="Wizardry"
-    getValidation={(i) => (i === 0 ? schema : schema2)}
-    initialValues={{
-      firstName: '',
-      lastName: '',
-      countries: '',
-    }}
-    steps={[
-      () => (
-        <>
-          <Input name="firstName" />
-          <Input name="lastName" />
-          <Autocomplete
-            inputProps={{ name: 'countries' }}
-            loadOptions={() => Promise.resolve(countries)}
-          />
-        </>
-      ),
-      () => (
-        <>
-          <Input name="age" type="number" />
-          <Input name="height" type="number" />
-          <Input name="weight" type="number" />
-        </>
-      ),
-    ]}
-  />
-));
+const Details = () => (
+  <>
+    <Input name="firstName" />
+    <Input name="lastName" />
+    <Autocomplete
+      inputProps={{ name: 'countries' }}
+      loadOptions={() => Promise.resolve(countries)}
+    />
+  </>
+);
+
+const Health = () => (
+  <>
+    <Input name="age" type="number" />
+    <Input name="height" type="number" />
+    <Input name="weight" type="number" />
+  </>
+);
+
+storiesOf('Components|Wizard', module)
+  .add('Dialog', () => (
+    <DialogWizard
+      isOpen
+      close={() => null}
+      onSubmit={() => null}
+      variant="dialog"
+    >
+      <Details
+        validationSchema={schema}
+        initialValues={{
+          firstName: 'Mike',
+          lastName: '',
+          countries: '',
+        }}
+      />
+      <Health validationSchema={schema2} />
+    </DialogWizard>
+  ))
+  .add('Horizontal', () => (
+    <HorizontalWizard onSubmit={() => null}>
+      <Details
+        validationSchema={schema}
+        initialValues={{
+          firstName: 'Mike',
+          lastName: '',
+          countries: '',
+        }}
+      />
+      <Health validationSchema={schema2} />
+    </HorizontalWizard>
+  ))
+  .add('Vertical', () => (
+    <VerticalWizard onSubmit={() => null}>
+      <Details
+        validationSchema={schema}
+        initialValues={{
+          firstName: 'Mike',
+          lastName: '',
+          countries: '',
+        }}
+      />
+      <Health validationSchema={schema2} />
+    </VerticalWizard>
+  ));

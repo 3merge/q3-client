@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { merge } from 'lodash';
 import { ThemeProvider } from '@material-ui/styles';
 import { ApplicationGate } from '.';
-import MockAPI from './utils/mocker';
+import MockAPI from './mock';
 
 const defineMocks = (mock) => {
   mock.onGet('/profile').reply(401);

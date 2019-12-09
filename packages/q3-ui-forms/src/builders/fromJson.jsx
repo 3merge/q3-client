@@ -10,7 +10,6 @@ import Input, {
   Multitext,
   Multiselect,
 } from 'q3-ui/lib/inputs';
-import Grid from '@material-ui/core/Grid';
 import Autocomplete from 'q3-ui/lib/autocomplete';
 import Transfer from 'q3-ui/lib/transfer';
 import { getForTransfer } from 'q3-ui-rest';

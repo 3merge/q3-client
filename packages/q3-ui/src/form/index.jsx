@@ -50,10 +50,9 @@ const FormWrapper = ({
               ) : (
                 <Button
                   disabled={utils.isSubmitting}
+                  variant="contained"
                   type="submit"
                   color="secondary"
-                  variant="contained"
-                  size="large"
                 >
                   {t('labels:submit')}
                   <Avatar

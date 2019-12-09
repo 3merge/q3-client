@@ -1,20 +1,62 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { get } from 'lodash';
 import { Formik, Form } from 'formik';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import TransitEnterexit from '@material-ui/icons/TransitEnterexit';
-import Publish from '@material-ui/icons/Publish';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import MobileStepper from '@material-ui/core/MobileStepper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import Container from '@material-ui/core/Container';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+
+class StepReader {
+  constructor(a, step = 0) {
+    this.current = step;
+    this.views = (Array.isArray(a) ? a : [a])
+      .flat()
+      .filter(Boolean);
+    return this;
+  }
+
+  static getName(c) {
+    return c ? c.props.name || c.type.name : '';
+  }
+
+  getValues() {
+    return this.views.reduce(
+      (a, c) =>
+        Object.assign(a, {
+          ...c.props.initialValues,
+        }),
+      {},
+    );
+  }
+
+  getValidation() {
+    return get(
+      this.views,
+      `${this.current}.props.validationSchema`,
+    );
+  }
+
+  getActive(args) {
+    return this.views.length
+      ? React.cloneElement(this.views[this.current], args)
+      : null;
+  }
+}
 
 export const useSteps = () => {
   const [step, setStep] = React.useState(0);
@@ -30,25 +72,81 @@ export const useSteps = () => {
   };
 };
 
+const withFormControls = ({
+  validateForm,
+  submitForm,
+  isFirst,
+  isLast,
+  reset,
+  back,
+  next,
+}) => {
+  const { t } = useTranslation();
+
+  const executeBack = () => {
+    return isFirst ? reset() : back();
+  };
+
+  const executeNext = () => {
+    return isLast
+      ? submitForm
+      : validateForm().then((errors) => {
+          if (!Object.keys(errors).length) next();
+        });
+  };
+
+  const renderBackButton = () =>
+    !isFirst ? (
+      <Button onClick={executeBack}>
+        <KeyboardArrowLeft />
+        {t('labels:back')}
+      </Button>
+    ) : null;
+
+  const renderNextButton = () =>
+    isLast ? (
+      <Button type="submit">
+        {t('labels:save')}
+        <KeyboardArrowRight />
+      </Button>
+    ) : (
+      <Button onClick={executeNext}>
+        {t('labels:next')}
+        <KeyboardArrowRight />
+      </Button>
+    );
+
+  return {
+    renderBackButton,
+    renderNextButton,
+  };
+};
+
 export const MultiStepFormik = ({
   done,
   onSubmit,
-  getValidation,
   children,
   steps,
-  ...rest
 }) => {
-  const { step, back, next, reset } = useSteps();
-  const isFirst = step === 0;
-  const isLast = step === steps.length - 1;
+  const { step, ...stepUtils } = useSteps();
+  const reader = new StepReader(steps, step);
+
+  const getControls = React.useCallback(
+    (formikbag) =>
+      withFormControls({
+        isLast: step === reader.views.length - 1,
+        isFirst: step === 0,
+        ...stepUtils,
+        ...formikbag,
+      }),
+    [step],
+  );
 
   return (
     <Formik
-      {...rest}
       enableReinitialize
-      validateOnBlur={false}
-      validateOnChange={false}
-      validationSchema={() => getValidation(step)}
+      validationSchema={reader.getValidation(step)}
+      initialValues={reader.getValues()}
       onSubmit={(values, actions) =>
         onSubmit(values, actions).then((e) => {
           if (done) done();
@@ -56,23 +154,14 @@ export const MultiStepFormik = ({
         })
       }
     >
-      {({ validateForm, submitForm, ...etc }) => (
+      {(formikbag) => (
         <Form>
           {children({
-            ...etc,
-            isFirst,
-            isLast,
             activeStep: step,
-            back() {
-              return isFirst ? reset() : back();
-            },
-            next() {
-              return isLast
-                ? submitForm
-                : validateForm().then((errors) => {
-                    if (!Object.keys(errors).length) next();
-                  });
-            },
+            steps: reader.views,
+            activeChild: reader.getActive(formikbag),
+            ...getControls(formikbag),
+            ...formikbag,
           })}
         </Form>
       )}
@@ -80,76 +169,13 @@ export const MultiStepFormik = ({
   );
 };
 
-const WizardHeader = ({ title, name }) => {
-  const { t } = useTranslation();
-  return name ? (
-    <Box px={2} mt={1}>
-      <Typography variant="overline" gutterBottom>
-        {t(`titles:${title}`)}
-      </Typography>
-      <Typography variant="h3" gutterBottom>
-        {t(`titles:${name}`)}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {t(`descriptions:${name}`)}
-      </Typography>
-    </Box>
-  ) : null;
-};
-
-WizardHeader.propTypes = {
-  name: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
-export const getContentFromProps = ({
-  getContent,
-  position = 0,
-}) =>
-  Array.isArray(getContent)
-    ? getContent[position]
-    : getContent;
-
-export const getSteps = ({ steps }) =>
-  (Array.isArray(steps) ? steps : [steps]).filter(Boolean);
-
-const Wizard = ({
-  icon: Icon,
-  title,
+const DialogWizard = ({
   isOpen,
   close,
-  isNew,
-  ...rest
+  children,
+  onSubmit,
 }) => {
   const isMobile = useMediaQuery('(max-width:960px)');
-  const { t } = useTranslation();
-  const steps = getSteps(rest);
-
-  const renderBackButton = (fn, isFirst) =>
-    isFirst ? (
-      <Button onClick={close}>
-        <TransitEnterexit />
-        {t('labels:nevermind')}
-      </Button>
-    ) : (
-      <Button onClick={fn}>
-        <KeyboardArrowLeft />
-        {t('labels:back')}
-      </Button>
-    );
-
-  const renderNextButton = (fn, isLast) =>
-    isLast ? (
-      <Button type="submit">
-        {t('labels:save')}
-        <Publish />
-      </Button>
-    ) : (
-      <Button onClick={fn}>
-        {t('labels:next')}
-        <KeyboardArrowRight />
-      </Button>
-    );
 
   return (
     <Dialog
@@ -159,78 +185,139 @@ const Wizard = ({
       onClose={close}
       open={isOpen}
     >
-      <MultiStepFormik steps={steps} done={close} {...rest}>
+      <MultiStepFormik
+        steps={children}
+        done={close}
+        onSubmit={onSubmit}
+      >
         {({
+          steps,
           activeStep,
-          isFirst,
-          isLast,
-          next,
-          back,
+          activeChild,
           isSubmitting,
-          values,
-          errors,
+          renderNextButton,
+          renderBackButton,
         }) => (
-          <>
+          <Box>
             {isSubmitting && <LinearProgress />}
-            <WizardHeader
-              title={title}
-              name={getContentFromProps({
-                position: activeStep,
-                ...rest,
-              })}
-            />
+            <DialogTitle disableTypography>
+              <Typography variant="h4">
+                {StepReader.getName(activeChild)}
+              </Typography>
+            </DialogTitle>
             <DialogContent>
-              {steps.map(
-                (Step, i) =>
-                  activeStep === i && (
-                    <Fade in key={i}>
-                      <div>
-                        <Step
-                          values={values}
-                          errors={errors}
-                          isNew={isNew}
-                        />
-                      </div>
-                    </Fade>
-                  ),
-              )}
+              <DialogContentText>
+                {StepReader.getName(activeChild)}
+              </DialogContentText>
+              {activeChild}
             </DialogContent>
-            <MobileStepper
-              steps={steps.length}
-              position="static"
-              activeStep={activeStep}
-              backButton={renderBackButton(back, isFirst)}
-              nextButton={renderNextButton(next, isLast)}
-            />
-          </>
+            {steps.length > 1 ? (
+              <MobileStepper
+                steps={steps.length}
+                activeStep={activeStep}
+                position="static"
+                variant="text"
+                backButton={renderBackButton()}
+                nextButton={renderNextButton()}
+              />
+            ) : (
+              <Box textAlign="right" mb={1} px={1}>
+                {renderNextButton()}
+              </Box>
+            )}
+          </Box>
         )}
       </MultiStepFormik>
     </Dialog>
   );
 };
 
-Wizard.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  icon: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  getValidation: PropTypes.func.isRequired,
-  getContent: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]).isRequired,
-  steps: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
+DialogWizard.propTypes = {
   close: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
-  authFn: PropTypes.func,
+  children: PropTypes.arrayOf([PropTypes.node]).isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-Wizard.defaultProps = {
-  steps: [],
+DialogWizard.defaultProps = {
   isOpen: false,
-  authFn: null,
 };
 
-export default Wizard;
+const HorizontalWizard = ({ children, onSubmit }) => (
+  <Box style={{ backgroundColor: '#FFF' }}>
+    <MultiStepFormik steps={children} onSubmit={onSubmit}>
+      {({
+        steps,
+        activeStep,
+        activeChild,
+        renderNextButton,
+        renderBackButton,
+      }) => (
+        <Box p={2}>
+          <Stepper activeStep={activeStep}>
+            {steps.map((ActiveStep, index) => (
+              <Step key={index}>
+                <StepLabel>
+                  {StepReader.getName(activeChild)}
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Container>
+            {activeChild}
+            <Box textAlign="right" my={2}>
+              {renderBackButton()}
+              {renderNextButton()}
+            </Box>
+          </Container>
+        </Box>
+      )}
+    </MultiStepFormik>
+  </Box>
+);
+
+HorizontalWizard.propTypes = {
+  children: PropTypes.arrayOf([PropTypes.node]).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+const VerticalWizard = ({ children, onSubmit }) => {
+  const { t } = useTranslation();
+
+  return (
+    <MultiStepFormik onSubmit={onSubmit} steps={children}>
+      {({
+        steps,
+        activeStep,
+        activeChild,
+        renderBackButton,
+        renderNextButton,
+      }) => (
+        <Stepper
+          activeStep={activeStep}
+          orientation="vertical"
+        >
+          {steps.map((ActiveStep, index) => (
+            <Step key={index}>
+              <StepLabel>
+                {StepReader.getName(activeChild)}
+              </StepLabel>
+              <StepContent>
+                <Typography>
+                  {StepReader.getName(activeChild)}
+                </Typography>
+                {activeChild}
+                <Box mt={1}>
+                  {renderBackButton()}
+                  {renderNextButton()}
+                </Box>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+      )}
+    </MultiStepFormik>
+  );
+};
+
+export { DialogWizard, HorizontalWizard, VerticalWizard };

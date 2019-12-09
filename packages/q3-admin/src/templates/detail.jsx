@@ -1,135 +1,133 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
 import { get } from 'lodash';
-import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
-import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import Header from 'q3-ui/lib/header';
 import Tabs from 'q3-ui/lib/tabs';
-import useRest from 'q3-ui-rest';
-import Trash from '../presets/trash';
-
-const ellpisis = (title = '') =>
-  title && title.length > 35
-    ? `${title.substring(0, 35)}...`
-    : title;
+import Context from './state';
+import Trash from '../views/trash';
+import { isArray, getPath } from './utils';
 
 const Detail = ({
-  name,
-  pathToTitle,
-  resourceName,
-  resourceNameSingular,
-  inheritCollectionName,
-  inheritResourceName,
-  collectionName,
-  views,
-  id,
-  ...rest
+  children,
+  trash,
+  notes,
+  files,
+  featured,
+  history,
+  picture,
 }) => {
-  if (inheritCollectionName) collectionName = name;
-  if (inheritResourceName) resourceName = name;
+  const {
+    resourceName,
+    resourceNameSingular,
+    collectionName,
+    id,
+    ...state
+  } = React.useContext(Context);
 
-  const url = `/${name}/${id}`;
-  const state = useRest({
-    runOnInit: true,
-    key: resourceNameSingular,
-    pluralized: resourceName,
-    url,
-    ...rest,
-  });
-
-  const { canDelete, canReadSub, ...authy } = useAuth(
+  const authorization = useAuth(
     collectionName,
     get(state, `${resourceNameSingular}.createdBy.id`),
   );
 
-  const tabs = Array.from(
-    typeof views === 'function'
-      ? views({
-          id,
+  const tabs = isArray(children)
+    .flat()
+    .filter(Boolean)
+    .map((element, i) => ({
+      label: element.type.name,
+      to: getPath(i, element.type.name.toLowerCase()),
+      component: () =>
+        React.cloneElement(element, {
+          title: element.type.name,
+          resourceName,
+          resourceNameSingular,
           collectionName,
-          data: state[resourceNameSingular],
-          ...state,
-          ...authy,
-        })
-      : views,
-  ).filter(({ field }) => {
-    if (!field) return true;
-    return canReadSub(field);
-  });
+          authorization,
+          state,
+          id,
+        }),
+    }));
 
-  if (canDelete)
+  if (picture)
     tabs.push({
-      label: 'Trash',
+      label: 'picture',
+      to: '/picture',
+      component: Trash,
+    });
+
+  if (featured)
+    tabs.push({
+      label: 'featured',
+      to: '/featured',
+      component: Trash,
+    });
+
+  if (files)
+    tabs.push({
+      label: 'files',
+      to: '/files',
+      component: Trash,
+    });
+
+  if (notes)
+    tabs.push({
+      label: 'notes',
+      to: '/notes',
+      component: Trash,
+    });
+
+  if (history)
+    tabs.push({
+      label: 'history',
+      to: '/history',
+      component: Trash,
+    });
+
+  if (trash)
+    tabs.push({
+      label: 'trash',
       to: '/trash',
-      component: () => (
-        <Trash
-          next={state.remove(null)}
-          redirect={`/${resourceName}`}
-        />
-      ),
+      component: Trash,
     });
 
   return (
-    <>
-      <Header
-        name={ellpisis(get(state, pathToTitle))}
-        renderPreIdentifier={() => (
-          <div>
-            <IconButton
-              component={Link}
-              to={`/${resourceName}`}
-            >
-              <KeyboardBackspace />
-            </IconButton>
-          </div>
+    <Container>
+      <Box my={4}>
+        {state.fetching ? (
+          <CircularProgress />
+        ) : (
+          <Tabs
+            root={`/${resourceName}/${id}`}
+            views={tabs}
+          />
         )}
-      />
-      <Container>
-        <Box my={6}>
-          {state.fetching ? (
-            <CircularProgress />
-          ) : (
-            <>
-              <Tabs
-                root={`/${resourceName}/${id}`}
-                views={tabs}
-              />
-            </>
-          )}
-        </Box>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
 };
 
 Detail.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  resourceNameSingular: PropTypes.string.isRequired,
-  resourceName: PropTypes.string,
-  collectionName: PropTypes.string,
-  pathToTitle: PropTypes.string.isRequired,
-  rootPath: PropTypes.string.isRequired,
-  views: PropTypes.oneOfType([
+  children: PropTypes.oneOfType([
     PropTypes.array,
-    PropTypes.func,
-  ]),
-  inheritCollectionName: PropTypes.bool,
-  inheritResourceName: PropTypes.bool,
+    PropTypes.node,
+  ]).isRequired,
+  trash: PropTypes.bool,
+  notes: PropTypes.bool,
+  featured: PropTypes.bool,
+  files: PropTypes.bool,
+  history: PropTypes.bool,
+  picture: PropTypes.bool,
 };
 
 Detail.defaultProps = {
-  inheritCollectionName: false,
-  inheritResourceName: false,
-  resourceName: null,
-  collectionName: null,
-  views: [],
+  trash: false,
+  notes: false,
+  featured: false,
+  files: false,
+  history: false,
+  picture: false,
 };
 
 export default Detail;

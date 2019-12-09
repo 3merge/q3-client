@@ -142,4 +142,5 @@ const getValidation = (fields = {}) =>
 
 export const withValidation = (schema) => () =>
   getValidation(schema);
+
 export default getValidation;

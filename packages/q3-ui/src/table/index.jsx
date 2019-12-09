@@ -10,7 +10,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
-import Star from '@material-ui/icons/Star';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -21,28 +20,17 @@ import IconButton from '@material-ui/core/IconButton';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import Apps from '@material-ui/icons/MoreVert';
-import Pageview from '@material-ui/icons/Link';
-import SelectAll from '@material-ui/icons/SelectAll';
-import Refresh from '@material-ui/icons/Refresh';
-import Clear from '@material-ui/icons/Clear';
-import Trash from '@material-ui/icons/DeleteForever';
-import CloudDownload from '@material-ui/icons/CloudDownload';
+import Apps from '@material-ui/icons/AssignmentReturned';
+import ArrowForward from '@material-ui/icons/ArrowForward';
 import { grey, yellow } from '@material-ui/core/colors';
 import Skeleton from '@material-ui/lab/Skeleton';
-import {
-  useOpenState,
-  Delete as DeleteConfirmation,
-} from '../dialogs';
 import Avatar from '../avatar';
 import { DropDownMenu } from '../toolbar';
 import ErrorComponent, {
   Empty as EmptyComponent,
 } from '../error';
-import Filter, {
-  FilterProps,
-  withLocation,
-} from '../filter';
+import { withLocation } from '../filter';
+import { TableContext } from '../tableActionBar';
 
 const useStyles = makeStyles((theme) => ({
   tableRowHover: {
@@ -81,10 +69,10 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
   },
   boxes: {
-    width: 250,
+    width: 185,
   },
   leader: {
-    width: 350,
+    minWidth: 350,
   },
   mobile: {
     [theme.breakpoints.down('sm')]: {
@@ -101,19 +89,29 @@ const ellpisis = (sub = '', num) =>
     ? `${sub.substring(0, num)}...`
     : sub;
 
-export const TableCellHeader = ({ name, sub, imgSrc }) => (
+export const TableCellHeader = ({
+  name,
+  sub,
+  imgSrc,
+  to,
+}) => (
   <TableCell>
-    <Grid container alignItems="center" spacing={1}>
-      <Grid item md={2} sm={1} xs={2}>
+    <Grid container alignItems="center" spacing={2}>
+      <Grid item style={{ width: 'calc(40px + 1rem)' }}>
         <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
-      <Grid item md={10} sm={11} xs={10}>
-        <Typography variant="body1" component="span" style={{ margin: 0 }}>
+      <Grid item style={{ flex: 1 }}>
+        <Typography
+          component={Link}
+          to={to}
+          variant="body1"
+        >
           <strong>{ellpisis(name, 25)}</strong>
           {sub && (
-            <div>
+            <>
+              <br />
               <small>{ellpisis(sub, 75)}</small>
-            </div>
+            </>
           )}
         </Typography>
       </Grid>
@@ -154,6 +152,7 @@ export const Templated = ({
       {columns.map((key, i) =>
         Array.isArray(key) ? (
           <TableCellHeader
+            to={`${id}`}
             name={t(get(rest, key[0]))}
             sub={t(get(rest, key[1]))}
             imgSrc={get(rest, key[2])}
@@ -170,16 +169,8 @@ export const Templated = ({
           </TableCell>
         ),
       )}
-
-      <TableCell style={{ textAlign: 'right' }}>
-        {children}
-        <IconButton
-          to={`${id}`}
-          component={Link}
-          aria-label="View"
-        >
-          <Pageview />
-        </IconButton>
+      <TableCell>
+        <SelectCheckbox id={id} />
         {rowToolbar && rowToolbar.length ? (
           <DropDownMenu
             items={
@@ -200,6 +191,14 @@ export const Templated = ({
             )}
           </DropDownMenu>
         ) : null}
+
+        <IconButton
+          to={`${id}`}
+          component={Link}
+          aria-label="View"
+        >
+          <ArrowForward />
+        </IconButton>
       </TableCell>
     </TableRow>
   );
@@ -231,7 +230,7 @@ Templated.defaultProps = {
 
 const TablePaper = ({ children }) => (
   <Paper
-    elevation={2}
+    elevation={0}
     style={{ maxWidth: '100%', overflow: 'auto' }}
   >
     {children}
@@ -269,253 +268,55 @@ const TablePaginationQuery = withLocation(
   ),
 );
 
-const TableToolbar = ({
-  checked,
-  executeBulkDelete,
-  executeBulkDownload,
-  canDelete,
-  canDownload,
-  children,
-}) => {
+const SelectAllButton = ({ ids }) => {
   const { t } = useTranslation();
-  const openState = useOpenState();
+  const ctx = React.useContext(TableContext);
 
-  return (
-    <Box
-      textAlign="right"
-      style={{
-        padding: '0.5rem',
-        backgroundColor: grey[200],
-        borderBottom: `1px solid ${grey[300]}`,
-      }}
-    >
-      {children}
-      {checked.length ? (
-        <>
-          {canDelete && (
-            <>
-              <IconButton
-                onClick={openState.open}
-                aria-label="Delete"
-              >
-                <Trash />
-              </IconButton>
-              <DeleteConfirmation
-                {...openState}
-                next={executeBulkDelete}
-              />
-            </>
-          )}
-          {canDownload && (
-            <IconButton
-              aria-label={t('labels:download')}
-              onClick={executeBulkDownload}
-            >
-              <CloudDownload />
-            </IconButton>
-          )}
-        </>
-      ) : null}
-    </Box>
-  );
-};
-
-TableToolbar.propTypes = {
-  children: PropTypes.node.isRequired,
-  checked: PropTypes.arrayOf(PropTypes.string),
-  executeBulkDelete: PropTypes.func,
-  executeBulkDownload: PropTypes.func,
-  canDelete: PropTypes.bool,
-  canDownload: PropTypes.bool,
-};
-
-TableToolbar.defaultProps = {
-  executeBulkDelete: null,
-  executeBulkDownload: null,
-  checked: [],
-  canDelete: false,
-  canDownload: false,
-};
-
-const SelectAllButton = ({
-  hasServices,
-  ids,
-  setChecked,
-  clear,
-  checked,
-}) => {
-  const { t } = useTranslation();
+  if (!ctx) return null;
+  const { clear, checked, setChecked, hasChecked } = ctx;
   const label = checked.length
     ? t('labels:clearAll')
     : t('labels:selectAll');
-  const onClick = checked.length
-    ? clear
-    : () => setChecked(ids);
-  const Icon = checked.length ? Clear : SelectAll;
 
-  if (!hasServices) return null;
+  const onClick = !checked.length
+    ? () => setChecked(ids)
+    : clear;
 
   return (
-    <IconButton aria-label={label} onClick={onClick}>
-      <Badge badgeContent={checked.length}>
-        <Icon />
-      </Badge>
-    </IconButton>
+    <Badge badgeContent={checked.length} color="primary">
+      <Checkbox
+        style={{ padding: 12 }}
+        aria-label={label}
+        onClick={onClick}
+        checked={hasChecked()}
+      />
+    </Badge>
   );
 };
 
 SelectAllButton.propTypes = {
-  hasServices: PropTypes.bool.isRequired,
-  setChecked: PropTypes.func.isRequired,
   ids: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-const SelectCheckbox = ({
-  id,
-  hasServices,
-  isChecked,
-  onCheck,
-}) => {
+const SelectCheckbox = ({ id }) => {
   const { t } = useTranslation();
-  if (!hasServices) return null;
+  const ctx = React.useContext(TableContext);
+  if (!ctx) return null;
+
+  const { isChecked, onCheck } = ctx;
 
   return (
     <Checkbox
       aria-label={t('labels:check')}
       onClick={onCheck(id)}
       checked={isChecked(id)}
+      style={{ padding: 12 }}
     />
   );
 };
 
 SelectCheckbox.propTypes = {
-  isChecked: PropTypes.func.isRequired,
-  onCheck: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  hasServices: PropTypes.bool.isRequired,
-};
-
-const RefreshButton = ({ poll, clear }) => {
-  const { t } = useTranslation();
-  return poll ? (
-    <IconButton
-      aria-label={t('labels:poll')}
-      onClick={() => {
-        poll();
-        clear();
-      }}
-    >
-      <Refresh />
-    </IconButton>
-  ) : null;
-};
-
-RefreshButton.propTypes = {
-  clear: PropTypes.func.isRequired,
-  poll: PropTypes.func.isRequired,
-};
-
-const Favourite = ({ id, featured, mark }) => {
-  const { t } = useTranslation();
-  const { starred } = useStyles({ featured });
-  if (!mark) return null;
-
-  return (
-    <IconButton
-      aria-label={t('labels:favourite')}
-      onClick={mark(id, !featured)}
-      className={starred}
-    >
-      <Star />
-    </IconButton>
-  );
-};
-
-Favourite.propTypes = {
-  id: PropTypes.string.isRequired,
-  mark: PropTypes.func,
-  featured: PropTypes.bool,
-};
-
-Favourite.defaultProps = {
-  featured: false,
-  mark: null,
-};
-
-export const useCheckboxes = () => {
-  const [checked, setChecked] = React.useState([]);
-  const clear = () => setChecked([]);
-  const isChecked = (key) => checked.includes(key);
-
-  const onCheck = (key) => () =>
-    setChecked(
-      checked.includes(key)
-        ? checked.filter((i) => i !== key)
-        : checked.concat(key),
-    );
-
-  return {
-    checked,
-    setChecked,
-    onCheck,
-    isChecked,
-    clear,
-  };
-};
-
-const useActionBar = ({
-  deleteMany,
-  downloadMany,
-  poll,
-  mark,
-}) => {
-  const {
-    checked,
-    setChecked,
-    onCheck,
-    isChecked,
-    clear,
-  } = useCheckboxes();
-
-  const hasServices = Boolean(deleteMany || downloadMany);
-
-  const executeBulkDelete = () =>
-    deleteMany(checked).then((e) => {
-      setChecked([]);
-      return e;
-    });
-
-  const executeBulkDownload = () =>
-    downloadMany(checked).then((e) => {
-      return e;
-    });
-
-  const withActions = (Comp) => (props) => (
-    <Comp
-      {...props}
-      clear={clear}
-      hasServices={hasServices}
-      executeBulkDelete={executeBulkDelete}
-      executeBulkDownload={executeBulkDownload}
-      checked={checked}
-      poll={poll}
-      mark={mark}
-      onCheck={onCheck}
-      isChecked={isChecked}
-      setChecked={setChecked}
-      canDelete={Boolean(deleteMany)}
-      canDownload={Boolean(downloadMany)}
-    />
-  );
-
-  return {
-    Toolbar: withActions(TableToolbar),
-    CheckboxMaster: withActions(SelectAllButton),
-    CheckboxRow: withActions(SelectCheckbox),
-    Poll: withActions(RefreshButton),
-    Mark: withActions(Favourite),
-    hasServices,
-  };
 };
 
 export const TableView = ({
@@ -526,19 +327,10 @@ export const TableView = ({
   total,
   root,
   rowTemplate: Row,
-  filterProps,
   ...etc
 }) => {
-  const {
-    Toolbar,
-    CheckboxMaster,
-    Poll,
-    CheckboxRow,
-    Mark,
-    hasServices,
-  } = useActionBar(etc);
-  const { leader, mobile, boxes } = useStyles();
   const { t } = useTranslation();
+  const { leader, mobile, boxes } = useStyles();
   const [showResults, setShowResults] = React.useState(
     false,
   );
@@ -585,11 +377,6 @@ export const TableView = ({
 
   return (
     <TablePaper>
-      <Toolbar>
-        <CheckboxMaster ids={rows.map(extractId)} />
-        <Poll />
-        <Filter {...filterProps} />
-      </Toolbar>
       <Table stickyHeader>
         <TableHead>
           <TableRow className={mobile}>
@@ -601,7 +388,9 @@ export const TableView = ({
                 {t(`labels:${getId(key)}`)}
               </TableCell>
             ))}
-            <TableCell className={boxes} />
+            <TableCell className={boxes}>
+              <SelectAllButton ids={rows.map(extractId)} />
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -612,14 +401,10 @@ export const TableView = ({
                 {...etc}
                 {...props}
                 key={key}
-                showChildren={hasServices}
                 Component={Row}
                 columns={columns}
                 root={root || window.location.pathname}
-              >
-                <CheckboxRow id={key} {...props} />
-                <Mark id={key} {...props} />
-              </Templated>
+              />
             );
           })}
         </TableBody>
@@ -638,7 +423,6 @@ TableView.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.bool,
   rowTemplate: PropTypes.func.isRequired,
-  filterProps: PropTypes.shape(FilterProps).isRequired,
   total: PropTypes.number,
   root: PropTypes.string,
   rows: PropTypes.arrayOf(

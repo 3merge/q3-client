@@ -143,8 +143,9 @@ Object.assign(theme, {
     },
     MuiTableCell: {
       head: {
-        color: grey[500],
-        fontSize: '0.88rem',
+        backgroundColor: 'transparent',
+        color: grey[700],
+        fontSize: '0.75rem',
         fontWeight: 600,
         textTransform: 'uppercase',
         minWidth: 150,
@@ -156,6 +157,7 @@ Object.assign(theme, {
       },
       root: {
         minWidth: 150,
+        padding: '8px 16px',
         [theme.breakpoints.down('sm')]: {
           display: 'block',
           '&:not(:last-child)': {
@@ -172,6 +174,22 @@ Object.assign(theme, {
       },
       sizeSmall: {
         padding: '6px 0px 6px 24px',
+      },
+    },
+    MuiBottomNavigation: {
+      root: {
+        height: 105,
+      },
+    },
+    MuiBottomNavigationAction: {
+      wrapper: {
+        '& svg': {
+          height: 45,
+          width: 30,
+        },
+      },
+      label: {
+        fontSize: '1rem',
       },
     },
     MuiTablePagination: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
-import MockAPI from '../../utils/mocker';
+import MockAPI from '../../mock';
 import Permissions, { PermissionDetail } from './index';
 
 const stub = {
@@ -18,7 +18,7 @@ const stub = {
 const define = (mock) => {
   mock.onGet('/system').reply(200, {
     collections: {
-      'q3-api-users': {
+      'users': {
         paths: [
           'id',
           'name',
@@ -30,7 +30,7 @@ const define = (mock) => {
         ],
         refs: ['tel'],
       },
-      'q3-api-permissions': {
+      'permissions': {
         paths: [
           'fields',
           'ownership',
@@ -51,38 +51,38 @@ const define = (mock) => {
     },
     permissions: [
       {
-        coll: 'q3-api-permissions',
+        coll: 'permissions',
         fields: '*',
         op: 'Delete',
       },
       {
-        coll: 'q3-api-permissions',
+        coll: 'permissions',
         fields: '*, !fields',
         op: 'Create',
       },
       {
-        coll: 'q3-api-permissions',
+        coll: 'permissions',
         fields: 'owner*',
         op: 'Update',
         ownership: 'Own',
       },
       {
-        coll: 'q3-api-permissions',
+        coll: 'permissions',
         fields: '*',
         op: 'Read',
       },
     ],
   });
 
-  mock.onGet('/q3-api-permissions').reply(200, {
+  mock.onGet('/permissions').reply(200, {
     permissions: [stub, stub, stub],
   });
 
-  mock.onGet(/\/q3-api-permissions\/\d+/).reply(200, {
+  mock.onGet(/\/permissions\/\d+/).reply(200, {
     permission: stub,
   });
 
-  mock.onPatch(/\/q3-api-permissions\/\d+/).reply(422, {
+  mock.onPatch(/\/permissions\/\d+/).reply(422, {
     message: 'Permission has failed',
     errors: {
       action: {
@@ -94,11 +94,11 @@ const define = (mock) => {
     },
   });
 
-  mock.onDelete(/\/q3-api-permissions\/\d+/).reply(204, {
+  mock.onDelete(/\/permissions\/\d+/).reply(204, {
     message: 'Permission has been successfully removed',
   });
 
-  mock.onPost('/q3-api-permissions').reply(201, {
+  mock.onPost('/permissions').reply(201, {
     message: 'Permission has been created',
     permission: {},
   });

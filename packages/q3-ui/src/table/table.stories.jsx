@@ -2,6 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Table from '.';
+import FolderIcon from '@material-ui/icons/Folder';
+import TableActionBar from '../tableActionBar';
 import { Wrapper } from '../_helpers/storyUtils';
 import sidebar from './README.md';
 
@@ -105,36 +107,38 @@ storiesOf('Components|Table', module)
 
       return (
         <Wrapper>
-          <Table
-            {...props}
-            loading={false}
-            total={seed.length}
-            rows={data}
-            mark={mark}
-            deleteMany={deleteMany}
-            downloadMany={downloadMany}
-            poll={refresh}
-            rowToolbar={[
-              {
-                onClick: () => null,
-                label: 'Export',
-              },
-              {
-                onClick: () => null,
-                label: 'Start order',
-              },
-            ]}
-            filterProps={{
-              onChange: () => null,
-              total: 1,
-              initialValues: {
-                foo: '',
-              },
-              render: () => {
-                <p>HEY!</p>;
-              },
-            }}
-          />
+          <TableActionBar actions={[{label:'Download', icon: FolderIcon}]}>
+            <Table
+              {...props}
+              loading={false}
+              total={seed.length}
+              rows={data}
+              mark={mark}
+              deleteMany={deleteMany}
+              downloadMany={downloadMany}
+              poll={refresh}
+              rowToolbar={[
+                {
+                  onClick: () => null,
+                  label: 'Export',
+                },
+                {
+                  onClick: () => null,
+                  label: 'Start order',
+                },
+              ]}
+              filterProps={{
+                onChange: () => null,
+                total: 1,
+                initialValues: {
+                  foo: '',
+                },
+                render: () => {
+                  <p>HEY!</p>;
+                },
+              }}
+            />
+          </TableActionBar>
         </Wrapper>
       );
     };

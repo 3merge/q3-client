@@ -1,20 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Container from '@material-ui/core/Container';
-import Header from 'q3-ui/lib/header';
+import useRest from 'q3-ui-rest';
+import Context from './state';
 
-const Page = ({ title, children }) => {
+const Page = ({
+  children,
+  collectionName,
+  resourceName,
+  resourceNameSingular,
+  id,
+}) => {
+  const url = id
+    ? `/${collectionName}/${id}`
+    : `/${collectionName}`;
+
+  const state = useRest({
+    key: resourceNameSingular,
+    pluralized: resourceName,
+    runOnInit: true,
+    url,
+  });
+
+console.log(children)
   return (
-    <>
-      <Header name={title} />
-      <Container>{children}</Container>
-    </>
+    <Context.Provider
+      value={{
+        id,
+        collectionName,
+        resourceName,
+        resourceNameSingular,
+        ...state,
+      }}
+    >
+      {children}
+    </Context.Provider>
   );
 };
 
 Page.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  collectionName: PropTypes.string.isRequired,
+  resourceName: PropTypes.string.isRequired,
+  resourceNameSingular: PropTypes.string.isRequired,
+  id: PropTypes.string,
+};
+
+Page.defaultProps = {
+  id: null,
 };
 
 export default Page;

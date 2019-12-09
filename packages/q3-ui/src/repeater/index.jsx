@@ -11,7 +11,7 @@ import Graphic from '../graphic';
 import ServerError from '../error';
 import unpopulated from '../../images/unpopulated.png';
 import { useOpenState } from '../dialogs';
-import Wizard from '../wizard';
+import { DialogWizard } from '../wizard';
 
 const isObject = (item) => typeof item === 'object';
 
@@ -52,7 +52,7 @@ const AddNewWizard = (props) => {
       >
         {t('labels:create')}
       </Button>
-      <Wizard
+      <DialogWizard
         title={t('titles:add')}
         {...openState}
         {...props}
@@ -87,7 +87,7 @@ const Repeater = ({
   create,
 
   /** wizard base props  */
-  wizardProps,
+  children,
 }) => {
   const { t } = useTranslation();
   const list = assignIDs(data);
@@ -123,7 +123,8 @@ const Repeater = ({
               ? renderIcon(item)
               : null;
 
-          return Object.assign(item, wizardProps, {
+          return Object.assign(item, {
+            children,
             icon: getIcon(),
             primary: executeRenderTextOptions(
               item,
@@ -153,11 +154,9 @@ const Repeater = ({
       }
     >
       {renderInterior()}
-      <AddNewWizard
-        isNew
-        onSubmit={create}
-        {...wizardProps}
-      />
+      <AddNewWizard onSubmit={create}>
+        {children}
+      </AddNewWizard>
     </Tile>
   );
 };

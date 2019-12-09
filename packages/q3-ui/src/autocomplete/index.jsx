@@ -1,37 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Downshift from 'downshift';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import * as Yup from 'yup';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Lock from '@material-ui/icons/Lock';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Popper from '@material-ui/core/Popper';
-import { connect, getIn } from 'formik';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  styleProps,
-} from '../inputs';
-import useFormik from '../inputs/useFormik'
-
-Yup.addMethod(Yup.mixed, 'autocomplete', function() {
-  return this.test(
-    'nestedValue',
-    'A selection is required',
-    function(v) {
-      const { createError } = this;
-      return (
-        (v && v.value && v.value !== '') || createError()
-      );
-    },
-  );
-});
+import { connect } from 'formik';
+import { styleProps } from '../inputs';
+import useFormik from '../inputs/useFormik';
 
 export const AutoCompleteWrapper = ({
   loadOptions,
@@ -96,8 +70,7 @@ export const AutoCompleteWrapper = ({
         <TextField
           {...params}
           {...decoratedInputProps}
-          fullWidth
-          variant="filled"
+          {...styleProps}
           aria-busy={loading}
           onChange={onInputChange}
           inputProps={{

@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Auth from 'q3-ui-permissions';
 import data from 'q3-ui/lib/timeline/data.json';
-import MockAPI from '../../utils/mocker';
+import MockAPI from '../../mock';
 import History from './index';
 import Detail from '../../templates/detail';
 

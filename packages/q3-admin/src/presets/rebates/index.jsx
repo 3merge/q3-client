@@ -1,105 +1,72 @@
 import React from 'react';
-import { Router } from '@reach/router';
-import { useTranslation } from 'react-i18next';
-import Detail from 'q3-admin/lib/templates/detail';
-import List from 'q3-admin/lib/templates/list';
-import FormBuilder, {
-  iterateSchemas,
-} from 'q3-ui-forms/lib/builders/submit';
+import FormBuilder from 'q3-ui-forms/lib/builders/submit';
 import RepeaterBuilder from 'q3-ui-forms/lib/builders/repeater';
-import { withJsonFields } from 'q3-ui-forms/lib/builders/fromJson';
-import { withValidation } from 'q3-ui-forms/lib/validations';
-import { formatTierValueStatment } from './utils';
+import FromJson from 'q3-ui-forms/lib/builders/fromJson';
+import validate from 'q3-ui-forms/lib/validations';
+import {
+  Collection,
+  Page,
+  List,
+  Detail,
+  Header,
+  Search,
+  Field,
+  Add,
+} from '../../templates';
 import {
   general,
   conditions,
   tiers,
 } from './__fields.json';
 
-export const withTierRepeater = ({
-  rebate,
-  id,
-  collectionName,
-}) => {
-  const { t } = useTranslation();
-  const subfield = 'tiers';
-
-  return {
-    label: subfield,
-    to: '/tiers',
-    component: () => (
-      <RepeaterBuilder
-        id={id}
-        resourceName={subfield}
-        collectionName={collectionName}
-        primary="quantity"
-        primaryPrefix={`${t('labels:quantity')}: `}
-        secondary={formatTierValueStatment(rebate)}
-        wizardProps={{
-          steps: withJsonFields({
-            fields: tiers,
-            collectionName,
-            subfield,
-          }),
-          getValidation: withValidation(tiers),
-          getContent: 'tier',
-          initialValues: {
-            quantity: '',
-            value: '',
-          },
-        }}
-      />
-    ),
-  };
-};
-
-const NewRebateForm = (props) => (
-  <FormBuilder
-    {...props}
-    title="newRebate"
-    deriveSubtitle
-    dividers={false}
-    fields={general}
-    initialValues={{
-      currency: 'CAD',
-      symbol: '%',
-    }}
-  />
+const General = (props) => (
+  <FormBuilder {...props} fields={general} />
 );
 
-const createTabs = ({ patch, ...etc }) =>
-  iterateSchemas(
-    { general, conditions },
-    { onSubmit: patch(), ...etc },
-  ).concat(withTierRepeater(etc));
+const Conditions = (props) => (
+  <FormBuilder {...props} fields={conditions} />
+);
 
-export default (props) => (
-  <Router>
-    <List
-      {...props}
-      path="rebates"
-      addComponent={NewRebateForm}
-      columns={[
-        ['name', 'description'],
-        'effectiveFrom',
-        'expiresOn',
-      ]}
-      searchFields={['symbol', 'currency']}
-      searchSchema={(state) => ({
-        symbol: {
-          type: 'select',
-          options: state.getOptions('symbol'),
-        },
-        currency: {
-          type: 'select',
-          options: state.getOptions('currency'),
-        },
-      })}
+const Tiers = (props) => (
+  <RepeaterBuilder {...props}>
+    <FromJson
+      name="tier"
+      validationSchema={validate(tiers)}
+      json={{
+        fields: tiers,
+        ...props,
+      }}
     />
-    <Detail
-      path="rebates/:id/*"
-      views={createTabs}
-      {...props}
-    />
-  </Router>
+  </RepeaterBuilder>
+);
+
+export default () => (
+  <Collection
+    useResourceName
+    resourceName="rebates"
+    resourceNameSingular="rebate"
+  >
+    <Page index>
+      <Header>
+        <Search>
+          <Field include="currency" type="select" />
+          <Field include="symbol" type="select" />
+        </Search>
+        <Add fields={general} />
+      </Header>
+      <List>
+        <Field include={['name', 'description']} />
+        <Field include="expiresOn" />
+        <Field include="effectiveFrom" />
+      </List>
+    </Page>
+    <Page id>
+      <Header titleProp="name" />
+      <Detail trash history>
+        <General />
+        <Conditions />
+        <Tiers />
+      </Detail>
+    </Page>
+  </Collection>
 );

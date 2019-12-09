@@ -12,10 +12,16 @@ const getCreatedByMeta = (data) => {
     : data.createdBy;
 };
 
-const getPlaceholderData = (fields = {}) => fields ? 
-  Object.entries(fields).reduce((prev,[key]) => Object.assign(prev, { [key]: '' }), {}) : {};
+const getPlaceholderData = (fields = {}) =>
+  fields
+    ? Object.entries(fields).reduce(
+        (prev, [key]) => Object.assign(prev, { [key]: '' }),
+        {},
+      )
+    : {};
 
-const mergeValues = (a = {},b = {},c = {}) => Object.assign(getPlaceholderData(a), b, c);
+const mergeValues = (a = {}, b = {}, c = {}) =>
+  Object.assign(getPlaceholderData(a), b, c);
 
 const FormBuilder = ({
   data,
@@ -55,7 +61,11 @@ const FormBuilder = ({
     <Form
       title={title}
       validationSchema={validations(fields)}
-      initialValues={mergeValues(fields, initialValues, data)}
+      initialValues={mergeValues(
+        fields,
+        initialValues,
+        data,
+      )}
       subtitle={deriveSubtitle ? title : subtitle}
       readOnly={readOnly}
       onSubmit={onSubmit}

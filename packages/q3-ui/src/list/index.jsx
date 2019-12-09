@@ -15,7 +15,7 @@ import {
   Delete as DeleteConfirmation,
 } from '../dialogs';
 import { DropDownMenu } from '../toolbar';
-import Wizard from '../wizard';
+import { DialogWizard } from '../wizard';
 
 const extractStringValue = (v) =>
   Array.isArray(v) ? v.join(', ') : String(v || '--');
@@ -98,7 +98,7 @@ const InteractiveListItem = ({
         secondary={secondary}
       />
       {updateOne && (
-        <Wizard
+        <DialogWizard
           {...etc}
           {...editorOpenState}
           initialValues={data}
