@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/3merge/q/compare/v0.4.0...v0.5.0) (2019-12-09)
+
+
+### Features
+
+* multitext ([27db1be](https://github.com/3merge/q/commit/27db1bedc4ba000bffbdea0f0b704dfd52631c2b))
+
+
+
+
+
 # [0.4.0](https://github.com/3merge/q/compare/v0.3.0...v0.4.0) (2019-12-05)
 
 
