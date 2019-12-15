@@ -108,10 +108,7 @@ export const TableCellHeader = ({
         >
           <strong>{ellpisis(name, 25)}</strong>
           {sub && (
-            <>
-              <br />
-              <small>{ellpisis(sub, 75)}</small>
-            </>
+              <Box component="small" display="block">{ellpisis(sub, 75)}</Box>
           )}
         </Typography>
       </Grid>

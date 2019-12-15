@@ -92,7 +92,6 @@ const FormBuilder = ({
 FormBuilder.propTypes = {
   data: PropTypes.shape({}),
   initialValues: PropTypes.shape({}),
-  schema: PropTypes.shape({}).isRequired,
   collectionName: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,

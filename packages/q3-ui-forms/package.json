@@ -6,6 +6,7 @@
     "comparisons": "^1.1.0",
     "lodash": "^4.17.15",
     "notistack": "^0.9.5",
+    "with-location": "^1.1.0",
     "yup": "^0.27.0"
   },
   "peerDependencies": {

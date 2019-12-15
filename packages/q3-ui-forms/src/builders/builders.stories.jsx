@@ -43,19 +43,6 @@ storiesOf('Form Builders', module)
     );
   })
   .add('Submit', () => {
-    const schema = {
-      firstName: {
-        type: Inputs,
-        expected: 'text',
-        required: true,
-      },
-      lastName: {
-        type: Inputs,
-        expected: 'text',
-        required: true,
-      },
-    };
-
     const definePermission = (m) => {
       m.onGet('/profile').reply(200, {
         profile: {
@@ -80,11 +67,10 @@ storiesOf('Form Builders', module)
           <Submit
             title="Demo"
             data={{ createdBy: 123 }}
-            schema={schema}
             collectionName="q3-api-protected"
             fields={{
-              name: { type: 'text', colMd: 6 },
-              company: { type: 'text', colMd: 6 },
+              name: { type: 'text' },
+              company: { type: 'text' },
               date: { type: 'date' },
             }}
           />
@@ -125,6 +111,7 @@ storiesOf('Form Builders', module)
     const meta = {
       collectionName: 'route',
       resourceName: 'point',
+      resourceNameSingular: 'point',
     };
 
     return (
@@ -133,35 +120,28 @@ storiesOf('Form Builders', module)
           <Repeater
             {...meta}
             id="123"
-            wizardProps={{
-              getValidation: () => null,
-              getContent: () => null,
-              steps: [
-                (args) => (
-                  <FromJson
-                    json={{
-                      ...meta,
-                      ...args,
-                      subfield: 'point',
-                      fields: {
-                        name: { type: 'text' },
-                        company: { type: 'text' },
-                        date: {
-                          type: 'date',
-                          conditional: ['name=fred'],
-                        },
-                      },
-                    }}
-                  />
-                ),
-              ],
-              initialValues: {
-                name: '',
-                company: '',
-                date: '',
-              },
+            initialValues={{
+              name: '',
+              company: '',
+              date: '',
             }}
-          />
+          >
+            <FromJson
+              name="tier"
+              json={{
+                ...meta,
+                subfield: 'point',
+                fields: {
+                  name: { type: 'text' },
+                  company: { type: 'text' },
+                  date: {
+                    type: 'date',
+                    conditional: ['name=fred'],
+                  },
+                },
+              }}
+            />
+          </Repeater>
         </Auth>
       </MockApi>
     );

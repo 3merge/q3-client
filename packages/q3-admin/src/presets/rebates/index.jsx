@@ -40,12 +40,8 @@ const Tiers = (props) => (
   </RepeaterBuilder>
 );
 
-export default () => (
-  <Collection
-    useResourceName
-    resourceName="rebates"
-    resourceNameSingular="rebate"
-  >
+export default (props) => (
+  <Collection {...props}>
     <Page index>
       <Header>
         <Search>

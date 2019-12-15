@@ -1,8 +1,9 @@
 import React from 'react';
+import { Router } from '@reach/router';
 import { storiesOf } from '@storybook/react';
-import Auth from 'q3-ui-permissions';
 import Rebates from './index';
 import JSON from './__api.json';
+import { ApplicationGate } from '../..';
 import MockAPI from '../../mock';
 
 const Story = () => (
@@ -26,9 +27,21 @@ const Story = () => (
       return m;
     }}
   >
-    <Auth>
-      <Rebates />
-    </Auth>
+    <ApplicationGate
+      name="3merge"
+      logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
+      appIndex={() => (
+        <Router>
+          <Rebates
+            path="rebates/*"
+            resourceName="rebates"
+            resourceNameSingular="rebate"
+            collectionName="rebates"
+          />
+        </Router>
+      )}
+      appNav={() => null}
+    />
   </MockAPI>
 );
 

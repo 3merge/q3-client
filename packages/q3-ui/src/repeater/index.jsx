@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import Grow from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import useOpen from 'useful-state/lib/useOpen';
 import List from '../list';
 import Tile from '../tile';
 import Graphic from '../graphic';
 import ServerError from '../error';
 import unpopulated from '../../images/unpopulated.png';
-import { useOpenState } from '../dialogs';
 import { DialogWizard } from '../wizard';
 
 const isObject = (item) => typeof item === 'object';
@@ -41,7 +41,7 @@ const renderText = (s = '', args) =>
 const AddNewWizard = (props) => {
   const { onSubmit } = props;
   const { t } = useTranslation();
-  const { open, ...openState } = useOpenState();
+  const { open, ...openState } = useOpen();
 
   return onSubmit ? (
     <Box mt={1}>
@@ -153,10 +153,12 @@ const Repeater = ({
           : null
       }
     >
-      {renderInterior()}
-      <AddNewWizard onSubmit={create}>
-        {children}
-      </AddNewWizard>
+      <>
+        {renderInterior()}
+        <AddNewWizard onSubmit={create}>
+          {children}
+        </AddNewWizard>
+      </>
     </Tile>
   );
 };

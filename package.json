@@ -80,6 +80,8 @@
     "react-helmet": "^5.2.1",
     "react-i18next": "^10.13.1",
     "storybook-readme": "^5.0.8",
+    "useful-state": "^1.2.0",
+    "with-location": "^1.1.0",
     "yup": "^0.27.0"
   }
 }

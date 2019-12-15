@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useOpen } from 'useful-state';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
 import Avatar from '../avatar';
 import {
-  useOpenState,
+
   Delete as DeleteConfirmation,
 } from '../dialogs';
 import { DropDownMenu } from '../toolbar';
@@ -73,8 +74,8 @@ const InteractiveListItem = ({
   ...etc
 }) => {
   const actions = [];
-  const editorOpenState = useOpenState();
-  const confirmationOpenState = useOpenState();
+  const editorOpenState = useOpen();
+  const confirmationOpenState = useOpen();
   const { t } = useTranslation();
 
   if (updateOne)

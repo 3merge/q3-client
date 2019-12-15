@@ -147,6 +147,14 @@ Object.assign(theme, {
         width: '100%',
       },
     },
+    MuiTableRow: {
+      root: {
+        '&:hover': {
+          backgroundColor: grey[100],
+          transition: 'background-color 250ms'
+        }
+      }
+    },
     MuiTableCell: {
       head: {
         backgroundColor: 'transparent',
@@ -164,6 +172,7 @@ Object.assign(theme, {
       root: {
         minWidth: 150,
         padding: '8px 16px',
+        borderBottom: `2px solid ${grey[100]}`,
         [theme.breakpoints.down('sm')]: {
           display: 'block',
           '&:not(:last-child)': {

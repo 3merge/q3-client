@@ -27,8 +27,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import { CircularProgress, Badge } from '@material-ui/core';
+import  useOpen  from 'useful-state/lib/useOpen';
 import * as utils from '../_helpers/utils';
-import { useOpenState } from '../dialogs';
 import { styleProps } from '../inputs';
 
 export const findNestedExpressions = (a = []) =>
@@ -348,7 +348,7 @@ export function TransferList({
   const [selected, setSelected] = React.useState([]);
   const [items, setItems] = React.useState(options || []);
   const [loading, setLoading] = React.useState(false);
-  const { open, close, isOpen } = useOpenState();
+  const { open, close, isOpen } = useOpen();
   const cls = useStyles();
 
   const init = getIn(formik.values, name);

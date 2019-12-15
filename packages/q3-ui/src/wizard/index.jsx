@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import MobileStepper from '@material-ui/core/MobileStepper';
+import Divider from '@material-ui/core/Divider';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import Container from '@material-ui/core/Container';
@@ -129,6 +129,7 @@ export const MultiStepFormik = ({
   onSubmit,
   children,
   steps,
+  withForm,
 }) => {
   const { step, ...stepUtils } = useSteps();
   const reader = new StepReader(steps, step);
@@ -158,17 +159,21 @@ export const MultiStepFormik = ({
         })
       }
     >
-      {(formikbag) => (
-        <Form>
-          {children({
-            activeStep: step,
-            steps: reader.views,
-            activeChild: reader.getActive(formikbag),
-            ...getControls(formikbag),
-            ...formikbag,
-          })}
-        </Form>
-      )}
+      {(formikbag) => {
+        const interior = children({
+          activeStep: step,
+          steps: reader.views,
+          activeChild: reader.getActive(formikbag),
+          ...getControls(formikbag),
+          ...formikbag,
+        });
+
+        return withForm ? (
+          <Form>{interior}</Form>
+        ) : (
+          interior
+        );
+      }}
     </Formik>
   );
 };
@@ -194,6 +199,7 @@ const DialogWizard = ({
         steps={children}
         done={close}
         onSubmit={onSubmit}
+        withForm
       >
         {({
           steps,
@@ -204,25 +210,25 @@ const DialogWizard = ({
           renderBackButton,
         }) => (
           <Box>
-          <Container maxWidth="md">
-            {isSubmitting && <LinearProgress />}
-            <DialogTitle disableTypography>
-              <Typography
-                variant="h4"
-                style={{ marginBottom: '-1rem' }}
-              >
-                {t(
-                  `titles:${StepReader.getName(
-                    activeChild,
-                  )}`,
-                )}
-              </Typography>
-            </DialogTitle>
-            <DialogContent>{activeChild}</DialogContent>
-            <Box mb={1} px={2} textAlign="right">
-              {renderBackButton()}
-              {renderNextButton()}
-            </Box>
+            <Container maxWidth="md">
+              {isSubmitting && <LinearProgress />}
+              <DialogTitle disableTypography>
+                <Typography
+                  variant="h4"
+                  style={{ marginBottom: '-1rem' }}
+                >
+                  {t(
+                    `titles:${StepReader.getName(
+                      activeChild,
+                    )}`,
+                  )}
+                </Typography>
+              </DialogTitle>
+              <DialogContent>{activeChild}</DialogContent>
+              <Box mb={1} px={2} textAlign="right">
+                {renderBackButton()}
+                {renderNextButton()}
+              </Box>
             </Container>
           </Box>
         )}
@@ -242,37 +248,46 @@ DialogWizard.defaultProps = {
   isOpen: false,
 };
 
-const HorizontalWizard = ({ children, onSubmit }) => (
-  <Box style={{ backgroundColor: '#FFF' }}>
-    <MultiStepFormik steps={children} onSubmit={onSubmit}>
-      {({
-        steps,
-        activeStep,
-        activeChild,
-        renderNextButton,
-        renderBackButton,
-      }) => (
-        <Box p={2}>
-          <Stepper activeStep={activeStep}>
-            {steps.map((ActiveStep, index) => (
-              <Step key={index}>
-                <StepLabel>
-                  {StepReader.getName(activeChild)}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <Container>
-            {activeChild}
+const HorizontalWizard = ({
+  children,
+  onSubmit,
+  withForm,
+}) => (
+  <MultiStepFormik
+    steps={children}
+    onSubmit={onSubmit}
+    withForm={withForm}
+  >
+    {({
+      steps,
+      activeStep,
+      activeChild,
+      renderNextButton,
+      renderBackButton,
+    }) => (
+      <Box>
+        <Stepper activeStep={activeStep}>
+          {steps.map((ActiveStep, index) => (
+            <Step key={index}>
+              <StepLabel>
+                {StepReader.getName(activeChild)}
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <Container maxWidth="xl">
+          {activeChild}
+          <Container maxWidth="lg">
+            <Divider />
             <Box textAlign="right" my={2}>
               {renderBackButton()}
               {renderNextButton()}
             </Box>
           </Container>
-        </Box>
-      )}
-    </MultiStepFormik>
-  </Box>
+        </Container>
+      </Box>
+    )}
+  </MultiStepFormik>
 );
 
 HorizontalWizard.propTypes = {
@@ -281,10 +296,12 @@ HorizontalWizard.propTypes = {
 };
 
 const VerticalWizard = ({ children, onSubmit }) => {
-  const { t } = useTranslation();
-
   return (
-    <MultiStepFormik onSubmit={onSubmit} steps={children}>
+    <MultiStepFormik
+      onSubmit={onSubmit}
+      steps={children}
+      withForm
+    >
       {({
         steps,
         activeStep,

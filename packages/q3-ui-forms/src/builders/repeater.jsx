@@ -5,8 +5,6 @@ import Repeater from 'q3-ui/lib/repeater';
 import { useAuth } from 'q3-ui-permissions';
 import useRest from 'q3-ui-rest';
 
-// uses a wizard?
-
 const applyMixin = (resource, mixin) => {
   if (!Array.isArray(resource) || !resource.length)
     return [];

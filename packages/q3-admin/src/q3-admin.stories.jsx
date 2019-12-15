@@ -99,7 +99,7 @@ storiesOf('Presets|Application', module)
           <ApplicationGate
             name="3merge"
             logoImgSrc="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-            appIndex={() => null}
+            appIndex={null}
             appNav={() => null}
             postAuthVerification={(args) => {
               if (args.role === 'ADMIN') {

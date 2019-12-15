@@ -4,48 +4,48 @@ import PropTypes from 'prop-types';
 import { isArray } from './utils';
 import NotFound from './404';
 
-const getChildByType = (children, ComponentType, prop) =>
-  isArray(children).find(
-    ({ type, props }) =>
-      type.name === ComponentType && props[prop] === true,
-  );
-
-const cloneAsHigherOrder = (element) =>
-  element
-    ? (props = {}) =>
-        React.cloneElement(
-          element,
-          props,
-          element.props.children,
-        )
-    : null;
-
 const Collection = ({
   children,
   useResourceName,
   ...pageProps
 }) => {
   const { resourceName } = pageProps;
-  const url = `/${resourceName}`;
-  const urlID = `${url}/:id/*`;
+  const url = '/';
+  const urlID = ':id/*';
 
   if (useResourceName)
     Object.assign(pageProps, {
       collectionName: resourceName,
     });
 
+  const getChildByType = (ComponentType, prop) =>
+    isArray(children).find(
+      ({ type, props }) =>
+        type.name === ComponentType && props[prop] === true,
+    );
+
+  const cloneAsHigherOrder = (element) =>
+    element
+      ? (props = {}) =>
+          React.cloneElement(
+            element,
+            { ...props, ...pageProps },
+            element.props.children,
+          )
+      : null;
+
   const List = cloneAsHigherOrder(
-    getChildByType(children, 'Page', 'index'),
+    getChildByType('Page', 'index'),
   );
 
   const Detail = cloneAsHigherOrder(
-    getChildByType(children, 'Page', 'id'),
+    getChildByType('Page', 'id'),
   );
 
   return (
     <Router>
-      {List && <List path={url} {...pageProps} />}
-      {Detail && <Detail path={urlID} {...pageProps} />}
+      {List && <List path={url} />}
+      {Detail && <Detail path={urlID} />}
       <NotFound default />
     </Router>
   );

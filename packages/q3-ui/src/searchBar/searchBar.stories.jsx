@@ -1,10 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 import { Location } from '@reach/router';
 import { storiesOf } from '@storybook/react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import sidebar from './README.md';
 import Search from '.';
 
 const getOptions = (s) => {
@@ -15,14 +13,9 @@ const getOptions = (s) => {
     .then(({ results }) => results);
 };
 
-storiesOf('Components|SearchBar', module)
-  .addParameters({
-    jest: ['searchBar'],
-    readme: {
-      sidebar,
-    },
-  })
-  .add('With router search params', () => (
+storiesOf('Components|SearchBar', module).add(
+  'With router search params',
+  () => (
     <Location>
       {({ location }) => (
         <>
@@ -37,4 +30,5 @@ storiesOf('Components|SearchBar', module)
         </>
       )}
     </Location>
-  ));
+  ),
+);
