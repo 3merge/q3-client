@@ -91,7 +91,7 @@ const Repeater = ({
 }) => {
   const { t } = useTranslation();
   const list = assignIDs(data);
-
+console.log(edit)
   const executeRenderTextOptions = (item, key, prefix) =>
     renderTextWithPrefix(renderText(key, item), prefix);
 

@@ -49,7 +49,7 @@ const RepeaterFormBuilder = ({
         ...opts,
         ...rest,
         ...(canCreateSub(resourceName) && { create: post }),
-        ...(canEditSub(resourceName) && { edit: put }),
+        ...(canEditSub(resourceName) && { edit: patch }),
         ...(canDeleteSub(resourceName) && {
           deleteOne: remove,
         }),

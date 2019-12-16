@@ -215,25 +215,27 @@ const DialogWizard = ({
           renderNextButton,
           renderBackButton,
         }) => (
-          <Box p={2}>
-            <Container maxWidth="md">
-              {isSubmitting && <LinearProgress />}
-              <DialogTitle disableTypography>
-                <Typography variant="h4">
-                  {t(
-                    `titles:${StepReader.getName(
-                      activeChild,
-                    )}`,
-                  )}
-                </Typography>
-              </DialogTitle>
-              <DialogContent>{activeChild}</DialogContent>
-              <Box mb={1} px={2} textAlign="right">
-                {renderBackButton()}
-                {renderNextButton()}
-              </Box>
-            </Container>
-          </Box>
+          <>
+            {isSubmitting && <LinearProgress />}
+            <Box p={2}>
+              <Container maxWidth="md">
+                <DialogTitle disableTypography>
+                  <Typography variant="h4">
+                    {t(
+                      `titles:${StepReader.getName(
+                        activeChild,
+                      )}`,
+                    )}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>{activeChild}</DialogContent>
+                <Box mb={1} px={2} textAlign="right">
+                  {renderBackButton()}
+                  {renderNextButton()}
+                </Box>
+              </Container>
+            </Box>
+          </>
         )}
       </MultiStepFormik>
     </Dialog>

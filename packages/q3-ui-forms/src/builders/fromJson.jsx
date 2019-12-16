@@ -103,24 +103,7 @@ export class FieldBuilder {
   }
 
   getRequired() {
-    console.log(
-      Object.entries(this.values).reduce(
-        (prev, [key, value]) =>
-          value !== '' &&
-          value !== null &&
-          value !== undefined
-            ? Object.assign(
-                prev,
-                {
-                  [key]: value,
-                },
-                {},
-              )
-            : {},
-      ),
-    );
-
-    if (this.requiredIf)
+    if (this.requiredIf && typeof this.values === 'object')
       this.required = new Comparison(this.requiredIf).eval(
         Object.entries(this.values).reduce(
           (prev, [key, value]) =>
