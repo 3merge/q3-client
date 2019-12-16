@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useOpen } from 'useful-state';
+import useOpen from 'useful-state/lib/useOpen';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,10 +11,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
 import Avatar from '../avatar';
-import {
-
-  Delete as DeleteConfirmation,
-} from '../dialogs';
+import { Delete as DeleteConfirmation } from '../dialogs';
 import { DropDownMenu } from '../toolbar';
 import { DialogWizard } from '../wizard';
 

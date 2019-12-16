@@ -16,13 +16,6 @@ import { isArray } from './utils';
 export const getCSVByName = (name) => (ids = []) =>
   getCSV(`/${name}?_id=${ids.join(',')}`);
 
-/*
-
- downloadMany={getCSVByName}
-          deleteMany={
-            canDelete && removeBulk ? removeBulk : null
-          } */
-
 const List = ({ children }) => {
   const {
     resourceName,
@@ -30,7 +23,7 @@ const List = ({ children }) => {
     collectionName,
   } = React.useContext(Context);
 
-  const { Redirect } = useAuth(collectionName);
+  const { Redirect, canDelete } = useAuth(collectionName);
   const state = useRest({
     url: `/${collectionName}`,
     key: resourceNameSingular,
@@ -38,22 +31,27 @@ const List = ({ children }) => {
     runOnInit: true,
   });
 
+  const deleteBulk =
+    canDelete && state.removeBulk ? state.removeBulk : null;
+
+  const actions = [
+    {
+      icon: FileCopy,
+      onClick: getCSVByName(collectionName),
+      label: 'Export',
+    },
+  ];
+
+  if (deleteBulk)
+    actions.push({
+      icon: DeleteSweep,
+      onClick: deleteBulk,
+      label: 'Delete',
+    });
+
   return (
     <Redirect op="Read" to="/">
-      <TableActionBar
-        actions={[
-          {
-            icon: FileCopy,
-            onClick: getCSVByName(collectionName),
-            label: 'Export',
-          },
-          {
-            icon: DeleteSweep,
-            onClick: getCSVByName(collectionName),
-            label: 'Delete',
-          },
-        ]}
-      >
+      <TableActionBar actions={actions}>
         <Container maxWidth="xl">
           <Box my={2}>
             <Table

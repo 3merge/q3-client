@@ -201,6 +201,7 @@ const Searchbar = ({
   handleSearch,
   getFrom,
   filter: Filter,
+  ...rest
 }) => {
   const ref = React.useRef();
   const { t } = useTranslation();
@@ -230,7 +231,10 @@ const Searchbar = ({
     type: 'text',
     value: term,
     onChange,
-    onKeyPress: handleSearch(close),
+    onKeyPress: handleSearch(() => {
+      close();
+      navigate(`?${rest.params.toString()}`);
+    }),
     inputProps: {
       'aria-label': t('labels:search'),
     },

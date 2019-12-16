@@ -58,14 +58,14 @@ const TableActionBar = ({ children, actions }) => {
     <Provider value={utils}>
       {children}
       <div className={root}>
-        <Collapse in={utils.hasChecked()}>
+        <Collapse in={utils.hasChecked(utils)}>
           <div>
             <BottomNavigation>
               {actions.map(
                 ({ label, onClick, icon: Icon }) => (
                   <BottomNavigationAction
                     label={label}
-                    onClick={onClick}
+                    onClick={() => onClick(utils.checked)}
                     icon={<Icon  />}
                     showLabel
                   />

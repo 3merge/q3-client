@@ -50,7 +50,7 @@ FilterForm.propTypes = {
   filters: PropTypes.shape({}).isRequired,
 };
 
-const Search = ({ children }) => {
+const Search = ({ children, intercept }) => {
   const keys = isArray(children)
     .map((child) => child.props.include)
     .filter(Boolean);
@@ -91,7 +91,9 @@ const Search = ({ children }) => {
         getForAutocomplete(
           `/${collectionName}?search=${e}&limit=25`,
           resourceName,
-        )
+        ).then(r => {
+          return (intercept) ? intercept(r) : r;
+        })
       }
     />
   );
