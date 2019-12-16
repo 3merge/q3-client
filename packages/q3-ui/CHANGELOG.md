@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/3merge/q/compare/v0.6.0...v0.6.1) (2019-12-16)
+
+
+### Bug Fixes
+
+* empty values ([2002789](https://github.com/3merge/q/commit/20027895dcb1e81c3a80e7ae5197f4211c9f6a69))
+
+
+
+
+
 # [0.6.0](https://github.com/3merge/q/compare/v0.5.2...v0.6.0) (2019-12-16)
 
 

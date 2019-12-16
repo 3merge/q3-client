@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "main": "lib/index.js",
   "dependencies": {
     "comparisons": "^2.0.1",

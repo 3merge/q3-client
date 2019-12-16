@@ -1,7 +1,7 @@
 {
   "name": "q3-www-example",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
@@ -17,9 +17,9 @@
     "gatsby-theme-q3": "^0.6.0",
     "gatsby-transformer-sharp": "^2.2.16",
     "prop-types": "^15.7.2",
-    "q3-ui": "^0.6.0",
+    "q3-ui": "^0.6.1",
     "q3-ui-commons": "^0.6.0",
-    "q3-ui-forms": "^0.6.0",
+    "q3-ui-forms": "^0.6.1",
     "q3-ui-permissions": "^0.6.0",
     "q3-ui-rest": "^0.6.0",
     "react": "^16.10.2",
