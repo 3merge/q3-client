@@ -18,7 +18,9 @@ import {
 } from './constants';
 
 export const getOptions = (url, key, pathToLabel) =>
-  Axios.get(url)
+{
+  console.log(url, key, pathToLabel)
+  return   Axios.get(url)
     .then(({ data }) =>
       pathToLabel
         ? get(data, key, []).map((i) => ({
@@ -31,6 +33,7 @@ export const getOptions = (url, key, pathToLabel) =>
     .catch(() => {
       return [];
     });
+}
 
 export const getFlatOptions = (
   url,

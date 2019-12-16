@@ -64,15 +64,22 @@ export const AutoCompleteWrapper = ({
       loading={loading}
       disabled={disabled}
       readOnly={readOnly}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option) =>
+        typeof option === 'object' ? option.label : option
+      }
       defaultValue={value}
       renderInput={(params) => (
         <TextField
-          {...merge(params, decoratedInputProps,styleProps, {
-            InputProps: {
-              disableUnderline: true,
-            }
-          })}
+          {...merge(
+            params,
+            decoratedInputProps,
+            styleProps,
+            {
+              InputProps: {
+                disableUnderline: true,
+              },
+            },
+          )}
           merge
           aria-busy={loading}
           onChange={onInputChange}

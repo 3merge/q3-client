@@ -70,6 +70,7 @@
     "@svgr/webpack": "^4.3.3",
     "axios": "^0.19.0",
     "babel-loader": "^8.0.0-beta.1",
+    "comparisons": "^2.0.1",
     "formik": "^2.0.4",
     "i18next": "^19.0.1",
     "js-file-download": "^0.4.8",

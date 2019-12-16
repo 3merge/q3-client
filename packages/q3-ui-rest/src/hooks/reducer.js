@@ -44,8 +44,12 @@ export default (
       if (resource in prev) {
         prev[resource] = next;
       } else if (resources in prev) {
-        prev[resources] = get(prev, resources, []).map(
-          (item) => (next.id === item.id ? next : item),
+        prev[resources] = get(
+          prev,
+          resources,
+          [],
+        ).map((item) =>
+          next.id === item.id ? next : item,
         );
       }
 

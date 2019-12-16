@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'formik';
+import { get } from 'lodash';
 import Input, {
   DesktopSelect,
   DateSelect,
@@ -12,7 +13,10 @@ import Input, {
 } from 'q3-ui/lib/inputs';
 import Autocomplete from 'q3-ui/lib/autocomplete';
 import Transfer from 'q3-ui/lib/transfer';
-import { getForTransfer } from 'q3-ui-rest';
+import {
+  getForTransfer,
+  getForAutocomplete,
+} from 'q3-ui-rest';
 import Comparison from 'comparisons';
 import { getOptions, mapToValue } from '../validations';
 import withAuthorization from '../authorization';
@@ -46,6 +50,7 @@ const internalFieldTypes = {
 export class FieldBuilder {
   constructor(type, props = {}, values = {}) {
     Object.assign(this, props, {
+      originalType: type,
       type: htmlFieldTypes.includes(type) ? type : null,
       values,
     });
@@ -66,13 +71,26 @@ export class FieldBuilder {
   }
 
   getOptions() {
+    const ref = this.loadOptions;
+
     if (typeof this.loadOptions === 'object')
       Object.assign(this, {
-        loadOptions: getForTransfer(
-          this.loadOptions.url,
-          this.loadOptions.key,
-          this.loadOptions.field,
-        ),
+        loadOptions:
+          this.originalType === 'transfer'
+            ? getForTransfer(ref.url, ref.key, ref.field)
+            : (e) =>
+                getForAutocomplete(
+                  `${ref.url}&search=${e}${
+                    ref.append
+                      ? `&${ref.append.split('=')[0]}=${get(
+                          this.values,
+                          ref.append.split('=')[1],
+                        )}`
+                      : ''
+                  }`,
+                  ref.key,
+                  ref.field,
+                ),
       });
 
     if (typeof this.options === 'function') {
@@ -84,8 +102,46 @@ export class FieldBuilder {
     }
   }
 
+  getRequired() {
+    console.log(
+      Object.entries(this.values).reduce(
+        (prev, [key, value]) =>
+          value !== '' &&
+          value !== null &&
+          value !== undefined
+            ? Object.assign(
+                prev,
+                {
+                  [key]: value,
+                },
+                {},
+              )
+            : {},
+      ),
+    );
+
+    if (this.requiredIf)
+      this.required = new Comparison(this.requiredIf).eval(
+        Object.entries(this.values).reduce(
+          (prev, [key, value]) =>
+            value !== '' &&
+            value !== null &&
+            value !== undefined
+              ? Object.assign(
+                  prev,
+                  {
+                    [key]: value,
+                  },
+                  {},
+                )
+              : {},
+        ),
+      );
+  }
+
   build() {
     this.getOptions();
+    this.getRequired();
     return this.show() ? this : null;
   }
 }

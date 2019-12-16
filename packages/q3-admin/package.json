@@ -3,6 +3,7 @@
   "version": "0.5.2",
   "main": "lib/index.js",
   "dependencies": {
+    "comparisons": "^2.0.1",
     "lodash": "^4.17.15",
     "micromatch": "^4.0.2",
     "prop-types": "^15.7.2",

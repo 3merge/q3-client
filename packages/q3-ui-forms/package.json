@@ -3,7 +3,7 @@
   "version": "0.5.1",
   "main": "lib/index.js",
   "dependencies": {
-    "comparisons": "^1.1.0",
+    "comparisons": "^2.0.1",
     "lodash": "^4.17.15",
     "notistack": "^0.9.5",
     "with-location": "^1.1.0",

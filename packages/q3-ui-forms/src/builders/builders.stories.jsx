@@ -57,6 +57,24 @@ storiesOf('Form Builders', module)
             ownership: 'Any',
             fields: '*',
           },
+          {
+            coll: 'q3-api-protected',
+            op: 'Update',
+            role: 'Admin',
+            ownership: 'Any',
+            fields: '*',
+          },
+        ],
+      });
+
+      m.onGet(/search/).reply(200, {
+        foos: [
+          {
+            bar: 'Hey',
+          },
+          {
+            bar: 'There',
+          },
         ],
       });
     };
@@ -66,12 +84,24 @@ storiesOf('Form Builders', module)
         <Auth>
           <Submit
             title="Demo"
-            data={{ createdBy: 123 }}
+            data={{ createdBy: 123, company: '' }}
             collectionName="q3-api-protected"
             fields={{
               name: { type: 'text' },
               company: { type: 'text' },
-              date: { type: 'date' },
+              date: {
+                requiredIf: ['company=*'],
+                type: 'date',
+              },
+              autocomplete: {
+                type: 'autocomplete',
+                conditional: ['name'],
+                loadOptions: {
+                  url: '/search?there',
+                  key: 'foos',
+                  field: 'bar',
+                },
+              },
             }}
           />
         </Auth>

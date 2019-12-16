@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
 import Tabs from 'q3-ui/lib/tabs';
+import Comparision from 'comparisons';
 import Context from './state';
 import Notes from '../views/notes';
 import Picture from '../views/picture';
@@ -36,7 +37,18 @@ const Detail = ({
 
   const tabs = isArray(children)
     .flat()
-    .filter(Boolean)
+    .filter((r) => {
+      if (
+        r &&
+        state[resourceNameSingular] &&
+        r.props.conditional
+      )
+        return new Comparision(r.props.conditional).eval(
+          state[resourceNameSingular],
+        );
+
+      return Boolean(r);
+    })
     .map((element, i) => ({
       label: element.type.name,
       to: getPath(i, element.type.name.toLowerCase()),

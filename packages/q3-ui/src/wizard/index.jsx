@@ -130,6 +130,7 @@ export const MultiStepFormik = ({
   children,
   steps,
   withForm,
+  initialValues = {},
 }) => {
   const { step, ...stepUtils } = useSteps();
   const reader = new StepReader(steps, step);
@@ -151,7 +152,10 @@ export const MultiStepFormik = ({
       validateOnBlur={false}
       validateOnChange={false}
       validationSchema={reader.getValidation(step)}
-      initialValues={reader.getValues()}
+      initialValues={{
+        ...initialValues,
+        ...reader.getValues(),
+      }}
       onSubmit={(values, actions) =>
         onSubmit(values, actions).then((e) => {
           if (done) done();
@@ -183,6 +187,7 @@ const DialogWizard = ({
   close,
   children,
   onSubmit,
+  initialValues,
 }) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery('(max-width:960px)');
@@ -199,6 +204,7 @@ const DialogWizard = ({
         steps={children}
         done={close}
         onSubmit={onSubmit}
+        initialValues={initialValues}
         withForm
       >
         {({
@@ -209,14 +215,11 @@ const DialogWizard = ({
           renderNextButton,
           renderBackButton,
         }) => (
-          <Box>
+          <Box p={2}>
             <Container maxWidth="md">
               {isSubmitting && <LinearProgress />}
               <DialogTitle disableTypography>
-                <Typography
-                  variant="h4"
-                  style={{ marginBottom: '-1rem' }}
-                >
+                <Typography variant="h4">
                   {t(
                     `titles:${StepReader.getName(
                       activeChild,
@@ -252,11 +255,13 @@ const HorizontalWizard = ({
   children,
   onSubmit,
   withForm,
+  ...rest
 }) => (
   <MultiStepFormik
     steps={children}
     onSubmit={onSubmit}
     withForm={withForm}
+    {...rest}
   >
     {({
       steps,
@@ -278,7 +283,6 @@ const HorizontalWizard = ({
         <Container maxWidth="xl">
           {activeChild}
           <Container maxWidth="lg">
-            <Divider />
             <Box textAlign="right" my={2}>
               {renderBackButton()}
               {renderNextButton()}
