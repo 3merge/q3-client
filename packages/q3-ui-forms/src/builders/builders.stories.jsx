@@ -7,6 +7,7 @@ import { QueryLayer, DataLayer } from './location';
 import Submit from './submit';
 import Repeater from './repeater';
 import FromJson from './fromJson';
+import validation from '../validations';
 
 storiesOf('Form Builders', module)
   .add('Location', () => {
@@ -130,11 +131,36 @@ storiesOf('Form Builders', module)
             ownership: 'Any',
             fields: '*, !point.company',
           },
+          {
+            coll: 'route',
+            op: 'Update',
+            role: 'Admin',
+            ownership: 'Any',
+            fields: '*, !point.company',
+          },
         ],
       });
 
       m.onGet('/route/123/point').reply(200, {
-        point: [],
+        point: [
+          {
+            id: 1,
+            name: 'Foo',
+            company: 'bar',
+            date: '',
+          },
+        ],
+      });
+
+      m.onPost('/route/123/point').reply(201, {
+        point: [
+          {
+            id: 1,
+            name: 'Foo',
+            company: 'bar',
+            date: '',
+          },
+        ],
       });
     };
 
@@ -150,13 +176,23 @@ storiesOf('Form Builders', module)
           <Repeater
             {...meta}
             id="123"
+            primary="name"
             initialValues={{
+              id: 1,
               name: '',
               company: '',
               date: '',
             }}
           >
             <FromJson
+              validationSchema={validation({
+                name: { type: 'text' },
+                company: { type: 'text' },
+                date: {
+                  type: 'date',
+                  conditional: ['name=fred'],
+                },
+              })}
               name="tier"
               json={{
                 ...meta,

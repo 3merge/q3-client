@@ -62,10 +62,18 @@ export class FieldBuilder {
     );
   }
 
+  hasValues() {
+    return (
+      this.values &&
+      typeof this.values === 'function' &&
+      Object.keys(this.values).length
+    );
+  }
+
   show() {
     return (
       !this.conditional ||
-      (this.values &&
+      (this.hasValues() &&
         new Comparison(this.conditional).eval(this.values))
     );
   }
@@ -73,25 +81,28 @@ export class FieldBuilder {
   getOptions() {
     const ref = this.loadOptions;
 
-    if (typeof this.loadOptions === 'object')
+    if (typeof this.loadOptions === 'object') {
+      const fn =
+        this.originalType === 'transfer'
+          ? getForTransfer
+          : getForAutocomplete;
+
       Object.assign(this, {
-        loadOptions:
-          this.originalType === 'transfer'
-            ? getForTransfer(ref.url, ref.key, ref.field)
-            : (e) =>
-                getForAutocomplete(
-                  `${ref.url}&search=${e}${
-                    ref.append
-                      ? `&${ref.append.split('=')[0]}=${get(
-                          this.values,
-                          ref.append.split('=')[1],
-                        )}`
-                      : ''
-                  }`,
-                  ref.key,
-                  ref.field,
-                ),
+        loadOptions: (e) =>
+          fn(
+            `${ref.url}&search=${e}${
+              ref.append
+                ? `&${ref.append.split('=')[0]}=${get(
+                    this.values,
+                    ref.append.split('=')[1],
+                  )}`
+                : ''
+            }`,
+            ref.key,
+            ref.field,
+          ),
       });
+    }
 
     if (typeof this.options === 'function') {
       Object.assign(this, {

@@ -17,6 +17,7 @@ const RepeaterFormBuilder = ({
   id,
   mixin,
   resourceName,
+  resourceNameSingular,
   collectionName,
   createdBy,
   decorators,
@@ -39,7 +40,8 @@ const RepeaterFormBuilder = ({
   } = useRest({
     url: `/${collectionName}/${id}/${resourceName}`,
     runOnInit: true,
-    key: resourceName,
+    key: resourceNameSingular,
+    pluralized: resourceName,
     decorators,
   });
 
