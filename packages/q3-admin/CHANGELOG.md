@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/3merge/q/compare/v0.5.1...v0.5.2) (2019-12-16)
+
+
+### Bug Fixes
+
+* search not redirecting ([c119ef1](https://github.com/3merge/q/commit/c119ef12d5e425eed828ea4dc727fb4989c826d9))
+
+
+
+
+
 ## [0.5.1](https://github.com/3merge/q/compare/v0.5.0...v0.5.1) (2019-12-15)
 
 **Note:** Version bump only for package q3-admin
