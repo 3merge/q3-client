@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/3merge/q/compare/v0.6.1...v0.6.2) (2019-12-16)
+
+
+### Bug Fixes
+
+* issue with fromJSON ([69fbf06](https://github.com/3merge/q/commit/69fbf0664e0fc5783e240f1c3ab241ee8b481654))
+
+
+
+
+
 ## [0.6.1](https://github.com/3merge/q/compare/v0.6.0...v0.6.1) (2019-12-16)
 
 
