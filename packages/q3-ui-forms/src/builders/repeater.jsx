@@ -39,9 +39,6 @@ const InteractiveListItem = ({
 }) => (
   <>
     <ListItem disableGutters key={id} component="li" dense>
-      <ListItemAvatar>
-        <Avatar>{icon || `#${listNumber}`}</Avatar>
-      </ListItemAvatar>
       <ListItemText {...etc} />
       <ListItemSecondaryAction>
         {children}
@@ -108,6 +105,7 @@ const Repeater = ({
   deleteOne,
   children,
   initialValues,
+  collectionName,
   ...rest
 }) => {
   const getForm = (isNew = true, init = initialValues) => (
@@ -120,6 +118,7 @@ const Repeater = ({
           isNew ? create(...args) : edit(...args),
         ).finally(done),
       initialValues: init,
+      collectionName,
       isNew,
     });
 
@@ -149,6 +148,7 @@ const Repeater = ({
 };
 
 Repeater.propTypes = {
+  collectionName: PropTypes.string,
   name: PropTypes.string.isRequired,
   primary: PropTypes.oneOfType([
     PropTypes.string,
@@ -159,31 +159,15 @@ Repeater.propTypes = {
     PropTypes.func,
   ]).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
-  fetchingError: PropTypes.bool,
-  fetching: PropTypes.bool,
-  primaryPrefix: PropTypes.string,
-  secondaryPrefix: PropTypes.string,
-  renderIcon: PropTypes.func,
+
   deleteOne: PropTypes.func,
   edit: PropTypes.func,
   create: PropTypes.func,
-  wizardProps: PropTypes.shape({
-    getValidation: PropTypes.func,
-    getContent: PropTypes.func,
-    initialValues: PropTypes.object,
-  }).isRequired,
 };
 
 Repeater.defaultProps = {
-  fetching: false,
-  fetchingError: false,
-  description: null,
-  subtitle: null,
   data: [],
-  primaryPrefix: '',
-  secondaryPrefix: '',
-  renderIcon: null,
-  deleteMany: null,
+  collectionName: null,
   deleteOne: null,
   edit: null,
   create: null,

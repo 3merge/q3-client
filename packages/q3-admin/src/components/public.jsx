@@ -30,7 +30,11 @@ const PublicView = ({
           />
         </Box>
         <Box>
-          <Typography variant="h1" gutterBottom>
+          <Typography
+            variant="h2"
+            component="h1"
+            gutterBottom
+          >
             <Location>
               {({ location }) =>
                 t(location.pathname.substr(1))

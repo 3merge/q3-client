@@ -99,7 +99,12 @@ export const formikProps = PropTypes.shape({
   setFieldValue: PropTypes.func,
 });
 
-export default ({ disabled, name, ...rest }) => {
+export default ({
+  disabled,
+  name,
+  overrides = {},
+  ...rest
+}) => {
   const { t } = useTranslation();
   const formik = useFormikContext();
   const propper = new FormikDecorator(
@@ -114,6 +119,7 @@ export default ({ disabled, name, ...rest }) => {
   return {
     ...rest,
     ...propper.get(),
+    ...overrides,
     name,
   };
 };

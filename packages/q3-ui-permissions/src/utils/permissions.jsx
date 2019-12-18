@@ -84,10 +84,17 @@ export default (ctx) => (coll, createdBy) => {
   };
 
   const getField = (name, grant) =>
-    grant
-      ? String(grant.fields || '')
-          .split(',')
-          .every((i) => minimatch(name, i.trim()))
+    grant &&
+    grant.fields &&
+    typeof grant.fields === 'string'
+      ? grant.fields.split(',').every((i) => {
+          try {
+            if (i === '*') return true;
+            return minimatch(name, i.trim());
+          } catch (e) {
+            return false;
+          }
+        })
       : false;
 
   const isDefined = (arg) =>

@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import useDecorator from '../helpers/useDecorator';
 
-export const intercept = (fn, name) => (newValue) =>
+export const intercept = (fn, name) => (e, newValue) =>
   fn({
     target: {
       value: newValue,

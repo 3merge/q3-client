@@ -52,7 +52,7 @@ const Characters = (props) => (
 );
 
 const Episode = () => (
-  <SubDetail name="episodes">
+  <SubDetail root="episodes">
     <Repeater
       primary={(item) => item.name}
       secondary={(item) => item.air_date}
@@ -62,13 +62,23 @@ const Episode = () => (
     >
       <Multistep>
         <Form name="Important">
-          <Field name="name" type="text" required />
-          <Field name="air_date" type="date" required />
+          <Field
+            name="name"
+            under="episodes"
+            type="text"
+            required
+          />
+          <Field
+            name="air_date"
+            under="episodes"
+            type="date"
+            required
+          />
           <Back />
           <Next />
         </Form>
         <Form name="Other">
-          <Field name="url" type="url" />
+          <Field name="url" under="episodes" type="url" />
           <Back />
           <Next />
         </Form>
@@ -77,8 +87,9 @@ const Episode = () => (
   </SubDetail>
 );
 
-const General = ({ state, id }) => (
+const General = ({ state, id, collectionName }) => (
   <Form
+    collectionName={collectionName}
     initialValues={state.character}
     onSubmit={state.patch()}
   >
@@ -134,7 +145,17 @@ const mockup = (asLoggedIn) => (m) => {
       },
       permissions: [
         { coll: 'characters', op: 'Read', fields: '*' },
+        {
+          coll: 'characters',
+          op: 'Update',
+          fields: 'location.name',
+        },
         { coll: 'episodes', op: 'Read', fields: '*' },
+        {
+          coll: 'characters',
+          op: 'Create',
+          fields: 'episodes*',
+        },
       ],
     });
   }

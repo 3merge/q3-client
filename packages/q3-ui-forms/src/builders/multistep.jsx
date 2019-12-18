@@ -10,6 +10,7 @@ export default ({
   onSubmit,
   onReset,
   initialValues = {},
+  collectionName,
   cleanup,
   toolbar,
   isNew,
@@ -90,8 +91,8 @@ export default ({
               {child.props.name}
             </StepLabel>
             <StepContent>
-              <Typography>"CONTENT"</Typography>
               {React.cloneElement(child, {
+                collectionName,
                 initialValues: cache,
                 onReset: processReset,
                 onSubmit: processSubmit,

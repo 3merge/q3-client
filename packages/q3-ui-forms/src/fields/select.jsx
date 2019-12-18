@@ -39,10 +39,9 @@ const NativeSelect = (props) => {
     props,
   );
 
-  const { loading, items } = useOptions(props);
-  const { label, helperText, ...rest } = useDecorator(
-    props,
-  );
+  const deco = useDecorator(props);
+  const { label, helperText, ...rest } = deco;
+  const { loading, items } = useOptions(deco);
 
   return (
     <SelectWrapper
@@ -50,6 +49,7 @@ const NativeSelect = (props) => {
       label={label}
       helperText={helperText}
       error={Boolean(error)}
+      required={rest.required}
     >
       <Select
         {...rest}

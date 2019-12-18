@@ -9,6 +9,8 @@ const FormWrapper = withWrapper(
   ({
     children,
     initialValues,
+    collectionName,
+    authorization,
     validation,
     onSubmit,
     onReset,
@@ -18,7 +20,6 @@ const FormWrapper = withWrapper(
     name,
     isNew,
   }) => {
-    const [schema, setSchema] = React.useState();
     const handleReset = React.useCallback(
       ({ status, resetForm }) => {
         if (status !== 'back') return;
@@ -35,8 +36,8 @@ const FormWrapper = withWrapper(
       isValidating,
     }) => {
       if (
-        !schema ||
-        !schema._nodes.length ||
+        !validation.chain ||
+        !validation.chain._nodes.length ||
         status !== 'Initializing'
       )
         return;
@@ -52,16 +53,15 @@ const FormWrapper = withWrapper(
     };
 
     React.useEffect(() => {
-      setSchema(validation.getChain());
+      authorization.setCollectionName(collectionName);
+      authorization.setModificationType(isNew);
     }, []);
 
     return (
       <Formik
         enableReinitialize
-        validateOnBlur={false}
-        validateOnChange={false}
         initialStatus="Initializing"
-        validationSchema={schema}
+        validationSchema={validation.chain}
         initialValues={initialValues}
         onSubmit={onSubmit}
       >
