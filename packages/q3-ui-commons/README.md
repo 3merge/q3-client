@@ -1,1 +1,0 @@
-<p>This package has been moved into q3-ui-forms</p>

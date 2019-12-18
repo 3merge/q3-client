@@ -2,6 +2,9 @@
   "name": "q3-admin",
   "version": "0.6.0",
   "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "0.6.0"
+  },
   "dependencies": {
     "comparisons": "^2.0.1",
     "lodash": "^4.17.15",

@@ -16590,6 +16590,17 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+q3-ui-commons@^0.6.0:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/q3-ui-commons/-/q3-ui-commons-0.6.1.tgz#92f0ef1c23907d1e328baecb46ac1254336a43a6"
+  integrity sha512-qCPiOcPXt2Yh4OJIl4blWgkF4dsCZc9JFdKBW1qM2E3rviTUebyLxkQDgGiFnSVEiGQzLHVnLl/syEm1bwBu2g==
+  dependencies:
+    lodash "^4.17.15"
+    q3-axios-mock "^0.6.0"
+    react-recaptcha "^2.3.10"
+    react-recaptcha-google "^1.1.1"
+    scriptjs "^2.5.9"
+
 q@^1.1.2, q@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"

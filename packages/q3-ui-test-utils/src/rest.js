@@ -1,4 +1,3 @@
-import React from 'react';
 import Axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -7,6 +6,9 @@ export default ({ define, children, delay = 200 }) => {
     delayResponse: delay,
   });
 
-  define(mock);
+  if (define && typeof define === 'function') {
+    define(mock);
+  }
+
   return children;
 };
