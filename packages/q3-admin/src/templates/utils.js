@@ -1,7 +1,3 @@
-import React from 'react';
-import FormBuilder from 'q3-ui-forms/lib/builders/submit';
-import Repeater from 'q3-ui-forms/lib/builders/repeater';
-
 export const getPath = (i, key) =>
   i !== 0 ? `/${key}` : '/';
 
@@ -25,19 +21,3 @@ export const ellipsis = (title = '') =>
 
 export const curryIf = (condition, next) =>
   condition ? () => next : null;
-
-export const getBuilderByType = (
-  type,
-  component,
-  options,
-) => {
-  let el;
-  if (type === 'submit') el = FormBuilder;
-  if (type === 'repeater') el = Repeater;
-  if (type === 'custom') el = component;
-
-  if (!el)
-    throw new Error(`${type} is an unknown form builder`);
-
-  return () => React.createElement(el, options);
-};

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { getForAutocomplete, useFilters } from 'q3-ui-rest';
-import { DataLayer } from 'q3-ui-forms/lib/builders/location';
-import FromJson from 'q3-ui-forms/lib/builders/fromJson';
 import SearchBar from 'q3-ui/lib/searchBar';
 import Context from './state';
 import { isArray } from './utils';
@@ -29,6 +27,7 @@ const makeFields = (children) =>
     {},
   );
 
+/*
 export const FilterForm = ({
   collectionName,
   fields,
@@ -49,7 +48,7 @@ FilterForm.propTypes = {
   fields: PropTypes.shape({}).isRequired,
   filters: PropTypes.shape({}).isRequired,
 };
-
+*/
 const Search = ({ children, intercept }) => {
   const keys = isArray(children)
     .map((child) => child.props.include)
@@ -71,6 +70,9 @@ const Search = ({ children, intercept }) => {
       })
     : null;
 
+  return null;
+
+  /*
   return (
     <SearchBar
       expanded
@@ -96,7 +98,7 @@ const Search = ({ children, intercept }) => {
         })
       }
     />
-  );
+  ); */
 };
 
 Search.propTypes = {
