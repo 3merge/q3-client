@@ -11,7 +11,7 @@ import useFormHandler from '../providers/formik';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
-const Login = () => {
+const Login = ({ children }) => {
   const { t } = useTranslation();
   const [hasAccount, setHasAccount] = React.useState('');
 
@@ -83,7 +83,8 @@ const Login = () => {
             )}
         />
       </Collapse>
-      <Next submit label={t('labels:login')} />
+      {children}
+      <Next size="large" submit label={t('labels:login')} />
     </Form>
   );
 };

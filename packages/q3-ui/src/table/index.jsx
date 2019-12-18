@@ -108,7 +108,9 @@ export const TableCellHeader = ({
         >
           <strong>{ellpisis(name, 25)}</strong>
           {sub && (
-              <Box component="small" display="block">{ellpisis(sub, 75)}</Box>
+            <Box component="small" display="block">
+              {ellpisis(sub, 75)}
+            </Box>
           )}
         </Typography>
       </Grid>
@@ -238,14 +240,25 @@ TablePaper.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const SkeletonRow = () => (
+  <Skeleton
+    variant="rect"
+    height={67}
+    width="100%"
+    style={{
+      background: '#FFF',
+      borderBottom: '3px solid #f5f5f5',
+    }}
+  />
+);
+
 const TableSkeleton = () => (
-  <Box p={3}>
-    <Skeleton />
-    <Skeleton width="60%" />
-    <Skeleton width="25%" />
-    <Skeleton width="80%" />
-    <Skeleton width="42%" />
-    <Skeleton width="90%" />
+  <Box>
+    <SkeletonRow />
+    <SkeletonRow />
+    <SkeletonRow />
+    <SkeletonRow />
+    <SkeletonRow />
   </Box>
 );
 

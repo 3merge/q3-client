@@ -27,7 +27,6 @@ const makeFields = (children) =>
     {},
   );
 
-/*
 export const FilterForm = ({
   collectionName,
   fields,
@@ -48,7 +47,7 @@ FilterForm.propTypes = {
   fields: PropTypes.shape({}).isRequired,
   filters: PropTypes.shape({}).isRequired,
 };
-*/
+
 const Search = ({ children, intercept }) => {
   const keys = isArray(children)
     .map((child) => child.props.include)
@@ -70,35 +69,19 @@ const Search = ({ children, intercept }) => {
       })
     : null;
 
-  return null;
-
-  /*
   return (
     <SearchBar
       expanded
-      filter={() =>
-        keys.length ? (
-          <DataLayer initialValues={initialValues}>
-            {() => (
-              <FilterForm
-                filters={filters}
-                fields={makeFields(children)}
-                collectionName={collectionName}
-              />
-            )}
-          </DataLayer>
-        ) : null
-      }
       getResults={(e) =>
         getForAutocomplete(
           `/${collectionName}?search=${e}&limit=25`,
           resourceName,
-        ).then(r => {
-          return (intercept) ? intercept(r) : r;
+        ).then((r) => {
+          return intercept ? intercept(r) : r;
         })
       }
     />
-  ); */
+  );
 };
 
 Search.propTypes = {

@@ -13,7 +13,6 @@
     "formik": "^2.0.3",
     "i18next": "^17.0.12",
     "q3-ui": "^0.2.4",
-    "q3-ui-commons": "^0.2.4",
     "q3-ui-forms": "^0.2.4",
     "q3-ui-permissions": "^0.2.4",
     "q3-ui-rest": "^0.2.0",
@@ -44,5 +43,8 @@
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "q3-ui-test-utils": "0.6.0"
   }
 }

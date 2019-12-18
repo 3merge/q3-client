@@ -1,12 +1,10 @@
 import React from 'react';
 import Thread from 'q3-ui/lib/thread';
-import Input from 'q3-ui/lib/inputs';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import CallToAction from 'q3-ui/lib/callToAction';
 import ServerError from 'q3-ui/lib/error';
 import { useTranslation } from 'react-i18next';
-import { Capture } from 'q3-ui/lib/dialogs';
 import Create from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -68,7 +66,6 @@ export default ({ path }) => {
             <Typography variant="h4" gutterBottom>
               {t('titles:onTheMind')}
             </Typography>
-            <Input name="message" multiline rows={8} />
           </Capture>
         </Box>
       )}

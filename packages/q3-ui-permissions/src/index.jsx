@@ -22,7 +22,6 @@ export const isLoggedIn = () => {
 export const Provider = ({
   renderPublic,
   renderPrivate,
-  loading: Loading,
   children,
 }) => {
   const [state, dispatch] = React.useReducer(reducer, {
@@ -41,24 +40,12 @@ export const Provider = ({
         : invoke(renderPublic)}
       {children}
     </AuthContext.Provider>
-  ) : (
-    <div
-      style={{
-        left: '50%',
-        position: 'absolute',
-        top: '50%',
-        transform: 'translate(-50%,-50%)',
-      }}
-    >
-      {Loading ? <Loading /> : 'Please wait...'}
-    </div>
-  );
+  ) : null;
 };
 
 Provider.propTypes = {
   renderPublic: PropTypes.func.isRequired,
   renderPrivate: PropTypes.func.isRequired,
-  loading: PropTypes.node.isRequired,
   children: PropTypes.node,
 };
 

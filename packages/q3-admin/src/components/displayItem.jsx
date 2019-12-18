@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Field = () => React.createElement('span');
+const DisplayItem = () => React.createElement('span');
 
-Field.propTypes = {
+DisplayItem.propTypes = {
   include: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
   ]),
 };
 
-Field.defaultProps = {
+DisplayItem.defaultProps = {
   include: '',
 };
 
-export default Field;
+export default DisplayItem;

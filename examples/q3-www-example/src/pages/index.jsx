@@ -3,8 +3,6 @@ import i18 from 'q3-ui/lib/i18n';
 import { ResourceCard } from 'q3-ui/lib/card';
 import { FullWidthBanner } from 'q3-ui/lib/banner';
 import { TwoColumnPanel } from 'q3-ui/lib/panel';
-import Form from 'q3-ui/lib/form';
-import Input from 'q3-ui/lib/inputs';
 import Section from 'q3-ui/lib/section';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -82,11 +80,6 @@ const IndexPage = () => {
             </Typography>
           }
         />
-        <Form>
-          {() => (
-            <Input name="email" required type="email" />
-          )}
-        </Form>
       </Section>
     </div>
   );

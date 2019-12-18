@@ -16,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Divider from '@material-ui/core/Divider';
 
 import IconEmpty from '../icons/empty';
 
@@ -36,23 +37,18 @@ const InteractiveListItem = ({
   listNumber,
   ...etc
 }) => (
-  <ListItem disableGutters key={id} component="li" dense>
-    <ListItemAvatar>
-      <Avatar
-        variant="rounded"
-        style={{
-          backgroundColor: '#f5f5f5',
-          color: 'inherit',
-        }}
-      >
-        {icon || `#${listNumber}`}
-      </Avatar>
-    </ListItemAvatar>
-    <ListItemText {...etc} />
-    <ListItemSecondaryAction>
-      {children}
-    </ListItemSecondaryAction>
-  </ListItem>
+  <>
+    <ListItem disableGutters key={id} component="li" dense>
+      <ListItemAvatar>
+        <Avatar>{icon || `#${listNumber}`}</Avatar>
+      </ListItemAvatar>
+      <ListItemText {...etc} />
+      <ListItemSecondaryAction>
+        {children}
+      </ListItemSecondaryAction>
+    </ListItem>
+    <Divider component="li" />
+  </>
 );
 
 const DialogForm = ({ renderTrigger, renderContent }) => {

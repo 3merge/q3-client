@@ -26,7 +26,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import MobileStepper from '@material-ui/core/Stepper';
-import { useOpen } from 'useful-state';
+import useOpen from 'useful-state/lib/useOpen';
 import graphic from '../../images/waiting.png';
 
 const useStyles = makeStyles(() => ({

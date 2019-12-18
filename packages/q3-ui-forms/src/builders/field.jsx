@@ -30,7 +30,7 @@ const Field = ({ name, ...rest }) => {
     return (
       <Skeleton
         variant="rect"
-        style={{ marginBottom: '0.5rem' }}
+        style={{ margin: '4px 0' }}
         height={56}
       />
     );

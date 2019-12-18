@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import MockApi from 'q3-axios-mock';
+import MockApi from 'q3-ui-test-utils/lib/rest';
 import SnackbarProvider from 'q3-ui-forms';
 import useRest from '.';
 
@@ -78,8 +78,7 @@ storiesOf('REST utils', module)
   })
   .add('412 race conditions', () => {
     const definePermission = (m) => {
-      m.onPatch('/rest/1')
-      .reply(412, {});
+      m.onPatch('/rest/1').reply(412, {});
     };
 
     return (

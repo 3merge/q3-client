@@ -43,11 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AppLayout = ({
-  render,
-  renderAside,
-  ProfileBarProps,
-}) => {
+const Main = ({ render, renderAside, ProfileBarProps }) => {
   const cls = useStyles();
   return (
     <Box component="article">
@@ -74,9 +70,9 @@ const AppLayout = ({
   );
 };
 
-AppLayout.propTypes = {
+Main.propTypes = {
   render: PropTypes.func.isRequired,
   renderAside: PropTypes.func.isRequired,
 };
 
-export default AppLayout;
+export default Main;

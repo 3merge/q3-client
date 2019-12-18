@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import Field from '../builders/field';
 import Form from '../builders/form';
 import useFormHandler from '../providers/formik';
+import Next from '../builders/next';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
@@ -20,7 +21,7 @@ export const handleSubmit = (values, actions) => {
     });
 };
 
-const PasswordReset = () => (
+const PasswordReset = ({ children }) => (
   <Form
     isNew
     onSubmit={handleSubmit}
@@ -29,6 +30,8 @@ const PasswordReset = () => (
     }}
   >
     <Field name="email" type="email" required />
+    {children}
+    <Next size="large" submit label="Reset" />
   </Form>
 );
 

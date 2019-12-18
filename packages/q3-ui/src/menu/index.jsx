@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 
 export const CollisionNavLink = React.forwardRef(
-  (props, ref) => (
+  (props) => (
     <NavLink
       {...props}
       getProps={({ isCurrent, isPartiallyCurrent }) => ({

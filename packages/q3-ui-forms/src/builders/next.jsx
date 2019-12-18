@@ -5,13 +5,14 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 const Next = connect(
-  ({ formik, submit, label = 'next' }) => {
+  ({ formik, submit, size, label = 'next' }) => {
     const isDisabled = formik.isSubmitting;
     const { t } = useTranslation();
 
     return (
       <Box display="inline-block" mt={1}>
         <Button
+          size={size}
           color="primary"
           variant="contained"
           type={submit ? 'submit' : 'button'}

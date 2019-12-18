@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
@@ -22,8 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { withLocation } from 'with-location';
 import { useToggle } from 'useful-state';
-import Graphic from '../graphic';
-import searchImg from '../../images/search.png';
+import SearchIcon from './searchIcon';
 import AccessibleIconButton from '../iconButton';
 
 const SearchTrigger = ({ onClick }) => (
@@ -89,7 +88,6 @@ export const Adornment = withLocation(
 );
 
 export const SearchResultList = ({ term, getResults }) => {
-  const { t } = useTranslation();
   const [results, setResults] = React.useState([]);
   const hasResults = results && results.length;
 
@@ -101,37 +99,34 @@ export const SearchResultList = ({ term, getResults }) => {
     }
   }, [term]);
 
-  return !hasResults ? (
-    <Graphic src={searchImg} alt={t('labels:search')} />
+  return !hasResults || !term || !term.length ? (
+    <SearchIcon />
   ) : (
     <List component="nav">
       {results.map(({ id, name, description, url }) => (
-        <ListItem
-          button
-          key={id}
-          onClick={() => navigate(url)}
-        >
+        <ListItem button component={Link} key={id} to={url}>
           <ListItemText
             primary={
-              <Highlighter
-                textToHighlight={name}
-                searchWords={term.split(' ')}
-                autoEscape
-              />
+              name ? (
+                <Highlighter
+                  textToHighlight={name}
+                  searchWords={String(term).split(' ')}
+                  autoEscape={false}
+                />
+              ) : null
             }
             secondary={
-              <Box>
-                <Typography variant="h6" component="em">
-                  {url}
-                </Typography>
-                <Box display="block" component="small">
-                  <Highlighter
-                    textToHighlight={description}
-                    searchWords={term.split(' ')}
-                    autoEscape
-                  />
+              description ? (
+                <Box>
+                  <Box display="block" component="small">
+                    <Highlighter
+                      textToHighlight={description}
+                      searchWords={String(term).split(' ')}
+                      autoEscape={false}
+                    />
+                  </Box>
                 </Box>
-              </Box>
+              ) : null
             }
           />
         </ListItem>
@@ -145,24 +140,15 @@ SearchResultList.propTypes = {
   getResults: PropTypes.func.isRequired,
 };
 
-const SearchPanel = ({ show, label, children }) => {
-  const { t } = useTranslation();
-
-  return children ? (
+const SearchPanel = ({ show, children }) =>
+  show ? (
     <Collapse in={show}>
-      <Box p={2}>
-        <Typography variant="h4">
-          {t(`labels:${label}`)}
-        </Typography>
-        {children}
-      </Box>
+      <Box p={2}>{children}</Box>
     </Collapse>
   ) : null;
-};
 
 SearchPanel.propTypes = {
   show: PropTypes.bool.isRequired,
-  label: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
 
@@ -201,7 +187,6 @@ const Searchbar = ({
   handleSearch,
   getFrom,
   filter: Filter,
-  ...rest
 }) => {
   const ref = React.useRef();
   const { t } = useTranslation();
@@ -233,7 +218,6 @@ const Searchbar = ({
     onChange,
     onKeyPress: handleSearch(() => {
       close();
-      navigate(`?${rest.params.toString()}`);
     }),
     inputProps: {
       'aria-label': t('labels:search'),
