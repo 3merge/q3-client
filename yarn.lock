@@ -16271,11 +16271,6 @@ prebuild-install@^5.3.3:
     tunnel-agent "^0.6.0"
     which-pm-runs "^1.0.0"
 
-prefix-keys@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/prefix-keys/-/prefix-keys-1.0.0.tgz#c6c83c62bf13567682b52e3b6c0843e8094bc6c4"
-  integrity sha1-xsg8Yr8TVnaCtS47bAhD6AlLxsQ=
-
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
