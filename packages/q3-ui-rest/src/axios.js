@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import { get } from 'lodash';
 
@@ -61,3 +62,31 @@ export const useCache = (error) => {
 
 axios.interceptors.request.use(getCached);
 axios.interceptors.response.use(fromCache, useCache);
+
+export const useLoading = () => {
+  const [loading, setLoading] = React.useState();
+
+  axios.interceptors.request.use(
+    (config) => {
+      setLoading(true);
+      return config;
+    },
+    (error) => {
+      setLoading(false);
+      return error;
+    },
+  );
+
+  axios.interceptors.response.use(
+    (response) => {
+      setLoading(false);
+      return response;
+    },
+    (error) => {
+      setLoading(false);
+      return Promise.reject(error);
+    },
+  );
+
+  return loading;
+};
