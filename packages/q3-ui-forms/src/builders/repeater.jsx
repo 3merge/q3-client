@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import useOpen from 'useful-state/lib/useOpen';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Avatar from '@material-ui/core/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
@@ -102,7 +99,7 @@ const Repeater = ({
   name,
   edit,
   create,
-  deleteOne,
+  remove,
   children,
   initialValues,
   collectionName,
@@ -159,8 +156,7 @@ Repeater.propTypes = {
     PropTypes.func,
   ]).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
-
-  deleteOne: PropTypes.func,
+  remove: PropTypes.func,
   edit: PropTypes.func,
   create: PropTypes.func,
 };
@@ -168,7 +164,7 @@ Repeater.propTypes = {
 Repeater.defaultProps = {
   data: [],
   collectionName: null,
-  deleteOne: null,
+  remove: null,
   edit: null,
   create: null,
 };

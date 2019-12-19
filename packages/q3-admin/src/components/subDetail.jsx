@@ -13,7 +13,7 @@ export const RowSkeleton = () => (
   />
 );
 
-const SubDetail = ({ root, children }) => {
+const SubDetail = ({ root, decorators, children }) => {
   const { collectionName, id } = React.useContext(Context);
 
   const subdocumentState = useRest({
@@ -21,6 +21,7 @@ const SubDetail = ({ root, children }) => {
     pluralized: root,
     runOnInit: true,
     url: `/${collectionName}/${id}/${root}`,
+    decorators,
   });
 
   return subdocumentState.fetching ? (
@@ -46,6 +47,17 @@ const SubDetail = ({ root, children }) => {
 SubDetail.propTypes = {
   children: PropTypes.node.isRequired,
   root: PropTypes.string.isRequired,
+  decorators: PropTypes.shape({
+    get: PropTypes.func,
+    post: PropTypes.func,
+    patch: PropTypes.func,
+    put: PropTypes.func,
+    remove: PropTypes.func,
+  }),
+};
+
+SubDetail.defaultProps = {
+  decorators: {},
 };
 
 export default SubDetail;
