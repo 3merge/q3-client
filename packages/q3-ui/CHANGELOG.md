@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.4](https://github.com/3merge/q/compare/v0.6.3...v0.6.4) (2019-12-19)
+
+
+### Bug Fixes
+
+* adjusted justification and forwarded props to collapseable fieldset (closes [#14](https://github.com/3merge/q/issues/14)) ([123a67f](https://github.com/3merge/q/commit/123a67fd9c610fa40f1d67e769921d12d49a36d7))
+
+
+
+
+
 ## [0.6.3](https://github.com/3merge/q/compare/v0.6.2...v0.6.3) (2019-12-18)
 
 **Note:** Version bump only for package q3-ui
