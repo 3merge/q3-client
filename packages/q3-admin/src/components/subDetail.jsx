@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import prefix from 'prefix-keys';
 import { Skeleton } from '@material-ui/lab';
 import Context from './state';
 
-const RowSkeleton = () => (
+export const RowSkeleton = () => (
   <Skeleton
     variant="rect"
     height={56}
@@ -14,17 +13,15 @@ const RowSkeleton = () => (
   />
 );
 
-const SubDetail = ({ root, children }) => {
-  const {
-    resourceName,
-    collectionName,
-    id,
-  } = React.useContext(Context);
+const SubDetail = ({ root, decorators, children }) => {
+  const { collectionName, id } = React.useContext(Context);
+
   const subdocumentState = useRest({
     key: root,
     pluralized: root,
     runOnInit: true,
-    url: `/${resourceName}/${id}/${root}`,
+    url: `/${collectionName}/${id}/${root}`,
+    decorators,
   });
 
   return subdocumentState.fetching ? (
@@ -42,7 +39,6 @@ const SubDetail = ({ root, children }) => {
       edit: subdocumentState.patch,
       create: subdocumentState.post,
       remove: subdocumentState.remove,
-      formPath: root,
       collectionName,
     })
   );
@@ -51,6 +47,17 @@ const SubDetail = ({ root, children }) => {
 SubDetail.propTypes = {
   children: PropTypes.node.isRequired,
   root: PropTypes.string.isRequired,
+  decorators: PropTypes.shape({
+    get: PropTypes.func,
+    post: PropTypes.func,
+    patch: PropTypes.func,
+    put: PropTypes.func,
+    remove: PropTypes.func,
+  }),
+};
+
+SubDetail.defaultProps = {
+  decorators: {},
 };
 
 export default SubDetail;

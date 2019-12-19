@@ -9,7 +9,6 @@
     "comparisons": "^2.0.1",
     "lodash": "^4.17.15",
     "micromatch": "^4.0.2",
-    "prefix-keys": "^1.0.0",
     "prop-types": "^15.7.2",
     "yup": "^0.27.0"
   },
