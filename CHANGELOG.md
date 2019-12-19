@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/3merge/q3-client/compare/v0.6.5...v0.7.0) (2019-12-19)
+
+
+### Bug Fixes
+
+* onSubmit missing from the <Add /> q3-admin component ([59f4cb4](https://github.com/3merge/q3-client/commit/59f4cb4528e5a3eea77534d52fc66c4019780360))
+
+
+### Features
+
+* split button ([2e19b35](https://github.com/3merge/q3-client/commit/2e19b3579f2ca1c377ee81dcd213b21dd13c0b78))
+
+
+
+
+
 ## [0.6.5](https://github.com/3merge/q3-client/compare/v0.6.4...v0.6.5) (2019-12-19)
 
 **Note:** Version bump only for package q3-client
