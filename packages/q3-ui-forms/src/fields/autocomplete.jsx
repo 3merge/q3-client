@@ -10,7 +10,7 @@ import useDecorator from '../helpers/useDecorator';
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
-  const decorators = useDecorator(props);
+  const { label, helperText } = useDecorator(props);
   const [{ name, value, ...field }, { error }] = useField(
     props,
   );
@@ -25,7 +25,8 @@ export const AutoCompleteWrapper = (props) => {
   const getCustomInput = (params) =>
     React.createElement(TextField, {
       ...params,
-      ...decorators,
+      label,
+      helperText,
       onChange,
       error: Boolean(error),
       variant: 'filled',
@@ -35,7 +36,7 @@ export const AutoCompleteWrapper = (props) => {
         ...params.InputProps,
       },
       inputProps: {
-        autocomplete: new Date().toISOString(),
+        autoComplete: new Date().toISOString(),
         ...params.inputProps,
       },
     });

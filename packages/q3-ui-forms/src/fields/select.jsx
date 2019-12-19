@@ -29,8 +29,12 @@ export const SelectWrapper = ({
 SelectWrapper.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  helperText: PropTypes.string.isRequired,
+  helperText: PropTypes.string,
   children: PropTypes.node.isRequired,
+};
+
+SelectWrapper.defaultProps = {
+  helperText: null,
 };
 
 const NativeSelect = (props) => {
@@ -40,7 +44,13 @@ const NativeSelect = (props) => {
   );
 
   const deco = useDecorator(props);
-  const { label, helperText, ...rest } = deco;
+  const {
+    label,
+    helperText,
+    disabled,
+    readOnly,
+    ...rest
+  } = deco;
   const { loading, items } = useOptions(deco);
 
   return (
@@ -52,11 +62,12 @@ const NativeSelect = (props) => {
       required={rest.required}
     >
       <Select
-        {...rest}
         native
         disableUnderline
         onChange={onChange}
         value={value}
+        disabled={disabled}
+        readOnly={readOnly}
       >
         <option>
           {loading
@@ -71,20 +82,6 @@ const NativeSelect = (props) => {
       </Select>
     </SelectWrapper>
   );
-};
-
-NativeSelect.propTypes = {
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string,
-    }),
-  ),
-};
-
-NativeSelect.defaultProps = {
-  options: [],
 };
 
 export default NativeSelect;

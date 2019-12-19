@@ -6,14 +6,24 @@ import Lock from '@material-ui/icons/Lock';
 import useDecorator from '../helpers/useDecorator';
 
 const Text = (props) => {
-  const { type, readOnly } = props;
+  const { type } = props;
   const [field] = useField(props);
-  const decorators = useDecorator(props);
+  const {
+    disabled,
+    readOnly,
+    label,
+    helperText,
+    error,
+  } = useDecorator(props);
 
   return (
     <TextField
       {...field}
-      {...decorators}
+      disabled={disabled}
+      readOnly={readOnly}
+      label={label}
+      helperText={helperText}
+      error={error}
       fullWidth
       variant="filled"
       type={type}
@@ -29,12 +39,10 @@ const Text = (props) => {
 
 Text.propTypes = {
   type: PropTypes.string,
-  readOnly: PropTypes.bool,
 };
 
 Text.defaultProps = {
   type: 'text',
-  readOnly: false,
 };
 
 export default Text;

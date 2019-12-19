@@ -15,6 +15,9 @@ const DateSelect = (props) => {
   const [{ name, onChange, value }] = useField(props);
   const deco = useDecorator(props);
 
+  delete deco.onArrayPull;
+  delete deco.onArrayPush;
+
   return (
     <KeyboardDatePicker
       {...deco}

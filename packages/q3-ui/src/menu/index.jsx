@@ -21,22 +21,20 @@ const useStyles = makeStyles({
   selected: {},
 });
 
-export const CollisionNavLink = React.forwardRef(
-  (props) => (
-    <NavLink
-      {...props}
-      getProps={({ isCurrent, isPartiallyCurrent }) => ({
-        style:
-          isCurrent ||
-          (isPartiallyCurrent &&
-            (props.to !== '/' || !props.to))
-            ? {
-                backgroundColor: 'rgba(255,255,255,0.1)',
-              }
-            : null,
-      })}
-    />
-  ),
+export const CollisionNavLink = (props) => (
+  <NavLink
+    {...props}
+    getProps={({ isCurrent, isPartiallyCurrent }) => ({
+      style:
+        isCurrent ||
+        (isPartiallyCurrent &&
+          (props.to !== '/' || !props.to))
+          ? {
+              backgroundColor: 'rgba(255,255,255,0.1)',
+            }
+          : null,
+    })}
+  />
 );
 
 const Menu = ({ title, items, color, done }) => {

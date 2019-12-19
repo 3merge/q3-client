@@ -1,5 +1,5 @@
 import React from 'react';
-import { Location } from '@reach/router';
+import { withLocation } from 'with-location';
 import { storiesOf } from '@storybook/react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -15,20 +15,15 @@ const getOptions = (s) => {
 
 storiesOf('Components|SearchBar', module).add(
   'With router search params',
-  () => (
-    <Location>
-      {({ location }) => (
-        <>
-          <Search getResults={getOptions} />
-          <Box p={2}>
-            <Typography>
-              {`Search output on enter: ${JSON.stringify(
-                location.search,
-              )}`}
-            </Typography>
-          </Box>
-        </>
-      )}
-    </Location>
-  ),
+
+  withLocation(({ params }) => (
+    <>
+      <Search getResults={getOptions} />
+      <Box p={2}>
+        <Typography>
+          {`Search output on enter: ${params.toString()}`}
+        </Typography>
+      </Box>
+    </>
+  )),
 );

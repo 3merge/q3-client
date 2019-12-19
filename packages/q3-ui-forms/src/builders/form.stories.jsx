@@ -26,7 +26,6 @@ storiesOf('Forms|Simple', module).add(
         debug
         initialValues={{ firstName: '' }}
         onSubmit={Promise.resolve}
-        collectionName="testing"
       >
         <Field
           name="country"
@@ -52,6 +51,7 @@ storiesOf('Forms|Simple', module).add(
           }
         />
         <Field
+          collapse={false}
           name="trips-radio"
           type="radio"
           options={[

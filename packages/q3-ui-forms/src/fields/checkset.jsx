@@ -37,6 +37,10 @@ export const CollapseableFieldset = ({
           component={FormLabel}
           onClick={toggle}
           disabled={!collapse}
+          style={{
+            justifyContent: 'left',
+            marginBottom: '0.5rem',
+          }}
         >
           {renderIcon()}
           <Typography component="legend">

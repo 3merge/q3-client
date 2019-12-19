@@ -21,14 +21,17 @@ const List = ({ children }) => {
     resourceName,
     resourceNameSingular,
     collectionName,
+    location,
   } = React.useContext(Context);
 
   const { Redirect, canDelete } = useAuth(collectionName);
+
   const state = useRest({
     url: `/${collectionName}`,
     key: resourceNameSingular,
     pluralized: resourceName,
     runOnInit: true,
+    location,
   });
 
   const deleteBulk =

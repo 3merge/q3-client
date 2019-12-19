@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-
 import { CollapseableFieldset } from './checkset';
 import useDecorator from '../helpers/useDecorator';
 
@@ -13,7 +12,10 @@ const Radioset = (props) => {
     helperText,
     error,
     options,
-    ...rest
+    onChange,
+    value,
+    disabled,
+    readOnly,
   } = useDecorator(props);
   const { t } = useTranslation('labels');
 
@@ -22,14 +24,19 @@ const Radioset = (props) => {
       label={label}
       error={error}
       helperText={helperText}
+      {...props}
     >
-      <RadioGroup aria-label={label} {...rest}>
+      <RadioGroup
+        aria-label={label}
+        onChange={onChange}
+        value={value}
+      >
         {options.map((option) => (
           <FormControlLabel
             control={
               <Radio
-                disabled={rest.disabled}
-                readOnly={rest.readOnly}
+                disabled={disabled}
+                readOnly={readOnly}
               />
             }
             name={option.label}

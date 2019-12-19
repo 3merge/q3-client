@@ -30,6 +30,7 @@ export class FormikDecorator {
   set helper(t) {
     if (this.error) {
       this.helperText = this.error;
+      this.error = true;
     } else if (t.localeCompare(this.name) === 0) {
       this.helperText = null;
     } else {
@@ -73,6 +74,17 @@ export class FormikDecorator {
         ? filterValue(this.value, newValue)
         : [],
     );
+  }
+
+  getAttrsOnly() {
+    return pick(this, [
+      'disabled',
+      'error',
+      'helperText',
+      'readOnly',
+      'label',
+      'value',
+    ]);
   }
 
   get() {

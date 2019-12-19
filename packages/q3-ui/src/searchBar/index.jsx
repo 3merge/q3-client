@@ -17,11 +17,10 @@ import GridOff from '@material-ui/icons/GridOff';
 import Highlighter from 'react-highlight-words';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { withLocation } from 'with-location';
-import { useToggle } from 'useful-state';
+import { useToggle, useValue } from 'useful-state';
 import SearchIcon from './searchIcon';
 import AccessibleIconButton from '../iconButton';
 
@@ -188,11 +187,14 @@ const Searchbar = ({
   getFrom,
   filter: Filter,
 }) => {
-  const ref = React.useRef();
   const { t } = useTranslation();
-  const [term, setTerm] = React.useState(
-    getFrom('search') || '',
-  );
+  const {
+    value,
+    onChange,
+    onFocus,
+    onClear,
+    ref,
+  } = useValue(getFrom('search') || '');
 
   const {
     toggle: toggleFilter,
@@ -200,21 +202,11 @@ const Searchbar = ({
   } = useToggle(false);
   const { state, open, close } = useToggle();
 
-  const onFocus = React.useCallback(() => {
-    if (!ref.current) return;
-    ref.current.focus();
-    setTerm('');
-  }, []);
-
-  const onChange = React.useCallback(({ target }) => {
-    setTerm(target.value);
-  }, []);
-
   const inputProps = {
+    value,
     placeholder: t('labels:searchPlaceholder'),
     name: 'search',
     type: 'text',
-    value: term,
     onChange,
     onKeyPress: handleSearch(() => {
       close();
@@ -235,7 +227,13 @@ const Searchbar = ({
             variant="outlined"
             InputProps={{
               endAdornment: (
-                <Adornment focus={onFocus} term={term}>
+                <Adornment
+                  focus={() => {
+                    onClear();
+                    onFocus();
+                  }}
+                  term={value}
+                >
                   <SearchTrigger
                     onClick={open}
                     size="small"
@@ -278,7 +276,7 @@ const Searchbar = ({
         />
         <SearchPanel show={!showFilter} label="search">
           <SearchResultList
-            term={term}
+            term={value}
             getResults={getResults}
           />
         </SearchPanel>

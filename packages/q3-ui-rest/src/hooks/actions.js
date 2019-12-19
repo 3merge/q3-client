@@ -18,9 +18,7 @@ import {
 } from './constants';
 
 export const getOptions = (url, key, pathToLabel) =>
-{
-  console.log(url, key, pathToLabel)
-  return   Axios.get(url)
+  Axios.get(url)
     .then(({ data }) =>
       pathToLabel
         ? get(data, key, []).map((i) => ({
@@ -33,7 +31,6 @@ export const getOptions = (url, key, pathToLabel) =>
     .catch(() => {
       return [];
     });
-}
 
 export const getFlatOptions = (
   url,
@@ -104,6 +101,7 @@ export const useRest = ({
     onStart(actions);
     return promise
       .then(({ data }) => {
+        invoke(decorators, 'get', data);
         call(verb, data);
         onComplete(null, actions);
         onSuccess(get(data, 'message'));
@@ -130,6 +128,7 @@ export const useRest = ({
       call(FETCHING);
       return Axios.get(`${url}${query}`)
         .then(({ data }) => {
+          invoke(decorators, 'get', data);
           call(FETCHED, data);
           return data;
         })

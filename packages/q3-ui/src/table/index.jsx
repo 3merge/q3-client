@@ -134,7 +134,6 @@ export const Templated = ({
   columns,
   rowToolbar,
   children,
-  showChildren,
   ...rest
 }) => {
   const { id } = rest;
@@ -147,18 +146,22 @@ export const Templated = ({
   };
 
   return (
-    <TableRow key={id}>
+    <TableRow>
       {columns.map((key, i) =>
         Array.isArray(key) ? (
           <TableCellHeader
             to={`${id}`}
+            key={i}
             name={t(get(rest, key[0]))}
             sub={t(get(rest, key[1]))}
             imgSrc={get(rest, key[2])}
             data={rest}
           />
         ) : (
-          <TableCell data-title={t(`labels:${columns[i]}`)}>
+          <TableCell
+            key={i}
+            data-title={t(`labels:${columns[i]}`)}
+          >
             <Typography
               variant="subtitle2"
               component="span"
@@ -205,7 +208,6 @@ export const Templated = ({
 
 Templated.propTypes = {
   children: PropTypes.node,
-  showChildren: PropTypes.bool,
   root: PropTypes.string.isRequired,
   rowToolbar: PropTypes.arrayOf(
     PropTypes.shape({
@@ -224,7 +226,6 @@ Templated.propTypes = {
 Templated.defaultProps = {
   children: null,
   rowToolbar: [],
-  showChildren: PropTypes.bool,
 };
 
 const TablePaper = ({ children }) => (
@@ -305,7 +306,12 @@ const SelectAllButton = ({ ids }) => {
 };
 
 SelectAllButton.propTypes = {
-  ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ids: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  ).isRequired,
 };
 
 const SelectCheckbox = ({ id }) => {
@@ -326,7 +332,10 @@ const SelectCheckbox = ({ id }) => {
 };
 
 SelectCheckbox.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export const TableView = ({
@@ -336,7 +345,6 @@ export const TableView = ({
   columns,
   total,
   root,
-  rowTemplate: Row,
   ...etc
 }) => {
   const { t } = useTranslation();
@@ -411,7 +419,6 @@ export const TableView = ({
                 {...etc}
                 {...props}
                 key={key}
-                Component={Row}
                 columns={columns}
                 root={root || window.location.pathname}
               />
@@ -432,7 +439,6 @@ TableView.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.string),
   loading: PropTypes.bool,
   error: PropTypes.bool,
-  rowTemplate: PropTypes.func.isRequired,
   total: PropTypes.number,
   root: PropTypes.string,
   rows: PropTypes.arrayOf(

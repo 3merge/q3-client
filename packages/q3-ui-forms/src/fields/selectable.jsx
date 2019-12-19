@@ -40,6 +40,7 @@ const SelectableList = (props) => {
     <List className={container}>
       {items.map(({ value, label, img }) => (
         <ListItem
+          key={value}
           onClick={() => onChange(value)}
           className={classNames(
             root,

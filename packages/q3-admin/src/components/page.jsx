@@ -9,6 +9,7 @@ const Page = ({
   resourceName,
   resourceNameSingular,
   id,
+  location,
 }) => {
   const url = id
     ? `/${collectionName}/${id}`
@@ -28,6 +29,7 @@ const Page = ({
         collectionName,
         resourceName,
         resourceNameSingular,
+        location,
         ...state,
       }}
     >
@@ -42,6 +44,9 @@ Page.propTypes = {
   resourceName: PropTypes.string.isRequired,
   resourceNameSingular: PropTypes.string.isRequired,
   id: PropTypes.string,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
 };
 
 Page.defaultProps = {

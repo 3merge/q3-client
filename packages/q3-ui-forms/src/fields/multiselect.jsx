@@ -13,15 +13,17 @@ import useDecorator from '../helpers/useDecorator';
 
 const Multiselect = (props) => {
   const {
-    id,
     name,
     label,
     helperText,
     onArrayPush,
+    readOnly,
+    disabled,
+    error,
     value = [],
-    ...rest
   } = useDecorator(props);
 
+  const v = Array.isArray(value) ? value.flat() : [];
   const { t } = useTranslation();
   const { loading, items } = useOptions(props);
 
@@ -30,12 +32,14 @@ const Multiselect = (props) => {
       name={name}
       label={label}
       helperText={helperText}
-      {...props}
+      error={error}
     >
       <Select
-        {...rest}
         multiple
-        value={Array.isArray(value) ? value.flat() : []}
+        readOnly={readOnly}
+        disabled={disabled}
+        error={error}
+        value={v}
         onChange={onArrayPush}
         input={
           <FilledInput
@@ -68,9 +72,7 @@ const Multiselect = (props) => {
             value={obj.value}
             style={{ margin: 0 }}
           >
-            <Checkbox
-              checked={value.indexOf(obj.value) > -1}
-            />
+            <Checkbox checked={v.indexOf(obj.value) > -1} />
             <ListItemText
               primary={t(`labels:${obj.label}`)}
             />
@@ -79,19 +81,6 @@ const Multiselect = (props) => {
       </Select>
     </SelectWrapper>
   );
-};
-
-Multiselect.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string,
-    }),
-  ),
-};
-
-Multiselect.defaultProps = {
-  options: [],
 };
 
 export default Multiselect;

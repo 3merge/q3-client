@@ -137,6 +137,9 @@ export default class FieldBuilder {
   build() {
     this.getOptions();
     this.getRequired();
+
+    delete this.originalType;
+    delete this.type;
     return this.show() ? this : null;
   }
 }

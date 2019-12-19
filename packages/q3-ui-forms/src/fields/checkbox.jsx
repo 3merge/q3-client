@@ -30,7 +30,12 @@ const useStyles = makeStyles(() => ({
 
 const Checkbox = (props) => {
   const { control, errorCls, normal } = useStyles();
-  const { label, helperText } = useDecorator(props);
+  const {
+    label,
+    helperText,
+    disabled,
+    readOnly,
+  } = useDecorator(props);
   const [{ name, value, onChange }, { error }] = useField(
     props,
   );
@@ -53,6 +58,8 @@ const Checkbox = (props) => {
             name={name}
             checked={Boolean(value)}
             onChange={onChange}
+            disabled={disabled}
+            readOnly={readOnly}
           />
         }
       />

@@ -15,6 +15,7 @@ const TinyFormEditor = (props) => {
     onChange,
     disabled,
     label,
+    helperText,
   } = useDecorator(props);
 
   return (
@@ -40,7 +41,11 @@ const TinyFormEditor = (props) => {
               'undo redo | bold italic underline | alignleft aligncenter alignright | link',
           }}
         />
-        {error && <FormHelperText>{error}</FormHelperText>}
+        {error && (
+          <FormHelperText error={error}>
+            <span>{helperText}</span>
+          </FormHelperText>
+        )}
       </Box>
     </FormControl>
   );
