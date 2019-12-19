@@ -17,21 +17,38 @@ import {
   DELETED_MANY,
 } from './constants';
 
-export const getOptions = (url, key, pathToLabel) => {
-  return Axios.get(url)
+export const getOptions = (url, key, pathToLabel) =>
+  Axios.get(url)
     .then(({ data }) =>
-      get(data, key, []).map((i) => ({
-        label: get(i, pathToLabel),
-        value: i.id,
-        ...i,
-      })),
+      pathToLabel
+        ? get(data, key, []).map((i) => ({
+            label: get(i, pathToLabel),
+            value: i.id,
+            ...i,
+          }))
+        : get(data, key, []),
     )
     .catch(() => {
       return [];
     });
-};
 
-export const getAsCSV = (url, params = {}) => Axios({
+export const getFlatOptions = (
+  url,
+  key,
+  pathToLabel,
+) => () =>
+  Axios.get(url)
+    .then(({ data }) => {
+      return get(data, key, []).map((i) =>
+        get(i, pathToLabel),
+      );
+    })
+    .catch(() => {
+      return [];
+    });
+
+export const getAsCSV = (url, params = {}) =>
+  Axios({
     url,
     method: 'get',
     transformRequest: [
@@ -50,7 +67,7 @@ export const getAsCSV = (url, params = {}) => Axios({
       // noop
     });
 
-export default ({
+export const useRest = ({
   url,
   redirectOnSearch,
   key,
@@ -84,6 +101,7 @@ export default ({
     onStart(actions);
     return promise
       .then(({ data }) => {
+        invoke(decorators, 'get', data);
         call(verb, data);
         onComplete(null, actions);
         onSuccess(get(data, 'message'));
@@ -110,6 +128,7 @@ export default ({
       call(FETCHING);
       return Axios.get(`${url}${query}`)
         .then(({ data }) => {
+          invoke(decorators, 'get', data);
           call(FETCHED, data);
           return data;
         })
@@ -181,3 +200,30 @@ export default ({
 
   return { ...state, ...methods };
 };
+
+export const useFilters = ({ coll, fields, query }) => {
+  let fieldString = fields
+    .map((field) => `fields[]=${field}`)
+    .join('&');
+
+  if (query) {
+    fieldString += query.replace('?', '&');
+  }
+
+  const state = useRest({
+    url: `/search?coll=${coll}&${fieldString}`,
+    runOnInit: true,
+    key: 'filters',
+  });
+
+  return {
+    ...state,
+    getOptions: (name) =>
+      get(state, `filters.${name}`, []).map((value) => ({
+        label: value,
+        value,
+      })),
+  };
+};
+
+export default useRest;

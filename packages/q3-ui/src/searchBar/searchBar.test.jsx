@@ -1,26 +1,170 @@
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import Drawer from '@material-ui/core/Drawer';
-import SearchBar, { SearchTrigger, Adornment } from '.';
-import { materialShallow } from '../_helpers/testUtils';
+import React from 'react';
+import Fade from '@material-ui/core/Fade';
+import ListItem from '@material-ui/core/ListItem';
+import Graphic from '../graphic';
+import SearchBar, {
+  SearchResultList,
+  Adornment,
+  FilterTrigger,
+} from '.';
 
-describe('Adornment', () => {
-  it('should only render with text', () => {
-    expect(
-      materialShallow(Adornment, {
-        children: 'Hey',
-        onClear: jest.fn(),
-        term: null,
-      }).text(),
-    ).toBe('Hey');
-    expect(
-      materialShallow(Adornment, {
-        onClear: jest.fn(),
-        term: 'One',
-      }).find(IconButton),
-    ).toHaveLength(1);
+import Button from '../iconButton';
+
+describe('Searchbar', () => {
+  describe('FilterTrigger', () => {
+    const mountButton = (active) =>
+      global
+        .shallow(
+          <FilterTrigger
+            onClick={jest.fn()}
+            active={active}
+          />,
+        )
+        .find(Button)
+        .props();
+
+    it('should set primary on active', () => {
+      const { buttonProps, icon } = mountButton(true);
+      expect(buttonProps).toHaveProperty(
+        'color',
+        'primary',
+      );
+      expect(icon).toHaveProperty(
+        'displayName',
+        'GridOnIcon',
+      );
+    });
+
+    it('should set normal on inactive', () => {
+      const { buttonProps, icon } = mountButton(false);
+      expect(buttonProps).toHaveProperty('color', 'normal');
+      expect(icon).toHaveProperty(
+        'displayName',
+        'GridOffIcon',
+      );
+    });
+  });
+
+  describe('Adornment', () => {
+    it('should render children', () => {
+      const Mock = () => null;
+      const wrap = global.shallow(
+        <Adornment onClear={jest.fn()} term={null}>
+          <Mock />
+        </Adornment>,
+      );
+      expect(wrap.find(Fade).props()).toHaveProperty(
+        'in',
+        false,
+      );
+      expect(wrap.find(Mock)).toHaveLength(1);
+    });
+
+    it('should show on search term', () => {
+      const wrap = global.shallow(
+        <Adornment onClear={jest.fn()} term="Hey" />,
+      );
+      expect(wrap.find(Fade).props()).toHaveProperty(
+        'in',
+        true,
+      );
+    });
+  });
+
+  describe('SearchResultList', () => {
+    it('should call getResults promise with term', (done) => {
+      const term = 'hi';
+      const spy = jest
+        .spyOn(React, 'useEffect')
+        .mockImplementationOnce((f) => f());
+
+      const getResults = jest.fn().mockImplementation(
+        (v) =>
+          new Promise((resolve) => {
+            expect(v).toMatch(term);
+            expect(spy).toHaveBeenCalledWith(
+              expect.any(Function),
+              [term],
+            );
+            resolve([]);
+            done();
+          }),
+      );
+
+      global.shallow(
+        <SearchResultList
+          term={term}
+          getResults={getResults}
+        />,
+      );
+    });
+
+    it('should render a graphic without results', (done) => {
+      jest
+        .spyOn(React, 'useEffect')
+        .mockImplementationOnce((f) => f());
+      const getResults = jest
+        .fn()
+        .mockImplementation(() => Promise.resolve([]));
+
+      const wrapper = global.shallow(
+        <SearchResultList
+          term="withoutResults"
+          getResults={getResults}
+        />,
+      );
+
+      setTimeout(() => {
+        expect(wrapper.find(Graphic)).toHaveLength(1);
+        done();
+      }, 0);
+    });
+
+    it('should render a list without results', (done) => {
+      jest
+        .spyOn(React, 'useEffect')
+        .mockImplementationOnce((f) => f());
+
+      const getResults = jest.fn().mockImplementation(() =>
+        Promise.resolve([
+          {
+            id: 1,
+            name: 'foo',
+            description: 'bar',
+            url: '/quux',
+          },
+          {
+            id: 2,
+            name: 'foo',
+            description: 'bar',
+            url: '/quux',
+          },
+          {
+            id: 3,
+            name: 'foo',
+            description: 'bar',
+            url: '/quux',
+          },
+        ]),
+      );
+
+      const wrapper = global.shallow(
+        <SearchResultList
+          term="witResults"
+          getResults={getResults}
+        />,
+      );
+
+      setTimeout(() => {
+        expect(wrapper.find(ListItem)).toHaveLength(3);
+        done();
+      }, 0);
+    });
   });
 });
+
+/*
+
 
 describe('Seachbar', () => {
   const renderConditionally = (expanded = false) =>
@@ -66,3 +210,4 @@ describe('Seachbar', () => {
     expect(field.props().value).toBe('123');
   });
 });
+*/

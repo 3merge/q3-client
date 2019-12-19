@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   tiled: {
     position: 'relative',
     marginBottom: theme.spacing(4),
-    width: '100%',
+    maxWidth: '100%',
   },
   errorBar: {
     backgroundColor: red[900],
@@ -52,18 +52,19 @@ const Tile = ({
       )}
       {error && <Divider className={errorBar} />}
 
-      <Box px={3} py={2} component="header">
-        <Typography variant="h3" gutterBottom={hasSubtitle}>
+      <Box p={2}>
+        <Typography
+          variant="h3"
+          gutterBottom={!hasSubtitle}
+        >
           {title}
         </Typography>
         {hasSubtitle && (
-          <Typography variant="body1">
+          <Typography variant="body1" gutterBottom>
             {subtitle}
           </Typography>
         )}
-      </Box>
-      {dividers && <Divider />}
-      <Box py={dividers ? 2 : 0} px={3}>
+
         {loading && !disableSkeleton ? (
           <>
             <Skeleton height={6} width="80%" />
@@ -75,15 +76,9 @@ const Tile = ({
         ) : (
           children
         )}
+
+        {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>
-      {renderFooter && (
-        <>
-          {dividers && <Divider />}
-          <Box px={3} py={2} component="footer">
-            {renderFooter()}
-          </Box>
-        </>
-      )}
     </Paper>
   );
 };

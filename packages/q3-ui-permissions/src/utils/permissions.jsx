@@ -84,21 +84,27 @@ export default (ctx) => (coll, createdBy) => {
   };
 
   const getField = (name, grant) =>
-    grant
-      ? String(grant.fields || '')
-          .split(',')
-          .map((i) => i.trim())
-          .some((i) => minimatch(name, i))
+    grant &&
+    grant.fields &&
+    typeof grant.fields === 'string'
+      ? grant.fields.split(',').every((i) => {
+          try {
+            if (i === '*') return true;
+            return minimatch(name, i.trim());
+          } catch (e) {
+            return false;
+          }
+        })
       : false;
 
   const isDefined = (arg) =>
     arg !== undefined && arg !== null;
 
   const isDisabledPrefix = (path) => ({ op, name }) => {
-    if (!getField(`${path},${name}`, getOp('Read')))
+    if (!getField(`${path}.${name}`, getOp('Read')))
       return hidden;
 
-    if (!getField(`${path},${name}`, getOp(op)))
+    if (!getField(`${path}.${name}`, getOp(op)))
       return readOnly;
 
     return {};
@@ -114,8 +120,13 @@ export default (ctx) => (coll, createdBy) => {
   const Hide = ({ children, op }) =>
     getOp(op) ? children : null;
 
-  const HideByField = ({ path, children, op }) =>
-    getField(path, getOp(op)) ? children : null;
+  const HideByField = ({ path, subfield, children, op }) =>
+    getField(
+      subfield ? `${subfield}.${path}` : path,
+      getOp(op),
+    )
+      ? children
+      : null;
 
   Hide.propTypes = {
     children: PropTypes.node.isRequired,

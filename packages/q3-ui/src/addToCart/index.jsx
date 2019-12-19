@@ -1,4 +1,4 @@
-/** eslint-disable react/no-jsx-duplicate-props */
+/** eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -142,8 +142,10 @@ const AddToCart = ({ product, service }) => {
             <CircularProgress color="#FFF" />
           ) : (
             <Fade in={!loading}>
-              <div style={{ display: 'flex'}}>
-                <ShoppingCart style={{marginRight: '.5rem' }}  />
+              <div style={{ display: 'flex' }}>
+                <ShoppingCart
+                  style={{ marginRight: '.5rem' }}
+                />
                 {t('labels:addToCart')}
               </div>
             </Fade>
@@ -152,6 +154,11 @@ const AddToCart = ({ product, service }) => {
       </Grid>
     </Grid>
   );
+};
+
+AddToCart.propTypes = {
+  product: PropTypes.string.isRequired,
+  service: PropTypes.func.isRequired,
 };
 
 export default AddToCart;

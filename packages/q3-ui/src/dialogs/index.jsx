@@ -18,6 +18,8 @@ import Hidden from '@material-ui/core/Hidden';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import useValue from 'useful-state/lib/useValue';
+import useOpen from 'useful-state/lib/useOpen';
 
 const useStyles = makeStyles((theme) => ({
   desktopOffset: {
@@ -46,41 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const useOpenState = () => {
-  const [state, setState] = React.useState();
-
-  const open = React.useCallback((e) => {
-    if (e && 'target' in e) {
-      setState(e.target);
-    }
-  }, []);
-
-  const close = React.useCallback(() => {
-    setState(null);
-  }, []);
-
-  return {
-    isOpen: Boolean(state),
-    anchorEl: state,
-    close,
-    open,
-  };
-};
-
-export const useChange = () => {
-  const [value, setValue] = React.useState('');
-
-  const onChange = React.useCallback(({ target }) => {
-    setValue(target.value);
-  }, []);
-
-  return {
-    value,
-    setValue,
-    onChange,
-  };
-};
-
 export const Delete = ({
   next,
   redirect,
@@ -89,7 +56,7 @@ export const Delete = ({
   close,
 }) => {
   const [hasError, setError] = React.useState(false);
-  const { value, onChange, setValue } = useChange();
+  const { value, onChange, setValue } = useValue();
   const { t } = useTranslation();
 
   const submit = React.useCallback(() => {
@@ -154,7 +121,7 @@ Delete.defaultProps = {
 };
 
 export const Create = ({ render }) => {
-  const { isOpen, open, close } = useOpenState();
+  const { isOpen, open, close } = useOpen();
   const {
     desktopOffset,
     floatOnDesktop,
@@ -221,7 +188,7 @@ export const Capture = ({
   label,
   ...rest
 }) => {
-  const { isOpen, open, close } = useOpenState();
+  const { isOpen, open, close } = useOpen();
   const { t } = useTranslation();
   const openLabel = t(`labels:${label}`);
 

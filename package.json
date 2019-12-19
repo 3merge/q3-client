@@ -8,7 +8,7 @@
     "node": "^12.9.0"
   },
   "scripts": {
-    "prepare": "install-peers",
+    "postinstall": "yarnw-sync-deps && yarn-deduplicate",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
     "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
@@ -30,7 +30,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^3.2.0",
-    "babel-plugin-rewire": "^1.2.0",
+    "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.4.0",
@@ -44,12 +44,14 @@
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-module-resolver": "^0.15.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "install-peers-cli": "^2.1.1",
     "jest": "^24.9.0",
+    "jest-mock-axios": "^3.1.2",
     "lerna": "^3.18.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
-    "rewire": "^4.0.1"
+    "prop-types": "^15.7.2",
+    "yarn-deduplicate": "^1.1.1",
+    "yarn-workspace-sync-deps": "^0.2.1"
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
@@ -68,11 +70,19 @@
     "@svgr/webpack": "^4.3.3",
     "axios": "^0.19.0",
     "babel-loader": "^8.0.0-beta.1",
+    "comparisons": "^2.0.1",
     "formik": "^2.0.4",
     "i18next": "^19.0.1",
+    "js-file-download": "^0.4.8",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
+    "react-helmet": "^5.2.1",
     "react-i18next": "^10.13.1",
-    "storybook-readme": "^5.0.8"
+    "storybook-readme": "^5.0.8",
+    "useful-state": "^1.2.0",
+    "with-location": "^1.1.0",
+    "yup": "^0.27.0"
   }
 }

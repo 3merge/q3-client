@@ -1,0 +1,145 @@
+import { get } from 'lodash';
+import {
+  getForTransfer,
+  getForAutocomplete,
+} from 'q3-ui-rest';
+import Comparison from 'comparisons';
+import {
+  Autocomplete,
+  Checkbox,
+  Checkset,
+  DatePicker,
+  Editor,
+  Multiselect,
+  Multitext,
+  Radio,
+  Text,
+  Select,
+  Selectable,
+  Transfer,
+} from '../fields';
+import { mapToValue } from './validation';
+
+const htmlFieldTypes = [
+  'text',
+  'number',
+  'tel',
+  'email',
+  'url',
+  'checkbox',
+  'password',
+  'search',
+  'color',
+];
+
+const internalFieldTypes = {
+  select: Select,
+  date: DatePicker,
+  text: Text,
+  default: Text,
+  checkbox: Checkbox,
+  checkset: Checkset,
+  radio: Radio,
+  transfer: Transfer,
+  autocomplete: Autocomplete,
+  multitext: Multitext,
+  multiselect: Multiselect,
+  selectable: Selectable,
+  editor: Editor,
+};
+
+export default class FieldBuilder {
+  constructor(type, props = {}, values = {}) {
+    Object.assign(this, props, {
+      originalType: type,
+      type: htmlFieldTypes.includes(type) ? type : null,
+      values,
+    });
+  }
+
+  static is(type) {
+    return (
+      internalFieldTypes[type] || internalFieldTypes.default
+    );
+  }
+
+  hasValues() {
+    return (
+      this.values &&
+      typeof this.values === 'object' &&
+      Object.keys(this.values).length
+    );
+  }
+
+  show() {
+    return (
+      !this.conditional ||
+      (this.hasValues() &&
+        new Comparison(this.conditional).eval(this.values))
+    );
+  }
+
+  getOptions() {
+    const ref = this.loadOptions;
+
+    if (typeof this.loadOptions === 'object') {
+      const fn =
+        this.originalType === 'transfer'
+          ? getForTransfer
+          : getForAutocomplete;
+
+      Object.assign(this, {
+        loadOptions: (e) =>
+          fn(
+            `${ref.url}&search=${e}${
+              ref.append
+                ? `&${ref.append.split('=')[0]}=${get(
+                    this.values,
+                    ref.append.split('=')[1],
+                  )}`
+                : ''
+            }`,
+            ref.key,
+            ref.field,
+          ),
+      });
+    }
+
+    if (typeof this.options === 'function') {
+      Object.assign(this, {
+        options: this.options(this.values),
+      });
+    } else if (!this.options && this.enum) {
+      Object.assign(this, mapToValue(this.enum));
+    }
+  }
+
+  getRequired() {
+    if (this.requiredIf && typeof this.values === 'object')
+      this.required = new Comparison(this.requiredIf).eval(
+        Object.entries(this.values).reduce(
+          (prev, [key, value]) =>
+            value !== '' &&
+            value !== null &&
+            value !== undefined
+              ? Object.assign(
+                  prev,
+                  {
+                    [key]: value,
+                  },
+                  {},
+                )
+              : {},
+        ),
+      );
+  }
+
+  build() {
+    this.getOptions();
+    this.getRequired();
+
+    delete this.originalType;
+    delete this.type;
+    return this.show() ? this : null;
+  }
+}

@@ -26,7 +26,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import MobileStepper from '@material-ui/core/Stepper';
-import { useOpenState } from '../dialogs';
+import useOpen from 'useful-state/lib/useOpen';
 import graphic from '../../images/waiting.png';
 
 const useStyles = makeStyles(() => ({
@@ -109,8 +109,8 @@ Toggle.defaultProps = {
 };
 
 const Cart = ({ items, total, updated }) => {
-  const { bullet, bulletIcon } = useStyles();
-  const { isOpen, close, open } = useOpenState();
+  const { bullet } = useStyles();
+  const { isOpen, close, open } = useOpen();
   const { t } = useTranslation();
 
   return (

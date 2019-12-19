@@ -2,35 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Router } from '@reach/router';
 import Providers from 'q3-ui';
-import init from 'q3-ui-commons';
 import {
-  Login,
-  PasswordReset,
-  Reverify,
-  Verify,
-} from 'q3-ui-commons/lib/views';
+  Login as LoginPreset,
+  PasswordReset as PasswordResetPreset,
+  Reverify as ReverifyPreset,
+  Verify as VerifyPreset,
+} from 'q3-ui-forms/lib/presets';
 import SnackbarProvider from 'q3-ui-forms';
 import Authentication, {
   destroySession,
 } from 'q3-ui-permissions';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import * as Templates from './templates';
+import {
+  App,
+  LinkTo,
+  Loader,
+  Main,
+  Menu,
+  Public,
+} from './components';
 
-const { Public } = Templates;
+const Login = () => (
+  <LoginPreset>
+    <LinkTo destination="password-reset" />
+  </LoginPreset>
+);
+
+const PasswordReset = () => (
+  <PasswordResetPreset>
+    <LinkTo destination="login" />
+  </PasswordResetPreset>
+);
+
+const Verify = () => (
+  <VerifyPreset>
+    <LinkTo destination="reverify" />
+  </VerifyPreset>
+);
+
+const Reverify = () => (
+  <ReverifyPreset>
+    <LinkTo destination="verify" />
+  </ReverifyPreset>
+);
 
 export const ApplicationGate = ({
-  name,
-  logoImgSrc,
-  appIndex,
-  appNav,
-  postAuthVerification,
+  pages,
   popoutMenuItems,
-}) => {
-  React.useEffect(init, []);
-
-  return (
+  postAuthVerification,
+  ...rest
+}) => (
+  <>
+    <Loader />
     <Authentication
-      loading={CircularProgress}
       renderPrivate={(args) => {
         if (postAuthVerification) {
           postAuthVerification(args);
@@ -38,13 +61,11 @@ export const ApplicationGate = ({
 
         const { firstName, photo } = args;
         return (
-          <Templates.Main
-            name={name}
-            renderAside={appNav}
-            render={appIndex}
+          <Main
+            renderAside={() => <Menu pages={pages} />}
+            render={() => <App pages={pages} />}
             ProfileBarProps={{
-              offcanvas: appNav,
-              companyName: name,
+              offcanvas: () => <Menu pages={pages} />,
               name: firstName,
               imgSrc: photo,
               menuItems: [
@@ -59,10 +80,10 @@ export const ApplicationGate = ({
         );
       }}
       renderPublic={() => (
-        <Public companyName={name} logo={logoImgSrc}>
+        <Public {...rest}>
           <Router>
             <Login path="/login" />
-            <PasswordReset path="/reset-password" />
+            <PasswordReset path="/password-reset" />
             <Verify path="/verify" />
             <Reverify path="/reverify" />
             <Redirect noThrow from="/*" to="login" />
@@ -70,12 +91,14 @@ export const ApplicationGate = ({
         </Public>
       )}
     />
-  );
-};
+  </>
+);
 
 ApplicationGate.propTypes = {
   name: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string.isRequired,
+  postAuthVerification: PropTypes.func,
+  pages: PropTypes.arrayOf(PropTypes.object),
   popoutMenuItems: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
@@ -86,10 +109,18 @@ ApplicationGate.propTypes = {
 
 ApplicationGate.defaultProps = {
   popoutMenuItems: [],
+  postAuthVerification: null,
+  pages: [],
 };
 
-export default ({ children }) => (
+const AppWrapper = ({ children }) => (
   <Providers>
     <SnackbarProvider>{children}</SnackbarProvider>
   </Providers>
 );
+
+AppWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default AppWrapper;

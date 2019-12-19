@@ -7,9 +7,7 @@ import {
 import Providers from 'q3-ui';
 import Snackbar from 'q3-ui-forms';
 import { withTests } from '@storybook/addon-jest';
-// import { addReadme } from 'storybook-readme';
 import { withA11y } from '@storybook/addon-a11y';
-import { withInfo } from '@storybook/addon-info';
  
 import path from 'path';
 import {
@@ -60,7 +58,7 @@ const req = require.context(
 
 addDecorator(withRouter);
 addDecorator(withA11y);
-addDecorator(withInfo);
+
 addDecorator((story) => (
   <Providers>
     <Snackbar>
@@ -68,6 +66,13 @@ addDecorator((story) => (
     </Snackbar>
   </Providers>
 ));
+
+addParameters({
+  options: {
+    showPanel: false,
+    panelPosition: 'right',
+  }
+})
 
 configure(() => 
   req.keys().forEach(req), 

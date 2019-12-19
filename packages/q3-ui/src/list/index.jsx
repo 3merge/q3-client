@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import useOpen from 'useful-state/lib/useOpen';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,12 +11,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
 import Avatar from '../avatar';
-import {
-  useOpenState,
-  Delete as DeleteConfirmation,
-} from '../dialogs';
+import { Delete as DeleteConfirmation } from '../dialogs';
 import { DropDownMenu } from '../toolbar';
-import Wizard from '../wizard';
+import { DialogWizard } from '../wizard';
 
 const extractStringValue = (v) =>
   Array.isArray(v) ? v.join(', ') : String(v || '--');
@@ -73,8 +71,8 @@ const InteractiveListItem = ({
   ...etc
 }) => {
   const actions = [];
-  const editorOpenState = useOpenState();
-  const confirmationOpenState = useOpenState();
+  const editorOpenState = useOpen();
+  const confirmationOpenState = useOpen();
   const { t } = useTranslation();
 
   if (updateOne)
@@ -98,7 +96,7 @@ const InteractiveListItem = ({
         secondary={secondary}
       />
       {updateOne && (
-        <Wizard
+        <DialogWizard
           {...etc}
           {...editorOpenState}
           initialValues={data}

@@ -131,13 +131,14 @@ ColoredAvatar.propTypes = {
   word: PropTypes.string,
   imgSrc: PropTypes.string,
   superscript: PropTypes.number,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.node,
 };
 
 ColoredAvatar.defaultProps = {
   superscript: 0,
   word: '',
   imgSrc: null,
+  icon: null,
 };
 
 export default ColoredAvatar;

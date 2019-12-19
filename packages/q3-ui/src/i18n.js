@@ -4,16 +4,16 @@ import moment from 'moment';
 import * as yup from 'yup';
 
 // this is just lazy ...
-import enDescriptions from '../locale/en/descriptions';
-import enLabels from '../locale/en/labels';
-import enTitles from '../locale/en/titles';
-import enHelpers from '../locale/en/helpers';
-import enYup from '../locale/en/yup';
-import frDescriptions from '../locale/fr/descriptions';
-import frLabels from '../locale/fr/labels';
-import frTitles from '../locale/fr/titles';
-import frHelpers from '../locale/fr/helpers';
-import frYup from '../locale/fr/yup';
+import enDescriptions from '../locale/en/descriptions.json';
+import enLabels from '../locale/en/labels.json';
+import enTitles from '../locale/en/titles.json';
+import enHelpers from '../locale/en/helpers.json';
+import enYup from '../locale/en/yup.json';
+import frDescriptions from '../locale/fr/descriptions.json';
+import frLabels from '../locale/fr/labels.json';
+import frTitles from '../locale/fr/titles.json';
+import frHelpers from '../locale/fr/helpers.json';
+import frYup from '../locale/fr/yup.json';
 
 const lng = 'en';
 

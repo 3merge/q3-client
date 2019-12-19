@@ -63,5 +63,8 @@
   "branch": "Company branch",
   "primary": "Primary address?",
   "quantity": "Quantity",
-  "addToCart": "Add to cart"
+  "addToCart": "Add to cart",
+  "search": "Search results",
+  "filter": "Filter search",
+  "subscribed": "Subscribed"
 }

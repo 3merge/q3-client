@@ -1,136 +1,216 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
-import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
 import Search from '@material-ui/icons/Search';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 import Close from '@material-ui/icons/Close';
+import GridOn from '@material-ui/icons/GridOn';
+import GridOff from '@material-ui/icons/GridOff';
+import Highlighter from 'react-highlight-words';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Collapse from '@material-ui/core/Collapse';
+import { withLocation } from 'with-location';
+import { useToggle, useValue } from 'useful-state';
+import SearchIcon from './searchIcon';
+import AccessibleIconButton from '../iconButton';
 
-const useStyles = makeStyles((theme) => ({
-  bar: {
-    padding: theme.spacing(3),
-  },
-}));
-
-export const SearchTrigger = ({ onOpen, size }) => {
-  const { t } = useTranslation();
-  return (
-    <Tooltip title={t('label:enlarge')}>
-      <IconButton onClick={onOpen} size={size}>
-        <Search />
-      </IconButton>
-    </Tooltip>
-  );
-};
+const SearchTrigger = ({ onClick }) => (
+  <AccessibleIconButton
+    label="enlarge"
+    buttonProps={{ onClick }}
+    icon={Search}
+  />
+);
 
 SearchTrigger.propTypes = {
-  onOpen: PropTypes.func.isRequired,
-  size: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
-export const Adornment = ({ children, term, onClear }) => {
-  const { t } = useTranslation();
-  return (
+const CloseTrigger = ({ onClick }) => (
+  <AccessibleIconButton
+    label="close"
+    buttonProps={{ onClick }}
+    icon={ArrowBack}
+  />
+);
+
+CloseTrigger.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
+
+export const FilterTrigger = ({ onClick, active }) => (
+  <AccessibleIconButton
+    label="filter"
+    icon={active ? GridOn : GridOff}
+    buttonProps={{
+      onClick,
+      color: active ? 'primary' : 'normal',
+    }}
+  />
+);
+
+FilterTrigger.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
+};
+
+export const Adornment = withLocation(
+  ({ children, term, clearByName, focus }) => (
     <InputAdornment position="end">
-      {term ? (
-        <Tooltip title={t('label:clear')}>
-          <IconButton onClick={onClear} size="small">
-            <Close />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        children
-      )}
+      <Fade
+        in={typeof term === 'string' && term.length > 0}
+      >
+        <div>
+          <AccessibleIconButton
+            label="clear"
+            icon={Close}
+            buttonProps={{
+              onClick: clearByName(focus),
+              name: 'search',
+            }}
+          />
+        </div>
+      </Fade>
+      {children}
     </InputAdornment>
-  );
-};
+  ),
+);
 
-Adornment.propTypes = {
-  children: PropTypes.node,
-  onClear: PropTypes.func.isRequired,
-  term: PropTypes.string,
-};
-
-Adornment.defaultProps = {
-  children: null,
-  term: '',
-};
-
-const Searchbar = ({ expanded, redirectPath }) => {
-  const ref = React.useRef();
-  const { t } = useTranslation();
-  const [state, setState] = React.useState(false);
-  const [term, setTerm] = React.useState('');
-  const { bar } = useStyles();
-
-  const open = React.useCallback(() => {
-    setState(true);
-  }, [state]);
-
-  const close = React.useCallback(() => {
-    setState(false);
-  }, [state]);
-
-  const onFocus = React.useCallback(() => {
-    if (!ref.current) return;
-    ref.current.focus();
-  }, []);
-
-  const onChange = React.useCallback(({ target }) => {
-    setTerm(target.value);
-  }, []);
-
-  const onClear = React.useCallback(() => {
-    setTerm('');
-    const { search } = window.location;
-    const params = new URLSearchParams(search);
-    params.delete('search');
-    navigate(`${redirectPath}?${params.toString()}`);
-    onFocus();
-  }, []);
-
-  const onKeyPress = React.useCallback(
-    ({ key, target }) => {
-      if (key === 'Enter') {
-        const { search } = window.location;
-        const params = new URLSearchParams(search);
-        params.delete('page');
-
-        if (target.value === '' || !target.value) {
-          params.delete('search');
-        } else {
-          params.set('search', target.value);
-        }
-
-        navigate(`${redirectPath}?${params.toString()}`);
-        close();
-      }
-    },
-    [],
-  );
+export const SearchResultList = ({ term, getResults }) => {
+  const [results, setResults] = React.useState([]);
+  const hasResults = results && results.length;
 
   React.useEffect(() => {
-    const { search } = window.location;
-    const params = new URLSearchParams(search);
-    const url = params.get('search');
-    if (url !== term) setTerm(url);
-  }, []);
+    if (term) {
+      getResults(term).then(setResults);
+    } else {
+      setResults([]);
+    }
+  }, [term]);
+
+  return !hasResults || !term || !term.length ? (
+    <SearchIcon />
+  ) : (
+    <List component="nav">
+      {results.map(({ id, name, description, url }) => (
+        <ListItem button component={Link} key={id} to={url}>
+          <ListItemText
+            primary={
+              name ? (
+                <Highlighter
+                  textToHighlight={name}
+                  searchWords={String(term).split(' ')}
+                  autoEscape={false}
+                />
+              ) : null
+            }
+            secondary={
+              description ? (
+                <Box>
+                  <Box display="block" component="small">
+                    <Highlighter
+                      textToHighlight={description}
+                      searchWords={String(term).split(' ')}
+                      autoEscape={false}
+                    />
+                  </Box>
+                </Box>
+              ) : null
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+};
+
+SearchResultList.propTypes = {
+  term: PropTypes.string.isRequired,
+  getResults: PropTypes.func.isRequired,
+};
+
+const SearchPanel = ({ show, children }) =>
+  show ? (
+    <Collapse in={show}>
+      <Box p={2}>{children}</Box>
+    </Collapse>
+  ) : null;
+
+SearchPanel.propTypes = {
+  show: PropTypes.bool.isRequired,
+  children: PropTypes.node,
+};
+
+SearchPanel.defaultProps = {
+  children: null,
+};
+
+const SearchDrawer = ({ state, open, close, children }) => (
+  <Drawer
+    anchor="right"
+    open={state}
+    onOpen={open}
+    onClose={close}
+    component="aside"
+  >
+    <Box
+      p={2}
+      width={450}
+      style={{ height: '100%', overflowY: 'scroll' }}
+    >
+      {children}
+    </Box>
+  </Drawer>
+);
+
+SearchDrawer.propTypes = {
+  state: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired,
+  close: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+const Searchbar = ({
+  expanded,
+  getResults,
+  handleSearch,
+  getFrom,
+  filter: Filter,
+}) => {
+  const { t } = useTranslation();
+  const {
+    value,
+    onChange,
+    onFocus,
+    onClear,
+    ref,
+  } = useValue(getFrom('search') || '');
+
+  const {
+    toggle: toggleFilter,
+    state: showFilter,
+  } = useToggle(false);
+  const { state, open, close } = useToggle();
 
   const inputProps = {
+    value,
     placeholder: t('labels:searchPlaceholder'),
     name: 'search',
     type: 'text',
-    value: term,
     onChange,
-    onKeyPress,
+    onKeyPress: handleSearch(() => {
+      close();
+    }),
     inputProps: {
       'aria-label': t('labels:search'),
     },
@@ -145,12 +225,17 @@ const Searchbar = ({ expanded, redirectPath }) => {
             inputRef={ref}
             id="header-searchbar"
             variant="outlined"
-            margin="dense"
             InputProps={{
               endAdornment: (
-                <Adornment onClear={onClear} term={term}>
+                <Adornment
+                  focus={() => {
+                    onClear();
+                    onFocus();
+                  }}
+                  term={value}
+                >
                   <SearchTrigger
-                    onOpen={open}
+                    onClick={open}
                     size="small"
                   />
                 </Adornment>
@@ -161,23 +246,46 @@ const Searchbar = ({ expanded, redirectPath }) => {
       )}
       <Hidden mdUp={expanded}>
         <Box>
-          <SearchTrigger onOpen={open} size="large" />
+          <SearchTrigger onClick={open} size="large" />
         </Box>
       </Hidden>
-      <Drawer
-        anchor="top"
-        open={state}
-        onOpen={open}
-        onClose={close}
+      <SearchDrawer
+        state={state}
+        open={open}
+        close={close}
         component="aside"
       >
         <Input
           {...inputProps}
           id="fullscreen-searchbar"
-          className={bar}
+          autoComplete="off"
+          fullWidth
           autoFocus
+          disableUnderline
+          startAdornment={
+            <Box display="flex" mr={1}>
+              <CloseTrigger onClick={close} />
+              {Filter && (
+                <FilterTrigger
+                  active={showFilter}
+                  onClick={toggleFilter}
+                />
+              )}
+            </Box>
+          }
         />
-      </Drawer>
+        <SearchPanel show={!showFilter} label="search">
+          <SearchResultList
+            term={value}
+            getResults={getResults}
+          />
+        </SearchPanel>
+        {Filter && (
+          <SearchPanel show={showFilter} label="filter">
+            <Filter />
+          </SearchPanel>
+        )}
+      </SearchDrawer>
     </>
   );
 };
@@ -185,11 +293,16 @@ const Searchbar = ({ expanded, redirectPath }) => {
 Searchbar.propTypes = {
   expanded: PropTypes.bool,
   redirectPath: PropTypes.string,
+  getResults: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
+  getFrom: PropTypes.func.isRequired,
+  filter: PropTypes.node,
 };
 
 Searchbar.defaultProps = {
   expanded: true,
   redirectPath: '',
+  filter: null,
 };
 
-export default Searchbar;
+export default withLocation(Searchbar);
