@@ -2,6 +2,7 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
+import Box from '@material-ui/core/Box';
 import JSONPretty from 'react-json-pretty';
 import withWrapper from './wrapper';
 
@@ -66,7 +67,7 @@ const FormWrapper = withWrapper(
         onSubmit={onSubmit}
       >
         {({ values, errors, isValid, ...rest }) => (
-          <>
+          <Box>
             {handleReset(rest)}
             {handleInit(rest)}
             {!fieldset ? (
@@ -90,7 +91,7 @@ const FormWrapper = withWrapper(
                 {children}
               </fieldset>
             )}
-          </>
+          </Box>
         )}
       </Formik>
     );
