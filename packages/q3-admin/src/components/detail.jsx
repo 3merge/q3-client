@@ -119,7 +119,7 @@ const Detail = ({
     });
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Box my={4}>
         {state.fetching ? (
           <CircularProgress />

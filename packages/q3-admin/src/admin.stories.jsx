@@ -19,6 +19,7 @@ import {
   Detail,
   SubDetail,
   Search,
+  Add,
 } from './components';
 import characters from './__fixtures__/characters.json';
 import episodes from './__fixtures__/episodes.json';
@@ -43,6 +44,9 @@ const Characters = (props) => (
         <DisplayItem include="location" />
         <DisplayItem include="location" />
       </Search>
+      <Add title="addCharacter">
+        <p>My form</p>
+      </Add>
     </Header>
     <List>
       <DisplayItem include={['name', 'species', 'image']} />
