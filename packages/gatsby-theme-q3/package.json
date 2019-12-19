@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "0.6.3",
+  "version": "0.6.5",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -45,6 +45,6 @@
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
-    "q3-ui-test-utils": "^0.6.3"
+    "q3-ui-test-utils": "^0.6.5"
   }
 }
