@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import useOpen from 'useful-state/lib/useOpen';
@@ -14,28 +15,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
-
+import { assignIDs } from '../helpers';
 import IconEmpty from '../icons/empty';
 
-const isObject = (item) => typeof item === 'object';
-
-const assignIDs = (a) =>
-  a.map((item, i) => {
-    if (isObject(item) && !item.id) {
-      return { ...item, id: i };
-    }
-    return item;
-  });
-
-const InteractiveListItem = ({
-  id,
-  icon,
+export const InteractiveListItem = ({
   children,
-  listNumber,
   ...etc
 }) => (
   <>
-    <ListItem disableGutters key={id} component="li" dense>
+    <ListItem disableGutters component="li" dense>
       <ListItemText {...etc} />
       <ListItemSecondaryAction>
         {children}
@@ -45,8 +33,19 @@ const InteractiveListItem = ({
   </>
 );
 
-const DialogForm = ({ renderTrigger, renderContent }) => {
+InteractiveListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+export const DialogForm = ({
+  title,
+  renderTrigger,
+  renderContent,
+}) => {
   const { isOpen, open, close } = useOpen();
+  const { t } = useTranslation('titles');
+
   return (
     <>
       {renderTrigger(open)}
@@ -56,7 +55,7 @@ const DialogForm = ({ renderTrigger, renderContent }) => {
         onClose={close}
         open={isOpen}
       >
-        <DialogTitle>Name of Dialog</DialogTitle>
+        <DialogTitle>{t(title)}</DialogTitle>
         <DialogContent>
           {renderContent(close)}
         </DialogContent>
@@ -65,7 +64,19 @@ const DialogForm = ({ renderTrigger, renderContent }) => {
   );
 };
 
-const DataList = ({ data, getForm, primary, secondary }) =>
+DialogForm.propTypes = {
+  renderTrigger: PropTypes.func.isRequired,
+  renderContent: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+};
+
+export const DataList = ({
+  data,
+  getForm,
+  primary,
+  secondary,
+  ...etc
+}) =>
   data.length ? (
     <List>
       {data.map((item, i) => (
@@ -77,7 +88,8 @@ const DataList = ({ data, getForm, primary, secondary }) =>
           secondary={secondary(item)}
         >
           <DialogForm
-            renderContent={getForm(false, item)}
+            {...etc}
+            renderContent={getForm(false, item, item.id)}
             renderTrigger={(open) => (
               <IconButton onClick={open}>
                 <FolderIcon />
@@ -94,6 +106,13 @@ const DataList = ({ data, getForm, primary, secondary }) =>
     <IconEmpty />
   );
 
+DataList.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getForm: PropTypes.func.isRequired,
+  primary: PropTypes.func.isRequired,
+  secondary: PropTypes.func.isRequired,
+};
+
 const Repeater = ({
   data,
   name,
@@ -105,15 +124,21 @@ const Repeater = ({
   collectionName,
   ...rest
 }) => {
-  const getForm = (isNew = true, init = initialValues) => (
-    done,
-  ) =>
+  const { t } = useTranslation('labels');
+
+  const getForm = (
+    isNew = true,
+    init = initialValues,
+    id,
+  ) => (done) =>
     React.cloneElement(children, {
       onReset: done,
       onSubmit: (...args) =>
         Promise.resolve(
-          isNew ? create(...args) : edit(...args),
-        ).finally(done),
+          isNew ? create(...args) : edit(id)(...args),
+        ).then(() => {
+          done();
+        }),
       initialValues: init,
       collectionName,
       isNew,
@@ -124,10 +149,12 @@ const Repeater = ({
       <DataList
         getForm={getForm}
         data={assignIDs(data)}
+        title={children.props.title}
         {...rest}
       />
       <Box mt={1}>
         <DialogForm
+          title={children.props.title}
           renderContent={getForm()}
           renderTrigger={(open) => (
             <Button
@@ -135,7 +162,9 @@ const Repeater = ({
               color="primary"
               onClick={open}
             >
-              {data.length ? 'Add to list' : 'Start list'}
+              {data.length
+                ? t('addToList')
+                : t('startList')}
             </Button>
           )}
         />
@@ -159,6 +188,8 @@ Repeater.propTypes = {
   remove: PropTypes.func,
   edit: PropTypes.func,
   create: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
 };
 
 Repeater.defaultProps = {
