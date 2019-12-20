@@ -44,7 +44,10 @@ export class Validator {
         this.$base = this.$base.string().url();
         break;
       case 'tel':
-        this.$base = this.$base.string();
+        this.$base = this.$base.string().tel();
+        break;
+      case 'postal':
+        this.$base = this.$base.string().postal();
         break;
       case 'number':
         this.$base = this.$base.number();
@@ -126,12 +129,22 @@ function postal() {
   );
 }
 
+function tel() {
+  return this.test((v) =>
+    new RegExp(
+      /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
+      'i',
+    ).test(v),
+  );
+}
+
 function autocomplete() {
   return this.test((v) => typeof v === 'object' && v.value);
 }
 
 yup.addMethod(yup.string, postal.name, postal);
 yup.addMethod(yup.mixed, autocomplete.name, autocomplete);
+yup.addMethod(yup.string, tel.name, tel);
 
 const getValidation = (fields = {}) =>
   yup.object().shape(

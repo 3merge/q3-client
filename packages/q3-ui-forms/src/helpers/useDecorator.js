@@ -76,17 +76,6 @@ export class FormikDecorator {
     );
   }
 
-  getAttrsOnly() {
-    return pick(this, [
-      'disabled',
-      'error',
-      'helperText',
-      'readOnly',
-      'label',
-      'value',
-    ]);
-  }
-
   get() {
     return {
       id: this.name,
@@ -99,6 +88,8 @@ export class FormikDecorator {
         'helperText',
         'label',
         'value',
+        'multiline',
+        'rows',
       ]),
     };
   }

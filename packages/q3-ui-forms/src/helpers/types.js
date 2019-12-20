@@ -36,6 +36,7 @@ const internalFieldTypes = {
   select: Select,
   date: DatePicker,
   text: Text,
+  postal: Text,
   default: Text,
   checkbox: Checkbox,
   checkset: Checkset,

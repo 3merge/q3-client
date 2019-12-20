@@ -67,4 +67,47 @@ describe('Custom validators', () => {
         });
     });
   });
+
+  describe('Tel value object', () => {
+    const schema = yup.object().shape({
+      tel: yup
+        .string()
+        .tel()
+        .required(),
+    });
+
+    it('it should return false', (done) => {
+      schema.isValid({ tel: '093249' }).then((valid) => {
+        expect(valid).toBeFalsy();
+        done();
+      });
+    });
+
+    it('it should return true', (done) => {
+      schema
+        .isValid({ tel: '9053214455' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
+
+    it('it should return true', (done) => {
+      schema
+        .isValid({ tel: '905-321-4455' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
+
+    it('it should return true', (done) => {
+      schema
+        .isValid({ tel: '(905) 321-4455' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
+  });
 });
