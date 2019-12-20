@@ -35,6 +35,7 @@ const SubDetail = ({ root, decorators, children }) => {
   ) : (
     React.cloneElement(children, {
       ...subdocumentState,
+      name: root,
       data: subdocumentState[root],
       edit: subdocumentState.patch,
       create: subdocumentState.post,

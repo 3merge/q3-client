@@ -5,6 +5,7 @@ import { getForAutocomplete, useFilters } from 'q3-ui-rest';
 import SearchBar from 'q3-ui/lib/searchBar';
 import Context from './state';
 import { isArray } from './utils';
+import SearchIcon from '../images/search';
 
 const assignAsEnumValues = (a, b) =>
   Object.entries(a).reduce(
@@ -72,6 +73,7 @@ const Search = ({ children, intercept }) => {
   return (
     <SearchBar
       expanded
+      icon={SearchIcon}
       getResults={(e) =>
         getForAutocomplete(
           `/${collectionName}?search=${e}&limit=25`,

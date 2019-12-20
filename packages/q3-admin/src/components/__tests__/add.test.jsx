@@ -1,6 +1,5 @@
 import React from 'react';
-import { Create as CreateDialog } from 'q3-ui/lib/dialogs';
-import Add from '../add';
+import Add, { CreateDialog } from '../add';
 
 jest.spyOn(React, 'useContext').mockReturnValue({
   collectionName: 'demo',
@@ -11,15 +10,13 @@ describe('Add', () => {
   it('should render a title as H2', () => {
     const fn = jest.fn();
     const el = global.shallow(
-      <Add title="foo">
-        <p>Test</p>
-      </Add>,
+      <Add title="foo">{jest.fn()}</Add>,
     );
 
     const [typography, form] = el
       .find(CreateDialog)
       .props()
-      .render(fn).props.children;
+      .children(fn).props.children;
 
     expect(typography.props).toMatchObject({
       children: expect.any(String),

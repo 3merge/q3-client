@@ -86,7 +86,11 @@ export const Adornment = withLocation(
   ),
 );
 
-export const SearchResultList = ({ term, getResults }) => {
+export const SearchResultList = ({
+  term,
+  getResults,
+  icon: Icon,
+}) => {
   const [results, setResults] = React.useState([]);
   const hasResults = results && results.length;
 
@@ -99,7 +103,9 @@ export const SearchResultList = ({ term, getResults }) => {
   }, [term]);
 
   return !hasResults || !term || !term.length ? (
-    <SearchIcon />
+    <Box my={2} width="250px">
+      <Icon />
+    </Box>
   ) : (
     <List component="nav">
       {results.map(({ id, name, description, url }) => (
@@ -186,6 +192,7 @@ const Searchbar = ({
   handleSearch,
   getFrom,
   filter: Filter,
+  icon,
 }) => {
   const { t } = useTranslation();
   const {
@@ -278,6 +285,7 @@ const Searchbar = ({
           <SearchResultList
             term={value}
             getResults={getResults}
+            icon={icon}
           />
         </SearchPanel>
         {Filter && (

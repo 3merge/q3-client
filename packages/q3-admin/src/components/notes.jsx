@@ -9,7 +9,7 @@ import Create from '@material-ui/icons/Create';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { TimelineSkeleton } from 'q3-ui/lib/timeline';
-import noNotesImg from '../images/no-notes.png';
+import NotesImage from '../images/note';
 
 export default ({ path }) => {
   const { t } = useTranslation();
@@ -40,7 +40,6 @@ export default ({ path }) => {
       return (
         <Paper style={{ marginTop: '1rem' }}>
           <CallToAction
-            imgSrc={noNotesImg}
             title={t('titles:noNotes')}
             description={t('descriptions:noNotes')}
           />
@@ -52,23 +51,7 @@ export default ({ path }) => {
 
   return (
     <>
-      {!fetchingError && (
-        <Box align="right">
-          <Capture
-            asButton
-            title="newNote"
-            onSubmit={post}
-            icon={Create}
-            initialValues={{
-              message: '',
-            }}
-          >
-            <Typography variant="h4" gutterBottom>
-              {t('titles:onTheMind')}
-            </Typography>
-          </Capture>
-        </Box>
-      )}
+      {!fetchingError && <Box align="right" />}
       {renderNotes()}
     </>
   );

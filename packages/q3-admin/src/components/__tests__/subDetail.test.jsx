@@ -52,13 +52,21 @@ describe('SubDetail', () => {
     expect(ui).toBeGreaterThan(0);
   });
 
-  it('should format rest URL', () => {
-    global.shallow(<SubDetail root="foo" />);
+  it('should assemble useRest arguments', () => {
+    global.shallow(
+      <SubDetail
+        root="foo"
+        decorators={{ get: jest.fn() }}
+      />,
+    );
     expect(useRest).toHaveBeenCalledWith({
       url: '/collection/1/foo',
       key: 'foo',
       pluralized: 'foo',
       runOnInit: true,
+      decorators: {
+        get: expect.any(Function),
+      },
     });
   });
 });

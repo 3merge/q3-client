@@ -1,0 +1,2 @@
+<h1>q3-ui-dialog</h1>
+<p>A thin wrapper that composes Material UI Dialogs with dynamic trigger and content components. Mostly, this package supports our internal <code>q3-admin</code> and <code>q3-ui-forms</code> packages.</p>

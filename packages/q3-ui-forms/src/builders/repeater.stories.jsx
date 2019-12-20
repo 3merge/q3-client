@@ -29,6 +29,8 @@ storiesOf('Forms|Repeater', module)
           { id: 1, firstName: 'Joe', lastName: 'Snow' },
           { id: 2, firstName: 'Arya', lastName: 'Stark' },
         ]}
+        create={() => Promise.resolve()}
+        edit={() => () => Promise.reject()}
         primary={({ firstName }) =>
           `First Name: ${firstName}`
         }
