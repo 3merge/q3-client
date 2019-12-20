@@ -26,7 +26,13 @@ storiesOf('Forms|Simple', module).add(
     <MockApi>
       <Form
         debug
-        initialValues={{ firstName: '' }}
+        initialValues={{
+          firstName: '',
+          country: {
+            value: 'UK',
+            label: 'United Kingdom',
+          },
+        }}
         onSubmit={Promise.resolve}
       >
         <Container>

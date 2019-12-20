@@ -7,6 +7,7 @@ import { useField } from 'formik';
 import useOptions from '../helpers/useOptions';
 import { intercept } from './date';
 import useDecorator from '../helpers/useDecorator';
+import { isObject } from '../helpers';
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
@@ -19,8 +20,14 @@ export const AutoCompleteWrapper = (props) => {
     props,
   );
 
-  const getDropdownLabel = (option) =>
-    t(typeof option === 'object' ? option.label : option);
+  const getDropdownLabel = (option) => {
+    if (typeof option === 'object') return option.label;
+
+    if (isObject(value) && value.value === option)
+      return value.label;
+
+    return option;
+  };
 
   const getCustomInput = (params) =>
     React.createElement(TextField, {
@@ -47,7 +54,7 @@ export const AutoCompleteWrapper = (props) => {
       label={t(name)}
       options={items}
       loading={loading}
-      defaultValue={field.value}
+      defaultValue={isObject(value) ? value.value : value}
       renderInput={getCustomInput}
       getOptionLabel={getDropdownLabel}
       onChange={intercept(field.onChange, name)}
