@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/3merge/q3-client/compare/v0.7.0...v0.7.1) (2019-12-19)
+
+
+### Bug Fixes
+
+* <SubDetail /> now accepts a decorators prop that passes directly into useRest ([e1a213d](https://github.com/3merge/q3-client/commit/e1a213d4016380cd305541540ade5e971b467492))
+* changed resourceName for collectionName on <SubDetail /> useAuth invocation (closes [#20](https://github.com/3merge/q3-client/issues/20)) ([f9a2216](https://github.com/3merge/q3-client/commit/f9a22160487a0beabbd1407cab6d1dc8c48edbf2))
+
+
+
+
+
 # [0.7.0](https://github.com/3merge/q3-client/compare/v0.6.5...v0.7.0) (2019-12-19)
 
 
