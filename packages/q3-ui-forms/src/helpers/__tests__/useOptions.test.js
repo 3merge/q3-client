@@ -61,7 +61,10 @@ describe('useOptions', () => {
       loadOptions,
     });
 
-    expect(loadOptions).toHaveBeenCalledWith('foo');
+    expect(loadOptions).toHaveBeenCalledWith(
+      'foo',
+      expect.any(Object),
+    );
     expect(effect).toHaveBeenCalledWith(
       expect.any(Function),
       ['foo'],

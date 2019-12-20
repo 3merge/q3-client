@@ -1,17 +1,21 @@
 import React from 'react';
 import Field from '../field';
-import { ValidationChainFacade } from '../builderState';
 
-const setField = jest.spyOn(
-  ValidationChainFacade.prototype,
-  'setField',
-);
+const setField = jest.fn();
 
 const effect = jest
   .spyOn(React, 'useEffect')
   .mockImplementation((v) => {
     v();
   });
+
+jest.spyOn(React, 'useContext').mockReturnValue({
+  validation: { setField },
+  authorization: {
+    checkReadAuthorizationContext: jest.fn(),
+    checkEditAuthorizationContext: jest.fn(),
+  },
+});
 
 describe('Field', () => {
   describe('useEffect', () => {
