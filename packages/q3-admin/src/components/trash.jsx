@@ -2,17 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Delete as DeleteConfirmation } from 'q3-ui/lib/dialogs';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import { SplitPanel } from 'q3-ui/lib/panel';
-import graphic from '../images/remove.png';
+import Graphic from '../images/throw';
 
 const Trash = (props) => {
   const { t } = useTranslation();
-  const [open, setOpen] = React.useState();
-
-  // CAN DELETE?
 
   return (
     <Paper elevation={0}>
@@ -27,24 +23,12 @@ const Trash = (props) => {
               {t('descriptions:delete')}
             </Typography>
 
-            <Button
-              onClick={() => setOpen(true)}
-              variant="contained"
-              color="primary"
-            >
+            <Button variant="contained" color="primary">
               {t('labels:delete')}
             </Button>
-
-            <DeleteConfirmation
-              isOpen={open}
-              close={() => setOpen(false)}
-              {...props}
-            />
           </Box>
         }
-        columnRight={
-          <img src={graphic} alt="Delete resource" />
-        }
+        columnRight={<Graphic />}
       />
     </Paper>
   );

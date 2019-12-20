@@ -3,10 +3,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Repeater, {
   InteractiveListItem,
-  DialogForm,
   DataList,
+  DeleteListItem,
 } from '../repeater';
 import IconEmpty from '../../icons/empty';
+
+jest.mock('useful-state/lib/useValue', () => () => ({
+  onChange: jest.fn(),
+  value: 'DELETE',
+}));
 
 describe('Repeater', () => {
   describe('Default component', () => {
@@ -107,24 +112,31 @@ describe('Repeater', () => {
     });
   });
 
-  describe('DialogForm', () => {
-    it('should pass open and close functions to its props', () => {
-      const renderTrigger = jest.fn();
-      const renderContent = jest.fn();
-      global.shallow(
-        <DialogForm
-          title="Test"
-          renderTrigger={renderTrigger}
-          renderContent={renderContent}
-        />,
-      );
+  describe('DeleteListItem', () => {
+    it('should call next if value equals DELETE', () => {
+      const fn = jest.fn().mockResolvedValue();
+      const {
+        props: {
+          children: [Text, Actions],
+        },
+      } = global
+        .shallow(<DeleteListItem next={fn} />)
+        .first()
+        .props()
+        .renderContent();
 
-      expect(renderTrigger).toHaveBeenCalledWith(
-        expect.any(Function),
-      );
-      expect(renderContent).toHaveBeenCalledWith(
-        expect.any(Function),
-      );
+      const { onChange } = global
+        .shallow(React.cloneElement(Text))
+        .props();
+      const { onClick } = global
+        .shallow(React.cloneElement(Actions))
+        .children()
+        .last()
+        .props();
+
+      onChange({ target: { value: 'DELETE' } });
+      onClick();
+      expect(fn).toHaveBeenCalled();
     });
   });
 

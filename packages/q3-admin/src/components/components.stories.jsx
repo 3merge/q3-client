@@ -2,9 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { storiesOf } from '@storybook/react';
 import MockApi from 'q3-ui-test-utils/lib/rest';
-import Loader from './loader';
-import FeaturedImage from './featuredImage';
 import Public from './public';
+import Trash from './trash';
 
 const img =
   'https://images.unsplash.com/photo-1496065187959-7f07b8353c55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=8';
@@ -17,20 +16,6 @@ const mockup = (m) => {
 };
 
 storiesOf('Admin|Components', module)
-  .add('Featured image', () => (
-    <FeaturedImage url={img}>Hey there</FeaturedImage>
-  ))
-  .add('Loader', () => (
-    <MockApi delay={5000} define={mockup}>
-      <Loader />
-      <button
-        type="button"
-        onClick={() => axios.get('/foo').then((r) => null)}
-      >
-        Load
-      </button>
-    </MockApi>
-  ))
   .add('Public', () => (
     <Public
       logo={logo}
@@ -41,4 +26,5 @@ storiesOf('Admin|Components', module)
     >
       Hey there
     </Public>
-  ));
+  ))
+  .add('Trash', () => <Trash>Hey there</Trash>);

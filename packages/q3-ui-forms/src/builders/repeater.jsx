@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from 'q3-ui-permissions';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import useOpen from 'useful-state/lib/useOpen';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,10 +11,11 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
+import DialogActions from '@material-ui/core/DialogActions';
+import TextField from '@material-ui/core/TextField';
+import useValue from 'useful-state/lib/useValue';
+import Dialog from 'q3-ui-dialog';
 import { assignIDs } from '../helpers';
 import IconEmpty from '../icons/empty';
 
@@ -38,36 +39,66 @@ InteractiveListItem.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const DialogForm = ({
-  title,
-  renderTrigger,
-  renderContent,
-}) => {
-  const { isOpen, open, close } = useOpen();
-  const { t } = useTranslation('titles');
+export const DeleteListItem = ({ next }) => {
+  const [hasError, setError] = React.useState(false);
+  const { value, onChange, setValue } = useValue();
+  const { t } = useTranslation();
+
+  const submit = React.useCallback(
+    (fn) => () =>
+      value === 'DELETE'
+        ? next()
+            .then(() => {
+              fn();
+              setValue('');
+            })
+            .catch(() => null)
+        : setError(true),
+    [value],
+  );
 
   return (
-    <>
-      {renderTrigger(open)}
-      <Dialog
-        fullWidth
-        maxWidth="sm"
-        onClose={close}
-        open={isOpen}
-      >
-        <DialogTitle>{t(title)}</DialogTitle>
-        <DialogContent>
-          {renderContent(close)}
-        </DialogContent>
-      </Dialog>
-    </>
+    <Dialog
+      title="delete"
+      description="delete"
+      renderTrigger={(open) => (
+        <IconButton onClick={open}>
+          <DeleteIcon />
+        </IconButton>
+      )}
+      renderContent={(close) => (
+        <>
+          <TextField
+            variant="filled"
+            value={value}
+            onChange={onChange}
+            label={t('descriptions:deleteConfirmation')}
+            margin="dense"
+            fullWidth
+            autoFocus
+            name="confirm"
+            type="text"
+            error={hasError}
+            InputProps={{
+              disableUnderline: true,
+            }}
+          />
+          <DialogActions>
+            <Button type="button" onClick={close}>
+              {t('labels:nevermind')}
+            </Button>
+            <Button type="button" onClick={submit(close)}>
+              {t('labels:continue')}
+            </Button>
+          </DialogActions>
+        </>
+      )}
+    />
   );
 };
 
-DialogForm.propTypes = {
-  renderTrigger: PropTypes.func.isRequired,
-  renderContent: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
+DeleteListItem.propTypes = {
+  next: PropTypes.func.isRequired,
 };
 
 export const DataList = ({
@@ -75,6 +106,7 @@ export const DataList = ({
   getForm,
   primary,
   secondary,
+  children,
   ...etc
 }) =>
   data.length ? (
@@ -87,7 +119,7 @@ export const DataList = ({
           primary={primary(item)}
           secondary={secondary(item)}
         >
-          <DialogForm
+          <Dialog
             {...etc}
             renderContent={getForm(false, item, item.id)}
             renderTrigger={(open) => (
@@ -96,9 +128,8 @@ export const DataList = ({
               </IconButton>
             )}
           />
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
+
+          {children ? children(item) : null}
         </InteractiveListItem>
       ))}
     </List>
@@ -111,6 +142,7 @@ DataList.propTypes = {
   getForm: PropTypes.func.isRequired,
   primary: PropTypes.func.isRequired,
   secondary: PropTypes.func.isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 const Repeater = ({
@@ -125,6 +157,7 @@ const Repeater = ({
   ...rest
 }) => {
   const { t } = useTranslation('labels');
+  const auth = useAuth(collectionName);
 
   const getForm = (
     isNew = true,
@@ -150,25 +183,36 @@ const Repeater = ({
         getForm={getForm}
         data={assignIDs(data)}
         title={children.props.title}
+        collectionName={collectionName}
+        name={name}
         {...rest}
-      />
-      <Box mt={1}>
-        <DialogForm
-          title={children.props.title}
-          renderContent={getForm()}
-          renderTrigger={(open) => (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={open}
-            >
-              {data.length
-                ? t('addToList')
-                : t('startList')}
-            </Button>
-          )}
-        />
-      </Box>
+      >
+        {(item) =>
+          auth.canDeleteSub(name) && remove ? (
+            <DeleteListItem next={remove(item.id)} />
+          ) : null
+        }
+      </DataList>
+
+      {auth.canCreateSub(name) && (
+        <Box mt={1}>
+          <Dialog
+            title={children.props.title}
+            renderContent={getForm()}
+            renderTrigger={(open) => (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={open}
+              >
+                {data.length
+                  ? t('addToList')
+                  : t('startList')}
+              </Button>
+            )}
+          />
+        </Box>
+      )}
     </>
   );
 };
