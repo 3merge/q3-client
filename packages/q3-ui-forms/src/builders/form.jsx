@@ -74,6 +74,7 @@ const FormWrapper = withWrapper(
 
     return (
       <Formik
+        key={JSON.stringify(initialValues)}
         enableReinitialize
         initialStatus="Initializing"
         validationSchema={validation.chain}
