@@ -19,6 +19,7 @@
     "material-ui-chip-input": "^1.1.0",
     "minimatch": "^3.0.4",
     "notistack": "^0.9.5",
+    "q3-ui-dialog": "0.8.0",
     "react-i18next": "^10.13.1",
     "react-json-pretty": "^2.2.0",
     "react-recaptcha-google": "^1.1.1",

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useField } from 'formik';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -39,18 +38,19 @@ SelectWrapper.defaultProps = {
 
 const NativeSelect = (props) => {
   const { t } = useTranslation();
-  const [{ name, onChange, value }, { error }] = useField(
-    props,
-  );
-
   const deco = useDecorator(props);
   const {
     label,
     helperText,
     disabled,
     readOnly,
-    ...rest
+    onChange,
+    name,
+    value,
+    error,
+    required,
   } = deco;
+
   const { loading, items } = useOptions(deco);
 
   return (
@@ -59,7 +59,7 @@ const NativeSelect = (props) => {
       label={label}
       helperText={helperText}
       error={Boolean(error)}
-      required={rest.required}
+      required={required}
     >
       <Select
         native
