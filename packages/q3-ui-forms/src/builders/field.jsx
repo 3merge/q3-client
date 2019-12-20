@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
-
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
 
@@ -10,7 +9,6 @@ const Field = ({
   override,
   type,
   under,
-  conditional,
   ...rest
 }) => {
   const el = React.useRef();
@@ -34,8 +32,11 @@ const Field = ({
     const { values } = formik;
     const a = new FieldDetector(type, rest, values).build();
 
-    if (override && typeof override === 'function')
+    if (override && typeof override === 'function' && a)
       Object.assign(a, override(formik));
+
+    if (!a && formik.values[name])
+      setTimeout(() => formik.setFieldValue(name, ''));
 
     validation.setField(name, {
       ...a,
@@ -44,7 +45,7 @@ const Field = ({
 
     setAttrs(a);
   }, [
-    conditional || override
+    rest.conditional || override
       ? JSON.stringify(formik.values)
       : undefined,
   ]);

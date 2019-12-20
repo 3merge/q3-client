@@ -141,6 +141,7 @@ export default class FieldBuilder {
 
     delete this.originalType;
     delete this.type;
+
     return this.show() ? this : null;
   }
 }
