@@ -2,9 +2,18 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import Box from '@material-ui/core/Box';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Fade from '@material-ui/core/Fade';
 import JSONPretty from 'react-json-pretty';
 import withWrapper from './wrapper';
+
+const FieldSkeleton = (
+  <Skeleton
+    variant="rect"
+    style={{ margin: '4px 0' }}
+    height={56}
+  />
+);
 
 const FormWrapper = withWrapper(
   ({
@@ -21,6 +30,9 @@ const FormWrapper = withWrapper(
     name,
     isNew,
   }) => {
+    const hasSchema =
+      validation.chain && validation.chain._nodes.length;
+
     const handleReset = React.useCallback(
       ({ status, resetForm }) => {
         if (status !== 'back') return;
@@ -36,12 +48,7 @@ const FormWrapper = withWrapper(
       setStatus,
       isValidating,
     }) => {
-      if (
-        !validation.chain ||
-        !validation.chain._nodes.length ||
-        status !== 'Initializing'
-      )
-        return;
+      if (!hasSchema || status !== 'Initializing') return;
 
       if (!isValidating && !isNew) {
         validateForm().then(() => {
@@ -66,10 +73,11 @@ const FormWrapper = withWrapper(
         initialValues={initialValues}
         onSubmit={onSubmit}
       >
-        {({ values, errors, isValid, ...rest }) => (
-          <Box>
+        {({ values, errors, isValid, status, ...rest }) => (
+          <>
             {handleReset(rest)}
             {handleInit(rest)}
+
             {!fieldset ? (
               <Form>
                 {children}
@@ -91,7 +99,7 @@ const FormWrapper = withWrapper(
                 {children}
               </fieldset>
             )}
-          </Box>
+          </>
         )}
       </Formik>
     );

@@ -18,6 +18,7 @@ const Text = (props) => {
 
   return (
     <TextField
+      {...props}
       {...field}
       disabled={disabled}
       readOnly={readOnly}
