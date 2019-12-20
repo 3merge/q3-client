@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Fade from '@material-ui/core/Fade';
+import { get } from 'lodash';
 import JSONPretty from 'react-json-pretty';
 import withWrapper from './wrapper';
 
@@ -30,8 +30,11 @@ const FormWrapper = withWrapper(
     name,
     isNew,
   }) => {
-    const hasSchema =
-      validation.chain && validation.chain._nodes.length;
+    const hasSchema = get(
+      validation,
+      'chain._nodes.length',
+      null,
+    );
 
     const handleReset = React.useCallback(
       ({ status, resetForm }) => {
@@ -42,23 +45,27 @@ const FormWrapper = withWrapper(
       [onReset],
     );
 
-    const handleInit = ({
-      status,
-      validateForm,
-      setStatus,
-      isValidating,
-    }) => {
-      if (!hasSchema || status !== 'Initializing') return;
+    const handleInit = React.useCallback(
+      ({
+        status,
+        validateForm,
+        setStatus,
+        isValidating,
+      }) => {
+        if (hasSchema === 0 || status !== 'Initializing')
+          return;
 
-      if (!isValidating && !isNew) {
-        validateForm().then(() => {
-          if (typeof onInit === 'function') onInit();
+        if (!isValidating && !isNew) {
+          validateForm().then(() => {
+            if (typeof onInit === 'function') onInit();
+            setStatus('Ready');
+          });
+        } else if (isNew) {
           setStatus('Ready');
-        });
-      } else if (isNew) {
-        setStatus('Ready');
-      }
-    };
+        }
+      },
+      [hasSchema],
+    );
 
     React.useEffect(() => {
       authorization.setCollectionName(collectionName);
@@ -73,7 +80,7 @@ const FormWrapper = withWrapper(
         initialValues={initialValues}
         onSubmit={onSubmit}
       >
-        {({ values, errors, isValid, status, ...rest }) => (
+        {({ values, errors, isValid, ...rest }) => (
           <>
             {handleReset(rest)}
             {handleInit(rest)}

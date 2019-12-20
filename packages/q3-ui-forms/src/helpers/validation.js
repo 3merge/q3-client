@@ -62,6 +62,7 @@ export class Validator {
       case 'multiselect':
       case 'multitext':
       case 'checkset':
+      case 'transfer':
         this.$base = this.$base.array();
         break;
       case 'autocomplete':

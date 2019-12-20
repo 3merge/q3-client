@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
+
+
+### Bug Fixes
+
+* default autocomplete value will match with init options (closes [#23](https://github.com/3merge/q/issues/23)) ([d2b5ed4](https://github.com/3merge/q/commit/d2b5ed4d26e4d837f0ba7b62081bd20d0ba061cf))
+* multiline prop passed to text field (closes [#27](https://github.com/3merge/q/issues/27)) ([2d5c491](https://github.com/3merge/q/commit/2d5c49155c7af06c17114f5d90c2785f4a924946))
+* transfer is fixed but needs a lot of testing ([2988aa7](https://github.com/3merge/q/commit/2988aa7e336f48f93e2eb7ea8ff17f5d67dcd994))
+
+
+### Features
+
+* postal code and telephone regex validation (closes [#26](https://github.com/3merge/q/issues/26)) ([0a3c66f](https://github.com/3merge/q/commit/0a3c66f6ad1fa93b51ff9d3493525de5d04f44a8))
+
+
+
+
+
+
 ## [0.7.1](https://github.com/3merge/q3-client/compare/v0.7.0...v0.7.1) (2019-12-19)
 
 

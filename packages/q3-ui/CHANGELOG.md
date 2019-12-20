@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
+
+
+### Bug Fixes
+
+* refactored dialogs into independent package to port into q3-ui-forms repeater element ([419c017](https://github.com/3merge/q/commit/419c01740725d7fe489d2af69dd132465bffee2c))
+
+
+### Features
+
+* postal code and telephone regex validation (closes [#26](https://github.com/3merge/q/issues/26)) ([0a3c66f](https://github.com/3merge/q/commit/0a3c66f6ad1fa93b51ff9d3493525de5d04f44a8))
+
+
+
+
+
+
 # [0.7.0](https://github.com/3merge/q3-client/compare/v0.6.5...v0.7.0) (2019-12-19)
 
 
