@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/3merge/q3-client/compare/v0.7.1...v0.8.1) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin-example
+
+
+
+
+
 # [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
 
 **Note:** Version bump only for package q3-admin-example
