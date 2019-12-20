@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/3merge/q3-client/compare/v1.1.1...v1.1.2) (2019-12-20)
+
+
+### Bug Fixes
+
+* form state not reinitializing on multistep change (closes [#19](https://github.com/3merge/q3-client/issues/19)) ([#34](https://github.com/3merge/q3-client/issues/34)) ([19a10af](https://github.com/3merge/q3-client/commit/19a10af873f0e32ee75208047eb108b6844da7f1))
+
+
+
+
+
 ## [1.1.1](https://github.com/3merge/q/compare/v1.1.0...v1.1.1) (2019-12-20)
 
 **Note:** Version bump only for package q3-ui-forms
