@@ -5,9 +5,9 @@ const setField = jest.fn();
 
 const effect = jest
   .spyOn(React, 'useEffect')
-  .mockImplementation((v) => {
-    v();
-  });
+  .mockImplementationOnce((v) => v())
+  .mockImplementationOnce((v) => v())
+  .mockReturnValue(null);
 
 jest.spyOn(React, 'useContext').mockReturnValue({
   validation: { setField },

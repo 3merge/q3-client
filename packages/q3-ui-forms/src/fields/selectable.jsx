@@ -54,6 +54,7 @@ const SelectableList = (props) => {
               src={img}
               alt={t(`labels:${label}`)}
               className={avatar}
+              variant="rounded"
             />
           </ListItemAvatar>
           <ListItemText

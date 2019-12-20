@@ -20,9 +20,8 @@ const loadOptions = () =>
     );
   });
 
-storiesOf('Forms|Simple', module).add(
-  'With all field types',
-  () => (
+storiesOf('Forms|Simple', module)
+  .add('With toggles', () => (
     <MockApi>
       <Form
         debug
@@ -36,93 +35,29 @@ storiesOf('Forms|Simple', module).add(
         onSubmit={Promise.resolve}
       >
         <Container>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Field
-                name="country"
-                type="autocomplete"
-                loadOptions={loadOptions}
-                required
-              />
-              <Field
-                name="trips-dropdown"
-                type="select"
-                required
-                options={[
-                  {
-                    value: 'adventure',
-                    label: 'Adventure',
-                  },
-                  { value: 'resort', label: 'Resort' },
-                ]}
-                override={({ values }) =>
-                  values.country &&
-                  values.country.value === 'Canada'
-                    ? {
-                        required: false,
-                      }
-                    : null
-                }
-              />
-              <Field
-                name="firstName"
-                type="text"
-                required
-              />
-              <Field name="email" type="email" required />
-              <Field name="chips" type="multitext" />
-
-              <Field name="anniversary" type="date" />
-              <Field
-                name="age"
-                conditional={['email=*']}
-                type="number"
-                min="0"
-              />
-              <Field
-                name="favouriteColors"
-                type="multiselect"
-                options={[
-                  { value: 'red', label: 'Red' },
-                  { value: 'green', label: 'Green' },
-                  { value: 'blue', label: 'Blue' },
-                ]}
-              />
-              <Field
-                type="text"
-                name="comment"
-                multiline
-                rows={5}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <Field
-                collapse={false}
-                name="trips-radio"
-                type="radio"
-                options={[
-                  {
-                    value: 'adventure',
-                    label: 'Adventure',
-                  },
-                  { value: 'resort', label: 'Resort' },
-                ]}
-                required
-              />
-
-              <Field name="subscribed" type="checkbox" />
-              <Field
-                name="favouriteColors"
-                type="checkset"
-                options={[
-                  { value: 'red', label: 'Red' },
-                  { value: 'green', label: 'Green' },
-                  { value: 'blue', label: 'Blue' },
-                ]}
-              />
-            </Grid>
-          </Grid>
-
+          <Field
+            collapse={false}
+            name="trips-radio"
+            type="radio"
+            options={[
+              {
+                value: 'adventure',
+                label: 'Adventure',
+              },
+              { value: 'resort', label: 'Resort' },
+            ]}
+            required
+          />
+          <Field name="subscribed" type="checkbox" />
+          <Field
+            name="favouriteColors"
+            type="checkset"
+            options={[
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+            ]}
+          />
           <Field
             name="selectable"
             type="selectable"
@@ -133,12 +68,113 @@ storiesOf('Forms|Simple', module).add(
                 img:
                   'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
               },
+              {
+                value: 'bar',
+                label: 'bar',
+                img:
+                  'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+              },
             ]}
+          />
+          <Next submit />
+        </Container>
+      </Form>
+    </MockApi>
+  ))
+  .add('With text fields', () => (
+    <MockApi>
+      <Form
+        debug
+        initialValues={{
+          firstName: '',
+          country: {
+            value: 'UK',
+            label: 'United Kingdom',
+          },
+        }}
+        onSubmit={Promise.resolve}
+      >
+        <Container>
+          <Field name="email" type="email" />
+          <Field name="postal" type="postal" />
+          <Field name="tel" type="tel" />
+          <Field name="anniversary" type="date" />
+          <Field
+            name="age"
+            conditional={['email=*']}
+            type="number"
+            min="0"
+          />
+          <Field
+            type="text"
+            name="comment"
+            multiline
+            rows={5}
           />
           <Field name="novel" type="editor" required />
           <Next submit />
         </Container>
       </Form>
     </MockApi>
-  ),
-);
+  ))
+  .add('With  complex fields', () => (
+    <MockApi>
+      <Form
+        debug
+        initialValues={{
+          firstName: '',
+          country: {
+            value: 'UK',
+            label: 'United Kingdom',
+          },
+        }}
+        onSubmit={Promise.resolve}
+      >
+        <Container>
+          <Field
+            name="counting"
+            type="transfer"
+            loadOptions={() =>
+              Promise.resolve(['Uno', 'Dos', 'Tres'])
+            }
+          />
+          <Field
+            name="country"
+            type="autocomplete"
+            loadOptions={loadOptions}
+            required
+          />
+          <Field
+            name="trips-dropdown"
+            type="select"
+            required
+            options={[
+              {
+                value: 'adventure',
+                label: 'Adventure',
+              },
+              { value: 'resort', label: 'Resort' },
+            ]}
+            override={({ values }) =>
+              values.country &&
+              values.country.value === 'Canada'
+                ? {
+                    required: false,
+                  }
+                : null
+            }
+          />
+          <Field
+            name="favouriteColors"
+            type="multiselect"
+            options={[
+              { value: 'red', label: 'Red' },
+              { value: 'green', label: 'Green' },
+              { value: 'blue', label: 'Blue' },
+            ]}
+          />
+          <Next submit />
+        </Container>
+      </Form>
+    </MockApi>
+  ));

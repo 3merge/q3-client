@@ -27,6 +27,7 @@ import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import { CircularProgress, Badge } from '@material-ui/core';
 import useOpen from 'useful-state/lib/useOpen';
+import { useValue } from 'useful-state';
 import useDecorator from '../helpers/useDecorator';
 import useOptions from '../helpers/useOptions';
 
@@ -336,7 +337,11 @@ Input.defaultProps = {
 export function TransferList(props) {
   const { name } = props;
   const { value: init, onChange } = useDecorator(props);
-  const [search, setSearchValue] = React.useState('');
+  const {
+    value: search,
+    onChange: handleSearch,
+    onClear,
+  } = useValue();
   const [selected, setSelected] = React.useState([]);
   const { items, loading } = useOptions(props);
   const { open, close, isOpen } = useOpen();
@@ -377,7 +382,6 @@ export function TransferList(props) {
   const transferTo = () => {
     const [val] = intersects(words, inactive, selected);
     onChange(
-      name,
       transformArrayIntoDelineatedString(
         uniq(val).concat(rules),
       ),
@@ -387,24 +391,19 @@ export function TransferList(props) {
 
   const addRule = () => {
     if (!isGlob(search)) return false;
-    onChange(name, initAsArray.concat(search).join(', '));
+    onChange(initAsArray.concat(search).join(', '));
     setSelected([]);
-    setSearchValue('');
+    onClear();
     return true;
   };
 
   const removeRule = (term) => {
     onChange(
-      name,
       initAsArray
         .filter((item) => item !== term)
         .join(', '),
     );
     setSelected([]);
-  };
-
-  const handleSearch = ({ target }) => {
-    setSearchValue(target.value);
   };
 
   const selectAll = () => {

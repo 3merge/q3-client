@@ -46,6 +46,9 @@ export class Validator {
       case 'tel':
         this.$base = this.$base.string().tel();
         break;
+      case 'postal':
+        this.$base = this.$base.string().postal();
+        break;
       case 'number':
         this.$base = this.$base.number();
         break;
