@@ -152,10 +152,13 @@ describe('useRest', () => {
   });
 
   it('should post with decorator', () => {
-    post();
-    expect(mockAxios.post).toHaveBeenCalledWith('/foo', {
-      modified: true,
-    });
+    const stub = { foo: 'bar' };
+    post(stub);
+    expect(mockAxios.post).toHaveBeenCalledWith(
+      '/foo',
+      stub,
+      expect.any(Object),
+    );
     mockAxios.mockResponse();
     expect(dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -166,9 +169,11 @@ describe('useRest', () => {
 
   it('should fail to post', () => {
     post();
-    expect(mockAxios.post).toHaveBeenCalledWith('/foo', {
-      modified: true,
-    });
+    expect(mockAxios.post).toHaveBeenCalledWith(
+      '/foo',
+      undefined,
+      expect.any(Object),
+    );
     mockAxios.mockError();
   });
 });

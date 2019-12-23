@@ -7,7 +7,7 @@ import {
   DELETED,
   DELETED_MANY,
 } from './constants';
-import { isEmpty, getFn } from '../utils';
+import { isEmpty, getFn } from '../helpers';
 
 export default (
   state = {},
@@ -27,15 +27,13 @@ export default (
       };
     },
 
-    [FETCHED]() {
-      return {
-        ...state,
-        ...data,
-        fetchingError: !isEmpty(err),
-        fetching: false,
-        err,
-      };
-    },
+    [FETCHED]: () => ({
+      ...state,
+      ...data,
+      fetchingError: !isEmpty(err),
+      fetching: false,
+      err,
+    }),
 
     [UPDATED]() {
       const next = get(data, resource, {});

@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from 'q3-ui-dialog';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { useAuth } from 'q3-ui-permissions';
 import Fab from '@material-ui/core/Fab';
@@ -72,7 +73,7 @@ export const CreateDialog = ({ children }) => {
                 className={floatOnDesktop}
                 onClick={open}
               >
-                <Add />
+                <AddIcon />
               </Fab>
             </Tooltip>
           </Hidden>
@@ -111,7 +112,7 @@ const Add = ({ title, children }) => {
       {children ? (
         <CreateDialog>
           {(done) => (
-            <>
+            <Box py={4}>
               <Typography variant="h2">
                 {t(title)}
               </Typography>
@@ -121,7 +122,7 @@ const Add = ({ title, children }) => {
                 onSubmit: (...args) =>
                   post(...args).then(done),
               })}
-            </>
+            </Box>
           )}
         </CreateDialog>
       ) : null}

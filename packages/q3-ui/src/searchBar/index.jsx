@@ -21,7 +21,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { withLocation } from 'with-location';
 import { useToggle, useValue } from 'useful-state';
-import SearchIcon from './searchIcon';
 import AccessibleIconButton from '../iconButton';
 
 const SearchTrigger = ({ onClick }) => (
@@ -235,11 +234,11 @@ const Searchbar = ({
             InputProps={{
               endAdornment: (
                 <Adornment
+                  term={value}
                   focus={() => {
                     onClear();
                     onFocus();
                   }}
-                  term={value}
                 >
                   <SearchTrigger
                     onClick={open}
@@ -305,6 +304,7 @@ Searchbar.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   getFrom: PropTypes.func.isRequired,
   filter: PropTypes.node,
+  icon: PropTypes.node.isRequired,
 };
 
 Searchbar.defaultProps = {

@@ -1,7 +1,7 @@
-import { useFilters } from '..';
-import useRest from '../hooks';
+import useFilters from '.';
+import useRest from '../useRest';
 
-jest.mock('../hooks', () => ({
+jest.mock('../useRest', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -38,18 +38,18 @@ describe('useFilters custom hook', () => {
   it('should create a drop-down options list', () => {
     useRest.mockReturnValue({
       fields: {
-          example: ['foo', 'bar']
-      }
+        example: ['foo', 'bar'],
+      },
     });
 
-  const filters = useFilters({
+    const filters = useFilters({
       fields: ['foo'],
       coll: 'demo',
     });
 
     expect(filters.getOptions('example')).toEqual([
       { label: 'foo', value: 'foo' },
-      { label: 'bar', value: 'bar' }
+      { label: 'bar', value: 'bar' },
     ]);
   });
 });

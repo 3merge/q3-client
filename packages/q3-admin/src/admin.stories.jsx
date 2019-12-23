@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import MockApi from 'q3-ui-test-utils/lib/rest';
+import { FeaturedPhotoBanner } from 'q3-ui/lib/banner';
+import Statistic from 'q3-ui/lib/statistic';
 import {
   Form,
   Field,
@@ -9,7 +11,11 @@ import {
   Back,
   Repeater,
 } from 'q3-ui-forms/lib/builders';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import Power from '@material-ui/icons/Power';
+import Edit from '@material-ui/icons/Edit';
 import App, { ApplicationGate } from '.';
 import {
   DisplayItem,
@@ -21,14 +27,47 @@ import {
   Search,
   Add,
 } from './components';
-import characters from './__fixtures__/characters.json';
-import episodes from './__fixtures__/episodes.json';
+import { useUpload } from './helpers';
+import fixtures from './__fixtures__';
 
 const img =
   'https://images.unsplash.com/photo-1496065187959-7f07b8353c55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=8';
 
 const logo =
   'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png';
+
+const Home = () => (
+  <div>
+    <FeaturedPhotoBanner
+      style={{ backgroundColor: '#FFF' }}
+    >
+      <Typography variant="h1">
+        Welcome to the example app
+      </Typography>
+    </FeaturedPhotoBanner>
+    <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
+      <Grid container spacing={1}>
+        <Statistic text="hey" difference={12} num={40} />
+      </Grid>
+    </Container>
+  </div>
+);
+
+const Writers = (props) => (
+  <Page {...props}>
+    <List>
+      <DisplayItem include={['name']} />
+    </List>
+  </Page>
+);
+
+const Animators = (props) => (
+  <Page {...props}>
+    <List>
+      <DisplayItem include={['name']} />
+    </List>
+  </Page>
+);
 
 const Characters = (props) => (
   <Page {...props}>
@@ -41,8 +80,7 @@ const Characters = (props) => (
           }))
         }
       >
-        <DisplayItem include="location" />
-        <DisplayItem include="location" />
+        <Field name="locations" type="select" />
       </Search>
       <Add title="addCharacter">
         <p>My form</p>
@@ -113,7 +151,7 @@ const General = ({ state, id, collectionName }) => (
 const Character = (props) => (
   <Page {...props}>
     <Header titleProp="name" />
-    <Detail>
+    <Detail trash notes history files>
       <General />
       <Episode />
     </Detail>
@@ -121,6 +159,10 @@ const Character = (props) => (
 );
 
 const pages = [
+  {
+    home: true,
+    component: Home,
+  },
   {
     index: true,
     collectionName: 'characters',
@@ -138,89 +180,86 @@ const pages = [
     component: Character,
     group: 'popular',
   },
+  {
+    index: true,
+    collectionName: 'writers',
+    resourceName: 'writers',
+    resourceNameSingular: 'writer',
+    group: 'staff',
+    component: Writers,
+    icon: Edit,
+  },
+  {
+    index: true,
+    collectionName: 'animators',
+    resourceName: 'animators',
+    resourceNameSingular: 'animator',
+    group: 'staff',
+    component: Animators,
+    icon: Edit,
+  },
 ];
 
-const mockup = (asLoggedIn) => (m) => {
-  if (asLoggedIn) {
-    m.onGet('/profile').reply(200, {
-      profile: {
-        id: 1,
-        firstName: 'Mike',
-      },
-      permissions: [
-        { coll: 'characters', op: 'Read', fields: '*' },
-        {
-          coll: 'characters',
-          op: 'Update',
-          fields: 'location.name',
-        },
-        { coll: 'episodes', op: 'Read', fields: '*' },
-        {
-          coll: 'characters',
-          op: 'Create',
-          fields: 'episodes*',
-        },
-      ],
-    });
-  }
+const FullApp = () => (
+  <MockApi define={fixtures(true)}>
+    <App>
+      <ApplicationGate
+        url={img}
+        logo={logo}
+        companyName="Hooli"
+        pages={pages}
+        popoutMenuItems={[
+          useUpload({
+            endpoint: '/',
+            label: 'uploadFile',
+            name: 'File',
+          }),
+        ]}
+      />
+    </App>
+  </MockApi>
+);
 
-  m.onGet(/\/characters\/\d+\/episodes/).reply(200, {
-    episodes,
+const PublicViews = () => (
+  <MockApi define={fixtures()}>
+    <App>
+      <ApplicationGate
+        url={img}
+        logo={logo}
+        companyName="Hooli"
+        pages={{}}
+      />
+    </App>
+  </MockApi>
+);
+
+storiesOf('Admin|App/Public', module)
+  .add('Login', PublicViews, {
+    router: '/',
+  })
+  .add('Password reset', PublicViews, {
+    router: '/password-reset',
+  })
+  .add('Verify', PublicViews, {
+    router: '/verify',
+  })
+  .add('Reverify', PublicViews, {
+    router: '/reverify',
   });
 
-  m.onGet(/\/characters\/\d+/).reply((config) => {
-    const split = config.url.split('/');
-    const id = split[split.length - 1];
-
-    return [
-      200,
-      {
-        character: characters.find(
-          (c) => String(c.id) === String(id),
-        ),
-      },
-    ];
+storiesOf('Admin|App/Private', module)
+  .add('Home', FullApp, {
+    router: '/',
+  })
+  .add('Characters', FullApp, {
+    router: '/characters',
+  })
+  .add('Character details', FullApp, {
+    router: '/characters/1',
+  })
+  .add('Writers', FullApp, {
+    router: '/writers',
+  })
+  .add('Animators', FullApp, {
+    router: '/animators',
   });
-
-  m.onGet(/characters/).reply(200, {
-    characters,
-  });
-};
-
-storiesOf('Admin|App', module)
-  .add(
-    'Logged out',
-    () => (
-      <MockApi define={mockup()}>
-        <App>
-          <ApplicationGate
-            url={img}
-            logo={logo}
-            companyName="Hooli"
-            pages={{}}
-          />
-        </App>
-      </MockApi>
-    ),
-    {
-      router: '/',
-    },
-  )
-  .add(
-    'Logged in',
-    () => (
-      <MockApi define={mockup(true)}>
-        <App>
-          <ApplicationGate
-            url={img}
-            logo={logo}
-            companyName="Hooli"
-            pages={pages}
-          />
-        </App>
-      </MockApi>
-    ),
-    {
-      router: '/characters',
-    },
-  );

@@ -1,10 +1,8 @@
-import './axios';
-
-export { default } from './hooks';
+export { default } from './useRest';
+export { default as useFilters } from './useFilters';
+export { default as useLoading } from './useLoading';
 
 export {
-  getFlatOptions as getForTransfer,
   getOptions as getForAutocomplete,
   getAsCSV as getCSV,
-  useFilters,
-} from './hooks/actions';
+} from './helpers';

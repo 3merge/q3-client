@@ -13,7 +13,7 @@ const AccessibleIconButton = ({
 
   return (
     <Tooltip title={t(label)}>
-      <IconButton {...buttonProps}>
+      <IconButton {...buttonProps} color="inherit">
         <Icon />
       </IconButton>
     </Tooltip>
