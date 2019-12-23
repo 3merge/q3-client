@@ -27,9 +27,7 @@ const Wrapper = (Component) => (props) => {
 
   const checkReadAuthorizationContext = React.useCallback(
     (name) =>
-      collectionName
-        ? authorization.canReadSub(name)
-        : true,
+      collectionName ? authorization.canSeeSub(name) : true,
     [collectionName],
   );
 

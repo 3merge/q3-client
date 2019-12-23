@@ -105,6 +105,8 @@ const Alert = ({ label, link, type, done }) => {
 
 Alert.propTypes = {
   label: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  done: PropTypes.func,
   type: PropTypes.oneOf([
     'error',
     'warning',
@@ -114,7 +116,9 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
+  done: null,
   type: 'info',
+  link: null,
 };
 
 export default Alert;

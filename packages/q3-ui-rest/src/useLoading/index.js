@@ -84,9 +84,9 @@ export const handleError = (e) => {
       if (data && data.message && status !== 412) {
         noti.onFail(data.message);
       } else if (status === 412) {
-        noti.onFail(
-          'Race condition detected. Page will refresh in 5 seconds',
-        );
+        noti.onFail('Race condition detected (412)');
+      } else if (status === 404) {
+        noti.onFail('Operation not yet configured (404)');
       }
 
       return this;
@@ -131,11 +131,9 @@ export default () => {
   const onResponseError = React.useCallback(
     (error) => {
       setLoading(false);
-      return error.response
-        ? handleError(error)
-            .notify(noti)
-            .refresh(error)
-        : Promise.reject(error);
+      return handleError(error)
+        .notify(noti)
+        .refresh(error);
     },
     [loading],
   );

@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
 const isFlat = (v) => !v || v === 0;
@@ -44,46 +45,43 @@ const Statistic = ({ difference, num, text, to }) => {
   const { t } = useTranslation();
 
   return (
-    <Paper
-      style={{
-        display: 'inline-block',
-        width: 270,
-      }}
-    >
-      <Box
-        p={2}
-        style={{
-          height: 156,
-        }}
-      >
-        <Typography variant="subtitle2" component="p">
-          <Typography
-            variant="h1"
-            component="span"
-            style={{ marginRight: '1rem' }}
-          >
-            {num}
-          </Typography>
-          <Difference value={difference} />
-        </Typography>
-        <Typography
-          variant="overline"
+    <Grid item lg={3} md={4} sm={6} xs={12}>
+      <Paper>
+        <Box
+          p={2}
           style={{
-            lineHeight: 1.5,
-            display: 'block',
-            marginTop: '1rem',
+            height: 156,
           }}
         >
-          {text}
-        </Typography>
-      </Box>
-      <Divider />
-      <Box p={1} textAlign="right">
-        <Button component={Link} to={to} size="small">
-          {t('labels:viewAll')}
-        </Button>
-      </Box>
-    </Paper>
+          <Typography variant="subtitle2" component="p">
+            <Typography
+              variant="h1"
+              component="span"
+              style={{ marginRight: '1rem' }}
+            >
+              {num}
+            </Typography>
+            <Difference value={difference} />
+          </Typography>
+          <Typography
+            variant="overline"
+            style={{
+              lineHeight: 1.5,
+              display: 'block',
+              marginTop: '1rem',
+            }}
+          >
+            {text}
+          </Typography>
+        </Box>
+        <Divider />
+        <Box p={1} textAlign="right">
+          <Button component={Link} to={to} size="small">
+            {t('labels:viewAll')}
+          </Button>
+        </Box>
+      </Paper>
+    </Grid>
   );
 };
 

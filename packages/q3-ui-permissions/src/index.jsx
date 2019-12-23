@@ -6,14 +6,15 @@ import composeUseAuth, {
 } from './useAuth';
 import AuthenticationHeaders from './utils/header';
 import reducer, {
-  getSession,
   destroySession,
+  getSession,
+  setSession,
 } from './reducer';
 
 export const AuthContext = React.createContext();
 export const useAuth = composeUseAuth(AuthContext);
 export const Protected = asProtectedRoute(AuthContext);
-export { destroySession };
+export { destroySession, setSession };
 
 const invoke = (fn, args) =>
   typeof fn === 'function' ? fn(args) : null;

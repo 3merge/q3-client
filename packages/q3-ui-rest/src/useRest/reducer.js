@@ -27,15 +27,13 @@ export default (
       };
     },
 
-    [FETCHED]() {
-      return {
-        ...state,
-        ...data,
-        fetchingError: !isEmpty(err),
-        fetching: false,
-        err,
-      };
-    },
+    [FETCHED]: () => ({
+      ...state,
+      ...data,
+      fetchingError: !isEmpty(err),
+      fetching: false,
+      err,
+    }),
 
     [UPDATED]() {
       const next = get(data, resource, {});

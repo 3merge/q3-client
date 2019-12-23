@@ -15,7 +15,10 @@ export const getFn = (obj, prop) => {
 };
 
 export const isEmpty = (obj) =>
-  obj ? !Object.keys(obj).length : true;
+  !obj ||
+  (typeof obj === 'object' &&
+    !Object.keys(obj).length &&
+    !(obj instanceof Error));
 
 export const makePath = (a = []) =>
   a

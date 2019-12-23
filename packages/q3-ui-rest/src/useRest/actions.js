@@ -50,11 +50,11 @@ const useRest = ({
         invoke(decorators, 'get', data);
         call(verb, data);
         onComplete(null, actions);
-        return null;
+        return Promise.resolve(data);
       })
       .catch((err) => {
         onComplete(get(err, 'data'), actions);
-        return err;
+        return Promise.reject(err);
       });
   };
 
@@ -74,11 +74,11 @@ const useRest = ({
         .then(({ data }) => {
           invoke(decorators, 'get', data);
           call(FETCHED, data);
-          return data;
+          return Promise.resolve(data);
         })
         .catch((err) => {
           call(FETCHED, null, err);
-          return null;
+          return Promise.reject(err);
         });
     },
 
