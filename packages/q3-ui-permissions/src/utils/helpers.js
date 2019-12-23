@@ -1,5 +1,12 @@
 import minimatch from 'minimatch';
 
+const convertIntoArray = (a) => {
+  let out = [];
+  if (Array.isArray(a)) out = a;
+  if (typeof a === 'string') out = a.split(',');
+  return out.map((b) => b.trim());
+};
+
 export const filterbyColl = (a, name) =>
   a.filter((v) => v.coll.localeCompare(name) === 0);
 
@@ -17,11 +24,11 @@ export const satisfiesOwnership = (grant, id, createdBy) =>
     : true;
 
 export const hasField = (grant, name) =>
-  grant && grant.fields && typeof grant.fields === 'string'
-    ? grant.fields.split(',').every((i) => {
+  grant && grant.fields
+    ? convertIntoArray(grant.fields).some((i) => {
         try {
           if (i === '*') return true;
-          return minimatch(name, i.trim());
+          return minimatch(name, i);
         } catch (e) {
           return false;
         }

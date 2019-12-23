@@ -94,9 +94,9 @@ export default (ctx) => (coll, createdBy) => {
 
   HideByField.propTypes = {
     path: PropTypes.string.isRequired,
-    subfield: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     op: PropTypes.string.isRequired,
+    subfield: PropTypes.string,
   };
 
   const Redirect = ({ children, to, op }) =>
@@ -123,7 +123,7 @@ export default (ctx) => (coll, createdBy) => {
     canCreateSub: (sub) => hasField(getOp('Create'), sub),
     canEditSub: (sub) => hasField(getOp('Update'), sub),
     canDeleteSub: (sub) => hasField(getOp('Delete'), sub),
-    canReadSub: (sub) => hasField(getOp('Read'), sub),
+    canSeeSub: (sub) => hasField(getOp('Read'), sub),
 
     HideByField,
     Redirect,
