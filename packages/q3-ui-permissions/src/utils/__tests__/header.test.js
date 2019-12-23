@@ -17,9 +17,13 @@ describe('AuthenticationDependencyInjection', () => {
   it('should set headers', () => {
     const inst = new AuthenticationDependencyInjection({});
     inst.headers = { token: 1, nonce: 1 };
-    expect(inst.config.headers).toHaveProperty(NONCE, 1);
-    expect(inst.config.headers).toHaveProperty(
-      'authorization',
+    expect(inst.config.headers.common).toHaveProperty(
+      NONCE,
+      1,
+    );
+
+    expect(inst.config.headers.common).toHaveProperty(
+      'Authorization',
       'Bearer 1',
     );
   });

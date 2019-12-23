@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import MockApi from 'q3-ui-test-utils/lib/rest';
+import { FeaturedPhotoBanner } from 'q3-ui/lib/banner';
 import {
   Form,
   Field,
@@ -9,7 +10,9 @@ import {
   Back,
   Repeater,
 } from 'q3-ui-forms/lib/builders';
+import Typography from '@material-ui/core/Typography';
 import Power from '@material-ui/icons/Power';
+import Category from '@material-ui/icons/Category';
 import App, { ApplicationGate } from '.';
 import {
   DisplayItem,
@@ -21,6 +24,7 @@ import {
   Search,
   Add,
 } from './components';
+import { useUpload } from './helpers';
 import characters from './__fixtures__/characters.json';
 import episodes from './__fixtures__/episodes.json';
 
@@ -113,7 +117,7 @@ const General = ({ state, id, collectionName }) => (
 const Character = (props) => (
   <Page {...props}>
     <Header titleProp="name" />
-    <Detail>
+    <Detail trash notes history files>
       <General />
       <Episode />
     </Detail>
@@ -121,6 +125,20 @@ const Character = (props) => (
 );
 
 const pages = [
+  {
+    home: true,
+    component: () => (
+      <div>
+        <FeaturedPhotoBanner
+          style={{ backgroundColor: '#FFF' }}
+        >
+          <Typography variant="h1">
+            Welcome to the example app
+          </Typography>
+        </FeaturedPhotoBanner>
+      </div>
+    ),
+  },
   {
     index: true,
     collectionName: 'characters',
@@ -138,6 +156,14 @@ const pages = [
     component: Character,
     group: 'popular',
   },
+  {
+    index: true,
+    collectionName: 'characters',
+    resourceName: 'episoders',
+    resourceNameSingular: 'episoder',
+    component: Category,
+    group: 'popular',
+  },
 ];
 
 const mockup = (asLoggedIn) => (m) => {
@@ -148,13 +174,21 @@ const mockup = (asLoggedIn) => (m) => {
         firstName: 'Mike',
       },
       permissions: [
-        { coll: 'characters', op: 'Read', fields: '*' },
+        {
+          coll: 'characters',
+          op: 'Read',
+          fields: '*, !name',
+        },
         {
           coll: 'characters',
           op: 'Update',
-          fields: 'location.name',
+          fields: '*',
         },
-        { coll: 'episodes', op: 'Read', fields: '*' },
+        {
+          coll: 'episodes',
+          op: 'Read',
+          fields: '*, !name',
+        },
         {
           coll: 'characters',
           op: 'Create',
@@ -216,11 +250,18 @@ storiesOf('Admin|App', module)
             logo={logo}
             companyName="Hooli"
             pages={pages}
+            popoutMenuItems={[
+              useUpload({
+                endpoint: '/',
+                label: 'uploadFile',
+                name: 'File',
+              }),
+            ]}
           />
         </App>
       </MockApi>
     ),
     {
-      router: '/characters',
+      router: '/',
     },
   );

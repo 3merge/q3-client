@@ -7,7 +7,7 @@ import {
   DELETED,
   DELETED_MANY,
 } from './constants';
-import { isEmpty, getFn } from '../utils';
+import { isEmpty, getFn } from '../helpers';
 
 export default (
   state = {},

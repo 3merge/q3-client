@@ -1,0 +1,72 @@
+import axios from 'axios';
+import FileDownload from 'js-file-download';
+import { get } from 'lodash';
+
+const isNotForwardSlash = (v) => v && v !== '/';
+
+const prependForwardSlash = (v) =>
+  `/${String(v).replace(/\//g, '')}`;
+
+export const getFn = (obj, prop) => {
+  if (!(prop in obj) || typeof obj[prop] !== 'function')
+    throw new Error('Unknown action');
+
+  return obj[prop]();
+};
+
+export const isEmpty = (obj) =>
+  obj ? !Object.keys(obj).length : true;
+
+export const makePath = (a = []) =>
+  a
+    .filter(isNotForwardSlash)
+    .map(prependForwardSlash)
+    .join('');
+
+export const getOptions = (
+  url,
+  key,
+  pathToLabel,
+  flatten = false,
+) =>
+  axios
+    .get(url)
+    .then(({ data }) =>
+      pathToLabel
+        ? get(data, key, []).map((i) =>
+            flatten
+              ? get(i, pathToLabel)
+              : {
+                  label: get(i, pathToLabel),
+                  value: i.id,
+                  ...i,
+                },
+          )
+        : get(data, key, []),
+    )
+    .catch(() => {
+      return [];
+    });
+
+export const acceptCsvFiletype = (params) => (
+  data,
+  headers,
+) => {
+  Object.assign(headers, params, {
+    'Accept': 'text/csv',
+  });
+  return data;
+};
+
+export const getAsCSV = (url, params = {}) =>
+  axios({
+    url,
+    method: 'get',
+    transformRequest: [acceptCsvFiletype(params)],
+  })
+    .then((e) => {
+      FileDownload(e.data, 'file.csv');
+    })
+    .catch(() => {
+      // noop
+    });

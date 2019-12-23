@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileBar = ({
   offcanvas: MobileMenu,
   menuItems,
+  quickClickItems,
   name,
   imgSrc,
   ...rest
@@ -121,7 +122,6 @@ const ProfileBar = ({
             container
             direction="column"
             className={mobile}
-            spacing={1}
           >
             <Grid item>
               <Offcanvas left menu={MobileMenu}>
@@ -161,6 +161,7 @@ export const profileBarProps = {
   name: PropTypes.string,
   imgSrc: PropTypes.string,
   offcanvas: PropTypes.node.isRequired,
+  quickClickItems: PropTypes.arrayOf(PropTypes.node),
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
@@ -175,6 +176,7 @@ ProfileBar.defaultProps = {
   imgSrc: astronaut,
   name: null,
   menuItems: [],
+  quickClickItems: [],
 };
 
 export default ProfileBar;

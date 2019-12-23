@@ -364,12 +364,7 @@ export const TableView = ({
   );
 
   React.useEffect(() => {
-    if (!loading && !showResults) {
-      const clear = setTimeout(() => {
-        setShowResults(true);
-        clearTimeout(clear);
-      }, 120);
-    }
+    if (!loading && !showResults) setShowResults(true);
   }, [loading]);
 
   if (!showResults)

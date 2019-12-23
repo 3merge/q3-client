@@ -1,15 +1,19 @@
-import './config/axios';
 import React from 'react';
+import Axios from 'axios';
 import PropTypes from 'prop-types';
-import composePermissionHook, {
+import composeUseAuth, {
   asProtectedRoute,
-} from './utils/permissions';
-import reducer, { getSession } from './utils/reducer';
+} from './useAuth';
+import AuthenticationHeaders from './utils/header';
+import reducer, {
+  getSession,
+  destroySession,
+} from './reducer';
 
-export * from './utils/reducer';
 export const AuthContext = React.createContext();
-export const useAuth = composePermissionHook(AuthContext);
+export const useAuth = composeUseAuth(AuthContext);
 export const Protected = asProtectedRoute(AuthContext);
+export { destroySession };
 
 const invoke = (fn, args) =>
   typeof fn === 'function' ? fn(args) : null;
@@ -30,6 +34,12 @@ export const Provider = ({
   });
 
   React.useEffect(() => {
+    Axios.interceptors.request.use((config) => {
+      const cls = new AuthenticationHeaders(config);
+      cls.headers = cls.tokens;
+      return cls.config;
+    });
+
     getSession(dispatch);
   }, []);
 

@@ -67,10 +67,9 @@ const Multiselect = (props) => {
       >
         {items.map((obj) => (
           <MenuItem
-            dense
             key={obj.value}
             value={obj.value}
-            style={{ margin: 0 }}
+            style={{ margin: 0, padding: 0 }}
           >
             <Checkbox checked={v.indexOf(obj.value) > -1} />
             <ListItemText

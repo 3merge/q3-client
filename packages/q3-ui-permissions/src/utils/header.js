@@ -14,6 +14,10 @@ export default class AuthenticationDependencyInjection {
   }
 
   set headers({ token, nonce }) {
+    if (!this.config.headers) this.config.headers = {};
+    if (!this.config.headers.common)
+      this.config.headers.common = {};
+
     this.config.headers.common.Authorization = `Bearer ${token}`;
     this.config.headers.common[NONCE] = nonce;
   }

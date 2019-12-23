@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import { storiesOf } from '@storybook/react';
-import MockApi from 'q3-ui-test-utils/lib/rest';
+import AddIcon from '@material-ui/icons/Add';
 import Public from './public';
 import Trash from './trash';
+import Upload from './upload';
 
 const img =
   'https://images.unsplash.com/photo-1496065187959-7f07b8353c55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=8';
@@ -27,4 +27,12 @@ storiesOf('Admin|Components', module)
       Hey there
     </Public>
   ))
-  .add('Trash', () => <Trash>Hey there</Trash>);
+  .add('Trash', () => <Trash>Hey there</Trash>)
+  .add('Upload', () => (
+    <Upload
+      icon={AddIcon}
+      fileType="text/csv"
+      name="foo"
+      url="https://google.ca"
+    />
+  ));
