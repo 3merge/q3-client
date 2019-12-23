@@ -5,9 +5,7 @@
   Q3 Client
 </h1>
 <p align="center">
-  <a href="https://circleci.com/gh/3merge/q3-client">
-    <img src="https://circleci.com/gh/3merge/q3-client.svg?style=shield" alt="Current CircleCI build status." />
-  </a>
+
   <a href="https://github.com/3merge/q3-client/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Q3-CLIENT is released under the MIT license." />
   </a>
