@@ -151,9 +151,9 @@ Object.assign(theme, {
       root: {
         '&:hover': {
           backgroundColor: grey[100],
-          transition: 'background-color 250ms'
-        }
-      }
+          transition: 'background-color 250ms',
+        },
+      },
     },
     MuiTableCell: {
       head: {

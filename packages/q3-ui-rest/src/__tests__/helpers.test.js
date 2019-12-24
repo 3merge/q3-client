@@ -51,6 +51,11 @@ describe('q3-ui-rest helpers', () => {
       expect(makePath(['/foo', '/bar'])).toMatch(
         '/foo/bar',
       ));
+
+    it('should preserve internal slashes', () =>
+      expect(makePath(['/foo/bar', '/quux'])).toMatch(
+        '/foo/bar/quux',
+      ));
   });
 
   describe('getOptions', () => {

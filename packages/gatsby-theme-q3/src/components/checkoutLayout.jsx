@@ -11,38 +11,42 @@ import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
 
 const CheckoutLayout = ({ children }) => (
   <>
-    <FullWidthBanner title="Checkout" style={{ paddingBottom: '8rem', color: '#FFF', backgroundColor: 'darkblue' }}>
-        <Steps
+    <FullWidthBanner
+      title="Checkout"
+      style={{
+        paddingBottom: '8rem',
+        color: '#FFF',
+        backgroundColor: 'darkblue',
+      }}
+    >
+      <Steps
         style={{ background: 'transparent' }}
-          steps={[
-            {
-              label: 'Shipping',
-              to: '/checkout',
-              icon: PinDrop,
-            },
-            {
-              label: 'Uploads',
-              to: '/uploads',
-              icon: Publish,
-            },
-            {
-              label: 'Payment',
-              to: '/payment',
-              icon: Payment,
-            },
-            {
-              label: 'Summary',
-              to: '/summary',
-              icon: AssignmentTurnedIn,
-            },
-          ]}
-        />
-   </FullWidthBanner>
+        steps={[
+          {
+            label: 'Shipping',
+            to: '/checkout',
+            icon: PinDrop,
+          },
+          {
+            label: 'Uploads',
+            to: '/uploads',
+            icon: Publish,
+          },
+          {
+            label: 'Payment',
+            to: '/payment',
+            icon: Payment,
+          },
+          {
+            label: 'Summary',
+            to: '/summary',
+            icon: AssignmentTurnedIn,
+          },
+        ]}
+      />
+    </FullWidthBanner>
     <Wrapper negativeMargin backgroundColor="#FFF">
-      <Container>
- 
-        {children}
-      </Container>
+      <Container>{children}</Container>
     </Wrapper>
   </>
 );

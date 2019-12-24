@@ -25,7 +25,11 @@ export const wrapPageElement = ({ element }) => (
       renderRight={() => <Cart />}
     />
     {element}
-    <Divider fill="rgb(21, 14, 36)" variant="mountains" invert />
+    <Divider
+      fill="rgb(21, 14, 36)"
+      variant="mountains"
+      invert
+    />
     <Footer socialLinks={['https://github.com/3merge']} />
   </>
 );

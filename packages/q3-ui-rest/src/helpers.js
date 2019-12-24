@@ -4,8 +4,15 @@ import { get } from 'lodash';
 
 const isNotForwardSlash = (v) => v && v !== '/';
 
-const prependForwardSlash = (v) =>
-  `/${String(v).replace(/\//g, '')}`;
+const prependForwardSlash = (v) => {
+  let output = String(v);
+  if (output.startsWith('/')) output = output.substr(1);
+
+  if (output.charAt(output.length - 1) === '/')
+    output = output.substring(0, output.length - 1);
+
+  return `/${output}`;
+};
 
 export const getFn = (obj, prop) => {
   if (!(prop in obj) || typeof obj[prop] !== 'function')
