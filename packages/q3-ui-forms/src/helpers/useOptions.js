@@ -4,10 +4,12 @@ import { useValue } from 'useful-state';
 import { useFormikContext } from 'formik';
 
 export default ({
+  initialValue = '',
+  initialStatus = false,
   options = [],
   loadOptions,
-  initialValue,
 }) => {
+  const [init, setInit] = React.useState(initialStatus);
   const [loading, setLoading] = React.useState(false);
   const [items, setItems] = React.useState(options);
   const { value, onChange } = useValue(initialValue);
@@ -15,7 +17,9 @@ export default ({
 
   React.useEffect(() => {
     let cancel = false;
-    if (typeof loadOptions !== 'function') return undefined;
+
+    if (typeof loadOptions !== 'function' || !init)
+      return undefined;
 
     setLoading(true);
     loadOptions(value, values)
@@ -27,7 +31,11 @@ export default ({
       });
 
     return () => (cancel = true);
-  }, [value]);
+  }, [init, value]);
+
+  React.useEffect(() => {
+    setInit(value !== initialValue);
+  }, [value, initialValue]);
 
   return {
     loading,
