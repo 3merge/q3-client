@@ -66,6 +66,19 @@ describe('Custom validators', () => {
           done();
         });
     });
+
+    it('it should return true if empty and not required', (done) => {
+      yup
+        .object()
+        .shape({
+          autocomplete: yup.mixed().autocomplete(),
+        })
+        .isValid({ autocomplete: '' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
   });
 
   describe('Tel value object', () => {

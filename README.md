@@ -5,6 +5,9 @@
   Q3 Client
 </h1>
 <p align="center">
+  <a href="https://circleci.com/gh/3merge/q3-client">
+    <img src="https://circleci.com/gh/3merge/q3-client.svg?style=shield" alt="Current CircleCI build status." />
+  </a>
 <a href='https://coveralls.io/github/3merge/q3-client?branch=master'><img src='https://coveralls.io/repos/github/3merge/q3-client/badge.svg?branch=master' alt='Coverage Status' /></a>
 <a href="https://www.codacy.com/manual/MikeIbberson/q3-client?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=3merge/q3-client&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/32270ff3e03f4addaf3bfa9d385e8140"/></a>
 <img src='https://bettercodehub.com/edge/badge/3merge/q3-client?branch=master'>
