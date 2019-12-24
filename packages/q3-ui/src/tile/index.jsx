@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Collapse from '@material-ui/core/Collapse';
 import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   tiled: {
@@ -29,13 +26,11 @@ const Tile = ({
   children,
   title,
   subtitle,
-  loading,
-  error,
+
   renderFooter,
-  dividers,
-  disableSkeleton,
 }) => {
-  const { tiled, errorBar } = useStyles();
+  const { t } = useTranslation();
+  const { tiled } = useStyles();
   const hasSubtitle = Boolean(subtitle);
 
   return (
@@ -45,38 +40,19 @@ const Tile = ({
       className={tiled}
       square
     >
-      {loading && dividers && (
-        <Collapse in={loading}>
-          <LinearProgress />
-        </Collapse>
-      )}
-      {error && <Divider className={errorBar} />}
-
       <Box p={2}>
         <Typography
           variant="h3"
           gutterBottom={!hasSubtitle}
         >
-          {title}
+          {t(`titles:${title}`)}
         </Typography>
         {hasSubtitle && (
           <Typography variant="body1" gutterBottom>
-            {subtitle}
+            {t(`descriptions:${subtitle}`)}
           </Typography>
         )}
-
-        {loading && !disableSkeleton ? (
-          <>
-            <Skeleton height={6} width="80%" />
-            <Skeleton height={6} width="80%" />
-            <Skeleton height={6} width="60%" />
-            <Skeleton height={6} width="70%" />
-            <Skeleton height={6} width="40%" />
-          </>
-        ) : (
-          children
-        )}
-
+        {children}
         {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>
     </Paper>
@@ -84,21 +60,18 @@ const Tile = ({
 };
 
 Tile.propTypes = {
-  children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string,
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
   renderFooter: PropTypes.func,
-  dividers: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+  ]).isRequired,
 };
 
 Tile.defaultProps = {
-  loading: false,
   renderFooter: null,
   subtitle: null,
-  error: false,
-  dividers: true,
 };
 
 export default Tile;

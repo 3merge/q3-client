@@ -12,6 +12,7 @@ import Comparision from 'comparisons';
 import Context from './state';
 import Notes from './notes';
 import Picture from './picture';
+import Files from './files';
 import Trash from './trash';
 import { isArray, getPath } from './utils';
 
@@ -21,7 +22,6 @@ const Detail = ({
   notes,
   files,
   featured,
-  history,
   picture,
 }) => {
   const { t } = useTranslation();
@@ -76,47 +76,33 @@ const Detail = ({
       };
     });
 
-  if (picture)
+  const addToTabs = (Component, name) =>
     tabs.push({
-      label: 'picture',
-      to: '/picture',
-      component: Picture,
+      label: name,
+      to: `/${name}`,
+      component: Component,
     });
 
-  if (featured)
-    tabs.push({
-      label: 'featured',
-      to: '/featured',
-      component: Trash,
-    });
+  if (files) addToTabs(() => <Files />, 'uploads');
 
-  if (files)
-    tabs.push({
-      label: 'files',
-      to: '/files',
-      component: Trash,
-    });
+  if (notes && authorization.canSeeSub('thread'))
+    addToTabs(
+      () => (
+        <Notes id={id} collectionName={collectionName} />
+      ),
+      'thread',
+    );
 
-  if (notes)
-    tabs.push({
-      label: 'notes',
-      to: '/notes',
-      component: Notes,
-    });
-
-  if (history)
-    tabs.push({
-      label: 'history',
-      to: '/history',
-      component: Trash,
-    });
-
-  if (trash)
-    tabs.push({
-      label: 'trash',
-      to: '/trash',
-      component: Trash,
-    });
+  if (trash && authorization.canDelete)
+    addToTabs(
+      () => (
+        <Trash
+          url={`/${resourceName}`}
+          onClick={state.remove()}
+        />
+      ),
+      'trash',
+    );
 
   return (
     <Container maxWidth="xl">

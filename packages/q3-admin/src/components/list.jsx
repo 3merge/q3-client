@@ -16,6 +16,18 @@ import ErrorIcon from '../images/error';
 import Context from './state';
 import { isArray } from './utils';
 
+export const EmptyView = () => (
+  <ErrorComponent title="empty" description="empty">
+    <EmptyIcon />
+  </ErrorComponent>
+);
+
+export const ErrorView = () => (
+  <ErrorComponent title="error" description="error">
+    <ErrorIcon />
+  </ErrorComponent>
+);
+
 export const getCSVByName = (name) => (ids = []) =>
   getCSV(`/${name}?_id=${ids.join(',')}`);
 
@@ -59,20 +71,8 @@ const List = ({ children }) => {
 
   const renderTable = () => {
     if (state.fetching) return <TableViewSkeleton />;
-
-    if (state.fetchingError)
-      return (
-        <ErrorComponent title="error" description="error">
-          <ErrorIcon />
-        </ErrorComponent>
-      );
-
-    if (!rows.length)
-      return (
-        <ErrorComponent title="empty" description="empty">
-          <EmptyIcon />
-        </ErrorComponent>
-      );
+    if (state.fetchingError) return <ErrorView />;
+    if (!rows.length) return <EmptyView />;
 
     return (
       <Table

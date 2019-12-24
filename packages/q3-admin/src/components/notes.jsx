@@ -1,58 +1,62 @@
 import React from 'react';
 import Thread from 'q3-ui/lib/thread';
 import useRest from 'q3-ui-rest';
-import Box from '@material-ui/core/Box';
-import CallToAction from 'q3-ui/lib/callToAction';
-import ServerError from 'q3-ui/lib/error';
+import Tile from 'q3-ui/lib/tile';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Create from '@material-ui/icons/Create';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import { TimelineSkeleton } from 'q3-ui/lib/timeline';
-import NotesImage from '../images/note';
+import {
+  Form,
+  Field,
+  Next,
+} from 'q3-ui-forms/lib/builders';
+import { ErrorView, EmptyView } from './list';
 
-export default ({ path }) => {
+const Notes = ({ collectionName, id }) => {
   const { t } = useTranslation();
   const {
     post,
-    remove,
     fetching,
     fetchingError,
     thread = [],
   } = useRest({
-    url: `${path}/thread`,
+    url: `/${collectionName}/${id}/thread`,
     key: 'thread',
-    pluralize: 'thread',
+    pluralized: 'thread',
     runOnInit: true,
   });
 
   const renderNotes = () => {
-    if (fetching)
-      return (
-        <div style={{ marginTop: '1rem' }}>
-          <TimelineSkeleton />
-        </div>
-      );
-
-    if (fetchingError) return <ServerError />;
-
-    if (!thread.length)
-      return (
-        <Paper style={{ marginTop: '1rem' }}>
-          <CallToAction
-            title={t('titles:noNotes')}
-            description={t('descriptions:noNotes')}
-          />
-        </Paper>
-      );
-
+    if (fetching) return <TimelineSkeleton />;
+    if (fetchingError) return <ErrorView />;
+    if (!thread.length) return <EmptyView />;
     return <Thread entries={thread} />;
   };
 
   return (
     <>
-      {!fetchingError && <Box align="right" />}
+      <Tile title="addNote">
+        <Form
+          onSubmit={post}
+          initialValues={{ message: '' }}
+        >
+          <Field
+            name="message"
+            type="editor"
+            multiline
+            rows={10}
+          />
+          <Next label={t('labels:add')} />
+        </Form>
+      </Tile>
       {renderNotes()}
     </>
   );
 };
+
+Notes.propTypes = {
+  collectionName: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+};
+
+export default Notes;

@@ -1,6 +1,7 @@
 import characters from './characters.json';
 import episodes from './episodes.json';
 import permissions from './permissions.json';
+import thread from './notes.json';
 
 export default (asLoggedIn) => (m) => {
   if (asLoggedIn) {
@@ -17,6 +18,10 @@ export default (asLoggedIn) => (m) => {
     fields: {
       locations: ['Earth', 'Gazorpazorp'],
     },
+  });
+
+  m.onGet(/\/characters\/\d+\/thread/).reply(200, {
+    thread,
   });
 
   m.onGet(/\/characters\/\d+\/episodes/).reply(200, {
@@ -36,6 +41,8 @@ export default (asLoggedIn) => (m) => {
       },
     ];
   });
+
+  m.onDelete(/\/characters\/\d+/).reply(204);
 
   m.onGet(/^\/characters/).reply(200, {
     characters,

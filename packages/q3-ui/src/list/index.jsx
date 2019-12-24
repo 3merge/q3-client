@@ -11,9 +11,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
 import Avatar from '../avatar';
-import { Delete as DeleteConfirmation } from '../dialogs';
 import { DropDownMenu } from '../toolbar';
-import { DialogWizard } from '../wizard';
 
 const extractStringValue = (v) =>
   Array.isArray(v) ? v.join(', ') : String(v || '--');
