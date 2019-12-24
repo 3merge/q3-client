@@ -10,6 +10,11 @@
     "fields": "*"
   },
   {
+    "coll": "characters",
+    "op": "Delete",
+    "fields": "*"
+  },
+  {
     "coll": "episodes",
     "op": "Read",
     "fields": "!name"

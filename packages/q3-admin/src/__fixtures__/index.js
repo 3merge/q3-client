@@ -37,6 +37,8 @@ export default (asLoggedIn) => (m) => {
     ];
   });
 
+  m.onDelete(/\/characters\/\d+/).reply(204);
+
   m.onGet(/^\/characters/).reply(200, {
     characters,
   });

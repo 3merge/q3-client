@@ -111,11 +111,16 @@ const Detail = ({
       component: Trash,
     });
 
-  if (trash)
+  if (trash && authorization.canDelete)
     tabs.push({
       label: 'trash',
       to: '/trash',
-      component: Trash,
+      component: () => (
+        <Trash
+          url={`/${resourceName}`}
+          onClick={state.remove()}
+        />
+      ),
     });
 
   return (
