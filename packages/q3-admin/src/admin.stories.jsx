@@ -254,8 +254,18 @@ storiesOf('Admin|App/Private', module)
   .add('Characters', FullApp, {
     router: '/characters',
   })
-  .add('Character details', FullApp, {
+  .add('Character general', FullApp, {
     router: '/characters/1',
+  })
+  .add('Character trash', FullApp, {
+    router: '/characters/1/trash',
+  })
+  .add('Character uploads', FullApp, {
+    router: '/characters/1/uploads',
+  })
+
+  .add('Character notes', FullApp, {
+    router: '/characters/1/thread',
   })
   .add('Writers', FullApp, {
     router: '/writers',

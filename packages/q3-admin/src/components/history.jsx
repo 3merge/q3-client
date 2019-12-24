@@ -7,7 +7,6 @@ import Timeline, {
   TimelineSkeleton,
 } from 'q3-ui/lib/timeline';
 import ServerError from 'q3-ui/lib/error';
-import noNotesImg from '../../images/no-notes.png';
 
 export default ({ id }) => {
   const { t } = useTranslation();
@@ -24,7 +23,6 @@ export default ({ id }) => {
     return (
       <Paper>
         <CallToAction
-          imgSrc={noNotesImg}
           title={t('titles:noHistory')}
           body={t('descriptions:noHistory')}
         />

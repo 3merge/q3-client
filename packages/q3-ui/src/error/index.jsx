@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   graphic: {
     '& svg, & img': {
       display: 'block',
-      margin: '2rem auto 4rem',
+      margin: '0 auto 4rem',
       maxWidth: '100%',
       height: 300,
       width: 350,
