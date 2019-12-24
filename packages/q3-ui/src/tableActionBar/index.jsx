@@ -66,7 +66,7 @@ const TableActionBar = ({ children, actions }) => {
                   <BottomNavigationAction
                     label={label}
                     onClick={() => onClick(utils.checked)}
-                    icon={<Icon  />}
+                    icon={<Icon />}
                     showLabel
                   />
                 ),

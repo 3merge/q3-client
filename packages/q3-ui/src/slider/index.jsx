@@ -31,10 +31,10 @@ const useStyle = makeStyles(() => ({
     position: 'relative',
   },
   whiteSpace: {
-                whiteSpace: 'nowrap',
-            display: 'block',
-            overflow: 'hidden',
-  }
+    whiteSpace: 'nowrap',
+    display: 'block',
+    overflow: 'hidden',
+  },
 }));
 
 export const PaginationButtons = ({
@@ -144,7 +144,7 @@ const Slider = ({
   slidesPerView,
 }) => {
   const [swiper, updateSwiper] = React.useState(null);
-  const { root,whiteSpace } = useStyle();
+  const { root, whiteSpace } = useStyle();
   const [currentIndex, updateCurrentIndex] = React.useState(
     0,
   );

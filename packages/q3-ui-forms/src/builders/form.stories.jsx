@@ -117,6 +117,25 @@ storiesOf('Forms|Simple', module)
       </Form>
     </MockApi>
   ))
+  .add('With nested property names', () => (
+    <MockApi>
+      <Form
+        debug
+        onSubmit={Promise.resolve}
+        initialValues={{
+          name: {
+            firstName: 'Jon',
+            lastName: 'Doe',
+          },
+        }}
+      >
+        <Container>
+          <Field name="name.firstName" type="text" />
+          <Field name="name.lastName" type="text" />
+        </Container>
+      </Form>
+    </MockApi>
+  ))
   .add('With  complex fields', () => (
     <MockApi>
       <Form

@@ -140,7 +140,12 @@ function tel() {
 }
 
 function autocomplete() {
-  return this.test((v) => typeof v === 'object' && v.value);
+  return this.test(function checkRequired(v) {
+    const hasValue = typeof v === 'object' && v.value;
+    return this.schema._exclusive.required
+      ? hasValue
+      : hasValue || v.value === '' || v === '';
+  });
 }
 
 yup.addMethod(yup.string, postal.name, postal);
