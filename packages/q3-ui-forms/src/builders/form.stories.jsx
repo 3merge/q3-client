@@ -164,6 +164,20 @@ storiesOf('Forms|Simple', module)
             required
           />
           <Field
+            name="countryWithCustomOption"
+            type="autocomplete"
+            loadOptions={loadOptions}
+            renderOption={(option) => (
+              <div>
+                <small>Name</small>
+                <br />
+                {option.label}
+              </div>
+            )}
+            required
+          />
+
+          <Field
             name="trips-dropdown"
             type="select"
             required
