@@ -66,8 +66,6 @@ export class Validator {
         this.$base = this.$base.array();
         break;
       case 'autocomplete':
-        this.$base = this.$base.mixed().autocomplete();
-        break;
       case 'radio':
       case 'select':
       case 'selectable':
