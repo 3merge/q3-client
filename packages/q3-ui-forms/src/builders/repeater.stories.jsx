@@ -29,6 +29,7 @@ storiesOf('Forms|Repeater', module)
           { id: 1, firstName: 'Joe', lastName: 'Snow' },
           { id: 2, firstName: 'Arya', lastName: 'Stark' },
         ]}
+        title="lorem"
         create={() => Promise.resolve()}
         edit={() => () => Promise.reject()}
         primary={({ firstName }) =>
@@ -55,6 +56,7 @@ storiesOf('Forms|Repeater', module)
       subtitle="This is an important blurb about the characters"
     >
       <Repeater
+        title="lorem"
         data={[
           {
             id: 1,

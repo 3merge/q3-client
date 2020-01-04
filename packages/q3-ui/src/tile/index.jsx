@@ -48,7 +48,12 @@ const Tile = ({
         </Typography>
         {hasSubtitle && (
           <Typography variant="body1" gutterBottom>
-            {t(`descriptions:${subtitle}`)}
+            <div
+              // eslint-disable-next-line
+              dangerouslySetInnerHTML={{
+                __html: t(`descriptions:${subtitle}`),
+              }}
+            />
           </Typography>
         )}
         {children}

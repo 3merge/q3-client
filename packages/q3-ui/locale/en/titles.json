@@ -22,5 +22,6 @@
   "caution": "Proceed with caution",
   "danger": "Danger zone",
   "filter": "Filter data",
-  "addNote": "Add new note"
+  "addNote": "Add new note",
+  "lorem": "Lorem ipsum"
 }
