@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 const Next = connect(
-  ({ formik, submit, size, label = 'next' }) => {
+  ({ formik, submit, size = 'large', label = 'next' }) => {
     const isDisabled = formik.isSubmitting;
     const { t } = useTranslation();
 

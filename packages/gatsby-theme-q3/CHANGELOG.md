@@ -3,6 +3,56 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/3merge/q/compare/v1.1.4...v1.1.5) (2019-12-24)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+## [1.1.3](https://github.com/3merge/q/compare/v1.1.2...v1.1.3) (2019-12-20)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+## [1.1.1](https://github.com/3merge/q/compare/v1.1.0...v1.1.1) (2019-12-20)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+# [1.1.0](https://github.com/3merge/q/compare/v0.8.1...v1.1.0) (2019-12-20)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+
+## [0.8.1](https://github.com/3merge/q3-client/compare/v0.7.1...v0.8.1) (2019-12-20)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+# [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+
 # [0.7.0](https://github.com/3merge/q3-client/compare/v0.6.5...v0.7.0) (2019-12-19)
 
 **Note:** Version bump only for package gatsby-theme-q3

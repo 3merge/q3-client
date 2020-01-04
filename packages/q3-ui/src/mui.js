@@ -99,6 +99,11 @@ Object.assign(theme, {
         textDecoration: 'none !important',
       },
     },
+    MuiDialogTitle: {
+      root: {
+        paddingBottom: 0,
+      },
+    },
     MuiToolbar: {
       dense: {
         paddingLeft: 0,
@@ -151,9 +156,9 @@ Object.assign(theme, {
       root: {
         '&:hover': {
           backgroundColor: grey[100],
-          transition: 'background-color 250ms'
-        }
-      }
+          transition: 'background-color 250ms',
+        },
+      },
     },
     MuiTableCell: {
       head: {

@@ -3,6 +3,91 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/3merge/q/compare/v1.1.6...v1.2.0) (2020-01-04)
+
+
+### Features
+
+* popover tool ([#53](https://github.com/3merge/q/issues/53)) ([3d844e1](https://github.com/3merge/q/commit/3d844e1bda67e0b555dce16bc0a6d593fcd46ee9))
+
+
+
+
+
+## [1.1.6](https://github.com/3merge/q/compare/v1.1.5...v1.1.6) (2020-01-04)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.1.5](https://github.com/3merge/q/compare/v1.1.4...v1.1.5) (2019-12-24)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.1.4](https://github.com/3merge/q/compare/v1.1.3...v1.1.4) (2019-12-23)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.1.3](https://github.com/3merge/q/compare/v1.1.2...v1.1.3) (2019-12-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.1.1](https://github.com/3merge/q/compare/v1.1.0...v1.1.1) (2019-12-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+# [1.1.0](https://github.com/3merge/q/compare/v0.8.1...v1.1.0) (2019-12-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+
+## [0.8.1](https://github.com/3merge/q3-client/compare/v0.7.1...v0.8.1) (2019-12-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+# [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
+
+
+### Bug Fixes
+
+* refactored dialogs into independent package to port into q3-ui-forms repeater element ([419c017](https://github.com/3merge/q/commit/419c01740725d7fe489d2af69dd132465bffee2c))
+
+
+### Features
+
+* postal code and telephone regex validation (closes [#26](https://github.com/3merge/q/issues/26)) ([0a3c66f](https://github.com/3merge/q/commit/0a3c66f6ad1fa93b51ff9d3493525de5d04f44a8))
+
+
+
+
+
+
 # [0.7.0](https://github.com/3merge/q3-client/compare/v0.6.5...v0.7.0) (2019-12-19)
 
 

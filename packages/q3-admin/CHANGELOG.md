@@ -3,6 +3,80 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/3merge/q/compare/v1.1.6...v1.2.0) (2020-01-04)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.1.6](https://github.com/3merge/q/compare/v1.1.5...v1.1.6) (2020-01-04)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.1.5](https://github.com/3merge/q/compare/v1.1.4...v1.1.5) (2019-12-24)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.1.4](https://github.com/3merge/q/compare/v1.1.3...v1.1.4) (2019-12-23)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.1.3](https://github.com/3merge/q/compare/v1.1.2...v1.1.3) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.1.1](https://github.com/3merge/q/compare/v1.1.0...v1.1.1) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+# [1.1.0](https://github.com/3merge/q/compare/v0.8.1...v1.1.0) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+
+## [0.8.1](https://github.com/3merge/q3-client/compare/v0.7.1...v0.8.1) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+# [0.8.0](https://github.com/3merge/q/compare/v0.7.1...v0.8.0) (2019-12-20)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+
 ## [0.7.1](https://github.com/3merge/q3-client/compare/v0.7.0...v0.7.1) (2019-12-19)
 
 

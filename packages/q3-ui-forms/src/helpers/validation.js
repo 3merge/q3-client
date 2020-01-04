@@ -44,7 +44,10 @@ export class Validator {
         this.$base = this.$base.string().url();
         break;
       case 'tel':
-        this.$base = this.$base.string();
+        this.$base = this.$base.string().tel();
+        break;
+      case 'postal':
+        this.$base = this.$base.string().postal();
         break;
       case 'number':
         this.$base = this.$base.number();
@@ -59,11 +62,10 @@ export class Validator {
       case 'multiselect':
       case 'multitext':
       case 'checkset':
+      case 'transfer':
         this.$base = this.$base.array();
         break;
       case 'autocomplete':
-        this.$base = this.$base.mixed().autocomplete();
-        break;
       case 'radio':
       case 'select':
       case 'selectable':
@@ -126,12 +128,27 @@ function postal() {
   );
 }
 
+function tel() {
+  return this.test((v) =>
+    new RegExp(
+      /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
+      'i',
+    ).test(v),
+  );
+}
+
 function autocomplete() {
-  return this.test((v) => typeof v === 'object' && v.value);
+  return this.test(function checkRequired(v) {
+    const hasValue = typeof v === 'object' && v.value;
+    return this.schema._exclusive.required
+      ? hasValue
+      : hasValue || v.value === '' || v === '';
+  });
 }
 
 yup.addMethod(yup.string, postal.name, postal);
 yup.addMethod(yup.mixed, autocomplete.name, autocomplete);
+yup.addMethod(yup.string, tel.name, tel);
 
 const getValidation = (fields = {}) =>
   yup.object().shape(

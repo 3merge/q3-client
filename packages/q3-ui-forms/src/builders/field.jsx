@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
-import Skeleton from '@material-ui/lab/Skeleton';
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
 
@@ -13,7 +12,6 @@ const Field = ({
   ...rest
 }) => {
   const el = React.useRef();
-  const [loading, setLoading] = React.useState(true);
   const [attrs, setAttrs] = React.useState({});
   const { authorization, validation } = React.useContext(
     BuilderState,
@@ -30,57 +28,38 @@ const Field = ({
     subpath,
   );
 
-  const getInputOverrides = React.useCallback(
-    () =>
-      override &&
-      typeof override === 'function' &&
-      typeof inputProps === 'object'
-        ? override(formik)
-        : {},
-    [formik.values],
-  );
-
   React.useEffect(() => {
-    const a = new FieldDetector(
-      type,
-      rest,
-      formik.values,
-    ).build();
+    const { values } = formik;
+    const a = new FieldDetector(type, rest, values).build();
+
+    if (override && typeof override === 'function' && a)
+      Object.assign(a, override(formik));
+
+    if (!a && formik.values[name])
+      setTimeout(() => formik.setFieldValue(name, ''));
 
     validation.setField(name, {
       ...a,
-      ...getInputOverrides(),
       type,
     });
 
     setAttrs(a);
-  }, [formik.values]);
+  }, [
+    rest.conditional || override
+      ? JSON.stringify(formik.values)
+      : undefined,
+  ]);
 
   React.useEffect(() => {
-    if (formik.status === 'Ready') {
-      el.current = FieldDetector.is(type);
-      setTimeout(() => {
-        setLoading(false);
-      }, 250);
-    }
-  }, [formik.status]);
+    el.current = FieldDetector.is(type);
+  }, []);
 
-  if (loading || !attrs || !el)
-    return (
-      <Skeleton
-        name={name}
-        variant="rect"
-        style={{ margin: '4px 0' }}
-        height={56}
-      />
-    );
-
-  return canSee
+  return canSee && attrs && el.current
     ? React.createElement(el.current, {
         readOnly: !canEdit,
         disabled: !canEdit,
         ...attrs,
-        ...getInputOverrides(),
+        type,
         name,
       })
     : null;

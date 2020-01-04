@@ -115,7 +115,9 @@ ApplicationGate.defaultProps = {
 
 const AppWrapper = ({ children }) => (
   <Providers>
-    <SnackbarProvider>{children}</SnackbarProvider>
+    <SnackbarProvider preventDuplicate>
+      {children}
+    </SnackbarProvider>
   </Providers>
 );
 

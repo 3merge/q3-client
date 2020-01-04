@@ -26,9 +26,6 @@ import { grey, yellow } from '@material-ui/core/colors';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Avatar from '../avatar';
 import { DropDownMenu } from '../toolbar';
-import ErrorComponent, {
-  Empty as EmptyComponent,
-} from '../error';
 import { withLocation } from '../filter';
 import { TableContext } from '../tableActionBar';
 
@@ -338,10 +335,14 @@ SelectCheckbox.propTypes = {
   ]).isRequired,
 };
 
+export const TableViewSkeleton = () => (
+  <TablePaper>
+    <TableSkeleton />
+  </TablePaper>
+);
+
 export const TableView = ({
   rows,
-  loading,
-  error,
   columns,
   total,
   root,
@@ -349,9 +350,6 @@ export const TableView = ({
 }) => {
   const { t } = useTranslation();
   const { leader, mobile, boxes } = useStyles();
-  const [showResults, setShowResults] = React.useState(
-    false,
-  );
 
   const getClassName = (v) => {
     if (v === 0) return leader;
@@ -362,36 +360,6 @@ export const TableView = ({
     (k) => (Array.isArray(k) ? k[0] : k),
     [],
   );
-
-  React.useEffect(() => {
-    if (!loading && !showResults) {
-      const clear = setTimeout(() => {
-        setShowResults(true);
-        clearTimeout(clear);
-      }, 120);
-    }
-  }, [loading]);
-
-  if (!showResults)
-    return (
-      <TablePaper>
-        <TableSkeleton />
-      </TablePaper>
-    );
-
-  if (error)
-    return (
-      <TablePaper>
-        <ErrorComponent />
-      </TablePaper>
-    );
-
-  if (!rows || !rows.length)
-    return (
-      <TablePaper>
-        <EmptyComponent />
-      </TablePaper>
-    );
 
   return (
     <TablePaper>
@@ -437,8 +405,6 @@ export const TableView = ({
 
 TableView.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.string),
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
   total: PropTypes.number,
   root: PropTypes.string,
   rows: PropTypes.arrayOf(
@@ -452,8 +418,6 @@ TableView.propTypes = {
 };
 
 TableView.defaultProps = {
-  loading: false,
-  error: false,
   rows: [],
   columns: [],
   total: 0,

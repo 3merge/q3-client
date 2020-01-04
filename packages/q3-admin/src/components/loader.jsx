@@ -1,19 +1,29 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
+import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { useLoading } from 'q3-ui-rest/lib/axios';
+import { useLoading } from 'q3-ui-rest';
 
-const Loader = () => (
-  <Collapse in={useLoading()}>
-    <Box left={0} top={0} position="fixed" width="100%">
-      <LinearProgress color="secondary" />
-      <Box position="absolute" right="1rem" top="1rem">
-        <CircularProgress />
+const Loader = () => {
+  const loading = useLoading();
+
+  return (
+    <Fade in={loading}>
+      <Box
+        left={0}
+        top={0}
+        right={0}
+        position="fixed"
+        zIndex="100000"
+      >
+        <LinearProgress color="primary" />
+        <Box position="absolute" right="1rem" top="1rem">
+          <CircularProgress />
+        </Box>
       </Box>
-    </Box>
-  </Collapse>
-);
+    </Fade>
+  );
+};
 
 export default Loader;

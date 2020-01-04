@@ -1,12 +1,9 @@
 module.exports = {
   verbose: true,
-  cacheDirectory: '.jest-cache',
-  coverageDirectory: '.jest-coverage',
-  coverageReporters: ['json-summary', 'text', 'lcov'],
   testPathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
-    '<rootDir>/examples/',
+    '<rootDir>/example/',
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',

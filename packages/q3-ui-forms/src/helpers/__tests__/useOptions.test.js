@@ -52,23 +52,29 @@ describe('useOptions', () => {
   it('should stop options from loading on cancel', (done) => {
     const loadOptions = jest.fn().mockResolvedValue([]);
     effect.mockImplementation((v) => {
-      v()();
+      const fn = v();
+      if (typeof fn === 'function') fn();
     });
 
     cancelLoadOption({
       options: [],
       initialValue: 'foo',
+      initialStatus: true,
       loadOptions,
     });
 
-    expect(loadOptions).toHaveBeenCalledWith('foo');
+    expect(loadOptions).toHaveBeenCalledWith(
+      'foo',
+      expect.any(Object),
+    );
+
     expect(effect).toHaveBeenCalledWith(
       expect.any(Function),
-      ['foo'],
+      [true, 'foo'],
     );
 
     setTimeout(() => {
-      expect(stateFn.mock.calls).toHaveLength(1);
+      expect(stateFn.mock.calls).toHaveLength(2);
       done();
     }, 100);
   });

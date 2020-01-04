@@ -21,5 +21,7 @@
   "cart": "Shopping cart",
   "caution": "Proceed with caution",
   "danger": "Danger zone",
-  "filter": "Filter data"
+  "filter": "Filter data",
+  "addNote": "Add new note",
+  "lorem": "Lorem ipsum"
 }

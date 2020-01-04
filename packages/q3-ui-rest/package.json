@@ -1,11 +1,11 @@
 {
   "name": "q3-ui-rest",
-  "version": "0.7.0",
+  "version": "1.1.6",
   "main": "lib/index.js",
   "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a",
   "devDependencies": {
-    "jest-mock-axios": "^3.1.2",
-    "q3-ui-test-utils": "^0.7.0"
+    "jest-mock-axios": "^3.2.0",
+    "q3-ui-test-utils": "^1.1.3"
   },
   "peerDependencies": {
     "axios": "^0.19.0",
@@ -14,6 +14,7 @@
     "react": "^16.10.2"
   },
   "dependencies": {
-    "js-file-download": "^0.4.8"
+    "js-file-download": "^0.4.8",
+    "react-dom": "^16.10.2"
   }
 }

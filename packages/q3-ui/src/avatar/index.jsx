@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
-import Tooltip from '@material-ui/core/Tooltip';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import * as colors from '@material-ui/core/colors';
 
@@ -13,13 +12,10 @@ const ColoredAvatar = ({
   icon: Icon,
 }) => {
   const [src, setSrc] = React.useState(imgSrc);
+  const letter = word.toUpperCase().charAt(0);
   const [text, setText] = React.useState(
-    Icon ? <Icon /> : null,
+    Icon ? <Icon /> : letter,
   );
-
-  const normalized = word.toUpperCase();
-  const letter = normalized.charAt(0);
-  if (!letter) return null;
 
   let backgroundColor;
   let color;
@@ -108,22 +104,20 @@ const ColoredAvatar = ({
   }, []);
 
   return (
-    <Tooltip title={normalized}>
-      <Badge badgeContent={superscript} style={{ color }}>
-        <Avatar
-          imgProps={{ onError }}
-          src={src}
-          alt={word}
-          style={{
-            border: '1px solid #fff',
-            backgroundColor,
-            color,
-          }}
-        >
-          {text}
-        </Avatar>
-      </Badge>
-    </Tooltip>
+    <Badge badgeContent={superscript} style={{ color }}>
+      <Avatar
+        imgProps={{ onError }}
+        src={src}
+        alt={word}
+        style={{
+          border: '1px solid #fff',
+          backgroundColor,
+          color,
+        }}
+      >
+        {text}
+      </Avatar>
+    </Badge>
   );
 };
 
@@ -131,7 +125,11 @@ ColoredAvatar.propTypes = {
   word: PropTypes.string,
   imgSrc: PropTypes.string,
   superscript: PropTypes.number,
-  icon: PropTypes.node,
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+    PropTypes.func,
+  ]),
 };
 
 ColoredAvatar.defaultProps = {

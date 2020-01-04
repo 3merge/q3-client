@@ -1,0 +1,37 @@
+[
+  {
+    "coll": "characters",
+    "op": "Read",
+    "fields": "!name"
+  },
+  {
+    "coll": "characters",
+    "op": "Update",
+    "fields": "*"
+  },
+  {
+    "coll": "characters",
+    "op": "Delete",
+    "fields": "*"
+  },
+  {
+    "coll": "episodes",
+    "op": "Read",
+    "fields": "!name"
+  },
+  {
+    "coll": "characters",
+    "op": "Create",
+    "fields": "episodes*"
+  },
+  {
+    "coll": "writers",
+    "op": "Read",
+    "fields": "*"
+  },
+  {
+    "coll": "animators",
+    "op": "Read",
+    "fields": "*"
+  }
+]

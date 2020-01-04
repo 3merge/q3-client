@@ -13,3 +13,4 @@ export { default as Page } from './page';
 export { default as Public } from './public';
 export { default as Search } from './search';
 export { default as SubDetail } from './subDetail';
+export { default as Upload } from './upload';

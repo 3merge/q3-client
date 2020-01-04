@@ -1,8 +1,5 @@
 import { get } from 'lodash';
-import {
-  getForTransfer,
-  getForAutocomplete,
-} from 'q3-ui-rest';
+import { getForAutocomplete } from 'q3-ui-rest';
 import Comparison from 'comparisons';
 import {
   Autocomplete,
@@ -36,6 +33,7 @@ const internalFieldTypes = {
   select: Select,
   date: DatePicker,
   text: Text,
+  postal: Text,
   default: Text,
   checkbox: Checkbox,
   checkset: Checkset,
@@ -82,15 +80,10 @@ export default class FieldBuilder {
   getOptions() {
     const ref = this.loadOptions;
 
-    if (typeof this.loadOptions === 'object') {
-      const fn =
-        this.originalType === 'transfer'
-          ? getForTransfer
-          : getForAutocomplete;
-
+    if (typeof this.loadOptions === 'object')
       Object.assign(this, {
         loadOptions: (e) =>
-          fn(
+          getForAutocomplete(
             `${ref.url}&search=${e}${
               ref.append
                 ? `&${ref.append.split('=')[0]}=${get(
@@ -101,9 +94,9 @@ export default class FieldBuilder {
             }`,
             ref.key,
             ref.field,
+            this.originalType === 'transfer',
           ),
       });
-    }
 
     if (typeof this.options === 'function') {
       Object.assign(this, {
@@ -140,6 +133,7 @@ export default class FieldBuilder {
 
     delete this.originalType;
     delete this.type;
+
     return this.show() ? this : null;
   }
 }

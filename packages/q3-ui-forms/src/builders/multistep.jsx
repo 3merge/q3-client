@@ -3,7 +3,6 @@ import Step from '@material-ui/core/Step';
 import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
-import Typography from '@material-ui/core/Typography';
 
 export default ({
   children,
@@ -22,35 +21,17 @@ export default ({
   const [cache, setCache] = React.useState(initialValues);
 
   const hasErrors = () => {
-    const arr = [];
-    ref.current
-      .querySelectorAll('fieldset')
-      .forEach((node, i) => {
-        if (node.dataset.valid === 'false') arr.push(i);
-      });
+    const arr = Array.from(
+      ref.current.querySelectorAll('fieldset'),
+    ).reduce((a, node, i) => {
+      if (node.dataset.valid === 'false') a.push(i);
+      return a;
+    }, []);
 
     setErrors(arr);
-
-    if (arr.length) {
+    if (arr.length)
       throw new Error('Invalid stepper detected');
-    }
   };
-
-  const submitMultiStepForm = (actions) =>
-    new Promise((resolve) => {
-      hasErrors();
-      resolve();
-    }).then(() =>
-      onSubmit(cache, actions)
-        .then(() => {
-          if (!cleanup) return;
-          setCache(initialValues);
-          setActiveStep(0);
-        })
-        .catch((e) => {
-          return e;
-        }),
-    );
 
   const processReset = React.useCallback(() => {
     if (activeStep === 0) {
@@ -64,10 +45,16 @@ export default ({
   const processSubmit = React.useCallback(
     (values, actions) =>
       activeStep >= childrenArray.length - 1
-        ? submitMultiStepForm(actions)
+        ? Promise.resolve(hasErrors).then(() =>
+            onSubmit(values, actions).then(() => {
+              if (!cleanup) return;
+              setCache(initialValues);
+              setActiveStep(0);
+            }),
+          )
         : new Promise((resolve) => {
             setActiveStep(activeStep + 1);
-            setCache({ ...cache, ...values });
+            setCache((prev) => ({ ...prev, ...values }));
             resolve();
           }),
     [activeStep],
@@ -78,7 +65,6 @@ export default ({
       ref={ref}
       onSubmit={(e) => {
         e.preventDefault();
-        return submitMultiStepForm();
       }}
     >
       <Stepper

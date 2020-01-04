@@ -5,68 +5,85 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import {
-  ErrorGraphic,
-  EmptyGraphic,
-  MissingGraphic,
-} from '../graphic';
 
-const ErrorTemplate = ({ Graphic, title, desc }) => (
-  <Paper elevation={0}>
-    <Graphic />
-    <Container maxWidth="sm">
-      <Box
-        textAlign="center"
-        mt={-2}
-        pb={4}
-        position="relative"
-      >
-        <Typography variant="h2" gutterBottom>
-          {title}
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          {desc}
-        </Typography>
-      </Box>
-    </Container>
-  </Paper>
-);
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles(() => ({
+  graphic: {
+    '& svg, & img': {
+      display: 'block',
+      margin: '0 auto 4rem',
+      maxWidth: '100%',
+      height: 300,
+      width: 350,
+    },
+  },
+}));
+
+const ErrorTemplate = ({
+  children,
+  title,
+  description,
+}) => {
+  const { t } = useTranslation();
+  const { graphic } = useStyles();
+
+  return (
+    <Paper elevation={0}>
+      <Container maxWidth="sm">
+        <Box className={graphic}>{children}</Box>
+        <Box
+          textAlign="center"
+          mt={-2}
+          pb={4}
+          position="relative"
+        >
+          <Typography variant="h2" gutterBottom>
+            {t(`titles:${title}`)}
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            {t(`descriptions:${description}`)}
+          </Typography>
+        </Box>
+      </Container>
+    </Paper>
+  );
+};
+
+const childrenProp = PropTypes.oneOfType([
+  PropTypes.object,
+  PropTypes.node,
+]);
 
 ErrorTemplate.propTypes = {
-  Graphic: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  desc: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  children: childrenProp.isRequired,
 };
 
-export default () => {
-  const { t } = useTranslation();
-  return (
-    <ErrorTemplate
-      Graphic={ErrorGraphic}
-      title={t('titles:serverError')}
-      desc={t('descriptions:serverError')}
-    />
-  );
+ErrorTemplate.defaultProps = {
+  title: 'error',
+  description: 'error',
 };
 
-export const Missing = () => {
-  const { t } = useTranslation();
-  return (
-    <ErrorTemplate
-      Graphic={MissingGraphic}
-      title={t('titles:missing')}
-      desc={t('descriptions:missing')}
-    />
-  );
+export default ErrorTemplate;
+
+export const Missing = ({ children }) => (
+  <ErrorTemplate title="missing" description="missing">
+    {children}
+  </ErrorTemplate>
+);
+
+Missing.propTypes = {
+  children: childrenProp.isRequired,
 };
 
-export const Empty = () => {
-  const { t } = useTranslation();
-  return (
-    <ErrorTemplate
-      Graphic={EmptyGraphic}
-      title={t('titles:empty')}
-      desc={t('descriptions:empty')}
-    />
-  );
+export const Empty = ({ children }) => (
+  <ErrorTemplate title="empty" description="empty">
+    {children}
+  </ErrorTemplate>
+);
+
+Empty.propTypes = {
+  children: childrenProp.isRequired,
 };

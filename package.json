@@ -12,14 +12,14 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
     "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
-    "test": "jest --runInBand --collectCoverage",
+    "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
     "docs": "storybook-to-ghpages"
   },
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "example/admin"
   ],
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -45,7 +45,7 @@
     "eslint-plugin-module-resolver": "^0.15.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.9.0",
-    "jest-mock-axios": "^3.1.2",
+    "jest-mock-axios": "^3.2.0",
     "lerna": "^3.18.1",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",

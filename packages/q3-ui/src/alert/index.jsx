@@ -4,10 +4,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import { Link } from '@reach/router';
-import Info from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
 import {
   red,
   orange,
@@ -108,6 +105,8 @@ const Alert = ({ label, link, type, done }) => {
 
 Alert.propTypes = {
   label: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  done: PropTypes.func,
   type: PropTypes.oneOf([
     'error',
     'warning',
@@ -117,7 +116,9 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
+  done: null,
   type: 'info',
+  link: null,
 };
 
 export default Alert;

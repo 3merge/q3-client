@@ -1,4 +1,4 @@
-import { FormikDecorator } from '../decorator';
+import { FormikDecorator } from '../useDecorator';
 
 jest.unmock('formik');
 jest.mock('react-i18next', () => ({

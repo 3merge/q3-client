@@ -19,7 +19,7 @@ storiesOf('Forms|Multistep', module)
         alert('Starting over...');
       }}
       onSubmit={(v, actions) => {
-        alert('Completing...');
+        alert(JSON.stringify(v));
         return Promise.resolve(v, actions);
       }}
     >
@@ -32,7 +32,14 @@ storiesOf('Forms|Multistep', module)
       </Form>
 
       <Form debug name="secondStepLabel" html={false}>
-        <Field name="brother" type="text" required />
+        <Field
+          name="brother"
+          type="text"
+          conditional={['firstName=joe']}
+          override={({ values }) => ({
+            required: values.firstName === 'joe',
+          })}
+        />
         <Field name="friend" type="email" required />
         <Field name="birthday" type="date" min="0" />
         <Back />
@@ -53,7 +60,7 @@ storiesOf('Forms|Multistep', module)
         alert('Starting over...');
       }}
       onSubmit={(v, actions) => {
-        alert('Completing...');
+        alert(JSON.stringify(v));
         return Promise.resolve(v, actions);
       }}
     >
@@ -67,7 +74,11 @@ storiesOf('Forms|Multistep', module)
 
       <Form debug name="secondStepLabel" html={false}>
         <Field name="brother" type="text" required />
-        <Field name="friend" type="email" required />
+        <Field
+          name="friend"
+          type="email"
+          conditional={['firstName=joe']}
+        />
         <Field name="birthday" type="date" min="0" />
         <Back />
         <Next label="save" />

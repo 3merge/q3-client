@@ -45,32 +45,6 @@ describe('Searchbar', () => {
     });
   });
 
-  describe('Adornment', () => {
-    it('should render children', () => {
-      const Mock = () => null;
-      const wrap = global.shallow(
-        <Adornment onClear={jest.fn()} term={null}>
-          <Mock />
-        </Adornment>,
-      );
-      expect(wrap.find(Fade).props()).toHaveProperty(
-        'in',
-        false,
-      );
-      expect(wrap.find(Mock)).toHaveLength(1);
-    });
-
-    it('should show on search term', () => {
-      const wrap = global.shallow(
-        <Adornment onClear={jest.fn()} term="Hey" />,
-      );
-      expect(wrap.find(Fade).props()).toHaveProperty(
-        'in',
-        true,
-      );
-    });
-  });
-
   describe('SearchResultList', () => {
     it('should call getResults promise with term', (done) => {
       const term = 'hi';
@@ -97,27 +71,6 @@ describe('Searchbar', () => {
           getResults={getResults}
         />,
       );
-    });
-
-    it('should render a graphic without results', (done) => {
-      jest
-        .spyOn(React, 'useEffect')
-        .mockImplementationOnce((f) => f());
-      const getResults = jest
-        .fn()
-        .mockImplementation(() => Promise.resolve([]));
-
-      const wrapper = global.shallow(
-        <SearchResultList
-          term="withoutResults"
-          getResults={getResults}
-        />,
-      );
-
-      setTimeout(() => {
-        expect(wrapper.find(Graphic)).toHaveLength(1);
-        done();
-      }, 0);
     });
 
     it('should render a list without results', (done) => {

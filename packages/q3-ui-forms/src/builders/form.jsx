@@ -2,7 +2,7 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import Box from '@material-ui/core/Box';
+import { get } from 'lodash';
 import JSONPretty from 'react-json-pretty';
 import withWrapper from './wrapper';
 
@@ -21,6 +21,12 @@ const FormWrapper = withWrapper(
     name,
     isNew,
   }) => {
+    const hasSchema = get(
+      validation,
+      'chain._nodes.length',
+      null,
+    );
+
     const handleReset = React.useCallback(
       ({ status, resetForm }) => {
         if (status !== 'back') return;
@@ -30,28 +36,27 @@ const FormWrapper = withWrapper(
       [onReset],
     );
 
-    const handleInit = ({
-      status,
-      validateForm,
-      setStatus,
-      isValidating,
-    }) => {
-      if (
-        !validation.chain ||
-        !validation.chain._nodes.length ||
-        status !== 'Initializing'
-      )
-        return;
+    const handleInit = React.useCallback(
+      ({
+        status,
+        validateForm,
+        setStatus,
+        isValidating,
+      }) => {
+        if (hasSchema === 0 || status !== 'Initializing')
+          return;
 
-      if (!isValidating && !isNew) {
-        validateForm().then(() => {
-          if (typeof onInit === 'function') onInit();
+        if (!isValidating && !isNew) {
+          validateForm().then(() => {
+            if (typeof onInit === 'function') onInit();
+            setStatus('Ready');
+          });
+        } else if (isNew) {
           setStatus('Ready');
-        });
-      } else if (isNew) {
-        setStatus('Ready');
-      }
-    };
+        }
+      },
+      [hasSchema],
+    );
 
     React.useEffect(() => {
       authorization.setCollectionName(collectionName);
@@ -60,6 +65,7 @@ const FormWrapper = withWrapper(
 
     return (
       <Formik
+        key={JSON.stringify(initialValues)}
         enableReinitialize
         initialStatus="Initializing"
         validationSchema={validation.chain}
@@ -67,9 +73,10 @@ const FormWrapper = withWrapper(
         onSubmit={onSubmit}
       >
         {({ values, errors, isValid, ...rest }) => (
-          <Box>
+          <>
             {handleReset(rest)}
             {handleInit(rest)}
+
             {!fieldset ? (
               <Form>
                 {children}
@@ -91,7 +98,7 @@ const FormWrapper = withWrapper(
                 {children}
               </fieldset>
             )}
-          </Box>
+          </>
         )}
       </Formik>
     );

@@ -22,14 +22,18 @@ const App = ({ pages }) =>
     <Router>
       {pages.map(
         ({ collectionName, component, ...etc }) => {
-          const el = React.createElement(Protected, {
-            ...etc,
-            component,
-            collectionName,
-            coll: collectionName,
-            path: makePath(etc),
-            to: '/',
-          });
+          console.log(etc);
+          const el = React.createElement(
+            etc.home ? component : Protected,
+            {
+              ...etc,
+              component,
+              collectionName,
+              coll: collectionName,
+              path: makePath(etc),
+              to: '/',
+            },
+          );
 
           return el;
         },
