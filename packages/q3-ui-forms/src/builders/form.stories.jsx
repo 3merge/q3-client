@@ -164,16 +164,32 @@ storiesOf('Forms|Simple', module)
             required
           />
           <Field
+            name="countryWithCustomOption"
+            type="autocomplete"
+            loadOptions={loadOptions}
+            renderOption={(option) => (
+              <div>
+                <small>Name</small>
+                <br />
+                {option.label}
+              </div>
+            )}
+            required
+          />
+
+          <Field
             name="trips-dropdown"
             type="select"
             required
-            options={[
-              {
-                value: 'adventure',
-                label: 'Adventure',
-              },
-              { value: 'resort', label: 'Resort' },
-            ]}
+            loadOptions={() =>
+              Promise.resolve([
+                {
+                  value: 'adventure',
+                  label: 'Adventure',
+                },
+                { value: 'resort', label: 'Resort' },
+              ])
+            }
             override={({ values }) =>
               values.country &&
               values.country.value === 'Canada'

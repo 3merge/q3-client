@@ -2,18 +2,9 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import Skeleton from '@material-ui/lab/Skeleton';
 import { get } from 'lodash';
 import JSONPretty from 'react-json-pretty';
 import withWrapper from './wrapper';
-
-const FieldSkeleton = (
-  <Skeleton
-    variant="rect"
-    style={{ margin: '4px 0' }}
-    height={56}
-  />
-);
 
 const FormWrapper = withWrapper(
   ({

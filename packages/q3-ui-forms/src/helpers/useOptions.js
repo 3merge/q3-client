@@ -8,6 +8,7 @@ export default ({
   initialStatus = false,
   options = [],
   loadOptions,
+  loadOptionsPlainly = false,
 }) => {
   const [init, setInit] = React.useState(initialStatus);
   const [loading, setLoading] = React.useState(false);
@@ -18,7 +19,10 @@ export default ({
   React.useEffect(() => {
     let cancel = false;
 
-    if (typeof loadOptions !== 'function' || !init)
+    if (
+      typeof loadOptions !== 'function' ||
+      (!init && !loadOptionsPlainly)
+    )
       return undefined;
 
     setLoading(true);

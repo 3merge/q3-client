@@ -50,6 +50,7 @@ export const AutoCompleteWrapper = (props) => {
 
   return (
     <Autocomplete
+      {...props}
       {...field}
       label={t(name)}
       options={items}

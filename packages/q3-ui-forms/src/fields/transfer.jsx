@@ -343,7 +343,11 @@ export function TransferList(props) {
     onClear,
   } = useValue();
   const [selected, setSelected] = React.useState([]);
-  const { items, loading } = useOptions(props);
+  const { items, loading } = useOptions({
+    loadOptionsPlainly: true,
+    ...props,
+  });
+
   const { open, close, isOpen } = useOpen();
   const cls = useStyles();
 
