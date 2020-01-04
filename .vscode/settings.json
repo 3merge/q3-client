@@ -1,14 +1,6 @@
 {
   "editor.tabSize": 2,
   "editor.fontSize": 16,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "html",
-      "autoFix": true
-    }
-  ],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

@@ -26,9 +26,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   saddle: {
-    maxWidth: 750,
+    paddingRight: '35%',
     paddingTop: theme.spacing(8),
     paddingLeft: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      paddingRight: theme.spacing(3),
+      paddingLeft: theme.spacing(3),
+    },
   },
   backBtn: {
     position: 'absolute',
@@ -99,7 +103,7 @@ CreateDialog.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-const Add = ({ title, children }) => {
+const Add = ({ title, children, onComplete }) => {
   const { collectionName, post } = React.useContext(
     Context,
   );
@@ -120,7 +124,13 @@ const Add = ({ title, children }) => {
                 isNew: true,
                 collectionName,
                 onSubmit: (...args) =>
-                  post(...args).then(done),
+                  post(...args)
+                    .then((r) => {
+                      console.log(r);
+                      if (onComplete) onComplete(r);
+                      return r;
+                    })
+                    .then(done),
               })}
             </Box>
           )}
@@ -133,6 +143,11 @@ const Add = ({ title, children }) => {
 Add.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  onComplete: PropTypes.func,
+};
+
+Add.defaultProps = {
+  onComplete: null,
 };
 
 export default Add;

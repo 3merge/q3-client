@@ -3,20 +3,22 @@ import axios from 'axios';
 import { useNotification } from 'q3-ui-forms';
 
 const extractResponseMeta = (payload) => {
-  const {
-    config: { method, url },
-    data,
-    headers,
-    status,
-  } = 'response' in payload ? payload.response : payload;
+  const { config, data, headers, status } =
+    'response' in payload ? payload.response : payload;
 
-  return {
-    method,
-    url,
+  const output = {
     data,
     headers,
     status,
   };
+
+  if (config)
+    Object.assign(output, {
+      method: config.method,
+      url: config.url,
+    });
+
+  return output;
 };
 
 const queryStorage = (key) => {
@@ -76,7 +78,9 @@ export const handleResponse = (d) => {
 };
 
 export const handleError = (e) => {
-  const { data, status, url } = extractResponseMeta(e);
+  const { data, status, url, method } = extractResponseMeta(
+    e,
+  );
   const cache = queryStorage(url);
 
   return {
@@ -96,9 +100,9 @@ export const handleError = (e) => {
       if ((status === 304 && !cache) || status === 412)
         setTimeout(() => window.location.reload(), 500);
 
-      return cache
+      return cache && method === 'get'
         ? Promise.resolve(cache)
-        : Promise.reject(e.response);
+        : Promise.reject(e);
     },
   };
 };
@@ -131,9 +135,13 @@ export default () => {
   const onResponseError = React.useCallback(
     (error) => {
       setLoading(false);
-      return handleError(error)
-        .notify(noti)
-        .refresh(error);
+      try {
+        return handleError(error)
+          .notify(noti)
+          .refresh(error);
+      } catch (e) {
+        return Promise.reject(error);
+      }
     },
     [loading],
   );

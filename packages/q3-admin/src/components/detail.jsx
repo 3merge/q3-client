@@ -55,14 +55,12 @@ const Detail = ({
     })
     .map((element, i) => {
       const str = element.type.name || element.props.name;
-      const name = t(`titles:${str}`);
-      const subtitle = t(`descriptions:${str}`);
 
       return {
-        label: name,
+        label: t(`titles:${str}`),
         to: getPath(i, element.type.name.toLowerCase()),
         component: () => (
-          <Tile title={name} subtitle={subtitle}>
+          <Tile title={str} subtitle={str}>
             {React.cloneElement(element, {
               resourceName,
               resourceNameSingular,

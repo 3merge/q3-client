@@ -26,7 +26,6 @@ const Tile = ({
   children,
   title,
   subtitle,
-
   renderFooter,
 }) => {
   const { t } = useTranslation();
