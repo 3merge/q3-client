@@ -51,7 +51,10 @@ const NativeSelect = (props) => {
     required,
   } = deco;
 
-  const { loading, items } = useOptions(deco);
+  const { loading, items } = useOptions({
+    loadOptionsPlainly: true,
+    ...deco,
+  });
 
   return (
     <SelectWrapper
