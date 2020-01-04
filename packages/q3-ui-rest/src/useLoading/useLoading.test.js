@@ -145,7 +145,7 @@ describe('useLoading axios hook', () => {
     return expect(
       handleError({
         response: {
-          config: {},
+          config: { method: 'get' },
           status: 304,
         },
       }).refresh(),
@@ -164,7 +164,7 @@ describe('useLoading axios hook', () => {
 
     await expect(
       handleError(stub).refresh(),
-    ).rejects.toMatchObject(stub.response);
+    ).rejects.toMatchObject(stub);
     expect(setTimeout).toHaveBeenCalledTimes(1);
   });
 
