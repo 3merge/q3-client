@@ -99,6 +99,11 @@ Object.assign(theme, {
         textDecoration: 'none !important',
       },
     },
+    MuiDialogTitle: {
+      root: {
+        paddingBottom: 0,
+      },
+    },
     MuiToolbar: {
       dense: {
         paddingLeft: 0,

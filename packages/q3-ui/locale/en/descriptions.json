@@ -19,5 +19,6 @@
   "newPermission": "This app uses an intricate permissions system comprising roles and attributes. Roles are like groups and attributes define the actions a group can take.",
   "cart": "Last updated on {{date}}",
   "delete": "Deleting this resource will not nuke it from history, but it will prevent you from accessing it again. Parent resources, such as this, go into an archive-state once deleted so that references remain intact.",
-  "filter": "Select parameters to accentuate your search query."
+  "filter": "Select parameters to accentuate your search query.",
+  "lorem": "Maecenas non posuere nibh, non lobortis libero. Nam fermentum iaculis efficitur. Duis iaculis nibh massa, in cursus erat ullamcorper volutpat. Praesent ac tellus id augue consequat ornare ut id eros. Phasellus pharetra turpis id ante malesuada rhoncus. Morbi ac risus sem. Curabitur sed justo et tellus placerat rutrum. Quisque ultricies velit at odio aliquam cursus. Vestibulum a ex non lectus molestie tristique. Nullam a dictum eros. Nulla lobortis ante sed varius tempor. Proin sed felis eros. Nam facilisis scelerisque tempus. Quisque a fermentum leo. Vestibulum porttitor, ligula eu lacinia consectetur, leo magna fringilla sem, non pellentesque sapien nunc lacinia turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac nisl id mauris aliquam accumsan. Morbi magna mauris, ullamcorper eget egestas et, lacinia in augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
 }
