@@ -53,7 +53,7 @@ const useRest = ({
         return Promise.resolve(data);
       })
       .catch((err) => {
-        onComplete(get(err, 'data'), actions);
+        onComplete(get(err, 'response.data'), actions);
         return Promise.reject(err);
       });
   };

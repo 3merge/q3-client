@@ -71,6 +71,7 @@ export const Adornment = withLocation(
       >
         <div>
           <AccessibleIconButton
+            name="search"
             label="clear"
             icon={Close}
             buttonProps={{
