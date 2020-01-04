@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/3merge/q/compare/v1.1.6...v1.2.0) (2020-01-04)
+
+
+### Features
+
+* popover tool ([#53](https://github.com/3merge/q/issues/53)) ([3d844e1](https://github.com/3merge/q/commit/3d844e1bda67e0b555dce16bc0a6d593fcd46ee9))
+
+
+
+
+
 ## [1.1.6](https://github.com/3merge/q/compare/v1.1.5...v1.1.6) (2020-01-04)
 
 **Note:** Version bump only for package q3-ui-forms
