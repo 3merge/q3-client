@@ -59,6 +59,7 @@ const Field = ({
         readOnly: !canEdit,
         disabled: !canEdit,
         ...attrs,
+        type,
         name,
       })
     : null;

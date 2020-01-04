@@ -5,6 +5,7 @@ import { NONCE, TOKEN, INIT } from './utils/constants';
 export const destroySession = () => {
   Cookies.remove(TOKEN);
   Cookies.remove(NONCE);
+  localStorage.clear();
   window.location.replace('/');
 };
 

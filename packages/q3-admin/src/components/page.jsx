@@ -19,6 +19,7 @@ const Page = ({
     key: resourceNameSingular,
     pluralized: resourceName,
     runOnInit: true,
+    location,
     url,
   });
 

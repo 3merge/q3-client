@@ -19,7 +19,7 @@
   },
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "example/admin"
   ],
   "devDependencies": {
     "@babel/cli": "^7.5.5",

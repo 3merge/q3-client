@@ -24,6 +24,7 @@
     "react-json-pretty": "^2.2.0",
     "react-recaptcha-google": "^1.1.1",
     "react-window": "^1.8.5",
+    "scriptjs": "^2.5.9",
     "useful-state": "^1.2.0",
     "with-location": "^1.1.0",
     "yup": "^0.27.0"
