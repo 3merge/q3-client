@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Field from '../builders/field';
 import Form from '../builders/form';
-
-import Next from '../builders/next';
 import {
   useNewPassword,
   useConfirmPassword,
@@ -40,7 +38,6 @@ const PasswordChange = ({ onSubmit }) => {
         validate={confirm}
         required
       />
-      <Next submit />
     </Form>
   );
 };

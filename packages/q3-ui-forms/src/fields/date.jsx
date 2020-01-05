@@ -21,6 +21,7 @@ const DateSelect = (props) => {
   return (
     <KeyboardDatePicker
       {...deco}
+      type="text"
       name={name}
       fullWidth
       inputVariant="filled"

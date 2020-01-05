@@ -290,20 +290,16 @@ TransferListColumn.propTypes = {
   select: PropTypes.func.isRequired,
 };
 
-const Input = ({ name, applied, readOnly, open }) => {
-  const { t } = useTranslation();
-
-  return (
-    <TextField
-      disabled
-      fullWidth
-      variant="filled"
-      label={t(`labels:${name}`)}
-      helperText={t(`helpers:${name}`)}
-      value={applied.join(', ')}
-      InputProps={{
-        disableUnderline: true,
-        endAdornment: !readOnly && (
+const Input = ({ name, applied, open, value, ...rest }) => (
+  <TextField
+    {...rest}
+    fullWidth
+    variant="filled"
+    value={value}
+    InputProps={{
+      disableUnderline: true,
+      endAdornment:
+        !rest.readOnly && !rest.disabled ? (
           <Badge
             badgeContent={applied.length}
             color="secondary"
@@ -316,14 +312,14 @@ const Input = ({ name, applied, readOnly, open }) => {
               <ViewColumn />
             </IconButton>
           </Badge>
-        ),
-      }}
-    />
-  );
-};
+        ) : null,
+    }}
+  />
+);
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   open: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   applied: PropTypes.arrayOf(PropTypes.string),
@@ -336,7 +332,11 @@ Input.defaultProps = {
 
 export function TransferList(props) {
   const { name } = props;
-  const { value: init, onChange } = useDecorator(props);
+  const { value: init, onChange, ...deco } = useDecorator(
+    props,
+  );
+
+  console.log(deco)
   const {
     value: search,
     onChange: handleSearch,
@@ -424,8 +424,11 @@ export function TransferList(props) {
     <>
       <Input
         name={name}
-        applied={initAsArray}
+        applied={active}
+        value={initAsArray}
         open={open}
+        onChange={onChange}
+        {...deco}
       />
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
         <Search

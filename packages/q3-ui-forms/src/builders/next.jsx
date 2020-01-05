@@ -17,7 +17,7 @@ const Next = connect(
           variant="contained"
           type={submit ? 'submit' : 'button'}
           onClick={formik.submitForm}
-          disabled={isDisabled || formik.status !== 'Ready'}
+          disabled={isDisabled}
         >
           {t(`labels:${submit ? 'submit' : label}`)}
         </Button>

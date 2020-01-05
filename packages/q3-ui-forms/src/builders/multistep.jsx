@@ -1,95 +1,167 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Step from '@material-ui/core/Step';
 import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { connect, Formik, Form } from 'formik';
+import JSONPretty from 'react-json-pretty';
+import { get } from 'lodash';
+import withWrapper from './wrapper';
+import { getFieldNames, intersects } from '../helpers';
 
-export default ({
-  children,
-  onSubmit,
-  onReset,
-  initialValues = {},
-  collectionName,
-  cleanup,
-  toolbar,
-  isNew,
-}) => {
-  const ref = React.useRef();
-  const childrenArray = React.Children.toArray(children);
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [errors, setErrors] = React.useState([]);
-  const [cache, setCache] = React.useState(initialValues);
+export const Fieldset = ({ children }) => (
+  <fieldset
+    style={{
+      border: 0,
+      padding: 0,
+      margin: 0,
+    }}
+  >
+    {children}
+  </fieldset>
+);
 
-  const hasErrors = () => {
-    const arr = Array.from(
-      ref.current.querySelectorAll('fieldset'),
-    ).reduce((a, node, i) => {
-      if (node.dataset.valid === 'false') a.push(i);
-      return a;
-    }, []);
+Fieldset.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
-    setErrors(arr);
-    if (arr.length)
-      throw new Error('Invalid stepper detected');
-  };
+export const FormikDebug = connect(
+  ({ show, formik: { values, errors } }) =>
+    show ? <JSONPretty data={{ values, errors }} /> : null,
+);
 
-  const processReset = React.useCallback(() => {
-    if (activeStep === 0) {
-      setCache(initialValues);
-      onReset();
-    } else {
-      setActiveStep(activeStep - 1);
-    }
-  }, [activeStep]);
+const MultiFormStepper = connect(
+  ({
+    activeStep,
+    isNew,
+    steps = [],
+    children,
+    onClickHandler,
+    formik: { errors },
+  }) => {
+    const generateStepProps = (child, i) => ({
+      index: i,
+      renderer: child,
+      name: get(child, 'props.name'),
+      error: intersects(
+        Object.keys(errors),
+        getFieldNames(
+          get(child, 'props.children', []),
+          'Field',
+        ),
+      ),
+      ...(!isNew && {
+        style: { cursor: 'pointer' },
+        onClick: onClickHandler(i),
+      }),
+    });
 
-  const processSubmit = React.useCallback(
-    (values, actions) =>
-      activeStep >= childrenArray.length - 1
-        ? Promise.resolve(hasErrors).then(() =>
-            onSubmit(values, actions).then(() => {
-              if (!cleanup) return;
-              setCache(initialValues);
-              setActiveStep(0);
-            }),
-          )
-        : new Promise((resolve) => {
-            setActiveStep(activeStep + 1);
-            setCache((prev) => ({ ...prev, ...values }));
-            resolve();
-          }),
-    [activeStep],
-  );
-
-  return (
-    <form
-      ref={ref}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
+    return (
       <Stepper
         orientation="vertical"
         activeStep={activeStep}
       >
-        {childrenArray.map((child, i) => (
-          <Step key={i}>
-            <StepLabel error={errors.includes(i)}>
-              {child.props.name}
-            </StepLabel>
-            <StepContent>
-              {React.cloneElement(child, {
-                collectionName,
-                initialValues: cache,
-                onReset: processReset,
-                onSubmit: processSubmit,
-                onInit: hasErrors,
-                fieldset: true,
-                isNew,
-              })}
-            </StepContent>
-          </Step>
-        ))}
+        {steps
+          .map(generateStepProps)
+          .map((stepProps, index) => (
+            <Step key={index}>
+              <StepLabel {...stepProps}>
+                {stepProps.name}
+              </StepLabel>
+              <StepContent>
+                {stepProps.renderer}
+                {children(stepProps)}
+              </StepContent>
+            </Step>
+          ))}
       </Stepper>
-    </form>
-  );
-};
+    );
+  },
+);
+
+export default withWrapper(
+  ({
+    children,
+    onSubmit,
+    onReset,
+    formikProps,
+    cleanup,
+    isNew,
+    debug,
+  }) => {
+    const { t } = useTranslation('labels');
+    const childrenArray = React.Children.toArray(children);
+    const [activeStep, setActiveStep] = React.useState(0);
+
+    const isLast = (v) => v >= childrenArray.length - 1;
+
+    const processReset = React.useCallback(
+      () =>
+        activeStep === 0
+          ? onReset()
+          : setActiveStep(activeStep - 1),
+      [activeStep],
+    );
+
+    const processSubmit = React.useCallback(
+      (values, actions) =>
+        isLast(activeStep)
+          ? onSubmit(values, actions).then(() => {
+              if (!cleanup) return;
+              setActiveStep(0);
+              actions.resetForm();
+            })
+          : new Promise((resolve) => {
+              setActiveStep(activeStep + 1);
+              resolve();
+            }),
+      [activeStep],
+    );
+
+    const getBackLabel = (i) =>
+      t(i === 0 ? 'reset' : 'back');
+
+    const getNextLabel = (i) =>
+      t(isLast(i) ? 'save' : 'next');
+
+    return (
+      <Formik onSubmit={processSubmit} {...formikProps}>
+        {({ errors }) => (
+          <Form>
+            <MultiFormStepper
+              isNew={isNew}
+              steps={childrenArray}
+              activeStep={activeStep}
+              onClickHandler={(v) => () => setActiveStep(v)}
+            >
+              {({ error, index }) => (
+                <Box mt={1}>
+                  <Button onClick={processReset}>
+                    {getBackLabel(index)}
+                  </Button>
+                  <Button
+                    onClick={processSubmit}
+                    variant="contained"
+                    color="primary"
+                    disabled={
+                      error ||
+                      (isLast(index) &&
+                        Object.keys(errors).length)
+                    }
+                  >
+                    {getNextLabel(index)}
+                  </Button>
+                </Box>
+              )}
+            </MultiFormStepper>
+            <FormikDebug show={debug} />
+          </Form>
+        )}
+      </Formik>
+    );
+  },
+);

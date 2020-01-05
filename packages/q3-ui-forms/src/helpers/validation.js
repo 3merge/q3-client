@@ -35,6 +35,7 @@ export class Validator {
       case 'string':
       case 'editor':
       case 'password':
+      case 'transfer':
         this.$base = this.$base.string();
         break;
       case 'email':
@@ -62,10 +63,11 @@ export class Validator {
       case 'multiselect':
       case 'multitext':
       case 'checkset':
-      case 'transfer':
         this.$base = this.$base.array();
         break;
       case 'autocomplete':
+        this.$base = this.$base.mixed().autocomplete();
+        break;
       case 'radio':
       case 'select':
       case 'selectable':
@@ -139,10 +141,10 @@ function tel() {
 
 function autocomplete() {
   return this.test(function checkRequired(v) {
-    const hasValue = typeof v === 'object' && v.value;
+    const hasValue = v && typeof v === 'object' && v.value;
     return this.schema._exclusive.required
       ? hasValue
-      : hasValue || v.value === '' || v === '';
+      : true;
   });
 }
 
