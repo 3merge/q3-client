@@ -1,12 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Tile from 'q3-ui/lib/tile';
-import Multistep from './multistep';
+import Multistep, { Fieldset } from './multistep';
 import Repeater from './repeater';
 import Form from './form';
 import Field from './field';
-import Next from './next';
-import Back from './back';
 
 storiesOf('Forms|Repeater', module)
   .add('Without data', () => (
@@ -43,9 +41,8 @@ storiesOf('Forms|Repeater', module)
           lastName: '',
         }}
       >
-        <Form>
+        <Form label="add">
           <Field type="text" name="firstName" required />
-          <Next submit label="add" />
         </Form>
       </Repeater>
     </Tile>
@@ -83,21 +80,26 @@ storiesOf('Forms|Repeater', module)
           firstName: '',
           lastName: '',
         }}
+        edit={() => (values, actions) => {
+          actions.setFieldError(
+            'firstName',
+            'We do not know you',
+            false,
+          );
+
+          return Promise.reject();
+        }}
       >
         <Multistep>
-          <Form name="General">
+          <Fieldset name="General">
             <Field type="text" name="firstName" required />
             <Field type="text" name="lastName" required />
             <Field type="number" name="age" min="21" />
-            <Back />
-            <Next />
-          </Form>
-          <Form name="Work">
+          </Fieldset>
+          <Fieldset name="Work">
             <Field type="text" name="position" />
             <Field type="text" name="company" />
-            <Back />
-            <Next label="save" />
-          </Form>
+          </Fieldset>
         </Multistep>
       </Repeater>
     </Tile>

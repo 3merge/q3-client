@@ -1,4 +1,11 @@
+import React from 'react';
 import * as helpers from '..';
+
+beforeAll(() => {
+  jest
+    .spyOn(React.Children, 'toArray')
+    .mockImplementation((v) => v);
+});
 
 describe('Form helpers', () => {
   describe('asOptions', () => {
@@ -14,6 +21,13 @@ describe('Form helpers', () => {
 
     it('should return falsy', () =>
       expect(helpers.isArray([])).toBeFalsy());
+  });
+
+  describe('condense', () => {
+    it('should flatten and filter out nullish values', () =>
+      expect(
+        helpers.condense(['foo', ['bar', null], undefined]),
+      ).toEqual(['foo', 'bar']));
   });
 
   describe('isObject', () => {
@@ -54,5 +68,46 @@ describe('Form helpers', () => {
         { id: 1, value: 1 },
         { id: 2, value: 2 },
       ]));
+  });
+
+  describe('getFieldNames', () => {
+    it('should return an array of "named" components', () => {
+      const target = 'foo';
+      const input = [
+        {
+          type: { name: target },
+          props: { children: [], name: 'fieldA' },
+        },
+        {
+          type: { name: target },
+          props: { children: [], name: 'fieldB' },
+        },
+        {
+          type: { name: '' },
+          props: { children: [], name: 'fieldC' },
+        },
+      ];
+
+      const out = helpers.getFieldNames(input, target);
+      expect(out).toHaveLength(2);
+    });
+  });
+
+  describe('intersects', () => {
+    it('should return truthy on match', () =>
+      expect(
+        helpers.intersects(
+          ['a', 'b', 'c'],
+          ['e', 'f', 'c'],
+        ),
+      ).toBeTruthy());
+
+    it('should return falsy without a match', () =>
+      expect(
+        helpers.intersects(
+          ['a', 'b', 'c'],
+          ['e', 'f', 'g'],
+        ),
+      ).toBeFalsy());
   });
 });

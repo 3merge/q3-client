@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
+import Toolbar from '@material-ui/core/Toolbar';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import useOpen from 'useful-state/lib/useOpen';
 
 const DialogWrapper = ({
@@ -17,20 +21,45 @@ const DialogWrapper = ({
   ...rest
 }) => {
   const { isOpen, open, close } = useOpen();
-  const { t } = useTranslation('titles');
+  const { t } = useTranslation();
 
   return (
     <>
       {renderTrigger(open)}
       <Dialog
         fullWidth
-        maxWidth="sm"
+        fullScreen
         onClose={close}
         open={isOpen}
         className={className}
         {...rest}
       >
-        {title && <DialogTitle>{t(title)}</DialogTitle>}
+        {title && (
+          <AppBar
+            position="static"
+            elevation={3}
+            color="inherit"
+          >
+            <Toolbar
+              style={{ justifyContent: 'space-between' }}
+            >
+              <Typography
+                variant="h3"
+                color="inherit"
+                component="h3"
+              >
+                {t(`titles:${title}`)}
+              </Typography>
+              <IconButton
+                onClick={close}
+                aria-label={t('labels:close')}
+                color="inherit"
+              >
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+        )}
         <DialogContent className={contentClassName}>
           {description && (
             <DialogContentText>

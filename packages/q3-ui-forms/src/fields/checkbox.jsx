@@ -52,12 +52,20 @@ const Checkbox = (props) => {
   return (
     <Box my={2}>
       <FormControlLabel
+        name={name}
         label={renderLabel()}
         control={
           <Switch
             name={name}
             checked={Boolean(value)}
-            onChange={onChange}
+            onChange={(e, v) =>
+              onChange({
+                target: {
+                  value: v,
+                  name,
+                },
+              })
+            }
             disabled={disabled}
             readOnly={readOnly}
           />

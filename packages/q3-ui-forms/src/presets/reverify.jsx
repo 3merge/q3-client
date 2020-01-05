@@ -3,7 +3,6 @@ import Axios from 'axios';
 import { navigate } from '@reach/router';
 import Field from '../builders/field';
 import Form from '../builders/form';
-import Next from '../builders/next';
 import useFormHandler from '../providers/formik';
 
 const { onStart, onComplete } = useFormHandler('formik');
@@ -29,7 +28,7 @@ const Reverify = () => (
     }}
   >
     <Field name="email" type="email" />
-    <Next submit />
+    />
   </Form>
 );
 

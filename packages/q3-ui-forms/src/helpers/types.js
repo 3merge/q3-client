@@ -27,6 +27,7 @@ const htmlFieldTypes = [
   'password',
   'search',
   'color',
+  'date',
 ];
 
 const internalFieldTypes = {

@@ -1,14 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Field from './field';
-import Back from './back';
-import Next from './next';
-import Multistep from './multistep';
-import Form from './form';
+import Multistep, { Fieldset } from './multistep';
 
 storiesOf('Forms|Multistep', module)
   .add('With mounting validation', () => (
     <Multistep
+      debug
       initialValues={{
         firstName: 'Jim',
         email: '',
@@ -23,15 +21,13 @@ storiesOf('Forms|Multistep', module)
         return Promise.resolve(v, actions);
       }}
     >
-      <Form debug name="firstStepLabel" html={false}>
+      <Fieldset name="firstStepLabel">
         <Field name="firstName" type="text" required />
         <Field name="email" type="email" required />
         <Field name="age" type="number" min="0" />
-        <Back />
-        <Next />
-      </Form>
+      </Fieldset>
 
-      <Form debug name="secondStepLabel" html={false}>
+      <Fieldset name="secondStepLabel">
         <Field
           name="brother"
           type="text"
@@ -42,37 +38,34 @@ storiesOf('Forms|Multistep', module)
         />
         <Field name="friend" type="email" required />
         <Field name="birthday" type="date" min="0" />
-        <Back />
-        <Next label="save" />
-      </Form>
+      </Fieldset>
     </Multistep>
   ))
   .add('Without mounting validation', () => (
     <Multistep
       isNew
+      debug
       initialValues={{
         firstName: 'Jim',
         email: '',
-        brother: 'Chris',
-        friend: 'david@gmail.com',
+        brother: '',
+        friend: 'gm.com',
       }}
       onReset={() => {
         alert('Starting over...');
       }}
       onSubmit={(v, actions) => {
-        alert(JSON.stringify(v));
+        alert('DONE!');
         return Promise.resolve(v, actions);
       }}
     >
-      <Form debug name="firstStepLabel" html={false}>
+      <Fieldset name="firstStepLabel">
         <Field name="firstName" type="text" required />
         <Field name="email" type="email" required />
         <Field name="age" type="number" min="0" />
-        <Back />
-        <Next />
-      </Form>
+      </Fieldset>
 
-      <Form debug name="secondStepLabel" html={false}>
+      <Fieldset debug name="secondStepLabel">
         <Field name="brother" type="text" required />
         <Field
           name="friend"
@@ -80,8 +73,6 @@ storiesOf('Forms|Multistep', module)
           conditional={['firstName=joe']}
         />
         <Field name="birthday" type="date" min="0" />
-        <Back />
-        <Next label="save" />
-      </Form>
+      </Fieldset>
     </Multistep>
   ));

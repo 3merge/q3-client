@@ -1,9 +1,15 @@
+import React from 'react';
+
 export const isObject = (item) =>
   item !== null &&
   typeof item === 'object' &&
   Object.keys(item).length;
 
+export const condense = (a) => a.flat().filter(Boolean);
 export const isArray = (a) => Array.isArray(a) && a.length;
+
+export const intersects = (a, b) =>
+  condense(a).some((item) => condense(b).includes(item));
 
 export const asOptions = (a) =>
   isArray(a)
@@ -20,3 +26,22 @@ export const assignIDs = (a, prop) =>
     if (!item.id) return { ...item, id: i };
     return item;
   });
+
+export const getFieldNames = (c, fieldName) =>
+  React.Children.toArray(c).reduce(
+    (
+      curr,
+      {
+        type: { name: componentType },
+        props: { children, name },
+      },
+    ) => {
+      if (componentType === fieldName) curr.push(name);
+
+      if (isArray(children))
+        curr.push(getFieldNames(children));
+
+      return condense(curr);
+    },
+    [],
+  );

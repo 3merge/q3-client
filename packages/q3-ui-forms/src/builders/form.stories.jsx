@@ -2,9 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
 import Field from './field';
-import Next from './next';
 import Form from './form';
 
 const loadOptions = () =>
@@ -23,18 +21,18 @@ const loadOptions = () =>
 storiesOf('Forms|Simple', module)
   .add('With toggles', () => (
     <MockApi>
-      <Form
-        debug
-        initialValues={{
-          firstName: '',
-          country: {
-            value: 'UK',
-            label: 'United Kingdom',
-          },
-        }}
-        onSubmit={Promise.resolve}
-      >
-        <Container>
+      <Container>
+        <Form
+          debug
+          initialValues={{
+            firstName: '',
+            country: {
+              value: 'UK',
+              label: 'United Kingdom',
+            },
+          }}
+          onSubmit={Promise.resolve}
+        >
           <Field
             collapse={false}
             name="trips-radio"
@@ -76,25 +74,24 @@ storiesOf('Forms|Simple', module)
               },
             ]}
           />
-          <Next submit />
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </MockApi>
   ))
   .add('With text fields', () => (
     <MockApi>
-      <Form
-        debug
-        initialValues={{
-          firstName: '',
-          country: {
-            value: 'UK',
-            label: 'United Kingdom',
-          },
-        }}
-        onSubmit={Promise.resolve}
-      >
-        <Container>
+      <Container>
+        <Form
+          debug
+          initialValues={{
+            firstName: '',
+            country: {
+              value: 'UK',
+              label: 'United Kingdom',
+            },
+          }}
+          onSubmit={Promise.resolve}
+        >
           <Field name="email" type="email" />
           <Field name="postal" type="postal" />
           <Field name="tel" type="tel" />
@@ -112,46 +109,53 @@ storiesOf('Forms|Simple', module)
             rows={5}
           />
           <Field name="novel" type="editor" required />
-          <Next submit />
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </MockApi>
   ))
   .add('With nested property names', () => (
     <MockApi>
-      <Form
-        debug
-        onSubmit={Promise.resolve}
-        initialValues={{
-          name: {
-            firstName: 'Jon',
-            lastName: 'Doe',
-          },
-        }}
-      >
-        <Container>
+      <Container>
+        <Form
+          debug
+          onSubmit={Promise.resolve}
+          initialValues={{
+            name: {
+              firstName: 'Jon',
+              lastName: 'Doe',
+            },
+          }}
+        >
           <Field name="name.firstName" type="text" />
           <Field name="name.lastName" type="text" />
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </MockApi>
   ))
   .add('With  complex fields', () => (
     <MockApi>
-      <Form
-        debug
-        initialValues={{
-          firstName: '',
-          country: {
-            value: 'UK',
-            label: 'United Kingdom',
-          },
-        }}
-        onSubmit={Promise.resolve}
-      >
-        <Container>
+      <Container>
+        <Form
+          debug
+          initialValues={{
+            firstName: '',
+            country: {
+              value: 'UK',
+              label: 'United Kingdom',
+            },
+          }}
+          onSubmit={(v, actions) =>
+            Promise.resolve(() => {
+              actions.setFieldError('lorem', 'No good');
+
+              Object.assign(actions, {
+                isTouched: true,
+              });
+            })
+          }
+        >
           <Field
-            name="counting"
+            name="lorem"
             type="transfer"
             loadOptions={() =>
               Promise.resolve(['Uno', 'Dos', 'Tres'])
@@ -208,8 +212,7 @@ storiesOf('Forms|Simple', module)
               { value: 'blue', label: 'Blue' },
             ]}
           />
-          <Next submit />
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </MockApi>
   ));

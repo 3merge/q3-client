@@ -45,7 +45,6 @@ describe('Dialog', () => {
       />,
     );
 
-    expect(el.find(DialogTitle)).toHaveLength(0);
     expect(el.find(DialogContentText)).toHaveLength(0);
   });
 });

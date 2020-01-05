@@ -2,103 +2,33 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import { get } from 'lodash';
-import JSONPretty from 'react-json-pretty';
+import { useTranslation } from 'react-i18next';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { FormikDebug } from './multistep';
 import withWrapper from './wrapper';
 
 const FormWrapper = withWrapper(
-  ({
-    children,
-    initialValues,
-    collectionName,
-    authorization,
-    validation,
-    onSubmit,
-    onReset,
-    onInit,
-    fieldset,
-    debug,
-    name,
-    isNew,
-  }) => {
-    const hasSchema = get(
-      validation,
-      'chain._nodes.length',
-      null,
-    );
-
-    const handleReset = React.useCallback(
-      ({ status, resetForm }) => {
-        if (status !== 'back') return;
-        resetForm();
-        onReset();
-      },
-      [onReset],
-    );
-
-    const handleInit = React.useCallback(
-      ({
-        status,
-        validateForm,
-        setStatus,
-        isValidating,
-      }) => {
-        if (hasSchema === 0 || status !== 'Initializing')
-          return;
-
-        if (!isValidating && !isNew) {
-          validateForm().then(() => {
-            if (typeof onInit === 'function') onInit();
-            setStatus('Ready');
-          });
-        } else if (isNew) {
-          setStatus('Ready');
-        }
-      },
-      [hasSchema],
-    );
-
-    React.useEffect(() => {
-      authorization.setCollectionName(collectionName);
-      authorization.setModificationType(isNew);
-    }, []);
+  ({ children, label, formikProps, onSubmit, debug }) => {
+    const { t } = useTranslation('labels');
 
     return (
-      <Formik
-        key={JSON.stringify(initialValues)}
-        enableReinitialize
-        initialStatus="Initializing"
-        validationSchema={validation.chain}
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-      >
-        {({ values, errors, isValid, ...rest }) => (
-          <>
-            {handleReset(rest)}
-            {handleInit(rest)}
-
-            {!fieldset ? (
-              <Form>
-                {children}
-                {debug && (
-                  <JSONPretty data={{ values, errors }} />
-                )}
-              </Form>
-            ) : (
-              <fieldset
-                data-name={name}
-                data-valid={isValid}
-                data-errors={JSON.stringify(errors)}
-                style={{
-                  border: 0,
-                  padding: 0,
-                  margin: 0,
-                }}
+      <Formik onSubmit={onSubmit} {...formikProps}>
+        {() => (
+          <Form>
+            {children}
+            <Box mt={1}>
+              <Button
+                type="submit"
+                size="large"
+                variant="contained"
+                color="primary"
               >
-                {children}
-              </fieldset>
-            )}
-          </>
+                {t('submit' || label)}
+              </Button>
+              <FormikDebug show={debug} />
+            </Box>
+          </Form>
         )}
       </Formik>
     );

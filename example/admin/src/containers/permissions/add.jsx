@@ -1,10 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Form,
-  Field,
-  Next,
-} from 'q3-ui-forms/lib/builders';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
 
 const AddPermissionForm = (props) => (
   <Form
@@ -66,7 +62,6 @@ const AddPermissionForm = (props) => (
       ]}
     />
     <Field name="fields" type="text" />
-    <Next submit />
   </Form>
 );
 

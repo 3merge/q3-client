@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
     borderLeftColor: green[500],
   },
   avatar: {
-    width: 85,
-    height: 85,
+    width: 55,
+    height: 55,
     marginRight: theme.spacing(2),
   },
   container: {

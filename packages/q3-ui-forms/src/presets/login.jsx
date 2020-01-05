@@ -6,7 +6,6 @@ import { setSession } from 'q3-ui-permissions';
 import Collapse from '@material-ui/core/Collapse';
 import Field from '../builders/field';
 import Form from '../builders/form';
-import Next from '../builders/next';
 import useFormHandler from '../providers/formik';
 
 const { onStart, onComplete } = useFormHandler('formik');
@@ -72,6 +71,7 @@ const Login = ({ children }) => {
       </Collapse>
       <Collapse in={hasAccount} timeout={500}>
         <Field
+          required
           name="password"
           type="password"
           validate={yup
@@ -84,7 +84,6 @@ const Login = ({ children }) => {
         />
       </Collapse>
       {children}
-      <Next size="large" submit label={t('labels:login')} />
     </Form>
   );
 };
