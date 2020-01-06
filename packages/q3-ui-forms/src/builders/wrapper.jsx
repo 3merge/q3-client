@@ -63,7 +63,7 @@ const Wrapper = (Component) => ({
             isNew={isNew}
             formikProps={{
               validateOnBlur: false,
-              validateOnChange: false,
+              validateOnChange: true,
               enableReinitialize: true,
               validateOnMount: !isNew,
               validationSchema: validation,

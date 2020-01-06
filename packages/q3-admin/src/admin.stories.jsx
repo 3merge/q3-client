@@ -152,8 +152,8 @@ const Character = (props) => (
   <Page {...props}>
     <Header titleProp="name" />
     <Detail trash notes history files>
-      <General />
-      <Episode />
+      <General name="general" />
+      <Episode name="episodes" />
     </Detail>
   </Page>
 );

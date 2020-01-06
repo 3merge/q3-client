@@ -110,13 +110,9 @@ export default withWrapper(
     );
 
     const processSubmit = React.useCallback(
-      (values, actions) =>
+      (fn) => () =>
         isLast(activeStep)
-          ? onSubmit(values, actions).then(() => {
-              if (!cleanup) return;
-              setActiveStep(0);
-              actions.resetForm();
-            })
+          ? fn()
           : new Promise((resolve) => {
               setActiveStep(activeStep + 1);
               resolve();
@@ -131,7 +127,16 @@ export default withWrapper(
       t(isLast(i) ? 'save' : 'next');
 
     return (
-      <Formik onSubmit={processSubmit} {...formikProps}>
+      <Formik
+        {...formikProps}
+        onSubmit={(values, actions) =>
+          onSubmit(values, actions).then(() => {
+            if (!cleanup) return;
+            setActiveStep(0);
+            actions.resetForm();
+          })
+        }
+      >
         {({ submitForm }) => (
           <Form>
             <MultiFormStepper
@@ -146,7 +151,7 @@ export default withWrapper(
                     {getBackLabel(index)}
                   </Button>
                   <Button
-                    onClick={submitForm}
+                    onClick={processSubmit(submitForm)}
                     variant="contained"
                     color="primary"
                   >

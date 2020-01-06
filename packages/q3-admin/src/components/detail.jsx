@@ -53,13 +53,11 @@ const Detail = ({
       return Boolean(r);
     })
     .map((element, i) => {
-      const str = String(
-        element.type.name || element.props.name,
-      ).toLowerCase();
+      const str = String(element.props.name).toLowerCase();
 
       return {
         label: str,
-        to: getPath(i, element.type.name.toLowerCase()),
+        to: getPath(i, element.props.name.toLowerCase()),
         component: () => (
           <Tile title={str} subtitle={str}>
             {React.cloneElement(element, {
