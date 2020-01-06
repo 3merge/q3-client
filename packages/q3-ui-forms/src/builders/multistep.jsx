@@ -43,6 +43,8 @@ const MultiFormStepper = connect(
     onClickHandler,
     formik: { errors },
   }) => {
+    const { t } = useTranslation('titles');
+
     const generateStepProps = (child, i) => ({
       index: i,
       renderer: child,
@@ -70,7 +72,7 @@ const MultiFormStepper = connect(
           .map((stepProps, index) => (
             <Step key={index}>
               <StepLabel {...stepProps}>
-                {stepProps.name}
+                {t(stepProps.name.toLowerCase())}
               </StepLabel>
               <StepContent>
                 {stepProps.renderer}

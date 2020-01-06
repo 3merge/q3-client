@@ -66,5 +66,6 @@
   "addToCart": "Add to cart",
   "search": "Search results",
   "filter": "Filter search",
-  "subscribed": "Subscribed"
+  "subscribed": "Subscribed",
+  "confirm": "Confirm"
 }
