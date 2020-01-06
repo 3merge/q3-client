@@ -1,5 +1,5 @@
 import React from 'react';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import AppBar from '@material-ui/core/AppBar';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Dialog from '.';
 
@@ -33,7 +33,7 @@ describe('Dialog', () => {
       />,
     );
 
-    expect(el.find(DialogTitle)).toHaveLength(1);
+    expect(el.find(AppBar)).toHaveLength(1);
     expect(el.find(DialogContentText)).toHaveLength(1);
   });
 
@@ -44,7 +44,7 @@ describe('Dialog', () => {
         renderContent={renderContent}
       />,
     );
-
+    expect(el.find(AppBar)).toHaveLength(0);
     expect(el.find(DialogContentText)).toHaveLength(0);
   });
 });

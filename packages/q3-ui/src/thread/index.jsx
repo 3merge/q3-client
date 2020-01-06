@@ -7,6 +7,12 @@ import {
   TimelineMeta,
 } from '../timeline';
 
+const decodeHTML = (html) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = html;
+  return txt.value;
+};
+
 const Thread = ({ entries, toolbar }) =>
   entries.map((entry) => (
     <TimelineContainer
@@ -24,8 +30,8 @@ const Thread = ({ entries, toolbar }) =>
         <div
           style={{ fontSize: '1rem' }}
           // eslint-disable-next-line
-                dangerouslySetInnerHTML={{
-            __html: entry.message,
+          dangerouslySetInnerHTML={{
+            __html: decodeHTML(entry.message),
           }}
         />
       </Box>

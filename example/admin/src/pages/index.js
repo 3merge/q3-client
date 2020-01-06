@@ -1,4 +1,5 @@
 import React from 'react';
+import Location from './location';
 import Locations from './locations';
 import Permissions from './permissions';
 
@@ -21,6 +22,14 @@ export default [
     resourceName: 'permissions',
     resourceNameSingular: 'permission',
     collectionName: 'q3-api-permissions',
+    group: 'Commons',
+  },
+  {
+    id: true,
+    component: Location,
+    resourceName: 'locations',
+    resourceNameSingular: 'location',
+    collectionName: 'locations',
     group: 'Commons',
   },
 ];

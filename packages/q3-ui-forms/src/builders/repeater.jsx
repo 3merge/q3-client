@@ -12,10 +12,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import DialogActions from '@material-ui/core/DialogActions';
-import TextField from '@material-ui/core/TextField';
-import useValue from 'useful-state/lib/useValue';
 import Dialog from 'q3-ui-dialog';
+import * as yup from 'yup';
+import Form from './form';
+import Field from './field';
 import { assignIDs } from '../helpers';
 import IconEmpty from '../icons/empty';
 
@@ -39,63 +39,44 @@ InteractiveListItem.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const DeleteListItem = ({ next }) => {
-  const [hasError, setError] = React.useState(false);
-  const { value, onChange, setValue } = useValue();
-  const { t } = useTranslation();
-
-  const submit = React.useCallback(
-    (fn) => () =>
-      value === 'DELETE'
-        ? next()
+export const DeleteListItem = ({ next }) => (
+  <Dialog
+    title="delete"
+    description="delete"
+    renderTrigger={(open) => (
+      <IconButton
+        aria-label="Click to delete"
+        onClick={open}
+      >
+        <DeleteIcon />
+      </IconButton>
+    )}
+    renderContent={(close) => (
+      <Form
+        initialValues={{ confirm: '' }}
+        onSubmit={(values, actions) =>
+          next()
             .then(() => {
-              fn();
-              setValue('');
+              close();
+              actions.resetForm();
             })
             .catch(() => null)
-        : setError(true),
-    [value],
-  );
-
-  return (
-    <Dialog
-      title="delete"
-      description="delete"
-      renderTrigger={(open) => (
-        <IconButton onClick={open}>
-          <DeleteIcon />
-        </IconButton>
-      )}
-      renderContent={(close) => (
-        <>
-          <TextField
-            variant="filled"
-            value={value}
-            onChange={onChange}
-            label={t('descriptions:deleteConfirmation')}
-            margin="dense"
-            fullWidth
-            autoFocus
-            name="confirm"
-            type="text"
-            error={hasError}
-            InputProps={{
-              disableUnderline: true,
-            }}
-          />
-          <DialogActions>
-            <Button type="button" onClick={close}>
-              {t('labels:nevermind')}
-            </Button>
-            <Button type="button" onClick={submit(close)}>
-              {t('labels:continue')}
-            </Button>
-          </DialogActions>
-        </>
-      )}
-    />
-  );
-};
+        }
+      >
+        <Field
+          name="confirm"
+          autoFocus
+          type="text"
+          validate={yup
+            .string()
+            .test(function matchString(v) {
+              return v === 'DELETE';
+            })}
+        />
+      </Form>
+    )}
+  />
+);
 
 DeleteListItem.propTypes = {
   next: PropTypes.func.isRequired,
@@ -188,31 +169,33 @@ const Repeater = ({
         {...rest}
       >
         {(item) =>
-          auth.canDeleteSub(name) && remove ? (
+          (auth.canDeleteSub(name) || !collectionName) &&
+          remove ? (
             <DeleteListItem next={remove(item.id)} />
           ) : null
         }
       </DataList>
 
-      {auth.canCreateSub(name) && (
-        <Box mt={1}>
-          <Dialog
-            title={children.props.title}
-            renderContent={getForm()}
-            renderTrigger={(open) => (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={open}
-              >
-                {data.length
-                  ? t('addToList')
-                  : t('startList')}
-              </Button>
-            )}
-          />
-        </Box>
-      )}
+      {(auth.canCreateSub(name) || !collectionName) &&
+        create && (
+          <Box mt={1}>
+            <Dialog
+              {...rest}
+              renderContent={getForm()}
+              renderTrigger={(open) => (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={open}
+                >
+                  {data.length
+                    ? t('addToList')
+                    : t('startList')}
+                </Button>
+              )}
+            />
+          </Box>
+        )}
     </>
   );
 };

@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Form,
-  Field,
-  Next,
-} from 'q3-ui-forms/lib/builders';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
 
 const AddPermissionForm = (props) => (
   <Form
+    debug
     {...props}
     initialValues={{
       firstName: '',
@@ -23,9 +20,11 @@ const AddPermissionForm = (props) => (
   >
     <Field name="firstName" type="text" required />
     <Field name="lastName" type="text" required />
+    <Field name="company" type="text" required />
     <Field name="email" type="email" required />
     <Field name="phone1" type="tel" required />
-    <Field name="streetNumber" type="number" required />
+    <Field name="phone2" type="tel" />
+    <Field name="streetNumber" type="text" required />
     <Field name="streetLine1" type="text" required />
     <Field name="streetLine2" type="text" />
     <Field name="city" type="text" required />
@@ -42,7 +41,6 @@ const AddPermissionForm = (props) => (
       type="select"
       options={[{ value: 'CA', label: 'canada' }]}
     />
-    <Next submit />
   </Form>
 );
 

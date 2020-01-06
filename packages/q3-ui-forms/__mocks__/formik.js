@@ -13,6 +13,8 @@ export const useFormikContext = jest.fn().mockReturnValue({
   errors: {},
 });
 
+export const connect = jest.fn();
+
 export default jest.fn().mockReturnValue({
   onStart: jest.fn(),
   onComplete: jest.fn(),

@@ -8,6 +8,8 @@ import { makePath } from './app';
 const AppMenu = ({ pages }) => {
   const { t } = useTranslation();
 
+  if (!Array.isArray(pages)) return null;
+
   const groupBy = pages.reduce((acc, page) => {
     if (!page.index) return acc;
     const args = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, Router } from '@reach/router';
+import { Redirect, Router, navigate } from '@reach/router';
 import Providers from 'q3-ui';
 import {
   Login as LoginPreset,
@@ -49,6 +49,7 @@ export const ApplicationGate = ({
   pages,
   popoutMenuItems,
   postAuthVerification,
+  profilePage,
   ...rest
 }) => (
   <>
@@ -63,13 +64,19 @@ export const ApplicationGate = ({
         return (
           <Main
             renderAside={() => <Menu pages={pages} />}
-            render={() => <App pages={pages} />}
+            render={() => (
+              <App pages={pages} profile={profilePage} />
+            )}
             ProfileBarProps={{
               offcanvas: () => <Menu pages={pages} />,
               name: firstName,
               imgSrc: photo,
               menuItems: [
                 ...popoutMenuItems,
+                {
+                  onClick: () => navigate('/profile'),
+                  label: 'Profile',
+                },
                 {
                   onClick: destroySession,
                   label: 'Logout',
@@ -99,6 +106,10 @@ ApplicationGate.propTypes = {
   logoImgSrc: PropTypes.string.isRequired,
   postAuthVerification: PropTypes.func,
   pages: PropTypes.arrayOf(PropTypes.object),
+  profilePage: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+  ]),
   popoutMenuItems: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
@@ -110,6 +121,7 @@ ApplicationGate.propTypes = {
 ApplicationGate.defaultProps = {
   popoutMenuItems: [],
   postAuthVerification: null,
+  profilePage: null,
   pages: [],
 };
 

@@ -30,10 +30,10 @@ const fileType = (file) =>
     .split('.')
     .pop();
 
-const Files = ({ path }) => {
+const Files = ({ collectionName, id }) => {
   const { uploads = [], post } = useRest({
     runOnInit: true,
-    url: `${path}/uploads`,
+    url: `${collectionName}/${id}/uploads`,
     key: 'uploads',
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -50,6 +50,12 @@ const Files = ({ path }) => {
             primary: file.name,
             secondary: fileType(file),
             icon: getFileIcon(fileType(file)),
+            actions: [
+              {
+                onClick: () => alert('Delete'),
+                label: 'HEY',
+              },
+            ],
 
             render: () => (
               <IconButton

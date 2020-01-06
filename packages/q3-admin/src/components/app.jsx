@@ -17,12 +17,11 @@ export const makePath = ({
   throw new Error('Path type not defined');
 };
 
-const App = ({ pages }) =>
-  pages ? (
+const App = ({ pages, profile: Profile }) =>
+  Array.isArray(pages) ? (
     <Router>
       {pages.map(
         ({ collectionName, component, ...etc }) => {
-          console.log(etc);
           const el = React.createElement(
             etc.home ? component : Protected,
             {
@@ -38,6 +37,7 @@ const App = ({ pages }) =>
           return el;
         },
       )}
+      {Profile && <Profile path="/profile" />}
       <NotFound noThrow default />
     </Router>
   ) : (
@@ -54,6 +54,8 @@ App.propTypes = {
       resourceName: PropTypes.string,
     }),
   ).isRequired,
+  profile: PropTypes.oneOf([PropTypes.node, PropTypes.func])
+    .isRequired,
 };
 
 export default App;

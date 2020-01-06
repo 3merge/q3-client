@@ -82,7 +82,7 @@ export const TimelineContainer = ({
   meta,
   children,
 }) => (
-  <Box mb={1} component="figure">
+  <Box my={1}>
     <Grid container spacing={1}>
       {meta}
       <Grid item md={9} sm={8} xs={12}>

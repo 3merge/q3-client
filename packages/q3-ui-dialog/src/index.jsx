@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import DialogContentText from '@material-ui/core/DialogContentText';
+import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -41,10 +42,13 @@ const DialogWrapper = ({
             color="inherit"
           >
             <Toolbar
-              style={{ justifyContent: 'space-between' }}
+              style={{
+                justifyContent: 'space-between',
+                padding: '1rem',
+              }}
             >
               <Typography
-                variant="h3"
+                variant="h4"
                 color="inherit"
                 component="h3"
               >
@@ -61,12 +65,17 @@ const DialogWrapper = ({
           </AppBar>
         )}
         <DialogContent className={contentClassName}>
-          {description && (
-            <DialogContentText>
-              {t(`descriptions:${description}`)}
-            </DialogContentText>
-          )}
-          {renderContent(close)}
+          <Container
+            maxWidth="md"
+            style={{ marginTop: '2rem' }}
+          >
+            {description && (
+              <DialogContentText variant="body2">
+                {t(`descriptions:${description}`)}
+              </DialogContentText>
+            )}
+            {renderContent(close)}
+          </Container>
         </DialogContent>
       </Dialog>
     </>

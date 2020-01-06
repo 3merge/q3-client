@@ -53,6 +53,8 @@ storiesOf('Forms|Repeater', module)
       subtitle="This is an important blurb about the characters"
     >
       <Repeater
+        remove={() => null}
+        create={() => null}
         title="lorem"
         data={[
           {

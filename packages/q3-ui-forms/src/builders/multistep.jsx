@@ -43,6 +43,8 @@ const MultiFormStepper = connect(
     onClickHandler,
     formik: { errors },
   }) => {
+    const { t } = useTranslation('titles');
+
     const generateStepProps = (child, i) => ({
       index: i,
       renderer: child,
@@ -70,7 +72,7 @@ const MultiFormStepper = connect(
           .map((stepProps, index) => (
             <Step key={index}>
               <StepLabel {...stepProps}>
-                {stepProps.name}
+                {t(stepProps.name.toLowerCase())}
               </StepLabel>
               <StepContent>
                 {stepProps.renderer}
@@ -130,7 +132,7 @@ export default withWrapper(
 
     return (
       <Formik onSubmit={processSubmit} {...formikProps}>
-        {({ errors }) => (
+        {({ submitForm }) => (
           <Form>
             <MultiFormStepper
               isNew={isNew}
@@ -138,20 +140,15 @@ export default withWrapper(
               activeStep={activeStep}
               onClickHandler={(v) => () => setActiveStep(v)}
             >
-              {({ error, index }) => (
+              {({ index }) => (
                 <Box mt={1}>
                   <Button onClick={processReset}>
                     {getBackLabel(index)}
                   </Button>
                   <Button
-                    onClick={processSubmit}
+                    onClick={submitForm}
                     variant="contained"
                     color="primary"
-                    disabled={
-                      error ||
-                      (isLast(index) &&
-                        Object.keys(errors).length)
-                    }
                   >
                     {getNextLabel(index)}
                   </Button>
