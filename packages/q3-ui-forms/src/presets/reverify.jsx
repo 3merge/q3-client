@@ -28,7 +28,6 @@ const Reverify = () => (
     }}
   >
     <Field name="email" type="email" />
-    />
   </Form>
 );
 

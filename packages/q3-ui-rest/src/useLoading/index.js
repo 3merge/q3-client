@@ -55,7 +55,10 @@ export const handleResponse = (d) => {
   return {
     notify(noti) {
       if (method !== 'get' && startsWith(2)) {
-        noti.onSuccess(data.message);
+        noti.onSuccess(
+          data.message ||
+            'Operation completed successfully',
+        );
       } else if (startsWith(4) || startsWith(5)) {
         noti.onFail(data.message);
       }
@@ -64,6 +67,8 @@ export const handleResponse = (d) => {
     },
 
     set() {
+      return this;
+      /*
       localStorage.setItem(
         url,
         JSON.stringify({
@@ -72,7 +77,7 @@ export const handleResponse = (d) => {
         }),
       );
 
-      return this;
+      return this; */
     },
   };
 };
@@ -81,7 +86,7 @@ export const handleError = (e) => {
   const { data, status, url, method } = extractResponseMeta(
     e,
   );
-  const cache = queryStorage(url);
+  // const cache = queryStorage(url);
 
   return {
     notify(noti) {
@@ -97,12 +102,13 @@ export const handleError = (e) => {
     },
 
     refresh() {
-      if ((status === 304 && !cache) || status === 412)
+      return Promise.reject(e);
+      /*  if ((status === 304 && !cache) || status === 412)
         setTimeout(() => window.location.reload(), 500);
 
       return cache && method === 'get'
         ? Promise.resolve(cache)
-        : Promise.reject(e);
+        : Promise.reject(e); */
     },
   };
 };
@@ -114,7 +120,7 @@ export default () => {
   const onRequest = React.useCallback(
     (request) => {
       setLoading(true);
-      handleRequest(request);
+      // handleRequest(request);
       return request;
     },
     [loading],
