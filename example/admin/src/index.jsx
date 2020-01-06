@@ -20,6 +20,7 @@ ReactDOM.render(
       url={photo}
       logo={logo}
       pages={pages}
+      profilePage={() => <p>PROFILE</p>}
     />
   </App>,
   root,
