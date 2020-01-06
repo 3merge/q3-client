@@ -1,5 +1,28 @@
 import * as yup from 'yup';
 
+export function postal(v) {
+  return new RegExp(
+    /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z]\s?\d[A-Z]\d$/,
+    'i',
+  ).test(v);
+}
+
+export function tel(v) {
+  const isValid = new RegExp(
+    /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
+    'i',
+  ).test(v);
+
+  return this.schema._exclusive.required
+    ? isValid
+    : isValid || v === '' || !v;
+}
+
+export function autocomplete(v) {
+  const hasValue = v && typeof v === 'object' && v.value;
+  return this.schema._exclusive.required ? hasValue : true;
+}
+
 export const mapToValue = (enumValues = []) => ({
   enum: enumValues,
   type: 'select',
@@ -45,10 +68,10 @@ export class Validator {
         this.$base = this.$base.string().url();
         break;
       case 'tel':
-        this.$base = this.$base.string().tel();
+        this.$base = this.$base.string().test(tel);
         break;
       case 'postal':
-        this.$base = this.$base.string().postal();
+        this.$base = this.$base.string().test(postal);
         break;
       case 'number':
         this.$base = this.$base.number();
@@ -66,7 +89,7 @@ export class Validator {
         this.$base = this.$base.array();
         break;
       case 'autocomplete':
-        this.$base = this.$base.mixed().autocomplete();
+        this.$base = this.$base.mixed().test(autocomplete);
         break;
       case 'radio':
       case 'select':
@@ -120,41 +143,6 @@ export class Validator {
     return this.$base;
   }
 }
-
-function postal() {
-  return this.test((v) =>
-    new RegExp(
-      /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z]\s?\d[A-Z]\d$/,
-      'i',
-    ).test(v),
-  );
-}
-
-function tel() {
-  return this.test(function checkRequired(v) {
-    const isValid = new RegExp(
-      /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
-      'i',
-    ).test(v);
-
-    return this.schema._exclusive.required
-      ? isValid
-      : isValid || v === '' || !v;
-  });
-}
-
-function autocomplete() {
-  return this.test(function checkRequired(v) {
-    const hasValue = v && typeof v === 'object' && v.value;
-    return this.schema._exclusive.required
-      ? hasValue
-      : true;
-  });
-}
-
-yup.addMethod(yup.string, postal.name, postal);
-yup.addMethod(yup.mixed, autocomplete.name, autocomplete);
-yup.addMethod(yup.string, tel.name, tel);
 
 const getValidation = (fields = {}) =>
   yup.object().shape(

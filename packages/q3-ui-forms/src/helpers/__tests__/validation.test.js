@@ -1,12 +1,12 @@
-import '../validation';
 import * as yup from 'yup';
+import { tel, postal, autocomplete } from '../validation';
 
 describe('Custom validators', () => {
   describe('Postal code', () => {
     const schema = yup.object().shape({
       postal: yup
         .string()
-        .postal()
+        .test(postal)
         .required(),
     });
 
@@ -45,7 +45,7 @@ describe('Custom validators', () => {
     const schema = yup.object().shape({
       autocomplete: yup
         .mixed()
-        .autocomplete()
+        .test(autocomplete)
         .required(),
     });
 
@@ -71,7 +71,7 @@ describe('Custom validators', () => {
       yup
         .object()
         .shape({
-          autocomplete: yup.mixed().autocomplete(),
+          autocomplete: yup.mixed().test(autocomplete),
         })
         .isValid({ autocomplete: '' })
         .then((valid) => {
@@ -84,7 +84,7 @@ describe('Custom validators', () => {
       yup
         .object()
         .shape({
-          autocomplete: yup.mixed().autocomplete(),
+          autocomplete: yup.mixed().test(autocomplete),
         })
         .isValid({ autocomplete: undefined })
         .then((valid) => {
@@ -98,7 +98,7 @@ describe('Custom validators', () => {
     const schema = yup.object().shape({
       tel: yup
         .string()
-        .tel()
+        .test(tel)
         .required(),
     });
 
