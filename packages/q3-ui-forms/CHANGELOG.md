@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/3merge/q/compare/v1.3.0...v1.3.1) (2020-01-06)
+
+
+### Bug Fixes
+
+* ref error ([f550cdd](https://github.com/3merge/q/commit/f550cddcafa740f22f478910a5b36d626ec80482))
+
+
+
+
+
 ## [1.2.2](https://github.com/3merge/q/compare/v1.2.1...v1.2.2) (2020-01-06)
 
 **Note:** Version bump only for package q3-ui-forms
