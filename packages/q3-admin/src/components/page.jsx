@@ -15,8 +15,6 @@ const Page = ({
     ? `/${collectionName}/${id}`
     : `/${collectionName}`;
 
-  console.log(location);
-
   const state = useRest({
     key: resourceNameSingular,
     pluralized: resourceName,

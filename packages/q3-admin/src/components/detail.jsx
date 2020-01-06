@@ -54,10 +54,12 @@ const Detail = ({
       return Boolean(r);
     })
     .map((element, i) => {
-      const str = element.type.name || element.props.name;
+      const str = String(
+        element.type.name || element.props.name,
+      ).toLowerCase();
 
       return {
-        label: t(`titles:${str}`),
+        label: str,
         to: getPath(i, element.type.name.toLowerCase()),
         component: () => (
           <Tile title={str} subtitle={str}>
@@ -127,7 +129,6 @@ Detail.propTypes = {
   notes: PropTypes.bool,
   featured: PropTypes.bool,
   files: PropTypes.bool,
-  history: PropTypes.bool,
   picture: PropTypes.bool,
 };
 
@@ -136,7 +137,6 @@ Detail.defaultProps = {
   notes: false,
   featured: false,
   files: false,
-  history: false,
   picture: false,
 };
 

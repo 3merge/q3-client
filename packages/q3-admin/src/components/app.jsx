@@ -18,11 +18,10 @@ export const makePath = ({
 };
 
 const App = ({ pages }) =>
-  pages ? (
+  Array.isArray(pages) ? (
     <Router>
       {pages.map(
         ({ collectionName, component, ...etc }) => {
-          console.log(etc);
           const el = React.createElement(
             etc.home ? component : Protected,
             {
