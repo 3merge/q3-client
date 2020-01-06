@@ -12,7 +12,6 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import useValue from 'useful-state/lib/useValue';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
 import Form from './form';

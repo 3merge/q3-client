@@ -33,6 +33,21 @@ export const makePath = (a = []) =>
     .map(prependForwardSlash)
     .join('');
 
+const extractData = (v, path) => {
+  const data = get(v, path);
+
+  return data
+    ? {
+        label: data,
+        value: v.id,
+        ...v,
+      }
+    : {
+        label: data,
+        value: data,
+      };
+};
+
 export const getOptions = (
   url,
   key,
@@ -46,11 +61,7 @@ export const getOptions = (
         ? get(data, key, []).map((i) =>
             flatten
               ? get(i, pathToLabel)
-              : {
-                  label: get(i, pathToLabel),
-                  value: i.id,
-                  ...i,
-                },
+              : extractData(i, pathToLabel),
           )
         : get(data, key, []),
     )

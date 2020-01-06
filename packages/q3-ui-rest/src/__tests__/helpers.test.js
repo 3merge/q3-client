@@ -9,14 +9,21 @@ import {
 jest.mock('js-file-download');
 
 jest.mock('axios', () => ({
-  get: jest.fn().mockResolvedValue({
-    data: {
-      values: [
-        { id: '1', name: 'Foo' },
-        { id: '2', name: 'Bar' },
-      ],
-    },
-  }),
+  get: jest
+    .fn()
+    .mockResolvedValueOnce({
+      data: {
+        values: ['Foo', 'Bar'],
+      },
+    })
+    .mockResolvedValue({
+      data: {
+        values: [
+          { id: '1', name: 'Foo' },
+          { id: '2', name: 'Bar' },
+        ],
+      },
+    }),
 }));
 
 describe('q3-ui-rest helpers', () => {
@@ -59,6 +66,12 @@ describe('q3-ui-rest helpers', () => {
   });
 
   describe('getOptions', () => {
+    it('should return simple array without path', () =>
+      expect(getOptions('/', 'values')).resolves.toEqual([
+        'Foo',
+        'Bar',
+      ]));
+
     it('should add label and value properties', () =>
       expect(
         getOptions('/', 'values', 'name'),

@@ -1,15 +1,13 @@
 import React from 'react';
 import Thread from 'q3-ui/lib/thread';
 import useRest from 'q3-ui-rest';
-import Tile from 'q3-ui/lib/tile';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { TimelineSkeleton } from 'q3-ui/lib/timeline';
-import {
-  Form,
-  Field,
-  Next,
-} from 'q3-ui-forms/lib/builders';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
+import Dialog from 'q3-ui-dialog';
 import { ErrorView, EmptyView } from './list';
 
 const Notes = ({ collectionName, id }) => {
@@ -35,20 +33,36 @@ const Notes = ({ collectionName, id }) => {
 
   return (
     <>
-      <Tile title="addNote">
-        <Form
-          onSubmit={post}
-          initialValues={{ message: '' }}
-        >
-          <Field
-            name="message"
-            type="editor"
-            multiline
-            rows={10}
-          />
-          <Next label={t('labels:add')} />
-        </Form>
-      </Tile>
+      <Dialog
+        title="note"
+        renderContent={(close) => (
+          <Form
+            onSubmit={(values, actions) =>
+              post(values, actions).then(close)
+            }
+            initialValues={{ message: '' }}
+          >
+            <Field
+              name="message"
+              type="editor"
+              multiline
+              rows={10}
+            />
+          </Form>
+        )}
+        renderTrigger={(open) => (
+          <Button
+            onClick={open}
+            variant="contained"
+            color="primary"
+            style={{ float: 'right' }}
+          >
+            {t('labels:new')}
+            <AddIcon />
+          </Button>
+        )}
+      />
+
       {renderNotes()}
     </>
   );

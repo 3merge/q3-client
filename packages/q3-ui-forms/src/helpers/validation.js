@@ -131,12 +131,16 @@ function postal() {
 }
 
 function tel() {
-  return this.test((v) =>
-    new RegExp(
+  return this.test(function checkRequired(v) {
+    const isValid = new RegExp(
       /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
       'i',
-    ).test(v),
-  );
+    ).test(v);
+
+    return this.schema._exclusive.required
+      ? isValid
+      : isValid || v === '' || !v;
+  });
 }
 
 function autocomplete() {

@@ -11,7 +11,6 @@ import Tabs from 'q3-ui/lib/tabs';
 import Comparision from 'comparisons';
 import Context from './state';
 import Notes from './notes';
-import Picture from './picture';
 import Files from './files';
 import Trash from './trash';
 import { isArray, getPath } from './utils';
@@ -83,14 +82,20 @@ const Detail = ({
       component: Component,
     });
 
-  if (files) addToTabs(() => <Files />, 'uploads');
+  if (files)
+    addToTabs(
+      () => (
+        <Files id={id} collectionName={collectionName} />
+      ),
+      'uploads',
+    );
 
   if (notes && authorization.canSeeSub('thread'))
     addToTabs(
       () => (
         <Notes id={id} collectionName={collectionName} />
       ),
-      'thread',
+      'notes',
     );
 
   if (trash && authorization.canDelete)

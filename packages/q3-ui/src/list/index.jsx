@@ -17,9 +17,9 @@ const extractStringValue = (v) =>
   Array.isArray(v) ? v.join(', ') : String(v || '--');
 
 const ListItemIcon = ({ icon }) =>
-  icon && Array.isArray(icon) ? (
+  icon ? (
     <ListItemAvatar>
-      <Avatar icon={icon[1]} word={icon[0]} />
+      <Avatar icon={icon} />
     </ListItemAvatar>
   ) : null;
 
@@ -93,21 +93,6 @@ const InteractiveListItem = ({
         primary={extractStringValue(primary)}
         secondary={secondary}
       />
-      {updateOne && (
-        <DialogWizard
-          {...etc}
-          {...editorOpenState}
-          initialValues={data}
-          onSubmit={updateOne(id)}
-          title={t('titles:edit')}
-        />
-      )}
-      {deleteOne && (
-        <DeleteConfirmation
-          {...confirmationOpenState}
-          next={deleteOne(id)}
-        />
-      )}
     </ListItem>
   );
 };

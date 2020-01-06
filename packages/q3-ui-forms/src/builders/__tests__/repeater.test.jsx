@@ -8,6 +8,8 @@ import Repeater, {
 } from '../repeater';
 import IconEmpty from '../../icons/empty';
 
+jest.mock('formik');
+
 jest.mock('useful-state/lib/useValue', () => () => ({
   onChange: jest.fn(),
   value: 'DELETE',
@@ -109,34 +111,6 @@ describe('Repeater', () => {
         .dive()
         .find(Mock);
       expect(inst).toHaveLength(1);
-    });
-  });
-
-  describe('DeleteListItem', () => {
-    it('should call next if value equals DELETE', () => {
-      const fn = jest.fn().mockResolvedValue();
-      const {
-        props: {
-          children: [Text, Actions],
-        },
-      } = global
-        .shallow(<DeleteListItem next={fn} />)
-        .first()
-        .props()
-        .renderContent();
-
-      const { onChange } = global
-        .shallow(React.cloneElement(Text))
-        .props();
-      const { onClick } = global
-        .shallow(React.cloneElement(Actions))
-        .children()
-        .last()
-        .props();
-
-      onChange({ target: { value: 'DELETE' } });
-      onClick();
-      expect(fn).toHaveBeenCalled();
     });
   });
 
