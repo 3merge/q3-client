@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Public from './public';
 import Trash from './trash';
 import Upload from './upload';
+import Page from './page';
 
 const img =
   'https://images.unsplash.com/photo-1496065187959-7f07b8353c55?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=8';
@@ -35,4 +36,32 @@ storiesOf('Admin|Components', module)
       name="foo"
       url="https://google.ca"
     />
-  ));
+  ))
+  .add('Page', () => {
+    const [status, setState] = React.useState();
+    const [show, setShow] = React.useState(true);
+
+    return (
+      <>
+        {show && (
+          <Page
+            collectionName="foo"
+            resourceName="foo"
+            resourceNameSingular="foo"
+            id="1"
+            onInit={() => setState('Entering')}
+            onEnter={() => setState('Entered')}
+            onExit={() => setState('Exiting')}
+          />
+        )}
+
+        <p>{status}</p>
+        <button
+          type="button"
+          onClick={() => setShow(false)}
+        >
+          Unmount
+        </button>
+      </>
+    );
+  });
