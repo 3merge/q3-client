@@ -7,6 +7,7 @@ storiesOf('Forms|Multistep', module)
   .add('With mounting validation', () => (
     <Multistep
       debug
+      isNew={false}
       initialValues={{
         firstName: 'Jim',
         email: '',

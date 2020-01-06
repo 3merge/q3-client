@@ -132,7 +132,7 @@ export default withWrapper(
 
     return (
       <Formik onSubmit={processSubmit} {...formikProps}>
-        {({ errors }) => (
+        {({ submitForm }) => (
           <Form>
             <MultiFormStepper
               isNew={isNew}
@@ -140,20 +140,15 @@ export default withWrapper(
               activeStep={activeStep}
               onClickHandler={(v) => () => setActiveStep(v)}
             >
-              {({ error, index }) => (
+              {({ index }) => (
                 <Box mt={1}>
                   <Button onClick={processReset}>
                     {getBackLabel(index)}
                   </Button>
                   <Button
-                    onClick={processSubmit}
+                    onClick={submitForm}
                     variant="contained"
                     color="primary"
-                    disabled={
-                      error ||
-                      (isLast(index) &&
-                        Object.keys(errors).length)
-                    }
                   >
                     {getNextLabel(index)}
                   </Button>
