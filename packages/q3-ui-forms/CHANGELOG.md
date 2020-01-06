@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.3](https://github.com/3merge/q/compare/v1.3.2...v1.3.3) (2020-01-06)
+
+
+### Bug Fixes
+
+* relying on type name causes issue in production ([2765f58](https://github.com/3merge/q/commit/2765f58d66e73b204cbe8c8a06526066dceac118))
+
+
+
+
+
 ## [1.3.2](https://github.com/3merge/q/compare/v1.3.1...v1.3.2) (2020-01-06)
 
 **Note:** Version bump only for package q3-ui-forms
