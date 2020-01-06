@@ -10,6 +10,9 @@ const Page = ({
   resourceNameSingular,
   id,
   location,
+  onEnter,
+  onExit,
+  onInit,
 }) => {
   const url = id
     ? `/${collectionName}/${id}`
@@ -22,6 +25,14 @@ const Page = ({
     location,
     url,
   });
+
+  React.useEffect(() => {
+    if (state.fetching && onInit) onInit();
+    if (!state.fetching && onEnter) onEnter(state);
+    return () => {
+      if (!state.fetching && onExit) onExit(state);
+    };
+  }, [state.fetching]);
 
   return (
     <Context.Provider
@@ -40,6 +51,9 @@ const Page = ({
 };
 
 Page.propTypes = {
+  onEnter: PropTypes.func,
+  onExit: PropTypes.func,
+  onInit: PropTypes.func,
   children: PropTypes.node.isRequired,
   collectionName: PropTypes.string.isRequired,
   resourceName: PropTypes.string.isRequired,
@@ -52,6 +66,9 @@ Page.propTypes = {
 
 Page.defaultProps = {
   id: null,
+  onExit: null,
+  onEnter: null,
+  onInit: null,
 };
 
 export default Page;
