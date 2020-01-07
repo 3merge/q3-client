@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.6](https://github.com/3merge/q/compare/v1.3.5...v1.3.6) (2020-01-07)
+
+
+### Bug Fixes
+
+* login issues ([aa4da84](https://github.com/3merge/q/commit/aa4da849387cde903033640b3015b10be909ba3c))
+
+
+
+
+
 ## [1.3.5](https://github.com/3merge/q/compare/v1.3.4...v1.3.5) (2020-01-07)
 
 
