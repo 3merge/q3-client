@@ -28,11 +28,16 @@ const DialogWrapper = ({
     <>
       {renderTrigger(open)}
       <Dialog
+        maxWidth="xl"
         fullWidth
-        fullScreen
         onClose={close}
         open={isOpen}
         className={className}
+        PaperProps={{
+          style: {
+            height: '100%',
+          },
+        }}
         {...rest}
       >
         {title && (

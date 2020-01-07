@@ -73,6 +73,26 @@ storiesOf('Forms|Multistep', module)
           type="email"
           conditional={['firstName=joe']}
         />
+        <Field
+          name="province"
+          type="autocomplete"
+          loadOptions={() =>
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve([
+                  {
+                    value: 'BC',
+                    label: 'British Columbia',
+                  },
+                  {
+                    value: 'On',
+                    label: 'Ontarios',
+                  },
+                ]);
+              }, 250);
+            })
+          }
+        />
         <Field name="birthday" type="date" min="0" />
       </Fieldset>
     </Multistep>

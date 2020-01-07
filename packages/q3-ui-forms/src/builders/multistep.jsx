@@ -37,10 +37,9 @@ export const FormikDebug = connect(
 const MultiFormStepper = connect(
   ({
     activeStep,
-    isNew,
-    steps = [],
     children,
     onClickHandler,
+    steps = [],
     formik: { errors },
   }) => {
     const { t } = useTranslation('titles');
@@ -48,6 +47,8 @@ const MultiFormStepper = connect(
     const generateStepProps = (child, i) => ({
       index: i,
       renderer: child,
+      style: { cursor: 'pointer' },
+      onClick: onClickHandler(i),
       name: get(child, 'props.name'),
       error: intersects(
         Object.keys(errors),
@@ -56,10 +57,6 @@ const MultiFormStepper = connect(
           'Field',
         ),
       ),
-      ...(!isNew && {
-        style: { cursor: 'pointer' },
-        onClick: onClickHandler(i),
-      }),
     });
 
     return (
