@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.5](https://github.com/3merge/q/compare/v1.3.4...v1.3.5) (2020-01-07)
+
+
+### Bug Fixes
+
+* allow wizard to move freely ([748a622](https://github.com/3merge/q/commit/748a622555a174fe8f27b68a0792489aeff3115f))
+
+
+
+
+
 ## [1.3.4](https://github.com/3merge/q/compare/v1.3.3...v1.3.4) (2020-01-06)
 
 **Note:** Version bump only for package q3-ui-forms
