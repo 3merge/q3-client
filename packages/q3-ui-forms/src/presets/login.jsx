@@ -12,23 +12,7 @@ const { onStart, onComplete } = useFormHandler('formik');
 
 const Login = ({ children }) => {
   const { t } = useTranslation();
-  const [hasAccount, setHasAccount] = React.useState('');
-
-  const validateAccountEmail = (values = {}, actions) => {
-    onStart(actions);
-    return Axios.get(`/authenticate?email=${values.email}`)
-      .then(() => {
-        onComplete(null, actions);
-        return values.email;
-      })
-      .catch(() => {
-        actions.setFieldError(
-          'email',
-          t('helpers:unknownAccount'),
-        );
-        return null;
-      });
-  };
+  const [hasAccount] = React.useState('');
 
   const authenticate = (values, actions) => {
     onStart(actions);
@@ -49,40 +33,28 @@ const Login = ({ children }) => {
     return !hasAccount || (hasAccount && v);
   };
 
-  const handleSubmit = (...args) =>
-    hasAccount
-      ? authenticate(...args)
-      : validateAccountEmail(...args).then((e) => {
-          if (e) setHasAccount(e);
-          return e;
-        });
-
   return (
     <Form
       isNew
-      onSubmit={handleSubmit}
+      onSubmit={authenticate}
       initialValues={{
-        email: hasAccount,
+        email: '',
         password: '',
       }}
     >
-      <Collapse in={!hasAccount}>
-        <Field name="email" type="email" />
-      </Collapse>
-      <Collapse in={hasAccount} timeout={500}>
-        <Field
-          required
-          name="password"
-          type="password"
-          validate={yup
-            .string()
-            .test(
-              'withEmail',
-              t('labels:required'),
-              customTest,
-            )}
-        />
-      </Collapse>
+      <Field name="email" type="email" />
+      <Field
+        required
+        name="password"
+        type="password"
+        validate={yup
+          .string()
+          .test(
+            'withEmail',
+            t('labels:required'),
+            customTest,
+          )}
+      />
       {children}
     </Form>
   );
