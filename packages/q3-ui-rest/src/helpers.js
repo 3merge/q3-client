@@ -48,6 +48,11 @@ const extractData = (v, path) => {
       };
 };
 
+export const addSearchQuery = (v, term) =>
+  v.includes('?')
+    ? `${v}&search=${term}`
+    : `${v}?search=${term}`;
+
 export const getOptions = (
   url,
   key,

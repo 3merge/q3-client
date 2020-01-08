@@ -14,6 +14,10 @@ const Page = ({
   onExit,
   onInit,
 }) => {
+  const [hasEntered, setHasEntered] = React.useState(
+    !onEnter && !onInit,
+  );
+
   const url = id
     ? `/${collectionName}/${id}`
     : `/${collectionName}`;
@@ -29,6 +33,8 @@ const Page = ({
   React.useEffect(() => {
     if (state.fetching && onInit) onInit();
     if (!state.fetching && onEnter) onEnter(state);
+    setHasEntered(true);
+
     return () => {
       if (!state.fetching && onExit) onExit(state);
     };
@@ -45,7 +51,7 @@ const Page = ({
         ...state,
       }}
     >
-      {children}
+      {hasEntered ? children : null}
     </Context.Provider>
   );
 };
