@@ -22,7 +22,7 @@ const FeaturedImage = ({ children }) => {
               'url(https://source.unsplash.com/daily?nature)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundBlendMode: 'multiply',
+            backgroundBlendMode: 'overlay',
             backgroundColor: get(
               theme,
               'palette.primary.light',

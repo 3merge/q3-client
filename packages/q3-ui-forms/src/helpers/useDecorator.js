@@ -51,7 +51,7 @@ export class FormikDecorator {
     const newValue = parseEventValue(e);
 
     if (!Array.isArray(this.value)) {
-      this.next([newValue]);
+      this.next([newValue].flat());
       return;
     }
 

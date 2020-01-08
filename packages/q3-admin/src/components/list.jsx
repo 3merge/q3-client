@@ -82,7 +82,9 @@ const List = ({ children, ...rest }) => {
     <Redirect op="Read" to="/">
       <TableActionBar actions={actions}>
         <Container maxWidth="xl">
-          <Box my={2}>{renderTable()}</Box>
+          <Box my={2} pl={6}>
+            {renderTable()}
+          </Box>
         </Container>
       </TableActionBar>
     </Redirect>

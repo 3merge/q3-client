@@ -9,7 +9,7 @@ import { Validator } from '../helpers/validation';
 const Wrapper = (Component) => ({
   collectionName,
   initialValues = {},
-  isNew = true,
+  isNew,
   ...etc
 }) => {
   const [chain, setChain] = React.useState({});

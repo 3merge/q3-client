@@ -3,13 +3,14 @@ import { useField } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import useDecorator from '../helpers/useDecorator';
 
-export const intercept = (fn, name) => (e, newValue) =>
-  fn({
+export const intercept = (fn, name) => (e, newValue) => {
+  return fn({
     target: {
-      value: newValue,
+      value: newValue || '',
       name,
     },
   });
+};
 
 const DateSelect = (props) => {
   const [{ name, onChange, value }] = useField(props);

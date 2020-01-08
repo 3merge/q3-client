@@ -122,13 +122,9 @@ const Episode = () => (
             type="date"
             required
           />
-          <Back />
-          <Next />
         </Form>
         <Form name="Other">
           <Field name="url" under="episodes" type="url" />
-          <Back />
-          <Next />
         </Form>
       </Multistep>
     </Repeater>
@@ -156,7 +152,11 @@ const General = ({ state, id, collectionName }) => (
 
 const Character = (props) => (
   <Page {...props}>
-    <Header titleProp="name" />
+    <Header titleProp="name">
+      <Add title="addCharacter">
+        <p>My form</p>
+      </Add>
+    </Header>
     <Detail trash notes history files>
       <General name="general" />
       <Episode name="episodes" />

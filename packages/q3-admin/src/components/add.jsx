@@ -11,14 +11,13 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
-import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
+import Close from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
 import Context from './state';
 
 const useStyles = makeStyles((theme) => ({
   desktopOffset: {
-    marginLeft: 337,
+    marginLeft: 345,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
@@ -95,7 +94,7 @@ export const CreateDialog = ({ children }) => {
             className={backBtn}
             aria-label={t('titles:back')}
           >
-            <KeyboardBackspace />
+            <Close />
           </IconButton>
           {children(close)}
         </>

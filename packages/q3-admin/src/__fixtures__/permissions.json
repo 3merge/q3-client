@@ -7,7 +7,7 @@
   {
     "coll": "characters",
     "op": "Update",
-    "fields": "*"
+    "fields": "!species"
   },
   {
     "coll": "characters",
