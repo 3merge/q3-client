@@ -6,12 +6,8 @@ import TableActionBar from '../tableActionBar';
 import { Wrapper } from '../_helpers/storyUtils';
 
 const props = {
-  columns: [
-    ['name', 'email', 'profilePic'],
-    'phone',
-    'date',
-    'age',
-  ],
+  rowHeader: ['name', 'email', 'profilePic'],
+  rowRenderer: () => <small>Anything inside!</small>,
 };
 
 const stubs = [];
@@ -25,6 +21,7 @@ for (let i = 0; i < 50; i += 1) {
     date: '2020-01-17T13:25:00.000Z',
     profilePic: 'https://picsum.photos/id/57/200/300',
     featured: i % 2,
+    status: 'Open',
     age: 28,
   });
 }

@@ -31,7 +31,7 @@ export const ErrorView = () => (
 export const getCSVByName = (name) => (ids = []) =>
   getCSV(`/${name}?_id=${ids.join(',')}`);
 
-const List = ({ children }) => {
+const List = ({ children, ...rest }) => {
   const {
     resourceName,
     resourceNameSingular,
@@ -68,8 +68,10 @@ const List = ({ children }) => {
 
     return (
       <Table
+        {...state}
+        {...rest}
         rows={rows}
-        columns={isArray(children)
+        rowHeader={isArray(children)
           .map((child) => child.props.include)
           .filter(Boolean)}
       />

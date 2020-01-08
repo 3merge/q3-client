@@ -35,6 +35,7 @@ export default (asLoggedIn) => (m) => {
     return [
       200,
       {
+        total: characters.length,
         character: characters.find(
           (c) => String(c.id) === String(id),
         ),

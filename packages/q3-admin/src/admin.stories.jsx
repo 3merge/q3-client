@@ -56,7 +56,7 @@ const Home = () => (
 const Writers = (props) => (
   <Page {...props}>
     <List>
-      <DisplayItem include={['name']} />
+      <DisplayItem include="name" />
     </List>
   </Page>
 );
@@ -64,7 +64,7 @@ const Writers = (props) => (
 const Animators = (props) => (
   <Page {...props}>
     <List>
-      <DisplayItem include={['name']} />
+      <DisplayItem include="name" />
     </List>
   </Page>
 );
@@ -86,9 +86,15 @@ const Characters = (props) => (
         <p>My form</p>
       </Add>
     </Header>
-    <List>
-      <DisplayItem include={['name', 'species', 'image']} />
-      <DisplayItem include="location.name" />
+    <List
+      rowToolbar={[
+        { onClick: () => alert('Test'), label: 'Hey' },
+      ]}
+      rowRenderer={({ gender }) => <p>Gender: {gender}</p>}
+    >
+      <DisplayItem include="name" />
+      <DisplayItem include="species" />
+      <DisplayItem include="photo" />
     </List>
   </Page>
 );

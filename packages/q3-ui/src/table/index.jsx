@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from '@reach/router';
@@ -10,13 +10,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Chip from '@material-ui/core/Chip';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
-import Badge from '@material-ui/core/Badge';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import { useToggle } from 'useful-state';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -90,35 +92,60 @@ export const TableCellHeader = ({
   name,
   sub,
   imgSrc,
-  to,
-}) => (
-  <TableCell>
-    <Grid container alignItems="center" spacing={2}>
-      <Grid item style={{ width: 'calc(40px + 1rem)' }}>
-        <Avatar word={name} imgSrc={imgSrc} />
+  rowRenderer,
+  ...rest
+}) => {
+  const { toggle, state } = useToggle();
+
+  return (
+    <TableCell
+      onClick={toggle}
+      style={{
+        cursor: rowRenderer ? 'pointer' : 'inherit',
+      }}
+    >
+      <Grid container alignItems="center" spacing={2}>
+        <Grid item style={{ width: 'calc(40px + 1rem)' }}>
+          <Avatar word={name} imgSrc={imgSrc} />
+        </Grid>
+        <Grid item style={{ flex: 1, minWidth: 275 }}>
+          <Typography variant="body1">
+            <strong>{ellpisis(name, 25)}</strong>
+            {sub && (
+              <Box component="small" display="block">
+                {ellpisis(sub, 75)}
+              </Box>
+            )}
+          </Typography>
+        </Grid>
+        {'status' in rest && (
+          <Grid item>
+            <Chip
+              size="small"
+              color="secondary"
+              label={rest.status}
+            />
+          </Grid>
+        )}
       </Grid>
-      <Grid item style={{ flex: 1 }}>
-        <Typography
-          component={Link}
-          to={to}
-          variant="body1"
-        >
-          <strong>{ellpisis(name, 25)}</strong>
-          {sub && (
-            <Box component="small" display="block">
-              {ellpisis(sub, 75)}
-            </Box>
-          )}
-        </Typography>
-      </Grid>
-    </Grid>
-  </TableCell>
-);
+      <Collapse
+        in={state && typeof rowRenderer === 'function'}
+      >
+        {rowRenderer ? rowRenderer(rest) : null}
+      </Collapse>
+    </TableCell>
+  );
+};
 
 TableCellHeader.propTypes = {
   imgSrc: PropTypes.string,
   name: PropTypes.string.isRequired,
   sub: PropTypes.string,
+  rowRenderer: PropTypes.func,
+};
+
+TableCellHeader.defaultProps = {
+  rowRenderer: null,
 };
 
 TableCellHeader.defaultProps = {
@@ -128,7 +155,7 @@ TableCellHeader.defaultProps = {
 
 export const Templated = ({
   root,
-  columns,
+  rowHeader,
   rowToolbar,
   children,
   ...rest
@@ -136,39 +163,19 @@ export const Templated = ({
   const { id } = rest;
   const { t } = useTranslation('labels');
 
-  const getText = (k) => {
-    const v = get(rest, k);
-    const d = moment(v, moment.ISO_8601, true);
-    return d.isValid() ? d.format('MMM Do YYYY') : t(v);
-  };
-
   return (
     <TableRow>
-      {columns.map((key, i) =>
-        Array.isArray(key) ? (
-          <TableCellHeader
-            to={`${id}`}
-            key={i}
-            name={t(get(rest, key[0]))}
-            sub={t(get(rest, key[1]))}
-            imgSrc={get(rest, key[2])}
-            data={rest}
-          />
-        ) : (
-          <TableCell
-            key={i}
-            data-title={t(`labels:${columns[i]}`)}
-          >
-            <Typography
-              variant="subtitle2"
-              component="span"
-            >
-              {getText(key)}
-            </Typography>
-          </TableCell>
-        ),
-      )}
-      <TableCell>
+      <TableCellHeader
+        name={t(get(rest, rowHeader[0]))}
+        sub={t(get(rest, rowHeader[1]))}
+        imgSrc={get(rest, rowHeader[2])}
+        {...rest}
+      />
+      <TableCell
+        style={{
+          verticalAlign: 'text-top',
+        }}
+      >
         <SelectCheckbox id={id} />
         {rowToolbar && rowToolbar.length ? (
           <DropDownMenu
@@ -212,12 +219,7 @@ Templated.propTypes = {
       label: PropTypes.string,
     }),
   ),
-  columns: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
-  ).isRequired,
+  rowHeader: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Templated.defaultProps = {
@@ -343,7 +345,6 @@ export const TableViewSkeleton = () => (
 
 export const TableView = ({
   rows,
-  columns,
   total,
   root,
   ...etc
@@ -356,24 +357,14 @@ export const TableView = ({
     return null;
   };
 
-  const getId = React.useCallback(
-    (k) => (Array.isArray(k) ? k[0] : k),
-    [],
-  );
-
   return (
     <TablePaper>
       <Table stickyHeader>
         <TableHead>
           <TableRow className={mobile}>
-            {columns.map((key, i) => (
-              <TableCell
-                key={getId(key)}
-                className={getClassName(i)}
-              >
-                {t(`labels:${getId(key)}`)}
-              </TableCell>
-            ))}
+            <TableCell className={getClassName(0)}>
+              {t('labels:showingResults', { total })}
+            </TableCell>
             <TableCell className={boxes}>
               <SelectAllButton ids={rows.map(extractId)} />
             </TableCell>
@@ -387,7 +378,6 @@ export const TableView = ({
                 {...etc}
                 {...props}
                 key={key}
-                columns={columns}
                 root={root || window.location.pathname}
               />
             );
@@ -404,7 +394,6 @@ export const TableView = ({
 };
 
 TableView.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.string),
   total: PropTypes.number,
   root: PropTypes.string,
   rows: PropTypes.arrayOf(

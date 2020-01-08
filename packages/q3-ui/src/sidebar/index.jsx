@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: theme.shadows[1],
     boxSizing: 'border-box',
+    borderBottomRightRadius: 45,
     color: '#FFF',
     height: '100vh',
     overflowY: 'auto',

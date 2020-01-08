@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { makeStyles } from '@material-ui/core/styles';
+import Fade from '@material-ui/core/Fade';
 import Context from './state';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,8 +42,11 @@ const useStyles = makeStyles((theme) => ({
   },
   floatOnDesktop: {
     position: 'fixed',
-    right: theme.spacing(2),
-    bottom: theme.spacing(2),
+    left: 305,
+    bottom: theme.spacing(1),
+    width: 75,
+    height: 75,
+    boxShadow: theme.shadows[20],
   },
 }));
 
@@ -76,6 +80,7 @@ export const CreateDialog = ({ children }) => {
                 color="secondary"
                 className={floatOnDesktop}
                 onClick={open}
+                elevation={15}
               >
                 <AddIcon />
               </Fab>
@@ -126,7 +131,6 @@ const Add = ({ title, children, onComplete }) => {
                 onSubmit: (...args) =>
                   post(...args)
                     .then((r) => {
-                      console.log(r);
                       if (onComplete) onComplete(r);
                       return r;
                     })

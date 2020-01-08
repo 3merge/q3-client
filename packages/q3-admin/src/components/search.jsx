@@ -53,7 +53,6 @@ export const Filter = withLocation(
             ),
           }),
         )}
-        <Next submit label="Filter" />
       </Form>
     ) : (
       'Please wait...'

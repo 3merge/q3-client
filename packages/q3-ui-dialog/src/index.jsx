@@ -26,9 +26,9 @@ const DialogWrapper = ({
 
   return (
     <>
-      {renderTrigger(open)}
+      {renderTrigger(open, isOpen)}
       <Dialog
-        maxWidth="xl"
+        maxWidth="sm"
         fullWidth
         onClose={close}
         open={isOpen}
@@ -70,10 +70,7 @@ const DialogWrapper = ({
           </AppBar>
         )}
         <DialogContent className={contentClassName}>
-          <Container
-            maxWidth="md"
-            style={{ marginTop: '2rem' }}
-          >
+          <Container maxWidth="md">
             {description && (
               <DialogContentText variant="body2">
                 {t(`descriptions:${description}`)}

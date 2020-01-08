@@ -67,5 +67,6 @@
   "search": "Search results",
   "filter": "Filter search",
   "subscribed": "Subscribed",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "showingResults": "{{total}} results"
 }
