@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/3merge/q/compare/v1.3.6...v1.4.0) (2020-01-08)
+
+
+### Bug Fixes
+
+* new table renderer (Closes [#72](https://github.com/3merge/q/issues/72)) ([1b8d335](https://github.com/3merge/q/commit/1b8d335e7ff72b9c92e05f11383a48e864a9056f))
+
+
+
+
+
 ## [1.3.5](https://github.com/3merge/q/compare/v1.3.4...v1.3.5) (2020-01-07)
 
 

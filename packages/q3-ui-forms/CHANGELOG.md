@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/3merge/q/compare/v1.3.6...v1.4.0) (2020-01-08)
+
+
+### Features
+
+* start file uploader ([9d48353](https://github.com/3merge/q/commit/9d4835399916fb1fd890f837aad53c86b1424e87))
+
+
+
+
+
 ## [1.3.6](https://github.com/3merge/q/compare/v1.3.5...v1.3.6) (2020-01-07)
 
 

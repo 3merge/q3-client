@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/3merge/q/compare/v1.3.6...v1.4.0) (2020-01-08)
+
+
+### Bug Fixes
+
+* new table renderer (Closes [#72](https://github.com/3merge/q/issues/72)) ([1b8d335](https://github.com/3merge/q/commit/1b8d335e7ff72b9c92e05f11383a48e864a9056f))
+
+
+### Features
+
+* start file uploader ([9d48353](https://github.com/3merge/q/commit/9d4835399916fb1fd890f837aad53c86b1424e87))
+
+
+
+
+
 ## [1.3.6](https://github.com/3merge/q/compare/v1.3.5...v1.3.6) (2020-01-07)
 
 
