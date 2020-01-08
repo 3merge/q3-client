@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/3merge/q/compare/v1.4.0...v1.4.1) (2020-01-08)
+
+
+### Bug Fixes
+
+* fetching state on page component ([5e380f0](https://github.com/3merge/q/commit/5e380f050b24ee3d3755cd656396a0942709d253))
+
+
+
+
+
 # [1.4.0](https://github.com/3merge/q/compare/v1.3.6...v1.4.0) (2020-01-08)
 
 

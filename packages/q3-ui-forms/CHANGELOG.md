@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/3merge/q/compare/v1.4.0...v1.4.1) (2020-01-08)
+
+
+### Bug Fixes
+
+* update field for previousPassword ([639e445](https://github.com/3merge/q/commit/639e44561b880c118f0d377b1d578aa987d773be))
+
+
+
+
+
 # [1.4.0](https://github.com/3merge/q/compare/v1.3.6...v1.4.0) (2020-01-08)
 
 
