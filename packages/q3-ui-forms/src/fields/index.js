@@ -3,6 +3,7 @@ export { default as Checkbox } from './checkbox';
 export { default as Checkset } from './checkset';
 export { default as DatePicker } from './date';
 export { default as Editor } from './editor';
+export { default as File } from './file';
 export { default as Multiselect } from './multiselect';
 export { default as Multitext } from './multitext';
 export { default as Radio } from './radio';

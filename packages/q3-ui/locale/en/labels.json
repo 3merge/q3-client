@@ -68,5 +68,7 @@
   "filter": "Filter search",
   "subscribed": "Subscribed",
   "confirm": "Confirm",
-  "showingResults": "{{total}} results"
+  "showingResults": "{{total}} results",
+  "preview": "Preview upload thumbnail",
+  "upload": "Select above to select a file"
 }

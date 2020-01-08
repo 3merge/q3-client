@@ -71,7 +71,6 @@ const Picture = ({ photo, service }) => {
         service(data).then(() => startUpload(false));
       }
     } catch (e) {
-      console.log(e);
       // noop
       // console.log(e);
     }

@@ -59,6 +59,7 @@ export class Validator {
       case 'editor':
       case 'password':
       case 'transfer':
+      case 'file':
         this.$base = this.$base.string();
         break;
       case 'email':

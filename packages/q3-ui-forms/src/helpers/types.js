@@ -14,6 +14,7 @@ import {
   Select,
   Selectable,
   Transfer,
+  File,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -28,6 +29,7 @@ const htmlFieldTypes = [
   'search',
   'color',
   'date',
+  'file',
 ];
 
 const internalFieldTypes = {
@@ -45,6 +47,7 @@ const internalFieldTypes = {
   multiselect: Multiselect,
   selectable: Selectable,
   editor: Editor,
+  file: File,
 };
 
 export default class FieldBuilder {
