@@ -16,13 +16,13 @@ const PasswordChange = ({ onSubmit }) => {
       isNew
       onSubmit={onSubmit}
       initialValues={{
-        currentPassword: '',
+        previousPassword: '',
         newPassword: '',
         confirmNewPassword: '',
       }}
     >
       <Field
-        name="currentPassword"
+        name="previousPassword"
         type="password"
         required
       />
