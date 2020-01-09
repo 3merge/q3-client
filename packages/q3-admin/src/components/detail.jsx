@@ -1,27 +1,57 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Help from '@material-ui/icons/Help';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import { useAuth } from 'q3-ui-permissions';
 import Tile from 'q3-ui/lib/tile';
 import Tabs from 'q3-ui/lib/tabs';
 import Comparision from 'comparisons';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import FullScreen from './fullScreen';
 import Context from './state';
 import Notes from './notes';
 import Files from './files';
 import Trash from './trash';
 import { isArray, getPath } from './utils';
 
+const LazyContent = ({ filepath }) => {
+  const [content, setContent] = React.useState();
+
+  React.useEffect(() => {
+    filepath
+      .then(({ default: r }) =>
+        axios.create({ baseURL: '/' }).get(r),
+      )
+      .then(({ data }) => {
+        setContent(data);
+      });
+  }, []);
+
+  return (
+    <Container maxWidth="md">
+      <div
+        dangerouslySetInnerHTML={{
+          __html: content,
+        }}
+      />
+    </Container>
+  );
+};
+
 const Detail = ({
+  filepath,
   children,
   trash,
   notes,
   files,
-  featured,
-  picture,
 }) => {
   const { t } = useTranslation();
 
@@ -109,16 +139,52 @@ const Detail = ({
 
   return (
     <Container maxWidth="xl">
-      <Box my={4}>
-        {state.fetching ? (
-          <CircularProgress />
-        ) : (
-          <Tabs
-            root={`/${resourceName}/${id}`}
-            views={tabs}
-          />
-        )}
-      </Box>
+      <Grid container spacing={1}>
+        <Grid item md={9} sm={10} xs={11}>
+          <Box my={4}>
+            {state.fetching ? (
+              <CircularProgress />
+            ) : (
+              <Tabs
+                root={`/${resourceName}/${id}`}
+                views={tabs}
+              />
+            )}
+          </Box>
+        </Grid>
+        <Grid item sm={2} xs={1}>
+          {filepath && (
+            <FullScreen
+              title="documentation"
+              renderTrigger={(open) => (
+                <Paper
+                  style={{ position: 'sticky', top: 175 }}
+                  type="button"
+                  elevation={0}
+                >
+                  <Box p={2}>
+                    <Help />
+                    <Typography variant="h4" gutterBottom>
+                      {t('titles:needHelp')}
+                    </Typography>
+                    <Typography gutterBottom>
+                      {t('labels:needHelp')}
+                    </Typography>
+                    <Button
+                      onClick={open}
+                      variant="outlined"
+                    >
+                      {t('labels:docs')}
+                    </Button>
+                  </Box>
+                </Paper>
+              )}
+            >
+              {() => <LazyContent filepath={filepath} />}
+            </FullScreen>
+          )}
+        </Grid>
+      </Grid>
     </Container>
   );
 };
@@ -130,17 +196,13 @@ Detail.propTypes = {
   ]).isRequired,
   trash: PropTypes.bool,
   notes: PropTypes.bool,
-  featured: PropTypes.bool,
   files: PropTypes.bool,
-  picture: PropTypes.bool,
 };
 
 Detail.defaultProps = {
   trash: false,
   notes: false,
-  featured: false,
   files: false,
-  picture: false,
 };
 
 export default Detail;

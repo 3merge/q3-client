@@ -11,34 +11,15 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
-import Close from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
+import FullScreen from './fullScreen';
 import Context from './state';
 
 const useStyles = makeStyles((theme) => ({
-  desktopOffset: {
-    marginLeft: 345,
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
-    },
-  },
   margin: {
     marginBottom: theme.spacing(2),
   },
-  saddle: {
-    paddingRight: '35%',
-    paddingTop: theme.spacing(8),
-    paddingLeft: theme.spacing(6),
-    [theme.breakpoints.down('md')]: {
-      paddingRight: theme.spacing(3),
-      paddingLeft: theme.spacing(3),
-    },
-  },
-  backBtn: {
-    position: 'absolute',
-    top: theme.spacing(1),
-    left: theme.spacing(1),
-  },
+
   floatOnDesktop: {
     position: 'fixed',
     left: 305,
@@ -49,20 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CreateDialog = ({ children }) => {
-  const {
-    desktopOffset,
-    floatOnDesktop,
-    backBtn,
-    saddle,
-  } = useStyles();
+export const CreateDialog = (props) => {
+  const { floatOnDesktop } = useStyles();
   const { t } = useTranslation();
 
   return (
-    <Dialog
-      fullScreen
-      className={desktopOffset}
-      contentClassName={saddle}
+    <FullScreen
+      {...props}
       renderTrigger={(open) => (
         <>
           <Hidden mdUp>
@@ -87,18 +61,6 @@ export const CreateDialog = ({ children }) => {
           </Hidden>
         </>
       )}
-      renderContent={(close) => (
-        <>
-          <IconButton
-            onClick={close}
-            className={backBtn}
-            aria-label={t('titles:back')}
-          >
-            <Close />
-          </IconButton>
-          {children(close)}
-        </>
-      )}
     />
   );
 };
@@ -113,30 +75,24 @@ const Add = ({ title, children, onComplete }) => {
   );
 
   const { Hide } = useAuth(collectionName);
-  const { t } = useTranslation('titles');
 
   return (
     <Hide op="Create">
       {children ? (
-        <CreateDialog>
-          {(done) => (
-            <Box py={4}>
-              <Typography variant="h2">
-                {t(title)}
-              </Typography>
-              {React.cloneElement(children, {
-                isNew: true,
-                collectionName,
-                onSubmit: (...args) =>
-                  post(...args)
-                    .then((r) => {
-                      if (onComplete) onComplete(r);
-                      return r;
-                    })
-                    .then(done),
-              })}
-            </Box>
-          )}
+        <CreateDialog title={title}>
+          {(done) =>
+            React.cloneElement(children, {
+              isNew: true,
+              collectionName,
+              onSubmit: (...args) =>
+                post(...args)
+                  .then((r) => {
+                    if (onComplete) onComplete(r);
+                    return r;
+                  })
+                  .then(done),
+            })
+          }
         </CreateDialog>
       ) : null}
     </Hide>

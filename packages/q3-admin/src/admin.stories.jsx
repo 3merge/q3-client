@@ -157,7 +157,13 @@ const Character = (props) => (
         <p>My form</p>
       </Add>
     </Header>
-    <Detail trash notes history files>
+    <Detail
+      trash
+      notes
+      history
+      files
+      filepath={Promise.resolve('<p>Hey</p>')}
+    >
       <General name="general" />
       <Episode name="episodes" />
     </Detail>

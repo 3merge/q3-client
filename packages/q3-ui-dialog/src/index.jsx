@@ -33,11 +33,6 @@ const DialogWrapper = ({
         onClose={close}
         open={isOpen}
         className={className}
-        PaperProps={{
-          style: {
-            height: '100%',
-          },
-        }}
         {...rest}
       >
         {title && (
@@ -70,14 +65,12 @@ const DialogWrapper = ({
           </AppBar>
         )}
         <DialogContent className={contentClassName}>
-          <Container maxWidth="md">
-            {description && (
-              <DialogContentText variant="body2">
-                {t(`descriptions:${description}`)}
-              </DialogContentText>
-            )}
-            {renderContent(close)}
-          </Container>
+          {description && (
+            <DialogContentText variant="body2">
+              {t(`descriptions:${description}`)}
+            </DialogContentText>
+          )}
+          {renderContent(close)}
         </DialogContent>
       </Dialog>
     </>

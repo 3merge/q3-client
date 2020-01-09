@@ -70,5 +70,6 @@
   "confirm": "Confirm",
   "showingResults": "{{total}} results",
   "preview": "Preview upload thumbnail",
-  "upload": "Select above to select a file"
+  "upload": "Select above to select a file",
+  "needHelp": "Learn about the actions on this page"
 }

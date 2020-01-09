@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -48,14 +49,12 @@ const Tile = ({
         </Typography>
         {hasSubtitle && (
           <Typography variant="body1" gutterBottom>
-            <div
-              // eslint-disable-next-line
-              dangerouslySetInnerHTML={{
-                __html: t(`descriptions:${subtitle}`),
-              }}
-            />
+            {subtitle}
           </Typography>
         )}
+        <Box my={2}>
+          <Divider />
+        </Box>
         {children}
         {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>
