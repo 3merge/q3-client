@@ -4,7 +4,6 @@ import MockApi from 'q3-ui-test-utils/lib/rest';
 import Container from '@material-ui/core/Container';
 import Form from '../builders/form';
 import Field from '../builders/field';
-import Next from '../builders/next';
 
 const opts = [
   { value: 'CA', label: 'Canada' },
@@ -38,7 +37,6 @@ storiesOf('Forms|Fields/Autocomplete', module)
               { value: 'US', label: 'United States' },
             ]}
           />
-          <Next submit />
         </Container>
       </Form>
     </MockApi>
@@ -69,32 +67,36 @@ storiesOf('Forms|Fields/Autocomplete', module)
               { value: 'US', label: 'United States' },
             ]}
           />
-          <Next submit />
         </Container>
       </Form>
     </MockApi>
   ))
-  .add('As delayed', () => (
+  .add('After fail', () => (
     <MockApi>
       <Form
         debug
         onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.setFieldError(
-            'countries',
-            'No service connected!',
-          );
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              actions.setSubmitting(false);
+              actions.setFieldError(
+                'countries',
+                'No service connected!',
+              );
+
+              Object.assign(actions, {
+                isTouched: true,
+              });
+
+              resolve();
+            }, 200);
+          });
         }}
         initialValues={{
           countries: { value: '' },
         }}
       >
         <Container>
-          <Field
-            type="multiselect"
-            name="places"
-            options={opts}
-          />
           <Field
             required
             name="countries"
@@ -103,11 +105,10 @@ storiesOf('Forms|Fields/Autocomplete', module)
               new Promise((resolve) =>
                 setTimeout(() => {
                   resolve(opts);
-                }, 2000),
+                }, 200),
               )
             }
           />
-          <Next submit />
         </Container>
       </Form>
     </MockApi>

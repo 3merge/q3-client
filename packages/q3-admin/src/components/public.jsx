@@ -4,20 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { Redirect, Location } from '@reach/router';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import FeaturedImage from './featuredImage';
+import LoginPage from 'q3-ui/lib/loginPage';
 
 const PublicView = ({
   companyName,
   loggedIn,
   logo,
-  url,
   children,
 }) => {
   const { t } = useTranslation('titles');
   if (loggedIn) return <Redirect to="/" />;
 
   return (
-    <FeaturedImage url={url}>
+    <LoginPage>
       <Box width="100%">
         <Box component="header">
           <img
@@ -44,7 +43,7 @@ const PublicView = ({
           {children}
         </Box>
       </Box>
-    </FeaturedImage>
+    </LoginPage>
   );
 };
 
@@ -53,7 +52,6 @@ PublicView.propTypes = {
   children: PropTypes.node.isRequired,
   loggedIn: PropTypes.bool.isRequired,
   logo: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
 };
 
 export default PublicView;

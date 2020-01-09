@@ -1,6 +1,13 @@
 import { get, setWith } from 'lodash';
 
-const checkMsgFieldVariants = (v) => v.msg || v.message;
+const checkMsgFieldVariants = (v) => {
+  const missing =
+    !v.msg || v.msg === undefined || v.msg === 'undefined';
+  if (missing && !v.message)
+    return 'Server validation failed';
+  if (missing && v.message) return v.message;
+  return v.msg;
+};
 
 const extractMsg = (v) =>
   typeof v === 'object' ? checkMsgFieldVariants(v) : v;
