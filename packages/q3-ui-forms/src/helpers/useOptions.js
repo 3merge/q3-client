@@ -38,6 +38,10 @@ export default ({
   }, [init, value]);
 
   React.useEffect(() => {
+    if (loadOptionsPlainly) setItems(options);
+  }, [options]);
+
+  React.useEffect(() => {
     setInit(value !== initialValue);
   }, [value, initialValue]);
 

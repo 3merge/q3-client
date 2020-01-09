@@ -54,6 +54,8 @@ const Field = ({
     el.current = FieldDetector.is(type);
   }, []);
 
+  console.log(attrs);
+
   return canSee && attrs && el.current
     ? React.createElement(el.current, {
         readOnly: !canEdit,

@@ -50,7 +50,12 @@ storiesOf('Admin|Components', module)
             resourceNameSingular="foo"
             id="1"
             onInit={() => setState('Entering')}
-            onEnter={() => setState('Entered')}
+            onEnter={() =>
+              new Promise((resolve) => {
+                setState('Entered');
+                resolve();
+              })
+            }
             onExit={() => setState('Exiting')}
           />
         )}

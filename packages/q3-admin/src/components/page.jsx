@@ -32,8 +32,14 @@ const Page = ({
 
   React.useEffect(() => {
     if (state.fetching && onInit) onInit();
-    if (!state.fetching && onEnter) onEnter(state);
-    setHasEntered(true);
+    if (typeof onEnter === 'function') {
+      const f = onEnter(state);
+      if (f instanceof Promise) {
+        f.then(() => setHasEntered(true));
+      } else {
+        setHasEntered(true);
+      }
+    }
 
     return () => {
       if (!state.fetching && onExit) onExit(state);

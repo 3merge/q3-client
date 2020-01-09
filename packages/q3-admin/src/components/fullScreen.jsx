@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default ({ children, renderTrigger, title }) => {
   const { desktopOffset, backBtn, saddle } = useStyles();
-  const { t } = useTranslation();
+  const { t } = useTranslation('titles');
 
   return (
     <Dialog
@@ -47,7 +47,7 @@ export default ({ children, renderTrigger, title }) => {
           <IconButton
             onClick={close}
             className={backBtn}
-            aria-label={t('titles:back')}
+            aria-label={t('back')}
           >
             <Close />
           </IconButton>

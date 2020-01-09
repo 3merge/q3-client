@@ -36,13 +36,11 @@ const LazyContent = ({ filepath }) => {
   }, []);
 
   return (
-    <Container maxWidth="md">
-      <div
-        dangerouslySetInnerHTML={{
-          __html: content,
-        }}
-      />
-    </Container>
+    <div
+      dangerouslySetInnerHTML={{
+        __html: content,
+      }}
+    />
   );
 };
 
