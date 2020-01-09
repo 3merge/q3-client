@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/3merge/q/compare/v1.5.0...v1.5.1) (2020-01-09)
+
+
+### Bug Fixes
+
+* login page responsiveness ([6ee0e9f](https://github.com/3merge/q/commit/6ee0e9f4b95c83bd2b69449ae7693ef6c893549a))
+* override in select component (Closes [#76](https://github.com/3merge/q/issues/76)) ([f495414](https://github.com/3merge/q/commit/f4954144b851f6fab9ccd022d9fdffc2b4539669))
+
+
+
+
+
 # [1.5.0](https://github.com/3merge/q/compare/v1.4.1...v1.5.0) (2020-01-09)
 
 
