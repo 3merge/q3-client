@@ -4,29 +4,34 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Box';
 import { FormikDebug } from './multistep';
+import Back from './back';
+import Next from './next';
 import withWrapper from './wrapper';
 
 const FormWrapper = withWrapper(
-  ({ children, label, formikProps, onSubmit, debug }) => {
+  ({
+    children,
+    label,
+    formikProps,
+    onSubmit,
+    debug,
+    onReset,
+  }) => {
     const ref = React.useRef();
     const { t } = useTranslation('labels');
 
     return (
       <Formik onSubmit={onSubmit} {...formikProps}>
-        {({ setFieldValue }) => (
+        {({ resetForm }) => (
           <Form ref={ref}>
             {children}
             <Box mt={1}>
-              <Button
-                type="submit"
-                size="large"
-                variant="contained"
-                color="primary"
-              >
+              <Next submit label={label}>
                 {t('submit' || label)}
-              </Button>
+              </Next>
+              <Back onClick={onReset || resetForm} left />
               <FormikDebug show={debug} />
             </Box>
           </Form>

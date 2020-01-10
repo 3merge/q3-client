@@ -24,6 +24,12 @@ const Wrapper = (Component) => ({
     [chain],
   );
 
+  const getSubmitBehaviour = () => {
+    if (!collectionName) return false;
+    if (isNew) return !authorization.canCreate;
+    return !authorization.canEdit;
+  };
+
   const checkReadAuthorizationContext = React.useCallback(
     (name) =>
       collectionName ? authorization.canSeeSub(name) : true,
@@ -48,6 +54,7 @@ const Wrapper = (Component) => ({
         authorization: {
           checkEditAuthorizationContext,
           checkReadAuthorizationContext,
+          disable: getSubmitBehaviour(),
         },
         validation: {
           chain: yup.object().shape(chain),

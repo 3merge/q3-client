@@ -6,10 +6,11 @@ import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import { connect, Formik, Form } from 'formik';
 import JSONPretty from 'react-json-pretty';
 import { get } from 'lodash';
+import Back from './back';
+import Next from './next';
 import withWrapper from './wrapper';
 import { getFieldNames, intersects } from '../helpers';
 
@@ -144,16 +145,14 @@ export default withWrapper(
             >
               {({ index }) => (
                 <Box mt={1}>
-                  <Button onClick={processReset}>
-                    {getBackLabel(index)}
-                  </Button>
-                  <Button
+                  <Back
+                    onClick={processReset}
+                    label={getBackLabel(index)}
+                  />
+                  <Next
                     onClick={processSubmit(submitForm)}
-                    variant="contained"
-                    color="primary"
-                  >
-                    {getNextLabel(index)}
-                  </Button>
+                    label={getNextLabel(index)}
+                  />
                 </Box>
               )}
             </MultiFormStepper>

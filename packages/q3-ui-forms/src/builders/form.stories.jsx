@@ -147,6 +147,7 @@ storiesOf('Forms|Simple', module)
               label: 'United Kingdom',
             },
           }}
+          onReset={() => alert('RESET')}
           onSubmit={(v, actions) =>
             Promise.resolve(() => {
               actions.setFieldError('lorem', 'No good');
