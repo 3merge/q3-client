@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/3merge/q/compare/v1.5.1...v1.6.0) (2020-01-10)
+
+
+### Bug Fixes
+
+* file upload and transfer state (Closes [#71](https://github.com/3merge/q/issues/71) and Closes [#73](https://github.com/3merge/q/issues/73)) ([e064648](https://github.com/3merge/q/commit/e06464899522e7816c398d9bbcafca0b6f130e68))
+* test override (Closes [#67](https://github.com/3merge/q/issues/67)) ([27c0b16](https://github.com/3merge/q/commit/27c0b1667fe051ae28922767f24f37f86e584840))
+
+
+### Features
+
+* reset button (Closes [#66](https://github.com/3merge/q/issues/66)) ([5186d48](https://github.com/3merge/q/commit/5186d48c5198ac6a17f742144781822c3010f51e))
+
+
+
+
+
 ## [1.5.1](https://github.com/3merge/q/compare/v1.5.0...v1.5.1) (2020-01-09)
 
 
