@@ -71,5 +71,6 @@
   "showingResults": "{{total}} results",
   "preview": "Preview upload thumbnail",
   "upload": "Select above to select a file",
-  "needHelp": "Learn about the actions on this page"
+  "needHelp": "Learn about the actions on this page",
+  "fileInput": "Upload {{name}}"
 }

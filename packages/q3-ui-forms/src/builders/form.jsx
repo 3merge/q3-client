@@ -10,12 +10,13 @@ import withWrapper from './wrapper';
 
 const FormWrapper = withWrapper(
   ({ children, label, formikProps, onSubmit, debug }) => {
+    const ref = React.useRef();
     const { t } = useTranslation('labels');
 
     return (
       <Formik onSubmit={onSubmit} {...formikProps}>
-        {() => (
-          <Form>
+        {({ setFieldValue }) => (
+          <Form ref={ref}>
             {children}
             <Box mt={1}>
               <Button

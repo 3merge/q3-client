@@ -25,6 +25,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Collapse from '@material-ui/core/Collapse';
 import { CircularProgress, Badge } from '@material-ui/core';
 import useOpen from 'useful-state/lib/useOpen';
 import { useValue } from 'useful-state';
@@ -332,9 +334,13 @@ Input.defaultProps = {
 
 export function TransferList(props) {
   const { name } = props;
-  const { value: init, onChange, ...deco } = useDecorator(
-    props,
-  );
+  const {
+    value: init,
+    onChange,
+    helperText,
+    error,
+    ...deco
+  } = useDecorator(props);
 
   const {
     value: search,
@@ -427,8 +433,17 @@ export function TransferList(props) {
         value={initAsArray}
         open={open}
         onChange={onChange}
+        error={error}
         {...deco}
       />
+      <Collapse in={Boolean(helperText)}>
+        <FormHelperText
+          error={error}
+          style={{ padding: '4px 14px', margin: 0 }}
+        >
+          {helperText}
+        </FormHelperText>
+      </Collapse>
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
         <Search
           addRule={addRule}

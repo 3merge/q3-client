@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { storiesOf } from '@storybook/react';
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import Container from '@material-ui/core/Container';
@@ -20,63 +21,65 @@ const loadOptions = () =>
 
 storiesOf('Forms|Simple', module)
   .add('With toggles', () => (
-    <MockApi>
-      <Container>
-        <Form
-          debug
-          initialValues={{
-            firstName: '',
-            country: {
-              value: 'UK',
-              label: 'United Kingdom',
+    <Container>
+      <Form
+        debug
+        useFormData
+        onSubmit={(values) => {
+          console.log(values);
+        }}
+        initialValues={{
+          firstName: '',
+          country: {
+            value: 'UK',
+            label: 'United Kingdom',
+          },
+        }}
+      >
+        <Field
+          collapse={false}
+          name="trips-radio"
+          type="radio"
+          options={[
+            {
+              value: 'adventure',
+              label: 'Adventure',
             },
-          }}
-          onSubmit={Promise.resolve}
-        >
-          <Field
-            collapse={false}
-            name="trips-radio"
-            type="radio"
-            options={[
-              {
-                value: 'adventure',
-                label: 'Adventure',
-              },
-              { value: 'resort', label: 'Resort' },
-            ]}
-            required
-          />
-          <Field name="subscribed" type="checkbox" />
-          <Field
-            name="favouriteColors"
-            type="checkset"
-            options={[
-              { value: 'red', label: 'Red' },
-              { value: 'green', label: 'Green' },
-              { value: 'blue', label: 'Blue' },
-            ]}
-          />
-          <Field
-            name="selectable"
-            type="selectable"
-            options={[
-              {
-                value: 'foo',
-                label: 'foo',
-                img:
-                  'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-              },
-              {
-                value: 'bar',
-                label: 'bar',
-                img:
-                  'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-              },
-            ]}
-          />
-        </Form>
-      </Container>
-    </MockApi>
+            { value: 'resort', label: 'Resort' },
+          ]}
+          required
+        />
+        <Field name="subscribed" type="checkbox" />
+        <Field
+          name="favouriteColors"
+          type="checkset"
+          options={[
+            { value: 'red', label: 'Red' },
+            { value: 'green', label: 'Green' },
+            { value: 'blue', label: 'Blue' },
+          ]}
+        />
+        <Field type="file" name="resume" required />
+        <Field
+          name="selectable"
+          type="selectable"
+          options={[
+            {
+              value: 'foo',
+              label: 'foo',
+              img:
+                'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+            },
+            {
+              value: 'bar',
+              label: 'bar',
+              img:
+                'https://images.unsplash.com/photo-1576605330168-8b36a37ddc5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+            },
+          ]}
+        />
+      </Form>
+    </Container>
   ))
   .add('With text fields', () => (
     <MockApi>
@@ -157,6 +160,7 @@ storiesOf('Forms|Simple', module)
           <Field
             name="lorem"
             type="transfer"
+            required
             loadOptions={() =>
               Promise.resolve(['Uno', 'Dos', 'Tres'])
             }
