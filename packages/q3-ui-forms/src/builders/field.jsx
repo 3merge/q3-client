@@ -33,7 +33,7 @@ const Field = ({
     const a = new FieldDetector(type, rest, values).build();
 
     if (override && typeof override === 'function' && a)
-      Object.assign(a, override(formik));
+      Object.assign(a, override(formik, rest));
 
     if (!a && formik.values[name])
       setTimeout(() => formik.setFieldValue(name, ''));
@@ -53,8 +53,6 @@ const Field = ({
   React.useEffect(() => {
     el.current = FieldDetector.is(type);
   }, []);
-
-  console.log(attrs);
 
   return canSee && attrs && el.current
     ? React.createElement(el.current, {

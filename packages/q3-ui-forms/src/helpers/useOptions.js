@@ -38,7 +38,8 @@ export default ({
   }, [init, value]);
 
   React.useEffect(() => {
-    if (loadOptionsPlainly) setItems(options);
+    if (loadOptionsPlainly && !loadOptions)
+      setItems(options);
   }, [options]);
 
   React.useEffect(() => {

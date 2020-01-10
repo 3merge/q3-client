@@ -336,7 +336,6 @@ export function TransferList(props) {
     props,
   );
 
-  console.log(deco)
   const {
     value: search,
     onChange: handleSearch,

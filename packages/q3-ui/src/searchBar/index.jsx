@@ -13,6 +13,7 @@ import Search from '@material-ui/icons/Search';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Close from '@material-ui/icons/Close';
 import GridOn from '@material-ui/icons/GridOn';
+import AspectRatio from '@material-ui/icons/AspectRatio';
 import GridOff from '@material-ui/icons/GridOff';
 import Highlighter from 'react-highlight-words';
 import List from '@material-ui/core/List';
@@ -21,15 +22,22 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import { withLocation } from 'with-location';
 import { useToggle, useValue } from 'useful-state';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AccessibleIconButton from '../iconButton';
+import Avatar from '../avatar';
 
-const SearchTrigger = ({ onClick }) => (
-  <AccessibleIconButton
-    label="enlarge"
-    buttonProps={{ onClick }}
-    icon={Search}
-  />
-);
+const SearchTrigger = ({ onClick }) => {
+  const isMobile = useMediaQuery('(max-width:768px)');
+
+  return (
+    <AccessibleIconButton
+      label="enlarge"
+      buttonProps={{ onClick }}
+      icon={isMobile ? Search : AspectRatio}
+    />
+  );
+};
 
 SearchTrigger.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -108,34 +116,48 @@ export const SearchResultList = ({
     </Box>
   ) : (
     <List component="nav">
-      {results.map(({ id, name, description, url }) => (
-        <ListItem button component={Link} key={id} to={url}>
-          <ListItemText
-            primary={
-              name ? (
-                <Highlighter
-                  textToHighlight={name}
-                  searchWords={String(term).split(' ')}
-                  autoEscape={false}
-                />
-              ) : null
-            }
-            secondary={
-              description ? (
-                <Box>
-                  <Box display="block" component="small">
-                    <Highlighter
-                      textToHighlight={description}
-                      searchWords={String(term).split(' ')}
-                      autoEscape={false}
-                    />
+      {results.map(
+        ({ id, name, description, photo, url }) => (
+          <ListItem
+            button
+            component={Link}
+            key={id}
+            to={url}
+          >
+            {photo && (
+              <ListItemAvatar>
+                <Avatar imgSrc={photo} />
+              </ListItemAvatar>
+            )}
+            <ListItemText
+              primary={
+                name ? (
+                  <Highlighter
+                    textToHighlight={name}
+                    searchWords={String(term).split(' ')}
+                    autoEscape={false}
+                  />
+                ) : null
+              }
+              secondary={
+                description ? (
+                  <Box>
+                    <Box display="block" component="small">
+                      <Highlighter
+                        textToHighlight={description}
+                        searchWords={String(term).split(
+                          ' ',
+                        )}
+                        autoEscape={false}
+                      />
+                    </Box>
                   </Box>
-                </Box>
-              ) : null
-            }
-          />
-        </ListItem>
-      ))}
+                ) : null
+              }
+            />
+          </ListItem>
+        ),
+      )}
     </List>
   );
 };
