@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/3merge/q/compare/v1.6.0...v1.6.1) (2020-01-12)
+
+
+### Bug Fixes
+
+* tile i18next subtitle ([0d249d2](https://github.com/3merge/q/commit/0d249d204f053d5c5f0a52d500cbd62d0fec9606))
+
+
+
+
+
 ## [1.5.1](https://github.com/3merge/q/compare/v1.5.0...v1.5.1) (2020-01-09)
 
 
