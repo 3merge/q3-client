@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
 import { Grid, Paper } from '@material-ui/core';
-import { blueGrey } from '@material-ui/core/colors';
 import astronaut from '../../images/astronaut.png';
 import Offcanvas from '../offcanvas';
 import { AccountMenu } from '../toolbar';
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     [theme.breakpoints.down('sm')]: {
       border: 'none',
-      backgroundColor: blueGrey[900],
+      backgroundColor: theme.palette.primary.main,
       boxShadow: theme.shadows[1],
       minHeight: 'auto',
       flexDirection: 'row',

@@ -68,10 +68,11 @@ export const SplitPanel = ({
   columnRight,
   size,
   align,
+  ...rest
 }) => {
   const { removeMobileSpacing } = useStyles();
   return (
-    <Container maxWidth={size}>
+    <Container {...rest} maxWidth={size}>
       <Grid
         container
         spacing={1}

@@ -9,9 +9,8 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-
-import { blueGrey } from '@material-ui/core/colors';
 import { styled } from '@material-ui/styles';
+import makeStyles from '@material-ui/styles/makeStyles';
 
 export const useOpen = () => {
   const [open, setOpen] = React.useState();
@@ -137,11 +136,13 @@ AccountMenu.defaultProps = {
   items: [],
 };
 
-const Bar = styled(Toolbar)({
-  backgroundColor: blueGrey[900],
-  color: '#FFF',
-  justifyContent: 'space-between',
-});
+const useStyle = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#FFF',
+    justifyContent: 'space-between',
+  },
+}));
 
 const HorizontalMenu = styled('div')({
   display: 'flex',
@@ -150,12 +151,15 @@ const HorizontalMenu = styled('div')({
   listStyle: 'none',
 });
 
-const SessionToolbar = ({ children, style, ...rest }) => (
-  <Bar style={style}>
-    <HorizontalMenu>{children}</HorizontalMenu>
-    <AccountMenu {...rest} />
-  </Bar>
-);
+const SessionToolbar = ({ children, style, ...rest }) => {
+  const { root } = useStyle();
+  return (
+    <Toolbar className={root} style={style}>
+      <HorizontalMenu>{children}</HorizontalMenu>
+      <AccountMenu {...rest} />
+    </Toolbar>
+  );
+};
 
 SessionToolbar.propTypes = {
   children: PropTypes.node,

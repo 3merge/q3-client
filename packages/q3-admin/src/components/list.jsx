@@ -4,17 +4,30 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import useRest, { getCSV } from 'q3-ui-rest';
+import { getCSV } from 'q3-ui-rest';
 import ErrorComponent from 'q3-ui/lib/error';
 import Table, { TableViewSkeleton } from 'q3-ui/lib/table';
 import TableActionBar from 'q3-ui/lib/tableActionBar';
 import FileCopy from '@material-ui/icons/FileCopy';
 import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
+import { makeStyles } from '@material-ui/core/styles';
 import EmptyIcon from '../images/empty';
 import ErrorIcon from '../images/error';
 import Context from './state';
 import { isArray } from './utils';
+
+const useStyles = makeStyles((theme) => ({
+  inset: {
+    paddingLeft: theme.spacing(6),
+    [theme.breakpoints.down('md')]: {
+      paddingLeft: theme.spacing(3),
+    },
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+    },
+  },
+}));
 
 export const EmptyView = () => (
   <ErrorComponent title="empty" description="empty">
@@ -39,6 +52,7 @@ const List = ({ children, ...rest }) => {
     location,
     ...state
   } = React.useContext(Context);
+  const { inset } = useStyles();
 
   const { Redirect, canDelete } = useAuth(collectionName);
   const rows = get(state, resourceName, []);
@@ -82,7 +96,7 @@ const List = ({ children, ...rest }) => {
     <Redirect op="Read" to="/">
       <TableActionBar actions={actions}>
         <Container maxWidth="xl">
-          <Box my={2} pl={6}>
+          <Box my={2} className={inset}>
             {renderTable()}
           </Box>
         </Container>

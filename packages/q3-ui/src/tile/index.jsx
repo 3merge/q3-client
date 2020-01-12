@@ -49,7 +49,7 @@ const Tile = ({
         </Typography>
         {hasSubtitle && (
           <Typography variant="body1" gutterBottom>
-            {subtitle}
+            {t(`descriptions:${subtitle}`)}
           </Typography>
         )}
         <Box my={2}>
