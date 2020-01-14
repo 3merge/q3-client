@@ -17,10 +17,19 @@ const HelperText = ({ text }) => {
       display="inline-block"
       aria-owns={isOpen ? id : undefined}
       aria-haspopup="true"
-      onMouseEnter={open}
-      onMouseExit={close}
     >
-      <LiveHelp />
+      <LiveHelp
+        onClick={open}
+        onKeyPress={open}
+        role="button"
+        tabIndex={0}
+        aria-label={t('labels:tooltip')}
+        style={{
+          fontSize: 21,
+          margin: '0 0.25rem',
+          cursor: 'pointer',
+        }}
+      />
       <Popover
         id={id}
         anchorEl={anchorEl}
