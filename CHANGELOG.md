@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/3merge/q/compare/v1.7.0...v1.7.1) (2020-01-14)
+
+
+### Bug Fixes
+
+* tooptip trap ([303ce19](https://github.com/3merge/q/commit/303ce19fd20252abfcd9e72cd6148f10d73444a3))
+
+
+
+
+
 # [1.7.0](https://github.com/3merge/q/compare/v1.6.1...v1.7.0) (2020-01-14)
 
 
