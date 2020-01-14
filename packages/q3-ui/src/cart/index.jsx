@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
@@ -25,7 +26,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import MobileStepper from '@material-ui/core/Stepper';
 import useOpen from 'useful-state/lib/useOpen';
 import graphic from '../../images/waiting.png';
 
@@ -108,8 +108,82 @@ Toggle.defaultProps = {
   quantity: 0,
 };
 
-const Cart = ({ items, total, updated }) => {
+export const CartProgressList = ({ items }) => {
   const { bullet } = useStyles();
+
+  return (
+    <List>
+      {items.map((item, i) => (
+        <ListItem item={i} className={bullet}>
+          <ListItemText {...item} />
+        </ListItem>
+      ))}
+    </List>
+  );
+};
+
+const CartContext = ({
+  onUpdate,
+  onRemove,
+  onAdd,
+  items,
+}) => {
+  return null;
+};
+
+export const CardItem = ({
+  product,
+  name,
+  label,
+  price,
+  quantity,
+  img,
+  children,
+}) => {
+  return (
+    <Paper elevation={2}>
+      <Box p={1}>
+        <ListItem component="div">
+          <ListItemAvatar>
+            <img src={img} alt={product} height={65} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={name}
+            secondary={
+              <>
+                <Box component="span" display="block">
+                  <strong>{label}</strong>
+                </Box>
+                <Typography
+                  variant="subtitle2"
+                  component="span"
+                  color="primary"
+                >
+                  {price}
+                </Typography>
+              </>
+            }
+          />
+          <ListItemSecondaryAction>
+            <Grid container spacing={1} alignItems="center">
+              <Grid item>
+                <Toggle quantity={quantity} price={price} />
+              </Grid>
+              <Grid item>
+                <IconButton size="small">
+                  <DeleteIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </ListItemSecondaryAction>
+        </ListItem>
+        {children}
+      </Box>
+    </Paper>
+  );
+};
+
+const Cart = ({ items, total, updated, redirectPath }) => {
   const { isOpen, close, open } = useOpen();
   const { t } = useTranslation();
 
@@ -164,19 +238,16 @@ const Cart = ({ items, total, updated }) => {
                 />
               ) : (
                 items.map(
-                  (
-                    {
-                      sku,
-                      attribute,
-                      imgSrc,
-                      price,
-                      quantity,
-                      rebate,
-                      note,
-                    },
-                    i,
-                  ) => (
+                  ({
+                    id,
+                    sku,
+                    attribute,
+                    imgSrc,
+                    price,
+                    quantity,
+                  }) => (
                     <Paper
+                      key={id}
                       style={{
                         marginBottom: '0.5rem',
                         padding: '1rem',
@@ -232,51 +303,41 @@ const Cart = ({ items, total, updated }) => {
                           </Grid>
                         </ListItemSecondaryAction>
                       </ListItem>
-                      {(rebate || note) && (
-                        <List
-                          style={{
-                            paddingBottom: '2rem',
-                          }}
-                        >
-                          {rebate && (
-                            <ListItem className={bullet}>
-                              <ListItemText
-                                primary={rebate.description}
-                                secondary={<mark>$18</mark>}
-                              />
-                            </ListItem>
-                          )}
-                          {note && (
-                            <ListItem className={bullet}>
-                              <ListItemText
-                                primary={note.description}
-                              />
-                            </ListItem>
-                          )}
-                        </List>
-                      )}
+
+                      <CartProgressList
+                        items={[
+                          {
+                            primary: 'EXAMPLE',
+                            secondary: 'OOPH',
+                          },
+                        ]}
+                      />
                     </Paper>
                   ),
                 )
               )}
             </List>
-            <Typography align="center">
-              <Button
-                disabled={!items || !items.length}
-                style={{ margin: '1rem 0 0.5rem' }}
-                variant="contained"
-                color="secondary"
-                size="large"
-                fullWidth
-              >
-                {t('labels:checkout', {
-                  subtotal: '0.00',
-                })}
-              </Button>
-              <Button gutterBottom size="small">
-                {t('labels:shop')}
-              </Button>
-            </Typography>
+            <Box my={1}>
+              <Typography align="center">
+                <Button
+                  disabled={!items || !items.length}
+                  onClick={() => navigate(redirectPath)}
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  fullWidth
+                >
+                  {t('labels:checkout', {
+                    subtotal: '0.00',
+                  })}
+                </Button>
+                <Box my={0.5}>
+                  <Button gutterBottom size="small">
+                    {t('labels:shop')}
+                  </Button>
+                </Box>
+              </Typography>
+            </Box>
           </Container>
         </Box>
       </Drawer>
