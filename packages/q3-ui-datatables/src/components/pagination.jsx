@@ -1,14 +1,13 @@
 import React from 'react';
 import { withLocation } from 'with-location';
 import TablePagination from '@material-ui/core/TablePagination';
-import { getPage } from '../utils/helpers';
 
 export default withLocation(
-  ({ locationParams, updateParams, total }) => (
+  ({ pushTo, total, getFrom }) => (
     <TablePagination
-      page={getPage(locationParams)}
+      page={getFrom('page') || 0}
       onChangePage={(e, num) =>
-        num >= 0 ? updateParams({ page: num }) : null
+        num >= 0 ? pushTo({ page: num }) : null
       }
       rowsPerPageOptions={[]}
       count={total}

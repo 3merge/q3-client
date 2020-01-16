@@ -62,7 +62,9 @@ export const TableView = ({
             </TableRow>
           </TableHead>
           <TableBody>{children}</TableBody>
-          <TableFooter />
+          <TableFooter>
+            <Pagination total={total} />
+          </TableFooter>
         </Table>
       </ActionBar>
     </Wrapper>

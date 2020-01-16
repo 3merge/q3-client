@@ -91,7 +91,7 @@ const Characters = (props) => (
       </Add>
     </Header>
     <List
-      fixedWidths={['auto', 'auto', '85px', '96px', '75px']}
+      fixedWidths={['100%', '100%', '85px', '96px', '75px']}
     >
       {(rows = []) =>
         rows.map((row) => (
