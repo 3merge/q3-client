@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     '&:hover>.visible-on-hover button': {
       opacity: 1,
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       '&>.visible-on-hover button': {
         opacity: 1,
       },
@@ -44,7 +44,7 @@ export default makeStyles((theme) => ({
     minWidth: 350,
   },
   mobile: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },

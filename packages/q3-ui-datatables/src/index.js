@@ -1,4 +1,7 @@
-export { default } from './table';
+export {
+  default,
+  TableViewSkeleton as TableSkeleton,
+} from './table';
 export {
   Row as TableRow,
   Badge as TableBadge,

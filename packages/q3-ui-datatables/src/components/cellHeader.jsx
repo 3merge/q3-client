@@ -10,8 +10,13 @@ import { ellpisis } from '../utils/helpers';
 
 const CellHeader = ({ name, sub, imgSrc }) => (
   <TableCell>
-    <Grid container alignItems="center" spacing={2}>
-      <Grid item style={{ width: 'calc(40px + 1rem)' }}>
+    <Grid
+      container
+      alignItems="center"
+      spacing={1}
+      style={{ width: 'auto' }}
+    >
+      <Grid item>
         <Avatar word={name} imgSrc={imgSrc} />
       </Grid>
       <Grid item style={{ flex: 1 }}>

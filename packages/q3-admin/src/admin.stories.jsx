@@ -7,13 +7,17 @@ import {
   Form,
   Field,
   Multistep,
-  Next,
-  Back,
   Repeater,
 } from 'q3-ui-forms/lib/builders';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import {
+  TableRow,
+  TableBadge,
+  TableProgress,
+  TableCheck,
+} from 'q3-ui-datatables';
 import Power from '@material-ui/icons/Power';
 import Edit from '@material-ui/icons/Edit';
 import App, { ApplicationGate } from '.';
@@ -87,14 +91,45 @@ const Characters = (props) => (
       </Add>
     </Header>
     <List
-      rowToolbar={[
-        { onClick: () => alert('Test'), label: 'Hey' },
-      ]}
-      rowRenderer={({ gender }) => <p>Gender: {gender}</p>}
+      fixedWidths={['auto', 'auto', '85px', '96px', '75px']}
     >
-      <DisplayItem include="name" />
-      <DisplayItem include="species" />
-      <DisplayItem include="photo" />
+      {(rows = []) =>
+        rows.map((row) => (
+          <TableRow
+            id={row.id}
+            columns={{
+              name: row.name,
+              description: row.origin.name,
+              photo: row.image,
+              location: row.location.name,
+              status: (
+                <TableBadge
+                  status={row.status}
+                  color={
+                    row.status === 'Alive'
+                      ? 'success'
+                      : 'primary'
+                  }
+                />
+              ),
+              popularity: (
+                <TableProgress value={row.episode.length} />
+              ),
+              human: (
+                <TableCheck
+                  show={row.species === 'Human'}
+                />
+              ),
+            }}
+            rowToolbar={[
+              {
+                onClick: () => alert('Test'),
+                label: 'Hey',
+              },
+            ]}
+          />
+        ))
+      }
     </List>
   </Page>
 );

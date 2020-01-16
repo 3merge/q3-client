@@ -36,11 +36,7 @@ const Row = ({
             </TableCell>
           ))
         : []}
-      <TableCell
-        style={{
-          verticalAlign: 'text-top',
-        }}
-      >
+      <TableCell>
         <SelectOne id={id} />
         {rowToolbar && rowToolbar.length ? (
           <DropDownMenu

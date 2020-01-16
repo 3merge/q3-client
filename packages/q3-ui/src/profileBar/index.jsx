@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRight: '1px solid rgba(255,255,255,0.1)',
     color: '#fff',
     minHeight: '100vh',
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: 'center',
     [theme.breakpoints.down('sm')]: {
       border: 'none',
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
   relative: {
     display: 'inline-block',
-    minWidth: 85,
+    minWidth: 72,
     position: 'relative',
     width: 'auto',
     [theme.breakpoints.down('sm')]: {

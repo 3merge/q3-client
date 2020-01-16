@@ -25,7 +25,12 @@ export const TableViewSkeleton = () => (
   </Wrapper>
 );
 
-export const TableView = ({ children, total, actions }) => {
+export const TableView = ({
+  children,
+  total,
+  actions,
+  fixedWidths,
+}) => {
   const { t } = useTranslation();
   const { leader, mobile, boxes } = useStyles();
 
@@ -44,7 +49,10 @@ export const TableView = ({ children, total, actions }) => {
           <TableHead>
             <TableRow className={mobile}>
               {extractKeys(children).map((header, i) => (
-                <TableCell className={getClassName(i)}>
+                <TableCell
+                  className={getClassName(i)}
+                  style={{ width: fixedWidths[i] }}
+                >
                   {t(`labels:${header}`)}
                 </TableCell>
               ))}
@@ -63,6 +71,7 @@ export const TableView = ({ children, total, actions }) => {
 
 TableView.propTypes = {
   total: PropTypes.number,
+  fixedWidths: PropTypes.arrayOf(PropTypes.number),
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -79,6 +88,7 @@ TableView.propTypes = {
 TableView.defaultProps = {
   total: 0,
   actions: [],
+  fixedWidths: [],
 };
 
 export default TableView;
