@@ -175,8 +175,7 @@ Object.assign(theme, {
         },
       },
       root: {
-        minWidth: 150,
-        padding: '8px 16px',
+        padding: '4px 8px',
         borderBottom: `2px solid ${grey[100]}`,
         [theme.breakpoints.down('sm')]: {
           display: 'block',

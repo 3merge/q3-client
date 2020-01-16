@@ -115,7 +115,7 @@ const ColoredAvatar = ({
           color,
         }}
       >
-        {text}
+        {typeof src === 'object' ? src : text}
       </Avatar>
     </Badge>
   );

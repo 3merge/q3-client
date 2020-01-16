@@ -408,7 +408,6 @@ TableView.propTypes = {
 
 TableView.defaultProps = {
   rows: [],
-  columns: [],
   total: 0,
   root: '',
 };
