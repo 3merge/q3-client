@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Skeleton from '@material-ui/lab/Skeleton';
 import useStyles from '../utils/useStyles';
+import Wrapper from './wrapper';
 
 const SkeletonRow = () => {
   const { rowlike } = useStyles();
@@ -16,11 +17,13 @@ const SkeletonRow = () => {
 };
 
 export default () => (
-  <Box>
-    <SkeletonRow />
-    <SkeletonRow />
-    <SkeletonRow />
-    <SkeletonRow />
-    <SkeletonRow />
-  </Box>
+  <Wrapper>
+    <Box>
+      <SkeletonRow />
+      <SkeletonRow />
+      <SkeletonRow />
+      <SkeletonRow />
+      <SkeletonRow />
+    </Box>
+  </Wrapper>
 );

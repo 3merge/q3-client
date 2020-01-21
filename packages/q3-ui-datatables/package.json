@@ -9,6 +9,8 @@
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.31",
+    "@reach/router": "^1.2.1",
+    "lodash": "^4.17.15",
     "react-i18next": "^10.13.1",
     "useful-state": "^1.2.0",
     "with-location": "^1.1.0"

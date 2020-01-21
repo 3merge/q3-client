@@ -1,7 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import AccountBox from '@material-ui/icons/AccountBox';
-import Table, {
+import TableView, {
   TableRow,
   TableBadge,
   TableProgress,
@@ -16,7 +15,6 @@ const fixture = (
 ) => ({
   name: 'Mike',
   description: 'This is a description',
-
   email: (
     <a href="mailTo:mibberson@3merge.ca">
       mibberson@3merge.ca
@@ -28,50 +26,51 @@ const fixture = (
   ...args,
 });
 
-storiesOf('DataTables|Populated', module).add(
-  'With many columns',
-  () => (
-    <Table
-      fixedWidths={[
-        '100%',
-        '100%',
-        '125px',
-        '96px',
-        '75px',
-      ]}
-      total={50}
-      actions={[
+export default {
+  title: 'TableView',
+
+  parameters: {
+    component: TableView,
+    componentSubtitle: 'subtitle',
+    componentDescription: 'This is imort',
+  },
+};
+
+export const populated = () => (
+  <TableView
+    fixedWidths={['100%', '100%', '125px', '96px', '75px']}
+    total={50}
+    actions={[
+      {
+        label: 'Yikes',
+        onClick: () => null,
+        icon: AccountBox,
+      },
+    ]}
+  >
+    <TableRow
+      id={1}
+      columns={fixture(
+        { photo: <AccountBox /> },
+        'Hardly Started',
+        'warning',
+        20,
+      )}
+    />
+    <TableRow
+      id={2}
+      columns={fixture(
         {
-          label: 'Yikes',
-          onClick: () => null,
-          icon: AccountBox,
+          photo: 'https://i.pravatar.cc/150?img=17',
         },
-      ]}
-    >
-      <TableRow
-        id={1}
-        columns={fixture(
-          { photo: <AccountBox /> },
-          'Hardly Started',
-          'warning',
-          20,
-        )}
-      />
-      <TableRow
-        id={2}
-        columns={fixture(
-          {
-            photo: 'https://i.pravatar.cc/150?img=17',
-          },
-          'Done',
-          'success',
-          100,
-        )}
-      />
-      <TableRow
-        id={3}
-        columns={fixture({}, 'In-Progress', 'danger', 49)}
-      />
-    </Table>
-  ),
+        'Done',
+        'success',
+        100,
+      )}
+    />
+    <TableRow
+      id={3}
+      columns={fixture({}, 'In-Progress', 'danger', 49)}
+    />
+  </TableView>
 );
