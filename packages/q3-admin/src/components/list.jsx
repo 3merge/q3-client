@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import { getCSV } from 'q3-ui-rest';
 import ErrorComponent from 'q3-ui/lib/error';
 import Table, { TableSkeleton } from 'q3-ui-datatables';
-import TableActionBar from 'q3-ui/lib/tableActionBar';
 import FileCopy from '@material-ui/icons/FileCopy';
 import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
@@ -84,13 +83,11 @@ const List = ({ children, ...rest }) => {
 
   return (
     <Redirect op="Read" to="/">
-      <TableActionBar actions={actions}>
-        <Container maxWidth="xl">
-          <Box my={2} className={inset}>
-            {renderTable()}
-          </Box>
-        </Container>
-      </TableActionBar>
+      <Container maxWidth="xl">
+        <Box my={2} className={inset}>
+          {renderTable()}
+        </Box>
+      </Container>
     </Redirect>
   );
 };

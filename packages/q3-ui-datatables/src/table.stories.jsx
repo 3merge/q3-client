@@ -32,6 +32,13 @@ storiesOf('DataTables|Populated', module).add(
   'With many columns',
   () => (
     <Table
+      fixedWidths={[
+        '100%',
+        '100%',
+        '125px',
+        '96px',
+        '75px',
+      ]}
       total={50}
       actions={[
         {
