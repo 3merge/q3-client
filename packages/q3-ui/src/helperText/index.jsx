@@ -15,7 +15,7 @@ const HelperText = ({ text }) => {
   return (
     <Box
       display="inline-block"
-      aria-owns={isOpen ? id : undefined}
+      aria-owns={id}
       aria-haspopup="true"
     >
       <LiveHelp

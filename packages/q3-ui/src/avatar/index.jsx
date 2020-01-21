@@ -5,6 +5,9 @@ import Badge from '@material-ui/core/Badge';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import * as colors from '@material-ui/core/colors';
 
+const shouldDisplay = (v) =>
+  typeof v === 'object' && v !== null;
+
 const ColoredAvatar = ({
   word,
   superscript,
@@ -115,7 +118,7 @@ const ColoredAvatar = ({
           color,
         }}
       >
-        {typeof src === 'object' ? src : text}
+        {shouldDisplay(src) ? src : text}
       </Avatar>
     </Badge>
   );

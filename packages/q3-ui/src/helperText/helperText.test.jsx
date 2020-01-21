@@ -15,14 +15,8 @@ const getContainer = (e, key) => {
 };
 
 describe('HelperText', () => {
-  it('should have an undefined popover initially', () => {
-    const el = getWrapper();
-    expect(getContainer(el, 'aria-owns')).toBeUndefined();
-  });
-
   it('should assign aria-owns attribute to container', () => {
     const el = getWrapper();
-    getContainer(el, 'onMouseEnter')({ target: <div /> });
     expect(getContainer(el, 'aria-owns')).toMatch(
       'helper-',
     );
