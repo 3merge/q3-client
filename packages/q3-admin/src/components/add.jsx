@@ -2,9 +2,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Dialog from 'q3-ui-dialog';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { useAuth } from 'q3-ui-permissions';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -22,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
   floatOnDesktop: {
     position: 'fixed',
-    left: 305,
-    bottom: theme.spacing(1),
+    left: 257,
+    bottom: theme.spacing(2),
     width: 75,
     height: 75,
     boxShadow: theme.shadows[20],

@@ -17,7 +17,9 @@ describe('Dialog', () => {
 
     expect(renderTrigger).toHaveBeenCalledWith(
       expect.any(Function),
+      expect.any(Boolean),
     );
+
     expect(renderContent).toHaveBeenCalledWith(
       expect.any(Function),
     );

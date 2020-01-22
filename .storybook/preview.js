@@ -4,19 +4,22 @@ import {
   addParameters,
   addDecorator,
 } from '@storybook/react';
-import Providers from 'q3-ui';
-import Snackbar from 'q3-ui-forms';
-import { withA11y } from '@storybook/addon-a11y';
- 
-import path from 'path';
+
 import {
   LocationProvider,
   createMemorySource,
   createHistory as createRouterHistory,
 } from '@reach/router';
+
+import path from 'path'; 
+import Providers from 'q3-ui';
+import Snackbar from 'q3-ui-forms';
 import { makeDecorator } from '@storybook/addons'; 
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+
 
 let firstHistoryObject = null;
+
 function createHistory(initialPath) {
   if (firstHistoryObject) {
     firstHistoryObject.navigate(initialPath);
@@ -24,15 +27,8 @@ function createHistory(initialPath) {
   }
 
   const source = createMemorySource(initialPath);
- 
-  firstHistoryObject = createRouterHistory(source);
-  firstHistoryObject.listen(() =>
-    console.log(
-      'message arrived at router',
-      source.location,
-    ),
-  );
 
+  firstHistoryObject = createRouterHistory(source);
   return firstHistoryObject;
 }
 
@@ -52,11 +48,10 @@ export const withRouter = makeDecorator({
 
 const req = require.context(
   '../packages', true, 
-  /^\.\/[^\/]+\/src\/.*stories\.(jsx|mdx)?$/
+  /^\.\/[^\/]+\/src\/.*stories\.jsx?$/
 );
 
 addDecorator(withRouter);
-addDecorator(withA11y);
 
 addDecorator((story) => (
   <Providers>
@@ -68,10 +63,16 @@ addDecorator((story) => (
 
 addParameters({
   options: {
+    selectedPanel: 'docs',
     showPanel: false,
     panelPosition: 'right',
-  }
+  },
+   docs: {
+    container: DocsContainer,
+    page: DocsPage,
+  },
 })
+
 
 configure(() => 
   req.keys().forEach(req), 

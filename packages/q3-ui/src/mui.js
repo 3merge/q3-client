@@ -149,7 +149,6 @@ Object.assign(theme, {
     MuiTable: {
       root: {
         tableLayout: 'fixed',
-        width: '100%',
       },
     },
     MuiTableRow: {
@@ -162,23 +161,23 @@ Object.assign(theme, {
     },
     MuiTableCell: {
       head: {
+        textOverflow: 'ellipsis',
         backgroundColor: 'transparent',
         color: grey[700],
-        fontSize: '0.75rem',
+        fontSize: '0.75rem !important',
         fontWeight: 600,
         textTransform: 'uppercase',
-        minWidth: 150,
-        width: '100%',
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
           display: 'block',
           width: '100% !important',
         },
       },
       root: {
-        minWidth: 150,
-        padding: '8px 16px',
+        overflow: 'hidden',
+        padding: '4px 8px',
         borderBottom: `2px solid ${grey[100]}`,
-        [theme.breakpoints.down('sm')]: {
+        fontSize: '1rem !important',
+        [theme.breakpoints.down('md')]: {
           display: 'block',
           '&:not(:last-child)': {
             border: 0,

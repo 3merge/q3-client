@@ -6,8 +6,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { getCSV } from 'q3-ui-rest';
 import ErrorComponent from 'q3-ui/lib/error';
-import Table, { TableViewSkeleton } from 'q3-ui/lib/table';
-import TableActionBar from 'q3-ui/lib/tableActionBar';
+import Table, { TableSkeleton } from 'q3-ui-datatables';
 import FileCopy from '@material-ui/icons/FileCopy';
 import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
@@ -15,14 +14,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import EmptyIcon from '../images/empty';
 import ErrorIcon from '../images/error';
 import Context from './state';
-import { isArray } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   inset: {
-    paddingLeft: theme.spacing(6),
-    [theme.breakpoints.down('md')]: {
-      paddingLeft: theme.spacing(3),
-    },
+    paddingLeft: theme.spacing(1),
     [theme.breakpoints.down('sm')]: {
       paddingLeft: 0,
     },
@@ -76,37 +71,29 @@ const List = ({ children, ...rest }) => {
     });
 
   const renderTable = () => {
-    if (state.fetching) return <TableViewSkeleton />;
+    if (state.fetching) return <TableSkeleton />;
     if (state.fetchingError) return <ErrorView />;
     if (!rows.length) return <EmptyView />;
-
     return (
-      <Table
-        {...state}
-        {...rest}
-        rows={rows}
-        rowHeader={isArray(children)
-          .map((child) => child.props.include)
-          .filter(Boolean)}
-      />
+      <Table {...state} {...rest}>
+        {children(rows)}
+      </Table>
     );
   };
 
   return (
     <Redirect op="Read" to="/">
-      <TableActionBar actions={actions}>
-        <Container maxWidth="xl">
-          <Box my={2} className={inset}>
-            {renderTable()}
-          </Box>
-        </Container>
-      </TableActionBar>
+      <Container maxWidth="xl">
+        <Box my={2} className={inset}>
+          {renderTable()}
+        </Box>
+      </Container>
     </Redirect>
   );
 };
 
 List.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node).isRequired,
+  children: PropTypes.func.isRequired,
 };
 
 export default List;

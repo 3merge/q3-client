@@ -14,8 +14,9 @@ module.exports = async ({ config, mode }) => {
   });
 
   config.module.rules.push({
-    test: /\.svg$/,
     use: ['@svgr/webpack', 'url-loader'],
+    test: /\.svg$/,
   });
+
   return config;
 };

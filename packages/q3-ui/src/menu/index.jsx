@@ -11,7 +11,7 @@ import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles({
   container: {
-    padding: '3px 16px',
+    padding: '0 16px',
     position: 'relative',
     '&>a': {
       borderRadius: 2,
@@ -49,7 +49,11 @@ const Menu = ({ title, items, color, done }) => {
             disableSticky
             component="div"
             id="nested-list-subheader"
-            style={{ color }}
+            style={{
+              color,
+              fontSize: '0.83rem',
+              lineHeight: '2.3rem',
+            }}
           >
             {title.toUpperCase()}
           </ListSubheader>

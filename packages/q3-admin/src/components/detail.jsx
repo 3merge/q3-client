@@ -137,9 +137,9 @@ const Detail = ({
 
   return (
     <Container maxWidth="xl">
-      <Grid container spacing={1}>
-        <Grid item md={9} sm={10} xs={11}>
-          <Box my={4}>
+      <Box my={4}>
+        <Grid container spacing={1}>
+          <Grid item sm={9} xs={12}>
             {state.fetching ? (
               <CircularProgress />
             ) : (
@@ -148,41 +148,41 @@ const Detail = ({
                 views={tabs}
               />
             )}
-          </Box>
+          </Grid>
+          <Grid item sm={3} xs={12}>
+            {filepath && (
+              <FullScreen
+                title="documentation"
+                renderTrigger={(open) => (
+                  <Paper
+                    style={{ position: 'sticky' }}
+                    type="button"
+                    elevation={0}
+                  >
+                    <Box p={2}>
+                      <Help />
+                      <Typography variant="h4" gutterBottom>
+                        {t('titles:needHelp')}
+                      </Typography>
+                      <Typography gutterBottom>
+                        {t('labels:needHelp')}
+                      </Typography>
+                      <Button
+                        onClick={open}
+                        variant="outlined"
+                      >
+                        {t('labels:docs')}
+                      </Button>
+                    </Box>
+                  </Paper>
+                )}
+              >
+                {() => <LazyContent filepath={filepath} />}
+              </FullScreen>
+            )}
+          </Grid>
         </Grid>
-        <Grid item sm={2} xs={1}>
-          {filepath && (
-            <FullScreen
-              title="documentation"
-              renderTrigger={(open) => (
-                <Paper
-                  style={{ position: 'sticky', top: 175 }}
-                  type="button"
-                  elevation={0}
-                >
-                  <Box p={2}>
-                    <Help />
-                    <Typography variant="h4" gutterBottom>
-                      {t('titles:needHelp')}
-                    </Typography>
-                    <Typography gutterBottom>
-                      {t('labels:needHelp')}
-                    </Typography>
-                    <Button
-                      onClick={open}
-                      variant="outlined"
-                    >
-                      {t('labels:docs')}
-                    </Button>
-                  </Box>
-                </Paper>
-              )}
-            >
-              {() => <LazyContent filepath={filepath} />}
-            </FullScreen>
-          )}
-        </Grid>
-      </Grid>
+      </Box>
     </Container>
   );
 };
