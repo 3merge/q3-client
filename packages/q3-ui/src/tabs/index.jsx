@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
   tabber: {
     maxWidth: '100%',
-    maxHeight: 380,
+    maxHeight: 460,
   },
 }));
 
