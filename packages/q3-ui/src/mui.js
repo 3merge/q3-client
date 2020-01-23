@@ -146,11 +146,7 @@ Object.assign(theme, {
         boxShadow: 'none',
       },
     },
-    MuiTable: {
-      root: {
-        tableLayout: 'fixed',
-      },
-    },
+
     MuiTableRow: {
       root: {
         '&:hover': {

@@ -1,6 +1,7 @@
 export { default as ActionBar } from './actionBar';
 export { default as Badge } from './badge';
 export { default as Check } from './boolean';
+export { default as ColumnHeader } from './columnHeader';
 export { default as Pagination } from './pagination';
 export { default as Progress } from './progress';
 export { default as Row } from './row';

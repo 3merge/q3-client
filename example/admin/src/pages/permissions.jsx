@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   Page,
-  DisplayItem,
   List,
   Header,
   Search,
   Add,
 } from 'q3-admin/lib/components';
+import { TableRow } from 'q3-ui-datatables';
 import { Add as AddPermission } from '../containers/permissions';
 
 export default (props) => (
@@ -17,9 +17,18 @@ export default (props) => (
         <AddPermission />
       </Add>
     </Header>
-    <List>
-      <DisplayItem include={['role', 'op']} />
-      <DisplayItem include="coll" />
+    <List aliasForName="coll">
+      {(rows) =>
+        rows.map((row) => (
+          <TableRow
+            id={row.id}
+            columns={{
+              name: row.coll,
+              description: row.role,
+            }}
+          />
+        ))
+      }
     </List>
   </Page>
 );

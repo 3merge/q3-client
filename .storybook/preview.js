@@ -72,9 +72,8 @@ addParameters({
     page: DocsPage,
   },
 })
-
-
+ 
 configure(() => 
   req.keys().forEach(req), 
   module
-);
+);  

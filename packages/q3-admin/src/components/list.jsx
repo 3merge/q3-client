@@ -45,6 +45,7 @@ const List = ({ children, ...rest }) => {
     resourceNameSingular,
     collectionName,
     location,
+    url,
     ...state
   } = React.useContext(Context);
   const { inset } = useStyles();
@@ -75,7 +76,7 @@ const List = ({ children, ...rest }) => {
     if (state.fetchingError) return <ErrorView />;
     if (!rows.length) return <EmptyView />;
     return (
-      <Table {...state} {...rest}>
+      <Table {...state} {...rest} id={url}>
         {children(rows)}
       </Table>
     );

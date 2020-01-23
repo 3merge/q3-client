@@ -30,6 +30,8 @@ const Page = ({
     url,
   });
 
+  console.log(state);
+
   React.useEffect(() => {
     if (state.fetching && onInit) onInit();
     if (typeof onEnter === 'function') {
@@ -54,6 +56,7 @@ const Page = ({
         resourceName,
         resourceNameSingular,
         location,
+        url,
         ...state,
       }}
     >
