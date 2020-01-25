@@ -12,10 +12,6 @@ const img =
 const logo =
   'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png';
 
-const mockup = (m) => {
-  m.onGet('/foo').reply(200);
-};
-
 storiesOf('Admin|Components', module)
   .add('Public', () => (
     <Public

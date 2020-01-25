@@ -10,6 +10,9 @@
     "lodash": "^4.17.15",
     "micromatch": "^4.0.2",
     "prop-types": "^15.7.2",
+    "react-email-editor": "^1.0.0",
+    "react-helmet": "^5.2.1",
+    "webdatarocks": "^1.2.0",
     "yup": "^0.27.0"
   },
   "peerDependencies": {
