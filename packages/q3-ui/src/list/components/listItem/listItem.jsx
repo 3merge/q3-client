@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
+import Context from '../../utils/searchContext';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
 import Avatar from '../../../avatar';
 
@@ -14,6 +15,7 @@ export const ListItem = ({
   description,
   icon,
 }) => {
+  const { term } = React.useContext(Context);
   const { t } = useTranslation();
   const primary = t(
     `labels:${formatArrayAsCommaDelineatedString(title)}`,
@@ -24,6 +26,12 @@ export const ListItem = ({
       description,
     )}`,
   );
+
+  if (
+    term.length &&
+    !new RegExp(term, 'gi').test(primary + secondary)
+  )
+    return null;
 
   return (
     <ListItemMui

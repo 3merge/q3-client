@@ -1,5 +1,6 @@
 import React from 'react';
 import AccountBox from '@material-ui/icons/AccountBox';
+import IconButton from '@material-ui/core/IconButton';
 import List, { ActionBar, ListItem } from '.';
 
 export default {
@@ -19,14 +20,29 @@ export const ListComplete = () => (
       icon={AccountBox}
     >
       <ActionBar>
-        <p>Click me!</p>
+        <IconButton>
+          <AccountBox />
+        </IconButton>
       </ActionBar>
     </ListItem>
     <ListItem
       title="Second entry"
       description={['D', 'E', 'F']}
       icon={AccountBox}
-    />
+    >
+      <ActionBar
+        actions={[
+          {
+            onClick: () => null,
+            label: 'Click me',
+          },
+        ]}
+      >
+        <IconButton>
+          <AccountBox />
+        </IconButton>
+      </ActionBar>
+    </ListItem>
   </List>
 );
 

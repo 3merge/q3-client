@@ -4,29 +4,38 @@ import { useTranslation } from 'react-i18next';
 import ListMui from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
+import SearchBar from '../searchBar';
 import Empty from '../empty';
 
-const List = ({ title, children }) => {
+const List = ({ title, enableSearch, children }) => {
   const { t } = useTranslation('titles');
 
   return (
-    <ListMui
-      subheader={
-        title && (
-          <ListSubheader
-            component="li"
-            style={{ padding: 0 }}
-            id={title}
-          >
-            <Typography variant="overline" component="h3">
-              {t(title)}
-            </Typography>
-          </ListSubheader>
-        )
-      }
-    >
-      {children || <Empty />}
-    </ListMui>
+    <SearchBar>
+      {(renderer) => (
+        <ListMui
+          subheader={
+            <ListSubheader
+              component="li"
+              style={{ padding: 0 }}
+              id={title}
+            >
+              {title && (
+                <Typography
+                  variant="overline"
+                  component="h3"
+                >
+                  {t(title)}
+                </Typography>
+              )}
+              {enableSearch && children ? renderer() : null}
+            </ListSubheader>
+          }
+        >
+          {children || <Empty />}
+        </ListMui>
+      )}
+    </SearchBar>
   );
 };
 
@@ -43,10 +52,16 @@ List.propTypes = {
    * A semantic title for the list
    */
   title: PropTypes.string,
+
+  /**
+   * Enable result text filtering.
+   */
+  enableSearch: PropTypes.bool,
 };
 
 List.defaultProps = {
   title: null,
+  enableSearch: true,
 };
 
 export default List;
