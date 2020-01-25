@@ -13,8 +13,14 @@ const List = ({ title, children }) => {
     <ListMui
       subheader={
         title && (
-          <ListSubheader component="li" id={title}>
-            <Typography variant="h3">{t(title)}</Typography>
+          <ListSubheader
+            component="li"
+            style={{ padding: 0 }}
+            id={title}
+          >
+            <Typography variant="overline" component="h3">
+              {t(title)}
+            </Typography>
           </ListSubheader>
         )
       }
@@ -28,7 +34,10 @@ List.propTypes = {
   /*
    * An array of ListItem components
    */
-  children: PropTypes.arrayOf([PropTypes.node]).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf([PropTypes.node]),
+  ]).isRequired,
 
   /**
    * A semantic title for the list

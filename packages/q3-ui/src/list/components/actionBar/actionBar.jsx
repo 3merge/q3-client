@@ -1,28 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import ListItemSecondaryActionMui from '@material-ui/core/ListItemSecondaryAction';
-
-/**
-DROPDOWN? */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import useOpen from 'useful-state/lib/useOpen';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
-import Avatar from '../avatar';
-import { DropDownMenu } from '../toolbar';
+import { DropDownMenu } from '../../../toolbar';
 
-const ListItemActions = ({ actions }) =>
-  actions.length ? (
-    <ListItemSecondaryAction>
+const ActionBar = ({ actions, children }) => (
+  <ListItemSecondaryActionMui>
+    {actions.length ? (
       <DropDownMenu items={actions}>
         {(open) => (
           <IconButton onClick={open}>
@@ -30,21 +15,29 @@ const ListItemActions = ({ actions }) =>
           </IconButton>
         )}
       </DropDownMenu>
-    </ListItemSecondaryAction>
-  ) : null;
+    ) : null}
+    {children}
+  </ListItemSecondaryActionMui>
+);
 
-ListItemActions.propTypes = {
+ActionBar.propTypes = {
+  /**
+   * IconButtons to render in the ActionBar.
+   */
+  children: PropTypes.node,
+
+  /**
+   * Dropdown action handlers.
+   */
   actions: PropTypes.arrayOf({
     onClick: PropTypes.func,
     label: PropTypes.string,
   }),
 };
 
-
-const ActionBar = ({ children, menuOptions }) => (
-  <ListItemSecondaryActionMui>
-    {children}
-  </ListItemSecondaryActionMui>
-);
+ActionBar.defaultProps = {
+  children: null,
+  actions: [],
+};
 
 export default ActionBar;

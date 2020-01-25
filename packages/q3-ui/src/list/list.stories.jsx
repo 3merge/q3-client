@@ -1,5 +1,6 @@
 import React from 'react';
-import List from '.';
+import AccountBox from '@material-ui/icons/AccountBox';
+import List, { ActionBar, ListItem } from '.';
 
 export default {
   title: 'Components/List',
@@ -11,7 +12,22 @@ export default {
 };
 
 export const ListComplete = () => (
-  <List title="Completely populated list" />
+  <List title="Completely populated list">
+    <ListItem
+      title="First entry"
+      description={['A', 'B', 'C']}
+      icon={AccountBox}
+    >
+      <ActionBar>
+        <p>Click me!</p>
+      </ActionBar>
+    </ListItem>
+    <ListItem
+      title="Second entry"
+      description={['D', 'E', 'F']}
+      icon={AccountBox}
+    />
+  </List>
 );
 
 export const Empty = () => (
