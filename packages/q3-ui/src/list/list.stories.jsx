@@ -1,15 +1,27 @@
 import React from 'react';
-import Listing from '.';
+import List from '.';
 
 export default {
   title: 'Components/List',
   parameters: {
-    component: Listing,
+    component: List,
     componentSubtitle:
       'Stylized unordered list component with optional interactivity',
   },
 };
-export const ListComplete = () => <p>Hi</p>;
-export const ListWithoutActions = () => <p>Hi</p>;
-export const ListWithActions = () => <p>Hi</p>;
-export const ListWithSearch = () => <p>Hi</p>;
+
+export const ListComplete = () => (
+  <List title="Completely populated list" />
+);
+
+export const Empty = () => (
+  <List title="Waiting for action!" />
+);
+
+export const WithTitle = () => (
+  <List title="For demonstration" />
+);
+
+export const WithoutActions = () => <p>Hi</p>;
+export const WithActions = () => <p>Hi</p>;
+export const WithSearch = () => <p>Hi</p>;
