@@ -4,38 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
+import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import Form from './form';
 import Field from './field';
 import { assignIDs } from '../helpers';
-import IconEmpty from '../icons/empty';
-
-export const InteractiveListItem = ({
-  children,
-  ...etc
-}) => (
-  <>
-    <ListItem disableGutters component="li" dense>
-      <ListItemText {...etc} />
-      <ListItemSecondaryAction>
-        {children}
-      </ListItemSecondaryAction>
-    </ListItem>
-  </>
-);
-
-InteractiveListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-};
 
 export const DeleteListItem = ({ next }) => (
   <Dialog
@@ -87,17 +64,15 @@ export const DataList = ({
   secondary,
   children,
   ...etc
-}) =>
-  data.length ? (
-    <List>
-      {data.map((item, i) => (
-        <InteractiveListItem
-          {...item}
-          key={item.i}
-          listNumber={i}
-          primary={primary(item)}
-          secondary={secondary(item)}
-        >
+}) => (
+  <List>
+    {data.map((item, i) => (
+      <ListItem
+        key={i}
+        title={primary(item)}
+        description={secondary(item)}
+      >
+        <ActionBar>
           <Dialog
             {...etc}
             renderContent={getForm(false, item, item.id)}
@@ -107,14 +82,12 @@ export const DataList = ({
               </IconButton>
             )}
           />
-
-          {children ? children(item) : null}
-        </InteractiveListItem>
-      ))}
-    </List>
-  ) : (
-    <IconEmpty />
-  );
+          {children(item)}
+        </ActionBar>
+      </ListItem>
+    ))}
+  </List>
+);
 
 DataList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,

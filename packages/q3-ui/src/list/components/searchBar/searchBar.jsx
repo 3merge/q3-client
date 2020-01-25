@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useValue } from 'useful-state';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Context from '../../utils/searchContext';
 
@@ -8,18 +9,20 @@ const SearchBar = ({ children }) => {
   const { onChange, value } = useValue('');
 
   const renderSearchBar = () => (
-    <TextField
-      fullWidth
-      name="search"
-      onChange={onChange}
-      label="Search"
-      type="search"
-      value={value}
-      variant="outlined"
-      inputProps={{
-        autocomplete: 'off',
-      }}
-    />
+    <Box mb={2}>
+      <TextField
+        fullWidth
+        name="search"
+        onChange={onChange}
+        label="Search"
+        type="search"
+        value={value}
+        variant="outlined"
+        inputProps={{
+          autocomplete: 'off',
+        }}
+      />
+    </Box>
   );
 
   return (

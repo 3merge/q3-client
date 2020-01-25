@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
@@ -16,15 +15,9 @@ export const ListItem = ({
   icon,
 }) => {
   const { term } = React.useContext(Context);
-  const { t } = useTranslation();
-  const primary = t(
-    `labels:${formatArrayAsCommaDelineatedString(title)}`,
-  );
-
-  const secondary = t(
-    `descriptions:${formatArrayAsCommaDelineatedString(
-      description,
-    )}`,
+  const primary = formatArrayAsCommaDelineatedString(title);
+  const secondary = formatArrayAsCommaDelineatedString(
+    description,
   );
 
   if (

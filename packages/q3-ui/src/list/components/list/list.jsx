@@ -10,6 +10,10 @@ import Empty from '../empty';
 const List = ({ title, enableSearch, children }) => {
   const { t } = useTranslation('titles');
 
+  const hasChildren =
+    (children && !Array.isArray(children)) ||
+    (Array.isArray(children) && children.length);
+
   return (
     <SearchBar>
       {(renderer) => (
@@ -28,11 +32,13 @@ const List = ({ title, enableSearch, children }) => {
                   {t(title)}
                 </Typography>
               )}
-              {enableSearch && children ? renderer() : null}
+              {enableSearch && hasChildren
+                ? renderer()
+                : null}
             </ListSubheader>
           }
         >
-          {children || <Empty />}
+          {hasChildren ? children : <Empty />}
         </ListMui>
       )}
     </SearchBar>
