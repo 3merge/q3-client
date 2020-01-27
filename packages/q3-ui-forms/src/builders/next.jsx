@@ -6,7 +6,14 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import BuilderState from './builderState';
 
-const Next = ({ formik, submit, size, label, onClick }) => {
+const Next = ({
+  formik,
+  submit,
+  size,
+  label,
+  onClick,
+  disabled,
+}) => {
   const { t } = useTranslation();
   const { authorization } = React.useContext(BuilderState);
 
@@ -21,7 +28,11 @@ const Next = ({ formik, submit, size, label, onClick }) => {
         variant="contained"
         type={submit ? 'submit' : 'button'}
         onClick={onClick || formik.submitForm}
-        disabled={isDisabled}
+        disabled={
+          disabled ||
+          isDisabled ||
+          (submit && Object.keys(formik.errors).length)
+        }
       >
         {t(`labels:${label}`)}
       </Button>
@@ -37,6 +48,7 @@ Next.propTypes = {
   formik: PropTypes.shape({
     isSubmitting: PropTypes.bool,
     submitForm: PropTypes.func,
+    errors: PropTypes.object,
   }).isRequired,
 
   /**
@@ -58,12 +70,18 @@ Next.propTypes = {
    * Text to display inside of this button
    */
   label: PropTypes.string.isRequired,
+
+  /**
+   * Disable click handler
+   */
+  disabled: PropTypes.bool,
 };
 
 Next.defaultProps = {
   submit: false,
   onClick: null,
   size: 'large',
+  disabled: false,
 };
 
 export default connect(Next);

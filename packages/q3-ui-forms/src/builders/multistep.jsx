@@ -135,7 +135,7 @@ export default withWrapper(
           })
         }
       >
-        {({ submitForm }) => (
+        {({ submitForm, errors }) => (
           <Form>
             <MultiFormStepper
               isNew={isNew}
@@ -152,6 +152,10 @@ export default withWrapper(
                   <Next
                     onClick={processSubmit(submitForm)}
                     label={getNextLabel(index)}
+                    disabled={Boolean(
+                      isLast(activeStep) &&
+                        Object.keys(errors).length,
+                    )}
                   />
                 </Box>
               )}
