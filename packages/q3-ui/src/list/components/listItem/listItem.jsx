@@ -42,7 +42,7 @@ export const ListItem = ({
         primary={primary}
         secondary={secondary}
       />
-      {children
+      {children && !Array.isArray(children)
         ? React.cloneElement(children, {
             id,
           })
@@ -81,6 +81,7 @@ ListItem.propTypes = {
   icon: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string,
+    PropTypes.object,
   ]),
 };
 
