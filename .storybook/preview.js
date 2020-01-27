@@ -76,4 +76,4 @@ addParameters({
 configure(() => 
   req.keys().forEach(req), 
   module
-);
+); 
