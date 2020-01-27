@@ -1,12 +1,7 @@
 import React from 'react';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Repeater, {
-  InteractiveListItem,
-  DataList,
-  DeleteListItem,
-} from '../repeater';
-import IconEmpty from '../../icons/empty';
+import Repeater, { DataList } from '../repeater';
 
 jest.mock('formik');
 
@@ -85,48 +80,5 @@ describe('Repeater', () => {
         expect(done).toHaveBeenCalled();
       });
     });
-  });
-
-  describe('InteractiveListItem', () => {
-    it('should forward props to ListItemText', () => {
-      const placeholder = 'PrimaryText';
-      const { primary } = global
-        .shallow(
-          <InteractiveListItem primary={placeholder} />,
-        )
-        .find(ListItemText)
-        .props();
-      expect(primary).toMatch(placeholder);
-    });
-
-    it('should render children inside ListItemSecondaryAction', () => {
-      const Mock = () => null;
-      const inst = global
-        .shallow(
-          <InteractiveListItem primary="Hey">
-            <Mock />
-          </InteractiveListItem>,
-        )
-        .find(ListItemSecondaryAction)
-        .dive()
-        .find(Mock);
-      expect(inst).toHaveLength(1);
-    });
-  });
-
-  describe('DataList', () => {
-    it('should render empty icon', () =>
-      expect(
-        global
-          .shallow(
-            <DataList
-              data={[]}
-              getForm={jest.fn()}
-              primary={jest.fn()}
-              secondary={jest.fn()}
-            />,
-          )
-          .find(IconEmpty),
-      ).toHaveLength(1));
   });
 });
