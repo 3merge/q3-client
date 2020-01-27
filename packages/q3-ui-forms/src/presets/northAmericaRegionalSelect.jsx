@@ -4,8 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import { Field } from '../builders';
 import { asOptions } from '../helpers';
 
-const CA = 'CA';
-const US = 'US';
+export const CA = 'CA';
+export const US = 'US';
 
 const PROVINCES = [
   'AB',
@@ -26,18 +26,14 @@ const PROVINCES = [
 const STATES = [
   'AL',
   'AK',
-  'AS',
   'AZ',
   'AR',
   'CA',
   'CO',
   'CT',
   'DE',
-  'DC',
-  'FM',
   'FL',
   'GA',
-  'GU',
   'HI',
   'ID',
   'IL',
@@ -47,7 +43,6 @@ const STATES = [
   'KY',
   'LA',
   'ME',
-  'MH',
   'MD',
   'MA',
   'MI',
@@ -63,13 +58,10 @@ const STATES = [
   'NY',
   'NC',
   'ND',
-  'MP',
   'OH',
   'OK',
   'OR',
-  'PW',
   'PA',
-  'PR',
   'RI',
   'SC',
   'SD',
@@ -77,7 +69,6 @@ const STATES = [
   'TX',
   'UT',
   'VT',
-  'VI',
   'VA',
   'WA',
   'WV',
