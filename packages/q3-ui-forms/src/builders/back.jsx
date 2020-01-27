@@ -14,7 +14,7 @@ const Back = connect(({ formik, onClick, label, left }) => {
         [left ? 'marginLeft' : 'marginRight']: '0.25rem',
       }}
     >
-      {t(`labels:${label || 'reset'}`)}
+      {t(`labels:${label}`)}
     </Button>
   );
 });

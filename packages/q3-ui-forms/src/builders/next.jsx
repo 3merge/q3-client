@@ -6,13 +6,7 @@ import Button from '@material-ui/core/Button';
 import BuilderState from './builderState';
 
 const Next = connect(
-  ({
-    formik,
-    submit,
-    size = 'large',
-    label = 'submit',
-    onClick,
-  }) => {
+  ({ formik, submit, size, label, onClick }) => {
     const { t } = useTranslation();
 
     const { authorization } = React.useContext(

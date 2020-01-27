@@ -2,56 +2,106 @@ import 'react-json-pretty/themes/acai.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Box';
 import { FormikDebug } from './multistep';
 import Back from './back';
 import Next from './next';
 import withWrapper from './wrapper';
 
-const FormWrapper = withWrapper(
-  ({
-    children,
-    label,
-    formikProps,
-    onSubmit,
-    debug,
-    onReset,
-  }) => {
-    const ref = React.useRef();
-    const { t } = useTranslation('labels');
-
-    return (
-      <Formik onSubmit={onSubmit} {...formikProps}>
-        {({ resetForm }) => (
-          <Form ref={ref}>
-            {children}
-            <Box mt={1}>
-              <Next submit label={label}>
-                {t('submit' || label)}
-              </Next>
-              <Back onClick={onReset || resetForm} left />
-              <FormikDebug show={debug} />
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    );
-  },
+export const FormBuilder = ({
+  children,
+  debug,
+  enableSubmit,
+  enableReset,
+  formikProps,
+  onSubmit,
+  onReset,
+  resetLabel,
+  submitLabel,
+}) => (
+  <Formik onSubmit={onSubmit} {...formikProps}>
+    {({ resetForm }) => (
+      <Form>
+        {children}
+        <Box mt={1}>
+          {enableSubmit && (
+            <Next submit label={submitLabel} />
+          )}
+          {enableReset && (
+            <Back
+              left
+              onClick={onReset || resetForm}
+              label={resetLabel}
+            />
+          )}
+          <FormikDebug show={debug} />
+        </Box>
+      </Form>
+    )}
+  </Formik>
 );
 
-FormWrapper.propTypes = {
+FormBuilder.propTypes = {
+  /**
+   * The form fields and containers.
+   */
   children: PropTypes.node.isRequired,
+
+  /**
+   * Handler for submit action.
+   */
   onSubmit: PropTypes.func.isRequired,
+
+  /**
+   * Handler for reset action.
+   */
+  onReset: PropTypes.func,
+
+  /**
+   * An initial state value for each field registered.
+   * Shape cannot be defined as fields are app-specific.
+   */
   initialValues: PropTypes.shape({}).isRequired,
-  html: PropTypes.bool,
+
+  /**
+   * Enable a state viewer for debugging purposes.
+   */
   debug: PropTypes.bool,
+
+  /**
+   * Custom submit button label.
+   */
+  submitLabel: PropTypes.string,
+
+  /**
+   * Custom reset button label.
+   */
+  resetLabel: PropTypes.string,
+
+  /**
+   * Formik settings passed via Wrapper.
+   * See https://jaredpalmer.com/formik/docs/api/formik
+   */
+  formikProps: PropTypes.shape({}).isRequired,
+
+  /**
+   * Include a pre-wired submit button.
+   */
+  enableSubmit: PropTypes.bool,
+
+  /**
+   * Include a pre-wired reset button.
+   */
+  enableReset: PropTypes.bool,
 };
 
-FormWrapper.defaultProps = {
-  html: true,
+FormBuilder.defaultProps = {
+  submitLabel: 'submit',
+  resetLabel: 'reset',
   debug: false,
+  onReset: null,
+  enableSubmit: true,
+  enableReset: false,
 };
 
-export default FormWrapper;
+export default withWrapper(FormBuilder);
