@@ -1,8 +1,8 @@
 import React from 'react';
 import { get } from 'lodash';
 import Grid from '@material-ui/core/Grid';
-import { Field } from '../builders';
-import { asOptions } from '../helpers';
+import { Field } from '../../builders';
+import { asOptions } from '../../helpers';
 
 export const CA = 'CA';
 export const US = 'US';
@@ -76,10 +76,13 @@ const STATES = [
   'WY',
 ];
 
-export const getRegions = (values) =>
-  get(values, 'country') === US
+export const getRegions = (values) => {
+  const c = get(values, 'country');
+  if (!c) return [];
+  return c === US
     ? asOptions(STATES)
     : asOptions(PROVINCES);
+};
 
 const NorthAmericaRegionalSelect = () => (
   <Grid container>

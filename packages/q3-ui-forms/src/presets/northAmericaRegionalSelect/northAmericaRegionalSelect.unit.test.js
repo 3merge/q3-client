@@ -1,8 +1,4 @@
-import {
-  getRegions,
-  CA,
-  US,
-} from '../northAmericaRegionalSelect';
+import { getRegions, CA, US } from '.';
 
 const measureLengthOfReturnValue = (country, len) =>
   expect(getRegions({ country })).toHaveLength(len);
