@@ -1,3 +1,6 @@
+export const hasLength = (a) =>
+  Array.isArray(a) && a.length;
+
 export const formatArrayAsCommaDelineatedString = (v) => {
   const isArray = Array.isArray(v);
   const isString = typeof v === 'string';

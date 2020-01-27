@@ -4,10 +4,11 @@ import ListItemSecondaryActionMui from '@material-ui/core/ListItemSecondaryActio
 import IconButton from '@material-ui/core/IconButton';
 import Apps from '@material-ui/icons/MoreVert';
 import { DropDownMenu } from '../../../toolbar';
+import { hasLength } from '../../utils';
 
 const ActionBar = ({ actions, children }) => (
   <ListItemSecondaryActionMui>
-    {actions.length ? (
+    {hasLength(actions) ? (
       <DropDownMenu items={actions}>
         {(open) => (
           <IconButton onClick={open}>
@@ -29,10 +30,12 @@ ActionBar.propTypes = {
   /**
    * Dropdown action handlers.
    */
-  actions: PropTypes.arrayOf({
-    onClick: PropTypes.func,
-    label: PropTypes.string,
-  }),
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
+      onClick: PropTypes.func,
+      label: PropTypes.string,
+    }),
+  ),
 };
 
 ActionBar.defaultProps = {
