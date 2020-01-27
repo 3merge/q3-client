@@ -1,41 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import ListMui from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Typography from '@material-ui/core/Typography';
 import SearchBar from '../searchBar';
+import ListSubHeader from '../listSubHeader';
 import Empty from '../empty';
+import { hasLength } from '../../utils';
 
 const List = ({ title, enableSearch, children }) => {
-  const { t } = useTranslation('titles');
-
   const hasChildren =
     (children && !Array.isArray(children)) ||
-    (Array.isArray(children) && children.length);
+    hasLength(children);
 
   return (
     <SearchBar>
       {(renderer) => (
         <ListMui
+          aria-labelledby={title}
           subheader={
-            <ListSubheader
-              component="li"
-              style={{ padding: 0 }}
-              id={title}
-            >
-              {title && (
-                <Typography
-                  variant="overline"
-                  component="h3"
-                >
-                  {t(title)}
-                </Typography>
-              )}
+            <ListSubHeader title={title}>
               {enableSearch && hasChildren
                 ? renderer()
                 : null}
-            </ListSubheader>
+            </ListSubHeader>
           }
         >
           {hasChildren ? children : <Empty />}
@@ -50,8 +36,9 @@ List.propTypes = {
    * An array of ListItem components
    */
   children: PropTypes.oneOfType([
+    PropTypes.arrayOf([PropTypes.node, PropTypes.object]),
     PropTypes.node,
-    PropTypes.arrayOf([PropTypes.node]),
+    PropTypes.object,
   ]).isRequired,
 
   /**
