@@ -74,7 +74,7 @@ export const getOptions = (
       return [];
     });
 
-export const acceptCsvFiletype = (params) => (
+export const acceptCsvFiletype = (params = {}) => (
   data,
   headers,
 ) => {
@@ -84,15 +84,16 @@ export const acceptCsvFiletype = (params) => (
   return data;
 };
 
-export const getAsCSV = (url, params = {}) =>
+export const getWithContentTypeCsv = (url, params) =>
   axios({
     url,
     method: 'get',
     transformRequest: [acceptCsvFiletype(params)],
-  })
-    .then((e) => {
-      FileDownload(e.data, 'file.csv');
-    })
+  });
+
+export const getAsCSV = (url, params = {}) =>
+  csv(url, params)
+    .then((e) => FileDownload(e.data, 'file.csv'))
     .catch(() => {
       // noop
     });
