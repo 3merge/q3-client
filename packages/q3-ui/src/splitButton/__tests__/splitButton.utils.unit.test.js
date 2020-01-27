@@ -1,7 +1,12 @@
-import { invokeHandlerByIndex } from '../utils';
+import {
+  invokeHandlerByIndex,
+  setActiveIndex,
+  getLabelByIndex,
+  getDescriptionByIndex,
+} from '../utils';
 
 describe('SplitButton utilities', () => {
-  describe('invokeHandlerByIndex', () => {
+  describe('"invokeHandlerByIndex"', () => {
     it('should call handler fn', () => {
       const handler = jest.fn();
       const curried = invokeHandlerByIndex(
@@ -22,5 +27,43 @@ describe('SplitButton utilities', () => {
       const curried = invokeHandlerByIndex([null], 0);
       expect(curried()).toBeNull();
     });
+  });
+
+  describe('"setActiveIndex"', () => {
+    it('should register onClick fn', () => {
+      const a = setActiveIndex(
+        [{}, null, undefined],
+        jest.fn(),
+        1,
+      );
+
+      expect(a[0]).toHaveProperty(
+        'onClick',
+        expect.any(Function),
+      );
+    });
+
+    it('should filter out active index', () => {
+      const a = setActiveIndex([{}, {}], jest.fn(), 1);
+      expect(a).toHaveLength(1);
+    });
+  });
+
+  describe('"get~Prop~ByIndex" helpers', () => {
+    it('should return label', () =>
+      expect(
+        getLabelByIndex([null, null, { label: 'foo' }], 2),
+      ).toMatch('foo'));
+
+    it('should return description', () =>
+      expect(
+        getDescriptionByIndex(
+          [null, null, { description: 'foo' }],
+          2,
+        ),
+      ).toMatch('foo'));
+
+    it('should return undefined', () =>
+      expect(getDescriptionByIndex([], 1)).toBeUndefined());
   });
 });
