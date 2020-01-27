@@ -19,7 +19,7 @@ const SearchBar = ({ children }) => {
         value={value}
         variant="outlined"
         inputProps={{
-          autocomplete: 'off',
+          autoComplete: 'off',
         }}
       />
     </Box>

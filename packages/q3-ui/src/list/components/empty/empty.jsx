@@ -9,8 +9,7 @@ const EmptySvgIcon = () => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     data-name="Layer 1"
     viewBox="0 0 680 768.1"
-    width="250px"
-    maxWidth="100%"
+    style={{ maxWidth: '100%', width: 250 }}
   >
     <defs>
       <linearGradient

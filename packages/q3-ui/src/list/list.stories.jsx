@@ -15,6 +15,7 @@ export default {
 export const ListComplete = () => (
   <List title="Completely populated list">
     <ListItem
+      id="1"
       title="First entry"
       description={['A', 'B', 'C']}
       icon={AccountBox}
@@ -26,6 +27,7 @@ export const ListComplete = () => (
       </ActionBar>
     </ListItem>
     <ListItem
+      id="2"
       title="Second entry"
       description={['D', 'E', 'F']}
       icon={AccountBox}
@@ -46,14 +48,49 @@ export const ListComplete = () => (
   </List>
 );
 
-export const Empty = () => (
-  <List title="Waiting for action!" />
-);
-
 export const WithTitle = () => (
   <List title="For demonstration" />
 );
 
-export const WithoutActions = () => <p>Hi</p>;
-export const WithActions = () => <p>Hi</p>;
-export const WithSearch = () => <p>Hi</p>;
+export const WithoutActions = () => (
+  <List title="Completely populated list">
+    <ListItem
+      id="1"
+      title="First entry"
+      description={['A', 'B', 'C']}
+      icon={AccountBox}
+    />
+  </List>
+);
+
+export const WithActions = () => (
+  <List title="Completely populated list">
+    <ListItem
+      id="1"
+      title="First entry"
+      description={['A', 'B', 'C']}
+      icon={AccountBox}
+    >
+      <ActionBar
+        actions={[
+          { label: 'Click me!', onClick: () => null },
+        ]}
+      >
+        <IconButton>
+          <AccountBox />
+        </IconButton>
+      </ActionBar>
+    </ListItem>
+  </List>
+);
+
+export const WithoutSearch = () => (
+  <List enableSearch={false} title="No search abilities">
+    <ListItem
+      id="1"
+      title="First entry"
+      description={['A', 'B', 'C']}
+      icon={AccountBox}
+    />
+  </List>
+);

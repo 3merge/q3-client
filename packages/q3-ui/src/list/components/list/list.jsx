@@ -39,7 +39,7 @@ List.propTypes = {
     PropTypes.arrayOf([PropTypes.node, PropTypes.object]),
     PropTypes.node,
     PropTypes.object,
-  ]).isRequired,
+  ]),
 
   /**
    * A semantic title for the list
@@ -55,6 +55,7 @@ List.propTypes = {
 List.defaultProps = {
   title: null,
   enableSearch: true,
+  children: null,
 };
 
 export default List;
