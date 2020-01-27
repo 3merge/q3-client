@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem, MenuList } from '@material-ui/core';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 
 const MenuItems = ({ items }) => (
   <MenuList>
     {items.map(({ label, description, onClick }) => (
       <MenuItem key={label} onClick={onClick}>
-        {label}
-        {description}
+        <Typography variant="overline">{label}</Typography>
+        <Typography component="small">
+          {description}
+        </Typography>
       </MenuItem>
     ))}
   </MenuList>

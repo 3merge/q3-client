@@ -1,7 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Button, ButtonGroupMui } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
+import Label from '../label';
 
 const ButtonGroup = ({
   id,
@@ -10,33 +12,36 @@ const ButtonGroup = ({
   onClick,
   label,
   description,
-}) => (
-  <ButtonGroupMui
-    aria-label="New order action list"
-    variant="contained"
-    color="primary"
-    ref={anchorRef}
-  >
-    <Button
-      size="large"
-      onClick={onClick}
-      style={{ borderRight: '1px solid #FFF' }}
-    >
-      {label}
-      {description}
-    </Button>
-    <Button
-      size="small"
-      color="primary"
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <ButtonGroupMui
+      aria-label={t('labels:multiActionList')}
       variant="contained"
-      aria-haspopup="true"
-      aria-owns={id}
-      onClick={toggleOpenState}
+      color="primary"
+      ref={anchorRef}
     >
-      <ArrowDropDown />
-    </Button>
-  </ButtonGroupMui>
-);
+      <Button
+        size="large"
+        onClick={onClick}
+        style={{ borderRight: '1px solid #FFF' }}
+      >
+        <Label label={label} description={description} />
+      </Button>
+      <Button
+        size="small"
+        color="primary"
+        variant="contained"
+        aria-haspopup="true"
+        aria-owns={id}
+        onClick={toggleOpenState}
+      >
+        <ArrowDropDown />
+      </Button>
+    </ButtonGroupMui>
+  );
+};
 
 ButtonGroup.propTypes = {
   /**
@@ -69,11 +74,7 @@ ButtonGroup.propTypes = {
   /**
    * Supporting button text.
    */
-  description: PropTypes.string,
-};
-
-ButtonGroup.defaultProps = {
-  description: null,
+  description: PropTypes.string.isRequired,
 };
 
 export default ButtonGroup;
