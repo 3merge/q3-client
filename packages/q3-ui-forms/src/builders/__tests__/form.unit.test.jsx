@@ -57,6 +57,4 @@ describe('FormBuilder', () => {
         .find(Next)
         .props(),
     ).toHaveProperty('label', 'testing'));
-
-  it.todo('should disable <Next /> on failed validation');
 });
