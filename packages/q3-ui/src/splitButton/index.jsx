@@ -12,63 +12,7 @@ import {
 } from '@material-ui/core';
 import { ArrowDropDown } from '@material-ui/icons';
 
-function PopperState({
-  innerRef,
-  id,
-  renderInside,
-  renderOutside,
-}) {
-  const [open, setOpen] = React.useState(false);
-
-  /** Open and close the menu */
-  const handleToggle = React.useCallback(() => {
-    setOpen((prevOpen) => !prevOpen);
-  }, []);
-
-  /** Close the menu via ref */
-  const handleClose = React.useCallback(
-    (event) => {
-      if (
-        innerRef.current &&
-        innerRef.current.contains(event.target)
-      ) {
-        return;
-      }
-      setOpen(false);
-    },
-    [innerRef],
-  );
-
-  return (
-    <>
-      {renderOutside(handleToggle, open)}
-      <Popper
-        open={open}
-        anchorEl={innerRef.current}
-        transition
-        disablePortal
-      >
-        {({ TransitionProps, placement }) => (
-          <Grow
-            {...TransitionProps}
-            style={{
-              transformOrigin:
-                placement === 'bottom'
-                  ? 'center top'
-                  : 'center bottom',
-            }}
-          >
-            <Paper id={id} elevation={5}>
-              <ClickAwayListener onClickAway={handleClose}>
-                {renderInside({ handleClose })}
-              </ClickAwayListener>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </>
-  );
-}
+const SplitButton = () => {};
 
 /** Dropdown menu */
 function MenuListWrapper({ id, items, innerRef, render }) {
@@ -101,12 +45,18 @@ function MenuListWrapper({ id, items, innerRef, render }) {
   );
 }
 
+const id = 'button-split-options';
+
+const invokeHandlerByIndex = (opts = [], ind = 0) => () =>
+  typeof opts[ind] === 'object' && 'handler' in opts[ind]
+    ? opts[ind].handler()
+    : null;
+
 export default function ButtonSplit({ options }) {
+  const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(
     0,
   );
-  const anchorRef = React.useRef(null);
-  const id = 'button-split-options';
 
   /** Dispatch current click handler */
   const handleClick = React.useCallback(() => {
@@ -139,7 +89,10 @@ export default function ButtonSplit({ options }) {
         >
           <Button
             size="large"
-            onClick={handleClick}
+            onClick={invokeHandlerByIndex(
+              options,
+              selectedIndex,
+            )}
             style={{ borderRight: '1px solid #FFF' }}
           >
             {options[selectedIndex].label}
