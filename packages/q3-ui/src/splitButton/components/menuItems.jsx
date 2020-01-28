@@ -2,22 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
+import Box from '@material-ui/core/Box';
+import Check from '@material-ui/icons/Check';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
-const MenuItems = ({ items }) => (
+const MenuItems = ({ activeIndex, items }) => (
   <MenuList>
-    {items.map(({ label, description, onClick }) => (
-      <MenuItem key={label} onClick={onClick}>
-        <Typography variant="overline">{label}</Typography>
-        <Typography component="small">
-          {description}
-        </Typography>
+    {items.map(({ label, description, onClick }, i) => (
+      <MenuItem
+        key={label}
+        onClick={onClick}
+        disableGutters
+        style={{
+          borderBottom: '1px solid whitesmoke',
+          whiteSpace: 'normal',
+        }}
+        dense
+      >
+        <Box p={1}>
+          <Grid container>
+            <Grid item xs={2}>
+              {activeIndex === i && <Check />}
+            </Grid>
+            <Grid item xs={10}>
+              <Typography
+                display="block"
+                component="strong"
+                variant="h5"
+                gutterBottom
+              >
+                {label}
+              </Typography>
+              <Typography component="small">
+                {description}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Box>
       </MenuItem>
     ))}
   </MenuList>
 );
 
 MenuItems.propTypes = {
+  /**
+   * The index of the item currently selected.
+   */
+  activeIndex: PropTypes.number.isRequired,
   /**
    * An array of dropdown items.
    * The click handler, in this context, will set it as default action.

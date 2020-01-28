@@ -3,9 +3,6 @@ const isObject = (v) => typeof v === 'object' && v !== null;
 const getByIndex = (a = [], i) =>
   isObject(a[i]) ? a[i] : {};
 
-const filterByIndex = (a = [], i) =>
-  a.filter((_, index) => index !== i);
-
 const mapClickHandler = (a = [], next) =>
   a.map((option, index) => ({
     onClick: () => next(index),
@@ -20,8 +17,8 @@ export const invokeHandlerByIndex = (
     ? opts[ind].handler()
     : null;
 
-export const setActiveIndex = (opts = [], next, i) =>
-  mapClickHandler(filterByIndex(opts, i));
+export const setActiveIndex = (opts = [], next) =>
+  mapClickHandler(opts, next);
 
 export const getLabelByIndex = (opts = [], i) =>
   getByIndex(opts, i).label;

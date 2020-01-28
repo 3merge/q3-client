@@ -6,27 +6,42 @@ import {
   getLabelByIndex,
   getDescriptionByIndex,
 } from './utils';
-import { ButtonGroup, Popper } from './components';
+import {
+  ButtonGroup,
+  Popper,
+  MenuItems,
+} from './components';
 
 const id = 'button-split-options';
 
-const ButtonSplit = ({ options }) => {
+const ButtonSplit = ({ options, ...etc }) => {
   const anchorRef = React.useRef(null);
   const [selectedIndex, setSelectedIndex] = React.useState(
     0,
   );
 
+  const handleSelection = (fn) => (i) => {
+    setSelectedIndex(i);
+    fn();
+  };
+
   return (
     <Popper
       id={id}
       innerRef={anchorRef}
-      items={setActiveIndex(
-        options,
-        setSelectedIndex,
-        selectedIndex,
+      renderInside={(close) => (
+        <MenuItems
+          activeIndex={selectedIndex}
+          items={setActiveIndex(
+            options,
+            handleSelection(close),
+            selectedIndex,
+          )}
+        />
       )}
-      render={(toggle) => (
+      renderOutside={(toggle) => (
         <ButtonGroup
+          {...etc}
           id={id}
           toggleOpenState={toggle}
           anchorRef={anchorRef}
@@ -57,9 +72,21 @@ ButtonSplit.propTypes = {
       description: PropTypes.string,
     }),
   ),
+
+  /**
+   * Will disable click actions
+   */
+  disabled: PropTypes.func,
+
+  /**
+   * Will showing a loading icon
+   */
+  loading: PropTypes.func,
 };
 
 ButtonSplit.defaultProps = {
+  disabled: false,
+  loading: false,
   options: [],
 };
 

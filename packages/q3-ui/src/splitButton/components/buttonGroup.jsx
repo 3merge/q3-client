@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroupMui } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import ButtonGroupMui from '@material-ui/core/ButtonGroup';
 import { ArrowDropDown } from '@material-ui/icons';
-import Label from '../label';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ButtonGroup = ({
   id,
@@ -11,7 +12,8 @@ const ButtonGroup = ({
   anchorRef,
   onClick,
   label,
-  description,
+  disabled,
+  loading,
 }) => {
   const { t } = useTranslation();
 
@@ -21,13 +23,20 @@ const ButtonGroup = ({
       variant="contained"
       color="primary"
       ref={anchorRef}
+      disabled={disabled || loading}
     >
       <Button
         size="large"
         onClick={onClick}
         style={{ borderRight: '1px solid #FFF' }}
       >
-        <Label label={label} description={description} />
+        {loading && (
+          <CircularProgress
+            style={{ marginRight: '0.5rem' }}
+            size={16}
+          />
+        )}
+        {label}
       </Button>
       <Button
         size="small"
@@ -72,9 +81,19 @@ ButtonGroup.propTypes = {
   label: PropTypes.string.isRequired,
 
   /**
-   * Supporting button text.
+   * Will disable click actions
    */
-  description: PropTypes.string.isRequired,
+  disabled: PropTypes.func,
+
+  /**
+   * Will showing a loading icon
+   */
+  loading: PropTypes.func,
+};
+
+ButtonGroup.defaultProps = {
+  disabled: false,
+  loading: false,
 };
 
 export default ButtonGroup;

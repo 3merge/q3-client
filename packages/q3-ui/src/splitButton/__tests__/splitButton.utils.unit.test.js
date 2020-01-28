@@ -42,11 +42,6 @@ describe('SplitButton utilities', () => {
         expect.any(Function),
       );
     });
-
-    it('should filter out active index', () => {
-      const a = setActiveIndex([{}, {}], jest.fn(), 1);
-      expect(a).toHaveLength(1);
-    });
   });
 
   describe('"get~Prop~ByIndex" helpers', () => {

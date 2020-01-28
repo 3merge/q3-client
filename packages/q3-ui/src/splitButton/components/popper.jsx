@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { useToggle } from 'useful-state';
-import {
-  ClickAwayListener,
-  Grow,
-  Paper,
-  Popper as PopperMui,
-} from '@material-ui/core';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import PopperMui from '@material-ui/core/Popper';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const Popper = ({
   id,
@@ -14,30 +13,31 @@ const Popper = ({
   renderInside,
   renderOutside,
 }) => {
-  const { open, close, toggle } = useToggle();
+  const { open, close, toggle, state } = useToggle();
 
   return (
     <>
       {renderOutside(toggle, open)}
       <PopperMui
-        open={open}
+        open={state}
         anchorEl={innerRef.current}
         transition
-        disablePortal
       >
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
             style={{
+              width:
+                get(innerRef, 'current.clientWidth') * 1.5,
               transformOrigin:
                 placement === 'bottom'
-                  ? 'center top'
-                  : 'center bottom',
+                  ? 'left top'
+                  : 'left bottom',
             }}
           >
-            <Paper id={id} elevation={5}>
+            <Paper id={id} elevation={15}>
               <ClickAwayListener onClickAway={close}>
-                {renderInside({ handleClose: close })}
+                <div>{renderInside(close)}</div>
               </ClickAwayListener>
             </Paper>
           </Grow>
