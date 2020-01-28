@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/3merge/q/compare/v1.7.3...v1.9.0) (2020-01-28)
+
+
+### Features
+
+* filter toggle button ([801a775](https://github.com/3merge/q/commit/801a77563372478155399a838ef21204879d3f2f))
+* localStorage int and q3-admin container refactoring ([189e0b4](https://github.com/3merge/q/commit/189e0b4cefebf4f690a13309e1aa5cc6736d319f))
+
+
+
+# [1.8.0](https://github.com/3merge/q/compare/v1.7.2...v1.8.0) (2020-01-23)
+
+
+### Features
+
+* sorting and pagination ([c4a35e8](https://github.com/3merge/q/commit/c4a35e8225f474449df6846d0561f5c34f87ceae))
+
+
+
+
+
+
 ## [1.7.3](https://github.com/3merge/q/compare/v1.7.2...v1.7.3) (2020-01-27)
 
 **Note:** Version bump only for package q3-client
