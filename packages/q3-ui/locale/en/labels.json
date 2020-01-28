@@ -135,5 +135,9 @@
   "PE": "Prince Edward Island",
   "QC": "Quebec",
   "SK": "Saskatchewan",
-  "YT": "Yukon"
+  "YT": "Yukon",
+  "apply": "Apply",
+  "applyAndSave": "Apply/save",
+  "reset": "Reset",
+  "resetAndSave": "Reset/save"
 }

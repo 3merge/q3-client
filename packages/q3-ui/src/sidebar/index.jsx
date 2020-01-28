@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
     width: 215,
     '& *': {
       color: '#FFF',
-      fontSize: '1.1rem',
-      fontWeight: 100,
+      fontSize: '1.11rem',
     },
   },
   mobile: {

@@ -20,7 +20,12 @@ export const FormBuilder = ({
   submitLabel,
   ...rest
 }) => (
-  <Formik onSubmit={onSubmit} {...formikProps} {...rest}>
+  <Formik
+    onSubmit={onSubmit}
+    onReset={onReset}
+    {...formikProps}
+    {...rest}
+  >
     {({ resetForm }) => (
       <Form>
         {children}

@@ -18,9 +18,6 @@ const Loader = () => {
         zIndex="100000"
       >
         <LinearProgress color="primary" />
-        <Box position="absolute" right="1rem" top="1rem">
-          <CircularProgress />
-        </Box>
       </Box>
     </Fade>
   );

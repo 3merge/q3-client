@@ -70,7 +70,13 @@ const useRest = ({
   const methods = {
     get(query = '') {
       call(FETCHING);
-      return Axios.get(`${url}${query}`)
+      return Axios.get(
+        `${url}${
+          url.includes('?')
+            ? query.replace('?', '&')
+            : query
+        }`,
+      )
         .then(({ data }) => {
           invoke(decorators, 'get', data);
           call(FETCHED, data);

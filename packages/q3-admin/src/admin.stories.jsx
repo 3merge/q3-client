@@ -30,8 +30,9 @@ import {
   SubDetail,
   Search,
   Add,
-  FilterBox,
 } from './components';
+import FilterTemplate from './templates/withFilter';
+import FilterContainer from './containers/filter';
 import { useUpload } from './helpers';
 import fixtures from './__fixtures__';
 
@@ -84,105 +85,61 @@ const Characters = (props) => (
             url: `/characters/${item.id}`,
           }))
         }
-      >
-        <Field name="locations" type="select" />
-      </Search>
+      />
       <Add title="addCharacter">
         <p>My form</p>
       </Add>
     </Header>
-    <FilterBox
-      formFields={
-        <>
-          <Field
-            name="friend"
-            type="select"
-            options={[
-              {
-                label: 'Morty',
-                value: 'Morty',
-              },
-            ]}
-          />
-
-          <Field
-            name="status"
-            type="checkset"
-            options={[
-              {
-                value: 'alive',
-                label: 'Alive',
-              },
-              {
-                value: 'dead',
-                label: 'Dead',
-              },
-            ]}
-          />
-
-          <Field
-            name="location"
-            type="checkset"
-            options={[
-              {
-                value: 'Earth (Replacement Dimension)',
-                label: 'Earth',
-              },
-            ]}
-          />
-        </>
+    <FilterTemplate
+      renderAside={
+        <FilterContainer>
+          <Field name="locations" type="select" />
+        </FilterContainer>
       }
-    >
-      <List
-        fixedWidths={[
-          '100%',
-          '100%',
-          '85px',
-          '96px',
-          '75px',
-        ]}
-      >
-        {(rows = []) =>
-          rows.map((row) => (
-            <TableRow
-              id={row.id}
-              columns={{
-                name: row.name,
-                description: row.origin.name,
-                photo: row.image,
-                location: row.location.name,
-                status: (
-                  <TableBadge
-                    status={row.status}
-                    color={
-                      row.status === 'Alive'
-                        ? 'success'
-                        : 'primary'
-                    }
-                  />
-                ),
-                popularity: (
-                  <TableProgress
-                    value={row.episode.length}
-                  />
-                ),
-                human: (
-                  <TableCheck
-                    show={row.species === 'Human'}
-                  />
-                ),
-              }}
-              rowToolbar={[
-                {
-                  onClick: () => alert('Test'),
-                  label: 'Hey',
-                },
-              ]}
-            />
-          ))
-        }
-      </List>
-    </FilterBox>
+      renderMain={
+        <List>
+          {(rows = []) =>
+            rows.map((row) => (
+              <TableRow
+                id={row.id}
+                columns={{
+                  name: row.name,
+                  description: row.origin.name,
+                  photo: row.image,
+                  location: row.location.name,
+                  status: (
+                    <TableBadge
+                      status={row.status}
+                      color={
+                        row.status === 'Alive'
+                          ? 'success'
+                          : 'primary'
+                      }
+                    />
+                  ),
+                  popularity: (
+                    <TableProgress
+                      value={row.episode.length}
+                    />
+                  ),
+                  human: (
+                    <TableCheck
+                      show={row.species === 'Human'}
+                    />
+                  ),
+                }}
+                rowToolbar={[
+                  {
+                    onClick: () => alert('Test'),
+                    label: 'Hey',
+                  },
+                ]}
+              />
+            ))
+          }
+        </List>
+      }
+    />
   </Page>
 );
 

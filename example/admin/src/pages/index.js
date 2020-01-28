@@ -22,7 +22,16 @@ export default [
     resourceName: 'permissions',
     resourceNameSingular: 'permission',
     collectionName: 'q3-api-permissions',
-    group: 'Commons',
+    subMenu: [
+      {
+        label: 'all',
+        to: '/permissions',
+      },
+      {
+        label: 'Public',
+        to: '/permissions?role=Public',
+      },
+    ],
   },
   {
     id: true,
@@ -30,6 +39,5 @@ export default [
     resourceName: 'locations',
     resourceNameSingular: 'location',
     collectionName: 'locations',
-    group: 'Commons',
   },
 ];

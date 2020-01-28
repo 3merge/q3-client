@@ -40,10 +40,10 @@ const CollisionSubNavLink = (props) => (
     exact
     getProps={({ href, location }) => {
       const [root, search] = href.split('?');
-      const hasNoSearch = !search && !location.search;
-      const matches = search
-        ? location.search.includes(search)
-        : hasNoSearch;
+      const matches =
+        search && location.search
+          ? location.search.includes(search)
+          : true;
 
       return {
         style:

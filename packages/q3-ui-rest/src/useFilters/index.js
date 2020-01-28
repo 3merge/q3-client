@@ -1,19 +1,16 @@
 import { get } from 'lodash';
 import useRest from '../useRest';
 
-export default ({ coll, fields, query }) => {
-  let fieldString = fields
+export default ({ coll, fields, query, ...rest }) => {
+  const fieldString = `collectionName=${coll}&${fields
     .map((field) => `fields[]=${field}`)
-    .join('&');
-
-  if (query) {
-    fieldString += query.replace('?', '&');
-  }
+    .join('&')}`;
 
   const state = useRest({
-    url: `/search?coll=${coll}&${fieldString}`,
+    url: `/search?${fieldString}`,
     runOnInit: true,
     key: 'fields',
+    ...rest,
   });
 
   return {

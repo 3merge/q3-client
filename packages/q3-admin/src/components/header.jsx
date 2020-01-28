@@ -29,7 +29,9 @@ const PageHeader = ({ children, titleProp }) => {
       name={ellipsis(title)}
       renderRight={curryIf(
         children,
-        <Box display="flex">{children}</Box>,
+        <Box display="flex" style={{ height: 64 }}>
+          {children}
+        </Box>,
       )}
       renderPreIdentifier={curryIf(
         id,
