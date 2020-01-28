@@ -1,39 +1,58 @@
 import React from 'react';
+import { Location } from '@reach/router';
+import JSONPretty from 'react-json-pretty';
 import { storiesOf } from '@storybook/react';
 import Assignment from '@material-ui/icons/Assignment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Docs from './README.md';
 import Menu from '.';
 
+const LocationTracking = () => (
+  <Location>{(l) => <JSONPretty data={l} />}</Location>
+);
+
 const MenuImplementationStory = () => (
-  <Menu
-    title="My menu"
-    color="orange"
-    items={[
-      {
-        to: 'one',
-        label: 'Link One',
-        Icon: Assignment,
-        visible: true,
-      },
-      {
-        to: 'huu',
-        visible: false,
-      },
-      {
-        to: 'three',
-        label: 'Link Three (Link Two Invisible)',
-        Icon: AccountCircle,
-        visible: true,
-      },
-      {
-        to: 'https://google.ca',
-        label: 'Link Four (External)',
-        Icon: AccountCircle,
-        visible: true,
-      },
-    ]}
-  />
+  <>
+    <Menu
+      title="My menu"
+      color="orange"
+      items={[
+        {
+          label: 'Link One',
+          Icon: Assignment,
+          visible: true,
+          to: 'one',
+          subMenu: [
+            {
+              to: 'one',
+              label: 'Direct to root',
+            },
+            {
+              to: 'one?hash',
+              label: 'Nested',
+            },
+          ],
+        },
+        {
+          to: 'huu',
+          visible: false,
+        },
+        {
+          to: 'three',
+          label: 'Link Three (Link Two Invisible)',
+          Icon: AccountCircle,
+          visible: true,
+        },
+        {
+          to: 'https://google.ca',
+          label: 'Link Four (External)',
+          Icon: AccountCircle,
+          visible: true,
+        },
+      ]}
+    />
+    <LocationTracking />
+  </>
 );
 
 export default MenuImplementationStory;

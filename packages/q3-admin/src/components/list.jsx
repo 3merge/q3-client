@@ -10,19 +10,9 @@ import Table, { TableSkeleton } from 'q3-ui-datatables';
 import FileCopy from '@material-ui/icons/FileCopy';
 import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
-import { makeStyles } from '@material-ui/core/styles';
 import EmptyIcon from '../images/empty';
 import ErrorIcon from '../images/error';
 import Context from './state';
-
-const useStyles = makeStyles((theme) => ({
-  inset: {
-    paddingLeft: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      paddingLeft: 0,
-    },
-  },
-}));
 
 export const EmptyView = () => (
   <ErrorComponent title="empty" description="empty">
@@ -47,7 +37,6 @@ const List = ({ children, ...rest }) => {
     location,
     ...state
   } = React.useContext(Context);
-  const { inset } = useStyles();
 
   const { Redirect, canDelete } = useAuth(collectionName);
   const rows = get(state, resourceName, []);
@@ -83,11 +72,9 @@ const List = ({ children, ...rest }) => {
 
   return (
     <Redirect op="Read" to="/">
-      <Container maxWidth="xl">
-        <Box my={2} className={inset}>
-          {renderTable()}
-        </Box>
-      </Container>
+      <Box my={2}>
+        <Container maxWidth="xl">{renderTable()}</Container>
+      </Box>
     </Redirect>
   );
 };

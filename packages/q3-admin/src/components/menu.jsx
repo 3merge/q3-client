@@ -7,31 +7,19 @@ import { makePath } from './app';
 
 const AppMenu = ({ pages }) => {
   const { t } = useTranslation();
-
   if (!Array.isArray(pages)) return null;
 
-  const groupBy = pages.reduce((acc, page) => {
-    if (!page.index) return acc;
-    const args = {
+  const items = pages
+    .filter((page) => page.index)
+    .map((page) => ({
+      ...page,
       to: makePath(page),
       visible: useAuth(page.collectionName).canSee,
       label: t(`labels:${page.resourceName}`),
       Icon: page.icon,
-    };
+    }));
 
-    if (acc[page.group]) acc[page.group].push(args);
-    if (!acc[page.group]) acc[page.group] = [args];
-
-    return acc;
-  }, {});
-
-  return Object.entries(groupBy).map(([key, value]) => (
-    <Menu
-      title={t(`titles:${key}`)}
-      items={value}
-      key={key}
-    />
-  ));
+  return <Menu title={t('titles:menu')} items={items} />;
 };
 
 AppMenu.propTypes = {

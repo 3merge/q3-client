@@ -1,4 +1,5 @@
 export { default as App } from './app';
+export { default as FilterBox } from './filterBox';
 export { default as NotFound } from './404';
 export { default as Add } from './add';
 export { default as LinkTo } from './linkTo';

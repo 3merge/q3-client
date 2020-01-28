@@ -6243,6 +6243,11 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
+codemirror@^5.42.0:
+  version "5.51.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.51.0.tgz#7746caaf5223e68f5c55ea11e2f3cc82a9a3929e"
+  integrity sha512-vyuYYRv3eXL0SCuZA4spRFlKNzQAewHcipRQCOKgRy7VNAvZxTKzbItdbCl4S5AgPZ5g3WkHp+ibWQwv9TLG7Q==
+
 collapse-white-space@^1.0.0, collapse-white-space@^1.0.2:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/collapse-white-space/-/collapse-white-space-1.0.5.tgz#c2495b699ab1ed380d29a1091e01063e75dbbe3a"
@@ -15645,6 +15650,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pegjs@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/pegjs/-/pegjs-0.10.0.tgz#cf8bafae6eddff4b5a7efb185269eaaf4610ddbd"
+  integrity sha1-z4uvrm7d/0tafvsYUmnqr0YQ3b0=
+
 pend@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
@@ -17156,6 +17166,11 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
+react-codemirror2@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-codemirror2/-/react-codemirror2-5.1.0.tgz#62de4460178adea40eb52eabf7491669bf3794b8"
+  integrity sha512-Cksbgbviuf2mJfMyrKmcu7ycK6zX/ukuQO8dvRZdFWqATf5joalhjFc6etnBdGCcPA2LbhIwz+OPnQxLN/j1Fw==
+
 react-content-loader@^4.2.2:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-4.3.4.tgz#5060df47c5ed0a16c31a35169c4e6f69e96b39a8"
@@ -17230,7 +17245,7 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
-react-dom@^16.10.2, react-dom@^16.8.3:
+react-dom@^16.10.2, react-dom@^16.6.3, react-dom@^16.8.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -17294,6 +17309,18 @@ react-fast-compare@^2.0.1, react-fast-compare@^2.0.2, react-fast-compare@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+
+react-filter-box@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-filter-box/-/react-filter-box-3.3.0.tgz#e9b09e8e8f81a06c9e3580e5f54dc83b9f9953e1"
+  integrity sha512-q3eE3B7/7h7GOS/ETyBoEU3MfvvG2dVLAeb0R5qOHt3JzZeafOyH3DruImssvwwynC1muyzVQLIJLzjf6rmzNw==
+  dependencies:
+    codemirror "^5.42.0"
+    lodash "^4.17.15"
+    pegjs "^0.10.0"
+    react "^16.6.3"
+    react-codemirror2 "^5.1.0"
+    react-dom "^16.6.3"
 
 react-focus-lock@^2.1.0:
   version "2.2.1"
@@ -17626,7 +17653,7 @@ react@^15.6.2:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@^16.10.2, react@^16.12.0, react@^16.8.3:
+react@^16.10.2, react@^16.12.0, react@^16.6.3, react@^16.8.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
