@@ -27,18 +27,16 @@ const fixture = (
 });
 
 export default {
-  title: 'TableView',
-
+  title: 'Table',
   parameters: {
     component: TableView,
-    componentSubtitle: 'subtitle',
-    componentDescription: 'This is imort',
+    componentSubtitle: 'For data-rich UIs and list views',
   },
 };
 
 export const populated = () => (
   <TableView
-    fixedWidths={['100%', '100%', '125px', '96px', '75px']}
+    id="for-testing"
     total={50}
     actions={[
       {

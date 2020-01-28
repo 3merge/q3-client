@@ -32,6 +32,8 @@ export default (asLoggedIn) => (m) => {
     const split = config.url.split('/');
     const id = split[split.length - 1];
 
+    console.log('here..');
+
     return [
       200,
       {

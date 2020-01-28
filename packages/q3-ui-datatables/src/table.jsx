@@ -11,24 +11,21 @@ import useStyles from './utils/useStyles';
 import { extractIds, extractKeys } from './utils/helpers';
 import {
   ActionBar,
+  ColumnHeader,
   Wrapper,
   Pagination,
   SelectAll,
 } from './components';
 
 export const TableView = ({
+  id,
   children,
+  aliasForName,
   total,
   actions,
-  fixedWidths,
 }) => {
   const { t } = useTranslation();
-  const { leader, mobile, boxes } = useStyles();
-
-  const getClassName = (v) => {
-    if (v === 0) return leader;
-    return null;
-  };
+  const { mobile, boxes } = useStyles();
 
   return (
     <Wrapper>
@@ -40,12 +37,14 @@ export const TableView = ({
           <TableHead>
             <TableRow className={mobile}>
               {extractKeys(children).map((header, i) => (
-                <TableCell
-                  className={getClassName(i)}
-                  style={{ width: fixedWidths[i] }}
-                >
-                  {t(`labels:${header}`)}
-                </TableCell>
+                <ColumnHeader
+                  id={id}
+                  key={header}
+                  title={header}
+                  storageKey={
+                    i === 0 ? aliasForName : header
+                  }
+                />
               ))}
               <TableCell className={boxes}>
                 <SelectAll ids={extractIds(children)} />
@@ -54,7 +53,7 @@ export const TableView = ({
           </TableHead>
           <TableBody>{children}</TableBody>
           <TableFooter>
-            <Pagination total={total} />
+            <Pagination id={id} total={total} />
           </TableFooter>
         </Table>
       </ActionBar>
@@ -64,17 +63,21 @@ export const TableView = ({
 
 TableView.propTypes = {
   /**
+   * Unique identifier for list cache.
+   */
+  id: PropTypes.string.isRequired,
+
+  /**
    * Total number of potential documents.
    * In many cases, this number is larger than the pagination size.
    */
   total: PropTypes.number,
 
   /**
-   * For desktop screens, you can explicitly set column widths.
-   * To achieve an "auto" width, you must counter-intuitively provide "100%".
-   * Note that the array's index corresponds with columns left-to-right.
+   * Unlike other columns, the leader is titled "name" but could represent lots of different things.
+   * For sorting purposes, we can expose the true data key with this prop.
    */
-  fixedWidths: PropTypes.arrayOf(PropTypes.number),
+  aliasForName: PropTypes.string,
 
   /**
    * Typically, you'd nest an array of Row components within the Table.
@@ -99,9 +102,9 @@ TableView.propTypes = {
 };
 
 TableView.defaultProps = {
+  aliasForName: 'name',
   total: 0,
   actions: [],
-  fixedWidths: [],
 };
 
 export default TableView;

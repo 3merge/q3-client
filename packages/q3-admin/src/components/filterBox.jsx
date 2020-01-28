@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
-import { Form, Back } from 'q3-ui-forms/lib/builders';
+import { Form } from 'q3-ui-forms/lib/builders';
 import SplitButton from 'q3-ui/lib/splitButton';
 import { withLocation } from 'with-location';
 import { useToggle } from 'useful-state';
@@ -30,6 +30,18 @@ const FilterActionButton = connect(
             'Apply search filters and save them to your local browser',
           handler: () => null,
         },
+        {
+          label: 'Reset',
+          description:
+            'Append all filters to the search results',
+          handler: submitForm,
+        },
+        {
+          label: 'Reset/Save',
+          description:
+            'Append all filters to the search results',
+          handler: submitForm,
+        },
       ]}
     />
   ),
@@ -37,7 +49,7 @@ const FilterActionButton = connect(
 
 const FilterForm = withLocation(
   ({ children, pushTo, params, ...rest }) => (
-    <Box position="sticky" top="100px">
+    <Box position="sticky" top="80px">
       <Form
         enableSubmit={false}
         onSubmit={(values) => {
@@ -50,14 +62,14 @@ const FilterForm = withLocation(
           Narrow the results
         </Typography>
         {children}
-        <Box display="inline">
-          <FilterActionButton />
-          <Back label="reset" />
-        </Box>
+        <FilterActionButton />
       </Form>
     </Box>
   ),
 );
+
+// MOBILE IT BECOMES FIXED...
+// TABLE BREAKPOINT EARLIER...
 
 const FilterBox = ({ children, formFields, debug }) => {
   const { toggle, state } = useToggle(true);
@@ -67,12 +79,13 @@ const FilterBox = ({ children, formFields, debug }) => {
       {state && (
         <Grid item>
           <Box
-            p={2}
+            py={3}
+            px={3}
             style={{
-              height: '100%',
-              backgroundColor: '#fff',
               border: '2px solid whitesmoke',
-              width: 275,
+              background: '#FFF',
+              height: '100%',
+              width: 255,
             }}
           >
             <FilterForm debug={debug}>

@@ -7,6 +7,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package admin
 
+# [1.8.0](https://github.com/3merge/q/compare/v1.7.2...v1.8.0) (2020-01-23)
+
+
+### Features
+
+* sorting and pagination ([c4a35e8](https://github.com/3merge/q/commit/c4a35e8225f474449df6846d0561f5c34f87ceae))
 
 
 
