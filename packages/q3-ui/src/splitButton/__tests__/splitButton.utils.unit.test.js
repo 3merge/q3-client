@@ -3,6 +3,7 @@ import {
   setActiveIndex,
   getLabelByIndex,
   getDescriptionByIndex,
+  getPopperStyle,
 } from '../utils';
 
 describe('SplitButton utilities', () => {
@@ -60,5 +61,18 @@ describe('SplitButton utilities', () => {
 
     it('should return undefined', () =>
       expect(getDescriptionByIndex([], 1)).toBeUndefined());
+  });
+
+  describe('"getPopperStyle"', () => {
+    it('should multiply width by 1.5', () =>
+      expect(
+        getPopperStyle({ current: { clientWidth: 100 } }),
+      ).toHaveProperty('width', 150));
+
+    it('should reversely position top from bottom', () =>
+      expect(getPopperStyle(null, 'bottom')).toHaveProperty(
+        'transformOrigin',
+        'left top',
+      ));
   });
 });

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import { useToggle } from 'useful-state';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import PopperMui from '@material-ui/core/Popper';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { getPopperStyle } from '../utils';
 
 const Popper = ({
   id,
@@ -26,14 +26,7 @@ const Popper = ({
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={{
-              width:
-                get(innerRef, 'current.clientWidth') * 1.5,
-              transformOrigin:
-                placement === 'bottom'
-                  ? 'left top'
-                  : 'left bottom',
-            }}
+            style={getPopperStyle(innerRef, placement)}
           >
             <Paper id={id} elevation={15}>
               <ClickAwayListener onClickAway={close}>

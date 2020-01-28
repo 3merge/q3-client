@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 const isObject = (v) => typeof v === 'object' && v !== null;
 
 const getByIndex = (a = [], i) =>
@@ -25,3 +27,9 @@ export const getLabelByIndex = (opts = [], i) =>
 
 export const getDescriptionByIndex = (opts = [], i) =>
   getByIndex(opts, i).description;
+
+export const getPopperStyle = (innerRef, placement) => ({
+  width: get(innerRef, 'current.clientWidth') * 1.5,
+  transformOrigin:
+    placement === 'bottom' ? 'left top' : 'left bottom',
+});

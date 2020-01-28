@@ -83,12 +83,12 @@ ButtonGroup.propTypes = {
   /**
    * Will disable click actions
    */
-  disabled: PropTypes.func,
+  disabled: PropTypes.bool,
 
   /**
    * Will showing a loading icon
    */
-  loading: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 ButtonGroup.defaultProps = {

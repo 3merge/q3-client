@@ -1,6 +1,6 @@
 import React from 'react';
 import { MenuItem } from '@material-ui/core';
-import Menu from '.';
+import Menu from '../menuItems';
 
 describe('"MenuItems"', () => {
   it('should iterate options', () =>
