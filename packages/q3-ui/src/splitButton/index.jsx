@@ -82,9 +82,21 @@ ButtonSplit.propTypes = {
    * Will showing a loading icon
    */
   loading: PropTypes.func,
+
+  /**
+   * Controls the colour of both buttons.
+   */
+  color: PropTypes.string,
+
+  /**
+   * Controls the size of the action button.
+   */
+  size: PropTypes.string,
 };
 
 ButtonSplit.defaultProps = {
+  size: 'large',
+  color: 'primary',
   disabled: false,
   loading: false,
   options: [],

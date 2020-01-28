@@ -76,22 +76,64 @@ const Animators = (props) => (
 
 const Characters = (props) => (
   <Page {...props}>
-    <FilterBox>
-      <Header>
-        <Search
-          intercept={(items) =>
-            items.map((item) => ({
-              ...item,
-              url: `/characters/${item.id}`,
-            }))
-          }
-        >
-          <Field name="locations" type="select" />
-        </Search>
-        <Add title="addCharacter">
-          <p>My form</p>
-        </Add>
-      </Header>
+    <Header>
+      <Search
+        intercept={(items) =>
+          items.map((item) => ({
+            ...item,
+            url: `/characters/${item.id}`,
+          }))
+        }
+      >
+        <Field name="locations" type="select" />
+      </Search>
+      <Add title="addCharacter">
+        <p>My form</p>
+      </Add>
+    </Header>
+    <FilterBox
+      debug
+      formFields={
+        <>
+          <Field
+            name="friend"
+            type="select"
+            options={[
+              {
+                label: 'Morty',
+                value: 'Morty',
+              },
+            ]}
+          />
+
+          <Field
+            name="status"
+            type="checkset"
+            options={[
+              {
+                value: 'alive',
+                label: 'Alive',
+              },
+              {
+                value: 'dead',
+                label: 'Dead',
+              },
+            ]}
+          />
+
+          <Field
+            name="location"
+            type="checkset"
+            options={[
+              {
+                value: 'Earth (Replacement Dimension)',
+                label: 'Earth',
+              },
+            ]}
+          />
+        </>
+      }
+    >
       <List
         fixedWidths={[
           '100%',

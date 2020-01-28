@@ -14,6 +14,8 @@ const ButtonGroup = ({
   label,
   disabled,
   loading,
+  color,
+  size,
 }) => {
   const { t } = useTranslation();
 
@@ -21,12 +23,12 @@ const ButtonGroup = ({
     <ButtonGroupMui
       aria-label={t('labels:multiActionList')}
       variant="contained"
-      color="primary"
+      color={color}
       ref={anchorRef}
       disabled={disabled || loading}
     >
       <Button
-        size="large"
+        size={size}
         onClick={onClick}
         style={{ borderRight: '1px solid #FFF' }}
       >
@@ -40,7 +42,7 @@ const ButtonGroup = ({
       </Button>
       <Button
         size="small"
-        color="primary"
+        color={color}
         variant="contained"
         aria-haspopup="true"
         aria-owns={id}
@@ -89,6 +91,16 @@ ButtonGroup.propTypes = {
    * Will showing a loading icon
    */
   loading: PropTypes.bool,
+
+  /**
+   * Controls the colour of both buttons.
+   */
+  color: PropTypes.string.isRequired,
+
+  /**
+   * Controls the colour of both buttons.
+   */
+  size: PropTypes.string.isRequired,
 };
 
 ButtonGroup.defaultProps = {

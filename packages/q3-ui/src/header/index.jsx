@@ -263,6 +263,7 @@ const Header = ({
   transparent,
   color,
   children,
+  position,
   ...rest
 }) => {
   const [scrolled, setScrolled] = React.useState(false);
@@ -271,8 +272,8 @@ const Header = ({
     transparent,
   });
 
-  const hasMenu = (position) =>
-    menuPosition === position && menuItems.length ? (
+  const hasMenu = (p) =>
+    menuPosition === p && menuItems.length ? (
       <HorizontalMenuList items={menuItems} />
     ) : null;
 
@@ -288,7 +289,7 @@ const Header = ({
 
   return (
     <AppBar
-      position="sticky"
+      position={position}
       className={appBar}
       color={scrolled ? 'inherit' : color}
       style={{ backgroundColor: scrolled ? '#FFF' : null }}
@@ -353,9 +354,11 @@ Header.propTypes = {
       visible: PropTypes.bool,
     }),
   ),
+  position: PropTypes.string,
 };
 
 Header.defaultProps = {
+  position: 'sticky',
   renderLeft: null,
   renderRight: null,
   children: null,

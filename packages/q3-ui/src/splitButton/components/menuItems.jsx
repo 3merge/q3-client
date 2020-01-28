@@ -15,26 +15,29 @@ const MenuItems = ({ activeIndex, items }) => (
         onClick={onClick}
         disableGutters
         style={{
+          marginTop: i !== 0 ? '-1rem' : 0,
           borderBottom: '1px solid whitesmoke',
           whiteSpace: 'normal',
         }}
-        dense
       >
         <Box p={1}>
           <Grid container>
             <Grid item xs={2}>
               {activeIndex === i && <Check />}
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={10} style={{ lineHeight: 0.7 }}>
               <Typography
                 display="block"
                 component="strong"
-                variant="h5"
                 gutterBottom
+                style={{ fontSize: '1rem', margin: 0 }}
               >
                 {label}
               </Typography>
-              <Typography component="small">
+              <Typography
+                component="small"
+                style={{ fontSize: '0.799rem' }}
+              >
                 {description}
               </Typography>
             </Grid>

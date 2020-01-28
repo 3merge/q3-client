@@ -25,6 +25,7 @@ const PageHeader = ({ children, titleProp }) => {
 
   return (
     <Header
+      position="relative"
       name={ellipsis(title)}
       renderRight={curryIf(
         children,

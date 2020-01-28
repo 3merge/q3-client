@@ -14,6 +14,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles({
+  subItemCls: {
+    boxSizing: 'border-box',
+    border: '1px solid transparent',
+    padding: '0 1rem',
+    '&:hover': {
+      opacity: '1 !important',
+      textDecoration: 'underline',
+    },
+  },
   container: {
     padding: '0 16px',
     position: 'relative',
@@ -24,6 +33,32 @@ const useStyles = makeStyles({
   },
   selected: {},
 });
+
+const CollisionSubNavLink = (props) => (
+  <NavLink
+    {...props}
+    exact
+    getProps={({ href, location }) => {
+      const [root, search] = href.split('?');
+      const hasNoSearch = !search && !location.search;
+      const matches = search
+        ? location.search.includes(search)
+        : hasNoSearch;
+
+      return {
+        style:
+          location.pathname === root && matches
+            ? {
+                opacity: 0.9,
+                textDecoration: 'underline',
+              }
+            : {
+                opacity: 0.5,
+              },
+      };
+    }}
+  />
+);
 
 export const CollisionNavLink = (props) => (
   <NavLink
@@ -47,11 +82,15 @@ export const CollisionNavLink = (props) => (
   />
 );
 
-const NestedMenuItem = ({ isOpen, items }) => (
+const NestedMenuItem = ({ isOpen, items, className }) => (
   <Collapse in={isOpen} timeout="auto" unmountOnExit>
-    <List component="ul" disablePadding>
+    <List component="ul">
       {items.map((i) => (
-        <ListItem component={NavLink} to={i.to}>
+        <ListItem
+          component={CollisionSubNavLink}
+          to={i.to}
+          className={className}
+        >
           {i.icon && (
             <ListItemIcon>
               <i.icon />
@@ -103,7 +142,7 @@ const MenuItem = ({
       )
     : false;
 
-  const { container } = useStyles();
+  const { container, subItemCls } = useStyles();
   const { toggle, close, open, state } = useToggle(
     includes,
   );
@@ -167,7 +206,11 @@ const MenuItem = ({
       </ListItem>
 
       {hasSubMenu && (
-        <NestedMenuItem items={subMenu} isOpen={state} />
+        <NestedMenuItem
+          items={subMenu}
+          isOpen={state}
+          className={subItemCls}
+        />
       )}
     </div>
   );

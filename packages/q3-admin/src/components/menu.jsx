@@ -19,7 +19,7 @@ const AppMenu = ({ pages }) => {
       Icon: page.icon,
     }));
 
-  return <Menu title={t('titles:menu')} items={items} />;
+  return <Menu title={t('titles:3merge')} items={items} />;
 };
 
 AppMenu.propTypes = {
