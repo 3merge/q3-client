@@ -6,7 +6,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { useToggle } from 'useful-state';
@@ -38,25 +37,17 @@ const CollisionSubNavLink = (props) => (
   <NavLink
     {...props}
     exact
-    getProps={({ href, location }) => {
-      const [root, search] = href.split('?');
-      const matches =
-        search && location.search
-          ? location.search.includes(search)
-          : true;
-
-      return {
-        style:
-          location.pathname === root && matches
-            ? {
-                opacity: 0.9,
-                textDecoration: 'underline',
-              }
-            : {
-                opacity: 0.5,
-              },
-      };
-    }}
+    getProps={({ href, location }) => ({
+      style:
+        location.pathname === href
+          ? {
+              opacity: 0.9,
+              textDecoration: 'underline',
+            }
+          : {
+              opacity: 0.5,
+            },
+    })}
   />
 );
 
@@ -103,22 +94,32 @@ const NestedMenuItem = ({ isOpen, items, className }) => (
   </Collapse>
 );
 
-const MenuItemLinkIcon = ({ hasSubMenu, isOpen }) => (
-  <ListItemIcon>
-    {hasSubMenu ? (
-      <ExpandMore
-        style={{
-          transition: 'transform 250ms',
-          transform: isOpen
-            ? 'rotate(180deg)'
-            : 'rotate(0)',
-        }}
-      />
-    ) : (
-      <KeyboardArrowRight />
-    )}
-  </ListItemIcon>
-);
+const MenuItemLinkDecoratorIcon = ({
+  icon: Icon,
+  hasSubMenu,
+  isOpen,
+}) => {
+  if (!hasSubMenu && !Icon) return null;
+  if (hasSubMenu)
+    return (
+      <ListItemIcon>
+        <ExpandMore
+          style={{
+            transition: 'transform 250ms',
+            transform: isOpen
+              ? 'rotate(180deg)'
+              : 'rotate(0)',
+          }}
+        />
+      </ListItemIcon>
+    );
+
+  return (
+    <ListItemIcon>
+      <Icon />
+    </ListItemIcon>
+  );
+};
 
 const MenuItem = ({
   to,
@@ -127,6 +128,7 @@ const MenuItem = ({
   subMenu,
   label,
   color,
+  icon,
   location: {
     location: { pathname },
   },
@@ -173,11 +175,6 @@ const MenuItem = ({
               }
 
               return {
-                'data-active': !!(
-                  isCurrent ||
-                  (isPartiallyCurrent &&
-                    (props.to !== '/' || !props.to))
-                ),
                 style:
                   isCurrent ||
                   (isPartiallyCurrent &&
@@ -198,11 +195,12 @@ const MenuItem = ({
         button
         dense
       >
-        <ListItemText style={{ color }} primary={label} />
-        <MenuItemLinkIcon
+        <MenuItemLinkDecoratorIcon
+          icon={icon}
           hasSubMenu={hasSubMenu}
           isOpen={state}
         />
+        <ListItemText style={{ color }} primary={label} />
       </ListItem>
 
       {hasSubMenu && (

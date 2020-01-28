@@ -91,12 +91,12 @@ const Characters = (props) => (
       </Add>
     </Header>
     <FilterTemplate
-      renderAside={
+      renderAside={() => (
         <FilterContainer>
           <Field name="locations" type="select" />
         </FilterContainer>
-      }
-      renderMain={
+      )}
+      renderMain={() => (
         <List>
           {(rows = []) =>
             rows.map((row) => (
@@ -138,7 +138,7 @@ const Characters = (props) => (
             ))
           }
         </List>
-      }
+      )}
     />
   </Page>
 );

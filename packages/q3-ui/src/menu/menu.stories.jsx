@@ -19,7 +19,7 @@ const MenuImplementationStory = () => (
       items={[
         {
           label: 'Link One',
-          Icon: Assignment,
+          icon: Assignment,
           visible: true,
           to: 'one',
           subMenu: [
@@ -28,7 +28,7 @@ const MenuImplementationStory = () => (
               label: 'Direct to root',
             },
             {
-              to: 'one?hash',
+              to: 'two',
               label: 'Nested',
             },
           ],
@@ -40,13 +40,13 @@ const MenuImplementationStory = () => (
         {
           to: 'three',
           label: 'Link Three (Link Two Invisible)',
-          Icon: AccountCircle,
+          icon: AccountCircle,
           visible: true,
         },
         {
           to: 'https://google.ca',
           label: 'Link Four (External)',
-          Icon: AccountCircle,
+          icon: AccountCircle,
           visible: true,
         },
       ]}
