@@ -5,7 +5,7 @@ import SwapHoriz from '@material-ui/icons/SwapHoriz';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import IconButton from 'q3-ui/lib/iconButton';
+import Fab from '@material-ui/core/Fab';
 import { Form, Back } from 'q3-ui-forms/lib/builders';
 import SplitButton from 'q3-ui/lib/splitButton';
 import { withLocation } from 'with-location';
@@ -25,7 +25,7 @@ const FilterActionButton = connect(
           handler: submitForm,
         },
         {
-          label: 'Apply and Save',
+          label: 'Apply/Save',
           description:
             'Apply search filters and save them to your local browser',
           handler: () => null,
@@ -70,9 +70,9 @@ const FilterBox = ({ children, formFields, debug }) => {
             p={2}
             style={{
               height: '100%',
-              backgroundColor: '#FFF',
-              borderTop: '2px solid whitesmoke',
-              width: 350,
+              backgroundColor: '#fff',
+              border: '2px solid whitesmoke',
+              width: 275,
             }}
           >
             <FilterForm debug={debug}>
@@ -82,16 +82,18 @@ const FilterBox = ({ children, formFields, debug }) => {
         </Grid>
       )}
       <Grid item style={{ flex: 1 }}>
-        <IconButton
-          label="toggleFilterPanel"
-          icon={SwapHoriz}
-          buttonProps={{
-            onClick: toggle,
-            style: {
-              marginLeft: state ? '-1.5rem' : 'auto',
-            },
+        <Fab
+          size="small"
+          aria-label="Toggle filter panel"
+          onClick={toggle}
+          style={{
+            marginLeft: '-1.5rem',
+            position: 'fixed',
+            top: '82%',
           }}
-        />
+        >
+          <SwapHoriz />
+        </Fab>
         <Box my={2}>{children}</Box>
       </Grid>
     </Grid>

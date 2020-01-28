@@ -12,14 +12,11 @@ import Fade from '@material-ui/core/Fade';
 import Search from '@material-ui/icons/Search';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Close from '@material-ui/icons/Close';
-import GridOn from '@material-ui/icons/GridOn';
 import AspectRatio from '@material-ui/icons/AspectRatio';
-import GridOff from '@material-ui/icons/GridOff';
 import Highlighter from 'react-highlight-words';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
 import { withLocation } from 'with-location';
 import { useToggle, useValue } from 'useful-state';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -53,22 +50,6 @@ const CloseTrigger = ({ onClick }) => (
 
 CloseTrigger.propTypes = {
   onClick: PropTypes.func.isRequired,
-};
-
-export const FilterTrigger = ({ onClick, active }) => (
-  <AccessibleIconButton
-    label="filter"
-    icon={active ? GridOn : GridOff}
-    buttonProps={{
-      onClick,
-      color: active ? 'primary' : 'normal',
-    }}
-  />
-);
-
-FilterTrigger.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  active: PropTypes.bool.isRequired,
 };
 
 export const Adornment = withLocation(
@@ -167,22 +148,6 @@ SearchResultList.propTypes = {
   getResults: PropTypes.func.isRequired,
 };
 
-const SearchPanel = ({ show, children }) =>
-  show ? (
-    <Collapse in={show}>
-      <Box p={2}>{children}</Box>
-    </Collapse>
-  ) : null;
-
-SearchPanel.propTypes = {
-  show: PropTypes.bool.isRequired,
-  children: PropTypes.node,
-};
-
-SearchPanel.defaultProps = {
-  children: null,
-};
-
 const SearchDrawer = ({ state, open, close, children }) => (
   <Drawer
     anchor="right"
@@ -213,7 +178,6 @@ const Searchbar = ({
   getResults,
   handleSearch,
   getFrom,
-  filter: Filter,
   icon,
 }) => {
   const { t } = useTranslation();
@@ -225,10 +189,6 @@ const Searchbar = ({
     ref,
   } = useValue(getFrom('search') || '');
 
-  const {
-    toggle: toggleFilter,
-    state: showFilter,
-  } = useToggle(false);
   const { state, open, close } = useToggle();
 
   const inputProps = {
@@ -294,27 +254,14 @@ const Searchbar = ({
           startAdornment={
             <Box display="flex" mr={1}>
               <CloseTrigger onClick={close} />
-              {Filter && (
-                <FilterTrigger
-                  active={showFilter}
-                  onClick={toggleFilter}
-                />
-              )}
             </Box>
           }
         />
-        <SearchPanel show={!showFilter} label="search">
-          <SearchResultList
-            term={value}
-            getResults={getResults}
-            icon={icon}
-          />
-        </SearchPanel>
-        {Filter && (
-          <SearchPanel show={showFilter} label="filter">
-            <Filter />
-          </SearchPanel>
-        )}
+        <SearchResultList
+          term={value}
+          getResults={getResults}
+          icon={icon}
+        />
       </SearchDrawer>
     </>
   );

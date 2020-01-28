@@ -19,9 +19,11 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     paddingTop: theme.spacing(2),
-    width: 265,
+    width: 215,
     '& *': {
       color: '#FFF',
+      fontSize: '1.1rem',
+      fontWeight: 100,
     },
   },
   mobile: {

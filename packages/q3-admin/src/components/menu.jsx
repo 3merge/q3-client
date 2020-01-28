@@ -19,6 +19,12 @@ const AppMenu = ({ pages }) => {
       Icon: page.icon,
     }));
 
+  items.unshift({
+    to: '/',
+    label: t('labels:dashboard'),
+    visible: true,
+  });
+
   return <Menu title={t('titles:3merge')} items={items} />;
 };
 

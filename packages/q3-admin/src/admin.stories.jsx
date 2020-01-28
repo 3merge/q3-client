@@ -92,7 +92,6 @@ const Characters = (props) => (
       </Add>
     </Header>
     <FilterBox
-      debug
       formFields={
         <>
           <Field

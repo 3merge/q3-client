@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
   floatOnDesktop: {
     position: 'fixed',
-    left: 298,
+    left: 248,
     bottom: theme.spacing(2),
     width: 75,
     height: 75,
