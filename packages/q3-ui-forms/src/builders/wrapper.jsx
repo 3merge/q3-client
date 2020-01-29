@@ -47,6 +47,7 @@ const Wrapper = (Component) => ({
   );
 
   const validation = yup.object().shape(chain);
+  const len = get(validation, '_nodes.length', null);
 
   return (
     <BuilderState.Provider
@@ -57,6 +58,7 @@ const Wrapper = (Component) => ({
           disable: getSubmitBehaviour(),
         },
         validation: {
+          isReady: len !== null,
           chain: yup.object().shape(chain),
           setField,
         },
@@ -74,13 +76,7 @@ const Wrapper = (Component) => ({
               enableReinitialize: true,
               validateOnMount: !isNew,
               validationSchema: validation,
-              initialValues: get(
-                validation,
-                '_nodes.length',
-                null,
-              )
-                ? initialValues
-                : {},
+              initialValues: len ? initialValues : {},
             }}
           />
         )}

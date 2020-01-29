@@ -29,6 +29,8 @@ const Text = (props) => {
     ),
   );
 
+  console.log(etc.value);
+
   return (
     <TextField
       disabled={disabled}

@@ -22,7 +22,9 @@ export const FormBuilder = ({
 }) => (
   <Formik
     onSubmit={onSubmit}
-    onReset={onReset}
+    onReset={() => {
+      if (rest.isReady) onReset();
+    }}
     {...formikProps}
     {...rest}
   >

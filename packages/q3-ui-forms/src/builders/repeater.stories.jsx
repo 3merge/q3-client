@@ -29,7 +29,7 @@ storiesOf('Forms|Repeater', module)
         ]}
         title="lorem"
         create={() => Promise.resolve()}
-        edit={() => () => Promise.reject()}
+        edit={() => () => Promise.resolve()}
         primary={({ firstName }) =>
           `First Name: ${firstName}`
         }
@@ -38,7 +38,6 @@ storiesOf('Forms|Repeater', module)
         }
         initialValues={{
           firstName: '',
-          lastName: '',
         }}
       >
         <Form label="add">
