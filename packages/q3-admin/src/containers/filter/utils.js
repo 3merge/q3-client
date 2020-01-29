@@ -28,7 +28,6 @@ export const appendOptions = (a, fields) =>
 export const appendEmptyValues = (a, next) =>
   isArray(a).reduce((acc, item) => {
     let v = next(item.props.name);
-    if (requiresOptions(item.props.type)) v = toArray(v);
     if (!v) v = '';
 
     return Object.assign(acc, {

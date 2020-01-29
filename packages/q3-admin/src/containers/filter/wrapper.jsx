@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import flat from 'flat';
 import { withLocation } from 'with-location';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useFilterAndContext from './useFilterAndContext';
@@ -33,7 +34,7 @@ export const FormWrapper = ({
       enableSubmit={false}
       initialValues={appendEmptyValues(children, getFrom)}
       onSubmit={(values, actions) => {
-        pushTo(values);
+        pushTo(flat(values));
         goTo(id, params);
         actions.setSubmitting(false);
       }}
@@ -66,11 +67,6 @@ FormWrapper.propTypes = {
    * Injected from with-location HOC.
    */
   getFrom: PropTypes.func.isRequired,
-
-  /**
-   * Injected from with-location HOC.
-   */
-  clearByName: PropTypes.func.isRequired,
 
   /**
    * Injected from with-location HOC.

@@ -11,6 +11,9 @@ const m = (a) =>
     fields: {
       number: ['one', 'two', 'three'],
       countries: 'CA,US,MX',
+      'friend': {
+        name: 'Jon,Carry',
+      },
     },
   });
 
@@ -36,6 +39,52 @@ export const Default = () => (
         <Field name="number" type="select" />
         <Field name="countries" type="select" />
       </Filter>
+    </State.Provider>
+  </MockApi>
+);
+
+export const WithNestedFormFields = () => (
+  <MockApi define={m}>
+    <State.Provider
+      value={{
+        collectionName: 'sample',
+        fetching: false,
+        location: {},
+      }}
+    >
+      <Filter id="testing">
+        <Field name="friend.name" type="select" />
+      </Filter>
+    </State.Provider>
+  </MockApi>
+);
+
+export const WithValues = () => (
+  <MockApi define={m}>
+    <State.Provider
+      value={{
+        collectionName: 'sample',
+        fetching: false,
+        location: {},
+      }}
+    >
+      <FormWrapper
+        id="testing"
+        pushTo={() => null}
+        getAll={() => null}
+        getFrom={(v) => {
+          if (v === 'number') return 'one';
+          if (v === 'countries') return 'CA';
+          return null;
+        }}
+        params={{
+          delete: () => null,
+          toString: () => null,
+        }}
+      >
+        <Field name="number" type="select" />
+        <Field name="countries" type="select" />
+      </FormWrapper>
     </State.Provider>
   </MockApi>
 );

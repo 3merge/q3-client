@@ -72,7 +72,7 @@ const NativeSelect = (props) => {
         disabled={disabled}
         readOnly={readOnly}
       >
-        <option>
+        <option value="">
           {loading
             ? `${t('labels:loading')}...`
             : t('labels:none')}
