@@ -21601,11 +21601,12 @@ windows-release@^3.1.0:
     execa "^1.0.0"
 
 with-location@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/with-location/-/with-location-1.2.0.tgz#afdb252bb70894c81f8ceba8ea3250fca901ea3f"
-  integrity sha512-UV7XTbEDAi/u2plIzqYn93yaGmIqpqXXD4UHxKRiy+xnNoUuBcA7g2OMBxDbD9RziLcpimWWzFb87zPaCv4j5w==
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/with-location/-/with-location-1.2.1.tgz#0e33c718ad7db41fdbb1dd27aa8234c009c2ab4a"
+  integrity sha512-vmHLK0XGv6DZZ0R8G44sve7LW/iGQKZOxZ/bbrItlBCnhBtRiQi9Fu0PH7BpEfu1ZYrdObDKdHNffZJGNgRd2w==
   dependencies:
     "@reach/router" "^1.2.1"
+    flat "^5.0.0"
     prop-types "^15.7.2"
     react "^16.10.2"
     react-dom "^16.10.2"

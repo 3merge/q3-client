@@ -10,7 +10,6 @@ export default ({ coll, fields, query, ...rest }) => {
     url: `/search?${fieldString}`,
     runOnInit: true,
     key: 'fields',
-    ...rest,
   });
 
   return {

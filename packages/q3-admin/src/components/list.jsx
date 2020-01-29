@@ -73,7 +73,7 @@ const List = ({ children, ...rest }) => {
 
   return (
     <Redirect op="Read" to="/">
-      <Box my={2}>
+      <Box>
         <Container maxWidth="xl">{renderTable()}</Container>
       </Box>
     </Redirect>

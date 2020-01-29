@@ -1,5 +1,6 @@
 export { default as Autocomplete } from './autocomplete';
 export { default as Checkbox } from './checkbox';
+export { default as Chips } from './chips';
 export { default as Checkset } from './checkset';
 export { default as DatePicker } from './date';
 export { default as Editor } from './editor';

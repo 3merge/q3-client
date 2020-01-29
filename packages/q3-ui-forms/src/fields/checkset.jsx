@@ -72,6 +72,30 @@ CollapseableFieldset.defaultProps = {
   helperText: null,
 };
 
+export const ControlledCheckbox = ({
+  label,
+  value,
+  onChange,
+  isChecked,
+  name,
+}) => (
+  <FormControlLabel
+    control={
+      <Checkbox
+        name={name}
+        value={value}
+        onChange={onChange}
+        checked={isChecked}
+        size="small"
+      />
+    }
+    label={label}
+    key={value}
+    style={{ display: 'block' }}
+    size="small"
+  />
+);
+
 const Checkset = (props) => {
   const [{ value = [] }, { error }] = useField(props);
   const { onArrayPush, options, ...rest } = useDecorator(
@@ -82,18 +106,12 @@ const Checkset = (props) => {
   return Array.isArray(options) && options.length ? (
     <CollapseableFieldset {...rest} error={Boolean(error)}>
       {options.map((option) => (
-        <FormControlLabel
-          control={
-            <Checkbox
-              name={option.label}
-              value={option.value}
-              onChange={onArrayPush}
-              checked={value.includes(option.value)}
-            />
-          }
+        <ControlledCheckbox
+          key={option.label}
           label={t(option.label)}
-          key={option.value}
-          style={{ display: 'block' }}
+          value={option.value}
+          onChange={onArrayPush}
+          isChecked={value.includes(option.value)}
         />
       ))}
     </CollapseableFieldset>

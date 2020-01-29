@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import { withLocation } from 'with-location';
 import { useTranslation } from 'react-i18next';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
@@ -9,7 +10,6 @@ export const includesNegativeCharacter = (v) =>
   typeof v === 'string' && v.includes('-');
 
 export const ColumnHeader = ({
-  id,
   title,
   storageKey,
   getFrom,
@@ -22,7 +22,7 @@ export const ColumnHeader = ({
 
   const onClick = () => {
     pushTo({ sort: `${!isAsc ? '-' : ''}${storageKey}` });
-    localStorage.setItem(id, params.toString());
+    navigate(`?${params.toString()}`);
   };
 
   return (

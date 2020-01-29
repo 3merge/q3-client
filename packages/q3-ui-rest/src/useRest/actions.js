@@ -135,7 +135,7 @@ const useRest = ({
   };
 
   React.useEffect(() => {
-    const saved = localStorage.getItem(url);
+    const saved = null; // localStorage.getItem(url);
     if (
       !location.search &&
       saved &&

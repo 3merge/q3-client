@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'formik';
 import { withLocation } from 'with-location';
@@ -10,13 +9,7 @@ import { goTo } from './utils';
 export default withLocation(
   connect(
     ({
-      formik: {
-        status,
-        submitForm,
-        isSubmitting,
-        resetForm,
-        values,
-      },
+      formik: { status, submitForm, isSubmitting, values },
       params,
     }) => {
       const { t } = useTranslation();
@@ -33,11 +26,7 @@ export default withLocation(
                 description: t('labels:applyAndSave'),
                 handler: submitForm,
               },
-              {
-                label: t('labels:applyAndSave'),
-                description: t('descriptions:applyAndSave'),
-                handler: submitForm,
-              },
+
               {
                 label: t('labels:reset'),
                 description: t('descriptions:reset'),
@@ -49,11 +38,6 @@ export default withLocation(
                   return goTo(status, params);
                 },
               },
-              {
-                label: t('labels:resetAndSave'),
-                description: t('descriptions:resetAndSave'),
-                handler: resetForm,
-              },
             ]}
           />
         </Box>
@@ -61,3 +45,9 @@ export default withLocation(
     },
   ),
 );
+/*
+              {
+                label: t('labels:applyAndSave'),
+                description: t('descriptions:applyAndSave'),
+                handler: submitForm,
+              }, */

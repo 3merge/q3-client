@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import flat from 'flat';
 import { withLocation } from 'with-location';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useFilterAndContext from './useFilterAndContext';
@@ -25,6 +24,17 @@ export const FormWrapper = ({
     children,
   );
 
+  const initialValues = appendEmptyValues(
+    children,
+    getFrom,
+  );
+
+  const handleSubmit = (values, actions) => {
+    pushTo(values);
+    goTo(id, params);
+    actions.setSubmitting(false);
+  };
+
   return loading ? (
     <CircularProgress />
   ) : (
@@ -32,12 +42,8 @@ export const FormWrapper = ({
       {...rest}
       initialStatus={id}
       enableSubmit={false}
-      initialValues={appendEmptyValues(children, getFrom)}
-      onSubmit={(values, actions) => {
-        pushTo(flat(values));
-        goTo(id, params);
-        actions.setSubmitting(false);
-      }}
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
     >
       {appendOptions(children, fields)}
     </Form>

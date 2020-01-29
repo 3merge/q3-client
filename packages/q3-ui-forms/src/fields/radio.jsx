@@ -35,6 +35,7 @@ const Radioset = (props) => {
           <FormControlLabel
             control={
               <Radio
+                size="small"
                 disabled={disabled}
                 readOnly={readOnly}
               />

@@ -158,7 +158,7 @@ Object.assign(theme, {
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',
-        backgroundColor: 'transparent',
+        backgroundColor: '#FFF !important',
         color: grey[700],
         fontSize: '0.75rem !important',
         fontWeight: 600,
@@ -248,6 +248,23 @@ Object.assign(theme, {
     MuiMobileStepper: {
       root: {
         background: '#FFF',
+      },
+    },
+    MuiCheckbox: {
+      root: {
+        padding: '0 5px',
+        marginLeft: 9,
+      },
+    },
+    PrivateSwitchBase: {
+      root: {
+        padding: '0 5px',
+        marginLeft: 9,
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        textTransform: 'initial',
       },
     },
     MuiCard: {

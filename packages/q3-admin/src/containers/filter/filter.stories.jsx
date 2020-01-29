@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Location } from '@reach/router';
+import PrettyJson from 'react-json-pretty';
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import { Field } from 'q3-ui-forms/lib/builders';
 import State from '../../components/state';
@@ -25,6 +26,10 @@ export default {
       'Container that integrates state with useFilter hook',
   },
 };
+
+const LocationState = () => (
+  <Location>{(l) => <PrettyJson data={l} />}</Location>
+);
 
 export const Default = () => (
   <MockApi define={m}>
@@ -84,7 +89,9 @@ export const WithValues = () => (
       >
         <Field name="number" type="select" />
         <Field name="countries" type="select" />
+        <Field name="unset" type="select" />
       </FormWrapper>
     </State.Provider>
+    <LocationState />
   </MockApi>
 );
