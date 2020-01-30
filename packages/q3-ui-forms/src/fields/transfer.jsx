@@ -6,6 +6,7 @@ import minimatch from 'minimatch';
 import isGlob from 'is-glob';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -16,7 +17,7 @@ import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import FlashOn from '@material-ui/icons/FlashOn';
 import ClearAll from '@material-ui/icons/ClearAll';
-import ViewColumn from '@material-ui/icons/ViewColumn';
+import SettingsOverscanIcon from '@material-ui/icons/SettingsOverscan';
 import { grey } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
@@ -148,7 +149,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Search({ search, term, toggle, addRule }) {
+function Search({
+  search,
+  term,
+  toggle,
+  addRule,
+  ...rest
+}) {
   const classes = useStyles();
   const { t } = useTranslation('labels');
   const [err, setError] = React.useState(false);
@@ -156,6 +163,7 @@ function Search({ search, term, toggle, addRule }) {
   return (
     <Box m={2}>
       <TextField
+        {...rest}
         onChange={search}
         value={term}
         className={classes.input}
@@ -174,6 +182,7 @@ function Search({ search, term, toggle, addRule }) {
                   color="primary"
                   className={classes.iconButton}
                   aria-label={t('select_all')}
+                  {...rest}
                 >
                   <ClearAll />
                 </IconButton>
@@ -185,6 +194,7 @@ function Search({ search, term, toggle, addRule }) {
                     onClick={() => setError(!addRule())}
                     className={classes.iconButton}
                     aria-label={t('create_rule')}
+                    {...rest}
                   >
                     <FlashOn />
                   </IconButton>
@@ -209,7 +219,7 @@ Search.defaultProps = {
   term: '',
 };
 
-function Chips({ data, pullRule }) {
+function Chips({ data, pullRule, ...etc }) {
   const renderAvatar = () => (
     <Avatar>
       <FlashOn />
@@ -224,6 +234,7 @@ function Chips({ data, pullRule }) {
           key={item}
           onDelete={fn(pullRule, item)}
           label={item}
+          {...etc}
         />
       ))}
     </Box>
@@ -245,7 +256,7 @@ const TransferListDataRow = (data, select, isSelected) => {
       style={style}
       key={index}
     >
-      <ListItemText primary={data[index]} />
+      <ListItemText primary={data[index].toUpperCase()} />
     </ListItem>
   );
 
@@ -292,48 +303,53 @@ TransferListColumn.propTypes = {
   select: PropTypes.func.isRequired,
 };
 
-const Input = ({ name, applied, open, value, ...rest }) => (
-  <TextField
-    {...rest}
-    fullWidth
-    variant="filled"
-    value={value}
-    InputProps={{
-      disableUnderline: true,
-      endAdornment:
-        !rest.readOnly && !rest.disabled ? (
-          <Badge
-            badgeContent={applied.length}
-            color="secondary"
-          >
-            <IconButton
-              onClick={open}
-              size="small"
-              color="primary"
-            >
-              <ViewColumn />
-            </IconButton>
-          </Badge>
-        ) : null,
-    }}
-  />
+export const Toggle = ({
+  applied,
+  label,
+  loading,
+  open,
+}) => (
+  <Button size="large" onClick={open} color="primary">
+    <Badge
+      badgeContent={applied.length}
+      style={{ marginRight: '0.75rem' }}
+      color="secondary"
+    >
+      <Avatar>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <SettingsOverscanIcon />
+        )}
+      </Avatar>
+    </Badge>
+    {label}
+  </Button>
 );
 
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+Toggle.propTypes = {
+  /**
+   * Text to display inside the button.
+   */
+  label: PropTypes.string.isRequired,
+
+  /**
+   * Function to attach to onClick handler.
+   * Intended to launch transfer editor.
+   */
   open: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool,
+
+  /**
+   * List of applied, or "active", rules in the editor.
+   */
   applied: PropTypes.arrayOf(PropTypes.string),
 };
 
-Input.defaultProps = {
+Toggle.defaultProps = {
   applied: [],
-  readOnly: false,
 };
 
 export function TransferList(props) {
-  const { name } = props;
   const {
     value: init,
     onChange,
@@ -427,13 +443,10 @@ export function TransferList(props) {
 
   return (
     <>
-      <Input
-        name={name}
+      <Toggle
         applied={active}
-        value={initAsArray}
         open={open}
-        onChange={onChange}
-        error={error}
+        loading={loading}
         {...deco}
       />
       <Collapse in={Boolean(helperText)}>
@@ -450,6 +463,7 @@ export function TransferList(props) {
           search={handleSearch}
           term={search}
           toggle={selectAll}
+          {...deco}
         />
         {loading ? (
           <Box textAlign="center" p={4}>
@@ -481,6 +495,7 @@ export function TransferList(props) {
                   onClick={transferTo}
                   color="secondary"
                   className={cls.fabs}
+                  {...deco}
                 >
                   <CompareArrows />
                 </Fab>
@@ -488,6 +503,7 @@ export function TransferList(props) {
               <Chips
                 data={words.filter(isGlob)}
                 pullRule={removeRule}
+                {...deco}
               />
             </Container>
           </Fade>
