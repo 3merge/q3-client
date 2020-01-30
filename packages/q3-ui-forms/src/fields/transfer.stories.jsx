@@ -1,38 +1,65 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import MockApi from 'q3-ui-test-utils/lib/rest';
-import Container from '@material-ui/core/Container';
-import Form from '../builders/form';
-import Field from '../builders/field';
-import Next from '../builders/next';
+import { Form, Field } from '../builders';
+import Transfer, { Toggle } from './transfer';
 
-storiesOf('Forms|Fields/Transfer', module).add(
-  'With options',
-  () => (
-    <MockApi>
-      <Form
-        debug
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.setFieldError(
-            'countries',
-            'No service connected!',
-          );
-        }}
-        initialValues={{
-          countries: '*',
-        }}
-      >
-        <Container>
-          <Field
-            required
-            name="countries"
-            type="transfer"
-            options={['Canada', 'Mexico', 'United States']}
-          />
-          <Next submit />
-        </Container>
-      </Form>
-    </MockApi>
-  ),
+export default {
+  title: 'Forms/Fields/Transfer',
+  paramters: {
+    component: Transfer,
+    componentSubtitle:
+      'Expanded multi-select with search and glob-matching utilities',
+  },
+};
+
+const options = [
+  'Australia',
+  'Canada',
+  'United States',
+  'United Kingdom',
+];
+
+export const WithOptions = () => (
+  <Form>
+    <Field
+      name="transfer"
+      type="transfer"
+      options={options}
+    />
+  </Form>
+);
+
+export const AsPromise = () => (
+  <Form initialValues={{ numbers: ['1*'] }}>
+    <Field
+      name="numbers"
+      type="transfer"
+      loadOptions={() =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(options);
+          }, 1500);
+        })
+      }
+      disabled
+    />
+  </Form>
+);
+
+export const AsDisabled = () => (
+  <Form initialValues={{ numbers: ['1*'] }}>
+    <Field
+      name="numbers"
+      type="transfer"
+      options={['1', '2']}
+      disabled
+    />
+  </Form>
+);
+
+export const ToggleButton = () => (
+  <Toggle
+    open={() => null}
+    label="My first transfer!"
+    applied={['1', '2']}
+  />
 );
