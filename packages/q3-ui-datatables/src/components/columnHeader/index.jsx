@@ -20,10 +20,8 @@ export const ColumnHeader = ({
   const { t } = useTranslation();
   const isAsc = includesNegativeCharacter(sort);
 
-  const prefixStorageKey = React.useCallback(
-    () => (!sort || isAsc ? storageKey : `-${storageKey}`),
-    [storageKey, isAsc],
-  );
+  const prefixStorageKey = () =>
+    !sort || isAsc ? storageKey : `-${storageKey}`;
 
   const onClick = () => {
     pushTo({ sort: prefixStorageKey() });
