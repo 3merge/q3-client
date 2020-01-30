@@ -72,10 +72,8 @@ const NativeSelect = (props) => {
         disabled={disabled}
         readOnly={readOnly}
       >
-        <option>
-          {loading
-            ? `${t('labels:loading')}...`
-            : t('labels:none')}
+        <option value="">
+          {loading ? `${t('labels:loading')}...` : ''}
         </option>
         {items.map((obj) => (
           <option key={obj.value} value={obj.value}>

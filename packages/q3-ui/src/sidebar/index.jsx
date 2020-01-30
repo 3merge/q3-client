@@ -14,15 +14,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: theme.shadows[1],
     boxSizing: 'border-box',
-    borderBottomRightRadius: 65,
     color: '#FFF',
     height: '100vh',
     overflowY: 'auto',
     overflowX: 'hidden',
     paddingTop: theme.spacing(2),
-    width: 225,
+    width: 215,
     '& *': {
       color: '#FFF',
+      fontSize: '1.11rem',
     },
   },
   mobile: {

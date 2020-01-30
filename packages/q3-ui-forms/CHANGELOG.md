@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/3merge/q/compare/v1.7.3...v1.9.0) (2020-01-28)
+
+
+### Features
+
+* localStorage int and q3-admin container refactoring ([189e0b4](https://github.com/3merge/q/commit/189e0b4cefebf4f690a13309e1aa5cc6736d319f))
+
+
+
+
+
 ## [1.7.3](https://github.com/3merge/q/compare/v1.7.2...v1.7.3) (2020-01-27)
 
 **Note:** Version bump only for package q3-ui-forms

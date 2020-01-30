@@ -26,5 +26,6 @@
   "lorem": "Lorem ipsum",
   "general": "General",
   "needHelp": "Need help?",
-  "documentation": "Documentation"
+  "documentation": "Documentation",
+  "narrowSearch": "Filter"
 }

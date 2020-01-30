@@ -14,7 +14,6 @@ export default [
     collectionName: 'locations',
     resourceName: 'locations',
     resourceNameSingular: 'location',
-    group: 'Commons',
   },
   {
     index: true,
@@ -22,7 +21,6 @@ export default [
     resourceName: 'permissions',
     resourceNameSingular: 'permission',
     collectionName: 'q3-api-permissions',
-    group: 'Commons',
   },
   {
     id: true,
@@ -30,6 +28,5 @@ export default [
     resourceName: 'locations',
     resourceNameSingular: 'location',
     collectionName: 'locations',
-    group: 'Commons',
   },
 ];

@@ -26,9 +26,12 @@ const Popper = ({
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
-            style={getPopperStyle(innerRef, placement)}
+            style={{
+              ...getPopperStyle(innerRef, placement),
+              minWidth: 250,
+            }}
           >
-            <Paper id={id} elevation={15}>
+            <Paper id={id} elevation={10}>
               <ClickAwayListener onClickAway={close}>
                 <div>{renderInside(close)}</div>
               </ClickAwayListener>

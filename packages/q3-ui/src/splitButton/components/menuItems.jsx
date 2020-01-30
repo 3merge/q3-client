@@ -13,32 +13,28 @@ const MenuItems = ({ activeIndex, items }) => (
       <MenuItem
         key={label}
         onClick={onClick}
-        disableGutters
         style={{
+          marginTop: i !== 0 ? '-1rem' : 0,
           borderBottom: '1px solid whitesmoke',
           whiteSpace: 'normal',
         }}
-        dense
       >
-        <Box p={1}>
-          <Grid container>
-            <Grid item xs={2}>
-              {activeIndex === i && <Check />}
-            </Grid>
-            <Grid item xs={10}>
-              <Typography
-                display="block"
-                component="strong"
-                variant="h5"
-                gutterBottom
-              >
-                {label}
-              </Typography>
-              <Typography component="small">
-                {description}
-              </Typography>
-            </Grid>
-          </Grid>
+        <Box>
+          <Typography
+            display="block"
+            component="strong"
+            gutterBottom
+            style={{ fontSize: '1rem', margin: 0 }}
+          >
+            {label}
+            {activeIndex === i && <Check size="1rem" />}
+          </Typography>
+          <Typography
+            component="small"
+            style={{ fontSize: '0.799rem' }}
+          >
+            {description}
+          </Typography>
         </Box>
       </MenuItem>
     ))}

@@ -9,14 +9,13 @@ import {
 
 const CellBadge = ({ status, color }) => {
   const style = {};
-  if (color === 'danger') style.backgroundColor = red[500];
+  const danger = red[500];
+  const warning = orange[500];
+  const success = green[500];
 
-  if (color === 'warning')
-    style.backgroundColor = orange[500];
-
-  if (color === 'success')
-    style.backgroundColor = green[500];
-
+  if (color === 'danger') style.backgroundColor = danger;
+  if (color === 'warning') style.backgroundColor = warning;
+  if (color === 'success') style.backgroundColor = success;
   if (style.backgroundColor) style.color = '#FFF';
 
   return status ? (

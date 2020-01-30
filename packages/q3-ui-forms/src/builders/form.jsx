@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import Box from '@material-ui/core/Box';
+import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
 import { FormikDebug } from './multistep';
 import Back from './back';
 import Next from './next';
@@ -19,28 +21,51 @@ export const FormBuilder = ({
   resetLabel,
   submitLabel,
   ...rest
-}) => (
-  <Formik onSubmit={onSubmit} {...formikProps} {...rest}>
-    {({ resetForm }) => (
-      <Form>
-        {children}
-        <Box mt={1}>
-          {enableSubmit && (
-            <Next submit label={submitLabel} />
+}) => {
+  const { t } = useTranslation();
+  const isAutoSaveEnabled =
+    rest && rest.initialStatus === 'autosave';
+
+  return (
+    <Formik
+      onSubmit={onSubmit}
+      onReset={() => {
+        if (rest.isReady) onReset();
+      }}
+      {...formikProps}
+      {...rest}
+    >
+      {({ resetForm, values }) => (
+        <Form>
+          {children}
+          {!isAutoSaveEnabled && (
+            <Box mt={1}>
+              {enableSubmit && (
+                <Next submit label={submitLabel} />
+              )}
+              {enableReset && (
+                <Back
+                  left
+                  onClick={onReset || resetForm}
+                  label={resetLabel}
+                />
+              )}
+
+              <FormikDebug show={debug} />
+            </Box>
           )}
-          {enableReset && (
-            <Back
-              left
-              onClick={onReset || resetForm}
-              label={resetLabel}
-            />
+          {values.updatedAt && (
+            <Typography textAlign="right">
+              <small>
+                {t('labels:autosaved')} {values.updatedAt}
+              </small>
+            </Typography>
           )}
-          <FormikDebug show={debug} />
-        </Box>
-      </Form>
-    )}
-  </Formik>
-);
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
 FormBuilder.propTypes = {
   /**

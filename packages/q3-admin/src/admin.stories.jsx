@@ -31,6 +31,8 @@ import {
   Search,
   Add,
 } from './components';
+import FilterTemplate from './templates/withFilter';
+import FilterContainer from './containers/filter';
 import { useUpload } from './helpers';
 import fixtures from './__fixtures__';
 
@@ -83,54 +85,61 @@ const Characters = (props) => (
             url: `/characters/${item.id}`,
           }))
         }
-      >
-        <Field name="locations" type="select" />
-      </Search>
+      />
       <Add title="addCharacter">
         <p>My form</p>
       </Add>
     </Header>
-    <List
-      fixedWidths={['100%', '100%', '85px', '96px', '75px']}
-    >
-      {(rows = []) =>
-        rows.map((row) => (
-          <TableRow
-            id={row.id}
-            columns={{
-              name: row.name,
-              description: row.origin.name,
-              photo: row.image,
-              location: row.location.name,
-              status: (
-                <TableBadge
-                  status={row.status}
-                  color={
-                    row.status === 'Alive'
-                      ? 'success'
-                      : 'primary'
-                  }
-                />
-              ),
-              popularity: (
-                <TableProgress value={row.episode.length} />
-              ),
-              human: (
-                <TableCheck
-                  show={row.species === 'Human'}
-                />
-              ),
-            }}
-            rowToolbar={[
-              {
-                onClick: () => alert('Test'),
-                label: 'Hey',
-              },
-            ]}
-          />
-        ))
-      }
-    </List>
+    <FilterTemplate
+      renderAside={() => (
+        <FilterContainer>
+          <Field name="locations" type="select" />
+        </FilterContainer>
+      )}
+      renderMain={() => (
+        <List>
+          {(rows = []) =>
+            rows.map((row) => (
+              <TableRow
+                id={row.id}
+                columns={{
+                  name: row.name,
+                  description: row.origin.name,
+                  photo: row.image,
+                  location: row.location.name,
+                  status: (
+                    <TableBadge
+                      status={row.status}
+                      color={
+                        row.status === 'Alive'
+                          ? 'success'
+                          : 'primary'
+                      }
+                    />
+                  ),
+                  popularity: (
+                    <TableProgress
+                      value={row.episode.length}
+                    />
+                  ),
+                  human: (
+                    <TableCheck
+                      show={row.species === 'Human'}
+                    />
+                  ),
+                }}
+                rowToolbar={[
+                  {
+                    onClick: () => alert('Test'),
+                    label: 'Hey',
+                  },
+                ]}
+              />
+            ))
+          }
+        </List>
+      )}
+    />
   </Page>
 );
 
@@ -217,7 +226,18 @@ const pages = [
     resourceNameSingular: 'character',
     component: Characters,
     group: 'popular',
-    icon: Power,
+    subMenu: [
+      {
+        icon: Power,
+        label: 'All',
+        to: '/characters',
+      },
+      {
+        icon: Power,
+        label: 'Humans',
+        to: '/characters?status=humna',
+      },
+    ],
   },
   {
     id: true,

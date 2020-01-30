@@ -63,7 +63,9 @@ export const ApplicationGate = ({
         const { firstName, photo } = args;
         return (
           <Main
-            renderAside={() => <Menu pages={pages} />}
+            renderAside={() => (
+              <Menu {...rest} pages={pages} />
+            )}
             render={() => (
               <App pages={pages} profile={profilePage} />
             )}

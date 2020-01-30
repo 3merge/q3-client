@@ -87,6 +87,7 @@ export class Validator {
       case 'multiselect':
       case 'multitext':
       case 'checkset':
+      case 'chips':
         this.$base = this.$base.array();
         break;
       case 'autocomplete':

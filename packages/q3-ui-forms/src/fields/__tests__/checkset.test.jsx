@@ -1,10 +1,10 @@
 import React from 'react';
 import { useField } from 'formik';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import KeyboardUp from '@material-ui/icons/KeyboardArrowUp';
 import Checkset, {
   CollapseableFieldset,
+  ControlledCheckbox,
 } from '../checkset';
 
 describe('Checkset', () => {
@@ -20,7 +20,7 @@ describe('Checkset', () => {
             ]}
           />,
         )
-        .find(FormControlLabel),
+        .find(ControlledCheckbox),
     ).toHaveLength(2));
 
   it('should mark as checked', () => {
@@ -40,10 +40,10 @@ describe('Checkset', () => {
             ]}
           />,
         )
-        .find(FormControlLabel)
+        .find(ControlledCheckbox)
         .first()
-        .props().control.props,
-    ).toHaveProperty('checked', true);
+        .props(),
+    ).toHaveProperty('isChecked', true);
   });
 });
 

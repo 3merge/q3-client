@@ -14,6 +14,13 @@ const ActionBarElement = ({ icon: Icon, ...rest }) => (
   />
 );
 
+ActionBarElement.propTypes = {
+  /**
+   * Material UI SVG icon element
+   */
+  icon: PropTypes.node.isRequired,
+};
+
 const ActionBar = ({ children, actions }) => {
   const { action } = useStyles();
   const utils = useCheckbox();
@@ -44,6 +51,17 @@ const ActionBar = ({ children, actions }) => {
 };
 
 ActionBar.propTypes = {
+  /**
+   * The element containing checkboxes/actions.
+   */
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]),
+
+  /**
+   * Click handlers for bulk data modification.
+   */
   actions: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
@@ -55,6 +73,7 @@ ActionBar.propTypes = {
 
 ActionBar.defaultProps = {
   actions: [],
+  children: null,
 };
 
 export default ActionBar;

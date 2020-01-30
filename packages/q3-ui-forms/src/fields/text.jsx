@@ -15,6 +15,7 @@ const Text = (props) => {
     label,
     helperText,
     error,
+    onBlur,
   } = useDecorator(props);
 
   const etc = merge(
@@ -46,6 +47,7 @@ const Text = (props) => {
         }),
       }}
       {...etc}
+      onBlur={onBlur}
     />
   );
 };

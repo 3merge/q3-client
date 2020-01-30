@@ -1,8 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
+import { navigate } from '@reach/router';
 import { get, invoke } from 'lodash';
 import { useFormHandler } from 'q3-ui-forms';
-
 import { makePath } from '../helpers';
 import reducer from './reducer';
 import {
@@ -70,7 +70,13 @@ const useRest = ({
   const methods = {
     get(query = '') {
       call(FETCHING);
-      return Axios.get(`${url}${query}`)
+      return Axios.get(
+        `${url}${
+          url.includes('?')
+            ? query.replace('?', '&')
+            : query
+        }`,
+      )
         .then(({ data }) => {
           invoke(decorators, 'get', data);
           call(FETCHED, data);
@@ -129,7 +135,15 @@ const useRest = ({
   };
 
   React.useEffect(() => {
-    if (runOnInit && !redirectOnSearch) {
+    const saved = null; // localStorage.getItem(url);
+    if (
+      !location.search &&
+      saved &&
+      saved !== 'null' &&
+      saved !== 'undefined'
+    ) {
+      navigate(`?${saved}`);
+    } else if (runOnInit && !redirectOnSearch) {
       methods.get(search);
     } else if (redirectOnSearch && search) {
       const { push } = history;

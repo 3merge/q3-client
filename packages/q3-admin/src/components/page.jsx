@@ -54,6 +54,7 @@ const Page = ({
         resourceName,
         resourceNameSingular,
         location,
+        url,
         ...state,
       }}
     >

@@ -15,6 +15,7 @@ import {
   Selectable,
   Transfer,
   File,
+  Chips,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -34,6 +35,7 @@ const htmlFieldTypes = [
 
 const internalFieldTypes = {
   select: Select,
+  chips: Chips,
   date: DatePicker,
   text: Text,
   postal: Text,

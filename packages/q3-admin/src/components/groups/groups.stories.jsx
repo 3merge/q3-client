@@ -1,0 +1,34 @@
+import React from 'react';
+import { LocationDebugger } from '../debugger';
+import { Groups } from '.';
+
+export default {
+  title: 'Components/Groups',
+  parameters: {
+    component: Groups,
+    componentSubtitle:
+      'Query-based tabs for segmenting data',
+  },
+};
+
+export const Default = () => (
+  <Groups
+    search="?"
+    queries={{
+      Ready: 'kind=ready',
+      NotReady: 'kind=notReady',
+      AlmostReady: 'kind=almostReady',
+    }}
+  />
+);
+
+export const OnQueryMatch = () => (
+  <Groups
+    search="kind=notReady&sort=kind"
+    queries={{
+      Ready: 'kind=ready',
+      NotReady: 'kind=notReady',
+      AlmostReady: 'kind=almostReady',
+    }}
+  />
+);

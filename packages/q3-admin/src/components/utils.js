@@ -21,3 +21,11 @@ export const ellipsis = (title = '') =>
 
 export const curryIf = (condition, next) =>
   condition ? () => next : null;
+
+export const runFn = (fn) => (args) =>
+  fn ? fn(args) : args;
+
+export const assembleSearchQuery = (coll, term) =>
+  term
+    ? `/${coll}?search=${term}&limit=25`
+    : `/${coll}?limit=25`;
