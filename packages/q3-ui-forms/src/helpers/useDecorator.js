@@ -20,7 +20,10 @@ export class FormikDecorator {
     this.rawValue = getIn(formikBag.values, name);
     this.error = getIn(formikBag.errors, name);
     this.disabled = formikBag.isSubmitting || isDisabled;
+    this.autosave = formikBag.status === 'autosave';
+
     this.$fn = formikBag.setFieldValue.bind(formikBag);
+    this.$save = formikBag.submitForm.bind(formikBag);
   }
 
   set rawValue(v) {
@@ -38,8 +41,19 @@ export class FormikDecorator {
     }
   }
 
+  saveProgress() {
+    if (this.autosave) {
+      this.$save();
+    }
+  }
+
   next(v) {
-    return this.$fn(this.name, v);
+    this.$fn(this.name, v);
+    this.saveProgress();
+  }
+
+  onBlur() {
+    this.saveProgress();
   }
 
   onChange(e) {
@@ -80,6 +94,7 @@ export class FormikDecorator {
     return {
       id: this.name,
       onChange: this.onChange.bind(this),
+      onBlur: this.onBlur.bind(this),
       onArrayPush: this.onArrayPush.bind(this),
       onArrayPull: this.onArrayPull.bind(this),
       ...pick(this, [

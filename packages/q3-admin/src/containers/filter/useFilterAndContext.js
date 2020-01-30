@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFilters } from 'q3-ui-rest';
 import PageState from '../../components/state';
-import { isArray } from '../../components/utils';
+import { mapByName } from './utils';
 
 export default (params, children) => {
   const {
@@ -12,10 +12,8 @@ export default (params, children) => {
 
   const filters = useFilters({
     query: params.toString(),
+    fields: mapByName(children),
     coll: collectionName,
-    fields: isArray(children).map(
-      (item) => item.props.name,
-    ),
     location,
   });
 

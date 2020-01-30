@@ -41,7 +41,7 @@ export const FormWrapper = ({
   ) : (
     <Form
       {...rest}
-      initialStatus={id}
+      initialStatus="autosave"
       enableSubmit={false}
       initialValues={unflatten(initialValues)}
       onSubmit={handleSubmit}

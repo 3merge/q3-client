@@ -1,5 +1,6 @@
 import React from 'react';
 import { useField } from 'formik';
+import PropTypes from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
@@ -29,17 +30,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Checkbox = (props) => {
+const castToBoolean = (v) => {
+  if (v === 'true') return true;
+  if (v === 'false') return false;
+  return Boolean(v);
+};
+
+const Checkbox = ({ simple, ...rest }) => {
   const { control, errorCls, normal } = useStyles();
   const {
     label,
     helperText,
     disabled,
     readOnly,
-  } = useDecorator(props);
-  const [{ name, value, onChange }, { error }] = useField(
-    props,
-  );
+    onChange,
+  } = useDecorator(rest);
+  const [{ name, value }, { error }] = useField(rest);
 
   const renderLabel = () => (
     <Typography variant="subtitle1" className={control}>
@@ -50,10 +56,10 @@ const Checkbox = (props) => {
     </Typography>
   );
 
-  return props.simple ? (
+  return simple ? (
     <ControlledCheckbox
-      isChecked={Boolean(value)}
-      value={Boolean(value)}
+      isChecked={castToBoolean(value)}
+      value={castToBoolean(value)}
       label={label}
       name={name}
       disabled={disabled}
@@ -75,7 +81,7 @@ const Checkbox = (props) => {
         control={
           <Switch
             name={name}
-            checked={Boolean(value)}
+            checked={castToBoolean(value)}
             onChange={(e, v) =>
               onChange({
                 target: {
@@ -91,6 +97,14 @@ const Checkbox = (props) => {
       />
     </Box>
   );
+};
+
+Checkbox.propTypes = {
+  simple: PropTypes.bool,
+};
+
+Checkbox.defaultProps = {
+  simple: false,
 };
 
 export default Checkbox;

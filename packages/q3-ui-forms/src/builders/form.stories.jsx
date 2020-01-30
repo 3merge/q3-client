@@ -2,24 +2,19 @@ import React from 'react';
 import Field from './field';
 import Form, { FormBuilder } from './form';
 
-const loadOptions = () =>
-  new Promise((resolve) => {
-    setTimeout(
-      () =>
-        resolve([
-          { value: 'Canada', label: 'Canada' },
-          { value: 'UK', label: 'United Kingdom' },
-          { value: 'US', label: 'United States' },
-        ]),
-      1500,
-    );
-  });
+const onSubmit = (values, actions) => {
+  // eslint-disable-next-line
+  console.log(values)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      actions.setFieldValue(
+        'updatedAt',
+        new Date().toISOString(),
+      );
 
-const onSubmit = (values) => {
-  // eslint-disable-next-line
-  alert('Submitted! Check console for form values.');
-  // eslint-disable-next-line
-  console.log(values);
+      resolve();
+    }, 1000);
+  });
 };
 
 const onReset = () => {
@@ -38,6 +33,7 @@ export default {
 
 export const DefaultForm = () => (
   <Form
+    debug
     onSubmit={onSubmit}
     onReset={onReset}
     initialValues={{
@@ -98,6 +94,28 @@ export const WithoutDefaultButtons = () => (
       favouriteColors: '',
     }}
   >
+    <Field
+      name="favouriteColors"
+      type="checkset"
+      options={[
+        { value: 'red', label: 'Red' },
+        { value: 'green', label: 'Green' },
+        { value: 'blue', label: 'Blue' },
+      ]}
+    />
+  </Form>
+);
+
+export const WithAutosave = () => (
+  <Form
+    initialStatus="autosave"
+    onSubmit={onSubmit}
+    onReset={onReset}
+    initialValues={{
+      email: '',
+    }}
+  >
+    <Field name="email" type="email" required />
     <Field
       name="favouriteColors"
       type="checkset"

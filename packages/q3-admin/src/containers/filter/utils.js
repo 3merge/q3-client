@@ -59,3 +59,6 @@ export const pickDefined = (o = {}) =>
         : curr,
     {},
   );
+
+export const mapByName = (children) =>
+  isArray(children).map((item) => item.props.name);

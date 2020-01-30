@@ -1,50 +1,8 @@
 import React from 'react';
-import Fade from '@material-ui/core/Fade';
 import ListItem from '@material-ui/core/ListItem';
-import Graphic from '../graphic';
-import SearchBar, {
-  SearchResultList,
-  Adornment,
-  FilterTrigger,
-} from '.';
-
-import Button from '../iconButton';
+import { SearchResultList } from '.';
 
 describe('Searchbar', () => {
-  describe('FilterTrigger', () => {
-    const mountButton = (active) =>
-      global
-        .shallow(
-          <FilterTrigger
-            onClick={jest.fn()}
-            active={active}
-          />,
-        )
-        .find(Button)
-        .props();
-
-    it('should set primary on active', () => {
-      const { buttonProps, icon } = mountButton(true);
-      expect(buttonProps).toHaveProperty(
-        'color',
-        'primary',
-      );
-      expect(icon).toHaveProperty(
-        'displayName',
-        'GridOnIcon',
-      );
-    });
-
-    it('should set normal on inactive', () => {
-      const { buttonProps, icon } = mountButton(false);
-      expect(buttonProps).toHaveProperty('color', 'normal');
-      expect(icon).toHaveProperty(
-        'displayName',
-        'GridOffIcon',
-      );
-    });
-  });
-
   describe('SearchResultList', () => {
     it('should call getResults promise with term', (done) => {
       const term = 'hi';

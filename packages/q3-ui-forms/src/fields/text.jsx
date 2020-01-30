@@ -15,6 +15,7 @@ const Text = (props) => {
     label,
     helperText,
     error,
+    onBlur,
   } = useDecorator(props);
 
   const etc = merge(
@@ -28,8 +29,6 @@ const Text = (props) => {
       {},
     ),
   );
-
-  console.log(etc.value);
 
   return (
     <TextField
@@ -48,6 +47,7 @@ const Text = (props) => {
         }),
       }}
       {...etc}
+      onBlur={onBlur}
     />
   );
 };

@@ -7,6 +7,13 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
+const getFormikBag = (args) => ({
+  values: { foo: null },
+  setFieldValue: jest.fn(),
+  submitForm: jest.fn(),
+  ...args,
+});
+
 describe('FormikDecorator', () => {
   describe('constructor', () => {
     it('should throw an error', () =>
@@ -14,31 +21,25 @@ describe('FormikDecorator', () => {
         () => new FormikDecorator('foo'),
       ).toThrowError());
 
-    it('should assign empty value', () =>
-      expect(
-        new FormikDecorator('foo', {
-          values: { foo: null },
-          setFieldValue: jest.fn(),
-        }).value,
-      ).toMatch(''));
-
     it('should override disabled', () =>
       expect(
-        new FormikDecorator('foo', {
-          values: { foo: null },
-          setFieldValue: jest.fn(),
-          isSubmitting: true,
-        }).disabled,
+        new FormikDecorator(
+          'foo',
+          getFormikBag({
+            isSubmitting: true,
+          }),
+        ).disabled,
       ).toBeTruthy());
   });
 
   describe('helper', () => {
     const propper = (v, err) => {
-      const inst = new FormikDecorator('foo', {
-        values: { foo: null },
-        errors: { foo: err },
-        setFieldValue: jest.fn(),
-      });
+      const inst = new FormikDecorator(
+        'foo',
+        getFormikBag({
+          errors: { foo: err },
+        }),
+      );
 
       inst.helper = v;
       return inst.helperText;
@@ -59,6 +60,7 @@ describe('FormikDecorator', () => {
       const setFieldValue = jest.fn();
       const inst = new FormikDecorator('foo', {
         values: { foo: 'old' },
+        submitForm: jest.fn(),
         setFieldValue,
       });
 
@@ -72,35 +74,38 @@ describe('FormikDecorator', () => {
 
   describe('onArrayPush', () => {
     it('should call setFieldValue with new array', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+      const bag = getFormikBag({
         values: { foo: 'old' },
-        setFieldValue,
       });
 
+      const inst = new FormikDecorator('foo', bag);
+
       inst.onArrayPush('new');
-      expect(setFieldValue).toHaveBeenCalledWith('foo', [
-        'new',
-      ]);
+      expect(bag.setFieldValue).toHaveBeenCalledWith(
+        'foo',
+        ['new'],
+      );
     });
 
     it('should remove duplicate from array', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+      const bag = getFormikBag({
         values: { foo: ['old'] },
-        setFieldValue,
       });
+
+      const { setFieldValue } = bag;
+      const inst = new FormikDecorator('foo', bag);
 
       inst.onArrayPush('old');
       expect(setFieldValue).toHaveBeenCalledWith('foo', []);
     });
 
     it('should call setFieldValue with modified array', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+      const bag = getFormikBag({
         values: { foo: ['old'] },
-        setFieldValue,
       });
+
+      const { setFieldValue } = bag;
+      const inst = new FormikDecorator('foo', bag);
 
       inst.onArrayPush('new');
       expect(setFieldValue).toHaveBeenCalledWith('foo', [
@@ -110,11 +115,12 @@ describe('FormikDecorator', () => {
     });
 
     it('should call setFieldValue with flattened array', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+      const bag = getFormikBag({
         values: { foo: ['old'] },
-        setFieldValue,
       });
+
+      const { setFieldValue } = bag;
+      const inst = new FormikDecorator('foo', bag);
 
       inst.onArrayPush(['new', 'old']);
       expect(setFieldValue).toHaveBeenCalledWith('foo', [
@@ -126,11 +132,12 @@ describe('FormikDecorator', () => {
 
   describe('onArrayPull', () => {
     it('should call setFieldValue with redacted array', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+      const bag = getFormikBag({
         values: { foo: ['old', 'preserve'] },
-        setFieldValue,
       });
+
+      const { setFieldValue } = bag;
+      const inst = new FormikDecorator('foo', bag);
 
       inst.onArrayPull('old');
       expect(setFieldValue).toHaveBeenCalledWith('foo', [

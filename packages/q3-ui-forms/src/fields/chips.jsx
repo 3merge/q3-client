@@ -11,7 +11,9 @@ import useDecorator from '../helpers/useDecorator';
 
 const Chips = (props) => {
   const { t } = useTranslation('labels');
-  const { label, helperText } = useDecorator(props);
+  const { label, helperText, onChange } = useDecorator(
+    props,
+  );
   const [{ name, value, ...field }, { error }] = useField(
     props,
   );
@@ -27,7 +29,7 @@ const Chips = (props) => {
         filterSelectedOptions
         defaultValue={value || []}
         options={items}
-        onChange={intercept(field.onChange, name)}
+        onChange={intercept(onChange, name)}
         renderTags={(values, getTagProps) =>
           values.map((option, index) => (
             <Chip
