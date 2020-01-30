@@ -15,7 +15,7 @@ export default {
   parameters: {
     component: Page,
     componentSubtitle:
-      'Container for defining state and permissions scopes across a resource',
+      'Container for defining state and permission scopes across a resource',
   },
 };
 
@@ -27,7 +27,7 @@ const PageOne = (props) => (
     resourceNameSingular="foos"
   >
     Page one
-    <Link to="/two">Next</Link>
+    {props.withLink && <Link to="/two">Next</Link>}
   </Page>
 );
 
@@ -95,7 +95,7 @@ export const PageNavigation = () => {
     <LocationProvider history={history}>
       <LocationDebugger />
       <Router>
-        <PageOne path="one" />
+        <PageOne withLink path="one" />
         <PageTwo path="two" />
       </Router>
     </LocationProvider>
