@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Header from 'q3-ui/lib/header';
-import Context from './state';
+import Context from '../containers/state';
 import { curryIf, ellipsis } from './utils';
 
 const PageHeader = ({ children, titleProp }) => {

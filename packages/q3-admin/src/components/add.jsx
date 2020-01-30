@@ -10,7 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import FullScreen from './fullScreen';
-import Context from './state';
+import Context from '../containers/state';
 
 const useStyles = makeStyles((theme) => ({
   margin: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
-import Page from '../page';
-import Context from '../state';
+import Page from '..';
+import Context from '../../state';
 
 let mount;
 const Child = () => null;
@@ -13,7 +13,7 @@ jest.mock('q3-ui-rest', () => ({
   }),
 }));
 
-jest.mock('../state', () => ({
+jest.mock('../../state', () => ({
   Provider: jest
     .fn()
     .mockImplementation(({ children }) => children),
@@ -22,6 +22,9 @@ jest.mock('../state', () => ({
 beforeAll(() => {
   mount = global.shallow(
     <Page
+      location={{
+        href: '/',
+      }}
       collectionName="foo"
       resourceName="bars"
       resourceNameSingular="bar"
@@ -34,12 +37,14 @@ beforeAll(() => {
 
 describe('Page', () => {
   it('should call REST services on init', () => {
-    expect(useRest).toHaveBeenCalledWith({
-      url: '/foo/12',
-      key: 'bar',
-      pluralized: 'bars',
-      runOnInit: true,
-    });
+    expect(useRest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: '/foo/12',
+        key: 'bar',
+        pluralized: 'bars',
+        runOnInit: true,
+      }),
+    );
   });
 
   it('should copy REST data into context provider', () => {

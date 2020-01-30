@@ -9,8 +9,15 @@ export { default as List } from './list';
 export { default as Loader } from './loader';
 export { default as Main } from './main';
 export { default as Menu } from './menu';
-export { default as Page } from './page';
+
 export { default as Public } from './public';
 export { default as Search } from './search';
 export { default as SubDetail } from './subDetail';
 export { default as Upload } from './upload';
+
+/**
+ * @NOTE
+ * Previously, no separation existed between Containers and Components.
+ * Thus, we must export all containers here for old projects.
+ */
+export { Page } from '../containers';

@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import Context from './state';
+import Context from '../state';
+import { slugify } from './utils';
+import useOnRender from './useOnRender';
 
+/**
+ * <code>import { Page } from 'q3-admin'; </code>
+ */
 const Page = ({
   children,
   collectionName,
@@ -14,13 +19,7 @@ const Page = ({
   onExit,
   onInit,
 }) => {
-  const [hasEntered, setHasEntered] = React.useState(
-    !onEnter && !onInit,
-  );
-
-  const url = id
-    ? `/${collectionName}/${id}`
-    : `/${collectionName}`;
+  const url = slugify(collectionName, id);
 
   const state = useRest({
     key: resourceNameSingular,
@@ -30,21 +29,10 @@ const Page = ({
     url,
   });
 
-  React.useEffect(() => {
-    if (state.fetching && onInit) onInit();
-    if (typeof onEnter === 'function') {
-      const f = onEnter(state);
-      if (f instanceof Promise) {
-        f.then(() => setHasEntered(true));
-      } else {
-        setHasEntered(true);
-      }
-    }
-
-    return () => {
-      if (!state.fetching && onExit) onExit(state);
-    };
-  }, [state.fetching]);
+  const hasEntered = useOnRender(
+    { onEnter, onExit, onInit },
+    { ...state, url },
+  );
 
   return (
     <Context.Provider
@@ -58,20 +46,56 @@ const Page = ({
         ...state,
       }}
     >
-      {hasEntered ? children : null}
+      {hasEntered ? children : 'Initializing...'}
     </Context.Provider>
   );
 };
 
 Page.propTypes = {
+  /**
+   * A hook fired as the component mounts.
+   * This is a render blocking callback.
+   */
   onEnter: PropTypes.func,
+
+  /**
+   * A hook fired before the component unmounts.
+   */
   onExit: PropTypes.func,
+
+  /**
+   * A hook fired on first paint.
+   */
   onInit: PropTypes.func,
+
+  /**
+   * The page internals.
+   */
   children: PropTypes.node.isRequired,
+
+  /**
+   * The directory to call. For example, defining "foo" would send requests to "http://localhost/foo".
+   */
   collectionName: PropTypes.string.isRequired,
+
+  /**
+   * The key inside the API response payload containing a list of documents.
+   */
   resourceName: PropTypes.string.isRequired,
+
+  /**
+   * The key inside API response payload containing a single document.
+   */
   resourceNameSingular: PropTypes.string.isRequired,
+
+  /**
+   * This value is appended to "collectionName" for document-specific queries.
+   */
   id: PropTypes.string,
+
+  /**
+   * Location props passed via @reach/router
+   */
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
