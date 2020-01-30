@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { getForAutocomplete } from 'q3-ui-rest';
 import SearchBar from 'q3-ui/lib/searchBar';
 import SearchIcon from '../images/search';
-import Context from './state';
+import Context from '../containers/state';
 import { runFn, assembleSearchQuery } from './utils';
 
 const Search = ({ intercept }) => {

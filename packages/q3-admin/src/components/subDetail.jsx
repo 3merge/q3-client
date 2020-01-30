@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import { Skeleton } from '@material-ui/lab';
-import Context from './state';
+import Context from '../containers/state';
 
 export const RowSkeleton = () => (
   <Skeleton

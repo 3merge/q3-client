@@ -149,7 +149,7 @@ const useRest = ({
       const { push } = history;
       push(`${redirectOnSearch}${search}`);
     }
-  }, [search]);
+  }, [search, url]);
 
   return { ...state, ...methods };
 };

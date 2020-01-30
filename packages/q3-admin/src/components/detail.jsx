@@ -16,7 +16,7 @@ import Comparision from 'comparisons';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FullScreen from './fullScreen';
-import Context from './state';
+import Context from '../containers/state';
 import Notes from './notes';
 import Files from './files';
 import Trash from './trash';

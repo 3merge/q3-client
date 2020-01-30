@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFilters } from 'q3-ui-rest';
-import PageState from '../../components/state';
+import PageState from '../state';
 import { mapByName } from './utils';
 
 export default (params, children) => {

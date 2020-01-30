@@ -1,4 +1,5 @@
 module.exports = {
+  addons: ['@storybook/addon-docs'],
   stories: [
     '../packages/q3-admin/**/containers/**/**.stories.jsx',
     '../packages/q3-admin/**/templates/**/**.stories.jsx',

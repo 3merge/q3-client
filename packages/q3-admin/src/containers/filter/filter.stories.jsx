@@ -3,9 +3,9 @@ import { Location } from '@reach/router';
 import PrettyJson from 'react-json-pretty';
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import { Field } from 'q3-ui-forms/lib/builders';
-import State from '../../components/state';
-import Filter from '.';
 import { FormWrapper } from './wrapper';
+import State from '../state';
+import Filter from '.';
 
 const m = (a) =>
   a.onGet(/^\/search/).reply(200, {

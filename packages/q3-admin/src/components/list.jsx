@@ -12,7 +12,7 @@ import DeleteSweep from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
 import EmptyIcon from '../images/empty';
 import ErrorIcon from '../images/error';
-import Context from './state';
+import Context from '../containers/state';
 
 export const EmptyView = () => (
   <ErrorComponent title="empty" description="empty">
