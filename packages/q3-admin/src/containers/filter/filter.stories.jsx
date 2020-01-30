@@ -10,7 +10,9 @@ import { FormWrapper } from './wrapper';
 const m = (a) =>
   a.onGet(/^\/search/).reply(200, {
     fields: {
-      number: ['one', 'two', 'three'],
+      number: {
+        nested: ['one', 'two', 'three'],
+      },
       countries: 'CA,US,MX',
       'friend': {
         name: 'Jon,Carry',
@@ -40,11 +42,13 @@ export const Default = () => (
         location: {},
       }}
     >
-      <Filter id="testing">
-        <Field name="number" type="select" />
+      <Filter id="testing" debug>
+        <Field name="number.nested" type="select" />
         <Field name="countries" type="select" />
+        <Field name="isChecked" type="checkbox" />
       </Filter>
     </State.Provider>
+    <LocationState />
   </MockApi>
 );
 
@@ -75,10 +79,11 @@ export const WithValues = () => (
     >
       <FormWrapper
         id="testing"
+        debug
         pushTo={() => null}
         getAll={() => null}
         getFrom={(v) => {
-          if (v === 'number') return 'one';
+          if (v === 'number.nested') return 'one';
           if (v === 'countries') return 'CA';
           return null;
         }}
@@ -87,7 +92,7 @@ export const WithValues = () => (
           toString: () => null,
         }}
       >
-        <Field name="number" type="select" />
+        <Field name="number.nested" type="select" />
         <Field name="countries" type="select" />
         <Field name="unset" type="select" />
       </FormWrapper>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { unflatten } from 'flat';
 import { withLocation } from 'with-location';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useFilterAndContext from './useFilterAndContext';
@@ -42,7 +43,7 @@ export const FormWrapper = ({
       {...rest}
       initialStatus={id}
       enableSubmit={false}
-      initialValues={initialValues}
+      initialValues={unflatten(initialValues)}
       onSubmit={handleSubmit}
     >
       {appendOptions(children, fields)}

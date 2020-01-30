@@ -256,7 +256,7 @@ Object.assign(theme, {
         marginLeft: 9,
       },
     },
-    PrivateSwitchBase: {
+    MuiRadio: {
       root: {
         padding: '0 5px',
         marginLeft: 9,

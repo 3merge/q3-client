@@ -16,12 +16,17 @@ export const ColumnHeader = ({
   pushTo,
   params,
 }) => {
-  const { t } = useTranslation();
   const sort = getFrom('sort');
+  const { t } = useTranslation();
   const isAsc = includesNegativeCharacter(sort);
 
+  const prefixStorageKey = React.useCallback(
+    () => (!sort || isAsc ? storageKey : `-${storageKey}`),
+    [storageKey, isAsc],
+  );
+
   const onClick = () => {
-    pushTo({ sort: `${!isAsc ? '-' : ''}${storageKey}` });
+    pushTo({ sort: prefixStorageKey() });
     navigate(`?${params.toString()}`);
   };
 
@@ -39,11 +44,6 @@ export const ColumnHeader = ({
 };
 
 ColumnHeader.propTypes = {
-  /**
-   * A unique identifier for localStorage.
-   */
-  id: PropTypes.string.isRequired,
-
   /**
    * The rendered text
    */
