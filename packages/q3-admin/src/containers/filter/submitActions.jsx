@@ -9,10 +9,25 @@ import SplitButton from 'q3-ui/lib/splitButton';
 import { goTo } from './utils';
 
 export const SubmitActions = ({
-  formik: { status, submitForm, isSubmitting, values },
+  formik: {
+    status,
+    submitForm,
+    resetForm,
+    isSubmitting,
+    values,
+  },
   params,
 }) => {
   const { t } = useTranslation();
+
+  const onReset = () => {
+    Object.keys(flat(values, { safe: true })).forEach((v) =>
+      params.delete(v),
+    );
+
+    resetForm();
+    return goTo(status, params);
+  };
 
   return (
     <Box mt={1}>
@@ -30,13 +45,7 @@ export const SubmitActions = ({
           {
             label: t('labels:reset'),
             description: t('descriptions:reset'),
-            handler: () => {
-              Object.keys(
-                flat(values, { safe: true }),
-              ).forEach((v) => params.delete(v));
-
-              return goTo(status, params);
-            },
+            handler: onReset,
           },
         ]}
       />
@@ -51,6 +60,7 @@ SubmitActions.propTypes = {
   formik: PropTypes.shape({
     status: PropTypes.string,
     submitForm: PropTypes.func,
+    resetForm: PropTypes.func,
     isSubmitting: PropTypes.bool,
     values: PropTypes.object,
   }).isRequired,

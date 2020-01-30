@@ -6,6 +6,7 @@ const getProps = () => ({
   formik: {
     status: 'init',
     submitForm: jest.fn(),
+    resetForm: jest.fn(),
     isSubmitting: false,
     values: {
       garply: true,
@@ -39,6 +40,8 @@ describe('"Filter/SubmitActions"', () => {
   it('should call delete on all value keys', () => {
     const props = getProps();
     callHandlerByIndex(props, 1);
+    expect(props.formik.resetForm).toHaveBeenCalled();
+
     expect(props.params.delete).toHaveBeenCalledWith(
       'garply',
     );
