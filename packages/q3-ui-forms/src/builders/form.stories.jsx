@@ -75,7 +75,10 @@ export const WithCustomButtonLabels = () => (
       options={[
         {
           value: 'adventure',
-          label: 'Adventure',
+          label: 'adventure',
+          vars: {
+            type: 'Park',
+          },
         },
         { value: 'resort', label: 'Resort' },
       ]}

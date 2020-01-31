@@ -131,7 +131,7 @@ export default ({
     disabled,
   );
 
-  propper.label = t(`labels:${name}`);
+  propper.label = t(`labels:${name}`, propper.vars);
   propper.helper = t(`helpers:${name}`);
 
   return {

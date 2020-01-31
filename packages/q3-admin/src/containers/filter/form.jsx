@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { Form as Q3Form } from 'q3-ui-forms/lib/builders';
-// import Actions from './submitActions';
+import Actions from './submitActions';
 
 const Form = ({ children, ...rest }) => {
   const { t } = useTranslation();
@@ -15,7 +15,7 @@ const Form = ({ children, ...rest }) => {
           {t('titles:narrowSearch')}
         </Typography>
         {children}
-        {/* <Actions /> */}
+        <Actions />
       </Q3Form>
     </Box>
   );

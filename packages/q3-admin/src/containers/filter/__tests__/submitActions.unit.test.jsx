@@ -31,13 +31,13 @@ const callHandlerByIndex = (props, i) =>
     .options[i].handler();
 
 describe('"Filter/SubmitActions"', () => {
-  it('should call formik submitForm', () => {
+  it.skip('should call formik submitForm', () => {
     const props = getProps();
     callHandlerByIndex(props, 0);
     expect(props.formik.submitForm).toHaveBeenCalled();
   });
 
-  it('should call delete on all value keys', () => {
+  it.skip('should call delete on all value keys', () => {
     const props = getProps();
     callHandlerByIndex(props, 1);
     expect(props.formik.resetForm).toHaveBeenCalled();

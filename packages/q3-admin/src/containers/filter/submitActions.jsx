@@ -6,6 +6,7 @@ import { connect } from 'formik';
 import { withLocation } from 'with-location';
 import Box from '@material-ui/core/Box';
 import SplitButton from 'q3-ui/lib/splitButton';
+import Button from '@material-ui/core/Button';
 import { goTo } from './utils';
 
 export const SubmitActions = ({
@@ -31,6 +32,8 @@ export const SubmitActions = ({
 
   return (
     <Box mt={1}>
+      <Button onClick={onReset}>{t('labels:clear')}</Button>
+      {/*
       <SplitButton
         size="normal"
         color="secondary"
@@ -48,7 +51,7 @@ export const SubmitActions = ({
             handler: onReset,
           },
         ]}
-      />
+      /> */}
     </Box>
   );
 };

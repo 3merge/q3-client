@@ -41,7 +41,7 @@ const Radioset = (props) => {
               />
             }
             name={option.label}
-            label={t(option.label)}
+            label={t(option.label, option.vars)}
             key={option.value}
             value={option.value}
           />

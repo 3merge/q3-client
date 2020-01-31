@@ -77,7 +77,7 @@ const NativeSelect = (props) => {
         </option>
         {items.map((obj) => (
           <option key={obj.value} value={obj.value}>
-            {t(`labels:${obj.label}`)}
+            {t(`labels:${obj.label}`, obj.vars)}
           </option>
         ))}
       </Select>

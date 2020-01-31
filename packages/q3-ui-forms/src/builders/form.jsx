@@ -54,13 +54,13 @@ export const FormBuilder = ({
               <FormikDebug show={debug} />
             </Box>
           )}
-          {values.updatedAt && (
+          {/* values.updatedAt && (
             <Typography textAlign="right">
               <small>
                 {t('labels:autosaved')} {values.updatedAt}
               </small>
             </Typography>
-          )}
+          ) */}
         </Form>
       )}
     </Formik>

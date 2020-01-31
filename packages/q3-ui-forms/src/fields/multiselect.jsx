@@ -73,7 +73,7 @@ const Multiselect = (props) => {
           >
             <Checkbox checked={v.indexOf(obj.value) > -1} />
             <ListItemText
-              primary={t(`labels:${obj.label}`)}
+              primary={t(`labels:${obj.label}`, obj.vars)}
             />
           </MenuItem>
         ))}
