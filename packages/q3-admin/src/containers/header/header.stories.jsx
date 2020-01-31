@@ -1,12 +1,13 @@
 import React from 'react';
-import Header from '.';
 import State from '../state';
+import Header from '.';
 
 export default {
   title: 'Containers/Header',
-  parameter: {
+  parameters: {
     component: Header,
-    componentSubtitle: '',
+    componentSubtitle:
+      'Admin app bar with dynamic title rendering',
   },
 };
 
