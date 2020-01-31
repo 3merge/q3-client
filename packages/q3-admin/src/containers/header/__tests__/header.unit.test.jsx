@@ -1,6 +1,7 @@
 import React from 'react';
 import HeaderUI from 'q3-ui/lib/header';
-import Header from '../header';
+import Header from '..';
+import Title from '../title';
 
 jest.mock('react-i18next', () => ({
   useTranslation: jest.fn().mockReturnValue({
@@ -27,6 +28,7 @@ beforeAll(() => {
     id: '1',
     parent: {
       name: 'Jon',
+      age: 21,
     },
   });
 });
@@ -38,7 +40,10 @@ describe('Header', () => {
         .shallow(<Header />)
         .find(HeaderUI)
         .props(),
-    ).toHaveProperty('name', 'titles:parents');
+    ).toHaveProperty(
+      'name',
+      <Title title="parent" subtitle={null} />,
+    );
   });
 
   it('should embed child in renderRight prop', () => {
@@ -67,12 +72,17 @@ describe('Header', () => {
     );
   });
 
-  it('should load dynamic, nested title', () => {
+  it('should load dynamic title', () => {
     expect(
       global
-        .shallow(<Header titleProp="name" />)
+        .shallow(
+          <Header titleProp="name" parenthesesProp="age" />,
+        )
         .find(HeaderUI)
         .props(),
-    ).toHaveProperty('name', 'Jon');
+    ).toHaveProperty(
+      'name',
+      <Title title="Jon (21)" subtitle={null} />,
+    );
   });
 });
