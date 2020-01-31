@@ -84,7 +84,6 @@ export const ControlledCheckbox = ({
       <Checkbox
         name={name}
         value={value}
-        onChange={onChange}
         checked={isChecked}
         size="small"
       />
@@ -93,6 +92,7 @@ export const ControlledCheckbox = ({
     key={value}
     style={{ display: 'block' }}
     size="small"
+    onChange={onChange}
   />
 );
 

@@ -31,8 +31,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const castToBoolean = (v) => {
-  if (v === 'true') return true;
+  if (v === 'true' || v === '*') return true;
   if (v === 'false') return false;
+
   return Boolean(v);
 };
 
@@ -44,6 +45,7 @@ const Checkbox = ({ simple, ...rest }) => {
     disabled,
     readOnly,
     onChange,
+    checkedValue,
   } = useDecorator(rest);
   const [{ name, value }, { error }] = useField(rest);
 
@@ -56,22 +58,25 @@ const Checkbox = ({ simple, ...rest }) => {
     </Typography>
   );
 
+  const common = {
+    name,
+    onChange: (e, v) =>
+      onChange({
+        target: {
+          // eslint-disable-next-line
+          value: checkedValue ? (v ? checkedValue : '') : v,
+          name,
+        },
+      }),
+    disabled,
+    readOnly,
+  };
+
   return simple ? (
     <ControlledCheckbox
       isChecked={castToBoolean(value)}
-      value={castToBoolean(value)}
       label={label}
-      name={name}
-      disabled={disabled}
-      readOnly={readOnly}
-      onChange={() =>
-        onChange({
-          target: {
-            value: !value,
-            name,
-          },
-        })
-      }
+      {...common}
     />
   ) : (
     <Box my={2}>
@@ -80,18 +85,8 @@ const Checkbox = ({ simple, ...rest }) => {
         label={renderLabel()}
         control={
           <Switch
-            name={name}
             checked={castToBoolean(value)}
-            onChange={(e, v) =>
-              onChange({
-                target: {
-                  value: v,
-                  name,
-                },
-              })
-            }
-            disabled={disabled}
-            readOnly={readOnly}
+            {...common}
           />
         }
       />

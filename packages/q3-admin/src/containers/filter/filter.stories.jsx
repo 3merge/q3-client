@@ -45,7 +45,11 @@ export const Default = () => (
       <Filter id="testing" debug>
         <Field name="number.nested" type="select" />
         <Field name="countries" type="select" />
-        <Field name="isChecked" type="checkbox" />
+        <Field
+          name="isChecked"
+          type="checkbox"
+          checkedValue="*"
+        />
       </Filter>
     </State.Provider>
     <LocationState />

@@ -21601,9 +21601,9 @@ windows-release@^3.1.0:
     execa "^1.0.0"
 
 with-location@^1.1.0:
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/with-location/-/with-location-1.2.4.tgz#cc947c463a0225c006d8044bcf247a63433ffe7a"
-  integrity sha512-zwdEebHVBxanAXAfKBTjK9HvfRiV4FDKrhMPvc0WnW22j4HYs/mmgbaUTkEZw8fnmv4L2Euapx9jOSzN8/eVDA==
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/with-location/-/with-location-1.3.0.tgz#38308f1e50b2708ecb8573375c149f390f0c9bbd"
+  integrity sha512-Ss4wGl6GL5NZe4ojWxnPWpEGcTuCBLE/3t/bDB5Rxpv8c7NZsBUldA1tSwflftqidALcVCrjEGtWKOhJaSI3aQ==
   dependencies:
     "@reach/router" "^1.2.1"
     flat "^5.0.0"

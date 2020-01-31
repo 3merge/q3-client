@@ -78,7 +78,17 @@ export class Validator {
         this.$base = this.$base.number();
         break;
       case 'checkbox':
-        this.$base = this.$base.boolean();
+        this.$base = this.$base.lazy((value) => {
+          switch (typeof value) {
+            case 'boolean':
+              return yup.number();
+            case 'string':
+              return yup.string();
+            default:
+              return yup.mixed();
+          }
+        });
+
         break;
       case 'date':
         this.$base = this.$base.date();

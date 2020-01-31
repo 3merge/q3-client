@@ -61,6 +61,17 @@ export const AsSingle = () => (
   </Form>
 );
 
+export const AsSingleCustomValue = () => (
+  <Form debug initialValues={{ demo: '', friend: 'jake' }}>
+    <Field
+      name="demo"
+      type="checkbox"
+      checkedValue="*"
+      simple
+    />
+  </Form>
+);
+
 export const AsSwitch = () => (
   <Form debug initialValues={{ demo: true }}>
     <Field name="lorem" type="checkbox" />
