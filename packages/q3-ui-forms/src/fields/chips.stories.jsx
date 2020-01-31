@@ -17,6 +17,7 @@ export const Example = () => (
       type="chips"
       name="demo"
       options={['One', 'Two', 'Three', 'Four']}
+      label="lorem"
     />
   </Form>
 );
