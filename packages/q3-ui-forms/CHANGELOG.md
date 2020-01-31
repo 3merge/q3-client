@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.1](https://github.com/3merge/q/compare/v1.7.3...v1.9.1) (2020-01-31)
+
+
+### Bug Fixes
+
+* transfer list disabled prop and button toggle ([#86](https://github.com/3merge/q/issues/86)) ([376f1a3](https://github.com/3merge/q/commit/376f1a3ef63683c578cc1b2ff1570021e4467a9a))
+
+
+
+
+
+
 # [1.9.0](https://github.com/3merge/q/compare/v1.7.3...v1.9.0) (2020-01-28)
 
 
