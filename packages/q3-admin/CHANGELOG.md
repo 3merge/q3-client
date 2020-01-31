@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.3](https://github.com/3merge/q/compare/v1.9.2...v1.9.3) (2020-01-31)
+
+
+### Bug Fixes
+
+* boolean filter casting ([40f1d7a](https://github.com/3merge/q/commit/40f1d7a77fa4e3a94e0a0fa03e41b065f0ff4b7b))
+
+
+
+
+
 ## [1.9.2](https://github.com/3merge/q/compare/v1.9.1...v1.9.2) (2020-01-31)
 
 **Note:** Version bump only for package q3-admin
