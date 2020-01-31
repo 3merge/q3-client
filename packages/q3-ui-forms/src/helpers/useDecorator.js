@@ -121,6 +121,7 @@ export default ({
   disabled,
   name,
   overrides = {},
+  label,
   ...rest
 }) => {
   const { t } = useTranslation();
@@ -131,8 +132,13 @@ export default ({
     disabled,
   );
 
-  propper.label = t(`labels:${name}`, propper.vars);
-  propper.helper = t(`helpers:${name}`);
+  const finalFieldLabel = label || name;
+
+  propper.helper = t(`helpers:${finalFieldLabel}`);
+  propper.label = t(
+    `labels:${finalFieldLabel}`,
+    propper.vars,
+  );
 
   return {
     ...rest,
