@@ -45,14 +45,16 @@ Ribbon.defaultProps = {
   text: null,
 };
 
-export const CardImage = ({ src, alt }) => {
-  if (!src) return null;
+export const CardImage = ({ src, alt, hasRibbon }) => {
   const { iconCls } = useStyles();
 
-  return (
+  return src ? (
     <div className={iconCls}>
       <LazyLoadImage src={src} alt={alt} />
     </div>
+  ) : (
+    // not the height to offset ribbon
+    <div style={{ height: hasRibbon ? 32 : 0 }} />
   );
 };
 
@@ -66,10 +68,16 @@ CardImage.propTypes = {
    *Image alt attribute.
    */
   alt: PropTypes.string.isRequired,
+
+  /**
+   * Will include an offset height for the Ribbon.
+   */
+  hasRibbon: PropTypes.bool,
 };
 
 CardImage.defaultProps = {
   src: null,
+  hasRibbon: false,
 };
 
 const NewsCard = ({
@@ -82,7 +90,11 @@ const NewsCard = ({
   ...rest
 }) => (
   <Wrapper md={md} sm={6} xs={12} to={to}>
-    <CardImage alt={title} src={imgSrc} />
+    <CardImage
+      alt={title}
+      src={imgSrc}
+      hasRibbon={Boolean(label)}
+    />
     <CardContent>
       <Ribbon text={label} />
       <Box px={1}>
@@ -97,7 +109,7 @@ NewsCard.propTypes = {
   /**
    * Text for badge (i.e category name).
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
 
   /**
    * Card size on medium-width screens.
@@ -140,6 +152,7 @@ NewsCard.defaultProps = {
   date: null,
   name: null,
   imgSrc: null,
+  label: null,
 };
 
 export default NewsCard;

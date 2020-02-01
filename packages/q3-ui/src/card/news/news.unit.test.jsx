@@ -21,8 +21,10 @@ describe('NewsCard partials', () => {
   describe('"CardImage"', () => {
     it('should return empty component', () =>
       expect(
-        global.shallow(<CardImage alt="foo" />),
-      ).toEqual({}));
+        global
+          .shallow(<CardImage alt="alt" />)
+          .find(LazyLoadImage),
+      ).toHaveLength(0));
 
     it('should assign src/alt attributes', () => {
       const img = global
