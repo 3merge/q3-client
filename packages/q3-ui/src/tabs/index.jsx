@@ -28,19 +28,17 @@ export const LocationMatch = ({
   base,
   views,
   children,
+  defaultIndex,
 }) => {
-  const checkLocation = React.useCallback(
-    (location) => {
-      const index = views.findIndex(
-        ({ to }) =>
-          to !== '/' && location.pathname.includes(to),
-      );
+  const checkLocation = React.useCallback((location) => {
+    const index = views.findIndex(
+      ({ to }) =>
+        to !== '/' && location.pathname.includes(to),
+    );
 
-      if (index !== -1) return index;
-      return 0;
-    },
-    [views],
-  );
+    if (index !== -1) return index;
+    return defaultIndex;
+  }, (0)[views]);
 
   return (
     <Location>
@@ -70,7 +68,11 @@ const TabsWithRouter = ({ views, root }) => {
   return (
     <Grid container spacing={1}>
       <Grid item style={{ maxWidth: '100%' }}>
-        <LocationMatch base={root} views={views}>
+        <LocationMatch
+          base={root}
+          views={views}
+          defaultIndex={0}
+        >
           {(value) => (
             <Tabs
               className={tabber}

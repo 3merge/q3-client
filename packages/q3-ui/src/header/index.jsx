@@ -153,7 +153,7 @@ function a11yProps(index) {
 
 const HorizontalMenuList = ({ items }) => (
   <Hidden smDown>
-    <LocationMatch views={items}>
+    <LocationMatch views={items} defaultIndex={null}>
       {(value) => (
         <StyledTabs
           value={value}
