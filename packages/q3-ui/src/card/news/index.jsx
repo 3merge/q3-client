@@ -8,7 +8,69 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Header from '../header';
 import Wrapper from '../wrapper';
 import useStyles from '../useStyle';
-import commonProps from '../props';
+
+export const DateString = ({ iso }) =>
+  iso ? (
+    <Typography align="right" variant="subtitle2">
+      {moment(iso).format('ddd, MMMM, YYYY')}
+    </Typography>
+  ) : null;
+
+DateString.propTypes = {
+  /**
+   * Date in ISO string format.
+   */
+  iso: PropTypes.string,
+};
+
+DateString.defaultProps = {
+  iso: null,
+};
+
+export const Ribbon = ({ text }) => {
+  if (!text) return null;
+  const { ribbon } = useStyles();
+
+  return <span className={ribbon}>{text}</span>;
+};
+
+Ribbon.propTypes = {
+  /**
+   * Ribbon interior text.
+   */
+  text: PropTypes.string,
+};
+
+Ribbon.defaultProps = {
+  text: null,
+};
+
+export const CardImage = ({ src, alt }) => {
+  if (!src) return null;
+  const { iconCls } = useStyles();
+
+  return (
+    <div className={iconCls}>
+      <LazyLoadImage src={src} alt={alt} />
+    </div>
+  );
+};
+
+CardImage.propTypes = {
+  /**
+   *Image URL.
+   */
+  src: PropTypes.string,
+
+  /**
+   *Image alt attribute.
+   */
+  alt: PropTypes.string.isRequired,
+};
+
+CardImage.defaultProps = {
+  src: null,
+};
 
 const NewsCard = ({
   imgSrc,
@@ -18,40 +80,66 @@ const NewsCard = ({
   md,
   date,
   ...rest
-}) => {
-  const { iconCls, ribbon } = useStyles();
-  return (
-    <Wrapper md={md} sm={6} xs={12} to={to}>
-      {imgSrc && (
-        <div className={iconCls}>
-          <LazyLoadImage src={imgSrc} alt={title} />
-        </div>
-      )}
-      <CardContent>
-        {label && <span className={ribbon}>{label}</span>}
-        <Box px={1}>
-          <Header title={title} {...rest} />
-          {date && (
-            <Typography align="right" variant="subtitle2">
-              {moment(date).format('ddd, MMMM, YYYY')}
-            </Typography>
-          )}
-        </Box>
-      </CardContent>
-    </Wrapper>
-  );
-};
+}) => (
+  <Wrapper md={md} sm={6} xs={12} to={to}>
+    <CardImage alt={title} src={imgSrc} />
+    <CardContent>
+      <Ribbon text={label} />
+      <Box px={1}>
+        <Header title={title} {...rest} />
+        <DateString iso={date} />
+      </Box>
+    </CardContent>
+  </Wrapper>
+);
 
 NewsCard.propTypes = {
-  ...commonProps,
+  /**
+   * Text for badge (i.e category name).
+   */
   label: PropTypes.string.isRequired,
+
+  /**
+   * Card size on medium-width screens.
+   */
   md: PropTypes.number,
+
+  /**
+   * ISO date string to render published tag.
+   */
   date: PropTypes.string,
+
+  /**
+   * Card title text.
+   */
+  title: PropTypes.string.isRequired,
+
+  /**
+   * Card description text.
+   */
+  description: PropTypes.string.isRequired,
+
+  /**
+   * Card overline text.
+   */
+  name: PropTypes.string,
+
+  /**
+   * Click link destination.
+   */
+  to: PropTypes.string.isRequired,
+
+  /**
+   * Image URL for the card header.
+   */
+  imgSrc: PropTypes.string,
 };
 
 NewsCard.defaultProps = {
   md: 4,
   date: null,
+  name: null,
+  imgSrc: null,
 };
 
 export default NewsCard;

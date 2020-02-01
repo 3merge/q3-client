@@ -22,7 +22,14 @@ const Wrapper = ({ children, to, ...rest }) => {
 };
 
 Wrapper.propTypes = {
+  /**
+   * Interior card components.
+   */
   children: PropTypes.node.isRequired,
+
+  /**
+   * Link destination
+   */
   to: PropTypes.string.isRequired,
 };
 

@@ -22,8 +22,19 @@ const Header = ({ title, name, description }) => (
 );
 
 Header.propTypes = {
+  /**
+   * Card title text.
+   */
   title: PropTypes.string.isRequired,
+
+  /**
+   * Card description text.
+   */
   description: PropTypes.string.isRequired,
+
+  /**
+   * Card overline text.
+   */
   name: PropTypes.string,
 };
 

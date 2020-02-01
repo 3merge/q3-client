@@ -8,6 +8,21 @@ import useStyles from '../useStyle';
 import Header from '../header';
 import Wrapper from '../wrapper';
 
+export const getSizing = (fullWidth) => {
+  const sizing = {
+    md: 4,
+    sm: 6,
+    xs: 12,
+  };
+
+  if (fullWidth) {
+    delete sizing.sm;
+    delete sizing.md;
+  }
+
+  return sizing;
+};
+
 const ProjectCard = ({
   imgSrc,
   to,
@@ -20,19 +35,9 @@ const ProjectCard = ({
   const cls = useStyles({
     square,
   });
-  const sizing = {
-    md: 4,
-    sm: 6,
-    xs: 12,
-  };
-
-  if (fullWidth) {
-    delete sizing.sm;
-    delete sizing.md;
-  }
 
   return (
-    <Wrapper {...sizing} to={to}>
+    <Wrapper {...getSizing(fullWidth)} to={to}>
       <div className={cls.iconHead}>
         <Avatar className={cls.iconThumb} src={imgSrc} />
         <Typography
@@ -57,9 +62,56 @@ const ProjectCard = ({
 };
 
 ProjectCard.propTypes = {
+  /**
+   * Card title text.
+   */
+  title: PropTypes.string.isRequired,
+
+  /**
+   * Card description text.
+   */
+  description: PropTypes.string.isRequired,
+
+  /**
+   * Card overline text.
+   */
+  name: PropTypes.string,
+
+  /**
+   * A logo URL for this project.
+   */
+  imgSrc: PropTypes.string.isRequired,
+
+  /**
+   * The project URL.
+   */
+  to: PropTypes.string.isRequired,
+
+  /**
+   * Renders the card with 100% width.
+   */
+  fullWidth: PropTypes.bool,
+
+  /**
+   * Renders the card as a square.
+   */
+  square: PropTypes.bool,
+
+  /**
+   * Project identifier text.
+   */
   label: PropTypes.string.isRequired,
+
+  /**
+   * Custom text for the link.
+   */
   buttonText: PropTypes.string.isRequired,
-  ...commonProps,
+};
+
+ProjectCard.defaultProps = {
+  name: null,
+  square: false,
+  fullWidth: false,
 };
 
 export default ProjectCard;
