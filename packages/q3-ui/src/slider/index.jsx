@@ -20,8 +20,8 @@ const Slider = ({
   lg,
   slidesPerView,
 }) => {
-  const [swiper, updateSwiper] = React.useState(null);
   const { root } = useStyle();
+  const [swiper, updateSwiper] = React.useState(null);
   const [currentIndex, updateCurrentIndex] = React.useState(
     0,
   );
