@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
 import Grid from '@material-ui/core/Grid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardHeader from '../header';
@@ -58,13 +57,45 @@ const ResourceCard = ({
 );
 
 ResourceCard.propTypes = {
-  imgSrc: PropTypes.string.isRequired,
+  /**
+   * Card title text.
+   */
   title: PropTypes.string.isRequired,
-  to: PropTypes.string,
+
+  /**
+   * Card description text.
+   */
+  description: PropTypes.string.isRequired,
+
+  /**
+   * A logo URL for this resource.
+   */
+  imgSrc: PropTypes.string.isRequired,
+
+  /**
+   * The resource URL.
+   */
+  to: PropTypes.string.isRequired,
+
+  /**
+   * Custom text for the link.
+   */
+  buttonText: PropTypes.string.isRequired,
+
+  /**
+   * A second resource's URL. The second button will not render without this prop.
+   */
+  secondaryTo: PropTypes.string,
+
+  /**
+   * Custom text for a second link.
+   */
+  secondaryButtonText: PropTypes.string,
 };
 
 ResourceCard.defaultProps = {
-  to: '/',
+  secondaryTo: null,
+  secondaryButtonText: null,
 };
 
 export default ResourceCard;
