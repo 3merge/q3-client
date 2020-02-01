@@ -35,6 +35,7 @@ const ResourceCard = ({
               color="primary"
               variant="contained"
               component={Link}
+              style={{ marginRight: '0.5rem' }}
               to={to}
             >
               {buttonText}
