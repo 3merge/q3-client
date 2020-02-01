@@ -21,21 +21,32 @@ const CartProvider = ({
   const [loading, setLoading] = React.useState(false);
   const [state, setState] = React.useState(contextDefaults);
 
-  const re = (service) => (...args) => {
-    setLoading(true);
-
-    return service(...args)
-      .then(() => {
-        return pollOrder();
-      })
+  const processPromise = (p) =>
+    p
       .then((response) => {
         setState(response);
         return response;
       })
+      .catch(() => {
+        // noop
+      })
       .finally(() => {
         setLoading(false);
       });
+
+  const re = (service) => (...args) => {
+    setLoading(true);
+
+    return processPromise(
+      service(...args).then(() => {
+        return pollOrder();
+      }),
+    );
   };
+
+  React.useEffect(() => {
+    processPromise(pollOrder());
+  }, []);
 
   return (
     <CartContext.Provider

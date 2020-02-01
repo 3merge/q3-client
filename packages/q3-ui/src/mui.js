@@ -267,6 +267,28 @@ Object.assign(theme, {
         textTransform: 'initial',
       },
     },
+    MuiListItemText: {
+      root: {
+        maxWidth: '55% !important',
+        wordBreak: 'break-all',
+        [theme.breakpoints.down('md')]: {
+          maxWidth: '100% !important',
+        },
+      },
+      secondary: {
+        fontSize: '1rem',
+      },
+    },
+    MuiListItemSecondaryAction: {
+      root: {
+        [theme.breakpoints.down('md')]: {
+          position: 'relative',
+          right: 'auto',
+          top: 'auto',
+          transform: 'none',
+        },
+      },
+    },
     MuiCard: {
       root: {
         transitionDuration: '500ms',
