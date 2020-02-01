@@ -17,7 +17,7 @@ jest.mock('@reach/router', () => ({
 describe('Breadcrumbs', () => {
   it('should walk the entries with slashes in between', () => {
     expect(
-      materialMount(Breadcrumbs).find('a'),
-    ).toHaveLength(3);
+      materialMount(Breadcrumbs).find('li'),
+    ).toHaveLength(5); // 3 + 2 slashes
   });
 });

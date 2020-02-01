@@ -5,71 +5,127 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Home from '@material-ui/icons/Home';
-import { makeStyles } from '@material-ui/styles';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
+import PathBuilder from './utils';
+import useStyles from './useStyle';
 
-const useStyles = makeStyles(() => ({
-  capitalize: {
-    textTransform: 'capitalize',
-    maxWidth: 120,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    fontSize: 12,
-  },
-}));
+export const BreadcrumbTheme = ({ children, type }) => {
+  const muiTheme = createMuiTheme((theme) => {
+    // eslint-disable-next-line
+    theme.palette.type = type;
+    return theme;
+  });
 
-class PathBuilder {
-  constructor() {
-    this.base = '';
-  }
+  return (
+    <MuiThemeProvider theme={muiTheme}>
+      {children}
+    </MuiThemeProvider>
+  );
+};
 
-  static split(path) {
-    return path.split('/').filter((x) => x);
-  }
+BreadcrumbTheme.propTypes = {
+  /**
+   * Nested theme components.
+   */
+  children: PropTypes.node.isRequired,
 
-  append(path) {
-    this.base += `/${path}`;
-    return this.base;
-  }
-}
+  /**
+   * The theme mode for MUI.
+   */
+  type: PropTypes.oneOf(['light', 'dark']),
+};
 
-const RouterBreadcrumbs = ({ root }) => {
+BreadcrumbTheme.defaultProps = {
+  type: 'ligth',
+};
+
+const ForwardedLink = React.forwardRef((props, ref) => (
+  <ReachLink ref={ref} {...props} />
+));
+
+const LastBreadcrumb = ({ name }) => {
   const { capitalize } = useStyles();
 
-  function renderLast(name) {
-    return (
-      <Typography key={name} className={capitalize}>
-        {name}
-      </Typography>
-    );
-  }
+  return (
+    <Typography key={name} className={capitalize}>
+      {name}
+    </Typography>
+  );
+};
+
+LastBreadcrumb.propTypes = {
+  /**
+   * The name of the active directory.
+   */
+  name: PropTypes.string.isRequired,
+};
+
+const BreadcrumbsHome = ({ root }) => {
+  const { capitalize } = useStyles();
+
+  return (
+    <Link to={root} component={ForwardedLink}>
+      <Home className={capitalize} />
+    </Link>
+  );
+};
+
+BreadcrumbsHome.propTypes = {
+  /**
+   * Defines home link path.
+   */
+  root: PropTypes.string.isRequired,
+};
+
+const RouterBreadcrumbs = ({ root, mode }) => {
+  const { capitalize } = useStyles();
 
   return (
     <Location>
       {({ location }) => {
         const { pathname } = location;
-        const path = new PathBuilder();
         const paths = PathBuilder.split(pathname);
+        const b = new PathBuilder();
+
         return (
-          <Breadcrumbs aria-label="Navigation breadcrumbs">
-            {paths.length && (
-              <Link to={root} component={ReachLink}>
-                <Home className={capitalize} />
-              </Link>
-            )}
-            {paths.map((breadcrumb, i, arr) =>
-              i + 1 === arr.length ? (
-                renderLast(breadcrumb)
-              ) : (
+          <Breadcrumbs
+            style={{
+              color: mode === 'dark' ? '#FFF' : 'inherit',
+            }}
+            aria-label="Navigation breadcrumbs"
+            maxItems={3}
+          >
+            {paths.map((breadcrumb, i, arr) => {
+              if (i === 0)
+                return (
+                  <BreadcrumbsHome
+                    key={breadcrumb}
+                    root={root}
+                  />
+                );
+
+              if (i + 1 === arr.length)
+                return (
+                  <LastBreadcrumb
+                    key={breadcrumb}
+                    name={breadcrumb}
+                  />
+                );
+
+              return (
                 <Link
-                  to={path.append(breadcrumb)}
                   key={breadcrumb}
-                  component={ReachLink}
+                  to={b.append(breadcrumb)}
                   className={capitalize}
+                  component={ForwardedLink}
                 >
                   {breadcrumb}
                 </Link>
-              ),
-            )}
+              );
+            })}
           </Breadcrumbs>
         );
       }}
@@ -78,11 +134,20 @@ const RouterBreadcrumbs = ({ root }) => {
 };
 
 RouterBreadcrumbs.propTypes = {
+  /**
+   * Root path of the app.
+   */
   root: PropTypes.string,
+
+  /**
+   * Controls the color of the link items
+   */
+  mode: PropTypes.oneOf(['light', 'dark']),
 };
 
 RouterBreadcrumbs.defaultProps = {
   root: '/',
+  mode: 'light',
 };
 
 export default RouterBreadcrumbs;

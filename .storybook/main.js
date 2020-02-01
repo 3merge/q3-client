@@ -5,6 +5,7 @@ module.exports = {
     '../packages/q3-admin/**/templates/**/**.stories.jsx',
     '../packages/q3-admin/**/components/groups/**.stories.jsx',
     '../packages/q3-ui-datatables/**.stories.jsx',
+    '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',
     '../packages/q3-ui/**/card/*.stories.jsx',
     '../packages/q3-ui/**/list/*.stories.jsx',
     '../packages/q3-ui/**/slider/**.stories.jsx',
