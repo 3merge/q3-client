@@ -1,150 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { invoke } from 'lodash';
 import Swiper from 'react-id-swiper';
-import { makeStyles } from '@material-ui/styles';
 import Container from '@material-ui/core/Container';
+import Helmet from 'react-helmet';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import MobileStepper from '@material-ui/core/MobileStepper';
-
-const float = {
-  position: 'absolute',
-  top: '50%',
-  transform: 'translateY(-50%)',
-};
-
-const useStyle = makeStyles(() => ({
-  btnPrev: {
-    ...float,
-    left: 0,
-  },
-  btnNext: {
-    ...float,
-    right: 0,
-  },
-  root: {
-    position: 'relative',
-  },
-  whiteSpace: {
-    whiteSpace: 'nowrap',
-    display: 'block',
-    overflow: 'hidden',
-  },
-}));
-
-export const PaginationButtons = ({
-  back,
-  next,
-  isFirst,
-  isLast,
-}) => {
-  const { btnPrev, btnNext } = useStyle();
-  const { t } = useTranslation('labels');
-
-  return (
-    <nav>
-      <IconButton
-        onClick={back}
-        className={btnPrev}
-        disabled={isFirst}
-        aria-label={t('back')}
-        size="small"
-      >
-        <KeyboardArrowLeft />
-      </IconButton>
-      <IconButton
-        onClick={next}
-        className={btnNext}
-        aria-label={t('next')}
-        disabled={isLast}
-        size="small"
-      >
-        <KeyboardArrowRight />
-      </IconButton>
-    </nav>
-  );
-};
-
-PaginationButtons.propTypes = {
-  isFirst: PropTypes.bool.isRequired,
-  isLast: PropTypes.bool.isRequired,
-  back: PropTypes.func.isRequired,
-  next: PropTypes.func.isRequired,
-};
-
-export const PaginationSteppers = ({
-  withButtons,
-  isFirst,
-  isLast,
-  current,
-  length,
-  back,
-  next,
-}) => {
-  const { t } = useTranslation('labels');
-  const toggles = {
-    nextButton: withButtons ? (
-      <Button size="small" onClick={next} disabled={isLast}>
-        {t('next')}
-        <KeyboardArrowRight />
-      </Button>
-    ) : (
-      <div />
-    ),
-    backButton: withButtons ? (
-      <Button
-        size="small"
-        onClick={back}
-        disabled={isFirst}
-      >
-        <KeyboardArrowLeft />
-        {t('back')}
-      </Button>
-    ) : (
-      <div />
-    ),
-  };
-
-  return (
-    <nav
-      role="navigation"
-      aria-label="Pagination for Slider"
-    >
-      <MobileStepper
-        {...toggles}
-        variant="dots"
-        position="static"
-        activeStep={current}
-        steps={length}
-      />
-    </nav>
-  );
-};
-
-PaginationSteppers.propTypes = {
-  withButtons: PropTypes.bool.isRequired,
-  current: PropTypes.number.isRequired,
-  length: PropTypes.number.isRequired,
-  ...PaginationButtons.propTypes,
-};
+import Steps from './steps';
+import Pagination from './pagination';
+import useStyle from './useStyle';
 
 const Slider = ({
   slides,
   withButtons,
   withSteppers,
+  withThumbnails,
   xs,
   sm,
   md,
   lg,
   slidesPerView,
 }) => {
+  const { root } = useStyle();
   const [swiper, updateSwiper] = React.useState(null);
-  const { root, whiteSpace } = useStyle();
   const [currentIndex, updateCurrentIndex] = React.useState(
     0,
   );
@@ -192,51 +69,91 @@ const Slider = ({
   }, [swiper]);
 
   return (
-    <Container maxWidth="xl" className={root}>
-      <Box>
-        <Swiper
-          {...params}
-          getSwiper={updateSwiper}
-          containerClass={whiteSpace}
-        >
-          {slides.map(({ id, Component, style = {} }) => (
-            <div
-              key={id}
-              style={Object.assign(style, {
-                display: 'inline-block',
-              })}
-            >
-              <Component />
-            </div>
-          ))}
-        </Swiper>
+    <Container maxWidth="xl">
+      <Box className={root}>
+        <Helmet>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"
+          />
+        </Helmet>
+        <Box>
+          <Swiper {...params} getSwiper={updateSwiper}>
+            {slides.map(({ id, Component, style = {} }) => (
+              <div
+                key={id}
+                style={Object.assign(style, {
+                  display: 'inline-block',
+                })}
+              >
+                <Component />
+              </div>
+            ))}
+          </Swiper>
+        </Box>
+        {withButtons && <Pagination {...toggle} />}
       </Box>
-      {!withSteppers && withButtons && (
-        <PaginationButtons {...toggle} />
-      )}
-      {withSteppers && (
-        <PaginationSteppers
+      {withSteppers || withThumbnails ? (
+        <Steps
+          swiper={swiper}
           withButtons={withButtons}
+          withThumbnails={withThumbnails}
           current={currentIndex}
-          length={slides.length}
+          slides={slides}
           {...toggle}
         />
-      )}
+      ) : null}
     </Container>
   );
 };
 
 Slider.propTypes = {
+  /**
+   * The number of slides to render for mobile devices.
+   */
   xs: PropTypes.number,
+
+  /**
+   * The number of slides to render for tablet devices.
+   */
   sm: PropTypes.number,
+
+  /**
+   * The number of slides to render for small laptop devices.
+   */
   md: PropTypes.number,
+
+  /**
+   * The number of slides to render for desktop devices.
+   */
   lg: PropTypes.number,
+
+  /**
+   * The default number of slides per view.
+   */
   slidesPerView: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
+
+  /**
+   * Enable back/next pagination.
+   */
   withButtons: PropTypes.bool,
+
+  /**
+   * Include dot navigation.
+   */
   withSteppers: PropTypes.bool,
+
+  /**
+   * Include thumbnail navigation.
+   */
+  withThumbnails: PropTypes.bool,
+
+  /**
+   * The slide components.
+   */
   slides: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.oneOfType([
@@ -252,6 +169,7 @@ Slider.defaultProps = {
   slides: [],
   withSteppers: false,
   withButtons: false,
+  withThumbnails: false,
   slidesPerView: null,
   xs: 1,
   sm: 1,

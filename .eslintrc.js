@@ -15,9 +15,11 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.stories.*'],
+      files: ['*.stories.*', '*.test.*'],
       rules: {
         'import/no-extraneous-dependencies': 0,
+        'import/no-named-as-default': 0,
+        'no-alert': 0
       }
     },
   ],
