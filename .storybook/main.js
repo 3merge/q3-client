@@ -11,6 +11,7 @@ module.exports = {
     '../packages/q3-ui/**/slider/**.stories.jsx',
     '../packages/q3-ui/**/splitButton/*.stories.jsx',
     '../packages/q3-ui-forms/**/builders/form.stories.jsx',
+    '../packages/q3-ui-forms/**/fields/autocomplete.stories.jsx',
     '../packages/q3-ui-forms/**/fields/chips.stories.jsx',
     '../packages/q3-ui-forms/**/fields/checkset.stories.jsx',
     '../packages/q3-ui-forms/**/fields/text.stories.jsx',
