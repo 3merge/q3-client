@@ -1,115 +1,88 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import MockApi from 'q3-ui-test-utils/lib/rest';
-import Container from '@material-ui/core/Container';
 import Form from '../builders/form';
 import Field from '../builders/field';
+import Autocomplete from './autocomplete';
 
 const opts = [
-  { value: 'CA', label: 'Canada' },
-  { value: 'MX', label: 'Mexico' },
-  { value: 'US', label: 'United States' },
+  {
+    value: 'CA',
+    label: 'Canada',
+    continent: 'North America',
+  },
+  {
+    value: 'GB',
+    label: 'England',
+    continent: 'UK',
+  },
+  {
+    value: 'US',
+    label: 'United States',
+    continent: 'North America',
+  },
 ];
 
-storiesOf('Forms|Fields/Autocomplete', module)
-  .add('With static options', () => (
-    <MockApi>
-      <Form
-        debug
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.setFieldError(
-            'countries',
-            'No service connected!',
-          );
-        }}
-        initialValues={{
-          countries: { value: '' },
-        }}
-      >
-        <Container>
-          <Field
-            name="countries"
-            type="autocomplete"
-            options={[
-              { value: 'CA', label: 'Canada' },
-              { value: 'MX', label: 'Mexico' },
-              { value: 'US', label: 'United States' },
-            ]}
-          />
-        </Container>
-      </Form>
-    </MockApi>
-  ))
-  .add('As required', () => (
-    <MockApi>
-      <Form
-        debug
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.setFieldError(
-            'countries',
-            'No service connected!',
-          );
-        }}
-        initialValues={{
-          countries: { value: '' },
-        }}
-      >
-        <Container>
-          <Field
-            required
-            name="countries"
-            type="autocomplete"
-            options={[
-              { value: 'CA', label: 'Canada' },
-              { value: 'MX', label: 'Mexico' },
-              { value: 'US', label: 'United States' },
-            ]}
-          />
-        </Container>
-      </Form>
-    </MockApi>
-  ))
-  .add('After fail', () => (
-    <MockApi>
-      <Form
-        debug
-        onSubmit={(values, actions) => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              actions.setSubmitting(false);
-              actions.setFieldError(
-                'countries',
-                'No service connected!',
-              );
+export default {
+  title: 'Forms/Fields/Autocomplete',
+  parameters: {
+    component: Autocomplete,
+    componentSubtitle:
+      'Dynamic value select with lazy-loading support',
+  },
+};
 
-              Object.assign(actions, {
-                isTouched: true,
-              });
+export const WithOptions = () => (
+  <Form
+    debug
+    initialValues={{
+      countries: { value: '' },
+    }}
+  >
+    <Field
+      required
+      name="countries"
+      type="autocomplete"
+      options={opts}
+    />
+  </Form>
+);
 
-              resolve();
-            }, 200);
-          });
-        }}
-        initialValues={{
-          countries: { value: '' },
-        }}
-      >
-        <Container>
-          <Field
-            required
-            name="countries"
-            type="autocomplete"
-            loadOptions={() =>
-              new Promise((resolve) =>
-                setTimeout(() => {
-                  resolve(opts);
-                }, 200),
-              )
-            }
-          />
-        </Container>
-      </Form>
-    </MockApi>
-  ));
+export const WithCustomLabel = () => (
+  <Form
+    debug
+    initialValues={{
+      countries: { value: '' },
+    }}
+  >
+    <Field
+      required
+      name="countries"
+      type="autocomplete"
+      filterSelectedOptions={false}
+      options={opts}
+      disableFilter
+      renderOption={(v) => (
+        <>
+          {v.label}
+          <br />
+          {v.continent}
+        </>
+      )}
+      loadOptions={(e) => {
+        return new Promise((resolve) =>
+          setTimeout(() => {
+            resolve(
+              opts.filter((item) => {
+                return e.split(' ').some((v) => {
+                  return (
+                    item.label.includes(v) ||
+                    item.continent.includes(v)
+                  );
+                });
+              }),
+            );
+          }, 200),
+        );
+      }}
+    />
+  </Form>
+);

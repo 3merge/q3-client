@@ -11,7 +11,9 @@ import { isObject } from '../helpers';
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
-  const { label, helperText } = useDecorator(props);
+  const { label, helperText, disableFilter } = useDecorator(
+    props,
+  );
   const [{ name, value, ...field }, { error }] = useField(
     props,
   );
@@ -59,6 +61,13 @@ export const AutoCompleteWrapper = (props) => {
       renderInput={getCustomInput}
       getOptionLabel={getDropdownLabel}
       onChange={intercept(field.onChange, name)}
+      filterOptions={
+        disableFilter
+          ? (options) => {
+              return options;
+            }
+          : undefined
+      }
     />
   );
 };
