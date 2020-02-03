@@ -5,35 +5,37 @@ import Container from '@material-ui/core/Container';
 import Form from '../builders/form';
 import Field from '../builders/field';
 
-storiesOf('Forms|Fields/Text', module).add(
-  'With static options',
-  () => (
-    <MockApi>
-      <Form
-        debug
-        onSubmit={(values, actions) => {
-          actions.setSubmitting(false);
-          actions.setFieldError(
-            'countries',
-            'No service connected!',
-          );
-        }}
-        initialValues={{
-          name: '',
-          friend: '',
-        }}
-      >
-        <Container>
-          <Field name="name" type="text" />
-          <Field
-            name="friend"
-            type="text"
-            override={({ values }) => ({
-              label: values.name ? 'OVERRIDE!' : undefined,
-            })}
-          />
-        </Container>
-      </Form>
-    </MockApi>
-  ),
+export default {
+  title: 'Forms/Fields/Text',
+  parameters: {
+    component: Field,
+    componentSubtitle:
+      'HTML text field with enhanced validation',
+  },
+};
+
+export const Validation = () => (
+  <Form
+    debug
+    onSubmit={Promise.resolve()}
+    initialValues={{
+      name: '',
+      friend: '',
+      postal: '',
+      email: '',
+      tel: '',
+    }}
+  >
+    <Field name="name" type="text" />
+    <Field name="tel" required type="tel" />
+    <Field name="email" required type="email" />
+    <Field name="postal" required type="postal" />
+    <Field
+      name="friend"
+      type="text"
+      override={({ values }) => ({
+        label: values.name ? 'OVERRIDE!' : undefined,
+      })}
+    />
+  </Form>
 );

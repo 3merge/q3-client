@@ -1,21 +1,31 @@
 import * as yup from 'yup';
+import { get } from 'lodash';
+
+const isRequired = (re, value, ctx) =>
+  get(ctx, 'schema._exclusive.required', false)
+    ? re.test(value)
+    : re.test(value) || value === '' || value === undefined;
 
 export function postal(v) {
-  return new RegExp(
-    /^\d{5}-\d{4}|\d{5}|[A-Z]\d[A-Z]\s?\d[A-Z]\d$/,
-    'i',
-  ).test(v);
+  return isRequired(
+    new RegExp(
+      /^[0-9]{5}$|^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$/,
+      'i',
+    ),
+    v,
+    this,
+  );
 }
 
 export function tel(v) {
-  const isValid = new RegExp(
-    /^(?:\(\d{3}\)|\d{3})[- ]?\d{3}[- ]?\d{4}$/,
-    'i',
-  ).test(v);
-
-  return this.schema._exclusive.required
-    ? isValid
-    : isValid || v === '' || !v;
+  return isRequired(
+    new RegExp(
+      /^([+]?\d{1,2}[.\-\s]?)?(\()?(\d{3})(\)|-)?(\d{3})(-)?(\d{4})(((x)(\d)*)?)/,
+      'i',
+    ),
+    typeof v === 'string' ? v.replace(/\s/g, '') : '',
+    this,
+  );
 }
 
 export function autocomplete(v) {

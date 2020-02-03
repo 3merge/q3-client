@@ -120,6 +120,23 @@ describe('Custom validators', () => {
 
     it('it should return true', (done) => {
       schema
+        .isValid({ tel: '+19053214455' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
+    it('it should return true', (done) => {
+      schema
+        .isValid({ tel: '905-321-4455x123' })
+        .then((valid) => {
+          expect(valid).toBeTruthy();
+          done();
+        });
+    });
+
+    it('it should return true', (done) => {
+      schema
         .isValid({ tel: '905-321-4455' })
         .then((valid) => {
           expect(valid).toBeTruthy();
