@@ -14,6 +14,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/fields/autocomplete.stories.jsx',
     '../packages/q3-ui-forms/**/fields/chips.stories.jsx',
     '../packages/q3-ui-forms/**/fields/checkset.stories.jsx',
+    '../packages/q3-ui-forms/**/fields/text.stories.jsx',
     '../packages/q3-ui-forms/**/fields/transfer.stories.jsx',
     '../packages/q3-ui-forms/**/presets/northAmericaRegionalSelect/*.stories.jsx',
   ],
