@@ -5,42 +5,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Home from '@material-ui/icons/Home';
-import {
-  MuiThemeProvider,
-  createMuiTheme,
-} from '@material-ui/core/styles';
 import PathBuilder from './utils';
 import useStyles from './useStyle';
-
-export const BreadcrumbTheme = ({ children, type }) => {
-  const muiTheme = createMuiTheme((theme) => {
-    // eslint-disable-next-line
-    theme.palette.type = type;
-    return theme;
-  });
-
-  return (
-    <MuiThemeProvider theme={muiTheme}>
-      {children}
-    </MuiThemeProvider>
-  );
-};
-
-BreadcrumbTheme.propTypes = {
-  /**
-   * Nested theme components.
-   */
-  children: PropTypes.node.isRequired,
-
-  /**
-   * The theme mode for MUI.
-   */
-  type: PropTypes.oneOf(['light', 'dark']),
-};
-
-BreadcrumbTheme.defaultProps = {
-  type: 'ligth',
-};
 
 const ForwardedLink = React.forwardRef((props, ref) => (
   <ReachLink ref={ref} {...props} />
@@ -81,7 +47,7 @@ BreadcrumbsHome.propTypes = {
 };
 
 const RouterBreadcrumbs = ({ root, mode }) => {
-  const { capitalize } = useStyles();
+  const { capitalize, contrast } = useStyles();
 
   return (
     <Location>
@@ -92,21 +58,12 @@ const RouterBreadcrumbs = ({ root, mode }) => {
 
         return (
           <Breadcrumbs
-            style={{
-              color: mode === 'dark' ? '#FFF' : 'inherit',
-            }}
+            className={mode === 'dark' ? contrast : null}
             aria-label="Navigation breadcrumbs"
             maxItems={3}
           >
+            <BreadcrumbsHome root={root} />
             {paths.map((breadcrumb, i, arr) => {
-              if (i === 0)
-                return (
-                  <BreadcrumbsHome
-                    key={breadcrumb}
-                    root={root}
-                  />
-                );
-
               if (i + 1 === arr.length)
                 return (
                   <LastBreadcrumb
