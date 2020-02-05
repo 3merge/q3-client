@@ -23,18 +23,19 @@ const fixture = (
   status: <TableBadge status={status} color={color} />,
   progress: <TableProgress value={value} />,
   verified: <TableCheck show={color !== 'danger'} />,
+  unknown: undefined,
   ...args,
 });
 
 export default {
-  title: 'Table',
+  title: 'Q3 Datatables/Table',
   parameters: {
     component: TableView,
     componentSubtitle: 'For data-rich UIs and list views',
   },
 };
 
-export const populated = () => (
+export const Full = () => (
   <TableView
     id="for-testing"
     total={50}

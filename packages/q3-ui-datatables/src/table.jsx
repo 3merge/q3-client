@@ -17,6 +17,42 @@ import {
   SelectAll,
 } from './components';
 
+const TableHeader = ({
+  children,
+  columns,
+  aliasForName,
+}) => {
+  const { mobile, boxes } = useStyles();
+
+  return (
+    <TableHead>
+      <TableRow className={mobile}>
+        {columns.map((header, i) => (
+          <ColumnHeader
+            key={header}
+            title={header}
+            storageKey={i === 0 ? aliasForName : header}
+          />
+        ))}
+        <TableCell className={boxes}>{children}</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+};
+
+TableHeader.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.string),
+  aliasForName: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.node,
+  ]).isRequired,
+};
+
+TableHeader.defaultProps = {
+  columns: [],
+};
+
 export const TableView = ({
   id,
   children,
@@ -25,7 +61,7 @@ export const TableView = ({
   actions,
 }) => {
   const { t } = useTranslation();
-  const { mobile, boxes } = useStyles();
+  const activeColumns = extractKeys(children);
 
   return (
     <Wrapper>
@@ -34,24 +70,20 @@ export const TableView = ({
           <caption>
             {t('labels:showingResults', { total })}
           </caption>
-          <TableHead>
-            <TableRow className={mobile}>
-              {extractKeys(children).map((header, i) => (
-                <ColumnHeader
-                  id={id}
-                  key={header}
-                  title={header}
-                  storageKey={
-                    i === 0 ? aliasForName : header
-                  }
-                />
-              ))}
-              <TableCell className={boxes}>
-                <SelectAll ids={extractIds(children)} />
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{children}</TableBody>
+          <TableHeader
+            aliasForName={aliasForName}
+            columns={activeColumns}
+          >
+            <SelectAll ids={extractIds(children)} />
+          </TableHeader>
+
+          <TableBody>
+            {children.map((c) =>
+              React.cloneElement(c, {
+                activeColumns,
+              }),
+            )}
+          </TableBody>
           <TableFooter>
             <Pagination id={id} total={total} />
           </TableFooter>
