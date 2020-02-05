@@ -16,5 +16,7 @@
     <img src="https://img.shields.io/twitter/follow/3mergeinc.svg?label=3merge" alt="@3mergeinc" />
   </a>
 </p>
-<h2>COMING SOON!</h2>
-<p>Will be released Jan 2020</p>
+<h2>Production release available March 2020</h2>
+<p>Development on net-new features ended in January 2020. However, there is a backlog of visual regression and integration testing to complete before the next major release.</p>
+
+<p>Documentation and example projects still to come.</p>
