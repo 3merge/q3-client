@@ -4,6 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Hidden from '@material-ui/core/Hidden';
+import {
+  ThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -19,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     paddingTop: theme.spacing(2),
-    width: 215,
+    width: 275,
     '& *': {
       color: '#FFF',
       fontSize: '1.11rem',
@@ -69,9 +73,17 @@ const Sidebar = ({ renderTrigger, children }) => {
         {children}
       </MobileDrawer>
       <Hidden smDown implementation="css">
-        <Box className={colourful} component="aside">
-          {children}
-        </Box>
+        <ThemeProvider
+          theme={createMuiTheme({
+            palette: {
+              type: 'dark',
+            },
+          })}
+        >
+          <Box className={colourful} component="aside">
+            {children}
+          </Box>
+        </ThemeProvider>
       </Hidden>
       <Hidden mdUp implementation="css">
         {renderTrigger(toggleDrawer, open)}

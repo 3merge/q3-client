@@ -140,5 +140,6 @@
   "applyAndSave": "Apply/save",
   "reset": "Reset",
   "resetAndSave": "Reset/save",
-  "adventure": "Adventure {{type}}"
+  "adventure": "Adventure {{type}}",
+  "backToMenu": "Back to full menu"
 }

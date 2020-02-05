@@ -1,5 +1,4 @@
 import React from 'react';
-import { LocationDebugger } from '../debugger';
 import { Groups } from '.';
 
 export default {

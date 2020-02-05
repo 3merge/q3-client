@@ -1,9 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
+import { Location } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import Menu from 'q3-ui/lib/menu';
-import { makePath } from './app';
+import { makePath } from '../app';
+import MenuSwitcher from './switcher';
+
+export const ActivePageDetector = (props) => (
+  <Location>
+    {({ location }) => {
+      const activePage = get(props, 'items', []).find(
+        ({ to }) => to === location.pathname,
+      );
+
+      return (
+        <MenuSwitcher activePage={activePage} {...props} />
+      );
+    }}
+  </Location>
+);
 
 const AppMenu = ({ companyName, pages }) => {
   const { t } = useTranslation();
@@ -19,10 +35,15 @@ const AppMenu = ({ companyName, pages }) => {
       icon: page.icon,
     }));
 
-  return <Menu title={companyName} items={items} />;
+  return (
+    <ActivePageDetector title={companyName} items={items} />
+  );
 };
 
 AppMenu.propTypes = {
+  /**
+   * List of app links to populate menu.
+   */
   pages: PropTypes.arrayOf(
     PropTypes.shape({
       collectionName: PropTypes.string,
