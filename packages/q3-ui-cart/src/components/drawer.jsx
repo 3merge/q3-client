@@ -25,7 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     marginTop: theme.spacing(2),
-    width: '60vw',
+    width: '45vw',
+    [theme.breakpoints.down('lg')]: {
+      width: '50vw',
+    },
     [theme.breakpoints.down('md')]: {
       width: '70vw',
     },
