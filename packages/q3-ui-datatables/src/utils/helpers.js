@@ -1,5 +1,8 @@
 import React from 'react';
 
+export const hasLength = (v) =>
+  Array.isArray(v) && v.length;
+
 export const getPage = (query) =>
   Number(query.get('page') || 0);
 
@@ -23,18 +26,30 @@ export const hasKeys = (etc) =>
 
 export const extractKeys = (c) => {
   try {
+    const a = React.Children.toArray(c);
     const [
       {
         props: {
           columns: { name, description, photo, ...headers },
         },
       },
-    ] = React.Children.toArray(c);
+    ] = a;
 
-    const out = Object.keys(headers);
+    const out = Object.entries(headers)
+      .filter(([k]) => {
+        return a.some(({ props: { columns } }) => {
+          const v = columns[k];
+          return v !== undefined && v !== null && v !== '';
+        });
+      })
+      .map(([key]) => key);
+
     out.unshift('name');
     return out;
   } catch (e) {
     return [];
   }
 };
+
+export const invoke = (o) =>
+  typeof o === 'function' ? o({}) : o;

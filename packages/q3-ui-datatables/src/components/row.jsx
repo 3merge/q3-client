@@ -9,15 +9,44 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Apps from '@material-ui/icons/AssignmentReturned';
 import ArrowForward from '@material-ui/icons/ArrowForward';
-
 import { DropDownMenu } from 'q3-ui/lib/toolbar';
 import TableCellHeader from './cellHeader';
 import { SelectOne } from './select';
-import { hasKeys } from '../utils/helpers';
+import {
+  hasKeys,
+  invoke,
+  hasLength,
+} from '../utils/helpers';
+
+/**
+ * @NOTE
+ * If the key does not exist in active columns,
+ * it skips rendering it.
+ */
+export const renderTableCells = (
+  items = {},
+  columns = [],
+  translateUtil,
+) =>
+  hasKeys(items) && Array.isArray(columns)
+    ? Object.entries(items)
+        .map(([key, value]) =>
+          columns.includes(key) ? (
+            <TableCell
+              key={key}
+              data-title={translateUtil(key)}
+            >
+              {value}
+            </TableCell>
+          ) : null,
+        )
+        .filter(Boolean)
+    : [];
 
 const Row = ({
   id,
   columns: { name, description, photo, ...etc },
+  activeColumns,
   rowToolbar,
 }) => {
   const { t } = useTranslation('labels');
@@ -29,23 +58,11 @@ const Row = ({
         sub={t(description)}
         imgSrc={t(photo)}
       />
-      {hasKeys(etc)
-        ? Object.entries(etc).map(([key, value]) => (
-            <TableCell data-title={t(key)}>
-              {value}
-            </TableCell>
-          ))
-        : []}
+      {renderTableCells(etc, activeColumns, t)}
       <TableCell>
         <SelectOne id={id} />
-        {rowToolbar && rowToolbar.length ? (
-          <DropDownMenu
-            items={
-              typeof rowToolbar === 'function'
-                ? rowToolbar({})
-                : rowToolbar
-            }
-          >
+        {hasLength(rowToolbar) ? (
+          <DropDownMenu items={invoke(rowToolbar)}>
             {(open, isOpen) => (
               <Tooltip title={t('menu')}>
                 <IconButton
@@ -62,7 +79,7 @@ const Row = ({
         <IconButton
           to={`${id}`}
           component={Link}
-          aria-label="View"
+          aria-label={t('view')}
         >
           <ArrowForward />
         </IconButton>
@@ -85,6 +102,9 @@ Row.propTypes = {
     description: PropTypes.string,
     photo: PropTypes.string,
   }).isRequired,
+
+  activeColumns: PropTypes.arrayOf(PropTypes.string)
+    .isRequired,
 };
 
 Row.defaultProps = {
