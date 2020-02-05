@@ -1,81 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Location, Link } from '@reach/router';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Backspace from '@material-ui/icons/Backspace';
-import Collapse from '@material-ui/core/Collapse';
-import Box from '@material-ui/core/Box';
+import { get } from 'lodash';
+import { Location } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import Menu from 'q3-ui/lib/menu';
-import Button from '@material-ui/core/Button';
 import { makePath } from '../app';
+import MenuSwitcher from './switcher';
 
-const MenuSwitcher = ({ activePage, items, title }) => {
-  const [showAll, setShowAll] = React.useState(false);
-  const { t } = useTranslation('labels');
-  const hasFilters =
-    activePage &&
-    activePage.renderFilter &&
-    typeof activePage.renderFilter === 'function';
+export const ActivePageDetector = (props) => (
+  <Location>
+    {({ location }) => {
+      const activePage = get(props, 'items', []).find(
+        ({ to }) => to === location.pathname,
+      );
 
-  React.useEffect(() => {
-    setShowAll(false);
-  }, [activePage]);
-
-  return (
-    <>
-      <Collapse in={showAll || !hasFilters} timeout={500}>
-        <Box>
-          <Menu title={title} items={items} />
-        </Box>
-      </Collapse>
-
-      <Collapse in={!showAll} timeout={500}>
-        <Box p={2}>
-          {hasFilters && (
-            <>
-              <Button
-                size="small"
-                onClick={() => setShowAll(true)}
-              >
-                <Backspace />
-                <Box
-                  style={{
-                    marginLeft: '0.5rem',
-                    fontSize: '0.733rem',
-                  }}
-                >
-                  {t('backToMenu')}
-                </Box>
-              </Button>
-              <Select
-                id="menu-dropdown"
-                value={activePage.to}
-                variant="outlined"
-                component="div"
-                fullWidth
-              >
-                {items.map((item) => (
-                  <MenuItem
-                    to={item.to}
-                    component={Link}
-                    key={item.to}
-                    value={item.to}
-                  >
-                    {item.label}
-                  </MenuItem>
-                ))}
-              </Select>
-              {activePage.renderFilter()}
-            </>
-          )}
-        </Box>
-      </Collapse>
-    </>
-  );
-};
+      return (
+        <MenuSwitcher activePage={activePage} {...props} />
+      );
+    }}
+  </Location>
+);
 
 const AppMenu = ({ companyName, pages }) => {
   const { t } = useTranslation();
@@ -92,25 +36,14 @@ const AppMenu = ({ companyName, pages }) => {
     }));
 
   return (
-    <Location>
-      {({ location }) => {
-        const active = items.find(
-          ({ to }) => to === location.pathname,
-        );
-
-        return (
-          <MenuSwitcher
-            activePage={active}
-            title={companyName}
-            items={items}
-          />
-        );
-      }}
-    </Location>
+    <ActivePageDetector title={companyName} items={items} />
   );
 };
 
 AppMenu.propTypes = {
+  /**
+   * List of app links to populate menu.
+   */
   pages: PropTypes.arrayOf(
     PropTypes.shape({
       collectionName: PropTypes.string,

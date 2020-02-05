@@ -9,11 +9,36 @@ export default {
   title: 'Q3 Admin/Components/Menu',
   parameters: {
     component: Menu,
-    componentSubtitle: "Q3's auto menu generator",
+    componentSubtitle:
+      "Q3's auto menu generator and filter renderer",
   },
 };
 
-export const Default = () => (
+const makeMenuItems = () => [
+  {
+    to: '/foo',
+    index: true,
+    collectionName: 'foo',
+    resourceName: 'foo',
+    renderFilter: () => <p>My filter panel</p>,
+  },
+  {
+    to: '/bar',
+    index: true,
+    collectionName: 'foo',
+    resourceName: 'bar',
+    renderFilter: () => <p>My filter panel 1</p>,
+  },
+  {
+    to: '/quuz',
+    index: true,
+    collectionName: 'foo',
+    resourceName: 'quuz',
+    renderFilter: () => <p>My filter panel 2</p>,
+  },
+];
+
+const withWrapper = (Comp) => () => (
   <Location>
     <AuthContext.Provider
       value={{
@@ -29,87 +54,19 @@ export const Default = () => (
         },
       }}
     >
-      <Menu
-        pages={[
-          {
-            to: '/foo',
-            index: true,
-            collectionName: 'foo',
-            resourceName: 'foo',
-            renderFilter: () => <p>My filter panel</p>,
-          },
-          {
-            to: '/foo1',
-            index: true,
-            collectionName: 'foo',
-            resourceName: 'foo1',
-            renderFilter: () => <p>My filter panel 1</p>,
-          },
-          {
-            to: '/foo2',
-            index: true,
-            collectionName: 'foo',
-            resourceName: 'foo2',
-            renderFilter: () => <p>My filter panel 2</p>,
-          },
-        ]}
-      />
+      <Comp />
     </AuthContext.Provider>
     <LocationDebugger />
   </Location>
 );
 
-export const InMainAside = () => (
-  <Location>
-    <AuthContext.Provider
-      value={{
-        state: {
-          permissions: [
-            {
-              coll: 'foo',
-              op: 'Read',
-              ownership: 'Any',
-              fields: '*',
-            },
-          ],
-        },
-      }}
-    >
-      <Main
-        renderAside={() => (
-          <Menu
-            pages={[
-              {
-                to: '/foo',
-                index: true,
-                collectionName: 'foo',
-                resourceName: 'foo',
-                renderFilter: () => <p>My filter panel</p>,
-              },
-              {
-                to: '/foo1',
-                index: true,
-                collectionName: 'foo',
-                resourceName: 'foo1',
-                renderFilter: () => (
-                  <p>My filter panel 1</p>
-                ),
-              },
-              {
-                to: '/foo2',
-                index: true,
-                collectionName: 'foo',
-                resourceName: 'foo2',
-                renderFilter: () => (
-                  <p>My filter panel 2</p>
-                ),
-              },
-            ]}
-          />
-        )}
-        render={() => null}
-      />
-    </AuthContext.Provider>
-    <LocationDebugger />
-  </Location>
-);
+export const Default = withWrapper(() => (
+  <Menu pages={makeMenuItems()} />
+));
+
+export const InMainAside = withWrapper(() => (
+  <Main
+    renderAside={() => <Menu pages={makeMenuItems()} />}
+    render={() => null}
+  />
+));
