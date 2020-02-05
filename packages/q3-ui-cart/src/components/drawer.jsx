@@ -25,9 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     marginTop: theme.spacing(2),
-    width: 650,
-    [theme.breakpoints.down('sm')]: {
+    width: '60vw',
+    [theme.breakpoints.down('md')]: {
       width: '70vw',
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '80vw',
     },
     [theme.breakpoints.down('xs')]: {
       width: '90vw',
@@ -49,7 +52,7 @@ const CartDrawerInterior = ({ children }) => {
 
   return (
     <Container className={root}>
-      <Box p={2}>
+      <Box py={2}>
         {!Array.isArray(items) ||
           (!items.length && (
             <>
@@ -122,7 +125,10 @@ const CartDrawer = ({
           <Box my={1}>
             <Typography align="center">
               <Button
-                onClick={() => navigate(checkoutPath)}
+                onClick={() => {
+                  navigate(checkoutPath);
+                  close();
+                }}
                 variant="contained"
                 color="secondary"
                 size="large"
@@ -134,7 +140,10 @@ const CartDrawer = ({
               </Button>
               <Box my={0.5}>
                 <Button
-                  onClick={() => navigate(shopPath)}
+                  onClick={() => {
+                    navigate(shopPath);
+                    close();
+                  }}
                   gutterBottom
                   size="small"
                 >

@@ -1,23 +1,42 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { useTranslation } from 'react-i18next';
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
 import { CartContext } from '../context';
 
-const Toggle = ({ id, product, quantity }) => {
-  const [value, setQuantity] = React.useState(quantity);
+const RemoveFromCart = ({ id }) => {
+  const { t } = useTranslation();
+  const { remove } = React.useContext(CartContext);
 
+  return (
+    <Box>
+      <Button
+        size="small"
+        onClick={() => remove(id)}
+        style={{
+          textDecoration: 'underline',
+          justifyContent: 'flex-start',
+        }}
+      >
+        {t('labels:remove')}
+      </Button>
+    </Box>
+  );
+};
+
+const Toggle = ({ id, product, quantity }) => {
+  const { t } = useTranslation();
+  const [value, setQuantity] = React.useState(quantity);
   const { update, loading } = React.useContext(CartContext);
 
   const sendUpdateRequest = (newValue) =>
@@ -30,23 +49,26 @@ const Toggle = ({ id, product, quantity }) => {
     <TextField
       disabled={loading}
       variant="outlined"
-      label="quantity"
       name="quantity"
-      size="small"
       value={value}
       onChange={(e, v) => {
         if (typeof parseInt(v, 10) === 'number')
           setQuantity(v);
       }}
       onBlur={() => {
-        console.log('HEHRE');
         sendUpdateRequest(value);
       }}
-      helperText="Totals $255"
+      inputProps={{
+        'aria-label': t('labels:quantity'),
+        style: {
+          textAlign: 'center',
+        },
+      }}
       InputProps={{
         style: {
-          width: 150,
+          width: 135,
         },
+
         startAdornment: (
           <InputAdornment position="start">
             <IconButton
@@ -74,56 +96,99 @@ const Toggle = ({ id, product, quantity }) => {
   );
 };
 
-export default () => {
+export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
   return items.map(
-    ({ product, price, name, img, label, quantity }) => (
-      <Paper elevation={2}>
-        <Box p={1}>
-          <ListItem component="div">
-            <ListItemAvatar>
-              <img src={img} alt={product} height={65} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={name}
-              secondary={
-                <>
-                  <Box component="span" display="block">
-                    <strong>{label}</strong>
-                  </Box>
-                  <Typography
-                    variant="subtitle2"
-                    component="span"
-                    color="primary"
-                  >
-                    {price}
-                  </Typography>
-                </>
-              }
-            />
-
-            <ListItemSecondaryAction>
+    ({
+      id,
+      product,
+      price,
+      name,
+      img,
+      subtotal,
+      quantity,
+      description,
+    }) => (
+      <Box mb={1}>
+        <Paper elevation={2}>
+          <Box p={2}>
+            <Box component="div">
               <Grid
                 container
                 spacing={1}
                 alignItems="center"
+                justify="space-between"
               >
-                <Grid item>
-                  <Toggle
-                    quantity={quantity}
-                    price={price}
-                  />
+                <Grid item lg={8} md={12} sm={12}>
+                  <Grid container spacing={2}>
+                    <Grid item style={{ width: 'auto' }}>
+                      <Avatar
+                        variant="rounded"
+                        style={{
+                          width: 95,
+                          height: 95,
+                          marginTop: 10,
+                        }}
+                      >
+                        <img src={img} alt={product} />
+                      </Avatar>
+                    </Grid>
+
+                    <Grid item md={8} sm={9} xs={12}>
+                      <Box>
+                        <Typography
+                          variant="overline"
+                          color="primary"
+                        >
+                          ${price} ea.
+                        </Typography>
+                        <Typography
+                          variant="h5"
+                          component="h4"
+                        >
+                          {name}
+                        </Typography>
+
+                        <Typography>
+                          {description}
+                        </Typography>
+
+                        {children && children()}
+                      </Box>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <IconButton size="small">
-                    <DeleteIcon />
-                  </IconButton>
+
+                <Grid item lg={4} sm={12}>
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    justifyContent="flex-end"
+                  >
+                    <Grid item lg={5} md={3} xs={12}>
+                      <Typography
+                        color="primary"
+                        variant="h4"
+                        component="span"
+                      >
+                        ${subtotal}
+                      </Typography>
+                      <RemoveFromCart id={id} />
+                    </Grid>
+                    <Grid item lg={5} md={12}>
+                      <Toggle
+                        quantity={quantity}
+                        price={price}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
-            </ListItemSecondaryAction>
-          </ListItem>
-        </Box>
-      </Paper>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
     ),
   );
 };
