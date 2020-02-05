@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
@@ -73,23 +75,50 @@ export const AccountMenu = ({
   profileImgSrc,
   name,
   items,
+  loginPath,
+  signupPath,
 }) => {
+  const { t } = useTranslation();
+
   if (!isLoggedIn) {
     return (
       <Grid container spacing={1} justify="flex-end">
         <Hidden smDown>
           <Grid item>
-            <Button color="inherit">Signup</Button>
+            <Button
+              component={Link}
+              to={signupPath}
+              color="inherit"
+            >
+              {t('labels:signup')}
+            </Button>
           </Grid>
         </Hidden>
         <Grid item>
-          <Button color="inherit" variant="outlined">
-            Login
+          <Button
+            to={loginPath}
+            component={Link}
+            color="inherit"
+            variant="outlined"
+          >
+            {t('labels:login')}
           </Button>
         </Grid>
       </Grid>
     );
   }
+
+  AccountMenu.propTypes = {
+    isLoggedIn: PropTypes.bool,
+    loginPath: PropTypes.string,
+    signupPath: PropTypes.string,
+  };
+
+  AccountMenu.defaultProps = {
+    isLoggedIn: false,
+    loginPath: '/',
+    signupPath: '/',
+  };
 
   return (
     <DropDownMenu id="profile-dropdown" items={items}>
