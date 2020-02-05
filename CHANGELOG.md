@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.5](https://github.com/3merge/q/compare/v1.9.4...v1.9.5) (2020-02-05)
+
+
+### Bug Fixes
+
+* disable MUI filtering with flag ([#93](https://github.com/3merge/q/issues/93)) ([eb366b6](https://github.com/3merge/q/commit/eb366b62e806891436f3dc2f005ead9cfaa10cee))
+* improved phone number validation ([#92](https://github.com/3merge/q/issues/92)) ([44a1f44](https://github.com/3merge/q/commit/44a1f44030e5e71cb1318abdc661e0014c6d8125))
+
+
+
+
+
 ## [1.9.4](https://github.com/3merge/q/compare/v1.9.3...v1.9.4) (2020-02-01)
 
 **Note:** Version bump only for package q3-client
