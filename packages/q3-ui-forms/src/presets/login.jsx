@@ -1,16 +1,20 @@
 import React from 'react';
 import Axios from 'axios';
+import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { setSession } from 'q3-ui-permissions';
-import Collapse from '@material-ui/core/Collapse';
 import Field from '../builders/field';
 import Form from '../builders/form';
 import useFormHandler from '../providers/formik';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
-const Login = ({ children }) => {
+const Login = ({
+  children,
+  beforeRedirect,
+  redirectPath,
+}) => {
   const { t } = useTranslation();
   const [hasAccount] = React.useState('');
 
@@ -20,7 +24,15 @@ const Login = ({ children }) => {
       .then(({ data }) => {
         setSession(data);
         onComplete(null, actions);
-        window.location.replace('/');
+
+        if (beforeRedirect) {
+          return beforeRedirect(data).then((r) => {
+            window.location.replace(redirectPath);
+            return r;
+          });
+        }
+
+        window.location.replace(redirectPath);
         return data;
       })
       .catch((err) => {
@@ -58,6 +70,18 @@ const Login = ({ children }) => {
       {children}
     </Form>
   );
+};
+
+Login.propTypes = {
+  redirectPath: PropTypes.string,
+  beforeRedirect: PropTypes.func,
+  children: PropTypes.node,
+};
+
+Login.defaultProps = {
+  redirectPath: '/',
+  beforeRedirect: null,
+  children: null,
 };
 
 export default Login;

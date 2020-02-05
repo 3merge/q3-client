@@ -9,4 +9,13 @@ export default makeStyles(() => ({
     fontSize: 12,
     whiteSpace: 'nowrap',
   },
+  contrast: {
+    color: '#FFF',
+    '& *': {
+      color: '#FFF',
+    },
+    '& svg': {
+      backgroundColor: 'rgba(255,255,255,0.2)',
+    },
+  },
 }));

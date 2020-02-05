@@ -6,7 +6,7 @@ import {
   createHistory,
   LocationProvider,
 } from '@reach/router';
-import Breadcrumbs, { BreadcrumbTheme } from '.';
+import Breadcrumbs from '.';
 
 export default {
   title: 'Components/Breadcrumbs',
@@ -79,7 +79,7 @@ const Nav = ({ mode }) => {
 export const Example = () => {
   return (
     <PageNavigation>
-      <Nav path="/" mode="dark" />
+      <Nav path="/" mode="light" />
 
       <Router>
         <Foo path="/en-ca/foo">
@@ -91,6 +91,27 @@ export const Example = () => {
         </Foo>
         <Bar path="/en-ca/path-that-is-way-to-long" />
       </Router>
+    </PageNavigation>
+  );
+};
+
+export const ExampleDark = () => {
+  return (
+    <PageNavigation>
+      <div style={{ background: 'black' }}>
+        <Nav path="/" mode="dark" />
+
+        <Router>
+          <Foo path="/en-ca/foo">
+            <Foo1 path="/en-ca/foo/1" />
+            <Foo2 path="/en-ca/foo/2">
+              <Foo2a path="/en-ca/foo/2/a" />
+              <Foo2b path="/en-ca/foo/2/b" />
+            </Foo2>
+          </Foo>
+          <Bar path="/en-ca/path-that-is-way-to-long" />
+        </Router>
+      </div>
     </PageNavigation>
   );
 };
