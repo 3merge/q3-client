@@ -34,6 +34,13 @@ export const Provider = ({
     permissions: [],
   });
 
+  const invokeRendererFns = () => {
+    if (state.init) return null;
+    return state.profile
+      ? invoke(renderPrivate, state.profile)
+      : invoke(renderPublic);
+  };
+
   React.useEffect(() => {
     Axios.interceptors.request.use((config) => {
       const cls = new AuthenticationHeaders(config);
@@ -44,14 +51,12 @@ export const Provider = ({
     getSession(dispatch);
   }, []);
 
-  return state.init ? (
+  return (
     <AuthContext.Provider value={{ state, dispatch }}>
-      {state.profile
-        ? invoke(renderPrivate, state.profile)
-        : invoke(renderPublic)}
+      {invokeRendererFns()}
       {children}
     </AuthContext.Provider>
-  ) : null;
+  );
 };
 
 Provider.propTypes = {
