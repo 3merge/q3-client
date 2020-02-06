@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { styled } from '@material-ui/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
+import DarkMode from '../darkMode';
 
 export const useOpen = () => {
   const [open, setOpen] = React.useState();
@@ -39,7 +40,7 @@ export const DropDownMenu = ({ id, children, items }) => {
   const { open, openMenu, closeMenu } = useOpen();
 
   return (
-    <>
+    <DarkMode>
       {children(openMenu, open)}
       <Menu
         id={id}
@@ -66,7 +67,7 @@ export const DropDownMenu = ({ id, children, items }) => {
           </MenuItem>
         ))}
       </Menu>
-    </>
+    </DarkMode>
   );
 };
 

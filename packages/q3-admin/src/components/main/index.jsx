@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
-import Fade from '@material-ui/core/Fade';
 import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import MenuIcon from '@material-ui/icons/Menu';
+import Offcanvas from 'q3-ui/lib/offcanvas';
 import ProfileBar from 'q3-ui/lib/profileBar';
-import SwapHoriz from '@material-ui/icons/KeyboardArrowLeft';
-import Close from '@material-ui/icons/KeyboardArrowRight';
-import Sidebar from 'q3-ui/lib/sidebar';
+import Toolbar from 'q3-ui/lib/toolbar';
 import Hidden from '@material-ui/core/Hidden';
-import { useToggle } from 'useful-state';
 import useStyles from './useStyle';
 
 const Main = ({ render, renderAside, ProfileBarProps }) => {
@@ -17,23 +15,28 @@ const Main = ({ render, renderAside, ProfileBarProps }) => {
 
   return (
     <Box component="article">
+      <Hidden mdUp implementation="css">
+        <Toolbar isLoggedIn items={[]}>
+          <Offcanvas left menu={renderAside}>
+            {(toggle) => (
+              <Fab
+                onClick={toggle}
+                aria-label="Open menu"
+                color="secondary"
+                size="small"
+              >
+                <MenuIcon />
+              </Fab>
+            )}
+          </Offcanvas>
+        </Toolbar>
+      </Hidden>
       <Grid container className={cls.offsetHeight}>
         <Grid item>
           <Box className={cls.sticky}>
-            <Grid container>
-              {/* <ProfileBar
-                {...ProfileBarProps}
-                offcanvas={renderAside}
-                isLoggedIn
-              /> */}
-
-              <Sidebar
-                id="q3-collapseable-sideview"
-                renderTrigger={() => null}
-              >
-                {renderAside()}
-              </Sidebar>
-            </Grid>
+            <ProfileBar {...ProfileBarProps}>
+              {renderAside()}
+            </ProfileBar>
           </Box>
         </Grid>
         <Grid

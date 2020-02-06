@@ -7,6 +7,8 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
+    '<rootDir>/packages/(?:.+?)/node_modules/',
+    '.stories.',
   ],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',

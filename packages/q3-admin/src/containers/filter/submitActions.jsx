@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'formik';
 import { withLocation } from 'with-location';
 import Box from '@material-ui/core/Box';
-import SplitButton from 'q3-ui/lib/splitButton';
 import Button from '@material-ui/core/Button';
 import { goTo } from './utils';
 

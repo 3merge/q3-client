@@ -21,7 +21,7 @@ const m = (a) =>
   });
 
 export default {
-  title: 'Containers/Filter Container',
+  title: 'Q3 Admin/Containers/Filter',
   parameters: {
     component: FormWrapper,
     componentSubtitle:

@@ -1,0 +1,150 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { TableRow } from 'q3-ui-datatables';
+import { AuthContext } from 'q3-ui-permissions';
+import State from '../state';
+import List from '.';
+
+export default {
+  title: 'Q3 Admin/Containers/List',
+  parameters: {
+    component: List,
+    componentSubtitle:
+      'Q3 Datatable integration with Q3 Admin context',
+  },
+};
+
+const stub = {
+  collectionName: 'examples',
+  resourceName: 'examples',
+};
+
+const Wrapper = ({ children, permissions }) => (
+  <AuthContext.Provider
+    value={{
+      state: {
+        permissions: [
+          {
+            coll: stub.collectionName,
+            op: 'Read',
+            ownership: 'Any',
+            fields: '*',
+          },
+          ...permissions.map((item) => ({
+            ownership: 'Any',
+            fields: '*',
+            ...item,
+          })),
+        ],
+      },
+    }}
+  >
+    {children}
+  </AuthContext.Provider>
+);
+
+Wrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  permissions: PropTypes.arrayOf(
+    PropTypes.shape({
+      coll: PropTypes.string,
+      op: PropTypes.string,
+    }),
+  ),
+};
+
+Wrapper.defaultProps = {
+  permissions: [],
+};
+
+export const WithFilter = () => (
+  <Wrapper
+    permissions={[
+      { op: 'Delete', coll: stub.collectionName },
+    ]}
+  >
+    <State.Provider
+      value={{
+        ...stub,
+        // eslint-disable-next-line
+        removeBulk: ()=> alert('Bulk delete!'),
+        examples: [
+          {
+            id: 1,
+            name: 'First row',
+          },
+          {
+            id: 2,
+            name: 'Second row',
+          },
+        ],
+      }}
+    >
+      <List
+        renderForm={() => (
+          <p>
+            Filters! Embed any filter form here to redact
+            items from the Context.
+          </p>
+        )}
+      >
+        {(rows = []) =>
+          rows.map((row) => (
+            <TableRow id={row.id} columns={row} />
+          ))
+        }
+      </List>
+    </State.Provider>
+  </Wrapper>
+);
+
+export const Empty = () => (
+  <Wrapper>
+    <State.Provider
+      value={{
+        ...stub,
+        examples: [],
+      }}
+    >
+      <List>
+        {() => (
+          <TableRow id="1" columns={{ name: 'foo' }} />
+        )}
+      </List>
+    </State.Provider>
+  </Wrapper>
+);
+
+export const Error = () => (
+  <Wrapper>
+    <State.Provider
+      value={{
+        fetchingError: true,
+        ...stub,
+      }}
+    >
+      <List>
+        {() => (
+          <TableRow id="1" columns={{ name: 'foo' }} />
+        )}
+      </List>
+    </State.Provider>
+  </Wrapper>
+);
+
+export const Loading = () => (
+  <Wrapper>
+    <State.Provider
+      value={{
+        fetching: true,
+        ...stub,
+      }}
+    >
+      <List>
+        {() => (
+          <TableRow id="1" columns={{ name: 'foo' }} />
+        )}
+      </List>
+    </State.Provider>
+  </Wrapper>
+);

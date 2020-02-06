@@ -4,7 +4,7 @@ export { default as Add } from './add';
 export { default as LinkTo } from './linkTo';
 export { default as Detail } from './detail';
 export { default as DisplayItem } from './displayItem';
-export { default as List } from './list';
+
 export { default as Loader } from './loader';
 export { default as Main } from './main';
 export { default as Menu } from './menu';
@@ -19,4 +19,4 @@ export { default as Upload } from './upload';
  * Previously, no separation existed between Containers and Components.
  * Thus, we must export all containers here for old projects.
  */
-export { Header, Page } from '../containers';
+export { Header, List, Page } from '../containers';
