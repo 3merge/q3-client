@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Fab from '@material-ui/core/Fab';
 import Hidden from '@material-ui/core/Hidden';
 import {
   ThemeProvider,
   createMuiTheme,
 } from '@material-ui/core/styles';
+import { useToggle } from 'useful-state';
+import Grid from '@material-ui/core/Grid';
+
+import SwapHoriz from '@material-ui/icons/KeyboardArrowLeft';
+import Close from '@material-ui/icons/KeyboardArrowRight';
+import { AccountMenu } from '../toolbar';
+import { LogoHomeLink } from '../profileBar';
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
     position: 'sticky',
     top: 0,
+  },
+  trigger: {
+    position: 'absolute',
+    top: '8rem',
+    left: 'calc(100% - 1rem)',
   },
   colourful: {
     backgroundColor: theme.palette.primary.main,
@@ -23,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     paddingTop: theme.spacing(2),
-    width: 275,
     '& *': {
       color: '#FFF',
       fontSize: '1.11rem',
@@ -37,64 +48,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MobileDrawer = ({ open, toggle, children }) => {
-  const { mobile } = useStyles();
-  return (
-    <SwipeableDrawer
-      variant="temporary"
-      open={open}
-      onClose={toggle}
-      onOpen={toggle}
-    >
-      <Box component="aside" className={mobile}>
-        {children}
-      </Box>
-    </SwipeableDrawer>
-  );
-};
+const Sidebar = ({ children }) => {
+  const { colourful, trigger } = useStyles();
+  const { toggle, state } = useToggle();
 
-MobileDrawer.propTypes = {
-  open: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
-  toggle: PropTypes.func.isRequired,
-};
-
-const Sidebar = ({ renderTrigger, children }) => {
-  const [open, setOpen] = useState(false);
-  const { colourful } = useStyles();
-
-  const toggleDrawer = React.useCallback(() => {
-    setOpen(!open);
-  }, [open]);
+  const getIcon = () => (state ? <Close /> : <SwapHoriz />);
 
   return (
-    <>
-      <MobileDrawer open={open} toggle={toggleDrawer}>
-        {children}
-      </MobileDrawer>
-      <Hidden smDown implementation="css">
-        <ThemeProvider
-          theme={createMuiTheme({
-            palette: {
-              type: 'dark',
-            },
-          })}
+    <Hidden smDown implementation="css">
+      <ThemeProvider
+        theme={createMuiTheme({
+          palette: {
+            type: 'dark',
+          },
+        })}
+      >
+        <Box
+          className={colourful}
+          height="100%"
+          component="aside"
+          width={state ? 80 : 275}
+          style={{ transition: 'width 350ms' }}
         >
-          <Box className={colourful} component="aside">
-            {children}
-          </Box>
-        </ThemeProvider>
-      </Hidden>
-      <Hidden mdUp implementation="css">
-        {renderTrigger(toggleDrawer, open)}
-      </Hidden>
-    </>
+          <Grid
+            container
+            direction="column"
+            justify="space-between"
+            style={{ height: '100%' }}
+          >
+            <Grid item>
+              <LogoHomeLink name="3merge" />
+
+              {children}
+            </Grid>
+            <Grid item>
+              <Box my={1} p={2}>
+                <AccountMenu isLoggedIn items={[]} />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </ThemeProvider>
+
+      <Fab
+        size="small"
+        aria-label="Toggle filter panel"
+        onClick={toggle}
+        className={trigger}
+      >
+        {getIcon()}
+      </Fab>
+    </Hidden>
   );
 };
 
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
-  renderTrigger: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

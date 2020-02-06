@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
   },
   trigger: {
     position: 'absolute',
-    top: '5rem',
+    top: '8rem',
     left: 'calc(100% - 1rem)',
   },
 }));

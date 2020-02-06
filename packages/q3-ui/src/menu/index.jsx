@@ -102,16 +102,20 @@ const MenuItemLinkDecoratorIcon = ({
   if (!hasSubMenu && !Icon) return null;
   if (hasSubMenu)
     return (
-      <ListItemIcon>
-        <ExpandMore
-          style={{
-            transition: 'transform 250ms',
-            transform: isOpen
-              ? 'rotate(180deg)'
-              : 'rotate(0)',
-          }}
-        />
-      </ListItemIcon>
+      <ListItemAvatar
+        style={{ backgroundColor: 'rgba(255,255,255,0.2)' }}
+      >
+        <ListItemIcon>
+          <ExpandMore
+            style={{
+              transition: 'transform 250ms',
+              transform: isOpen
+                ? 'rotate(180deg)'
+                : 'rotate(0)',
+            }}
+          />
+        </ListItemIcon>
+      </ListItemAvatar>
     );
 
   return (

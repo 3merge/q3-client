@@ -4,6 +4,7 @@ import { Link } from '@reach/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
 import { Grid, Paper } from '@material-ui/core';
@@ -56,17 +57,13 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     fill: '#FFF',
-    width: 32,
-    height: 32,
-    margin: '1rem auto 0.5rem',
+    width: 64,
+    height: 64,
     position: 'relative',
     '&>svg': {
-      height: 72,
-      left: '50%',
-      position: 'absolute',
-      top: '50%',
-      transform: 'translate(-50%,-50%)',
-      width: 72,
+      width: '100%',
+      height: '100%',
+      transform: 'scale(1.5)',
     },
   },
   logoText: {
@@ -76,7 +73,48 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.3em',
     },
   },
+  showOnHover: {
+    '& #logo-text': {
+      opacity: 0,
+      transitionProperty: 'opacity, transform',
+      transitionDuration: '250ms',
+      transform: 'translateX(-10px)',
+    },
+    '&:hover #logo-text': {
+      opacity: 1,
+      transform: 'translateX(0)',
+    },
+  },
 }));
+
+export const LogoHomeLink = ({ name }) => {
+  const { logo, logoText, showOnHover } = useStyles();
+
+  return (
+    <Link to="/" aria-label={name} className={logoText}>
+      <Grid
+        container
+        alignItems="center"
+        className={showOnHover}
+      >
+        <Grid item>
+          <Box ml={1} className={logo}>
+            <Logo />
+          </Box>
+        </Grid>
+        <Grid item>
+          <Typography
+            id="logo-text"
+            variant="h1"
+            style={{ textTransform: 'uppercase' }}
+          >
+            {name}
+          </Typography>
+        </Grid>
+      </Grid>
+    </Link>
+  );
+};
 
 const ProfileBar = ({
   offcanvas: MobileMenu,
