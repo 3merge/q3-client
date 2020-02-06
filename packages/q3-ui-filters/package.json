@@ -17,6 +17,7 @@
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
+    "q3-ui-test-utils": "1.9.6",
     "react": "^16.10.2"
   }
 }

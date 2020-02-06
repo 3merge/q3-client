@@ -53,6 +53,7 @@ const ProfileBar = ({
                   {...rest}
                   items={accountMenuItems}
                   isLoggedIn
+                  name={null}
                 />
               </Box>
             </Grid>

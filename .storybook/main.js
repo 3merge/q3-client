@@ -7,6 +7,7 @@ module.exports = {
     '../packages/q3-admin/**/components/menu/**.stories.jsx',
     '../packages/q3-ui-cart/**.stories.jsx',
     '../packages/q3-ui-datatables/**.stories.jsx',
+    '../packages/q3-ui-filters/**.stories.jsx',
     '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',
     '../packages/q3-ui/**/card/*.stories.jsx',
     '../packages/q3-ui/**/list/*.stories.jsx',

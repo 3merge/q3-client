@@ -1,4 +1,6 @@
 import React from 'react';
+import PinDrop from '@material-ui/icons/PinDrop';
+import AccountBox from '@material-ui/icons/AccountBox';
 import Location from './location';
 import Locations from './locations';
 import Permissions from './permissions';
@@ -15,6 +17,7 @@ export default [
     collectionName: 'locations',
     resourceName: 'locations',
     resourceNameSingular: 'location',
+    icon: PinDrop,
   },
   {
     index: true,
@@ -22,6 +25,7 @@ export default [
     resourceName: 'permissions',
     resourceNameSingular: 'permission',
     collectionName: 'q3-api-permissions',
+    icon: AccountBox,
   },
   {
     id: true,
