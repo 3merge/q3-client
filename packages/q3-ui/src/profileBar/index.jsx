@@ -17,12 +17,7 @@ import useStyles from './useStyle';
 export const getIcon = (v) =>
   v ? <Close /> : <SwapHoriz />;
 
-const ProfileBar = ({
-  companyName,
-  children,
-  accountMenuItems,
-  ...rest
-}) => {
+const ProfileBar = ({ companyName, children, ...rest }) => {
   const { t } = useTranslation();
   const { colourful, trigger } = useStyles();
   const { toggle, state } = useToggle();
@@ -51,7 +46,6 @@ const ProfileBar = ({
               <Box my={1} p={2}>
                 <AccountMenu
                   {...rest}
-                  items={accountMenuItems}
                   isLoggedIn
                   name={null} // don't show on desktop
                 />
@@ -76,18 +70,10 @@ ProfileBar.propTypes = {
   children: PropTypes.node.isRequired,
   companyName: PropTypes.string,
   profileImgSrc: PropTypes.string,
-
-  accountMenuItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      onClick: PropTypes.func,
-      label: PropTypes.string,
-    }),
-  ),
 };
 
 ProfileBar.defaultProps = {
   companyName: '3merge',
-  accountMenuItems: [],
   profileImgSrc: astronaut,
 };
 

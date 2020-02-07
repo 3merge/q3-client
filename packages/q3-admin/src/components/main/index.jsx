@@ -16,7 +16,7 @@ const Main = ({ render, renderAside, ProfileBarProps }) => {
   return (
     <Box component="article">
       <Hidden mdUp implementation="css">
-        <Toolbar isLoggedIn items={[]}>
+        <Toolbar isLoggedIn {...ProfileBarProps}>
           <Offcanvas left menu={renderAside}>
             {(toggle) => (
               <Fab
@@ -45,7 +45,7 @@ const Main = ({ render, renderAside, ProfileBarProps }) => {
           className={cls.muted}
           component="main"
         >
-          {render()}
+          <Box pb={6}>{render()}</Box>
         </Grid>
       </Grid>
     </Box>

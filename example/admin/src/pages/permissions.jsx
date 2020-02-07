@@ -25,14 +25,17 @@ export default (props) => (
         <AddPermission />
       </Add>
     </Header>
-    <Groups
-      queries={{
-        public: 'role=Public',
-        reseller: 'role=Primary Reseller Contact',
-      }}
-    />
+
     <List
       aliasForName="coll"
+      renderTop={() => (
+        <Groups
+          queries={{
+            public: 'role=Public',
+            reseller: 'role=Primary Reseller Contact',
+          }}
+        />
+      )}
       renderForm={() => (
         <Filter
           enableReinitialize

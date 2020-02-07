@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useField, useFormikContext } from 'formik';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -117,20 +118,22 @@ const FilterTextField = ({
     );
 
   return (
-    <FormControl component="fieldset">
-      <FormLabel component="legend">{label}</FormLabel>
-      <FormGroup>
-        {options.map((option) => (
-          <MultiSelectCheckboxOption
-            {...option}
-            next={setValue}
-            done={submitForm}
-            options={extracted}
-            op={op}
-          />
-        ))}
-      </FormGroup>
-    </FormControl>
+    <Box my={2}>
+      <FormControl component="fieldset">
+        <FormLabel component="legend">{label}</FormLabel>
+        <FormGroup>
+          {options.map((option) => (
+            <MultiSelectCheckboxOption
+              {...option}
+              next={setValue}
+              done={submitForm}
+              options={extracted}
+              op={op}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
+    </Box>
   );
 };
 

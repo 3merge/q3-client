@@ -68,4 +68,9 @@ export default makeStyles((theme) => ({
       float: 'right',
     },
   },
+  withoutPseudo: {
+    '&::before': {
+      display: 'none',
+    },
+  },
 }));

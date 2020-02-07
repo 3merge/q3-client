@@ -4,6 +4,8 @@ import { KeyboardDatePicker } from '@material-ui/pickers';
 import { useField, useFormikContext } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/NativeSelect';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import {
   extractTextualValue,
   handleOnChange,
@@ -19,21 +21,31 @@ const FilterTextField = ({
 }) => {
   const { submitForm } = useFormikContext();
   const [{ value }, , { setValue }] = useField(name);
+  const realValue = extractTextualValue(value, '');
 
   if (type === 'select')
     return (
-      <Select
-        fullWidth
-        onChange={handleOnChange(setValue, op, submitForm)}
-        label={label}
-        name={name}
-      >
-        {options.map(({ value: v, label: l }) => (
-          <option key={v} value={v}>
-            {l}
-          </option>
-        ))}
-      </Select>
+      <FormControl fullWidth>
+        <InputLabel htmlFor={name}>{label}</InputLabel>
+        <Select
+          fullWidth
+          id={name}
+          value={realValue}
+          onChange={handleOnChange(
+            setValue,
+            op,
+            submitForm,
+          )}
+          name={name}
+        >
+          <option value="" aria-label="Empty" />
+          {options.map(({ value: v, label: l }) => (
+            <option key={v} value={v}>
+              {l}
+            </option>
+          ))}
+        </Select>
+      </FormControl>
     );
 
   if (type === 'date')
@@ -43,7 +55,9 @@ const FilterTextField = ({
         type="text"
         name={name}
         label={label}
-        value={value || null}
+        value={
+          realValue && realValue.length ? realValue : null
+        }
         fullWidth
         onChange={(e, v) => {
           setValue({
@@ -66,11 +80,17 @@ const FilterTextField = ({
       name={name}
       label={label}
       onChange={handleOnChange(setValue, op)}
-      value={extractTextualValue(value)}
+      value={realValue}
       onBlur={submitForm}
       style={{ marginBottom: '1rem' }}
-      onKeyPress={(e) => {
-        if (e.keyCode === 13) submitForm();
+      inputProps={{
+        onKeyPress: (e) => {
+          const charCode =
+            typeof e.which === 'number'
+              ? e.which
+              : e.keyCode;
+          if (charCode === 13) submitForm();
+        },
       }}
       margin="dense"
       fullWidth

@@ -11,7 +11,12 @@ import ErrorView from '../../components/error';
 import { getActions } from './utils';
 import Sidebar from './sidebar';
 
-const List = ({ children, renderForm, ...rest }) => {
+const List = ({
+  children,
+  renderForm,
+  renderTop,
+  ...rest
+}) => {
   const {
     resourceName,
     resourceNameSingular,
@@ -35,20 +40,23 @@ const List = ({ children, renderForm, ...rest }) => {
     if (!rows.length) return <EmptyView />;
 
     return (
-      <Table
-        {...state}
-        {...rest}
-        id={url}
-        actions={actions}
-      >
-        {children(rows)}
-      </Table>
+      <Box>
+        {renderTop && renderTop()}
+        <Table
+          {...state}
+          {...rest}
+          id={url}
+          actions={actions}
+        >
+          {children(rows)}
+        </Table>
+      </Box>
     );
   };
 
   return (
     <Redirect op="Read" to="/">
-      <Box px={2}>
+      <Box mt={4} px={2}>
         <Sidebar renderAside={renderForm}>
           {renderTable()}
         </Sidebar>
@@ -67,10 +75,16 @@ List.propTypes = {
    * Will create a sidebar view if provided/
    */
   renderForm: PropTypes.func,
+
+  /**
+   * Will render a component directly above the Table
+   */
+  renderTop: PropTypes.func,
 };
 
 List.defaultProps = {
   renderForm: null,
+  renderTop: null,
 };
 
 export default List;

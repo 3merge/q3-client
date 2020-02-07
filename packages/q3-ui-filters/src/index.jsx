@@ -63,6 +63,7 @@ export const FilterForm = ({
         <>
           {children}
           <Button
+            variant="contained"
             onClick={handleClear({
               remove,
               values,

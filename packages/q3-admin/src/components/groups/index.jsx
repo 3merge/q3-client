@@ -2,8 +2,7 @@ import React from 'react';
 import { Location, navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -23,15 +22,11 @@ export const findIndexByStartsWith = (queries, term) =>
   clamp(Object.values(queries).findIndex(clean(term)));
 
 export const withSearchQuery = (Component) => (props) => (
-  <Container maxWidth="xl">
-    <Box mt={2}>
-      <Location>
-        {({ location: { search } }) => (
-          <Component {...props} search={search} />
-        )}
-      </Location>
-    </Box>
-  </Container>
+  <Location>
+    {({ location: { search } }) => (
+      <Component {...props} search={search} />
+    )}
+  </Location>
 );
 
 export const Groups = ({ queries, search }) => {

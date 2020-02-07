@@ -70,10 +70,9 @@ export const ApplicationGate = ({
               <App pages={pages} profile={profilePage} />
             )}
             ProfileBarProps={{
-              offcanvas: () => <Menu pages={pages} />,
               name: firstName,
               imgSrc: photo,
-              menuItems: [
+              items: [
                 ...popoutMenuItems,
                 {
                   onClick: () => navigate('/profile'),
