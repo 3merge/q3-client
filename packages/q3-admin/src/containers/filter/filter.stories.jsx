@@ -7,9 +7,8 @@ import {
   Equals,
   Exists,
 } from 'q3-ui-filters/lib/components';
-import { FormWrapper } from './wrapper';
 import State from '../state';
-import Filter from '.';
+import Filter, { FormWrapper } from '.';
 
 const m = (a) =>
   a.onGet(/^\/search/).reply(200, {
@@ -46,8 +45,8 @@ export const Default = () => (
         <Filter id="testing">
           <Equals
             name="number.nested"
-            type="select"
             label="Nested number"
+            type="select"
           />
           <In
             name="countries"

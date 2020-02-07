@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { TableRow } from 'q3-ui-datatables';
 import { AuthContext } from 'q3-ui-permissions';
 import State from '../state';
-import List from '.';
+import Table from '.';
 
 export default {
-  title: 'Q3 Admin/Containers/List',
+  title: 'Q3 Admin/Containers/Table',
   parameters: {
-    component: List,
+    component: Table,
     componentSubtitle:
       'Q3 Datatable integration with Q3 Admin context',
   },
@@ -80,7 +80,7 @@ export const WithFilter = () => (
         ],
       }}
     >
-      <List
+      <Table
         renderForm={() => (
           <p>
             Filters! Embed any filter form here to redact
@@ -93,7 +93,7 @@ export const WithFilter = () => (
             <TableRow id={row.id} columns={row} />
           ))
         }
-      </List>
+      </Table>
     </State.Provider>
   </Wrapper>
 );
@@ -106,11 +106,11 @@ export const Empty = () => (
         examples: [],
       }}
     >
-      <List>
+      <Table>
         {() => (
           <TableRow id="1" columns={{ name: 'foo' }} />
         )}
-      </List>
+      </Table>
     </State.Provider>
   </Wrapper>
 );
@@ -123,11 +123,11 @@ export const Error = () => (
         ...stub,
       }}
     >
-      <List>
+      <Table>
         {() => (
           <TableRow id="1" columns={{ name: 'foo' }} />
         )}
-      </List>
+      </Table>
     </State.Provider>
   </Wrapper>
 );
@@ -140,11 +140,11 @@ export const Loading = () => (
         ...stub,
       }}
     >
-      <List>
+      <Table>
         {() => (
           <TableRow id="1" columns={{ name: 'foo' }} />
         )}
-      </List>
+      </Table>
     </State.Provider>
   </Wrapper>
 );

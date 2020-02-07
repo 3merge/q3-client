@@ -17,4 +17,9 @@ export { default as Upload } from './upload';
  * Previously, no separation existed between Containers and Components.
  * Thus, we must export all containers here for old projects.
  */
-export { Header, List, Page } from '../containers';
+export { Header, Table, Page } from '../containers';
+
+/**
+ * Alias names for backwards compatibility.
+ */
+export { Table as List } from '../containers';
