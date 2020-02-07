@@ -14,8 +14,9 @@ describe('Row', () => {
       expect(out).toHaveProperty('bar');
     });
   });
+
   describe('"renderTableCells"', () => {
-    it('should render empty component if key values do not intersect', () => {
+    it('should remove empty component if key values do not intersect', () => {
       const t = jest.fn();
       const out = renderTableCells(
         {
@@ -27,13 +28,9 @@ describe('Row', () => {
       );
 
       expect(t).toHaveBeenCalled();
-      expect(out).toHaveLength(2);
+      expect(out).toHaveLength(1);
       expect(out[0].props).toMatchObject({
         children: 1,
-      });
-
-      expect(out[1].props).toMatchObject({
-        children: '--',
       });
     });
   });

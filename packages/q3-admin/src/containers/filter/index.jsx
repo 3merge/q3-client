@@ -11,7 +11,6 @@ import { appendOptions } from './utils';
  * Please do not remove.
  */
 export const FormWrapper = ({
-  id,
   children,
   params,
   ...rest
@@ -32,32 +31,12 @@ export const FormWrapper = ({
 
 FormWrapper.propTypes = {
   /**
-   * Form localStorage id.
-   */
-  id: PropTypes.string.isRequired,
-
-  /**
    * Form fields to mutate.
    */
-  children: PropTypes.arrayOf([
-    PropTypes.node,
+  children: PropTypes.oneOfType([
     PropTypes.object,
+    PropTypes.array,
   ]).isRequired,
-
-  /**
-   * Injected from with-location HOC.
-   */
-  pushTo: PropTypes.func.isRequired,
-
-  /**
-   * Injected from with-location HOC.
-   */
-  getFrom: PropTypes.func.isRequired,
-
-  /**
-   * Injected from with-location HOC.
-   */
-  getAll: PropTypes.func.isRequired,
 
   /**
    * Injected from with-location HOC.

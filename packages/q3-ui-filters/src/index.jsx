@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { unflatten } from 'flat';
 import { Formik } from 'formik';
-import { Location } from '@reach/router';
 import { withLocation } from 'with-location';
 import {
   marshalFormFieldsIntoUrlString,
@@ -11,6 +9,22 @@ import {
   findByRegex,
   assembleLengthQuery,
 } from './components/utils';
+
+export const handleClear = ({
+  values = {},
+  state = {},
+  remove,
+  done,
+}) => () => {
+  Object.keys(values)
+    .map((key) => {
+      const i = findByRegex(Object.keys(state), key);
+      return i !== -1 ? Object.keys(state)[i] : key;
+    })
+    .forEach((key) => remove(assembleLengthQuery(key)));
+
+  done();
+};
 
 export const FilterForm = ({
   next,
@@ -23,39 +37,20 @@ export const FilterForm = ({
   ...rest
 }) => {
   const currentState = getAll();
-
-  const handleClear = (values, done) => () => {
-    Object.keys(values)
-      .map((key) => {
-        const i = findByRegex(
-          Object.keys(currentState),
-          key,
-        );
-        return i !== -1
-          ? Object.keys(currentState)[i]
-          : key;
-      })
-      .forEach((key) => {
-        params.delete(assembleLengthQuery(key));
-      });
-
-    done();
-    redirect();
-  };
+  const remove = params.delete.bind(params);
+  const initialValues = appendEmptyValues(
+    children,
+    currentState,
+  );
 
   const handleSubmit = (values) => {
     const out = marshalFormFieldsIntoUrlString(values, {
-      remove: params.delete.bind(params),
+      remove,
     });
 
     params.delete('page');
     pushTo(out);
   };
-
-  const initialValues = appendEmptyValues(
-    children,
-    currentState,
-  );
 
   return (
     <Formik
@@ -67,7 +62,18 @@ export const FilterForm = ({
       {({ values, resetForm }) => (
         <>
           {children}
-          <Button onClick={handleClear(values, resetForm)}>
+          <Button
+            onClick={handleClear({
+              remove,
+              values,
+              state: currentState,
+
+              done: () => {
+                resetForm();
+                redirect();
+              },
+            })}
+          >
             {clearLabel}
           </Button>
         </>
@@ -122,7 +128,7 @@ FilterForm.propTypes = {
 };
 
 FilterForm.defaultProps = {
-  clearLabel: 'Clear active filters',
+  clearLabel: 'Clear',
 };
 
 export default withLocation(FilterForm);

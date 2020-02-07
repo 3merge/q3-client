@@ -15,10 +15,12 @@ export const mapByName = (children) =>
   isArray(children).map((item) => item.props.name);
 
 export const requiresArray = (v) =>
-  ['chips', 'checkboxGroup'].includes(v);
+  ['chips', 'checkboxGroup', 'select'].includes(v);
 
 export const requiresOptions = (v, arr) =>
-  ['select'].includes(v) ? asOptions(arr) : arr;
+  ['select', 'checkboxGroup'].includes(v)
+    ? asOptions(arr)
+    : arr;
 
 export const appendOptions = (a, fields) =>
   isArray(a).map((child) => {

@@ -25,7 +25,7 @@ describe('Filter utils', () => {
         {
           foo: getValue('='),
           bar: getValue('>='),
-          'quuz.length': getValue('!*'),
+          'quuz%2Elength': getValue('!*'),
         },
         {
           add,
@@ -122,9 +122,9 @@ describe('Filter utils', () => {
           getPropName('quuz'),
         ],
         {
-          1: 'foo',
-          2: 'bar<',
-          3: '!quuz',
+          'foo': '1',
+          'bar<': '2',
+          '!quuz': '3',
         },
       );
 

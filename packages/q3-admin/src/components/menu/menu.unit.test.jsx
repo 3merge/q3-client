@@ -1,7 +1,6 @@
 import React from 'react';
-import { Location } from '@reach/router';
-import Menu, { ActivePageDetector } from '.';
-import MenuSwitcher from './switcher';
+import Menu from 'q3-ui/lib/menu';
+import MenuWrapper from '.';
 
 const getPage = (args) => ({
   index: true,
@@ -35,33 +34,12 @@ describe('Menu', () => {
 
   it('should append visibility attribute to all links', () => {
     const { items } = global
-      .shallow(
-        <Menu title="withPages" pages={[getPage()]} />,
-      )
-      .find(ActivePageDetector)
+      .shallow(<MenuWrapper pages={[getPage()]} />)
+      .find(Menu)
       .props();
 
     expect(items).toHaveLength(1);
     expect(items[0]).toHaveProperty('visible', true);
     expect(items[0]).toHaveProperty('to', '/foo');
-  });
-
-  it('should set an activePage', () => {
-    const { activePage } = global
-      .shallow(
-        <ActivePageDetector
-          title="withPages"
-          items={[getPage({ to: '/foo' })]}
-        />,
-      )
-      .find(Location)
-      .dive()
-      .find(MenuSwitcher)
-      .props();
-
-    expect(activePage).toHaveProperty(
-      'collectionName',
-      'foo',
-    );
   });
 });

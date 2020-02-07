@@ -7,10 +7,61 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import { extractTextualValue, isArray } from './utils';
+
+export const addToOrFilterOut = (a, v, lever) =>
+  lever ? a.concat(v) : a.filter((item) => item !== v);
+
+export const flattenOptions = (a) =>
+  a.map((o) => (typeof o === 'object' ? o.value : o));
+
+const MultiSelectCheckboxOption = ({
+  label,
+  value,
+  options,
+  op,
+  next,
+  done,
+}) => (
+  <FormControlLabel
+    label={label}
+    control={
+      <Checkbox
+        checked={options.includes(value)}
+        onChange={(e, status) => {
+          const oldValue = value;
+          const newValue = addToOrFilterOut(
+            oldValue,
+            value,
+            status,
+          );
+
+          next({
+            value: newValue,
+            operand: op,
+          });
+
+          done();
+        }}
+      />
+    }
+  />
+);
+
+MultiSelectCheckboxOption.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
+  op: PropTypes.string.isRequired,
+  next: PropTypes.func.isRequired,
+  done: PropTypes.func.isRequired,
+};
+
+MultiSelectCheckboxOption.defaultProps = {
+  options: [],
+};
 
 const FilterTextField = ({
   name,
@@ -20,9 +71,18 @@ const FilterTextField = ({
   label,
   ...rest
 }) => {
-  const [{ value }, , { setValue }] = useField(name);
   const { submitForm } = useFormikContext();
+  const [{ value }, , { setValue }] = useField(name);
   const extracted = isArray(extractTextualValue(value, []));
+
+  const handleOnChange = (e, v) => {
+    setValue({
+      value: v,
+      operand: op,
+    });
+
+    submitForm();
+  };
 
   if (type === 'chips')
     return (
@@ -30,19 +90,10 @@ const FilterTextField = ({
         {...rest}
         multiple
         filterSelectedOptions
+        options={flattenOptions(options)}
         defaultValue={extracted}
-        value={extractTextualValue(value, [])}
-        onChange={(e, v) => {
-          setValue({
-            value: v,
-            operand: op,
-          });
-
-          submitForm();
-        }}
-        options={options.map((o) =>
-          typeof o === 'object' ? o.value : o,
-        )}
+        value={extracted}
+        onChange={handleOnChange}
         renderTags={(values, getTagProps) =>
           values.map((option, index) => (
             <Chip
@@ -58,7 +109,6 @@ const FilterTextField = ({
             label={name}
             fullWidth
             InputProps={{
-              disableUnderline: true,
               ...params.InputProps,
             }}
           />
@@ -70,28 +120,13 @@ const FilterTextField = ({
     <FormControl component="fieldset">
       <FormLabel component="legend">{label}</FormLabel>
       <FormGroup>
-        {options.map(({ value: v, label: l }) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={extracted.includes(v)}
-                onChange={(e, status) => {
-                  const oldValue = extracted;
-
-                  const newValue = status
-                    ? oldValue.concat(v)
-                    : oldValue.filter((item) => item !== v);
-
-                  setValue({
-                    value: newValue,
-                    operand: op,
-                  });
-
-                  submitForm();
-                }}
-              />
-            }
-            label={l}
+        {options.map((option) => (
+          <MultiSelectCheckboxOption
+            {...option}
+            next={setValue}
+            done={submitForm}
+            options={extracted}
+            op={op}
           />
         ))}
       </FormGroup>
@@ -101,14 +136,18 @@ const FilterTextField = ({
 
 FilterTextField.propTypes = {
   name: PropTypes.string.isRequired,
-  op: PropTypes.string.isRequired,
-  type: PropTypes.oneOf([
-    'text',
-    'number',
-    'date',
-    'select',
-    'checkboxGroup',
-  ]).isRequired,
+  label: PropTypes.string.isRequired,
+  op: PropTypes.oneOf(['[]', '![]']).isRequired,
+
+  type: PropTypes.oneOf(['chips', 'checkboxGroup'])
+    .isRequired,
+
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ]),
+  ),
 };
 
 FilterTextField.defaultProps = {

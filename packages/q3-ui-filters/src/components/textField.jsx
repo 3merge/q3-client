@@ -1,22 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import { useField, useFormikContext } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/NativeSelect';
-import { KeyboardDatePicker } from '@material-ui/pickers';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   extractTextualValue,
   handleOnChange,
 } from './utils';
-
-/**
- * ONBLUR SUBMIT
- */
 
 const FilterTextField = ({
   name,
@@ -75,8 +66,8 @@ const FilterTextField = ({
       name={name}
       label={label}
       onChange={handleOnChange(setValue, op)}
-      onBlur={submitForm}
       value={extractTextualValue(value)}
+      onBlur={submitForm}
       style={{ marginBottom: '1rem' }}
       onKeyPress={(e) => {
         if (e.keyCode === 13) submitForm();
@@ -89,14 +80,21 @@ const FilterTextField = ({
 
 FilterTextField.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   op: PropTypes.string.isRequired,
   type: PropTypes.oneOf([
     'text',
     'number',
     'date',
     'select',
-    'checkboxGroup',
   ]).isRequired,
+
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
 };
 
 FilterTextField.defaultProps = {

@@ -50,7 +50,7 @@ export const Default = () => (
           />
           <In
             name="countries"
-            type="select"
+            type="checkboxGroup"
             label="Countries"
           />
           <Exists name="isChecked" label="Is checked" />

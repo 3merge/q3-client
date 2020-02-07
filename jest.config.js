@@ -1,5 +1,5 @@
 module.exports = {
-  verbose: true,
+  verbose: false,
   testPathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',

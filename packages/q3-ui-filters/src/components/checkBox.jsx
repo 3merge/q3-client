@@ -14,21 +14,23 @@ const FilterCheckBox = ({ label, name, op }) => {
   const [{ value }, , { setValue }] = useField(name);
   const isChecked = extractTextualValue(value, false);
 
+  const handleOnChangeEvent = handleOnChangeBoolean(
+    setValue,
+    op,
+    submitForm,
+  );
+
   return (
-    <Box>
+    <Box mb={1}>
       <FormControlLabel
+        label={label}
         control={
           <Checkbox
             checked={isChecked}
-            onChange={handleOnChangeBoolean(
-              setValue,
-              op,
-              submitForm,
-            )}
+            onChange={handleOnChangeEvent}
             name={name}
           />
         }
-        label={label}
       />
     </Box>
   );
@@ -37,11 +39,7 @@ const FilterCheckBox = ({ label, name, op }) => {
 FilterCheckBox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  op: PropTypes.string.isRequired,
-};
-
-FilterCheckBox.defaultProps = {
-  type: 'checkbox',
+  op: PropTypes.oneOf(['*', '!*']).isRequired,
 };
 
 export default FilterCheckBox;
