@@ -10,7 +10,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.31",
     "class-names": "^1.0.0",
-    "react-i18next": "^10.13.1",
+    "react-i18next": "11.3.1",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

@@ -1,181 +1,80 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Fab from '@material-ui/core/Fab';
 import Hidden from '@material-ui/core/Hidden';
-import { Grid, Paper } from '@material-ui/core';
-import astronaut from '../../images/astronaut.png';
-import Offcanvas from '../offcanvas';
+import { useToggle } from 'useful-state';
+import Grid from '@material-ui/core/Grid';
+import SwapHoriz from '@material-ui/icons/KeyboardArrowLeft';
+import Close from '@material-ui/icons/KeyboardArrowRight';
 import { AccountMenu } from '../toolbar';
+import astronaut from '../../images/astronaut.png';
 import Logo from '../logo';
+import DarkMode from '../darkMode';
+import useStyles from './useStyle';
 
-const useStyles = makeStyles((theme) => ({
-  bar: {
-    backgroundColor: theme.palette.primary.main,
-    borderRight: '1px solid rgba(255,255,255,0.1)',
-    color: '#fff',
-    minHeight: '100vh',
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    [theme.breakpoints.down('sm')]: {
-      border: 'none',
-      backgroundColor: theme.palette.primary.main,
-      boxShadow: theme.shadows[1],
-      minHeight: 'auto',
-      flexDirection: 'row',
-      paddingBottom: 0,
-      paddingTop: 0,
-    },
-  },
-  img: {
-    backgroundColor: '#FFF',
-    border: '2px solid #FFF',
-    borderRadius: '50%',
-    height: '2em',
-    width: '2em',
-  },
-  relative: {
-    display: 'inline-block',
-    minWidth: 72,
-    position: 'relative',
-    width: 'auto',
-    [theme.breakpoints.down('sm')]: {
-      height: 'auto',
-      width: '100%',
-    },
-  },
-  mobile: {
-    [theme.breakpoints.down('sm')]: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-  },
-  logo: {
-    fill: '#FFF',
-    width: 32,
-    height: 32,
-    margin: '1rem auto 0.5rem',
-    position: 'relative',
-    '&>svg': {
-      height: 72,
-      left: '50%',
-      position: 'absolute',
-      top: '50%',
-      transform: 'translate(-50%,-50%)',
-      width: 72,
-    },
-  },
-  logoText: {
-    color: '#FFF',
-    textDecoration: 'none',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.3em',
-    },
-  },
-}));
+export const getIcon = (v) =>
+  v ? <Close /> : <SwapHoriz />;
 
-const ProfileBar = ({
-  offcanvas: MobileMenu,
-  menuItems,
-  quickClickItems,
-  name,
-  imgSrc,
-  ...rest
-}) => {
-  const {
-    bar,
-    relative,
-    mobile,
-    logo,
-    logoText,
-  } = useStyles();
+const ProfileBar = ({ companyName, children, ...rest }) => {
+  const { t } = useTranslation();
+  const { colourful, trigger } = useStyles();
+  const { toggle, state } = useToggle();
 
   return (
-    <Paper className={relative}>
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justify="space-between"
-        className={bar}
-      >
-        <Hidden smDown>
-          <Grid item>
-            <Link
-              to="/"
-              aria-label={name}
-              className={logoText}
-            >
-              <Box className={logo}>
-                <Logo />
-              </Box>
-            </Link>
-          </Grid>
-        </Hidden>
-        <Grid item xs={12}>
+    <Hidden smDown implementation="css">
+      <DarkMode>
+        <Box
+          height="100%"
+          component="aside"
+          width={state ? 80 : 250}
+          className={colourful}
+          style={{ transition: 'width 350ms' }}
+        >
           <Grid
             container
             direction="column"
-            className={mobile}
+            justify="space-between"
+            style={{ height: '100%' }}
           >
             <Grid item>
-              <Offcanvas left menu={MobileMenu}>
-                {(toggle) => (
-                  <Hidden mdUp>
-                    <Grid container align="center">
-                      <IconButton
-                        aria-label="Open menu"
-                        onClick={toggle}
-                        size="small"
-                        color="inherit"
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                    </Grid>
-                  </Hidden>
-                )}
-              </Offcanvas>
+              <Logo name={companyName} />
+              {children}
             </Grid>
             <Grid item>
-              <Box my={1}>
+              <Box my={1} p={2}>
                 <AccountMenu
-                  profileImgSrc={imgSrc}
-                  items={menuItems}
                   {...rest}
+                  isLoggedIn
+                  name={null} // don't show on desktop
                 />
               </Box>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
+        </Box>
+      </DarkMode>
+      <Fab
+        size="small"
+        aria-label={t('toggleMenuSize')}
+        onClick={toggle}
+        className={trigger}
+      >
+        {getIcon(state)}
+      </Fab>
+    </Hidden>
   );
 };
 
-export const profileBarProps = {
-  name: PropTypes.string,
-  imgSrc: PropTypes.string,
-  offcanvas: PropTypes.node.isRequired,
-  quickClickItems: PropTypes.arrayOf(PropTypes.node),
-  menuItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      onClick: PropTypes.func,
-      label: PropTypes.string,
-    }),
-  ),
+ProfileBar.propTypes = {
+  children: PropTypes.node.isRequired,
+  companyName: PropTypes.string,
+  profileImgSrc: PropTypes.string,
 };
 
-ProfileBar.propTypes = profileBarProps;
-
 ProfileBar.defaultProps = {
-  imgSrc: astronaut,
-  name: null,
-  menuItems: [],
-  quickClickItems: [],
+  companyName: '3merge',
+  profileImgSrc: astronaut,
 };
 
 export default ProfileBar;

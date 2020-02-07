@@ -3,6 +3,7 @@ export const useField = jest
   .mockReturnValue([
     { name: 'foo', value: 'bar' },
     { error: 'noop' },
+    { setValue: jest.fn() },
   ]);
 
 export const getIn = jest.fn().mockReturnValue('');

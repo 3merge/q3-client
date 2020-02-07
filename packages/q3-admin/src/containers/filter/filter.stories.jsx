@@ -1,11 +1,14 @@
 import React from 'react';
-import { Location } from '@reach/router';
-import PrettyJson from 'react-json-pretty';
+import Location from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import MockApi from 'q3-ui-test-utils/lib/rest';
-import { Field } from 'q3-ui-forms/lib/builders';
-import { FormWrapper } from './wrapper';
+import {
+  In,
+  Equals,
+  Exists,
+} from 'q3-ui-filters/lib/components';
 import State from '../state';
-import Filter from '.';
+import Filter, { FormWrapper } from '.';
 
 const m = (a) =>
   a.onGet(/^\/search/).reply(200, {
@@ -21,7 +24,7 @@ const m = (a) =>
   });
 
 export default {
-  title: 'Containers/Filter Container',
+  title: 'Q3 Admin/Containers/Filter',
   parameters: {
     component: FormWrapper,
     componentSubtitle:
@@ -29,78 +32,31 @@ export default {
   },
 };
 
-const LocationState = () => (
-  <Location>{(l) => <PrettyJson data={l} />}</Location>
-);
-
 export const Default = () => (
-  <MockApi define={m}>
-    <State.Provider
-      value={{
-        collectionName: 'sample',
-        fetching: false,
-        location: {},
-      }}
-    >
-      <Filter id="testing" debug>
-        <Field name="number.nested" type="select" />
-        <Field name="countries" type="select" />
-        <Field
-          name="isChecked"
-          type="checkbox"
-          checkedValue="*"
-        />
-      </Filter>
-    </State.Provider>
-    <LocationState />
-  </MockApi>
-);
-
-export const WithNestedFormFields = () => (
-  <MockApi define={m}>
-    <State.Provider
-      value={{
-        collectionName: 'sample',
-        fetching: false,
-        location: {},
-      }}
-    >
-      <Filter id="testing">
-        <Field name="friend.name" type="select" />
-      </Filter>
-    </State.Provider>
-  </MockApi>
-);
-
-export const WithValues = () => (
-  <MockApi define={m}>
-    <State.Provider
-      value={{
-        collectionName: 'sample',
-        fetching: false,
-        location: {},
-      }}
-    >
-      <FormWrapper
-        id="testing"
-        debug
-        pushTo={() => null}
-        getAll={() => null}
-        getFrom={(v) => {
-          if (v === 'number.nested') return 'one';
-          if (v === 'countries') return 'CA';
-          return null;
-        }}
-        params={{
-          delete: () => null,
-          toString: () => null,
+  <Location>
+    <MockApi define={m}>
+      <State.Provider
+        value={{
+          collectionName: 'sample',
+          fetching: false,
+          location: {},
         }}
       >
-        <Field name="number.nested" type="select" />
-        <Field name="countries" type="select" />
-        <Field name="unset" type="select" />
-      </FormWrapper>
-    </State.Provider>
-    <LocationState />
-  </MockApi>
+        <Filter id="testing">
+          <Equals
+            name="number.nested"
+            label="Nested number"
+            type="select"
+          />
+          <In
+            name="countries"
+            type="checkboxGroup"
+            label="Countries"
+          />
+          <Exists name="isChecked" label="Is checked" />
+        </Filter>
+      </State.Provider>
+      <LocationDebugger />
+    </MockApi>
+  </Location>
 );

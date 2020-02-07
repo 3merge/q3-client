@@ -31,7 +31,6 @@ import {
   Search,
   Add,
 } from './components';
-import FilterTemplate from './templates/withFilter';
 import FilterContainer from './containers/filter';
 import { useUpload } from './helpers';
 import fixtures from './__fixtures__';

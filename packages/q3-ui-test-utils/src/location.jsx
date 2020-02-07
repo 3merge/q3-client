@@ -6,9 +6,17 @@ import {
   LocationProvider,
 } from '@reach/router';
 
-const MockLocation = ({ children, initialPath }) => {
+const MockLocation = ({
+  children,
+  initialPath,
+  search,
+}) => {
   const source = createMemorySource(initialPath);
   const history = createHistory(source);
+
+  React.useEffect(() => {
+    if (search) history.navigate(search);
+  }, []);
 
   return (
     <LocationProvider history={history}>
@@ -19,6 +27,7 @@ const MockLocation = ({ children, initialPath }) => {
 
 MockLocation.propTypes = {
   initialPath: PropTypes.string,
+  search: PropTypes.string,
 
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -28,6 +37,7 @@ MockLocation.propTypes = {
 
 MockLocation.defaultProps = {
   initialPath: '/',
+  search: null,
 };
 
 export default MockLocation;

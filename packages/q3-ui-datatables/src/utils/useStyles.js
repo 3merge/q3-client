@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
     float: 'right',
   },
   boxes: {
-    width: 185,
+    width: 45,
   },
   leader: {
     minWidth: 350,
@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
   },
   rowlike: {
     background: '#FFF',
-    borderBottom: '3px solid #f5f5f5',
+    borderBottom: '3px solid whitesmoke',
   },
   overflow: {
     maxWidth: '100%',
@@ -62,5 +62,15 @@ export default makeStyles((theme) => ({
     left: 0,
     position: 'fixed',
     width: '100%',
+  },
+  mobileCheckbox: {
+    [theme.breakpoints.down('md')]: {
+      float: 'right',
+    },
+  },
+  withoutPseudo: {
+    '&::before': {
+      display: 'none',
+    },
   },
 }));

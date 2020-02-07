@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import Main from '.';
 
 export default {
@@ -24,12 +23,6 @@ export const Default = () => (
         </Typography>
       </Container>
     )}
-    renderAside={() => (
-      <TextField
-        variant="filled"
-        label="Dark mode enabled within"
-        name="demo"
-      />
-    )}
+    renderAside={() => null}
   />
 );

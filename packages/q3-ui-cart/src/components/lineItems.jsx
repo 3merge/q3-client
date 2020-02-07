@@ -174,10 +174,15 @@ export default ({ children }) => {
                       >
                         ${subtotal}
                       </Typography>
-                      <RemoveFromCart id={id} />
+                      <RemoveFromCart
+                        id={id}
+                        product={product}
+                      />
                     </Grid>
                     <Grid item lg={5} md={12}>
                       <Toggle
+                        id={id}
+                        product={product}
                         quantity={quantity}
                         price={price}
                       />

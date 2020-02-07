@@ -3,7 +3,7 @@ import State from '../state';
 import Header from '.';
 
 export default {
-  title: 'Containers/Header',
+  title: 'Q3 Admin/Containers/Header',
   parameters: {
     component: Header,
     componentSubtitle:

@@ -1,4 +1,5 @@
 import React from 'react';
+import { uniq } from 'lodash';
 
 export const hasLength = (v) =>
   Array.isArray(v) && v.length;
@@ -27,15 +28,21 @@ export const hasKeys = (etc) =>
 export const extractKeys = (c) => {
   try {
     const a = React.Children.toArray(c);
-    const [
-      {
+    const headers = a.reduce((curr, next) => {
+      const {
         props: {
-          columns: { name, description, photo, ...headers },
+          columns: { name, description, photo, ...etc },
         },
-      },
-    ] = a;
+      } = next;
 
-    const out = Object.entries(headers)
+      Object.entries(etc).forEach((item) => {
+        if (!curr.includes(item)) curr.push(item);
+      });
+
+      return curr;
+    }, []);
+
+    const out = headers
       .filter(([k]) => {
         return a.some(({ props: { columns } }) => {
           const v = columns[k];
@@ -45,7 +52,7 @@ export const extractKeys = (c) => {
       .map(([key]) => key);
 
     out.unshift('name');
-    return out;
+    return uniq(out);
   } catch (e) {
     return [];
   }

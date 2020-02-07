@@ -1,0 +1,25 @@
+{
+  "name": "q3-ui-filters",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^1.9.6"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.31",
+    "@material-ui/pickers": "^3.2.10",
+    "@reach/router": "^1.2.1",
+    "decode-uri-component": "^0.2.0",
+    "formik": "^2.0.4",
+    "lodash": "^4.17.15",
+    "react-i18next": "11.3.1",
+    "with-location": "^1.1.0"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "q3-ui-test-utils": "1.9.6",
+    "react": "^16.10.2"
+  }
+}

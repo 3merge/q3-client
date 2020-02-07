@@ -12,7 +12,6 @@ import Fade from '@material-ui/core/Fade';
 import Search from '@material-ui/icons/Search';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Close from '@material-ui/icons/Close';
-import AspectRatio from '@material-ui/icons/AspectRatio';
 import Highlighter from 'react-highlight-words';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,21 +19,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { withLocation } from 'with-location';
 import { useToggle, useValue } from 'useful-state';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AccessibleIconButton from '../iconButton';
 import Avatar from '../avatar';
 
-const SearchTrigger = ({ onClick }) => {
-  const isMobile = useMediaQuery('(max-width:768px)');
-
-  return (
-    <AccessibleIconButton
-      label="enlarge"
-      buttonProps={{ onClick }}
-      icon={isMobile ? Search : AspectRatio}
-    />
-  );
-};
+const SearchTrigger = ({ onClick }) => (
+  <AccessibleIconButton
+    label="enlarge"
+    buttonProps={{ onClick }}
+    icon={Search}
+  />
+);
 
 SearchTrigger.propTypes = {
   onClick: PropTypes.func.isRequired,
@@ -159,7 +153,11 @@ const SearchDrawer = ({ state, open, close, children }) => (
     <Box
       p={2}
       width={450}
-      style={{ height: '100%', overflowY: 'scroll' }}
+      style={{
+        height: '100%',
+        overflowY: 'scroll',
+        maxWidth: '90vw',
+      }}
     >
       {children}
     </Box>

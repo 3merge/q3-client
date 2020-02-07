@@ -27,6 +27,7 @@ const TableHeader = ({
   return (
     <TableHead>
       <TableRow className={mobile}>
+        <TableCell className={boxes}>{children}</TableCell>
         {columns.map((header, i) => (
           <ColumnHeader
             key={header}
@@ -34,7 +35,6 @@ const TableHeader = ({
             storageKey={i === 0 ? aliasForName : header}
           />
         ))}
-        <TableCell className={boxes}>{children}</TableCell>
       </TableRow>
     </TableHead>
   );

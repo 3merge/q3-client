@@ -17,7 +17,7 @@ const SearchBar = ({ children }) => {
         label="Search"
         type="search"
         value={value}
-        variant="outlined"
+        variant="filled"
         inputProps={{
           autoComplete: 'off',
         }}
