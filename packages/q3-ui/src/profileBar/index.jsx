@@ -53,7 +53,7 @@ const ProfileBar = ({
                   {...rest}
                   items={accountMenuItems}
                   isLoggedIn
-                  name={null}
+                  name={null} // don't show on desktop
                 />
               </Box>
             </Grid>

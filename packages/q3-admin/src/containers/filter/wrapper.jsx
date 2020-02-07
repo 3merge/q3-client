@@ -1,23 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { unflatten } from 'flat';
 import { withLocation } from 'with-location';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Filter from 'q3-ui-filters';
 import useFilterAndContext from './useFilterAndContext';
-import {
-  appendOptions,
-  appendEmptyValues,
-  goTo,
-} from './utils';
-import Form from './form';
+import { appendOptions } from './utils';
 
+/**
+ * This is wrapped in the LocationProvider to enable Storybook tracking.
+ * Please do not remove.
+ */
 export const FormWrapper = ({
   id,
   children,
-  pushTo,
   params,
-  getFrom,
-  getAll,
   ...rest
 }) => {
   const { fields, loading } = useFilterAndContext(
@@ -25,29 +21,12 @@ export const FormWrapper = ({
     children,
   );
 
-  const initialValues = appendEmptyValues(
-    children,
-    getFrom,
-  );
-
-  const handleSubmit = (values, actions) => {
-    pushTo(values);
-    goTo(id, params);
-    actions.setSubmitting(false);
-  };
-
   return loading ? (
     <CircularProgress />
   ) : (
-    <Form
-      {...rest}
-      initialStatus="autosave"
-      enableSubmit={false}
-      initialValues={unflatten(initialValues)}
-      onSubmit={handleSubmit}
-    >
+    <Filter {...rest}>
       {appendOptions(children, fields)}
-    </Form>
+    </Filter>
   );
 };
 
@@ -85,7 +64,6 @@ FormWrapper.propTypes = {
    */
   params: PropTypes.shape({
     toString: PropTypes.func,
-    delete: PropTypes.func,
   }).isRequired,
 };
 

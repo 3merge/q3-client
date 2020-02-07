@@ -40,4 +40,8 @@ FilterCheckBox.propTypes = {
   op: PropTypes.string.isRequired,
 };
 
+FilterCheckBox.defaultProps = {
+  type: 'checkbox',
+};
+
 export default FilterCheckBox;

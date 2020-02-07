@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useField, useFormikContext } from 'formik';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/NativeSelect';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -11,7 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
-import { extractTextualValue } from './utils';
+import { extractTextualValue, isArray } from './utils';
 
 const FilterTextField = ({
   name,
@@ -23,6 +22,7 @@ const FilterTextField = ({
 }) => {
   const [{ value }, , { setValue }] = useField(name);
   const { submitForm } = useFormikContext();
+  const extracted = isArray(extractTextualValue(value, []));
 
   if (type === 'chips')
     return (
@@ -30,6 +30,8 @@ const FilterTextField = ({
         {...rest}
         multiple
         filterSelectedOptions
+        defaultValue={extracted}
+        value={extractTextualValue(value, [])}
         onChange={(e, v) => {
           setValue({
             value: v,
@@ -38,7 +40,9 @@ const FilterTextField = ({
 
           submitForm();
         }}
-        options={options.map(({ label }) => label)}
+        options={options.map((o) =>
+          typeof o === 'object' ? o.value : o,
+        )}
         renderTags={(values, getTagProps) =>
           values.map((option, index) => (
             <Chip
@@ -70,15 +74,10 @@ const FilterTextField = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={extractTextualValue(
-                  value,
-                  [],
-                ).includes(v)}
+                checked={extracted.includes(v)}
                 onChange={(e, status) => {
-                  const oldValue = extractTextualValue(
-                    value,
-                    [],
-                  );
+                  const oldValue = extracted;
+
                   const newValue = status
                     ? oldValue.concat(v)
                     : oldValue.filter((item) => item !== v);

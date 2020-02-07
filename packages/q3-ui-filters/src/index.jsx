@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import { unflatten } from 'flat';
 import { Formik } from 'formik';
+import { Location } from '@reach/router';
 import { withLocation } from 'with-location';
 import {
   marshalFormFieldsIntoUrlString,
   appendEmptyValues,
+  findByRegex,
+  assembleLengthQuery,
 } from './components/utils';
 
 export const FilterForm = ({
@@ -15,17 +19,28 @@ export const FilterForm = ({
   params,
   pushTo,
   getAll,
+  redirect,
   ...rest
 }) => {
-  const handleNext = () => next(`?${params.toString()}`);
+  const currentState = getAll();
 
   const handleClear = (values, done) => () => {
-    Object.keys(values).forEach((key) =>
-      params.delete(key),
-    );
+    Object.keys(values)
+      .map((key) => {
+        const i = findByRegex(
+          Object.keys(currentState),
+          key,
+        );
+        return i !== -1
+          ? Object.keys(currentState)[i]
+          : key;
+      })
+      .forEach((key) => {
+        params.delete(assembleLengthQuery(key));
+      });
 
     done();
-    handleNext();
+    redirect();
   };
 
   const handleSubmit = (values) => {
@@ -33,18 +48,19 @@ export const FilterForm = ({
       remove: params.delete.bind(params),
     });
 
+    params.delete('page');
     pushTo(out);
-    handleNext();
   };
 
   const initialValues = appendEmptyValues(
     children,
-    getAll(),
+    currentState,
   );
 
   return (
     <Formik
       {...rest}
+      enableReinitialize
       initialValues={initialValues}
       onSubmit={handleSubmit}
     >
@@ -89,6 +105,11 @@ FilterForm.propTypes = {
    * Injected from with-location lib.
    */
   pushTo: PropTypes.func.isRequired,
+
+  /**
+   * Injected from with-location lib.
+   */
+  redirect: PropTypes.func.isRequired,
 
   /**
    * Injected from with-location lib.

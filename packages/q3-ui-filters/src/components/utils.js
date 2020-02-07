@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 
-const isArray = (a) => (Array.isArray(a) ? a : [a]);
+export const isArray = (a) => (Array.isArray(a) ? a : [a]);
 
 const serialize = (v) =>
   Array.isArray(v) ? v.join(',') : v;
@@ -15,9 +15,6 @@ const toArray = (v) => {
 
   return [];
 };
-
-const findByRegex = (a, term) =>
-  isArray(a).find((v) => new RegExp(term, 'gi').test(v));
 
 /**
  * Values are nested inside of values so that we can track operands in state.
@@ -51,28 +48,61 @@ export const handleOnChangeBoolean = (
   if (fn) fn();
 };
 
+const convertLengthQuery = (name) =>
+  name &&
+  (name.endsWith('.') ||
+    name.endsWith('.0') ||
+    name.endsWith('%2E0'))
+    ? `${name.replace('.', '%2Elength')}`
+    : name;
+
+export const assembleLengthQuery = (name) =>
+  name && name.endsWith('%2Elength')
+    ? `${name.replace('%2Elength', '.0')}`
+    : name;
+
+const removeSpecialChars = (name) =>
+  name.replace(/[^a-zA-Z .]/g, '');
+
+const getKey = (k, operand) => {
+  const n = assembleLengthQuery(k);
+  if (operand === '!*') return `!${n}`;
+  return n;
+};
+
+export const findByRegex = (a, term) =>
+  isArray(a).findIndex((v) => {
+    return term === removeSpecialChars(v);
+  });
+
 /**
  * For wildcards, see with-location package for more information.
  * Essentially, that lib handles certain params out-of-the-box in a given format.
  */
 export const queryParam = (key, operand, value) => {
+  const santitized = convertLengthQuery(key);
   const a = serialize(value);
+  const negated = `${santitized}!`;
 
   switch (operand) {
     case '!*':
-      return [key, value ? operand : null];
+      return [santitized, value ? operand : null];
     case '*':
-      return [key, value ? operand : null];
+      return [santitized, value ? operand : null];
     case '[]':
-      return a.length ? [key, a] : [key, null];
+      return a.length
+        ? [santitized, a]
+        : [santitized, null];
     case '![]':
-      return a.length ? [`${key}!`, a] : [key, null];
+      return a.length ? [negated, a] : [negated, null];
     case '>=':
-      return [`${key}>`, value];
+      return [`${santitized}>`, value];
     case '<=':
-      return [`${key}<`, value];
+      return [`${santitized}<`, value];
+    case '!=':
+      return [`${santitized}!`, value];
     default:
-      return [key, value];
+      return [santitized, value];
   }
 };
 
@@ -91,36 +121,48 @@ export const marshalFormFieldsIntoUrlString = (
         value,
       );
 
-      if (!newValue) remove(newKey);
-      if (!key || key === 'undefined' || !newValue)
-        return curr;
+      if (!newValue) remove(getKey(newKey, operand));
 
-      return Object.assign(curr, {
-        // encode dots to allow for nested queries
-        // it's common to use an array index, for example, to query for length
-        [newKey.replace('.', '%2E')]: newValue,
-      });
+      return operand
+        ? Object.assign(curr, {
+            // allows us to query for length
+            [assembleLengthQuery(
+              newKey,
+              operand,
+            )]: newValue,
+          })
+        : curr;
     },
     {},
   );
 
 /**
  * For initializing state with existing URL values.
+ * Note that the values reference field names - not the keys.
  */
 export const appendEmptyValues = (a, next = {}) => {
-  const keys = Object.keys(next);
+  const keys = Object.keys(next)
+    .map(removeSpecialChars)
+    .map(convertLengthQuery);
+
+  const values = Object.values(next);
 
   return isArray(a).reduce((acc, item) => {
     const { name, type } = item.props;
+
     const i = findByRegex(keys, name);
+
     let v;
 
-    if (i) v = next[i];
+    if (i !== -1) v = values[i];
     if (requiresArray(type)) v = toArray(v);
+    if (type === 'checkbox' && keys.includes(name))
+      v = true;
+
     if (!v) v = '';
 
     return Object.assign(acc, {
-      [item.props.name]: {
+      [name]: {
         value: v,
       },
     });

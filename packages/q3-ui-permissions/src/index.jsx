@@ -35,7 +35,7 @@ export const Provider = ({
   });
 
   const invokeRendererFns = () => {
-    if (state.init) return null;
+    if (!state || !state.init) return null;
     return state.profile
       ? invoke(renderPrivate, state.profile)
       : invoke(renderPublic);

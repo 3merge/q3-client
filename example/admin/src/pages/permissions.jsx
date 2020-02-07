@@ -9,10 +9,11 @@ import {
 } from 'q3-admin/lib/components';
 import Groups from 'q3-admin/lib/components/groups';
 import { TableRow } from 'q3-ui-datatables';
-import Filter from 'q3-ui-filters';
+import { Filter } from 'q3-admin/lib/containers';
 import {
   Exists,
-  Equals,
+  In,
+  LessThanOrEqualTo,
 } from 'q3-ui-filters/lib/components';
 import { Add as AddPermission } from '../containers/permissions';
 
@@ -37,11 +38,22 @@ export default (props) => (
           enableReinitialize
           next={(v) => navigate(v)}
         >
-          <Equals name="coll" label="Collection name" />
-          <Exists name="role" label="Has a role" />
+          <LessThanOrEqualTo
+            name="createdAt"
+            label="Collection name"
+            type="date"
+          />
+          <In
+            name="coll"
+            label="Collection name"
+            type="chips"
+          />
+          <In name="role" label="Roles" type="select" />
+
           <Exists
-            name="ownershipAliases.0"
-            label="Has an alias"
+            name="ownershipAliases%2Elength"
+            label="Has at least one alias"
+            type="checkbox"
           />
         </Filter>
       )}

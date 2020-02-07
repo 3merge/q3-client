@@ -18,14 +18,14 @@ const getPropName = (name, type) => ({
 
 describe('Filter utils', () => {
   describe('"marshalFormFieldsIntoUrlString"', () => {
-    it('', () => {
+    it('should modify key/value pairs', () => {
       const add = jest.fn();
       const remove = jest.fn();
       const out = marshalFormFieldsIntoUrlString(
         {
           foo: getValue('='),
           bar: getValue('>='),
-          'quuz.0': getValue('!*'),
+          'quuz.length': getValue('!*'),
         },
         {
           add,
@@ -36,7 +36,7 @@ describe('Filter utils', () => {
       expect(out).toMatchObject({
         foo: 1,
         'bar>': 1,
-        'quuz%2E0': '!*',
+        'quuz.0': '!*',
       });
     });
   });
@@ -114,7 +114,7 @@ describe('Filter utils', () => {
   });
 
   describe("'appendEmptyValues'", () => {
-    it.only('should match against existing values', () => {
+    it('should match against existing values', () => {
       const matched = appendEmptyValues(
         [
           getPropName('foo'),
@@ -122,16 +122,16 @@ describe('Filter utils', () => {
           getPropName('quuz'),
         ],
         {
-          foo: 1,
-          'bar<': 1,
-          '!quuz': 1,
+          1: 'foo',
+          2: 'bar<',
+          3: '!quuz',
         },
       );
 
       expect(matched).toMatchObject({
-        foo: { value: 1 },
-        bar: { value: 1 },
-        quuz: { value: 1 },
+        foo: { value: '1' },
+        bar: { value: '2' },
+        quuz: { value: '3' },
       });
     });
 

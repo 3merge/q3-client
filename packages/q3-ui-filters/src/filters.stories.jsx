@@ -28,44 +28,71 @@ const opts = [
   { label: 'United States', value: 'US' },
 ];
 
-export const Example = () => {
-  const [URL, setURL] = React.useState();
+const FilterForm = () => (
+  <Filter>
+    <LocationDebugger />
+    <DoesNotEqual
+      label="Does not equal this value"
+      name="doesNotEqualText"
+      type="select"
+      options={opts}
+    />
+    <Equals
+      type="text"
+      label="Equals to this value"
+      name="equals"
+    />
+    <Exists
+      type="checkbox"
+      label="Does exist"
+      name="exists"
+    />
+    <Exists
+      type="checkbox"
+      label="Has length"
+      name="example%2Elength"
+    />
+    <DoesNotExist
+      type="checkbox"
+      label="Does not exist"
+      name="doesNotExist"
+    />
+    <GreaterThanOrEqualTo
+      label="Greater than or equal to this value"
+      name="GreaterThanOrEqualTo"
+      type="date"
+    />
+    <In
+      label="In this list"
+      name="in"
+      type="checkboxGroup"
+      options={opts}
+    />
+    <LessThanOrEqualTo
+      label="Less than or equal to this value"
+      name="LessThanOrEqualTo"
+    />
+    <NotIn
+      label="Not in this list"
+      name="notIn"
+      type="chips"
+      options={opts}
+    />
+  </Filter>
+);
+
+export const EmptyState = () => {
   return (
-    <Filter next={setURL}>
-      <code>ACTIVE QUERY: {URL}</code>
-      <DoesNotEqual
-        label="Does not equal this value"
-        name="doesNotEqualText"
-        type="select"
-        options={opts}
-      />
-      <Equals label="Equals to this value" name="equals" />
-      <Exists label="Does exist" name="exists" />
-      <DoesNotExist
-        label="Does not exist"
-        name="doesNotExist"
-      />
-      <GreaterThanOrEqualTo
-        label="Greater than or equal to this value"
-        name="GreaterThanOrEqualTo"
-        type="date"
-      />
-      <In
-        label="In this list"
-        name="in"
-        type="checkboxGroup"
-        options={opts}
-      />
-      <LessThanOrEqualTo
-        label="Less than or equal to this value"
-        name="LessThanOrEqualTo"
-      />
-      <NotIn
-        label="Not in this list"
-        name="notIn"
-        type="chips"
-        options={opts}
-      />
-    </Filter>
+    <Location>
+      <FilterForm />
+    </Location>
+  );
+};
+
+export const FullState = () => {
+  return (
+    <Location search="?notIn=AU&equals=sample&!doesNotExist&example%2E0=&in=CA,US">
+      <FilterForm />
+    </Location>
   );
 };
