@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniq, get } from 'lodash';
 import { useField, useFormikContext } from 'formik';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
@@ -13,18 +14,21 @@ import Chip from '@material-ui/core/Chip';
 import { extractTextualValue, isArray } from './utils';
 
 export const addToOrFilterOut = (a, v, lever) =>
-  lever ? a.concat(v) : a.filter((item) => item !== v);
+  lever
+    ? uniq(a.concat(v))
+    : a.filter((item) => item !== v);
 
 export const flattenOptions = (a) =>
   a.map((o) => (typeof o === 'object' ? o.value : o));
 
-const MultiSelectCheckboxOption = ({
+export const MultiSelectCheckboxOption = ({
   label,
   value,
   options,
   op,
   next,
   done,
+  prev,
 }) => (
   <FormControlLabel
     label={label}
@@ -32,9 +36,8 @@ const MultiSelectCheckboxOption = ({
       <Checkbox
         checked={options.includes(value)}
         onChange={(e, status) => {
-          const oldValue = value;
           const newValue = addToOrFilterOut(
-            oldValue,
+            get(prev, 'value', []),
             value,
             status,
           );
@@ -58,6 +61,9 @@ MultiSelectCheckboxOption.propTypes = {
   op: PropTypes.string.isRequired,
   next: PropTypes.func.isRequired,
   done: PropTypes.func.isRequired,
+  prev: PropTypes.shape({
+    value: PropTypes.array,
+  }).isRequired,
 };
 
 MultiSelectCheckboxOption.defaultProps = {
@@ -117,7 +123,7 @@ const FilterTextField = ({
       />
     );
 
-  return (
+  return Array.isArray(options) && options.length ? (
     <Box my={2}>
       <FormControl component="fieldset">
         <FormLabel component="legend">{label}</FormLabel>
@@ -125,16 +131,18 @@ const FilterTextField = ({
           {options.map((option) => (
             <MultiSelectCheckboxOption
               {...option}
+              key={option}
               next={setValue}
               done={submitForm}
               options={extracted}
+              prev={value}
               op={op}
             />
           ))}
         </FormGroup>
       </FormControl>
     </Box>
-  );
+  ) : null;
 };
 
 FilterTextField.propTypes = {
@@ -149,6 +157,7 @@ FilterTextField.propTypes = {
     PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.string,
+      PropTypes.number,
     ]),
   ),
 };

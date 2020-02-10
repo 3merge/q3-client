@@ -52,8 +52,6 @@ export const FilterForm = ({
     pushTo(out);
   };
 
-  console.log(initialValues);
-
   return (
     <Formik
       {...rest}
