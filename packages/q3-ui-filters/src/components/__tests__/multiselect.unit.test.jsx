@@ -1,15 +1,29 @@
 import React from 'react';
-import FormGroup from '@material-ui/core/FormGroup';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import FormControl from '@material-ui/core/FormControl';
 import MultiSelectWrapper, {
   addToOrFilterOut,
   flattenOptions,
 } from '../multiSelect';
 
+const multiSelectStub = {
+  label: 'Foo',
+  name: 'foo',
+  type: 'checkboxGroup',
+  op: '[]',
+  next: jest.fn(),
+  done: jest.fn(),
+};
+
 describe('Multiselect', () => {
   describe('"addToOrFilterOut"', () => {
     it('should add to the array', () => {
       const opts = addToOrFilterOut([1, 2], 3, true);
+      expect(opts).toHaveLength(3);
+    });
+
+    it('should not add to the array', () => {
+      const opts = addToOrFilterOut([1, 2, 3], 3, true);
       expect(opts).toHaveLength(3);
     });
 
@@ -49,18 +63,29 @@ describe('Multiselect', () => {
     ).toHaveLength(1);
   });
 
-  it('should render FormGroup', () => {
-    expect(
-      global
+  describe('"MultiSelectCheckboxOption"', () => {
+    it('should iterate options', () => {
+      const el = global
         .shallow(
           <MultiSelectWrapper
-            type="checkboxGroup"
-            name="chips"
-            label="autocomplete!"
-            op="![]"
+            {...multiSelectStub}
+            options={[{ value: '1', label: '1' }]}
           />,
         )
-        .find(FormGroup),
-    ).toHaveLength(1);
+        .find(FormControl);
+      expect(el).toHaveLength(1);
+    });
+
+    it('should hide component options', () => {
+      const el = global
+        .shallow(
+          <MultiSelectWrapper
+            {...multiSelectStub}
+            options={[]}
+          />,
+        )
+        .find(FormControl);
+      expect(el).toHaveLength(0);
+    });
   });
 });

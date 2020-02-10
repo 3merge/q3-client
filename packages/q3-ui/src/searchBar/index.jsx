@@ -89,7 +89,7 @@ export const SearchResultList = ({
 
   return !hasResults || !term || !term.length ? (
     <Box textAlign="center" my={2}>
-      <Box width="250px">
+      <Box width="250px" style={{ margin: 'auto' }}>
         <Icon />
       </Box>
       <Typography variant="h3" gutterBottom>
