@@ -46,7 +46,7 @@ BreadcrumbsHome.propTypes = {
   root: PropTypes.string.isRequired,
 };
 
-const RouterBreadcrumbs = ({ root, mode }) => {
+const RouterBreadcrumbs = ({ root, mode, locale }) => {
   const { capitalize, contrast } = useStyles();
 
   return (
@@ -54,7 +54,7 @@ const RouterBreadcrumbs = ({ root, mode }) => {
       {({ location }) => {
         const { pathname } = location;
         const paths = PathBuilder.split(pathname);
-        const b = new PathBuilder();
+        const b = new PathBuilder(locale);
 
         return (
           <Breadcrumbs
@@ -95,6 +95,11 @@ RouterBreadcrumbs.propTypes = {
    * Root path of the app.
    */
   root: PropTypes.string,
+
+  /**
+   * A lang prefix for each path part.
+   */
+  locale: PropTypes.string.isRequired,
 
   /**
    * Controls the color of the link items

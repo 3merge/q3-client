@@ -8,6 +8,7 @@ export default makeStyles(() => ({
     textOverflow: 'ellipsis',
     fontSize: 12,
     whiteSpace: 'nowrap',
+    lineHeight: 2,
   },
   contrast: {
     color: '#FFF',
