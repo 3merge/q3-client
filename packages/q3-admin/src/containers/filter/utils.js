@@ -24,7 +24,11 @@ export const requiresOptions = (v, arr) =>
 
 export const appendOptions = (a, fields) =>
   isArray(a).map((child) => {
-    let v = get(fields, child.props.name, []);
+    let v = get(
+      fields,
+      child.props.name.replace('%2E', '.'),
+      [],
+    );
     if (requiresArray(child.props.type)) v = toArray(v);
 
     return React.cloneElement(child, {

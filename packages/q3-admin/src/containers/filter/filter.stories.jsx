@@ -44,7 +44,7 @@ export const Default = () => (
       >
         <Filter id="testing">
           <Equals
-            name="number.nested"
+            name="number%2Enested"
             label="Nested number"
             type="select"
           />
