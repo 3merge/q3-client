@@ -11,6 +11,7 @@ import useStyles from '../utils/useStyles';
 
 const CellHeader = ({ name, sub, imgSrc, to }) => {
   const { withoutPseudo } = useStyles();
+  const asLink = to ? { component: Link, to } : {};
 
   return (
     <TableCell className={withoutPseudo}>
@@ -23,12 +24,7 @@ const CellHeader = ({ name, sub, imgSrc, to }) => {
         <Grid item>
           <Avatar word={name} imgSrc={imgSrc} />
         </Grid>
-        <Grid
-          component={Link}
-          to={to}
-          item
-          style={{ flex: 1 }}
-        >
+        <Grid item style={{ flex: 1 }} {...asLink}>
           <Typography variant="body1">
             <strong>{ellpisis(name, 25)}</strong>
             {sub && (
