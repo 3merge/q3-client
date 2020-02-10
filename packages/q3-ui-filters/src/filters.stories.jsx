@@ -42,6 +42,11 @@ const FilterForm = () => (
       label="Equals to this value"
       name="equals"
     />
+    <Equals
+      type="text"
+      label="Equals to this nested value"
+      name="equals%2Enested"
+    />
     <Exists
       type="checkbox"
       label="Does exist"
@@ -91,7 +96,7 @@ export const EmptyState = () => {
 
 export const FullState = () => {
   return (
-    <Location search="?notIn=AU&equals=sample&!doesNotExist&example%2E0=&in=CA,US">
+    <Location search="?notIn=AU&equals=sample&!doesNotExist&example%2E0=&in=CA,US&equals.nested=Text">
       <FilterForm />
     </Location>
   );

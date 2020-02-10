@@ -1,13 +1,9 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 const Sidebar = ({ children, renderAside }) => {
-  const { t } = useTranslation('titles');
-
   return renderAside ? (
     <Grid container component="article">
       <Grid
@@ -19,9 +15,6 @@ const Sidebar = ({ children, renderAside }) => {
         xs={12}
       >
         <Box py={2} px={3}>
-          <Typography variant="overline">
-            {t('filter')}
-          </Typography>
           {renderAside()}
         </Box>
       </Grid>

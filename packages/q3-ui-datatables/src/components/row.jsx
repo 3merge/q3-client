@@ -57,6 +57,7 @@ export const renderTableCells = (
 
 const Row = ({
   id,
+  disableLink,
   columns: { name, description, photo, ...etc },
   activeColumns,
   rowToolbar,
@@ -87,7 +88,7 @@ const Row = ({
         name={t(name)}
         sub={t(description)}
         imgSrc={t(photo)}
-        to={`${id}`}
+        to={disableLink ? null : `${id}`}
       />
       {renderTableCells(etc, activeColumns, t)}
     </TableRow>
@@ -96,6 +97,7 @@ const Row = ({
 
 Row.propTypes = {
   id: PropTypes.string.isRequired,
+  disableLink: PropTypes.bool,
   rowToolbar: PropTypes.arrayOf(
     PropTypes.shape({
       onClick: PropTypes.func,
@@ -115,6 +117,7 @@ Row.propTypes = {
 
 Row.defaultProps = {
   rowToolbar: [],
+  disableLink: false,
 };
 
 export default Row;

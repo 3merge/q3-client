@@ -58,6 +58,7 @@ export const Full = () => (
     />
     <TableRow
       id={2}
+      disableLink
       columns={fixture(
         {
           photo: 'https://i.pravatar.cc/150?img=17',

@@ -13,6 +13,7 @@ export const ListItem = ({
   title,
   description,
   icon,
+  renderListItemProps,
 }) => {
   const { term } = React.useContext(Context);
   const primary = formatArrayAsCommaDelineatedString(title);
@@ -41,6 +42,9 @@ export const ListItem = ({
       <ListItemTextMui
         primary={primary}
         secondary={secondary}
+        {...(renderListItemProps
+          ? renderListItemProps()
+          : {})}
       />
       {children && !Array.isArray(children)
         ? React.cloneElement(children, {
@@ -76,6 +80,11 @@ ListItem.propTypes = {
   ]).isRequired,
 
   /**
+   * An optional rendering function for dynamically inserting list props.
+   */
+  renderListItemProps: PropTypes.func,
+
+  /**
    * MUI Icon to populate inner avatar Comp.
    */
   icon: PropTypes.oneOfType([
@@ -88,6 +97,7 @@ ListItem.propTypes = {
 ListItem.defaultProps = {
   children: null,
   icon: null,
+  renderListItemProps: null,
 };
 
 export default ListItem;

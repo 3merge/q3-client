@@ -1,8 +1,11 @@
 const locales = ['en-ca', 'fr-ca'];
 
 export default class PathBuilder {
-  constructor() {
-    this.base = '';
+  constructor(locale = '') {
+    this.base =
+      typeof locale === 'string'
+        ? locale.toLowerCase()
+        : '';
   }
 
   static split(path) {

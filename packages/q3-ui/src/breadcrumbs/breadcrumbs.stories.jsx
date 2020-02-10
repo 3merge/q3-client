@@ -37,7 +37,7 @@ const PageNavigation = ({ children }) => {
 const Nav = ({ mode }) => {
   return (
     <>
-      <Breadcrumbs mode={mode} />
+      <Breadcrumbs mode={mode} locale="en-ca" />
 
       <p>Select a link</p>
       <ul>

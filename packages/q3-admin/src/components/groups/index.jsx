@@ -33,7 +33,11 @@ export const Groups = ({ queries, search }) => {
   const { t } = useTranslation('labels');
 
   return (
-    <Tabs value={findIndexByStartsWith(queries, search)}>
+    <Tabs
+      value={findIndexByStartsWith(queries, search)}
+      variant="scrollable"
+      scrollButtons="auto"
+    >
       <Tab
         label={t('all')}
         onClick={() => navigate('?')}

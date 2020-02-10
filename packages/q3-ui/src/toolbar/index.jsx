@@ -121,7 +121,7 @@ export const AccountMenu = ({
     signupPath: '/',
   };
 
-  return (
+  return Array.isArray(items) ? (
     <DropDownMenu id="profile-dropdown" items={items}>
       {(toggle) =>
         name ? (
@@ -146,7 +146,7 @@ export const AccountMenu = ({
         )
       }
     </DropDownMenu>
-  );
+  ) : null;
 };
 
 AccountMenu.propTypes = {

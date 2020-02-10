@@ -50,6 +50,7 @@ export const ApplicationGate = ({
   popoutMenuItems,
   postAuthVerification,
   profilePage,
+  companyName,
   ...rest
 }) => (
   <>
@@ -70,6 +71,7 @@ export const ApplicationGate = ({
               <App pages={pages} profile={profilePage} />
             )}
             ProfileBarProps={{
+              companyName,
               name: firstName,
               imgSrc: photo,
               items: [
@@ -104,6 +106,7 @@ export const ApplicationGate = ({
 
 ApplicationGate.propTypes = {
   name: PropTypes.string.isRequired,
+  companyName: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string.isRequired,
   postAuthVerification: PropTypes.func,
   pages: PropTypes.arrayOf(PropTypes.object),
