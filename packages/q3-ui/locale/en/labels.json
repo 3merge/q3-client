@@ -141,5 +141,7 @@
   "reset": "Reset",
   "resetAndSave": "Reset/save",
   "adventure": "Adventure {{type}}",
-  "backToMenu": "Back to full menu"
+  "backToMenu": "Back to full menu",
+  "startTyping": "Start typing to search",
+  "browseOrClick": "Click a result at any time from the auto-populated list to visit the page."
 }

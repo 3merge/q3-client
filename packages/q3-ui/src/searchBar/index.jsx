@@ -9,6 +9,7 @@ import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import Fade from '@material-ui/core/Fade';
+import Typography from '@material-ui/core/Typography';
 import Search from '@material-ui/icons/Search';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Close from '@material-ui/icons/Close';
@@ -76,6 +77,7 @@ export const SearchResultList = ({
 }) => {
   const [results, setResults] = React.useState([]);
   const hasResults = results && results.length;
+  const { t } = useTranslation('labels');
 
   React.useEffect(() => {
     if (term) {
@@ -86,8 +88,14 @@ export const SearchResultList = ({
   }, [term]);
 
   return !hasResults || !term || !term.length ? (
-    <Box my={2} width="250px">
-      <Icon />
+    <Box textAlign="center" my={2}>
+      <Box width="250px">
+        <Icon />
+      </Box>
+      <Typography variant="h3" gutterBottom>
+        {t('startTyping')}
+      </Typography>
+      <Typography>{t('browseOrClick')}</Typography>
     </Box>
   ) : (
     <List component="nav">

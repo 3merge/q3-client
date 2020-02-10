@@ -20,36 +20,25 @@ const getOptions = (s) => {
     });
 };
 
-storiesOf('Components|SearchBar', module)
-  .add(
-    'With router search params',
+export default {
+  title: 'Components/Search',
+  parameters: {
+    component: Search,
+    componentSubtitle: 'Expandable search bar',
+  },
+};
 
-    withLocation(({ params }) => (
-      <>
-        <Search
-          getResults={getOptions}
-          filter={() => <p>Filter me!</p>}
-          icon={() => null}
-        />
-        <Box p={2}>
-          <Typography>
-            {`Search output on enter: ${params.toString()}`}
-          </Typography>
-        </Box>
-      </>
-    )),
-  )
-  .add(
-    'Without filter',
-
-    withLocation(({ params }) => (
-      <>
-        <Search getResults={getOptions} icon={() => null} />
-        <Box p={2}>
-          <Typography>
-            {`Search output on enter: ${params.toString()}`}
-          </Typography>
-        </Box>
-      </>
-    )),
-  );
+export const Example = withLocation(({ params }) => (
+  <>
+    <Search
+      getResults={getOptions}
+      filter={() => <p>Filter me!</p>}
+      icon={() => null}
+    />
+    <Box p={2}>
+      <Typography>
+        {`Search output on enter: ${params.toString()}`}
+      </Typography>
+    </Box>
+  </>
+));
