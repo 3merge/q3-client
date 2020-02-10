@@ -31,6 +31,9 @@ export const ListComplete = () => (
       title="Second entry"
       description={['D', 'E', 'F']}
       icon={AccountBox}
+      renderListItemProps={() => ({
+        primary: <a href="/">Overwritten via props</a>,
+      })}
     >
       <ActionBar
         actions={[
