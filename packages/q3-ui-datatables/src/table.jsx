@@ -5,8 +5,8 @@ import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
+import TableRow from '@material-ui/core/TableRow';
 import useStyles from './utils/useStyles';
 import { extractIds, extractKeys } from './utils/helpers';
 import {
@@ -85,7 +85,9 @@ export const TableView = ({
             )}
           </TableBody>
           <TableFooter>
-            <Pagination id={id} total={total} />
+            <TableRow>
+              <Pagination id={id} total={total} />
+            </TableRow>
           </TableFooter>
         </Table>
       </ActionBar>

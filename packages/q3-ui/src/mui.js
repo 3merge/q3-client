@@ -153,6 +153,11 @@ Object.assign(theme, {
           backgroundColor: grey[100],
           transition: 'background-color 250ms',
         },
+        [theme.breakpoints.down('md')]: {
+          borderBottom: `2px solid ${grey[100]}`,
+          display: 'block',
+          padding: theme.spacing(1),
+        },
       },
     },
     MuiTableCell: {
@@ -174,14 +179,11 @@ Object.assign(theme, {
         borderBottom: `2px solid ${grey[100]}`,
         fontSize: '1rem !important',
         [theme.breakpoints.down('md')]: {
+          border: 0,
           display: 'block',
-          '&:not(:last-child)': {
-            border: 0,
-          },
           '&::before': {
             content: 'attr(data-title)',
             textTransform: 'uppercase',
-            fontWeight: 'bold',
             marginRight: '1rem',
             fontSize: '0.833rem',
           },

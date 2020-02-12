@@ -2,24 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: '100%',
+    width: 275,
+  },
+  fill: {
+    flex: 1,
+  },
+}));
 
 const Sidebar = ({ children, renderAside }) => {
+  const { root, fill } = useStyles();
+
   return renderAside ? (
     <Grid container component="article">
-      <Grid
-        item
-        component="aside"
-        lg={2}
-        md={3}
-        sm={4}
-        xs={12}
-      >
-        <Box py={2} px={3}>
-          {renderAside()}
-        </Box>
+      <Grid item component="aside" className={root}>
+        <Box py={1}>{renderAside()}</Box>
       </Grid>
 
-      <Grid item style={{ flex: 1 }} component="section">
+      <Grid item className={fill} component="section">
         <Box>{children}</Box>
       </Grid>
     </Grid>
