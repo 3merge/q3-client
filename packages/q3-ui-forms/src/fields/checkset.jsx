@@ -78,6 +78,8 @@ export const ControlledCheckbox = ({
   onChange,
   isChecked,
   name,
+  disabled,
+  readOnly,
 }) => (
   <FormControlLabel
     control={
@@ -86,6 +88,8 @@ export const ControlledCheckbox = ({
         value={value}
         checked={isChecked}
         size="small"
+        disabled={disabled}
+        readOnly={readOnly}
       />
     }
     label={label}
@@ -93,14 +97,21 @@ export const ControlledCheckbox = ({
     style={{ display: 'block' }}
     size="small"
     onChange={onChange}
+    disabled={disabled}
+    readOnly={readOnly}
   />
 );
 
 const Checkset = (props) => {
   const [{ value = [] }, { error }] = useField(props);
-  const { onArrayPush, options, ...rest } = useDecorator(
-    props,
-  );
+  const {
+    onArrayPush,
+    options,
+    disabled,
+    readOnly,
+    ...rest
+  } = useDecorator(props);
+
   const { t } = useTranslation('labels');
 
   return Array.isArray(options) && options.length ? (
@@ -112,6 +123,8 @@ const Checkset = (props) => {
           value={option.value}
           onChange={onArrayPush}
           isChecked={value.includes(option.value)}
+          disabled={disabled}
+          readOnly={readOnly}
         />
       ))}
     </CollapseableFieldset>
