@@ -57,12 +57,16 @@ const convertLengthQuery = (name) =>
     : name;
 
 export const assembleLengthQuery = (name) =>
-  name.replace('%2E', '.').replace('length', '0');
+  name
+    .replace('%2E', '.')
+    .replace('length', '0')
+    .replace('%21', '!');
 
 const removeSpecialChars = (name) =>
   name
     .replace(/[^a-zA-Z0-9 %.]/g, '')
     .replace('.', '%2E')
+    .replace('!', '%21')
     .replace('%2E0', '%2Elength');
 
 const getKey = (k, operand) => {

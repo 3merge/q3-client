@@ -9,14 +9,19 @@ import {
   handleOnChangeBoolean,
 } from './utils';
 
-const FilterCheckBox = ({ label, name, op }) => {
+const FilterCheckBox = ({ label, name, op, strict }) => {
   const { submitForm } = useFormikContext();
   const [{ value }, , { setValue }] = useField(name);
   const isChecked = extractTextualValue(value, false);
 
+  let operand = op;
+
+  if (strict === true && !value.value) operand = '=';
+  if (strict === false && value.value) operand = '!=';
+
   const handleOnChangeEvent = handleOnChangeBoolean(
     setValue,
-    op,
+    operand,
     submitForm,
   );
 
