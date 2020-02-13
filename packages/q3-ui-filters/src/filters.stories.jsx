@@ -54,6 +54,18 @@ const FilterForm = () => (
     />
     <Exists
       type="checkbox"
+      label="Does exist strictly"
+      name="existsStrictly"
+      strict
+    />
+    <Exists
+      type="checkbox"
+      label="Does not exist strictly"
+      name="doesNot%2EExistStrictly%21"
+      strict
+    />
+    <Exists
+      type="checkbox"
       label="Has length"
       name="example%2Elength"
     />

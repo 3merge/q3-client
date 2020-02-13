@@ -9,14 +9,17 @@ import {
   handleOnChangeBoolean,
 } from './utils';
 
-const FilterCheckBox = ({ label, name, op }) => {
+const FilterCheckBox = ({ label, name, op, strict }) => {
   const { submitForm } = useFormikContext();
   const [{ value }, , { setValue }] = useField(name);
   const isChecked = extractTextualValue(value, false);
 
+  let operand = op;
+  if (strict && !value.value) operand = '=';
+
   const handleOnChangeEvent = handleOnChangeBoolean(
     setValue,
-    op,
+    operand,
     submitForm,
   );
 
@@ -40,6 +43,11 @@ FilterCheckBox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   op: PropTypes.oneOf(['*', '!*']).isRequired,
+  strict: PropTypes.bool,
+};
+
+FilterCheckBox.defaultProps = {
+  strict: false,
 };
 
 export default FilterCheckBox;

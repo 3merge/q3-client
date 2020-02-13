@@ -123,7 +123,7 @@ export const Error = () => (
         ...stub,
       }}
     >
-      <Table>
+      <Table renderTop={() => 'Show!'}>
         {() => (
           <TableRow id="1" columns={{ name: 'foo' }} />
         )}

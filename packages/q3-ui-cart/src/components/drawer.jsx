@@ -97,7 +97,9 @@ const CartDrawer = ({
 }) => {
   const { t } = useTranslation();
   const { bar } = useStyles();
-  const { total, loading } = React.useContext(CartContext);
+  const { subtotal, loading } = React.useContext(
+    CartContext,
+  );
 
   return (
     <Drawer open={isOpen} anchor="right" onClose={close}>
@@ -118,7 +120,7 @@ const CartDrawer = ({
             {t('titles:cart')}
           </Typography>
           <Typography variant="body2">
-            ${Number(total).toFixed(2)}
+            ${Number(subtotal).toFixed(2)}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -137,9 +139,7 @@ const CartDrawer = ({
                 size="large"
                 fullWidth
               >
-                {t('labels:checkout', {
-                  subtotal: '0.00',
-                })}
+                {t('labels:checkout')}
               </Button>
               <Box my={0.5}>
                 <Button

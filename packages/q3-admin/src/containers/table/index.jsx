@@ -40,17 +40,14 @@ const List = ({
     if (!rows.length) return <EmptyView />;
 
     return (
-      <Box>
-        {renderTop && renderTop()}
-        <Table
-          {...state}
-          {...rest}
-          id={url}
-          actions={actions}
-        >
-          {children(rows)}
-        </Table>
-      </Box>
+      <Table
+        {...state}
+        {...rest}
+        id={url}
+        actions={actions}
+      >
+        {children(rows)}
+      </Table>
     );
   };
 
@@ -58,7 +55,10 @@ const List = ({
     <Redirect op="Read" to="/">
       <Box mt={4} px={2}>
         <Sidebar renderAside={renderForm}>
-          {renderTable()}
+          <Box>
+            {renderTop && renderTop()}
+            {renderTable()}
+          </Box>
         </Sidebar>
       </Box>
     </Redirect>

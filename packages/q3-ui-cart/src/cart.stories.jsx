@@ -28,7 +28,6 @@ const getProductDetails = () => ({
 const refreshOrder = () =>
   Promise.resolve({
     subtotal: 99.99,
-    total: 99.99,
     items: [
       getProductDetails(),
       getProductDetails(),
@@ -60,7 +59,6 @@ export const Empty = () => (
       service={() =>
         Promise.resolve({
           subtotal: 9.99,
-          total: 87.99,
           items: [getProductDetails()],
         })
       }

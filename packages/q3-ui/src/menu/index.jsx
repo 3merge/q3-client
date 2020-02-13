@@ -6,10 +6,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { useToggle } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles({
@@ -98,6 +100,7 @@ const MenuItemLinkDecoratorIcon = ({
   icon: Icon,
   hasSubMenu,
   isOpen,
+  title,
 }) => {
   if (!hasSubMenu && !Icon) return null;
   if (hasSubMenu)
@@ -118,7 +121,17 @@ const MenuItemLinkDecoratorIcon = ({
       </ListItemAvatar>
     );
 
-  return (
+  return title ? (
+    <Tooltip
+      title={title}
+      aria-label={title}
+      placement="right"
+    >
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
+    </Tooltip>
+  ) : (
     <ListItemIcon>
       <Icon />
     </ListItemIcon>
@@ -126,6 +139,7 @@ const MenuItemLinkDecoratorIcon = ({
 };
 
 const MenuItem = ({
+  useTooltips,
   to,
   exact,
   done,
@@ -137,7 +151,9 @@ const MenuItem = ({
     location: { pathname },
   },
 }) => {
+  const ref = React.useRef();
   const [previousPathname, setInit] = React.useState();
+  const [showTitles, setShowTitles] = React.useState();
   const hasSubMenu = Boolean(subMenu && subMenu.length);
   const includes = hasSubMenu
     ? subMenu.some(
@@ -157,8 +173,21 @@ const MenuItem = ({
     setInit(pathname);
   }, [pathname]);
 
+  React.useEffect(() => {
+    try {
+      const aside = ref.current.closest('aside');
+      if (aside.scrollWidth !== aside.clientWidth) {
+        setShowTitles(false);
+      } else {
+        setShowTitles(true);
+      }
+    } catch (e) {
+      // noop
+    }
+  });
+
   return (
-    <div className={container}>
+    <div ref={ref} className={container}>
       <ListItem
         {...getLinkAttributes(to, (props) => (
           <NavLink
@@ -203,6 +232,7 @@ const MenuItem = ({
           icon={icon}
           hasSubMenu={hasSubMenu}
           isOpen={state}
+          title={showTitles ? label : null}
         />
         <ListItemText style={{ color }} primary={label} />
       </ListItem>

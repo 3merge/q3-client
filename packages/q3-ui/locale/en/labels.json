@@ -142,6 +142,7 @@
   "resetAndSave": "Reset/save",
   "adventure": "Adventure {{type}}",
   "backToMenu": "Back to full menu",
+  "foo": "TESTING LONG LABEL",
   "startTyping": "Start typing to search",
   "browseOrClick": "Click a result at any time from the auto-populated list to visit the page."
 }

@@ -8,6 +8,8 @@ import { useToggle } from 'useful-state';
 import Grid from '@material-ui/core/Grid';
 import SwapHoriz from '@material-ui/icons/KeyboardArrowLeft';
 import Close from '@material-ui/icons/KeyboardArrowRight';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 import { AccountMenu } from '../toolbar';
 import astronaut from '../../images/astronaut.png';
 import Logo from '../logo';
@@ -18,9 +20,19 @@ export const getIcon = (v) =>
   v ? <Close /> : <SwapHoriz />;
 
 const ProfileBar = ({ companyName, children, ...rest }) => {
+  const matches = useMediaQuery('(min-width:1200px)');
+
   const { t } = useTranslation();
   const { colourful, trigger } = useStyles();
-  const { toggle, state } = useToggle();
+  const { toggle, state, open, close } = useToggle();
+
+  React.useEffect(() => {
+    if (!matches) {
+      open();
+    } else {
+      close();
+    }
+  }, [matches]);
 
   return (
     <Hidden smDown implementation="css">
@@ -36,7 +48,7 @@ const ProfileBar = ({ companyName, children, ...rest }) => {
             container
             direction="column"
             justify="space-between"
-            style={{ height: '100%' }}
+            style={{ height: '100%', width: 250 }}
           >
             <Grid item>
               <Logo name={companyName} />

@@ -146,7 +146,11 @@ Object.assign(theme, {
         boxShadow: 'none',
       },
     },
-
+    MuiInputBase: {
+      root: {
+        marginBottom: 0,
+      },
+    },
     MuiTableRow: {
       root: {
         '&:hover': {

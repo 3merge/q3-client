@@ -13,6 +13,7 @@ export default {
 export const PopulatedLineItems = () => (
   <CartContext.Provider
     value={{
+      update: () => Promise.resolve(),
       items: [
         {
           id: 1,
@@ -29,6 +30,8 @@ export const PopulatedLineItems = () => (
       ],
     }}
   >
-    <LineItems>{() => <p>With child</p>}</LineItems>
+    <LineItems>
+      {(item) => <p>{JSON.stringify(item)}</p>}
+    </LineItems>
   </CartContext.Provider>
 );

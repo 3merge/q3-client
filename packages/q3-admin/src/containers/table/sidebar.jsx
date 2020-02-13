@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: '100%',
-    width: 275,
+    width: 215,
   },
   fill: {
     flex: 1,
@@ -20,7 +20,7 @@ const Sidebar = ({ children, renderAside }) => {
   return renderAside ? (
     <Grid container component="article">
       <Grid item component="aside" className={root}>
-        <Box py={1}>{renderAside()}</Box>
+        <Box p={1}>{renderAside()}</Box>
       </Grid>
 
       <Grid item className={fill} component="section">
