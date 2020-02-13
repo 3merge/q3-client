@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
@@ -40,10 +41,12 @@ const Toggle = ({ id, product, quantity }) => {
   const { update, loading } = React.useContext(CartContext);
 
   const sendUpdateRequest = (newValue) =>
-    update({ id, product, quantity: newValue });
+    update({ id, product, quantity: newValue }).then(() => {
+      return setQuantity(newValue);
+    });
 
-  const decrease = () => sendUpdateRequest(quantity - 1);
-  const increase = () => sendUpdateRequest(quantity + 1);
+  const decrease = () => sendUpdateRequest(value - 1);
+  const increase = () => sendUpdateRequest(value + 1);
 
   return (
     <TextField
@@ -51,9 +54,8 @@ const Toggle = ({ id, product, quantity }) => {
       variant="outlined"
       name="quantity"
       value={value}
-      onChange={(e, v) => {
-        if (typeof parseInt(v, 10) === 'number')
-          setQuantity(v);
+      onChange={({ target }) => {
+        setQuantity(target.value);
       }}
       onBlur={() => {
         sendUpdateRequest(value);
@@ -96,10 +98,16 @@ const Toggle = ({ id, product, quantity }) => {
   );
 };
 
+Toggle.propTypes = {
+  quantity: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  product: PropTypes.string.isRequired,
+};
+
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
-  return items.map(
-    ({
+  return items.map((item) => {
+    const {
       id,
       product,
       price,
@@ -108,7 +116,9 @@ export default ({ children }) => {
       subtotal,
       quantity,
       description,
-    }) => (
+    } = item;
+
+    return (
       <Box mb={1}>
         <Paper elevation={2}>
           <Box p={2}>
@@ -153,7 +163,7 @@ export default ({ children }) => {
                           {description}
                         </Typography>
 
-                        {children && children()}
+                        {children && children(item)}
                       </Box>
                     </Grid>
                   </Grid>
@@ -194,6 +204,6 @@ export default ({ children }) => {
           </Box>
         </Paper>
       </Box>
-    ),
-  );
+    );
+  });
 };
