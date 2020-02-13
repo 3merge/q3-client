@@ -15,9 +15,7 @@ const FilterCheckBox = ({ label, name, op, strict }) => {
   const isChecked = extractTextualValue(value, false);
 
   let operand = op;
-
-  if (strict === true && !value.value) operand = '=';
-  if (strict === false && value.value) operand = '!=';
+  if (strict && !value.value) operand = '=';
 
   const handleOnChangeEvent = handleOnChangeBoolean(
     setValue,
@@ -45,6 +43,11 @@ FilterCheckBox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   op: PropTypes.oneOf(['*', '!*']).isRequired,
+  strict: PropTypes.bool,
+};
+
+FilterCheckBox.defaultProps = {
+  strict: false,
 };
 
 export default FilterCheckBox;
