@@ -229,12 +229,12 @@ function Chips({ data, pullRule, ...etc }) {
     <Box my={2}>
       {data.map((item) => (
         <Chip
+          {...etc}
           color="primary"
           avatar={renderAvatar()}
           key={item}
           onDelete={fn(pullRule, item)}
           label={item}
-          {...etc}
         />
       ))}
     </Box>
