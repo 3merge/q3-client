@@ -9,6 +9,7 @@ yarn-error.log*
 build/
 dist/
 lib/
+storybook-static
 
 # Coverage directory used by tools like istanbul
 coverage

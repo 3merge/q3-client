@@ -24,7 +24,7 @@ const FilterCheckBox = ({ label, name, op, strict }) => {
   );
 
   return (
-    <Box mb={1}>
+    <Box>
       <FormControlLabel
         label={label}
         control={
