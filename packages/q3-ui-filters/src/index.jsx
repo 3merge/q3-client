@@ -48,7 +48,6 @@ export const FilterForm = ({
       remove,
     });
 
-    params.delete('page');
     pushTo(out);
   };
 

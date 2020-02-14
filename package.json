@@ -15,7 +15,8 @@
     "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
-    "docs": "storybook-to-ghpages"
+    "docs": "storybook-to-ghpages",
+    "snapshot": "build-storybook && percy-storybook --widths=320,1280"
   },
   "workspaces": [
     "packages/*",
@@ -27,6 +28,7 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
     "@babel/preset-env": "^7.5.5",
     "@mdx-js/loader": "^1.5.5",
+    "@percy/storybook": "^3.2.0",
     "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",

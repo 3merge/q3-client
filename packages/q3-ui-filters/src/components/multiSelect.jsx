@@ -113,7 +113,7 @@ const FilterTextField = ({
         renderInput={(params) => (
           <TextField
             {...params}
-            label={name}
+            label={label}
             fullWidth
             InputProps={{
               ...params.InputProps,

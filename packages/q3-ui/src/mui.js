@@ -149,6 +149,9 @@ Object.assign(theme, {
     MuiInputBase: {
       root: {
         marginBottom: 0,
+        '&:not(:last-child)': {
+          marginBottom: 0,
+        },
       },
     },
     MuiTableRow: {
