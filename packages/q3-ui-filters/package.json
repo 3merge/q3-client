@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-filters",
-  "version": "1.9.12",
+  "version": "1.9.13",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.9.7"
