@@ -33,6 +33,7 @@ const Chips = (props) => {
         renderTags={(values, getTagProps) =>
           values.map((option, index) => (
             <Chip
+              color="secondary"
               label={t(option)}
               disabled={index === 0}
               {...getTagProps({ index })}
@@ -47,10 +48,6 @@ const Chips = (props) => {
             error={error}
             variant="filled"
             fullWidth
-            InputProps={{
-              disableUnderline: true,
-              ...params.InputProps,
-            }}
           />
         )}
       />

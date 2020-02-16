@@ -256,7 +256,6 @@ const Searchbar = ({
           autoComplete="off"
           fullWidth
           autoFocus
-          disableUnderline
           startAdornment={
             <Box display="flex" mr={1}>
               <CloseTrigger onClick={close} />

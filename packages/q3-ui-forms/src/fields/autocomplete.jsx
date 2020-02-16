@@ -40,10 +40,6 @@ export const AutoCompleteWrapper = (props) => {
       error: Boolean(error),
       variant: 'filled',
       fullWidth: true,
-      InputProps: {
-        disableUnderline: true,
-        ...params.InputProps,
-      },
       inputProps: {
         autoComplete: new Date().toISOString(),
         ...params.inputProps,

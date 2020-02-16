@@ -66,7 +66,6 @@ const NativeSelect = (props) => {
     >
       <Select
         native
-        disableUnderline
         onChange={onChange}
         value={value}
         disabled={disabled}

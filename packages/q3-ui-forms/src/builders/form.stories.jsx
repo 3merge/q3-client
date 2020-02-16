@@ -2,16 +2,11 @@ import React from 'react';
 import Field from './field';
 import Form, { FormBuilder } from './form';
 
-const onSubmit = (values, actions) => {
+const onSubmit = (values) => {
   // eslint-disable-next-line
   console.log(values)
   return new Promise((resolve) => {
     setTimeout(() => {
-      actions.setFieldValue(
-        'updatedAt',
-        new Date().toISOString(),
-      );
-
       resolve();
     }, 1000);
   });
@@ -23,7 +18,7 @@ const onReset = () => {
 };
 
 export default {
-  title: 'Form builder',
+  title: 'Forms/Builders/Form',
   parameters: {
     component: FormBuilder,
     componentSubtitle:
@@ -34,15 +29,46 @@ export default {
 export const DefaultForm = () => (
   <Form
     debug
+    isNew
     onSubmit={onSubmit}
     onReset={onReset}
     initialValues={{
-      name: 'Jonny',
+      name: '',
     }}
   >
-    <Field name="name" type="text" />
+    <Field name="name" type="text" required />
   </Form>
 );
+
+export const DelayedFormValues = () => {
+  const [name, setName] = React.useState('');
+  const [lang, setLang] = React.useState('');
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setName('Joe');
+      setLang('en');
+    }, 150);
+  }, []);
+
+  return (
+    <Form
+      onSubmit={onSubmit}
+      onReset={onReset}
+      initialValues={{
+        name,
+        lang,
+      }}
+    >
+      <Field name="name" type="text" />
+      <Field
+        name="lang"
+        type="select"
+        options={[{ label: 'English', value: 'en' }]}
+      />
+    </Form>
+  );
+};
 
 export const WithDebug = () => (
   <Form

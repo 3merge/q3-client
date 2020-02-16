@@ -121,21 +121,7 @@ Object.assign(theme, {
         marginTop: 4,
       },
     },
-    MuiFilledInput: {
-      root: {
-        backgroundColor: grey[200],
-        borderRadius: '0 !important',
-        '&:hover': {
-          backgroundColor: `${grey[100]} !important`,
-          transition: 'all 250ms',
-        },
-        '&:focus-within': {
-          backgroundColor: `${grey[100]} !important`,
-          borderColor: blue[50],
-          boxShadow: '0 0 0 0.12rem rgba(0,123,255,.25)',
-        },
-      },
-    },
+
     MuiButton: {
       root: {
         '&.Mui-selected': {

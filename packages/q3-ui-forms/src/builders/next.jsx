@@ -16,9 +16,28 @@ const Next = ({
 }) => {
   const { t } = useTranslation();
   const { authorization } = React.useContext(BuilderState);
+  const [disabledProp, setDisabledProp] = React.useState(
+    true,
+  );
 
-  const isDisabled =
-    formik.isSubmitting || authorization.disable;
+  React.useEffect(() => {
+    const isDisabled =
+      formik.isSubmitting || authorization.disable;
+
+    const d =
+      disabled ||
+      isDisabled ||
+      (submit && Object.keys(formik.errors).length) ||
+      formik.status === 'Initializing';
+
+    setDisabledProp(d);
+  }, [
+    formik.isSubmitting,
+    authorization.disable,
+    formik.errors,
+    formik.status,
+    disabledProp,
+  ]);
 
   return (
     <Box display="inline-block" mt={1}>
@@ -28,11 +47,7 @@ const Next = ({
         variant="contained"
         type={submit ? 'submit' : 'button'}
         onClick={onClick || formik.submitForm}
-        disabled={
-          disabled ||
-          isDisabled ||
-          (submit && Object.keys(formik.errors).length)
-        }
+        disabled={disabledProp}
       >
         {t(`labels:${label}`)}
       </Button>
@@ -49,6 +64,7 @@ Next.propTypes = {
     isSubmitting: PropTypes.bool,
     submitForm: PropTypes.func,
     errors: PropTypes.object,
+    status: PropTypes.string,
   }).isRequired,
 
   /**
