@@ -31,3 +31,15 @@ export const AsPopulated = () => (
     />
   </Form>
 );
+
+export const AsLabelValuePair = () => (
+  <Form debug initialValues={{ demo: [1] }}>
+    <Field
+      type="chips"
+      name="demo"
+      loadOptions={() =>
+        Promise.resolve([{ value: 1, label: 'One' }])
+      }
+    />
+  </Form>
+);

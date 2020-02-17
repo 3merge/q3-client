@@ -1,6 +1,11 @@
 import React from 'react';
+import Tile from 'q3-ui/lib/tile';
+import { Router, Link } from '@reach/router';
+import MockLocation from 'q3-ui-test-utils/lib/location';
+import Grid from '@material-ui/core/Grid';
 import Field from './field';
 import Form, { FormBuilder } from './form';
+import { Persistence } from './persist';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
@@ -26,19 +31,59 @@ export default {
   },
 };
 
-export const DefaultForm = () => (
-  <Form
-    debug
-    isNew
-    onSubmit={onSubmit}
-    onReset={onReset}
-    initialValues={{
-      name: '',
-    }}
-  >
-    <Field name="name" type="text" required />
-  </Form>
-);
+const OffPage = () => <p>Blocked!</p>;
+
+const PersistantForm = (props) => {
+  return (
+    <Tile title="persist">
+      <Form
+        debug
+        isNew
+        id="persist"
+        onReset={onReset}
+        {...props}
+      >
+        <Field name="name" type="text" required />
+        <Field name="number" type="number" required />
+      </Form>
+    </Tile>
+  );
+};
+
+export const DefaultForm = () => {
+  const [initialValues, setInitialValues] = React.useState({
+    name: '',
+    number: 0,
+  });
+
+  const handleSubmit = (v) =>
+    new Promise((resolve) => {
+      setInitialValues(v);
+      resolve();
+    });
+
+  return (
+    <Grid container>
+      <Grid item xs={8}>
+        <MockLocation initialPath="/">
+          <Link to="/">To form</Link>
+          <Link to="/off">To else</Link>
+          <Router>
+            <PersistantForm
+              path="/"
+              onSubmit={handleSubmit}
+              initialValues={initialValues}
+            />
+            <OffPage path="off" />
+          </Router>
+        </MockLocation>
+      </Grid>
+      <Grid item xs={4}>
+        <Persistence id="persist" />
+      </Grid>
+    </Grid>
+  );
+};
 
 export const DelayedFormValues = () => {
   const [name, setName] = React.useState('');

@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import { FormikDebug } from './multistep';
 import Back from './back';
 import Next from './next';
+import Persist from './persist';
 import withWrapper from './wrapper';
 import Validate from './validate';
 
@@ -19,39 +20,39 @@ export const FormBuilder = ({
   onReset,
   resetLabel,
   submitLabel,
+  id,
   ...rest
-}) => {
-  return (
-    <Formik
-      onSubmit={onSubmit}
-      onReset={() => {
-        if (rest.isReady) onReset();
-      }}
-      {...formikProps}
-      {...rest}
-    >
-      {({ resetForm }) => (
-        <Form>
-          {children}
-          <Box mt={1}>
-            {enableSubmit && (
-              <Next submit label={submitLabel} />
-            )}
-            {enableReset && (
-              <Back
-                left
-                onClick={onReset || resetForm}
-                label={resetLabel}
-              />
-            )}
-            <FormikDebug show={debug} />
-            <Validate />
-          </Box>
-        </Form>
-      )}
-    </Formik>
-  );
-};
+}) => (
+  <Formik
+    onSubmit={onSubmit}
+    onReset={() => {
+      if (rest.isReady) onReset();
+    }}
+    {...formikProps}
+    {...rest}
+  >
+    {({ resetForm }) => (
+      <Form>
+        {id && <Persist id={id} />}
+        <Validate />
+        {children}
+        <Box mt={1}>
+          {enableSubmit && (
+            <Next submit label={submitLabel} />
+          )}
+          {enableReset && (
+            <Back
+              left
+              onClick={onReset || resetForm}
+              label={resetLabel}
+            />
+          )}
+          <FormikDebug show={debug} />
+        </Box>
+      </Form>
+    )}
+  </Formik>
+);
 
 FormBuilder.propTypes = {
   /**

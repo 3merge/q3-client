@@ -21,7 +21,7 @@ export default ({
 
     if (
       typeof loadOptions !== 'function' ||
-      (!init && !loadOptionsPlainly)
+      (!init && loadOptionsPlainly)
     )
       return undefined;
 

@@ -56,13 +56,6 @@ const Wrapper = (Component) => ({
   const validation = yup.object().shape(chain);
   const len = get(validation, '_nodes.length', null);
 
-  React.useEffect(() => {
-    return () => {
-      const v = localStorage.getItem('demo');
-      if (v) alert('Unsaved changes detected. Storaged');
-    };
-  });
-
   return (
     <BuilderState.Provider
       value={{
