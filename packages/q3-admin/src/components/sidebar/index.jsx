@@ -11,7 +11,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { useToggle } from 'useful-state';
 import JSONPretty from 'react-json-pretty';
-
 import 'react-json-pretty/themes/acai.css';
 
 const MetaBox = ({ children, title }) => (
@@ -47,23 +46,16 @@ const Meta = ({ lastUpdatedOn, createdBy }) => (
   </Box>
 );
 
-const Comments = () => <p>SEE</p>;
-const History = () => (
-  <Box>
-    <Typography>NAME on DATE</Typography>
-    <JSONPretty
-      mainStyle="background-color: #FFF"
-      data={{ foo: 'bar' }}
-    />
-  </Box>
-);
-
-const Sidebar = ({ commentTab }) => {
+export const SidebarTabs = ({
+  children,
+  commentTab,
+  historyTab,
+}) => {
   const [step, setStep] = React.useState(0);
-  const { open, close, state } = useToggle();
 
-  const renderTabs = () => (
+  return (
     <Paper
+      component="aside"
       elevation={0}
       style={{
         maxHeight: '75vh',
@@ -89,29 +81,34 @@ const Sidebar = ({ commentTab }) => {
           />
           <Tab
             label="History"
+            disabled={!historyTab}
             style={{ minWidth: 'auto' }}
           />
         </Tabs>
 
-        {step === 0 && <Meta />}
+        {step === 0 && children}
         {step === 1 && commentTab ? commentTab : null}
-        {step === 2 && <History />}
+        {step === 2 && historyTab ? historyTab : null}
       </Box>
     </Paper>
   );
+};
+
+const Sidebar = ({ documentationFilePath, ...rest }) => {
+  const { open, close, state } = useToggle();
 
   return (
     <>
       <Hidden smDown>
         <Grid item lg={4} md={5}>
-          {renderTabs(true)}
+          <SidebarTabs {...rest}>BOOM</SidebarTabs>
         </Grid>
       </Hidden>
       <Hidden mdUp>
         <button onClick={open}>O</button>
         <Drawer open={state} onClose={close} anchor="top">
           <button onClick={close}>X</button>
-          {renderTabs()}
+          <SidebarTabs {...rest}>BOOM</SidebarTabs>
         </Drawer>
       </Hidden>
     </>
