@@ -15,12 +15,15 @@ import Tabs from 'q3-ui/lib/tabs';
 import Comparision from 'comparisons';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Persistence } from 'q3-ui-forms/lib/builders/persist';
 import FullScreen from './fullScreen';
 import Context from '../containers/state';
-import Notes from './notes';
 import Files from './files';
 import Trash from './trash';
 import { isArray, getPath } from './utils';
+import Sidebar from './sidebar';
+import Section from './section';
+import Notes from '../containers/notes';
 
 const LazyContent = ({ filepath }) => {
   const [content, setContent] = React.useState();
@@ -116,14 +119,6 @@ const Detail = ({
       'uploads',
     );
 
-  if (notes && authorization.canSeeSub('thread'))
-    addToTabs(
-      () => (
-        <Notes id={id} collectionName={collectionName} />
-      ),
-      'notes',
-    );
-
   if (trash && authorization.canDelete)
     addToTabs(
       () => (
@@ -136,19 +131,59 @@ const Detail = ({
     );
 
   return (
-    <Container maxWidth="xl">
-      <Box my={4}>
-        <Grid container spacing={1}>
-          <Grid item sm={9} xs={12}>
-            {state.fetching ? (
-              <CircularProgress />
-            ) : (
-              <Tabs
-                root={`/${resourceName}/${id}`}
-                views={tabs}
-              />
-            )}
-          </Grid>
+    <>
+      {isArray(children)
+        .flat()
+        .map((el) => (
+          <Persistence id={el.props.id} />
+        ))}
+
+      <Section
+        loading={state.fetching}
+        renderSidebar={() => (
+          <Sidebar
+            persistenceIds={isArray(children)
+              .flat()
+              .map((el) => el.props.id)}
+            commentTab={
+              notes && authorization.canSeeSub('thread') ? (
+                <Notes
+                  id={id}
+                  collectionName={collectionName}
+                />
+              ) : null
+            }
+          />
+        )}
+      >
+        <Tabs
+          root={`/${resourceName}/${id}`}
+          views={tabs}
+        />
+      </Section>
+    </>
+  );
+};
+
+Detail.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.node,
+  ]).isRequired,
+  trash: PropTypes.bool,
+  notes: PropTypes.bool,
+  files: PropTypes.bool,
+};
+
+Detail.defaultProps = {
+  trash: false,
+  notes: false,
+  files: false,
+};
+
+export default Detail;
+
+/* 
           <Grid item sm={3} xs={12}>
             {filepath && (
               <FullScreen
@@ -181,26 +216,4 @@ const Detail = ({
               </FullScreen>
             )}
           </Grid>
-        </Grid>
-      </Box>
-    </Container>
-  );
-};
-
-Detail.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
-  trash: PropTypes.bool,
-  notes: PropTypes.bool,
-  files: PropTypes.bool,
-};
-
-Detail.defaultProps = {
-  trash: false,
-  notes: false,
-  files: false,
-};
-
-export default Detail;
+          */

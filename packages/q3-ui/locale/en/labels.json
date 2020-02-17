@@ -144,5 +144,7 @@
   "backToMenu": "Back to full menu",
   "foo": "TESTING LONG LABEL",
   "startTyping": "Start typing to search",
-  "browseOrClick": "Click a result at any time from the auto-populated list to visit the page."
+  "browseOrClick": "Click a result at any time from the auto-populated list to visit the page.",
+  "changesRestored": "Un-saved changes have been restored into this form. Please save or delete them to proceed.",
+  "unsavedChangesOn": "Un-saved changes detected on form #{{id}}"
 }

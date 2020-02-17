@@ -2,8 +2,7 @@ import React from 'react';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { blue, orange } from '@material-ui/core/colors';
+import { orange } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
 import AlertIcon from '@material-ui/icons/Warning';
@@ -11,6 +10,7 @@ import AlertIcon from '@material-ui/icons/Warning';
 const FlexContainer = ({ children, shade }) => (
   <Box
     p={0.5}
+    px={2}
     display="flex"
     justifyContent="space-between"
     alignItems="center"
@@ -29,7 +29,7 @@ const UppercaseSpan = ({ children }) => (
     style={{
       margin: 0,
       textTransform: 'uppercase',
-      fontSize: '1rem',
+      fontSize: '0.877rem',
     }}
   >
     {children}
@@ -38,58 +38,31 @@ const UppercaseSpan = ({ children }) => (
 
 const Persist = ({ id }) => {
   const f = useFormikContext();
-  const { t } = useTranslation('labels');
-  const [wasRestored, setWasRestored] = React.useState();
-
-  const clearLocalStorage = () => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem(id);
-      setWasRestored(false);
-    }
-  };
 
   React.useEffect(() => {
     const restore = sessionStorage.getItem(id);
     const event = new CustomEvent('storage', {
-      detail: f.dirty,
+      detail: {
+        dirty: f.dirty,
+        id,
+      },
     });
 
     if (restore && f.status === 'Initializing') {
       f.setValues(JSON.parse(restore));
-      setWasRestored(true);
       return;
     }
 
     if (f.dirty) {
       sessionStorage.setItem(id, JSON.stringify(f.values));
     } else {
-      clearLocalStorage();
+      sessionStorage.removeItem(id);
     }
 
     window.dispatchEvent(event);
   }, [f.values, f.dirty]);
 
-  return wasRestored ? (
-    <FlexContainer shade={blue}>
-      <Typography
-        component="span"
-        style={{ margin: 0, textTransform: 'uppercase' }}
-      >
-        {t('changesRestored')}
-      </Typography>
-      <IconButton
-        aria-label={t('clearChanges')}
-        onClick={() => {
-          clearLocalStorage();
-          f.resetForm();
-        }}
-      >
-        <TrashIcon />
-      </IconButton>
-    </FlexContainer>
-  ) : (
-    false
-  );
+  return null;
 };
 
 export const Persistence = ({ id }) => {
@@ -99,7 +72,17 @@ export const Persistence = ({ id }) => {
   ] = React.useState();
 
   const { t } = useTranslation('labels');
-  const onStorage = (e) => setHasUnsavedChanges(e.detail);
+  const onStorage = (e) => {
+    if (e.detail.id === id)
+      setHasUnsavedChanges(e.detail.dirty);
+  };
+
+  const clearLocalStorage = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem(id);
+      setHasUnsavedChanges(false);
+    }
+  };
 
   React.useEffect(() => {
     window.addEventListener('storage', onStorage);
@@ -114,6 +97,12 @@ export const Persistence = ({ id }) => {
         <AlertIcon />
         {t('unsavedChangesOn', { id })}
       </UppercaseSpan>
+      <IconButton
+        aria-label={t('clearChanges')}
+        onClick={clearLocalStorage}
+      >
+        <TrashIcon />
+      </IconButton>
     </FlexContainer>
   ) : null;
 };

@@ -38,7 +38,7 @@ const Text = (props) => {
       helperText={helperText}
       error={error}
       fullWidth
-      variant="filled"
+      variant="outlined"
       type={type}
       InputProps={{
         ...(readOnly && {
