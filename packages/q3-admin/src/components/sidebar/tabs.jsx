@@ -48,10 +48,11 @@ const SidebarTabs = ({
             className={item}
           />
         </Tabs>
-
-        {step === 0 && children}
-        {step === 1 && commentTab ? commentTab : null}
-        {step === 2 && historyTab ? historyTab : null}
+        <Box my={2}>
+          {step === 0 && children}
+          {step === 1 && commentTab ? commentTab : null}
+          {step === 2 && historyTab ? historyTab : null}
+        </Box>
       </Box>
     </Paper>
   );
