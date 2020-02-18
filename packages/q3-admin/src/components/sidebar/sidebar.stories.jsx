@@ -9,4 +9,11 @@ export default {
   },
 };
 
-export const WithAll = () => <Sidebar />;
+export const WithoutTabs = () => <Sidebar />;
+
+export const WithComments = () => (
+  <Sidebar
+    commentTab={() => <div />}
+    historyTab={() => <div />}
+  />
+);

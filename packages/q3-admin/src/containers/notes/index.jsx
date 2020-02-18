@@ -1,13 +1,18 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'q3-ui-forms/lib/builders';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import { useAuth } from 'q3-ui-permissions';
+import AddNote from './add';
+import DisplayNotes from './display';
+import Note from './note';
 
 const Notes = ({ collectionName, id }) => {
   const {
     post,
+    remove,
+    patch,
     fetching,
     fetchingError,
     thread = [],
@@ -18,26 +23,29 @@ const Notes = ({ collectionName, id }) => {
     runOnInit: true,
   });
 
-  const renderNotes = () => {
-    if (fetching || fetchingError || !thread.length)
-      return <CircularProgress />;
+  const key = 'thread';
+  const auth = useAuth(collectionName);
+  const args = {};
 
-    return thread.map((v) => <p>{v.message}</p>);
-  };
+  if (!auth.canSeeSub(key)) return null;
+  if (auth.canEditSub(key)) args.onUpdate = patch;
+  if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <>
-      {renderNotes()}
-      <Divider />
-      <Form initialValues={{ message: '' }} onSubmit={post}>
-        <Field
-          name="message"
-          type="text"
-          multiline
-          rows={4}
-        />
-      </Form>
-    </>
+    <Box>
+      <DisplayNotes
+        loading={fetching}
+        error={fetchingError}
+      >
+        {thread.map((v) => (
+          <Note key={v.id} {...args} {...v} />
+        ))}
+      </DisplayNotes>
+      <AddNote
+        show={auth.canCreateSub(key)}
+        onSubmit={post}
+      />
+    </Box>
   );
 };
 

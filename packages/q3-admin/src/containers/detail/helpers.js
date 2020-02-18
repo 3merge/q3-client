@@ -17,21 +17,23 @@ export const filterByComparison = (children, state) =>
 export const mapToTile = (a = [], props) =>
   a.map((element, i) => {
     const str = String(element.props.name).toLowerCase();
+    const children = React.cloneElement(element, {
+      props,
+    });
+
+    const tabbed = React.createElement(
+      Tile,
+      {
+        title: str,
+        subtitle: str,
+      },
+      children,
+    );
 
     return {
       label: str,
       to: getPath(i, element.props.name.toLowerCase()),
-      component: () =>
-        React.createElement(
-          Tile,
-          {
-            title: str,
-            subtitle: str,
-          },
-          React.cloneElement(element, {
-            props,
-          }),
-        ),
+      component: () => tabbed,
     };
   });
 

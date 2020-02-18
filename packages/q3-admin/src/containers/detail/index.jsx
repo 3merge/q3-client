@@ -50,12 +50,10 @@ const Detail = ({ filepath, children, notes }) => {
         renderSidebar={() => (
           <Sidebar
             commentTab={
-              notes && authorization.canSeeSub('thread') ? (
-                <Notes
-                  id={id}
-                  collectionName={collectionName}
-                />
-              ) : null
+              <Notes
+                id={id}
+                collectionName={collectionName}
+              />
             }
           >
             <Documentation filepath={filepath} />

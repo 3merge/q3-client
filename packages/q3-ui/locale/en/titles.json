@@ -27,5 +27,6 @@
   "general": "General",
   "needHelp": "Need help?",
   "documentation": "Documentation",
-  "narrowSearch": "Filter"
+  "narrowSearch": "Filter",
+  "help": "Documentation"
 }

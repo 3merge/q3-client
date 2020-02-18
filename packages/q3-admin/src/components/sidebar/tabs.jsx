@@ -6,11 +6,28 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(() => ({
   root: {
     maxHeight: '75vh',
     overflow: 'auto',
+
+    '&::-webkit-scrollbar': {
+      width: '4px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: '#f1f1f1',
+    },
+
+    '&::-webkit-scrollbar-thumb': {
+      background: grey[300],
+      borderRadius: '500px',
+    },
+
+    '&::-webkit-scrollbar-thumb:hover': {
+      background: grey[500],
+    },
   },
   item: {
     minWidth: 'auto',

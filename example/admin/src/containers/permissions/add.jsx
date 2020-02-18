@@ -24,7 +24,7 @@ const AddPermissionForm = (props) => (
       required
       options={[
         {
-          value: 'Head Office Administrator',
+          value: 'Back Office Administrator',
           label: 'administrator',
         },
       ]}

@@ -11,7 +11,7 @@ import Fade from '@material-ui/core/Fade';
 const FlexContainer = ({ children, shade }) => (
   <Box
     p={0.5}
-    px={2}
+    px={4}
     display="flex"
     justifyContent="space-between"
     alignItems="center"
@@ -27,6 +27,8 @@ const FlexContainer = ({ children, shade }) => (
 const UppercaseSpan = ({ children }) => (
   <Box
     component="span"
+    display="flex"
+    alignItems="center"
     style={{
       margin: 0,
       textTransform: 'uppercase',
@@ -97,7 +99,12 @@ export const Persistence = ({ id }) => {
       <div>
         <FlexContainer shade={orange}>
           <UppercaseSpan>
-            <AlertIcon />
+            <AlertIcon
+              style={{
+                fontSize: 14,
+                marginRight: '0.5rem',
+              }}
+            />
             {t('unsavedChangesOn', { id })}
           </UppercaseSpan>
           <IconButton
