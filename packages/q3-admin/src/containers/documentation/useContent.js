@@ -13,8 +13,9 @@ export default (filepath) => {
     }
 
     Promise.resolve(filepath)
-      .then(({ default: r }) =>
-        axios.create({ baseURL: '/' }).get(r),
+      .then(
+        ({ default: r, content: c }) =>
+          c || axios.create({ baseURL: '/' }).get(r),
       )
       .then(({ data }) => {
         setContent(data);

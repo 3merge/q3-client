@@ -6,6 +6,7 @@ import { orange } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
 import AlertIcon from '@material-ui/icons/Warning';
+import Fade from '@material-ui/core/Fade';
 
 const FlexContainer = ({ children, shade }) => (
   <Box
@@ -92,18 +93,22 @@ export const Persistence = ({ id }) => {
   }, []);
 
   return hasUnsavedChanges ? (
-    <FlexContainer shade={orange}>
-      <UppercaseSpan>
-        <AlertIcon />
-        {t('unsavedChangesOn', { id })}
-      </UppercaseSpan>
-      <IconButton
-        aria-label={t('clearChanges')}
-        onClick={clearLocalStorage}
-      >
-        <TrashIcon />
-      </IconButton>
-    </FlexContainer>
+    <Fade in>
+      <div>
+        <FlexContainer shade={orange}>
+          <UppercaseSpan>
+            <AlertIcon />
+            {t('unsavedChangesOn', { id })}
+          </UppercaseSpan>
+          <IconButton
+            aria-label={t('clearChanges')}
+            onClick={clearLocalStorage}
+          >
+            <TrashIcon />
+          </IconButton>
+        </FlexContainer>
+      </div>
+    </Fade>
   ) : null;
 };
 

@@ -1,0 +1,48 @@
+import React from 'react';
+import { get } from 'lodash';
+import Comparision from 'comparisons';
+import Tile from 'q3-ui/lib/tile';
+import { Persistence } from 'q3-ui-forms/lib/builders/persist';
+import { isArray, getPath } from '../../components/utils';
+
+export const filterByComparison = (children, state) =>
+  isArray(children)
+    .flat()
+    .filter((r) =>
+      r && state && r.props.conditional
+        ? new Comparision(r.props.conditional).eval(state)
+        : Boolean(r),
+    );
+
+export const mapToTile = (a = [], props) =>
+  a.map((element, i) => {
+    const str = String(element.props.name).toLowerCase();
+
+    return {
+      label: str,
+      to: getPath(i, element.props.name.toLowerCase()),
+      component: () =>
+        React.createElement(
+          Tile,
+          {
+            title: str,
+            subtitle: str,
+          },
+          React.cloneElement(element, {
+            props,
+          }),
+        ),
+    };
+  });
+
+export const mapToPersistence = (c) =>
+  isArray(c)
+    .flat()
+    .map((el) =>
+      React.createElement(Persistence, {
+        id: get(el, 'props.id'),
+      }),
+    );
+
+export const getCreatedBy = (data) =>
+  get(data, 'createdBy.id', null);

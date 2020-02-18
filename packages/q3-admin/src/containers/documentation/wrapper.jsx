@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import FullScreen from '../../components/fullScreen';
+import Option from '../../components/sidebar/option';
 
 const Wrapper = ({ children }) => {
   const { t } = useTranslation();
@@ -12,17 +11,13 @@ const Wrapper = ({ children }) => {
     <FullScreen
       title="documentation"
       renderTrigger={(open) => (
-        <Box p={2}>
-          <Typography variant="overline" gutterBottom>
-            {t('titles:needHelp')}
-          </Typography>
-          <Typography gutterBottom>
-            {t('labels:needHelp')}
-          </Typography>
-          <Button onClick={open} variant="outlined">
-            {t('labels:docs')}
-          </Button>
-        </Box>
+        <Option
+          icon={AssignmentIcon}
+          title={t('titles:help')}
+          description={t('labels:needHelp')}
+          label={t('labels:read')}
+          onClick={open}
+        />
       )}
     >
       {children}
