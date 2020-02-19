@@ -1,51 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
-import { orange } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
-import AlertIcon from '@material-ui/icons/Warning';
-import Fade from '@material-ui/core/Fade';
+import Notify from '../notify';
 
-const FlexContainer = ({ children, shade }) => (
-  <Box
-    p={0.5}
-    px={4}
-    display="flex"
-    justifyContent="space-between"
-    alignItems="center"
-    style={{
-      backgroundColor: shade[50],
-      color: shade[900],
-    }}
-  >
-    {children}
-  </Box>
-);
+export const SESSION_STORAGE_EVENT = 'storage';
 
-const UppercaseSpan = ({ children }) => (
-  <Box
-    component="span"
-    display="flex"
-    alignItems="center"
-    style={{
-      margin: 0,
-      fontSize: '0.877rem',
-    }}
-  >
-    {children}
-  </Box>
-);
-
-const PersistWatcher = ({ id }) => {
+export const useSessionStorage = (id) => {
   const [
     hasUnsavedChanges,
     setHasUnsavedChanges,
-  ] = React.useState();
+  ] = React.useState(false);
 
-  const { t } = useTranslation('labels');
   const onStorage = (e) => {
     if (e.detail.id === id)
       setHasUnsavedChanges(e.detail.dirty);
@@ -59,36 +26,49 @@ const PersistWatcher = ({ id }) => {
   };
 
   React.useEffect(() => {
-    window.addEventListener('storage', onStorage);
-    return () => {
-      window.removeEventListener('storage', onStorage);
-    };
+    window.addEventListener(
+      SESSION_STORAGE_EVENT,
+      onStorage,
+    );
+    return () =>
+      window.removeEventListener(
+        SESSION_STORAGE_EVENT,
+        onStorage,
+      );
   }, []);
 
-  return hasUnsavedChanges ? (
-    <Fade in>
-      <div>
-        <FlexContainer shade={orange}>
-          <UppercaseSpan>
-            <AlertIcon
-              style={{
-                fontSize: 14,
-                marginRight: '0.5rem',
-              }}
-            />
-            {t('unsavedChangesOn', { id })}
-          </UppercaseSpan>
-          <IconButton
-            id={`${id}-persist`}
-            aria-label={t('clearChanges')}
-            onClick={clearLocalStorage}
-          >
-            <TrashIcon />
-          </IconButton>
-        </FlexContainer>
-      </div>
-    </Fade>
-  ) : null;
+  return [hasUnsavedChanges, clearLocalStorage];
+};
+
+export const PersistWatcher = ({ id }) => {
+  const [
+    hasUnsavedChanges,
+    clearLocalStorage,
+  ] = useSessionStorage(id);
+  const { t } = useTranslation('labels');
+
+  return (
+    <Notify
+      show={hasUnsavedChanges}
+      title={t('unsavedChangesOn', { id })}
+    >
+      <IconButton
+        id={`${id}-persist`}
+        aria-label={t('clearChanges')}
+        onClick={clearLocalStorage}
+        size="small"
+      >
+        <TrashIcon />
+      </IconButton>
+    </Notify>
+  );
+};
+
+PersistWatcher.propTypes = {
+  /**
+   * Form ID to check localStorage.
+   */
+  id: PropTypes.string.isRequired,
 };
 
 export default PersistWatcher;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { orange } from '@material-ui/core/colors';
 import AlertIcon from '@material-ui/icons/Warning';
-import Fade from '@material-ui/core/Fade';
+import Collapse from '@material-ui/core/Collapse';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles((theme) => ({
@@ -84,7 +84,7 @@ UppercaseSpan.propTypes = {
 };
 
 const Notify = ({ show, title, children, shade }) => (
-  <Fade in={show}>
+  <Collapse in={show}>
     <Box>
       <FlexContainer shade={shade}>
         <UppercaseSpan>
@@ -96,7 +96,7 @@ const Notify = ({ show, title, children, shade }) => (
         {children}
       </FlexContainer>
     </Box>
-  </Fade>
+  </Collapse>
 );
 
 Notify.propTypes = {

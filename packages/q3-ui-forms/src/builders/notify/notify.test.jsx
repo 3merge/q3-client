@@ -1,12 +1,12 @@
 import React from 'react';
-import Fade from '@material-ui/core/Fade';
+import Collapse from '@material-ui/core/Collapse';
 import Notify from '.';
 
 describe('Notify', () => {
   it('should render <Fade /> as in=false', () => {
     const el = global
       .shallow(<Notify show={false} title="Sample" />)
-      .find(Fade);
+      .find(Collapse);
     expect(el.props()).toHaveProperty('in', false);
   });
 });
