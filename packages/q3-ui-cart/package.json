@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-cart",
-  "version": "1.9.14",
+  "version": "1.9.16",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.9.7"
+    "q3-ui-test-utils": "^1.9.16"
   },
   "dependencies": {
     "@material-ui/core": "^4.5.1",
