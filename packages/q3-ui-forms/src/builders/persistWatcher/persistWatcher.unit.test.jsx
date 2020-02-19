@@ -1,3 +1,4 @@
+import 'jest-localstorage-mock';
 import React from 'react';
 import { useSessionStorage } from '.';
 
@@ -28,6 +29,7 @@ describe('PersistWatcher', () => {
 
     it('should call state on handler', () => {
       window.addEventListener = jest.fn();
+      sessionStorage['formik-persistence-foo'] = 'bar';
       useSessionStorage(1);
 
       const {
@@ -36,8 +38,10 @@ describe('PersistWatcher', () => {
         },
       } = window.addEventListener;
 
-      fn({ detail: { id: 1, dirty: false } });
-      expect(setState).toHaveBeenCalledWith(false);
+      fn();
+      expect(setState).toHaveBeenCalledWith([
+        'formik-persistence-foo',
+      ]);
     });
   });
 });
