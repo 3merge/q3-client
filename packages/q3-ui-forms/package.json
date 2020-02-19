@@ -3,6 +3,7 @@
   "version": "1.9.12",
   "main": "lib/index.js",
   "devDependencies": {
+    "jest-localstorage-mock": "^2.4.0",
     "q3-ui-test-utils": "^1.9.7"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "axios": "^0.19.0",
     "class-names": "^1.0.0",
     "comparisons": "^2.0.1",
+    "formik-persist": "^1.1.0",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.15",
     "material-ui-chip-input": "^1.1.0",

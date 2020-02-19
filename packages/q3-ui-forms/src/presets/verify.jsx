@@ -54,7 +54,7 @@ const Verify = () => {
       />
       <Field
         name="confirmNewPassword"
-        type="string"
+        type="password"
         validate={confirm}
         required
       />

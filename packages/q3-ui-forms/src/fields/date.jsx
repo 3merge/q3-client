@@ -26,9 +26,6 @@ const DateSelect = (props) => {
       name={name}
       fullWidth
       inputVariant="filled"
-      InputProps={{
-        disableUnderline: true,
-      }}
       value={value || null}
       onChange={intercept(onChange, name)}
       placeholder="yyyy-mm-dd"

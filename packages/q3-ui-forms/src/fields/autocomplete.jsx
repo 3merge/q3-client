@@ -9,6 +9,15 @@ import { intercept } from './date';
 import useDecorator from '../helpers/useDecorator';
 import { isObject } from '../helpers';
 
+export const getDropdownLabel = (value) => (option) => {
+  if (typeof option === 'object') return option.label;
+
+  if (isObject(value) && value.value === option)
+    return value.label;
+
+  return option;
+};
+
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
   const { label, helperText, disableFilter } = useDecorator(
@@ -22,15 +31,6 @@ export const AutoCompleteWrapper = (props) => {
     props,
   );
 
-  const getDropdownLabel = (option) => {
-    if (typeof option === 'object') return option.label;
-
-    if (isObject(value) && value.value === option)
-      return value.label;
-
-    return option;
-  };
-
   const getCustomInput = (params) =>
     React.createElement(TextField, {
       ...params,
@@ -40,10 +40,6 @@ export const AutoCompleteWrapper = (props) => {
       error: Boolean(error),
       variant: 'filled',
       fullWidth: true,
-      InputProps: {
-        disableUnderline: true,
-        ...params.InputProps,
-      },
       inputProps: {
         autoComplete: new Date().toISOString(),
         ...params.inputProps,
@@ -59,7 +55,7 @@ export const AutoCompleteWrapper = (props) => {
       loading={loading}
       defaultValue={isObject(value) ? value.value : value}
       renderInput={getCustomInput}
-      getOptionLabel={getDropdownLabel}
+      getOptionLabel={getDropdownLabel(value)}
       onChange={intercept(field.onChange, name)}
       filterOptions={
         disableFilter

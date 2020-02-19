@@ -14,9 +14,6 @@ const Multitext = (props) => {
         variant="filled"
         onAdd={onArrayPush}
         onDelete={onArrayPull}
-        InputProps={{
-          disableUnderline: true,
-        }}
         fullWidth
       />
       <div style={{ height: 20 }} />

@@ -4,7 +4,7 @@ import Field from '../builders/field';
 import Chips from './chips';
 
 export default {
-  title: 'Forms/Fields/Chips Field',
+  title: 'Q3 Forms|Fields/Chips Field',
   parameters: {
     component: Chips,
     componentSubtitle: 'Multiselect chip-style input',
@@ -28,6 +28,18 @@ export const AsPopulated = () => (
       type="chips"
       name="demo"
       options={['One', 'Two', 'Three', 'Four']}
+    />
+  </Form>
+);
+
+export const AsLabelValuePair = () => (
+  <Form debug initialValues={{ demo: [1] }}>
+    <Field
+      type="chips"
+      name="demo"
+      loadOptions={() =>
+        Promise.resolve([{ value: 1, label: 'One' }])
+      }
     />
   </Form>
 );

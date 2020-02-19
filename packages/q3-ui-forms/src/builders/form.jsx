@@ -3,12 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import Box from '@material-ui/core/Box';
-import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 import { FormikDebug } from './multistep';
 import Back from './back';
 import Next from './next';
+import Persist from './persist';
 import withWrapper from './wrapper';
+import Validate from './validate';
 
 export const FormBuilder = ({
   children,
@@ -20,52 +20,39 @@ export const FormBuilder = ({
   onReset,
   resetLabel,
   submitLabel,
+  id,
   ...rest
-}) => {
-  const { t } = useTranslation();
-  const isAutoSaveEnabled =
-    rest && rest.initialStatus === 'autosave';
-
-  return (
-    <Formik
-      onSubmit={onSubmit}
-      onReset={() => {
-        if (rest.isReady) onReset();
-      }}
-      {...formikProps}
-      {...rest}
-    >
-      {({ resetForm, values }) => (
-        <Form>
-          {children}
-          {!isAutoSaveEnabled && (
-            <Box mt={1}>
-              {enableSubmit && (
-                <Next submit label={submitLabel} />
-              )}
-              {enableReset && (
-                <Back
-                  left
-                  onClick={onReset || resetForm}
-                  label={resetLabel}
-                />
-              )}
-
-              <FormikDebug show={debug} />
-            </Box>
+}) => (
+  <Formik
+    onSubmit={onSubmit}
+    onReset={() => {
+      if (rest.isReady) onReset();
+    }}
+    {...formikProps}
+    {...rest}
+  >
+    {({ resetForm }) => (
+      <Form>
+        {id && <Persist id={id} />}
+        <Validate />
+        {children}
+        <Box mt={1}>
+          {enableSubmit && (
+            <Next submit label={submitLabel} />
           )}
-          {/* values.updatedAt && (
-            <Typography textAlign="right">
-              <small>
-                {t('labels:autosaved')} {values.updatedAt}
-              </small>
-            </Typography>
-          ) */}
-        </Form>
-      )}
-    </Formik>
-  );
-};
+          {enableReset && (
+            <Back
+              left
+              onClick={onReset || resetForm}
+              label={resetLabel}
+            />
+          )}
+          <FormikDebug show={debug} />
+        </Box>
+      </Form>
+    )}
+  </Formik>
+);
 
 FormBuilder.propTypes = {
   /**

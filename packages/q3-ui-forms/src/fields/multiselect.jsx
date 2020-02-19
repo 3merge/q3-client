@@ -43,7 +43,6 @@ const Multiselect = (props) => {
         onChange={onArrayPush}
         input={
           <FilledInput
-            disableUnderline
             endAdornment={
               loading && (
                 <CircularProgress

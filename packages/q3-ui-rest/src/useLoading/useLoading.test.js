@@ -1,3 +1,4 @@
+import 'jest-localstorage-mock';
 import React from 'react';
 import useLoading, {
   handleRequest,
@@ -19,16 +20,6 @@ jest
   .spyOn(React, 'useCallback')
   .mockImplementation((v) => v);
 
-const getItem = jest.spyOn(
-  Object.getPrototypeOf(localStorage),
-  'getItem',
-);
-
-const setItem = jest.spyOn(
-  Object.getPrototypeOf(localStorage),
-  'setItem',
-);
-
 beforeAll(() => {
   window.location.reload = jest.fn();
 });
@@ -43,11 +34,13 @@ describe('useLoading axios hook', () => {
 
     it('should query localStorage API', () => {
       handleRequest(req);
-      expect(getItem).toHaveBeenCalledWith('localhost/foo');
+      expect(localStorage.getItem).toHaveBeenCalledWith(
+        'localhost/foo',
+      );
     });
 
     it('should attach etag headers', () => {
-      getItem.mockReturnValue(
+      localStorage.getItem.mockReturnValue(
         JSON.stringify({
           'Last-Modified': 2,
           ETag: 1,
@@ -72,7 +65,7 @@ describe('useLoading axios hook', () => {
 
     it.skip('should set localStorage', () => {
       handleResponse(res).set();
-      expect(setItem).toHaveBeenCalledWith(
+      expect(localStorage.setItem).toHaveBeenCalledWith(
         '/path',
         JSON.stringify({
           data: { foo: 'bar' },
@@ -140,7 +133,9 @@ describe('useLoading axios hook', () => {
 
   it.skip('should resolve from cache', () => {
     const stub = { stuff: true };
-    getItem.mockReturnValue(JSON.stringify(stub));
+    localStorage.getItem.mockReturnValue(
+      JSON.stringify(stub),
+    );
 
     return expect(
       handleError({
@@ -160,7 +155,7 @@ describe('useLoading axios hook', () => {
       },
     };
 
-    getItem.mockReturnValue(null);
+    localStorage.getItem.mockReturnValue(null);
 
     await expect(
       handleError(stub).refresh(),

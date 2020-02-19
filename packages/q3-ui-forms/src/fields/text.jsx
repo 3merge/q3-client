@@ -41,7 +41,6 @@ const Text = (props) => {
       variant="filled"
       type={type}
       InputProps={{
-        disableUnderline: true,
         ...(readOnly && {
           endAdornment: <Lock />,
         }),

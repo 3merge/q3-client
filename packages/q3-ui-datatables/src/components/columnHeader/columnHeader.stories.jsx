@@ -2,7 +2,7 @@ import React from 'react';
 import Column from '.';
 
 export default {
-  title: 'ColumnHeader',
+  title: 'Q3 Datatables|ColumnHeader',
   parameters: {
     component: Column,
     componentSubtitle:

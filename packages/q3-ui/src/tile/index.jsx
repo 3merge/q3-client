@@ -38,24 +38,20 @@ const Tile = ({
       elevation={0}
       component="section"
       className={tiled}
-      square
     >
       <Box p={2}>
-        <Typography
-          variant="h3"
-          gutterBottom={!hasSubtitle}
-        >
+        <Typography variant="overline" component="h3">
           {t(`titles:${title}`)}
         </Typography>
         {hasSubtitle && (
-          <Typography variant="body1" gutterBottom>
+          <Typography
+            variant="body2"
+            style={{ maxWidth: '68%' }}
+          >
             {t(`descriptions:${subtitle}`)}
           </Typography>
         )}
-        <Box my={2}>
-          <Divider />
-        </Box>
-        {children}
+        <Box my={2}>{children}</Box>
         {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>
     </Paper>

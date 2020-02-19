@@ -106,6 +106,9 @@ const FilterTextField = ({
             <Chip
               label={option}
               disabled={index === 0}
+              size="small"
+              variant="outlined"
+              color="primary"
               {...getTagProps({ index })}
             />
           ))

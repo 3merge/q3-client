@@ -15,20 +15,16 @@
     "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
-    "docs": "storybook-to-ghpages",
-    "snapshot": "build-storybook && percy-storybook --widths=320,1280"
+    "deploy": "yarn build && build-storybook --docs"
   },
   "workspaces": [
-    "packages/*",
-    "example/admin"
+    "packages/*"
   ],
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
     "@babel/preset-env": "^7.5.5",
-    "@mdx-js/loader": "^1.5.5",
-    "@percy/storybook": "^3.2.0",
     "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -47,10 +43,11 @@
     "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-module-resolver": "^0.15.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
+    "jest-localstorage-mock": "^2.4.0",
     "jest-mock-axios": "^3.2.0",
     "lerna": "^3.18.1",
-    "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "yarn-deduplicate": "^1.1.1",
@@ -65,7 +62,6 @@
     "@reach/router": "^1.2.1",
     "@storybook/addon-a11y": "^5.3.8",
     "@storybook/addon-docs": "^5.3.8",
-    "@storybook/addon-info": "^5.3.8",
     "@storybook/addon-viewport": "^5.3.8",
     "@storybook/react": "^5.3.8",
     "@storybook/storybook-deployer": "^2.8.1",
@@ -82,7 +78,6 @@
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
     "react-i18next": "11.3.1",
-    "storybook-readme": "^5.0.8",
     "useful-state": "^1.2.0",
     "with-location": "^1.1.0",
     "yup": "^0.27.0"

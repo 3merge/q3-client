@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Fade from '@material-ui/core/Fade';
 import { useAuth } from 'q3-ui-permissions';
 import * as yup from 'yup';
 import { get } from 'lodash';
 import BuilderState from './builderState';
 import { Validator } from '../helpers/validation';
 
+export const getInitialStatus = (len, value) => {
+  if (len) return value || 'Ready';
+  return 'Initializing';
+};
+
 const Wrapper = (Component) => ({
   collectionName,
   initialValues = {},
+  initialStatus,
   isNew,
   ...etc
 }) => {
@@ -66,19 +73,26 @@ const Wrapper = (Component) => ({
     >
       <BuilderState.Consumer>
         {(inst) => (
-          <Component
-            {...etc}
-            {...inst}
-            isNew={isNew}
-            formikProps={{
-              validateOnBlur: false,
-              validateOnChange: true,
-              enableReinitialize: true,
-              validateOnMount: !isNew,
-              validationSchema: validation,
-              initialValues: len ? initialValues : {},
-            }}
-          />
+          <Fade in={len}>
+            <div>
+              <Component
+                {...etc}
+                {...inst}
+                isNew={isNew}
+                formikProps={{
+                  initialStatus: getInitialStatus(
+                    len,
+                    initialStatus,
+                  ),
+                  validateOnBlur: false,
+                  validateOnChange: true,
+                  enableReinitialize: true,
+                  validationSchema: validation,
+                  initialValues,
+                }}
+              />
+            </div>
+          </Fade>
         )}
       </BuilderState.Consumer>
     </BuilderState.Provider>

@@ -28,7 +28,7 @@ const fixture = (
 });
 
 export default {
-  title: 'Q3 Datatables/Table',
+  title: 'Q3 Datatables|Table',
   parameters: {
     component: TableView,
     componentSubtitle: 'For data-rich UIs and list views',
