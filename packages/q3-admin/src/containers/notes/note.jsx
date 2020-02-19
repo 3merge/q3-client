@@ -1,12 +1,21 @@
 import React from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import { useTranslation } from 'react-i18next';
 import { useToggle } from 'useful-state';
+import { makeStyles } from '@material-ui/core/styles';
+import Authorship from 'q3-ui/lib/authorship';
+
+const useStyles = makeStyles(() => ({
+  blockquote: {
+    textTransform: 'none',
+    '&.Mui-disabled': {
+      color: '#999 !important',
+    },
+  },
+}));
 
 const Note = ({
   onUpdate,
@@ -18,28 +27,21 @@ const Note = ({
 }) => {
   const { t } = useTranslation('labels');
   const { toggle, state } = useToggle(false);
+  const { blockquote } = useStyles();
 
   return !state ? (
     <Box my={1}>
       <Button
         component="blockquote"
-        variant="contained"
         id={id}
         onClick={toggle}
         disabled={!onUpdate}
+        className={blockquote}
       >
         {message}
       </Button>
-      <Box
-        component="cite"
-        display="block"
-        style={{ fontSize: '0.733rem' }}
-      >
-        {author} - {moment(date).format('MMM DD, YYYY')}
-      </Box>
-      <Box pt={1}>
-        <Divider />
-      </Box>
+
+      <Authorship author={author} date={date} />
     </Box>
   ) : (
     <Form
@@ -54,8 +56,8 @@ const Note = ({
       <Field
         type="text"
         multiline
-        rows={5}
         name="message"
+        rows={5}
       />
       <Button type="submit">{t('save')}</Button>
       <Button type="button" onClick={toggle}>

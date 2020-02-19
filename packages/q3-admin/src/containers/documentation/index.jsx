@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useContent from './useContent';
-import Display from './display';
+import Display from '../../components/display';
 import Wrapper from './wrapper';
 
 const Documentation = ({ filepath }) => {
@@ -12,8 +12,16 @@ const Documentation = ({ filepath }) => {
         <Display
           loading={loading}
           error={error}
-          data={content}
-        />
+          errorLabel="documentationError"
+          emptyLabel="documentationEmpty"
+        >
+          <div
+            // eslint-disable-next-line
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
+        </Display>
       )}
     </Wrapper>
   );

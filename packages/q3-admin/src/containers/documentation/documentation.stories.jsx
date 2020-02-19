@@ -19,7 +19,6 @@ export const WithData = () => (
   />
 );
 
-export const AsEmpty = () => <Documentation />;
 export const AsError = () => (
   <Documentation filepath={Promise.reject(new Error())} />
 );
