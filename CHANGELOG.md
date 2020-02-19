@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.14](https://github.com/3merge/q/compare/v1.9.13...v1.9.14) (2020-02-19)
+
+
+### Bug Fixes
+
+* engines incompatible with netlify deployer ([2e92052](https://github.com/3merge/q/commit/2e920529592c37011f976dca3d1a91d1440812f3))
+
+
+
+
+
 ## [1.9.13](https://github.com/3merge/q/compare/v1.9.12...v1.9.13) (2020-02-14)
 
 **Note:** Version bump only for package q3-client
