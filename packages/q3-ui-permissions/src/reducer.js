@@ -1,6 +1,11 @@
 import Axios from 'axios';
 import Cookies from 'js-cookie';
-import { NONCE, TOKEN, INIT } from './utils/constants';
+import {
+  NONCE,
+  TOKEN,
+  INIT,
+  RESET,
+} from './utils/constants';
 
 export const destroySession = () => {
   Cookies.remove(TOKEN);
@@ -38,6 +43,8 @@ export default (state, action) => {
   switch (type) {
     case INIT:
       return { init: true, ...data };
+    case RESET:
+      return { init: false };
     default:
       throw new Error('Unknown reducer');
   }

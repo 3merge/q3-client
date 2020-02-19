@@ -1,3 +1,4 @@
+import React from 'react';
 import minimatch from 'minimatch';
 
 const convertIntoArray = (a) => {
@@ -34,3 +35,6 @@ export const hasField = (grant, name) =>
         }
       })
     : false;
+
+export const invoke = (fn, args) =>
+  typeof fn === 'function' ? fn(args) : null;
