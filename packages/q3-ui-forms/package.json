@@ -3,6 +3,7 @@
   "version": "1.9.12",
   "main": "lib/index.js",
   "devDependencies": {
+    "jest-localstorage-mock": "^2.4.0",
     "q3-ui-test-utils": "^1.9.7"
   },
   "dependencies": {
@@ -35,5 +36,10 @@
     "formik": "^2.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2"
+  },
+  "jest": {
+    "setupFiles": [
+      "./__setups__/localstorage.js"
+    ]
   }
 }
