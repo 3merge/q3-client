@@ -16,7 +16,5 @@ export const WithError = () => (
 );
 
 export const WithChildren = () => (
-  <Display>
-    <p>Success!</p>
-  </Display>
+  <Display>Success</Display>
 );

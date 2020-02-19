@@ -7,13 +7,11 @@ const Display = ({
   loading,
   error,
   errorLabel,
-  emptyLabel,
   children,
 }) => {
   const { t } = useTranslation('labels');
   if (loading) return <CircularProgress />;
   if (error) return t(errorLabel);
-  if (!children) return t(emptyLabel);
   return children;
 };
 

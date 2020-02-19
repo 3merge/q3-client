@@ -26,7 +26,8 @@ const MockThreadEndpoint = ({ children }) => {
       ];
     });
 
-    r.onPatch('/test/1/thread/1').reply(200, {
+    r.onDelete('/storybook/1/thread/1').reply(204);
+    r.onPatch('/storybook/1/thread/1').reply(200, {
       thread,
     });
   };

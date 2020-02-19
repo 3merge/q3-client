@@ -12,8 +12,16 @@ const Documentation = ({ filepath }) => {
         <Display
           loading={loading}
           error={error}
-          data={content}
-        />
+          errorLabel="documentationError"
+          emptyLabel="documentationEmpty"
+        >
+          <div
+            // eslint-disable-next-line
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
+        </Display>
       )}
     </Wrapper>
   );

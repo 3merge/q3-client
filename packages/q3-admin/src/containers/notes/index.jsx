@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import AddNote from './add';
-import DisplayNotes from './display';
+import DisplayNotes from '../../components/display';
 import Note from './note';
 
 export const getAuthor = (v) => {
@@ -42,6 +42,7 @@ const Notes = ({ collectionName, id }) => {
       <DisplayNotes
         loading={fetching}
         error={fetchingError}
+        errorLabel={t('notesError')}
       >
         {thread.map((v) => (
           <Note
