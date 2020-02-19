@@ -125,11 +125,17 @@ Detail.propTypes = {
    * Will auto-append trash tab.
    */
   trash: PropTypes.bool,
+
+  /**
+   * Will auto-append history tab.
+   */
+  history: PropTypes.bool,
 };
 
 Detail.defaultProps = {
   notes: false,
   trash: false,
+  history: false,
 };
 
 export default Detail;

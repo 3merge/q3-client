@@ -10,14 +10,13 @@ import reducer, {
   getSession,
   setSession,
 } from './reducer';
+import { RESET } from './utils/constants';
+import { invoke } from './utils/helpers';
 
 export const AuthContext = React.createContext();
 export const useAuth = composeUseAuth(AuthContext);
 export const Protected = asProtectedRoute(AuthContext);
 export { destroySession, setSession };
-
-const invoke = (fn, args) =>
-  typeof fn === 'function' ? fn(args) : null;
 
 export const isLoggedIn = () => {
   const a = React.useContext(AuthContext);
@@ -41,6 +40,11 @@ export const Provider = ({
       : invoke(renderPublic);
   };
 
+  const refresh = () => {
+    dispatch({ type: RESET });
+    getSession(dispatch);
+  };
+
   React.useEffect(() => {
     Axios.interceptors.request.use((config) => {
       const cls = new AuthenticationHeaders(config);
@@ -52,7 +56,13 @@ export const Provider = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider
+      value={{
+        state,
+        dispatch,
+        refresh,
+      }}
+    >
       {invokeRendererFns()}
       {children}
     </AuthContext.Provider>
@@ -60,8 +70,20 @@ export const Provider = ({
 };
 
 Provider.propTypes = {
+  /**
+   * Render-blocking public components.
+   */
+
   renderPublic: PropTypes.func.isRequired,
+  /**
+   * Render-blocking private (session-required) components.
+   * This component renderer recieves the profile state as props.
+   */
   renderPrivate: PropTypes.func.isRequired,
+
+  /**
+   * Will render regardless of authentication state.
+   */
   children: PropTypes.node,
 };
 
