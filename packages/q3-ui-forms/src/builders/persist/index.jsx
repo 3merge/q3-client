@@ -4,10 +4,11 @@ import { useFormikContext } from 'formik';
 import dispatch from '../persistWatcher/dispatch';
 
 const Persist = ({ id }) => {
+  const storageID = `formik-persistence-${id}`;
   const f = useFormikContext();
 
   React.useEffect(() => {
-    const restore = sessionStorage.getItem(id);
+    const restore = sessionStorage.getItem(storageID);
 
     if (restore && f.status === 'Initializing') {
       f.setValues(JSON.parse(restore));
@@ -15,14 +16,17 @@ const Persist = ({ id }) => {
     }
 
     if (f.dirty) {
-      sessionStorage.setItem(id, JSON.stringify(f.values));
+      sessionStorage.setItem(
+        storageID,
+        JSON.stringify(f.values),
+      );
     } else {
-      sessionStorage.removeItem(id);
+      sessionStorage.removeItem(storageID);
     }
 
     dispatch({
       dirty: f.dirty,
-      id,
+      id: storageID,
     });
   }, [f.values, f.dirty]);
 

@@ -33,7 +33,7 @@ const RestOpDetail = ({ children, resourceName, fixt }) => {
 
 const First = ({ state: { patch, foo } }) => (
   <Form
-    id="first"
+    id="first-123"
     onSubmit={patch()}
     initialValues={pick(foo, ['name'])}
   >
@@ -43,7 +43,7 @@ const First = ({ state: { patch, foo } }) => (
 
 const Second = ({ state: { patch, foo } }) => (
   <Form
-    id="second"
+    id="second-123"
     onSubmit={patch()}
     initialValues={pick(foo, ['age'])}
   >
@@ -59,8 +59,8 @@ const DetailInstance = () => (
     filepath={{ content: { data: fixture } }}
     persistenceIds={['first', 'second']}
   >
-    <First id="first" name="first" />
-    <Second id="second" name="second" />
+    <First name="first" />
+    <Second name="second" />
   </Detail>
 );
 
@@ -68,7 +68,7 @@ export const WithDefaults = () => (
   <LocationProvider initialPath="/foos/1">
     <RestOpDetail
       resourceName="foo"
-      fixt={{ age: 1, name: '' }}
+      fixt={{ id: '123', age: 1, name: '' }}
     >
       {(ops) => (
         <State.Provider

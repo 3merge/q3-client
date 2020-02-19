@@ -7,21 +7,30 @@ import Notify from '../notify';
 
 export const SESSION_STORAGE_EVENT = 'storage';
 
-export const useSessionStorage = (id) => {
+export const useSessionStorage = () => {
   const [
-    hasUnsavedChanges,
-    setHasUnsavedChanges,
-  ] = React.useState(false);
+    unsavedChanges,
+    setUnsavedChanges,
+  ] = React.useState([]);
 
-  const onStorage = (e) => {
-    if (e.detail.id === id)
-      setHasUnsavedChanges(e.detail.dirty);
+  const onStorage = () => {
+    const persistentForms = Object.keys(
+      sessionStorage,
+    ).reduce(
+      (curr, key) =>
+        key.startsWith('formik-persistence-')
+          ? curr.concat(key)
+          : curr,
+      [],
+    );
+
+    setUnsavedChanges(persistentForms);
   };
 
-  const clearLocalStorage = () => {
+  const clearLocalStorage = (id) => {
     if (typeof window !== 'undefined') {
       sessionStorage.removeItem(id);
-      setHasUnsavedChanges(false);
+      onStorage();
     }
   };
 
@@ -30,6 +39,7 @@ export const useSessionStorage = (id) => {
       SESSION_STORAGE_EVENT,
       onStorage,
     );
+
     return () =>
       window.removeEventListener(
         SESSION_STORAGE_EVENT,
@@ -37,31 +47,36 @@ export const useSessionStorage = (id) => {
       );
   }, []);
 
-  return [hasUnsavedChanges, clearLocalStorage];
+  return [unsavedChanges, clearLocalStorage];
 };
 
-export const PersistWatcher = ({ id }) => {
+export const PersistWatcher = ({ filterById }) => {
   const [
     hasUnsavedChanges,
     clearLocalStorage,
-  ] = useSessionStorage(id);
+  ] = useSessionStorage();
   const { t } = useTranslation('labels');
 
-  return (
-    <Notify
-      show={hasUnsavedChanges}
-      title={t('unsavedChangesOn', { id })}
-    >
-      <IconButton
-        id={`${id}-persist`}
-        aria-label={t('clearChanges')}
-        onClick={clearLocalStorage}
-        size="small"
+  return hasUnsavedChanges
+    .filter((v) =>
+      filterById ? v.includes(filterById) : true,
+    )
+    .map((id) => (
+      <Notify
+        show={hasUnsavedChanges}
+        title={t('unsavedChangesOn', {
+          id: id.replace('formik-persistence-', '#'),
+        })}
       >
-        <TrashIcon />
-      </IconButton>
-    </Notify>
-  );
+        <IconButton
+          aria-label={t('clearChanges')}
+          onClick={() => clearLocalStorage(id)}
+          size="small"
+        >
+          <TrashIcon />
+        </IconButton>
+      </Notify>
+    ));
 };
 
 PersistWatcher.propTypes = {

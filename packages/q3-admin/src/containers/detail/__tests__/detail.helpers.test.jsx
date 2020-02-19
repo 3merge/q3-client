@@ -1,8 +1,4 @@
-import {
-  filterByComparison,
-  mapToTile,
-  mapToPersistence,
-} from '../helpers';
+import { filterByComparison, mapToTile } from '../helpers';
 
 describe('Detail container', () => {
   describe('"filterByComparison"', () => {
@@ -24,21 +20,6 @@ describe('Detail container', () => {
         label: 'test',
         component: expect.any(Function),
       });
-    });
-  });
-
-  describe('"mapToPersistence"', () => {
-    it('should flatten and assign id', () => {
-      const a = [
-        { props: { id: '1' } },
-        [{ props: { id: '2' } }],
-      ];
-      const arr = mapToPersistence(a);
-      expect(arr).toHaveLength(2);
-      expect(arr[0].type).toHaveProperty(
-        'name',
-        'PersistWatcher',
-      );
     });
   });
 });
