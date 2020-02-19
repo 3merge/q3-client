@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
 import Tabs from 'q3-ui/lib/tabs';
+import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
 import Context from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
@@ -14,7 +15,6 @@ import {
   getCreatedBy,
   filterByComparison,
   mapToTile,
-  mapToPersistence,
 } from './helpers';
 import { getAuthor } from '../notes';
 
@@ -65,7 +65,7 @@ const Detail = ({
 
   return (
     <>
-      {mapToPersistence(children)}
+      <PersistWatcher filterById={get(data, 'id', null)} />
       <Section
         loading={state.fetching}
         renderSidebar={() => (

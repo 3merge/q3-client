@@ -17,7 +17,10 @@ export const InSessionStorage = () => {
 
   const setSession = () => {
     if (typeof window !== 'undefined') {
-      sessionStorage.setItem(id, '{{foo:bar}}');
+      sessionStorage.setItem(
+        `formik-persistence-${id}`,
+        '{{foo:bar}}',
+      );
       dispatch({ id, dirty: true });
     }
   };
