@@ -3,7 +3,7 @@ import { Form, Field } from '../builders';
 import Transfer, { Toggle } from './transfer';
 
 export default {
-  title: 'Forms/Fields/Transfer',
+  title: 'Q3 Forms|Fields/Transfer',
   paramters: {
     component: Transfer,
     componentSubtitle:

@@ -11,7 +11,7 @@ import { LocationDebugger } from '../../components/debugger';
 import Page from '.';
 
 export default {
-  title: 'Q3 Admin/Containers/Page',
+  title: 'Q3 Admin|Containers/Page',
   parameters: {
     component: Page,
     componentSubtitle:

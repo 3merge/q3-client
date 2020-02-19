@@ -6,7 +6,7 @@ import State from '../state';
 import Table from '.';
 
 export default {
-  title: 'Q3 Admin/Containers/Table',
+  title: 'Q3 Admin|Containers/Table',
   parameters: {
     component: Table,
     componentSubtitle:

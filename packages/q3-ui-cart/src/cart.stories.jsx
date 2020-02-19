@@ -36,7 +36,7 @@ const refreshOrder = () =>
   });
 
 export default {
-  title: 'Q3 Cart/Cart',
+  title: 'Q3 Cart|Cart',
 };
 
 export const Empty = () => (

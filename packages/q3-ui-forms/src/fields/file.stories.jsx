@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Form from '../builders/form';
 import Field from '../builders/field';
 
-storiesOf('Forms|Fields/File', module).add(
+storiesOf('Q3 Forms|Fields/File', module).add(
   'Default',
   () => (
     <MockApi>

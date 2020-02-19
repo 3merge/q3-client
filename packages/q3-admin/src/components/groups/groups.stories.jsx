@@ -2,7 +2,7 @@ import React from 'react';
 import { Groups } from '.';
 
 export default {
-  title: 'Q3 Admin/Components/Groups',
+  title: 'Q3 Admin|Components/Groups',
   parameters: {
     component: Groups,
     componentSubtitle:

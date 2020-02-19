@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import List, { ActionBar, ListItem } from '.';
 
 export default {
-  title: 'Components/List',
+  title: 'Q3 UI|Components/List',
   parameters: {
     component: List,
     componentSubtitle:

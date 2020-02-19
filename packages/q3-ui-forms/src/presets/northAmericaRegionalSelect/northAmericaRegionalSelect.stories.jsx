@@ -4,7 +4,7 @@ import NorthAmericaRegionalSelect from '.';
 
 export default {
   title:
-    'Forms/Presets/North American regional select list',
+    'Q3 Forms|Presets/North American regional select list',
   parameters: {
     component: NorthAmericaRegionalSelect,
     componentSubtitle:

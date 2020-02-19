@@ -4,7 +4,7 @@ import Field from '../builders/field';
 import Chips from './chips';
 
 export default {
-  title: 'Forms/Fields/Chips Field',
+  title: 'Q3 Forms|Fields/Chips Field',
   parameters: {
     component: Chips,
     componentSubtitle: 'Multiselect chip-style input',

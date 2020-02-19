@@ -6,7 +6,7 @@ import Form from '../builders/form';
 import Field from '../builders/field';
 
 export default {
-  title: 'Forms/Fields/Text',
+  title: 'Q3 Forms|Fields/Text',
   parameters: {
     component: Field,
     componentSubtitle:

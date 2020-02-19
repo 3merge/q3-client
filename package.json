@@ -15,7 +15,7 @@
     "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
-    "docs": "storybook-to-ghpages --docs"
+    "deploy": "yarn build && build-storybook --docs"
   },
   "workspaces": [
     "packages/*"

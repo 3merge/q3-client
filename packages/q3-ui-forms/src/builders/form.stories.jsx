@@ -23,7 +23,7 @@ const onReset = () => {
 };
 
 export default {
-  title: 'Forms/Builders/Form',
+  title: 'Q3 Forms|Builders/Form',
   parameters: {
     component: FormBuilder,
     componentSubtitle:

@@ -7,7 +7,7 @@ import Menu from '.';
 import Main from '../main';
 
 export default {
-  title: 'Q3 Admin/Components/Menu',
+  title: 'Q3 Admin|Components/Menu',
   parameters: {
     component: Menu,
     componentSubtitle:

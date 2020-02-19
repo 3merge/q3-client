@@ -4,7 +4,7 @@ import { AuthContext } from 'q3-ui-permissions';
 import Notes from '.';
 
 export default {
-  title: 'Q3 Admin/Containers/Notes',
+  title: 'Q3 Admin|Containers/Notes',
   parameters: {
     component: Notes,
     componentSubtitle: 'Commenting threading feature',

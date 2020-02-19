@@ -22,7 +22,7 @@ const opts = [
 ];
 
 export default {
-  title: 'Forms/Fields/Autocomplete',
+  title: 'Q3 Forms|Fields/Autocomplete',
   parameters: {
     component: Autocomplete,
     componentSubtitle:

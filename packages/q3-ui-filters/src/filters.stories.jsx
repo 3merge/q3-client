@@ -14,7 +14,7 @@ import {
 } from './components';
 
 export default {
-  title: 'Q3 Filters/Form',
+  title: 'Q3 Filters|Form',
   parameters: {
     component: Filter,
     componentSubtitle:

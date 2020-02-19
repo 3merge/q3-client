@@ -4,7 +4,7 @@ import Field from '../builders/field';
 import Checkset from './checkset';
 
 export default {
-  title: 'Forms/Fields/Checkset',
+  title: 'Q3 Forms|Fields/Checkset',
   parameters: {
     component: Checkset,
     componentSubtitle: 'Bank of checkboxes',
