@@ -1,5 +1,6 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import PropTypes from 'prop-types';
+
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import { orange } from '@material-ui/core/colors';
@@ -31,7 +32,6 @@ const UppercaseSpan = ({ children }) => (
     alignItems="center"
     style={{
       margin: 0,
-      textTransform: 'uppercase',
       fontSize: '0.877rem',
     }}
   >
@@ -39,36 +39,7 @@ const UppercaseSpan = ({ children }) => (
   </Box>
 );
 
-const Persist = ({ id }) => {
-  const f = useFormikContext();
-
-  React.useEffect(() => {
-    const restore = sessionStorage.getItem(id);
-    const event = new CustomEvent('storage', {
-      detail: {
-        dirty: f.dirty,
-        id,
-      },
-    });
-
-    if (restore && f.status === 'Initializing') {
-      f.setValues(JSON.parse(restore));
-      return;
-    }
-
-    if (f.dirty) {
-      sessionStorage.setItem(id, JSON.stringify(f.values));
-    } else {
-      sessionStorage.removeItem(id);
-    }
-
-    window.dispatchEvent(event);
-  }, [f.values, f.dirty]);
-
-  return null;
-};
-
-export const Persistence = ({ id }) => {
+const PersistWatcher = ({ id }) => {
   const [
     hasUnsavedChanges,
     setHasUnsavedChanges,
@@ -120,4 +91,4 @@ export const Persistence = ({ id }) => {
   ) : null;
 };
 
-export default Persist;
+export default PersistWatcher;
