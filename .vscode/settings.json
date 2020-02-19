@@ -11,5 +11,7 @@
     "**/.jest-coverage": true,
     "**/node_modules/": true,
     "**/lib/": true,
+    "**/coverage/": true,
+    "**/storybook-static/": true
   }
 }

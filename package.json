@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "engines": {
-    "yarn": "^1.17.3",
-    "node": "^12.9.0"
-  },
   "scripts": {
     "postinstall": "yarnw-sync-deps && yarn-deduplicate",
     "bootstrap": "lerna bootstrap --use-workspaces",
