@@ -34,6 +34,8 @@ export const Provider = ({
     permissions: [],
   });
 
+  const refresh = () => getSession(dispatch);
+
   const invokeRendererFns = () => {
     if (!state || !state.init) return null;
     return state.profile
@@ -48,11 +50,13 @@ export const Provider = ({
       return cls.config;
     });
 
-    getSession(dispatch);
+    refresh();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider
+      value={{ state, dispatch, refresh }}
+    >
       {invokeRendererFns()}
       {children}
     </AuthContext.Provider>
