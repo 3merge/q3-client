@@ -108,6 +108,7 @@ export const Persistence = ({ id }) => {
             {t('unsavedChangesOn', { id })}
           </UppercaseSpan>
           <IconButton
+            id={`${id}-persist`}
             aria-label={t('clearChanges')}
             onClick={clearLocalStorage}
           >

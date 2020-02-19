@@ -1,1 +1,0 @@
-# Example Q3 Setup with Public and BackOffice apps

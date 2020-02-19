@@ -44,8 +44,12 @@ const Note = ({
   ) : (
     <Form
       enableSubmit={false}
-      onSubmit={onUpdate(id)}
       initialValues={{ message }}
+      onSubmit={(...args) =>
+        onUpdate(id)(...args).then(() => {
+          toggle();
+        })
+      }
     >
       <Field
         type="text"

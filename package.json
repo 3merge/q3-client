@@ -15,8 +15,7 @@
     "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
-    "docs": "storybook-to-ghpages",
-    "snapshot": "build-storybook && percy-storybook --widths=320,1280"
+    "docs": "storybook-to-ghpages"
   },
   "workspaces": [
     "packages/*",
@@ -33,6 +32,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "babel-plugin-module-resolver": "^3.2.0",
+    "cypress": "^4.0.2",
     "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",

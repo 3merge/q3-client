@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import React from 'react';
 import Upload from 'q3-ui/lib/upload';
 import List from 'q3-ui/lib/list';

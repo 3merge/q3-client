@@ -2,11 +2,16 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import AddNote from './add';
 import DisplayNotes from './display';
 import Note from './note';
+
+export const getAuthor = (v) => {
+  if (!v || !v.createdBy) return null;
+  return `${v.createdBy.firstName} ${v.createdBy.lastName}`;
+};
 
 const Notes = ({ collectionName, id }) => {
   const {
@@ -25,9 +30,10 @@ const Notes = ({ collectionName, id }) => {
 
   const key = 'thread';
   const auth = useAuth(collectionName);
+  const { t } = useTranslation('labels');
   const args = {};
 
-  if (!auth.canSeeSub(key)) return null;
+  if (!auth.canSeeSub(key)) return t('commentsDisabled');
   if (auth.canEditSub(key)) args.onUpdate = patch;
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
@@ -38,7 +44,12 @@ const Notes = ({ collectionName, id }) => {
         error={fetchingError}
       >
         {thread.map((v) => (
-          <Note key={v.id} {...args} {...v} />
+          <Note
+            key={v.id}
+            author={getAuthor(v)}
+            {...args}
+            {...v}
+          />
         ))}
       </DisplayNotes>
       <AddNote

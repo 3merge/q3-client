@@ -18,7 +18,7 @@ const Sidebar = ({
   const { t } = useTranslation();
 
   return (
-    <Grid item lg={4} md={5} xs={12}>
+    <Grid item lg={4} md={5} sm={6} xs={12}>
       <SidebarTabs {...rest}>
         <Option
           title={t('labels:creator')}

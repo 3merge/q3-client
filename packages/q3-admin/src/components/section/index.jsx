@@ -10,8 +10,10 @@ export const getSectionSize = (fn) =>
     ? {
         lg: 8,
         md: 7,
+        sm: 6,
       }
     : {
+        sm: 6,
         xs: 12,
       };
 
