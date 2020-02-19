@@ -37,7 +37,6 @@ const First = ({ state: { patch, foo } }) => (
     onSubmit={patch()}
     initialValues={pick(foo, ['name'])}
   >
-    {console.log(foo)}
     <Field name="name" type="text" />
   </Form>
 );
@@ -89,5 +88,3 @@ export const WithDefaults = () => (
     </RestOpDetail>
   </LocationProvider>
 );
-
-console.log(WithDefaults.stories);

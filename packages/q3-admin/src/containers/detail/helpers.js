@@ -2,7 +2,7 @@ import React from 'react';
 import { get } from 'lodash';
 import Comparision from 'comparisons';
 import Tile from 'q3-ui/lib/tile';
-import { Persistence } from 'q3-ui-forms/lib/builders/persist';
+import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
 import { isArray, getPath } from '../../components/utils';
 
 export const filterByComparison = (children, state) =>
@@ -39,7 +39,7 @@ export const mapToPersistence = (c) =>
   isArray(c)
     .flat()
     .map((el) =>
-      React.createElement(Persistence, {
+      React.createElement(PersistWatcher, {
         id: get(el, 'props.id'),
       }),
     );

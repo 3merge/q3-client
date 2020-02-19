@@ -2,10 +2,11 @@ import React from 'react';
 import Tile from 'q3-ui/lib/tile';
 import { Router, Link } from '@reach/router';
 import MockLocation from 'q3-ui-test-utils/lib/location';
-import Grid from '@material-ui/core/Grid';
 import Field from './field';
 import Form, { FormBuilder } from './form';
-import { Persistence } from './persist';
+import PersistWatcher from './persistWatcher';
+
+const FORM_ID = 'persistence-demo-form';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
@@ -39,7 +40,7 @@ const PersistantForm = (props) => {
       <Form
         debug
         isNew
-        id="persist"
+        id={FORM_ID}
         onReset={onReset}
         {...props}
       >
@@ -63,29 +64,23 @@ export const DefaultForm = () => {
     });
 
   return (
-    <Grid container>
-      <Grid item xs={8}>
-        <MockLocation initialPath="/">
-          <Link to="/">To form</Link>
-          <Link to="/off">To else</Link>
-          <Router>
-            <PersistantForm
-              path="/"
-              onSubmit={handleSubmit}
-              initialValues={initialValues}
-            />
-            <OffPage path="off" />
-          </Router>
-        </MockLocation>
-      </Grid>
-      <Grid item xs={4}>
-        <Persistence id="persist" />
-      </Grid>
-    </Grid>
+    <MockLocation initialPath="/">
+      <PersistWatcher id={FORM_ID} />
+      <Link to="/">To form</Link>
+      <Link to="/off">To else</Link>
+      <Router>
+        <PersistantForm
+          path="/"
+          onSubmit={handleSubmit}
+          initialValues={initialValues}
+        />
+        <OffPage path="off" />
+      </Router>
+    </MockLocation>
   );
 };
 
-export const DelayedFormValues = () => {
+export const WithDelay = () => {
   const [name, setName] = React.useState('');
   const [lang, setLang] = React.useState('');
 
@@ -168,28 +163,6 @@ export const WithoutDefaultButtons = () => (
       favouriteColors: '',
     }}
   >
-    <Field
-      name="favouriteColors"
-      type="checkset"
-      options={[
-        { value: 'red', label: 'Red' },
-        { value: 'green', label: 'Green' },
-        { value: 'blue', label: 'Blue' },
-      ]}
-    />
-  </Form>
-);
-
-export const WithAutosave = () => (
-  <Form
-    initialStatus="autosave"
-    onSubmit={onSubmit}
-    onReset={onReset}
-    initialValues={{
-      email: '',
-    }}
-  >
-    <Field name="email" type="email" required />
     <Field
       name="favouriteColors"
       type="checkset"

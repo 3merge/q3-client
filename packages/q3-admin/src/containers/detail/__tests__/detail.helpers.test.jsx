@@ -37,7 +37,7 @@ describe('Detail container', () => {
       expect(arr).toHaveLength(2);
       expect(arr[0].type).toHaveProperty(
         'name',
-        'Persistence',
+        'PersistWatcher',
       );
     });
   });

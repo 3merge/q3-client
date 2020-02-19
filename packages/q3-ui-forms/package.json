@@ -36,10 +36,5 @@
     "formik": "^2.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2"
-  },
-  "jest": {
-    "setupFiles": [
-      "./__setups__/localstorage.js"
-    ]
   }
 }
