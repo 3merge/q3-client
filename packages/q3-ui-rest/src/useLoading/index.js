@@ -41,13 +41,7 @@ export const handleRequest = (request) => {
 };
 
 export const handleResponse = (d) => {
-  const {
-    headers,
-    method,
-    status,
-    data,
-    url,
-  } = extractResponseMeta(d);
+  const { method, status, data } = extractResponseMeta(d);
 
   const startsWith = (num) =>
     String(status).startsWith(String(num));
@@ -68,34 +62,19 @@ export const handleResponse = (d) => {
 
     set() {
       return this;
-      /*
-      localStorage.setItem(
-        url,
-        JSON.stringify({
-          data,
-          ...headers,
-        }),
-      );
-
-      return this; */
     },
   };
 };
 
 export const handleError = (e) => {
-  const { data, status, url, method } = extractResponseMeta(
-    e,
-  );
-  // const cache = queryStorage(url);
+  const { data, status } = extractResponseMeta(e);
 
   return {
     notify(noti) {
-      if (data && data.message && status !== 412) {
-        noti.onFail(data.message);
-      } else if (status === 412) {
+      if (status === 412) {
         noti.onFail('Race condition detected (412)');
-      } else if (status === 404) {
-        noti.onFail('Operation not yet configured (404)');
+      } else if (data && data.message && status !== 404) {
+        noti.onFail(data.message);
       }
 
       return this;
@@ -103,12 +82,6 @@ export const handleError = (e) => {
 
     refresh() {
       return Promise.reject(e);
-      /*  if ((status === 304 && !cache) || status === 412)
-        setTimeout(() => window.location.reload(), 500);
-
-      return cache && method === 'get'
-        ? Promise.resolve(cache)
-        : Promise.reject(e); */
     },
   };
 };

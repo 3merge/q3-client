@@ -23,8 +23,9 @@ const CartProvider = ({
   const [state, setState] = React.useState(contextDefaults);
   const auth = React.useContext(AuthContext);
 
-  const processPromise = (p) =>
-    p
+  const processPromise = (p) => {
+    setLoading(true);
+    return p
       .then((response) => {
         setState(response);
         return response;
@@ -35,16 +36,14 @@ const CartProvider = ({
       .finally(() => {
         setLoading(false);
       });
+  };
 
-  const re = (service) => (...args) => {
-    setLoading(true);
-
-    return processPromise(
+  const re = (service) => (...args) =>
+    processPromise(
       service(...args).then(() => {
         return pollOrder();
       }),
     );
-  };
 
   React.useEffect(() => {
     if (auth && auth.state && auth.state.init)
