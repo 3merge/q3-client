@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.19](https://github.com/3merge/q/compare/v1.9.18...v1.9.19) (2020-02-20)
+
+
+### Bug Fixes
+
+* cart polling ([6e9c393](https://github.com/3merge/q/commit/6e9c39314efed18dad2535de043b9775412e5716))
+
+
+
+
+
 ## [1.9.18](https://github.com/3merge/q/compare/v1.9.17...v1.9.18) (2020-02-20)
 
 **Note:** Version bump only for package q3-ui-cart

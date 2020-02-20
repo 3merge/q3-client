@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-cart",
-  "version": "1.9.18",
+  "version": "1.9.19",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.9.16"
