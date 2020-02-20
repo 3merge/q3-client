@@ -110,4 +110,18 @@ describe('Form helpers', () => {
         ),
       ).toBeFalsy());
   });
+
+  describe('"isReady"', () => {
+    it('should return truthy', () => {
+      expect(
+        helpers.isReady({ status: 'Ready' }),
+      ).toBeTruthy();
+    });
+
+    it('should return falsy', () => {
+      expect(
+        helpers.isReady({ status: 'Initializing' }),
+      ).toBeFalsy();
+    });
+  });
 });

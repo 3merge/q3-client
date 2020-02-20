@@ -45,3 +45,6 @@ export const getFieldNames = (c, fieldName) =>
     },
     [],
   );
+
+export const isReady = (formikInst) =>
+  formikInst && formikInst.status === 'Ready';

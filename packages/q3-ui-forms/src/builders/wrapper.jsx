@@ -15,6 +15,7 @@ export const getInitialStatus = (len, value) => {
 const Wrapper = (Component) => ({
   collectionName,
   initialValues = {},
+  validateOnMount = true,
   initialStatus,
   isNew,
   ...etc
@@ -65,6 +66,7 @@ const Wrapper = (Component) => ({
           disable: getSubmitBehaviour(),
         },
         validation: {
+          run: validateOnMount,
           isReady: len !== null,
           chain: yup.object().shape(chain),
           setField,

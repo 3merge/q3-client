@@ -1,15 +1,20 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
+import { isReady } from '../../helpers';
+import BuilderState from '../builderState';
 
 const Validate = () => {
-  const f = useFormikContext();
   const [
     deferredValidationOnMount,
     setDeferredValidationOnMount,
   ] = React.useState(false);
+  const f = useFormikContext();
+  const {
+    validation: { run },
+  } = React.useContext(BuilderState);
 
   React.useEffect(() => {
-    if (!deferredValidationOnMount && f.status === 'Ready')
+    if (!deferredValidationOnMount && isReady(f) && run)
       f.validateForm().then(() => {
         setDeferredValidationOnMount(true);
         f.setStatus('Validated');
