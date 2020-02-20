@@ -45,9 +45,10 @@ const CartProvider = ({
       }),
     );
 
+  const poll = () => processPromise(pollOrder());
+
   React.useEffect(() => {
-    if (auth && auth.state && auth.state.init)
-      processPromise(pollOrder());
+    if (auth && auth.state && auth.state.init) poll();
   }, [auth]);
 
   return (
@@ -58,6 +59,7 @@ const CartProvider = ({
         add: re(addItemToOrder),
         remove: re(removeItemInOrder),
         update: re(updateItemInOrder),
+        poll,
       }}
     >
       {children}
