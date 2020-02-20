@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AuthContext } from 'q3-ui-permissions';
 
 const contextDefaults = {
   items: [],
@@ -20,6 +21,7 @@ const CartProvider = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [state, setState] = React.useState(contextDefaults);
+  const auth = React.useContext(AuthContext);
 
   const processPromise = (p) =>
     p
@@ -45,8 +47,9 @@ const CartProvider = ({
   };
 
   React.useEffect(() => {
-    processPromise(pollOrder());
-  }, []);
+    if (auth && auth.state && auth.state.init)
+      processPromise(pollOrder());
+  }, [auth]);
 
   return (
     <CartContext.Provider

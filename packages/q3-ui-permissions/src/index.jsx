@@ -13,7 +13,10 @@ import reducer, {
 import { RESET } from './utils/constants';
 import { invoke } from './utils/helpers';
 
-export const AuthContext = React.createContext();
+export const AuthContext = React.createContext({
+  state: { init: false },
+});
+
 export const useAuth = composeUseAuth(AuthContext);
 export const Protected = asProtectedRoute(AuthContext);
 export { destroySession, setSession };

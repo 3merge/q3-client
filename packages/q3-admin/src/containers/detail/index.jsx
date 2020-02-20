@@ -67,7 +67,7 @@ const Detail = ({
     <>
       <PersistWatcher filterById={get(data, 'id', null)} />
       <Section
-        loading={state.fetching}
+        fetching={state.fetching}
         renderSidebar={() => (
           <Sidebar
             createdBy={getAuthor(data)}
