@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.17](https://github.com/3merge/q/compare/v1.9.16...v1.9.17) (2020-02-20)
+
+
+### Bug Fixes
+
+* auth as dep in cart effect ([#108](https://github.com/3merge/q/issues/108)) ([de55721](https://github.com/3merge/q/commit/de557212bd89d67d97d66041e983de9b748ea33c))
+
+
+
+
+
 ## [1.9.16](https://github.com/3merge/q/compare/v1.9.15...v1.9.16) (2020-02-19)
 
 **Note:** Version bump only for package q3-ui-permissions
