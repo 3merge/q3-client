@@ -74,7 +74,11 @@ PersistWatcher.propTypes = {
   /**
    * Form ID to check localStorage.
    */
-  id: PropTypes.string.isRequired,
+  filterById: PropTypes.string,
+};
+
+PersistWatcher.defaultProps = {
+  filterById: null,
 };
 
 export default PersistWatcher;

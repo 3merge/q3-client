@@ -90,7 +90,10 @@ Next.propTypes = {
   /**
    * Disable click handler
    */
-  disabled: PropTypes.bool,
+  disabled: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.number,
+  ]),
 };
 
 Next.defaultProps = {

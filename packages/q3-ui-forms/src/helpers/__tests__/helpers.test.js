@@ -75,15 +75,15 @@ describe('Form helpers', () => {
       const target = 'foo';
       const input = [
         {
-          type: { name: target },
+          type: { displayName: target },
           props: { children: [], name: 'fieldA' },
         },
         {
-          type: { name: target },
+          type: { displayName: target },
           props: { children: [], name: 'fieldB' },
         },
         {
-          type: { name: '' },
+          type: { displayName: '' },
           props: { children: [], name: 'fieldC' },
         },
       ];

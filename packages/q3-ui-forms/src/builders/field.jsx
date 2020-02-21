@@ -42,14 +42,18 @@ const Field = ({
     if (!a && formik.values[name])
       setTimeout(() => formik.setFieldValue(name, ''));
 
-    if (isNotInitializing(formik))
-      delayPromise(formik.validateField, name);
-
     setAttrs(a);
     validation.setField(name, {
       ...a,
       type,
     });
+
+    try {
+      if (isNotInitializing(formik))
+        delayPromise(formik.validateField, name);
+    } catch (e) {
+      // noop
+    }
   }, [
     rest.conditional || override
       ? JSON.stringify(formik.values)
@@ -82,5 +86,7 @@ Field.defaultProps = {
   override: null,
   under: null,
 };
+
+Field.displayName = 'Field';
 
 export default Field;

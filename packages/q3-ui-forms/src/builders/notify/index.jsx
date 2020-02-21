@@ -84,7 +84,7 @@ UppercaseSpan.propTypes = {
 };
 
 const Notify = ({ show, title, children, shade }) => (
-  <Collapse in={show}>
+  <Collapse in={Boolean(show)}>
     <Box>
       <FlexContainer shade={shade}>
         <UppercaseSpan>
