@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.22](https://github.com/3merge/q/compare/v1.9.21...v1.9.22) (2020-02-21)
+
+
+### Bug Fixes
+
+* catch block in timeout block ([dca2ee4](https://github.com/3merge/q/commit/dca2ee46267a7b3a464f04788f7f7367885c1de5))
+
+
+
+
+
 ## [1.9.21](https://github.com/3merge/q/compare/v1.9.20...v1.9.21) (2020-02-21)
 
 **Note:** Version bump only for package q3-ui-forms
