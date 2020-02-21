@@ -28,6 +28,8 @@ export const ValidateOnMount = () => (
       <Field name="postal" type="postal" />
       <Field name="tel" type="tel" />
       <Field name="age" type="number" />
+      <Field name="checkbox" type="checkbox" />
+      <Field name="checkbox" type="checkbox" simple />
     </Form>
   </Tile>
 );
