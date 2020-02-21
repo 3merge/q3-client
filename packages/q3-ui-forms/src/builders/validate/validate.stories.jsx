@@ -19,11 +19,15 @@ export const ValidateOnMount = () => (
       initialValues={{
         name: '',
         number: 0,
+        postal: '',
+        tel: '',
       }}
     >
       <Field name="name" type="text" required />
       <Field name="number" type="number" required />
-      <Field name="number" type="number" />
+      <Field name="postal" type="postal" />
+      <Field name="tel" type="tel" />
+      <Field name="age" type="number" />
     </Form>
   </Tile>
 );
