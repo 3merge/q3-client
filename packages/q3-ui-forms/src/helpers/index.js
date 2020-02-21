@@ -28,23 +28,19 @@ export const assignIDs = (a, prop) =>
   });
 
 export const getFieldNames = (c, fieldName) =>
-  React.Children.toArray(c).reduce(
-    (
-      curr,
-      {
-        type: { name: componentType },
-        props: { children, name },
-      },
-    ) => {
-      if (componentType === fieldName) curr.push(name);
+  React.Children.toArray(c).reduce((curr, el) => {
+    const {
+      type: { displayName },
+      props: { children, name },
+    } = el;
 
-      if (isArray(children))
-        curr.push(getFieldNames(children));
+    if (displayName === fieldName) curr.push(name);
 
-      return condense(curr);
-    },
-    [],
-  );
+    if (isArray(children))
+      curr.push(getFieldNames(children));
+
+    return condense(curr);
+  }, []);
 
 export const isReady = (formikInst) =>
   formikInst && formikInst.status === 'Ready';

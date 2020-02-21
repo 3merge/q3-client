@@ -73,3 +73,27 @@ export const WithDynamicOptions = () => (
     />
   </Form>
 );
+
+export const WithDynamicLoadOptions = () => (
+  <Form
+    onSubmit={() => null}
+    initialValues={{
+      countries: '',
+      name: '',
+    }}
+  >
+    <Field name="name" type="text" />
+    <Field
+      name="countries"
+      type="select"
+      runOnChange
+      loadOptions={() =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(opts);
+          }, 2000);
+        })
+      }
+    />
+  </Form>
+);

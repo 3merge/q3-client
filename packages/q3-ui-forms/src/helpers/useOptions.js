@@ -4,6 +4,7 @@ import { useValue } from 'useful-state';
 import { useFormikContext } from 'formik';
 
 export default ({
+  runOnChange = false,
   initialValue = '',
   loadOptions,
   options = [],
@@ -30,7 +31,11 @@ export default ({
     }
 
     return () => (cancel = true);
-  }, [value, items !== options]);
+  }, [
+    value,
+    items !== options,
+    runOnChange ? values : false,
+  ]);
 
   return {
     loading,
