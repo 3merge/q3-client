@@ -4,8 +4,13 @@ import { useTranslation } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
 import Notify from '../notify';
-
-export const SESSION_STORAGE_EVENT = 'storage';
+import {
+  SESSION_STORAGE_EVENT,
+  onPurge,
+  isBrowserReady,
+} from './dispatch';
+import { isPersistence, idify } from '../persist/utils';
+import useListener from './useListener';
 
 export const useSessionStorage = () => {
   const [
@@ -18,35 +23,21 @@ export const useSessionStorage = () => {
       sessionStorage,
     ).reduce(
       (curr, key) =>
-        key.startsWith('formik-persistence-')
-          ? curr.concat(key)
-          : curr,
+        isPersistence(key) ? curr.concat(key) : curr,
       [],
     );
 
     setUnsavedChanges(persistentForms);
   };
 
-  const clearLocalStorage = (id) => {
-    if (typeof window !== 'undefined') {
+  const clearLocalStorage = (id) =>
+    isBrowserReady(() => {
       sessionStorage.removeItem(id);
+      onPurge({ id });
       onStorage();
-    }
-  };
+    });
 
-  React.useEffect(() => {
-    window.addEventListener(
-      SESSION_STORAGE_EVENT,
-      onStorage,
-    );
-
-    return () =>
-      window.removeEventListener(
-        SESSION_STORAGE_EVENT,
-        onStorage,
-      );
-  }, []);
-
+  useListener(SESSION_STORAGE_EVENT, onStorage);
   return [unsavedChanges, clearLocalStorage];
 };
 
@@ -65,7 +56,7 @@ export const PersistWatcher = ({ filterById }) => {
       <Notify
         show={hasUnsavedChanges}
         title={t('unsavedChangesOn', {
-          id: id.replace('formik-persistence-', '#'),
+          id: idify(id),
         })}
       >
         <IconButton

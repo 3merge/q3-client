@@ -1,0 +1,2 @@
+<h2>🔨 Builders</h2>
+<p>Initially, the builders' folder contained mostly wrappers and executor-type components. Each served to connect one or many form fields to the authorization and validation state. Eventually, this evolved into a suite of tools for enhancing (or monkey-patching) Formik. Now, all necessary components to build a form exist in this directory.</p>

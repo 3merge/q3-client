@@ -1,8 +1,9 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { FormBuilder } from '../form';
+import { FormBuilder } from '.';
 import Back from '../back';
 import Next from '../next';
+import Persist from '../persist';
 
 jest.unmock('formik');
 
@@ -50,6 +51,13 @@ describe('FormBuilder', () => {
     expect(
       diveIntoFormik({ enableSubmit: false }).find(Next),
     ).toHaveLength(0));
+
+  it('should render <Persist /> with id', () =>
+    expect(
+      diveIntoFormik({ id: '12', name: 'general' })
+        .find(Persist)
+        .props().id,
+    ).toMatch('general-12'));
 
   it('should render custom label on <Next />', () =>
     expect(

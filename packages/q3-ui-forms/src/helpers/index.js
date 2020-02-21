@@ -45,3 +45,22 @@ export const getFieldNames = (c, fieldName) =>
     },
     [],
   );
+
+export const isReady = (formikInst) =>
+  formikInst && formikInst.status === 'Ready';
+
+export const isNotInitializing = (formikInst) =>
+  formikInst && formikInst.status !== 'Initializing';
+
+export const delayPromise = (fn, args, done) =>
+  setTimeout(
+    () =>
+      fn(args)
+        .then(() => {
+          if (done) done();
+        })
+        .catch(() => {
+          // noop
+        }),
+    0,
+  );

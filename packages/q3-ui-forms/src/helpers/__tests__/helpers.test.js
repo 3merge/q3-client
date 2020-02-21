@@ -110,4 +110,34 @@ describe('Form helpers', () => {
         ),
       ).toBeFalsy());
   });
+
+  describe('"isReady"', () => {
+    it('should return truthy', () => {
+      expect(
+        helpers.isReady({ status: 'Ready' }),
+      ).toBeTruthy();
+    });
+
+    it('should return falsy', () => {
+      expect(
+        helpers.isReady({ status: 'Initializing' }),
+      ).toBeFalsy();
+    });
+  });
+
+  describe('"delayPromise"', () => {
+    it('should invoke promise', (done) => {
+      const next = jest.fn().mockImplementation(() => {
+        expect(next).toHaveBeenCalled();
+        done();
+      });
+
+      const fn = (args) =>
+        new Promise((r) => {
+          r(args);
+        });
+
+      helpers.delayPromise(fn, 1, next);
+    });
+  });
 });

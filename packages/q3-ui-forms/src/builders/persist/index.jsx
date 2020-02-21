@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useFormikContext } from 'formik';
-import dispatch from '../persistWatcher/dispatch';
+import dispatch, {
+  SESSION_STORAGE_PURGE_EVENT,
+} from '../persistWatcher/dispatch';
+import {
+  setPersistenceName,
+  removePersistenceName,
+} from './utils';
+import useListener from '../persistWatcher/useListener';
 
 const Persist = ({ id }) => {
-  const storageID = `formik-persistence-${id}`;
+  const storageID = setPersistenceName(id);
   const f = useFormikContext();
+
+  const onReset = ({ detail }) => {
+    if (removePersistenceName(detail.id) === id)
+      f.resetForm();
+  };
 
   React.useEffect(() => {
     const restore = sessionStorage.getItem(storageID);
@@ -30,6 +42,7 @@ const Persist = ({ id }) => {
     });
   }, [f.values, f.dirty]);
 
+  useListener(SESSION_STORAGE_PURGE_EVENT, onReset);
   return null;
 };
 
