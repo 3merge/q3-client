@@ -6,7 +6,9 @@ import {
   In,
   Equals,
   Exists,
+  DoesNotExist,
 } from 'q3-ui-filters/lib/components';
+import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import State from '../state';
 import Filter, { FormWrapper } from '.';
 
@@ -43,17 +45,29 @@ export const Default = () => (
         }}
       >
         <Filter id="testing">
-          <Equals
-            name="number%2Enested"
-            label="Nested number"
-            type="select"
-          />
           <In
             name="countries"
             type="checkboxGroup"
             label="Countries"
           />
-          <Exists name="isChecked" label="Is checked" />
+          <CollapsibleFieldLabel label="testing">
+            <Exists
+              name="isChecked"
+              label="Is checked"
+              type="checkbox"
+            />
+            <DoesNotExist
+              name="isNotChecked%21"
+              label="Is not checked"
+              type="checkbox"
+              strict
+            />
+            <Equals
+              name="number%2Enested"
+              label="Nested number"
+              type="select"
+            />
+          </CollapsibleFieldLabel>
         </Filter>
       </State.Provider>
       <LocationDebugger />

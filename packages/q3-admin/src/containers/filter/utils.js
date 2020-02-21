@@ -22,16 +22,39 @@ export const requiresOptions = (v, arr) =>
     ? asOptions(arr)
     : arr;
 
+const modifyChildWithOptions = (fields) => {
+  const exec = (child) => {
+    const recurse = (c) => {
+      if (!c || !c.props) return c;
+
+      let v = get(
+        fields,
+        get(c, 'props.name', '').replace('%2E', '.'),
+        [],
+      );
+
+      if (requiresArray(c.props.type)) v = toArray(v);
+
+      return React.cloneElement(
+        c,
+        {
+          options: requiresOptions(c.props.type, v),
+          ...c.props,
+        },
+        Array.isArray(c.props.children)
+          ? c.props.children.map(exec)
+          : exec(c.props.children),
+      );
+    };
+
+    return recurse(child);
+  };
+
+  return exec;
+};
+
 export const appendOptions = (a, fields) =>
   isArray(a).map((child) => {
-    let v = get(
-      fields,
-      child.props.name.replace('%2E', '.'),
-      [],
-    );
-    if (requiresArray(child.props.type)) v = toArray(v);
-
-    return React.cloneElement(child, {
-      options: requiresOptions(child.props.type, v),
-    });
+    const fn = modifyChildWithOptions(fields);
+    return fn(child);
   });

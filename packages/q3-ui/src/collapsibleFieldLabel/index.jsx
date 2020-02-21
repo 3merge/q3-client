@@ -29,30 +29,31 @@ export const CollapsibleFieldLabel = ({
   const toggle = () => setShow(!show);
 
   return (
-    <Box my={2}>
-      <FormControl component="fieldset">
-        <Button
-          component={FormLabel}
-          onClick={toggle}
-          disabled={!collapse}
-          style={{
-            justifyContent: 'left',
-            marginBottom: '0.5rem',
-          }}
-        >
-          {renderKeyboardIcon(collapse, show)}
-          <Typography component="legend">
-            {label}
-          </Typography>
-        </Button>
-        <Collapse in={show}>{children}</Collapse>
-        {helperText && (
-          <FormHelperText error={error}>
-            {helperText}
-          </FormHelperText>
-        )}
-      </FormControl>
-    </Box>
+    <FormControl
+      style={{ display: 'block' }}
+      component="fieldset"
+    >
+      <Button
+        component={FormLabel}
+        onClick={toggle}
+        disabled={!collapse}
+        style={{
+          justifyContent: 'left',
+          marginBottom: '0.5rem',
+        }}
+      >
+        {renderKeyboardIcon(collapse, show)}
+        <Typography component="legend">{label}</Typography>
+      </Button>
+      <Collapse in={show}>
+        <Box mb={1}>{children}</Box>
+      </Collapse>
+      {helperText && (
+        <FormHelperText error={error}>
+          {helperText}
+        </FormHelperText>
+      )}
+    </FormControl>
   );
 };
 

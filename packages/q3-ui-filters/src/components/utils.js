@@ -64,7 +64,7 @@ export const assembleLengthQuery = (name) =>
 
 const removeSpecialChars = (name) =>
   name
-    .replace(/[^a-zA-Z0-9 %.]/g, '')
+    .replace(/[^a-zA-Z0-9 !%.]/g, '')
     .replace('.', '%2E')
     .replace('!', '%21')
     .replace('%2E0', '%2Elength');
@@ -152,24 +152,34 @@ export const appendEmptyValues = (a, next = {}) => {
 
   const values = Object.values(next);
 
-  return isArray(a).reduce((acc, item) => {
-    const { name, type } = item.props;
+  const reduceChildrenAsArray = (c) =>
+    isArray(c).reduce((acc, item) => {
+      if (!item || !item.props) return acc;
+      const { name, type } = item.props;
 
-    const i = findByRegex(keys, name);
+      const i = findByRegex(keys, name);
+      let v;
 
-    let v;
+      if (i !== -1) v = values[i];
+      if (requiresArray(type)) v = toArray(v);
 
-    if (i !== -1) v = values[i];
-    if (requiresArray(type)) v = toArray(v);
-    if (type === 'checkbox' && keys.includes(name))
-      v = true;
+      if (type === 'checkbox' && keys.includes(name))
+        v = true;
 
-    if (!v) v = '';
+      if (!v) v = '';
 
-    return Object.assign(acc, {
-      [name]: {
-        value: v,
-      },
-    });
-  }, {});
+      const out = Object.assign(
+        acc,
+        {
+          [name]: {
+            value: v,
+          },
+        },
+        reduceChildrenAsArray(get(item, 'props.children')),
+      );
+
+      return out;
+    }, {});
+
+  return reduceChildrenAsArray(a);
 };

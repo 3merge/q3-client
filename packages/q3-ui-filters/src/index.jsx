@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { Formik } from 'formik';
 import { withLocation } from 'with-location';
@@ -61,21 +62,23 @@ export const FilterForm = ({
       {({ values, resetForm }) => (
         <>
           {children}
-          <Button
-            variant="contained"
-            onClick={handleClear({
-              remove,
-              values,
-              state: currentState,
+          <Box mt={1}>
+            <Button
+              variant="contained"
+              onClick={handleClear({
+                remove,
+                values,
+                state: currentState,
 
-              done: () => {
-                resetForm();
-                redirect();
-              },
-            })}
-          >
-            {clearLabel}
-          </Button>
+                done: () => {
+                  resetForm();
+                  redirect();
+                },
+              })}
+            >
+              {clearLabel}
+            </Button>
+          </Box>
         </>
       )}
     </Formik>
