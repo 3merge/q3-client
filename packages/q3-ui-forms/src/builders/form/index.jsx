@@ -9,6 +9,7 @@ import Next from '../next';
 import Persist from '../persist';
 import withWrapper from '../wrapper';
 import Validate from '../validate';
+import { delayPromise } from '../../helpers';
 
 const invokeIfDefined = (a, fn) => (a ? fn() : null);
 
@@ -40,18 +41,9 @@ export const FormBuilder = ({
   >
     {({ resetForm, validateField }) => (
       <Form
-        onChange={(e) => {
-          /**
-           * @NOTE
-           * Albiet, hacky implementation.
-           * That said, no official support for field-level validation yet.
-           */
-          setTimeout(() =>
-            validateField(e.target.name).then(() => {
-              // noop
-            }),
-          );
-        }}
+        onChange={({ target: { name: fieldName } }) =>
+          delayPromise(validateField, fieldName)
+        }
       >
         <Validate />
         {id && (

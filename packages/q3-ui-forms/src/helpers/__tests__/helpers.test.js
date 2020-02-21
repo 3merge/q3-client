@@ -124,4 +124,15 @@ describe('Form helpers', () => {
       ).toBeFalsy();
     });
   });
+
+  describe('"delayPromise"', () => {
+    it('should invoke promise', (done) => {
+      const next = jest.fn().mockImplementation(() => {
+        expect(next).toHaveBeenCalled();
+        done();
+      });
+
+      helpers.delayPromise(Promise.resolve, null, next);
+    });
+  });
 });

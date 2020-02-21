@@ -17,11 +17,12 @@ export const ValidateOnMount = () => (
     <Form
       initialValues={{
         name: '',
-        number: '',
+        number: 0,
       }}
     >
       <Field name="name" type="text" required />
       <Field name="number" type="number" required />
+      <Field name="number" type="number" />
     </Form>
   </Tile>
 );
@@ -56,6 +57,7 @@ export const ValidateOnSchemaChange = () => (
       }}
     >
       <Field name="email" type="email" required />
+      <Field name="postal" type="postal" />
       <Field
         name="tel"
         type="tel"

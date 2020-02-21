@@ -29,6 +29,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/fields/checkset.stories.jsx',
     '../packages/q3-ui-forms/**/fields/text.stories.jsx',
     '../packages/q3-ui-forms/**/fields/transfer.stories.jsx',
+    '../packages/q3-ui-forms/**/fields/select.stories.jsx',
     '../packages/q3-ui-forms/**/presets/northAmericaRegionalSelect/*.stories.jsx',
     '../packages/q3-ui-permissions/**.stories.jsx',
   ],

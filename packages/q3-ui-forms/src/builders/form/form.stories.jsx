@@ -32,53 +32,18 @@ export default {
   },
 };
 
-const OffPage = () => <p>Blocked!</p>;
-
-const PersistantForm = (props) => {
-  return (
-    <Tile title="persist">
-      <Form
-        debug
-        isNew
-        id={FORM_ID}
-        onReset={onReset}
-        {...props}
-      >
-        <Field name="name" type="text" required />
-        <Field name="number" type="number" required />
-      </Form>
-    </Tile>
-  );
-};
-
-export const DefaultForm = () => {
-  const [initialValues, setInitialValues] = React.useState({
-    name: '',
-    number: 0,
-  });
-
-  const handleSubmit = (v) =>
-    new Promise((resolve) => {
-      setInitialValues(v);
-      resolve();
-    });
-
-  return (
-    <MockLocation initialPath="/">
-      <PersistWatcher id={FORM_ID} />
-      <Link to="/">To form</Link>
-      <Link to="/off">To else</Link>
-      <Router>
-        <PersistantForm
-          path="/"
-          onSubmit={handleSubmit}
-          initialValues={initialValues}
-        />
-        <OffPage path="off" />
-      </Router>
-    </MockLocation>
-  );
-};
+export const WithDebug = () => (
+  <Form
+    debug
+    onSubmit={onSubmit}
+    onReset={onReset}
+    initialValues={{
+      email: '',
+    }}
+  >
+    <Field name="email" type="email" required />
+  </Form>
+);
 
 export const WithDelay = () => {
   const [name, setName] = React.useState('');
@@ -88,7 +53,7 @@ export const WithDelay = () => {
     setTimeout(() => {
       setName('Joe');
       setLang('en');
-    }, 150);
+    }, 250);
   }, []);
 
   return (
@@ -109,19 +74,6 @@ export const WithDelay = () => {
     </Form>
   );
 };
-
-export const WithDebug = () => (
-  <Form
-    debug
-    onSubmit={onSubmit}
-    onReset={onReset}
-    initialValues={{
-      email: '',
-    }}
-  >
-    <Field name="email" type="email" required />
-  </Form>
-);
 
 export const WithCustomButtonLabels = () => (
   <Form

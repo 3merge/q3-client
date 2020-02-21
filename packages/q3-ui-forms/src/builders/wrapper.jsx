@@ -15,7 +15,7 @@ export const getInitialStatus = (len, value) => {
 const Wrapper = (Component) => ({
   collectionName,
   initialValues = {},
-  validateOnMount = true,
+  validateOnMount = false,
   initialStatus,
   isNew,
   ...etc

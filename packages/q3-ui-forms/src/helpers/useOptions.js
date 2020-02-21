@@ -5,12 +5,9 @@ import { useFormikContext } from 'formik';
 
 export default ({
   initialValue = '',
-  initialStatus = false,
-  options = [],
   loadOptions,
-  loadOptionsPlainly = false,
+  options = [],
 }) => {
-  const [init, setInit] = React.useState(initialStatus);
   const [loading, setLoading] = React.useState(false);
   const [items, setItems] = React.useState(options);
   const { value, onChange } = useValue(initialValue);
@@ -19,32 +16,23 @@ export default ({
   React.useEffect(() => {
     let cancel = false;
 
-    if (
-      typeof loadOptions !== 'function' ||
-      (!init && loadOptionsPlainly)
-    )
-      return undefined;
+    console.log('BOOM');
 
-    setLoading(true);
-    loadOptions(value, values)
-      .catch(() => [])
-      .then((data) => {
-        if (cancel) return;
-        setItems(data);
-        setLoading(false);
-      });
+    if (loadOptions) {
+      setLoading(true);
+      loadOptions(value, values)
+        .catch(() => [])
+        .then((data) => {
+          if (cancel) return;
+          setItems(data);
+          setLoading(false);
+        });
+    } else {
+      setItems(options);
+    }
 
     return () => (cancel = true);
-  }, [init, value]);
-
-  React.useEffect(() => {
-    if (loadOptionsPlainly && !loadOptions)
-      setItems(options);
-  }, [options]);
-
-  React.useEffect(() => {
-    setInit(value !== initialValue);
-  }, [value, initialValue]);
+  }, [value]);
 
   return {
     loading,

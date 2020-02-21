@@ -3,7 +3,10 @@ import { useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
-import { EventEmitter } from './wrapper';
+import {
+  delayPromise,
+  isNotInitializing,
+} from '../helpers';
 
 const Field = ({
   name,
@@ -38,6 +41,9 @@ const Field = ({
 
     if (!a && formik.values[name])
       setTimeout(() => formik.setFieldValue(name, ''));
+
+    if (isNotInitializing(formik))
+      delayPromise(formik.validateField, name);
 
     setAttrs(a);
     validation.setField(name, {
