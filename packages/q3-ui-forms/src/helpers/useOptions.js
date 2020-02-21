@@ -16,8 +16,6 @@ export default ({
   React.useEffect(() => {
     let cancel = false;
 
-    console.log('BOOM');
-
     if (loadOptions) {
       setLoading(true);
       loadOptions(value, values)
@@ -32,7 +30,7 @@ export default ({
     }
 
     return () => (cancel = true);
-  }, [value]);
+  }, [value, items !== options]);
 
   return {
     loading,
