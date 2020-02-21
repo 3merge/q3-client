@@ -1,20 +1,11 @@
 import { get } from 'lodash';
-
-export const isArray = (a) => (Array.isArray(a) ? a : [a]);
+import { array, props } from 'q3-ui-helpers';
 
 const serialize = (v) =>
   Array.isArray(v) ? v.join(',') : v;
 
 const requiresArray = (v) =>
   ['checkboxGroup', 'select', 'chips'].includes(v);
-
-const toArray = (v) => {
-  if (Array.isArray(v)) return v;
-  if (typeof v === 'string' && v.length)
-    return v.split(',').map((i) => i.trim());
-
-  return [];
-};
 
 /**
  * Values are nested inside of values so that we can track operands in state.
@@ -76,7 +67,7 @@ const getKey = (k, operand) => {
 };
 
 export const findByRegex = (a, term) =>
-  isArray(a).findIndex((v) => {
+  array.is(a).findIndex((v) => {
     return term === removeSpecialChars(v);
   });
 
@@ -141,45 +132,51 @@ export const marshalFormFieldsIntoUrlString = (
     {},
   );
 
+const reduceChildrenAsArray = (keys, values) => (child) => {
+  const getValue = ({ name, type }) => {
+    let v;
+    const i = findByRegex(keys, name);
+
+    if (array.hasIndex(i)) v = values[i];
+    if (requiresArray(type)) v = array.castString(v);
+    if (type === 'checkbox' && keys.includes(name))
+      v = true;
+    if (!v) v = '';
+
+    return v;
+  };
+
+  const exec = (c) =>
+    array.is(c).reduce(
+      (acc, item) =>
+        props.has(item)
+          ? Object.assign(
+              acc,
+              {
+                [get(item, 'props.name')]: {
+                  value: getValue(item.props),
+                },
+              },
+              props.callOnChildren(item, exec),
+            )
+          : acc,
+      {},
+    );
+
+  return exec(child);
+};
+
 /**
  * For initializing state with existing URL values.
  * Note that the values reference field names - not the keys.
  */
 export const appendEmptyValues = (a, next = {}) => {
-  const keys = Object.keys(next)
-    .map(removeSpecialChars)
-    .map(convertLengthQuery);
+  const fn = reduceChildrenAsArray(
+    Object.keys(next)
+      .map(removeSpecialChars)
+      .map(convertLengthQuery),
+    Object.values(next),
+  );
 
-  const values = Object.values(next);
-
-  const reduceChildrenAsArray = (c) =>
-    isArray(c).reduce((acc, item) => {
-      if (!item || !item.props) return acc;
-      const { name, type } = item.props;
-
-      const i = findByRegex(keys, name);
-      let v;
-
-      if (i !== -1) v = values[i];
-      if (requiresArray(type)) v = toArray(v);
-
-      if (type === 'checkbox' && keys.includes(name))
-        v = true;
-
-      if (!v) v = '';
-
-      const out = Object.assign(
-        acc,
-        {
-          [name]: {
-            value: v,
-          },
-        },
-        reduceChildrenAsArray(get(item, 'props.children')),
-      );
-
-      return out;
-    }, {});
-
-  return reduceChildrenAsArray(a);
+  return fn(a);
 };

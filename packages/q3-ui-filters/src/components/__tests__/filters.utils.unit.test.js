@@ -119,7 +119,7 @@ describe('Filter utils', () => {
         [
           getPropName('foo'),
           getPropName('bar'),
-          getPropName('quuz'),
+          getPropName('%21quuz'),
         ],
         {
           'foo': '1',
@@ -131,7 +131,7 @@ describe('Filter utils', () => {
       expect(matched).toMatchObject({
         foo: { value: '1' },
         bar: { value: '2' },
-        quuz: { value: '3' },
+        '%21quuz': { value: '3' },
       });
     });
 

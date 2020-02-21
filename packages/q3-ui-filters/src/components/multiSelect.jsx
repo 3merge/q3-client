@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniq, get } from 'lodash';
 import { useField, useFormikContext } from 'formik';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
-import { extractTextualValue, isArray } from './utils';
+import { array } from 'q3-ui-helpers';
+import { extractTextualValue } from './utils';
 
 export const addToOrFilterOut = (a, v, lever) =>
   lever
@@ -79,7 +79,9 @@ const FilterTextField = ({
 }) => {
   const { submitForm } = useFormikContext();
   const [{ value }, , { setValue }] = useField(name);
-  const extracted = isArray(extractTextualValue(value, []));
+  const extracted = array.is(
+    extractTextualValue(value, []),
+  );
 
   const handleOnChange = (e, v) => {
     setValue({

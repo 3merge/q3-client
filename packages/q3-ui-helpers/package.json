@@ -1,0 +1,15 @@
+{
+  "name": "q3-ui-helpers",
+  "version": "1.0.00",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^1.9.16"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2"
+  }
+}
