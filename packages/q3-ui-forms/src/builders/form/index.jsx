@@ -3,12 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import Box from '@material-ui/core/Box';
-import { FormikDebug } from './multistep';
-import Back from './back';
-import Next from './next';
-import Persist from './persist';
-import withWrapper from './wrapper';
-import Validate from './validate';
+import { FormikDebug } from '../multistep';
+import Back from '../back';
+import Next from '../next';
+import Persist from '../persist';
+import withWrapper from '../wrapper';
+import Validate from '../validate';
+
+const invokeIfDefined = (a, fn) => (a ? fn() : null);
+
+const prefixForSessionStorage = (a, b) =>
+  a ? `${a}-${b}` : b;
 
 export const FormBuilder = ({
   children,
@@ -21,20 +26,37 @@ export const FormBuilder = ({
   resetLabel,
   submitLabel,
   id,
+  name,
   ...rest
 }) => (
   <Formik
+    validateOnBlur={false}
+    validateOnChange={false}
+    validateOnMount={false}
     onSubmit={onSubmit}
-    onReset={() => {
-      if (rest.isReady) onReset();
-    }}
+    onReset={() => invokeIfDefined(rest.isReady, onReset)}
     {...formikProps}
     {...rest}
   >
-    {({ resetForm }) => (
-      <Form>
-        {id && <Persist id={id} />}
+    {({ resetForm, validateField }) => (
+      <Form
+        onChange={(e) => {
+          /**
+           * @NOTE
+           * Albiet, hacky implementation.
+           * That said, no official support for field-level validation yet.
+           */
+          setTimeout(() =>
+            validateField(e.target.name).then(() => {
+              // noop
+            }),
+          );
+        }}
+      >
         <Validate />
+        {id && (
+          <Persist id={prefixForSessionStorage(name, id)} />
+        )}
         {children}
         <Box mt={1}>
           {enableSubmit && (
@@ -106,6 +128,17 @@ FormBuilder.propTypes = {
    * Include a pre-wired reset button.
    */
   enableReset: PropTypes.bool,
+
+  /**
+   * Configures sessionStorage.
+   */
+  id: PropTypes.string,
+
+  /**
+   * Prefixes the ID for sessionStorage.
+   * Useful for multi-form apps on a single resource.
+   */
+  name: PropTypes.string,
 };
 
 FormBuilder.defaultProps = {
@@ -115,6 +148,8 @@ FormBuilder.defaultProps = {
   onReset: null,
   enableSubmit: true,
   enableReset: false,
+  id: null,
+  name: null,
 };
 
 export default withWrapper(FormBuilder);

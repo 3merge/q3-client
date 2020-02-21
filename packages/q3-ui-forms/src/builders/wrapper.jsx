@@ -86,8 +86,7 @@ const Wrapper = (Component) => ({
                     len,
                     initialStatus,
                   ),
-                  validateOnBlur: false,
-                  validateOnChange: true,
+
                   enableReinitialize: true,
                   validationSchema: validation,
                   initialValues,

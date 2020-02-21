@@ -3,6 +3,7 @@ import { useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
+import { EventEmitter } from './wrapper';
 
 const Field = ({
   name,
@@ -38,12 +39,11 @@ const Field = ({
     if (!a && formik.values[name])
       setTimeout(() => formik.setFieldValue(name, ''));
 
+    setAttrs(a);
     validation.setField(name, {
       ...a,
       type,
     });
-
-    setAttrs(a);
   }, [
     rest.conditional || override
       ? JSON.stringify(formik.values)

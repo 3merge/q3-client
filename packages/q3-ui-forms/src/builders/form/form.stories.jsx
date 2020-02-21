@@ -2,9 +2,9 @@ import React from 'react';
 import Tile from 'q3-ui/lib/tile';
 import { Router, Link } from '@reach/router';
 import MockLocation from 'q3-ui-test-utils/lib/location';
-import Field from './field';
-import Form, { FormBuilder } from './form';
-import PersistWatcher from './persistWatcher';
+import Field from '../field';
+import Form, { FormBuilder } from '.';
+import PersistWatcher from '../persistWatcher';
 
 const FORM_ID = 'persistence-demo-form';
 
