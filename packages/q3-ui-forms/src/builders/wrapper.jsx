@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick } from 'lodash';
 import Fade from '@material-ui/core/Fade';
 import { useAuth } from 'q3-ui-permissions';
 import * as yup from 'yup';
@@ -11,22 +10,6 @@ import { Validator } from '../helpers/validation';
 export const getInitialStatus = (len, value) => {
   if (len) return value || 'Ready';
   return 'Initializing';
-};
-
-export const getInitialValues = (
-  initialValues = {},
-  validationChain = {},
-) => {
-  const keys = Object.keys(validationChain);
-  if (!keys.length) return initialValues;
-
-  const values = pick(initialValues, keys);
-
-  keys.forEach((key) => {
-    if (!(key in values)) values[key] = '';
-  });
-
-  return values;
 };
 
 const Wrapper = (Component) => ({
@@ -101,15 +84,11 @@ const Wrapper = (Component) => ({
                 formikProps={{
                   enableReinitialize: true,
                   validationSchema: validation,
+                  initialValues,
 
                   initialStatus: getInitialStatus(
                     len,
                     initialStatus,
-                  ),
-
-                  initialValues: getInitialValues(
-                    initialValues,
-                    chain,
                   ),
                 }}
               />

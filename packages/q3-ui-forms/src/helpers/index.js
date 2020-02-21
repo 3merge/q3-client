@@ -49,14 +49,12 @@ export const isNotInitializing = (formikInst) =>
   formikInst && formikInst.status !== 'Initializing';
 
 export const delayPromise = (fn, args, done) =>
-  setTimeout(
-    () =>
-      fn(args)
-        .then(() => {
-          if (done) done();
-        })
-        .catch(() => {
-          // noop
-        }),
-    0,
-  );
+  setTimeout(() => {
+    try {
+      fn(args).then(() => {
+        if (done) done();
+      });
+    } catch (e) {
+      // noop
+    }
+  }, 0);
