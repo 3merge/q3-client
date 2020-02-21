@@ -15,6 +15,7 @@ export const ValidateOnMount = () => (
     subtitle="Regardless the initial state, validation will run and flag errors"
   >
     <Form
+      validateOnMount
       initialValues={{
         name: '',
         number: 0,

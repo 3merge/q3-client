@@ -70,11 +70,11 @@ describe('useOptions', () => {
 
     expect(effect).toHaveBeenCalledWith(
       expect.any(Function),
-      [true, 'foo'],
+      ['foo', false],
     );
 
     setTimeout(() => {
-      expect(stateFn.mock.calls).toHaveLength(2);
+      expect(stateFn.mock.calls).toHaveLength(1);
       done();
     }, 100);
   });

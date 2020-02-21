@@ -132,7 +132,12 @@ describe('Form helpers', () => {
         done();
       });
 
-      helpers.delayPromise(Promise.resolve, null, next);
+      const fn = (args) =>
+        new Promise((r) => {
+          r(args);
+        });
+
+      helpers.delayPromise(fn, 1, next);
     });
   });
 });
