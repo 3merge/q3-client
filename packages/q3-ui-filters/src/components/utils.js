@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { array, props } from 'q3-ui-helpers';
+import { array, props, url } from 'q3-ui-helpers';
 
 const serialize = (v) =>
   Array.isArray(v) ? v.join(',') : v;
@@ -39,36 +39,15 @@ export const handleOnChangeBoolean = (
   if (fn) fn();
 };
 
-const convertLengthQuery = (name) =>
-  name &&
-  (name.endsWith('.') ||
-    name.endsWith('.0') ||
-    name.endsWith('%2E0'))
-    ? `${name.replace('.', '%2Elength')}`
-    : name;
-
-export const assembleLengthQuery = (name) =>
-  name
-    .replace('%2E', '.')
-    .replace('length', '0')
-    .replace('%21', '!');
-
-const removeSpecialChars = (name) =>
-  name
-    .replace(/[^a-zA-Z0-9 !%.]/g, '')
-    .replace('.', '%2E')
-    .replace('!', '%21')
-    .replace('%2E0', '%2Elength');
-
 const getKey = (k, operand) => {
-  const n = assembleLengthQuery(k);
+  const n = url.encode(k);
   if (operand === '!*') return `!${n}`;
   return n;
 };
 
 export const findByRegex = (a, term) =>
   array.is(a).findIndex((v) => {
-    return term === removeSpecialChars(v);
+    return term === v;
   });
 
 /**
@@ -76,7 +55,7 @@ export const findByRegex = (a, term) =>
  * Essentially, that lib handles certain params out-of-the-box in a given format.
  */
 export const queryParam = (key, operand, value) => {
-  const santitized = convertLengthQuery(key);
+  const santitized = url.checksArray(key);
   const a = serialize(value);
   const negated = `${santitized}!`;
 
@@ -121,16 +100,20 @@ export const marshalFormFieldsIntoUrlString = (
 
       return operand
         ? Object.assign(curr, {
-            // allows us to query for length
-            [assembleLengthQuery(
-              newKey,
-              operand,
-            )]: newValue,
+            [url.decode(newKey)]: newValue,
           })
         : curr;
     },
     {},
   );
+
+const reduceArrayAsObject = (a = []) =>
+  Array.isArray(a)
+    ? a.reduce(
+        (curr, next) => Object.assign(curr, next),
+        {},
+      )
+    : a;
 
 const reduceChildrenAsArray = (keys, values) => (child) => {
   const getValue = ({ name, type }) => {
@@ -157,7 +140,9 @@ const reduceChildrenAsArray = (keys, values) => (child) => {
                   value: getValue(item.props),
                 },
               },
-              props.callOnChildren(item, exec),
+              reduceArrayAsObject(
+                props.callOnChildren(item, exec),
+              ),
             )
           : acc,
       {},
@@ -173,10 +158,11 @@ const reduceChildrenAsArray = (keys, values) => (child) => {
 export const appendEmptyValues = (a, next = {}) => {
   const fn = reduceChildrenAsArray(
     Object.keys(next)
-      .map(removeSpecialChars)
-      .map(convertLengthQuery),
+      .map(url.encode)
+      .map(url.checksArray),
     Object.values(next),
   );
 
-  return fn(a);
+  const out = fn(a);
+  return out;
 };

@@ -30,7 +30,7 @@ const modifyChildWithOptions = (fields) => {
                 getValue(c.props),
               ),
             },
-            props.callOnChildren(c, exec),
+            props.callOnChildren(c, recurse),
           )
         : c;
 

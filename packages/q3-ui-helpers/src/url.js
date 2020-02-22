@@ -1,3 +1,6 @@
+const isString = (v = '') =>
+  typeof v === 'string' ? v : String(v);
+
 export const checksArray = (name) =>
   name &&
   (name.endsWith('.') ||
@@ -7,13 +10,13 @@ export const checksArray = (name) =>
     : name;
 
 export const decode = (name) =>
-  name
+  isString(name)
     .replace('%2E', '.')
     .replace('length', '0')
     .replace('%21', '!');
 
 export const encode = (name) =>
-  name
+  isString(name)
     .replace(/[^a-zA-Z0-9 !%.]/g, '')
     .replace('.', '%2E')
     .replace('!', '%21')

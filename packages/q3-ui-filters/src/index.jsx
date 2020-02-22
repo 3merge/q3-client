@@ -4,11 +4,11 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { Formik } from 'formik';
 import { withLocation } from 'with-location';
+import { url } from 'q3-ui-helpers';
 import {
   marshalFormFieldsIntoUrlString,
   appendEmptyValues,
   findByRegex,
-  assembleLengthQuery,
 } from './components/utils';
 
 export const handleClear = ({
@@ -22,7 +22,7 @@ export const handleClear = ({
       const i = findByRegex(Object.keys(state), key);
       return i !== -1 ? Object.keys(state)[i] : key;
     })
-    .forEach((key) => remove(assembleLengthQuery(key)));
+    .forEach((key) => remove(url.decode(key)));
 
   done();
 };
