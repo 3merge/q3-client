@@ -1,6 +1,6 @@
 import React from 'react';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormControl from '@material-ui/core/FormControl';
+import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import MultiSelectWrapper, {
   addToOrFilterOut,
   flattenOptions,
@@ -72,7 +72,7 @@ describe('Multiselect', () => {
             options={[{ value: '1', label: '1' }]}
           />,
         )
-        .find(FormControl);
+        .find(CollapsibleFieldLabel);
       expect(el).toHaveLength(1);
     });
 
@@ -84,7 +84,7 @@ describe('Multiselect', () => {
             options={[]}
           />,
         )
-        .find(FormControl);
+        .find(CollapsibleFieldLabel);
       expect(el).toHaveLength(0);
     });
   });

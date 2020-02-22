@@ -70,7 +70,7 @@ describe('useOptions', () => {
 
     expect(effect).toHaveBeenCalledWith(
       expect.any(Function),
-      ['foo', false, false],
+      ['foo', false, expect.any(String)],
     );
 
     setTimeout(() => {

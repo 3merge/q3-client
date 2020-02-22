@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniq, get } from 'lodash';
 import { useField, useFormikContext } from 'formik';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
-import { extractTextualValue, isArray } from './utils';
+import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
+import { array } from 'q3-ui-helpers';
+import { extractTextualValue } from './utils';
 
 export const addToOrFilterOut = (a, v, lever) =>
   lever
@@ -31,6 +29,7 @@ export const MultiSelectCheckboxOption = ({
   prev,
 }) => (
   <FormControlLabel
+    style={{ display: 'block' }}
     label={label}
     control={
       <Checkbox
@@ -80,7 +79,9 @@ const FilterTextField = ({
 }) => {
   const { submitForm } = useFormikContext();
   const [{ value }, , { setValue }] = useField(name);
-  const extracted = isArray(extractTextualValue(value, []));
+  const extracted = array.is(
+    extractTextualValue(value, []),
+  );
 
   const handleOnChange = (e, v) => {
     setValue({
@@ -127,24 +128,19 @@ const FilterTextField = ({
     );
 
   return Array.isArray(options) && options.length ? (
-    <Box my={2}>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">{label}</FormLabel>
-        <FormGroup>
-          {options.map((option) => (
-            <MultiSelectCheckboxOption
-              {...option}
-              key={option}
-              next={setValue}
-              done={submitForm}
-              options={extracted}
-              prev={value}
-              op={op}
-            />
-          ))}
-        </FormGroup>
-      </FormControl>
-    </Box>
+    <CollapsibleFieldLabel label={label}>
+      {options.map((option) => (
+        <MultiSelectCheckboxOption
+          {...option}
+          key={option.label}
+          next={setValue}
+          done={submitForm}
+          options={extracted}
+          prev={value}
+          op={op}
+        />
+      ))}
+    </CollapsibleFieldLabel>
   ) : null;
 };
 

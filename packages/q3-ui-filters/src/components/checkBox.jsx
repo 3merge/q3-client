@@ -15,7 +15,7 @@ const FilterCheckBox = ({ label, name, op, strict }) => {
   const isChecked = extractTextualValue(value, false);
 
   let operand = op;
-  if (strict && !value.value) operand = '=';
+  if (strict && (!value || !value.value)) operand = '=';
 
   const handleOnChangeEvent = handleOnChangeBoolean(
     setValue,

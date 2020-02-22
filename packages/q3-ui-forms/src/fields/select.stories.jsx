@@ -83,10 +83,11 @@ export const WithDynamicLoadOptions = () => (
     }}
   >
     <Field name="name" type="text" />
+    <Field name="age" type="number" />
     <Field
       name="countries"
       type="select"
-      runOnChange
+      runOnChange={['name']}
       loadOptions={() =>
         new Promise((resolve) => {
           setTimeout(() => {

@@ -69,10 +69,10 @@ const FilterForm = () => (
       label="Has length"
       name="example%2Elength"
     />
-    <DoesNotExist
+    <Exists
       type="checkbox"
       label="Does not exist"
-      name="doesNotExist"
+      name="%21doesNotExist"
     />
     <GreaterThanOrEqualTo
       label="Greater than or equal to this value"

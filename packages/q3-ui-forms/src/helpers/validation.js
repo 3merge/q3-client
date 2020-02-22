@@ -33,6 +33,16 @@ export function autocomplete(v) {
   return this.schema._exclusive.required ? hasValue : true;
 }
 
+export function emptyStringToNull(value, originalValue) {
+  if (
+    typeof originalValue === 'string' &&
+    originalValue === ''
+  ) {
+    return null;
+  }
+  return value;
+}
+
 export const mapToValue = (enumValues = []) => ({
   enum: enumValues,
   type: 'select',
@@ -85,13 +95,18 @@ export class Validator {
         this.$base = this.$base.string().test(postal);
         break;
       case 'number':
-        this.$base = this.$base.number();
+        this.$base = this.$base
+          .number()
+          .transform(emptyStringToNull)
+          .nullable();
         break;
       case 'checkbox':
         this.$base = this.$base.lazy((value) => {
           switch (typeof value) {
-            case 'boolean':
+            case 'number':
               return yup.number();
+            case 'boolean':
+              return yup.boolean();
             case 'string':
               return yup.string();
             default:

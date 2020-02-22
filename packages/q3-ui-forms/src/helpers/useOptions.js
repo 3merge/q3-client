@@ -1,5 +1,6 @@
 /* eslint-disable no-return-assign */
 import React from 'react';
+import { pick } from 'lodash';
 import { useValue } from 'useful-state';
 import { useFormikContext } from 'formik';
 
@@ -13,6 +14,10 @@ export default ({
   const [items, setItems] = React.useState(options);
   const { value, onChange } = useValue(initialValue);
   const { values } = useFormikContext();
+  let watchValues = runOnChange ? values : false;
+
+  if (Array.isArray(runOnChange))
+    watchValues = pick(values, runOnChange);
 
   React.useEffect(() => {
     let cancel = false;
@@ -34,7 +39,7 @@ export default ({
   }, [
     value,
     items !== options,
-    runOnChange ? values : false,
+    JSON.stringify(watchValues),
   ]);
 
   return {
