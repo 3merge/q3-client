@@ -48,12 +48,13 @@ const Field = ({
       type,
     });
 
+    /*
     try {
       if (isNotInitializing(formik))
         delayPromise(formik.validateField, name);
     } catch (e) {
       // noop
-    }
+    } */
   }, [
     rest.conditional || override
       ? JSON.stringify(formik.values)

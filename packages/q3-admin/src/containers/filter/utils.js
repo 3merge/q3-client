@@ -16,23 +16,25 @@ const modifyChildWithOptions = (fields) => {
   const getValue = ({ name, type }) => {
     let v = get(fields, url.decode(name), []);
     if (requiresArray(type)) v = array.castString(v);
+
     return v;
   };
 
   const exec = (child) => {
-    const recurse = (c) =>
-      props.has(c)
-        ? React.cloneElement(
-            c,
-            {
-              options: requiresOptions(
-                get(c, 'props.type', 'text'),
-                getValue(c.props),
-              ),
-            },
-            props.callOnChildren(c, recurse),
-          )
-        : c;
+    const recurse = (c) => {
+      if (!props.has(c)) return c;
+
+      return React.cloneElement(
+        c,
+        {
+          options: requiresOptions(
+            get(c, 'props.type', 'text'),
+            getValue(c.props),
+          ),
+        },
+        props.callOnChildren(c, exec),
+      );
+    };
 
     return recurse(child);
   };

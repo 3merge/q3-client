@@ -47,7 +47,7 @@ export const Default = () => (
         <Filter id="testing">
           <In
             name="countries"
-            type="checkboxGroup"
+            type="chips"
             label="Countries"
           />
           <CollapsibleFieldLabel label="testing">
