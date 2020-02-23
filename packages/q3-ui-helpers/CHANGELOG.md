@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.26](https://github.com/3merge/q/compare/v1.9.25...v1.9.26) (2020-02-23)
+
+
+### Bug Fixes
+
+* props length check ([1f3b5cf](https://github.com/3merge/q/commit/1f3b5cfddbc7e27aff4a8d053e4f8ae78873b0b9))
+
+
+
+
+
 ## [1.9.25](https://github.com/3merge/q/compare/v1.9.24...v1.9.25) (2020-02-23)
 
 **Note:** Version bump only for package q3-ui-helpers
