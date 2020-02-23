@@ -71,12 +71,12 @@ const theme = createMuiTheme({
       },
     },
     body2: {
-      fontSize: 1.15,
+      fontSize: '1.15rem',
       fontWeight: 400,
     },
     subtitle1: {
       color: grey[700],
-      fontSize: 1.15,
+      fontSize: '1.15rem',
       fontWeight: 600,
     },
     fontFamily: '"Lato", sans-serif',
