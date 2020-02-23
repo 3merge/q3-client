@@ -20,4 +20,17 @@ describe('URL', () => {
       expect(url.encode('.0!')).toMatch('%2Elength%21');
     });
   });
+
+  describe('"getYoutube"', () => {
+    it('should generate img preview', () => {
+      const { thumbnail, embed } = url.getYoutube(
+        'https://www.youtube.com/watch?v=4ctK1aoWuqY',
+      );
+
+      expect(thumbnail).toMatch('img.youtube');
+      expect(thumbnail).toMatch('4ctK1aoWuqY');
+      expect(embed).toMatch('4ctK1aoWuqY');
+      expect(embed).toMatch('embed');
+    });
+  });
 });

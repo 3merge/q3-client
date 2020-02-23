@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Swiper from 'react-id-swiper';
 import Box from '@material-ui/core/Box';
+import { red } from '@material-ui/core/colors';
 import MobileStepper from '@material-ui/core/MobileStepper';
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 import useStyle from '../useStyle';
 
-const Preview = ({ preview, id }) => {
+export const Preview = ({ preview, id, isVideo }) => {
   const { t } = useTranslation('labels');
   const { thumb } = useStyle();
 
@@ -16,6 +18,18 @@ const Preview = ({ preview, id }) => {
         alt={t('thumbnailFor', { index: id })}
         src={preview}
       />
+      {isVideo && (
+        <Box
+          position="absolute"
+          style={{ transform: 'translate(-50%,-50%)' }}
+          top="50%"
+          left="50%"
+        >
+          <PlayCircleFilledWhiteIcon
+            style={{ color: red[900] }}
+          />
+        </Box>
+      )}
     </Box>
   );
 };
@@ -30,6 +44,15 @@ Preview.propTypes = {
    * An image URI
    */
   preview: PropTypes.string.isRequired,
+
+  /**
+   * Will display a video icon
+   */
+  isVideo: PropTypes.bool,
+};
+
+Preview.defaultProps = {
+  isVideo: false,
 };
 
 const Steps = ({

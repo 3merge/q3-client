@@ -13,6 +13,7 @@ export const getInitialStatus = (len, value) => {
 };
 
 const Wrapper = (Component) => ({
+  pick = [],
   collectionName,
   initialValues = {},
   validateOnMount = false,
