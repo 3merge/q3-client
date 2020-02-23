@@ -37,25 +37,25 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       ...headingFont,
-      fontSize: 3.8,
+      fontSize: '3.8rem',
       fontWeight: 800,
     },
     h2: {
       ...headingFont,
       marginTop: 8,
-      fontSize: 2.4,
+      fontSize: '2.4rem',
     },
     h3: {
       ...headingFont,
-      fontSize: 1.7,
+      fontSize: '1.7rem',
     },
     h4: {
       ...headingFont,
-      fontSize: 1.4,
+      fontSize: '1.4rem',
     },
     h5: {
       ...headingFont,
-      fontSize: 1.15,
+      fontSize: '1.15rem',
     },
     h6: {
       ...headingFont,
