@@ -1,12 +1,13 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import { url } from 'q3-ui-helpers';
 import Slider from '.';
 import Pagination from './pagination';
 import Steps from './steps';
 
 export default {
-  title: 'Components/Slider',
+  title: 'Q3 UI|Components/Slider',
   parameters: {
     component: Slider,
     componentSubtitle:
@@ -19,7 +20,7 @@ const toggleHandlers = {
   next: () => alert('Next!'),
 };
 
-const getSlides = (style) => {
+const getSlides = (style, slide) => {
   const slides = [];
   for (let i = 0; i < 10; i += 1) {
     slides.push({
@@ -35,7 +36,7 @@ const getSlides = (style) => {
     });
   }
 
-  return slides;
+  return [slide].concat(slides).filter(Boolean);
 };
 
 export const Full = () => (
@@ -45,6 +46,35 @@ export const Full = () => (
 export const WithButtons = () => (
   <Slider withButtons slides={getSlides()} />
 );
+
+export const WithVideo = () => {
+  const { thumbnail, embed } = url.getYoutube(
+    'https://www.youtube.com/watch?v=4ctK1aoWuqY',
+  );
+
+  return (
+    <Slider
+      withThumbnails
+      withSteppers
+      slides={getSlides(undefined, {
+        id: 'video',
+        preview: thumbnail,
+        isVideo: true,
+        Component: () => (
+          <Paper>
+            <iframe
+              src={embed}
+              title="Get Swify"
+              style={{ height: 450, width: '100%' }}
+              frameBorder="0"
+              allowFullScreen
+            />
+          </Paper>
+        ),
+      })}
+    />
+  );
+};
 
 export const WithDotSteppers = () => (
   <Slider withSteppers slides={getSlides()} />
