@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.25](https://github.com/3merge/q/compare/v1.9.24...v1.9.25) (2020-02-23)
+
+
+### Bug Fixes
+
+* specify REMS now required by MUI ([49a3787](https://github.com/3merge/q/commit/49a37878963c2ce37304236f92ce35093470a281))
+
+
+
+
+
 ## [1.9.24](https://github.com/3merge/q/compare/v1.9.23...v1.9.24) (2020-02-22)
 
 **Note:** Version bump only for package q3-client
