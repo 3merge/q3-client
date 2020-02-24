@@ -4,13 +4,13 @@ import Fade from '@material-ui/core/Fade';
 import { useAuth } from 'q3-ui-permissions';
 import * as yup from 'yup';
 import { get } from 'lodash';
-import BuilderState from './builderState';
-import { Validator } from '../helpers/validation';
+import BuilderState from '../builderState';
+import { Validator } from '../../helpers/validation';
 import {
   getInitialStatus,
   selectivelyKeepInitialValues,
   authenticationHelper,
-} from './wrapper/utils';
+} from './utils';
 
 export const RevealOnValidation = ({
   validation,
