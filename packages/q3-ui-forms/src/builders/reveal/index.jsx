@@ -4,11 +4,8 @@ import Fade from '@material-ui/core/Fade';
 import { get } from 'lodash';
 
 export const Reveal = ({ validation, children }) => {
-  const validationLengthMeasured = get(
-    validation,
-    '_nodes.length',
-    null,
-  );
+  const validationLengthMeasured =
+    get(validation, '_nodes.length', 0) > 0;
 
   return (
     <Fade in={validationLengthMeasured}>
