@@ -21,5 +21,6 @@
   "clear": "Clear input",
   "enlarge": "Click to enlarge",
   "searchPlaceholder": "Press Enter to search",
-  "submit": "Send"
+  "submit": "Send",
+  "province": "Province"
 }

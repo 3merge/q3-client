@@ -152,5 +152,6 @@
   "help": "Documentation",
   "documentationError": "Could not load the documentation.",
   "documentationEmpty": "Documentation not yet configured.",
-  "commentsDisabled": "Comments have been disabled for this role type."
+  "commentsDisabled": "Comments have been disabled for this role type.",
+  "province": "Province"
 }

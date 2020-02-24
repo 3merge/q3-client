@@ -7,7 +7,7 @@ import { asOptions } from '../../helpers';
 export const CA = 'CA';
 export const US = 'US';
 
-const PROVINCES = [
+export const PROVINCES = [
   'AB',
   'BC',
   'MB',
@@ -23,7 +23,7 @@ const PROVINCES = [
   'YT',
 ];
 
-const STATES = [
+export const STATES = [
   'AL',
   'AK',
   'AZ',
