@@ -28,6 +28,24 @@ describe('Wrapper utils', () => {
 
       expect(Object.keys(values)).toHaveLength(3);
     });
+
+    it('should transform initial values', () => {
+      const values = selectivelyKeepInitialValues(
+        {
+          foo: 1,
+          bar: 1,
+          quuz: 1,
+        },
+        ['foo', 'thunk'],
+        (args) => ({
+          ...args,
+          thunk: 1,
+        }),
+      );
+
+      expect(Object.keys(values)).toHaveLength(2);
+      expect(values).toHaveProperty('thunk', 1);
+    });
   });
 
   describe('"orTruthy"', () => {

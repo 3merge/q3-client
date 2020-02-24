@@ -11,11 +11,12 @@ import useValidation from './useValidation';
 
 const Wrapper = (Component) => {
   const InnerForm = ({
-    pick = [],
+    pick,
     collectionName,
     initialValues,
-    validateOnMount = false,
+    validateOnMount,
     initialStatus,
+    mapPick,
     isNew,
     ...etc
   }) => {
@@ -57,6 +58,7 @@ const Wrapper = (Component) => {
                     initialValues: selectivelyKeepInitialValues(
                       initialValues,
                       pick,
+                      mapPick,
                     ),
 
                     initialStatus: getInitialStatus(
@@ -106,6 +108,11 @@ const Wrapper = (Component) => {
      * Is this a create op?
      */
     isNew: PropTypes.bool,
+
+    /**
+     *Transform the initialValues before the pick op.
+     */
+    mapPick: PropTypes.func,
   };
 
   InnerForm.defaultProps = {
@@ -114,6 +121,7 @@ const Wrapper = (Component) => {
     isNew: false,
     initialStatus: null,
     pick: [],
+    mapPick: null,
   };
 
   return InnerForm;

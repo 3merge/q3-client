@@ -7,10 +7,17 @@ export const STATUS_INITIALIZING = 'Initializing';
 export const selectivelyKeepInitialValues = (
   values = {},
   pickDefinitions = [],
-) =>
-  array.hasLength(pickDefinitions)
-    ? pick(values, pickDefinitions)
-    : values;
+  transformValues,
+) => {
+  const modified =
+    typeof transformValues === 'function'
+      ? transformValues(values)
+      : values;
+
+  return array.hasLength(pickDefinitions)
+    ? pick(modified, pickDefinitions)
+    : modified;
+};
 
 export const getInitialStatus = (len, value) => {
   if (len) return value || STATUS_READY;
