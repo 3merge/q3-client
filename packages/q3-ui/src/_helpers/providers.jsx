@@ -2,15 +2,15 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import MomentUtils from '@date-io/moment';
-import { I18nextProvider } from 'react-i18next';
+import Locale from 'q3-locale';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import i18n from '../i18n';
+
 import theme from '../mui';
 
 const Providers = ({ children }) => (
-  <I18nextProvider i18n={i18n}>
+  <Locale>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Helmet>
@@ -23,7 +23,7 @@ const Providers = ({ children }) => (
         {children}
       </MuiPickersUtilsProvider>
     </ThemeProvider>
-  </I18nextProvider>
+  </Locale>
 );
 
 Providers.propTypes = {
