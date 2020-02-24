@@ -8,3 +8,4 @@ export { default as Persist } from './persist';
 export { default as PersistWatcher } from './persistWatcher';
 export { default as Repeater } from './repeater';
 export { default as Validate } from './validate';
+export { default as Wrapper } from './wrapper';

@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import Fade from '@material-ui/core/Fade';
 import { get } from 'lodash';
 
-export const RevealOnValidation = ({
-  validation,
-  children,
-}) => {
+export const Reveal = ({ validation, children }) => {
   const validationLengthMeasured = get(
     validation,
     '_nodes.length',
@@ -20,7 +17,7 @@ export const RevealOnValidation = ({
   );
 };
 
-RevealOnValidation.propTypes = {
+Reveal.propTypes = {
   /**
    * Child fn.
    */
@@ -34,4 +31,4 @@ RevealOnValidation.propTypes = {
   }).isRequired,
 };
 
-export default RevealOnValidation;
+export default Reveal;

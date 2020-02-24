@@ -1,47 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Fade from '@material-ui/core/Fade';
-import { useAuth } from 'q3-ui-permissions';
-import * as yup from 'yup';
-import { get } from 'lodash';
 import BuilderState from '../builderState';
-import { Validator } from '../../helpers/validation';
+import Reveal from '../reveal';
 import {
   getInitialStatus,
   selectivelyKeepInitialValues,
-  authenticationHelper,
 } from './utils';
-
-export const RevealOnValidation = ({
-  validation,
-  children,
-}) => {
-  const validationLengthMeasured = get(
-    validation,
-    '_nodes.length',
-    null,
-  );
-
-  return (
-    <Fade in={validationLengthMeasured}>
-      <div>{children(validationLengthMeasured)}</div>
-    </Fade>
-  );
-};
-
-RevealOnValidation.propTypes = {
-  /**
-   * Child fn.
-   */
-  children: PropTypes.func.isRequired,
-
-  /**
-   * YUP validation schema.
-   */
-  validation: PropTypes.shape({
-    _nodes: PropTypes.object,
-  }).isRequired,
-};
+import useAuthentication from './useAuthentication';
+import useValidation from './useValidation';
 
 const Wrapper = (Component) => {
   const InnerForm = ({
@@ -53,30 +19,15 @@ const Wrapper = (Component) => {
     isNew,
     ...etc
   }) => {
-    const [chain, setChain] = React.useState({});
-    const validationSchema = yup.object().shape(chain);
-
     const {
       isDisabled,
       checkReadAuthorizationContext,
       checkEditAuthorizationContext,
-    } = authenticationHelper(
-      collectionName,
-      useAuth(collectionName),
-      isNew,
-    );
-
-    const setField = React.useCallback(
-      (k, args) =>
-        setChain((prevState) => ({
-          ...prevState,
-          [k]: new Validator(args).build(),
-        })),
-      [chain],
-    );
+    } = useAuthentication(collectionName, isNew);
+    const { setField, validationSchema } = useValidation();
 
     return (
-      <RevealOnValidation validation={validationSchema}>
+      <Reveal validation={validationSchema}>
         {(hasValidationLength) => (
           <BuilderState.Provider
             value={{
@@ -118,7 +69,7 @@ const Wrapper = (Component) => {
             </BuilderState.Consumer>
           </BuilderState.Provider>
         )}
-      </RevealOnValidation>
+      </Reveal>
     );
   };
 
@@ -164,6 +115,8 @@ const Wrapper = (Component) => {
     initialStatus: null,
     pick: [],
   };
+
+  return InnerForm;
 };
 
 export default Wrapper;
