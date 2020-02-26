@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/3merge/q/compare/v1.9.29...v1.10.0) (2020-02-26)
+
+
+### Features
+
+* google mapper ([#116](https://github.com/3merge/q/issues/116)) ([61d5915](https://github.com/3merge/q/commit/61d5915aaf55fd4f58a1838a9a43288d29abf3a5))
+
+
+
+
+
 ## [1.9.29](https://github.com/3merge/q/compare/v1.9.28...v1.9.29) (2020-02-26)
 
 
