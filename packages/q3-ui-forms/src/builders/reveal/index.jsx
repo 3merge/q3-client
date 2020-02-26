@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Fade from '@material-ui/core/Fade';
 import { get } from 'lodash';
 
-export const Reveal = ({ validation, children }) => {
+const Reveal = ({ validation, children }) => {
   const validationLengthMeasured =
     get(validation, '_nodes.length', 0) > 0;
 

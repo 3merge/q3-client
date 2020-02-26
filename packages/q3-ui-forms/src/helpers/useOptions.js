@@ -3,9 +3,11 @@ import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
 import { useFormikContext } from 'formik';
+import { asOptions } from '.';
 
 export default ({
   runOnChange = false,
+  transformOptions = false,
   initialValue = '',
   loadOptions,
   options = [],
@@ -19,6 +21,9 @@ export default ({
   if (Array.isArray(runOnChange))
     watchValues = pick(values, runOnChange);
 
+  const runOpts = (v) =>
+    setItems(transformOptions ? asOptions(v) : v);
+
   React.useEffect(() => {
     let cancel = false;
 
@@ -28,11 +33,11 @@ export default ({
         .catch(() => [])
         .then((data) => {
           if (cancel) return;
-          setItems(data);
+          runOpts(data);
           setLoading(false);
         });
     } else {
-      setItems(options);
+      runOpts(options);
     }
 
     return () => (cancel = true);

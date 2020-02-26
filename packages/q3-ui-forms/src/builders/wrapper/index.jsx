@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import dot from 'dot-helpers';
 import BuilderState from '../builderState';
 import Reveal from '../reveal';
-import {
-  getInitialStatus,
-  selectivelyKeepInitialValues,
-} from './utils';
+import { getInitialStatus } from './utils';
 import useAuthentication from './useAuthentication';
 import useValidation from './useValidation';
 
 const Wrapper = (Component) => {
   const InnerForm = ({
-    pick,
+    drop,
+    keep,
+    marshal,
+    modify,
+    translate,
     collectionName,
     initialValues,
+    isNew,
     validateOnMount,
     initialStatus,
-    mapPick,
-    isNew,
+    onSubmit,
     ...etc
   }) => {
     const {
@@ -55,16 +57,27 @@ const Wrapper = (Component) => {
                     validationSchema,
                     enableReinitialize: true,
 
-                    initialValues: selectivelyKeepInitialValues(
-                      initialValues,
-                      pick,
-                      mapPick,
+                    initialValues: dot.modify(
+                      dot.translate(
+                        dot.keep(initialValues, keep),
+                        translate,
+                      ),
+                      modify,
                     ),
 
                     initialStatus: getInitialStatus(
                       hasValidationLength,
                       initialStatus,
                     ),
+
+                    onSubmit: (values, actions) =>
+                      onSubmit(
+                        dot.modify(
+                          dot.keep(values, drop),
+                          marshal,
+                        ),
+                        actions,
+                      ),
                   }}
                 />
               )}
@@ -77,11 +90,6 @@ const Wrapper = (Component) => {
 
   InnerForm.propTypes = {
     children: PropTypes.node.isRequired,
-
-    /**
-     * Execute lodash's pick fn against initialValues.
-     */
-    pick: PropTypes.arrayOf(PropTypes.string),
 
     /**
      * Passed directly into Formik's provider.
@@ -110,9 +118,34 @@ const Wrapper = (Component) => {
     isNew: PropTypes.bool,
 
     /**
-     *Transform the initialValues before the pick op.
+     * Handle Formik onSubmit callback.
      */
-    mapPick: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
+
+    /**
+     * Specify which keys from initialValues to keep in the state.
+     */
+    keep: PropTypes.arrayOf(PropTypes.string),
+
+    /**
+     * Specify which keys to discard from the submit handler.
+     */
+    drop: PropTypes.arrayOf(PropTypes.string),
+
+    /**
+     * Run mutators on specific values pre-submit.
+     */
+    marshal: PropTypes.shape({}),
+
+    /**
+     * Run mutators on specific values pre-init.
+     */
+    modify: PropTypes.shape({}),
+
+    /**
+     * Adjust the shape of the state pre-modify.
+     */
+    translate: PropTypes.shape({}),
   };
 
   InnerForm.defaultProps = {
@@ -120,8 +153,11 @@ const Wrapper = (Component) => {
     validateOnMount: false,
     isNew: false,
     initialStatus: null,
-    pick: [],
-    mapPick: null,
+    keep: [],
+    drop: [],
+    marshal: {},
+    modify: {},
+    translate: {},
   };
 
   return InnerForm;

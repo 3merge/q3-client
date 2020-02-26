@@ -14,11 +14,11 @@ export default {
   },
 };
 
-export const WithPick = () => (
+export const WithKeep = () => (
   <Form
     debug
     initialValues={{ firstName: 'Mike', lastName: 'I' }}
-    pick={['firstName']}
+    keep={['firstName']}
   >
     <Field name="firstName" type="text" />
   </Form>
@@ -28,19 +28,73 @@ export const WithMapPick = () => (
   <Form
     debug
     initialValues={{
-      firstName: 'Mike',
-      behaviour: { favouriteColour: 'Green' },
-      surname: 'I',
+      firstName: 'Jon',
+      surname: 'D',
+      behaviour: {
+        favourites: { colour: 'Green' },
+        music: ['jazz', 'folk'],
+      },
     }}
-    pick={['firstName', 'lastName', 'favouriteColour']}
-    mapPick={(shape) => ({
-      ...shape,
-      lastName: shape.surname,
-      favouriteColour: shape.behaviour.favouriteColour,
-    })}
+    translate={{
+      firstName: 'firstName',
+      favouriteColour: 'behaviour.favourites.colour',
+      music: 'behaviour.music',
+      lastName: 'surname',
+    }}
+    modify={{
+      lastName: [() => 'Doe'],
+      music: [(v) => v.concat('country')],
+    }}
   >
     <Field name="firstName" type="text" />
     <Field name="lastName" type="text" />
     <Field name="favouriteColour" type="text" />
+    <Field
+      name="music"
+      type="multiselect"
+      options={['jazz', 'folk']}
+      transformOptions
+    />
+  </Form>
+);
+
+export const WithMapSubmit = () => (
+  <Form
+    debug
+    onSubmit={(v, actions) => {
+      // eslint-disable-next-line
+      console.log(v);
+      actions.setSubmitting(false);
+    }}
+    initialValues={{
+      destination: {
+        country: 'Canada',
+      },
+      numbers: [
+        {
+          label: 'One',
+          value: 1,
+        },
+      ],
+    }}
+    marshal={{
+      numbers: [(v) => v.map((item) => item.value)],
+    }}
+  >
+    <Field name="destination.country" type="text" />
+    <Field
+      name="numbers"
+      type="chips"
+      options={[
+        {
+          label: 'One',
+          value: 1,
+        },
+        {
+          label: 'Two',
+          value: 2,
+        },
+      ]}
+    />
   </Form>
 );
