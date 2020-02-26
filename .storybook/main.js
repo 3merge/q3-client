@@ -16,6 +16,7 @@ module.exports = {
     '../packages/q3-ui/**/card/*.stories.jsx',
     '../packages/q3-ui/**/collapsibleFieldLabel/**.stories.jsx',
     '../packages/q3-ui/**/list/*.stories.jsx',
+    '../packages/q3-ui/**/map/*.stories.jsx',
     '../packages/q3-ui/**/searchBar/**.stories.jsx',
     '../packages/q3-ui/**/slider/**.stories.jsx',
     '../packages/q3-ui/**/splitButton/*.stories.jsx',
