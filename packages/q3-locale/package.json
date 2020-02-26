@@ -1,6 +1,6 @@
 {
   "name": "q3-locale",
-  "version": "1.0.0",
+  "version": "1.9.28",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
