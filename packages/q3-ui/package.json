@@ -1,6 +1,6 @@
 {
   "name": "q3-ui",
-  "version": "1.9.28",
+  "version": "1.9.29",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "minimatch": "^3.0.4",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "q3-ui-locale": "^1.9.28",
+    "q3-ui-locale": "^1.9.29",
     "query-string": "^6.8.3",
     "react-content-loader": "^4.2.2",
     "react-dropzone": "^10.1.10",
