@@ -21,11 +21,15 @@ const Multiselect = (props) => {
     disabled,
     error,
     value = [],
+    ...deco
   } = useDecorator(props);
 
   const v = Array.isArray(value) ? value.flat() : [];
   const { t } = useTranslation();
-  const { loading, items } = useOptions(props);
+  const { loading, items } = useOptions({
+    ...props,
+    ...deco,
+  });
 
   return (
     <SelectWrapper

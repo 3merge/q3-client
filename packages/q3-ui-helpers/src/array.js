@@ -18,3 +18,9 @@ export const castString = (v) => {
 
   return [];
 };
+
+/**
+ * Ensure at least one value.
+ */
+export const hasLength = (v) =>
+  Array.isArray(v) && v.length;

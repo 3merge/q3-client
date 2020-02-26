@@ -11,10 +11,11 @@ import useDecorator from '../helpers/useDecorator';
 import { getDropdownLabel } from './autocomplete';
 
 export const intercept = (fn, name) => (e, newValue) => {
-  const value = newValue.map((v) => get(v, 'value', v));
+  // const value = newValue.map((v) => get(v, 'value', v));
+
   return fn({
     target: {
-      value,
+      value: newValue,
       name,
     },
   });
