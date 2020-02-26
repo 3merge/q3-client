@@ -24,9 +24,11 @@ export const WithKeep = () => (
   </Form>
 );
 
-export const WithMapPick = () => (
+export const WithTranslateAndModify = () => (
   <Form
     debug
+    // eslint-disable-next-line
+    onSubmit={console.log}
     initialValues={{
       firstName: 'Jon',
       surname: 'D',
@@ -58,7 +60,7 @@ export const WithMapPick = () => (
   </Form>
 );
 
-export const WithMapSubmit = () => (
+export const WithMarshal = () => (
   <Form
     debug
     onSubmit={(v, actions) => {

@@ -72,7 +72,7 @@ const Wrapper = (Component) => {
 
                     onSubmit: (values, actions) =>
                       onSubmit(
-                        dot.modify(
+                        dot.translateAndModify(
                           dot.keep(values, drop),
                           marshal,
                         ),
