@@ -36,3 +36,10 @@ export const WithExpandedDescription = () => (
 export const WithError = () => (
   <Bool {...props} variant="radio" error />
 );
+
+export const withMargin = () => (
+  <>
+    <Bool {...props} variant="switch" my={1} />
+    <Bool {...props} variant="switch" my={1} />
+  </>
+);

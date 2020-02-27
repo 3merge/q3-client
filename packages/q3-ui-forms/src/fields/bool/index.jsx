@@ -27,6 +27,9 @@ export const getBoolVariant = (name) => {
   return Checkbox;
 };
 
+export const getSize = (name) =>
+  name === 'switch' ? 'normal' : 'small';
+
 export const ExpandedBoolLabel = ({
   error,
   helperText,
@@ -76,20 +79,24 @@ const Bool = ({
   label,
   vars,
   onChange,
+  isChecked,
   variant,
+  my,
   ...rest
 }) => {
   const ControlVariant = getBoolVariant(variant);
   const { t } = useTranslation('labels');
 
   Object.assign(rest, {
-    size: 'small',
+    size: getSize(variant),
   });
 
   return (
-    <Box>
+    <Box my={my}>
       <FormControlLabel
-        control={<ControlVariant {...rest} />}
+        control={
+          <ControlVariant checked={isChecked} {...rest} />
+        }
         label={
           <ExpandedBoolLabel
             label={t(label, vars)}
@@ -131,11 +138,23 @@ Bool.propTypes = {
    * The type of control to display.
    */
   variant: PropTypes.oneOf(['switch', 'radio', 'checkbox']),
+
+  /**
+   * Is the checkbox on/off.
+   */
+  isChecked: PropTypes.bool,
+
+  /**
+   * Vertical margin value.
+   */
+  my: PropTypes.number,
 };
 
 Bool.defaultProps = {
   vars: {},
   variant: 'checkbox',
+  isChecked: false,
+  my: 0,
 };
 
 export default Bool;

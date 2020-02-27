@@ -13,19 +13,14 @@ export default {
 };
 
 export const Default = () => (
-  <Form debug initialValues={{ lorem: false }}>
-    <Field name="lorem" type="checkbox" />
+  <Form debug initialValues={{ demo: false }}>
+    <Field name="demo" type="checkbox" />
   </Form>
 );
 
 export const WithCustomValue = () => (
-  <Form debug initialValues={{ lorem: '' }}>
-    <Field
-      name="lorem"
-      type="checkbox"
-      checkedValue="*"
-      simple
-    />
+  <Form debug initialValues={{ demo: '' }}>
+    <Field name="demo" type="checkbox" checkedValue="*" />
   </Form>
 );
 
