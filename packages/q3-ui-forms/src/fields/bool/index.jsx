@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
-import Radio from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +13,7 @@ import { grey, red } from '@material-ui/core/colors';
 const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
     color: error ? red[900] : grey[900],
+    fontStyle: error ? 'italic' : 'normal',
     lineHeight: 1.2,
     '& strong': {
       display: 'block',
@@ -39,7 +40,11 @@ export const ExpandedBoolLabel = ({
       <small>{helperText}</small>
     </Typography>
   ) : (
-    <Typography component="span" className={control}>
+    <Typography
+      variant="body1"
+      component="span"
+      className={control}
+    >
       {label}
     </Typography>
   );

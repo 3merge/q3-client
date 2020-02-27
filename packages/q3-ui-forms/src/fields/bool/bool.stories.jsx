@@ -30,5 +30,9 @@ export const Radio = () => (
 );
 
 export const WithExpandedDescription = () => (
-  <Bool {...props} variant="radio" helperText="radio" />
+  <Bool {...props} variant="switch" helperText="radio" />
+);
+
+export const WithError = () => (
+  <Bool {...props} variant="radio" error />
 );

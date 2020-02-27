@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { CollapseableFieldset } from './checkset';
+import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import useDecorator from '../helpers/useDecorator';
 
 const Radioset = (props) => {
@@ -20,7 +20,7 @@ const Radioset = (props) => {
   const { t } = useTranslation('labels');
 
   return Array.isArray(options) && options.length ? (
-    <CollapseableFieldset
+    <CollapsibleFieldLabel
       label={label}
       error={error}
       helperText={helperText}
@@ -47,7 +47,7 @@ const Radioset = (props) => {
           />
         ))}
       </RadioGroup>
-    </CollapseableFieldset>
+    </CollapsibleFieldLabel>
   ) : null;
 };
 
