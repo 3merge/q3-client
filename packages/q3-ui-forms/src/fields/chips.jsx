@@ -10,16 +10,13 @@ import useOptions from '../helpers/useOptions';
 import useDecorator from '../helpers/useDecorator';
 import { getDropdownLabel } from './autocomplete';
 
-export const intercept = (fn, name) => (e, newValue) => {
-  // const value = newValue.map((v) => get(v, 'value', v));
-
-  return fn({
+export const intercept = (fn, name) => (e, newValue) =>
+  fn({
     target: {
       value: newValue,
       name,
     },
   });
-};
 
 const Chips = (props) => {
   const { t } = useTranslation('labels');
@@ -64,7 +61,6 @@ const Chips = (props) => {
           getTags(values).map((option, index) => (
             <Chip
               color="primary"
-              variant="outlined"
               label={t(option)}
               disabled={index === 0}
               size="small"
