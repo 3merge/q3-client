@@ -9,7 +9,11 @@ jest.mock('react-i18next', () => ({
 
 const getFormikBag = (args) => ({
   values: { foo: null },
-  setFieldValue: jest.fn(),
+  setFieldValue: jest.fn().mockReturnValue({
+    then: (fn) => fn(),
+    catch: (fn) => fn(),
+  }),
+  validateField: jest.fn().mockResolvedValue(),
   submitForm: jest.fn(),
   ...args,
 });
@@ -56,19 +60,19 @@ describe('FormikDecorator', () => {
   });
 
   describe('onChange', () => {
-    it('should call setFieldValue', () => {
-      const setFieldValue = jest.fn();
-      const inst = new FormikDecorator('foo', {
+    it('should call setFieldValue', (done) => {
+      const bag = getFormikBag({
         values: { foo: 'old' },
-        submitForm: jest.fn(),
-        setFieldValue,
       });
 
-      inst.onChange('new');
-      expect(setFieldValue).toHaveBeenCalledWith(
-        'foo',
-        'new',
-      );
+      const inst = new FormikDecorator('foo', bag);
+      inst.onChange('new').then(() => {
+        expect(bag.setFieldValue).toHaveBeenCalledWith(
+          'foo',
+          'new',
+        );
+        done();
+      });
     });
   });
 

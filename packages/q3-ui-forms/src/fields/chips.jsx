@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
-import { useField } from 'formik';
 import useOptions from '../helpers/useOptions';
 import useDecorator from '../helpers/useDecorator';
 import { getDropdownLabel } from './autocomplete';
@@ -20,12 +19,14 @@ export const intercept = (fn, name) => (e, newValue) =>
 
 const Chips = (props) => {
   const { t } = useTranslation('labels');
-  const { label, helperText, onChange } = useDecorator(
-    props,
-  );
-  const [{ name, value, ...field }, { error }] = useField(
-    props,
-  );
+  const {
+    label,
+    helperText,
+    onChange,
+    error,
+    name,
+    value,
+  } = useDecorator(props);
 
   const { loading, items = [] } = useOptions(props);
 
@@ -49,7 +50,6 @@ const Chips = (props) => {
     value !== undefined && (
       <Autocomplete
         {...props}
-        {...field}
         multiple
         loading={loading}
         filterSelectedOptions

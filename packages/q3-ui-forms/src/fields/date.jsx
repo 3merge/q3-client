@@ -1,5 +1,4 @@
 import React from 'react';
-import { useField } from 'formik';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import useDecorator from '../helpers/useDecorator';
 
@@ -13,8 +12,9 @@ export const intercept = (fn, name) => (e, newValue) => {
 };
 
 const DateSelect = (props) => {
-  const [{ name, onChange, value }] = useField(props);
-  const deco = useDecorator(props);
+  const { value, onChange, name, ...deco } = useDecorator(
+    props,
+  );
 
   delete deco.onArrayPull;
   delete deco.onArrayPush;
@@ -22,8 +22,8 @@ const DateSelect = (props) => {
   return (
     <KeyboardDatePicker
       {...deco}
-      type="text"
       name={name}
+      type="text"
       fullWidth
       inputVariant="filled"
       value={value || null}

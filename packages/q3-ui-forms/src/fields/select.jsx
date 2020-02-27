@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useField } from 'formik';
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
@@ -42,7 +41,6 @@ SelectWrapper.defaultProps = {
 const NativeSelect = (props) => {
   const { t } = useTranslation();
   const deco = useDecorator(props);
-  const [field] = useField(props);
 
   const {
     label,
@@ -83,7 +81,6 @@ const NativeSelect = (props) => {
               )
             : undefined
         }
-        {...field}
         onChange={onChange}
       >
         <option

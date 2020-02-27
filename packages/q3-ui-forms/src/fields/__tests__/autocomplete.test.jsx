@@ -1,6 +1,7 @@
 import React from 'react';
-import { useField } from 'formik';
-import Autocomplete from '../autocomplete';
+import Autocomplete, {
+  getDropdownLabel,
+} from '../autocomplete';
 
 jest.mock('formik');
 
@@ -24,22 +25,11 @@ describe('Autocomplete', () => {
     ).toMatch('foo'));
 
   it('should match with default value', () => {
-    useField.mockReturnValue([
-      {
-        value: {
-          value: 'UK',
-
-          label: 'United Kingdom',
-        },
-      },
-      {},
-    ]);
-
     expect(
-      global
-        .shallow(<Autocomplete loadOptions={jest.fn()} />)
-        .props()
-        .getOptionLabel('UK'),
+      getDropdownLabel({
+        value: 'UK',
+        label: 'United Kingdom',
+      })('UK'),
     ).toMatch('United Kingdom');
   });
 });

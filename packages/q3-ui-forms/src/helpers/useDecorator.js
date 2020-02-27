@@ -45,8 +45,7 @@ export class FormikDecorator {
   next(v) {
     return this.$fn(this.name, v)
       .then(() => this.$validate(this.name))
-      .catch((e) => {
-        console.log(this.name, e);
+      .catch(() => {
         // noop
       });
   }
