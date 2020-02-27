@@ -1,10 +1,9 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
-import useDecorator from '../helpers/useDecorator';
+import useDecorator from '../../helpers/useDecorator';
+import OptionsThreshold from '../optionsThreshold';
+import Bool from '../bool';
 
 const Radioset = (props) => {
   const {
@@ -17,9 +16,8 @@ const Radioset = (props) => {
     disabled,
     readOnly,
   } = useDecorator(props);
-  const { t } = useTranslation('labels');
 
-  return Array.isArray(options) && options.length ? (
+  return (
     <CollapsibleFieldLabel
       label={label}
       error={error}
@@ -31,24 +29,23 @@ const Radioset = (props) => {
         onChange={onChange}
         value={value}
       >
-        {options.map((option) => (
-          <FormControlLabel
-            control={
-              <Radio
-                size="small"
+        <OptionsThreshold options={options}>
+          {(res = []) =>
+            res.map((option) => (
+              <Bool
+                {...option}
+                key={option.label}
+                variant="radio"
                 disabled={disabled}
                 readOnly={readOnly}
+                name={option.label}
               />
-            }
-            name={option.label}
-            label={t(option.label, option.vars)}
-            key={option.value}
-            value={option.value}
-          />
-        ))}
+            ))
+          }
+        </OptionsThreshold>
       </RadioGroup>
     </CollapsibleFieldLabel>
-  ) : null;
+  );
 };
 
 export default Radioset;

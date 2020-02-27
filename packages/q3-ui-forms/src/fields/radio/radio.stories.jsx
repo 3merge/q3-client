@@ -5,15 +5,15 @@ import Checkset from '.';
 import { options } from '../__fixtures__/options';
 
 export default {
-  title: 'Q3 Forms|Fields/Checkset',
+  title: 'Q3 Forms|Fields/Radio',
   parameters: {
     component: Checkset,
-    componentSubtitle: 'Collapsible sets of checkboxes',
+    componentSubtitle: 'Collapsible sets of radio boxes',
   },
 };
 
 export const Default = () => (
   <Form debug initialValues={{ demo: [] }}>
-    <Field name="demo2" type="checkset" options={options} />
+    <Field name="demo2" type="radio" options={options} />
   </Form>
 );

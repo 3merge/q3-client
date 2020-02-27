@@ -6,58 +6,7 @@ import Button from '@material-ui/core/Button';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import useDecorator from '../../helpers/useDecorator';
 import Bool from '../bool';
-
-const isSet = (v) => v > 0;
-
-const getVisibleResults = (arr, numberOfVisible) => {
-  if (!Array.isArray(arr)) return [];
-  return numberOfVisible > 0
-    ? arr.slice(0, numberOfVisible)
-    : arr;
-};
-
-export const ChecksetVisibilityThreshold = ({
-  maxVisible,
-  options,
-  children,
-}) => {
-  const { t } = useTranslation('labels');
-
-  const [
-    visibleResults,
-    setVisibleResults,
-  ] = React.useState(maxVisible);
-
-  const showAll = isSet(visibleResults);
-
-  const handleVisibilityClick = () =>
-    setVisibleResults(showAll ? 0 : maxVisible);
-
-  return (
-    <>
-      {children(getVisibleResults(options, visibleResults))}
-      {isSet(maxVisible) && (
-        <Button
-          type="button"
-          onClick={handleVisibilityClick}
-          id="toggle-visibility"
-        >
-          {showAll ? t('more') : t('less')}
-        </Button>
-      )}
-    </>
-  );
-};
-
-ChecksetVisibilityThreshold.propTypes = {
-  maxVisible: PropTypes.number,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  children: PropTypes.func.isRequired,
-};
-
-ChecksetVisibilityThreshold.defaultProps = {
-  maxVisible: 0,
-};
+import OptionsThreshold from '../optionsThreshold';
 
 const Checkset = ({ maxVisible, ...props }) => {
   const [{ value = [] }, { error }] = useField(props);
@@ -71,7 +20,7 @@ const Checkset = ({ maxVisible, ...props }) => {
 
   return (
     <CollapsibleFieldLabel {...rest} error={Boolean(error)}>
-      <ChecksetVisibilityThreshold
+      <OptionsThreshold
         maxVisible={maxVisible}
         options={options}
       >
@@ -88,7 +37,7 @@ const Checkset = ({ maxVisible, ...props }) => {
             />
           ))
         }
-      </ChecksetVisibilityThreshold>
+      </OptionsThreshold>
     </CollapsibleFieldLabel>
   );
 };
