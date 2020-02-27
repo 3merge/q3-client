@@ -28,6 +28,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/builders/validate/**.stories.jsx',
     '../packages/q3-ui-forms/**/builders/wrapper/**.stories.jsx',
     '../packages/q3-ui-forms/**/fields/autocomplete.stories.jsx',
+    '../packages/q3-ui-forms/**/fields/bool/**.stories.jsx',
     '../packages/q3-ui-forms/**/fields/chips.stories.jsx',
     '../packages/q3-ui-forms/**/fields/checkset.stories.jsx',
     '../packages/q3-ui-forms/**/fields/text.stories.jsx',
