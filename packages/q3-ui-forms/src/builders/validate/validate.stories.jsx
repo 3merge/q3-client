@@ -3,6 +3,7 @@ import Tile from 'q3-ui/lib/tile';
 import Field from '../field';
 import Form from '../form';
 import Validate from '.';
+import { options } from '../../fields/__fixtures__/options';
 
 export default {
   title: 'Q3 Forms|Builders/Validate',
@@ -72,6 +73,62 @@ export const ValidateOnSchemaChange = () => (
           required: Boolean(values.email.length),
         })}
       />
+    </Form>
+  </Tile>
+);
+
+export const ValidatePostRequest = () => (
+  <Tile
+    title="Validation reset on request error"
+    subtitle="When errors occur outside Formik state, the form must reset"
+  >
+    <Form
+      debug
+      initialValues={{
+        email: '',
+        options: '',
+        example: '',
+        autocomplete: '',
+        transfer: '',
+        chips: '',
+        multiselect: [],
+      }}
+      onSubmit={(values, actions) => {
+        actions.setFieldError('email', 'Err!');
+        actions.setFieldError('options', 'Err!');
+        actions.setFieldError('autocomplete', 'Err!');
+        actions.setFieldError('example', 'Err!');
+        actions.setFieldError('transfer', 'Err!');
+        actions.setFieldError('chips', 'Err!');
+        actions.setFieldError('multiselect', 'Err!');
+        actions.setSubmitting(false);
+      }}
+    >
+      <Field name="email" type="email" required />
+      <Field
+        name="transfer"
+        type="transfer"
+        loadOptions={() =>
+          Promise.resolve(options.map(({ value }) => value))
+        }
+      />
+      <Field
+        name="options"
+        type="select"
+        options={options}
+      />
+      <Field
+        name="autocomplete"
+        type="autocomplete"
+        loadOptions={() => Promise.resolve(options)}
+      />
+      <Field name="chips" type="chips" options={options} />
+      <Field
+        name="multiselect"
+        type="multiselect"
+        options={options}
+      />
+      <Field name="example" type="checkbox" />
     </Form>
   </Tile>
 );

@@ -9,7 +9,6 @@ import Next from '../next';
 import Persist from '../persist';
 import withWrapper from '../wrapper';
 import Validate from '../validate';
-import { delayPromise } from '../../helpers';
 
 const invokeIfDefined = (a, fn) => (a ? fn() : null);
 
@@ -39,12 +38,8 @@ export const FormBuilder = ({
     {...formikProps}
     {...rest}
   >
-    {({ resetForm, validateField }) => (
-      <Form
-        onChange={({ target: { name: fieldName } }) =>
-          delayPromise(validateField, fieldName)
-        }
-      >
+    {({ resetForm }) => (
+      <Form>
         <Validate />
         {id && (
           <Persist id={prefixForSessionStorage(name, id)} />

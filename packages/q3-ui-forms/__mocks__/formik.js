@@ -10,6 +10,7 @@ export const getIn = jest.fn().mockReturnValue('');
 
 export const useFormikContext = jest.fn().mockReturnValue({
   setFieldValue: jest.fn(),
+  validateField: jest.fn(),
   submitForm: jest.fn(),
   values: {},
   errors: {},

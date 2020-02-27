@@ -41,6 +41,7 @@ SelectWrapper.defaultProps = {
 const NativeSelect = (props) => {
   const { t } = useTranslation();
   const deco = useDecorator(props);
+
   const {
     label,
     helperText,
@@ -60,7 +61,6 @@ const NativeSelect = (props) => {
 
   return (
     <SelectWrapper
-      name={name}
       label={label}
       helperText={helperText}
       error={Boolean(error)}
@@ -68,7 +68,7 @@ const NativeSelect = (props) => {
     >
       <Select
         native
-        onChange={onChange}
+        name={name}
         value={items.length ? value : ''}
         disabled={disabled}
         readOnly={readOnly}
@@ -81,6 +81,7 @@ const NativeSelect = (props) => {
               )
             : undefined
         }
+        onChange={onChange}
       >
         <option
           value=""

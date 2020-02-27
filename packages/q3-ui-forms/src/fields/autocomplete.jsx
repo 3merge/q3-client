@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
-import { useField } from 'formik';
 import useOptions from '../helpers/useOptions';
 import { intercept } from './date';
 import useDecorator from '../helpers/useDecorator';
@@ -20,12 +19,16 @@ export const getDropdownLabel = (value) => (option) => {
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
-  const { label, helperText, disableFilter } = useDecorator(
-    props,
-  );
-  const [{ name, value, ...field }, { error }] = useField(
-    props,
-  );
+  const {
+    label,
+    helperText,
+    disableFilter,
+    onChange: handleChange,
+    error,
+    field,
+    name,
+    value,
+  } = useDecorator(props);
 
   const { loading, onChange, items = [] } = useOptions(
     props,
@@ -56,7 +59,7 @@ export const AutoCompleteWrapper = (props) => {
       defaultValue={isObject(value) ? value.value : value}
       renderInput={getCustomInput}
       getOptionLabel={getDropdownLabel(value)}
-      onChange={intercept(field.onChange, name)}
+      onChange={intercept(handleChange, name)}
       filterOptions={
         disableFilter
           ? (options) => {

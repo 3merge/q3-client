@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge } from 'lodash';
-import { useField } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Lock from '@material-ui/icons/Lock';
 import useDecorator from '../helpers/useDecorator';
 
 const Text = (props) => {
   const { type } = props;
-  const [field] = useField(props);
+
   const {
     disabled,
     readOnly,
@@ -16,19 +14,8 @@ const Text = (props) => {
     helperText,
     error,
     onBlur,
+    onChange,
   } = useDecorator(props);
-
-  const etc = merge(
-    {},
-    field,
-    Object.entries(props).reduce(
-      (curr, [key, value]) =>
-        value !== undefined
-          ? Object.assign(curr, { [key]: value })
-          : curr,
-      {},
-    ),
-  );
 
   return (
     <TextField
@@ -45,8 +32,15 @@ const Text = (props) => {
           endAdornment: <Lock />,
         }),
       }}
-      {...etc}
       onBlur={onBlur}
+      onChange={onChange}
+      {...Object.entries(props).reduce(
+        (curr, [key, value]) =>
+          value !== undefined
+            ? Object.assign(curr, { [key]: value })
+            : curr,
+        {},
+      )}
     />
   );
 };
