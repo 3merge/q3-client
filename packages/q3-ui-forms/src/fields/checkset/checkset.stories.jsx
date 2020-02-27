@@ -11,43 +11,26 @@ export default {
   },
 };
 
-export const AsMultiSelect = () => (
+const options = ['One', 'Two', 'Three', 'Four', 'Five'].map(
+  (value) => ({
+    label: value,
+    value,
+  }),
+);
+
+export const Default = () => (
+  <Form debug initialValues={{ demo: [] }}>
+    <Field name="demo2" type="radio" options={options} />
+  </Form>
+);
+
+export const WithLimitedVisible = () => (
   <Form debug initialValues={{ demo: [] }}>
     <Field
       name="demo"
       type="checkset"
-      options={[
-        {
-          value: 'One',
-          label: 'One',
-        },
-        {
-          value: 'Two',
-          label: 'Two',
-        },
-        {
-          value: 'Three',
-          label: 'Three',
-        },
-      ]}
-    />
-    <Field
-      name="demo2"
-      type="radio"
-      options={[
-        {
-          value: 'One',
-          label: 'One',
-        },
-        {
-          value: 'Two',
-          label: 'Two',
-        },
-        {
-          value: 'Three',
-          label: 'Three',
-        },
-      ]}
+      options={options}
+      maxVisible={3}
     />
   </Form>
 );

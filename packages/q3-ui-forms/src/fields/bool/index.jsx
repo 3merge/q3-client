@@ -103,7 +103,6 @@ const Bool = ({
             {...rest}
           />
         }
-        key={label}
         onChange={onChange}
         {...rest}
       />
@@ -122,7 +121,7 @@ Bool.propTypes = {
    * The HTML name attr value.
    */
 
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
 
   /**
    * Whichever variables you'd like to pass into the useTranslation label.
@@ -153,6 +152,7 @@ Bool.propTypes = {
 Bool.defaultProps = {
   vars: {},
   variant: 'checkbox',
+  name: null,
   isChecked: false,
   my: 0,
 };
