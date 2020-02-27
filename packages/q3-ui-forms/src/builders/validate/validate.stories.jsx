@@ -3,6 +3,7 @@ import Tile from 'q3-ui/lib/tile';
 import Field from '../field';
 import Form from '../form';
 import Validate from '.';
+import { options } from '../../fields/__fixtures__/options';
 
 export default {
   title: 'Q3 Forms|Builders/Validate',
@@ -72,6 +73,35 @@ export const ValidateOnSchemaChange = () => (
           required: Boolean(values.email.length),
         })}
       />
+    </Form>
+  </Tile>
+);
+
+export const ValidatePostRequest = () => (
+  <Tile
+    title="Validation reset on request error"
+    subtitle="When errors occur outside Formik state, the form must reset"
+  >
+    <Form
+      initialValues={{
+        email: '',
+        options: '',
+        example: '',
+      }}
+      onSubmit={(values, actions) => {
+        actions.setFieldError('email', 'Taken');
+        actions.setFieldError('options', 'Bad value');
+        actions.setFieldError('example', 'Bad value');
+        actions.setSubmitting(false);
+      }}
+    >
+      <Field name="email" type="email" required />
+      <Field
+        name="options"
+        type="select"
+        options={options}
+      />
+      <Field name="example" type="checkbox" />
     </Form>
   </Tile>
 );

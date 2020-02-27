@@ -16,6 +16,23 @@ const invokeIfDefined = (a, fn) => (a ? fn() : null);
 const prefixForSessionStorage = (a, b) =>
   a ? `${a}-${b}` : b;
 
+const ValidateOnChange = ({ validateField, children }) => {
+  const handleChange = ({ target: { name: fieldName } }) =>
+    delayPromise(validateField, fieldName);
+
+  return (
+    <Form onChange={handleChange}>
+      <Validate />
+      {children}
+    </Form>
+  );
+};
+
+ValidateOnChange.propTypes = {
+  validateField: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 export const FormBuilder = ({
   children,
   debug,
@@ -40,12 +57,7 @@ export const FormBuilder = ({
     {...rest}
   >
     {({ resetForm, validateField }) => (
-      <Form
-        onChange={({ target: { name: fieldName } }) =>
-          delayPromise(validateField, fieldName)
-        }
-      >
-        <Validate />
+      <ValidateOnChange validateField={validateField}>
         {id && (
           <Persist id={prefixForSessionStorage(name, id)} />
         )}
@@ -63,7 +75,7 @@ export const FormBuilder = ({
           )}
           <FormikDebug show={debug} />
         </Box>
-      </Form>
+      </ValidateOnChange>
     )}
   </Formik>
 );
