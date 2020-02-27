@@ -1,12 +1,8 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
+import { useFormikContext, useField } from 'formik';
 import PropTypes from 'prop-types';
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
-import {
-  delayPromise,
-  isNotInitializing,
-} from '../helpers';
 
 const Field = ({
   name,
@@ -15,6 +11,8 @@ const Field = ({
   under,
   ...rest
 }) => {
+  useField(name);
+
   const el = React.useRef();
   const [attrs, setAttrs] = React.useState({});
   const { authorization, validation } = React.useContext(
@@ -47,14 +45,6 @@ const Field = ({
       ...a,
       type,
     });
-
-    /*
-    try {
-      if (isNotInitializing(formik))
-        delayPromise(formik.validateField, name);
-    } catch (e) {
-      // noop
-    } */
   }, [
     rest.conditional || override
       ? JSON.stringify(formik.values)

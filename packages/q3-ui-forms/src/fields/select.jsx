@@ -49,7 +49,7 @@ const NativeSelect = (props) => {
     helperText,
     disabled,
     readOnly,
-
+    onChange,
     name,
     value,
     error,
@@ -84,6 +84,7 @@ const NativeSelect = (props) => {
             : undefined
         }
         {...field}
+        onChange={onChange}
       >
         <option
           value=""

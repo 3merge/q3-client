@@ -20,10 +20,11 @@ export class FormikDecorator {
     this.rawValue = getIn(formikBag.values, name);
     this.error = getIn(formikBag.errors, name);
     this.disabled = formikBag.isSubmitting || isDisabled;
-    this.autosave = formikBag.status === 'autosave';
 
     this.$fn = formikBag.setFieldValue.bind(formikBag);
-    this.$save = formikBag.submitForm.bind(formikBag);
+    this.$validate = formikBag.validateField.bind(
+      formikBag,
+    );
   }
 
   set rawValue(v) {
@@ -41,40 +42,35 @@ export class FormikDecorator {
     }
   }
 
-  saveProgress() {
-    if (this.autosave) {
-      this.$save();
-    }
-  }
-
   next(v) {
-    this.$fn(this.name, v);
-    this.saveProgress();
+    return this.$fn(this.name, v)
+      .then(() => this.$validate(this.name))
+      .catch((e) => {
+        console.log(this.name, e);
+        // noop
+      });
   }
 
   onBlur() {
-    this.saveProgress();
+    // noop
   }
 
   onChange(e) {
-    const newValue = parseEventValue(e);
-    this.next(newValue);
+    return this.next(parseEventValue(e));
   }
 
   onArrayPush(e) {
     const newValue = parseEventValue(e);
 
     if (!Array.isArray(this.value)) {
-      this.next([newValue].flat());
-      return;
+      return this.next([newValue].flat());
     }
 
     if (Array.isArray(newValue)) {
-      this.next(newValue);
-      return;
+      return this.next(newValue);
     }
 
-    this.next(
+    return this.next(
       !hasValue(this.value, newValue)
         ? this.value.concat(newValue)
         : filterValue(this.value, newValue),
@@ -83,7 +79,7 @@ export class FormikDecorator {
 
   onArrayPull(e) {
     const newValue = parseEventValue(e);
-    this.next(
+    return this.next(
       Array.isArray(this.value)
         ? filterValue(this.value, newValue)
         : [],

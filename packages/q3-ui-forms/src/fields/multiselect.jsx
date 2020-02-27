@@ -33,7 +33,6 @@ const Multiselect = (props) => {
 
   return (
     <SelectWrapper
-      name={name}
       label={label}
       helperText={helperText}
       error={error}
@@ -47,6 +46,7 @@ const Multiselect = (props) => {
         onChange={onArrayPush}
         input={
           <FilledInput
+            name={name}
             endAdornment={
               loading && (
                 <CircularProgress
