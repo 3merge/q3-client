@@ -24,12 +24,20 @@ const ErrorTemplate = ({
   children,
   title,
   description,
+  transparent,
 }) => {
   const { t } = useTranslation();
   const { graphic } = useStyles();
 
   return (
-    <Paper elevation={0}>
+    <Paper
+      elevation={0}
+      style={{
+        backgroundColor: transparent
+          ? 'transparent'
+          : undefined,
+      }}
+    >
       <Container maxWidth="sm">
         <Box className={graphic}>{children}</Box>
         <Box
@@ -59,11 +67,13 @@ ErrorTemplate.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   children: childrenProp.isRequired,
+  transparent: PropTypes.bool,
 };
 
 ErrorTemplate.defaultProps = {
   title: 'error',
   description: 'error',
+  transparent: false,
 };
 
 export default ErrorTemplate;

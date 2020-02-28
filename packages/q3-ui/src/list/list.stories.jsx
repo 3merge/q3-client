@@ -1,5 +1,7 @@
 import React from 'react';
 import AccountBox from '@material-ui/icons/AccountBox';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import List, { ActionBar, ListItem } from '.';
 
@@ -51,8 +53,15 @@ export const ListComplete = () => (
   </List>
 );
 
-export const WithTitle = () => (
-  <List title="For demonstration" />
+export const AsEmpty = () => (
+  <Container>
+    <Paper>
+      <List
+        onCreate={() => null}
+        title="For demonstration"
+      />
+    </Paper>
+  </Container>
 );
 
 export const WithoutActions = () => (
