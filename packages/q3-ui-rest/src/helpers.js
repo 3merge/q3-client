@@ -91,6 +91,13 @@ export const getWithContentTypeCsv = (url, params) =>
     transformRequest: [acceptCsvFiletype(params)],
   });
 
+export const getAsCSV = (url, params = {}) =>
+  getWithContentTypeCsv(url, params)
+    .then((e) => FileDownload(e.data, 'file.csv'))
+    .catch(() => {
+      // noop
+    });
+
 export const formatUrlPath = (url, query, select) => {
   let endpoint = url;
 
@@ -112,7 +119,7 @@ export const formatUrlPath = (url, query, select) => {
   };
 
   if (hasLength(query)) addToEndpoint(query);
-  if (hasLength(select)) addToEndpoint(`&fields=${select}`);
+  if (hasLength(select)) addToEndpoint(`fields=${select}`);
 
   return endpoint;
 };

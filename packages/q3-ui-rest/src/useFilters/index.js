@@ -8,6 +8,7 @@ export default ({ coll, fields }) => {
 
   const state = useRest({
     url: `/search?${fieldString}`,
+    runOnInit: true,
     key: 'fields',
   });
 

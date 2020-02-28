@@ -10,19 +10,17 @@ export default (params, children) => {
     location,
   } = React.useContext(PageState);
 
-  const filters = useFilters({
-    query: params.toString(),
-    fields: props.mapBy(children, 'name'),
-    coll: collectionName,
-    location,
+  return React.useMemo(() => {
+    const filters = useFilters({
+      query: params.toString(),
+      fields: props.mapBy(children, 'name'),
+      coll: collectionName,
+      location,
+    });
+
+    return {
+      loading: filters.fetching || fetching,
+      fields: filters.fields || {},
+    };
   });
-
-  React.useEffect(() => {
-    filters.get();
-  }, [location]);
-
-  return {
-    loading: filters.fetching || fetching,
-    fields: filters.fields || {},
-  };
 };

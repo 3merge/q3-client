@@ -125,5 +125,10 @@ describe('q3-ui-rest helpers', () => {
         'localhost?foo=bar&quuz=garply&thunk&fields=1,2,3',
       );
     });
+
+    it('should add projection without  query', () => {
+      const str = formatUrlPath('localhost', '', '1,2,3');
+      expect(str).toMatch('localhost?fields=1,2,3');
+    });
   });
 });
