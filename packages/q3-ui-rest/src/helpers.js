@@ -91,9 +91,28 @@ export const getWithContentTypeCsv = (url, params) =>
     transformRequest: [acceptCsvFiletype(params)],
   });
 
-export const getAsCSV = (url, params = {}) =>
-  csv(url, params)
-    .then((e) => FileDownload(e.data, 'file.csv'))
-    .catch(() => {
-      // noop
-    });
+export const formatUrlPath = (url, query, select) => {
+  let endpoint = url;
+
+  const hasQuery = (v) => v.includes('?');
+  const appendAmpersand = (v) =>
+    v.startsWith('&') ? v : `&${v}`;
+
+  const hasLength = (v) =>
+    typeof v === 'string' && v.length;
+
+  const addToEndpoint = (v) => {
+    if (hasQuery(endpoint)) {
+      endpoint += appendAmpersand(v.replace('?', '&'));
+    } else if (v.startsWith('&')) {
+      endpoint += endpoint.endsWith('&') ? v.substr(1) : v;
+    } else {
+      endpoint += !v.startsWith('?') ? `?${v}` : v;
+    }
+  };
+
+  if (hasLength(query)) addToEndpoint(query);
+  if (hasLength(select)) addToEndpoint(`&fields=${select}`);
+
+  return endpoint;
+};
