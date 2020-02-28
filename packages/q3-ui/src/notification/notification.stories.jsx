@@ -15,6 +15,29 @@ export const Single = () => (
   </>
 );
 
+export const Persistent = () => {
+  const id = 'gone-on-session';
+  const reset = () => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem(id);
+    }
+  };
+
+  return (
+    <>
+      <button type="button" onClick={reset}>
+        Reset
+      </button>
+      <Notification
+        id={id}
+        slides={[
+          <NotificationContent message="Hey, this is a message" />,
+        ]}
+      />
+    </>
+  );
+};
+
 export const WithDescription = () => (
   <>
     <Notification
