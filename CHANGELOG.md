@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/3merge/q/compare/v1.10.0...v1.11.0) (2020-02-28)
+
+
+### Features
+
+* page builder ([#119](https://github.com/3merge/q/issues/119)) ([7b01d25](https://github.com/3merge/q/commit/7b01d257b140c90bc77538132a49fa9d071f4a8a))
+
+
+
+
+
 # [1.10.0](https://github.com/3merge/q/compare/v1.9.29...v1.10.0) (2020-02-26)
 
 
