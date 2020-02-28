@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.2](https://github.com/3merge/q/compare/v1.11.1...v1.11.2) (2020-02-28)
+
+**Note:** Version bump only for package q3-ui-rest
+
+
+
+
+
 ## [1.9.18](https://github.com/3merge/q/compare/v1.9.17...v1.9.18) (2020-02-20)
 
 **Note:** Version bump only for package q3-ui-rest
