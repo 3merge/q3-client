@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
 import Resource from './resource';
 
 export default {
@@ -10,18 +11,29 @@ export default {
 };
 
 const getProps = (args) => ({
-  name: 'Components',
   title: 'New resource card',
   description: 'Great for homepages and resource pages',
   to: '/',
   buttonText: 'First',
-  secondaryTo: '/',
-  secondaryButtonText: 'Second',
-  imgSrc:
-    'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png',
+
+  imgSrc: 'https://picsum.photos/id/237/200/300',
   ...args,
 });
 
 export const WithTwoButtons = () => (
-  <Resource {...getProps()} />
+  <Container maxWidth="md">
+    <Resource
+      {...getProps({
+        name: 'Components',
+        secondaryTo: '/',
+        secondaryButtonText: 'Second',
+      })}
+    />
+  </Container>
+);
+
+export const WithLittleText = () => (
+  <Container maxWidth="md">
+    <Resource {...getProps()} />
+  </Container>
 );

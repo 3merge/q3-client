@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import CardHeader from '../header';
+import useStyles from '../useStyle';
 
 const ResourceCard = ({
   imgSrc,
@@ -17,45 +18,53 @@ const ResourceCard = ({
   secondaryButtonText,
   secondaryTo,
   ...rest
-}) => (
-  <Grid item md={6} sm={8} xs={10}>
-    <Card>
-      <Grid container spacing={1} alignItems="center">
-        <Grid item lg={4} md={5} sm={6} xs={12}>
-          <Box p={2}>
-            <LazyLoadImage src={imgSrc} alt={title} />
-          </Box>
-        </Grid>
-        <Grid item lg={8} md={7} sm={6} xs={12}>
-          <CardContent>
-            <CardHeader title={title} {...rest} />
-            <Button
-              tabIndex="-1"
-              size="small"
-              color="primary"
-              variant="contained"
-              component={Link}
-              style={{ marginRight: '0.5rem' }}
-              to={to}
-            >
-              {buttonText}
-            </Button>
-            {secondaryButtonText && (
+}) => {
+  const { imgCover } = useStyles();
+
+  return (
+    <Grid item md={6} sm={8} xs={10}>
+      <Card>
+        <Grid container spacing={1} alignItems="center">
+          <Grid item lx={4} lg={6} xs={12}>
+            <Box className={imgCover}>
+              <LazyLoadImage
+                src={imgSrc}
+                alt={title}
+                style={{ width: '100%', height: '100%' }}
+              />
+            </Box>
+          </Grid>
+          <Grid item lx={8} lg={6} xs={12}>
+            <CardContent>
+              <CardHeader title={title} {...rest} />
               <Button
                 tabIndex="-1"
                 size="small"
-                to={secondaryTo}
+                color="primary"
+                variant="contained"
                 component={Link}
+                style={{ marginRight: '0.5rem' }}
+                to={to}
               >
-                {secondaryButtonText}
+                {buttonText}
               </Button>
-            )}
-          </CardContent>
+              {secondaryButtonText && (
+                <Button
+                  tabIndex="-1"
+                  size="small"
+                  to={secondaryTo}
+                  component={Link}
+                >
+                  {secondaryButtonText}
+                </Button>
+              )}
+            </CardContent>
+          </Grid>
         </Grid>
-      </Grid>
-    </Card>
-  </Grid>
-);
+      </Card>
+    </Grid>
+  );
+};
 
 ResourceCard.propTypes = {
   /**
