@@ -15,10 +15,12 @@ const Text = (props) => {
     error,
     onBlur,
     onChange,
+    ...etc
   } = useDecorator(props);
 
   return (
     <TextField
+      {...etc}
       disabled={disabled}
       readOnly={readOnly}
       label={label}

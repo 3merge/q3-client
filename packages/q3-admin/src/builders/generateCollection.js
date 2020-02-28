@@ -1,17 +1,20 @@
 import React from 'react';
 import Page from '../containers/page';
 
-export default ({
+export const getCollectionInformation = ({
   resourceName,
+  resourceNameSingular,
   collectionName,
-  icon,
-  PageDetail,
-  PageList,
-}) => [
+}) => ({
+  resourceName,
+  resourceNameSingular,
+  collectionName: collectionName || resourceName,
+});
+
+export default ({ icon, PageDetail, PageList, ...etc }) => [
   {
     id: true,
-    collectionName,
-    resourceName,
+    ...getCollectionInformation(etc),
     component: (props) =>
       React.createElement(
         Page,
@@ -23,10 +26,9 @@ export default ({
       ),
   },
   {
-    index: true,
-    collectionName,
-    resourceName,
     icon,
+    index: true,
+    ...getCollectionInformation(etc),
     component: (props) =>
       React.createElement(
         Page,

@@ -104,4 +104,14 @@ export default makeStyles((theme) => ({
       bottom: 0,
     },
   },
+  imgCover: {
+    position: 'relative',
+    height: 265,
+    width: '100%',
+    '&> img': {
+      height: '100%',
+      objectFit: 'cover',
+      width: '100%',
+    },
+  },
 }));
