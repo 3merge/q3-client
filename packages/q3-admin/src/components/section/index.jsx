@@ -8,12 +8,11 @@ import Grid from '@material-ui/core/Grid';
 export const getSectionSize = (fn) =>
   typeof fn === 'function'
     ? {
-        lg: 8,
-        md: 7,
-        sm: 6,
+        md: 8,
+        sm: 12,
+        xs: 12,
       }
     : {
-        sm: 6,
         xs: 12,
       };
 

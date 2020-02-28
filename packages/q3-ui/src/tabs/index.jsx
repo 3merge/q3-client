@@ -62,12 +62,18 @@ const slug = (a, b) =>
 
 const TabsWithRouter = ({ views, root }) => {
   const { t } = useTranslation();
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery('(max-width:1280px)');
   const { routes, tabber } = useStyles({ isMobile });
 
   return (
     <Grid container spacing={1}>
-      <Grid item style={{ maxWidth: '100%' }}>
+      <Grid
+        item
+        style={{
+          maxWidth: '100%',
+          width: isMobile ? '100%' : 'auto',
+        }}
+      >
         <LocationMatch
           base={root}
           views={views}

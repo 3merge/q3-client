@@ -4,14 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   tiled: {
     position: 'relative',
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(2),
     maxWidth: '100%',
   },
   errorBar: {

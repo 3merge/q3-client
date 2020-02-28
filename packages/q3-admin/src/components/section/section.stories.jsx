@@ -11,7 +11,11 @@ export default {
 };
 
 export const WithOutSidebar = () => (
-  <Section>Full-width section content</Section>
+  <Section>
+    <div style={{ background: '#FFF', width: '100%' }}>
+      Full-width section content
+    </div>
+  </Section>
 );
 
 export const WithSidebar = () => (

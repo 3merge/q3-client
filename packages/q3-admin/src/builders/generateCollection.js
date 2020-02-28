@@ -5,13 +5,21 @@ export const getCollectionInformation = ({
   resourceName,
   resourceNameSingular,
   collectionName,
+  ...rest
 }) => ({
   resourceName,
   resourceNameSingular,
   collectionName: collectionName || resourceName,
+  ...rest,
 });
 
-export default ({ icon, PageDetail, PageList, ...etc }) => [
+export default ({
+  icon,
+  PageDetail,
+  PageList,
+  projection,
+  ...etc
+}) => [
   {
     id: true,
     ...getCollectionInformation(etc),
@@ -35,6 +43,7 @@ export default ({ icon, PageDetail, PageList, ...etc }) => [
         {
           ...props,
           index: true,
+          select: projection,
         },
         PageList,
       ),

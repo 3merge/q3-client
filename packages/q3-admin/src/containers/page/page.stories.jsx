@@ -7,6 +7,7 @@ import {
   LocationProvider,
 } from '@reach/router';
 
+import State from '../state';
 import { LocationDebugger } from '../../components/debugger';
 import Page from '.';
 
