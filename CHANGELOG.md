@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.5](https://github.com/3merge/q/compare/v1.11.4...v1.11.5) (2020-02-28)
+
+
+### Bug Fixes
+
+* memo in filter ([6f96b14](https://github.com/3merge/q/commit/6f96b142a06a588ba4a055cdae259e79929503fb))
+
+
+
+
+
 ## [1.11.4](https://github.com/3merge/q/compare/v1.11.3...v1.11.4) (2020-02-28)
 
 **Note:** Version bump only for package q3-client
