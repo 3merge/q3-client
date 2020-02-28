@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.6](https://github.com/3merge/q/compare/v1.11.5...v1.11.6) (2020-02-28)
+
+
+### Bug Fixes
+
+* filter rendering ([e4a1e15](https://github.com/3merge/q/commit/e4a1e15c2842e6f81ed5e5543aaee394909fcbcb))
+
+
+
+
+
 ## [1.11.3](https://github.com/3merge/q/compare/v1.11.2...v1.11.3) (2020-02-28)
 
 **Note:** Version bump only for package q3-ui
