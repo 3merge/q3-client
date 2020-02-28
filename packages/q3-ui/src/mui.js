@@ -2,7 +2,6 @@ import {
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
 import grey from '@material-ui/core/colors/grey';
 
 const headingFont = {
@@ -89,6 +88,9 @@ Object.assign(theme, {
   overrides: {
     MuiCssBaseline: {
       '@global': {
+        html: {
+          fontSize: 14,
+        },
         img: {
           maxWidth: '100%',
         },

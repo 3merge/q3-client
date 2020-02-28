@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
+import Skeleton from '@material-ui/lab/Skeleton';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import PropTypes from 'prop-types';
@@ -58,6 +59,7 @@ const Header = ({
     resourceName,
     resourceNameSingular,
     id,
+    fetching,
     ...rest
   } = React.useContext(Context);
 
@@ -73,14 +75,18 @@ const Header = ({
       renderPreIdentifier={rendererLeft(id, resourceName)}
       renderRight={rendererRight(children)}
       name={
-        <Title
-          title={title}
-          subtitle={get(
-            rest,
-            `${resourceNameSingular}.${subtitleProp}`,
-            null,
-          )}
-        />
+        fetching ? (
+          <Skeleton width={250} height={68} />
+        ) : (
+          <Title
+            title={title}
+            subtitle={get(
+              rest,
+              `${resourceNameSingular}.${subtitleProp}`,
+              null,
+            )}
+          />
+        )
       }
     />
   );
