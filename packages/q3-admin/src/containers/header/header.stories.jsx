@@ -11,16 +11,17 @@ export default {
   },
 };
 
-const withProvider = (Component) => (props) => (
+const withProvider = (Component, opts) => (props) => (
   <State.Provider
     value={{
       resourceName: 'resources',
       resourceNameSingular: 'resource',
-      id: 1,
+
       resource: {
         name: 'Jon',
         email: 'jon@gmail.ca',
       },
+      ...opts,
     }}
   >
     <Component {...props} />
@@ -29,16 +30,26 @@ const withProvider = (Component) => (props) => (
 
 export const Default = withProvider(() => <Header />);
 
-export const WithChildren = withProvider(() => (
-  <Header>
-    <p>Render</p>
-  </Header>
-));
+export const WithChildren = withProvider(
+  () => (
+    <Header>
+      <p>Render</p>
+    </Header>
+  ),
+  { id: 1 },
+);
 
-export const WithCustomTitle = withProvider(() => (
-  <Header titleProp="name" />
-));
+export const WithCustomTitle = withProvider(
+  () => <Header titleProp="name" />,
+  { id: 1 },
+);
 
 export const WithCustomTitleAndSubtitle = withProvider(
   () => <Header titleProp="name" subtitleProp="email" />,
+  { id: 1 },
 );
+
+export const WithFetching = withProvider(() => <Header />, {
+  fetching: true,
+  id: 1,
+});
