@@ -12,6 +12,7 @@ const Page = ({
   children,
   collectionName,
   resourceName,
+  select,
   resourceNameSingular,
   id,
   location,
@@ -24,6 +25,7 @@ const Page = ({
   const state = useRest({
     key: resourceNameSingular,
     pluralized: resourceName,
+    select,
     runOnInit: true,
     location,
     url,
@@ -99,6 +101,11 @@ Page.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+
+  /**
+   * Reduce payload by projecting which fields to include.
+   */
+  select: PropTypes.string,
 };
 
 Page.defaultProps = {
@@ -106,6 +113,7 @@ Page.defaultProps = {
   onExit: null,
   onEnter: null,
   onInit: null,
+  select: null,
 };
 
 export default Page;

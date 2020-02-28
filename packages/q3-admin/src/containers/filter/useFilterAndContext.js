@@ -17,6 +17,10 @@ export default (params, children) => {
     location,
   });
 
+  React.useEffect(() => {
+    filters.get();
+  }, [location]);
+
   return {
     loading: filters.fetching || fetching,
     fields: filters.fields || {},

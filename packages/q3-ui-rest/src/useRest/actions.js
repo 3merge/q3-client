@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { navigate } from '@reach/router';
 import { get, invoke } from 'lodash';
 import { useFormHandler } from 'q3-ui-forms';
-import { makePath } from '../helpers';
+import { makePath, formatUrlPath } from '../helpers';
 import reducer from './reducer';
 import {
   FETCHING,
@@ -19,6 +19,7 @@ const useRest = ({
   redirectOnSearch,
   key,
   pluralized,
+  select,
   runOnInit = false,
   strategy = 'formik',
   decorators = {},
@@ -70,13 +71,7 @@ const useRest = ({
   const methods = {
     get(query = '') {
       call(FETCHING);
-      return Axios.get(
-        `${url}${
-          url.includes('?')
-            ? query.replace('?', '&')
-            : query
-        }`,
-      )
+      return Axios.get(formatUrlPath(url, query, select))
         .then(({ data }) => {
           invoke(decorators, 'get', data);
           call(FETCHED, data);

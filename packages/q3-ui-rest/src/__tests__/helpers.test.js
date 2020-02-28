@@ -4,6 +4,7 @@ import {
   isEmpty,
   makePath,
   acceptCsvFiletype,
+  formatUrlPath,
 } from '../helpers';
 
 jest.mock('js-file-download');
@@ -91,6 +92,38 @@ describe('q3-ui-rest helpers', () => {
       const headers = {};
       acceptCsvFiletype({})({}, headers);
       expect(headers.Accept).toMatch('text/csv');
+    });
+  });
+
+  describe('"formatUrlPath"', () => {
+    it('should do nothing', () => {
+      const str = formatUrlPath('localhost', '');
+      expect(str).toMatch('localhost');
+    });
+
+    it('should append query string', () => {
+      const str = formatUrlPath('localhost', 'foo=bar');
+      expect(str).toMatch('localhost?foo=bar');
+    });
+
+    it('should add query string to existing query', () => {
+      const str = formatUrlPath(
+        'localhost?foo=bar',
+        'quuz=garply',
+      );
+      expect(str).toMatch('localhost?foo=bar&quuz=garply');
+    });
+
+    it('should add query string to existing query', () => {
+      const str = formatUrlPath(
+        'localhost?foo=bar',
+        'quuz=garply&thunk',
+        '1,2,3',
+      );
+
+      expect(str).toMatch(
+        'localhost?foo=bar&quuz=garply&thunk&fields=1,2,3',
+      );
     });
   });
 });
