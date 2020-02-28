@@ -6,7 +6,12 @@ import ListSubHeader from '../listSubHeader';
 import Empty from '../empty';
 import { hasLength } from '../../utils';
 
-const List = ({ title, enableSearch, children }) => {
+const List = ({
+  title,
+  enableSearch,
+  children,
+  onCreate,
+}) => {
   const hasChildren =
     (children && !Array.isArray(children)) ||
     hasLength(children);
@@ -24,7 +29,11 @@ const List = ({ title, enableSearch, children }) => {
             </ListSubHeader>
           }
         >
-          {hasChildren ? children : <Empty />}
+          {hasChildren ? (
+            children
+          ) : (
+            <Empty onClick={onCreate} />
+          )}
         </ListMui>
       )}
     </SearchBar>
@@ -50,12 +59,18 @@ List.propTypes = {
    * Enable result text filtering.
    */
   enableSearch: PropTypes.bool,
+
+  /**
+   * Will populate the empty view with button.
+   */
+  onCreate: PropTypes.func,
 };
 
 List.defaultProps = {
   title: null,
   enableSearch: true,
   children: null,
+  onCreate: null,
 };
 
 export default List;
