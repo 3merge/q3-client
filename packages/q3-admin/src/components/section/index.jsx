@@ -20,7 +20,7 @@ export const getSectionSize = (fn) =>
 const Section = ({ fetching, children, renderSidebar }) => (
   <Container maxWidth="xl">
     <Box my={4}>
-      <Grid container spacing={1} className={root}>
+      <Grid container spacing={1}>
         <Grid
           {...getSectionSize(renderSidebar)}
           component="section"
