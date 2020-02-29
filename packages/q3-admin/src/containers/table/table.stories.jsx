@@ -57,6 +57,19 @@ Wrapper.defaultProps = {
   permissions: [],
 };
 
+const renderRows = () => {
+  const arr = [];
+
+  for (let i = 0; i < 50; i += 1) {
+    arr.push({
+      id: 1,
+      name: 'First row',
+    });
+  }
+
+  return arr;
+};
+
 export const WithFilter = () => (
   <Wrapper
     permissions={[
@@ -68,19 +81,11 @@ export const WithFilter = () => (
         ...stub,
         // eslint-disable-next-line
         removeBulk: ()=> alert('Bulk delete!'),
-        examples: [
-          {
-            id: 1,
-            name: 'First row',
-          },
-          {
-            id: 2,
-            name: 'Second row',
-          },
-        ],
+        examples: renderRows(),
       }}
     >
       <Table
+        renderTop={() => <p>Adds space to the top!</p>}
         renderForm={() => (
           <p>
             Filters! Embed any filter form here to redact

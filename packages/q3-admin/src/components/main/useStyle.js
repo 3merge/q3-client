@@ -10,12 +10,13 @@ export default makeStyles((theme) => ({
   sticky: {
     position: 'sticky',
     top: 0,
-    zIndex: 10,
+    zIndex: 1000000,
   },
   muted: {
     flex: '1',
     position: 'relative',
     width: 1,
+    zIndex: 0,
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },

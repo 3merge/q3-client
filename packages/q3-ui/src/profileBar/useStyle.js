@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
   },
   trigger: {
     position: 'absolute',
-    top: '8rem',
+    top: '6rem',
     left: 'calc(100% - 1rem)',
   },
   colourful: {

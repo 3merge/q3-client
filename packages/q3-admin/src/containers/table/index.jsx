@@ -53,7 +53,8 @@ const List = ({
 
   return (
     <Redirect op="Read" to="/">
-      <Box mt={1.5} px={2}>
+      <Box mt={3} px={2}>
+        {renderTop && renderTop()}
         <Sidebar
           renderAside={
             !state.fetching && rows && rows.length
@@ -61,10 +62,7 @@ const List = ({
               : null
           }
         >
-          <Box position="sticky" top="0">
-            {renderTop && renderTop()}
-            {renderTable()}
-          </Box>
+          {renderTable()}
         </Sidebar>
       </Box>
     </Redirect>

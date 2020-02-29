@@ -2,34 +2,82 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Grow from '@material-ui/core/Grow';
+import Fab from '@material-ui/core/Fab';
+import Popover from '@material-ui/core/Popover';
+import Filter from '@material-ui/icons/FilterList';
 import { makeStyles } from '@material-ui/core/styles';
+import { useToggle } from 'useful-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '100%',
-    width: 235,
-    backgroundColor: '#FFF',
-    borderRight: '2px solid whitesmoke',
-    borderRadius: '2px',
-    [theme.breakpoints.down('md')]: {
-      borderRight: 0,
-      borderBottom: '2px solid whitesmoke',
+    width: 'auto',
+    marginRight: '-5rem',
+    marginTop: 2,
+    transition: 'margin 500ms',
+    '&:hover': {
+      marginRight: '1rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      margin: '1rem 0',
       width: '100%',
     },
   },
   fill: {
     flex: 1,
+    zIndex: 1,
   },
 }));
 
 const Sidebar = ({ children, renderAside }) => {
   const { root, fill } = useStyles();
+  const { toggle, state, close } = useToggle(false);
+  const anchorEl = React.useRef();
 
   return renderAside ? (
     <Grid container component="article">
       <Grid item component="aside" className={root}>
-        <Box p={1}>{renderAside()}</Box>
+        <Fab
+          variant="extended"
+          onClick={toggle}
+          ref={anchorEl}
+          size="large"
+          color="secondary"
+          style={{
+            position: 'sticky',
+            top: 0,
+          }}
+        >
+          <Filter />
+          <Box ml={2}>Filter</Box>
+        </Fab>
+        <Popover
+          elevation={20}
+          id="mouse-over-popover"
+          open={state}
+          anchorEl={anchorEl.current}
+          anchorOrigin={{
+            vertical: 'center',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          onClose={close}
+          disableRestoreFocus
+          style={{
+            width: 450,
+            padding: '1rem',
+          }}
+          PaperProps={{
+            elevation: 20,
+            style: {
+              padding: '1rem',
+            },
+          }}
+        >
+          <div>{renderAside()}</div>
+        </Popover>
       </Grid>
 
       <Grid item className={fill} component="section">

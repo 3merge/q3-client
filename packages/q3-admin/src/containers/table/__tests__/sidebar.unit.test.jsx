@@ -3,6 +3,10 @@ import Grid from '@material-ui/core/Grid';
 import Sidebar from '../sidebar';
 import EmptyView from '../../../components/empty';
 
+jest.mock('useful-state', () => ({
+  useToggle: jest.fn().mockReturnValue({}),
+}));
+
 describe('List sidebar', () => {
   it('should return children without an aside fn', () => {
     expect(
