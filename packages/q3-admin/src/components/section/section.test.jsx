@@ -32,8 +32,8 @@ describe('Section', () => {
   describe('"getSectionSize"', () => {
     it('should return partial column sizing', () => {
       expect(getSectionSize(jest.fn())).toMatchObject({
-        md: 8,
-        sm: 12,
+        lg: 8,
+        md: 12,
       });
     });
 

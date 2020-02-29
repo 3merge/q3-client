@@ -26,7 +26,7 @@ const CellHeader = ({ name, sub, imgSrc, to }) => {
         </Grid>
         <Grid item style={{ flex: 1 }} {...asLink}>
           <Typography variant="body1">
-            <strong>{ellpisis(name, 25)}</strong>
+            <strong>{ellpisis(name, 45)}</strong>
             {sub && (
               <Box component="small" display="block">
                 {ellpisis(sub, 75)}
