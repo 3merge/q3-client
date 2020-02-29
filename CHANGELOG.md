@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.11](https://github.com/3merge/q/compare/v1.11.10...v1.11.11) (2020-02-29)
+
+
+### Bug Fixes
+
+* zindex on fullscreen ([d69217b](https://github.com/3merge/q/commit/d69217b31974628a8efbf43a1126a91340873e94))
+
+
+
+
+
 ## [1.11.10](https://github.com/3merge/q/compare/v1.11.9...v1.11.10) (2020-02-29)
 
 **Note:** Version bump only for package q3-client
