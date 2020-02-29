@@ -29,6 +29,15 @@ const Wrapper = (Component) => {
     } = useAuthentication(collectionName, isNew);
     const { setField, validationSchema } = useValidation();
 
+    const handleSubmit = (values, actions) =>
+      onSubmit(
+        dot.translateAndModify(
+          dot.keep(values, drop),
+          marshal,
+        ),
+        actions,
+      );
+
     return (
       <Reveal validation={validationSchema}>
         {(hasValidationLength) => (
@@ -52,10 +61,12 @@ const Wrapper = (Component) => {
                 <Component
                   {...etc}
                   {...inst}
+                  onSubmit={handleSubmit}
                   isNew={isNew}
                   formikProps={{
                     validationSchema,
                     enableReinitialize: true,
+                    onSubmit: handleSubmit,
 
                     initialValues: dot.modify(
                       dot.translate(
@@ -69,15 +80,6 @@ const Wrapper = (Component) => {
                       hasValidationLength,
                       initialStatus,
                     ),
-
-                    onSubmit: (values, actions) =>
-                      onSubmit(
-                        dot.translateAndModify(
-                          dot.keep(values, drop),
-                          marshal,
-                        ),
-                        actions,
-                      ),
                   }}
                 />
               )}

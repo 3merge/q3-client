@@ -32,6 +32,14 @@ export const Default = () => (
       <Field name="firstName" type="text" required />
       <Field name="email" type="email" required />
       <Field name="age" type="number" min="0" />
+      <Field
+        name="countries"
+        type="radio"
+        options={[
+          { label: 'One', value: 'One' },
+          { label: 'Two', value: 'Two' },
+        ]}
+      />
     </Fieldset>
 
     <Fieldset name="secondStepLabel">
