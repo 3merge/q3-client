@@ -1,4 +1,7 @@
 import React from 'react';
+import Notification, {
+  NotificationContent,
+} from 'q3-ui/lib/notification';
 import State from '../state';
 import Header from '.';
 
@@ -49,7 +52,28 @@ export const WithCustomTitleAndSubtitle = withProvider(
   { id: 1 },
 );
 
+export const WithRenderFunc = withProvider(
+  () => (
+    <Header
+      titleRenderer={() => ({
+        title: 'HEYY',
+        subtitle: 'Inside parenthesis!',
+      })}
+    />
+  ),
+  { id: 1 },
+);
+
 export const WithFetching = withProvider(() => <Header />, {
   fetching: true,
   id: 1,
 });
+
+export const WithNotifications = withProvider(() => (
+  <>
+    <Header />
+    <Notification
+      slides={[<NotificationContent message="Hello" />]}
+    />
+  </>
+));

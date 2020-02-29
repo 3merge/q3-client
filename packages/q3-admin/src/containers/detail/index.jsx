@@ -71,7 +71,7 @@ const Detail = ({
         renderSidebar={() => (
           <Sidebar
             createdBy={getAuthor(data)}
-            lastUpdated={get(data, 'lastUpdated')}
+            lastUpdated={get(data, 'updatedAt')}
             commentTab={
               notes && (
                 <Notes

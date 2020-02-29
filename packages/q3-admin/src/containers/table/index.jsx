@@ -53,9 +53,15 @@ const List = ({
 
   return (
     <Redirect op="Read" to="/">
-      <Box mt={4} px={2}>
-        <Sidebar renderAside={renderForm}>
-          <Box>
+      <Box mt={1.5} px={2}>
+        <Sidebar
+          renderAside={
+            !state.fetching && rows && rows.length
+              ? renderForm
+              : null
+          }
+        >
+          <Box position="sticky" top="0">
             {renderTop && renderTop()}
             {renderTable()}
           </Box>

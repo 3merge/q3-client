@@ -54,6 +54,7 @@ const Header = ({
   titleProp,
   subtitleProp,
   parenthesesProp,
+  titleRenderer,
 }) => {
   const {
     resourceName,
@@ -85,6 +86,9 @@ const Header = ({
               `${resourceNameSingular}.${subtitleProp}`,
               null,
             )}
+            {...(titleRenderer
+              ? titleRenderer(rest)
+              : null)}
           />
         )
       }
@@ -110,6 +114,11 @@ Header.propTypes = {
    */
   parenthesesProp: PropTypes.string,
 
+  /**
+   * A renderer function for dynamically replacing the titleProp and subtitleProp outputs.
+   */
+  titleRenderer: PropTypes.func,
+
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.func,
@@ -121,6 +130,7 @@ Header.defaultProps = {
   titleProp: null,
   subtitleProp: null,
   parenthesesProp: null,
+  titleRenderer: null,
 };
 
 export default Header;

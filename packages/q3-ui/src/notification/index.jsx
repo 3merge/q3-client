@@ -10,8 +10,27 @@ import Typography from '@material-ui/core/Typography';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import { makeStyles } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 import Slider from '../slider';
+
+const useStyles = makeStyles((theme) => ({
+  mobile: {
+    display: 'block',
+    width: 275,
+    margin: theme.spacing(1),
+    backgroundColor: '#FFF',
+    color: '#000',
+    position: 'fixed',
+    padding: theme.spacing(1),
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    zIndex: 10000,
+    [theme.breakpoints.down('sm')]: {
+      top: 120,
+    },
+  },
+}));
 
 export const NotificationContent = ({
   message,
@@ -58,7 +77,8 @@ NotificationContent.propTypes = {
 };
 
 const Notification = ({ id, slides }) => {
-  const { state, toggle, close } = useToggle(!id);
+  const { state, toggle, close } = useToggle(false);
+  const { mobile } = useStyles();
   const DISMISSED = 'HAS_DISMISSED';
 
   const dismiss = React.useCallback(() => {
@@ -70,7 +90,7 @@ const Notification = ({ id, slides }) => {
 
   React.useEffect(() => {
     const viewed = sessionStorage.getItem(id);
-    if (!viewed || viewed !== DISMISSED) toggle();
+    if (!viewed || viewed !== DISMISSED || !id) toggle();
   }, [id]);
 
   return (
@@ -78,18 +98,9 @@ const Notification = ({ id, slides }) => {
       <Box>
         <SnackbarContent
           open
+          className={mobile}
+          elevation={20}
           onClose={() => null}
-          style={{
-            display: 'block',
-            width: 450,
-            margin: '1rem',
-            backgroundColor: '#FFF',
-            color: '#000',
-            position: 'fixed',
-            padding: '1rem',
-            right: 0,
-            top: 0,
-          }}
           message={
             <>
               <Box

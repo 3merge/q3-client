@@ -8,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 export const getSectionSize = (fn) =>
   typeof fn === 'function'
     ? {
-        md: 8,
+        lg: 8,
+        md: 12,
         sm: 12,
         xs: 12,
       }
@@ -19,7 +20,7 @@ export const getSectionSize = (fn) =>
 const Section = ({ fetching, children, renderSidebar }) => (
   <Container maxWidth="xl">
     <Box my={4}>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} className={root}>
         <Grid
           {...getSectionSize(renderSidebar)}
           component="section"

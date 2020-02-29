@@ -132,19 +132,28 @@ export const Error = () => (
   </Wrapper>
 );
 
-export const Loading = () => (
-  <Wrapper>
-    <State.Provider
-      value={{
-        fetching: true,
-        ...stub,
-      }}
-    >
-      <Table>
-        {() => (
-          <TableRow id="1" columns={{ name: 'foo' }} />
-        )}
-      </Table>
-    </State.Provider>
-  </Wrapper>
-);
+export const Loading = () => {
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+  return (
+    <Wrapper>
+      <State.Provider
+        value={{
+          fetching: loading,
+          ...stub,
+        }}
+      >
+        <Table renderForm={() => 'Hi'}>
+          {() => (
+            <TableRow id="1" columns={{ name: 'foo' }} />
+          )}
+        </Table>
+      </State.Provider>
+    </Wrapper>
+  );
+};
