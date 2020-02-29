@@ -9,8 +9,8 @@ export default makeStyles((theme) => ({
   },
   sticky: {
     position: 'sticky',
+    zIndex: 1,
     top: 0,
-    zIndex: 1000000,
   },
   muted: {
     flex: '1',
