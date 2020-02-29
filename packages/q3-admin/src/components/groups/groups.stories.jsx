@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
 import { Groups } from '.';
 
 export default {
@@ -11,14 +12,16 @@ export default {
 };
 
 export const Default = () => (
-  <Groups
-    search="?"
-    queries={{
-      Ready: 'kind=ready',
-      NotReady: 'kind=notReady',
-      AlmostReady: 'kind=almostReady',
-    }}
-  />
+  <Container maxWidth="xl">
+    <Groups
+      search="?"
+      queries={{
+        Ready: 'kind=ready',
+        NotReady: 'kind=notReady',
+        AlmostReady: 'kind=almostReady',
+      }}
+    />
+  </Container>
 );
 
 export const OnQueryMatch = () => (

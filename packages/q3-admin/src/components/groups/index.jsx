@@ -2,7 +2,7 @@ import React from 'react';
 import { Location, navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-
+import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 
@@ -33,24 +33,27 @@ export const Groups = ({ queries, search }) => {
   const { t } = useTranslation('labels');
 
   return (
-    <Tabs
-      value={findIndexByStartsWith(queries, search)}
-      variant="scrollable"
-      scrollButtons="auto"
-    >
-      <Tab
-        label={t('all')}
-        onClick={() => navigate('?')}
+    <Container>
+      <Tabs
         centered
-      />
-      {Object.entries(queries).map(([label, query]) => (
+        value={findIndexByStartsWith(queries, search)}
+        variant="fullWidth"
+        scrollButtons="auto"
+      >
         <Tab
-          key={query}
-          label={t(label)}
-          onClick={() => navigate(`?${query}`)}
+          label={t('all')}
+          onClick={() => navigate('?')}
+          centered
         />
-      ))}
-    </Tabs>
+        {Object.entries(queries).map(([label, query]) => (
+          <Tab
+            key={query}
+            label={t(label)}
+            onClick={() => navigate(`?${query}`)}
+          />
+        ))}
+      </Tabs>
+    </Container>
   );
 };
 

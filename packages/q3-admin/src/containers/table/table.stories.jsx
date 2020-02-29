@@ -4,6 +4,7 @@ import { TableRow } from 'q3-ui-datatables';
 import { AuthContext } from 'q3-ui-permissions';
 import State from '../state';
 import Table from '.';
+import Groups from '../../components/groups';
 
 export default {
   title: 'Q3 Admin|Containers/Table',
@@ -85,7 +86,16 @@ export const WithFilter = () => (
       }}
     >
       <Table
-        renderTop={() => <p>Adds space to the top!</p>}
+        renderTop={() => (
+          <Groups
+            search="?"
+            queries={{
+              Ready: 'kind=ready',
+              NotReady: 'kind=notReady',
+              AlmostReady: 'kind=almostReady',
+            }}
+          />
+        )}
         renderForm={() => (
           <p>
             Filters! Embed any filter form here to redact

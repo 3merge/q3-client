@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Popover from '@material-ui/core/Popover';
@@ -22,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+  trigger: {
+    position: 'sticky',
+    top: '11rem',
+    background: '#FFF',
+    color: theme.palette.primary.dark,
+    '&:hover': {
+      color: '#FFF !important',
+    },
+  },
   fill: {
     flex: 1,
     zIndex: 1,
@@ -29,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = ({ children, renderAside }) => {
-  const { root, fill } = useStyles();
+  const { root, fill, trigger } = useStyles();
   const { toggle, state, close } = useToggle(false);
   const anchorEl = React.useRef();
 
@@ -42,10 +52,7 @@ const Sidebar = ({ children, renderAside }) => {
           ref={anchorEl}
           size="large"
           color="secondary"
-          style={{
-            position: 'sticky',
-            top: 0,
-          }}
+          className={trigger}
         >
           <Filter />
           <Box ml={2}>Filter</Box>
@@ -65,10 +72,6 @@ const Sidebar = ({ children, renderAside }) => {
           }}
           onClose={close}
           disableRestoreFocus
-          style={{
-            width: 450,
-            padding: '1rem',
-          }}
           PaperProps={{
             elevation: 20,
             style: {
@@ -76,12 +79,14 @@ const Sidebar = ({ children, renderAside }) => {
             },
           }}
         >
-          <div>{renderAside()}</div>
+          <Box width="450px" maxWidth="100%">
+            {renderAside()}
+          </Box>
         </Popover>
       </Grid>
 
       <Grid item className={fill} component="section">
-        <Box>{children}</Box>
+        <Paper>{children}</Paper>
       </Grid>
     </Grid>
   ) : (
