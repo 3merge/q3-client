@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   desktopOffset: {
     marginLeft: 80,
+    zIndex: 1000000000,
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
