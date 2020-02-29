@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.12](https://github.com/3merge/q/compare/v1.11.11...v1.11.12) (2020-02-29)
+
+
+### Bug Fixes
+
+* radio inputs ([02a45b5](https://github.com/3merge/q/commit/02a45b5abdc6969e2cd99b57441d72a71fb97e9b))
+
+
+
+
+
 ## [1.11.11](https://github.com/3merge/q/compare/v1.11.10...v1.11.11) (2020-02-29)
 
 
