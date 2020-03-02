@@ -25,3 +25,12 @@ const getProps = (args) => ({
 export const AsFullWidth = () => (
   <Project {...getProps({ fullWidth: true })} />
 );
+
+export const AsContained = () => (
+  <Project
+    {...getProps({
+      fullWidth: true,
+      imgObjectFit: 'contain',
+    })}
+  />
+);
