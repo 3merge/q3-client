@@ -1,8 +1,8 @@
 import React from 'react';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Bool from '../bool';
+import Options from '../optionsThreshold';
 import useDecorator from '../../helpers/useDecorator';
 
 const Radioset = (props) => {
@@ -15,6 +15,8 @@ const Radioset = (props) => {
     value,
     disabled,
     readOnly,
+    maxVisible,
+    ...etc
   } = useDecorator(props);
 
   return (
@@ -29,22 +31,22 @@ const Radioset = (props) => {
         onChange={onChange}
         value={value}
       >
-        {options.map((option) => (
-          <FormControlLabel
-            {...option}
-            control={
-              <Radio
-                color="primary"
+        <Options maxVisible={maxVisible} options={options}>
+          {(res = []) =>
+            res.map((option) => (
+              <Bool
+                {...etc}
+                {...option}
+                variant="radio"
+                key={option.label}
                 disabled={disabled}
                 readOnly={readOnly}
+                name={option.label}
+                isChecked={option.value === value}
               />
-            }
-            key={option.label}
-            disabled={disabled}
-            readOnly={readOnly}
-            name={option.label}
-          />
-        ))}
+            ))
+          }
+        </Options>
       </RadioGroup>
     </CollapsibleFieldLabel>
   );

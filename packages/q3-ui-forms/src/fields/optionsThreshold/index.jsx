@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
 const isSet = (v) => v > 0;
@@ -33,13 +34,15 @@ export const OptionsThreshold = ({
     <>
       {children(getVisibleResults(options, visibleResults))}
       {isSet(maxVisible) && (
-        <Button
-          type="button"
-          onClick={handleVisibilityClick}
-          id="toggle-visibility"
-        >
-          {showAll ? t('more') : t('less')}
-        </Button>
+        <Box mt={0.5}>
+          <Button
+            type="button"
+            onClick={handleVisibilityClick}
+            id="toggle-visibility"
+          >
+            {showAll ? t('more') : t('less')}
+          </Button>
+        </Box>
       )}
     </>
   );
