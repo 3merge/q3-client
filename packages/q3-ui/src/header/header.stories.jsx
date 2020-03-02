@@ -192,6 +192,8 @@ export const Custom = () => (
           <Searchbar />
         </Hidden>
       )}
+      desktopHeight={135}
+      desktopWidth={295}
     >
       <Toolbar
         isLoggedIn={false}

@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useStyles from './useStyles';
 
-const Logo = ({ logoImgSrc, name }) => {
-  const { logo } = useStyles();
+const Logo = ({ logoImgSrc, name, ...rest }) => {
+  const { logo } = useStyles(rest);
 
   return logoImgSrc ? (
     <Link to="/" className={logo}>

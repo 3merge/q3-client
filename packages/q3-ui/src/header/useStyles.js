@@ -25,14 +25,21 @@ export default makeStyles((theme) => ({
   bottomBorder: {
     borderBottom: `2px solid ${grey[200]}`,
   },
-  logo: {
+  logo: ({
+    desktopHeight = 95,
+    desktopWidth = 165,
+    tabletHeight = 75,
+    tabletWidth = 145,
+    mobileHeight = 75,
+    mobileWidth = 115,
+  }) => ({
     border: '2px solid transparent',
     boxSizing: 'border-box',
     padding: 0,
     display: 'block',
-    maxHeight: 95,
+    maxHeight: desktopHeight,
     marginRight: theme.spacing(2),
-    maxWidth: 165,
+    maxWidth: desktopWidth,
     width: 'auto',
     '&:focus': {
       outline: 1,
@@ -40,13 +47,13 @@ export default makeStyles((theme) => ({
       fontWeight: 800,
     },
     [theme.breakpoints.down('sm')]: {
-      maxHeight: 75,
-      maxWidth: 145,
+      maxHeight: tabletHeight,
+      maxWidth: tabletWidth,
       marginRight: theme.spacing(1),
     },
     [theme.breakpoints.down('xs')]: {
-      maxHeight: 75,
-      maxWidth: 115,
+      maxHeight: mobileHeight,
+      maxWidth: mobileWidth,
       marginRight: theme.spacing(1),
     },
     '& img': {
@@ -54,7 +61,7 @@ export default makeStyles((theme) => ({
       height: '100%',
       width: '100%',
     },
-  },
+  }),
   withDividers: {
     '&>:not(:last-child)': {
       marginRight: '2rem',
