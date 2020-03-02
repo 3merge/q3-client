@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+export default (color) => {
   const [scrolled, setScrolled] = React.useState(false);
 
   function listenForScroll() {
@@ -17,5 +17,15 @@ export default () => {
       window.removeEventListener('scroll', listenForScroll);
   }, []);
 
-  return scrolled;
+  return {
+    style: scrolled
+      ? {
+          backgroundColor: '#FFF',
+          color: 'inherit',
+        }
+      : {
+          backgroundColor: undefined,
+          color,
+        },
+  };
 };

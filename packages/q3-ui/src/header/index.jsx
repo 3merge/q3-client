@@ -27,7 +27,7 @@ const Header = ({
   position,
   ...rest
 }) => {
-  const scrolled = useScroll();
+  const scrollProps = useScroll(color);
   const { appBar, appBarPadding } = useStyles({
     transparent,
   });
@@ -36,8 +36,7 @@ const Header = ({
     <AppBar
       position={position}
       className={appBar}
-      color={scrolled ? 'inherit' : color}
-      style={{ backgroundColor: scrolled ? '#FFF' : null }}
+      {...scrollProps}
     >
       {children}
       <Container maxWidth="xl" className={appBarPadding}>

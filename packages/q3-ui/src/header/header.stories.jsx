@@ -9,6 +9,15 @@ import Tel from '../tel';
 import Searchbar from '../searchBar';
 import Toolbar from '../toolbar';
 
+export default {
+  title: 'Q3 UI|Components/Header',
+  parameters: {
+    component: Header,
+    componentSubtitle:
+      'Scroll-aware header with home-linked logo',
+  },
+};
+
 const defaultProps = {
   logoImgSrc:
     'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.png',
@@ -162,9 +171,9 @@ const PageDemo = ({ children }) => (
   </>
 );
 
-export const Demo = (
+export const Default = () => (
   <PageDemo>
-    <Header {...defaultProps} />
+    <Header {...defaultProps} transparent />
   </PageDemo>
 );
 
