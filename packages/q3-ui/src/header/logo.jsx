@@ -5,11 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import useStyles from './useStyles';
 
-const Logo = ({ logoImgSrc, name, ...rest }) => {
+const Logo = ({
+  logoImgSrc,
+  name,
+  logoStyles,
+  ...rest
+}) => {
   const { logo } = useStyles(rest);
 
   return logoImgSrc ? (
-    <Link to="/" className={logo}>
+    <Link to="/" className={logo} style={logoStyles}>
       <LazyLoadImage src={logoImgSrc} alt={name} />
     </Link>
   ) : (
@@ -27,10 +32,12 @@ const Logo = ({ logoImgSrc, name, ...rest }) => {
 Logo.propTypes = {
   name: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string,
+  logoStyles: PropTypes.shape({}),
 };
 
 Logo.defaultProps = {
   logoImgSrc: null,
+  logoStyles: null,
 };
 
 export default Logo;
