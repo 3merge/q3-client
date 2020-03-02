@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import { storiesOf } from '@storybook/react';
 import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +8,15 @@ import { FullWidthBanner } from '../banner';
 import Tel from '../tel';
 import Searchbar from '../searchBar';
 import Toolbar from '../toolbar';
+
+export default {
+  title: 'Q3 UI|Components/Header',
+  parameters: {
+    component: Header,
+    componentSubtitle:
+      'Scroll-aware header with home-linked logo',
+  },
+};
 
 const defaultProps = {
   logoImgSrc:
@@ -163,33 +171,40 @@ const PageDemo = ({ children }) => (
   </>
 );
 
-storiesOf('Components|Header', module)
-  .add('Default', () => (
-    <PageDemo>
-      <Header {...defaultProps} />
-    </PageDemo>
-  ))
-  .add('With custom renders', () => (
-    <PageDemo>
-      <Header
-        {...defaultProps}
-        transparent
-        color="primary"
-        renderLeft={() => 'with love'}
-        offcanvasRenderTop={<p>Top</p>}
-        offcanvasRenderBottom={<Box p={2}>Bottom</Box>}
-        renderRight={() => (
-          <Hidden xsDown>
-            <Tel hideIcon number="413-923-1233" />
-            <Searchbar />
-          </Hidden>
-        )}
+export const Default = () => (
+  <PageDemo>
+    <Header {...defaultProps} transparent />
+  </PageDemo>
+);
+
+export const Custom = () => (
+  <PageDemo>
+    <Header
+      {...defaultProps}
+      transparent
+      color="primary"
+      renderLeft={() => 'with love'}
+      offcanvasRenderTop={<p>Top</p>}
+      offcanvasRenderBottom={<Box p={2}>Bottom</Box>}
+      renderRight={() => (
+        <Hidden xsDown>
+          <Tel hideIcon number="413-923-1233" />
+          <Searchbar />
+        </Hidden>
+      )}
+      desktopHeight={135}
+      desktopWidth={295}
+    >
+      <Toolbar
+        isLoggedIn={false}
+        style={{ backgroundColor: 'blue' }}
+        loginPath="/login"
+        signupPath="/signup"
       >
-        <Toolbar style={{ backgroundColor: 'blue' }}>
-          <Hidden smUp>
-            <Tel number="413-923-1233" />
-          </Hidden>
-        </Toolbar>
-      </Header>
-    </PageDemo>
-  ));
+        <Hidden smUp>
+          <Tel number="413-923-1233" />
+        </Hidden>
+      </Toolbar>
+    </Header>
+  </PageDemo>
+);
