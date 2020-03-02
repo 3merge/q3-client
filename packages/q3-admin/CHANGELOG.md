@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.14](https://github.com/3merge/q/compare/v1.11.13...v1.11.14) (2020-03-02)
+
+
+### Bug Fixes
+
+* page rendering genCollection ([ba5249e](https://github.com/3merge/q/commit/ba5249e2752f4da956c0e4798ae98a0c562759f7))
+
+
+
+
+
 ## [1.11.11](https://github.com/3merge/q/compare/v1.11.10...v1.11.11) (2020-02-29)
 
 
