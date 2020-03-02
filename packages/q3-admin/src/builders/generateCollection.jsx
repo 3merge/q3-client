@@ -23,29 +23,20 @@ export default ({
   {
     id: true,
     ...getCollectionInformation(etc),
-    component: (props) =>
-      React.createElement(
-        Page,
-        {
-          ...props,
-          id: true,
-        },
-        PageDetail,
-      ),
+    component: (props) => (
+      <Page id {...props}>
+        <PageDetail />
+      </Page>
+    ),
   },
   {
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: (props) =>
-      React.createElement(
-        Page,
-        {
-          ...props,
-          index: true,
-          select: projection,
-        },
-        PageList,
-      ),
+    component: (props) => (
+      <Page index select={projection} {...props}>
+        <PageList />
+      </Page>
+    ),
   },
 ];
