@@ -25,6 +25,26 @@ export const Switch = () => (
   <Bool {...props} variant="switch" />
 );
 
+export const StackedBools = () => (
+  <>
+    <Bool
+      {...props}
+      variant="switch"
+      helperText="With text underneath"
+      my={2}
+    />
+    <Bool
+      {...props}
+      variant="switch"
+      helperText="With text underneath"
+      my={1}
+    />
+    <Bool {...props} variant="switch" />
+    <Bool {...props} />
+    <Bool {...props} />
+  </>
+);
+
 export const Radio = () => (
   <Bool {...props} variant="radio" />
 );

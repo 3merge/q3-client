@@ -38,7 +38,11 @@ export const ExpandedBoolLabel = ({
   const { control } = useStyles({ error });
 
   return helperText ? (
-    <Typography variant="subtitle1" className={control}>
+    <Typography
+      variant="subtitle1"
+      className={control}
+      gutterBottom
+    >
       <strong>{label}</strong>
       <small>{helperText}</small>
     </Typography>

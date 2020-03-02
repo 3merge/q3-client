@@ -9,8 +9,8 @@
     "**/.DS_Store": true,
     "**/.jest-cache": true,
     "**/.jest-coverage": true,
-    //"**/node_modules/": true,
-    //"**/lib/": true,
+    "**/node_modules/": true,
+    "**/lib/": true,
     "**/coverage/": true,
     "**/storybook-static/": true
   }
