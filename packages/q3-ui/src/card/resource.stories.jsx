@@ -37,3 +37,13 @@ export const WithLittleText = () => (
     <Resource {...getProps()} />
   </Container>
 );
+
+export const WithContain = () => (
+  <Container maxWidth="md">
+    <Resource
+      {...getProps({
+        imgObjectFit: 'contain',
+      })}
+    />
+  </Container>
+);

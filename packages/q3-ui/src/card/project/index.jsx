@@ -30,9 +30,11 @@ const ProjectCard = ({
   buttonText,
   fullWidth,
   square,
+  imgObjectFit,
   ...rest
 }) => {
   const cls = useStyles({
+    imgObjectFit,
     square,
   });
 
@@ -83,6 +85,11 @@ ProjectCard.propTypes = {
   imgSrc: PropTypes.string.isRequired,
 
   /**
+   * Defines the ObjectFit value for images.
+   */
+  imgObjectFit: PropTypes.oneOf(['contain', 'cover']),
+
+  /**
    * The project URL.
    */
   to: PropTypes.string.isRequired,
@@ -112,6 +119,7 @@ ProjectCard.defaultProps = {
   name: null,
   square: false,
   fullWidth: false,
+  imgObjectFit: 'cover',
 };
 
 export default ProjectCard;

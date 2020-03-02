@@ -17,9 +17,10 @@ const ResourceCard = ({
   to,
   secondaryButtonText,
   secondaryTo,
+  imgObjectFit,
   ...rest
 }) => {
-  const { imgCover } = useStyles();
+  const { imgCover } = useStyles({ imgObjectFit });
 
   return (
     <Grid item md={6} sm={8} xs={10}>
@@ -83,6 +84,11 @@ ResourceCard.propTypes = {
   imgSrc: PropTypes.string.isRequired,
 
   /**
+   * Defines the ObjectFit value for images.
+   */
+  imgObjectFit: PropTypes.oneOf(['contain', 'cover']),
+
+  /**
    * The resource URL.
    */
   to: PropTypes.string.isRequired,
@@ -106,6 +112,7 @@ ResourceCard.propTypes = {
 ResourceCard.defaultProps = {
   secondaryTo: null,
   secondaryButtonText: null,
+  imgObjectFit: 'cover',
 };
 
 export default ResourceCard;

@@ -49,14 +49,17 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2.5),
     position: 'relative',
   },
-  iconThumb: {
+  iconThumb: ({ imgObjectFit }) => ({
     borderRadius: ({ square }) => (square ? 5 : '50%'),
     left: theme.spacing(1.5),
     height: 70,
     position: 'absolute',
     top: 'calc(100% - 35px)',
     width: 70,
-  },
+    '& img': {
+      objectFit: imgObjectFit,
+    },
+  }),
   iconBody: {
     padding: `${theme.spacing(3)} ${theme.spacing(2)} 0`,
   },
@@ -104,14 +107,14 @@ export default makeStyles((theme) => ({
       bottom: 0,
     },
   },
-  imgCover: {
+  imgCover: ({ imgObjectFit }) => ({
     position: 'relative',
     height: 265,
     width: '100%',
     '&> img': {
       height: '100%',
-      objectFit: 'cover',
+      objectFit: imgObjectFit,
       width: '100%',
     },
-  },
+  }),
 }));
