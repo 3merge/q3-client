@@ -27,6 +27,11 @@ export const Validation = () => (
     }}
   >
     <Field name="name" type="text" />
+    <Field
+      name="loremVars"
+      vars={{ hello: 'world' }}
+      type="text"
+    />
     <Field name="tel" required type="tel" />
     <Field name="email" required type="email" />
     <Field name="postal" required type="postal" />

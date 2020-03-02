@@ -113,9 +113,10 @@ export const formikProps = PropTypes.shape({
 });
 
 export default ({
+  overrides = {},
+  vars = {},
   disabled,
   name,
-  overrides = {},
   label,
   ...rest
 }) => {
@@ -129,16 +130,14 @@ export default ({
 
   const finalFieldLabel = label || name;
 
-  propper.helper = t(`helpers:${finalFieldLabel}`);
-  propper.label = t(
-    `labels:${finalFieldLabel}`,
-    propper.vars,
-  );
+  propper.helper = t(`helpers:${finalFieldLabel}`, vars);
+  propper.label = t(`labels:${finalFieldLabel}`, vars);
 
   return {
     ...rest,
     ...propper.get(),
     ...overrides,
+    vars,
     name,
   };
 };

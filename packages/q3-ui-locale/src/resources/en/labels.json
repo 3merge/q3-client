@@ -154,5 +154,6 @@
   "documentationEmpty": "Documentation not yet configured.",
   "commentsDisabled": "Comments have been disabled for this role type.",
   "province": "Province",
-  "addFirst": "Add first resource"
+  "addFirst": "Add first resource",
+  "loremVars": "Lorem vars says hello: {{hello}}"
 }

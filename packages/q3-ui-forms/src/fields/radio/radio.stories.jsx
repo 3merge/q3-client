@@ -17,3 +17,28 @@ export const Default = () => (
     <Field name="demo2" type="radio" options={options} />
   </Form>
 );
+
+export const WithMaximumVisible = () => (
+  <Form debug initialValues={{ demo: [] }}>
+    <Field
+      name="demo2"
+      type="radio"
+      maxVisible={3}
+      options={options}
+    />
+  </Form>
+);
+
+export const WithVariables = () => (
+  <Form debug initialValues={{ demo: [] }}>
+    <Field
+      name="demo"
+      type="radio"
+      options={options.concat({
+        value: 'Lorem',
+        label: 'loremVars',
+      })}
+      vars={{ hello: 'world' }}
+    />
+  </Form>
+);
