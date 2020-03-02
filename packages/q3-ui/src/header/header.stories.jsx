@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import { storiesOf } from '@storybook/react';
 import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -163,33 +162,33 @@ const PageDemo = ({ children }) => (
   </>
 );
 
-storiesOf('Components|Header', module)
-  .add('Default', () => (
-    <PageDemo>
-      <Header {...defaultProps} />
-    </PageDemo>
-  ))
-  .add('With custom renders', () => (
-    <PageDemo>
-      <Header
-        {...defaultProps}
-        transparent
-        color="primary"
-        renderLeft={() => 'with love'}
-        offcanvasRenderTop={<p>Top</p>}
-        offcanvasRenderBottom={<Box p={2}>Bottom</Box>}
-        renderRight={() => (
-          <Hidden xsDown>
-            <Tel hideIcon number="413-923-1233" />
-            <Searchbar />
-          </Hidden>
-        )}
-      >
-        <Toolbar style={{ backgroundColor: 'blue' }}>
-          <Hidden smUp>
-            <Tel number="413-923-1233" />
-          </Hidden>
-        </Toolbar>
-      </Header>
-    </PageDemo>
-  ));
+export const Demo = (
+  <PageDemo>
+    <Header {...defaultProps} />
+  </PageDemo>
+);
+
+export const Custom = () => (
+  <PageDemo>
+    <Header
+      {...defaultProps}
+      transparent
+      color="primary"
+      renderLeft={() => 'with love'}
+      offcanvasRenderTop={<p>Top</p>}
+      offcanvasRenderBottom={<Box p={2}>Bottom</Box>}
+      renderRight={() => (
+        <Hidden xsDown>
+          <Tel hideIcon number="413-923-1233" />
+          <Searchbar />
+        </Hidden>
+      )}
+    >
+      <Toolbar style={{ backgroundColor: 'blue' }}>
+        <Hidden smUp>
+          <Tel number="413-923-1233" />
+        </Hidden>
+      </Toolbar>
+    </Header>
+  </PageDemo>
+);
