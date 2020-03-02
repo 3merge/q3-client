@@ -193,7 +193,12 @@ export const Custom = () => (
         </Hidden>
       )}
     >
-      <Toolbar style={{ backgroundColor: 'blue' }}>
+      <Toolbar
+        isLoggedIn={false}
+        style={{ backgroundColor: 'blue' }}
+        loginPath="/login"
+        signupPath="/signup"
+      >
         <Hidden smUp>
           <Tel number="413-923-1233" />
         </Hidden>

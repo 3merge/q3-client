@@ -7,6 +7,7 @@ import useStyles from './useStyles';
 
 const Logo = ({ logoImgSrc, name }) => {
   const { logo } = useStyles();
+
   return logoImgSrc ? (
     <Link to="/" className={logo}>
       <LazyLoadImage src={logoImgSrc} alt={name} />

@@ -44,6 +44,16 @@ export default makeStyles((theme) => ({
       maxWidth: 145,
       marginRight: theme.spacing(1),
     },
+    [theme.breakpoints.down('xs')]: {
+      maxHeight: 75,
+      maxWidth: 115,
+      marginRight: theme.spacing(1),
+    },
+    '& img': {
+      objectFit: 'contain',
+      height: '100%',
+      width: '100%',
+    },
   },
   withDividers: {
     '&>:not(:last-child)': {

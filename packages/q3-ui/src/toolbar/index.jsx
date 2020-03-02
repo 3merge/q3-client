@@ -81,6 +81,8 @@ export const AccountMenu = ({
 }) => {
   const { t } = useTranslation();
 
+  console.log(signupPath, loginPath);
+
   if (!isLoggedIn) {
     return (
       <Grid container spacing={1} justify="flex-end">

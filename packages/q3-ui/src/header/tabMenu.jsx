@@ -23,16 +23,19 @@ const Menu = ({
             TabIndicatorProps={{ children: <div /> }}
           >
             {items.map(
-              ({ to, visible, label }, i) =>
-                visible && (
+              ({ to, href, visible, label }, i) => {
+                const path = to || href || '/';
+
+                return visible ? (
                   <StyledTab
                     component={Link}
-                    to={to}
-                    key={to}
+                    to={path}
+                    key={path}
                     label={label}
                     {...a11yProps(i)}
                   />
-                ),
+                ) : null;
+              },
             )}
           </StyledTabs>
         )}

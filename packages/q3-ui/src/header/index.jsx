@@ -67,7 +67,7 @@ const Header = ({
                     <>
                       {offcanvasRenderTop}
                       <Menu
-                        items={menuItems || menuItems}
+                        items={mobileMenuItems || menuItems}
                         done={close}
                       />
                       {offcanvasRenderBottom}
@@ -93,12 +93,41 @@ const Header = ({
 };
 
 Header.propTypes = {
+  /**
+   * Custom render components in the left column.
+   */
   renderLeft: PropTypes.func,
+
+  /**
+   * Custom render components in the right column.
+   */
   renderRight: PropTypes.func,
+
+  /**
+   * Custom render above the main <Container />.
+   * Also developers to add above the Header and have those components follow on scroll.
+   */
   children: PropTypes.node,
+
+  /**
+   * Make initial background of the header transparent.
+   * Scroll enforces a white background for readability.
+   */
   transparent: PropTypes.bool,
+
+  /**
+   * Renders the menu either to the left or right.
+   */
   menuPosition: PropTypes.oneOf(['left', 'right']),
+
+  /**
+   * The color of the header's menu items.
+   */
   color: PropTypes.oneOf(['primary', 'inherit']),
+
+  /**
+   * Array of items to seed Q3 UI's <Menu /> component.
+   */
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       href: PropTypes.string,
@@ -106,7 +135,38 @@ Header.propTypes = {
       visible: PropTypes.bool,
     }),
   ),
-  position: PropTypes.string,
+
+  /**
+   * Array of items to seed Q3 UI's <Offcanvas /> component.
+   * Will default to menuItems prop otherwise.
+   */
+  mobileMenuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      href: PropTypes.string,
+      label: PropTypes.string,
+      visible: PropTypes.bool,
+    }),
+  ),
+
+  /**
+   * The value of <Appbar /> position prop.
+   */
+  position: PropTypes.oneOf([
+    'sticky',
+    'static',
+    'relative',
+    'fixed',
+  ]),
+
+  /**
+   * A component to render above the offcanvas menu items.
+   */
+  offcanvasRenderTop: PropTypes.node,
+
+  /**
+   * A component to render below the offcanvas menu items.
+   */
+  offcanvasRenderBottom: PropTypes.node,
 };
 
 Header.defaultProps = {
@@ -118,6 +178,9 @@ Header.defaultProps = {
   menuPosition: 'right',
   transparent: false,
   color: 'inherit',
+  offcanvasRenderTop: null,
+  offcanvasRenderBottom: null,
+  mobileMenuItems: null,
 };
 
 export default Header;
