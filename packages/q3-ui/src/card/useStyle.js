@@ -49,8 +49,8 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2.5),
     position: 'relative',
   },
-  iconThumb: ({ imgObjectFit }) => ({
-    borderRadius: ({ square }) => (square ? 5 : '50%'),
+  iconThumb: ({ imgObjectFit, square }) => ({
+    borderRadius: square ? 5 : '50%',
     left: theme.spacing(1.5),
     height: 70,
     position: 'absolute',
