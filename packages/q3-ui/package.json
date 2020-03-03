@@ -1,6 +1,6 @@
 {
   "name": "q3-ui",
-  "version": "1.11.13",
+  "version": "1.11.15",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",

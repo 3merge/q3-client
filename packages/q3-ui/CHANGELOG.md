@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.15](https://github.com/3merge/q/compare/v1.11.14...v1.11.15) (2020-03-03)
+
+
+### Bug Fixes
+
+* CSSSyntaxError ([9ecbfd3](https://github.com/3merge/q/commit/9ecbfd3e67370f43e106db63a32c61a608e49b6c))
+
+
+
+
+
 ## [1.11.13](https://github.com/3merge/q/compare/v1.11.12...v1.11.13) (2020-03-02)
 
 **Note:** Version bump only for package q3-ui
