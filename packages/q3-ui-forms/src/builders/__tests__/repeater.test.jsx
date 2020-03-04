@@ -1,6 +1,5 @@
 import React from 'react';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Dialog from 'q3-ui-dialog';
 import Repeater, { DataList } from '../repeater';
 
 jest.mock('formik');
@@ -32,6 +31,8 @@ describe('Repeater', () => {
             <Stub title="dialog" />
           </Repeater>,
         )
+        .find(Dialog)
+        .dive()
         .find(DataList)
         .props();
 

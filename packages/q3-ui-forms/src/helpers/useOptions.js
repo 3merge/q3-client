@@ -26,13 +26,13 @@ export default ({
 
   React.useEffect(() => {
     let cancel = false;
+    if (cancel || loading) return undefined;
 
     if (loadOptions) {
       setLoading(true);
       loadOptions(value, values)
         .catch(() => [])
         .then((data) => {
-          if (cancel) return;
           runOpts(data);
           setLoading(false);
         });
@@ -40,7 +40,9 @@ export default ({
       runOpts(options);
     }
 
-    return () => (cancel = true);
+    return () => {
+      cancel = true;
+    };
   }, [
     value,
     items !== options,

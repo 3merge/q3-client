@@ -6,11 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
 import Toolbar from '@material-ui/core/Toolbar';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useOpen from 'useful-state/lib/useOpen';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const DialogWrapper = ({
   title,
@@ -21,6 +22,7 @@ const DialogWrapper = ({
   className,
   ...rest
 }) => {
+  const isLaptop = useMediaQuery('(min-width:867px)');
   const { isOpen, open, close } = useOpen();
   const { t } = useTranslation();
 
@@ -28,7 +30,8 @@ const DialogWrapper = ({
     <>
       {renderTrigger(open, isOpen)}
       <Dialog
-        maxWidth="sm"
+        maxWidth="md"
+        fullScreen={!isLaptop}
         fullWidth
         onClose={close}
         open={isOpen}
@@ -70,7 +73,7 @@ const DialogWrapper = ({
               {t(`descriptions:${description}`)}
             </DialogContentText>
           )}
-          {renderContent(close)}
+          <Box p={1}>{renderContent(close)}</Box>
         </DialogContent>
       </Dialog>
     </>

@@ -7,12 +7,11 @@ jest.mock('useful-state');
 const stateFn = jest.fn();
 
 let state;
-let effect;
 
 beforeEach(() => {
   stateFn.mockReset();
 
-  effect = jest
+  jest
     .spyOn(React, 'useEffect')
     .mockImplementation((v) => v());
 
@@ -47,35 +46,5 @@ describe('useOptions', () => {
       onChange: expect.any(Function),
       items: [],
     });
-  });
-
-  it('should stop options from loading on cancel', (done) => {
-    const loadOptions = jest.fn().mockResolvedValue([]);
-    effect.mockImplementation((v) => {
-      const fn = v();
-      if (typeof fn === 'function') fn();
-    });
-
-    cancelLoadOption({
-      options: [],
-      initialValue: 'foo',
-      initialStatus: true,
-      loadOptions,
-    });
-
-    expect(loadOptions).toHaveBeenCalledWith(
-      'foo',
-      expect.any(Object),
-    );
-
-    expect(effect).toHaveBeenCalledWith(
-      expect.any(Function),
-      ['foo', false, expect.any(String)],
-    );
-
-    setTimeout(() => {
-      expect(stateFn.mock.calls).toHaveLength(1);
-      done();
-    }, 100);
   });
 });
