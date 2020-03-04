@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import ListMui from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import SearchBar from '../searchBar';
 import ListSubHeader from '../listSubHeader';
 import Empty from '../empty';
@@ -12,6 +15,8 @@ const List = ({
   children,
   onCreate,
 }) => {
+  const { t } = useTranslation('labels');
+
   const hasChildren =
     (children && !Array.isArray(children)) ||
     hasLength(children);
@@ -30,7 +35,20 @@ const List = ({
           }
         >
           {hasChildren ? (
-            children
+            <>
+              {children}
+              {onCreate && (
+                <Box mt={1}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={onCreate}
+                  >
+                    {t('addToList')}
+                  </Button>
+                </Box>
+              )}
+            </>
           ) : (
             <Empty onClick={onCreate} />
           )}

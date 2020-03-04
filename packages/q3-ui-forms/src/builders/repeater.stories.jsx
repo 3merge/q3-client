@@ -19,7 +19,10 @@ export const Empty = () => (
     title="Characters"
     subtitle="This is an important blurb about the characters"
   >
-    <Repeater name="Main Characters">
+    <Repeater
+      name="Main Characters"
+      create={() => alert('Created!')}
+    >
       <div>Requires a child</div>
     </Repeater>
   </Tile>

@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -63,9 +60,10 @@ export const DataList = ({
   primary,
   secondary,
   children,
+  onCreate,
   ...etc
 }) => (
-  <List>
+  <List onCreate={onCreate}>
     {data.map((item, i) => (
       <ListItem
         key={i}
@@ -95,6 +93,11 @@ DataList.propTypes = {
   primary: PropTypes.func.isRequired,
   secondary: PropTypes.func.isRequired,
   children: PropTypes.func.isRequired,
+  onCreate: PropTypes.func,
+};
+
+DataList.defaultProps = {
+  onCreate: null,
 };
 
 const Repeater = ({
@@ -108,7 +111,6 @@ const Repeater = ({
   collectionName,
   ...rest
 }) => {
-  const { t } = useTranslation('labels');
   const auth = useAuth(collectionName);
 
   const getForm = (
@@ -130,44 +132,32 @@ const Repeater = ({
     });
 
   return (
-    <>
-      <DataList
-        getForm={getForm}
-        data={assignIDs(data)}
-        title={children.props.title}
-        collectionName={collectionName}
-        name={name}
-        {...rest}
-      >
-        {(item) =>
-          (auth.canDeleteSub(name) || !collectionName) &&
-          remove ? (
-            <DeleteListItem next={remove(item.id)} />
-          ) : null
-        }
-      </DataList>
-
-      {(auth.canCreateSub(name) || !collectionName) &&
-        create && (
-          <Box mt={1}>
-            <Dialog
-              {...rest}
-              renderContent={getForm()}
-              renderTrigger={(open) => (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={open}
-                >
-                  {data.length
-                    ? t('addToList')
-                    : t('startList')}
-                </Button>
-              )}
-            />
-          </Box>
-        )}
-    </>
+    <Dialog
+      {...rest}
+      renderContent={getForm()}
+      renderTrigger={(open) => (
+        <DataList
+          getForm={getForm}
+          data={assignIDs(data)}
+          title={children.props.title}
+          collectionName={collectionName}
+          name={name}
+          onCreate={
+            auth.canCreateSub(name) || !collectionName
+              ? open
+              : null
+          }
+          {...rest}
+        >
+          {(item) =>
+            (auth.canDeleteSub(name) || !collectionName) &&
+            remove ? (
+              <DeleteListItem next={remove(item.id)} />
+            ) : null
+          }
+        </DataList>
+      )}
+    />
   );
 };
 

@@ -155,5 +155,7 @@
   "commentsDisabled": "Comments have been disabled for this role type.",
   "province": "Province",
   "addFirst": "Add first resource",
-  "loremVars": "Lorem vars says hello: {{hello}}"
+  "loremVars": "Lorem vars says hello: {{hello}}",
+  "startList": "Add the first item",
+  "addToList": "Add to the list"
 }
