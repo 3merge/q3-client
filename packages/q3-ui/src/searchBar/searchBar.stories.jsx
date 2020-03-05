@@ -1,6 +1,5 @@
 import React from 'react';
 import { withLocation } from 'with-location';
-import { storiesOf } from '@storybook/react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Search from '.';
@@ -21,7 +20,7 @@ const getOptions = (s) => {
 };
 
 export default {
-  title: 'Components/Search',
+  title: 'Q3 UI|Components/Search',
   parameters: {
     component: Search,
     componentSubtitle: 'Expandable search bar',

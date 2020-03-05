@@ -28,5 +28,7 @@
   "needHelp": "Need help?",
   "documentation": "Documentation",
   "narrowSearch": "Filter",
-  "help": "Documentation"
+  "help": "Documentation",
+  "startTyping": "Search",
+  "noResults": "No results"
 }

@@ -24,5 +24,7 @@
   "apply": "Apply current filter to search results",
   "applyAndSave": "Apply current filter to search results and save to browser",
   "reset": "Reset all active filters",
-  "resetAndSave": "Reset all active filters and clear preferences from browser"
+  "resetAndSave": "Reset all active filters and clear preferences from browser",
+  "browseOrClick": "Search results will load as you type. Click one to visit the page or press Enter to view expanded results.",
+  "noResults": "This search yielded no results. Please try a different filter or keyword."
 }
