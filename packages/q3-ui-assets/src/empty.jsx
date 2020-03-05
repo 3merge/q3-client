@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import get from 'lodash.get';
 
-export default () => {
+export default (props) => {
   const theme = useTheme();
 
   return (
@@ -10,6 +10,7 @@ export default () => {
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
       viewBox="0 0 929.545 793.07"
+      {...props}
     >
       <path
         fill={get(theme, 'palette.primary.light')}
