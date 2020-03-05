@@ -21,13 +21,25 @@ const ResourceCard = ({
   ...rest
 }) => {
   const { imgCover } = useStyles({ imgObjectFit });
+  const linkImage = to && !secondaryTo;
+
+  const imgContainerProps = linkImage
+    ? {
+        display: 'block',
+        className: imgCover,
+        component: Link,
+        to,
+      }
+    : {
+        className: imgCover,
+      };
 
   return (
-    <Grid item md={6} sm={8} xs={10}>
+    <Grid item sm={6} xs={12}>
       <Card>
         <Grid container spacing={1} alignItems="center">
           <Grid item lx={4} lg={6} xs={12}>
-            <Box className={imgCover}>
+            <Box {...imgContainerProps}>
               <LazyLoadImage
                 src={imgSrc}
                 alt={title}

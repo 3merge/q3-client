@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import ResourceCard from '.';
 
@@ -18,6 +19,25 @@ describe('ResourceCard', () => {
         .shallow(<ResourceCard {...getProps()} />)
         .find(Button),
     ).toHaveLength(1));
+
+  it('should render image container as a link', () => {
+    const getBoxProps = (el) =>
+      global
+        .shallow(el)
+        .find(Box)
+        .props();
+
+    const withLink = getBoxProps(
+      <ResourceCard {...getProps()} />,
+    );
+
+    const withoutLink = getBoxProps(
+      <ResourceCard {...getProps({ secondaryTo: '/' })} />,
+    );
+
+    expect(withLink).toHaveProperty('to');
+    expect(withoutLink).not.toHaveProperty('to');
+  });
 
   it('should render a secondary link', () =>
     expect(
