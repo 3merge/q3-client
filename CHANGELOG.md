@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.17](https://github.com/3merge/q/compare/v1.11.16...v1.11.17) (2020-03-05)
+
+
+### Bug Fixes
+
+* resource card mobile formatting ([b7edafe](https://github.com/3merge/q/commit/b7edafe63e9e39358d0e9e5ddb8b5eaccad9e29b))
+
+
+
+
+
 ## [1.11.16](https://github.com/3merge/q/compare/v1.11.15...v1.11.16) (2020-03-04)
 
 **Note:** Version bump only for package q3-client
