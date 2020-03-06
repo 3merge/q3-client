@@ -89,7 +89,9 @@ const Detail = ({
               )
             }
           >
-            <Documentation filepath={filepath} />
+            {filepath && (
+              <Documentation filepath={filepath} />
+            )}
           </Sidebar>
         )}
       >

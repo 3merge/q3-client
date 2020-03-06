@@ -13,7 +13,14 @@ export default {
 export const PopulatedLineItems = () => (
   <CartContext.Provider
     value={{
-      update: () => Promise.resolve(),
+      update: () =>
+        Promise.resolve().then(() => {
+          alert('UDPATE');
+        }),
+      remove: () =>
+        Promise.resolve().then(() => {
+          alert('REMOVE');
+        }),
       items: [
         {
           id: 1,

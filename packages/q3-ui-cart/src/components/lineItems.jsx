@@ -35,18 +35,31 @@ const RemoveFromCart = ({ id }) => {
   );
 };
 
+RemoveFromCart.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
 const Toggle = ({ id, product, quantity }) => {
   const { t } = useTranslation();
   const [value, setQuantity] = React.useState(quantity);
-  const { update, loading } = React.useContext(CartContext);
+  const { update, remove, loading } = React.useContext(
+    CartContext,
+  );
 
   const sendUpdateRequest = (newValue) =>
     update({ id, product, quantity: newValue }).then(() => {
       return setQuantity(newValue);
     });
 
-  const decrease = () => sendUpdateRequest(value - 1);
   const increase = () => sendUpdateRequest(value + 1);
+
+  const decrease = () => {
+    const newValue = value - 1;
+    if (newValue > 0) {
+      return sendUpdateRequest(newValue);
+    }
+    return remove(id);
+  };
 
   return (
     <TextField
