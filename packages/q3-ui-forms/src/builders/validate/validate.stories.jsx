@@ -132,3 +132,29 @@ export const ValidatePostRequest = () => (
     </Form>
   </Tile>
 );
+
+export const ValidateInlineMsg = () => (
+  <Tile
+    title="Inline messages"
+    subtitle="When errors occur, show a global message"
+  >
+    <Form
+      debug
+      initialValues={{
+        email: '',
+      }}
+      onSubmit={(values, actions) => {
+        actions.setSubmitting(false);
+        actions.setStatus(
+          `${
+            values.email === 'foo@bar.com'
+              ? 'Success'
+              : 'Error'
+          }:lorem`,
+        );
+      }}
+    >
+      <Field name="email" type="email" required />
+    </Form>
+  </Tile>
+);

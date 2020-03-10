@@ -15,6 +15,7 @@ module.exports = {
     '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',
     '../packages/q3-ui/**/card/*.stories.jsx',
     '../packages/q3-ui/**/collapsibleFieldLabel/**.stories.jsx',
+    '../packages/q3-ui/**/collapsiblePanel/**.stories.jsx',
     '../packages/q3-ui/**/header/*.stories.jsx',
     '../packages/q3-ui/**/list/*.stories.jsx',
     '../packages/q3-ui/**/map/*.stories.jsx',
@@ -36,6 +37,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/fields/select.stories.jsx',
     '../packages/q3-ui-forms/**/presets/northAmericaRegionalSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/provinceSelect/*.stories.jsx',
+    '../packages/q3-ui-forms/**/presets/**.stories.jsx',
     '../packages/q3-ui-permissions/**.stories.jsx',
   ],
 };
