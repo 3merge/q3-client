@@ -1,8 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
 import PropTypes from 'prop-types';
-import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
 import { setSession } from 'q3-ui-permissions';
 import Field from '../builders/field';
 import Form from '../builders/form';
@@ -15,14 +13,15 @@ const Login = ({
   beforeRedirect,
   redirectPath,
 }) => {
-  const { t } = useTranslation();
-  const [hasAccount] = React.useState('');
-
   const authenticate = (values, actions) => {
     onStart(actions);
     return Axios.post('/authenticate', values)
       .then(({ data }) => {
         setSession(data);
+        actions.setStatus(
+          'Success:authenticationSuccessful',
+        );
+
         onComplete(null, actions);
 
         if (beforeRedirect) {
@@ -37,12 +36,9 @@ const Login = ({
       })
       .catch((err) => {
         onComplete(err, actions);
+        actions.setStatus('Error:authenticationFailed');
         return null;
       });
-  };
-
-  const customTest = function conditionalRequire(v) {
-    return !hasAccount || (hasAccount && v);
   };
 
   return (
@@ -54,19 +50,8 @@ const Login = ({
         password: '',
       }}
     >
-      <Field name="email" type="email" />
-      <Field
-        required
-        name="password"
-        type="password"
-        validate={yup
-          .string()
-          .test(
-            'withEmail',
-            t('labels:required'),
-            customTest,
-          )}
-      />
+      <Field name="email" type="email" required />
+      <Field required name="password" type="password" />
       {children}
     </Form>
   );

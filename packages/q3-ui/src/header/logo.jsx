@@ -9,12 +9,13 @@ const Logo = ({
   logoImgSrc,
   name,
   logoStyles,
+  to,
   ...rest
 }) => {
   const { logo } = useStyles(rest);
 
   return logoImgSrc ? (
-    <Link to="/" className={logo} style={logoStyles}>
+    <Link to={to} className={logo} style={logoStyles}>
       <LazyLoadImage src={logoImgSrc} alt={name} />
     </Link>
   ) : (
@@ -33,11 +34,13 @@ Logo.propTypes = {
   name: PropTypes.string.isRequired,
   logoImgSrc: PropTypes.string,
   logoStyles: PropTypes.shape({}),
+  to: PropTypes.string,
 };
 
 Logo.defaultProps = {
   logoImgSrc: null,
   logoStyles: null,
+  to: '/',
 };
 
 export default Logo;

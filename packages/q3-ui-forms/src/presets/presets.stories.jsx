@@ -10,9 +10,11 @@ import {
   Verify,
 } from '.';
 
+export default {
+  title: 'Q3 Forms|Presets',
+};
+
 const mockup = (m) => {
-  m.onGet('/authenticate?email=foo@bar.com').reply(200);
-  m.onGet('/authenticate?email=foo@baz.com').reply(400);
   m.onPost(/verify/).reply(204);
   m.onPost(/reverify/).reply(204);
 
@@ -20,13 +22,11 @@ const mockup = (m) => {
     message: 'If the email exists, you will get a message',
   });
 
-  m.onPost(/authenticate/).reply(201, {
-    token: 1,
-    nonce: 1,
-  });
+  m.onPost(/authenticate/).reply(({ url, ...rest }) => {
+    const { email, password } = JSON.parse(rest.data);
 
-  m.onGet(/authenticate/).reply(({ url }) =>
-    url.includes('foo@bar')
+    return email === 'foo@bar.com' &&
+      password === 'password'
       ? [204]
       : [
           400,
@@ -35,48 +35,36 @@ const mockup = (m) => {
               email: 'Unknown account',
             },
           },
-        ],
-  );
+        ];
+  });
 };
 
-storiesOf('Forms|Presets', module)
-  .add('Login', () => {
-    loadReCaptcha();
-    return (
-      <MockApi define={mockup}>
-        <Login />
-      </MockApi>
-    );
-  })
-  .add('Password change', () => {
-    loadReCaptcha();
-    return (
-      <MockApi define={mockup}>
-        <PasswordChange />
-      </MockApi>
-    );
-  })
-  .add('Password reset', () => {
-    loadReCaptcha();
-    return (
-      <MockApi define={mockup}>
-        <PasswordReset />
-      </MockApi>
-    );
-  })
-  .add('Reverify', () => {
-    loadReCaptcha();
-    return (
-      <MockApi define={mockup}>
-        <Reverify />
-      </MockApi>
-    );
-  })
-  .add('Verify', () => {
-    loadReCaptcha();
-    return (
-      <MockApi define={mockup}>
-        <Verify />
-      </MockApi>
-    );
-  });
+export const LoginExample = () => (
+  <MockApi define={mockup}>
+    <Login />
+  </MockApi>
+);
+
+export const PasswordChangeDefault = () => (
+  <MockApi define={mockup}>
+    <PasswordChange />
+  </MockApi>
+);
+
+export const PasswordResetDefault = () => (
+  <MockApi define={mockup}>
+    <PasswordReset />
+  </MockApi>
+);
+
+export const ReverifyDefault = () => (
+  <MockApi define={mockup}>
+    <Reverify />
+  </MockApi>
+);
+
+export const VerifyDefault = () => (
+  <MockApi define={mockup}>
+    <Verify />
+  </MockApi>
+);

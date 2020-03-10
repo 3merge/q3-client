@@ -1,3 +1,4 @@
+import React from 'react';
 import ButtonLink from '@material-ui/core/Link';
 import { Link } from '@reach/router';
 
@@ -19,3 +20,6 @@ export const getLinkAttributes = (url = '', Component) => {
     to,
   };
 };
+
+export const withCriticalProp = (C, prop) => (props) =>
+  prop in props ? React.createElement(C, props) : null;
