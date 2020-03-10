@@ -1,4 +1,8 @@
-import { getLinkAttributes } from './utils';
+import React from 'react';
+import {
+  getLinkAttributes,
+  withCriticalProp,
+} from './utils';
 
 describe('getLinkAttributes', () => {
   it('should return @reach/router Link', () => {
@@ -23,5 +27,17 @@ describe('getLinkAttributes', () => {
       target: '_blank',
       rel: 'noopener noreferrer',
     });
+  });
+});
+
+describe('withCriticalProp', () => {
+  it('should conditionally render', () => {
+    const Sample = () => 'Renderer';
+    const Wrapped = withCriticalProp(Sample, 'render');
+    // eslint-disable-next-line
+    expect(global.shallow(<Wrapped />)).toEqual({});
+    expect(
+      global.shallow(<Wrapped render />).name(),
+    ).toMatch('Sample');
   });
 });

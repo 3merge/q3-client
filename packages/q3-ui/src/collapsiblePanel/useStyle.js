@@ -53,7 +53,7 @@ export default makeStyles((theme) => ({
   backdrop: ({ transparent }) =>
     transparent
       ? {
-          backgroundColor: '#FFF',
+          backgroundColor: 'transparent',
           padding: theme.spacing(2),
           width: '100%',
         }
