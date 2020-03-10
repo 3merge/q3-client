@@ -27,7 +27,7 @@ const mockup = (m) => {
 
     return email === 'foo@bar.com' &&
       password === 'password'
-      ? [204]
+      ? [204, { token: '', nonce: '' }]
       : [
           400,
           {

@@ -8,43 +8,28 @@ import useFormHandler from '../providers/formik';
 
 const { onStart, onComplete } = useFormHandler('formik');
 
-const Login = ({
-  children,
-  beforeRedirect,
-  redirectPath,
-}) => {
-  const authenticate = (values, actions) => {
-    onStart(actions);
-    return Axios.post('/authenticate', values)
-      .then(({ data }) => {
-        setSession(data);
-        actions.setStatus(
-          'Success:authenticationSuccessful',
-        );
+const authenticate = (to) => (values, actions) => {
+  onStart(actions);
+  return Axios.post('/authenticate', values)
+    .then(({ data }) => {
+      actions.setStatus('Success:authenticationSuccessful');
+      setSession(data);
+      onComplete(null, actions);
+      window.location.replace(to);
+      return data;
+    })
+    .catch((err) => {
+      onComplete(err, actions);
+      actions.setStatus('Error:authenticationFailed');
+      return null;
+    });
+};
 
-        onComplete(null, actions);
-
-        if (beforeRedirect) {
-          return beforeRedirect(data).then((r) => {
-            window.location.replace(redirectPath);
-            return r;
-          });
-        }
-
-        window.location.replace(redirectPath);
-        return data;
-      })
-      .catch((err) => {
-        onComplete(err, actions);
-        actions.setStatus('Error:authenticationFailed');
-        return null;
-      });
-  };
-
+const Login = ({ children, redirectPath }) => {
   return (
     <Form
       isNew
-      onSubmit={authenticate}
+      onSubmit={authenticate(redirectPath)}
       initialValues={{
         email: '',
         password: '',
@@ -59,13 +44,11 @@ const Login = ({
 
 Login.propTypes = {
   redirectPath: PropTypes.string,
-  beforeRedirect: PropTypes.func,
   children: PropTypes.node,
 };
 
 Login.defaultProps = {
   redirectPath: '/',
-  beforeRedirect: null,
   children: null,
 };
 
