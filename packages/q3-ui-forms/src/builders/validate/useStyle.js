@@ -9,4 +9,8 @@ export default makeStyles((theme) => ({
     display: 'block',
     padding: theme.spacing(1),
   }),
+
+  inlineIconButton: {
+    float: 'right',
+  },
 }));
