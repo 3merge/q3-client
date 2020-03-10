@@ -57,7 +57,7 @@ const CollapsiblePanel = ({
         </Grid>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Box className={backdrop}>{children}</Box>
+        <Box width="100%">{children}</Box>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   ) : null;

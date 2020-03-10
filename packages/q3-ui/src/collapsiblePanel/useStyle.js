@@ -22,9 +22,9 @@ export default makeStyles((theme) => ({
     const fn = getColorByIndex(important);
     return {
       backgroundColor: fn(50),
-      border: '1px solid #FFF',
       color: fn(900),
       fontSize: '0.9rem',
+      marginBottom: 2,
     };
   },
 
@@ -32,7 +32,12 @@ export default makeStyles((theme) => ({
     if (error) return makeBorderColorProperty(red);
     if (success) return makeBorderColorProperty(green);
     if (warning) return makeBorderColorProperty(orange);
-    return {};
+    return {
+      '&.Mui-expanded': {
+        backgroundColor: 'whitesmoke',
+        transition: 'background-color 500ms',
+      },
+    };
   },
 
   iconFont: ({ error, warning }) => {
