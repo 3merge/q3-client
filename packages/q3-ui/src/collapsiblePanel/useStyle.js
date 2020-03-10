@@ -45,8 +45,8 @@ export default makeStyles((theme) => ({
     const fn = getColorByIndex(important);
     return {
       color: fn(900),
-      fontSize: 15,
       marginRight: '0.5rem',
+      fontSize: 15,
     };
   },
 
@@ -54,16 +54,18 @@ export default makeStyles((theme) => ({
     transparent
       ? {
           backgroundColor: 'transparent',
-          padding: theme.spacing(2),
+          padding: 0,
+          margin: '0 1rem',
           width: '100%',
         }
       : {
           backgroundColor: '#EEE',
-          padding: 0,
+          padding: theme.spacing(2),
+          margin: '0 1rem',
           width: '100%',
         },
 
   padding: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.25),
   },
 }));
