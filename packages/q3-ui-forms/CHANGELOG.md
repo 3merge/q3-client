@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.24](https://github.com/3merge/q/compare/v1.11.23...v1.11.24) (2020-03-13)
+
+
+### Bug Fixes
+
+* duplication of label/helper text on custom overrides ([a3eb765](https://github.com/3merge/q/commit/a3eb7658da0eb4e9d343b61160d4188916cff11b))
+
+
+
+
+
 ## [1.11.20](https://github.com/3merge/q/compare/v1.11.19...v1.11.20) (2020-03-10)
 
 **Note:** Version bump only for package q3-ui-forms
