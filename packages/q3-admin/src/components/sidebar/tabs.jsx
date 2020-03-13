@@ -55,7 +55,7 @@ const SidebarTabs = ({
         >
           <Tab label={t('meta')} className={item} />
           <Tab
-            label={t('comments')}
+            label={t('internalComments')}
             disabled={!commentTab}
             className={item}
           />
