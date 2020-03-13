@@ -44,3 +44,15 @@ export const Validation = () => (
     />
   </Form>
 );
+
+export const CustomLabel = () => (
+  <Form
+    debug
+    onSubmit={Promise.resolve()}
+    initialValues={{
+      name: '',
+    }}
+  >
+    <Field name="lorem" type="text" />
+  </Form>
+);

@@ -23,8 +23,6 @@ const Text = (props) => {
       {...etc}
       disabled={disabled}
       readOnly={readOnly}
-      label={label}
-      helperText={helperText}
       error={error}
       fullWidth
       variant="filled"
@@ -43,6 +41,8 @@ const Text = (props) => {
             : curr,
         {},
       )}
+      label={label}
+      helperText={helperText}
     />
   );
 };
