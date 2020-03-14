@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/3merge/q/compare/v1.11.24...v1.12.0) (2020-03-14)
+
+
+### Features
+
+* additional admin builders to reduce container redundancy ([#132](https://github.com/3merge/q/issues/132)) ([ce562d5](https://github.com/3merge/q/commit/ce562d581768c0fc253252eb1af8504083a3b78a))
+
+
+
+
+
 ## [1.11.23](https://github.com/3merge/q/compare/v1.11.22...v1.11.23) (2020-03-13)
 
 **Note:** Version bump only for package q3-admin
