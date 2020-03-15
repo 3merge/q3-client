@@ -5,6 +5,7 @@ import MockLocation from 'q3-ui-test-utils/lib/location';
 import Field from '../field';
 import Form from '../form';
 import PersistWatcher from '../persistWatcher';
+import { options } from '../../fields/__fixtures__/options';
 import Persist from '.';
 
 export default {
@@ -26,6 +27,7 @@ const PersistantForm = (props) => {
       <Form debug isNew id="foo" name="bar" {...props}>
         <Field name="name" type="text" required />
         <Field name="number" type="number" required />
+        {props.children}
       </Form>
     </Tile>
   );
@@ -57,6 +59,62 @@ export const DefaultForm = () => {
         />
         <OffPage path="off" />
       </Router>
+    </MockLocation>
+  );
+};
+
+export const PostSaveStateChange = () => {
+  const [
+    hasBeenSubmitted,
+    setHasBeenSubmitted,
+  ] = React.useState(false);
+  const [initialValues, setInitialValues] = React.useState({
+    countries: 'One',
+    name: '',
+    number: 0,
+  });
+
+  const handleSubmit = (v) =>
+    new Promise((resolve) => {
+      setInitialValues({
+        newValue: true,
+        ...v,
+      });
+
+      setHasBeenSubmitted(true);
+      resolve();
+    });
+
+  return (
+    <MockLocation initialPath="/">
+      <PersistWatcher />
+      <PersistantForm
+        path="/"
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        marshal={{
+          'countries.ref': 'countries',
+          name: 'name',
+          number: 'number',
+        }}
+      >
+        <Field
+          type="autocomplete"
+          name="countries"
+          loadOptions={() =>
+            new Promise((res) => {
+              setTimeout(() => {
+                res(
+                  options.map((v) => ({
+                    ...v,
+                    mutate: hasBeenSubmitted,
+                  })),
+                );
+              }, 500);
+            })
+          }
+        />
+      </PersistantForm>
     </MockLocation>
   );
 };

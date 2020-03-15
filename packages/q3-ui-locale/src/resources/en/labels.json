@@ -157,5 +157,8 @@
   "addFirst": "Add first resource",
   "loremVars": "Lorem vars says hello: {{hello}}",
   "startList": "Add the first item",
-  "addToList": "Add to the list"
+  "addToList": "Add to the list",
+  "verificationCode": "Verification code",
+  "previousPassword": "Previous password",
+  "loading": "Loading..."
 }
