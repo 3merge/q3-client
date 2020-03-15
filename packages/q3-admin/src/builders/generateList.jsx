@@ -10,7 +10,7 @@ import { TableRow } from 'q3-ui-datatables';
 
 export default ({
   addFormTitle,
-  addForm,
+  addForm: AddForm,
   onListItem,
   onSearch,
   ...etc
@@ -23,7 +23,9 @@ export default ({
     <>
       <Header>
         <Search intercept={onSearch} />
-        <Add title={addFormTitle}>{addForm}</Add>
+        <Add title={addFormTitle}>
+          <AddForm />
+        </Add>
       </Header>
       <List {...etc}>{(rows) => rows.map(ListItem)}</List>
     </>

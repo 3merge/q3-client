@@ -8,7 +8,7 @@ export default ({
   headerProps,
 }) => () => (
   <>
-    <Header titleProp={title} {...headerProps} />
+    <Header {...headerProps} titleProp={title} />
     <Detail {...presets}>
       {Object.entries(views).map(([key, Component]) => (
         <Component key={key} name={key} />

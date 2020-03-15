@@ -28,7 +28,9 @@ const Section = ({ fetching, children, renderSidebar }) => (
         >
           {fetching ? <CircularProgress /> : children}
         </Grid>
-        {renderSidebar && renderSidebar()}
+        {renderSidebar && !fetching
+          ? renderSidebar()
+          : null}
       </Grid>
     </Box>
   </Container>

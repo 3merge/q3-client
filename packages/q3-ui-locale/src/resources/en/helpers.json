@@ -19,5 +19,6 @@
   "multi": "This is a multi-text field. Press enter to add options.",
   "lorem": "This is a popover! Use it to display additional non-critical information.",
   "tel": "Supports country code (+1) and extensions (x123)",
-  "phone": "Supports country code (+1) and extensions (x123)"
+  "phone": "Supports country code (+1) and extensions (x123)",
+  "noMatch": "Passwords do not match"
 }

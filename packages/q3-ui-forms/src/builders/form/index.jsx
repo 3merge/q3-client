@@ -43,8 +43,8 @@ export const FormBuilder = ({
         {id && (
           <Persist id={prefixForSessionStorage(name, id)} />
         )}
-        {children}
         <Validate />
+        {children}
         <Box mt={1}>
           {enableSubmit && (
             <Next submit label={submitLabel} />

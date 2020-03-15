@@ -30,5 +30,6 @@
   "narrowSearch": "Filter",
   "help": "Documentation",
   "startTyping": "Search",
-  "noResults": "No results"
+  "noResults": "No results",
+  "newUser": "Add a user"
 }

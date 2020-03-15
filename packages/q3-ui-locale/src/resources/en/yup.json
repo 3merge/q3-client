@@ -7,6 +7,7 @@
     "email": "Must be a valid email",
     "min": "Must be at least ${min} characters",
     "max": "Cannot exceed ${max} characters",
-    "postal": "Must be a valid postal code"
+    "postal": "Must be a valid postal code",
+    "noMatch": "No match"
   }
 }
