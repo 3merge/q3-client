@@ -1,5 +1,4 @@
 import {
-  getOptions,
   getFn,
   isEmpty,
   makePath,
@@ -64,27 +63,6 @@ describe('q3-ui-rest helpers', () => {
       expect(makePath(['/foo/bar', '/quux'])).toMatch(
         '/foo/bar/quux',
       ));
-  });
-
-  describe('getOptions', () => {
-    it('should return simple array without path', () =>
-      expect(getOptions('/', 'values')).resolves.toEqual([
-        'Foo',
-        'Bar',
-      ]));
-
-    it('should add label and value properties', () =>
-      expect(
-        getOptions('/', 'values', 'name'),
-      ).resolves.toEqual([
-        { label: 'Foo', value: '1', id: '1', name: 'Foo' },
-        { label: 'Bar', value: '2', id: '2', name: 'Bar' },
-      ]));
-
-    it('should return just the property', () =>
-      expect(
-        getOptions('/', 'values', 'name', true),
-      ).resolves.toEqual(['Foo', 'Bar']));
   });
 
   describe('acceptCsvFiletype', () => {
