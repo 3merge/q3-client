@@ -80,7 +80,10 @@ export const WithMarshal = () => (
       ],
     }}
     marshal={{
-      numbers: [(v) => v.map((item) => item.value)],
+      numbers: [(v, state) => {
+        console.log(v, state)
+        return v.map((item) => item.value)
+      }],
     }}
   >
     <Field name="destination.country" type="text" />
