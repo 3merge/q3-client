@@ -5,6 +5,7 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Detail from '.';
 import fixture from '../documentation/__fixtures__/markdown.md';
+import Header from '../header';
 import State from '../state';
 
 export default {
@@ -52,16 +53,19 @@ const Second = ({ state: { patch, foo } }) => (
 );
 
 const DetailInstance = () => (
-  <Detail
-    trash
-    notes
-    delete
-    filepath={{ content: { data: fixture } }}
-    persistenceIds={['first', 'second']}
-  >
-    <First name="first" />
-    <Second name="second" />
-  </Detail>
+  <>
+    <Header titlePath="foo" />
+    <Detail
+      trash
+      notes
+      delete
+      filepath={{ content: { data: fixture } }}
+      persistenceIds={['first', 'second']}
+    >
+      <First name="first" />
+      <Second name="second" />
+    </Detail>
+  </>
 );
 
 export const WithDefaults = () => (

@@ -20,6 +20,9 @@ const DialogWrapper = ({
   renderContent,
   contentClassName,
   className,
+  onNext,
+  onPrev,
+  onExit,
   ...rest
 }) => {
   const isLaptop = useMediaQuery('(min-width:867px)');
@@ -29,6 +32,7 @@ const DialogWrapper = ({
   return (
     <>
       {renderTrigger(open, isOpen)}
+
       <Dialog
         maxWidth="md"
         fullScreen={!isLaptop}
@@ -36,8 +40,19 @@ const DialogWrapper = ({
         onClose={close}
         open={isOpen}
         className={className}
+        onExited={onExit}
         {...rest}
       >
+        <button
+          onClick={onPrev}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '1rem',
+          }}
+        >
+          LEFT
+        </button>
         {title && (
           <AppBar
             position="static"
@@ -57,6 +72,7 @@ const DialogWrapper = ({
               >
                 {t(`titles:${title}`)}
               </Typography>
+
               <IconButton
                 onClick={close}
                 aria-label={t('labels:close')}
@@ -75,6 +91,16 @@ const DialogWrapper = ({
           )}
           <Box p={1}>{renderContent(close)}</Box>
         </DialogContent>
+        <button
+          onClick={onNext}
+          style={{
+            position: 'fixed',
+            top: '50%',
+            right: '1rem',
+          }}
+        >
+          RIGHT
+        </button>
       </Dialog>
     </>
   );

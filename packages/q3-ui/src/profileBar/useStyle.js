@@ -10,20 +10,24 @@ export default makeStyles((theme) => ({
     top: '6rem',
     left: 'calc(100% - 1rem)',
   },
-  colourful: {
+  colourful: ({ isOpen }) => ({
     backgroundColor: theme.palette.primary.main,
-    boxShadow: theme.shadows[1],
+    boxShadow: isOpen
+      ? theme.shadows[25]
+      : theme.shadows[5],
     boxSizing: 'border-box',
     color: '#FFF',
     height: '100vh',
     overflowY: 'auto',
     overflowX: 'hidden',
     paddingTop: theme.spacing(2),
+    position: 'absolute',
+    transition: 'all 350ms',
     '& *': {
       color: '#FFF',
       fontSize: '1.11rem',
     },
-  },
+  }),
   mobile: {
     backgroundColor: theme.palette.primary.main,
     boxSizing: 'border-box',

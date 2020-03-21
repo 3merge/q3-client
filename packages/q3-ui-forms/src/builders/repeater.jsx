@@ -54,38 +54,93 @@ DeleteListItem.propTypes = {
   next: PropTypes.func.isRequired,
 };
 
-export const DataList = ({
-  data,
+const DataListItem = ({
+  children,
+  item,
+  index,
   getForm,
+  data,
   primary,
   secondary,
-  children,
-  onCreate,
   ...etc
-}) => (
-  <List onCreate={onCreate}>
-    {data.map((item, i) => (
-      <ListItem
-        key={i}
-        title={primary(item)}
-        description={secondary(item)}
-      >
-        <ActionBar>
-          <Dialog
+}) => {
+  const initialProps = getForm(false, item, item.id);
+  const [
+    renderContentProps,
+    setRenderContentProps,
+  ] = React.useState(initialProps);
+  const [currentIndex, setCurrentIndex] = React.useState(
+    index,
+  );
+
+  const onExit = () => {
+    setCurrentIndex(index);
+    setRenderContentProps(initialProps);
+  };
+
+  const onPrev = () => {
+    const nextIndex =
+      (data.length + currentIndex - 1) % data.length;
+    const nextItem = data[nextIndex];
+
+    setRenderContentProps(
+      getForm(false, nextItem, nextItem.id),
+    );
+    setCurrentIndex(nextIndex);
+  };
+
+  const onNext = () => {
+    const nextIndex = (currentIndex + 1) % data.length;
+    const nextItem = data[nextIndex];
+
+    setRenderContentProps(
+      getForm(false, nextItem, nextItem.id),
+    );
+
+    setCurrentIndex(nextIndex);
+  };
+
+  return (
+    <ListItem
+      key={index}
+      title={primary(item)}
+      description={secondary(item)}
+    >
+      <ActionBar>
+        <Dialog
+          {...etc}
+          onPrev={onPrev}
+          onNext={onNext}
+          onExit={onExit}
+          renderContent={() => renderContentProps}
+          renderTrigger={(open) => (
+            <IconButton onClick={open}>
+              <EditIcon />
+            </IconButton>
+          )}
+        />
+        {children(item)}
+      </ActionBar>
+    </ListItem>
+  );
+};
+
+export const DataList = ({ onCreate, data, ...etc }) => {
+  return (
+    <List onCreate={onCreate}>
+      {data.map((item, i) => {
+        return (
+          <DataListItem
+            index={i}
+            item={item}
+            data={data}
             {...etc}
-            renderContent={getForm(false, item, item.id)}
-            renderTrigger={(open) => (
-              <IconButton onClick={open}>
-                <EditIcon />
-              </IconButton>
-            )}
           />
-          {children(item)}
-        </ActionBar>
-      </ListItem>
-    ))}
-  </List>
-);
+        );
+      })}
+    </List>
+  );
+};
 
 DataList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -124,7 +179,7 @@ const Repeater = ({
         Promise.resolve(
           isNew ? create(...args) : edit(id)(...args),
         ).then(() => {
-          done();
+          // done();
         }),
       initialValues: init,
       collectionName,

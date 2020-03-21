@@ -10,21 +10,17 @@ export const SelectAll = ({ ids }) => {
   const ctx = React.useContext(TableContext);
 
   if (!ctx) return null;
-  const { clear, checked, setChecked, hasChecked } = ctx;
+  const { checked, onCheckAll, hasChecked } = ctx;
   const label = checked.length
     ? t('labels:clearAll')
     : t('labels:selectAll');
-
-  const onClick = !checked.length
-    ? () => setChecked(ids)
-    : clear;
 
   return (
     <Badge badgeContent={checked.length} color="primary">
       <Checkbox
         style={{ padding: 12 }}
         aria-label={label}
-        onClick={onClick}
+        onClick={onCheckAll(ids)}
         checked={hasChecked()}
       />
     </Badge>

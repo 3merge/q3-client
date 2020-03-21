@@ -25,6 +25,8 @@ const Text = (props) => {
       readOnly={readOnly}
       error={error}
       fullWidth
+      label={label}
+      helperText={helperText}
       variant="filled"
       type={type}
       InputProps={{
@@ -41,8 +43,6 @@ const Text = (props) => {
             : curr,
         {},
       )}
-      label={label}
-      helperText={helperText}
     />
   );
 };

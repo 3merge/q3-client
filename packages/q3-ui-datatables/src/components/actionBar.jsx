@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Collapse from '@material-ui/core/Collapse';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import { useStyles, useCheckbox } from '../utils';
+import { useChecked } from 'useful-state';
 import Context from '../utils/context';
+import { useStyles } from '../utils';
 
 const ActionBarElement = ({ icon: Icon, ...rest }) => (
   <BottomNavigationAction
@@ -23,7 +24,8 @@ ActionBarElement.propTypes = {
 
 const ActionBar = ({ children, actions }) => {
   const { action } = useStyles();
-  const utils = useCheckbox();
+
+  const utils = useChecked();
 
   return (
     <Context.Provider value={utils}>

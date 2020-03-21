@@ -14,7 +14,7 @@ export default {
 export const Default = () => (
   <Main
     render={() => (
-      <Container>
+      <Container maxWidth="xl">
         <Typography variant="h2">
           This is the main area
         </Typography>

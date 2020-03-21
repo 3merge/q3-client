@@ -28,35 +28,71 @@ export const Empty = () => (
   </Tile>
 );
 
-export const WithForm = () => (
-  <Tile
-    title="Characters"
-    subtitle="This is an important blurb about the characters"
-  >
-    <Repeater
-      data={[
-        { id: 1, firstName: 'Joe', lastName: 'Snow' },
-        { id: 2, firstName: 'Arya', lastName: 'Stark' },
-      ]}
-      title="lorem"
-      create={() => Promise.resolve()}
-      edit={() => () => Promise.resolve()}
-      primary={({ firstName }) =>
-        `First Name: ${firstName}`
-      }
-      secondary={({ lastName }) =>
-        `Family Name: ${lastName}`
-      }
-      initialValues={{
-        firstName: '',
-      }}
+export const WithForm = () => {
+  const [initialValues, setInitialValues] = React.useState([
+    { id: 1, firstName: 'Joe', lastName: 'Snow' },
+    { id: 2, firstName: 'Arya', lastName: 'Stark' },
+  ]);
+
+  const onCreate = (values) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const nextState = [
+          ...initialValues,
+          {
+            id: initialValues[initialValues.length] + 1,
+            ...values,
+          },
+        ];
+
+        setInitialValues(nextState);
+
+        resolve(nextState);
+      }, 500);
+    });
+  };
+
+  const onUpdate = (id) => (values) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const nextState = initialValues.map((v) => {
+          if (v.id === id) return values;
+          return v;
+        });
+
+        setInitialValues(nextState);
+        resolve(nextState);
+      }, 500);
+    });
+  };
+
+  return (
+    <Tile
+      title="Characters"
+      subtitle="This is an important blurb about the characters"
     >
-      <Form label="add">
-        <Field type="text" name="firstName" required />
-      </Form>
-    </Repeater>
-  </Tile>
-);
+      <Repeater
+        title="lorem"
+        data={initialValues}
+        create={onCreate}
+        edit={onUpdate}
+        primary={({ firstName }) =>
+          `First Name: ${firstName}`
+        }
+        secondary={({ lastName }) =>
+          `Family Name: ${lastName}`
+        }
+        initialValues={{
+          firstName: '',
+        }}
+      >
+        <Form label="add">
+          <Field type="text" name="firstName" required />
+        </Form>
+      </Repeater>
+    </Tile>
+  );
+};
 
 export const WithWizard = () => (
   <Tile
