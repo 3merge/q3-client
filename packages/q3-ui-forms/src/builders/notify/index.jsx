@@ -88,8 +88,13 @@ const Notify = ({ show, title, children, shade }) => (
     <Box>
       <FlexContainer shade={shade}>
         <UppercaseSpan>
-          <Box display="flex" alignItems="center" mr={0.5}>
-            <AlertIcon />
+          <Box
+            display="flex"
+            alignItems="center"
+            textAlign="center"
+            mr={0.5}
+          >
+            <AlertIcon style={{ marginRight: '0.5rem' }} />
           </Box>
           {title}
         </UppercaseSpan>

@@ -61,7 +61,10 @@ export const WithForm = () => {
         });
 
         setInitialValues(nextState);
-        resolve(nextState);
+        resolve({
+          ...nextState,
+          newProp: true,
+        });
       }, 500);
     });
   };
@@ -76,12 +79,11 @@ export const WithForm = () => {
         data={initialValues}
         create={onCreate}
         edit={onUpdate}
-        primary={({ firstName }) =>
-          `First Name: ${firstName}`
-        }
-        secondary={({ lastName }) =>
-          `Family Name: ${lastName}`
-        }
+        columns={({ firstName, lastName, age }) => ({
+          firstName,
+          lastName,
+          age,
+        })}
         initialValues={{
           firstName: '',
         }}
@@ -113,7 +115,7 @@ export const WithWizard = () => (
         },
         {
           id: 2,
-          firstName: 'Arya',
+          firstName: '',
           lastName: 'Stark',
           age: 23,
           position: 'Sales',

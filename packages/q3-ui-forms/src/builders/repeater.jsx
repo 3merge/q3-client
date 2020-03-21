@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
+import Grid from '@material-ui/core/Grid';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import Form from './form';
 import Field from './field';
 import { assignIDs } from '../helpers';
+import PersistWatcher from './persistWatcher';
 
 export const DeleteListItem = ({ next }) => (
   <Dialog
@@ -54,91 +57,131 @@ DeleteListItem.propTypes = {
   next: PropTypes.func.isRequired,
 };
 
+const Tbody = ({ index, children }) =>
+  index === 0 ? (
+    <Box component="tbody" borderTop="2px solid whitesmoke">
+      {children}
+    </Box>
+  ) : (
+    children
+  );
+
 const DataListItem = ({
   children,
   item,
   index,
   getForm,
   data,
-  primary,
-  secondary,
+  columns,
   ...etc
 }) => {
-  const initialProps = getForm(false, item, item.id);
-  const [
-    renderContentProps,
-    setRenderContentProps,
-  ] = React.useState(initialProps);
   const [currentIndex, setCurrentIndex] = React.useState(
     index,
   );
 
-  const onExit = () => {
-    setCurrentIndex(index);
-    setRenderContentProps(initialProps);
-  };
+  const onExit = () => setCurrentIndex(index);
 
-  const onPrev = () => {
-    const nextIndex =
-      (data.length + currentIndex - 1) % data.length;
-    const nextItem = data[nextIndex];
-
-    setRenderContentProps(
-      getForm(false, nextItem, nextItem.id),
-    );
-    setCurrentIndex(nextIndex);
-  };
-
-  const onNext = () => {
-    const nextIndex = (currentIndex + 1) % data.length;
-    const nextItem = data[nextIndex];
-
-    setRenderContentProps(
-      getForm(false, nextItem, nextItem.id),
+  const onPrev = () =>
+    setCurrentIndex(
+      (data.length + currentIndex - 1) % data.length,
     );
 
-    setCurrentIndex(nextIndex);
-  };
+  const onNext = () =>
+    setCurrentIndex((currentIndex + 1) % data.length);
 
   return (
-    <ListItem
-      key={index}
-      title={primary(item)}
-      description={secondary(item)}
-    >
-      <ActionBar>
-        <Dialog
-          {...etc}
-          onPrev={onPrev}
-          onNext={onNext}
-          onExit={onExit}
-          renderContent={() => renderContentProps}
-          renderTrigger={(open) => (
-            <IconButton onClick={open}>
-              <EditIcon />
-            </IconButton>
-          )}
-        />
-        {children(item)}
-      </ActionBar>
-    </ListItem>
+    <>
+      {index === 0 && (
+        <Box component="thead">
+          <Box component="tr">
+            {Object.keys(columns(item)).map((value, i) => (
+              <Box
+                component="th"
+                item
+                key={`${value}-${i}`}
+              >
+                <Box style={{ color: 'lightgrey' }}>
+                  {value}
+                </Box>
+              </Box>
+            ))}
+            <Box component="th" item />
+          </Box>
+        </Box>
+      )}
+      <Tbody index={index}>
+        <Box component="tr">
+          {Object.values(columns(item)).map((value, i) => (
+            <Box component="td" item key={`${value}-${i}`}>
+              <Box textAlign="left">
+                {i === 0 ? (
+                  <strong>{value || '--'}</strong>
+                ) : (
+                  value || '--'
+                )}
+              </Box>
+            </Box>
+          ))}
+          <Box component="td" item>
+            <Dialog
+              {...etc}
+              variant="drawer"
+              onPrev={onPrev}
+              onNext={onNext}
+              onExit={onExit}
+              renderPreContent={
+                <PersistWatcher
+                  filterById={data[currentIndex].id}
+                />
+              }
+              renderContent={getForm(
+                false,
+                data[currentIndex],
+                data[currentIndex].id,
+              )}
+              renderTrigger={(open) => (
+                <IconButton onClick={open}>
+                  <EditIcon />
+                </IconButton>
+              )}
+            />
+
+            {children(item)}
+          </Box>
+        </Box>
+      </Tbody>
+    </>
   );
 };
 
 export const DataList = ({ onCreate, data, ...etc }) => {
   return (
-    <List onCreate={onCreate}>
-      {data.map((item, i) => {
-        return (
-          <DataListItem
-            index={i}
-            item={item}
-            data={data}
-            {...etc}
-          />
-        );
-      })}
-    </List>
+    <Box
+      mx={-2}
+      mb={-4}
+      style={{ backgroundColor: '#FFF' }}
+    >
+      <Box
+        component="table"
+        width="100%"
+        style={{
+          borderCollapse: 'collapse',
+          tableLayout: 'fixed',
+          textAlign: 'left',
+        }}
+      >
+        {data.map((item, i) => {
+          return (
+            <DataListItem
+              index={i}
+              item={item}
+              data={data}
+              {...etc}
+            />
+          );
+        })}
+      </Box>
+    </Box>
   );
 };
 
@@ -172,23 +215,27 @@ const Repeater = ({
     isNew = true,
     init = initialValues,
     id,
-  ) => (done) =>
-    React.cloneElement(children, {
+  ) => (done) => {
+    return React.cloneElement(children, {
       onReset: done,
       onSubmit: (...args) =>
         Promise.resolve(
           isNew ? create(...args) : edit(id)(...args),
         ).then(() => {
-          // done();
+          if (isNew) done();
         }),
       initialValues: init,
       collectionName,
       isNew,
+      name: 'editor',
+      id,
     });
+  };
 
   return (
     <Dialog
       {...rest}
+      variant="drawer"
       renderContent={getForm()}
       renderTrigger={(open) => (
         <DataList
