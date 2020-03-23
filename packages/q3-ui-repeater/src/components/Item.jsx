@@ -13,16 +13,105 @@ import EditableTypography from './EditableTypography';
 import withAttribute from './Attribute';
 import RepeaterState from './state';
 
-/**
- * Without an ID, we can't run the REST services
- * (abstracted as onRemove and onUpdate).
- */
+//= ===============================================================================
+// Helpers
+//= ===============================================================================
+
 export const execFn = (fn, data) =>
   typeof fn === 'function' &&
   typeof data === 'object' &&
   data !== null
     ? fn(data.id)
     : null;
+
+export const paginate = (
+  state,
+  currentIndex,
+  originalIndex,
+  onNextIndex,
+) => {
+  const count = Array.isArray(state) ? state.length : 0;
+  const getRemainderOf = (v) => v % count;
+
+  return {
+    onExit() {
+      return onNextIndex(originalIndex);
+    },
+
+    onNext() {
+      return onNextIndex(getRemainderOf(currentIndex + 1));
+    },
+
+    onPrev() {
+      const withCount = count + currentIndex;
+      return onNextIndex(getRemainderOf(withCount - 1));
+    },
+  };
+};
+
+export const interpretCardsProps = (
+  cardProps = {},
+  currentData = {},
+) => ({
+  attributes: get(cardProps, 'attributes', []),
+  color: invoke(cardProps, 'onColor', currentData),
+  description: invoke(cardProps, 'describe', currentData),
+  isIn: (v) => get(cardProps, 'editable', []).includes(v),
+});
+
+//= ===============================================================================
+// Partial
+//= ===============================================================================
+
+const EditorViewer = ({
+  children,
+  initialValues,
+  onSubmit,
+  ...rest
+}) => {
+  const [
+    switchingScreens,
+    setSwitchingScreens,
+  ] = React.useState(false);
+
+  const [editorState, setEditorState] = React.useState(
+    null,
+  );
+
+  React.useEffect(() => {
+    setSwitchingScreens(true);
+
+    // simulate data fetching
+    // helps visually indicate a state change
+    setTimeout(() => {
+      setEditorState(
+        React.cloneElement(children, {
+          initialValues,
+          onSubmit,
+          ...rest,
+        }),
+      );
+
+      setSwitchingScreens(false);
+    }, 250);
+  }, [initialValues]);
+
+  return switchingScreens ? (
+    <CircularProgress />
+  ) : (
+    editorState
+  );
+};
+
+EditorViewer.propTypes = {
+  children: PropTypes.node.isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
+
+//= ===============================================================================
+// Component
+//= ===============================================================================
 
 const Item = ({
   parent,
@@ -39,18 +128,12 @@ const Item = ({
     multiselect,
   } = React.useContext(RepeaterState);
 
-  const [
-    switchingScreens,
-    setSwitchingScreens,
-  ] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(
-    null,
-  );
-
-  const attributes = get(cardProps, 'attributes', []);
-  const color = invoke(cardProps, 'onColor', item);
-  const description = invoke(cardProps, 'describe', item);
-  const editable = get(cardProps, 'editable', []);
+  const {
+    attributes,
+    color,
+    description,
+    isIn,
+  } = interpretCardsProps(cardProps, item);
 
   const [currentIndex, setCurrentIndex] = React.useState(
     index,
@@ -66,50 +149,17 @@ const Item = ({
     color,
   });
 
-  const ofLength = (num) => num % parent.length;
-  const isIn = (prop) => editable.includes(prop);
-
-  const editorProps = {
-    /**
-     * We must re-initialize the right item before leaving.
-     */
-    onExit: () => setCurrentIndex(index),
-
-    /**
-     * Return to first item after last.
-     */
-    onNext: () =>
-      setCurrentIndex(ofLength(currentIndex + 1)),
-
-    /**
-     * Jump to last item after reaching the first.
-     */
-    onPrev: () =>
-      setCurrentIndex(
-        ofLength(parent.length + currentIndex - 1),
-      ),
-  };
+  const editorProps = paginate(
+    parent,
+    currentIndex,
+    index,
+    setCurrentIndex,
+  );
 
   const Attribute = withAttribute({
     data: item,
     save,
   });
-
-  React.useEffect(() => {
-    setSwitchingScreens(true);
-
-    setTimeout(() => {
-      setEditorState(
-        React.cloneElement(children, {
-          onSubmit: execFn(onUpdate, data),
-          initialValues: data,
-          collectionName,
-        }),
-      );
-
-      setSwitchingScreens(false);
-    }, 250);
-  }, [item, data, currentIndex]);
 
   return (
     <Box className={root}>
@@ -158,13 +208,15 @@ const Item = ({
           title={`${name}Editor`}
           {...editorProps}
         >
-          {() =>
-            switchingScreens ? (
-              <CircularProgress />
-            ) : (
-              editorState
-            )
-          }
+          {() => (
+            <EditorViewer
+              collectionName={collectionName}
+              onSubmit={execFn(onUpdate, data)}
+              initialValues={data}
+            >
+              {children}
+            </EditorViewer>
+          )}
         </EditorDrawer>
         <DeleteModal next={execFn(onRemove, data)} />
       </Box>

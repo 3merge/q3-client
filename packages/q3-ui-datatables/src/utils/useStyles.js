@@ -73,4 +73,17 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   },
+
+  actionbar: {
+    backgroundColor: '#FFF',
+    borderRadius: 50,
+    bottom: theme.spacing(2),
+    boxShadow: theme.shadows[15],
+    left: '50%',
+    maxWidth: '100%',
+    transform: 'translateX(-50%)',
+    width: 1092,
+    position: 'fixed',
+    zIndex: 1000000,
+  },
 }));

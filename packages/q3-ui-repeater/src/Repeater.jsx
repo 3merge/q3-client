@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
 import Dialog from 'q3-ui-dialog';
 import { useChecked, useValue } from 'useful-state';
-import { AddButton, List, Search } from './components';
+import {
+  ActionBar,
+  AddButton,
+  List,
+  Search,
+} from './components';
 import Context from './components/state';
 
 const Repeater = ({
@@ -41,6 +46,7 @@ const Repeater = ({
       }}
     >
       <Search />
+      <ActionBar />
       <List
         data={data}
         onRemove={onRemove}
