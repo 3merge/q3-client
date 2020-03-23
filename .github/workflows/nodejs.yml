@@ -18,7 +18,7 @@ jobs:
     - name: yarn test and publish
       run: |
         yarn install
-        jest --collectCoverage
+        yarn test
     - name: Coveralls 
       uses: coverallsapp/github-action@v1.0.1
       with:

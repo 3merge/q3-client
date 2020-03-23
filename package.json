@@ -9,7 +9,8 @@
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
-    "deploy": "yarn build && build-storybook --docs"
+    "deploy": "yarn build && build-storybook --docs",
+    "test": "jest --collectCoverage --silent --runInBand"
   },
   "workspaces": [
     "packages/*"
@@ -21,7 +22,7 @@
     "@babel/preset-env": "^7.5.5",
     "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "dotenv": "^8.2.0",
     "enzyme": "^3.10.0",
@@ -40,7 +41,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.19.0",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "jest-localstorage-mock": "^2.4.0",
     "jest-mock-axios": "^3.2.0",
     "lerna": "^3.18.1",
