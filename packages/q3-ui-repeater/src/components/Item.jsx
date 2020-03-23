@@ -5,6 +5,7 @@ import { get, invoke } from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import useStyle from './useStyle';
@@ -37,6 +38,14 @@ const Item = ({
     name,
     multiselect,
   } = React.useContext(RepeaterState);
+
+  const [
+    switchingScreens,
+    setSwitchingScreens,
+  ] = React.useState(false);
+  const [editorState, setEditorState] = React.useState(
+    null,
+  );
 
   const attributes = get(cardProps, 'attributes', []);
   const color = invoke(cardProps, 'onColor', item);
@@ -86,6 +95,22 @@ const Item = ({
     save,
   });
 
+  React.useEffect(() => {
+    setSwitchingScreens(true);
+
+    setTimeout(() => {
+      setEditorState(
+        React.cloneElement(children, {
+          onSubmit: execFn(onUpdate, data),
+          initialValues: data,
+          collectionName,
+        }),
+      );
+
+      setSwitchingScreens(false);
+    }, 250);
+  }, [item, data, currentIndex]);
+
   return (
     <Box className={root}>
       <Grid container spacing={2}>
@@ -95,7 +120,7 @@ const Item = ({
             onClick={multiselect.onCheck(item.id)}
           />
         </Grid>
-        <Grid item sm="auto" xs={10}>
+        <Grid item style={{ flex: 1 }}>
           <EditableTypography
             editable={isIn(title)}
             gutterBottom={Boolean(description)}
@@ -134,11 +159,11 @@ const Item = ({
           {...editorProps}
         >
           {() =>
-            React.cloneElement(children, {
-              onSubmit: execFn(onUpdate, data),
-              initialValues: data,
-              collectionName,
-            })
+            switchingScreens ? (
+              <CircularProgress />
+            ) : (
+              editorState
+            )
           }
         </EditorDrawer>
         <DeleteModal next={execFn(onRemove, data)} />

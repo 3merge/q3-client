@@ -46,9 +46,13 @@ const DialogVariant = ({
     isDrawer
       ? {
           open: isOpen,
-          ModalProps: {
-            onExited: onExit,
-            onClose,
+          onClose: () => {
+            try {
+              onClose();
+              onExit();
+            } catch (e) {
+              // noop
+            }
           },
         }
       : {
@@ -60,8 +64,8 @@ const DialogVariant = ({
   return React.createElement(
     El,
     {
-      ...asModal(),
       ...getMobileProps(),
+      ...asModal(),
       ...rest,
     },
     children,

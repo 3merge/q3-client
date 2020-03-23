@@ -7,6 +7,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import Check from '@material-ui/icons/Check';
+import Close from '@material-ui/icons/Close';
 import { useToggle, useValue } from 'useful-state';
 import RepeaterState from './state';
 import useStyle from './useStyle';
@@ -20,7 +21,7 @@ const EditableTypographyTextField = ({
   className,
   onChange,
   onClick,
-  onBlur,
+  onClose,
 }) => (
   <TextField
     autoFocus
@@ -30,8 +31,11 @@ const EditableTypographyTextField = ({
     InputProps={{
       endAdornment: (
         <InputAdornment position="end">
-          <IconButton onClick={onClick} onBlur={onBlur}>
+          <IconButton onClick={onClick}>
             <Check />
+          </IconButton>
+          <IconButton onClick={onClose}>
+            <Close />
           </IconButton>
         </InputAdornment>
       ),
@@ -44,7 +48,7 @@ EditableTypographyTextField.propTypes = {
   className: PropTypes.shape({}).isRequired,
   onChange: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
-  onBlur: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 //= ===============================================================================
@@ -112,7 +116,7 @@ const EditableTypography = ({
       {...(editable && {
         className: editableContent,
         onClick: open,
-        onFocus: open,
+        onKeyPress: open,
         tabIndex: 0,
       })}
       {...(!canEdit && {
@@ -123,7 +127,7 @@ const EditableTypography = ({
         },
       })}
     >
-      {value || '--'}
+      {children || '--'}
       {editable && <Edit className={editableIcon} />}
     </Typography>
   ) : (
@@ -132,7 +136,7 @@ const EditableTypography = ({
       className={block}
       onChange={onChange}
       onClick={onClick}
-      onBlur={close}
+      onClose={close}
     />
   );
 };
