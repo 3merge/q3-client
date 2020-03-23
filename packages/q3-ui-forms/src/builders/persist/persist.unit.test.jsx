@@ -14,8 +14,8 @@ jest.mock('formik', () => ({
 describe('Persist', () => {
   it('should remove from sessionStorage API', () => {
     useFormikContext.mockReturnValue({
-      status: 'Ready',
-      dirty: false,
+      isSubmitting: true,
+      isValidating: false,
     });
 
     global.shallow(<Persist id="foo" />);
@@ -38,13 +38,13 @@ describe('Persist', () => {
   });
 
   it('should add to sessionStorage API', () => {
-    const setValues = jest.fn();
     const stub = { foo: 'bar' };
 
+    sessionStorage.getItem.mockReturnValue(null);
+
     useFormikContext.mockReturnValue({
-      status: 'Ready',
-      setValues,
       values: stub,
+      status: 'Ready',
       dirty: true,
     });
 

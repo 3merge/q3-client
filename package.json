@@ -7,8 +7,6 @@
     "postinstall": "yarnw-sync-deps && yarn-deduplicate",
     "bootstrap": "lerna bootstrap --use-workspaces",
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js --copy-files\"",
-    "lint": "eslint . --ext .js --ext .jsx --ignore-pattern lib --ignore-pattern node_modules",
-    "test": "jest --collectCoverage",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
     "deploy": "yarn build && build-storybook --docs"

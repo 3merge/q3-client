@@ -4,6 +4,8 @@ import {
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 
+const color = '#434552';
+
 const headingFont = {
   color: '#3f3d56',
   fontWeight: 400,
@@ -78,7 +80,7 @@ const theme = createMuiTheme({
       fontSize: '1.15rem',
       fontWeight: 600,
     },
-    fontFamily: '"Lato", sans-serif',
+    fontFamily: '"Source Sans Pro", sans-serif',
   },
   shadows: generateShadows(),
   spacing: (factor) => `${0.75 * factor}rem`,
@@ -91,6 +93,9 @@ Object.assign(theme, {
         html: {
           fontSize: 14,
         },
+        body: {
+          color,
+        },
         img: {
           maxWidth: '100%',
         },
@@ -99,6 +104,11 @@ Object.assign(theme, {
     MuiLink: {
       root: {
         textDecoration: 'none !important',
+      },
+    },
+    MuiPaper: {
+      root: {
+        color,
       },
     },
     MuiDialogTitle: {

@@ -29,11 +29,12 @@ const DialogVariant = ({
   variant,
   ...rest
 }) => {
-  const El = variant === 'drawer' ? Drawer : Dialog;
+  const isDrawer = variant === 'drawer';
+  const El = isDrawer ? Drawer : Dialog;
   const isLaptop = useMediaQuery('(min-width:867px)');
 
   const getMobileProps = () =>
-    variant === 'drawer'
+    isDrawer
       ? getPaperProps({
           width: getPaperWidth(isLaptop),
         })
@@ -41,12 +42,25 @@ const DialogVariant = ({
           fullScreen: !isLaptop,
         });
 
+  const asModal = () =>
+    isDrawer
+      ? {
+          open: isOpen,
+          ModalProps: {
+            onExited: onExit,
+            onClose,
+          },
+        }
+      : {
+          onClose,
+          open: isOpen,
+          onExited: onExit,
+        };
+
   return React.createElement(
     El,
     {
-      onClose,
-      open: isOpen,
-      onExited: onExit,
+      ...asModal(),
       ...getMobileProps(),
       ...rest,
     },

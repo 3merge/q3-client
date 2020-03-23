@@ -39,5 +39,6 @@ module.exports = {
     '../packages/q3-ui-forms/**/presets/provinceSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/**.stories.jsx',
     '../packages/q3-ui-permissions/**.stories.jsx',
+    '../packages/q3-ui-repeater/**.stories.jsx',
   ],
 };

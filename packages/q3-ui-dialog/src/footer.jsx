@@ -10,27 +10,26 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 const DialogFooter = ({ onClose, onNext, onPrev }) => {
   const { t } = useTranslation();
 
+  if (!onPrev || !onNext) return null;
+
   return (
-    onPrev &&
-    onNext && (
-      <BottomNavigation showLabels>
-        <BottomNavigationAction
-          label={t('labels:previous')}
-          icon={<NavigateBeforeIcon />}
-          onClick={onPrev}
-        />
-        <BottomNavigationAction
-          label={t('labels:escape')}
-          icon={<Keyboard />}
-          onClick={onClose}
-        />
-        <BottomNavigationAction
-          label={t('labels:next')}
-          icon={<NavigateNextIcon />}
-          onClick={onNext}
-        />
-      </BottomNavigation>
-    )
+    <BottomNavigation showLabels>
+      <BottomNavigationAction
+        label={t('labels:previous')}
+        icon={<NavigateBeforeIcon />}
+        onClick={onPrev}
+      />
+      <BottomNavigationAction
+        label={t('labels:escape')}
+        icon={<Keyboard />}
+        onClick={onClose}
+      />
+      <BottomNavigationAction
+        label={t('labels:next')}
+        icon={<NavigateNextIcon />}
+        onClick={onNext}
+      />
+    </BottomNavigation>
   );
 };
 

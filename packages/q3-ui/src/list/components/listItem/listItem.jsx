@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Context from '../../utils/searchContext';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
 import Avatar from '../../../avatar';
 
@@ -16,28 +14,16 @@ export const ListItem = ({
   icon,
   renderListItemProps,
 }) => {
-  const { term, onCheck, isChecked } = React.useContext(
-    Context,
-  );
   const primary = formatArrayAsCommaDelineatedString(title);
   const secondary = formatArrayAsCommaDelineatedString(
     description,
   );
-
-  if (
-    term.length &&
-    !new RegExp(term, 'gi').test(primary + secondary)
-  )
-    return null;
 
   return (
     <ListItemMui
       id={id}
       disableGutters
       component="li"
-      onClick={onCheck(id)}
-      selected={isChecked(id)}
-      button
       dense
     >
       {icon && (
