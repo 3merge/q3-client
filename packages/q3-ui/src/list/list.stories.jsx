@@ -95,14 +95,3 @@ export const WithActions = () => (
     </ListItem>
   </List>
 );
-
-export const WithoutSearch = () => (
-  <List enableSearch={false} title="No search abilities">
-    <ListItem
-      id="1"
-      title="First entry"
-      description={['A', 'B', 'C']}
-      icon={AccountBox}
-    />
-  </List>
-);

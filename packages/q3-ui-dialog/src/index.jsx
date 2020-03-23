@@ -1,99 +1,109 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Dialog from '@material-ui/core/Dialog';
-import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
-import Toolbar from '@material-ui/core/Toolbar';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import useOpen from 'useful-state/lib/useOpen';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import DialogHeader from './header';
+import DialogFooter from './footer';
+import DialogVariant from './variant';
 
 const DialogWrapper = ({
   title,
   description,
   renderTrigger,
   renderContent,
+  renderPreContent,
   contentClassName,
-  className,
+  onNext,
+  onPrev,
   ...rest
 }) => {
-  const isLaptop = useMediaQuery('(min-width:867px)');
   const { isOpen, open, close } = useOpen();
   const { t } = useTranslation();
 
   return (
     <>
       {renderTrigger(open, isOpen)}
-      <Dialog
-        maxWidth="md"
-        fullScreen={!isLaptop}
-        fullWidth
+      <DialogVariant
+        onOpen={open}
         onClose={close}
-        open={isOpen}
-        className={className}
+        isOpen={isOpen}
         {...rest}
       >
-        {title && (
-          <AppBar
-            position="static"
-            elevation={3}
-            color="inherit"
-          >
-            <Toolbar
-              style={{
-                justifyContent: 'space-between',
-                padding: '1rem',
-              }}
-            >
-              <Typography
-                variant="h4"
-                color="inherit"
-                component="h3"
-              >
-                {t(`titles:${title}`)}
-              </Typography>
-              <IconButton
-                onClick={close}
-                aria-label={t('labels:close')}
-                color="inherit"
-              >
-                <CloseIcon />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
-        )}
+        <DialogHeader onClose={close} title={title} />
+        {renderPreContent}
         <DialogContent className={contentClassName}>
           {description && (
             <DialogContentText variant="body2">
               {t(`descriptions:${description}`)}
             </DialogContentText>
           )}
-          <Box p={1}>{renderContent(close)}</Box>
+          <Box py={2}>{renderContent(close)}</Box>
         </DialogContent>
-      </Dialog>
+        <DialogFooter
+          onNext={onNext}
+          onPrev={onPrev}
+          onClose={close}
+        />
+      </DialogVariant>
     </>
   );
 };
 
 DialogWrapper.propTypes = {
-  renderTrigger: PropTypes.func.isRequired,
-  renderContent: PropTypes.func.isRequired,
-  title: PropTypes.string,
+  /**
+   * Modal title.
+   */
+  title: PropTypes.string.isRequired,
+
+  /**
+   * Modal body description.
+   */
   description: PropTypes.string,
+
+  /**
+   * Rendering function for the open button.
+   */
+  renderTrigger: PropTypes.func.isRequired,
+
+  /**
+   * Node
+   */
+  renderPreContent: PropTypes.node,
+
+  /**
+   * Rendering function for the body.
+   */
+  renderContent: PropTypes.func.isRequired,
+
+  /**
+   * Class to forward into the dialog body.
+   */
   contentClassName: PropTypes.string,
+
+  /**
+   * Class to forward into the dialog wrapper.
+   */
   className: PropTypes.string,
+
+  /**
+   * Function to execute on next. Will not render without both onPrev and onNext.
+   */
+  onNext: PropTypes.func.isRequired,
+
+  /**
+   * Function to execute on previous. Will not render without both onPrev and onNext.
+   */
+  onPrev: PropTypes.func.isRequired,
 };
 
 DialogWrapper.defaultProps = {
-  title: null,
   description: null,
   contentClassName: null,
   className: null,
+  renderPreContent: null,
 };
 
 export default DialogWrapper;

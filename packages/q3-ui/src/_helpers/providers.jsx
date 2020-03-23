@@ -15,7 +15,7 @@ const Providers = ({ children }) => (
       <CssBaseline />
       <Helmet>
         <link
-          href="https://fonts.googleapis.com/css?family=Lato&display=swap"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400&display=swap"
           rel="stylesheet"
         />
       </Helmet>

@@ -121,17 +121,7 @@ const MenuItemLinkDecoratorIcon = ({
       </ListItemAvatar>
     );
 
-  return title ? (
-    <Tooltip
-      title={title}
-      aria-label={title}
-      placement="right"
-    >
-      <ListItemIcon>
-        <Icon />
-      </ListItemIcon>
-    </Tooltip>
-  ) : (
+  return (
     <ListItemIcon>
       <Icon />
     </ListItemIcon>

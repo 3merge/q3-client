@@ -52,21 +52,11 @@ export const PersistWatcher = ({ filterById }) => {
     .filter((v) =>
       filterById ? v.includes(filterById) : true,
     )
-    .map((id) => (
+    .map(() => (
       <Notify
         show={hasUnsavedChanges}
-        title={t('unsavedChangesOn', {
-          id: idify(id),
-        })}
-      >
-        <IconButton
-          aria-label={t('clearChanges')}
-          onClick={() => clearLocalStorage(id)}
-          size="small"
-        >
-          <TrashIcon />
-        </IconButton>
-      </Notify>
+        title={t('unsavedChangesOn')}
+      />
     ));
 };
 

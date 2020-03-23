@@ -20,27 +20,25 @@ const Persist = ({ id }) => {
   };
 
   React.useEffect(() => {
-    const restore = sessionStorage.getItem(storageID);
+    const session = sessionStorage.getItem(storageID);
+    const json = JSON.stringify(f.values);
 
-    if (restore && f.status === 'Initializing') {
-      f.setValues(JSON.parse(restore));
-      return;
-    }
-
-    if (f.dirty) {
-      sessionStorage.setItem(
-        storageID,
-        JSON.stringify(f.values),
-      );
-    } else {
+    if (f.isSubmitting && !f.isValidating) {
       sessionStorage.removeItem(storageID);
+    } else if (!session && f.dirty) {
+      sessionStorage.setItem(storageID, json);
     }
 
-    dispatch({
-      dirty: f.dirty,
-      id: storageID,
-    });
-  }, [f.values, f.dirty]);
+    if (session && f.status === 'Initializing') {
+      f.setValues(JSON.parse(session));
+    }
+
+    dispatch({ id: storageID });
+
+    return () => {
+      sessionStorage.removeItem(storageID);
+    };
+  }, [f.values, f.dirty, f.isSubmitting, f.isValidating]);
 
   useListener(SESSION_STORAGE_PURGE_EVENT, onReset);
   return null;

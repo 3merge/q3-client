@@ -4,17 +4,11 @@ import { useTranslation } from 'react-i18next';
 import ListMui from '@material-ui/core/List';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import SearchBar from '../searchBar';
 import ListSubHeader from '../listSubHeader';
 import Empty from '../empty';
 import { hasLength } from '../../utils';
 
-const List = ({
-  title,
-  enableSearch,
-  children,
-  onCreate,
-}) => {
+const List = ({ title, children, onCreate }) => {
   const { t } = useTranslation('labels');
 
   const hasChildren =
@@ -22,39 +16,29 @@ const List = ({
     hasLength(children);
 
   return (
-    <SearchBar>
-      {(renderer) => (
-        <ListMui
-          aria-labelledby={title}
-          subheader={
-            <ListSubHeader title={title}>
-              {enableSearch && hasChildren
-                ? renderer()
-                : null}
-            </ListSubHeader>
-          }
-        >
-          {hasChildren ? (
-            <>
-              {children}
-              {onCreate && (
-                <Box mt={1}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={onCreate}
-                  >
-                    {t('addToList')}
-                  </Button>
-                </Box>
-              )}
-            </>
-          ) : (
-            <Empty onClick={onCreate} />
+    <ListMui
+      aria-labelledby={title}
+      subheader={<ListSubHeader title={title} />}
+    >
+      {hasChildren ? (
+        <>
+          {children}
+          {onCreate && (
+            <Box mt={1}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={onCreate}
+              >
+                {t('addToList')}
+              </Button>
+            </Box>
           )}
-        </ListMui>
+        </>
+      ) : (
+        <Empty onClick={onCreate} />
       )}
-    </SearchBar>
+    </ListMui>
   );
 };
 
@@ -74,11 +58,6 @@ List.propTypes = {
   title: PropTypes.string,
 
   /**
-   * Enable result text filtering.
-   */
-  enableSearch: PropTypes.bool,
-
-  /**
    * Will populate the empty view with button.
    */
   onCreate: PropTypes.func,
@@ -86,7 +65,6 @@ List.propTypes = {
 
 List.defaultProps = {
   title: null,
-  enableSearch: true,
   children: null,
   onCreate: null,
 };

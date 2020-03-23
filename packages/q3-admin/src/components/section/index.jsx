@@ -18,22 +18,18 @@ export const getSectionSize = (fn) =>
       };
 
 const Section = ({ fetching, children, renderSidebar }) => (
-  <Container maxWidth="xl">
-    <Box my={4}>
-      <Grid container spacing={1}>
-        <Grid
-          {...getSectionSize(renderSidebar)}
-          component="section"
-          item
-        >
-          {fetching ? <CircularProgress /> : children}
-        </Grid>
-        {renderSidebar && !fetching
-          ? renderSidebar()
-          : null}
+  <Box id="detail-article" p={1} component="article">
+    <Grid container spacing={1}>
+      <Grid style={{ flex: 1 }} component="section" item>
+        <Box pt={2}>
+          <Container>
+            {fetching ? <CircularProgress /> : children}
+          </Container>
+        </Box>
       </Grid>
-    </Box>
-  </Container>
+      {renderSidebar && !fetching ? renderSidebar() : null}
+    </Grid>
+  </Box>
 );
 
 Section.propTypes = {

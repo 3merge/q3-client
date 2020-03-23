@@ -13,6 +13,8 @@ import Back from './back';
 import Next from './next';
 import withWrapper from './wrapper';
 import { getFieldNames, intersects } from '../helpers';
+import Persist from './persist';
+import Validate from './validate';
 
 export const Fieldset = ({ children }) => (
   <fieldset
@@ -113,6 +115,7 @@ export default withWrapper(
           ? fn()
           : new Promise((resolve) => {
               setActiveStep(activeStep + 1);
+
               resolve();
             }),
       [activeStep],
@@ -135,8 +138,10 @@ export default withWrapper(
           })
         }
       >
-        {({ submitForm, errors }) => (
+        {({ submitForm, validateForm, errors }) => (
           <Form>
+            <Persist />
+            <Validate />
             <MultiFormStepper
               isNew={isNew}
               steps={childrenArray}
@@ -150,7 +155,10 @@ export default withWrapper(
                     label={getBackLabel(index)}
                   />
                   <Next
-                    onClick={processSubmit(submitForm)}
+                    onClick={processSubmit(
+                      submitForm,
+                      validateForm,
+                    )}
                     label={getNextLabel(index)}
                     disabled={Boolean(
                       isLast(activeStep) &&
