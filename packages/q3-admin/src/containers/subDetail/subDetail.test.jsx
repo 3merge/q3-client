@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import Repeater from 'q3-ui-repeater';
-import SubDetail, { RowSkeleton } from '../subDetail';
+import SubDetail, { RowSkeleton } from './subDetail';
 
 jest.mock('q3-ui-rest', () => ({
   __esModule: true,

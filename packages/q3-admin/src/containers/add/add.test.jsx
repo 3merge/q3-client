@@ -1,5 +1,5 @@
 import React from 'react';
-import Add, { CreateDialog } from '../add';
+import Add, { CreateDialog } from './add';
 
 jest.spyOn(React, 'useContext').mockReturnValue({
   collectionName: 'demo',

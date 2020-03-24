@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import { Skeleton } from '@material-ui/lab';
 import Repeater from 'q3-ui-repeater';
-import Context from '../containers/state';
+import Context from '../state';
 
 export const RowSkeleton = () => (
   <Skeleton
@@ -14,7 +14,12 @@ export const RowSkeleton = () => (
   />
 );
 
-const SubDetail = ({ root, decorators, children }) => {
+const SubDetail = ({
+  root,
+  decorators,
+  children,
+  ...rest
+}) => {
   const { collectionName, id } = React.useContext(Context);
 
   const subdocumentState = useRest({
@@ -35,13 +40,14 @@ const SubDetail = ({ root, decorators, children }) => {
     </>
   ) : (
     <Repeater
-      collectionName={collectionName}
       name={root}
+      collectionName={collectionName}
       data={subdocumentState[root]}
       edit={subdocumentState.patch}
       create={subdocumentState.post}
       remove={subdocumentState.remove}
       {...subdocumentState}
+      {...rest}
     >
       {children}
     </Repeater>

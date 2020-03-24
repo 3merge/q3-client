@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
   selected: {},
   activeLink: {
     '& .nav-link-icon': {
-      color: `${theme.palette.secondary.main} !important`,
+      color: `${theme.palette.secondary.light} !important`,
     },
   },
   baseLink: {

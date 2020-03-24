@@ -49,6 +49,10 @@ export const Default = () => (
     <AuthContext.Provider
       value={{
         state: {
+          init: true,
+          profile: {
+            firstName: 'Mike',
+          },
           permissions: [
             {
               coll: 'foo',
@@ -61,6 +65,17 @@ export const Default = () => (
       }}
     >
       <Main
+        ProfileBarProps={{
+          name: 'Mike',
+          imgSrc:
+            'https://randomuser.me/api/portraits/men/44.jpg',
+          items: [
+            {
+              label: 'Foo',
+              onClick: () => null,
+            },
+          ],
+        }}
         pages={makeMenuItems()}
         render={() => (
           <Container maxWidth="xl">

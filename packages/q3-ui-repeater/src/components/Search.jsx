@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import RepeaterSearch from './state';
 
@@ -11,19 +10,17 @@ const SearchBar = () => {
   } = React.useContext(RepeaterSearch);
 
   return (
-    <Box mb={1}>
-      <TextField
-        fullWidth
-        name="search"
-        onChange={onChange}
-        label="Search"
-        type="search"
-        value={value}
-        inputProps={{
-          autoComplete: 'off',
-        }}
-      />
-    </Box>
+    <TextField
+      fullWidth
+      name="search"
+      onChange={onChange}
+      label="Search"
+      type="search"
+      value={value}
+      inputProps={{
+        autoComplete: 'off',
+      }}
+    />
   );
 };
 

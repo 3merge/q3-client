@@ -24,26 +24,31 @@ export default makeStyles((theme) => ({
       : theme.shadows[5],
     boxSizing: 'border-box',
     color: '#FFF',
+    display: 'flex',
     height: '100vh',
     position: 'fixed',
     width: 105,
     zIndex: 100,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
 
     [theme.breakpoints.down('sm')]: {
+      alignItems: 'center',
+      flexDirection: 'row',
       position: 'relative',
       height: 'auto',
       width: '100%',
+
+      '&>div': {
+        width: 'auto',
+      },
     },
   }),
 
   mobileColumn: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     height: '100%',
     width: '100%',
-
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'row',
-    },
   },
 }));
