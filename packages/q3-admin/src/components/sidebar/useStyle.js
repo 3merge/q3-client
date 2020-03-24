@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   columnWidth: ({ height }) => ({
@@ -10,24 +9,10 @@ export default makeStyles((theme) => ({
     },
   }),
   root: {
+    borderTop: '2px solid whitesmoke',
     height: '100%',
-    overflow: 'auto',
-
-    '&::-webkit-scrollbar': {
-      width: '4px',
-    },
-    '&::-webkit-scrollbar-track': {
-      background: '#f1f1f1',
-    },
-
-    '&::-webkit-scrollbar-thumb': {
-      background: grey[300],
-      borderRadius: '500px',
-    },
-
-    '&::-webkit-scrollbar-thumb:hover': {
-      background: grey[500],
-    },
+    overflowY: 'scroll',
+    overflowX: 'hidden',
   },
   item: {
     minWidth: 'auto',

@@ -10,14 +10,19 @@ import Toolbar from 'q3-ui/lib/toolbar';
 import Hidden from '@material-ui/core/Hidden';
 import useStyles from './useStyle';
 
-const Main = ({ render, renderAside, ProfileBarProps }) => {
+const Main = ({
+  render,
+  renderAside,
+  renderMobileAside,
+  ProfileBarProps,
+}) => {
   const cls = useStyles();
 
   return (
     <Box component="article">
       <Hidden mdUp implementation="css">
         <Toolbar isLoggedIn {...ProfileBarProps}>
-          <Offcanvas left menu={renderAside}>
+          <Offcanvas left menu={renderMobileAside}>
             {(toggle) => (
               <Fab
                 onClick={toggle}
@@ -45,7 +50,9 @@ const Main = ({ render, renderAside, ProfileBarProps }) => {
           className={cls.muted}
           component="main"
         >
-          <Box pb={6}>{render()}</Box>
+          <Box height="100vh" overflow="hidden">
+            {render()}
+          </Box>
         </Grid>
       </Grid>
     </Box>
@@ -62,6 +69,11 @@ Main.propTypes = {
    * Renderer function for inside <aside />.
    */
   renderAside: PropTypes.func.isRequired,
+
+  /**
+   * Renderer function for inside the offcanvas menu.
+   */
+  renderMobileAside: PropTypes.func.isRequired,
 
   /**
    * Props passed directly to Q3's <ProfileBar />

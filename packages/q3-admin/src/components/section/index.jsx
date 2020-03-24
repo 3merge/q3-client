@@ -4,6 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import useHeight from '../sidebar/useHeight';
 
 export const getSectionSize = (fn) =>
   typeof fn === 'function'
@@ -17,20 +18,30 @@ export const getSectionSize = (fn) =>
         xs: 12,
       };
 
-const Section = ({ fetching, children, renderSidebar }) => (
-  <Box id="detail-article" p={1} component="article">
-    <Grid container spacing={1}>
-      <Grid style={{ flex: 1 }} component="section" item>
-        <Box pt={2}>
-          <Container>
-            {fetching ? <CircularProgress /> : children}
-          </Container>
-        </Box>
+const Section = ({ fetching, children, renderSidebar }) => {
+  const height = useHeight();
+
+  return (
+    <Box id="detail-article" component="article">
+      <Grid container>
+        <Grid style={{ flex: 1 }} component="section" item>
+          <Box
+            pt={2}
+            height={height}
+            style={{ height, overflowY: 'auto' }}
+          >
+            <Container>
+              {fetching ? <CircularProgress /> : children}
+            </Container>
+          </Box>
+        </Grid>
+        {renderSidebar && !fetching
+          ? renderSidebar()
+          : null}
       </Grid>
-      {renderSidebar && !fetching ? renderSidebar() : null}
-    </Grid>
-  </Box>
-);
+    </Box>
+  );
+};
 
 Section.propTypes = {
   children: PropTypes.oneOfType([

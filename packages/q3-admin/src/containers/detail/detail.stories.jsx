@@ -39,6 +39,17 @@ const First = ({ state: { patch, foo } }) => (
     initialValues={pick(foo, ['name'])}
   >
     <Field name="name" type="text" />
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />{' '}
+    <Field name="name" type="text" />
   </Form>
 );
 

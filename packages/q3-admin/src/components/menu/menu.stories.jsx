@@ -3,6 +3,9 @@ import { AuthContext } from 'q3-ui-permissions';
 import Location from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import AccountBox from '@material-ui/icons/AccountBox';
+import AirportShuttle from '@material-ui/icons/AirportShuttle';
+import Apple from '@material-ui/icons/Apple';
+
 import Menu from '.';
 import Main from '../main';
 
@@ -30,7 +33,7 @@ const makeMenuItems = () => [
     collectionName: 'foo',
     resourceName: 'bar',
     renderFilter: () => <p>My filter panel 1</p>,
-    icon: AccountBox,
+    icon: AirportShuttle,
   },
   {
     to: '/quuz',
@@ -38,7 +41,7 @@ const makeMenuItems = () => [
     collectionName: 'foo',
     resourceName: 'quuz',
     renderFilter: () => <p>My filter panel 2</p>,
-    icon: AccountBox,
+    icon: Apple,
   },
 ];
 
@@ -70,6 +73,9 @@ export const Default = withWrapper(() => (
 
 export const InMainAside = withWrapper(() => (
   <Main
+    renderMobileAside={() => (
+      <Menu pages={makeMenuItems()} mobile />
+    )}
     renderAside={() => <Menu pages={makeMenuItems()} />}
     render={() => null}
   />

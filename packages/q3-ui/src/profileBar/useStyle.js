@@ -18,15 +18,7 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     color: '#FFF',
     height: '100vh',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    paddingTop: theme.spacing(2),
-    position: 'absolute',
-    transition: 'all 350ms',
-    '& *': {
-      color: '#FFF',
-      fontSize: '1.11rem',
-    },
+    width: 105,
   }),
   mobile: {
     backgroundColor: theme.palette.primary.main,

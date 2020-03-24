@@ -67,6 +67,9 @@ export const ApplicationGate = ({
             renderAside={() => (
               <Menu {...rest} pages={pages} />
             )}
+            renderMobileAside={() => (
+              <Menu {...rest} pages={pages} mobile />
+            )}
             render={() => (
               <App pages={pages} profile={profilePage} />
             )}
