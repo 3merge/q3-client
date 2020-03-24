@@ -56,7 +56,17 @@ export const interpretCardsProps = (
   attributes: get(cardProps, 'attributes', []),
   color: invoke(cardProps, 'onColor', currentData),
   description: invoke(cardProps, 'describe', currentData),
-  isIn: (v) => get(cardProps, 'editable', []).includes(v),
+  isIn: (v) =>
+    Object.entries(get(cardProps, 'editable', {}))
+      .filter(([key]) => key === v)
+      .reduce(
+        (obj, [key, value]) =>
+          Object.assign(obj, {
+            name: key,
+            ...value,
+          }),
+        {},
+      ),
 });
 
 //= ===============================================================================
@@ -171,18 +181,29 @@ const Item = ({
           />
         </Grid>
         <Grid item style={{ flex: 1 }}>
-          <EditableTypography
-            editable={isIn(title)}
-            gutterBottom={Boolean(description)}
-            style={{ fontWeight: '600' }}
-            variant="h3"
-            color="primary"
-            save={save}
-            name={title}
-            data={item}
-          >
-            {get(item, title)}
-          </EditableTypography>
+          {typeof title === 'function' ? (
+            <Typography
+              gutterBottom={Boolean(description)}
+              style={{ fontWeight: '600' }}
+              variant="h3"
+              color="primary"
+            >
+              {title(item)}
+            </Typography>
+          ) : (
+            <EditableTypography
+              editable={isIn(title)}
+              gutterBottom={Boolean(description)}
+              style={{ fontWeight: '600' }}
+              variant="h3"
+              color="primary"
+              save={save}
+              name={title}
+              data={item}
+            >
+              {get(item, title)}
+            </EditableTypography>
+          )}
           {description && (
             <Typography style={{ margin: 0 }}>
               {description}

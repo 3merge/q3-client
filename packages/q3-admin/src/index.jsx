@@ -17,7 +17,6 @@ import {
   LinkTo,
   Loader,
   Main,
-  Menu,
   Public,
 } from './components';
 
@@ -64,9 +63,7 @@ export const ApplicationGate = ({
         const { firstName, photo } = args;
         return (
           <Main
-            renderAside={() => (
-              <Menu {...rest} pages={pages} />
-            )}
+            pages={pages}
             render={() => (
               <App pages={pages} profile={profilePage} />
             )}

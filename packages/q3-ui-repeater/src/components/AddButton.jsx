@@ -9,13 +9,12 @@ const AddButton = ({ onClick }) => {
   const isFunction = typeof onClick === 'function';
 
   return isFunction ? (
-    <Box mt={1} textAlign="center">
+    <Box mt={1}>
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         onClick={onClick}
         size="large"
-        fullWidth
       >
         {t('addToList')}
       </Button>

@@ -4,15 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: ({ selected = false }) => ({
     backgroundColor: '#FFF',
-    border: '1px solid whitesmoke',
+    border: '1px solid #e0dede',
     boxShadow: selected
       ? theme.shadows[15]
       : theme.shadows[0],
+    borderRadius: 2,
     marginBottom: theme.spacing(0.5),
-    paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(9),
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
     position: 'relative',
     transitionProperty: 'box-shadow,border',
     transitionDuration: '500ms',

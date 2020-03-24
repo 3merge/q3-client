@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import { Skeleton } from '@material-ui/lab';
+import Repeater from 'q3-ui-repeater';
 import Context from '../containers/state';
 
 export const RowSkeleton = () => (
@@ -33,15 +34,17 @@ const SubDetail = ({ root, decorators, children }) => {
       <RowSkeleton />
     </>
   ) : (
-    React.cloneElement(children, {
-      ...subdocumentState,
-      name: root,
-      data: subdocumentState[root],
-      edit: subdocumentState.patch,
-      create: subdocumentState.post,
-      remove: subdocumentState.remove,
-      collectionName,
-    })
+    <Repeater
+      collectionName={collectionName}
+      name={root}
+      data={subdocumentState[root]}
+      edit={subdocumentState.patch}
+      create={subdocumentState.post}
+      remove={subdocumentState.remove}
+      {...subdocumentState}
+    >
+      {children}
+    </Repeater>
   );
 };
 

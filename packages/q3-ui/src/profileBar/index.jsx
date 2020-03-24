@@ -1,67 +1,80 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
-import { useToggle } from 'useful-state';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import SwapHoriz from '@material-ui/icons/KeyboardArrowLeft';
+import Fab from '@material-ui/core/Fab';
+import MenuIcon from '@material-ui/icons/Menu';
 import Close from '@material-ui/icons/KeyboardArrowRight';
 import { AccountMenu } from '../toolbar';
 import astronaut from '../../images/astronaut.png';
 import Logo from '../logo';
 import DarkMode from '../darkMode';
 import useStyles from './useStyle';
+import Offcanvas from '../offcanvas';
 
-export const getIcon = (v) =>
-  v ? <Close /> : <SwapHoriz />;
+import IconMenu from '../iconMenu';
+import Menu from '../menu';
 
-const ProfileBar = ({ companyName, children, ...rest }) => {
-  const { toggle, state, close, open } = useToggle();
-  const isOpen = !state;
-  const { colourful } = useStyles({ isOpen });
+const ProfileBar = ({ companyName, items, ...rest }) => {
+  const { colourful, mobileColumn, trigger } = useStyles();
 
   return (
-    <Hidden smDown implementation="css">
-      <DarkMode>
-        <Box width={80} height="100vh" position="relative">
-          <Box
-            height="100%"
-            component="aside"
-            width={state ? 250 : 80}
-            aria-expanded={isOpen}
-            className={colourful}
-            onFocus={open}
-            onBlur={close}
-            onMouseOver={open}
-            onMouseLeave={close}
-            tabIndex={0}
-            onKeyPress={toggle}
+    <DarkMode>
+      <Box width={105} />
+      <Box component="aside" className={colourful}>
+        <Grid container className={mobileColumn}>
+          <Grid
+            item
+            md={12}
+            sm={6}
+            xs={6}
+            style={{ width: '100%' }}
           >
-            <Grid
-              container
-              direction="column"
-              justify="space-between"
-              style={{ height: '100%', width: 250 }}
+            <Offcanvas
+              left
+              color="primary"
+              menu={(props) =>
+                React.createElement(Menu, {
+                  ...props,
+                  items,
+                })
+              }
             >
-              <Grid item>
-                <Logo name={companyName} />
-                {children}
-              </Grid>
-              <Grid item>
-                <Box my={1} p={2}>
-                  <AccountMenu
-                    {...rest}
-                    isLoggedIn
-                    name={null} // don't show on desktop
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-        </Box>
-      </DarkMode>
-    </Hidden>
+              {(toggle) => (
+                <>
+                  <Hidden smDown implementation="css">
+                    <Logo name={companyName} />
+                    <IconMenu items={items} />
+                  </Hidden>
+                  <Fab
+                    onClick={toggle}
+                    className={trigger}
+                    size="small"
+                  >
+                    <Hidden smDown>
+                      <Close />
+                    </Hidden>
+                    <Hidden mdUp>
+                      <MenuIcon />
+                    </Hidden>
+                  </Fab>
+                </>
+              )}
+            </Offcanvas>
+          </Grid>
+          <Grid item md={12} xs={6}>
+            <Box my={1} p={2}>
+              <AccountMenu
+                {...rest}
+                isLoggedIn
+                name={null} // don't show on desktop
+              />
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </DarkMode>
   );
 };
 

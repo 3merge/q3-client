@@ -1,15 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  sticky: {
-    position: 'sticky',
-    top: 0,
-  },
   trigger: {
     position: 'absolute',
     top: '6rem',
     left: 'calc(100% - 1rem)',
+    zIndex: 100,
+
+    [theme.breakpoints.down('sm')]: {
+      backgroundColor: 'transparent',
+      color: '#FFF',
+      position: 'relative',
+      left: 'auto',
+      top: 'auto',
+      margin: theme.spacing(1),
+    },
   },
+
   colourful: ({ isOpen }) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: isOpen
@@ -18,20 +25,25 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     color: '#FFF',
     height: '100vh',
-    overflowY: 'auto',
-    overflowX: 'hidden',
-    paddingTop: theme.spacing(2),
-    position: 'absolute',
-    transition: 'all 350ms',
-    '& *': {
-      color: '#FFF',
-      fontSize: '1.11rem',
+    position: 'fixed',
+    width: 105,
+    zIndex: 100,
+
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative',
+      height: 'auto',
+      width: '100%',
     },
   }),
-  mobile: {
-    backgroundColor: theme.palette.primary.main,
-    boxSizing: 'border-box',
-    padding: theme.spacing(2),
-    width: 185,
+
+  mobileColumn: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%',
+    width: '100%',
+
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'row',
+    },
   },
 }));

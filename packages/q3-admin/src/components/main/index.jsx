@@ -2,42 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import MenuIcon from '@material-ui/icons/Menu';
-import Offcanvas from 'q3-ui/lib/offcanvas';
 import ProfileBar from 'q3-ui/lib/profileBar';
-import Toolbar from 'q3-ui/lib/toolbar';
-import Hidden from '@material-ui/core/Hidden';
 import useStyles from './useStyle';
+import useMenu from './useMenu';
 
-const Main = ({ render, renderAside, ProfileBarProps }) => {
+const Main = ({ render, pages, ProfileBarProps }) => {
   const cls = useStyles();
+  const items = useMenu(pages);
 
   return (
     <Box component="article">
-      <Hidden mdUp implementation="css">
-        <Toolbar isLoggedIn {...ProfileBarProps}>
-          <Offcanvas left menu={renderAside}>
-            {(toggle) => (
-              <Fab
-                onClick={toggle}
-                aria-label="Open menu"
-                color="secondary"
-                size="small"
-              >
-                <MenuIcon />
-              </Fab>
-            )}
-          </Offcanvas>
-        </Toolbar>
-      </Hidden>
       <Grid container className={cls.offsetHeight}>
         <Grid item>
-          <Box className={cls.sticky}>
-            <ProfileBar {...ProfileBarProps}>
-              {renderAside()}
-            </ProfileBar>
-          </Box>
+          <ProfileBar {...ProfileBarProps} items={items} />
         </Grid>
         <Grid
           id="q3-main-view"
@@ -45,7 +22,9 @@ const Main = ({ render, renderAside, ProfileBarProps }) => {
           className={cls.muted}
           component="main"
         >
-          <Box pb={6}>{render()}</Box>
+          <Box height="100vh" overflow="hidden">
+            {render()}
+          </Box>
         </Grid>
       </Grid>
     </Box>
@@ -62,6 +41,11 @@ Main.propTypes = {
    * Renderer function for inside <aside />.
    */
   renderAside: PropTypes.func.isRequired,
+
+  /**
+   * Renderer function for inside the offcanvas menu.
+   */
+  renderMobileAside: PropTypes.func.isRequired,
 
   /**
    * Props passed directly to Q3's <ProfileBar />

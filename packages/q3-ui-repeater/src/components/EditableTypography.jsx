@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { invoke } from 'lodash';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { connect } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
-import Check from '@material-ui/icons/Check';
-import Close from '@material-ui/icons/Close';
-import { useToggle, useValue } from 'useful-state';
+import { useToggle } from 'useful-state';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
 import RepeaterState from './state';
 import useStyle from './useStyle';
 
@@ -16,31 +13,27 @@ import useStyle from './useStyle';
 // Partials
 //= ===============================================================================
 
+const AutoSaveField = connect(({ formik, ...rest }) => (
+  <Field autoFocus onBlur={formik.submitForm} {...rest} />
+));
+
 const EditableTypographyTextField = ({
   value,
   className,
   onChange,
   onClick,
   onClose,
+  fieldProps,
+  onSave,
+  initialValues,
 }) => (
-  <TextField
-    autoFocus
-    value={value}
-    className={className}
-    onChange={onChange}
-    InputProps={{
-      endAdornment: (
-        <InputAdornment position="end">
-          <IconButton onClick={onClick}>
-            <Check />
-          </IconButton>
-          <IconButton onClick={onClose}>
-            <Close />
-          </IconButton>
-        </InputAdornment>
-      ),
-    }}
-  />
+  <Form
+    enableSubmit={false}
+    initialValues={initialValues}
+    onSubmit={onSave}
+  >
+    <AutoSaveField {...fieldProps} />
+  </Form>
 );
 
 EditableTypographyTextField.propTypes = {
@@ -73,6 +66,10 @@ const EditableTypography = ({
   const repeater = React.useContext(RepeaterState);
   const prefixedName = `${repeater.name}.${name}`;
 
+  const isEditable =
+    typeof editable === 'object' &&
+    Object.keys(editable).length > 0;
+
   const canSee = invoke(
     repeater,
     'auth.canSeeSub',
@@ -85,19 +82,12 @@ const EditableTypography = ({
     prefixedName,
   );
 
-  const { value, onChange, setValue } = useValue(
-    String(children || ''),
-  );
-
   /**
    * Calling save will actually re-render the parent component.
    * So, close is somewhat unnecessary as the state will reset anyway.
    */
-  const onClick = () =>
-    save({
-      ...data,
-      [name]: value,
-    }).then(() => {
+  const onSave = (...params) =>
+    save(...params).then(() => {
       close();
     });
 
@@ -105,15 +95,15 @@ const EditableTypography = ({
    * We have to force refresh the value state.
    */
   React.useEffect(() => {
-    setValue(children);
+    // setValue(children);
   }, [children]);
 
   if (!canSee) return '--';
 
-  return !state || !editable || !canEdit ? (
+  return !state || !isEditable || !canEdit ? (
     <Typography
       {...rest}
-      {...(editable && {
+      {...(isEditable && {
         className: editableContent,
         onClick: open,
         onKeyPress: open,
@@ -128,14 +118,14 @@ const EditableTypography = ({
       })}
     >
       {children || '--'}
-      {editable && <Edit className={editableIcon} />}
+      {isEditable && <Edit className={editableIcon} />}
     </Typography>
   ) : (
     <EditableTypographyTextField
-      value={value}
+      fieldProps={editable}
+      initialValues={data}
       className={block}
-      onChange={onChange}
-      onClick={onClick}
+      onSave={onSave}
       onClose={close}
     />
   );
