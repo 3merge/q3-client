@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Link as NavLink, Location } from '@reach/router';
+import { Link as NavLink } from '@reach/router';
 import List from '@material-ui/core/List';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
@@ -20,12 +20,12 @@ export const isActive = (to, activeClassName) => ({
 
 const HtmlTooltip = withStyles((theme) => ({
   tooltip: {
-    backgroundColor: theme.palette.secondary.dark,
+    backgroundColor: theme.palette.secondary.main,
     fontSize: theme.typography.pxToRem(15),
     padding: theme.spacing(1),
   },
   arrow: {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.secondary.main,
   },
 }))(Tooltip);
 
@@ -67,21 +67,16 @@ const MenuItem = ({
 
 const Menu = ({ items, done }) => (
   <List component="nav" style={{ marginTop: '1rem' }}>
-    <Location>
-      {(location) =>
-        items.map(
-          (item) =>
-            item.visible && (
-              <MenuItem
-                location={location}
-                key={item.label}
-                done={done}
-                {...item}
-              />
-            ),
-        )
-      }
-    </Location>
+    {items.map(
+      (item) =>
+        item.visible && (
+          <MenuItem
+            key={item.label}
+            done={done}
+            {...item}
+          />
+        ),
+    )}
   </List>
 );
 

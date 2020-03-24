@@ -171,9 +171,16 @@ const Item = ({
     save,
   });
 
+  const titleProps = {
+    gutterBottom: Boolean(description),
+    style: { fontWeight: '600' },
+    variant: 'h4',
+    color: 'primary',
+  };
+
   return (
     <Box className={root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item sm="auto" xs={2}>
           <Checkbox
             checked={selected}
@@ -182,21 +189,13 @@ const Item = ({
         </Grid>
         <Grid item style={{ flex: 1 }}>
           {typeof title === 'function' ? (
-            <Typography
-              gutterBottom={Boolean(description)}
-              style={{ fontWeight: '600' }}
-              variant="h3"
-              color="primary"
-            >
+            <Typography {...titleProps}>
               {title(item)}
             </Typography>
           ) : (
             <EditableTypography
+              {...titleProps}
               editable={isIn(title)}
-              gutterBottom={Boolean(description)}
-              style={{ fontWeight: '600' }}
-              variant="h3"
-              color="primary"
               save={save}
               name={title}
               data={item}
@@ -211,15 +210,14 @@ const Item = ({
           )}
           {attributes.length > 0 && (
             <Box mt={2}>
-              <Grid container spacing={1}>
-                {attributes.map((attribute) => (
-                  <Attribute
-                    editable={isIn(attribute)}
-                    name={attribute}
-                    key={attribute}
-                  />
-                ))}
-              </Grid>
+              {attributes.map((attribute, i) => (
+                <Attribute
+                  isLast={i === attributes.length - 1}
+                  editable={isIn(attribute)}
+                  name={attribute}
+                  key={attribute}
+                />
+              ))}
             </Box>
           )}
         </Grid>
@@ -256,6 +254,7 @@ Item.propTypes = {
     description: PropTypes.string,
   }).isRequired,
   item: PropTypes.shape({
+    id: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
 };

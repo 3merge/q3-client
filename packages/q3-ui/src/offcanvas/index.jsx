@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) => ({
       color === 'primary'
         ? theme.palette.secondary.main
         : undefined,
+    color: color === 'primary' ? '#FFF' : undefined,
+    '& svg': {
+      fill:
+        color === 'primary' ? '#FFF !important' : undefined,
+    },
   }),
 }));
 

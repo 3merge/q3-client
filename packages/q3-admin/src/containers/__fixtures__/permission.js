@@ -1,6 +1,15 @@
+export const coll = 'storybook';
+
+export const genAnyPermission = (rest) => ({
+  ownership: 'Any',
+  fields: '*',
+  coll,
+  ...rest,
+});
+
 export const genPermission = (op) => ({
   ownership: 'Any',
-  coll: 'storybook',
   fields: 'thread',
+  coll,
   op,
 });

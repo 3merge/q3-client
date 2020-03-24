@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import MomentUtils from '@date-io/moment';
 import Locale from 'q3-ui-locale';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from '../mui';

@@ -11,8 +11,7 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { styled } from '@material-ui/styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import { styled, makeStyles } from '@material-ui/core/styles';
 import DarkMode from '../darkMode';
 
 export const useOpen = () => {
@@ -81,8 +80,6 @@ export const AccountMenu = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log(signupPath, loginPath);
-
   if (!isLoggedIn) {
     return (
       <Grid container spacing={1} justify="flex-end">
@@ -110,18 +107,6 @@ export const AccountMenu = ({
       </Grid>
     );
   }
-
-  AccountMenu.propTypes = {
-    isLoggedIn: PropTypes.bool,
-    loginPath: PropTypes.string,
-    signupPath: PropTypes.string,
-  };
-
-  AccountMenu.defaultProps = {
-    isLoggedIn: false,
-    loginPath: '/',
-    signupPath: '/',
-  };
 
   return Array.isArray(items) ? (
     <DropDownMenu id="profile-dropdown" items={items}>

@@ -4,16 +4,16 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: ({ selected = false }) => ({
     backgroundColor: '#FFF',
-    border: '1px solid #e0dede',
+    border: '1px solid #c4c4c4',
     boxShadow: selected
       ? theme.shadows[15]
       : theme.shadows[0],
-    borderRadius: 2,
+    borderRadius: 3,
     marginBottom: theme.spacing(0.5),
-    paddingBottom: theme.spacing(3),
-    paddingLeft: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(9),
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(2),
     position: 'relative',
     transitionProperty: 'box-shadow,border',
     transitionDuration: '500ms',
@@ -26,25 +26,23 @@ export default makeStyles((theme) => ({
     },
 
     '&:hover': {
+      borderColor: theme.palette.primary.main,
       boxShadow: theme.shadows[4],
     },
   }),
 
   editLauncher: {
-    background: colors.deepOrange[50],
     color: colors.deepOrange[300],
-    marginRight: theme.spacing(0.5),
   },
 
   removeLauncher: {
-    background: colors.red[50],
     color: colors.red[300],
   },
 
   launchers: {
     position: 'absolute',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
+    top: theme.spacing(0),
+    right: theme.spacing(0),
     padding: theme.spacing(1),
 
     [theme.breakpoints.down('sm')]: {
@@ -68,8 +66,11 @@ export default makeStyles((theme) => ({
   },
 
   label: {
-    color: colors.grey[500],
+    color: colors.grey[700],
     display: 'block',
+    fontWeight: 600,
+    lineHeight: 1.2,
+    fontSize: '1rem',
   },
 
   editableContent: {

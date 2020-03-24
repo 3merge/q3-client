@@ -9,29 +9,28 @@ import EditableTypography from './EditableTypography';
 import useStyle from './useStyle';
 
 export const Attribute = ({ name, data, ...etc }) => {
-  const { label, attribute } = useStyle();
+  const { label } = useStyle();
   const { t } = useTranslation('labels');
 
   return (
-    <Grid item className={attribute}>
-      <Box
-        border="1px solid #e0dede"
-        borderRadius={3}
-        height="100%"
-        p={1}
-      >
-        <Typography variant="overline" className={label}>
-          {t(name)}
-        </Typography>
-        <EditableTypography
-          name={name}
-          data={data}
-          {...etc}
-        >
-          {get(data, name)}
-        </EditableTypography>
-      </Box>
-    </Grid>
+    <Box py={0.5}>
+      <Grid container alignItems="center">
+        <Grid item xl={2} lg={3} md={3} sm={2} xs={3}>
+          <Typography className={label}>
+            {t(name)}:
+          </Typography>
+        </Grid>
+        <Grid item xl={9} lg={9} md={9} sm={10} xs={9}>
+          <EditableTypography
+            name={name}
+            data={data}
+            {...etc}
+          >
+            {get(data, name)}
+          </EditableTypography>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
