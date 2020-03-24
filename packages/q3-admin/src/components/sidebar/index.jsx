@@ -8,6 +8,7 @@ import DateRange from '@material-ui/icons/DateRange';
 import useStyle from './useStyle';
 import Option from './option';
 import SidebarTabs from './tabs';
+import useHeight from './useHeight';
 import 'react-json-pretty/themes/acai.css';
 
 const Sidebar = ({
@@ -17,44 +18,8 @@ const Sidebar = ({
   ...rest
 }) => {
   const { t } = useTranslation();
-  const [height, setHeight] = React.useState();
+  const height = useHeight();
   const { columnWidth } = useStyle({ height });
-
-  React.useEffect(() => {
-    function calculateHeight() {
-      let headerHeight = 0;
-      let articleHeight = 0;
-
-      const viewportWidth = window.innerWidth;
-      const header = document.querySelector('header');
-      const article = document.querySelector(
-        '#detail-article',
-      );
-
-      if (header) headerHeight = header.clientHeight;
-      if (article)
-        articleHeight = Number(
-          window
-            .getComputedStyle(article)
-            .getPropertyValue('padding')
-            .replace('px', ''),
-        );
-
-      setHeight(
-        viewportWidth > 1279
-          ? `calc(100vh - ${headerHeight +
-              articleHeight}px)`
-          : 'auto',
-      );
-    }
-
-    window.addEventListener('resize', calculateHeight);
-    calculateHeight();
-
-    return () => {
-      window.removeEventListener('resize', calculateHeight);
-    };
-  }, []);
 
   return (
     <Grid item className={columnWidth}>

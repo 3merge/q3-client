@@ -11,6 +11,7 @@ import Notes from '../notes';
 import Documentation from '../documentation';
 import History from '../history';
 import Trash from '../../components/trash';
+import PictureUpload from '../../components/picture';
 import {
   getCreatedBy,
   filterByComparison,
@@ -24,6 +25,7 @@ const Detail = ({
   children,
   notes,
   trash,
+  picture,
 }) => {
   const {
     resourceName,
@@ -32,7 +34,7 @@ const Detail = ({
     id,
     ...state
   } = React.useContext(Context);
-  const data = get(state, resourceNameSingular);
+  const data = get(state, resourceNameSingular, {});
 
   const authorization = useAuth(
     collectionName,
@@ -91,6 +93,12 @@ const Detail = ({
           >
             {filepath && (
               <Documentation filepath={filepath} />
+            )}
+            {picture && (
+              <PictureUpload
+                url={`/${resourceName}/${id}`}
+                photo={data.photo}
+              />
             )}
           </Sidebar>
         )}

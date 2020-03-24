@@ -8,7 +8,6 @@ export default () => {
       let headerHeight = 0;
       let articleHeight = 0;
 
-      const viewportWidth = window.innerWidth;
       const header = document.querySelector('header');
       const article = document.querySelector(
         '#detail-article',
@@ -24,10 +23,7 @@ export default () => {
         );
 
       setHeight(
-        viewportWidth > 1279
-          ? `calc(100vh - ${headerHeight +
-              articleHeight}px)`
-          : 'auto',
+        `calc(100vh - ${headerHeight + articleHeight}px)`,
       );
     }
 

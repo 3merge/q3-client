@@ -70,6 +70,7 @@ const DetailInstance = () => (
       trash
       notes
       delete
+      picture
       filepath={{ content: { data: fixture } }}
       persistenceIds={['first', 'second']}
     >
@@ -83,7 +84,13 @@ export const WithDefaults = () => (
   <LocationProvider initialPath="/foos/1">
     <RestOpDetail
       resourceName="foo"
-      fixt={{ id: '123', age: 1, name: '' }}
+      fixt={{
+        id: '123',
+        age: 1,
+        name: '',
+        photo:
+          'https://images.unsplash.com/photo-1558981852-426c6c22a060?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+      }}
     >
       {(ops) => (
         <State.Provider

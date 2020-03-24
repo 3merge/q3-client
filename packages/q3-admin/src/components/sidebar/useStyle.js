@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     height,
     width: 435,
     [theme.breakpoints.down('md')]: {
-      width: '100%',
+      display: 'none',
     },
   }),
   root: {

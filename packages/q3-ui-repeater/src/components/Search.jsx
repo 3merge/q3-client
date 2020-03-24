@@ -19,10 +19,12 @@ const SearchBar = () => {
       type="search"
       value={value}
       disableUnderline
+      style={{ marginTop: '-1rem' }}
       inputProps={{
         autoComplete: 'off',
         disableUnderline: true,
       }}
+      // eslint-disable-next-line
       InputProps={{
         autoComplete: 'off',
         disableUnderline: true,

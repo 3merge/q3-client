@@ -1,11 +1,10 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import UploadIcon from '@material-ui/icons/CloudUpload';
-import IconButton from '@material-ui/core/IconButton';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import upload from '../../images/upload.png';
 
@@ -14,8 +13,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'none',
   },
   img: {
-    backgroundSize: 'contain',
-    height: 225,
+    height: '100%',
+    width: '100%',
+    objectFit: 'cover',
     filter: 'grayscale(1)',
     transition: 'filter 250ms',
     '&:hover': {
@@ -23,9 +23,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   root: {
+    border: '1px solid rgb(196, 196, 196)',
     margin: theme.spacing(1),
     maxWidth: '100%',
+    height: 250,
     position: 'relative',
+    padding: theme.spacing(0.75),
+    '&:hover': {
+      boxShadow: 0,
+    },
   },
   title: {
     fontSize: 'small',
@@ -77,37 +83,33 @@ const Picture = ({ photo, service }) => {
   };
 
   return (
-    <Card className={root}>
-      {uploading && (
-        <div className={center}>
-          <CircularProgress />
-        </div>
-      )}
-      <input
-        id="picture-upload"
-        onChange={uploadPhoto}
-        ref={ref}
-        accept=".png,.jpg,.jpeg,.svg"
-        name={t('labels:featuredUpload')}
-        className={input}
-        type="file"
-      />
-      <CardMedia
-        onClick={triggerFileUploadManager}
-        className={img}
-        title={t('labels:featuredUpload')}
-        image={url}
-      />
-      <CardHeader
-        title={t('labels:featuredUpload')}
-        subheader={t('descriptions:featuredUpload')}
-        action={
-          <IconButton onClick={triggerFileUploadManager}>
-            <UploadIcon />
-          </IconButton>
-        }
-      />
-    </Card>
+    <Box mt={4}>
+      <Box className={root}>
+        {uploading && (
+          <div className={center}>
+            <CircularProgress />
+          </div>
+        )}
+        <input
+          id="picture-upload"
+          onChange={uploadPhoto}
+          ref={ref}
+          accept=".png,.jpg,.jpeg,.svg"
+          name={t('labels:featuredUpload')}
+          className={input}
+          type="file"
+        />
+        <img
+          className={img}
+          alt={t('labels:featuredUpload')}
+          src={url}
+        />
+      </Box>
+      <Button fullWidth onClick={triggerFileUploadManager}>
+        <UploadIcon style={{ marginRight: '1rem' }} />
+        Upload a featured photo
+      </Button>
+    </Box>
   );
 };
 export default Picture;

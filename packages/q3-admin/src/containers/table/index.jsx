@@ -10,6 +10,7 @@ import EmptyView from '../../components/empty';
 import ErrorView from '../../components/error';
 import { getActions } from './utils';
 import Sidebar from './sidebar';
+import useHeight from '../../components/sidebar/useHeight';
 
 const List = ({
   children,
@@ -26,6 +27,7 @@ const List = ({
     ...state
   } = React.useContext(Context);
 
+  const height = useHeight();
   const { Redirect, canDelete } = useAuth(collectionName);
   const rows = get(state, resourceName, []);
 
@@ -53,17 +55,19 @@ const List = ({
 
   return (
     <Redirect op="Read" to="/">
-      <Box mt={3} px={2}>
-        {renderTop && renderTop()}
-        <Sidebar
-          renderAside={
-            !state.fetching && rows && rows.length
-              ? renderForm
-              : null
-          }
-        >
-          {renderTable()}
-        </Sidebar>
+      <Box style={{ height, overflowY: 'scroll' }}>
+        <Box my={3} px={2}>
+          {renderTop && renderTop()}
+          <Sidebar
+            renderAside={
+              !state.fetching && rows && rows.length
+                ? renderForm
+                : null
+            }
+          >
+            {renderTable()}
+          </Sidebar>
+        </Box>
       </Box>
     </Redirect>
   );
