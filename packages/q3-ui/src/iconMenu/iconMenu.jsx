@@ -66,7 +66,7 @@ const MenuItem = ({
 };
 
 const Menu = ({ items, done }) => (
-  <List component="nav">
+  <List component="nav" style={{ marginTop: '1rem' }}>
     <Location>
       {(location) =>
         items.map(

@@ -1,5 +1,6 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
+import Repeater from 'q3-ui-repeater';
 import SubDetail, { RowSkeleton } from '../subDetail';
 
 jest.mock('q3-ui-rest', () => ({
@@ -33,7 +34,7 @@ describe('SubDetail', () => {
           <Mock />
         </SubDetail>,
       )
-      .find(Mock)
+      .find(Repeater)
       .props();
 
     expect(props).toMatchObject({

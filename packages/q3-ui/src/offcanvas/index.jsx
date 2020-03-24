@@ -7,11 +7,24 @@ const useStyles = makeStyles((theme) => ({
   listContainer: {
     padding: theme.spacing(3),
   },
+  paper: ({ color }) => ({
+    backgroundColor:
+      color === 'primary'
+        ? theme.palette.secondary.main
+        : undefined,
+  }),
 }));
 
-const Offcanvas = ({ menu: Menu, left, children }) => {
-  const { list, listContainer } = useStyles();
+const Offcanvas = ({
+  menu: Menu,
+  left,
+  children,
+  color,
+}) => {
   const [state, setState] = React.useState(false);
+  const { list, listContainer, paper } = useStyles({
+    color,
+  });
 
   const toggleDrawer = React.useCallback(() => {
     setState(!state);
@@ -26,9 +39,12 @@ const Offcanvas = ({ menu: Menu, left, children }) => {
         onOpen={toggleDrawer}
         className={listContainer}
         anchor={left ? 'left' : 'right'}
+        PaperProps={{
+          className: paper,
+        }}
       >
-        <Box className={list}>
-          <Menu close={toggleDrawer} />
+        <Box className={list} py={4}>
+          <Menu done={toggleDrawer} />
         </Box>
       </SwipeableDrawer>
     </Box>

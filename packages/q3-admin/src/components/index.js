@@ -5,7 +5,6 @@ export { default as LinkTo } from './linkTo';
 export { default as DisplayItem } from './displayItem';
 export { default as Loader } from './loader';
 export { default as Main } from './main';
-export { default as Menu } from './menu';
 export { default as Public } from './public';
 export { default as Search } from './search';
 export { default as SubDetail } from './subDetail';

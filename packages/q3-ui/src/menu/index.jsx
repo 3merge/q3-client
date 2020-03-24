@@ -187,6 +187,8 @@ const MenuItem = ({
                 e.preventDefault();
                 toggle();
               }
+
+              if (typeof done === 'function') done();
             }}
             getProps={({
               isCurrent,
@@ -213,7 +215,6 @@ const MenuItem = ({
         ))}
         exact={exact}
         key={to}
-        onClick={done}
         beforeClick={subMenu ? toggle : null}
         button
         dense
