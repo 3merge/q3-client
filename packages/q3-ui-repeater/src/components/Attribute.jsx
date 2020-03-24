@@ -14,7 +14,12 @@ export const Attribute = ({ name, data, ...etc }) => {
 
   return (
     <Grid item className={attribute}>
-      <Box border="1px solid whitesmoke" p={1}>
+      <Box
+        border="1px solid #e0dede"
+        borderRadius={3}
+        height="100%"
+        p={1}
+      >
         <Typography variant="overline" className={label}>
           {t(name)}
         </Typography>

@@ -47,6 +47,7 @@ const seedData = [
     age: 18,
     company: 'Motel',
     position: 'Reception',
+    trained: true,
   },
   {
     id: 2,
@@ -63,8 +64,8 @@ const seedPermissions = {
       id: 1,
     },
     permissions: [
-      genPermission('Read', '!people.lastName'),
-      genPermission('Update', '!people.age'),
+      genPermission('Read', '!people.company'),
+      genPermission('Update', '!people.lastName'),
       genPermission('Create', '*'),
       genPermission('Delete', '*'),
     ],
@@ -135,6 +136,7 @@ const withForm = (Component) => () => {
               age: '',
               position: '',
               company: '',
+              trained: false,
             }}
           />
         </AuthContext.Provider>
@@ -148,9 +150,11 @@ const withForm = (Component) => () => {
 //= ===============================================================================
 
 export const Empty = () => (
-  <Container>
-    <Repeater data={[]}>Will not show</Repeater>
-  </Container>
+  <Box style={{ backgroundColor: '#FFF' }}>
+    <Container>
+      <Repeater data={[]}>Will not show</Repeater>
+    </Container>
+  </Box>
 );
 
 export const SimpleFormWithLimitedPermissions = withForm(
@@ -164,7 +168,8 @@ export const SimpleFormWithLimitedPermissions = withForm(
         describe: () =>
           'This is a dynamic sentence generated from the item template.',
 
-        title: 'firstName',
+        title: (item) =>
+          `${item.firstName} ${item.company}`,
       }}
     >
       <Form label="add">
@@ -203,8 +208,35 @@ export const MultistepFormWithLimitedPermissions = withForm(
           'position',
           'company',
           'age',
+          'trained',
         ],
-        editable: ['firstName', 'position'],
+        editable: {
+          firstName: {
+            type: 'text',
+          },
+          position: {
+            type: 'select',
+            options: [
+              {
+                value: 'Reception',
+                label: 'Reception',
+              },
+              {
+                value: 'Manager',
+                label: 'Manager',
+              },
+            ],
+          },
+          age: {
+            type: 'number',
+            positive: true,
+            min: 0,
+            max: 8,
+          },
+          trained: {
+            type: 'checkbox',
+          },
+        },
       }}
     >
       <Multistep>

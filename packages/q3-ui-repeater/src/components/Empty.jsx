@@ -4,7 +4,7 @@ import { Empty as EmptySvg } from 'q3-ui-assets';
 import ErrorComponent from 'q3-ui/lib/error';
 
 const Empty = () => (
-  <Box mt={5}>
+  <Box p={2} style={{ backgroundColor: '#FFF' }}>
     <ErrorComponent
       transparent
       title="empty"

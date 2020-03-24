@@ -52,6 +52,7 @@ const NativeSelect = (props) => {
     value,
     error,
     required,
+    ...rest
   } = deco;
 
   const { loading, items } = useOptions({
@@ -67,6 +68,7 @@ const NativeSelect = (props) => {
       required={required}
     >
       <Select
+        {...rest}
         native
         name={name}
         value={items.length ? value : ''}

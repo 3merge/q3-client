@@ -50,10 +50,6 @@ export class FormikDecorator {
       });
   }
 
-  onBlur() {
-    // noop
-  }
-
   onChange(e) {
     return this.next(parseEventValue(e));
   }
@@ -89,7 +85,6 @@ export class FormikDecorator {
     return {
       id: this.name,
       onChange: this.onChange.bind(this),
-      onBlur: this.onBlur.bind(this),
       onArrayPush: this.onArrayPush.bind(this),
       onArrayPull: this.onArrayPull.bind(this),
       ...pick(this, [
