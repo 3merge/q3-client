@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.12.7",
+  "version": "1.12.8",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.11.2"
