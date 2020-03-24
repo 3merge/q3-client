@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import RepeaterSearch from './state';
 
@@ -14,11 +15,17 @@ const SearchBar = () => {
       fullWidth
       name="search"
       onChange={onChange}
-      label="Search"
+      label="Start typing ..."
       type="search"
       value={value}
+      disableUnderline
       inputProps={{
         autoComplete: 'off',
+        disableUnderline: true,
+      }}
+      InputProps={{
+        autoComplete: 'off',
+        disableUnderline: true,
       }}
     />
   );

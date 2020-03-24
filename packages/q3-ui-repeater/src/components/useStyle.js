@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(9),
     paddingTop: theme.spacing(2),
+    height: '100%',
     position: 'relative',
     transitionProperty: 'box-shadow,border',
     transitionDuration: '500ms',
@@ -26,17 +27,25 @@ export default makeStyles((theme) => ({
     },
 
     '&:hover': {
+      backgroundColor: '#FFF',
       borderColor: theme.palette.primary.main,
       boxShadow: theme.shadows[4],
     },
   }),
 
+  titleCls: {
+    color: theme.palette.primary.light,
+    fontWeight: '600',
+    fontSize: '1.21rem',
+    margin: '0 !important',
+  },
+
   editLauncher: {
-    color: colors.deepOrange[300],
+    color: theme.palette.primary.light,
   },
 
   removeLauncher: {
-    color: colors.red[300],
+    color: theme.palette.primary.light,
   },
 
   launchers: {
@@ -66,11 +75,10 @@ export default makeStyles((theme) => ({
   },
 
   label: {
-    color: colors.grey[700],
-    display: 'block',
-    fontWeight: 600,
+    color: colors.grey[500],
     lineHeight: 1.2,
     fontSize: '1rem',
+    marginRight: '1rem',
   },
 
   editableContent: {

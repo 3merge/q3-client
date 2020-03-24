@@ -154,7 +154,7 @@ const Item = ({
   const title = get(cardProps, 'title');
   const selected = multiselect.isChecked(data.id);
 
-  const { root, launchers } = useStyle({
+  const { root, launchers, titleCls } = useStyle({
     selected,
     color,
   });
@@ -172,9 +172,8 @@ const Item = ({
   });
 
   const titleProps = {
-    gutterBottom: Boolean(description),
-    style: { fontWeight: '600' },
-    variant: 'h4',
+    className: titleCls,
+    component: 'h3',
     color: 'primary',
   };
 
@@ -204,22 +203,18 @@ const Item = ({
             </EditableTypography>
           )}
           {description && (
-            <Typography style={{ margin: 0 }}>
+            <Typography gutterBottom>
               {description}
             </Typography>
           )}
-          {attributes.length > 0 && (
-            <Box mt={2}>
-              {attributes.map((attribute, i) => (
-                <Attribute
-                  isLast={i === attributes.length - 1}
-                  editable={isIn(attribute)}
-                  name={attribute}
-                  key={attribute}
-                />
-              ))}
-            </Box>
-          )}
+          {attributes.map((attribute, i) => (
+            <Attribute
+              isLast={i === attributes.length - 1}
+              editable={isIn(attribute)}
+              name={attribute}
+              key={attribute}
+            />
+          ))}
         </Grid>
       </Grid>
       <Box className={launchers}>

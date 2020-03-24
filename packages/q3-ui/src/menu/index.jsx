@@ -11,7 +11,6 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { useToggle } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
 import { getLinkAttributes } from '../utils';
 
 const useStyles = makeStyles({
@@ -25,12 +24,13 @@ const useStyles = makeStyles({
     },
   },
   container: {
-    padding: '0 16px',
+    padding: '8px 16px',
     position: 'relative',
     '&>a': {
       borderRadius: 2,
       transition: 'background-color 250ms',
     },
+    borderBottom: '1px solid rgba(255,255,255,0.1)',
   },
   selected: {},
 });
@@ -225,7 +225,10 @@ const MenuItem = ({
           isOpen={state}
           title={showTitles ? label : null}
         />
-        <ListItemText style={{ color }} primary={label} />
+        <ListItemText
+          style={{ color, marginLeft: '1rem' }}
+          primary={label}
+        />
       </ListItem>
 
       {hasSubMenu && (

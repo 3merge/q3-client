@@ -17,6 +17,13 @@ export default makeStyles((theme) => ({
     },
   },
 
+  shell: {
+    width: 105,
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+
   colourful: ({ isOpen }) => ({
     backgroundColor: theme.palette.primary.main,
     boxShadow: isOpen

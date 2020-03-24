@@ -3,16 +3,23 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import RepeaterState from './state';
-import Empty from './Empty';
 import Item from './Item';
 
-const List = ({ children, data, ...rest }) => {
+const ListItemGrid = ({ children }) => (
+  <Grid item md={6} xs={12}>
+    {children}
+  </Grid>
+);
+
+const List = ({
+  children,
+  data,
+  createRenderer,
+  ...rest
+}) => {
   const {
     search: { value },
   } = React.useContext(RepeaterState);
-
-  if (!Array.isArray(data) || data.length < 1)
-    return <Empty />;
 
   const testSearchTerm = (item) =>
     !value.length ||
@@ -22,7 +29,7 @@ const List = ({ children, data, ...rest }) => {
     <Box mt={1}>
       <Grid container spacing={1}>
         {data.filter(testSearchTerm).map((item, i) => (
-          <Grid item md={6} xs={12}>
+          <ListItemGrid key={i}>
             <Item
               key={i}
               parent={data}
@@ -32,8 +39,9 @@ const List = ({ children, data, ...rest }) => {
             >
               {children}
             </Item>
-          </Grid>
+          </ListItemGrid>
         ))}
+        <ListItemGrid>{createRenderer}</ListItemGrid>
       </Grid>
     </Box>
   );

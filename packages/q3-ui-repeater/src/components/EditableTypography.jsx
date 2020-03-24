@@ -102,12 +102,14 @@ const EditableTypography = ({
 
   return !state || !isEditable || !canEdit ? (
     <Typography
-      {...rest}
       {...(isEditable && {
         className: editableContent,
         onClick: open,
         onKeyPress: open,
         tabIndex: 0,
+        style: {
+          cursor: 'pointer',
+        },
       })}
       {...(!canEdit && {
         onClick: null,
@@ -116,6 +118,7 @@ const EditableTypography = ({
           cursor: 'not-allowed',
         },
       })}
+      {...rest}
     >
       {children || '--'}
       {isEditable && <Edit className={editableIcon} />}

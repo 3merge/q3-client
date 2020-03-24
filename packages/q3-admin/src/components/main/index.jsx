@@ -6,7 +6,11 @@ import ProfileBar from 'q3-ui/lib/profileBar';
 import useStyles from './useStyle';
 import useMenu from './useMenu';
 
-const Main = ({ render, pages, ProfileBarProps }) => {
+const Main = ({
+  render,
+  pages,
+  ProfileBarProps: { menuItems = [] },
+}) => {
   const cls = useStyles();
   const items = useMenu(pages);
 
@@ -14,7 +18,10 @@ const Main = ({ render, pages, ProfileBarProps }) => {
     <Box component="article">
       <Grid container className={cls.offsetHeight}>
         <Grid item>
-          <ProfileBar {...ProfileBarProps} items={items} />
+          <ProfileBar
+            popoutMenuItems={menuItems}
+            items={items}
+          />
         </Grid>
         <Grid
           id="q3-main-view"
@@ -38,16 +45,6 @@ Main.propTypes = {
   render: PropTypes.func.isRequired,
 
   /**
-   * Renderer function for inside <aside />.
-   */
-  renderAside: PropTypes.func.isRequired,
-
-  /**
-   * Renderer function for inside the offcanvas menu.
-   */
-  renderMobileAside: PropTypes.func.isRequired,
-
-  /**
    * Props passed directly to Q3's <ProfileBar />
    */
   ProfileBarProps: PropTypes.shape({
@@ -55,6 +52,15 @@ Main.propTypes = {
     imgSrc: PropTypes.string,
     menuItems: PropTypes.array,
   }).isRequired,
+
+  pages: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string,
+      label: PropTypes.string,
+      icon: PropTypes.node,
+      visible: PropTypes.bool,
+    }),
+  ).isRequired,
 };
 
 export default Main;

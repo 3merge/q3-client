@@ -71,7 +71,7 @@ export const ApplicationGate = ({
               companyName,
               name: firstName,
               imgSrc: photo,
-              items: [
+              menuItems: [
                 ...popoutMenuItems,
                 {
                   onClick: () => navigate('/profile'),

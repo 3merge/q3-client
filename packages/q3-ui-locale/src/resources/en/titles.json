@@ -31,5 +31,6 @@
   "help": "Documentation",
   "startTyping": "Search",
   "noResults": "No results",
-  "newUser": "Add a user"
+  "newUser": "Add a user",
+  "addToList": "Add an item"
 }

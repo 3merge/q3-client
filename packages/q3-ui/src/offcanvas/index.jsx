@@ -1,7 +1,10 @@
 import React from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
+import { useToggle } from 'useful-state';
 
 const useStyles = makeStyles((theme) => ({
   listContainer: {
@@ -17,6 +20,14 @@ const useStyles = makeStyles((theme) => ({
       fill:
         color === 'primary' ? '#FFF !important' : undefined,
     },
+    width: 375,
+    [theme.breakpoints.down('sm')]: {
+      width: 325,
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: '85%',
+    },
   }),
 }));
 
@@ -26,30 +37,32 @@ const Offcanvas = ({
   children,
   color,
 }) => {
-  const [state, setState] = React.useState(false);
   const { list, listContainer, paper } = useStyles({
     color,
   });
 
-  const toggleDrawer = React.useCallback(() => {
-    setState(!state);
-  }, [state]);
+  const { toggle, state, close } = useToggle();
 
   return (
     <Box>
-      {children(toggleDrawer)}
+      {children(toggle)}
       <SwipeableDrawer
         open={state}
-        onClose={toggleDrawer}
-        onOpen={toggleDrawer}
+        onClose={toggle}
+        onOpen={toggle}
         className={listContainer}
         anchor={left ? 'left' : 'right'}
         PaperProps={{
           className: paper,
         }}
       >
-        <Box className={list} py={4}>
-          <Menu done={toggleDrawer} />
+        <Box position="absolute" top="0" right="0">
+          <IconButton onClick={close}>
+            <Close />
+          </IconButton>
+        </Box>
+        <Box className={list} py={3} px={1}>
+          <Menu done={close} />
         </Box>
       </SwipeableDrawer>
     </Box>

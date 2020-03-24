@@ -11,7 +11,12 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { styled, makeStyles } from '@material-ui/core/styles';
+import {
+  styled,
+  makeStyles,
+} from '@material-ui/core/styles';
+
+import astronaut from '../../images/astronaut.png';
 import DarkMode from '../darkMode';
 
 export const useOpen = () => {
@@ -149,7 +154,7 @@ AccountMenu.propTypes = {
 
 AccountMenu.defaultProps = {
   name: null,
-  profileImgSrc: null,
+  profileImgSrc: astronaut,
   items: [],
 };
 

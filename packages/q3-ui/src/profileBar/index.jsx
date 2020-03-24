@@ -6,19 +6,21 @@ import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import Close from '@material-ui/icons/KeyboardArrowRight';
 import { AccountMenu } from '../toolbar';
-import astronaut from '../../images/astronaut.png';
 import Logo from '../logo';
-import DarkMode from '../darkMode';
 import useStyles from './useStyle';
 import Offcanvas from '../offcanvas';
 import IconMenu from '../iconMenu';
 import Menu from '../menu';
 
-const ProfileBar = ({ companyName, items, ...rest }) => {
-  const { colourful, trigger } = useStyles();
+const ProfileBar = ({
+  companyName,
+  items,
+  popoutMenuItems,
+}) => {
+  const { colourful, trigger, shell } = useStyles();
 
   return (
-    <Box width={105}>
+    <Box className={shell}>
       <Box component="aside" className={colourful}>
         <Offcanvas
           left
@@ -52,7 +54,11 @@ const ProfileBar = ({ companyName, items, ...rest }) => {
           )}
         </Offcanvas>
         <Box py={2} px={1} align="center">
-          <AccountMenu {...rest} isLoggedIn name={null} />
+          <AccountMenu
+            items={popoutMenuItems}
+            isLoggedIn
+            name={null}
+          />
         </Box>
       </Box>
     </Box>
@@ -60,17 +66,21 @@ const ProfileBar = ({ companyName, items, ...rest }) => {
 };
 
 ProfileBar.propTypes = {
-  children: PropTypes.node.isRequired,
   companyName: PropTypes.string,
-  profileImgSrc: PropTypes.string,
   items: PropTypes.arrayOf(
-    PropTypes.shape({ onClick: PropTypes.func }),
+    PropTypes.shape({
+      to: PropTypes.string,
+      label: PropTypes.string,
+    }),
   ).isRequired,
+  popoutMenuItems: PropTypes.arrayOf(
+    PropTypes.shape({ onClick: PropTypes.func }),
+  ),
 };
 
 ProfileBar.defaultProps = {
   companyName: '3merge',
-  profileImgSrc: astronaut,
+  popoutMenuItems: [],
 };
 
 export default ProfileBar;

@@ -69,7 +69,7 @@ export const Default = () => (
           name: 'Mike',
           imgSrc:
             'https://randomuser.me/api/portraits/men/44.jpg',
-          items: [
+          menuItems: [
             {
               label: 'Foo',
               onClick: () => null,

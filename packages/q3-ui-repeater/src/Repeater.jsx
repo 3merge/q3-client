@@ -35,6 +35,30 @@ const Repeater = ({
   const onRemove = execAuthFn('canDeleteSub', remove);
   const onUpdate = execAuthFn('canEditSub', edit);
 
+  const CreateTile = () => (
+    <Dialog
+      {...rest}
+      variant="drawer"
+      title={`${name}Create`}
+      renderContent={(close) =>
+        React.cloneElement(children, {
+          onSubmit: (...params) =>
+            create(...params).then(() => {
+              close();
+            }),
+          isNew: true,
+          collectionName,
+          initialValues,
+        })
+      }
+      renderTrigger={(open) => (
+        <AddButton
+          onClick={execAuthFn('canCreateSub', open)}
+        />
+      )}
+    />
+  );
+
   return canSeeSub ? (
     <Context.Provider
       value={{
@@ -48,6 +72,7 @@ const Repeater = ({
       <Search />
       <ActionBar />
       <List
+        createRenderer={<CreateTile />}
         data={data}
         onRemove={onRemove}
         onUpdate={onUpdate}
@@ -55,27 +80,6 @@ const Repeater = ({
       >
         {children}
       </List>
-      <Dialog
-        {...rest}
-        variant="drawer"
-        title={`${name}Create`}
-        renderContent={(close) =>
-          React.cloneElement(children, {
-            onSubmit: (...params) =>
-              create(...params).then(() => {
-                close();
-              }),
-            isNew: true,
-            collectionName,
-            initialValues,
-          })
-        }
-        renderTrigger={(open) => (
-          <AddButton
-            onClick={execAuthFn('canCreateSub', open)}
-          />
-        )}
-      />
     </Context.Provider>
   ) : null;
 };

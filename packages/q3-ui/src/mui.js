@@ -90,9 +90,6 @@ Object.assign(theme, {
   overrides: {
     MuiCssBaseline: {
       '@global': {
-        html: {
-          fontSize: 14,
-        },
         body: {
           color,
         },
@@ -277,7 +274,6 @@ Object.assign(theme, {
     MuiListItemText: {
       root: {
         maxWidth: '55% !important',
-        wordBreak: 'break-all',
         [theme.breakpoints.down('md')]: {
           maxWidth: '100% !important',
         },

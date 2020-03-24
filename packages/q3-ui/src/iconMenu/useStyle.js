@@ -33,15 +33,8 @@ export default makeStyles((theme) => ({
     '& .nav-link-icon': {
       background: 'transparent',
       color: 'rgba(255,255,255,0.67)',
-      height: 45,
-      width: 45,
       transitionProperty: 'background, border, color',
       transitionDuration: '500ms',
-
-      '& svg': {
-        height: '1.15em',
-        width: '1.15em',
-      },
     },
 
     '&:hover .nav-link-icon': {
