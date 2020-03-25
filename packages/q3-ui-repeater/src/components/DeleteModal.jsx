@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import useStyle from './useStyle';
 
 //= ===============================================================================
 // Helpers
@@ -22,13 +21,12 @@ function equalsDeletePhrase(v) {
 
 const DeleteModalOpenTrigger = ({ onClick }) => {
   const { t } = useTranslation('labels');
-  const { removeLauncher } = useStyle();
 
   return (
     <IconButton
       aria-label={t('delete')}
       onClick={onClick}
-      className={removeLauncher}
+      size="small"
     >
       <DeleteIcon />
     </IconButton>

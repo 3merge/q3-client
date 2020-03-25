@@ -2,6 +2,37 @@ import { makeStyles } from '@material-ui/core/styles';
 import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
+  root: {
+    '& td': {
+      [theme.breakpoints.down('md')]: {
+        border: 0,
+        display: 'block',
+        '&::before': {
+          content: 'attr(data-title)',
+          textTransform: 'uppercase',
+          marginRight: '1rem',
+          fontSize: '0.833rem',
+        },
+      },
+    },
+  },
+  tableHead: {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+      width: '100% !important',
+    },
+  },
+  row: {
+    '&:hover': {
+      backgroundColor: grey[100],
+      transition: 'background-color 250ms',
+    },
+    [theme.breakpoints.down('md')]: {
+      borderBottom: `2px solid ${grey[100]}`,
+      display: 'block',
+      padding: theme.spacing(1),
+    },
+  },
   tableRowHover: {
     transition: 'all 500ms',
     '&:nth-child(even)': {

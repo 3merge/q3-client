@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
   },
   saddle: {
     paddingRight: '35%',
-    paddingTop: theme.spacing(8),
-    paddingLeft: theme.spacing(6),
     [theme.breakpoints.down('md')]: {
       paddingRight: theme.spacing(3),
       paddingLeft: theme.spacing(3),

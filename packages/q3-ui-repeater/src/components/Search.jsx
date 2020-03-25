@@ -1,6 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import Input from '@material-ui/core/Input';
 import RepeaterSearch from './state';
 
 export const SearchContext = React.createContext();
@@ -11,24 +10,16 @@ const SearchBar = () => {
   } = React.useContext(RepeaterSearch);
 
   return (
-    <TextField
+    <Input
       fullWidth
       name="search"
       onChange={onChange}
-      label="Start typing ..."
+      placeholder="Search"
+      aria-label="Search results"
       type="search"
       value={value}
       disableUnderline
-      style={{ marginTop: '-1rem' }}
-      inputProps={{
-        autoComplete: 'off',
-        disableUnderline: true,
-      }}
-      // eslint-disable-next-line
-      InputProps={{
-        autoComplete: 'off',
-        disableUnderline: true,
-      }}
+      autoComplete="off"
     />
   );
 };

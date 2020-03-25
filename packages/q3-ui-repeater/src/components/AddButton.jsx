@@ -5,39 +5,38 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Add from '@material-ui/icons/Add';
 import Box from '@material-ui/core/Box';
-import { Add as AddSvg } from 'q3-ui-assets';
+import TableCell from '@material-ui/core/TableCell';
 import useStyle from './useStyle';
 
-const AddButton = ({ onClick }) => {
+const AddButton = ({ onClick, colSpan }) => {
   const { t } = useTranslation();
   const isFunction = typeof onClick === 'function';
-
-  const { root, titleCls } = useStyle();
+  const { titleCls } = useStyle();
 
   return isFunction ? (
-    <Box
-      className={root}
+    <Grid
+      container
       role="button"
       tabIndex={-1}
       onClick={onClick}
+      spacing={1}
       style={{
-        display: 'flex',
         cursor: 'pointer',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 0,
+        padding: '1rem',
       }}
     >
-      <Box p={2} align="center">
+      <Grid item>
+        <Add />
+      </Grid>
+      <Grid item>
         <Typography className={titleCls}>
           {t('titles:addToList')}
         </Typography>
         <Typography>
           {t('descriptions:addToList')}
         </Typography>
-        <Add />
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   ) : null;
 };
 

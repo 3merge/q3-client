@@ -96,7 +96,7 @@ const Detail = ({
             )}
             {picture && (
               <PictureUpload
-                url={`/${resourceName}/${id}`}
+                url={`/${collectionName}/${id}`}
                 photo={data.photo}
               />
             )}

@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import { get, invoke } from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import useStyle from './useStyle';
@@ -130,6 +133,7 @@ const Item = ({
   onUpdate,
   children,
   cardProps,
+  showAttributes,
   item,
 }) => {
   const {
@@ -154,7 +158,7 @@ const Item = ({
   const title = get(cardProps, 'title');
   const selected = multiselect.isChecked(data.id);
 
-  const { root, launchers, titleCls } = useStyle({
+  const { root, titleCls } = useStyle({
     selected,
     color,
   });
@@ -178,46 +182,56 @@ const Item = ({
   };
 
   return (
-    <Box className={root}>
-      <Grid container spacing={1}>
-        <Grid item sm="auto" xs={2}>
-          <Checkbox
-            checked={selected}
-            onClick={multiselect.onCheck(item.id)}
-          />
-        </Grid>
-        <Grid item style={{ flex: 1 }}>
-          {typeof title === 'function' ? (
-            <Typography {...titleProps}>
-              {title(item)}
-            </Typography>
-          ) : (
-            <EditableTypography
-              {...titleProps}
-              editable={isIn(title)}
-              save={save}
-              name={title}
-              data={item}
-            >
-              {get(item, title)}
-            </EditableTypography>
-          )}
-          {description && (
-            <Typography gutterBottom>
-              {description}
-            </Typography>
-          )}
-          {attributes.map((attribute, i) => (
-            <Attribute
-              isLast={i === attributes.length - 1}
-              editable={isIn(attribute)}
-              name={attribute}
-              key={attribute}
-            />
-          ))}
-        </Grid>
-      </Grid>
-      <Box className={launchers}>
+    <TableRow>
+      <TableCell>
+        <Box p={1}>
+          <Grid container spacing={1}>
+            <Hidden mdDown>
+              <Grid item style={{ marginTop: 6 }}>
+                <Checkbox
+                  checked={selected}
+                  onClick={multiselect.onCheck(item.id)}
+                />
+              </Grid>
+            </Hidden>
+            <Grid item>
+              {typeof title === 'function' ? (
+                <Typography {...titleProps}>
+                  {title(item)}
+                </Typography>
+              ) : (
+                <EditableTypography
+                  {...titleProps}
+                  editable={isIn(title)}
+                  save={save}
+                  name={title}
+                  data={item}
+                >
+                  {get(item, title)}
+                </EditableTypography>
+              )}
+              {description && (
+                <Typography>{description}</Typography>
+              )}
+            </Grid>
+          </Grid>
+        </Box>
+      </TableCell>
+
+      {showAttributes
+        ? attributes.map((attribute, i) => (
+            <TableCell>
+              <Attribute
+                isLast={i === attributes.length - 1}
+                editable={isIn(attribute)}
+                name={attribute}
+                key={attribute}
+              />
+            </TableCell>
+          ))
+        : null}
+
+      <TableCell>
         <EditorDrawer
           title={`${name}Editor`}
           {...editorProps}
@@ -233,8 +247,8 @@ const Item = ({
           )}
         </EditorDrawer>
         <DeleteModal next={execFn(onRemove, data)} />
-      </Box>
-    </Box>
+      </TableCell>
+    </TableRow>
   );
 };
 

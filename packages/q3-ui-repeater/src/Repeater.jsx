@@ -4,12 +4,7 @@ import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
 import Dialog from 'q3-ui-dialog';
 import { useChecked, useValue } from 'useful-state';
-import {
-  ActionBar,
-  AddButton,
-  List,
-  Search,
-} from './components';
+import { ActionBar, AddButton, List } from './components';
 import Context from './components/state';
 
 const Repeater = ({
@@ -69,7 +64,6 @@ const Repeater = ({
         search,
       }}
     >
-      <Search />
       <ActionBar />
       <List
         createRenderer={<CreateTile />}

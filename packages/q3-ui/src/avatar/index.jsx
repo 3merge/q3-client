@@ -14,7 +14,7 @@ const ColoredAvatar = ({
   imgSrc,
   icon: Icon,
 }) => {
-  const [src, setSrc] = React.useState(imgSrc);
+  const [src, setSrc] = React.useState(String(imgSrc));
   const letter = word.toUpperCase().charAt(0);
   const [text, setText] = React.useState(
     Icon ? <Icon /> : letter,
@@ -106,6 +106,13 @@ const ColoredAvatar = ({
     }
   }, []);
 
+  const getChildren = () => {
+    const Ic = imgSrc;
+
+    if (Ic) return <Ic />;
+    return shouldDisplay(src) ? src : text;
+  };
+
   return (
     <Badge badgeContent={superscript} style={{ color }}>
       <Avatar
@@ -118,7 +125,7 @@ const ColoredAvatar = ({
           color,
         }}
       >
-        {shouldDisplay(src) ? src : text}
+        {getChildren()}
       </Avatar>
     </Badge>
   );

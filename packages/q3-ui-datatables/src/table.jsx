@@ -22,7 +22,7 @@ const TableHeader = ({
   columns,
   aliasForName,
 }) => {
-  const { mobile, boxes } = useStyles();
+  const { mobile, boxes, tableHead } = useStyles();
 
   return (
     <TableHead>
@@ -33,6 +33,7 @@ const TableHeader = ({
             key={header}
             title={header}
             storageKey={i === 0 ? aliasForName : header}
+            clsasName={tableHead}
           />
         ))}
       </TableRow>
@@ -62,11 +63,12 @@ export const TableView = ({
 }) => {
   const { t } = useTranslation();
   const activeColumns = extractKeys(children);
+  const { root } = useStyles();
 
   return (
     <Wrapper>
       <ActionBar actions={actions}>
-        <Table stickyHeader>
+        <Table stickyHeader className={root}>
           <caption>
             {t('labels:showingResults', { total })}
           </caption>

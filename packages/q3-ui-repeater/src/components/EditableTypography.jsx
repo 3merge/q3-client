@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import { useToggle } from 'useful-state';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import IconButton from '@material-ui/core/IconButton';
+import Check from '@material-ui/icons/Check';
+import Close from '@material-ui/icons/Close';
 import RepeaterState from './state';
 import useStyle from './useStyle';
 
@@ -14,7 +17,7 @@ import useStyle from './useStyle';
 //= ===============================================================================
 
 const AutoSaveField = connect(({ formik, ...rest }) => (
-  <Field autoFocus onBlur={formik.submitForm} {...rest} />
+  <Field autoFocus {...rest} />
 ));
 
 const EditableTypographyTextField = ({
@@ -33,6 +36,12 @@ const EditableTypographyTextField = ({
     onSubmit={onSave}
   >
     <AutoSaveField {...fieldProps} />
+    <IconButton type="submit" size="small">
+      <Check />
+    </IconButton>
+    <IconButton onClick={onClose}>
+      <Close />
+    </IconButton>
   </Form>
 );
 

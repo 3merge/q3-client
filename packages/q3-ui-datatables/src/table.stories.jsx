@@ -50,7 +50,7 @@ export const Full = () => (
     <TableRow
       id={1}
       columns={fixture(
-        { photo: <AccountBox /> },
+        { photo: AccountBox },
         'Hardly Started',
         'warning',
         20,

@@ -4,39 +4,20 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: ({ selected = false }) => ({
     backgroundColor: '#FFF',
-    border: '1px solid #c4c4c4',
     boxShadow: selected
       ? theme.shadows[15]
       : theme.shadows[0],
-    borderRadius: 3,
     marginBottom: theme.spacing(0.5),
-    paddingBottom: theme.spacing(2),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(9),
-    paddingTop: theme.spacing(2),
     height: '100%',
     position: 'relative',
     transitionProperty: 'box-shadow,border',
     transitionDuration: '500ms',
-
-    [theme.breakpoints.down('sm')]: {
-      paddingRight: theme.spacing(1),
-      paddingBottom: theme.spacing(2),
-      paddingLeft: theme.spacing(0),
-      paddingTop: theme.spacing(2),
-    },
-
-    '&:hover': {
-      backgroundColor: '#FFF',
-      borderColor: theme.palette.primary.main,
-      boxShadow: theme.shadows[4],
-    },
   }),
 
   titleCls: {
     color: theme.palette.primary.light,
     fontWeight: '600',
-    fontSize: '1.21rem',
+    fontSize: '1.049rem',
     margin: '0 !important',
   },
 

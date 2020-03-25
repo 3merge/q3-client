@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from 'q3-ui-dialog';
 import Pageview from '@material-ui/icons/Pageview';
-import useStyle from './useStyle';
 
 //= ===============================================================================
 // Partials
@@ -13,13 +11,12 @@ import useStyle from './useStyle';
 
 const EditDrawerOpenTrigger = ({ onClick }) => {
   const { t } = useTranslation('labels');
-  const { editLauncher } = useStyle();
 
   return (
     <IconButton
       aria-label={t('edit')}
       onClick={onClick}
-      className={editLauncher}
+      size="small"
     >
       <Pageview />
     </IconButton>

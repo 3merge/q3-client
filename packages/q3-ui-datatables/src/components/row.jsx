@@ -62,11 +62,11 @@ const Row = ({
   activeColumns,
   rowToolbar,
 }) => {
-  const { mobileCheckbox } = useStyles();
+  const { mobileCheckbox, row } = useStyles();
   const { t } = useTranslation('labels');
 
   return (
-    <TableRow>
+    <TableRow className={row}>
       <TableCell className={mobileCheckbox}>
         <SelectOne id={id} />
         {hasLength(rowToolbar) ? (
@@ -87,8 +87,10 @@ const Row = ({
       <TableCellHeader
         name={t(name)}
         sub={t(description)}
-        imgSrc={t(photo)}
         to={disableLink ? null : `${id}`}
+        imgSrc={
+          typeof photo === 'string' ? t(photo) : photo
+        }
       />
       {renderTableCells(etc, activeColumns, t)}
     </TableRow>

@@ -35,7 +35,7 @@ export const Default = () => (
       }}
     >
       <Add>
-        <div />
+        <div>Content!</div>
       </Add>
     </AuthContext.Provider>
   </State.Provider>

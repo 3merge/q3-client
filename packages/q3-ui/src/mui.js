@@ -149,19 +149,6 @@ Object.assign(theme, {
         },
       },
     },
-    MuiTableRow: {
-      root: {
-        '&:hover': {
-          backgroundColor: grey[100],
-          transition: 'background-color 250ms',
-        },
-        [theme.breakpoints.down('md')]: {
-          borderBottom: `2px solid ${grey[100]}`,
-          display: 'block',
-          padding: theme.spacing(1),
-        },
-      },
-    },
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',
@@ -170,26 +157,12 @@ Object.assign(theme, {
         fontSize: '0.75rem !important',
         fontWeight: 600,
         textTransform: 'uppercase',
-        [theme.breakpoints.down('md')]: {
-          display: 'block',
-          width: '100% !important',
-        },
       },
       root: {
         overflow: 'hidden',
         padding: '4px 8px',
         borderBottom: `2px solid ${grey[100]}`,
         fontSize: '1rem !important',
-        [theme.breakpoints.down('md')]: {
-          border: 0,
-          display: 'block',
-          '&::before': {
-            content: 'attr(data-title)',
-            textTransform: 'uppercase',
-            marginRight: '1rem',
-            fontSize: '0.833rem',
-          },
-        },
       },
       sizeSmall: {
         padding: '6px 0px 6px 24px',

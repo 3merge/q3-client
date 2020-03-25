@@ -1,34 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
-
-import Grid from '@material-ui/core/Grid';
 import EditableTypography from './EditableTypography';
-import useStyle from './useStyle';
 
 export const Attribute = ({ name, data, ...etc }) => {
-  const { label } = useStyle();
-  const { t } = useTranslation('labels');
+  let content = get(data, name);
+  const type = get(etc, 'editable.type');
+
+  if (type === 'checkbox') content = content ? 'Yes' : 'No';
+
+  if (type === 'date')
+    content = moment(content).format('LLL');
 
   return (
-    <Grid container alignItems="center">
-      <Grid item style={{ width: 'auto' }}>
-        <Typography className={label}>
-          {t(name)}:
-        </Typography>
-      </Grid>
-      <Grid item style={{ flex: 1 }}>
-        <EditableTypography
-          name={name}
-          data={data}
-          {...etc}
-        >
-          {get(data, name)}
-        </EditableTypography>
-      </Grid>
-    </Grid>
+    <EditableTypography name={name} data={data} {...etc}>
+      {content}
+    </EditableTypography>
   );
 };
 
