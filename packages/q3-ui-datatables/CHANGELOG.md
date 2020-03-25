@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.9](https://github.com/3merge/q/compare/v1.12.8...v1.12.9) (2020-03-25)
+
+
+### Bug Fixes
+
+* repeater/table theme config ([8f4e79d](https://github.com/3merge/q/commit/8f4e79dcf8bb1640e30f810576aae73e4d8ffb66))
+
+
+
+
+
 ## [1.12.4](https://github.com/3merge/q/compare/v1.12.3...v1.12.4) (2020-03-23)
 
 **Note:** Version bump only for package q3-ui-datatables
