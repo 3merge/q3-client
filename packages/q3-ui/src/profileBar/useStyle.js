@@ -38,10 +38,12 @@ export default makeStyles((theme) => ({
     zIndex: 100,
     flexDirection: 'column',
     justifyContent: 'space-between',
+    paddingBottom: theme.spacing(1),
 
     [theme.breakpoints.down('sm')]: {
       alignItems: 'center',
       flexDirection: 'row',
+      padding: 0,
       position: 'relative',
       height: 'auto',
       width: '100%',

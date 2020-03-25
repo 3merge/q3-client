@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import ProfileBar from 'q3-ui/lib/profileBar';
 import useStyles from './useStyle';
 import useMenu from './useMenu';
+import useHeight from '../sidebar/useHeight';
 
 const Main = ({
   render,
@@ -13,6 +14,7 @@ const Main = ({
 }) => {
   const cls = useStyles();
   const items = useMenu(pages);
+  const height = useHeight(false);
 
   return (
     <Box component="article">
@@ -29,7 +31,11 @@ const Main = ({
           className={cls.muted}
           component="main"
         >
-          <Box height="100vh" overflow="hidden">
+          <Box
+            height={height}
+            width="100%"
+            overflow="hidden"
+          >
             {render()}
           </Box>
         </Grid>

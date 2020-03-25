@@ -8,6 +8,13 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   }),
+  sectionWidth: {
+    overflowY: 'auto',
+    width: 'calc(100% - 435px)',
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+  },
   root: {
     borderTop: '2px solid whitesmoke',
     height: '100%',

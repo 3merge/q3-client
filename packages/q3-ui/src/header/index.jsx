@@ -34,6 +34,7 @@ const Header = ({
 
   return (
     <AppBar
+      id="app-header"
       position={position}
       className={appBar}
       {...scrollProps}
