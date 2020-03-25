@@ -16,6 +16,7 @@ const Repeater = ({
   children,
   initialValues,
   collectionName,
+  renderCustomAddForm,
   ...rest
 }) => {
   const search = useValue('');
@@ -29,30 +30,33 @@ const Repeater = ({
   const canSeeSub = execAuthFn('canSeeSub', true);
   const onRemove = execAuthFn('canDeleteSub', remove);
   const onUpdate = execAuthFn('canEditSub', edit);
+  const hasCustomRenderer =
+    typeof renderCustomAddForm === 'function';
 
-  const CreateTile = () => (
-    <Dialog
-      {...rest}
-      variant="drawer"
-      title={`${name}Create`}
-      renderContent={(close) =>
-        React.cloneElement(children, {
-          onSubmit: (...params) =>
-            create(...params).then(() => {
-              close();
-            }),
-          isNew: true,
-          collectionName,
-          initialValues,
-        })
-      }
-      renderTrigger={(open) => (
-        <AddButton
-          onClick={execAuthFn('canCreateSub', open)}
-        />
-      )}
-    />
-  );
+  const CreateTile = () =>
+    !hasCustomRenderer ? (
+      <Dialog
+        {...rest}
+        variant="drawer"
+        title={`${name}Create`}
+        renderContent={(close) =>
+          React.cloneElement(children, {
+            onSubmit: (...params) =>
+              create(...params).then(() => {
+                close();
+              }),
+            isNew: true,
+            collectionName,
+            initialValues,
+          })
+        }
+        renderTrigger={(open) => (
+          <AddButton
+            onClick={execAuthFn('canCreateSub', open)}
+          />
+        )}
+      />
+    ) : null;
 
   return canSeeSub ? (
     <Context.Provider
@@ -64,6 +68,16 @@ const Repeater = ({
         search,
       }}
     >
+      {hasCustomRenderer &&
+        execAuthFn(
+          'canCreateSub',
+          renderCustomAddForm({
+            onSubmit: create,
+            initialValues,
+            collectionName,
+            ...rest,
+          }),
+        )}
       <ActionBar />
       <List
         createRenderer={<CreateTile />}
@@ -95,11 +109,13 @@ Repeater.propTypes = {
   create: PropTypes.func,
   children: PropTypes.node.isRequired,
   initialValues: PropTypes.shape({}).isRequired,
+  renderCustomAddForm: PropTypes.func,
 };
 
 Repeater.defaultProps = {
   data: [],
   collectionName: null,
+  renderCustomAddForm: null,
   remove: null,
   edit: null,
   create: null,

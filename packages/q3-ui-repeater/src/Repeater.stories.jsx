@@ -157,6 +157,21 @@ export const Empty = () => (
   </Box>
 );
 
+export const CustomAddRenderer = () => (
+  <Box style={{ backgroundColor: '#FFF' }}>
+    <Container>
+      <Repeater
+        renderCustomAddForm={() => (
+          <p>Hey! This is a custom renderer</p>
+        )}
+        data={[]}
+      >
+        Will not show
+      </Repeater>
+    </Container>
+  </Box>
+);
+
 export const SimpleFormWithLimitedPermissions = withForm(
   (props) => (
     <Repeater
