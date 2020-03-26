@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import { Link as NavLink } from '@reach/router';
 import List from '@material-ui/core/List';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '../tooltip';
 import useStyles from './useStyle';
 
 export const isActive = (to, activeClassName) => ({
@@ -17,17 +16,6 @@ export const isActive = (to, activeClassName) => ({
       ? activeClassName
       : null,
 });
-
-const HtmlTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(15),
-    padding: theme.spacing(1),
-  },
-  arrow: {
-    color: theme.palette.secondary.main,
-  },
-}))(Tooltip);
 
 const MenuItem = ({
   to,
@@ -47,7 +35,7 @@ const MenuItem = ({
         getProps={isActive(to, activeLink)}
       >
         <Box align="center" className={baseLink}>
-          <HtmlTooltip
+          <Tooltip
             title={label}
             arrow
             placement="right-center"
@@ -58,7 +46,7 @@ const MenuItem = ({
             >
               <Icon />
             </Avatar>
-          </HtmlTooltip>
+          </Tooltip>
         </Box>
       </NavLink>
     </Box>

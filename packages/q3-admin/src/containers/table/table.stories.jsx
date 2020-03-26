@@ -70,7 +70,6 @@ const renderRows = () => {
 
   return arr;
 };
-
 export const WithFilter = () => (
   <Wrapper
     permissions={[
@@ -96,6 +95,38 @@ export const WithFilter = () => (
             }}
           />
         )}
+        renderForm={() => (
+          <p>
+            Filters! Embed any filter form here to redact
+            items from the Context.
+          </p>
+        )}
+      >
+        {(rows = []) =>
+          rows.map((row) => (
+            <TableRow id={row.id} columns={row} />
+          ))
+        }
+      </Table>
+    </State.Provider>
+  </Wrapper>
+);
+
+export const WithFilterTriggerOnly = () => (
+  <Wrapper
+    permissions={[
+      { op: 'Delete', coll: stub.collectionName },
+    ]}
+  >
+    <State.Provider
+      value={{
+        ...stub,
+        // eslint-disable-next-line
+        removeBulk: ()=> alert('Bulk delete!'),
+        examples: renderRows(),
+      }}
+    >
+      <Table
         renderForm={() => (
           <p>
             Filters! Embed any filter form here to redact
