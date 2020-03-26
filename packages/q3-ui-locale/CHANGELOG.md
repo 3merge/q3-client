@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.10](https://github.com/3merge/q/compare/v1.12.9...v1.12.10) (2020-03-26)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
 ## [1.12.7](https://github.com/3merge/q/compare/v1.12.6...v1.12.7) (2020-03-24)
 
 **Note:** Version bump only for package q3-ui-locale

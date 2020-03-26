@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "1.12.9",
+  "version": "1.12.10",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.11.2"
