@@ -72,8 +72,14 @@ const Detail = ({
         fetching={state.fetching}
         renderSidebar={() => (
           <Sidebar
+            state={state}
             createdBy={getAuthor(data)}
             lastUpdated={get(data, 'updatedAt')}
+            documentationTab={
+              filepath && (
+                <Documentation filepath={filepath} />
+              )
+            }
             commentTab={
               notes && (
                 <Notes
@@ -91,9 +97,6 @@ const Detail = ({
               )
             }
           >
-            {filepath && (
-              <Documentation filepath={filepath} />
-            )}
             {picture && (
               <PictureUpload
                 url={`/${collectionName}/${id}`}

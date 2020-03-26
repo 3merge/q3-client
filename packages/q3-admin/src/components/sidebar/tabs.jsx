@@ -7,10 +7,14 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import useStyles from './useStyle';
 
+const isStep = (step, activeStep, content) =>
+  step === activeStep && content ? content : null;
+
 const SidebarTabs = ({
   children,
   commentTab,
   historyTab,
+  documentationTab,
 }) => {
   const { t } = useTranslation('labels');
   const [step, setStep] = React.useState(0);
@@ -18,13 +22,13 @@ const SidebarTabs = ({
 
   return (
     <Paper className={root} component="aside" elevation={0}>
-      <Box p={1} px={3}>
+      <Box p={1}>
         <Tabs
           value={step}
           onChange={(e, num) => setStep(num)}
           indicatorColor="primary"
           textColor="primary"
-          variant="scrollable"
+          variant="fullWidth"
         >
           <Tab label={t('meta')} className={item} />
           <Tab
@@ -33,15 +37,21 @@ const SidebarTabs = ({
             className={item}
           />
           <Tab
+            label={t('documentation')}
+            disabled={!documentationTab}
+            className={item}
+          />
+          <Tab
             label={t('history')}
             disabled={!historyTab}
             className={item}
           />
         </Tabs>
-        <Box my={2}>
-          {step === 0 && children}
-          {step === 1 && commentTab ? commentTab : null}
-          {step === 2 && historyTab ? historyTab : null}
+        <Box my={1}>
+          {isStep(0, step, children)}
+          {isStep(1, step, commentTab)}
+          {isStep(2, step, documentationTab)}
+          {isStep(3, step, historyTab)}
         </Box>
       </Box>
     </Paper>
@@ -57,11 +67,13 @@ SidebarTabs.propTypes = {
   children: isChild.isRequired,
   commentTab: isChild,
   historyTab: isChild,
+  documentationTab: isChild,
 };
 
 SidebarTabs.defaultProps = {
   historyTab: null,
   commentTab: null,
+  documentationTab: null,
 };
 
 export default SidebarTabs;

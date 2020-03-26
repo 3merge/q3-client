@@ -21,7 +21,11 @@ const ProfileBar = ({
 
   return (
     <Box className={shell}>
-      <Box component="aside" className={colourful}>
+      <Box
+        id="profile-bar"
+        component="aside"
+        className={colourful}
+      >
         <Offcanvas
           left
           color="primary"
@@ -53,7 +57,7 @@ const ProfileBar = ({
             </>
           )}
         </Offcanvas>
-        <Box py={2} px={1} align="center">
+        <Box py={1} px={1} align="center">
           <AccountMenu
             items={popoutMenuItems}
             isLoggedIn

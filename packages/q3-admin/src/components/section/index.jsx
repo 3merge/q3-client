@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import useHeight from '../sidebar/useHeight';
+import useStyle from '../sidebar/useStyle';
 
 export const getSectionSize = (fn) =>
   typeof fn === 'function'
@@ -20,17 +21,23 @@ export const getSectionSize = (fn) =>
 
 const Section = ({ fetching, children, renderSidebar }) => {
   const height = useHeight();
+  const { sectionWidth } = useStyle();
 
   return (
     <Box id="detail-article" component="article">
       <Grid container>
-        <Grid style={{ flex: 1 }} component="section" item>
+        <Grid
+          style={{ flex: 1 }}
+          className={sectionWidth}
+          component="section"
+          item
+        >
           <Box
-            pt={2}
+            py={3}
             height={height}
             style={{ height, overflowY: 'auto' }}
           >
-            <Container>
+            <Container maxWidth="xl">
               {fetching ? <CircularProgress /> : children}
             </Container>
           </Box>

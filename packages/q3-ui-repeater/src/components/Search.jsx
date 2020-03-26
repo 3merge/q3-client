@@ -14,7 +14,7 @@ const SearchBar = () => {
       fullWidth
       name="search"
       onChange={onChange}
-      placeholder="Search"
+      placeholder="Search the results ..."
       aria-label="Search results"
       type="search"
       value={value}

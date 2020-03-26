@@ -44,7 +44,7 @@ export const DropDownMenu = ({ id, children, items }) => {
   const { open, openMenu, closeMenu } = useOpen();
 
   return (
-    <DarkMode>
+    <>
       {children(openMenu, open)}
       <Menu
         id={id}
@@ -71,7 +71,7 @@ export const DropDownMenu = ({ id, children, items }) => {
           </MenuItem>
         ))}
       </Menu>
-    </DarkMode>
+    </>
   );
 };
 

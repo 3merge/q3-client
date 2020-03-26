@@ -6,28 +6,26 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Popover from '@material-ui/core/Popover';
 import Filter from '@material-ui/icons/FilterList';
+import Tooltip from 'q3-ui/lib/tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import { useToggle } from 'useful-state';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 'auto',
-    marginRight: '-5rem',
-    marginTop: 2,
     transition: 'margin 500ms',
-    '&:hover': {
-      marginRight: '1rem',
-    },
+
     [theme.breakpoints.down('sm')]: {
       margin: '1rem 0',
       width: '100%',
     },
   },
   trigger: {
+    borderRadius: 3,
     position: 'sticky',
-    top: '11rem',
+    top: '1rem',
     background: '#FFF',
     color: theme.palette.primary.dark,
+
     '&:hover': {
       color: '#FFF !important',
     },
@@ -46,17 +44,21 @@ const Sidebar = ({ children, renderAside }) => {
   return renderAside ? (
     <Grid container component="article">
       <Grid item component="aside" className={root}>
-        <Fab
-          variant="extended"
-          onClick={toggle}
-          ref={anchorEl}
-          size="large"
-          color="secondary"
-          className={trigger}
+        <Tooltip
+          arrow
+          title="Filter results"
+          placement="bottom-start"
         >
-          <Filter />
-          <Box ml={2}>Filter</Box>
-        </Fab>
+          <Fab
+            onClick={toggle}
+            ref={anchorEl}
+            size="large"
+            color="secondary"
+            className={trigger}
+          >
+            <Filter />
+          </Fab>
+        </Tooltip>
         <Popover
           elevation={20}
           id="mouse-over-popover"

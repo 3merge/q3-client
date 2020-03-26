@@ -2,26 +2,45 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { get } from 'lodash';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import BlockIcon from '@material-ui/icons/Block';
+import { green, red } from '@material-ui/core/colors';
 import EditableTypography from './EditableTypography';
 
-export const Attribute = ({ name, data, ...etc }) => {
-  let content = get(data, name);
-  const type = get(etc, 'editable.type');
-
-  if (type === 'checkbox') content = content ? 'Yes' : 'No';
-
-  if (type === 'date')
-    content = moment(content).format('LLL');
-
-  return (
-    <EditableTypography name={name} data={data} {...etc}>
-      {content}
-    </EditableTypography>
+export const getBoolIcon = (truthy) =>
+  truthy ? (
+    <CheckCircleOutlineIcon style={{ color: green[900] }} />
+  ) : (
+    <BlockIcon style={{ color: red[900] }} />
   );
+
+export const getContent = (content, contentType) => {
+  if (contentType === 'checkbox')
+    return getBoolIcon(content);
+
+  if (!content) return '--';
+
+  if (contentType === 'date')
+    return moment(content).format('LLL');
+
+  return content;
 };
 
+export const Attribute = ({ name, data, ...etc }) => (
+  <EditableTypography name={name} data={data} {...etc}>
+    {getContent(get(data, name), get(etc, 'editable.type'))}
+  </EditableTypography>
+);
+
 Attribute.propTypes = {
+  /**
+   * Used to fetch data from state.
+   */
   name: PropTypes.string.isRequired,
+
+  /**
+   * The repeater state.
+   */
   data: PropTypes.shape({}).isRequired,
 };
 

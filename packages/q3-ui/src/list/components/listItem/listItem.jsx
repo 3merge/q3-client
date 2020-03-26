@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
-import Avatar from '../../../avatar';
 
 export const ListItem = ({
   id,
   children,
   title,
   description,
-  icon,
+  icon: Icon,
   renderListItemProps,
+  color,
 }) => {
   const primary = formatArrayAsCommaDelineatedString(title);
   const secondary = formatArrayAsCommaDelineatedString(
@@ -26,12 +27,15 @@ export const ListItem = ({
       component="li"
       dense
     >
-      {icon && (
+      {Icon && (
         <ListItemAvatarMui>
-          <Avatar word={primary} icon={icon} />
+          <Avatar style={{ backgroundColor: color }}>
+            <Icon />
+          </Avatar>
         </ListItemAvatarMui>
       )}
       <ListItemTextMui
+        style={{ color }}
         primary={primary}
         secondary={secondary}
         {...(renderListItemProps
