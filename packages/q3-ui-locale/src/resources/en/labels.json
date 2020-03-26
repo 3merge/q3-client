@@ -160,5 +160,9 @@
   "addToList": "Add to the list",
   "verificationCode": "Verification code",
   "previousPassword": "Previous password",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "internalComments": "Notes",
+  "meta": "ID",
+  "documentation": "Docs",
+  "history": "History"
 }

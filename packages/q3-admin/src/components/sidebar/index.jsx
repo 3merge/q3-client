@@ -2,47 +2,84 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import Grid from '@material-ui/core/Grid';
 import AccountBox from '@material-ui/icons/AccountBox';
 import DateRange from '@material-ui/icons/DateRange';
-import useStyle from './useStyle';
-import Option from './option';
+import { teal, deepOrange } from '@material-ui/core/colors';
+import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import SidebarTabs from './tabs';
-import useHeight from './useHeight';
+import Column from './column';
+import Panel from './panel';
 import 'react-json-pretty/themes/acai.css';
+
+const invoke = (fn, ...params) =>
+  typeof fn === 'function' ? fn(...params) : [];
+
+const getValue = (rawValue, formattedValue) => {
+  if (!rawValue) return 'N/A';
+  return formattedValue || rawValue;
+};
 
 const Sidebar = ({
   children,
   createdBy,
   lastUpdated,
+  registerOptions,
+  registerPanels,
+  state,
   ...rest
 }) => {
   const { t } = useTranslation();
-  const height = useHeight();
-  const { columnWidth } = useStyle({ height });
 
   return (
-    <Grid item className={columnWidth}>
+    <Column>
       <SidebarTabs {...rest}>
-        <Option
-          title={t('labels:creator')}
-          description={createdBy || 'N/A'}
-          icon={AccountBox}
-        />
-        <Option
-          icon={DateRange}
-          title={t('labels:lastUpdated')}
-          description={
-            lastUpdated
-              ? moment(lastUpdated).format(
-                  'MMMM Do YYYY, h:mm:ss a',
-                )
-              : 'N/A'
-          }
-        />
+        <Panel title="ownership">
+          <List>
+            {invoke(
+              registerOptions,
+              { ...rest, ...state },
+              t,
+            )
+              .concat([
+                {
+                  color: teal[500],
+                  icon: AccountBox,
+                  title: t('labels:creator'),
+                  description: getValue(createdBy),
+                },
+                {
+                  color: deepOrange[500],
+                  icon: DateRange,
+                  title: t('labels:lastUpdated'),
+                  description: getValue(
+                    lastUpdated,
+                    moment(lastUpdated).format(
+                      'MMMM Do YYYY, h:mm:ss a',
+                    ),
+                  ),
+                },
+              ])
+              .map((option, i) => (
+                <ListItem key={i} {...option}>
+                  <ActionBar actions={option.actions}>
+                    {option.action}
+                  </ActionBar>
+                </ListItem>
+              ))}
+          </List>
+        </Panel>
+        {invoke(
+          registerPanels,
+          { ...rest, ...state },
+          t,
+        ).map((panel, i) => (
+          <Panel {...panel} key={i}>
+            {panel.content}
+          </Panel>
+        ))}
         {children}
       </SidebarTabs>
-    </Grid>
+    </Column>
   );
 };
 
@@ -64,11 +101,28 @@ Sidebar.propTypes = {
    * Date object representating last update date.
    */
   lastUpdated: PropTypes.string,
+
+  /**
+   * Programatically add options to the list.
+   */
+  registerOptions: PropTypes.func,
+
+  /**
+   * Programatically add panels to the list.
+   */
+  registerPanels: PropTypes.func,
+
+  /**
+   * Data to pass to each registration.
+   */
+  state: PropTypes.shape({}).isRequired,
 };
 
 Sidebar.defaultProps = {
   createdBy: null,
   lastUpdated: null,
+  registerOptions: null,
+  registerPanels: null,
 };
 
 export default Sidebar;

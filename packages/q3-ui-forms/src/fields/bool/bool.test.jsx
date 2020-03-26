@@ -2,6 +2,7 @@ import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import Radio from '@material-ui/core/Radio';
 import Switch from '@material-ui/core/Switch';
+import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Bool, {
   ExpandedBoolLabel,
@@ -41,17 +42,17 @@ describe('Bool', () => {
     const getLabel = (props, expectedLen) => {
       const el = global
         .shallow(<ExpandedBoolLabel {...props} />)
-        .find('strong');
+        .find(Typography);
 
       return expect(el).toHaveLength(expectedLen);
     };
 
     it('should render label strongly', () => {
-      getLabel({ label: 'Foo', helperText: 'bar' }, 1);
+      getLabel({ label: 'Foo', helperText: 'bar' }, 2);
     });
 
     it('should render label plainly', () => {
-      getLabel({ label: 'Foo' }, 0);
+      getLabel({ label: 'Foo' }, 1);
     });
   });
 

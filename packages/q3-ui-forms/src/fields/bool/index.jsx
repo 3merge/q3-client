@@ -13,12 +13,17 @@ import { grey, red } from '@material-ui/core/colors';
 const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
     color: error ? red[900] : grey[900],
-    fontStyle: error ? 'italic' : 'normal',
+    display: 'block',
+    fontSize: '1.21rem',
     lineHeight: 1.2,
-    '& strong': {
-      display: 'block',
-    },
+    margin: '0 !important',
   }),
+
+  subtext: {
+    color: grey[700],
+    fontWeight: 200,
+    fontSize: '0.911rem',
+  },
 }));
 
 export const getBoolVariant = (name) => {
@@ -35,17 +40,21 @@ export const ExpandedBoolLabel = ({
   helperText,
   label,
 }) => {
-  const { control } = useStyles({ error });
+  const { control, subtext } = useStyles({ error });
 
   return helperText ? (
-    <Typography
-      variant="subtitle1"
-      className={control}
-      gutterBottom
-    >
-      <strong>{label}</strong>
-      <small>{helperText}</small>
-    </Typography>
+    <>
+      <Typography
+        component="strong"
+        className={control}
+        style={{ fontWeight: 800 }}
+      >
+        {label}
+      </Typography>
+      <Typography component="small" className={subtext}>
+        {helperText}
+      </Typography>
+    </>
   ) : (
     <Typography
       variant="body1"
@@ -98,6 +107,7 @@ const Bool = ({
   return (
     <Box my={my}>
       <FormControlLabel
+        style={{ userSelect: 'none' }}
         control={
           <ControlVariant checked={isChecked} {...rest} />
         }

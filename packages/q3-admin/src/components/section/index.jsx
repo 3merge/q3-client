@@ -33,11 +33,11 @@ const Section = ({ fetching, children, renderSidebar }) => {
           item
         >
           <Box
-            pt={2}
+            py={3}
             height={height}
             style={{ height, overflowY: 'auto' }}
           >
-            <Container>
+            <Container maxWidth="xl">
               {fetching ? <CircularProgress /> : children}
             </Container>
           </Box>

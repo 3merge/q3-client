@@ -119,6 +119,7 @@ Object.assign(theme, {
         paddingRight: 0,
       },
     },
+
     MuiListItemIcon: {
       root: {
         minWidth: 32,
@@ -251,8 +252,11 @@ Object.assign(theme, {
           maxWidth: '100% !important',
         },
       },
+      primary: {
+        fontSize: '1.125em',
+      },
       secondary: {
-        fontSize: '1rem',
+        fontSize: '1em',
       },
     },
     MuiListItemSecondaryAction: {
