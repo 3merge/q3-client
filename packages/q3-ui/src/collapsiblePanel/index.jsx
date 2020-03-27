@@ -6,7 +6,6 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 
-import CollapsiblePanelAlert from './alert';
 import CollapsiblePanelTitle from './title';
 import CollapsiblePanelSubtitle from './subtitle';
 import PanelIcon from './panelIcon';
@@ -21,7 +20,7 @@ const CollapsiblePanel = ({
   alerts,
   ...rest
 }) => {
-  const { border, backdrop, padding } = useStyles(rest);
+  const { border, padding, iconFont } = useStyles(rest);
 
   return show ? (
     <ExpansionPanel
@@ -29,9 +28,12 @@ const CollapsiblePanel = ({
       className={border}
       defaultExpanded={open}
       TransitionProps={{ unmountOnExit: true }}
+      disabled={!children}
     >
       <ExpansionPanelSummary
-        expandIcon={<PanelIcon {...rest} />}
+        expandIcon={
+          <PanelIcon hasChildren={children} {...rest} />
+        }
       >
         <Grid
           container
@@ -39,21 +41,14 @@ const CollapsiblePanel = ({
           alignItems="center"
           className={padding}
         >
-          <CollapsiblePanelTitle title={title} />
+          <CollapsiblePanelTitle
+            title={title}
+            className={iconFont}
+          />
           <CollapsiblePanelSubtitle
             description={description}
             {...rest}
           />
-          {alerts.length ? (
-            <Box mt={1} width="100%">
-              {alerts.map((alert) => (
-                <CollapsiblePanelAlert
-                  key={alert.title}
-                  {...alert}
-                />
-              ))}
-            </Box>
-          ) : null}
         </Grid>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
@@ -64,13 +59,6 @@ const CollapsiblePanel = ({
 };
 
 CollapsiblePanel.propTypes = {
-  /**
-   *
-   */
-  alerts: PropTypes.arrayOf(
-    PropTypes.shape(CollapsiblePanelAlert.propTypes),
-  ),
-
   /**
    * Title text.
    */
@@ -98,7 +86,6 @@ CollapsiblePanel.propTypes = {
 };
 
 CollapsiblePanel.defaultProps = {
-  alerts: [],
   description: null,
   show: true,
   open: false,

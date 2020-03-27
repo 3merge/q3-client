@@ -36,6 +36,7 @@ export default makeStyles((theme) => ({
   },
   item: {
     minWidth: 'auto',
+    padding: 0,
   },
   drawer: {
     [theme.breakpoints.up('md')]: {

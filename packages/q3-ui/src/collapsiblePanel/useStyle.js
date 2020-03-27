@@ -9,8 +9,8 @@ export const getColorByIndex = (bool) => (index) =>
   bool ? green[index] : orange[index];
 
 export const makeBorderColorProperty = (color) => ({
-  borderTop: `2px solid ${color[100]}`,
-  background: color[50],
+  borderLeft: `2px solid ${color[900]}`,
+  borderRadius: 2,
 });
 
 export const makeColorProperty = (color) => ({
@@ -29,10 +29,21 @@ export default makeStyles((theme) => ({
   },
 
   border: ({ error, success, warning }) => {
-    if (error) return makeBorderColorProperty(red);
-    if (success) return makeBorderColorProperty(green);
-    if (warning) return makeBorderColorProperty(orange);
+    let borderProps = {
+      borderLeft: '2px solid transparent',
+    };
+
+    if (error) borderProps = makeBorderColorProperty(red);
+
+    if (success)
+      borderProps = makeBorderColorProperty(green);
+
+    if (warning)
+      borderProps = makeBorderColorProperty(orange);
+
     return {
+      ...borderProps,
+      boxSizing: 'border-box',
       '&.Mui-expanded': {
         backgroundColor: 'whitesmoke',
         transition: 'background-color 500ms',
@@ -40,7 +51,8 @@ export default makeStyles((theme) => ({
     };
   },
 
-  iconFont: ({ error, warning }) => {
+  iconFont: ({ error, warning, success }) => {
+    if (success) return makeColorProperty(green);
     if (error) return makeColorProperty(red);
     if (warning) return makeColorProperty(orange);
     return {};

@@ -1,7 +1,7 @@
 import React from 'react';
 import NativeIconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Add from '@material-ui/icons/Add';
+import Tooltip from '../tooltip';
 import IconButton from '.';
 
 describe('IconButton', () => {

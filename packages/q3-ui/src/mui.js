@@ -269,6 +269,21 @@ Object.assign(theme, {
         },
       },
     },
+    MuiExpansionPanel: {
+      root: {
+        '&.Mui-disabled': {
+          backgroundColor: '#FFF',
+          cursor: 'not-allowed',
+        },
+      },
+    },
+    MuiExpansionPanelSummary: {
+      root: {
+        '&.Mui-disabled': {
+          opacity: 1,
+        },
+      },
+    },
     MuiCard: {
       root: {
         transitionDuration: '500ms',

@@ -26,6 +26,7 @@ const Detail = ({
   notes,
   trash,
   picture,
+  ...rest
 }) => {
   const {
     resourceName,
@@ -72,6 +73,7 @@ const Detail = ({
         fetching={state.fetching}
         renderSidebar={() => (
           <Sidebar
+            {...rest}
             state={state}
             createdBy={getAuthor(data)}
             lastUpdated={get(data, 'updatedAt')}
@@ -143,12 +145,18 @@ Detail.propTypes = {
    * Will auto-append history tab.
    */
   history: PropTypes.bool,
+
+  /**
+   * Will auto-append featured image.
+   */
+  picture: PropTypes.bool,
 };
 
 Detail.defaultProps = {
   notes: false,
   trash: false,
   history: false,
+  picture: false,
 };
 
 export default Detail;

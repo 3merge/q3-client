@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '../tooltip';
 
 const AccessibleIconButton = ({
   icon: Icon,
@@ -12,7 +12,7 @@ const AccessibleIconButton = ({
   const { t } = useTranslation('labels');
 
   return (
-    <Tooltip title={t(label)}>
+    <Tooltip title={t(label)} arrow>
       <IconButton {...buttonProps} color="inherit">
         <Icon />
       </IconButton>

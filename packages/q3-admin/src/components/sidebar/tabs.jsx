@@ -47,7 +47,7 @@ const SidebarTabs = ({
             className={item}
           />
         </Tabs>
-        <Box my={1}>
+        <Box p={1}>
           {isStep(0, step, children)}
           {isStep(1, step, commentTab)}
           {isStep(2, step, documentationTab)}

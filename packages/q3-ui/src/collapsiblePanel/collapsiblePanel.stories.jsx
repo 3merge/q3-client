@@ -43,5 +43,11 @@ export const Stacked = () => (
     >
       Hey
     </CollapsiblePanel>
+    <CollapsiblePanel
+      title="Tres!"
+      success
+      description="This is just a panel that doesn't have anything to render. Without children, it's disabled automatically."
+      transparent
+    />
   </>
 );

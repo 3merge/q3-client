@@ -29,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color: '#FFF !important',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   fill: {
     flex: 1,

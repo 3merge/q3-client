@@ -4,7 +4,7 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
 import DateRange from '@material-ui/icons/DateRange';
-import { teal, deepOrange } from '@material-ui/core/colors';
+import { teal, blue } from '@material-ui/core/colors';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import SidebarTabs from './tabs';
 import Column from './column';
@@ -33,7 +33,16 @@ const Sidebar = ({
   return (
     <Column>
       <SidebarTabs {...rest}>
-        <Panel title="ownership">
+        {invoke(
+          registerPanels,
+          { ...rest, ...state },
+          t,
+        ).map((panel, i) => (
+          <Panel {...panel} key={i}>
+            {panel.content}
+          </Panel>
+        ))}
+        <Panel title="general">
           <List>
             {invoke(
               registerOptions,
@@ -42,13 +51,13 @@ const Sidebar = ({
             )
               .concat([
                 {
-                  color: teal[500],
+                  color: teal[700],
                   icon: AccountBox,
                   title: t('labels:creator'),
                   description: getValue(createdBy),
                 },
                 {
-                  color: deepOrange[500],
+                  color: blue[900],
                   icon: DateRange,
                   title: t('labels:lastUpdated'),
                   description: getValue(
@@ -68,15 +77,7 @@ const Sidebar = ({
               ))}
           </List>
         </Panel>
-        {invoke(
-          registerPanels,
-          { ...rest, ...state },
-          t,
-        ).map((panel, i) => (
-          <Panel {...panel} key={i}>
-            {panel.content}
-          </Panel>
-        ))}
+
         {children}
       </SidebarTabs>
     </Column>

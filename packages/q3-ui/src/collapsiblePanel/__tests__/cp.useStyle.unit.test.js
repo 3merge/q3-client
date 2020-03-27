@@ -23,7 +23,7 @@ describe('"getColorByIndex"', () => {
 describe('"makeBorderColorProperty"', () => {
   it('should return color string', () => {
     expect(makeBorderColorProperty(green)).toHaveProperty(
-      'borderTop',
+      'borderLeft',
     );
   });
 });
