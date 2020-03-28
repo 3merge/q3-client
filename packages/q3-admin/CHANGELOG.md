@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.13](https://github.com/3merge/q/compare/v1.12.12...v1.12.13) (2020-03-28)
+
+
+### Bug Fixes
+
+* admin generator props missing ([a6968ca](https://github.com/3merge/q/commit/a6968ca21d4e3dc25e027a9ba7eb227943f8527c))
+
+
+
+
+
 ## [1.12.12](https://github.com/3merge/q/compare/v1.12.11...v1.12.12) (2020-03-28)
 
 **Note:** Version bump only for package q3-admin
