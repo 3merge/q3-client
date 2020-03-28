@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-datatables",
-  "version": "1.12.9",
+  "version": "1.12.12",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.11.2"
@@ -11,7 +11,7 @@
     "@material-ui/lab": "^4.0.0-alpha.31",
     "@reach/router": "^1.2.1",
     "lodash": "^4.17.15",
-    "q3-ui-exports": "^1.0.0",
+    "q3-ui-exports": "^1.12.12",
     "react-i18next": "11.3.1",
     "useful-state": "^1.2.0",
     "with-location": "^1.1.0"
