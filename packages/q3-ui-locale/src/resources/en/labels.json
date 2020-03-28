@@ -164,5 +164,6 @@
   "internalComments": "Notes",
   "meta": "ID",
   "documentation": "Docs",
-  "history": "History"
+  "history": "History",
+  "unselect": "Unselect {{count}} items"
 }

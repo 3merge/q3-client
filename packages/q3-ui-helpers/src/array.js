@@ -24,3 +24,26 @@ export const castString = (v) => {
  */
 export const hasLength = (v) =>
   Array.isArray(v) && v.length;
+
+export const filterValue = (a = [], v) =>
+  a.filter((i) => i !== v);
+
+export const hasValue = (a = [], v) =>
+  hasIndex(a.findIndex((i) => i === v));
+
+/**
+ * If adding an existing value, if will instead remove it from the array.
+ */
+export const addToSet = (a = [], v) => {
+  if (!Array.isArray(a)) return [v].flat();
+  if (Array.isArray(v)) return v;
+  if (hasValue(a, v)) return filterValue(a, v);
+  return a.concat(v);
+};
+
+/**
+ * Well filter from an array or return empty.
+ */
+export const pullFromSet = (a = [], v) => {
+  return Array.isArray(a) ? filterValue(a, v) : [];
+};

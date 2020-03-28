@@ -60,14 +60,16 @@ describe('SubDetail', () => {
         decorators={{ get: jest.fn() }}
       />,
     );
-    expect(useRest).toHaveBeenCalledWith({
-      url: '/collection/1/foo',
-      key: 'foo',
-      pluralized: 'foo',
-      runOnInit: true,
-      decorators: {
-        get: expect.any(Function),
-      },
-    });
+    expect(useRest).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: '/collection/1/foo',
+        key: 'foo',
+        pluralized: 'foo',
+        runOnInit: true,
+        decorators: {
+          get: expect.any(Function),
+        },
+      }),
+    );
   });
 });

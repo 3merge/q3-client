@@ -17,7 +17,6 @@ const CollapsiblePanel = ({
   children,
   show,
   open,
-  alerts,
   ...rest
 }) => {
   const { border, padding, iconFont } = useStyles(rest);

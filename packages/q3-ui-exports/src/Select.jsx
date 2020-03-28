@@ -3,11 +3,11 @@ import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
-import TableContext from '../utils/context';
+import { State } from './Context';
 
 export const SelectAll = ({ ids }) => {
   const { t } = useTranslation();
-  const ctx = React.useContext(TableContext);
+  const ctx = React.useContext(State);
 
   if (!ctx) return null;
   const { checked, onCheckAll, hasChecked } = ctx;
@@ -38,7 +38,7 @@ SelectAll.propTypes = {
 
 export const SelectOne = ({ id }) => {
   const { t } = useTranslation();
-  const ctx = React.useContext(TableContext);
+  const ctx = React.useContext(State);
   if (!ctx) return null;
 
   const { isChecked, onCheck } = ctx;

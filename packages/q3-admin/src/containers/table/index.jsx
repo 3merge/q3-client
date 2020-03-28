@@ -9,15 +9,9 @@ import Context from '../state';
 import EmptyView from '../../components/empty';
 import ErrorView from '../../components/error';
 import { getActions } from './utils';
-import Sidebar from './sidebar';
 import useHeight from '../../components/sidebar/useHeight';
 
-const List = ({
-  children,
-  renderForm,
-  renderTop,
-  ...rest
-}) => {
+const List = ({ renderForm, renderTop, ...rest }) => {
   const {
     resourceName,
     resourceNameSingular,
@@ -47,9 +41,9 @@ const List = ({
         {...rest}
         id={url}
         actions={actions}
-      >
-        {children(rows)}
-      </Table>
+        renderFilter={renderForm}
+        data={rows}
+      />
     );
   };
 
@@ -58,15 +52,7 @@ const List = ({
       <Box style={{ height, overflowY: 'scroll' }}>
         <Box my={3} px={2}>
           {renderTop && renderTop()}
-          <Sidebar
-            renderAside={
-              !state.fetching && rows && rows.length
-                ? renderForm
-                : null
-            }
-          >
-            {renderTable()}
-          </Sidebar>
+          {renderTable()}
         </Box>
       </Box>
     </Redirect>
@@ -74,11 +60,6 @@ const List = ({
 };
 
 List.propTypes = {
-  /**
-   * Invokes a function with data from the REST services.
-   */
-  children: PropTypes.func.isRequired,
-
   /**
    * Will create a sidebar view if provided/
    */

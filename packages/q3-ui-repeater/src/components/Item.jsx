@@ -9,12 +9,14 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import { SelectOne } from 'q3-ui-exports';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import useStyle from './useStyle';
 import EditableTypography from './EditableTypography';
 import withAttribute from './Attribute';
 import RepeaterState from './state';
+import { override } from '../helpers';
 
 //= ===============================================================================
 // Helpers
@@ -134,6 +136,10 @@ const Item = ({
   children,
   cardProps,
   showAttributes,
+  renderMobileColumns,
+  disableEditor,
+  disableMultiselect,
+  disableRemove,
   item,
 }) => {
   const {
@@ -158,7 +164,7 @@ const Item = ({
   const title = get(cardProps, 'title');
   const selected = multiselect.isChecked(data.id);
 
-  const { root, titleCls } = useStyle({
+  const { titleCls } = useStyle({
     selected,
     color,
   });
@@ -181,19 +187,36 @@ const Item = ({
     color: 'primary',
   };
 
+  const showEditor = !get(
+    cardProps,
+    'disableEditor',
+    disableEditor,
+  );
+
+  const showMultiselect = !get(
+    cardProps,
+    'disableMultiselect',
+    disableMultiselect,
+  );
+
+  const showRemove = !get(
+    cardProps,
+    'disableRemove',
+    disableRemove,
+  );
+
   return (
     <TableRow>
       <TableCell>
         <Box p={1}>
-          <Grid container spacing={1}>
-            <Hidden mdDown>
-              <Grid item style={{ marginTop: 6 }}>
-                <Checkbox
-                  checked={selected}
-                  onClick={multiselect.onCheck(item.id)}
-                />
-              </Grid>
-            </Hidden>
+          <Grid alignItems="center" container spacing={1}>
+            {showMultiselect && (
+              <Hidden mdDown>
+                <Grid item>
+                  <SelectOne id={item.id} />
+                </Grid>
+              </Hidden>
+            )}
             <Grid item>
               {typeof title === 'function' ? (
                 <Typography {...titleProps}>
@@ -213,6 +236,10 @@ const Item = ({
               {description && (
                 <Typography>{description}</Typography>
               )}
+              <Hidden mdUp>
+                {renderMobileColumns &&
+                  renderMobileColumns(item)}
+              </Hidden>
             </Grid>
           </Grid>
         </Box>
@@ -231,22 +258,26 @@ const Item = ({
           ))
         : null}
 
-      <TableCell>
-        <EditorDrawer
-          title={`${name}Editor`}
-          {...editorProps}
-        >
-          {() => (
-            <EditorViewer
-              collectionName={collectionName}
-              onSubmit={execFn(onUpdate, data)}
-              initialValues={data}
-            >
-              {children}
-            </EditorViewer>
-          )}
-        </EditorDrawer>
-        <DeleteModal next={execFn(onRemove, data)} />
+      <TableCell style={{ textAlign: 'right' }}>
+        {showEditor && (
+          <EditorDrawer
+            title={`${name}Editor`}
+            {...editorProps}
+          >
+            {() => (
+              <EditorViewer
+                collectionName={collectionName}
+                onSubmit={execFn(onUpdate, data)}
+                initialValues={data}
+              >
+                {children}
+              </EditorViewer>
+            )}
+          </EditorDrawer>
+        )}
+        {showRemove && (
+          <DeleteModal next={execFn(onRemove, data)} />
+        )}
       </TableCell>
     </TableRow>
   );
@@ -266,11 +297,15 @@ Item.propTypes = {
     id: PropTypes.string,
     color: PropTypes.string,
   }).isRequired,
+  renderMobileColumns: PropTypes.func,
+  ...override.propTypes,
 };
 
 Item.defaultProps = {
   onRemove: null,
   onUpdate: null,
+  renderMobileColumns: null,
+  ...override.defaultProps,
 };
 
 export default Item;

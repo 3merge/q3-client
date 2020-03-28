@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
+
+import Grid from '@material-ui/core/Grid';
 import useStyles from '../utils/useStyles';
 
 const TablePaper = ({ children }) => {
   const { overflow } = useStyles();
   return (
-    <Paper elevation={0} className={overflow}>
+    <Grid container className={overflow}>
       {children}
-    </Paper>
+    </Grid>
   );
 };
 

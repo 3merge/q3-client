@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from 'q3-ui/lib/iconButton';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
@@ -18,24 +17,6 @@ function equalsDeletePhrase(v) {
 //= ===============================================================================
 // Partials
 //= ===============================================================================
-
-const DeleteModalOpenTrigger = ({ onClick }) => {
-  const { t } = useTranslation('labels');
-
-  return (
-    <IconButton
-      aria-label={t('delete')}
-      onClick={onClick}
-      size="small"
-    >
-      <DeleteIcon />
-    </IconButton>
-  );
-};
-
-DeleteModalOpenTrigger.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
 
 const ModalContentForm = ({ onSubmit }) => (
   <Form initialValues={{ confirm: '' }} onSubmit={onSubmit}>
@@ -74,8 +55,16 @@ const DeleteModal = ({ next }) => {
     <Dialog
       title="delete"
       description="delete"
-      renderTrigger={(open) => (
-        <DeleteModalOpenTrigger onClick={open} />
+      renderTrigger={(onClick) => (
+        <IconButton
+          icon={DeleteIcon}
+          label="delete"
+          buttonProps={{
+            onClick,
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       )}
       renderContent={(close) => (
         <ModalContentForm onSubmit={handleSubmit(close)} />

@@ -8,19 +8,9 @@ describe('PanelIcon', () => {
     ).toMatch('Expand');
   });
 
-  it('should return warning icon', () => {
-    expect(
-      global
-        .shallow(<PanelIcon hasChildren warning />)
-        .name(),
-    ).toMatch('Warning');
-  });
-
-  it('should return error icon', () => {
-    expect(
-      global
-        .shallow(<PanelIcon hasChildren error />)
-        .name(),
-    ).toMatch('Error');
+  it('should return Box without children', () => {
+    expect(global.shallow(<PanelIcon />).name()).toMatch(
+      'Box',
+    );
   });
 });

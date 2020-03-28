@@ -76,6 +76,12 @@ const seedPermissions = {
 // Setup
 //= ===============================================================================
 
+const Wrapper = ({ children }) => (
+  <Box p={2} style={{ backgroundColor: '#FFF' }}>
+    <Container>{children}</Container>
+  </Box>
+);
+
 const withForm = (Component) => () => {
   const [initialValues, setInitialValues] = React.useState(
     seedData,
@@ -120,28 +126,26 @@ const withForm = (Component) => () => {
     });
 
   return (
-    <Box p={2} style={{ backgroundColor: '#FFF' }}>
-      <Container>
-        <AuthContext.Provider value={seedPermissions}>
-          <Component
-            name="people"
-            collectionName={collectionName}
-            data={initialValues}
-            create={onCreate}
-            edit={onUpdate}
-            remove={onRemove}
-            initialValues={{
-              firstName: '',
-              lastName: '',
-              age: '',
-              position: '',
-              company: '',
-              trained: false,
-            }}
-          />
-        </AuthContext.Provider>
-      </Container>
-    </Box>
+    <AuthContext.Provider value={seedPermissions}>
+      <Wrapper>
+        <Component
+          name="people"
+          collectionName={collectionName}
+          data={initialValues}
+          create={onCreate}
+          edit={onUpdate}
+          remove={onRemove}
+          initialValues={{
+            firstName: '',
+            lastName: '',
+            age: '',
+            position: '',
+            company: '',
+            trained: false,
+          }}
+        />
+      </Wrapper>
+    </AuthContext.Provider>
   );
 };
 
@@ -150,27 +154,99 @@ const withForm = (Component) => () => {
 //= ===============================================================================
 
 export const Empty = () => (
-  <Box style={{ backgroundColor: '#FFF' }}>
-    <Container>
-      <Repeater data={[]}>Will not show</Repeater>
-    </Container>
-  </Box>
+  <Wrapper>
+    <Repeater data={[]}>Will not show</Repeater>
+  </Wrapper>
 );
 
 export const CustomAddRenderer = () => (
-  <Box style={{ backgroundColor: '#FFF' }}>
-    <Container>
+  <Wrapper>
+    <Repeater
+      data={[]}
+      renderCustomAddForm={() => (
+        <p>Hey! This is a custom renderer</p>
+      )}
+    >
+      Will not show
+    </Repeater>
+  </Wrapper>
+);
+
+export const CustomNestedTableRenderer = withForm(
+  (props) => (
+    <Wrapper>
       <Repeater
-        renderCustomAddForm={() => (
+        {...props}
+        disableMultiselect
+        disableRemove
+        disableEditor
+        renderNestedTableRow={() => (
           <p>Hey! This is a custom renderer</p>
         )}
-        data={[]}
       >
         Will not show
       </Repeater>
-    </Container>
-  </Box>
+    </Wrapper>
+  ),
 );
+
+export const CustomMobileColumnRenderer = withForm(
+  (props) => (
+    <Wrapper>
+      <Repeater
+        {...props}
+        renderMobileColumns={() => (
+          <p>Hey! This is a custom renderer</p>
+        )}
+        cardProps={{
+          title: 'firstName',
+          attributes: [
+            'lastName',
+            'position',
+            'company',
+            'age',
+            'trained',
+          ],
+        }}
+      >
+        Will not show
+      </Repeater>
+    </Wrapper>
+  ),
+);
+
+export const WithDisabledMultiselect = withForm((props) => (
+  <Wrapper>
+    <Repeater
+      {...props}
+      disableMultiselect
+      renderNestedTableRow={() => (
+        <p>Hey! This is a custom renderer</p>
+      )}
+    >
+      Will not show
+    </Repeater>
+  </Wrapper>
+));
+
+export const WithoutEditor = withForm((props) => (
+  <Repeater
+    {...props}
+    disableEditor
+    cardProps={{
+      title: 'firstName',
+      attributes: [
+        'lastName',
+        'position',
+        'company',
+        'age',
+        'trained',
+      ],
+    }}
+  >
+    <div />
+  </Repeater>
+));
 
 export const SimpleFormWithLimitedPermissions = withForm(
   (props) => (

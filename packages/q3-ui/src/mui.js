@@ -273,7 +273,6 @@ Object.assign(theme, {
       root: {
         '&.Mui-disabled': {
           backgroundColor: '#FFF',
-          cursor: 'not-allowed',
         },
       },
     },

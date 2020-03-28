@@ -27,6 +27,7 @@ const SubDetail = ({
     pluralized: root,
     runOnInit: true,
     url: `/${collectionName}/${id}/${root}`,
+    poll: `/${collectionName}/${id}`,
     decorators,
   });
 
