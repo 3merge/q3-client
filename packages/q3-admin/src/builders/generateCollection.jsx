@@ -16,15 +16,16 @@ export const getCollectionInformation = ({
 export default ({
   icon,
   PageDetail,
+  PageDetailProps,
   PageList,
-  projection,
+  PageListProps,
   ...etc
 }) => [
   {
     id: true,
     ...getCollectionInformation(etc),
     component: (props) => (
-      <Page id {...props}>
+      <Page id {...props} {...PageDetailProps}>
         <PageDetail />
       </Page>
     ),
@@ -34,7 +35,7 @@ export default ({
     index: true,
     ...getCollectionInformation(etc),
     component: (props) => (
-      <Page index select={projection} {...props}>
+      <Page index {...props} {...PageListProps}>
         <PageList />
       </Page>
     ),

@@ -3,13 +3,13 @@ import { Header, Detail } from 'q3-admin/lib/components';
 
 export default ({
   title,
-  presets,
   views,
-  headerProps,
+  HeaderProps,
+  DetailProps,
 }) => () => (
   <>
-    <Header {...headerProps} titleProp={title} />
-    <Detail {...presets}>
+    <Header {...HeaderProps} titleProp={title} />
+    <Detail {...DetailProps}>
       {Object.entries(views).map(([key, Component]) => (
         <Component key={key} name={key} />
       ))}
