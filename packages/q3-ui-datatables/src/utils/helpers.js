@@ -9,9 +9,7 @@ export const getPage = (query) =>
 
 export const extractIds = (c) => {
   try {
-    return React.Children.toArray(c).map(
-      ({ props }) => props.id,
-    );
+    return c.map(({ id }, i) => id || i);
   } catch (e) {
     return [];
   }

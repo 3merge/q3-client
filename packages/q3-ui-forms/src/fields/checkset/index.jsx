@@ -1,8 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { useField } from 'formik';
-import Button from '@material-ui/core/Button';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import useDecorator from '../../helpers/useDecorator';
 import Bool from '../bool';

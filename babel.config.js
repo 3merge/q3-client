@@ -8,6 +8,7 @@ const alias = [
   'q3-ui',
   'q3-ui-datatables',
   'q3-ui-dialog',
+  'q3-ui-exports',
   'q3-ui-filters',
   'q3-ui-forms',
   'q3-ui-helpers',

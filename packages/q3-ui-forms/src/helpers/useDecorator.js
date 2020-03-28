@@ -2,14 +2,10 @@ import PropTypes from 'prop-types';
 import { pick } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { getIn, useFormikContext } from 'formik';
+import { array } from 'q3-ui-helpers';
 
 const parseEventValue = (e) =>
   typeof e === 'object' && e.target ? e.target.value : e;
-
-const filterValue = (a, v) => a.filter((i) => i !== v);
-
-const hasValue = (a, v) =>
-  a.findIndex((i) => i === v) !== -1;
 
 export class FormikDecorator {
   constructor(name, formikBag, isDisabled) {
@@ -55,29 +51,14 @@ export class FormikDecorator {
   }
 
   onArrayPush(e) {
-    const newValue = parseEventValue(e);
-
-    if (!Array.isArray(this.value)) {
-      return this.next([newValue].flat());
-    }
-
-    if (Array.isArray(newValue)) {
-      return this.next(newValue);
-    }
-
     return this.next(
-      !hasValue(this.value, newValue)
-        ? this.value.concat(newValue)
-        : filterValue(this.value, newValue),
+      array.addToSet(this.value, parseEventValue(e)),
     );
   }
 
   onArrayPull(e) {
-    const newValue = parseEventValue(e);
     return this.next(
-      Array.isArray(this.value)
-        ? filterValue(this.value, newValue)
-        : [],
+      array.pullFromSet(this.value, parseEventValue(e)),
     );
   }
 

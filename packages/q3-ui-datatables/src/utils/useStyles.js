@@ -85,7 +85,11 @@ export default makeStyles((theme) => ({
   },
   overflow: {
     maxWidth: '100%',
-    overflow: 'auto',
+    position: 'relative',
+  },
+  expand: {
+    flex: 1,
+    width: '100%',
   },
   action: {
     bottom: 0,
@@ -116,5 +120,30 @@ export default makeStyles((theme) => ({
     width: 1092,
     position: 'fixed',
     zIndex: 1000000,
+
+    '&>span': {
+      flex: 1,
+      maxWidth: 168,
+      minWidth: 80,
+
+      display: 'inline-flex',
+      position: 'relative',
+      alignItems: 'center',
+
+      verticalAlign: 'middle',
+      justifyContent: 'center',
+    },
+  },
+  trigger: {
+    borderRadius: 3,
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
+  sticky: {
+    width: 'auto',
+    position: 'sticky',
+    top: 0,
   },
 }));

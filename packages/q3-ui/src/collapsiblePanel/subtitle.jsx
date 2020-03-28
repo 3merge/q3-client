@@ -12,11 +12,7 @@ export default withCriticalProp(
 
     return (
       <Grid item lg={9} md={12} sm={12} xs={12}>
-        <Typography
-          component="em"
-          className={iconFont}
-          style={{ margin: 0.5 }}
-        >
+        <Typography component="em" className={iconFont}>
           {t(description)}
         </Typography>
       </Grid>

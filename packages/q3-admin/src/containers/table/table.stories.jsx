@@ -101,13 +101,7 @@ export const WithFilter = () => (
             items from the Context.
           </p>
         )}
-      >
-        {(rows = []) =>
-          rows.map((row) => (
-            <TableRow id={row.id} columns={row} />
-          ))
-        }
-      </Table>
+      />
     </State.Provider>
   </Wrapper>
 );
@@ -133,13 +127,7 @@ export const WithFilterTriggerOnly = () => (
             items from the Context.
           </p>
         )}
-      >
-        {(rows = []) =>
-          rows.map((row) => (
-            <TableRow id={row.id} columns={row} />
-          ))
-        }
-      </Table>
+      />
     </State.Provider>
   </Wrapper>
 );
@@ -169,11 +157,7 @@ export const Error = () => (
         ...stub,
       }}
     >
-      <Table renderTop={() => 'Show!'}>
-        {() => (
-          <TableRow id="1" columns={{ name: 'foo' }} />
-        )}
-      </Table>
+      <Table renderTop={() => 'Show!'} />
     </State.Provider>
   </Wrapper>
 );
@@ -194,11 +178,7 @@ export const Loading = () => {
           ...stub,
         }}
       >
-        <Table renderForm={() => 'Hi'}>
-          {() => (
-            <TableRow id="1" columns={{ name: 'foo' }} />
-          )}
-        </Table>
+        <Table renderForm={() => 'Hi'} />
       </State.Provider>
     </Wrapper>
   );

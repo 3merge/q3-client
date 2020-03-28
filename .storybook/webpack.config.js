@@ -1,4 +1,6 @@
 module.exports = async ({ config, mode }) => {
+  config.node = { fs: 'empty' };
+  
   config.module.rules = config.module.rules.map((rule) => {
     if (
       String(rule.test) ===

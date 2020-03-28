@@ -19,7 +19,7 @@ export default withCriticalProp(({ title, ...rest }) => {
     >
       <Typography
         component="h3"
-        style={{ margin: 0, fontSize: '1em' }}
+        style={{ margin: 0, fontSize: '1rem' }}
         {...rest}
       >
         {t(title)}

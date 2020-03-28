@@ -2,19 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Table from '@material-ui/core/Table';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
+import Exports, {
+  Actionbar,
+  SelectAll,
+} from 'q3-ui-exports';
 import useStyles from './utils/useStyles';
-import { extractIds, extractKeys } from './utils/helpers';
+import { extractIds } from './utils/helpers';
 import {
-  ActionBar,
+  ColumnConfigurator,
   ColumnHeader,
+  FilterConfig,
   Wrapper,
   Pagination,
-  SelectAll,
+  StickyIconNavigator,
+  Row,
 } from './components';
 
 const TableHeader = ({
@@ -23,17 +31,23 @@ const TableHeader = ({
   aliasForName,
 }) => {
   const { mobile, boxes, tableHead } = useStyles();
+  const headerCell = aliasForName || 'name';
 
   return (
     <TableHead>
       <TableRow className={mobile}>
         <TableCell className={boxes}>{children}</TableCell>
+        <ColumnHeader
+          title={headerCell}
+          storageKey={headerCell}
+          className={tableHead}
+        />
         {columns.map((header, i) => (
           <ColumnHeader
             key={header}
             title={header}
             storageKey={i === 0 ? aliasForName : header}
-            clsasName={tableHead}
+            className={tableHead}
           />
         ))}
       </TableRow>
@@ -56,44 +70,77 @@ TableHeader.defaultProps = {
 
 export const TableView = ({
   id,
-  children,
+  allColumns,
+  defaultColumns,
   aliasForName,
   total,
   actions,
+  resolvers,
+  data = [],
+  renderFilter,
 }) => {
   const { t } = useTranslation();
-  const activeColumns = extractKeys(children);
-  const { root } = useStyles();
+  const { root, expand } = useStyles();
 
   return (
-    <Wrapper>
-      <ActionBar actions={actions}>
-        <Table stickyHeader className={root}>
-          <caption>
-            {t('labels:showingResults', { total })}
-          </caption>
-          <TableHeader
-            aliasForName={aliasForName}
-            columns={activeColumns}
-          >
-            <SelectAll ids={extractIds(children)} />
-          </TableHeader>
-
-          <TableBody>
-            {children.map((c) =>
-              React.cloneElement(c, {
-                activeColumns,
-              }),
-            )}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <Pagination id={id} total={total} />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </ActionBar>
-    </Wrapper>
+    <Exports>
+      <Actionbar
+        actions={actions}
+        columns={allColumns}
+        data={data}
+      />
+      <ColumnConfigurator
+        id={id}
+        allColumns={allColumns}
+        activeColumns={defaultColumns}
+      >
+        {(
+          ColumnConfiguratorIconButton,
+          activeColumns = [],
+        ) => (
+          <Wrapper>
+            <StickyIconNavigator>
+              <ColumnConfiguratorIconButton />
+              <FilterConfig renderFilter={renderFilter} />
+            </StickyIconNavigator>
+            <Grid item className={expand}>
+              <Paper elevation={0}>
+                <Table stickyHeader className={root}>
+                  <caption>
+                    {t('labels:showingResults', {
+                      total,
+                    })}
+                  </caption>
+                  <TableHeader
+                    aliasForName={aliasForName}
+                    columns={activeColumns}
+                  >
+                    <SelectAll ids={extractIds(data)} />
+                  </TableHeader>
+                  <TableBody>
+                    {data.map((c, i) =>
+                      React.createElement(Row, {
+                        id: c.id || i,
+                        activeColumns,
+                        columns:
+                          typeof resolvers === 'function'
+                            ? resolvers(c)
+                            : c,
+                      }),
+                    )}
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <Pagination id={id} total={total} />
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </Paper>
+            </Grid>
+          </Wrapper>
+        )}
+      </ColumnConfigurator>
+    </Exports>
   );
 };
 
@@ -119,10 +166,9 @@ TableView.propTypes = {
    * Typically, you'd nest an array of Row components within the Table.
    * This component reads the "id" prop of each to configure mobile headers.
    */
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
+  data: PropTypes.arrayOf({
+    id: PropTypes.string,
+  }).isRequired,
 
   /**
    * On row selection, the user can click from a toolbar of pre-determined actions.
@@ -135,12 +181,30 @@ TableView.propTypes = {
       onClick: PropTypes.func,
     }),
   ),
+
+  /**
+   * Func for resolving TableCells with custom components/text.
+   */
+  resolvers: PropTypes.func.isRequired,
+
+  /**
+   * If provided, the table will allow custom column making.
+   */
+  allColumns: PropTypes.arrayOf(PropTypes.string),
+
+  /**
+   * If provided, the table will pre-configure these columns.
+   * Otherwise, it will just look for the name and description fields.
+   */
+  defaultColumns: PropTypes.arrayOf(PropTypes.string),
 };
 
 TableView.defaultProps = {
   aliasForName: 'name',
   total: 0,
   actions: [],
+  allColumns: [],
+  defaultColumns: [],
 };
 
 export default TableView;

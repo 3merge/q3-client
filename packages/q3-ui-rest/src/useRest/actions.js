@@ -16,6 +16,7 @@ import {
 
 const useRest = ({
   url,
+  poll,
   redirectOnSearch,
   key,
   pluralized,
@@ -49,6 +50,16 @@ const useRest = ({
     return promise
       .then(({ data }) => {
         invoke(decorators, 'get', data);
+
+        if (poll)
+          return Axios.get(poll).then(
+            ({ data: response }) => {
+              invoke(decorators, 'get', response);
+              call(FETCHED, response);
+              return Promise.resolve(response);
+            },
+          );
+
         call(verb, data);
         onComplete(null, actions);
         return Promise.resolve(data);

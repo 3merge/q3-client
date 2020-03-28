@@ -5,16 +5,25 @@ import {
 } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
+export const getColor = ({ error, success, warning }) => {
+  if (error) return red;
+  if (success) return green;
+  if (warning) return orange;
+  return undefined;
+};
+
 export const getColorByIndex = (bool) => (index) =>
   bool ? green[index] : orange[index];
 
 export const makeBorderColorProperty = (color) => ({
-  borderLeft: `2px solid ${color[900]}`,
-  borderRadius: 2,
+  borderLeft: color
+    ? `2px solid ${color[900]}`
+    : '2px solid',
+  borderRadius: 'none !important',
 });
 
 export const makeColorProperty = (color) => ({
-  color: color[900],
+  color: color ? color[900] : 'inherit',
 });
 
 export default makeStyles((theme) => ({
@@ -28,35 +37,20 @@ export default makeStyles((theme) => ({
     };
   },
 
-  border: ({ error, success, warning }) => {
-    let borderProps = {
-      borderLeft: '2px solid transparent',
-    };
+  border: (props) => ({
+    ...makeBorderColorProperty(getColor(props)),
+    boxSizing: 'border-box',
+    '&.Mui-expanded': {
+      backgroundColor: 'whitesmoke',
+      transition: 'background-color 500ms',
+    },
+  }),
 
-    if (error) borderProps = makeBorderColorProperty(red);
-
-    if (success)
-      borderProps = makeBorderColorProperty(green);
-
-    if (warning)
-      borderProps = makeBorderColorProperty(orange);
-
-    return {
-      ...borderProps,
-      boxSizing: 'border-box',
-      '&.Mui-expanded': {
-        backgroundColor: 'whitesmoke',
-        transition: 'background-color 500ms',
-      },
-    };
-  },
-
-  iconFont: ({ error, warning, success }) => {
-    if (success) return makeColorProperty(green);
-    if (error) return makeColorProperty(red);
-    if (warning) return makeColorProperty(orange);
-    return {};
-  },
+  iconFont: (props) => ({
+    ...makeColorProperty(getColor(props)),
+    margin: 0.5,
+    fontSize: '0.91rem',
+  }),
 
   icon: ({ important }) => {
     const fn = getColorByIndex(important);
