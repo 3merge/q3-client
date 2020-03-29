@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import Box from '@material-ui/core/Box';
-import Table from '@material-ui/core/Table';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,28 +9,11 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import RepeaterState from './state';
 import Search from './Search';
-import Item from './Item';
+import NestedItem from './NestedItem';
 
-const offsetTableCellLength = 2;
-
-const FullSpanTableRow = ({ attributes, children }) => (
-  <TableRow>
-    <TableCell
-      colSpan={attributes.length + offsetTableCellLength}
-    >
-      {children}
-    </TableCell>
-  </TableRow>
-);
-
-FullSpanTableRow.propTypes = {
-  attributes: PropTypes.arrayOf(PropTypes.string),
-  children: PropTypes.node.isRequired,
-};
-
-FullSpanTableRow.defaultProps = {
-  attributes: [],
-};
+export const searchObject = (item = {}) => (value = '') =>
+  !value.length ||
+  new RegExp(value, 'gi').test(JSON.stringify(item));
 
 const List = ({
   children,
@@ -58,7 +38,7 @@ const List = ({
     new RegExp(value, 'gi').test(JSON.stringify(item));
 
   return (
-    <Table>
+    <>
       <TableHead>
         <TableRow>
           <TableCell>
@@ -66,43 +46,31 @@ const List = ({
           </TableCell>
           {showAttributes
             ? attributes.map((name) => (
-                <TableCell item>{name}</TableCell>
+                <TableCell component="th" item>
+                  {name}
+                </TableCell>
               ))
             : null}
-
           <TableCell />
         </TableRow>
       </TableHead>
       <TableBody>
         {data.filter(testSearchTerm).map((item, i) => (
-          <React.Fragment key={i}>
-            <Item
-              showAttributes={showAttributes}
-              parent={data}
-              item={item}
-              index={i}
-              {...rest}
-            >
-              {children}
-            </Item>
-            {renderNestedTableRow && (
-              <FullSpanTableRow attributes={attributes}>
-                <Box pl={3}>
-                  {renderNestedTableRow(item)}
-                </Box>
-              </FullSpanTableRow>
-            )}
-          </React.Fragment>
+          <NestedItem
+            key={i}
+            renderNestedTableRow={renderNestedTableRow}
+            attributes={attributes}
+            showAttributes={showAttributes}
+            parent={data}
+            item={item}
+            index={i}
+            {...rest}
+          >
+            {children}
+          </NestedItem>
         ))}
       </TableBody>
-      {createRenderer && (
-        <TableFooter>
-          <FullSpanTableRow attributes={attributes}>
-            {createRenderer}
-          </FullSpanTableRow>
-        </TableFooter>
-      )}
-    </Table>
+    </>
   );
 };
 

@@ -20,6 +20,7 @@
     "@babel/node": "^7.5.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
     "@babel/preset-env": "^7.5.5",
+    "@storybook/addon-knobs": "^5.3.17",
     "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",

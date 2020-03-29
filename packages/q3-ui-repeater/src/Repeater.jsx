@@ -2,10 +2,10 @@ import React from 'react';
 import { invoke } from 'lodash';
 import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
-import Dialog from 'q3-ui-dialog';
 import { useChecked, useValue } from 'useful-state';
 import Exports, { Actionbar } from 'q3-ui-exports';
-import { AddButton, List } from './components';
+import Table from '@material-ui/core/Table';
+import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
 
@@ -23,24 +23,23 @@ const Repeater = ({
   renderCustomAddForm,
   renderNestedTableRow,
   renderMobileColumns,
+  addComponent: AddComponent,
   actions,
   ...rest
 }) => {
   const search = useValue('');
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
+
   const execAuthFn = (fn, returnValue) =>
     invoke(auth, fn, name) || !collectionName
       ? returnValue
       : null;
 
-  const canSeeSub = execAuthFn('canSeeSub', true);
   const onRemove = execAuthFn('canDeleteSub', remove);
   const onUpdate = execAuthFn('canEditSub', edit);
-  const hasCustomRenderer =
-    typeof renderCustomAddForm === 'function';
 
-  return canSeeSub ? (
+  return (
     <Context.Provider
       value={{
         auth,
@@ -48,63 +47,51 @@ const Repeater = ({
         collectionName,
         multiselect,
         search,
+        edit,
+        create,
+        remove,
       }}
     >
-      {hasCustomRenderer &&
-        execAuthFn(
-          'canCreateSub',
-          renderCustomAddForm({
-            onSubmit: create,
-            initialValues,
-            collectionName,
-            ...rest,
-          }),
-        )}
-      <Exports>
-        <Actionbar actions={actions} data={data} />
-        <List
-          createRenderer={
-            !hasCustomRenderer ? (
-              <Dialog
-                {...rest}
-                variant="drawer"
-                title={`${name}Create`}
-                renderContent={(close) =>
-                  React.cloneElement(children, {
-                    onSubmit: (...params) =>
-                      create(...params).then(() => {
-                        close();
-                      }),
-                    isNew: true,
-                    collectionName,
-                    initialValues,
-                  })
-                }
-                renderTrigger={(open) => (
-                  <AddButton
-                    onClick={execAuthFn(
-                      'canCreateSub',
-                      open,
-                    )}
-                  />
-                )}
+      <Auth op="Read">
+        <Exports>
+          <Auth op="Create">
+            {AddComponent && (
+              <AddComponent
+                create={create}
+                initialValues={initialValues}
               />
-            ) : null
-          }
-          data={data}
-          onRemove={onRemove}
-          onUpdate={onUpdate}
-          disableEditor={disableEditor}
-          disableRemove={disableRemove}
-          renderNestedTableRow={renderNestedTableRow}
-          renderMobileColumns={renderMobileColumns}
-          {...rest}
-        >
-          {children}
-        </List>
-      </Exports>
+            )}
+          </Auth>
+          <Actionbar actions={actions} data={data} />
+          <Table>
+            <List
+              {...rest}
+              data={data}
+              onRemove={onRemove}
+              onUpdate={onUpdate}
+              disableEditor={disableEditor}
+              disableRemove={disableRemove}
+              renderNestedTableRow={renderNestedTableRow}
+              renderMobileColumns={renderMobileColumns}
+            >
+              {children}
+            </List>
+            <Auth op="Create">
+              {!AddComponent && (
+                <AddButton
+                  create={create}
+                  initialValues={initialValues}
+                  {...rest}
+                >
+                  {children}
+                </AddButton>
+              )}
+            </Auth>
+          </Table>
+        </Exports>
+      </Auth>
     </Context.Provider>
-  ) : null;
+  );
 };
 
 Repeater.propTypes = {

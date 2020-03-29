@@ -1,4 +1,4 @@
 export const hasKeys = (o) =>
   o !== null &&
   typeof o === 'object' &&
-  Object.keys(o).length;
+  Object.keys(o).length > 0;

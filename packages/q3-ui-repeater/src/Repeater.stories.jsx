@@ -1,10 +1,18 @@
 import React from 'react';
 import {
+  withKnobs,
+  text,
+  boolean,
+  number,
+} from '@storybook/addon-knobs';
+import {
   Form,
   Field,
   Fieldset,
   Multistep,
 } from 'q3-ui-forms/lib/builders';
+import Avatar from '@material-ui/core/Avatar';
+import AccountBox from '@material-ui/icons/AccountBox';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { AuthContext } from 'q3-ui-permissions';
@@ -12,6 +20,7 @@ import Repeater from './Repeater';
 
 export default {
   title: 'Q3 Repeater|Examples',
+  decorators: [withKnobs],
   parameters: {
     component: Repeater,
     componentSubtitle:
@@ -155,7 +164,9 @@ const withForm = (Component) => () => {
 
 export const Empty = () => (
   <Wrapper>
-    <Repeater data={[]}>Will not show</Repeater>
+    <Repeater data={[]}>
+      <div />
+    </Repeater>
   </Wrapper>
 );
 
@@ -163,11 +174,11 @@ export const CustomAddRenderer = () => (
   <Wrapper>
     <Repeater
       data={[]}
-      renderCustomAddForm={() => (
+      addComponent={() => (
         <p>Hey! This is a custom renderer</p>
       )}
     >
-      Will not show
+      <div />
     </Repeater>
   </Wrapper>
 );
@@ -184,7 +195,7 @@ export const CustomNestedTableRenderer = withForm(
           <p>Hey! This is a custom renderer</p>
         )}
       >
-        Will not show
+        <div />
       </Repeater>
     </Wrapper>
   ),
@@ -209,43 +220,47 @@ export const CustomMobileColumnRenderer = withForm(
           ],
         }}
       >
-        Will not show
+        <div />
       </Repeater>
     </Wrapper>
   ),
 );
 
-export const WithDisabledMultiselect = withForm((props) => (
+export const WithEditorsDisabled = withForm((props) => (
   <Wrapper>
     <Repeater
       {...props}
       disableMultiselect
-      renderNestedTableRow={() => (
-        <p>Hey! This is a custom renderer</p>
-      )}
+      disableEditor
+      disableRemove
     >
-      Will not show
+      <div />
     </Repeater>
   </Wrapper>
 ));
 
-export const WithoutEditor = withForm((props) => (
-  <Repeater
-    {...props}
-    disableEditor
-    cardProps={{
-      title: 'firstName',
-      attributes: [
-        'lastName',
-        'position',
-        'company',
-        'age',
-        'trained',
-      ],
-    }}
-  >
-    <div />
-  </Repeater>
+export const CustomEditableRenderer = withForm((props) => (
+  <Wrapper>
+    <Repeater
+      {...props}
+      cardProps={{
+        title: 'firstName',
+        attributes: ['position'],
+        icon: () => (
+          <Avatar>
+            <AccountBox />
+          </Avatar>
+        ),
+        editable: {
+          position: {
+            renderer: () => <div>Something custom!</div>,
+          },
+        },
+      }}
+    >
+      <div />
+    </Repeater>
+  </Wrapper>
 ));
 
 export const SimpleFormWithLimitedPermissions = withForm(

@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import classNames from 'classnames';
+
 import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
@@ -12,32 +12,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
-
-const useStyles = makeStyles(() => ({
-  btn: {
-    borderTop: `2px solid ${grey[300]}`,
-    borderRadius: 0,
-    filter: 'grayscale(1)',
-    marginRight: '0.15rem',
-    padding: '1rem 1rem',
-    transitionDuration: '500ms',
-    transitionProperty: 'border, filter',
-    '& img': {
-      height: 22,
-    },
-  },
-  active: {
-    borderTopColor: grey[900],
-    filter: 'grayscale(0)',
-  },
-  divided: {
-    '&:nth-child(odd)': {
-      borderRight: '2px solid #FFF',
-    },
-  },
-}));
+import useIndex from '../useIndex';
 
 const Panel = ({
   active,
@@ -71,19 +46,7 @@ const Panel = ({
 );
 
 const DynamicAccordion = ({ panels }) => {
-  const [expanded, setExpanded] = React.useState(0);
-  const cls = useStyles();
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : expanded);
-  };
-
-  const setChanged = (i) => () => {
-    setExpanded(i);
-  };
-
-  const getClassName = (i) =>
-    classNames(cls.btn, expanded === i ? cls.active : null);
+  const { active, handleChange } = useIndex(0);
 
   return (
     <Container style={{ margin: '3rem auto' }}>
@@ -91,7 +54,7 @@ const DynamicAccordion = ({ panels }) => {
         <Grid item md={6} xs={12}>
           {panels.map((item, i) => (
             <Panel
-              active={expanded === i}
+              active={active === i}
               onChange={handleChange(i)}
               slug={get(item, 'case.client')}
               {...item}
@@ -101,7 +64,7 @@ const DynamicAccordion = ({ panels }) => {
         <Grid item md={6} xs={12}>
           {panels.map(
             (item, i) =>
-              expanded === i && (
+              active === i && (
                 <Fade in key={i}>
                   {item.component}
                 </Fade>

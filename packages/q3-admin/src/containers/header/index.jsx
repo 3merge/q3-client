@@ -55,6 +55,7 @@ const Header = ({
   subtitleProp,
   parenthesesProp,
   titleRenderer,
+  renderRight,
 }) => {
   const {
     resourceName,
@@ -74,7 +75,11 @@ const Header = ({
     <HeaderQ3
       position="relative"
       renderPreIdentifier={rendererLeft(id, resourceName)}
-      renderRight={rendererRight(children)}
+      renderRight={
+        renderRight
+          ? renderRight(rest)
+          : rendererRight(children)
+      }
       name={
         fetching ? (
           <Skeleton width={250} height={68} />
@@ -123,6 +128,11 @@ Header.propTypes = {
     PropTypes.node,
     PropTypes.func,
   ]),
+
+  /**
+   * Will override default right column renderer.
+   */
+  renderRight: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -131,6 +141,7 @@ Header.defaultProps = {
   subtitleProp: null,
   parenthesesProp: null,
   titleRenderer: null,
+  renderRight: null,
 };
 
 export default Header;

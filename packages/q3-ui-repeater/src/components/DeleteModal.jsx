@@ -5,6 +5,8 @@ import IconButton from 'q3-ui/lib/iconButton';
 import Dialog from 'q3-ui-dialog';
 import * as yup from 'yup';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import Auth from './Auth';
+import RepeaterState from './state';
 
 //= ===============================================================================
 // Helpers
@@ -37,44 +39,49 @@ ModalContentForm.propTypes = {
 // Component
 //= ===============================================================================
 
-const DeleteModal = ({ next }) => {
+const DeleteModal = ({ id }) => {
+  const { remove } = React.useContext(RepeaterState);
+  if (!remove || !id) return null;
+
+  const onSubmit = remove(id);
   const handleSubmit = (onSuccess) => (values, actions) =>
-    next()
+    onSubmit()
       .then(() => {
         onSuccess();
         actions.resetForm();
       })
       .catch(() => {
-        /**
-         * We'll do nothing to keep the dialog open.
-         * The field-level validation will report errors for us.
-         */
+        // noop
       });
 
-  return next ? (
-    <Dialog
-      title="delete"
-      description="delete"
-      renderTrigger={(onClick) => (
-        <IconButton
-          icon={DeleteIcon}
-          label="delete"
-          buttonProps={{
-            onClick,
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      )}
-      renderContent={(close) => (
-        <ModalContentForm onSubmit={handleSubmit(close)} />
-      )}
-    />
-  ) : null;
+  return (
+    <Auth op="Delete">
+      <Dialog
+        title="delete"
+        description="delete"
+        renderTrigger={(onClick) => (
+          <IconButton
+            icon={DeleteIcon}
+            label="delete"
+            buttonProps={{
+              onClick,
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        )}
+        renderContent={(close) => (
+          <ModalContentForm
+            onSubmit={handleSubmit(close)}
+          />
+        )}
+      />
+    </Auth>
+  );
 };
 
 DeleteModal.propTypes = {
-  next: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default DeleteModal;

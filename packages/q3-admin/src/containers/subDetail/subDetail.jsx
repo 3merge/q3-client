@@ -18,16 +18,19 @@ const SubDetail = ({
   root,
   decorators,
   children,
+  runPoll,
   ...rest
 }) => {
-  const { collectionName, id } = React.useContext(Context);
+  const { collectionName, id, poll } = React.useContext(
+    Context,
+  );
 
   const subdocumentState = useRest({
     key: root,
     pluralized: root,
     runOnInit: true,
     url: `/${collectionName}/${id}/${root}`,
-    poll: `/${collectionName}/${id}`,
+    poll: runPoll ? poll : null,
     decorators,
   });
 
@@ -65,10 +68,12 @@ SubDetail.propTypes = {
     put: PropTypes.func,
     remove: PropTypes.func,
   }),
+  runPoll: PropTypes.bool,
 };
 
 SubDetail.defaultProps = {
   decorators: {},
+  runPoll: false,
 };
 
 export default SubDetail;
