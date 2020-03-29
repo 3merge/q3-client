@@ -1,5 +1,11 @@
 import React from 'react';
 import {
+  withKnobs,
+  text,
+  boolean,
+  number,
+} from '@storybook/addon-knobs';
+import {
   Form,
   Field,
   Fieldset,
@@ -14,6 +20,7 @@ import Repeater from './Repeater';
 
 export default {
   title: 'Q3 Repeater|Examples',
+  decorators: [withKnobs],
   parameters: {
     component: Repeater,
     componentSubtitle:
@@ -158,7 +165,6 @@ const withForm = (Component) => () => {
 export const Empty = () => (
   <Wrapper>
     <Repeater data={[]}>
-      {' '}
       <div />
     </Repeater>
   </Wrapper>
@@ -220,14 +226,13 @@ export const CustomMobileColumnRenderer = withForm(
   ),
 );
 
-export const WithDisabledMultiselect = withForm((props) => (
+export const WithEditorsDisabled = withForm((props) => (
   <Wrapper>
     <Repeater
       {...props}
       disableMultiselect
-      renderNestedTableRow={() => (
-        <p>Hey! This is a custom renderer</p>
-      )}
+      disableEditor
+      disableRemove
     >
       <div />
     </Repeater>
@@ -256,25 +261,6 @@ export const CustomEditableRenderer = withForm((props) => (
       <div />
     </Repeater>
   </Wrapper>
-));
-
-export const WithoutEditor = withForm((props) => (
-  <Repeater
-    {...props}
-    disableEditor
-    cardProps={{
-      title: 'firstName',
-      attributes: [
-        'lastName',
-        'position',
-        'company',
-        'age',
-        'trained',
-      ],
-    }}
-  >
-    <div />
-  </Repeater>
 ));
 
 export const SimpleFormWithLimitedPermissions = withForm(
