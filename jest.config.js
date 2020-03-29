@@ -7,6 +7,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
+    '<rootDir>/packages/q3-ui-assets',
     '.stories.',
   ],
   transform: {

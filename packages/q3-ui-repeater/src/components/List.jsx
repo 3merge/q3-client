@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-
 import TableHead from '@material-ui/core/TableHead';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +10,10 @@ import { useTheme } from '@material-ui/core/styles';
 import RepeaterState from './state';
 import Search from './Search';
 import NestedItem from './NestedItem';
+
+export const searchObject = (item = {}) => (value = '') =>
+  !value.length ||
+  new RegExp(value, 'gi').test(JSON.stringify(item));
 
 const List = ({
   children,
@@ -43,7 +46,9 @@ const List = ({
           </TableCell>
           {showAttributes
             ? attributes.map((name) => (
-                <TableCell item>{name}</TableCell>
+                <TableCell component="th" item>
+                  {name}
+                </TableCell>
               ))
             : null}
           <TableCell />

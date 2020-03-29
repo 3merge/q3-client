@@ -99,7 +99,7 @@ ItemHeader.propTypes = {
     .isRequired,
   color: PropTypes.string,
   showMultiselect: PropTypes.bool,
-  save: PropTypes.string.isRequired,
+  save: PropTypes.func.isRequired,
   isIn: PropTypes.func.isRequired,
   renderMobileColumns: PropTypes.func,
   icon: PropTypes.func,

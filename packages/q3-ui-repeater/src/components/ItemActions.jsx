@@ -116,7 +116,7 @@ const ItemActions = ({
 
   return (
     <TableCell style={{ textAlign: 'right' }}>
-      {toggleNested && renderNestedTableRow && (
+      {renderNestedTableRow && (
         <IconButton
           label="toggleInfo"
           icon={nestedIsVisible ? Up : Down}
@@ -155,11 +155,15 @@ ItemActions.propTypes = {
   setCurrentIndex: PropTypes.func.isRequired,
   showEditor: PropTypes.bool,
   showRemove: PropTypes.bool,
+  nestedIsVisible: PropTypes.bool,
+  renderNestedTableRow: PropTypes.func,
 };
 
 ItemActions.defaultProps = {
   showRemove: true,
   showEditor: true,
+  nestedIsVisible: false,
+  renderNestedTableRow: null,
 };
 
 export default ItemActions;

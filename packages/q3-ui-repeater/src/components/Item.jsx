@@ -66,6 +66,8 @@ const Item = ({
   index,
   children,
   cardProps,
+  // aliase for cardProps
+  rowResolver,
   showAttributes,
   renderMobileColumns,
   hasNested,
@@ -91,7 +93,11 @@ const Item = ({
     title,
     icon,
     photo,
-  } = interpretCardsProps(cardProps, item, rest);
+  } = interpretCardsProps(
+    rowResolver || cardProps,
+    item,
+    rest,
+  );
 
   return (
     <TableRow className={cls.row}>
@@ -140,6 +146,12 @@ Item.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
   }).isRequired,
+
+  rowResolver: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+
   item: PropTypes.shape({
     id: PropTypes.string,
     color: PropTypes.string,
