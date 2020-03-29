@@ -17,6 +17,9 @@ const CollapsiblePanel = ({
   children,
   show,
   open,
+  icon,
+  onChange,
+  expanded,
   ...rest
 }) => {
   const { border, padding, iconFont } = useStyles(rest);
@@ -28,6 +31,8 @@ const CollapsiblePanel = ({
       defaultExpanded={open}
       TransitionProps={{ unmountOnExit: true }}
       disabled={!children}
+      onChange={onChange}
+      expanded={expanded}
     >
       <ExpansionPanelSummary
         expandIcon={
@@ -43,6 +48,7 @@ const CollapsiblePanel = ({
           <CollapsiblePanelTitle
             title={title}
             className={iconFont}
+            icon={icon}
           />
           <CollapsiblePanelSubtitle
             description={description}
@@ -82,12 +88,30 @@ CollapsiblePanel.propTypes = {
    * Determines if the collapsible content is viewable.
    */
   open: PropTypes.bool,
+
+  /**
+   * Icon to render beside the title.
+   */
+  icon: PropTypes.node,
+
+  /**
+   * Handler for the panel's click event.
+   */
+  onChange: PropTypes.func,
+
+  /**
+   * Controls the open state of the panel.
+   */
+  expanded: PropTypes.bool,
 };
 
 CollapsiblePanel.defaultProps = {
   description: null,
   show: true,
   open: false,
+  expanded: false,
+  icon: null,
+  onChange: null,
 };
 
 export default CollapsiblePanel;

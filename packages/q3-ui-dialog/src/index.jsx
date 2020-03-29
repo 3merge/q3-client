@@ -91,12 +91,12 @@ DialogWrapper.propTypes = {
   /**
    * Function to execute on next. Will not render without both onPrev and onNext.
    */
-  onNext: PropTypes.func.isRequired,
+  onNext: PropTypes.func,
 
   /**
    * Function to execute on previous. Will not render without both onPrev and onNext.
    */
-  onPrev: PropTypes.func.isRequired,
+  onPrev: PropTypes.func,
 };
 
 DialogWrapper.defaultProps = {
@@ -104,6 +104,8 @@ DialogWrapper.defaultProps = {
   contentClassName: null,
   className: null,
   renderPreContent: null,
+  onNext: null,
+  onPrev: null,
 };
 
 export default DialogWrapper;

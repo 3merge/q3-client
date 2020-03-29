@@ -1,4 +1,6 @@
 import React from 'react';
+import CreditCard from '@material-ui/icons/CreditCard';
+import Accordion from './accordion';
 import CollapsiblePanel from '.';
 
 export default {
@@ -10,9 +12,10 @@ export default {
 };
 
 export const Stacked = () => (
-  <>
+  <Accordion>
     <CollapsiblePanel
       show
+      muted
       title="Uno!"
       alerts={[
         { title: 'This is an alert', label: 'ALERT' },
@@ -30,7 +33,7 @@ export const Stacked = () => (
       warning
       title="Dos!"
       description="This one has a warning to display"
-      transparent
+      icon={CreditCard}
     >
       Hey
     </CollapsiblePanel>
@@ -39,7 +42,7 @@ export const Stacked = () => (
       error
       title="Tres!"
       description="This one has an error to display"
-      transparent
+      muted
     >
       Hey
     </CollapsiblePanel>
@@ -47,7 +50,11 @@ export const Stacked = () => (
       title="Tres!"
       success
       description="This is just a panel that doesn't have anything to render. Without children, it's disabled automatically."
-      transparent
     />
-  </>
+    <CollapsiblePanel
+      title="Tres!"
+      informational
+      description="This is just a panel that doesn't have anything to render. Without children, it's disabled automatically."
+    />
+  </Accordion>
 );

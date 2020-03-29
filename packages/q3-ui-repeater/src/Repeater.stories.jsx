@@ -5,6 +5,8 @@ import {
   Fieldset,
   Multistep,
 } from 'q3-ui-forms/lib/builders';
+import Avatar from '@material-ui/core/Avatar';
+import AccountBox from '@material-ui/icons/AccountBox';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { AuthContext } from 'q3-ui-permissions';
@@ -155,7 +157,10 @@ const withForm = (Component) => () => {
 
 export const Empty = () => (
   <Wrapper>
-    <Repeater data={[]}>Will not show</Repeater>
+    <Repeater data={[]}>
+      {' '}
+      <div />
+    </Repeater>
   </Wrapper>
 );
 
@@ -163,11 +168,11 @@ export const CustomAddRenderer = () => (
   <Wrapper>
     <Repeater
       data={[]}
-      renderCustomAddForm={() => (
+      addComponent={() => (
         <p>Hey! This is a custom renderer</p>
       )}
     >
-      Will not show
+      <div />
     </Repeater>
   </Wrapper>
 );
@@ -184,7 +189,7 @@ export const CustomNestedTableRenderer = withForm(
           <p>Hey! This is a custom renderer</p>
         )}
       >
-        Will not show
+        <div />
       </Repeater>
     </Wrapper>
   ),
@@ -209,7 +214,7 @@ export const CustomMobileColumnRenderer = withForm(
           ],
         }}
       >
-        Will not show
+        <div />
       </Repeater>
     </Wrapper>
   ),
@@ -224,7 +229,31 @@ export const WithDisabledMultiselect = withForm((props) => (
         <p>Hey! This is a custom renderer</p>
       )}
     >
-      Will not show
+      <div />
+    </Repeater>
+  </Wrapper>
+));
+
+export const CustomEditableRenderer = withForm((props) => (
+  <Wrapper>
+    <Repeater
+      {...props}
+      cardProps={{
+        title: 'firstName',
+        attributes: ['position'],
+        icon: () => (
+          <Avatar>
+            <AccountBox />
+          </Avatar>
+        ),
+        editable: {
+          position: {
+            renderer: () => <div>Something custom!</div>,
+          },
+        },
+      }}
+    >
+      <div />
     </Repeater>
   </Wrapper>
 ));

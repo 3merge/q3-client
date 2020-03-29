@@ -14,6 +14,11 @@ export default makeStyles((theme) => ({
     transitionDuration: '500ms',
   }),
 
+  addBtn: {
+    cursor: 'pointer',
+    padding: '1rem',
+  },
+
   titleCls: {
     color: theme.palette.primary.light,
     fontWeight: '600',
@@ -76,4 +81,10 @@ export default makeStyles((theme) => ({
   block: {
     display: 'block',
   },
+
+  row: ({ hasNested }) => ({
+    '& td': {
+      borderBottom: hasNested ? 'none' : undefined,
+    },
+  }),
 }));

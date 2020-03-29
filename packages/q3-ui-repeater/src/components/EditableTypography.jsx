@@ -1,30 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { invoke } from 'lodash';
-import { connect } from 'formik';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import { useToggle } from 'useful-state';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from 'q3-ui/lib/iconButton';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
+import { object } from 'q3-ui-helpers';
 import RepeaterState from './state';
 import useStyle from './useStyle';
+
+const { hasKeys } = object;
 
 //= ===============================================================================
 // Partials
 //= ===============================================================================
 
-const AutoSaveField = connect(({ formik, ...rest }) => (
-  <Field autoFocus {...rest} />
-));
-
 const EditableTypographyTextField = ({
-  value,
-  className,
-  onChange,
-  onClick,
   onClose,
   fieldProps,
   onSave,
@@ -35,21 +29,27 @@ const EditableTypographyTextField = ({
     initialValues={initialValues}
     onSubmit={onSave}
   >
-    <AutoSaveField {...fieldProps} />
-    <IconButton type="submit" size="small">
-      <Check />
-    </IconButton>
-    <IconButton onClick={onClose}>
-      <Close />
-    </IconButton>
+    <Field autoFocus {...fieldProps} />
+    <IconButton
+      icon={Check}
+      label="save"
+      buttonProps={{ type: 'submit', size: 'small' }}
+    />
+    <IconButton
+      icon={Close}
+      label="close"
+      buttonProps={{ onClick: onClose, size: 'small' }}
+    />
   </Form>
 );
 
 EditableTypographyTextField.propTypes = {
-  value: PropTypes.string.isRequired,
-  className: PropTypes.shape({}).isRequired,
-  onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  initialValues: PropTypes.shape({}).isRequired,
+  fieldProps: PropTypes.shape({
+    type: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
+  onSave: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
@@ -61,7 +61,6 @@ const EditableTypography = ({
   data,
   children,
   editable,
-  save,
   name,
   ...rest
 }) => {
@@ -76,79 +75,84 @@ const EditableTypography = ({
   const prefixedName = `${repeater.name}.${name}`;
 
   const isEditable =
-    typeof editable === 'object' &&
-    Object.keys(editable).length > 0;
+    typeof repeater.edit === 'function' &&
+    invoke(repeater, 'auth.canEditSub', prefixedName) &&
+    hasKeys(editable);
 
-  const canSee = invoke(
-    repeater,
-    'auth.canSeeSub',
-    prefixedName,
-  );
-
-  const canEdit = invoke(
-    repeater,
-    'auth.canEditSub',
-    prefixedName,
-  );
-
-  /**
-   * Calling save will actually re-render the parent component.
-   * So, close is somewhat unnecessary as the state will reset anyway.
-   */
   const onSave = (...params) =>
-    save(...params).then(() => {
-      close();
-    });
+    repeater
+      .edit(data.id)(...params)
+      .then(() => {
+        close();
+      });
 
-  /**
-   * We have to force refresh the value state.
-   */
-  React.useEffect(() => {
-    // setValue(children);
-  }, [children]);
+  if (
+    !invoke(repeater, 'auth.canSeeSub', prefixedName) ||
+    !children
+  )
+    return '--';
 
-  if (!canSee) return '--';
+  if (isEditable && typeof editable.renderer === 'function')
+    return editable.renderer(data, onSave);
 
-  return !state || !isEditable || !canEdit ? (
+  if (state)
+    return (
+      <EditableTypographyTextField
+        fieldProps={editable}
+        initialValues={data}
+        className={block}
+        onSave={onSave}
+        onClose={close}
+      />
+    );
+
+  return (
     <Typography
-      {...(isEditable && {
-        className: editableContent,
-        onClick: open,
-        onKeyPress: open,
-        tabIndex: 0,
-        style: {
-          cursor: 'pointer',
-        },
-      })}
-      {...(!canEdit && {
-        onClick: null,
-        onFocus: null,
-        style: {
-          cursor: 'not-allowed',
-        },
-      })}
-      {...rest}
+      {...{
+        ...(isEditable
+          ? {
+              className: editableContent,
+              onClick: open,
+              onKeyPress: open,
+              tabIndex: 0,
+              style: {
+                cursor: 'pointer',
+              },
+            }
+          : {
+              style: {
+                cursor: 'not-allowed',
+              },
+            }),
+        ...rest,
+      }}
     >
-      {children || '--'}
+      {children}
       {isEditable && <Edit className={editableIcon} />}
     </Typography>
-  ) : (
-    <EditableTypographyTextField
-      fieldProps={editable}
-      initialValues={data}
-      className={block}
-      onSave={onSave}
-      onClose={close}
-    />
   );
 };
 
 EditableTypography.propTypes = {
-  data: PropTypes.shape({}).isRequired,
-  children: PropTypes.string.isRequired,
-  editable: PropTypes.bool.isRequired,
-  save: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.string,
+  }).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ]),
+  editable: PropTypes.shape({
+    type: PropTypes.string,
+    name: PropTypes.string,
+    renderer: PropTypes.func,
+  }),
   name: PropTypes.string.isRequired,
+};
+
+EditableTypography.defaultProps = {
+  children: '',
+  editable: null,
 };
 
 export default EditableTypography;

@@ -2,13 +2,20 @@ import {
   orange,
   green,
   red,
+  indigo,
 } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
-export const getColor = ({ error, success, warning }) => {
+export const getColor = ({
+  error,
+  success,
+  warning,
+  informational,
+}) => {
   if (error) return red;
   if (success) return green;
   if (warning) return orange;
+  if (informational) return indigo;
   return undefined;
 };
 
@@ -39,9 +46,10 @@ export default makeStyles((theme) => ({
 
   border: (props) => ({
     ...makeBorderColorProperty(getColor(props)),
+    background: props.muted ? 'whitesmoke' : '#FFF',
     boxSizing: 'border-box',
     '&.Mui-expanded': {
-      backgroundColor: 'whitesmoke',
+      backgroundColor: props.muted ? '#FFF' : 'whitesmoke',
       transition: 'background-color 500ms',
     },
   }),
@@ -49,7 +57,6 @@ export default makeStyles((theme) => ({
   iconFont: (props) => ({
     ...makeColorProperty(getColor(props)),
     margin: 0.5,
-    fontSize: '0.91rem',
   }),
 
   icon: ({ important }) => {

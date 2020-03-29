@@ -51,14 +51,7 @@ const useRest = ({
       .then(({ data }) => {
         invoke(decorators, 'get', data);
 
-        if (poll)
-          return Axios.get(poll).then(
-            ({ data: response }) => {
-              invoke(decorators, 'get', response);
-              call(FETCHED, response);
-              return Promise.resolve(response);
-            },
-          );
+        if (poll) return poll();
 
         call(verb, data);
         onComplete(null, actions);
@@ -83,6 +76,19 @@ const useRest = ({
     get(query = '') {
       call(FETCHING);
       return Axios.get(formatUrlPath(url, query, select))
+        .then(({ data }) => {
+          invoke(decorators, 'get', data);
+          call(FETCHED, data);
+          return Promise.resolve(data);
+        })
+        .catch((err) => {
+          call(FETCHED, null, err);
+          return Promise.reject(err);
+        });
+    },
+
+    poll() {
+      return Axios.get(url)
         .then(({ data }) => {
           invoke(decorators, 'get', data);
           call(FETCHED, data);
