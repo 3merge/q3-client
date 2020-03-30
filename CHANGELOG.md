@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.15](https://github.com/3merge/q/compare/v1.12.14...v1.12.15) (2020-03-30)
+
+
+### Bug Fixes
+
+* form disable prop ([0ad2e94](https://github.com/3merge/q/commit/0ad2e94317e4651c3482ba798e2d798aacc72f0f))
+
+
+
+
+
 ## [1.12.14](https://github.com/3merge/q/compare/v1.12.13...v1.12.14) (2020-03-29)
 
 **Note:** Version bump only for package q3-client
