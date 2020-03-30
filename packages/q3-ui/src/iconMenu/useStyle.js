@@ -22,24 +22,28 @@ export default makeStyles((theme) => ({
   activeLink: {
     '& .nav-link-icon': {
       color: `${theme.palette.secondary.light} !important`,
+      transform: 'scale(1.2) !important',
     },
   },
   baseLink: {
     fontSize: '0.833rem',
     fontWeight: '200',
-    marginBottom: theme.spacing(1),
+    marginBottom: '0.75vh',
     textDecoration: 'none',
 
     '& .nav-link-icon': {
       background: 'transparent',
       color: 'rgba(255,255,255,0.67)',
-      transitionProperty: 'background, border, color',
+      transform: 'scale(0.9)',
+      transitionProperty:
+        'background, border, color,transform',
       transitionDuration: '500ms',
     },
 
     '&:hover .nav-link-icon': {
       background: 'rgba(255,255,255,0.1)',
       color: 'rgba(255,255,255,0.85)',
+      transform: 'scale(1)',
     },
   },
 

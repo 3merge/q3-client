@@ -11,6 +11,8 @@ import CollapsiblePanelSubtitle from './subtitle';
 import PanelIcon from './panelIcon';
 import useStyles from './useStyle';
 
+export { default as Accordion } from './accordion';
+
 const CollapsiblePanel = ({
   title,
   description,

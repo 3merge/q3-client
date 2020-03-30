@@ -34,7 +34,15 @@ const DialogWrapper = ({
       >
         <DialogHeader onClose={close} title={title} />
         {renderPreContent}
-        <DialogContent className={contentClassName}>
+        <DialogContent
+          className={contentClassName}
+          style={{
+            overflowY:
+              rest.variant === 'drawer'
+                ? 'visible'
+                : undefined,
+          }}
+        >
           {description && (
             <DialogContentText variant="body2">
               {t(`descriptions:${description}`)}

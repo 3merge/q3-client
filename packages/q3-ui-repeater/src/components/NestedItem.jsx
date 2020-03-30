@@ -42,7 +42,7 @@ const NestedItem = ({
       {renderNestedTableRow && (
         <FullSpanTableRow attributes={attributes}>
           <Collapse in={!state}>
-            <Box>{renderNestedTableRow(item)}</Box>
+            <Box>{renderNestedTableRow(item, rest)}</Box>
           </Collapse>
         </FullSpanTableRow>
       )}

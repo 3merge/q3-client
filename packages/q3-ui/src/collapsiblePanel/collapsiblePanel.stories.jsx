@@ -13,19 +13,7 @@ export default {
 
 export const Stacked = () => (
   <Accordion>
-    <CollapsiblePanel
-      show
-      muted
-      title="Uno!"
-      alerts={[
-        { title: 'This is an alert', label: 'ALERT' },
-        {
-          title: 'This is important',
-          label: 'MESSAGE',
-          important: true,
-        },
-      ]}
-    >
+    <CollapsiblePanel show title="Uno!" muted>
       Hey
     </CollapsiblePanel>
     <CollapsiblePanel
@@ -34,6 +22,7 @@ export const Stacked = () => (
       title="Dos!"
       description="This one has a warning to display"
       icon={CreditCard}
+      muted
     >
       Hey
     </CollapsiblePanel>
@@ -50,11 +39,13 @@ export const Stacked = () => (
       title="Tres!"
       success
       description="This is just a panel that doesn't have anything to render. Without children, it's disabled automatically."
+      muted
     />
     <CollapsiblePanel
       title="Tres!"
       informational
       description="This is just a panel that doesn't have anything to render. Without children, it's disabled automatically."
+      muted
     />
   </Accordion>
 );

@@ -35,6 +35,7 @@ export default {
 export const WithDebug = () => (
   <Form
     debug
+    disabled
     onSubmit={onSubmit}
     onReset={onReset}
     initialValues={{

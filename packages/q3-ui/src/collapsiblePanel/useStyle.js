@@ -46,10 +46,14 @@ export default makeStyles((theme) => ({
 
   border: (props) => ({
     ...makeBorderColorProperty(getColor(props)),
-    background: props.muted ? 'whitesmoke' : '#FFF',
+    background: props.muted
+      ? 'whitesmoke !important'
+      : '#FFF  !important',
     boxSizing: 'border-box',
     '&.Mui-expanded': {
-      backgroundColor: props.muted ? '#FFF' : 'whitesmoke',
+      backgroundColor: props.muted
+        ? '#FFF  !important'
+        : 'whitesmoke  !important',
       transition: 'background-color 500ms',
     },
   }),

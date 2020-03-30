@@ -32,6 +32,7 @@ const Detail = ({
     resourceName,
     resourceNameSingular,
     collectionName,
+    location,
     id,
     ...state
   } = React.useContext(Context);

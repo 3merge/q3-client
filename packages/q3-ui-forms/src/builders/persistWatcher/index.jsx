@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import IconButton from '@material-ui/core/IconButton';
-import TrashIcon from '@material-ui/icons/Delete';
 import Notify from '../notify';
 import {
   SESSION_STORAGE_EVENT,
   onPurge,
   isBrowserReady,
 } from './dispatch';
-import { isPersistence, idify } from '../persist/utils';
+import { isPersistence } from '../persist/utils';
 import useListener from './useListener';
 
 export const useSessionStorage = () => {
@@ -42,10 +40,7 @@ export const useSessionStorage = () => {
 };
 
 export const PersistWatcher = ({ filterById }) => {
-  const [
-    hasUnsavedChanges,
-    clearLocalStorage,
-  ] = useSessionStorage();
+  const [hasUnsavedChanges] = useSessionStorage();
   const { t } = useTranslation('labels');
 
   return hasUnsavedChanges

@@ -26,7 +26,7 @@ const Wrapper = (Component) => {
       isDisabled,
       checkReadAuthorizationContext,
       checkEditAuthorizationContext,
-    } = useAuthentication(collectionName, isNew);
+    } = useAuthentication(collectionName, isNew, etc);
     const { setField, validationSchema } = useValidation();
 
     const handleSubmit = (values, actions) =>
