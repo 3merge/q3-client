@@ -1,4 +1,4 @@
-import { filterByComparison, mapToTile } from '../helpers';
+import { filterByComparison } from '../helpers';
 
 describe('Detail container', () => {
   describe('"filterByComparison"', () => {
@@ -9,17 +9,6 @@ describe('Detail container', () => {
       ];
       const out = filterByComparison(a, { foo: 'bar' });
       expect(out).toHaveLength(1);
-    });
-  });
-
-  describe('"mapToTile"', () => {
-    it('should populate tile props', () => {
-      const a = [{ props: { name: 'Test' } }];
-      expect(mapToTile(a)[0]).toMatchObject({
-        to: '/',
-        label: 'test',
-        component: expect.any(Function),
-      });
     });
   });
 });

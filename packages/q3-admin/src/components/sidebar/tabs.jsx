@@ -15,6 +15,7 @@ const SidebarTabs = ({
   commentTab,
   historyTab,
   documentationTab,
+  filesTab,
 }) => {
   const { t } = useTranslation('labels');
   const [step, setStep] = React.useState(0);
@@ -37,6 +38,11 @@ const SidebarTabs = ({
             className={item}
           />
           <Tab
+            label={t('files')}
+            disabled={!filesTab}
+            className={item}
+          />
+          <Tab
             label={t('documentation')}
             disabled={!documentationTab}
             className={item}
@@ -50,8 +56,9 @@ const SidebarTabs = ({
         <Box p={1}>
           {isStep(0, step, children)}
           {isStep(1, step, commentTab)}
-          {isStep(2, step, documentationTab)}
-          {isStep(3, step, historyTab)}
+          {isStep(2, step, filesTab)}
+          {isStep(3, step, documentationTab)}
+          {isStep(4, step, historyTab)}
         </Box>
       </Box>
     </Paper>

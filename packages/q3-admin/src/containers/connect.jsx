@@ -3,11 +3,9 @@ import Tile from 'q3-ui/lib/tile';
 import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
 import { get } from 'lodash';
 import Comparision from 'comparisons';
-import { Definitions, Dispatcher, Store } from '../state';
+import { Definitions, Dispatcher, Store } from './state';
 
-export const connect = (Component, opts = {}) => ({
-  name,
-}) => {
+export default (Component, opts = {}) => ({ name }) => {
   const { data } = React.useContext(Store);
   const { remove, patch } = React.useContext(Dispatcher);
   const { id, collectionName } = React.useContext(
@@ -16,6 +14,12 @@ export const connect = (Component, opts = {}) => ({
 
   const { conditionals = [] } = opts;
   const sessionKey = `${name}-${id}`;
+
+  const createdBy = get(
+    data,
+    'createdBy.id',
+    get(data, 'createdBy', null),
+  );
 
   if (!new Comparision(conditionals).eval(data))
     return null;
@@ -28,13 +32,9 @@ export const connect = (Component, opts = {}) => ({
         id={id}
         name={name}
         collectionName={collectionName}
-        createdBy={get(
-          data,
-          'createdBy.id',
-          get(data, 'createdBy', null),
-        )}
         onDelete={remove()}
         onSubmit={patch()}
+        createdBy={createdBy}
       />
     </Tile>
   );

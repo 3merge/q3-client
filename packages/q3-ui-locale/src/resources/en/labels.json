@@ -165,5 +165,7 @@
   "meta": "ID",
   "documentation": "Docs",
   "history": "History",
-  "unselect": "Unselect {{count}} items"
+  "unselect": "Unselect {{count}} items",
+  "addToTrash": "Add to the archives",
+  "featuredPhotoUpload": "Click to change/set the featured photo"
 }

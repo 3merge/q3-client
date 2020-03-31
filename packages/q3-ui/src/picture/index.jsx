@@ -1,50 +1,8 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import UploadIcon from '@material-ui/icons/CloudUpload';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import upload from '../../images/upload.png';
-
-const useStyles = makeStyles((theme) => ({
-  input: {
-    display: 'none',
-  },
-  img: {
-    height: '100%',
-    width: '100%',
-    objectFit: 'contain',
-    filter: 'grayscale(1)',
-    transition: 'filter 250ms',
-    '&:hover': {
-      filter: 'grayscale(0)',
-    },
-  },
-  root: {
-    border: '1px solid rgb(196, 196, 196)',
-    borderRadius: 3,
-    cursor: 'pointer',
-    display: 'block',
-    maxWidth: '100%',
-    height: 225,
-    position: 'relative',
-    padding: theme.spacing(0.75),
-    '&:hover': {
-      boxShadow: 0,
-    },
-  },
-  title: {
-    fontSize: 'small',
-  },
-  center: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-    zIndex: 10,
-  },
-}));
+import { Photo } from 'q3-ui-assets';
+import { UploadContainer } from '../upload';
 
 const getServiceParams = (files) => {
   const formData = new FormData();
@@ -53,9 +11,8 @@ const getServiceParams = (files) => {
 };
 
 const Picture = ({ photo, service }) => {
-  const { root, input, img, center } = useStyles();
   const ref = React.useRef();
-  const [url, setURL] = React.useState(photo || upload);
+  const [url, setURL] = React.useState(photo);
   const { t } = useTranslation();
   const [uploading, startUpload] = React.useState(false);
 
@@ -84,36 +41,35 @@ const Picture = ({ photo, service }) => {
   };
 
   return (
-    <Box
-      className={root}
-      role="button"
-      onClick={triggerFileUploadManager}
-      my={2}
+    <UploadContainer
+      loading={uploading}
+      inputProps={{
+        id: 'picture-upload',
+        onChange: uploadPhoto,
+        accept: '.png,.jpg,.jpeg,.svg',
+        name: t('labels:featuredUpload'),
+        style: { display: 'none' },
+        type: 'file',
+        ref,
+      }}
+      containerProps={{
+        role: 'button',
+        onClick: triggerFileUploadManager,
+      }}
     >
-      {uploading && (
-        <div className={center}>
-          <CircularProgress />
-        </div>
+      {url ? (
+        <img
+          style={{ width: '100%' }}
+          alt={t('labels:featuredUpload')}
+          src={url}
+        />
+      ) : (
+        <Photo style={{ width: '100%' }} />
       )}
-      <input
-        id="picture-upload"
-        onChange={uploadPhoto}
-        ref={ref}
-        accept=".png,.jpg,.jpeg,.svg"
-        name={t('labels:featuredUpload')}
-        className={input}
-        type="file"
-      />
-      <img
-        className={img}
-        alt={t('labels:featuredUpload')}
-        src={url}
-      />
-      <Box p={1} align="center          ">
-        <UploadIcon style={{ marginRight: '1rem' }} />
-        Upload a featured photo
-      </Box>
-    </Box>
+      <Typography variant="body2" gutterBottom>
+        {t('labels:featuredPhotoUpload')}
+      </Typography>
+    </UploadContainer>
   );
 };
 export default Picture;

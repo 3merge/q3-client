@@ -14,7 +14,7 @@ import Header from './header';
 import Page from './page';
 import Table from './table';
 import SubDetail from './subDetail';
-import { connect } from './view';
+import connect from './connect';
 
 export default {
   title: 'Q3 Admin|Demo',
@@ -110,7 +110,7 @@ const Investor = (props) => (
     }}
   >
     <Header titleProp="name" />
-    <Detail registerPanels={panels}>
+    <Detail registerPanels={panels} files picture>
       <General name="general" />
       <Investments name="investments" />
       <Hidden name="hidden" />
@@ -154,4 +154,8 @@ export const FromList = withProviders('/investors');
 export const FromDetail = withProviders('/investors/1');
 export const FromSubDetail = withProviders(
   '/investors/1/investments',
+);
+
+export const FromTrash = withProviders(
+  '/investors/1/trash',
 );

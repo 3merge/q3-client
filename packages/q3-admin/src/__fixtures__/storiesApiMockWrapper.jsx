@@ -27,6 +27,11 @@ const StoriesApiMockWrapper = ({ children }) => {
       return compareIds(item, id);
     });
 
+  const filterBy = (id) =>
+    dataSource.filter((item) => {
+      return compareIds(item, id);
+    });
+
   const mapById = (id, data) =>
     dataSource.map((item) => {
       return compareIds(item, id) ? data : item;
@@ -49,6 +54,14 @@ const StoriesApiMockWrapper = ({ children }) => {
         return [200, { investments }];
       },
     );
+
+    m.onGet(/\/investors\/\d+\/uploads/).reply(200, {
+      uploads: [
+        {
+          name: 'SpecSheet.png',
+        },
+      ],
+    });
 
     m.onGet(/\/investors\/\d+/).reply(({ url }) => {
       const investor = findById(getId(url));
@@ -115,6 +128,14 @@ const StoriesApiMockWrapper = ({ children }) => {
       setDataSource(investors);
 
       return [200, { investor }];
+    });
+
+    m.onDelete(/\/investors\/\d+/).reply(({ url }) => {
+      const id = getId(url);
+      const investors = filterBy(id);
+      setDataSource(investors);
+
+      return [204, { investors }];
     });
 
     m.onPost('/investors').reply(({ data }) => [

@@ -40,19 +40,21 @@ const Tile = ({
       className={tiled}
     >
       <Box pt={2} pb={slim ? 0 : 2} px={slim ? 0 : 2}>
-        <Box px={slim ? 2 : 0}>
-          <Typography variant="overline" component="h3">
-            {t(`titles:${title}`)}
-          </Typography>
-          {hasSubtitle && (
-            <Typography
-              variant="body2"
-              style={{ maxWidth: '68%' }}
-            >
-              {t(`descriptions:${subtitle}`)}
+        {title && (
+          <Box px={slim ? 2 : 0}>
+            <Typography variant="overline" component="h3">
+              {t(`titles:${title}`)}
             </Typography>
-          )}
-        </Box>
+            {hasSubtitle && (
+              <Typography
+                variant="body2"
+                style={{ maxWidth: '68%' }}
+              >
+                {t(`descriptions:${subtitle}`)}
+              </Typography>
+            )}
+          </Box>
+        )}
         <Box my={2}>{children}</Box>
         {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>

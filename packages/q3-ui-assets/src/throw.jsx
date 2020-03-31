@@ -9,7 +9,6 @@ export default () => {
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
       viewBox="0 0 909 591.27"
-      width="250px"
     >
       <path
         fill={get(theme, 'palette.primary.light')}

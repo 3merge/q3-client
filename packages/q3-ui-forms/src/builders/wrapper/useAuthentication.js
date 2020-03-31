@@ -1,7 +1,7 @@
 import { useAuth } from 'q3-ui-permissions';
 import { orTruthy } from './utils';
 
-export default (collectionName, isNew, { disabled }) => {
+export default (collectionName, isNew, options = {}) => {
   const {
     canEdit,
     canCreate,
@@ -9,6 +9,7 @@ export default (collectionName, isNew, { disabled }) => {
     canCreateSub,
     canEditSub,
   } = useAuth(collectionName);
+  const { disabled } = options;
 
   return {
     isDisabled: () => {

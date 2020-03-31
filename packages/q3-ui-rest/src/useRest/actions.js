@@ -53,8 +53,8 @@ const useRest = ({
 
         const resolver = () =>
           new Promise((res) => {
-            onComplete(null, actions);
             call(verb, data);
+            onComplete(null, actions);
             res(data);
           });
 

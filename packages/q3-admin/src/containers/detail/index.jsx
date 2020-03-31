@@ -8,7 +8,18 @@ import Notes from '../notes';
 import Documentation from '../documentation';
 import History from '../history';
 import PictureUpload from '../../components/picture';
+import Trash from '../trash';
+import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
+
+const TrashPreset = {
+  to: '/trash',
+  label: 'trash',
+  component: () =>
+    React.createElement(Trash, {
+      name: 'trash',
+    }),
+};
 
 const Detail = ({
   history,
@@ -16,11 +27,15 @@ const Detail = ({
   children,
   notes,
   picture,
+  files,
   ...rest
 }) => {
   const { exclusions, resourceName, id } = React.useContext(
     Definitions,
   );
+
+  const filterByExclusion = (item) =>
+    !exclusions.includes(item.label);
 
   return (
     <Section
@@ -29,6 +44,7 @@ const Detail = ({
           {...rest}
           commentTab={notes && <Notes />}
           historyTab={history && <History />}
+          filesTab={files && <Upload />}
           documentationTab={
             filepath && (
               <Documentation filepath={filepath} />
@@ -41,9 +57,9 @@ const Detail = ({
       renderInside={
         <Tabs
           root={`/${resourceName}/${id}`}
-          views={mapToNestedRoute(children).filter(
-            (item) => !exclusions.includes(item.label),
-          )}
+          views={mapToNestedRoute(children)
+            .concat([TrashPreset])
+            .filter(filterByExclusion)}
         />
       }
     />

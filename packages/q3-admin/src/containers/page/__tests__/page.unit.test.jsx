@@ -1,11 +1,10 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
+import Loading from '../../../components/loading';
+import ErrorView from '../../../components/error';
 import Page from '..';
-import Context from '../../state';
 
-let mount;
-const Child = () => null;
-
+jest.mock('../../state');
 jest.mock('q3-ui-rest', () => ({
   __esModule: true,
   default: jest.fn().mockReturnValue({
@@ -13,14 +12,10 @@ jest.mock('q3-ui-rest', () => ({
   }),
 }));
 
-jest.mock('../../state', () => ({
-  Provider: jest
-    .fn()
-    .mockImplementation(({ children }) => children),
-}));
+const Child = () => null;
 
-beforeAll(() => {
-  mount = global.shallow(
+const getShallow = () =>
+  global.shallow(
     <Page
       location={{
         href: '/',
@@ -33,10 +28,10 @@ beforeAll(() => {
       <Child />
     </Page>,
   );
-});
 
 describe('Page', () => {
   it('should call REST services on init', () => {
+    getShallow();
     expect(useRest).toHaveBeenCalledWith(
       expect.objectContaining({
         url: '/foo/12',
@@ -47,14 +42,13 @@ describe('Page', () => {
     );
   });
 
-  it('should copy REST data into context provider', () => {
-    expect(
-      mount.find(Context.Provider).props().value,
-    ).toMatchObject({
-      get: expect.any(Function),
-      collectionName: 'foo',
-      resourceName: 'bars',
-      resourceNameSingular: 'bar',
-    });
+  it('should render loading skeleton', () => {
+    useRest.mockReturnValue({ fetching: true });
+    expect(getShallow().find(Loading)).toHaveLength(1);
+  });
+
+  it('should render error', () => {
+    useRest.mockReturnValue({ fetchingError: true });
+    expect(getShallow().find(ErrorView)).toHaveLength(1);
   });
 });
