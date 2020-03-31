@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.19](https://github.com/3merge/q/compare/v1.12.18...v1.12.19) (2020-03-31)
+
+
+### Bug Fixes
+
+* small formatting issues ([f28a138](https://github.com/3merge/q/commit/f28a138acce50029d218073c11d3acb35464765a))
+
+
+
+
+
 ## [1.12.18](https://github.com/3merge/q/compare/v1.12.17...v1.12.18) (2020-03-31)
 
 **Note:** Version bump only for package q3-admin
