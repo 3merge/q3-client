@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-helpers",
-  "version": "1.12.14",
+  "version": "1.12.16",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.11.2"
+    "q3-ui-test-utils": "^1.12.16"
   },
   "dependencies": {
     "lodash": "^4.17.15"
