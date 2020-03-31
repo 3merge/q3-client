@@ -19,16 +19,10 @@ const useTitle = (
   const { t } = useTranslation('titles');
   let output = '';
 
-  if (titleProp)
-    output += ellipsis(
-      get(state, `${resourceNameSingular}.${titleProp}`),
-    );
+  if (titleProp) output += ellipsis(get(state, titleProp));
 
   if (parenthesesProp)
-    output += ` (${get(
-      state,
-      `${resourceNameSingular}.${parenthesesProp}`,
-    )})`;
+    output += ` (${get(state, parenthesesProp)})`;
 
   return output.length ? output : t(resourceNameSingular);
 };
@@ -62,12 +56,10 @@ const Header = ({
     resourceNameSingular,
     id,
     fetching,
-    ...rest
   } = React.useContext(Definitions);
-
   const { data } = React.useContext(Store);
 
-  const title = useTitle(rest, {
+  const title = useTitle(data, {
     titleProp,
     parenthesesProp,
     resourceNameSingular,
@@ -79,7 +71,7 @@ const Header = ({
       renderPreIdentifier={rendererLeft(id, resourceName)}
       renderRight={
         renderRight
-          ? renderRight(rest)
+          ? renderRight(data)
           : rendererRight(children)
       }
       name={
@@ -88,11 +80,7 @@ const Header = ({
         ) : (
           <Title
             title={title}
-            subtitle={get(
-              rest,
-              `${resourceNameSingular}.${subtitleProp}`,
-              null,
-            )}
+            subtitle={get(data, subtitleProp, null)}
             {...(titleRenderer
               ? titleRenderer(data)
               : null)}

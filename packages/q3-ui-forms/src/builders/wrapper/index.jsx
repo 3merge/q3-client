@@ -6,6 +6,7 @@ import Reveal from '../reveal';
 import { getInitialStatus } from './utils';
 import useAuthentication from './useAuthentication';
 import useValidation from './useValidation';
+import useDot from './useDot';
 
 const Wrapper = (Component) => {
   const InnerForm = ({
@@ -15,11 +16,11 @@ const Wrapper = (Component) => {
     modify,
     translate,
     collectionName,
-    initialValues,
     isNew,
     validateOnMount,
     initialStatus,
-    onSubmit,
+    onSubmit: handleSubmit,
+    initialValues: seed,
     ...etc
   }) => {
     const {
@@ -29,14 +30,16 @@ const Wrapper = (Component) => {
     } = useAuthentication(collectionName, isNew, etc);
     const { setField, validationSchema } = useValidation();
 
-    const handleSubmit = (values, actions) =>
-      onSubmit(
-        dot.translateAndModify(
-          dot.keep(values, drop),
-          marshal,
-        ),
-        actions,
-      );
+    const { initialValues, onSubmit } = useDot(
+      {
+        onSubmit: handleSubmit,
+        keep,
+        marshal,
+        modify,
+        translate,
+      },
+      seed,
+    );
 
     return (
       <Reveal validation={validationSchema}>
@@ -61,21 +64,12 @@ const Wrapper = (Component) => {
                 <Component
                   {...etc}
                   {...inst}
-                  onSubmit={handleSubmit}
+                  onSubmit={onSubmit}
                   isNew={isNew}
                   formikProps={{
                     validationSchema,
                     enableReinitialize: true,
-                    onSubmit: handleSubmit,
-
-                    initialValues: dot.modify(
-                      dot.translate(
-                        dot.keep(initialValues, keep),
-                        translate,
-                      ),
-                      modify,
-                    ),
-
+                    initialValues,
                     initialStatus: getInitialStatus(
                       hasValidationLength,
                       initialStatus,

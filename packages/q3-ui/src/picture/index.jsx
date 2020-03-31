@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { Photo } from 'q3-ui-assets';
@@ -12,9 +13,13 @@ const getServiceParams = (files) => {
 
 const Picture = ({ photo, service }) => {
   const ref = React.useRef();
-  const [url, setURL] = React.useState(photo);
+  const [url, setURL] = React.useState();
   const { t } = useTranslation();
   const [uploading, startUpload] = React.useState(false);
+
+  React.useEffect(() => {
+    if (photo) setURL(photo);
+  }, [photo]);
 
   const triggerFileUploadManager = () => {
     ref.current.click();
@@ -57,15 +62,22 @@ const Picture = ({ photo, service }) => {
         onClick: triggerFileUploadManager,
       }}
     >
-      {url ? (
-        <img
-          style={{ width: '100%' }}
-          alt={t('labels:featuredUpload')}
-          src={url}
-        />
-      ) : (
-        <Photo style={{ maxWidth: '100%', width: 175 }} />
-      )}
+      <Box mb={1}>
+        {url ? (
+          <img
+            style={{
+              width: 'auto',
+              maxHeight: 150,
+              borderRadius: 500,
+              overflow: 'hidden',
+            }}
+            alt={t('labels:featuredUpload')}
+            src={url}
+          />
+        ) : (
+          <Photo style={{ maxWidth: '100%', width: 135 }} />
+        )}
+      </Box>
       <Typography variant="body2" gutterBottom>
         {t('labels:featuredPhotoUpload')}
       </Typography>

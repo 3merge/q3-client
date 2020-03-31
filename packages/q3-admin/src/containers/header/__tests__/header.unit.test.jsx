@@ -26,10 +26,7 @@ beforeAll(() => {
     resourceName: 'parents',
     resourceNameSingular: 'parent',
     id: '1',
-    parent: {
-      name: 'Jon',
-      age: 21,
-    },
+    data: { name: 'Jon', age: 21 },
   });
 });
 

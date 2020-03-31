@@ -109,7 +109,7 @@ const Investor = (props) => (
       },
     }}
   >
-    <Header titleProp="name" />
+    <Header titleProp="firstName" />
     <Detail registerPanels={panels} files picture>
       <General name="general" />
       <Investments name="investments" />

@@ -37,8 +37,8 @@ export const WithTranslateAndModify = () => (
         music: ['jazz', 'folk'],
       },
     }}
+    keep={['firstName']}
     translate={{
-      firstName: 'firstName',
       favouriteColour: 'behaviour.favourites.colour',
       music: 'behaviour.music',
       lastName: 'surname',
@@ -80,10 +80,12 @@ export const WithMarshal = () => (
       ],
     }}
     marshal={{
-      numbers: [(v, state) => {
-        console.log(v, state)
-        return v.map((item) => item.value)
-      }],
+      numbers: [
+        (v, state) => {
+          console.log(v, state);
+          return v.map((item) => item.value);
+        },
+      ],
     }}
   >
     <Field name="destination.country" type="text" />
