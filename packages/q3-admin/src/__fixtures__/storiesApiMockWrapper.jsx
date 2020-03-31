@@ -145,7 +145,7 @@ const StoriesApiMockWrapper = ({ children }) => {
   };
 
   return (
-    <Rest define={defineMockRoutes} delay={1500}>
+    <Rest define={defineMockRoutes} delay={250}>
       {children}
     </Rest>
   );

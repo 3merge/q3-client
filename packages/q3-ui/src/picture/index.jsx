@@ -64,7 +64,7 @@ const Picture = ({ photo, service }) => {
           src={url}
         />
       ) : (
-        <Photo style={{ width: '100%' }} />
+        <Photo style={{ maxWidth: '100%', width: 175 }} />
       )}
       <Typography variant="body2" gutterBottom>
         {t('labels:featuredPhotoUpload')}
