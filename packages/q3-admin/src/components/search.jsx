@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getForAutocomplete } from 'q3-ui-rest';
 import SearchBar from 'q3-ui/lib/searchBar';
-import SearchIcon from '../images/search';
-import Context from '../containers/state';
+import { Search as SearchIcon } from 'q3-ui-assets';
+import { Definitions } from '../containers/state';
 import { runFn, assembleSearchQuery } from './utils';
 
 const Search = ({ intercept }) => {
-  const {
-    collectionName,
-    resourceName,
-    fetching,
-  } = React.useContext(Context);
+  const { collectionName, resourceName } = React.useContext(
+    Definitions,
+  );
 
   const handleResults = React.useCallback(
     (e) =>
@@ -23,13 +21,11 @@ const Search = ({ intercept }) => {
   );
 
   return (
-    !fetching && (
-      <SearchBar
-        expanded
-        icon={SearchIcon}
-        getResults={handleResults}
-      />
-    )
+    <SearchBar
+      expanded
+      icon={SearchIcon}
+      getResults={handleResults}
+    />
   );
 };
 

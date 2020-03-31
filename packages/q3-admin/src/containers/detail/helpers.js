@@ -1,7 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
 import Comparision from 'comparisons';
-import Tile from 'q3-ui/lib/tile';
 
 import { isArray, getPath } from '../../components/utils';
 
@@ -14,24 +13,14 @@ export const filterByComparison = (children, state) =>
         : Boolean(r),
     );
 
-export const mapToTile = (a = [], props) =>
-  a.map((element, i) => {
-    const str = String(element.props.name).toLowerCase();
-    const children = React.cloneElement(element, props);
-
-    const tabbed = React.createElement(
-      Tile,
-      {
-        title: str,
-        subtitle: str,
-      },
-      children,
-    );
+export const mapToNestedRoute = (a = []) =>
+  React.Children.map(a, (child, i) => {
+    const str = String(child.props.name).toLowerCase();
 
     return {
       label: str,
-      to: getPath(i, element.props.name.toLowerCase()),
-      component: () => tabbed,
+      to: getPath(i, str),
+      component: () => child,
     };
   });
 

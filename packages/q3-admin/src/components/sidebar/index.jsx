@@ -1,71 +1,72 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
 import DateRange from '@material-ui/icons/DateRange';
 import { teal, blue } from '@material-ui/core/colors';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
+import { Dispatcher, Store } from '../../containers/state';
 import SidebarTabs from './tabs';
 import Column from './column';
 import Panel from './panel';
 import 'react-json-pretty/themes/acai.css';
 
-const invoke = (fn, ...params) =>
-  typeof fn === 'function' ? fn(...params) : [];
+const invoke = (fn, data, dispatchers, t) =>
+  typeof fn === 'function' && Object.keys(data).length
+    ? fn(data, dispatchers, t)
+    : [];
 
-const getValue = (rawValue, formattedValue) => {
-  if (!rawValue) return 'N/A';
-  return formattedValue || rawValue;
+const getCreatedBy = (data = {}) => {
+  const cb = get(data, 'createdBy');
+  return cb ? `${cb.firstName} ${cb.lastName}` : '--';
+};
+
+const getUpdatedAt = (data = {}) => {
+  const at = get(data, 'updatedAt');
+  return at
+    ? moment(at).format('MMMM Do YYYY, h:mm:ss a')
+    : '--';
 };
 
 const Sidebar = ({
   children,
-  createdBy,
-  lastUpdated,
   registerOptions,
   registerPanels,
   state,
   ...rest
 }) => {
   const { t } = useTranslation();
+  const dispatchers = React.useContext(Dispatcher);
+  const { data } = React.useContext(Store);
+  const params = [data, dispatchers, t];
 
   return (
     <Column>
       <SidebarTabs {...rest}>
-        {invoke(
-          registerPanels,
-          { ...rest, ...state },
-          t,
-        ).map((panel, i) => (
-          <Panel {...panel} key={i}>
-            {panel.content}
-          </Panel>
-        ))}
+        {invoke(registerPanels, ...params).map(
+          (panel, i) => (
+            <Panel {...panel} key={i}>
+              {panel.content}
+            </Panel>
+          ),
+        )}
         <Panel title="general">
           <List>
-            {invoke(
-              registerOptions,
-              { ...rest, ...state },
-              t,
-            )
+            {invoke(registerOptions, ...params)
               .concat([
                 {
                   color: teal[700],
                   icon: AccountBox,
                   title: t('labels:creator'),
-                  description: getValue(createdBy),
+                  description: getCreatedBy(data),
                 },
                 {
                   color: blue[900],
                   icon: DateRange,
                   title: t('labels:lastUpdated'),
-                  description: getValue(
-                    lastUpdated,
-                    moment(lastUpdated).format(
-                      'MMMM Do YYYY, h:mm:ss a',
-                    ),
-                  ),
+                  description: getUpdatedAt(data),
                 },
               ])
               .map((option, i) => (

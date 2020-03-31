@@ -12,8 +12,10 @@ export const Panel = ({ title, children, onClick }) => {
   const { t } = useTranslation();
 
   return (
-    <Box className={bordered} my={2}>
-      <Typography variant="overline">{title}</Typography>
+    <Box className={bordered} my={1}>
+      <Typography variant="overline">
+        {t(`titles:${title}`)}
+      </Typography>
       <Divider />
       <Box my={1} className={subtext}>
         {children}

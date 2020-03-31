@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from 'q3-ui-dialog';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -25,26 +26,28 @@ const AddButtonTrigger = ({ onClick }) => {
   const { t } = useTranslation();
 
   return (
-    <Grid
-      container
-      role="button"
-      tabIndex={-1}
-      spacing={1}
-      onClick={onClick}
-      className={addBtn}
-    >
-      <Grid item>
-        <Add />
+    <Box p={1}>
+      <Grid
+        container
+        role="button"
+        tabIndex={-1}
+        spacing={1}
+        onClick={onClick}
+        className={addBtn}
+      >
+        <Grid item>
+          <Add />
+        </Grid>
+        <Grid item xs zeroMinWidth>
+          <Typography className={titleCls}>
+            {t('titles:addToList')}
+          </Typography>
+          <Typography>
+            {t('descriptions:addToList')}
+          </Typography>
+        </Grid>
       </Grid>
-      <Grid item xs zeroMinWidth>
-        <Typography className={titleCls}>
-          {t('titles:addToList')}
-        </Typography>
-        <Typography>
-          {t('descriptions:addToList')}
-        </Typography>
-      </Grid>
-    </Grid>
+    </Box>
   );
 };
 

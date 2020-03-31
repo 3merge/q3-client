@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import TableHead from '@material-ui/core/TableHead';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
@@ -26,6 +27,8 @@ const List = ({
     search: { value },
   } = React.useContext(RepeaterState);
 
+  const { t } = useTranslation('labels');
+
   const theme = useTheme();
   const showAttributes = useMediaQuery(
     theme.breakpoints.up('md'),
@@ -47,7 +50,7 @@ const List = ({
           {showAttributes
             ? attributes.map((name) => (
                 <TableCell component="th" item>
-                  {name}
+                  {t(name)}
                 </TableCell>
               ))
             : null}

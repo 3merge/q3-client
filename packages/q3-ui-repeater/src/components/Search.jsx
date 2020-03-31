@@ -1,4 +1,5 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
 import RepeaterSearch from './state';
 
@@ -10,17 +11,19 @@ const SearchBar = () => {
   } = React.useContext(RepeaterSearch);
 
   return (
-    <Input
-      fullWidth
-      name="search"
-      onChange={onChange}
-      placeholder="Search the results ..."
-      aria-label="Search results"
-      type="search"
-      value={value}
-      disableUnderline
-      autoComplete="off"
-    />
+    <Box px={1.5} py={1}>
+      <Input
+        fullWidth
+        name="search"
+        onChange={onChange}
+        placeholder="Search the results ..."
+        aria-label="Search results"
+        type="search"
+        value={value}
+        disableUnderline
+        autoComplete="off"
+      />
+    </Box>
   );
 };
 

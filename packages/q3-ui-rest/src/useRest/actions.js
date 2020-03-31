@@ -51,11 +51,14 @@ const useRest = ({
       .then(({ data }) => {
         invoke(decorators, 'get', data);
 
-        if (poll) return poll();
+        const resolver = () =>
+          new Promise((res) => {
+            call(verb, data);
+            onComplete(null, actions);
+            res(data);
+          });
 
-        call(verb, data);
-        onComplete(null, actions);
-        return Promise.resolve(data);
+        return poll ? poll().then(resolver) : resolver();
       })
       .catch((err) => {
         onComplete(get(err, 'response.data'), actions);

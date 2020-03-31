@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import Repeater from 'q3-ui-repeater';
-import SubDetail, { RowSkeleton } from './subDetail';
+import SubDetail from './subDetail';
 
 jest.mock('q3-ui-rest', () => ({
   __esModule: true,
@@ -44,13 +44,6 @@ describe('SubDetail', () => {
       remove: expect.any(Function),
       data: [],
     });
-  });
-
-  it('should return skeleton UI', () => {
-    const ui = global
-      .shallow(<SubDetail root="foo" />)
-      .find(RowSkeleton).length;
-    expect(ui).toBeGreaterThan(0);
   });
 
   it('should assemble useRest arguments', () => {

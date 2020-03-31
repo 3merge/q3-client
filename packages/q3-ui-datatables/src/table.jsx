@@ -19,6 +19,7 @@ import {
   ColumnConfigurator,
   ColumnHeader,
   FilterConfig,
+  Empty,
   Wrapper,
   Pagination,
   StickyIconNavigator,
@@ -81,6 +82,8 @@ export const TableView = ({
 }) => {
   const { t } = useTranslation();
   const { root, expand } = useStyles();
+
+  if (!data || !data.length) return <Empty />;
 
   return (
     <Exports>
