@@ -30,27 +30,25 @@ const SubDetail = ({
     poll,
   });
 
-  return (
-    <Tile title={root} subtitle={root} slim>
+  return subdocumentState.fetching ? (
+    <Box align="center" pb={2}>
+      <CircularProgress />
+    </Box>
+  ) : (
+    <Tile title={root} subtitle={root}>
       {renderTop}
-      {subdocumentState.fetching ? (
-        <Box align="center" pb={2}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Repeater
-          name={root}
-          collectionName={collectionName}
-          data={subdocumentState[root]}
-          edit={subdocumentState.patch}
-          create={subdocumentState.post}
-          remove={subdocumentState.remove}
-          {...subdocumentState}
-          {...rest}
-        >
-          {children}
-        </Repeater>
-      )}
+      <Repeater
+        name={root}
+        collectionName={collectionName}
+        data={subdocumentState[root]}
+        edit={subdocumentState.patch}
+        create={subdocumentState.post}
+        remove={subdocumentState.remove}
+        {...subdocumentState}
+        {...rest}
+      >
+        {children}
+      </Repeater>
       {renderBottom}
     </Tile>
   );

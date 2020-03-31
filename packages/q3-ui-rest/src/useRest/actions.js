@@ -108,7 +108,7 @@ const useRest = ({
         Axios.delete(makePath([url, id]))
           .then(() => {
             call(DELETED, { id });
-            return null;
+            return poll ? poll() : null;
           })
           .catch((err) => {
             return err;
@@ -121,7 +121,7 @@ const useRest = ({
       )
         .then(() => {
           call(DELETED_MANY, { ids });
-          return null;
+          return poll ? poll() : null;
         })
         .catch((err) => {
           return err;

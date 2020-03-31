@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import AddNote from './add';
+import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
 import Note from './note';
 
@@ -13,7 +14,11 @@ export const getAuthor = (v) => {
   return `${v.createdBy.firstName} ${v.createdBy.lastName}`;
 };
 
-const Notes = ({ collectionName, id }) => {
+const Notes = () => {
+  const { collectionName, id } = React.useContext(
+    Definitions,
+  );
+
   const {
     post,
     remove,
