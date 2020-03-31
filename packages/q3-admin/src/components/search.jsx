@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getForAutocomplete } from 'q3-ui-rest';
 import SearchBar from 'q3-ui/lib/searchBar';
-import SearchIcon from '../images/search';
+import { Search as SearchIcon } from 'q3-ui-assets';
 import Context from '../containers/state';
 import { runFn, assembleSearchQuery } from './utils';
 

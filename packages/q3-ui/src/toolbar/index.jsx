@@ -15,9 +15,7 @@ import {
   styled,
   makeStyles,
 } from '@material-ui/core/styles';
-
 import astronaut from '../../images/astronaut.png';
-import DarkMode from '../darkMode';
 
 export const useOpen = () => {
   const [open, setOpen] = React.useState();

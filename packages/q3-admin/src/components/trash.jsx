@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import { SplitPanel } from 'q3-ui/lib/panel';
-import Graphic from '../images/throw';
+import { Throw as Graphic } from 'q3-ui-assets';
 
 const Trash = ({ onClick, url }) => {
   const { t } = useTranslation();

@@ -7,8 +7,8 @@ import {
   LocationProvider,
 } from '@reach/router';
 
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import State from '../state';
-import { LocationDebugger } from '../../components/debugger';
 import Page from '.';
 
 export default {
