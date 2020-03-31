@@ -1,58 +1,57 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Table, { TableSkeleton } from 'q3-ui-datatables';
+import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
-import Context from '../state';
-import EmptyView from '../../components/empty';
-import ErrorView from '../../components/error';
+import { Dispatcher, Definitions, Store } from '../state';
+
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
 
-const List = ({ renderForm, renderTop, ...rest }) => {
-  const {
-    resourceName,
-    resourceNameSingular,
-    collectionName,
-    location,
-    url,
-    ...state
-  } = React.useContext(Context);
-
+export const ListContainer = ({ children, overflowY }) => {
   const height = useHeight();
+  return (
+    <Box style={{ height, overflowY }}>
+      <Box my={3} px={2}>
+        {children}
+      </Box>
+    </Box>
+  );
+};
+
+ListContainer.propTypes = {
+  overflowY: PropTypes.string,
+};
+
+ListContainer.defaultProps = {
+  overflowY: 'auto',
+};
+
+const List = ({ renderForm, renderTop, ...rest }) => {
+  const height = useHeight();
+  const tableProps = React.useContext(Store);
+  const { collectionName } = React.useContext(Definitions);
+  const { removeBulk } = React.useContext(Dispatcher);
   const { Redirect, canDelete } = useAuth(collectionName);
-  const rows = get(state, resourceName, []);
 
   const actions = getActions(
     collectionName,
-    canDelete && state.removeBulk ? state.removeBulk : null,
+    canDelete && removeBulk ? removeBulk : null,
   );
-
-  const renderTable = () => {
-    if (state.fetching) return <TableSkeleton />;
-    if (state.fetchingError) return <ErrorView />;
-    if (!rows.length) return <EmptyView />;
-
-    return (
-      <Table
-        {...state}
-        {...rest}
-        id={url}
-        actions={actions}
-        renderFilter={renderForm}
-        data={rows}
-      />
-    );
-  };
 
   return (
     <Redirect op="Read" to="/">
       <Box style={{ height, overflowY: 'scroll' }}>
         <Box my={3} px={2}>
           {renderTop && renderTop()}
-          {renderTable()}
+          <Table
+            {...rest}
+            {...tableProps}
+            actions={actions}
+            id={collectionName}
+            renderFilter={renderForm}
+          />
         </Box>
       </Box>
     </Redirect>

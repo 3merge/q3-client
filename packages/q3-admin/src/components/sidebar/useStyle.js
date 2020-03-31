@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  articleBox: ({ overflowY = 'auto' }) => ({
+    overflowY,
+  }),
   columnWidth: ({ height }) => ({
     height,
     width: 495,

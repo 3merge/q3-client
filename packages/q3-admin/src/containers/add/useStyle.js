@@ -13,5 +13,6 @@ export default makeStyles((theme) => ({
     width: 75,
     height: 75,
     boxShadow: theme.shadows[20],
+    zIndex: 1000,
   },
 }));

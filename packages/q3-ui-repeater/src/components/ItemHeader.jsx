@@ -52,7 +52,7 @@ const ItemHeader = ({
 
   return (
     <TableCell>
-      <Box p={1} maxWidth="300px">
+      <Box p={0.5} maxWidth="350px">
         <Grid alignItems="center" container spacing={1}>
           {showMultiselect && (
             <Grid item>

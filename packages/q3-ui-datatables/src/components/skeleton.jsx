@@ -6,23 +6,25 @@ import Wrapper from './wrapper';
 
 const SkeletonRow = () => {
   const { rowlike } = useStyles();
-  return (
-    <Skeleton
-      variant="rect"
-      height={67}
-      width="100%"
-      className={rowlike}
-    />
-  );
+  const rows = [];
+
+  for (let i = 0; i < 10; i += 1) {
+    rows.push(
+      <Skeleton
+        variant="rect"
+        height={67}
+        width="100%"
+        className={rowlike}
+      />,
+    );
+  }
+
+  return rows;
 };
 
 export default () => (
   <Wrapper>
-    <Box>
-      <SkeletonRow />
-      <SkeletonRow />
-      <SkeletonRow />
-      <SkeletonRow />
+    <Box height="100%" width="100%">
       <SkeletonRow />
     </Box>
   </Wrapper>

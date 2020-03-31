@@ -10,8 +10,6 @@ export default (collectionName, isNew, { disabled }) => {
     canEditSub,
   } = useAuth(collectionName);
 
-  console.log(disabled);
-
   return {
     isDisabled: () => {
       if (disabled) return true;

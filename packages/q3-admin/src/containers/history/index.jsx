@@ -22,8 +22,6 @@ const History = ({ collectionName, id }) => {
     runOnInit: true,
   });
 
-  console.log(versions);
-
   return null;
 };
 

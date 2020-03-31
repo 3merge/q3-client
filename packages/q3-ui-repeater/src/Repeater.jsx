@@ -64,18 +64,20 @@ const Repeater = ({
           </Auth>
           <Actionbar actions={actions} data={data} />
           <Table>
-            <List
-              {...rest}
-              data={data}
-              onRemove={onRemove}
-              onUpdate={onUpdate}
-              disableEditor={disableEditor}
-              disableRemove={disableRemove}
-              renderNestedTableRow={renderNestedTableRow}
-              renderMobileColumns={renderMobileColumns}
-            >
-              {children}
-            </List>
+            {data.length > 0 && (
+              <List
+                {...rest}
+                data={data}
+                onRemove={onRemove}
+                onUpdate={onUpdate}
+                disableEditor={disableEditor}
+                disableRemove={disableRemove}
+                renderNestedTableRow={renderNestedTableRow}
+                renderMobileColumns={renderMobileColumns}
+              >
+                {children}
+              </List>
+            )}
             <Auth op="Create">
               {!AddComponent && (
                 <AddButton

@@ -26,15 +26,17 @@ const FlexContainer = ({ children, shade }) => {
   const { root } = useStyle({ shade });
 
   return (
-    <Box
-      p={0.5}
-      px={4}
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      className={root}
-    >
-      {children}
+    <Box pb={1}>
+      <Box
+        p={0.5}
+        px={4}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        className={root}
+      >
+        {children}
+      </Box>
     </Box>
   );
 };

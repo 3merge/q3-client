@@ -1,60 +1,108 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import { useAuth } from 'q3-ui-permissions';
 import Tabs from 'q3-ui/lib/tabs';
-import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
-import Context from '../state';
+import { Definitions } from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
 import Notes from '../notes';
 import Documentation from '../documentation';
 import History from '../history';
-import Trash from '../../components/trash';
 import PictureUpload from '../../components/picture';
-import {
-  getCreatedBy,
-  filterByComparison,
-  mapToTile,
-} from './helpers';
-import { getAuthor } from '../notes';
+import { mapToNestedRoute } from './helpers';
 
 const Detail = ({
   history,
   filepath,
   children,
   notes,
-  trash,
   picture,
   ...rest
 }) => {
-  const {
-    resourceName,
-    resourceNameSingular,
-    collectionName,
-    location,
-    id,
-    ...state
-  } = React.useContext(Context);
+  const { exclusions, resourceName, id } = React.useContext(
+    Definitions,
+  );
+
+  return (
+    <Section
+      renderOutside={
+        <Sidebar
+          {...rest}
+          commentTab={notes && <Notes />}
+          historyTab={history && <History />}
+          documentationTab={
+            filepath && (
+              <Documentation filepath={filepath} />
+            )
+          }
+        >
+          {picture && <PictureUpload />}
+        </Sidebar>
+      }
+      renderInside={
+        <Tabs
+          root={`/${resourceName}/${id}`}
+          views={mapToNestedRoute(children).filter(
+            (item) => !exclusions.includes(item.label),
+          )}
+        />
+      }
+    />
+  );
+};
+
+Detail.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.node,
+  ]).isRequired,
+
+  /**
+   * Will auto-append docmentation to sidebar.
+   */
+  filepath: PropTypes.shape({
+    then: PropTypes.func.isRequired,
+    catch: PropTypes.func.isRequired,
+  }).isRequired,
+
+  /**
+   * Will auto-append comments to sidebar.
+   */
+  notes: PropTypes.bool,
+
+  /**
+   * Will auto-append history tab.
+   */
+  history: PropTypes.bool,
+
+  /**
+   * Will auto-append featured image.
+   */
+  picture: PropTypes.bool,
+};
+
+Detail.defaultProps = {
+  notes: false,
+  history: false,
+  picture: false,
+};
+
+export default React.memo(Detail);
+
+/**
+
+
+
+  /*
+ console.log('rerender');
   const data = get(state, resourceNameSingular, {});
 
   const authorization = useAuth(
     collectionName,
     getCreatedBy(data),
   );
+*/
 
-  const tabs = mapToTile(
-    filterByComparison(children, data),
-    {
-      resourceName,
-      resourceNameSingular,
-      collectionName,
-      authorization,
-      state,
-      id,
-    },
-  );
-
+/*
   if (trash && authorization.canDelete)
     tabs.push({
       to: '/trash',
@@ -66,12 +114,9 @@ const Detail = ({
         />
       ),
     });
+ 
 
-  return (
-    <>
-      <PersistWatcher filterById={get(data, 'id', null)} />
-      <Section
-        fetching={state.fetching}
+ 
         renderSidebar={() => (
           <Sidebar
             {...rest}
@@ -107,57 +152,6 @@ const Detail = ({
               />
             )}
           </Sidebar>
-        )}
-      >
-        <Tabs
-          root={`/${resourceName}/${id}`}
-          views={tabs}
-        />
-      </Section>
-    </>
-  );
-};
+        )} 
 
-Detail.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
-
-  /**
-   * Will auto-append docmentation to sidebar.
-   */
-  filepath: PropTypes.shape({
-    then: PropTypes.func.isRequired,
-    catch: PropTypes.func.isRequired,
-  }).isRequired,
-
-  /**
-   * Will auto-append comments to sidebar.
-   */
-  notes: PropTypes.bool,
-
-  /**
-   * Will auto-append trash tab.
-   */
-  trash: PropTypes.bool,
-
-  /**
-   * Will auto-append history tab.
-   */
-  history: PropTypes.bool,
-
-  /**
-   * Will auto-append featured image.
-   */
-  picture: PropTypes.bool,
-};
-
-Detail.defaultProps = {
-  notes: false,
-  trash: false,
-  history: false,
-  picture: false,
-};
-
-export default Detail;
+ */

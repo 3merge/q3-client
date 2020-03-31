@@ -4,6 +4,7 @@ import Rest from 'q3-ui-test-utils/lib/rest';
 import { AuthContext } from 'q3-ui-permissions';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import restCollection from 'q3-ui-test-utils/lib/restCollection';
 import Detail from '../detail';
 import SubDetail from '.';
 import Header from '../header';
@@ -36,42 +37,50 @@ const genItem = (rest) => ({
 });
 
 function mock(m) {
-  m.onGet('/foos/1').reply(200, {
-    name: 'Test',
-    yearn: '',
-    items: [],
+  const {
+    onGet,
+    onGetSub,
+    onCreateSub,
+    onUpdateSub,
+    onRemoveSub,
+  } = restCollection();
+
+  m.onGet('/foos/1').reply(() => {
+    return [200, { foo: onGet() }];
   });
 
-  m.onGet('/foos/1/items').reply(200, {
-    items: [
-      genItem({
-        id: 1,
-        name: 'Jon',
-        age: 23,
-        color: 'Blue',
-      }),
-      genItem({
-        id: 2,
-        name: 'Suzie',
-        age: 45,
-        color: 'Red',
-      }),
-      genItem({
-        id: 3,
-        name: 'Bryan',
-        age: 12,
-        color: 'Green',
-      }),
-    ],
+  m.onGet('/foos/1/friends').reply(() => {
+    return [200, { friends: onGetSub() }];
   });
 
-  m.onPatch(/\/foos\/1\/items\/\d+/).reply(200, {
-    items: [
-      genItem({ name: 'Jon', age: 23, color: 'Blue' }),
-      genItem({ name: 'Suzie', age: 45, color: 'Red' }),
-      genItem({ name: 'Bryan', age: 12, color: 'Green' }),
-    ],
+  m.onPost('/foos/1/friends').reply(({ data }) => {
+    return [
+      200,
+      { friends: onCreateSub(JSON.parse(data)) },
+    ];
   });
+
+  m.onDelete('/foos/1/friends').reply(({ url }) => {
+    return [
+      200,
+      {
+        friends: onRemoveSub(
+          url.split('/foos/1/friends/')[1],
+        ),
+      },
+    ];
+  });
+
+  m.onPatch(/\/foos\/1\/friends\/\d+/).reply(
+    ({ data, url }) => [
+      200,
+      {
+        friends: onUpdateSub(
+          url.split('/foos/1/friends/')[1],
+        )(JSON.parse(data)),
+      },
+    ],
+  );
 }
 
 const SubDetailView = React.memo(() => (
@@ -79,7 +88,7 @@ const SubDetailView = React.memo(() => (
     runPoll
     collectionName={coll}
     id="1"
-    root="items"
+    root="friends"
     cardProps={{
       title: 'name',
       describe({ name, age }) {
@@ -129,7 +138,12 @@ const OtherForms = () => {
 
 const SubDetailInstance = () => (
   <>
-    <Header titlePath="foo" />
+    <Header
+      titlePath="foo"
+      titleRenderer={(r) => ({
+        title: `Version ${r ? r.version : 0}`,
+      })}
+    />
     <Detail
       registerOptions={(state) => {
         return [
@@ -175,9 +189,9 @@ export const Populated = () => {
           resourceName={coll}
           collectionName={coll}
           resourceNameSingular="foo"
-          subResources={['items']}
+          subResources={['friends']}
         >
-          <Rest define={mock}>
+          <Rest define={mock} delay={1500}>
             <Router basepath="/">
               <SubDetailInstance path="/foos/:id/*" />
             </Router>

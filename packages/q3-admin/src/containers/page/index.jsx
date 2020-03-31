@@ -1,9 +1,15 @@
 import React from 'react';
+import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import Context from '../state';
+import Box from '@material-ui/core/Box';
+import Fade from '@material-ui/core/Fade';
+import Loading from '../../components/loading';
+import ErrorView from '../../components/error';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
+import { Definitions, Dispatcher, Store } from '../state';
+import { useDataStore, useViewResolutions } from '../use';
 
 /**
  * <code>import { Page } from 'q3-admin'; </code>
@@ -19,9 +25,9 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
+  viewResolutions,
 }) => {
   const url = slugify(collectionName, id);
-
   const state = useRest({
     key: resourceNameSingular,
     pluralized: resourceName,
@@ -31,25 +37,75 @@ const Page = ({
     url,
   });
 
+  const { fetching, fetchingError } = state;
+  const data = useDataStore({
+    resourceNameSingular,
+    resourceName,
+    state,
+    id,
+  });
+
   const hasEntered = useOnRender(
     { onEnter, onExit, onInit },
     { ...state, url },
   );
 
+  const exclusions = useViewResolutions(
+    viewResolutions,
+    data,
+  );
+
   return (
-    <Context.Provider
+    <Definitions.Provider
       value={{
         id,
+        exclusions,
         collectionName,
-        resourceName,
         resourceNameSingular,
-        location,
-        url,
-        ...state,
+        resourceName,
       }}
     >
-      {hasEntered ? children : 'Initializing...'}
-    </Context.Provider>
+      <Dispatcher.Provider
+        value={pick(state, [
+          'get',
+          'poll',
+          'remove',
+          'removeBulk',
+          'patch',
+          'put',
+          'post',
+        ])}
+      >
+        <Store.Provider
+          value={{
+            data,
+            ...pick(state, [
+              'total',
+              'hasNextPage',
+              'hasPrevPage',
+            ]),
+          }}
+        >
+          {!hasEntered || fetching ? (
+            <Fade in timeout={350}>
+              <Loading id={id} />
+            </Fade>
+          ) : (
+            <Fade in timeout={350}>
+              <Box>
+                {fetchingError ? (
+                  <Box m={4}>
+                    <ErrorView />
+                  </Box>
+                ) : (
+                  children
+                )}
+              </Box>
+            </Fade>
+          )}
+        </Store.Provider>
+      </Dispatcher.Provider>
+    </Definitions.Provider>
   );
 };
 
@@ -106,6 +162,11 @@ Page.propTypes = {
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
+
+  /**
+   * Used to hide/display tabs based on state or role.
+   */
+  viewResolutions: PropTypes.shape({}),
 };
 
 Page.defaultProps = {
@@ -114,6 +175,7 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
+  viewResolutions: {},
 };
 
 export default Page;

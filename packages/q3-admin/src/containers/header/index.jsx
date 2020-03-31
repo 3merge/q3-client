@@ -9,7 +9,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import HeaderQ3 from 'q3-ui/lib/header';
 import { curryIf, ellipsis } from '../../components/utils';
-import Context from '../state';
+import { Definitions, Store } from '../state';
 import Title from './title';
 
 const useTitle = (
@@ -63,7 +63,9 @@ const Header = ({
     id,
     fetching,
     ...rest
-  } = React.useContext(Context);
+  } = React.useContext(Definitions);
+
+  const { data } = React.useContext(Store);
 
   const title = useTitle(rest, {
     titleProp,
@@ -92,7 +94,7 @@ const Header = ({
               null,
             )}
             {...(titleRenderer
-              ? titleRenderer(rest)
+              ? titleRenderer(data)
               : null)}
           />
         )

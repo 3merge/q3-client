@@ -1,28 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import { Skeleton } from '@material-ui/lab';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Tile from 'q3-ui/lib/tile';
 import Repeater from 'q3-ui-repeater';
-import Context from '../state';
-
-export const RowSkeleton = () => (
-  <Skeleton
-    variant="rect"
-    height={56}
-    width="100%"
-    style={{ margin: '0.5rem 0' }}
-  />
-);
+import { Definitions, Dispatcher } from '../state';
 
 const SubDetail = ({
   root,
   decorators,
   children,
   runPoll,
+  renderTop,
+  renderBottom,
   ...rest
 }) => {
-  const { collectionName, id, poll } = React.useContext(
-    Context,
+  const { poll } = React.useContext(Dispatcher);
+  const { collectionName, id } = React.useContext(
+    Definitions,
   );
 
   const subdocumentState = useRest({
@@ -30,31 +26,33 @@ const SubDetail = ({
     pluralized: root,
     runOnInit: true,
     url: `/${collectionName}/${id}/${root}`,
-    poll: runPoll ? poll : null,
     decorators,
+    poll,
   });
 
-  return subdocumentState.fetching ? (
-    <>
-      <RowSkeleton />
-      <RowSkeleton />
-      <RowSkeleton />
-      <RowSkeleton />
-      <RowSkeleton />
-    </>
-  ) : (
-    <Repeater
-      name={root}
-      collectionName={collectionName}
-      data={subdocumentState[root]}
-      edit={subdocumentState.patch}
-      create={subdocumentState.post}
-      remove={subdocumentState.remove}
-      {...subdocumentState}
-      {...rest}
-    >
-      {children}
-    </Repeater>
+  return (
+    <Tile title={root} subtitle={root} slim>
+      {renderTop}
+      {subdocumentState.fetching ? (
+        <Box align="center" pb={2}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Repeater
+          name={root}
+          collectionName={collectionName}
+          data={subdocumentState[root]}
+          edit={subdocumentState.patch}
+          create={subdocumentState.post}
+          remove={subdocumentState.remove}
+          {...subdocumentState}
+          {...rest}
+        >
+          {children}
+        </Repeater>
+      )}
+      {renderBottom}
+    </Tile>
   );
 };
 
@@ -76,4 +74,4 @@ SubDetail.defaultProps = {
   runPoll: false,
 };
 
-export default SubDetail;
+export default React.memo(SubDetail);

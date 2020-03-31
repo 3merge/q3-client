@@ -98,3 +98,9 @@ export const Full = () => (
     />
   </Box>
 );
+
+export const Empty = () => (
+  <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
+    <TableView data={[]} />
+  </Box>
+);
