@@ -127,3 +127,33 @@ export const WithoutDefaultButtons = () => (
     />
   </Form>
 );
+
+export const WithListening = () => (
+  <Form
+    debug
+    initialValues={{
+      name: '',
+      dependent: '',
+      other: '',
+    }}
+  >
+    <Field
+      name="name"
+      type="text"
+      helper="This will delete the dependent value on change"
+    />
+    <Field
+      name="dependent"
+      type="text"
+      listen="name"
+      override={({ values }) => ({
+        required: values.name.length > 1,
+      })}
+    />
+    <Field
+      name="other"
+      type="text"
+      helper="This remains unaffected at all times"
+    />
+  </Form>
+);
