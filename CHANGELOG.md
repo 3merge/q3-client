@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/3merge/q/compare/v1.12.21...v1.13.0) (2020-04-01)
+
+
+### Features
+
+* useListen on field builder ([#142](https://github.com/3merge/q/issues/142)) ([8ee1964](https://github.com/3merge/q/commit/8ee1964e8f0604ec43f6cec53852f981a96a4330))
+
+
+
+
+
 ## [1.12.21](https://github.com/3merge/q/compare/v1.12.20...v1.12.21) (2020-04-01)
 
 
