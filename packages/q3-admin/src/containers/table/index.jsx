@@ -5,9 +5,9 @@ import Box from '@material-ui/core/Box';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
 import { Dispatcher, Definitions, Store } from '../state';
-
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
+import { useReferrer } from '../use';
 
 export const ListContainer = ({ children, overflowY }) => {
   const height = useHeight();
@@ -34,6 +34,7 @@ const List = ({ renderForm, renderTop, ...rest }) => {
   const { collectionName } = React.useContext(Definitions);
   const { removeBulk } = React.useContext(Dispatcher);
   const { Redirect, canDelete } = useAuth(collectionName);
+  const { setPath } = useReferrer();
 
   const actions = getActions(
     collectionName,
@@ -51,6 +52,7 @@ const List = ({ renderForm, renderTop, ...rest }) => {
             actions={actions}
             id={collectionName}
             renderFilter={renderForm}
+            onClick={setPath}
           />
         </Box>
       </Box>

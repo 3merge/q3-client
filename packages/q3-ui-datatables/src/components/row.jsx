@@ -61,6 +61,7 @@ const Row = ({
   columns,
   activeColumns,
   rowToolbar,
+  onClick,
 }) => {
   const { mobileCheckbox, row } = useStyles();
   const { t } = useTranslation('labels');
@@ -86,6 +87,7 @@ const Row = ({
         ) : null}
       </TableCell>
       <TableCellHeader
+        onClick={onClick}
         name={t(name)}
         sub={t(description)}
         to={disableLink ? null : `${id}`}
@@ -100,6 +102,7 @@ const Row = ({
 
 Row.propTypes = {
   id: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 
   rowToolbar: PropTypes.arrayOf(
     PropTypes.shape({
@@ -121,6 +124,7 @@ Row.propTypes = {
 
 Row.defaultProps = {
   rowToolbar: [],
+  onClick: null,
 };
 
 export default Row;
