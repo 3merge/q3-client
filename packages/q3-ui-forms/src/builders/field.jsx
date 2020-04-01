@@ -3,15 +3,13 @@ import { useFormikContext, useField } from 'formik';
 import PropTypes from 'prop-types';
 import BuilderState from './builderState';
 import FieldDetector from '../helpers/types';
+import useListen from '../helpers/useListen';
 
-const Field = ({
-  name,
-  override,
-  type,
-  under,
-  ...rest
-}) => {
+const Field = (props) => {
+  const { name, override, type, under, ...rest } = props;
+
   useField(name);
+  useListen(props);
 
   const el = React.useRef();
   const [attrs, setAttrs] = React.useState({});
@@ -54,6 +52,8 @@ const Field = ({
   React.useEffect(() => {
     el.current = FieldDetector.is(type);
   }, []);
+
+  React.useEffect(() => {}, []);
 
   return canSee && attrs && el.current
     ? React.createElement(el.current, {
