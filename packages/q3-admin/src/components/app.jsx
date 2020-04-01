@@ -11,8 +11,8 @@ export const makePath = ({
   index,
 }) => {
   if (home) return '/';
-  if (index) return `/${resourceName}`;
-  if (id) return `/${resourceName}/:id/*`;
+  if (index) return `${resourceName}`;
+  if (id) return `${resourceName}/:id/*`;
 
   throw new Error('Path type not defined');
 };

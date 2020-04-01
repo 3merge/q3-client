@@ -30,9 +30,12 @@ const Detail = ({
   files,
   ...rest
 }) => {
-  const { exclusions, resourceName, id } = React.useContext(
-    Definitions,
-  );
+  const {
+    exclusions,
+    resourceName,
+    id,
+    rootPath,
+  } = React.useContext(Definitions);
 
   const filterByExclusion = (item) =>
     !exclusions.includes(item.label);
@@ -56,7 +59,7 @@ const Detail = ({
       }
       renderInside={
         <Tabs
-          root={`/${resourceName}/${id}`}
+          root={rootPath}
           views={mapToNestedRoute(children)
             .concat([TrashPreset])
             .filter(filterByExclusion)}

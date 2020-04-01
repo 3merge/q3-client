@@ -27,6 +27,8 @@ const Page = ({
   onInit,
   viewResolutions,
 }) => {
+  const [rootPath] = React.useState(location.pathname);
+
   const url = slugify(collectionName, id);
   const state = useRest({
     key: resourceNameSingular,
@@ -63,6 +65,7 @@ const Page = ({
         collectionName,
         resourceNameSingular,
         resourceName,
+        rootPath,
       }}
     >
       <Dispatcher.Provider
