@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.21](https://github.com/3merge/q/compare/v1.12.20...v1.12.21) (2020-04-01)
+
+
+### Bug Fixes
+
+* routing in nested app directories ([664d036](https://github.com/3merge/q/commit/664d036fb4df484e4699880c9a2ad44e37526067))
+
+
+
+
+
 ## [1.12.20](https://github.com/3merge/q/compare/v1.12.19...v1.12.20) (2020-03-31)
 
 
