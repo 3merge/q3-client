@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.1](https://github.com/3merge/q/compare/v1.13.0...v1.13.1) (2020-04-01)
+
+
+### Bug Fixes
+
+* back button synced with session storage ([#143](https://github.com/3merge/q/issues/143)) ([d15f54f](https://github.com/3merge/q/commit/d15f54f024cb011a7b76e9b930b81bb078371095))
+
+
+
+
+
 ## [1.12.16](https://github.com/3merge/q/compare/v1.12.15...v1.12.16) (2020-03-31)
 
 **Note:** Version bump only for package q3-ui-datatables
