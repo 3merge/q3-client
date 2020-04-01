@@ -79,6 +79,7 @@ export const TableView = ({
   resolvers,
   data = [],
   renderFilter,
+  onClick,
 }) => {
   const { t } = useTranslation();
   const { root, expand } = useStyles();
@@ -124,6 +125,8 @@ export const TableView = ({
                     {data.map((c, i) =>
                       React.createElement(Row, {
                         id: c.id || i,
+                        onClick,
+
                         activeColumns,
                         columns:
                           typeof resolvers === 'function'
@@ -200,6 +203,17 @@ TableView.propTypes = {
    * Otherwise, it will just look for the name and description fields.
    */
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
+
+  /**
+   * All function that gets passed down to the Row's link.
+   * It fires before navigating.
+   */
+  onClick: PropTypes.func,
+
+  /**
+   * A renderer for inside the filter popover.
+   */
+  renderFilter: PropTypes.func,
 };
 
 TableView.defaultProps = {
@@ -208,6 +222,8 @@ TableView.defaultProps = {
   actions: [],
   allColumns: [],
   defaultColumns: [],
+  onClick: null,
+  renderFilter: null,
 };
 
 export default TableView;

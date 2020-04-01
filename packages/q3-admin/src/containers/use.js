@@ -31,6 +31,9 @@ export const useDataStore = ({
   return dataStore;
 };
 
+/**
+ * Used to control the visibility of tabs in the Detail component.
+ */
 export const useViewResolutions = (resolutions, target) => {
   const auth = React.useContext(AuthContext);
 
@@ -54,4 +57,39 @@ export const useViewResolutions = (resolutions, target) => {
     },
     [],
   );
+};
+
+/**
+ * Used to set the referral path between table/detail views.
+ * This allows us to the programatically navigate backwards and retain previous queries.
+ */
+export const useReferrer = (resourceName = '/') => {
+  const SESSION_STORAGE_KEY = 'q3-referrer-path';
+  const getPath = () => {
+    let nextReferrer = resourceName;
+
+    if (typeof window !== 'undefined') {
+      const prev = sessionStorage.getItem(
+        SESSION_STORAGE_KEY,
+      );
+
+      if (prev && prev.includes(resourceName)) {
+        nextReferrer = prev;
+      } else {
+        sessionStorage.removeItem(SESSION_STORAGE_KEY);
+      }
+    }
+
+    return nextReferrer;
+  };
+
+  const setPath = (value) => {
+    if (typeof window !== 'undefined')
+      sessionStorage.setItem(SESSION_STORAGE_KEY, value);
+  };
+
+  return {
+    getPath,
+    setPath,
+  };
 };

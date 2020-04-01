@@ -1,6 +1,11 @@
 import React from 'react';
+import 'jest-localstorage-mock';
 
-import { useDataStore, useViewResolutions } from '../use';
+import {
+  useDataStore,
+  useViewResolutions,
+  useReferrer,
+} from '../use';
 
 let setState;
 let ctx;
@@ -77,6 +82,35 @@ describe('use', () => {
       );
 
       expect(out).toEqual(['bar']);
+    });
+  });
+
+  describe('"useReferrer"', () => {
+    const query = '/foos?query=rememeber-me';
+
+    it('should return resourceName by default', () => {
+      const out = useReferrer().getPath();
+      expect(out).toMatch('/');
+    });
+
+    it('should return resourceName if localStorage belongs to a different collection', () => {
+      sessionStorage.getItem.mockReturnValue(query);
+      const out = useReferrer('bars').getPath();
+      expect(out).toMatch('bars');
+    });
+
+    it('should return localStorage value', () => {
+      sessionStorage.getItem.mockReturnValue(query);
+      const out = useReferrer('foos').getPath();
+      expect(out).toMatch(query);
+    });
+
+    it('should set new referrer', () => {
+      useReferrer('foos').setPath(query);
+      expect(sessionStorage.setItem).toHaveBeenCalledWith(
+        expect.any(String),
+        query,
+      );
     });
   });
 });

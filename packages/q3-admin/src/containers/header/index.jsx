@@ -1,9 +1,6 @@
 import React from 'react';
-import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Skeleton from '@material-ui/lab/Skeleton';
-import IconButton from '@material-ui/core/IconButton';
-import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +8,7 @@ import HeaderQ3 from 'q3-ui/lib/header';
 import { curryIf, ellipsis } from '../../components/utils';
 import { Definitions, Store } from '../state';
 import Title from './title';
+import Back from '../back';
 
 const useTitle = (
   state,
@@ -35,13 +33,7 @@ const rendererRight = (children) =>
     </Box>,
   );
 
-const rendererLeft = (id, resourceName) =>
-  curryIf(
-    id,
-    <IconButton component={Link} to={`/${resourceName}`}>
-      <KeyboardBackspace />
-    </IconButton>,
-  );
+const rendererLeft = (id) => curryIf(id, <Back />);
 
 const Header = ({
   children,
