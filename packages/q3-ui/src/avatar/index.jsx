@@ -3,108 +3,76 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
-import * as colors from '@material-ui/core/colors';
+import Tooltip from '../tooltip';
+import useStyle, { getColor } from './useStyle';
+
+const getFirstLetter = (v) =>
+  typeof v === 'string' ? v.toUpperCase().charAt(0) : '';
 
 const shouldDisplay = (v) =>
   typeof v === 'object' && v !== null;
+
+const useBrokenLinkChecker = (imgSrc, setFallback) => {
+  const [src, setSrc] = React.useState(imgSrc);
+
+  const onError = React.useCallback(() => {
+    if (src && src !== null) {
+      setSrc(null);
+      setFallback(<BrokenImageIcon />);
+    }
+  }, [imgSrc]);
+
+  return { src, onError };
+};
+
+// eslint-disable-next-line
+export const WithBadge = ({ children, className, superscript }) =>
+  superscript ? (
+    <Badge badgeContent={superscript} className={className}>
+      {children}
+    </Badge>
+  ) : (
+    children
+  );
+
+// eslint-disable-next-line
+export const WithTooltip = ({ children, tooltip }) =>
+  tooltip ? (
+    <Tooltip arrow title={tooltip}>
+      {children}
+    </Tooltip>
+  ) : (
+    children
+  );
 
 const ColoredAvatar = ({
   word,
   superscript,
   imgSrc,
   icon: Icon,
+  large,
+  onClick,
+  tooltip,
 }) => {
-  const [src, setSrc] = React.useState(String(imgSrc));
-  const letter = word.toUpperCase().charAt(0);
+  const letter = getFirstLetter(word);
   const [text, setText] = React.useState(
     Icon ? <Icon /> : letter,
   );
 
-  let backgroundColor;
-  let color;
+  const { src, onError } = useBrokenLinkChecker(
+    imgSrc,
+    setText,
+  );
 
-  switch (letter) {
-    case 'A':
-    case 'Q':
-      backgroundColor = colors.red['50'];
-      color = colors.red['900'];
-      break;
-    case 'B':
-    case 'R':
-      backgroundColor = colors.pink['50'];
-      color = colors.red['900'];
-      break;
-    case 'C':
-    case 'S':
-      backgroundColor = colors.purple['50'];
-      color = colors.purple['900'];
-      break;
-    case 'D':
-    case 'T':
-      backgroundColor = colors.deepPurple['50'];
-      color = colors.deepPurple['900'];
-      break;
-    case 'E':
-    case 'U':
-      backgroundColor = colors.indigo['50'];
-      color = colors.indigo['900'];
-      break;
-    case 'F':
-    case 'V':
-      backgroundColor = colors.blue['50'];
-      color = colors.blue['900'];
-      break;
-    case 'G':
-    case 'W':
-      backgroundColor = colors.lightBlue['50'];
-      color = colors.lightBlue['900'];
-      break;
-    case 'H':
-    case 'X':
-      backgroundColor = colors.cyan['50'];
-      color = colors.cyan['900'];
-      break;
-    case 'I':
-    case 'Y':
-      backgroundColor = colors.teal['50'];
-      color = colors.teal['900'];
-      break;
-    case 'J':
-    case 'Z':
-      backgroundColor = colors.green['50'];
-      color = colors.green['900'];
-      break;
-    case 'k':
-    case 'l':
-      backgroundColor = colors.lightGreen['50'];
-      color = colors.lightGreen['900'];
-      break;
-    case 'm':
-    case 'n':
-      backgroundColor = colors.orange['50'];
-      color = colors.orange['900'];
-      break;
-    case 'o':
-    case 'p':
-      backgroundColor = colors.amber['50'];
-      color = colors.amber['900'];
-      break;
-    default:
-      backgroundColor = colors.deepOrange['50'];
-      color = colors.deepOrange['900'];
-      break;
-  }
-
-  const onError = function catchBrokenLinks() {
-    setSrc(null);
-    setText(<BrokenImageIcon />);
-  };
+  const cls = useStyle({
+    ...getColor(letter),
+    onClick,
+    large,
+  });
 
   React.useEffect(() => {
-    if (!text && !src) {
-      setText(letter);
-    }
-  }, []);
+    if (!text && !src) setText(letter);
+  }, [text, src]);
 
   const getChildren = () => {
     const Ic = imgSrc;
@@ -113,21 +81,35 @@ const ColoredAvatar = ({
     return shouldDisplay(src) ? src : text;
   };
 
+  const getAvatarProps = () => {
+    const commons = {
+      imgProps: { onError },
+      className: cls.root,
+      alt: word,
+      src,
+    };
+
+    if (onClick)
+      Object.assign(commons, {
+        tabIndex: 0,
+        onKeyPress: onClick,
+        onClick,
+      });
+
+    return commons;
+  };
+
   return (
-    <Badge badgeContent={superscript} style={{ color }}>
-      <Avatar
-        imgProps={{ onError }}
-        src={src}
-        alt={word}
-        style={{
-          border: '1px solid #fff',
-          backgroundColor,
-          color,
-        }}
+    <WithTooltip tooltip={tooltip}>
+      <WithBadge
+        superscript={superscript}
+        className={cls.badge}
       >
-        {getChildren()}
-      </Avatar>
-    </Badge>
+        <Avatar {...getAvatarProps()}>
+          {getChildren()}
+        </Avatar>
+      </WithBadge>
+    </WithTooltip>
   );
 };
 
@@ -140,6 +122,10 @@ ColoredAvatar.propTypes = {
     PropTypes.object,
     PropTypes.func,
   ]),
+
+  large: PropTypes.bool,
+  onClick: PropTypes.func,
+  tooltip: PropTypes.string,
 };
 
 ColoredAvatar.defaultProps = {
@@ -147,6 +133,9 @@ ColoredAvatar.defaultProps = {
   word: '',
   imgSrc: null,
   icon: null,
+  large: false,
+  onClick: null,
+  tooltip: null,
 };
 
 export default ColoredAvatar;

@@ -32,7 +32,7 @@ export default (options = {}) => {
   const nextState = selectFromObject(values, listen);
 
   React.useEffect(() => {
-    if (!name) return;
+    if (!name || !listen) return;
 
     setFieldValue(name, '');
     setFieldError(name, undefined);
