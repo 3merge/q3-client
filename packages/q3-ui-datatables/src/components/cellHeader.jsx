@@ -15,7 +15,7 @@ const CellHeader = ({ name, sub, imgSrc, to, onClick }) => {
 
   return (
     <Location>
-      {({ location: { pathname } }) => (
+      {({ location: { pathname, search } }) => (
         <TableCell className={withoutPseudo}>
           <Grid
             container
@@ -32,7 +32,8 @@ const CellHeader = ({ name, sub, imgSrc, to, onClick }) => {
               style={{ flex: 1 }}
               {...asLink}
               onClick={() => {
-                if (onClick) onClick(pathname);
+                if (onClick)
+                  onClick(`${pathname}${search}`);
               }}
             >
               <Typography variant="body1">
