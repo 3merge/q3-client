@@ -42,8 +42,4 @@ Gatekeeper.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Gatekeeper.defaultProps = {
-  redirectPathOnPublic: '/login',
-};
-
 export default Gatekeeper;
