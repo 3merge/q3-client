@@ -167,5 +167,6 @@
   "history": "History",
   "unselect": "Unselect {{count}} items",
   "addToTrash": "Add to the archives",
-  "featuredPhotoUpload": "Click to change/set the featured photo"
+  "featuredPhotoUpload": "Click to change/set the featured photo",
+  "learnMore": "Learn more"
 }

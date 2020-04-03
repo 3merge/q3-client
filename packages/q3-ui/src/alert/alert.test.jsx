@@ -42,4 +42,18 @@ describe('Alert', () => {
       .simulate('click');
     expect(callback).toHaveBeenCalled();
   });
+
+  it('should not render actions', () => {
+    expect(
+      global
+        .shallow(
+          <Alert
+            type="success"
+            label="womp"
+            dismissable={false}
+          />,
+        )
+        .find(Button).length,
+    ).toBe(0);
+  });
 });

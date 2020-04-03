@@ -56,7 +56,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Alert = ({ label, link, type, done }) => {
+const Alert = ({
+  label,
+  link,
+  type,
+  dismissable,
+  done,
+}) => {
   const [dismissed, setDismissed] = React.useState(false);
   const cls = useStyles();
   const { t } = useTranslation();
@@ -88,15 +94,16 @@ const Alert = ({ label, link, type, done }) => {
               {t('labels:learn')}
             </Button>
           )}
-
-          <Button
-            onClick={onDismiss}
-            className={cls.icon}
-            color="inherit"
-            size="small"
-          >
-            {t('labels:ok')}
-          </Button>
+          {dismissable && (
+            <Button
+              onClick={onDismiss}
+              className={cls.icon}
+              color="inherit"
+              size="small"
+            >
+              {t('labels:ok')}
+            </Button>
+          )}
         </span>
       </Box>
     </Collapse>
@@ -104,21 +111,43 @@ const Alert = ({ label, link, type, done }) => {
 };
 
 Alert.propTypes = {
+  /**
+   * The content to display inside the alert.
+   * It connects to the i18n descriptions namespace.
+   */
   label: PropTypes.string.isRequired,
+
+  /**
+   * Learn more button, much like that in the Notice component.
+   */
   link: PropTypes.string,
+
+  /**
+   * A callback to fire post-dismiss.
+   */
   done: PropTypes.func,
+
+  /**
+   * There are four preset alert colors to choose from.
+   */
   type: PropTypes.oneOf([
     'error',
     'warning',
     'success',
     'info',
   ]),
+
+  /**
+   * Controls the ability to hide the alert after rendering.
+   */
+  dismissable: PropTypes.bool,
 };
 
 Alert.defaultProps = {
   done: null,
   type: 'info',
   link: null,
+  dismissable: true,
 };
 
 export default Alert;
