@@ -21,6 +21,10 @@ jest
   .mockImplementation((v) => v);
 
 beforeAll(() => {
+  Object.defineProperty(window.location, 'reload', {
+    writable: true,
+  });
+
   window.location.reload = jest.fn();
 });
 

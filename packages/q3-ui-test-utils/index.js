@@ -7,6 +7,13 @@ const {
   createRender,
 } = require('@material-ui/core/test-utils');
 
+const oldLocation = global.window.location;
+delete global.window.location;
+
+global.window.location = {
+  ...oldLocation,
+};
+
 enzyme.configure({
   adapter: new Adapter(),
 });
