@@ -13,6 +13,7 @@ module.exports = {
     '../packages/q3-ui-cart/**.stories.jsx',
     '../packages/q3-ui-datatables/**.stories.jsx',
     '../packages/q3-ui-filters/**.stories.jsx',
+    '../packages/q3-ui/**/alert/**.stories.jsx',
     '../packages/q3-ui/**/authorship/**.stories.jsx',
     '../packages/q3-ui/**/avatar/*.stories.jsx',
     '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',

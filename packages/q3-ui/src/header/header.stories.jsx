@@ -61,7 +61,7 @@ const PageDemo = ({ children }) => (
       <Bar path="bar" />
       <Qux path="qux" />
     </Router>
-    <Typography component="div">
+    <Typography component="div" style={{ height: '600vh' }}>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing
         elit. Sed ut lorem et leo tincidunt commodo.

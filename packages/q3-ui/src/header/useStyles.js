@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
       props.transparent ? 'transparent' : '#FFF',
     boxShadow: 'none !important',
     willChange: 'background, color',
-    transition: 'background 500ms',
+    transition: 'all 225ms !important',
   },
   appBarPadding: {
     padding: theme.spacing(2),

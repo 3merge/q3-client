@@ -7,13 +7,43 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import Slide from '@material-ui/core/Slide';
 import Offcanvas from '../offcanvas';
 import Menu from '../menu';
 import TabMenu from './tabMenu';
 import Logo from './logo';
 import useStyles from './useStyles';
-import useScroll from './useScroll';
 import Wrapper from './wrapper';
+
+function HideOnScroll({ color, children }) {
+  const trigger = useScrollTrigger();
+  const needsBackground = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return (
+    <Slide
+      appear={false}
+      direction="down"
+      in={!trigger}
+      timeout="500ms"
+    >
+      {React.cloneElement(children, {
+        style: needsBackground
+          ? {
+              backgroundColor: '#FFF',
+              color: 'inherit',
+            }
+          : {
+              backgroundColor: undefined,
+              color,
+            },
+      })}
+    </Slide>
+  );
+}
 
 const Header = ({
   menuItems,
@@ -27,69 +57,71 @@ const Header = ({
   position,
   ...rest
 }) => {
-  const scrollProps = useScroll(color);
   const { appBar, appBarPadding } = useStyles({
     transparent,
   });
 
   return (
-    <AppBar
-      id="app-header"
-      position={position}
-      className={appBar}
-      {...scrollProps}
-    >
-      {children}
-      <Container maxWidth="xl" className={appBarPadding}>
-        <Grid container justify="space-between">
-          <Wrapper {...rest}>
-            {invoke(rest, 'renderPreIdentifier')}
-            <Logo {...rest} />
-            <Hidden smDown>
-              {invoke(rest, 'renderLeft')}
+    <HideOnScroll color={color}>
+      <AppBar
+        id="app-header"
+        position={position}
+        className={appBar}
+      >
+        {children}
+        <Container maxWidth="xl" className={appBarPadding}>
+          <Grid container justify="space-between">
+            <Wrapper {...rest}>
+              {invoke(rest, 'renderPreIdentifier')}
+              <Logo {...rest} />
+              <Hidden smDown>
+                {invoke(rest, 'renderLeft')}
+                <TabMenu
+                  menuPosition={menuPosition}
+                  menuRenderPosition="left"
+                  items={menuItems}
+                />
+              </Hidden>
+            </Wrapper>
+            <Wrapper {...rest}>
               <TabMenu
                 menuPosition={menuPosition}
-                menuRenderPosition="left"
+                menuRenderPosition="right"
                 items={menuItems}
               />
-            </Hidden>
-          </Wrapper>
-          <Wrapper {...rest}>
-            <TabMenu
-              menuPosition={menuPosition}
-              menuRenderPosition="right"
-              items={menuItems}
-            />
-            {invoke(rest, 'renderRight')}
-            {menuItems.length ? (
-              <Hidden mdUp>
-                <Offcanvas
-                  menu={({ close }) => (
-                    <>
-                      {offcanvasRenderTop}
-                      <Menu
-                        items={mobileMenuItems || menuItems}
-                        done={close}
-                      />
-                      {offcanvasRenderBottom}
-                    </>
-                  )}
-                >
-                  {(toggle) => (
-                    <IconButton
-                      onClick={toggle}
-                      aria-label="Open menu"
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  )}
-                </Offcanvas>
-              </Hidden>
-            ) : null}
-          </Wrapper>
-        </Grid>
-      </Container>
-    </AppBar>
+              {invoke(rest, 'renderRight')}
+              {menuItems.length ? (
+                <Hidden mdUp>
+                  <Offcanvas
+                    menu={({ close }) => (
+                      <>
+                        {offcanvasRenderTop}
+                        <Menu
+                          items={
+                            mobileMenuItems || menuItems
+                          }
+                          done={close}
+                        />
+                        {offcanvasRenderBottom}
+                      </>
+                    )}
+                  >
+                    {(toggle) => (
+                      <IconButton
+                        onClick={toggle}
+                        aria-label="Open menu"
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    )}
+                  </Offcanvas>
+                </Hidden>
+              ) : null}
+            </Wrapper>
+          </Grid>
+        </Container>
+      </AppBar>
+    </HideOnScroll>
   );
 };
 
