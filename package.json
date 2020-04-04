@@ -10,7 +10,8 @@
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
     "deploy": "yarn build && build-storybook --docs",
-    "test": "jest --collectCoverage --silent --runInBand"
+    "test": "jest --collectCoverage --silent --runInBand",
+    "deploy-storybook": "storybook-to-ghpages -- --out=.out"
   },
   "workspaces": [
     "packages/*"
