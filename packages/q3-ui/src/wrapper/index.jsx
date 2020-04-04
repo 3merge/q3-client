@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Wrapper = ({
   backgroundColor,
+  color,
   children,
   negativeMargin,
   fullWidth,
@@ -30,7 +31,7 @@ const Wrapper = ({
   const { offset, root } = useStyles({ fullWidth, dense });
   return (
     <Box
-      style={{ backgroundColor }}
+      style={{ backgroundColor, color }}
       className={classnames(
         root,
         negativeMargin ? offset : null,
