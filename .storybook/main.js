@@ -16,6 +16,8 @@ module.exports = {
     '../packages/q3-ui/**/alert/**.stories.jsx',
     '../packages/q3-ui/**/authorship/**.stories.jsx',
     '../packages/q3-ui/**/avatar/*.stories.jsx',
+    '../packages/q3-ui/**/bannerWithIntrusive/**.stories.jsx',
+    '../packages/q3-ui/**/bannerWithOffset/**.stories.jsx',
     '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',
     '../packages/q3-ui/**/card/*.stories.jsx',
     '../packages/q3-ui/**/callToAction/*.stories.jsx',
