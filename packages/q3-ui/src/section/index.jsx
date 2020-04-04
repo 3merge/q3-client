@@ -10,23 +10,31 @@ const Section = ({
   label,
   margin,
   children,
+  fullWidth,
 }) => (
-  <Container maxWidth="lg" component="section">
+  <Container
+    component="section"
+    maxWidth={fullWidth ? 'xl' : 'lg'}
+  >
     <Container maxWidth="md" align="center">
       <Box mb={2} pt={margin ? 2 : 0}>
-        <Typography
-          variant="overline"
-          gutterBottom
-          color="secondary"
-        >
-          {label}
-        </Typography>
+        {label && (
+          <Typography
+            variant="overline"
+            color="secondary"
+            gutterBottom
+          >
+            {label}
+          </Typography>
+        )}
         <Typography variant="h2" gutterBottom>
           {title}
         </Typography>
-        <Typography variant="subtitle1" component="p">
-          {subtitle}
-        </Typography>
+        {subtitle && (
+          <Typography variant="subtitle1" component="p">
+            {subtitle}
+          </Typography>
+        )}
       </Box>
     </Container>
     {children}
@@ -36,6 +44,16 @@ const Section = ({
 Section.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  label: PropTypes.string,
+  margin: PropTypes.bool,
+  fullWidth: PropTypes.bool,
+};
+
+Section.defaultProps = {
+  label: '',
+  margin: false,
+  fullWidth: false,
 };
 
 export default Section;
