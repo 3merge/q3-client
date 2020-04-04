@@ -1,19 +1,16 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import CallToAction from '.';
-import docs from './README.md';
+import fixture from './__fixtures__';
 
-storiesOf('Components|Call to Action', module)
-  .addParameters({
-    readme: {
-      sidebar: docs,
-    },
-  })
-  .add('Default', () => (
-    <CallToAction
-      title="This is my call to action"
-      description="To change the background color, nest it inside the Wrapper component. You don't have to worry about the width of the parent container, as this sets its own breakpoints."
-      buttonText="Call now"
-      to="/"
-    />
-  ));
+export default {
+  title: 'Q3 UI/Components/CallToAction',
+};
+
+export const Default = () => <CallToAction {...fixture} />;
+export const Light = () => (
+  <CallToAction
+    {...fixture}
+    backgroundColor="#222"
+    color="#FFF"
+  />
+);
