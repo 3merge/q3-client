@@ -29,7 +29,7 @@ const FeatureSizingBase = ({
 FeatureSizingBase.propTypes = {
   children: PropTypes.node.isRequired,
   lg: PropTypes.number,
-  md: 4,
+  md: PropTypes.number,
   sm: PropTypes.number,
   xs: PropTypes.number,
 };
@@ -66,7 +66,7 @@ export const Media = ({
 
 Media.propTypes = {
   icon: PropTypes.node,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   imgSrc: PropTypes.string.isRequired,
   imageSizeSmall: PropTypes.bool,
   // eslint-disable-next-line
@@ -76,6 +76,7 @@ Media.propTypes = {
 Media.defaultProps = {
   icon: null,
   imageSizeSmall: false,
+  title: '',
   imgStyle: {},
 };
 

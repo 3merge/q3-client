@@ -2,23 +2,14 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Address from '.';
+import fixture from './__fixtures__';
 
 export default {
   title: 'Q3 UI/Components/Address',
 };
 
 export const SampleWithPhone = () => (
-  <Address
-    company="Acme Inc."
-    streetNumber="45"
-    streetLine1="Strawberry Str"
-    streetLine2="Unit #42"
-    city="Toronto"
-    region="ON"
-    postal="M2T1L0"
-    phone1="416-789-1234"
-    email="sample@address.com"
-  />
+  <Address {...fixture} />
 );
 
 export const SideBySide = () => (

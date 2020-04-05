@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Pin from '@material-ui/icons/Map';
 import EmailIcon from '@material-ui/icons/Email';
@@ -16,27 +18,39 @@ const AddressLine = ({ children }) => (
   </Box>
 );
 
-const AddressLabel = ({ icon: Icon, label }) => (
-  <Grid item>
-    <Typography
-      variant="overline"
-      style={{
-        margin: 0,
-        width: 115,
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Icon
+AddressLine.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+const AddressLabel = ({ icon: Icon, label }) => {
+  const { t } = useTranslation('labels');
+  return (
+    <Grid item>
+      <Typography
+        variant="overline"
         style={{
-          marginRight: '0.5rem',
-          fontSize: '1rem',
+          margin: 0,
+          width: 115,
+          display: 'flex',
+          alignItems: 'center',
         }}
-      />
-      {label}
-    </Typography>
-  </Grid>
-);
+      >
+        <Icon
+          style={{
+            marginRight: '0.5rem',
+            fontSize: '1rem',
+          }}
+        />
+        {t(label)}
+      </Typography>
+    </Grid>
+  );
+};
+
+AddressLabel.propTypes = {
+  icon: PropTypes.node.isRequired,
+  label: PropTypes.string.isRequired,
+};
 
 const Address = ({
   label,
@@ -115,5 +129,29 @@ const Address = ({
     </AddressLine>
   </Typography>
 );
+
+Address.propTypes = {
+  label: PropTypes.string,
+  company: PropTypes.string.isRequired,
+  streetNumber: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  streetLine1: PropTypes.string.isRequired,
+  streetLine2: PropTypes.string,
+  city: PropTypes.string.isRequired,
+  phone1: PropTypes.string,
+  email: PropTypes.string,
+  region: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
+  postal: PropTypes.string.isRequired,
+};
+
+Address.defaultProps = {
+  label: '',
+  streetLine2: '',
+  phone1: '',
+  email: '',
+};
 
 export default Address;
