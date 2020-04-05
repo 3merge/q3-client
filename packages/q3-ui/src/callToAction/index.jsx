@@ -50,47 +50,45 @@ const CallToAction = ({
     <Container
       component="aside"
       align="center"
-      maxWidth="sm"
+      maxWidth="md"
     >
-      <Box py={2}>
-        {fluid && (
-          <Box mb={1}>
-            <Image
-              fluid={fluid}
-              alt={title}
-              objectFit="contain"
-              objectPosition="50% 50%"
-              style={{
-                display: 'block',
-                margin: 'auto',
-                height: 65,
-                width: 65,
-              }}
-            />
-          </Box>
-        )}
-        <Typography
-          color="inherit"
-          variant="overline"
-          component="h3"
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography
-          color="inherit"
-          variant="h3"
-          gutterBottom
-          component="p"
-        >
-          {description}
-        </Typography>
-        <CallToActionButton
-          to={to}
-          text={buttonText}
-          withColor={Boolean(color)}
-        />
-      </Box>
+      {fluid && (
+        <Box mb={1}>
+          <Image
+            fluid={fluid}
+            alt={title}
+            objectFit="contain"
+            objectPosition="50% 50%"
+            style={{
+              display: 'block',
+              margin: 'auto',
+              height: 65,
+              width: 65,
+            }}
+          />
+        </Box>
+      )}
+      <Typography
+        color="inherit"
+        variant="overline"
+        component="h3"
+        gutterBottom
+      >
+        {title}
+      </Typography>
+      <Typography
+        color="inherit"
+        variant="h3"
+        gutterBottom
+        component="p"
+      >
+        {description}
+      </Typography>
+      <CallToActionButton
+        to={to}
+        text={buttonText}
+        withColor={Boolean(color)}
+      />
     </Container>
   </Wrapper>
 );
