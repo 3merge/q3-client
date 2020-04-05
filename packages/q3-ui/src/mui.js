@@ -9,6 +9,7 @@ const color = '#434552';
 const headingFont = {
   color: '#3f3d56',
   fontWeight: 400,
+  fontFamily: '"Source Sans Pro", sans-serif',
 };
 
 const generateShadows = () => {
@@ -39,7 +40,7 @@ const theme = createMuiTheme({
     h1: {
       ...headingFont,
       fontSize: '2.887rem',
-      fontWeight: 800,
+      fontWeight: 600,
     },
     h2: {
       ...headingFont,
@@ -80,7 +81,7 @@ const theme = createMuiTheme({
       fontSize: '1.15rem',
       fontWeight: 600,
     },
-    fontFamily: '"Source Sans Pro", sans-serif',
+    fontFamily: '"Roboto", sans-serif',
   },
   shadows: generateShadows(),
   spacing: (factor) => `${0.75 * factor}rem`,
