@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { AddressLink, Phone, Email } from '../link';
+import useStyle from './useStyle';
 
 const AddressLine = ({ children }) => (
   <Box mb={1}>
@@ -24,23 +25,12 @@ AddressLine.propTypes = {
 
 const AddressLabel = ({ icon: Icon, label }) => {
   const { t } = useTranslation('labels');
+  const cls = useStyle();
+
   return (
-    <Grid item>
-      <Typography
-        variant="overline"
-        style={{
-          margin: 0,
-          width: 115,
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <Icon
-          style={{
-            marginRight: '0.5rem',
-            fontSize: '1rem',
-          }}
-        />
+    <Grid item sm xs={12}>
+      <Typography variant="overline" className={cls.label}>
+        <Icon className={cls.icon} />
         {t(label)}
       </Typography>
     </Grid>
@@ -64,71 +54,68 @@ const Address = ({
   region,
   country,
   postal,
-}) => (
-  <Typography
-    component="address"
-    style={{
-      fontStyle: 'normal',
-      fontSize: '1rem',
-    }}
-  >
-    <Box mb={1}>
-      {label && (
+}) => {
+  const cls = useStyle();
+  return (
+    <Typography component="address" className={cls.root}>
+      <Box mb={1}>
+        {label && (
+          <Typography
+            component="p"
+            variant="h5"
+            color="primary"
+          >
+            {label}
+          </Typography>
+        )}
         <Typography
-          component="p"
-          variant="h5"
           color="primary"
+          variant="body2"
+          gutterBottom
         >
-          {label}
+          <strong>{company}</strong>
         </Typography>
+      </Box>
+      <Box mb={1}>
+        <Divider />
+      </Box>
+      {email && (
+        <AddressLine>
+          <AddressLabel icon={EmailIcon} label="email" />
+          <Grid item xs>
+            <Email address={email} />
+          </Grid>
+        </AddressLine>
       )}
-      <Typography
-        color="primary"
-        variant="body2"
-        gutterBottom
-      >
-        <strong>{company}</strong>
-      </Typography>
-    </Box>
-    <Box mb={1}>
-      <Divider />
-    </Box>
-    {email && (
+      {phone1 && (
+        <AddressLine>
+          <AddressLabel icon={PhoneIcon} label="phone" />
+          <Grid item xs>
+            <Phone number={phone1} />
+          </Grid>
+        </AddressLine>
+      )}
       <AddressLine>
-        <AddressLabel icon={EmailIcon} label="email" />
+        <AddressLabel icon={Pin} label="address" />
         <Grid item xs>
-          <Email address={email} />
+          <AddressLink>
+            {streetNumber} {streetLine1}
+            {streetLine2 && (
+              <>
+                <br />
+                {streetLine2}
+              </>
+            )}
+            <br />
+            {city} {region}
+            <br />
+            {country} {postal}
+          </AddressLink>
         </Grid>
       </AddressLine>
-    )}
-    {phone1 && (
-      <AddressLine>
-        <AddressLabel icon={PhoneIcon} label="phone" />
-        <Grid item xs>
-          <Phone number={phone1} />
-        </Grid>
-      </AddressLine>
-    )}
-    <AddressLine>
-      <AddressLabel icon={Pin} label="address" />
-      <Grid item xs>
-        <AddressLink>
-          {streetNumber} {streetLine1}
-          {streetLine2 && (
-            <>
-              <br />
-              {streetLine2}
-            </>
-          )}
-          <br />
-          {city} {region}
-          <br />
-          {country} {postal}
-        </AddressLink>
-      </Grid>
-    </AddressLine>
-  </Typography>
-);
+    </Typography>
+  );
+};
 
 Address.propTypes = {
   label: PropTypes.string,
