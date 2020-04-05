@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -12,7 +14,34 @@ const useStyles = makeStyles({
   },
 });
 
-const Media = ({
+const FeatureSizingBase = ({
+  children,
+  lg,
+  md,
+  sm,
+  xs,
+}) => (
+  <Grid item lg={lg} md={md} sm={sm} xs={xs}>
+    {children}
+  </Grid>
+);
+
+FeatureSizingBase.propTypes = {
+  children: PropTypes.node.isRequired,
+  lg: PropTypes.number,
+  md: 4,
+  sm: PropTypes.number,
+  xs: PropTypes.number,
+};
+
+FeatureSizingBase.defaultProps = {
+  lg: 4,
+  md: 4,
+  sm: 6,
+  xs: 12,
+};
+
+export const Media = ({
   icon,
   title,
   imgSrc,
@@ -35,12 +64,31 @@ const Media = ({
   );
 };
 
+Media.propTypes = {
+  icon: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string.isRequired,
+  imageSizeSmall: PropTypes.bool,
+  // eslint-disable-next-line
+  imgStyle: PropTypes.object,
+};
+
+Media.defaultProps = {
+  icon: null,
+  imageSizeSmall: false,
+  imgStyle: {},
+};
+
 export const FeatureHorizontal = ({
+  lg,
+  md,
+  sm,
+  xs,
   body,
   title,
   ...rest
 }) => (
-  <Grid item md={4} sm={6} xs={12}>
+  <FeatureSizingBase lg={lg} md={md} sm={sm} xs={xs}>
     <Box p={4}>
       <Grid container spacing={4}>
         <Grid item xs={3}>
@@ -58,46 +106,78 @@ export const FeatureHorizontal = ({
         </Grid>
       </Grid>
     </Box>
-  </Grid>
+  </FeatureSizingBase>
 );
 
-const Feature = ({
+FeatureHorizontal.propTypes = {
+  ...FeatureSizingBase.propTypes,
+};
+
+const FeatureBase = ({
   align,
-  body,
-  lg,
-  sm,
-  xs,
   title,
+  body,
   children,
   ...rest
 }) => (
-  <Grid item lg={lg} sm={sm} xs={xs}>
-    <Box p={2} textAlign={align}>
-      <Box mb={1}>
-        <Media {...rest} title={title} />
-      </Box>
-      <Typography variant="h3" gutterBottom>
-        {title}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {body}
-      </Typography>
-      {children}
+  <Box p={2} textAlign={align}>
+    <Box mb={1}>
+      <Media {...rest} title={title} />
     </Box>
-  </Grid>
+    <Typography variant="h3" gutterBottom>
+      {title}
+    </Typography>
+    <Typography variant="body1" gutterBottom>
+      {body}
+    </Typography>
+    {children}
+  </Box>
+);
+
+FeatureBase.propTypes = {
+  align: PropTypes.oneOf(['left', 'center', 'right']),
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
+
+FeatureBase.defaultProps = {
+  align: 'center',
+  children: null,
+};
+
+const Feature = ({ lg, md, sm, xs, children, ...rest }) => (
+  <FeatureSizingBase lg={lg} md={md} sm={sm} xs={xs}>
+    <FeatureBase {...rest}>{children}</FeatureBase>
+  </FeatureSizingBase>
 );
 
 Feature.propTypes = {
-  lg: PropTypes.number,
-  sm: PropTypes.number,
-  xs: PropTypes.number,
-};
-
-Feature.defaultProps = {
-  align: 'center',
-  lg: 4,
-  sm: 6,
-  xs: 12,
+  ...FeatureSizingBase.propTypes,
+  ...FeatureBase.propTypes,
 };
 
 export default Feature;
+
+export const ClickableFeature = ({
+  lg,
+  md,
+  sm,
+  xs,
+  children,
+  CardActionAreaProps,
+  ...rest
+}) => (
+  <FeatureSizingBase lg={lg} md={md} sm={sm} xs={xs}>
+    <Card>
+      <CardActionArea {...CardActionAreaProps}>
+        <FeatureBase {...rest}>{children}</FeatureBase>
+      </CardActionArea>
+    </Card>
+  </FeatureSizingBase>
+);
+
+ClickableFeature.propTypes = {
+  ...FeatureSizingBase.propTypes,
+  ...FeatureBase.propTypes,
+};
