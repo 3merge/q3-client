@@ -38,29 +38,29 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       ...headingFont,
-      fontSize: '3.8rem',
+      fontSize: '2.887rem',
       fontWeight: 800,
     },
     h2: {
       ...headingFont,
       marginTop: 8,
-      fontSize: '2.4rem',
+      fontSize: '2.281rem',
     },
     h3: {
       ...headingFont,
-      fontSize: '1.7rem',
+      fontSize: '1.802rem',
     },
     h4: {
       ...headingFont,
-      fontSize: '1.4rem',
+      fontSize: '1.602rem',
     },
     h5: {
       ...headingFont,
-      fontSize: '1.15rem',
+      fontSize: '1.266rem',
     },
     h6: {
       ...headingFont,
-      fontSize: '0.8rem',
+      fontSize: '0.889rem',
     },
     overline: {
       fontWeight: 600,

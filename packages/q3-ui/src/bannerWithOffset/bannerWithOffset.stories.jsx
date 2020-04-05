@@ -21,3 +21,11 @@ export const Sample = () => (
 export const CustomFilterColor = () => (
   <BannerWithOffset {...fixture} filter="rgb(220, 0, 78)" />
 );
+
+export const CustomButtomRenderer = () => (
+  <BannerWithOffset
+    {...fixture}
+    filter="rgb(220, 0, 78)"
+    bottom={<Box>Anything goes here!</Box>}
+  />
+);

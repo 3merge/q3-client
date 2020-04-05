@@ -28,9 +28,7 @@ const Offset = ({ children }) => (
   <Box position="relative" mt="-15vh" component="section">
     <Wrapper backgroundColor="transparent">
       <Box px={1}>
-        <Paper elevation={2}>
-          <Box p={4}>{children}</Box>
-        </Paper>
+        <Paper elevation={1}>{children}</Paper>
       </Box>
     </Wrapper>
   </Box>
@@ -46,6 +44,8 @@ const BannerWithOffset = ({
   title,
   subtitle,
   filter,
+  bottom,
+  top,
 }) => {
   const cls = useStyle({
     filter,
@@ -58,7 +58,7 @@ const BannerWithOffset = ({
         alignItems="center"
         justifyContent="center"
         position="relative"
-        minHeight="65vh"
+        minHeight="57.5vh"
         width="100%"
       >
         <Image
@@ -81,6 +81,7 @@ const BannerWithOffset = ({
           align="center"
           className={cls.contrast}
         >
+          {top}
           <Typography
             variant="h1"
             color="inherit"
@@ -91,9 +92,10 @@ const BannerWithOffset = ({
           <Typography variant="body2" color="inherit">
             {subtitle}
           </Typography>
+          {bottom}
         </Box>
       </Box>
-      <Offset>{children}</Offset>
+      {children && <Offset>{children}</Offset>}
     </Box>
   );
 };
@@ -106,10 +108,14 @@ BannerWithOffset.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
   filter: PropTypes.string,
+  top: PropTypes.node,
+  bottom: PropTypes.node,
 };
 
 BannerWithOffset.defaultProps = {
   filter: 'rgb(2,2,2)',
+  top: null,
+  bottom: null,
 };
 
 export default BannerWithOffset;
