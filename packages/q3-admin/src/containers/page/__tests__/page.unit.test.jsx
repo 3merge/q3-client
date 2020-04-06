@@ -15,7 +15,7 @@ jest.mock('q3-ui-rest', () => ({
 const Child = () => null;
 
 const getShallow = () =>
-  global.shallow(
+  global.mount(
     <Page
       location={{
         href: '/',

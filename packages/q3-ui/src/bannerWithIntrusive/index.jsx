@@ -63,7 +63,7 @@ const BannerWithIntrusive = ({
         objectPosition="center center"
         objectFit="cover"
         style={{
-          overflow: 'auto',
+          overflow: 'visible',
         }}
       />
       <Container maxWidth="lg">

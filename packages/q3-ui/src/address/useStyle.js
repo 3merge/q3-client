@@ -7,7 +7,7 @@ export default makeStyles(() => ({
   },
   label: {
     margin: 0,
-    width: 145,
+    width: 155,
     display: 'flex',
     alignItems: 'center',
   },

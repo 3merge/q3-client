@@ -1,14 +1,12 @@
 import React from 'react';
 import { useFilters } from 'q3-ui-rest';
 import { props } from 'q3-ui-helpers';
-import PageState from '../state';
+import { Definitions } from '../state';
 
 export default (params, children) => {
-  const {
-    collectionName,
-    fetching,
-    location,
-  } = React.useContext(PageState);
+  const { collectionName, location } = React.useContext(
+    Definitions,
+  );
 
   const filters = useFilters({
     query: params.toString(),
@@ -23,7 +21,7 @@ export default (params, children) => {
     }
 
     return {
-      loading: filters.fetching || fetching,
+      loading: filters.fetching,
       fields: filters.fields || {},
     };
   }, [filters.fields]);

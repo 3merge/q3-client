@@ -11,9 +11,39 @@ import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore, useViewResolutions } from '../use';
 
-/**
- * <code>import { Page } from 'q3-admin'; </code>
- */
+const PageChildren = ({
+  children,
+  id,
+  hasEntered,
+  fetching,
+  fetchingError,
+}) =>
+  !hasEntered || fetching ? (
+    <Fade in timeout={350}>
+      <Loading id={id} />
+    </Fade>
+  ) : (
+    <Fade in timeout={350}>
+      <Box>
+        {fetchingError ? (
+          <Box m={4}>
+            <ErrorView />
+          </Box>
+        ) : (
+          children
+        )}
+      </Box>
+    </Fade>
+  );
+
+PageChildren.propTypes = {
+  children: PropTypes.node.isRequired,
+  id: PropTypes.string.isRequired,
+  hasEntered: PropTypes.bool.isRequired,
+  fetching: PropTypes.bool.isRequired,
+  fetchingError: PropTypes.bool.isRequired,
+};
+
 const Page = ({
   children,
   collectionName,
@@ -66,6 +96,7 @@ const Page = ({
         resourceNameSingular,
         resourceName,
         rootPath,
+        location,
       }}
     >
       <Dispatcher.Provider
@@ -89,22 +120,23 @@ const Page = ({
             ]),
           }}
         >
-          {!hasEntered || fetching ? (
-            <Fade in timeout={350}>
-              <Loading id={id} />
-            </Fade>
+          {typeof children === 'function' ? (
+            children({
+              hasEntered,
+              fetching,
+              id,
+              data,
+              ...state,
+            })
           ) : (
-            <Fade in timeout={350}>
-              <Box>
-                {fetchingError ? (
-                  <Box m={4}>
-                    <ErrorView />
-                  </Box>
-                ) : (
-                  children
-                )}
-              </Box>
-            </Fade>
+            <PageChildren
+              hasEntered={hasEntered}
+              fetching={fetching}
+              id={id}
+              fetchingError={fetchingError}
+            >
+              {children}
+            </PageChildren>
           )}
         </Store.Provider>
       </Dispatcher.Provider>
@@ -132,7 +164,10 @@ Page.propTypes = {
   /**
    * The page internals.
    */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+  ]).isRequired,
 
   /**
    * The directory to call. For example, defining "foo" would send requests to "http://localhost/foo".

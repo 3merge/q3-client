@@ -1,7 +1,8 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Address from '.';
+import AccountBox from '@material-ui/icons/AccountBox';
+import Address, { AddressLine, AddressHeader } from '.';
 import fixture from './__fixtures__';
 
 export default {
@@ -10,6 +11,16 @@ export default {
 
 export const SampleWithPhone = () => (
   <Address {...fixture} />
+);
+
+export const JustTheHeader = () => (
+  <AddressHeader title="Just the title" label="Label" />
+);
+
+export const JustTheLine = () => (
+  <AddressLine label="Label" icon={AccountBox}>
+    This is line
+  </AddressLine>
 );
 
 export const SideBySide = () => (

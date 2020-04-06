@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { Definitions, Dispatcher, Store } from './state';
 
-export default (Component) => ({ name }) => {
+export default (Component) => ({ name, ...rest }) => {
   const { data } = React.useContext(Store);
   const { remove, patch } = React.useContext(Dispatcher);
   const { id, collectionName } = React.useContext(
@@ -33,6 +33,7 @@ export default (Component) => ({ name }) => {
         onDelete={remove()}
         onSubmit={patch()}
         createdBy={createdBy}
+        {...rest}
       />
     </Tile>
   );
