@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.5](https://github.com/3merge/q/compare/v1.13.4...v1.13.5) (2020-04-06)
+
+
+### Bug Fixes
+
+* connect forwarding props ([d1ef7a5](https://github.com/3merge/q/commit/d1ef7a5d93098d085aa74da9e8530729bb665d3f))
+
+
+
+
+
 ## [1.13.2](https://github.com/3merge/q/compare/v1.13.1...v1.13.2) (2020-04-03)
 
 **Note:** Version bump only for package q3-admin
