@@ -6,6 +6,7 @@ import {
   Drawer,
 } from './components';
 import Provider from './context';
+import QuantityField from './components/quantityField';
 
 const fakeRequestDelay = () =>
   new Promise((resolve) =>
@@ -55,6 +56,29 @@ export const Empty = () => (
     </Launcher>
 
     <AddToCart
+      product={12}
+      service={() =>
+        Promise.resolve({
+          subtotal: 9.99,
+          items: [getProductDetails()],
+        })
+      }
+    />
+  </Provider>
+);
+
+export const Quantity = () => <QuantityField />;
+export const QuantitySmall = () => <QuantityField small />;
+
+export const SmallAddToCart = () => (
+  <Provider
+    addItemToOrder={fakeRequestDelay}
+    updateItemInOrder={fakeRequestDelay}
+    removeItemInOrder={fakeRequestDelay}
+    pollOrder={refreshOrder}
+  >
+    <AddToCart
+      small
       product={12}
       service={() =>
         Promise.resolve({
