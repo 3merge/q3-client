@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import QuantityField from './quantityField';
 import AddToCartButton from './addToCartButton';
 
-const AddToCart = ({ product, small }) => (
-  <QuantityField small={small}>
+const AddToCart = ({ product }) => (
+  <QuantityField>
     {(quantity) => (
       <AddToCartButton
         quantity={quantity}
         product={product}
-        small={small}
       />
     )}
   </QuantityField>
@@ -18,11 +17,6 @@ const AddToCart = ({ product, small }) => (
 
 AddToCart.propTypes = {
   product: PropTypes.string.isRequired,
-  small: PropTypes.bool,
-};
-
-AddToCart.defaultProps = {
-  small: false,
 };
 
 export default AddToCart;

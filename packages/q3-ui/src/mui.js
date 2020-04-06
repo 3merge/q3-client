@@ -39,7 +39,7 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       ...headingFont,
-      fontSize: '3.115rem',
+      fontSize: '2.887rem',
       fontWeight: 600,
     },
     h2: {

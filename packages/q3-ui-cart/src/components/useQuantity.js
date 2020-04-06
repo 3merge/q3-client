@@ -17,9 +17,12 @@ export default () => {
     setError(num < 0);
   };
 
-  const reset = ({ target: { value } }) => {
-    if (!value) setQuantity(1);
-  };
+  const reset = React.useCallback(
+    ({ target: { value } }) => {
+      if (!value) setQuantity(1);
+    },
+    [],
+  );
 
   const increase = React.useCallback(
     () => setQuantity(addBy(quantity)),

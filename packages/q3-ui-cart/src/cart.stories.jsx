@@ -1,12 +1,13 @@
 import React from 'react';
 import {
   AddToCart,
+  AddToCartIconButton,
   LineItems,
   Launcher,
   Drawer,
+  QuantityField,
 } from './components';
 import Provider from './context';
-import QuantityField from './components/quantityField';
 
 const fakeRequestDelay = () =>
   new Promise((resolve) =>
@@ -36,17 +37,23 @@ const refreshOrder = () =>
     ],
   });
 
-export default {
-  title: 'Q3 Cart|Cart',
-};
-
-export const Empty = () => (
+const withProvider = (Component) => (
   <Provider
     addItemToOrder={fakeRequestDelay}
     updateItemInOrder={fakeRequestDelay}
     removeItemInOrder={fakeRequestDelay}
     pollOrder={refreshOrder}
   >
+    <Component />
+  </Provider>
+);
+
+export default {
+  title: 'Q3 Cart|Cart',
+};
+
+export const Empty = withProvider(() => (
+  <>
     <Launcher>
       {(close, isOpen) => (
         <Drawer isOpen={isOpen} close={close}>
@@ -54,43 +61,24 @@ export const Empty = () => (
         </Drawer>
       )}
     </Launcher>
+    <AddToCart product={12} />
+  </>
+));
 
-    <AddToCart
-      product={12}
-      service={() =>
-        Promise.resolve({
-          subtotal: 9.99,
-          items: [getProductDetails()],
-        })
-      }
-    />
-  </Provider>
-);
+export const JustTheField = withProvider(() => (
+  <QuantityField />
+));
 
-export const Quantity = () => <QuantityField />;
-export const QuantitySmall = () => <QuantityField small />;
-
-export const SmallAddToCart = () => (
-  <Provider
-    addItemToOrder={fakeRequestDelay}
-    updateItemInOrder={fakeRequestDelay}
-    removeItemInOrder={fakeRequestDelay}
-    pollOrder={refreshOrder}
-  >
-    <AddToCart
-      small
-      product={12}
-      service={() =>
-        Promise.resolve({
-          subtotal: 9.99,
-          items: [getProductDetails()],
-        })
-      }
-    />
-  </Provider>
-);
+export const JustTheButton = withProvider(() => (
+  <>
+    <AddToCartIconButton product={10} />
+    <AddToCartIconButton product={11} />
+    <AddToCartIconButton product={12} />
+  </>
+));
 
 export const DrawerIsOpen = () => <Drawer isOpen />;
+
 export const DrawerWithChildren = () => (
   <Drawer isOpen>Fill with Items!</Drawer>
 );

@@ -61,7 +61,7 @@ Adornment.propTypes = {
   increase: PropTypes.func.isRequired,
 };
 
-const QuantityField = ({ children, small }) => {
+const QuantityField = ({ children }) => {
   const { t } = useTranslation('labels');
   const { input } = useStyle();
 
@@ -75,21 +75,19 @@ const QuantityField = ({ children, small }) => {
     reset,
   } = useQuantity();
 
-  const textFieldProps = !small
-    ? {
-        inputProps: {
-          className: input,
-        },
-        InputProps: {
-          endAdornment: (
-            <Adornment
-              increase={increase}
-              decrease={decrease}
-            />
-          ),
-        },
-      }
-    : {};
+  const styles = {
+    inputProps: {
+      className: input,
+    },
+    InputProps: {
+      endAdornment: (
+        <Adornment
+          increase={increase}
+          decrease={decrease}
+        />
+      ),
+    },
+  };
 
   return (
     <QuantityFieldWrapper
@@ -110,8 +108,7 @@ const QuantityField = ({ children, small }) => {
           error={hasError}
           helperText={message}
           value={quantity}
-          size={small ? 'small' : null}
-          {...textFieldProps}
+          {...styles}
         />
       }
     />
@@ -119,12 +116,10 @@ const QuantityField = ({ children, small }) => {
 };
 
 QuantityField.propTypes = {
-  children: PropTypes.func.isRequired,
-  small: PropTypes.bool,
-};
-
-QuantityField.defaultProps = {
-  small: false,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+  ]).isRequired,
 };
 
 export default QuantityField;

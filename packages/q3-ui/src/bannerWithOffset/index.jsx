@@ -22,6 +22,9 @@ const useStyle = makeStyles(() => ({
     backgroundColor: filter,
     opacity: 0.7,
   }),
+  title: {
+    fontSize: '3.247rem',
+  },
 }));
 
 const Offset = ({ children }) => (
@@ -86,6 +89,7 @@ const BannerWithOffset = ({
             variant="h1"
             color="inherit"
             gutterBottom
+            className={cls.title}
           >
             {title}
           </Typography>

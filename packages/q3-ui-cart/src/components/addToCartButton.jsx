@@ -3,78 +3,56 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Add from '@material-ui/icons/Add';
+import Box from '@material-ui/core/Box';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Fade from '@material-ui/core/Fade';
-import { CartContext } from '../context';
 import { height } from './useStyle';
+import withQuantity from './withQuantity';
 
-const AddToCartIcon = ({ withText }) => {
-  const { t } = useTranslation('labels');
-
-  return withText ? (
-    <div style={{ display: 'flex' }}>
-      <ShoppingCart style={{ marginRight: '.5rem' }} />
-      {t('addToCart')}
-    </div>
-  ) : (
-    <Add />
-  );
-};
-
-const AddToCartIconButton = ({
+export const AddToCartLoadingIndicator = ({
   children,
   loading,
-  withText,
-}) => {
-  return loading ? (
-    <CircularProgress color="#FFF" />
+}) =>
+  loading ? (
+    <CircularProgress
+      color="#FFF"
+      style={{ width: '1.2rem', height: '1.2rem' }}
+    />
   ) : (
-    <Fade in={!loading}>
-      <AddToCartIcon withText={withText} />
+    <Fade in>
+      <Box display="flex">{children}</Box>
     </Fade>
   );
+
+AddToCartLoadingIndicator.propTypes = {
+  children: PropTypes.node.isRequired,
+  loading: PropTypes.bool,
 };
 
-const AddToCartButton = ({ quantity, product, small }) => {
-  const { add, loading } = React.useContext(CartContext);
-
-  const disabled = quantity <= 0;
-  const onClick = () =>
-    add({
-      product,
-      quantity,
-    });
-
-  return small ? (
-    <IconButton disabled={disabled} onClick={onClick}>
-      <AddToCartIconButton loading={loading} />
-    </IconButton>
-  ) : (
-    <Button
-      fullWidth
-      variant="contained"
-      size="large"
-      color="primary"
-      disabled={disabled}
-      onClick={onClick}
-      style={{ height, marginTop: 4 }}
-    >
-      <AddToCartIconButton loading={loading} withText />
-    </Button>
-  );
+AddToCartLoadingIndicator.defaultProps = {
+  loading: false,
 };
 
-AddToCartButton.propTypes = {
-  small: PropTypes.bool,
-  quantity: PropTypes.number.isRequired,
-  product: PropTypes.string.isRequired,
-};
+export default withQuantity(
+  ({ loading, disabled, onClick }) => {
+    const { t } = useTranslation('labels');
 
-AddToCartButton.defaultProps = {
-  small: false,
-};
-
-export default AddToCartButton;
+    return (
+      <Button
+        fullWidth
+        variant="contained"
+        size="large"
+        color="primary"
+        disabled={disabled}
+        onClick={onClick}
+        style={{ height, marginTop: 4 }}
+      >
+        <AddToCartLoadingIndicator loading={loading}>
+          <ShoppingCart style={{ marginRight: '.5rem' }} />
+          {t('addToCart')}
+        </AddToCartLoadingIndicator>
+      </Button>
+    );
+  },
+);
