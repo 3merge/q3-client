@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.6](https://github.com/3merge/q/compare/v1.13.5...v1.13.6) (2020-04-06)
+
+
+### Bug Fixes
+
+* cart context causing all buttons to trigger loading ([3d6ad32](https://github.com/3merge/q/commit/3d6ad325ab726f7a187a0cef696167ca780e742a))
+
+
+
+
+
 ## [1.13.5](https://github.com/3merge/q/compare/v1.13.4...v1.13.5) (2020-04-06)
 
 **Note:** Version bump only for package q3-ui-cart
