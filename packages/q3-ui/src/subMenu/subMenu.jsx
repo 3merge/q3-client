@@ -1,5 +1,6 @@
 import React from 'react';
 import { invoke } from 'lodash';
+import { Location } from '@reach/router';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
@@ -48,12 +49,13 @@ SubMenuItem.defaultProps = {
   isOpen: false,
 };
 
-const SubMenu = ({ children }) => {
+const SubMenu = ({ children, location }) => {
   const inactive = -1;
   const anchorEl = React.useRef();
   const [activeItem, setActiveItem] = React.useState(
     inactive,
   );
+
   const { state: isOpen, open, close } = useToggle();
   const { btn, popper } = useStyle({ isOpen });
   const arr = React.Children.toArray(children);
@@ -62,6 +64,10 @@ const SubMenu = ({ children }) => {
     setActiveItem(inactive);
     close();
   };
+
+  React.useEffect(() => {
+    onClose();
+  }, [location]);
 
   return (
     <ClickAwayListener onClickAway={onClose}>
@@ -116,6 +122,19 @@ SubMenu.propTypes = {
       renderer: PropTypes.func,
     }),
   ).isRequired,
+
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
 };
 
-export default SubMenu;
+// eslint-disable-next-line
+export default ({ children, ...props }) => (
+  <Location>
+    {({ location }) => (
+      <SubMenu location={location} {...props}>
+        {children}
+      </SubMenu>
+    )}
+  </Location>
+);

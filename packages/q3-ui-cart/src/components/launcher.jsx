@@ -23,6 +23,7 @@ const CartLauncher = ({ children }) => {
   const { items = [], loading } = React.useContext(
     CartContext,
   );
+
   const { isOpen, close, open } = useOpen();
   const { t } = useTranslation();
 
@@ -31,6 +32,7 @@ const CartLauncher = ({ children }) => {
       <IconButton
         onClick={open}
         aria-label={t('labels:openCart')}
+        disabled={loading}
       >
         <Fade in={loading}>
           <CircularProgress className={loader} />

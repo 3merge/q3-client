@@ -11,6 +11,7 @@ import { appendOptions } from './utils';
  * Please do not remove.
  */
 export const FormWrapper = ({
+  includeSearchParams,
   children,
   params,
   ...rest
@@ -18,6 +19,7 @@ export const FormWrapper = ({
   const { fields, loading } = useFilterAndContext(
     params,
     children,
+    includeSearchParams,
   );
 
   return loading ? (
@@ -44,6 +46,15 @@ FormWrapper.propTypes = {
   params: PropTypes.shape({
     toString: PropTypes.func,
   }).isRequired,
+
+  /**
+   * Will include search properties in rest call.
+   */
+  includeSearchParams: PropTypes.bool,
+};
+
+FormWrapper.defaultProps = {
+  includeSearchParams: false,
 };
 
 export default withLocation(FormWrapper);

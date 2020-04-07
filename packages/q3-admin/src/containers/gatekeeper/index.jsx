@@ -28,7 +28,7 @@ export const Gatekeeper = ({
     return null;
   }
 
-  if (redirectPathOnSession) {
+  if (Auth.state.profile && redirectPathOnSession) {
     navigate(redirectPathOnSession);
     return null;
   }

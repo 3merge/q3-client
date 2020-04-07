@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 const CartDrawerInterior = ({ children }) => {
   const { img, root } = useStyles();
   const { items = [] } = React.useContext(CartContext);
+
   const { t } = useTranslation();
 
   return (
@@ -103,15 +104,14 @@ const CartDrawer = ({
 
   return (
     <Drawer open={isOpen} anchor="right" onClose={close}>
-      <Fade in={loading}>
-        <LinearProgress />
-      </Fade>
-
       <AppBar
         position="static"
         color="inherit"
         elevation={10}
       >
+        <Fade in={loading}>
+          <LinearProgress />
+        </Fade>
         <Toolbar className={bar}>
           <IconButton color="primary" onClick={close}>
             <KeyboardBackspace />

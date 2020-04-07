@@ -121,7 +121,12 @@ Object.assign(theme, {
         paddingRight: 0,
       },
     },
-
+    MuiSnackbarContent: {
+      root: {
+        width: 300,
+        minWidth: '300px !important',
+      },
+    },
     MuiListItemIcon: {
       root: {
         minWidth: 32,
