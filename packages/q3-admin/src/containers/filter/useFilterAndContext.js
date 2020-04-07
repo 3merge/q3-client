@@ -3,13 +3,13 @@ import { useFilters } from 'q3-ui-rest';
 import { props } from 'q3-ui-helpers';
 import { Definitions } from '../state';
 
-export default (params, children) => {
+export default (params, children, includeFilters) => {
   const { collectionName, location } = React.useContext(
     Definitions,
   );
 
   const filters = useFilters({
-    query: params.toString(),
+    query: includeFilters ? params.toString() : null,
     fields: props.mapBy(children, 'name'),
     coll: collectionName,
     location,
