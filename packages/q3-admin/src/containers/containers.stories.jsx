@@ -2,6 +2,7 @@ import React from 'react';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
+import { useLoading } from 'q3-ui-rest';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -136,18 +137,25 @@ const pages = [
   },
 ];
 
+const Loading = ({ children }) => {
+  useLoading();
+  return children;
+};
+
 const withProviders = (initialPath = '/') => (
-  <LocationProvider initialPath={initialPath}>
-    <StoriesApiMockAuthentication>
-      <StoriesApiMockWrapper>
-        <Main
-          pages={pages}
-          render={() => <App pages={pages} />}
-          ProfileBarProps={{}}
-        />
-      </StoriesApiMockWrapper>
-    </StoriesApiMockAuthentication>
-  </LocationProvider>
+  <Loading>
+    <LocationProvider initialPath={initialPath}>
+      <StoriesApiMockAuthentication>
+        <StoriesApiMockWrapper>
+          <Main
+            pages={pages}
+            render={() => <App pages={pages} />}
+            ProfileBarProps={{}}
+          />
+        </StoriesApiMockWrapper>
+      </StoriesApiMockAuthentication>
+    </LocationProvider>
+  </Loading>
 );
 
 export const FromList = withProviders('/investors');
