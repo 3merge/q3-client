@@ -12,7 +12,7 @@ export default ({ children, ...rest }) =>
     {
       preventDuplicate: true,
       anchorOrigin: {
-        vertical: 'top',
+        vertical: 'bottom',
         horizontal: 'right',
       },
       ...rest,

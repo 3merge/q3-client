@@ -70,7 +70,7 @@ export const ApplicationGate = ({
             ProfileBarProps={{
               companyName,
               name: firstName,
-              imgSrc: photo,
+              profileImgSrc: photo,
               menuItems: [
                 ...popoutMenuItems,
                 {

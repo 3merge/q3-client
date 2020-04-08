@@ -175,8 +175,6 @@ export default ({ children }) => {
                         <Typography>
                           {description}
                         </Typography>
-
-                        {children && children(item)}
                       </Box>
                     </Grid>
                   </Grid>
@@ -213,6 +211,8 @@ export default ({ children }) => {
                   </Grid>
                 </Grid>
               </Grid>
+
+              {children && children(item)}
             </Box>
           </Box>
         </Paper>

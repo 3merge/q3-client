@@ -2,7 +2,7 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import Loading from '../../../components/loading';
 import ErrorView from '../../../components/error';
-import Page from '..';
+import Page, { getFirstPathNamePart } from '..';
 
 jest.mock('../../state');
 jest.mock('q3-ui-rest', () => ({
@@ -19,6 +19,7 @@ const getShallow = () =>
     <Page
       location={{
         href: '/',
+        pathname: '/app',
       }}
       collectionName="foo"
       resourceName="bars"
@@ -50,5 +51,21 @@ describe('Page', () => {
   it('should render error', () => {
     useRest.mockReturnValue({ fetchingError: true });
     expect(getShallow().find(ErrorView)).toHaveLength(1);
+  });
+
+  it('should retain location root', () => {
+    const root = getFirstPathNamePart(
+      { pathname: '/app/foo/1' },
+      '1',
+    );
+    expect(root).toBe('/app/foo/1');
+  });
+
+  it('should strip off sub paths', () => {
+    const root = getFirstPathNamePart(
+      { pathname: '/app/foo/1/trash' },
+      '1',
+    );
+    expect(root).toBe('/app/foo/1');
   });
 });

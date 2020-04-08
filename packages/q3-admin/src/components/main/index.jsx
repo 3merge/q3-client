@@ -10,7 +10,7 @@ import useHeight from '../sidebar/useHeight';
 const Main = ({
   render,
   pages,
-  ProfileBarProps: { menuItems = [] },
+  ProfileBarProps: { menuItems = [], ...profileProps },
 }) => {
   const cls = useStyles();
   const items = useMenu(pages);
@@ -21,6 +21,7 @@ const Main = ({
       <Grid container className={cls.offsetHeight}>
         <Grid item>
           <ProfileBar
+            {...profileProps}
             popoutMenuItems={menuItems}
             items={items}
           />

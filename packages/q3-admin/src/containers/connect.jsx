@@ -8,7 +8,7 @@ import { Definitions, Dispatcher, Store } from './state';
 export default (Component) => ({ name, ...rest }) => {
   const { data } = React.useContext(Store);
   const { remove, patch } = React.useContext(Dispatcher);
-  const { id, collectionName } = React.useContext(
+  const { id, collectionName, rootPath } = React.useContext(
     Definitions,
   );
 
@@ -33,6 +33,11 @@ export default (Component) => ({ name, ...rest }) => {
         onDelete={remove()}
         onSubmit={patch()}
         createdBy={createdBy}
+        directoryRoot={
+          typeof rootPath === 'string'
+            ? rootPath.split(id)[0]
+            : '/'
+        }
         {...rest}
       />
     </Tile>

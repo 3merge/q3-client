@@ -150,7 +150,10 @@ const withProviders = (initialPath = '/') => (
           <Main
             pages={pages}
             render={() => <App pages={pages} />}
-            ProfileBarProps={{}}
+            ProfileBarProps={{
+              profileImgSrc:
+                'https://randomuser.me/api/portraits/men/83.jpg',
+            }}
           />
         </StoriesApiMockWrapper>
       </StoriesApiMockAuthentication>

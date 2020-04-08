@@ -12,7 +12,12 @@ import { useAuth } from 'q3-ui-permissions';
 import connect from '../connect';
 
 const Trash = connect(
-  ({ collectionName, createdBy, onDelete }) => {
+  ({
+    collectionName,
+    createdBy,
+    onDelete,
+    directoryRoot,
+  }) => {
     const [loading, setLoading] = React.useState(false);
     const [showError, setShowError] = React.useState(false);
     const [showRedirect, setShowRedirect] = React.useState(
@@ -29,9 +34,7 @@ const Trash = connect(
       onDelete()
         .then(() => {
           setShowRedirect(true);
-          setTimeout(() => navigate(`/${collectionName}`), [
-            500,
-          ]);
+          setTimeout(() => navigate(directoryRoot), [2000]);
         })
         .catch(() => {
           setShowError(true);

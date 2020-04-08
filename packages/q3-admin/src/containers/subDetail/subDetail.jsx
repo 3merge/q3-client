@@ -14,6 +14,7 @@ const SubDetail = ({
   runPoll,
   renderTop,
   renderBottom,
+  TileProps,
   ...rest
 }) => {
   const { poll } = React.useContext(Dispatcher);
@@ -35,7 +36,7 @@ const SubDetail = ({
       <CircularProgress />
     </Box>
   ) : (
-    <Tile title={root} subtitle={root}>
+    <Tile title={root} subtitle={root} {...TileProps}>
       {renderTop}
       <Repeater
         name={root}

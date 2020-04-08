@@ -7,12 +7,14 @@ import Button from '@material-ui/core/Button';
 import BuilderState from './builderState';
 
 const Next = ({
+  children,
   formik,
   submit,
   size,
   label,
   onClick,
   disabled,
+  ...rest
 }) => {
   const { t } = useTranslation();
   const { authorization } = React.useContext(BuilderState);
@@ -39,18 +41,25 @@ const Next = ({
     disabledProp,
   ]);
 
+  const buttonProps = {
+    color: 'primary',
+    variant: 'contained',
+    type: submit ? 'submit' : 'button',
+    onClick: onClick || formik.submitForm,
+    disabled: disabledProp,
+    size,
+    ...rest,
+  };
+
   return (
     <Box display="inline-block" mt={1}>
-      <Button
-        size={size}
-        color="primary"
-        variant="contained"
-        type={submit ? 'submit' : 'button'}
-        onClick={onClick || formik.submitForm}
-        disabled={disabledProp}
-      >
-        {t(`labels:${label}`)}
-      </Button>
+      {children ? (
+        children(buttonProps)
+      ) : (
+        <Button {...buttonProps}>
+          {t(`labels:${label}`)}
+        </Button>
+      )}
     </Box>
   );
 };
@@ -94,6 +103,11 @@ Next.propTypes = {
     PropTypes.bool,
     PropTypes.number,
   ]),
+
+  /**
+   * Acts as a custom renderer and recieves all the button's props.
+   */
+  children: PropTypes.func,
 };
 
 Next.defaultProps = {
@@ -101,6 +115,7 @@ Next.defaultProps = {
   onClick: null,
   size: 'large',
   disabled: false,
+  children: null,
 };
 
 export default connect(Next);

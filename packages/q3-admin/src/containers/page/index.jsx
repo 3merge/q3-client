@@ -44,6 +44,11 @@ PageChildren.propTypes = {
   fetchingError: PropTypes.bool.isRequired,
 };
 
+export const getFirstPathNamePart = (location = {}, part) =>
+  location && typeof location.pathname === 'string'
+    ? `${location.pathname.split(part)[0]}${part}`
+    : '/';
+
 const Page = ({
   children,
   collectionName,
@@ -57,7 +62,9 @@ const Page = ({
   onInit,
   viewResolutions,
 }) => {
-  const [rootPath] = React.useState(location.pathname);
+  const [rootPath] = React.useState(
+    getFirstPathNamePart(location, id || collectionName),
+  );
 
   const url = slugify(collectionName, id);
   const state = useRest({

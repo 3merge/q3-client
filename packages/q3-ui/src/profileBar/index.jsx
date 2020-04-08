@@ -16,6 +16,7 @@ const ProfileBar = ({
   companyName,
   items,
   popoutMenuItems,
+  ...rest
 }) => {
   const { colourful, trigger, shell } = useStyles();
 
@@ -59,6 +60,7 @@ const ProfileBar = ({
         </Offcanvas>
         <Box py={1} px={1} align="center">
           <AccountMenu
+            {...rest}
             items={popoutMenuItems}
             isLoggedIn
             name={null}
