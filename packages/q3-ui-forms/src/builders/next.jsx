@@ -51,15 +51,13 @@ const Next = ({
     ...rest,
   };
 
+  if (children) return children(buttonProps);
+
   return (
     <Box display="inline-block" mt={1}>
-      {children ? (
-        children(buttonProps)
-      ) : (
-        <Button {...buttonProps}>
-          {t(`labels:${label}`)}
-        </Button>
-      )}
+      <Button {...buttonProps}>
+        {t(`labels:${label}`)}
+      </Button>
     </Box>
   );
 };
