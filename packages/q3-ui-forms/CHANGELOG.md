@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.9](https://github.com/3merge/q/compare/v1.13.8...v1.13.9) (2020-04-08)
+
+
+### Bug Fixes
+
+* next button rendering ([6585eb5](https://github.com/3merge/q/commit/6585eb59e7c4ed91e7c66ded657bb4b237647411))
+
+
+
+
+
 ## [1.13.8](https://github.com/3merge/q/compare/v1.13.7...v1.13.8) (2020-04-08)
 
 
