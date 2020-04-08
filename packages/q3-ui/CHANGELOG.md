@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.8](https://github.com/3merge/q/compare/v1.13.7...v1.13.8) (2020-04-08)
+
+
+### Bug Fixes
+
+* minor styling and prop-forwarding configs ([635a3d8](https://github.com/3merge/q/commit/635a3d8dd7767cc150ac97095e94189ea3ac2848))
+
+
+
+
+
 ## [1.13.7](https://github.com/3merge/q/compare/v1.13.6...v1.13.7) (2020-04-07)
 
 **Note:** Version bump only for package q3-ui
