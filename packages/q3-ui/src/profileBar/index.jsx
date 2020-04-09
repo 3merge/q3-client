@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
 import Close from '@material-ui/icons/KeyboardArrowRight';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AccountMenu } from '../toolbar';
 import Logo from '../logo';
 import useStyles from './useStyle';
@@ -18,7 +19,8 @@ const ProfileBar = ({
   popoutMenuItems,
   ...rest
 }) => {
-  const { colourful, trigger, shell } = useStyles();
+  const { colourful, trigger, shell, center } = useStyles();
+  const matches = useMediaQuery('(min-height:720px)');
 
   return (
     <Box className={shell}>
@@ -41,19 +43,14 @@ const ProfileBar = ({
             <>
               <Hidden smDown implementation="css">
                 <Logo name={companyName} />
-                <IconMenu items={items} />
+                {matches && <IconMenu items={items} />}
               </Hidden>
               <Fab
                 onClick={toggle}
-                className={trigger}
+                className={matches ? trigger : center}
                 size="small"
               >
-                <Hidden smDown>
-                  <Close />
-                </Hidden>
-                <Hidden mdUp>
-                  <MenuIcon />
-                </Hidden>
+                <MenuIcon />
               </Fab>
             </>
           )}
