@@ -6,7 +6,7 @@ import AccessibleIconButton from '../iconButton';
 
 export const SearchTrigger = ({ onClick }) => (
   <AccessibleIconButton
-    label="enlarge"
+    label="search"
     buttonProps={{ onClick }}
     icon={Search}
   />

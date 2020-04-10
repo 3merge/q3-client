@@ -113,5 +113,25 @@ describe('Authentication helpers', () => {
       expect(
         hasField({ fields: 'foo' }, 'bar'),
       ).toBeFalsy());
+
+    it('should return falsy with negatve micromatch', () =>
+      expect(
+        hasField({ fields: '!foo' }, 'foo'),
+      ).toBeFalsy());
+
+    it('should return truthy on non-matching negatve micromatch', () =>
+      expect(
+        hasField({ fields: '!foo' }, 'bar'),
+      ).toBeTruthy());
+
+    it('should return truthy on multi-matching', () =>
+      expect(
+        hasField({ fields: 'foo,!bar,quuz' }, 'quuz'),
+      ).toBeTruthy());
+
+    it('should return falsy on multi-matching', () =>
+      expect(
+        hasField({ fields: 'foo,!bar,quuz' }, 'bar'),
+      ).toBeFalsy());
   });
 });

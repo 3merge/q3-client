@@ -4,7 +4,6 @@ export { default as LinkTo } from './linkTo';
 export { default as Loader } from './loader';
 export { default as Main } from './main';
 export { default as Public } from './public';
-export { default as Search } from './search';
 export { default as Upload } from './upload';
 
 /**
@@ -18,6 +17,7 @@ export {
   Header,
   Table,
   Page,
+  Search,
   SubDetail,
 } from '../containers';
 

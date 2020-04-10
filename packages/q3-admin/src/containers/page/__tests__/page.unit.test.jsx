@@ -2,7 +2,10 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import Loading from '../../../components/loading';
 import ErrorView from '../../../components/error';
-import Page, { getFirstPathNamePart } from '..';
+import Page, {
+  getFirstPathNamePart,
+  getDirectoryPath,
+} from '..';
 
 jest.mock('../../state');
 jest.mock('q3-ui-rest', () => ({
@@ -67,5 +70,17 @@ describe('Page', () => {
       '1',
     );
     expect(root).toBe('/app/foo/1');
+  });
+
+  it('should remove ID from path', () => {
+    expect(
+      getDirectoryPath('/foo/bars/1/trash', '1'),
+    ).toMatch('/foo/bars');
+  });
+
+  it('should root path', () => {
+    expect(getDirectoryPath('/foo/bars')).toMatch(
+      '/foo/bars',
+    );
   });
 });

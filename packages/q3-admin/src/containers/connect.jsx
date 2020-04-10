@@ -8,9 +8,11 @@ import { Definitions, Dispatcher, Store } from './state';
 export default (Component) => ({ name, ...rest }) => {
   const { data } = React.useContext(Store);
   const { remove, patch } = React.useContext(Dispatcher);
-  const { id, collectionName, rootPath } = React.useContext(
-    Definitions,
-  );
+  const {
+    id,
+    collectionName,
+    directoryPath,
+  } = React.useContext(Definitions);
 
   const sessionKey = `${name}-${id}`;
 
@@ -33,11 +35,7 @@ export default (Component) => ({ name, ...rest }) => {
         onDelete={remove()}
         onSubmit={patch()}
         createdBy={createdBy}
-        directoryRoot={
-          typeof rootPath === 'string'
-            ? rootPath.split(id)[0]
-            : '/'
-        }
+        directoryPath={directoryPath}
         {...rest}
       />
     </Tile>

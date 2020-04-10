@@ -49,6 +49,9 @@ export const getFirstPathNamePart = (location = {}, part) =>
     ? `${location.pathname.split(part)[0]}${part}`
     : '/';
 
+export const getDirectoryPath = (root, id) =>
+  typeof root === 'string' ? root.split(id)[0] : '/';
+
 const Page = ({
   children,
   collectionName,
@@ -66,6 +69,7 @@ const Page = ({
     getFirstPathNamePart(location, id || collectionName),
   );
 
+  const directoryPath = getDirectoryPath(rootPath, id);
   const url = slugify(collectionName, id);
   const state = useRest({
     key: resourceNameSingular,
@@ -103,6 +107,7 @@ const Page = ({
         resourceNameSingular,
         resourceName,
         rootPath,
+        directoryPath,
         location,
       }}
     >

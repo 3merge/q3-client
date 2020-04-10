@@ -29,11 +29,7 @@ export default {
 
 export const Example = withLocation(({ params }) => (
   <>
-    <Search
-      getResults={getOptions}
-      filter={() => <p>Filter me!</p>}
-      icon={() => null}
-    />
+    <Search getResults={getOptions} redirectPath="/" />
     <Box p={2}>
       <Typography>
         {`Search output on enter: ${params.toString()}`}
