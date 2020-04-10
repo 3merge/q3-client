@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.12](https://github.com/3merge/q/compare/v1.13.11...v1.13.12) (2020-04-10)
+
+
+### Bug Fixes
+
+* **useAuth:** must satisfy all fields instead of just one ([0d940fa](https://github.com/3merge/q/commit/0d940fa39148e6f523cf57b2f1b1977e7c052818))
+
+
+
+
+
 ## [1.13.11](https://github.com/3merge/q/compare/v1.13.10...v1.13.11) (2020-04-10)
 
 
