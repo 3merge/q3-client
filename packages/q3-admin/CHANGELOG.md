@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.13](https://github.com/3merge/q/compare/v1.13.12...v1.13.13) (2020-04-10)
+
+
+### Bug Fixes
+
+* **q3-admin:** url directoryRoot ([602390d](https://github.com/3merge/q/commit/602390db15420613161dfe1902ece40b594adf7a))
+
+
+
+
+
 ## [1.13.10](https://github.com/3merge/q/compare/v1.13.9...v1.13.10) (2020-04-10)
 
 **Note:** Version bump only for package q3-admin
