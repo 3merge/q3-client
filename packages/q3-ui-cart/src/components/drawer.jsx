@@ -104,59 +104,61 @@ const CartDrawer = ({
 
   return (
     <Drawer open={isOpen} anchor="right" onClose={close}>
-      <AppBar
-        position="static"
-        color="inherit"
-        elevation={10}
-      >
-        <Fade in={loading}>
-          <LinearProgress />
-        </Fade>
-        <Toolbar className={bar}>
-          <IconButton color="primary" onClick={close}>
-            <KeyboardBackspace />
-          </IconButton>
-          <Typography variant="h3">
-            {t('titles:cart')}
-          </Typography>
-          <Typography variant="body2">
-            ${Number(subtotal).toFixed(2)}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Box>
-        <CartDrawerInterior>
-          {children}
-          <Box my={1}>
-            <Typography align="center">
-              <Button
-                onClick={() => {
-                  navigate(checkoutPath);
-                  close();
-                }}
-                variant="contained"
-                color="secondary"
-                size="large"
-                fullWidth
-              >
-                {t('labels:checkout')}
-              </Button>
-              <Box my={0.5}>
+      <div>
+        <AppBar
+          position="static"
+          color="inherit"
+          elevation={10}
+        >
+          <Fade in={loading}>
+            <LinearProgress />
+          </Fade>
+          <Toolbar className={bar}>
+            <IconButton color="primary" onClick={close}>
+              <KeyboardBackspace />
+            </IconButton>
+            <Typography variant="h3">
+              {t('titles:cart')}
+            </Typography>
+            <Typography variant="body2">
+              ${Number(subtotal).toFixed(2)}
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Box>
+          <CartDrawerInterior>
+            {children}
+            <Box my={1}>
+              <Typography align="center">
                 <Button
                   onClick={() => {
-                    navigate(shopPath);
+                    navigate(checkoutPath);
                     close();
                   }}
-                  gutterBottom
-                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  fullWidth
                 >
-                  {t('labels:shop')}
+                  {t('labels:checkout')}
                 </Button>
-              </Box>
-            </Typography>
-          </Box>
-        </CartDrawerInterior>
-      </Box>
+                <Box my={0.5}>
+                  <Button
+                    onClick={() => {
+                      navigate(shopPath);
+                      close();
+                    }}
+                    gutterBottom
+                    size="small"
+                  >
+                    {t('labels:shop')}
+                  </Button>
+                </Box>
+              </Typography>
+            </Box>
+          </CartDrawerInterior>
+        </Box>
+      </div>
     </Drawer>
   );
 };

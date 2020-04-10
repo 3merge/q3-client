@@ -61,14 +61,16 @@ const DialogVariant = ({
           onExited: onExit,
         };
 
-  return React.createElement(
-    El,
-    {
-      ...getMobileProps(),
-      ...asModal(),
-      ...rest,
-    },
-    children,
+  return (
+    <El
+      {...{
+        ...getMobileProps(),
+        ...asModal(),
+        ...rest,
+      }}
+    >
+      <div>{children}</div>
+    </El>
   );
 };
 
