@@ -54,7 +54,7 @@ const MenuItem = ({
 };
 
 const Menu = ({ items, done }) => (
-  <List component="nav" style={{ marginTop: '1rem' }}>
+  <List component="nav" style={{ padding: 0 }}>
     {items.map(
       (item) =>
         item.visible && (

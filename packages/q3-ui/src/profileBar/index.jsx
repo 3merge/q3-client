@@ -4,7 +4,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import MenuIcon from '@material-ui/icons/Menu';
-import Close from '@material-ui/icons/KeyboardArrowRight';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { AccountMenu } from '../toolbar';
 import Logo from '../logo';

@@ -89,6 +89,13 @@ CartDrawerInterior.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+const renderNumber = (v) => {
+  const num = Number(v);
+  return !Number.isNaN(num)
+    ? `$${num.toFixed(2)}`
+    : '$0.00';
+};
+
 const CartDrawer = ({
   isOpen,
   close,
@@ -121,7 +128,7 @@ const CartDrawer = ({
               {t('titles:cart')}
             </Typography>
             <Typography variant="body2">
-              ${Number(subtotal).toFixed(2)}
+              {renderNumber(subtotal)}
             </Typography>
           </Toolbar>
         </AppBar>

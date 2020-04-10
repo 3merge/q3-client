@@ -126,14 +126,14 @@ const pages = [
   {
     icon: AttachMoney,
     component: Investors,
-    collectionName: 'investors',
+    collectionName: 'api-investors',
     resourceName: 'investors',
     resourceNameSingular: 'investor',
     index: true,
   },
   {
     component: Investor,
-    collectionName: 'investors',
+    collectionName: 'api-investors',
     resourceName: 'investors',
     resourceNameSingular: 'investor',
     id: true,

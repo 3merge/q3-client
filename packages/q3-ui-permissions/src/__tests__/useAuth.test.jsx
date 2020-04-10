@@ -22,7 +22,7 @@ beforeAll(async () => {
           {
             coll: 'foo',
             op: 'Read',
-            fields: 'bar, quux',
+            fields: '+(bar|quux)',
           },
         ],
       },
@@ -73,7 +73,7 @@ describe('useAuth', () => {
       expect(wrapper.find(Foo)).toHaveLength(0);
     });
 
-    it('HideByField should return null', () => {
+    it.only('HideByField should return null', () => {
       const { HideByField } = hook('foo');
       const Foo = () => null;
       const wrapper = global.shallow(

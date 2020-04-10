@@ -66,7 +66,7 @@ const Page = ({
   viewResolutions,
 }) => {
   const [rootPath] = React.useState(
-    getFirstPathNamePart(location, id || collectionName),
+    getFirstPathNamePart(location, id || resourceName),
   );
 
   const directoryPath = getDirectoryPath(rootPath, id);

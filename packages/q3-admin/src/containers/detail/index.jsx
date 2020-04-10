@@ -30,12 +30,9 @@ const Detail = ({
   files,
   ...rest
 }) => {
-  const {
-    exclusions,
-    resourceName,
-    id,
-    rootPath,
-  } = React.useContext(Definitions);
+  const { exclusions, rootPath } = React.useContext(
+    Definitions,
+  );
 
   const filterByExclusion = (item) =>
     !exclusions.includes(item.label);

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from 'q3-ui-permissions';
 
-export const COLLECTION_NAME = 'investors';
+export const COLLECTION_NAME = 'api-investors';
 
 const genPermission = (rest) => ({
   coll: COLLECTION_NAME,

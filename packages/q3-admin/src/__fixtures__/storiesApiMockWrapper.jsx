@@ -19,7 +19,7 @@ const StoriesApiMockWrapper = ({ children }) => {
   };
 
   const compareIds = (a, b) => String(a.id) === String(b);
-  const getId = (url) => url.split('/investors/')[1];
+  const getId = (url) => url.split('/api-investors/')[1];
   const getSubId = (url) => getId(url).split('/');
 
   const findById = (id) =>
@@ -42,7 +42,7 @@ const StoriesApiMockWrapper = ({ children }) => {
   };
 
   const defineMockRoutes = (m) => {
-    m.onGet(/\/investors\/\d+\/investments/).reply(
+    m.onGet(/\/api-investors\/\d+\/investments/).reply(
       ({ url }) => {
         const [sub] = getSubId(url);
         const { investments } = findById(sub);
@@ -50,7 +50,7 @@ const StoriesApiMockWrapper = ({ children }) => {
       },
     );
 
-    m.onGet(/\/investors\/\d+\/uploads/).reply(200, {
+    m.onGet(/\/api-investors\/\d+\/uploads/).reply(200, {
       uploads: [
         {
           name: 'SpecSheet.png',
@@ -58,35 +58,35 @@ const StoriesApiMockWrapper = ({ children }) => {
       ],
     });
 
-    m.onGet(/\/investors\/\d+/).reply(({ url }) => {
+    m.onGet(/\/api-investors\/\d+/).reply(({ url }) => {
       const investor = findById(getId(url));
       return [200, { investor }];
     });
 
-    m.onPatch(/\/investors\/\d+\/investments\/\d+/).reply(
-      ({ url, data }) => {
-        const [sub, , resource] = getSubId(url);
-        const investor = findById(sub);
-        const newInvestor = {
-          ...investor,
-          investments: investor.investments.map((i) =>
-            compareIds(i, resource)
-              ? { ...i, ...JSON.parse(data) }
-              : i,
-          ),
-        };
+    m.onPatch(
+      /\/api-investors\/\d+\/investments\/\d+/,
+    ).reply(({ url, data }) => {
+      const [sub, , resource] = getSubId(url);
+      const investor = findById(sub);
+      const newInvestor = {
+        ...investor,
+        investments: investor.investments.map((i) =>
+          compareIds(i, resource)
+            ? { ...i, ...JSON.parse(data) }
+            : i,
+        ),
+      };
 
-        const investors = mapById(sub, newInvestor);
-        setDataSource(investors);
+      const investors = mapById(sub, newInvestor);
+      setDataSource(investors);
 
-        return [
-          200,
-          { investments: newInvestor.investments },
-        ];
-      },
-    );
+      return [
+        200,
+        { investments: newInvestor.investments },
+      ];
+    });
 
-    m.onPost(/\/investors\/\d+\/investments/).reply(
+    m.onPost(/\/api-investors\/\d+\/investments/).reply(
       ({ url, data }) => {
         const [sub] = getSubId(url);
         const investor = findById(sub);
@@ -112,20 +112,22 @@ const StoriesApiMockWrapper = ({ children }) => {
       },
     );
 
-    m.onPatch(/\/investors\/\d+/).reply(({ url, data }) => {
-      const id = getId(url);
-      const investor = {
-        ...findById(id),
-        ...JSON.parse(data),
-      };
+    m.onPatch(/\/api-investors\/\d+/).reply(
+      ({ url, data }) => {
+        const id = getId(url);
+        const investor = {
+          ...findById(id),
+          ...JSON.parse(data),
+        };
 
-      const investors = mapById(id, investor);
-      setDataSource(investors);
+        const investors = mapById(id, investor);
+        setDataSource(investors);
 
-      return [200, { investor }];
-    });
+        return [200, { investor }];
+      },
+    );
 
-    m.onDelete(/\/investors\/\d+/).reply(({ url }) => {
+    m.onDelete(/\/api-investors\/\d+/).reply(({ url }) => {
       const id = getId(url);
       const investors = filterBy(id);
       setDataSource(investors);
@@ -133,12 +135,12 @@ const StoriesApiMockWrapper = ({ children }) => {
       return [204, { investors }];
     });
 
-    m.onPost('/investors').reply(({ data }) => [
+    m.onPost('/api-investors').reply(({ data }) => [
       201,
       { investor: onCreate(data) },
     ]);
 
-    m.onGet(/investors/).reply(200, {
+    m.onGet(/api-investors/).reply(200, {
       total: dataSource.length,
       investors: dataSource,
     });
