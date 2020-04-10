@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.11](https://github.com/3merge/q/compare/v1.13.10...v1.13.11) (2020-04-10)
+
+
+### Bug Fixes
+
+* **dialog:** wrapped in div for ref handling ([3a06d71](https://github.com/3merge/q/commit/3a06d71e1500a1b20cda96cff1623948297b6a54))
+
+
+
+
+
 ## [1.13.10](https://github.com/3merge/q/compare/v1.13.9...v1.13.10) (2020-04-10)
 
 **Note:** Version bump only for package q3-ui-dialog
