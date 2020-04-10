@@ -16,6 +16,12 @@ export default makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  center: {
+    color: '#FFF',
+    backgroundColor: 'transparent',
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
 
   shell: {
     width: 105,

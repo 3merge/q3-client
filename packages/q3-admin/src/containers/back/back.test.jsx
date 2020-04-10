@@ -10,8 +10,9 @@ jest.mock('../use', () => ({
 }));
 
 test('Back should assign resource name to hook', () => {
+  const directoryPath = '/foos';
   jest.spyOn(React, 'useContext').mockReturnValue({
-    resourceName: 'foos',
+    directoryPath,
   });
 
   const props = global
@@ -19,6 +20,6 @@ test('Back should assign resource name to hook', () => {
     .find(IconButton)
     .props();
 
-  expect(props).toHaveProperty('to', '/foos');
-  expect(useReferrer).toHaveBeenCalledWith('foos');
+  expect(props).toHaveProperty('to', directoryPath);
+  expect(useReferrer).toHaveBeenCalledWith(directoryPath);
 });

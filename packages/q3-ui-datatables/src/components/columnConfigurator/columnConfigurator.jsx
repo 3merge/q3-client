@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import List from '@material-ui/icons/PlaylistAdd';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
@@ -11,6 +12,7 @@ const ColumnConfigurator = ({
   activeColumns,
   children,
 }) => {
+  const { t } = useTranslation('labels');
   const [inEffect, setInEffect] = React.useState([]);
   const getLocalStorageName = () =>
     `q3-datatables-column-${id}`;
@@ -36,8 +38,9 @@ const ColumnConfigurator = ({
     () =>
       allColumns.length > 0 && (
         <StickyPopover
+          count={inEffect.length}
           id="column-configurator"
-          label="activeColumns"
+          label={t('activeColumns')}
           icon={List}
         >
           <Form

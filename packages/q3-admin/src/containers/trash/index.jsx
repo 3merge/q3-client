@@ -16,7 +16,7 @@ const Trash = connect(
     collectionName,
     createdBy,
     onDelete,
-    directoryRoot,
+    directoryPath,
   }) => {
     const [loading, setLoading] = React.useState(false);
     const [showError, setShowError] = React.useState(false);
@@ -34,7 +34,7 @@ const Trash = connect(
       onDelete()
         .then(() => {
           setShowRedirect(true);
-          setTimeout(() => navigate(directoryRoot), [2000]);
+          setTimeout(() => navigate(directoryPath), [2000]);
         })
         .catch(() => {
           setShowError(true);

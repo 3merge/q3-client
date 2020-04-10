@@ -9,6 +9,7 @@ import {
 } from '../__fixtures__';
 import App from '../components/app';
 import Main from '../components/main';
+import Search from './search';
 import Add from './add';
 import Detail from './detail';
 import Header from './header';
@@ -20,6 +21,19 @@ import connect from './connect';
 export default {
   title: 'Q3 Admin|Demo',
 };
+
+const resolver = ({
+  id,
+  photo,
+  firstName,
+  lastName,
+  email,
+}) => ({
+  id,
+  name: `${firstName} ${lastName}`,
+  description: email,
+  photo,
+});
 
 const Investors = (props) => (
   <Page index {...props}>
@@ -36,21 +50,10 @@ const Investors = (props) => (
         <Field name="email" type="email" required />
       </Form>
     </Add>
-    <Header />
-    <Table
-      resolvers={({
-        id,
-        photo,
-        firstName,
-        lastName,
-        email,
-      }) => ({
-        id,
-        name: `${firstName} ${lastName}`,
-        description: email,
-        photo,
-      })}
-    />
+    <Header>
+      <Search intercept={resolver} />
+    </Header>
+    <Table resolvers={resolver} />
   </Page>
 );
 

@@ -42,11 +42,6 @@ const StoriesApiMockWrapper = ({ children }) => {
   };
 
   const defineMockRoutes = (m) => {
-    m.onGet('/investors').reply(201, {
-      total: dataSource.length,
-      investors: dataSource,
-    });
-
     m.onGet(/\/investors\/\d+\/investments/).reply(
       ({ url }) => {
         const [sub] = getSubId(url);
@@ -142,6 +137,11 @@ const StoriesApiMockWrapper = ({ children }) => {
       201,
       { investor: onCreate(data) },
     ]);
+
+    m.onGet(/investors/).reply(200, {
+      total: dataSource.length,
+      investors: dataSource,
+    });
   };
 
   return (

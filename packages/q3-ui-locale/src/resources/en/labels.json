@@ -168,5 +168,7 @@
   "unselect": "Unselect {{count}} items",
   "addToTrash": "Add to the archives",
   "featuredPhotoUpload": "Click to change/set the featured photo",
-  "learnMore": "Learn more"
+  "learnMore": "Learn more",
+  "activeColumns": "Columns",
+  "filter": "Filters"
 }

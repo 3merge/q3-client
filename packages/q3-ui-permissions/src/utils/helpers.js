@@ -26,10 +26,10 @@ export const satisfiesOwnership = (grant, id, createdBy) =>
 
 export const hasField = (grant, name) =>
   grant && grant.fields
-    ? convertIntoArray(grant.fields).some((i) => {
+    ? !convertIntoArray(grant.fields).every((i) => {
         try {
-          if (i === '*') return true;
-          return minimatch(name, i);
+          if (i === '*') return false;
+          return !minimatch(name, i);
         } catch (e) {
           return false;
         }

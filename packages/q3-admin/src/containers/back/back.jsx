@@ -8,8 +8,8 @@ import { useReferrer } from '../use';
 
 const Back = () => {
   const { t } = useTranslation('labels');
-  const { resourceName } = React.useContext(Definitions);
-  const path = useReferrer(resourceName).getPath();
+  const { directoryPath } = React.useContext(Definitions);
+  const path = useReferrer(directoryPath).getPath();
 
   return (
     <IconButton

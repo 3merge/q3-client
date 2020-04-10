@@ -14,6 +14,7 @@ const DialogWrapper = ({
   description,
   renderTrigger,
   renderContent,
+  renderHeader,
   renderPreContent,
   contentClassName,
   onNext,
@@ -32,7 +33,11 @@ const DialogWrapper = ({
         isOpen={isOpen}
         {...rest}
       >
-        <DialogHeader onClose={close} title={title} />
+        {renderHeader ? (
+          renderHeader({ open, close })
+        ) : (
+          <DialogHeader onClose={close} title={title} />
+        )}
         {renderPreContent}
         <DialogContent
           className={contentClassName}
@@ -87,6 +92,11 @@ DialogWrapper.propTypes = {
   renderContent: PropTypes.func.isRequired,
 
   /**
+   * Will replace the dialog's header with a custom component.
+   */
+  renderHeader: PropTypes.node,
+
+  /**
    * Class to forward into the dialog body.
    */
   contentClassName: PropTypes.string,
@@ -112,6 +122,7 @@ DialogWrapper.defaultProps = {
   contentClassName: null,
   className: null,
   renderPreContent: null,
+  renderHeader: null,
   onNext: null,
   onPrev: null,
 };

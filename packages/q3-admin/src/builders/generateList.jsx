@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Add,
-  Header,
-  Search,
-  List,
-} from 'q3-admin/lib/components';
+import { Add, Header, Search, Table } from '../containers';
 
 export default ({
   addForm: AddForm,
@@ -19,6 +14,6 @@ export default ({
         <AddForm />
       </Add>
     </Header>
-    <List {...ListProps} />
+    <Table {...ListProps} />
   </>
 );

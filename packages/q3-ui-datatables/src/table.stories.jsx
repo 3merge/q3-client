@@ -1,6 +1,9 @@
 import React from 'react';
 import AccountBox from '@material-ui/icons/AccountBox';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
 import Box from '@material-ui/core/Box';
+import Filter from 'q3-ui-filters';
+import { Equals } from 'q3-ui-filters/lib/components';
 import TableView, {
   TableBadge,
   TableProgress,
@@ -16,87 +19,100 @@ export default {
 };
 
 export const Full = () => (
-  <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
-    <TableView
-      id="for-testing"
-      total={50}
-      data={[
-        {
-          name: 'Jonny',
-          description: 'This is a description',
-          email: 'jonny@3merge.ca',
-          photo: 'https://i.pravatar.cc/150?img=17',
-          status: 'Done',
-          color: 'success',
-          value: 100,
-          verified: true,
-        },
-        {
-          name: 'Helen',
-          description: 'This is a description',
-          email: 'helen@3merge.ca',
-          photo: 'https://i.pravatar.cc/150?img=18',
-          status: 'Not Ready',
-          color: 'danger',
-          value: 2,
-          started: new Date().toISOString(),
-          numberOfRecords: 66,
-        },
-        {
-          name: 'Nolan',
-          description: 'This is a description',
-          email: 'nolan@3merge.ca',
-          photo: 'https://i.pravatar.cc/150?img=19',
-          status: 'Done',
-          color: 'success',
-          value: 87,
-          verified: true,
-          numberOfRecords: 99,
-        },
-        {
-          name: 'Brie',
-          description: 'This is a description',
-          email: 'brie@3merge.ca',
-          photo: 'https://i.pravatar.cc/150?img=20',
-          status: 'Under Review',
-          color: 'warning',
-          value: 55,
-          started: new Date().toISOString(),
-          numberOfRecords: 12,
-          cost: {
-            dealer: '12.99',
+  <LocationProvider>
+    <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
+      <TableView
+        id="for-testing"
+        total={50}
+        data={[
+          {
+            name: 'Jonny',
+            description: 'This is a description',
+            email: 'jonny@3merge.ca',
+            photo: 'https://i.pravatar.cc/150?img=17',
+            status: 'Done',
+            color: 'success',
+            value: 100,
+            verified: true,
           },
-        },
-      ]}
-      allColumns={[
-        'status',
-        'progress',
-        'verified',
-        'email',
-        'started',
-        'numberOfRecords',
-        'cost.dealer',
-      ]}
-      resolvers={(v) => ({
-        ...v,
-        disableLink: v.id === 2,
-        two: <TableCheck show={v.two} />,
-        progress: <TableProgress value={v.progress} />,
-        verified: <TableCheck show={v.verified} />,
-        email: <a href={`mailTo:${v.email}`}>{v.email}</a>,
-        status: (
-          <TableBadge status={v.status} color={v.color} />
-        ),
-      })}
-      actions={[
-        {
-          label: 'Yikes',
-          onClick: () => null,
-          icon: AccountBox,
-        },
-      ]}
-    />
-  </Box>
+          {
+            name: 'Helen',
+            description: 'This is a description',
+            email: 'helen@3merge.ca',
+            photo: 'https://i.pravatar.cc/150?img=18',
+            status: 'Not Ready',
+            color: 'danger',
+            value: 2,
+            started: new Date().toISOString(),
+            numberOfRecords: 66,
+          },
+          {
+            name: 'Nolan',
+            description: 'This is a description',
+            email: 'nolan@3merge.ca',
+            photo: 'https://i.pravatar.cc/150?img=19',
+            status: 'Done',
+            color: 'success',
+            value: 87,
+            verified: true,
+            numberOfRecords: 99,
+          },
+          {
+            name: 'Brie',
+            description: 'This is a description',
+            email: 'brie@3merge.ca',
+            photo: 'https://i.pravatar.cc/150?img=20',
+            status: 'Under Review',
+            color: 'warning',
+            value: 55,
+            started: new Date().toISOString(),
+            numberOfRecords: 12,
+            cost: {
+              dealer: '12.99',
+            },
+          },
+        ]}
+        allColumns={[
+          'status',
+          'progress',
+          'verified',
+          'email',
+          'started',
+          'numberOfRecords',
+          'cost.dealer',
+        ]}
+        resolvers={(v) => ({
+          ...v,
+          disableLink: v.id === 2,
+          two: <TableCheck show={v.two} />,
+          progress: <TableProgress value={v.progress} />,
+          verified: <TableCheck show={v.verified} />,
+          email: (
+            <a href={`mailTo:${v.email}`}>{v.email}</a>
+          ),
+          status: (
+            <TableBadge status={v.status} color={v.color} />
+          ),
+        })}
+        actions={[
+          {
+            label: 'Yikes',
+            onClick: () => null,
+            icon: AccountBox,
+          },
+        ]}
+        renderFilter={() => (
+          <Filter>
+            <Equals
+              type="text"
+              label="Equals to this value"
+              name="equals"
+            />
+          </Filter>
+        )}
+      />
+    </Box>
+  </LocationProvider>
 );
 
 export const Empty = () => (
