@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.16](https://github.com/3merge/q/compare/v1.13.15...v1.13.16) (2020-04-11)
+
+
+### Bug Fixes
+
+* **menu:** relative paths ([261bb31](https://github.com/3merge/q/commit/261bb31cc369af56b4afd395a0138547350a237d))
+
+
+
+
+
 ## [1.13.15](https://github.com/3merge/q/compare/v1.13.14...v1.13.15) (2020-04-11)
 
 **Note:** Version bump only for package q3-ui
