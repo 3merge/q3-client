@@ -3,7 +3,7 @@ import ButtonLink from '@material-ui/core/Link';
 import { Link } from '@reach/router';
 
 export const getLinkAttributes = (url = '', Component) => {
-  let to = url;
+  const to = url;
 
   if (url.startsWith('http') || url.startsWith('www')) {
     return {
@@ -14,7 +14,7 @@ export const getLinkAttributes = (url = '', Component) => {
     };
   }
 
-  if (!to.startsWith('/')) to = `/${to}`;
+  // if (!to.startsWith('/')) to = `/${to}`;
   return {
     component: Component || Link,
     to,
