@@ -1,10 +1,9 @@
-import React from 'react';
 import minimatch from 'minimatch';
 
 const convertIntoArray = (a) => {
   let out = [];
   if (Array.isArray(a)) out = a;
-  if (typeof a === 'string') out = a.split(',');
+  if (typeof a === 'string') out = a.split(', ');
   return out.map((b) => b.trim());
 };
 
@@ -28,7 +27,6 @@ export const hasField = (grant, name) =>
   grant && grant.fields
     ? convertIntoArray(grant.fields).every((i) => {
         try {
-          console.log(minimatch(name, i), name, i);
           if (i === '*') return true;
           return minimatch(name, i);
         } catch (e) {

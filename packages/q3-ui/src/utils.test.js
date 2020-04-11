@@ -12,10 +12,10 @@ describe('getLinkAttributes', () => {
     });
   });
 
-  it('should prepend forward slash on @reach/router Link', () => {
+  it('should NOT prepend forward slash on @reach/router Link', () => {
     expect(getLinkAttributes('demo')).toMatchObject({
       component: expect.any(Object),
-      to: '/demo',
+      to: 'demo',
     });
   });
 
