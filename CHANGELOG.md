@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.18](https://github.com/3merge/q/compare/v1.13.17...v1.13.18) (2020-04-12)
+
+
+### Bug Fixes
+
+* **slider:** helmet now named export ([028b254](https://github.com/3merge/q/commit/028b254492f57218838a70249dcbe0067963781e))
+
+
+
+
+
 ## [1.13.17](https://github.com/3merge/q/compare/v1.13.16...v1.13.17) (2020-04-11)
 
 **Note:** Version bump only for package q3-client
