@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { invoke } from 'lodash';
 import Swiper from 'react-id-swiper';
 import Container from '@material-ui/core/Container';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import Box from '@material-ui/core/Box';
 import Steps from './steps';
 import Pagination from './pagination';
