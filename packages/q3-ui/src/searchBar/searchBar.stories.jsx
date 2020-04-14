@@ -1,22 +1,24 @@
 import React from 'react';
 import { withLocation } from 'with-location';
+import { Link } from '@reach/router';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Search from '.';
+import results from './__fixtures__';
 
 const getOptions = (s) => {
-  return fetch(
-    `https://rickandmortyapi.com/api/character?page=1&name=${s}`,
-  )
-    .then((o) => o.json())
-    .then(({ results }) => {
-      return results.map((r) => ({
-        name: r.name,
-        description: r.species,
-        photo: r.image,
-        url: r.url,
-      }));
-    });
+  return Promise.resolve(results).then((r) =>
+    r
+      .map((item) => ({
+        name: item.name,
+        description: item.species,
+        photo: item.image,
+        url: item.url,
+      }))
+      .filter((item) => JSON.stringify(item).includes(s)),
+  );
 };
 
 export default {
@@ -37,3 +39,12 @@ export const Example = withLocation(({ params }) => (
     </Box>
   </>
 ));
+
+export const OnPageChange = () => (
+  <LocationProvider>
+    <Search getResults={getOptions} redirectPath="/" />
+    <Link to="/foo">Next Page</Link>
+    <Link to="/bar">Next Page</Link>
+    <LocationDebugger />
+  </LocationProvider>
+);

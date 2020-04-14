@@ -1,29 +1,12 @@
 import React from 'react';
+import { useResults } from 'q3-ui-helpers/lib/hooks';
 
-const useAutocompleteSearchResults = (getResults, term) => {
-  const [results, setResults] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
+export default (service, term) => {
+  const { run, ...rest } = useResults(service, term);
 
   React.useEffect(() => {
-    if (term) {
-      setLoading(true);
-      getResults(term)
-        .then((r) => {
-          setResults(r);
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-        });
-    } else {
-      setResults([]);
-    }
+    run();
   }, [term]);
 
-  return {
-    loading,
-    results,
-  };
+  return rest;
 };
-
-export default useAutocompleteSearchResults;

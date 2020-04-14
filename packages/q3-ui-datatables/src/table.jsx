@@ -30,25 +30,25 @@ const TableHeader = ({
   children,
   columns,
   aliasForName,
+  ...rest
 }) => {
   const { mobile, boxes, tableHead } = useStyles();
-  const headerCell = aliasForName || 'name';
 
   return (
     <TableHead>
       <TableRow className={mobile}>
         <TableCell className={boxes}>{children}</TableCell>
         <ColumnHeader
-          title={headerCell}
-          storageKey={headerCell}
+          title={aliasForName}
           className={tableHead}
+          {...rest}
         />
-        {columns.map((header, i) => (
+        {columns.map((header) => (
           <ColumnHeader
             key={header}
             title={header}
-            storageKey={i === 0 ? aliasForName : header}
             className={tableHead}
+            {...rest}
           />
         ))}
       </TableRow>
@@ -57,8 +57,9 @@ const TableHeader = ({
 };
 
 TableHeader.propTypes = {
+  id: PropTypes.string.isRequired,
   columns: PropTypes.arrayOf(PropTypes.string),
-  aliasForName: PropTypes.string.isRequired,
+  aliasForName: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -67,6 +68,7 @@ TableHeader.propTypes = {
 
 TableHeader.defaultProps = {
   columns: [],
+  aliasForName: 'name',
 };
 
 export const TableView = ({
@@ -116,6 +118,7 @@ export const TableView = ({
                     })}
                   </caption>
                   <TableHeader
+                    id={id}
                     aliasForName={aliasForName}
                     columns={activeColumns}
                   >

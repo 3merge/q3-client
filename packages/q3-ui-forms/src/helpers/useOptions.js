@@ -3,6 +3,7 @@ import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
 import { useFormikContext } from 'formik';
+import { useResults } from 'q3-ui-helpers/lib/hooks';
 import { asOptions } from '.';
 
 export default ({
@@ -12,10 +13,21 @@ export default ({
   loadOptions,
   options = [],
 }) => {
-  const [loading, setLoading] = React.useState(false);
-  const [items, setItems] = React.useState(options);
   const { value, onChange } = useValue(initialValue);
   const { values } = useFormikContext();
+
+  const {
+    loading,
+    run,
+    results: items,
+    setResults: setItems,
+  } = useResults(
+    loadOptions,
+    // + is used for regex powered search
+    [value.replace('*', '+'), values],
+    options,
+  );
+
   let watchValues = runOnChange ? values : false;
 
   if (Array.isArray(runOnChange))
@@ -25,24 +37,11 @@ export default ({
     setItems(transformOptions ? asOptions(v) : v);
 
   React.useEffect(() => {
-    let cancel = false;
-    if (cancel || loading) return undefined;
-
     if (loadOptions) {
-      setLoading(true);
-      loadOptions(value, values)
-        .catch(() => [])
-        .then((data) => {
-          runOpts(data);
-          setLoading(false);
-        });
+      run();
     } else {
       runOpts(options);
     }
-
-    return () => {
-      cancel = true;
-    };
   }, [
     value,
     items !== options,

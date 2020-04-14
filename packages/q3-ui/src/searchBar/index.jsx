@@ -16,8 +16,4 @@ Searchbar.propTypes = {
   getFrom: PropTypes.func.isRequired,
 };
 
-Searchbar.defaultProps = {
-  redirectPath: '',
-};
-
 export default withLocation(Searchbar);

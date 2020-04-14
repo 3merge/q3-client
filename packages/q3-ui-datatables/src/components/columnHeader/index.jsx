@@ -1,39 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { withLocation } from 'with-location';
 import { useTranslation } from 'react-i18next';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableCell from '@material-ui/core/TableCell';
+import { browser } from 'q3-ui-helpers';
+
+const { proxyLocalStorageApi } = browser;
 
 export const includesNegativeCharacter = (v) =>
   typeof v === 'string' && v.includes('-');
 
 export const ColumnHeader = ({
+  id,
   title,
-  storageKey,
   getFrom,
-  pushTo,
   params,
 }) => {
   const sort = getFrom('sort');
   const { t } = useTranslation();
   const isAsc = includesNegativeCharacter(sort);
 
-  const prefixStorageKey = () =>
-    !sort || isAsc ? storageKey : `-${storageKey}`;
+  params.set('sort', !sort || isAsc ? title : `-${title}`);
 
-  const onClick = () => {
-    pushTo({ sort: prefixStorageKey() });
-    navigate(`?${params.toString()}`);
-  };
+  React.useEffect(() => {
+    proxyLocalStorageApi('setItem', id, sort);
+  }, [sort]);
 
   return (
     <TableCell component="th">
       <TableSortLabel
-        active={sort && sort.includes(storageKey)}
+        active={sort && sort.includes(title)}
         direction={isAsc ? 'asc' : 'desc'}
-        onClick={onClick}
+        component={Link}
+        to={`?${params.toString()}`}
       >
         {t(`labels:${title}`)}
       </TableSortLabel>
@@ -43,14 +44,14 @@ export const ColumnHeader = ({
 
 ColumnHeader.propTypes = {
   /**
+   * The local storage identifier for this table.
+   */
+  id: PropTypes.string.isRequired,
+
+  /**
    * The rendered text
    */
   title: PropTypes.string.isRequired,
-
-  /**
-   * The sorting prop to store locally.
-   */
-  storageKey: PropTypes.string.isRequired,
 
   /**
    * Inherited from "withLocation" HOC.
@@ -60,13 +61,9 @@ ColumnHeader.propTypes = {
   /**
    * Inherited from "withLocation" HOC.
    */
-  pushTo: PropTypes.func.isRequired,
-
-  /**
-   * Inherited from "withLocation" HOC.
-   */
   params: PropTypes.shape({
     toString: PropTypes.func,
+    set: PropTypes.func,
   }).isRequired,
 };
 

@@ -27,4 +27,33 @@ describe('Props', () => {
         'world',
       ]));
   });
+
+  describe('shuffle', () => {
+    it('should  filter and merge two arrays', () => {
+      expect(
+        array.shuffle(
+          ['foo', 'bar'],
+          ['hello', 'dolly'],
+          ['foo', 'hello'],
+        ),
+      ).toEqual([
+        ['bar', 'hello'],
+        ['dolly', 'foo'],
+      ]);
+    });
+  });
+
+  describe('matchOnSome', () => {
+    it('should return truthy', () => {
+      expect(
+        array.matchOnSome(['ab*', 'cd'], 'ab'),
+      ).toBeTruthy();
+    });
+
+    it('should return falsy', () => {
+      expect(
+        array.matchOnSome(['ab*', 'cd'], 'ef'),
+      ).toBeFalsy();
+    });
+  });
 });

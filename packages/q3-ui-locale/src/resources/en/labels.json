@@ -170,5 +170,10 @@
   "featuredPhotoUpload": "Click to change/set the featured photo",
   "learnMore": "Learn more",
   "activeColumns": "Columns",
-  "filter": "Filters"
+  "filter": "Filters",
+  "optionsBySearch": "Options loaded via search",
+  "searchByGlob": "Use keywords or special characters like * for pattern matching",
+  "notAGlob": "Not a recognized pattern",
+  "selectAll": "Toggle all options",
+  "createRule": "Create a rule"
 }

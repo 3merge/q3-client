@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq, difference } from 'lodash';
+import { uniq } from 'lodash';
 import { FixedSizeList } from 'react-window';
-import minimatch from 'minimatch';
 import isGlob from 'is-glob';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
@@ -12,88 +11,32 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
-import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
+import Fade from '@material-ui/core/Fade';
 import FlashOn from '@material-ui/icons/FlashOn';
-import ClearAll from '@material-ui/icons/ClearAll';
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import SettingsOverscanIcon from '@material-ui/icons/SettingsOverscan';
 import { grey } from '@material-ui/core/colors';
 import Fab from '@material-ui/core/Fab';
 import Typography from '@material-ui/core/Typography';
 import CompareArrows from '@material-ui/icons/CompareArrows';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from 'q3-ui/lib/iconButton';
 import Drawer from '@material-ui/core/Drawer';
 import TextField from '@material-ui/core/TextField';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Collapse from '@material-ui/core/Collapse';
-import { CircularProgress, Badge } from '@material-ui/core';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Badge from '@material-ui/core/Badge';
 import useOpen from 'useful-state/lib/useOpen';
-import { useValue } from 'useful-state';
+import { Placeholder } from 'q3-ui-assets';
+import { array, string } from 'q3-ui-helpers';
 import useDecorator from '../helpers/useDecorator';
 import useOptions from '../helpers/useOptions';
 
-export const findNestedExpressions = (a = []) =>
-  a.reduce(
-    (acc, curr) => {
-      acc[/^\((.*)\)?$/.test(curr) ? 0 : 1].push(curr);
-      return acc;
-    },
-    [[], []],
-  );
-
-const castToLowercase = (s = '') => s.toLowerCase().trim();
-
-const sanitizeArrayStrings = (a = []) =>
-  a.map(castToLowercase).filter(Boolean);
-
-export const transformDelineatedStringIntoArray = (
-  str = [],
-) =>
-  Array.isArray(str)
-    ? str.map(castToLowercase).filter((i) => i)
-    : sanitizeArrayStrings(str.split(','));
-
-export const transformArrayIntoDelineatedString = (
-  arr = [],
-) => sanitizeArrayStrings(arr).join(',');
-
-export const filterByExpressions = (a = []) => (b) =>
-  a.some((re) => minimatch(b, re));
-
-export const intersects = (a = [], b = [], c = []) => {
-  const has = (item) => !c.includes(item);
-  const keepInA = a.filter(has);
-  const keepInB = b.filter(has);
-
-  return [
-    keepInA.concat(difference(b, keepInB)),
-    keepInB.filter(has).concat(difference(a, keepInA)),
-  ];
-};
-
 const fn = (exec, args) => (props) => exec(args, props);
 
-export const getUniquelyWithoutRegex = (
-  a = [],
-  b = [],
-  c = [],
-) => uniq(a.concat(b.filter(filterByExpressions(c))));
-
-export const getUniquelyAgainstRegex = (
-  a = [],
-  b = [],
-  c = [],
-) =>
-  uniq(
-    b
-      .filter((i) => !a.includes(i))
-      .filter((i) => !filterByExpressions(c)(i)),
-  );
-
-export const filterBySearch = (a = [], s) =>
-  a.filter(minimatch.filter(s));
+export const getInactiveItems = (terms = [], rules = []) =>
+  terms.filter((term) => !array.matchOnSome(rules, term));
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -116,8 +59,17 @@ const useStyles = makeStyles(() => ({
   },
   overflow: {
     backgroundColor: grey[200],
-    height: 325,
+    height: 275,
     overflow: 'hidden',
+    position: 'relative',
+    '& > svg': {
+      left: '50%',
+      height: '65%',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translate(-50%,-50%)',
+      width: '65%',
+    },
   },
   fabs: {
     position: 'absolute',
@@ -161,7 +113,7 @@ function Search({
   const [err, setError] = React.useState(false);
 
   return (
-    <Box m={2}>
+    <Box m={2} mb={0}>
       <TextField
         {...rest}
         onChange={search}
@@ -173,32 +125,30 @@ function Search({
           !err ? t('searchByGlob') : t('notAGlob')
         }
         error={err}
+        inputProps={{
+          autocomplete: 'off',
+        }}
+        // eslint-disable-next-line
         InputProps={{
           endAdornment: (
             <>
-              <Tooltip title={t('select_all')}>
-                <IconButton
-                  onClick={toggle}
-                  color="primary"
-                  className={classes.iconButton}
-                  aria-label={t('select_all')}
-                  {...rest}
-                >
-                  <ClearAll />
-                </IconButton>
-              </Tooltip>
+              <IconButton
+                label="selectAll"
+                icon={AllInclusiveIcon}
+                buttonProps={{
+                  onClick: toggle,
+                  ...rest,
+                }}
+              />
               {addRule && (
-                <Tooltip title={t('create_rule')}>
-                  <IconButton
-                    color="primary"
-                    onClick={() => setError(!addRule())}
-                    className={classes.iconButton}
-                    aria-label={t('create_rule')}
-                    {...rest}
-                  >
-                    <FlashOn />
-                  </IconButton>
-                </Tooltip>
+                <IconButton
+                  label="createRule"
+                  icon={FlashOn}
+                  buttonProps={{
+                    onClick: () => setError(!addRule()),
+                    ...rest,
+                  }}
+                />
               )}
             </>
           ),
@@ -217,33 +167,6 @@ Search.propTypes = {
 
 Search.defaultProps = {
   term: '',
-};
-
-function Chips({ data, pullRule, ...etc }) {
-  const renderAvatar = () => (
-    <Avatar>
-      <FlashOn />
-    </Avatar>
-  );
-  return (
-    <Box my={2}>
-      {data.map((item) => (
-        <Chip
-          {...etc}
-          color="primary"
-          avatar={renderAvatar()}
-          key={item}
-          onDelete={fn(pullRule, item)}
-          label={item}
-        />
-      ))}
-    </Box>
-  );
-}
-
-Chips.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.String).isRequired,
-  pullRule: PropTypes.func.isRequired,
 };
 
 const TransferListDataRow = (data, select, isSelected) => {
@@ -272,6 +195,7 @@ function TransferListColumn({
   select,
   data,
   isSelected,
+  showPlaceholder,
 }) {
   const cls = useStyles();
   const { t } = useTranslation();
@@ -281,15 +205,23 @@ function TransferListColumn({
         <Typography variant="overline" gutterBottom>
           {t(`labels:${label}`)}
         </Typography>
-        <FixedSizeList
-          className={cls.overflow}
-          itemCount={data.length}
-          height={325}
-          width="100%"
-          itemSize={46}
-        >
-          {TransferListDataRow(data, select, isSelected)}
-        </FixedSizeList>
+        {data.length || !showPlaceholder ? (
+          <FixedSizeList
+            className={cls.overflow}
+            itemCount={data.length}
+            height={275}
+            width="100%"
+            itemSize={46}
+          >
+            {TransferListDataRow(data, select, isSelected)}
+          </FixedSizeList>
+        ) : (
+          <Fade in>
+            <Box className={cls.overflow}>
+              <Placeholder />
+            </Box>
+          </Fade>
+        )}
       </Box>
     </Grid>
   );
@@ -301,14 +233,14 @@ TransferListColumn.propTypes = {
     .isRequired,
   isSelected: PropTypes.func.isRequired,
   select: PropTypes.func.isRequired,
+  showPlaceholder: PropTypes.bool,
 };
 
-export const Toggle = ({
-  applied,
-  label,
-  loading,
-  open,
-}) => (
+TransferListColumn.defaultProps = {
+  showPlaceholder: false,
+};
+
+export const Toggle = ({ applied, label, open }) => (
   <Button size="large" onClick={open} color="primary">
     <Badge
       badgeContent={applied.length}
@@ -316,11 +248,7 @@ export const Toggle = ({
       color="secondary"
     >
       <Avatar>
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <SettingsOverscanIcon />
-        )}
+        <SettingsOverscanIcon />
       </Avatar>
     </Badge>
     {label}
@@ -358,13 +286,14 @@ export function TransferList(props) {
     ...deco
   } = useDecorator(props);
 
+  const [selected, setSelected] = React.useState([]);
   const {
+    items,
+    loading,
     value: search,
     onChange: handleSearch,
     onClear,
-  } = useValue();
-  const [selected, setSelected] = React.useState([]);
-  const { items, loading } = useOptions({
+  } = useOptions({
     loadOptionsPlainly: true,
     ...props,
   });
@@ -372,28 +301,18 @@ export function TransferList(props) {
   const { open, close, isOpen } = useOpen();
   const cls = useStyles();
 
-  const initAsArray = transformDelineatedStringIntoArray(
+  const initAsArray = string.transformDelineatedStringIntoArray(
     init,
   );
 
-  const [rules, words] = findNestedExpressions(initAsArray);
   const isSelected = (item) => selected.includes(item);
-  const transformedItems = items.map(castToLowercase);
-
-  const active = uniq(
-    words.flatMap((word) =>
-      transformedItems.filter(minimatch.filter(word)),
-    ),
+  const transformedItems = items.map(
+    string.castToLowercase,
   );
 
+  const active = uniq(initAsArray);
   const inactive = uniq(
-    transformedItems
-      .filter((i) => !active.includes(i))
-      .filter(
-        (i) =>
-          i.toLowerCase().includes(search.toLowerCase()) ||
-          minimatch(i.toLowerCase(), search.toLowerCase()),
-      ),
+    getInactiveItems(transformedItems, active),
   );
 
   const addToSelected = (item) => {
@@ -405,11 +324,13 @@ export function TransferList(props) {
   };
 
   const transferTo = () => {
-    const [val] = intersects(words, inactive, selected);
+    const [val] = array.shuffle(
+      initAsArray,
+      inactive,
+      selected,
+    );
     onChange(
-      transformArrayIntoDelineatedString(
-        uniq(val).concat(rules),
-      ),
+      string.transformArrayIntoDelineatedString(uniq(val)),
     );
     setSelected([]);
   };
@@ -422,23 +343,8 @@ export function TransferList(props) {
     return true;
   };
 
-  const removeRule = (term) => {
-    onChange(
-      initAsArray
-        .filter((item) => item !== term)
-        .join(', '),
-    );
-    setSelected([]);
-  };
-
   const selectAll = () => {
-    setSelected(
-      inactive.filter(
-        (i) =>
-          i.toLowerCase().includes(search.toLowerCase()) &&
-          !selected.includes(i),
-      ),
-    );
+    setSelected(inactive);
   };
 
   return (
@@ -457,7 +363,10 @@ export function TransferList(props) {
           {helperText}
         </FormHelperText>
       </Collapse>
+
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
+        {loading && <LinearProgress />}
+
         <Search
           addRule={addRule}
           search={handleSearch}
@@ -465,49 +374,39 @@ export function TransferList(props) {
           toggle={selectAll}
           {...deco}
         />
-        {loading ? (
-          <Box textAlign="center" p={4}>
-            <CircularProgress />
-          </Box>
-        ) : (
-          <Fade in>
-            <Container maxWidth="md" className={cls.box}>
-              <Grid
-                container
-                justify="center"
-                alignItems="center"
-                spacing={1}
-                style={{ position: 'relative' }}
-              >
-                <TransferListColumn
-                  label="options"
-                  isSelected={isSelected}
-                  select={addToSelected}
-                  data={inactive}
-                />
-                <TransferListColumn
-                  label="active"
-                  data={active}
-                  isSelected={isSelected}
-                  select={addToSelected}
-                />
-                <Fab
-                  onClick={transferTo}
-                  color="secondary"
-                  className={cls.fabs}
-                  {...deco}
-                >
-                  <CompareArrows />
-                </Fab>
-              </Grid>
-              <Chips
-                data={words.filter(isGlob)}
-                pullRule={removeRule}
-                {...deco}
-              />
-            </Container>
-          </Fade>
-        )}
+        <Container maxWidth="md" className={cls.box}>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            spacing={1}
+            style={{
+              position: 'relative',
+            }}
+          >
+            <TransferListColumn
+              label="optionsBySearch"
+              isSelected={isSelected}
+              select={addToSelected}
+              data={inactive}
+              showPlaceholder
+            />
+            <TransferListColumn
+              label="active"
+              data={active}
+              isSelected={isSelected}
+              select={addToSelected}
+            />
+            <Fab
+              onClick={transferTo}
+              color="secondary"
+              className={cls.fabs}
+              {...deco}
+            >
+              <CompareArrows />
+            </Fab>
+          </Grid>
+        </Container>
       </Drawer>
     </>
   );

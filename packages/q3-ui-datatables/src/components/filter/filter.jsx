@@ -9,6 +9,7 @@ export const removeUncontrollableFilterProps = (params) => {
   params.delete('page');
   params.delete('search');
   params.delete('limit');
+  params.delete('sort');
 };
 
 export const countParams = (params) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import AccountBox from '@material-ui/icons/AccountBox';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import Box from '@material-ui/core/Box';
 import Filter from 'q3-ui-filters';
 import { Equals } from 'q3-ui-filters/lib/components';
@@ -19,10 +20,11 @@ export default {
 };
 
 export const Full = () => (
-  <LocationProvider>
+  <LocationProvider initialPath="/">
     <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
       <TableView
         id="for-testing"
+        aliasForName="fullName"
         total={50}
         data={[
           {
@@ -43,7 +45,7 @@ export const Full = () => (
             status: 'Not Ready',
             color: 'danger',
             value: 2,
-            started: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
             numberOfRecords: 66,
           },
           {
@@ -56,6 +58,7 @@ export const Full = () => (
             value: 87,
             verified: true,
             numberOfRecords: 99,
+            updatedAt: new Date().toISOString(),
           },
           {
             name: 'Brie',
@@ -65,7 +68,7 @@ export const Full = () => (
             status: 'Under Review',
             color: 'warning',
             value: 55,
-            started: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
             numberOfRecords: 12,
             cost: {
               dealer: '12.99',
@@ -77,7 +80,7 @@ export const Full = () => (
           'progress',
           'verified',
           'email',
-          'started',
+          'updatedAt',
           'numberOfRecords',
           'cost.dealer',
         ]}
@@ -112,6 +115,7 @@ export const Full = () => (
         )}
       />
     </Box>
+    <LocationDebugger />
   </LocationProvider>
 );
 

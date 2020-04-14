@@ -10,6 +10,7 @@ import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore, useViewResolutions } from '../use';
+import withSorting from './withSorting';
 
 const PageChildren = ({
   children,
@@ -71,6 +72,7 @@ const Page = ({
 
   const directoryPath = getDirectoryPath(rootPath, id);
   const url = slugify(collectionName, id);
+
   const state = useRest({
     key: resourceNameSingular,
     pluralized: resourceName,
@@ -228,4 +230,4 @@ Page.defaultProps = {
   viewResolutions: {},
 };
 
-export default Page;
+export default withSorting(Page);
