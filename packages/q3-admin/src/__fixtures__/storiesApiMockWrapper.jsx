@@ -140,9 +140,14 @@ const StoriesApiMockWrapper = ({ children }) => {
       { investor: onCreate(data) },
     ]);
 
-    m.onGet(/api-investors/).reply(200, {
-      total: dataSource.length,
-      investors: dataSource,
+    m.onGet(/api-investors/).reply(({ url }) => {
+      return [
+        200,
+        {
+          total: dataSource.length,
+          investors: dataSource,
+        },
+      ];
     });
   };
 

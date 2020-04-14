@@ -1,3 +1,7 @@
+import { difference } from 'lodash';
+
+import * as string from './string';
+
 /**
  * Mostly used with .find results.
  */
@@ -42,8 +46,31 @@ export const addToSet = (a = [], v) => {
 };
 
 /**
- * Well filter from an array or return empty.
+ * Will filter from an array or return empty.
  */
 export const pullFromSet = (a = [], v) => {
   return Array.isArray(a) ? filterValue(a, v) : [];
 };
+
+/**
+ * Remove on match and fill on difference between three targets.
+ * The first two are subject to change, while the last determines match or fill.
+ */
+export const shuffle = (a = [], b = [], c = []) => {
+  const has = (item) => !c.includes(item);
+  const keepInA = a.filter(has);
+  const keepInB = b.filter(has);
+
+  return [
+    keepInA.concat(difference(b, keepInB)),
+    keepInB.filter(has).concat(difference(a, keepInA)),
+  ];
+};
+
+/**
+ * Checks a term against a set of patterns.
+ */
+export const matchOnSome = (rules = [], term) =>
+  hasLength(rules) && string.is(term)
+    ? rules.some((rule) => string.hasMatch(term, rule))
+    : false;

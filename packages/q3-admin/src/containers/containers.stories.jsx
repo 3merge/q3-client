@@ -2,6 +2,7 @@ import React from 'react';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
 import {
   StoriesApiMockAuthentication,
@@ -32,6 +33,7 @@ const resolver = ({
   id,
   name: `${firstName} ${lastName}`,
   description: email,
+  url: `/investors/${id}`,
   photo,
 });
 
@@ -160,6 +162,7 @@ const withProviders = (initialPath = '/') => (
           />
         </StoriesApiMockWrapper>
       </StoriesApiMockAuthentication>
+      <LocationDebugger />
     </LocationProvider>
   </Loading>
 );

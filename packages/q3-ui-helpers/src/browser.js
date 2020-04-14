@@ -13,3 +13,8 @@ export const proxyLocalStorageApi = (method, ...args) =>
   isBrowserReady()
     ? invoke(window.localStorage, method, ...args)
     : null;
+
+export const proxySessionStorageApi = (method, ...args) =>
+  isBrowserReady()
+    ? invoke(window.sessionStorage, method, ...args)
+    : null;

@@ -1,20 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import { withLocation } from 'with-location';
 import { useTranslation } from 'react-i18next';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import TableCell from '@material-ui/core/TableCell';
 import { browser } from 'q3-ui-helpers';
 
-const {
-  proxyLocalStorageApi,
-  isDefined,
-  isBrowserReady,
-} = browser;
-
-export const makeStorageSessionName = (id, key) =>
-  `${id}:${key}`;
+const { proxyLocalStorageApi } = browser;
 
 export const includesNegativeCharacter = (v) =>
   typeof v === 'string' && v.includes('-');
@@ -23,44 +16,25 @@ export const ColumnHeader = ({
   id,
   title,
   getFrom,
-  defaultSortPreference,
-  pushTo,
   params,
 }) => {
   const sort = getFrom('sort');
   const { t } = useTranslation();
   const isAsc = includesNegativeCharacter(sort);
 
-  const prefixStorageKey = () =>
-    !sort || isAsc ? title : `-${title}`;
-
-  const addToQueryIfDefined = (newSortValue) => {
-    if (!isDefined(newSortValue)) return;
-    proxyLocalStorageApi('setItem', id, newSortValue);
-
-    pushTo({ sort: newSortValue });
-    navigate(`?${params.toString()}`);
-  };
-
-  const onClick = () => {
-    addToQueryIfDefined(prefixStorageKey());
-  };
+  params.set('sort', !sort || isAsc ? title : `-${title}`);
 
   React.useEffect(() => {
-    if (!isBrowserReady() || sort) return;
-
-    addToQueryIfDefined(
-      proxyLocalStorageApi('getItem', id) ||
-        defaultSortPreference,
-    );
-  }, []);
+    proxyLocalStorageApi('setItem', id, sort);
+  }, [sort]);
 
   return (
     <TableCell component="th">
       <TableSortLabel
         active={sort && sort.includes(title)}
         direction={isAsc ? 'asc' : 'desc'}
-        onClick={onClick}
+        component={Link}
+        to={`?${params.toString()}`}
       >
         {t(`labels:${title}`)}
       </TableSortLabel>
@@ -80,11 +54,6 @@ ColumnHeader.propTypes = {
   title: PropTypes.string.isRequired,
 
   /**
-   * The default sorting prop.
-   */
-  defaultSortPreference: PropTypes.string,
-
-  /**
    * Inherited from "withLocation" HOC.
    */
   getFrom: PropTypes.func.isRequired,
@@ -92,18 +61,10 @@ ColumnHeader.propTypes = {
   /**
    * Inherited from "withLocation" HOC.
    */
-  pushTo: PropTypes.func.isRequired,
-
-  /**
-   * Inherited from "withLocation" HOC.
-   */
   params: PropTypes.shape({
     toString: PropTypes.func,
+    set: PropTypes.func,
   }).isRequired,
-};
-
-ColumnHeader.defaultProps = {
-  defaultSortPreference: '-updatedAt',
 };
 
 export default withLocation(ColumnHeader);

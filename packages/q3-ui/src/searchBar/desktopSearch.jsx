@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import Hidden from '@material-ui/core/Hidden';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import List from '@material-ui/core/List';
@@ -27,6 +28,7 @@ const handleClose = (next) => (e, action) => {
 const handleChange = (next) => (event, newValue) => {
   if (!newValue) return next('');
   if (typeof newValue === 'string') return next(newValue);
+  if (newValue.url) navigate(newValue.url);
   return next(newValue.name);
 };
 

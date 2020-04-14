@@ -1,7 +1,7 @@
 import React from 'react';
 import Comparision from 'comparisons';
 import { get } from 'lodash';
-import { array, object } from 'q3-ui-helpers';
+import { array, object, browser } from 'q3-ui-helpers';
 import { AuthContext } from 'q3-ui-permissions';
 
 const { hasKeys } = object;
@@ -59,6 +59,14 @@ export const useViewResolutions = (resolutions, target) => {
   );
 };
 
+const isString = (v) => typeof v === 'string';
+
+export const includesPath = (current, previous) =>
+  isString(current) && isString(previous)
+    ? previous &&
+      previous.includes(current.replace(/\/$/, ''))
+    : current;
+
 /**
  * Used to set the referral path between table/detail views.
  * This allows us to the programatically navigate backwards and retain previous queries.
@@ -68,16 +76,21 @@ export const useReferrer = (resourceName = '/') => {
   const getPath = () => {
     let nextReferrer = resourceName;
 
-    if (typeof window !== 'undefined') {
-      const prev = sessionStorage.getItem(
+    const prev = browser.proxySessionStorageApi(
+      'getItem',
+      SESSION_STORAGE_KEY,
+    );
+
+    if (
+      includesPath(resourceName, prev) &&
+      browser.isDefined(prev)
+    ) {
+      nextReferrer = prev;
+    } else {
+      browser.proxySessionStorageApi(
+        'removeItem',
         SESSION_STORAGE_KEY,
       );
-
-      if (prev && prev.includes(resourceName)) {
-        nextReferrer = prev;
-      } else {
-        sessionStorage.removeItem(SESSION_STORAGE_KEY);
-      }
     }
 
     return nextReferrer;

@@ -29,7 +29,7 @@ export const WithOptions = () => (
 );
 
 export const AsPromise = () => (
-  <Form initialValues={{ numbers: ['1*'] }}>
+  <Form initialValues={{ numbers: ['ca*'] }}>
     <Field
       name="numbers"
       type="transfer"
@@ -40,7 +40,6 @@ export const AsPromise = () => (
           }, 1500);
         })
       }
-      disabled
     />
   </Form>
 );

@@ -3,20 +3,19 @@ import { withLocation } from 'with-location';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Search from '.';
+import results from './__fixtures__';
 
 const getOptions = (s) => {
-  return fetch(
-    `https://rickandmortyapi.com/api/character?page=1&name=${s}`,
-  )
-    .then((o) => o.json())
-    .then(({ results }) => {
-      return results.map((r) => ({
-        name: r.name,
-        description: r.species,
-        photo: r.image,
-        url: r.url,
-      }));
-    });
+  return Promise.resolve(results).then((r) =>
+    r
+      .map((item) => ({
+        name: item.name,
+        description: item.species,
+        photo: item.image,
+        url: item.url,
+      }))
+      .filter((item) => JSON.stringify(item).includes(s)),
+  );
 };
 
 export default {
