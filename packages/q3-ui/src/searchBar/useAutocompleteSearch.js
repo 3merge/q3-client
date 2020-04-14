@@ -1,3 +1,4 @@
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useValue } from 'useful-state';
 
@@ -11,6 +12,10 @@ export default (initialValue) => {
     setValue,
     ref,
   } = useValue(initialValue);
+
+  React.useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
 
   return {
     value,
