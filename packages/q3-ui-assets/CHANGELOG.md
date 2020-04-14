@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.19](https://github.com/3merge/q/compare/v1.13.18...v1.13.19) (2020-04-14)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
 ## [1.13.14](https://github.com/3merge/q/compare/v1.13.13...v1.13.14) (2020-04-11)
 
 **Note:** Version bump only for package q3-ui-assets
