@@ -343,9 +343,10 @@ export function TransferList(props) {
     return true;
   };
 
-  const selectAll = () => {
-    setSelected(inactive);
-  };
+  const selectAll = () =>
+    inactive.length === selected.length
+      ? setSelected([])
+      : setSelected(inactive);
 
   return (
     <>
