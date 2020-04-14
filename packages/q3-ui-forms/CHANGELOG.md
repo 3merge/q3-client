@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.20](https://github.com/3merge/q/compare/v1.13.19...v1.13.20) (2020-04-14)
+
+
+### Bug Fixes
+
+* **transfer:** toggling selected items ([5f9cff5](https://github.com/3merge/q/commit/5f9cff5ca55237e59584bcefa801e4c2b700d08d))
+
+
+
+
+
 ## [1.13.19](https://github.com/3merge/q/compare/v1.13.18...v1.13.19) (2020-04-14)
 
 **Note:** Version bump only for package q3-ui-forms
