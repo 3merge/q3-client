@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.22](https://github.com/3merge/q/compare/v1.13.21...v1.13.22) (2020-04-15)
+
+
+### Bug Fixes
+
+* location fallback in page ([eef4eac](https://github.com/3merge/q/commit/eef4eacac704f2c24b739639aa23202d382fae6e))
+
+
+
+
+
 ## [1.13.21](https://github.com/3merge/q/compare/v1.13.20...v1.13.21) (2020-04-15)
 
 
