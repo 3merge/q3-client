@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 import { browser } from 'q3-ui-helpers';
 
 const { isDefined, proxyLocalStorageApi } = browser;
@@ -12,7 +13,10 @@ export default (Component) => (props) => {
     navigate,
   } = props;
 
-  const q = new URLSearchParams(location.search);
+  const q = new URLSearchParams(
+    get(location, 'search', ''),
+  );
+
   const sort = q.get('sort');
   const skip = sort || id || !navigate;
 
