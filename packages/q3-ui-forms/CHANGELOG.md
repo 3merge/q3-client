@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.23](https://github.com/3merge/q/compare/v1.13.22...v1.13.23) (2020-04-15)
+
+
+### Bug Fixes
+
+* **useResults:** minimum character count as a parameter for components that do not debouncing ([ac37c39](https://github.com/3merge/q/commit/ac37c394bb8ca233de86cecc233d757399247acf))
+
+
+
+
+
 ## [1.13.20](https://github.com/3merge/q/compare/v1.13.19...v1.13.20) (2020-04-14)
 
 
