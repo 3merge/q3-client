@@ -47,6 +47,8 @@ const DesktopSearch = ({
   initialValue,
   redirectPath,
 }) => {
+  const ref = React.useRef();
+
   const {
     value,
     setValue,
@@ -56,6 +58,7 @@ const DesktopSearch = ({
   const { loading, results } = useAutocompleteSearchResults(
     getResults,
     value,
+    ref,
   );
 
   const onSearch = handleSearch(() => null, redirectPath);
@@ -63,6 +66,7 @@ const DesktopSearch = ({
   return (
     <Hidden smDown>
       <Autocomplete
+        innerRef={ref}
         freeSolo
         autoComplete
         ListboxComponent={List}

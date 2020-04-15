@@ -99,6 +99,10 @@ const Item = ({
     rest,
   );
 
+  React.useEffect(() => {
+    setCurrentIndex(index);
+  }, [parent.length]);
+
   return (
     <TableRow className={cls.row}>
       <ItemHeader

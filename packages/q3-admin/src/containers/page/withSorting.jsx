@@ -14,9 +14,10 @@ export default (Component) => (props) => {
 
   const q = new URLSearchParams(location.search);
   const sort = q.get('sort');
+  const skip = sort || id || !navigate;
 
   React.useEffect(() => {
-    if (sort || id) return;
+    if (skip) return;
     const prevState = proxyLocalStorageApi(
       'getItem',
       collectionName,
@@ -30,5 +31,5 @@ export default (Component) => (props) => {
     navigate(`?${q.toString()}`);
   }, [sort, id]);
 
-  return sort || id ? <Component {...props} /> : null;
+  return skip ? <Component {...props} /> : null;
 };

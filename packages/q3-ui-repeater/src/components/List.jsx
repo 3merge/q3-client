@@ -40,6 +40,8 @@ const List = ({
     !value.length ||
     new RegExp(value, 'gi').test(JSON.stringify(item));
 
+  const filtered = data.filter(testSearchTerm);
+
   return (
     <>
       <TableHead>
@@ -58,13 +60,13 @@ const List = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {data.filter(testSearchTerm).map((item, i) => (
+        {filtered.map((item, i) => (
           <NestedItem
             key={i}
             renderNestedTableRow={renderNestedTableRow}
             attributes={attributes}
             showAttributes={showAttributes}
-            parent={data}
+            parent={filtered}
             item={item}
             index={i}
             {...rest}
