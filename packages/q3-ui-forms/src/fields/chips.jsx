@@ -28,7 +28,10 @@ const Chips = (props) => {
     value,
   } = useDecorator(props);
 
-  const { loading, items = [] } = useOptions(props);
+  const { loading, items = [] } = useOptions({
+    minimumCharacterCount: 0,
+    ...props,
+  });
 
   const getTags = (values = []) =>
     values

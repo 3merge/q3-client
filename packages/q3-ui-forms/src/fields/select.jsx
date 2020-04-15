@@ -56,6 +56,7 @@ const NativeSelect = (props) => {
   } = deco;
 
   const { loading, items } = useOptions({
+    minimumCharacterCount: 0,
     loadOptionsPlainly: true,
     ...deco,
   });

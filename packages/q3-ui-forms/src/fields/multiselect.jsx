@@ -27,6 +27,7 @@ const Multiselect = (props) => {
   const v = Array.isArray(value) ? value.flat() : [];
   const { t } = useTranslation();
   const { loading, items } = useOptions({
+    minimumCharacterCount: 0,
     ...props,
     ...deco,
   });

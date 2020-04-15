@@ -12,6 +12,7 @@ export default ({
   initialValue = '',
   loadOptions,
   options = [],
+  minimumCharacterCount,
 }) => {
   const { value, onChange } = useValue(initialValue);
   const { values } = useFormikContext();
@@ -26,6 +27,7 @@ export default ({
     // + is used for regex powered search
     [value.replace('*', '+'), values],
     options,
+    minimumCharacterCount,
   );
 
   let watchValues = runOnChange ? values : false;

@@ -15,10 +15,10 @@ jest
 
 describe('useResults', () => {
   it('should return truthy', () =>
-    expect(isOfAdequateLength('aabb')).toBeTruthy());
+    expect(isOfAdequateLength('aabb', 2)).toBeTruthy());
 
   it('should return falsy', () =>
-    expect(isOfAdequateLength('a')).toBeFalsy());
+    expect(isOfAdequateLength('a', 2)).toBeFalsy());
 
   it('should', async () => {
     const { run } = useResults(

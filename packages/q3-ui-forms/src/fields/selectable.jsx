@@ -34,7 +34,10 @@ const SelectableList = (props) => {
   );
   const { t } = useTranslation();
   const { root, container, selected, avatar } = useStyles();
-  const { items } = useOptions(props);
+  const { items } = useOptions({
+    minimumCharacterCount: 0,
+    ...props,
+  });
 
   return (
     <List className={container}>
