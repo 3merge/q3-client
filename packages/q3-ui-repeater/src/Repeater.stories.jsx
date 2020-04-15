@@ -243,6 +243,7 @@ export const CustomEditableRenderer = withForm((props) => (
   <Wrapper>
     <Repeater
       {...props}
+      addComponent={() => <p>Custom</p>}
       cardProps={{
         title: 'firstName',
         attributes: ['position'],

@@ -27,12 +27,12 @@ export default (
   const clear = () => setResults([]);
 
   return {
-    run: () => {
+    run: (state) => {
       if (!isOfAdequateLength(term, minimumCharacterCount))
         return clear();
 
       setLoading(true);
-      return invoke(service, term)
+      return invoke(service, [...term, state])
         .then(setResults)
         .catch(clear)
         .finally(() => {

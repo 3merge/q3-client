@@ -54,14 +54,6 @@ const Repeater = ({
     >
       <Auth op="Read">
         <Exports>
-          <Auth op="Create">
-            {AddComponent && (
-              <AddComponent
-                create={create}
-                initialValues={initialValues}
-              />
-            )}
-          </Auth>
           <Actionbar actions={actions} data={data} />
           <Table>
             {data.length > 0 && (
@@ -79,7 +71,12 @@ const Repeater = ({
               </List>
             )}
             <Auth op="Create">
-              {!AddComponent && (
+              {AddComponent ? (
+                <AddComponent
+                  create={create}
+                  initialValues={initialValues}
+                />
+              ) : (
                 <AddButton
                   create={create}
                   initialValues={initialValues}

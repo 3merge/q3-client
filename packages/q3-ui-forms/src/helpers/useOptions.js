@@ -40,7 +40,7 @@ export default ({
 
   React.useEffect(() => {
     if (loadOptions) {
-      run();
+      run(values);
     } else {
       runOpts(options);
     }

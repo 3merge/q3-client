@@ -85,7 +85,7 @@ export const WithDynamicLoadOptions = () => (
       name="countries"
       type="select"
       runOnChange={['name']}
-      loadOptions={() =>
+      loadOptions={(e, state) =>
         new Promise((resolve) => {
           setTimeout(() => {
             resolve(opts);
