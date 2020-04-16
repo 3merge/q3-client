@@ -141,7 +141,9 @@ const StoriesApiMockWrapper = ({ children }) => {
     ]);
 
     m.onGet(/api-investors/).reply(({ url }) => {
-      console.log('HIT');
+      if (url.includes('empty'))
+        return [200, { investors: [] }];
+
       return [
         200,
         {

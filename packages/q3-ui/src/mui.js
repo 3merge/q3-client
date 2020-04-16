@@ -196,6 +196,9 @@ Object.assign(theme, {
       caption: {
         fontSize: '0.88rem',
       },
+      spacer: {
+        display: 'none',
+      },
     },
     MuiStep: {
       horizontal: {
@@ -290,6 +293,7 @@ Object.assign(theme, {
         },
       },
     },
+
     MuiCard: {
       root: {
         transitionDuration: '500ms',

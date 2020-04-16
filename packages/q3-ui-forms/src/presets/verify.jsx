@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import { navigate } from '@reach/router';
+import PropTypes from 'prop-types';
 import {
   useNewPassword,
   useConfirmPassword,
@@ -24,7 +25,7 @@ export const handleSubmit = (values, actions) => {
     });
 };
 
-const Verify = () => {
+const Verify = ({ id, verificationCode }) => {
   const password = useNewPassword();
   const confirm = useConfirmPassword();
 
@@ -34,8 +35,8 @@ const Verify = () => {
       onSubmit={handleSubmit}
       redirect="login"
       initialValues={{
-        id: '',
-        verificationCode: '',
+        id,
+        verificationCode,
         confirmNewPassword: '',
         newPassword: '',
       }}
@@ -60,6 +61,16 @@ const Verify = () => {
       />
     </Form>
   );
+};
+
+Verify.propTypes = {
+  id: PropTypes.string,
+  verificationCode: PropTypes.string,
+};
+
+Verify.defaultProps = {
+  id: '',
+  verificationCode: '',
 };
 
 export default Verify;

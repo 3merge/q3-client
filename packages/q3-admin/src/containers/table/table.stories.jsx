@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TableRow } from 'q3-ui-datatables';
 import { AuthContext } from 'q3-ui-permissions';
-import State from '../state';
+import { Store } from '../state';
 import Table from '.';
 import Groups from '../../components/groups';
 
@@ -76,12 +76,12 @@ export const WithFilter = () => (
       { op: 'Delete', coll: stub.collectionName },
     ]}
   >
-    <State.Provider
+    <Store.Provider
       value={{
         ...stub,
         // eslint-disable-next-line
         removeBulk: ()=> alert('Bulk delete!'),
-        examples: renderRows(),
+        data: renderRows(),
       }}
     >
       <Table
@@ -102,7 +102,7 @@ export const WithFilter = () => (
           </p>
         )}
       />
-    </State.Provider>
+    </Store.Provider>
   </Wrapper>
 );
 
@@ -112,12 +112,12 @@ export const WithFilterTriggerOnly = () => (
       { op: 'Delete', coll: stub.collectionName },
     ]}
   >
-    <State.Provider
+    <Store.Provider
       value={{
         ...stub,
         // eslint-disable-next-line
         removeBulk: ()=> alert('Bulk delete!'),
-        examples: renderRows(),
+        data: renderRows(),
       }}
     >
       <Table
@@ -128,16 +128,16 @@ export const WithFilterTriggerOnly = () => (
           </p>
         )}
       />
-    </State.Provider>
+    </Store.Provider>
   </Wrapper>
 );
 
 export const Empty = () => (
   <Wrapper>
-    <State.Provider
+    <Store.Provider
       value={{
         ...stub,
-        examples: [],
+        data: [],
       }}
     >
       <Table>
@@ -145,20 +145,20 @@ export const Empty = () => (
           <TableRow id="1" columns={{ name: 'foo' }} />
         )}
       </Table>
-    </State.Provider>
+    </Store.Provider>
   </Wrapper>
 );
 
 export const Error = () => (
   <Wrapper>
-    <State.Provider
+    <Store.Provider
       value={{
         fetchingError: true,
         ...stub,
       }}
     >
       <Table renderTop={() => 'Show!'} />
-    </State.Provider>
+    </Store.Provider>
   </Wrapper>
 );
 
@@ -172,14 +172,14 @@ export const Loading = () => {
   }, []);
   return (
     <Wrapper>
-      <State.Provider
+      <Store.Provider
         value={{
           fetching: loading,
           ...stub,
         }}
       >
         <Table renderForm={() => 'Hi'} />
-      </State.Provider>
+      </Store.Provider>
     </Wrapper>
   );
 };

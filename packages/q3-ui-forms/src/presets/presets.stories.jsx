@@ -65,6 +65,6 @@ export const ReverifyDefault = () => (
 
 export const VerifyDefault = () => (
   <MockApi define={mockup}>
-    <Verify />
+    <Verify id="1223" verificationCode="12345" />
   </MockApi>
 );

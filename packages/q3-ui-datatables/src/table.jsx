@@ -112,11 +112,6 @@ export const TableView = ({
             <Grid item className={expand}>
               <Paper elevation={0}>
                 <Table stickyHeader className={root}>
-                  <caption>
-                    {t('labels:showingResults', {
-                      total,
-                    })}
-                  </caption>
                   <TableHeader
                     id={id}
                     aliasForName={aliasForName}
