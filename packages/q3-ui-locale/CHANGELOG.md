@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.25](https://github.com/3merge/q/compare/v1.13.24...v1.13.25) (2020-04-16)
+
+
+### Bug Fixes
+
+* **verify:** pass verification props to state to allow for pre-filling values ([4b02939](https://github.com/3merge/q/commit/4b02939548733c071e4a5eb60b3b3d2730e0026d))
+
+
+
+
+
 ## [1.13.19](https://github.com/3merge/q/compare/v1.13.18...v1.13.19) (2020-04-14)
 
 **Note:** Version bump only for package q3-ui-locale
