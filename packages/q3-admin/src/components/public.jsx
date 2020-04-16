@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import { Redirect, Location } from '@reach/router';
-import Typography from '@material-ui/core/Typography';
+import { Redirect } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import LoginPage from 'q3-ui/lib/loginPage';
 
@@ -12,7 +10,6 @@ const PublicView = ({
   logo,
   children,
 }) => {
-  const { t } = useTranslation('titles');
   if (loggedIn) return <Redirect to="/" />;
 
   return (
@@ -23,25 +20,12 @@ const PublicView = ({
             src={logo}
             alt={companyName}
             style={{
-              maxHeight: 35,
+              maxHeight: 65,
               marginBottom: '.5rem',
             }}
           />
         </Box>
-        <Box>
-          <Typography
-            variant="h2"
-            component="h1"
-            gutterBottom
-          >
-            <Location>
-              {({ location }) =>
-                t(location.pathname.substr(1))
-              }
-            </Location>
-          </Typography>
-          {children}
-        </Box>
+        {children}
       </Box>
     </LoginPage>
   );
