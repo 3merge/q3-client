@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.27](https://github.com/3merge/q/compare/v1.13.26...v1.13.27) (2020-04-16)
+
+
+### Bug Fixes
+
+* **locale:** login text ([ecdb350](https://github.com/3merge/q/commit/ecdb350bef987ea2c0f048df6261f2e33eb6ca4f))
+
+
+
+
+
 ## [1.13.25](https://github.com/3merge/q/compare/v1.13.24...v1.13.25) (2020-04-16)
 
 
