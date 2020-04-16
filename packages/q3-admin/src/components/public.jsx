@@ -15,7 +15,7 @@ const PublicView = ({
   return (
     <LoginPage>
       <Box width="100%">
-        <Box component="header">
+        <Box mb={1} component="header">
           <img
             src={logo}
             alt={companyName}
