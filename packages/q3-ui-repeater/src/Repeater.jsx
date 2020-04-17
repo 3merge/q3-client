@@ -72,10 +72,14 @@ const Repeater = ({
             )}
             <Auth op="Create">
               {AddComponent ? (
-                <AddComponent
-                  create={create}
-                  initialValues={initialValues}
-                />
+                <tr>
+                  <td colSpan="100%">
+                    <AddComponent
+                      create={create}
+                      initialValues={initialValues}
+                    />
+                  </td>
+                </tr>
               ) : (
                 <AddButton
                   create={create}

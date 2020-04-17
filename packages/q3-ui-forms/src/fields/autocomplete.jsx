@@ -48,6 +48,8 @@ export const AutoCompleteWrapper = (props) => {
         ...params.inputProps,
       },
     });
+  const getValue = () =>
+    isObject(value) ? value.value : value;
 
   return (
     <Autocomplete
@@ -56,7 +58,8 @@ export const AutoCompleteWrapper = (props) => {
       label={t(name)}
       options={items}
       loading={loading}
-      defaultValue={isObject(value) ? value.value : value}
+      defaultValue={getValue()}
+      value={getValue()}
       renderInput={getCustomInput}
       getOptionLabel={getDropdownLabel(value)}
       onChange={intercept(handleChange, name)}

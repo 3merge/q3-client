@@ -13,8 +13,7 @@ const PublicView = ({ companyName, logo, children }) => (
           to="/login"
           style={{
             display: 'inline-block',
-            maxHeight: 65,
-            marginBottom: '.5rem',
+            height: 55,
             width: 250,
           }}
         >
@@ -22,8 +21,11 @@ const PublicView = ({ companyName, logo, children }) => (
             src={logo}
             alt={companyName}
             style={{
-              maxHeight: '100%',
-              maxWidth: '100%',
+              height: '100%',
+              width: '100%',
+              objectFit: 'contain',
+              objectPosition: 'left',
+              position: 'relative',
             }}
           />
         </Link>
