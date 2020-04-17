@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.29](https://github.com/3merge/q/compare/v1.13.28...v1.13.29) (2020-04-17)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
 ## [1.13.28](https://github.com/3merge/q/compare/v1.13.27...v1.13.28) (2020-04-17)
 
 **Note:** Version bump only for package q3-client
