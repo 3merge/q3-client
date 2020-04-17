@@ -34,5 +34,5 @@
   "loginReverify": "If you're new and have not yet received a verification code, ",
   "reverify": "Still awaiting your email verification? No problem, resend it now.",
   "verify": "If the account ID and verification code did not auto-fill, please copy-and-paste from the email to continue. Verification codes are valid for only five days. After that time, you'll need to request a new code.",
-  "passwordReset": "Enter the email you login with below. If an email doesn't arrive shortly after, it is possible that you have entered the wrong address or that you account is suspended."
+  "passwordReset": "Enter the email you login with below. If an email doesn't arrive shortly after, it is possible that you have entered the wrong address or that your account is suspended. "
 }

@@ -1,40 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from '@reach/router';
+import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import LoginPage from 'q3-ui/lib/loginPage';
 
-const PublicView = ({
-  companyName,
-  loggedIn,
-  logo,
-  children,
-}) => {
-  if (loggedIn) return <Redirect to="/" />;
-
-  return (
-    <LoginPage>
-      <Box width="100%">
-        <Box mb={1} component="header">
+const PublicView = ({ companyName, logo, children }) => (
+  <LoginPage>
+    <Box width="100%">
+      <Box mb={1} component="header">
+        {/** This is for non-logged in users afterall... */}
+        <Link
+          to="/login"
+          style={{
+            display: 'inline-block',
+            maxHeight: 65,
+            marginBottom: '.5rem',
+            width: 250,
+          }}
+        >
           <img
             src={logo}
             alt={companyName}
             style={{
-              maxHeight: 65,
-              marginBottom: '.5rem',
+              maxHeight: '100%',
+              maxWidth: '100%',
             }}
           />
-        </Box>
-        {children}
+        </Link>
       </Box>
-    </LoginPage>
-  );
-};
+      {children}
+    </Box>
+  </LoginPage>
+);
 
 PublicView.propTypes = {
   companyName: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
   logo: PropTypes.string.isRequired,
 };
 

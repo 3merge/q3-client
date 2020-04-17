@@ -1,5 +1,6 @@
 import React from 'react';
 import Display from '.';
+import Public from '../public';
 
 export default {
   title: 'Q3 Admin|Components/Display',
@@ -17,4 +18,11 @@ export const WithError = () => (
 
 export const WithChildren = () => (
   <Display>Success</Display>
+);
+
+export const PublicView = () => (
+  <Public
+    companyName="3merge"
+    logo="https://logoipsum.com/assets/logo/logo-4.svg"
+  />
 );

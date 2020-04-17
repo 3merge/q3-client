@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileWrapper: {
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
     },
   },
 }));
