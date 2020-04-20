@@ -1,13 +1,13 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import ClickableLogo from '.';
+import ClickableLogo, { LogoGalleryContainer } from '.';
 
 export default {
   title: 'Q3 UI|Components/ClickableLogo',
 };
 
 export const InGallery = () => (
-  <Grid container spacing={1}>
+  <LogoGalleryContainer>
     <ClickableLogo
       name="Foo"
       to="/"
@@ -23,5 +23,5 @@ export const InGallery = () => (
       to="/"
       logo="https://logoipsum.com/assets/logo/logo-12.svg"
     />
-  </Grid>
+  </LogoGalleryContainer>
 );

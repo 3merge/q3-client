@@ -4,10 +4,10 @@ import {
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 
-const color = '#434552';
+const color = '#1f2026';
 
 const headingFont = {
-  color: '#3f3d56',
+  color: '#242a31',
   fontWeight: 400,
   fontFamily: '"Source Sans Pro", sans-serif',
 };
@@ -64,11 +64,12 @@ const theme = createMuiTheme({
       fontSize: '0.889rem',
     },
     overline: {
-      color: '#ADADAD',
-      fontWeight: 600,
+      color: '#4d555e',
+      fontWeight: 400,
+      lineHeight: 1.35,
     },
     body1: {
-      color: grey[700],
+      color: '#687285',
       '&:not(:last-child)': {
         marginBottom: '1rem',
       },
@@ -78,7 +79,7 @@ const theme = createMuiTheme({
       fontWeight: 400,
     },
     subtitle1: {
-      color: grey[700],
+      color: '#687285',
       fontSize: '1.15rem',
       fontWeight: 600,
     },
@@ -93,6 +94,9 @@ Object.assign(theme, {
     MuiCssBaseline: {
       '@global': {
         body: {
+          color,
+        },
+        html: {
           color,
         },
         img: {
