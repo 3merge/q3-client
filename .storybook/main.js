@@ -31,6 +31,7 @@ module.exports = {
     '../packages/q3-ui/**/iconMenu/*.stories.jsx',
     '../packages/q3-ui/**/list/*.stories.jsx',
     '../packages/q3-ui/**/map/*.stories.jsx',
+    '../packages/q3-ui/**/nestedMenu/*.stories.jsx',
     '../packages/q3-ui/**/notice/*.stories.jsx',
     '../packages/q3-ui/**/notification/*.stories.jsx',
     '../packages/q3-ui/**/pagination/*.stories.jsx',
