@@ -9,7 +9,7 @@ import {
 import Breadcrumbs from '.';
 
 export default {
-  title: 'Components/Breadcrumbs',
+  title: 'Q3 UI|Components/Breadcrumbs',
   parameters: {
     component: Breadcrumbs,
     componentSubtitle: 'Integrated',

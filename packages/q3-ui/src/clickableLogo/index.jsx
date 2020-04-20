@@ -31,6 +31,15 @@ Logo.propTypes = {
   alt: PropTypes.string.isRequired,
 };
 
+export const LogoGalleryContainer = ({ children }) => {
+  const cls = useStyles();
+  return (
+    <Grid container spacing={1} className={cls.container}>
+      {children}
+    </Grid>
+  );
+};
+
 const ClickableLogo = ({ name, logo, to }) => {
   const cls = useStyles();
 
