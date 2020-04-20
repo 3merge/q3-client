@@ -51,7 +51,7 @@ StyledTreeItem.propTypes = {
   labelText: PropTypes.string.isRequired,
 };
 
-const flattenItems = (items) => {
+export const flattenItems = (items) => {
   const out = [];
 
   const run = (a) =>
@@ -70,7 +70,11 @@ const flattenItems = (items) => {
   return out;
 };
 
-const StyledTreeView = ({ items, navigate, location }) => {
+export const StyledTreeView = ({
+  items,
+  navigate,
+  location,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('labels');
 
