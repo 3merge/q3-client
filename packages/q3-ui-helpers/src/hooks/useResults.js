@@ -32,7 +32,10 @@ export default (
         return clear();
 
       setLoading(true);
-      return invoke(service, [...term, state])
+      return invoke(
+        service,
+        [].concat([term, state]).flat(),
+      )
         .then(setResults)
         .catch(clear)
         .finally(() => {

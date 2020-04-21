@@ -1,18 +1,18 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Upload from '.';
 
-storiesOf('Components|Upload', module).add(
-  'Default',
-  () => (
-    <Upload
-      fn={() =>
-        new Promise((resolve) =>
-          setTimeout(() => {
-            resolve();
-          }, 1500),
-        )
-      }
-    />
-  ),
+export default {
+  title: 'Q3 UI|Components|Upload',
+};
+
+export const Demo = () => (
+  <Upload
+    fn={() =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 1500),
+      )
+    }
+  />
 );

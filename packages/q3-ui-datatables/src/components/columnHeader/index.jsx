@@ -17,6 +17,10 @@ export const ColumnHeader = ({
   title,
   getFrom,
   params,
+  cols,
+  setCols,
+  dragOver,
+  setDragOver,
 }) => {
   const sort = getFrom('sort');
   const { t } = useTranslation();
@@ -28,13 +32,55 @@ export const ColumnHeader = ({
     proxyLocalStorageApi('setItem', id, sort);
   }, [sort]);
 
+  const handleDragStart = (e) => {
+    const { id: tid } = e.target;
+    const idx = cols.indexOf(tid);
+    e.dataTransfer.setData('colIdx', idx);
+  };
+
+  const handleDragOver = (e) => e.preventDefault();
+  const handleDragEnter = (e) => {
+    const { id: tid } = e.target;
+    setDragOver(tid);
+  };
+
+  const handleOnDrop = (e) => {
+    const { id: tid } = e.target;
+
+    const droppedColIdx = cols.indexOf(tid);
+    const draggedColIdx = e.dataTransfer.getData('colIdx');
+    const tempCols = [...cols];
+
+    tempCols[draggedColIdx] = cols[droppedColIdx];
+    tempCols[droppedColIdx] = cols[draggedColIdx];
+
+    setCols(tempCols);
+    setDragOver('');
+  };
+
   return (
-    <TableCell component="th">
+    <TableCell
+      component="th"
+      dragOver={title === dragOver}
+      onDrop={handleOnDrop}
+      style={{
+        whiteSpace: 'nowrap',
+      }}
+    >
       <TableSortLabel
         active={sort && sort.includes(title)}
         direction={isAsc ? 'asc' : 'desc'}
         component={Link}
         to={`?${params.toString()}`}
+        draggable
+        id={title}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnter={handleDragEnter}
+        style={{
+          border:
+            title === dragOver ? '1px dashed #DDD' : 'none',
+        }}
       >
         {t(`labels:${title}`)}
       </TableSortLabel>
@@ -65,6 +111,11 @@ ColumnHeader.propTypes = {
     toString: PropTypes.func,
     set: PropTypes.func,
   }).isRequired,
+
+  cols: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setCols: PropTypes.func.isRequired,
+  dragOver: PropTypes.string.isRequired,
+  setDragOver: PropTypes.func.isRequired,
 };
 
 export default withLocation(ColumnHeader);

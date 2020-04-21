@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import useStyles from '../../utils/useStyles';
 
 const StickyIconNavigator = ({ children }) => {
-  const { sticky } = useStyles();
+  const { sticky, navigator } = useStyles();
 
   return (
-    <Grid item md="auto" sm={12} xs={12}>
+    <Box className={navigator}>
       <Box className={sticky}>{children}</Box>
-    </Grid>
+    </Box>
   );
 };
 

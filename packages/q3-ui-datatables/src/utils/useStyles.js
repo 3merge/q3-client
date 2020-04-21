@@ -3,6 +3,7 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
+    backgroundColor: '#FFF',
     '& td': {
       [theme.breakpoints.down('md')]: {
         border: 0,
@@ -83,10 +84,14 @@ export default makeStyles((theme) => ({
     background: '#FFF',
     borderBottom: '3px solid whitesmoke',
   },
-  overflow: {
+  overflow: ({ hasSidebar }) => ({
     maxWidth: '100%',
     position: 'relative',
-  },
+    paddingLeft: hasSidebar ? 60 : 0,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+    },
+  }),
   expand: {
     flex: 1,
     width: '100%',
@@ -104,6 +109,11 @@ export default makeStyles((theme) => ({
     },
   },
   withoutPseudo: {
+    minWidth: 270,
+    [theme.breakpoints.down('md')]: {
+      minWidth: 'auto',
+    },
+
     '&::before': {
       display: 'none',
     },
@@ -136,14 +146,29 @@ export default makeStyles((theme) => ({
   },
   trigger: {
     borderRadius: 3,
-
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
   },
   sticky: {
     width: 'auto',
     position: 'sticky',
     top: 0,
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+      width: '100%',
+    },
+  },
+
+  navigator: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+
+    [theme.breakpoints.down('sm')]: {
+      position: 'fixed',
+      left: theme.spacing(1),
+      bottom: theme.spacing(1),
+      top: 'auto',
+      zIndex: 100,
+    },
   },
 }));
