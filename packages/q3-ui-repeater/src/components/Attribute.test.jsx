@@ -2,32 +2,21 @@ import React from 'react';
 import {
   getBoolIcon,
   getContent,
-  isLast,
   Attributes,
 } from './Attribute';
 
 describe('Attribute', () => {
   describe('"getBoolIcon"', () => {
     it('should return outline', () => {
-      expect(getBoolIcon(true).type.displayName).toMatch(
-        'Outline',
-      );
+      expect(getBoolIcon(true)).toMatch('Yes');
     });
 
     it('should return block', () => {
-      expect(getBoolIcon(false).type.displayName).toMatch(
-        'Block',
-      );
+      expect(getBoolIcon(false)).toMatch('No');
     });
   });
 
   describe('"getBoolIcon"', () => {
-    it('should return icon', () => {
-      expect(getContent(true, 'checkbox')).toHaveProperty(
-        'type',
-      );
-    });
-
     it('should two dashes', () => {
       expect(getContent()).toMatch('--');
     });

@@ -132,8 +132,8 @@ export const WithListening = () => (
   <Form
     debug
     initialValues={{
-      name: '',
-      dependent: '',
+      name: 'Fresh',
+      dependent: 'Stale',
       other: '',
     }}
   >

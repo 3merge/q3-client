@@ -33,9 +33,11 @@ export default (options = {}) => {
 
   React.useEffect(() => {
     if (!name || !listen) return;
+    if (prevState && prevState !== nextState) {
+      setFieldValue(name, '');
+      setFieldError(name, undefined);
+    }
 
-    setFieldValue(name, '');
-    setFieldError(name, undefined);
     setPrevState(nextState);
-  }, [nextState !== prevState, listen]);
+  }, [nextState, prevState, listen]);
 };

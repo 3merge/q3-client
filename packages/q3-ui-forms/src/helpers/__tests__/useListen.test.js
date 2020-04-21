@@ -49,7 +49,7 @@ describe('useListen', () => {
     useListen({ listen: 'foo', name: 'bar' });
     expect(useEffect).toHaveBeenCalledWith(
       expect.any(Function),
-      [true, 'foo'],
+      [JSON.stringify({ foo: 1 }), '', 'foo'],
     );
 
     expect(useState).toHaveBeenCalledWith(

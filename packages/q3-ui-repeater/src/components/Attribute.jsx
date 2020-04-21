@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { get } from 'lodash';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import TableCell from '@material-ui/core/TableCell';
-import BlockIcon from '@material-ui/icons/Block';
-import { green, red } from '@material-ui/core/colors';
+
 import EditableTypography from './EditableTypography';
 
 //= ===============================================================================
@@ -13,11 +11,7 @@ import EditableTypography from './EditableTypography';
 //= ===============================================================================
 
 export const getBoolIcon = (truthy) =>
-  truthy ? (
-    <CheckCircleOutlineIcon style={{ color: green[900] }} />
-  ) : (
-    <BlockIcon style={{ color: red[900] }} />
-  );
+  truthy ? 'Yes' : 'No';
 
 export const getContent = (content, contentType) => {
   if (contentType === 'checkbox')
