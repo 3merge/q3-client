@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/3merge/q/compare/v1.14.0...v1.14.1) (2020-04-21)
+
+
+### Bug Fixes
+
+* **Page:** changeBits callback and useRootPath hook ([34e12b5](https://github.com/3merge/q/commit/34e12b585dea87d6479ad660b2fef5d29a633453))
+
+
+
+
+
 # [1.14.0](https://github.com/3merge/q/compare/v1.13.31...v1.14.0) (2020-04-21)
 
 
