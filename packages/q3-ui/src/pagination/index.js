@@ -1,1 +1,5 @@
-export { default, PaginationCard } from './pagination';
+export {
+  default,
+  PaginationCard,
+  PaginationTypography,
+} from './pagination';
