@@ -106,3 +106,24 @@ export const useReferrer = (resourceName = '/') => {
     setPath,
   };
 };
+
+/**
+ * Used to form relative links inside the state.
+ * Should refresh on ID or resource change to ensure components re-mount.
+ * (ie Detail Tabs were problematic in previous releases).
+ */
+export const useRootPath = (location, id, resourceName) => {
+  const [rootPath, setRootPath] = React.useState('');
+  const part = id || resourceName;
+
+  const getFirstPathNamePart = () =>
+    location && typeof location.pathname === 'string'
+      ? `${location.pathname.split(part)[0]}${part}`
+      : '/';
+
+  React.useEffect(() => {
+    setRootPath(getFirstPathNamePart());
+  }, [part]);
+
+  return rootPath;
+};

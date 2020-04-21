@@ -14,8 +14,10 @@ export default ({ onEnter, onExit, onInit }, state) => {
       );
 
     return () => {
-      if (!state.fetching && hasEntered && onExit)
+      if (!state.fetching && hasEntered && onExit) {
         onExit(state);
+        setHasEntered(false);
+      }
     };
   }, [hasEntered, state.fetching, state.url]);
 

@@ -2,10 +2,7 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import Loading from '../../../components/loading';
 import ErrorView from '../../../components/error';
-import Page, {
-  getFirstPathNamePart,
-  getDirectoryPath,
-} from '..';
+import Page, { getDirectoryPath } from '..';
 
 jest.mock('../../state');
 jest.mock('q3-ui-rest', () => ({
@@ -54,22 +51,6 @@ describe('Page', () => {
   it('should render error', () => {
     useRest.mockReturnValue({ fetchingError: true });
     expect(getShallow().find(ErrorView)).toHaveLength(1);
-  });
-
-  it('should retain location root', () => {
-    const root = getFirstPathNamePart(
-      { pathname: '/app/foo/1' },
-      '1',
-    );
-    expect(root).toBe('/app/foo/1');
-  });
-
-  it('should strip off sub paths', () => {
-    const root = getFirstPathNamePart(
-      { pathname: '/app/foo/1/trash' },
-      '1',
-    );
-    expect(root).toBe('/app/foo/1');
   });
 
   it('should remove ID from path', () => {

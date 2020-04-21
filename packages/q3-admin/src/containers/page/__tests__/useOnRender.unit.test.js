@@ -42,7 +42,7 @@ describe('useOnRender', () => {
   });
 
   it('should call onExit', () => {
-    state.mockReturnValue([true]);
+    state.mockReturnValue([true, jest.fn()]);
     effect.mockImplementation((v) => {
       const fn = v();
       fn();

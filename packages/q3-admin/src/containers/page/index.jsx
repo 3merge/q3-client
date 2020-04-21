@@ -9,7 +9,11 @@ import ErrorView from '../../components/error';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
-import { useDataStore, useViewResolutions } from '../use';
+import {
+  useDataStore,
+  useViewResolutions,
+  useRootPath,
+} from '../use';
 import withSorting from './withSorting';
 
 const PageChildren = ({
@@ -45,11 +49,6 @@ PageChildren.propTypes = {
   fetchingError: PropTypes.bool.isRequired,
 };
 
-export const getFirstPathNamePart = (location = {}, part) =>
-  location && typeof location.pathname === 'string'
-    ? `${location.pathname.split(part)[0]}${part}`
-    : '/';
-
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
 
@@ -66,10 +65,7 @@ const Page = ({
   onInit,
   viewResolutions,
 }) => {
-  const [rootPath] = React.useState(
-    getFirstPathNamePart(location, id || resourceName),
-  );
-
+  const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
   const url = slugify(collectionName, id);
 

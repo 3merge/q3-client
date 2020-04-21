@@ -9,9 +9,11 @@ export const Definitions = React.createContext(
     resourceName: null,
   },
   (prevState, nextState) => {
-    return !(
-      JSON.stringify(prevState) ===
-      JSON.stringify(nextState)
+    return Number(
+      !(
+        JSON.stringify(prevState) ===
+        JSON.stringify(nextState)
+      ),
     );
   },
 );

@@ -5,6 +5,7 @@ import {
   useDataStore,
   useViewResolutions,
   useReferrer,
+  useRootPath,
 } from '../use';
 
 let setState;
@@ -111,6 +112,18 @@ describe('use', () => {
         expect.any(String),
         query,
       );
+    });
+  });
+
+  describe('"useRootPath"', () => {
+    it('should retain location root', () => {
+      useRootPath({ pathname: '/app/foo/1' }, '1');
+      expect(setState).toHaveBeenCalledWith('/app/foo/1');
+    });
+
+    it('should strip off sub paths', () => {
+      useRootPath({ pathname: '/app/foo/1/trash' }, '1');
+      expect(setState).toHaveBeenCalledWith('/app/foo/1');
     });
   });
 });
