@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import useStyles from '../utils/useStyles';
 
-const TablePaper = ({ children }) => {
-  const { overflow } = useStyles();
-  return (
-    <Grid container className={overflow}>
-      {children}
-    </Grid>
-  );
+const TablePaper = ({ children, hasSidebar }) => {
+  const { overflow } = useStyles({ hasSidebar });
+  return <Box className={overflow}>{children}</Box>;
 };
 
 TablePaper.propTypes = {
   children: PropTypes.node.isRequired,
+  hasSidebar: PropTypes.bool.isRequired,
 };
 
 export default TablePaper;

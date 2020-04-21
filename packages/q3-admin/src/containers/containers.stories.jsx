@@ -29,12 +29,18 @@ const resolver = ({
   firstName,
   lastName,
   email,
+  createdBy,
+  investments,
+  ...rest
 }) => ({
   id,
   name: `${firstName} ${lastName}`,
   description: email,
   url: `/investors/${id}`,
+  investments: investments.length,
+  createdBy: createdBy ? `${createdBy.firstName}` : 'Sys',
   photo,
+  ...rest,
 });
 
 const Investors = (props) => (
@@ -55,7 +61,20 @@ const Investors = (props) => (
     <Header>
       <Search intercept={resolver} />
     </Header>
-    <Table resolvers={resolver} />
+    <Table
+      resolvers={resolver}
+      defaultColumns={[
+        'gender',
+        'updatedAt',
+        'investments',
+      ]}
+      allColumns={[
+        'gender',
+        'updatedAt',
+        'investments',
+        'createdBy',
+      ]}
+    />
   </Page>
 );
 

@@ -60,6 +60,7 @@ const ColumnConfigurator = ({
         </StickyPopover>
       ),
     inEffect,
+    updateActiveColumns,
   );
 };
 

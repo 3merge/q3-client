@@ -30,9 +30,11 @@ const TableHeader = ({
   children,
   columns,
   aliasForName,
+  setActiveColumns,
   ...rest
 }) => {
   const { mobile, boxes, tableHead } = useStyles();
+  const [dragOver, setDragOver] = React.useState('');
 
   return (
     <TableHead>
@@ -48,6 +50,10 @@ const TableHeader = ({
             key={header}
             title={header}
             className={tableHead}
+            cols={columns}
+            setCols={setActiveColumns}
+            setDragOver={setDragOver}
+            dragOver={dragOver}
             {...rest}
           />
         ))}
@@ -83,8 +89,7 @@ export const TableView = ({
   renderFilter,
   onClick,
 }) => {
-  const { t } = useTranslation();
-  const { root, expand } = useStyles();
+  const { root } = useStyles();
 
   if (!data || !data.length) return <Empty />;
 
@@ -103,44 +108,53 @@ export const TableView = ({
         {(
           ColumnConfiguratorIconButton,
           activeColumns = [],
+          setActiveColumns,
         ) => (
-          <Wrapper>
+          <Wrapper
+            hasSidebar={
+              Boolean(renderFilter) ||
+              (Array.isArray(allColumns) &&
+                allColumns.length)
+            }
+          >
             <StickyIconNavigator>
               <ColumnConfiguratorIconButton />
               <FilterConfig renderFilter={renderFilter} />
             </StickyIconNavigator>
-            <Grid item className={expand}>
-              <Paper elevation={0}>
-                <Table stickyHeader className={root}>
-                  <TableHeader
-                    id={id}
-                    aliasForName={aliasForName}
-                    columns={activeColumns}
-                  >
-                    <SelectAll ids={extractIds(data)} />
-                  </TableHeader>
-                  <TableBody>
-                    {data.map((c, i) =>
-                      React.createElement(Row, {
-                        id: c.id || i,
-                        onClick,
+            <Paper
+              elevation={0}
+              style={{ minWidth: '100%' }}
+            >
+              <Table stickyHeader className={root}>
+                <TableHeader
+                  id={id}
+                  aliasForName={aliasForName}
+                  columns={activeColumns}
+                  setActiveColumns={setActiveColumns}
+                >
+                  <SelectAll ids={extractIds(data)} />
+                </TableHeader>
+                <TableBody>
+                  {data.map((c, i) =>
+                    React.createElement(Row, {
+                      id: c.id || i,
+                      onClick,
 
-                        activeColumns,
-                        columns:
-                          typeof resolvers === 'function'
-                            ? resolvers(c)
-                            : c,
-                      }),
-                    )}
-                  </TableBody>
-                  <TableFooter>
-                    <TableRow>
-                      <Pagination id={id} total={total} />
-                    </TableRow>
-                  </TableFooter>
-                </Table>
-              </Paper>
-            </Grid>
+                      activeColumns,
+                      columns:
+                        typeof resolvers === 'function'
+                          ? resolvers(c)
+                          : c,
+                    }),
+                  )}
+                </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <Pagination id={id} total={total} />
+                  </TableRow>
+                </TableFooter>
+              </Table>
+            </Paper>
           </Wrapper>
         )}
       </ColumnConfigurator>
