@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.2](https://github.com/3merge/q/compare/v1.14.1...v1.14.2) (2020-04-22)
+
+
+### Bug Fixes
+
+* **useListen:** field needs to wait until there is a previous value to recall ([a89a659](https://github.com/3merge/q/commit/a89a65999322f07eaa071018230a847a69f9bb62))
+
+
+
+
+
 ## [1.13.30](https://github.com/3merge/q/compare/v1.13.29...v1.13.30) (2020-04-17)
 
 **Note:** Version bump only for package q3-ui-repeater

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.2](https://github.com/3merge/q/compare/v1.14.1...v1.14.2) (2020-04-22)
+
+
+### Bug Fixes
+
+* **gom-344:** change to timeline to accomodate api changes ([642e310](https://github.com/3merge/q/commit/642e310ebc9d7a0dd8e1fd93e70dceb5431e0523))
+
+
+
+
+
 ## [1.14.1](https://github.com/3merge/q/compare/v1.14.0...v1.14.1) (2020-04-21)
 
 
