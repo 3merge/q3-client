@@ -20,12 +20,21 @@ const useStyles = makeStyles(() => ({
 
 const CartLauncher = ({ children }) => {
   const { loader } = useStyles();
-  const { items = [], loading } = React.useContext(
-    CartContext,
-  );
+  const {
+    items = [],
+    loading,
+    hasError,
+  } = React.useContext(CartContext);
 
   const { isOpen, close, open } = useOpen();
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    if (hasError)
+      open({
+        target: hasError,
+      });
+  }, [hasError]);
 
   return (
     <>

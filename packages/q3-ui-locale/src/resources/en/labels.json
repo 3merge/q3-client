@@ -178,5 +178,6 @@
   "createRule": "Create a rule",
   "requestNewPassword": "request a new password.",
   "reverifyLink": "request a new verification link.",
-  "modifiedBy": "Last modified by"
+  "modifiedBy": "Last modified by",
+  "startOver": "Start over"
 }

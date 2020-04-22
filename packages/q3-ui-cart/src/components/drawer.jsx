@@ -14,14 +14,18 @@ import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
+import { Signal, Connect } from 'q3-ui-assets';
 import { CartContext } from '../context';
-import Empty from './empty';
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    margin: '0 auto',
+    margin: '0 auto 2rem',
     maxWidth: '100%',
-    width: 150,
+    width: 175,
+
+    'svg': {
+      maxWidth: '100%',
+    },
   },
   root: {
     marginTop: theme.spacing(2),
@@ -48,37 +52,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const hasItems = (items) =>
+  Array.isArray(items) && items.length;
+
 const CartDrawerInterior = ({ children }) => {
   const { img, root } = useStyles();
-  const { items = [] } = React.useContext(CartContext);
+  const { items = [], hasError } = React.useContext(
+    CartContext,
+  );
 
   const { t } = useTranslation();
+  const len = hasItems(items);
+  const namespace = hasError ? 'cartError' : 'cartEmpty';
+  const Icon = hasError ? Signal : Connect;
 
   return (
     <Container className={root}>
       <Box py={2}>
-        {!Array.isArray(items) ||
-          (!items.length && (
-            <>
-              <Box className={img}>
-                <Empty />
-              </Box>
-              <Typography
-                variant="h2"
-                align="center"
-                gutterBottom
-              >
-                {t('titles:empty')}
-              </Typography>
-              <Typography
-                variant="body2"
-                align="center"
-                gutterBottom
-              >
-                {t('descriptions:empty')}
-              </Typography>
-            </>
-          ))}
+        {!len || hasError ? (
+          <>
+            <Box className={img}>
+              <Icon />
+            </Box>
+            <Typography
+              variant="h4"
+              align="center"
+              gutterBottom
+            >
+              {t(`titles:${namespace}`)}
+            </Typography>
+            <Typography align="center" gutterBottom>
+              {t(`descriptions:${namespace}`)}
+            </Typography>
+          </>
+        ) : null}
         {children}
       </Box>
     </Container>
@@ -101,13 +108,18 @@ const CartDrawer = ({
   close,
   shopPath,
   checkoutPath,
+  clear,
   children,
+  currency,
 }) => {
   const { t } = useTranslation();
   const { bar } = useStyles();
-  const { subtotal, loading } = React.useContext(
-    CartContext,
-  );
+  const {
+    subtotal,
+    loading,
+    hasError,
+    items,
+  } = React.useContext(CartContext);
 
   return (
     <Drawer open={isOpen} anchor="right" onClose={close}>
@@ -128,41 +140,61 @@ const CartDrawer = ({
               {t('titles:cart')}
             </Typography>
             <Typography variant="body2">
-              {renderNumber(subtotal)}
+              {renderNumber(subtotal)} {currency}
             </Typography>
           </Toolbar>
         </AppBar>
         <Box>
           <CartDrawerInterior>
             {children}
-            <Box my={1}>
-              <Typography align="center">
-                <Button
-                  onClick={() => {
-                    navigate(checkoutPath);
-                    close();
-                  }}
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  fullWidth
-                >
-                  {t('labels:checkout')}
-                </Button>
-                <Box my={0.5}>
+            {hasError ? (
+              <Box my={1}>
+                <Typography align="center">
                   <Button
                     onClick={() => {
-                      navigate(shopPath);
+                      if (clear) clear();
                       close();
                     }}
-                    gutterBottom
-                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    fullWidth
                   >
-                    {t('labels:shop')}
+                    {t('labels:startOver')}
                   </Button>
-                </Box>
-              </Typography>
-            </Box>
+                </Typography>
+              </Box>
+            ) : (
+              <Box my={1}>
+                <Typography align="center">
+                  <Button
+                    onClick={() => {
+                      navigate(checkoutPath);
+                      close();
+                    }}
+                    disabled={!hasItems(items)}
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    fullWidth
+                  >
+                    {t('labels:checkout')}
+                  </Button>
+                  <Box my={0.5}>
+                    <Button
+                      onClick={() => {
+                        navigate(shopPath);
+                        close();
+                      }}
+                      gutterBottom
+                      size="small"
+                    >
+                      {t('labels:shop')}
+                    </Button>
+                  </Box>
+                </Typography>
+              </Box>
+            )}
           </CartDrawerInterior>
         </Box>
       </div>
@@ -175,14 +207,18 @@ CartDrawer.propTypes = {
   checkoutPath: PropTypes.string,
   shopPath: PropTypes.string,
   isOpen: PropTypes.bool,
+  currency: PropTypes.string,
   children: PropTypes.node,
+  clear: PropTypes.func,
 };
 
 CartDrawer.defaultProps = {
+  currency: 'CAD',
   isOpen: false,
   checkoutPath: '/checkout',
   shopPath: '/shop',
   children: null,
+  clear: null,
 };
 
 export default CartDrawer;

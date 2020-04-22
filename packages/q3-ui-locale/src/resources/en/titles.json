@@ -33,5 +33,7 @@
   "noResults": "No results",
   "newUser": "Add a user",
   "addToList": "Add an item",
-  "meetTheTeam": "Meet the team"
+  "meetTheTeam": "Meet the team",
+  "cartError": "Your cart experienced an error",
+  "cartEmpty": "Your cart is empty"
 }

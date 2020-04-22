@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthContext } from 'q3-ui-permissions';
 import {
   AddToCart,
   AddToCartIconButton,
@@ -37,15 +38,18 @@ const refreshOrder = () =>
     ],
   });
 
-const withProvider = (Component) => (
-  <Provider
-    addItemToOrder={fakeRequestDelay}
-    updateItemInOrder={fakeRequestDelay}
-    removeItemInOrder={fakeRequestDelay}
-    pollOrder={refreshOrder}
-  >
-    <Component />
-  </Provider>
+const withProvider = (Component, props) => (
+  <AuthContext.Provider value={{ state: { init: true } }}>
+    <Provider
+      addItemToOrder={fakeRequestDelay}
+      updateItemInOrder={fakeRequestDelay}
+      removeItemInOrder={fakeRequestDelay}
+      pollOrder={refreshOrder}
+      {...props}
+    >
+      <Component />
+    </Provider>
+  </AuthContext.Provider>
 );
 
 export default {
@@ -81,4 +85,21 @@ export const DrawerIsOpen = () => <Drawer isOpen />;
 
 export const DrawerWithChildren = () => (
   <Drawer isOpen>Fill with Items!</Drawer>
+);
+
+export const DrawerWithError = withProvider(
+  () => (
+    <Launcher>
+      {(close, isOpen) => (
+        <Drawer isOpen={isOpen} close={close}>
+          <LineItems />
+        </Drawer>
+      )}
+    </Launcher>
+  ),
+  {
+    pollOrder: () => {
+      return Promise.reject(new Error('Bad request!'));
+    },
+  },
 );

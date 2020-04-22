@@ -19,7 +19,7 @@ export default (Component) => ({
     }).finally(() => {
       setLoading(false);
     });
-  }, []);
+  }, [quantity]);
 
   return (
     <Component

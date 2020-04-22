@@ -20,6 +20,7 @@ const CartProvider = ({
   pollOrder,
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const [hasError, setHasError] = React.useState(false);
   const [state, setState] = React.useState(contextDefaults);
   const auth = React.useContext(AuthContext);
 
@@ -30,8 +31,8 @@ const CartProvider = ({
         setState(response);
         return response;
       })
-      .catch(() => {
-        // noop
+      .catch((e) => {
+        setHasError(e);
       })
       .finally(() => {
         setLoading(false);
@@ -40,9 +41,11 @@ const CartProvider = ({
 
   const re = (service) => (...args) =>
     processPromise(
-      service(...args).then(() => {
-        return pollOrder();
-      }),
+      service(...args)
+        .then(() => pollOrder())
+        .catch((e) => {
+          setHasError(e);
+        }),
     );
 
   const poll = () => processPromise(pollOrder());
@@ -56,6 +59,7 @@ const CartProvider = ({
       value={{
         ...state,
         loading,
+        hasError,
         add: re(addItemToOrder),
         remove: re(removeItemInOrder),
         update: re(updateItemInOrder),

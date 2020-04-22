@@ -1,14 +1,13 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 
-const Empty = () => {
+export default () => {
   const theme = useTheme();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       width="100%"
-      data-name="Layer 1"
       viewBox="0 0 829 744.16"
     >
       <defs>
@@ -366,5 +365,3 @@ const Empty = () => {
     </svg>
   );
 };
-
-export default Empty;
