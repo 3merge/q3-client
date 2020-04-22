@@ -45,7 +45,9 @@ export default makeStyles((theme) => ({
   },
 
   border: (props) => ({
-    ...makeBorderColorProperty(getColor(props)),
+    ...(!props.withoutBorder
+      ? makeBorderColorProperty(getColor(props))
+      : {}),
     background: props.muted
       ? 'whitesmoke !important'
       : '#FFF  !important',

@@ -19,7 +19,9 @@ export default withCriticalProp(
             fontSize: '0.91rem',
           }}
         >
-          {t(description)}
+          {typeof description === 'string'
+            ? t(description)
+            : description}
         </Typography>
       </Grid>
     );

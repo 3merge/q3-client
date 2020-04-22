@@ -112,6 +112,26 @@ const StoriesApiMockWrapper = ({ children }) => {
       },
     );
 
+    m.onGet(/history/).reply(() => {
+      return [
+        200,
+        {
+          versions: [
+            {
+              modifiedOn: new Date().toISOString(),
+              modifiedBy: {
+                firstName: 'Jon',
+                lastName: 'Smith',
+              },
+              modified: {
+                age: 22,
+              },
+            },
+          ],
+        },
+      ];
+    });
+
     m.onPatch(/\/api-investors\/\d+/).reply(
       ({ url, data }) => {
         const id = getId(url);

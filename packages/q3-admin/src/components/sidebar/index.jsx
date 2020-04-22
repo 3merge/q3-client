@@ -5,7 +5,12 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
 import DateRange from '@material-ui/icons/DateRange';
-import { teal, blue } from '@material-ui/core/colors';
+import {
+  teal,
+  orange,
+  blue,
+} from '@material-ui/core/colors';
+import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { Dispatcher, Store } from '../../containers/state';
 import SidebarTabs from './tabs';
@@ -13,15 +18,16 @@ import Column from './column';
 import Panel from './panel';
 import 'react-json-pretty/themes/acai.css';
 
+const formatUser = (u) =>
+  u ? `${u.firstName} ${u.lastName}` : '--';
+
 const invoke = (fn, data, dispatchers, t) =>
   typeof fn === 'function' && Object.keys(data).length
     ? fn(data, dispatchers, t)
     : [];
 
-const getCreatedBy = (data = {}) => {
-  const cb = get(data, 'createdBy');
-  return cb ? `${cb.firstName} ${cb.lastName}` : '--';
-};
+const getCreatedBy = (data = {}) =>
+  formatUser(get(data, 'createdBy'));
 
 const getUpdatedAt = (data = {}) => {
   const at = get(data, 'updatedAt');
@@ -29,6 +35,9 @@ const getUpdatedAt = (data = {}) => {
     ? moment(at).format('MMMM Do YYYY, h:mm:ss a')
     : '--';
 };
+
+const getModifiedBy = (data = {}) =>
+  formatUser(get(data, 'lastModifiedBy'));
 
 const Sidebar = ({
   children,
@@ -61,6 +70,12 @@ const Sidebar = ({
                   icon: AccountBox,
                   title: t('labels:creator'),
                   description: getCreatedBy(data),
+                },
+                {
+                  color: orange[700],
+                  icon: HistoryIcon,
+                  title: t('labels:modifiedBy'),
+                  description: getModifiedBy(data),
                 },
                 {
                   color: blue[900],

@@ -37,6 +37,7 @@ const CollapsiblePanel = ({
       expanded={expanded}
     >
       <ExpansionPanelSummary
+        style={{ padding: '0 1rem' }}
         expandIcon={
           <PanelIcon hasChildren={children} {...rest} />
         }

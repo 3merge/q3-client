@@ -177,5 +177,6 @@
   "selectAll": "Toggle all options",
   "createRule": "Create a rule",
   "requestNewPassword": "request a new password.",
-  "reverifyLink": "request a new verification link."
+  "reverifyLink": "request a new verification link.",
+  "modifiedBy": "Last modified by"
 }

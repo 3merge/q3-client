@@ -1,17 +1,23 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
+import Timeline from 'q3-ui/lib/timeline';
+import { Definitions } from '../state';
+import DisplayHistory from '../../components/display';
 
 export const getAuthor = (v) => {
   if (!v.createdBy) return null;
   return `${v.createdBy.firstName} ${v.createdBy.lastName}`;
 };
 
-const History = ({ collectionName, id }) => {
+const History = () => {
+  const { t } = useTranslation('descriptions');
+  const { collectionName, id } = React.useContext(
+    Definitions,
+  );
+
   const {
-    post,
-    remove,
-    patch,
     fetching,
     fetchingError,
     versions = [],
@@ -22,7 +28,15 @@ const History = ({ collectionName, id }) => {
     runOnInit: true,
   });
 
-  return null;
+  return (
+    <DisplayHistory
+      loading={fetching}
+      error={fetchingError}
+      errorLabel={t('historyError')}
+    >
+      <Timeline entries={versions} />
+    </DisplayHistory>
+  );
 };
 
 History.propTypes = {
