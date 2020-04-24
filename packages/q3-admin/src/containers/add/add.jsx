@@ -1,18 +1,42 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
+import { navigate } from '@reach/router';
 import { Definitions, Dispatcher } from '../state';
 import CreateDialog from './dialog';
 
+export const addToDirectoryPath = (dir, id) =>
+  id ? navigate(`${dir}/${id}`) : null;
+
+export const getIdByKey = (doc, pathname) =>
+  get(doc, `${pathname}.id`, null);
+
+export const handleSuccess = (
+  directoryPath,
+  resourceName,
+  next,
+) => (res) => {
+  if (next) next(res);
+  addToDirectoryPath(
+    directoryPath,
+    getIdByKey(res, resourceName),
+  );
+
+  return res;
+};
+
 const Add = ({ children, onComplete }) => {
-  const { collectionName } = React.useContext(Definitions);
+  const {
+    collectionName,
+    directoryPath,
+    resourceName,
+  } = React.useContext(Definitions);
   const { post } = React.useContext(Dispatcher);
   const { Hide } = useAuth(collectionName);
 
-  if (!children) return null;
-
-  return (
+  return children ? (
     <Hide op="Create">
       <CreateDialog title={`${collectionName}New`}>
         {(done) =>
@@ -21,16 +45,19 @@ const Add = ({ children, onComplete }) => {
             collectionName,
             onSubmit: (...args) =>
               post(...args)
-                .then((r) => {
-                  if (onComplete) onComplete(r);
-                  return r;
-                })
+                .then(
+                  handleSuccess(
+                    directoryPath,
+                    resourceName,
+                    onComplete,
+                  ),
+                )
                 .then(done),
           })
         }
       </CreateDialog>
     </Hide>
-  );
+  ) : null;
 };
 
 Add.propTypes = {
