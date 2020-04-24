@@ -111,7 +111,7 @@ const useRest = ({
             return poll ? poll() : null;
           })
           .catch((err) => {
-            return err;
+            return Promise.reject(err);
           });
     },
 
