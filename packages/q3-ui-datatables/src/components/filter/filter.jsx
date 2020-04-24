@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { withLocation } from 'with-location';
 import Filter from '@material-ui/icons/FilterList';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
 import { StickyPopover } from '../stickyIconNavigator';
 
 export const removeUncontrollableFilterProps = (params) => {
@@ -23,9 +26,46 @@ export const countParams = (params) => {
   }
 };
 
-const FilterConfig = ({ renderFilter, params }) => {
+export const isFn = (fn) => typeof fn === 'function';
+
+export const invokeSafely = (fn) =>
+  isFn(isFn) ? fn() : null;
+
+const buildTabs = (fns) =>
+  fns.map(({ renderer, label }, i) => (
+    <Tab
+      key={label}
+      value={i}
+      label={label}
+      disabled={!isFn(renderer)}
+    />
+  ));
+
+const FilterConfig = ({
+  renderFilter,
+  renderFilterTemplates,
+  renderReports,
+  params,
+}) => {
   removeUncontrollableFilterProps(params);
   const { t } = useTranslation('labels');
+  const [tabIndex, setTabIndex] = React.useState(0);
+
+  const handleOnChange = (e, num) => setTabIndex(num);
+  const renderers = [
+    {
+      renderer: renderFilter,
+      label: t('byField'),
+    },
+    {
+      renderer: renderFilterTemplates,
+      label: t('byPreset'),
+    },
+    {
+      renderer: renderReports,
+      label: t('genReport'),
+    },
+  ];
 
   return (
     renderFilter && (
@@ -35,7 +75,13 @@ const FilterConfig = ({ renderFilter, params }) => {
         label={t('filter')}
         icon={Filter}
       >
-        {renderFilter()}
+        <Tabs value={tabIndex} onChange={handleOnChange}>
+          {buildTabs(renderers)}
+        </Tabs>
+        <Box py={1}>
+          {renderers[tabIndex] &&
+            invokeSafely(renderers[tabIndex].renderer)}
+        </Box>
       </StickyPopover>
     )
   );
@@ -43,6 +89,8 @@ const FilterConfig = ({ renderFilter, params }) => {
 
 FilterConfig.propTypes = {
   renderFilter: PropTypes.func,
+  renderFilterTemplates: PropTypes.func,
+  renderReports: PropTypes.func,
   params: PropTypes.shape({
     delete: PropTypes.func,
     toString: PropTypes.func,
@@ -51,6 +99,8 @@ FilterConfig.propTypes = {
 
 FilterConfig.defaultProps = {
   renderFilter: null,
+  renderReports: null,
+  renderFilterTemplates: null,
 };
 
 export default withLocation(FilterConfig);

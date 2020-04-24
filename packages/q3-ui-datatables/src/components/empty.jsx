@@ -20,6 +20,8 @@ export default withLocation(
       navigate(get(location, 'pathname', '/'));
     };
 
+    // console.log(getAll());
+
     return (
       <Box
         pt={4}

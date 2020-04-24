@@ -4,6 +4,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
+import { Equals } from 'q3-ui-filters/lib/components';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -18,6 +19,7 @@ import Page from './page';
 import Table from './table';
 import SubDetail from './subDetail';
 import connect from './connect';
+import Filter from './filter';
 
 export default {
   title: 'Q3 Admin|Demo',
@@ -74,6 +76,15 @@ const Investors = (props) => (
         'investments',
         'createdBy',
       ]}
+      renderForm={() => (
+        <Filter>
+          <Equals
+            type="text"
+            label="Equals to this value"
+            name="equals"
+          />
+        </Filter>
+      )}
     />
   </Page>
 );

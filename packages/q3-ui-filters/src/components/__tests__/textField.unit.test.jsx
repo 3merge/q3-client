@@ -1,7 +1,7 @@
 import React from 'react';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
 import TextFieldWrapper from '../textField';
 
 const measureLength = (Comp, Target) =>
