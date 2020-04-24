@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import { withLocation } from 'with-location';
 import { url } from 'q3-ui-helpers';
 import {
@@ -35,6 +35,8 @@ export const FilterForm = ({
   pushTo,
   getAll,
   redirect,
+  autosave,
+  applyLabel,
   ...rest
 }) => {
   const currentState = getAll();
@@ -44,12 +46,16 @@ export const FilterForm = ({
     currentState,
   );
 
-  const handleSubmit = (values) => {
-    const out = marshalFormFieldsIntoUrlString(values, {
-      remove,
-    });
+  const apply = (values) =>
+    pushTo(
+      marshalFormFieldsIntoUrlString(values, {
+        remove,
+      }),
+    );
 
-    pushTo(out);
+  const handleSubmit = (values) => {
+    if (!autosave) return;
+    apply(values);
   };
 
   return (
@@ -60,10 +66,28 @@ export const FilterForm = ({
       onSubmit={handleSubmit}
     >
       {({ values, resetForm }) => (
-        <>
+        <Form>
           {children}
           <Box mt={1}>
+            {!autosave && (
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{
+                  marginRight: '0.5rem',
+                }}
+                onClick={() => {
+                  apply(values);
+                  if (next) next();
+                }}
+              >
+                {applyLabel}
+              </Button>
+            )}
             <Button
+              size="large"
               variant="contained"
               onClick={handleClear({
                 remove,
@@ -79,7 +103,7 @@ export const FilterForm = ({
               {clearLabel}
             </Button>
           </Box>
-        </>
+        </Form>
       )}
     </Formik>
   );
@@ -106,6 +130,11 @@ FilterForm.propTypes = {
   clearLabel: PropTypes.string,
 
   /**
+   * Text label for the apply button.
+   */
+  applyLabel: PropTypes.string,
+
+  /**
    * Injected from with-location lib.
    */
   getAll: PropTypes.func.isRequired,
@@ -121,6 +150,10 @@ FilterForm.propTypes = {
   redirect: PropTypes.func.isRequired,
 
   /**
+   * When enabled, it will automatically redirect on state change.
+   */
+  autosave: PropTypes.bool,
+  /**
    * Injected from with-location lib.
    */
   params: PropTypes.shape({
@@ -132,6 +165,8 @@ FilterForm.propTypes = {
 
 FilterForm.defaultProps = {
   clearLabel: 'Clear',
+  applyLabel: 'Apply',
+  autosave: false,
 };
 
 export default withLocation(FilterForm);

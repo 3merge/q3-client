@@ -45,13 +45,13 @@ const ColumnConfigurator = ({
         >
           <Form
             submitLabel="apply"
-            initialValues={{ columns: inEffect }}
-            onSubmit={({ columns }) =>
-              updateActiveColumns(columns)
-            }
+            initialValues={{ turnOnOrOffColumns: inEffect }}
+            onSubmit={({ turnOnOrOffColumns }) => {
+              updateActiveColumns(turnOnOrOffColumns);
+            }}
           >
             <Field
-              name="columns"
+              name="turnOnOrOffColumns"
               options={asOptions(allColumns)}
               collapse={false}
               type="checkset"

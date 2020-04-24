@@ -179,5 +179,9 @@
   "requestNewPassword": "request a new password.",
   "reverifyLink": "request a new verification link.",
   "modifiedBy": "Last modified by",
-  "startOver": "Start over"
+  "startOver": "Start over",
+  "turnOnOrOffColumns": "Enable/disable columns in the table",
+  "byPreset": "By preset",
+  "byField": "By property",
+  "genReport": "Generate a report"
 }
