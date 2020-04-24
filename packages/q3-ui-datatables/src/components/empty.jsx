@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import ErrorComponent from 'q3-ui/lib/error';
 import { Empty } from 'q3-ui-assets';
 import { withLocation } from 'with-location';
+import { object } from 'q3-ui-helpers';
 
 export default withLocation(
   ({ location, navigate, params, getAll }) => {
@@ -20,8 +21,6 @@ export default withLocation(
       navigate(get(location, 'pathname', '/'));
     };
 
-    // console.log(getAll());
-
     return (
       <Box
         pt={4}
@@ -31,17 +30,19 @@ export default withLocation(
         <ErrorComponent title="empty" description="empty">
           <Empty />
         </ErrorComponent>
-        <Box mt={-3} pb={4} align="center">
-          <Button
-            type="button"
-            variant="contained"
-            color="secondary"
-            size="large"
-            onClick={onClear}
-          >
-            {t('labels:clear')}
-          </Button>
-        </Box>
+        {object.hasKeys(getAll()) && (
+          <Box mt={-3} pb={4} align="center">
+            <Button
+              type="button"
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={onClear}
+            >
+              {t('labels:clear')}
+            </Button>
+          </Box>
+        )}
       </Box>
     );
   },

@@ -6,7 +6,10 @@ import Filter from '@material-ui/icons/FilterList';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import { object } from 'q3-ui-helpers';
 import { StickyPopover } from '../stickyIconNavigator';
+
+const { invokeSafely, isFn } = object;
 
 export const removeUncontrollableFilterProps = (params) => {
   params.delete('page');
@@ -26,11 +29,6 @@ export const countParams = (params) => {
   }
 };
 
-export const isFn = (fn) => typeof fn === 'function';
-
-export const invokeSafely = (fn) =>
-  isFn(isFn) ? fn() : null;
-
 const buildTabs = (fns) =>
   fns.map(({ renderer, label }, i) => (
     <Tab
@@ -41,7 +39,7 @@ const buildTabs = (fns) =>
     />
   ));
 
-const FilterConfig = ({
+export const FilterConfig = ({
   renderFilter,
   renderFilterTemplates,
   renderReports,
@@ -70,8 +68,8 @@ const FilterConfig = ({
   return (
     renderFilter && (
       <StickyPopover
-        count={countParams(params)}
         id="filter-configurator"
+        count={countParams(params)}
         label={t('filter')}
         icon={Filter}
       >

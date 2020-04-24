@@ -10,23 +10,27 @@ const Template = ({ templates }) => {
   const { t } = useTranslation();
   return (
     <List>
-      {templates.map(({ name, to }) => (
-        <ListItem
-          title={t(`titles:${name}`)}
-          description={t(`descriptions:${name}`)}
-        >
-          <ActionBar>
-            <IconButton
-              label={t('labels:apply')}
-              icon={PowerIcon}
-              buttonProps={{
-                component: Link,
-                to,
-              }}
-            />
-          </ActionBar>
-        </ListItem>
-      ))}
+      {templates
+        .filter(({ to }) => Boolean(to))
+        .map(({ name, to }) => (
+          <ListItem
+            key={to}
+            id={to}
+            title={t(`titles:${name}`)}
+            description={t(`descriptions:${name}`)}
+          >
+            <ActionBar>
+              <IconButton
+                label={t('labels:apply')}
+                icon={PowerIcon}
+                buttonProps={{
+                  component: Link,
+                  to,
+                }}
+              />
+            </ActionBar>
+          </ListItem>
+        ))}
     </List>
   );
 };
