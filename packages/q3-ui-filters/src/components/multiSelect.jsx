@@ -119,6 +119,7 @@ const FilterTextField = ({
             {...params}
             label={label}
             fullWidth
+            variant="filled"
             InputProps={{
               ...params.InputProps,
             }}

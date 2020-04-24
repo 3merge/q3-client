@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { useField, useFormikContext } from 'formik';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import {
@@ -26,12 +26,13 @@ const FilterTextField = ({
 
   if (type === 'select')
     return (
-      <FormControl fullWidth>
+      <FormControl variant="filled" fullWidth>
         <InputLabel htmlFor={name}>{label}</InputLabel>
         <Select
           fullWidth
           id={name}
           value={realValue}
+          native
           onChange={handleOnChange(
             setValue,
             op,
@@ -68,6 +69,7 @@ const FilterTextField = ({
 
           submitForm();
         }}
+        inputVariant="filled"
         placeholder="yyyy-mm-dd"
         format="YYYY-MM-DD"
         clearable
@@ -80,10 +82,10 @@ const FilterTextField = ({
       {...rest}
       name={name}
       label={label}
+      variant="filled"
       onChange={handleOnChange(setValue, op)}
       value={realValue}
       onBlur={submitForm}
-      style={{ marginBottom: '1rem' }}
       inputProps={{
         onKeyPress: (e) => {
           const charCode =
@@ -93,7 +95,6 @@ const FilterTextField = ({
           if (charCode === 13) submitForm();
         },
       }}
-      margin="dense"
       fullWidth
     />
   );

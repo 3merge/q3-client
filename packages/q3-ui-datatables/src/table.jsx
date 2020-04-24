@@ -88,6 +88,7 @@ export const TableView = ({
   data = [],
   renderFilter,
   onClick,
+  ...rest
 }) => {
   const { root } = useStyles();
 
@@ -119,7 +120,10 @@ export const TableView = ({
           >
             <StickyIconNavigator>
               <ColumnConfiguratorIconButton />
-              <FilterConfig renderFilter={renderFilter} />
+              <FilterConfig
+                renderFilter={renderFilter}
+                {...rest}
+              />
             </StickyIconNavigator>
             <Paper
               elevation={0}

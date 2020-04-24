@@ -1,4 +1,8 @@
+import React from 'react';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import {
+  FilterConfig,
   removeUncontrollableFilterProps,
   countParams,
 } from './filter';
@@ -23,5 +27,38 @@ describe('Filter', () => {
     expect(deleteOne).toHaveBeenCalledWith('page');
     expect(deleteOne).toHaveBeenCalledWith('limit');
     expect(deleteOne).toHaveBeenCalledWith('search');
+  });
+
+  it('should render nothing without at least  renderFilter', () => {
+    const el = global
+      .shallow(
+        <FilterConfig params={{ delete: jest.fn() }} />,
+      )
+      .find(Tabs);
+
+    expect(el).toHaveLength(0);
+  });
+
+  it('should disable unused features', () => {
+    const el = global
+      .shallow(
+        <FilterConfig
+          params={{ delete: jest.fn() }}
+          renderFilter={jest.fn()}
+        />,
+      )
+      .find(Tabs)
+      .dive()
+      .find(Tab);
+
+    const isDisabled = (v) =>
+      expect(el.at(v).props()).toHaveProperty(
+        'disabled',
+        true,
+      );
+
+    expect(el).toHaveLength(3);
+    isDisabled(1);
+    isDisabled(2);
   });
 });

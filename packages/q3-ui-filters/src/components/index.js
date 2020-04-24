@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from './textField';
 import CheckBox from './checkBox';
 import MultiSelect from './multiSelect';
+import Templates from './template';
 
 const asTextField = (op) => (props) =>
   React.createElement(TextField, {
@@ -29,3 +30,4 @@ export const DoesNotExist = asCheckbox('!*');
 export const Exists = asCheckbox('*');
 export const In = asMultiSelect('[]');
 export const NotIn = asMultiSelect('![]');
+export const TemplateBuilder = Templates;
