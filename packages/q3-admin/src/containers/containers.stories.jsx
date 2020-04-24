@@ -37,7 +37,7 @@ const resolver = ({
   name: `${firstName} ${lastName}`,
   description: email,
   url: `/investors/${id}`,
-  investments: investments.length,
+  investments: investments ? investments.length : 0,
   createdBy: createdBy ? `${createdBy.firstName}` : 'Sys',
   photo,
   ...rest,
