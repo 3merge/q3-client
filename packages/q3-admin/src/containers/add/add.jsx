@@ -15,13 +15,13 @@ export const getIdByKey = (doc, pathname) =>
 
 export const handleSuccess = (
   directoryPath,
-  resourceName,
+  resourceNameSingular,
   next,
 ) => (res) => {
   if (next) next(res);
   addToDirectoryPath(
     directoryPath,
-    getIdByKey(res, resourceName),
+    getIdByKey(res, resourceNameSingular),
   );
 
   return res;
@@ -31,7 +31,7 @@ const Add = ({ children, onComplete }) => {
   const {
     collectionName,
     directoryPath,
-    resourceName,
+    resourceNameSingular,
   } = React.useContext(Definitions);
   const { post } = React.useContext(Dispatcher);
   const { Hide } = useAuth(collectionName);
@@ -48,7 +48,7 @@ const Add = ({ children, onComplete }) => {
                 .then(
                   handleSuccess(
                     directoryPath,
-                    resourceName,
+                    resourceNameSingular,
                     onComplete,
                   ),
                 )
