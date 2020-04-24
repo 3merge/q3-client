@@ -5,10 +5,19 @@ import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import Box from '@material-ui/core/Box';
 import Filter from 'q3-ui-filters';
 import { Equals } from 'q3-ui-filters/lib/components';
+
+import EventIcon from '@material-ui/icons/Event';
+import {
+  purple,
+  green,
+  blue,
+} from '@material-ui/core/colors';
 import TableView, {
   TableBadge,
+  TableChip,
   TableProgress,
   TableCheck,
+  withPropsResolver,
 } from '.';
 
 export default {
@@ -18,6 +27,23 @@ export default {
     componentSubtitle: 'For data-rich UIs and list views',
   },
 };
+
+const fn = withPropsResolver(TableChip, {
+  toDate: true,
+  resolve: () => {
+    return {
+      icon: EventIcon,
+      color: purple[900],
+    };
+  },
+});
+
+const price = withPropsResolver(TableBadge, {
+  toPrice: true,
+  resolve: (v) => ({
+    color: v > 50 ? green[900] : blue[900],
+  }),
+});
 
 export const Full = () => (
   <LocationProvider initialPath="/">
@@ -90,6 +116,8 @@ export const Full = () => (
           two: <TableCheck show={v.two} />,
           progress: <TableProgress value={v.progress} />,
           verified: <TableCheck show={v.verified} />,
+          updatedAt: fn(v.updatedAt),
+          'cost.dealer': price(v.cost ? v.cost.dealer : 0),
           email: (
             <a href={`mailTo:${v.email}`}>{v.email}</a>
           ),

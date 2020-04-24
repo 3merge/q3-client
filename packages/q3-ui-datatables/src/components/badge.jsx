@@ -7,16 +7,17 @@ import {
   orange,
 } from '@material-ui/core/colors';
 
-const CellBadge = ({ status, color, customColor }) => {
+const CellBadge = ({ status, color }) => {
   const style = {};
   const danger = red[500];
   const warning = orange[500];
   const success = green[500];
 
+  if (color) style.backgroundColor = color;
   if (color === 'danger') style.backgroundColor = danger;
   if (color === 'warning') style.backgroundColor = warning;
   if (color === 'success') style.backgroundColor = success;
-  if (customColor) style.backgroundColor = customColor;
+
   if (style.backgroundColor) style.color = '#FFF';
 
   return status ? (
@@ -32,12 +33,10 @@ const CellBadge = ({ status, color, customColor }) => {
 CellBadge.propTypes = {
   color: PropTypes.string,
   status: PropTypes.string.isRequired,
-  customColor: PropTypes.string,
 };
 
 CellBadge.defaultProps = {
   color: 'secondary',
-  customColor: null,
 };
 
 export default CellBadge;
