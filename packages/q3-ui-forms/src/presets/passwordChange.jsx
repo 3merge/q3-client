@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Check from '@material-ui/icons/Check';
@@ -12,9 +11,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { green, red } from '@material-ui/core/colors';
 import * as yup from 'yup';
 import { useField } from 'formik';
-import { browser } from 'q3-ui-helpers';
 import Field from '../builders/field';
 import Form from '../builders/form';
+import { handleSubmitWrapper } from './utils';
 
 export const hasLowercase = /([a-z])+/;
 export const hasUppercase = /([A-Z])+/;
@@ -23,22 +22,6 @@ export const hasSpecialCharacter = /([!@#$%^&*(),.?":{}|<>])+/;
 
 export const hasLength = (v) =>
   typeof v === 'string' && v.length < 17 && v.length > 7;
-
-export const handlePasswordResetSubmit = (
-  values,
-  actions,
-) =>
-  axios
-    .post('/password-change', values)
-    .then(({ data }) => {
-      actions.setStatus('Success:passwordChangeSuccess');
-      browser.redirectIn();
-      return data;
-    })
-    .catch(() => {
-      actions.setStatus('Error:passwordChangeFail');
-      return null;
-    });
 
 export const PasswordHelperListItem = ({
   name,
@@ -169,31 +152,41 @@ export const NewPasswordHelpers = () => (
   </>
 );
 
-const PasswordChange = ({ onSubmit }) => (
+const PasswordChange = ({
+  passwordResetToken,
+  ...rest
+}) => (
   <Form
-    isNew
-    onSubmit={onSubmit}
     initialValues={{
       previousPassword: '',
       newPassword: '',
       confirmNewPassword: '',
+      passwordResetToken,
     }}
+    {...rest}
   >
-    <Field
-      name="previousPassword"
-      type="password"
-      required
-    />
+    {!passwordResetToken && (
+      <Field
+        name="previousPassword"
+        type="password"
+        required
+      />
+    )}
     <NewPasswordHelpers />
   </Form>
 );
 
 PasswordChange.propTypes = {
+  passwordResetToken: PropTypes.string,
   onSubmit: PropTypes.func,
 };
 
 PasswordChange.defaultProps = {
-  onSubmit: handlePasswordResetSubmit,
+  passwordResetToken: '',
+  onSubmit: handleSubmitWrapper('/password-change', {
+    onSuccessStatus: 'passwordChangeSuccess',
+    onErrorStatus: 'passwordChangeFail',
+  }),
 };
 
 export default PasswordChange;

@@ -2,7 +2,8 @@ import React from 'react';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
 import { useField } from 'formik';
-import {
+import { Field } from '../../builders';
+import PasswordChange, {
   PasswordMatch,
   PasswordHelperListItem,
   hasLowercase,
@@ -81,7 +82,7 @@ describe('PasswordChange', () => {
       ).toHaveLength(1));
   });
 
-  describe('"PasswordChange"', () => {
+  describe('"PasswordMatch"', () => {
     const getRe = (value) => {
       useField
         .mockReturnValueOnce([{ value: 'a' }])
@@ -98,6 +99,24 @@ describe('PasswordChange', () => {
 
     it('should  match', () => {
       expect(getRe('a')()).toBeTruthy();
+    });
+  });
+
+  describe('"PasswordChange"', () => {
+    const measureFields = (props) =>
+      global
+        .shallow(<PasswordChange {...props} />)
+        .find(Field);
+    it('should exclude previous password', () => {
+      expect(
+        measureFields({ passwordResetToken: '123' }),
+      ).toHaveLength(0);
+    });
+
+    it('should include previous password', () => {
+      expect(
+        measureFields({ passwordResetToken: '' }),
+      ).toHaveLength(1);
     });
   });
 });

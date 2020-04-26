@@ -1,45 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Axios from 'axios';
-import { navigate } from '@reach/router';
-import Field from '../builders/field';
-import Form from '../builders/form';
-import useFormHandler from '../providers/formik';
+import Email from './email';
+import { handleSubmitWrapper } from './utils';
 
-const { onStart, onComplete } = useFormHandler('formik');
-
-export const handleSubmit = (values, actions) => {
-  onStart(actions);
-  return Axios.post('/password-reset', values)
-    .then(({ data }) => {
-      onComplete(null, actions);
-      navigate('/login');
-      return data;
-    })
-    .catch(() => {
-      return null;
-    });
-};
-
-const PasswordReset = ({ children }) => (
-  <Form
-    isNew
-    onSubmit={handleSubmit}
-    initialValues={{
-      email: '',
-    }}
-  >
-    <Field name="email" type="email" required />
-    {children}
-  </Form>
+const PasswordReset = ({ children, ...rest }) => (
+  <Email {...rest}>{children}</Email>
 );
 
 PasswordReset.propTypes = {
   children: PropTypes.node,
+  onSubmit: PropTypes.func,
 };
 
 PasswordReset.defaultProps = {
   children: null,
+  onSubmit: handleSubmitWrapper('/password-reset', {
+    onSuccessStatus: 'passwordResetSuccess',
+    onErrorStatus: 'passwordResetFail',
+    navigateTo: '/login',
+  }),
 };
 
 export default PasswordReset;

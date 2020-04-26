@@ -40,5 +40,9 @@
   "passwordChangeFail": "Your password failed to change. Please check your inputs and try again.",
   "passwordChangeSuccess": "Your password has been updated. This page will redirect in two seconds back home.",
   "verificationSuccess": "Your email has been verified. This page will redirect you to login in two seconds.",
-  "verificationFailed": "Your email could not be verified. Ensure that both the ID and code have been used correctly and that your verification code was not issued more than five days ago."
+  "verificationFailed": "Your email could not be verified. Ensure that both the ID and code have been used correctly and that your verification code was not issued more than five days ago.",
+  "reverificationSuccess": "Your re-verification email is on its way. This page will redirect you to verify in two seconds.",
+  "reverificationFailed": "You cannot re-verify this email because it either doesn't exist or requires approval.",
+  "passwordResetSuccess": "Password reset request received. This page will redirect you to login in two seconds.",
+  "passwordResetFail": "Your password reset request failed. Please check your inputs and try again."
 }
