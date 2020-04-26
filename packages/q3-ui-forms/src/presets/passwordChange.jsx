@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
@@ -41,7 +40,11 @@ export const handlePasswordResetSubmit = (
       return null;
     });
 
-const PasswordHelperListItem = ({ name, value, re }) => {
+export const PasswordHelperListItem = ({
+  name,
+  value,
+  re,
+}) => {
   const { t } = useTranslation('helpers');
   const passed =
     typeof re === 'function' ? re(value) : re.test(value);

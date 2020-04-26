@@ -1,16 +1,103 @@
 import React from 'react';
-import PasswordChange, {
-  PasswordValidationChecklist,
+import Check from '@material-ui/icons/Check';
+import Close from '@material-ui/icons/Close';
+import { useField } from 'formik';
+import {
+  PasswordMatch,
+  PasswordHelperListItem,
+  hasLowercase,
+  hasUppercase,
+  hasNumber,
+  hasSpecialCharacter,
+  hasLength,
 } from '../passwordChange';
+
+const expectRegexToFail = (re, value) =>
+  expect(re.test(value)).toBeFalsy();
+
+const expectRegexToPass = (re, value) =>
+  expect(re.test(value)).toBeTruthy();
 
 describe('PasswordChange', () => {
   describe('"PasswordValidationChecklist"', () => {
-    it('should report back', () => {
+    it('should fail lowercase', () =>
+      expectRegexToFail(hasLowercase, 'FOO'));
+
+    it('should pass lowercase', () =>
+      expectRegexToPass(hasLowercase, 'foo'));
+
+    it('should fail uppercase', () =>
+      expectRegexToFail(hasUppercase, 'foo'));
+
+    it('should pass uppercase', () =>
+      expectRegexToPass(hasUppercase, 'FOO'));
+
+    it('should fail number', () =>
+      expectRegexToFail(hasNumber, 'abc'));
+
+    it('should pass number', () =>
+      expectRegexToPass(hasNumber, 123));
+
+    it('should fail special character', () =>
+      expectRegexToFail(hasSpecialCharacter, 123));
+
+    it('should pass special character', () =>
+      expectRegexToPass(hasSpecialCharacter, '!$'));
+
+    it('should pass length test', () => {
+      expect(hasLength('abc12345')).toBeTruthy();
+    });
+
+    it('should fail length test', () => {
+      expect(hasLength('ac')).toBeFalsy();
+    });
+  });
+
+  describe('"PasswordHelperListItem"', () => {
+    it('should have Close icon', () =>
       expect(
         global
-          .shallow(<PasswordValidationChecklist />)
-          .find('li'),
-      ).toHaveLength(4);
+          .shallow(
+            <PasswordHelperListItem
+              name="foo"
+              re={hasLowercase}
+              value="NOOP"
+            />,
+          )
+          .find(Close),
+      ).toHaveLength(1));
+
+    it('should have Check icon', () =>
+      expect(
+        global
+          .shallow(
+            <PasswordHelperListItem
+              name="foo"
+              re={hasLowercase}
+              value="yup"
+            />,
+          )
+          .find(Check),
+      ).toHaveLength(1));
+  });
+
+  describe('"PasswordChange"', () => {
+    const getRe = (value) => {
+      useField
+        .mockReturnValueOnce([{ value: 'a' }])
+        .mockReturnValueOnce([{ value }]);
+      return global
+        .shallow(<PasswordMatch />)
+        .find(PasswordHelperListItem)
+        .props().re;
+    };
+
+    it('should not match', () => {
+      expect(getRe('b')()).toBeFalsy();
+    });
+
+    it('should  match', () => {
+      expect(getRe('a')()).toBeTruthy();
     });
   });
 });
