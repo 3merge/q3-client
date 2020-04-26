@@ -2,10 +2,7 @@ import React from 'react';
 import Axios from 'axios';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
-import {
-  useNewPassword,
-  useConfirmPassword,
-} from './utils';
+import { NewPasswordHelpers } from './passwordChange';
 import Field from '../builders/field';
 import Form from '../builders/form';
 import useFormHandler from '../providers/formik';
@@ -25,43 +22,23 @@ export const handleSubmit = (values, actions) => {
     });
 };
 
-const Verify = ({ id, verificationCode }) => {
-  const password = useNewPassword();
-  const confirm = useConfirmPassword();
-
-  return (
-    <Form
-      isNew
-      onSubmit={handleSubmit}
-      redirect="login"
-      initialValues={{
-        id,
-        verificationCode,
-        confirmNewPassword: '',
-        newPassword: '',
-      }}
-    >
-      <Field name="id" type="string" required />
-      <Field
-        name="verificationCode"
-        type="string"
-        required
-      />
-      <Field
-        name="newPassword"
-        type="password"
-        required
-        validate={password}
-      />
-      <Field
-        name="confirmNewPassword"
-        type="password"
-        validate={confirm}
-        required
-      />
-    </Form>
-  );
-};
+const Verify = ({ id, verificationCode }) => (
+  <Form
+    isNew
+    onSubmit={handleSubmit}
+    redirect="login"
+    initialValues={{
+      id,
+      verificationCode,
+      confirmNewPassword: '',
+      newPassword: '',
+    }}
+  >
+    <Field name="id" type="string" required />
+    <Field name="verificationCode" type="string" required />
+    <NewPasswordHelpers />
+  </Form>
+);
 
 Verify.propTypes = {
   id: PropTypes.string,
