@@ -19,7 +19,7 @@ import Panel from './panel';
 import 'react-json-pretty/themes/acai.css';
 
 const formatUser = (u) =>
-  u ? `${u.firstName} ${u.lastName}` : '--';
+  u ? `${u.firstName} ${u.lastName}` : null;
 
 const invoke = (fn, data, dispatchers, t) =>
   typeof fn === 'function' && Object.keys(data).length
@@ -33,11 +33,24 @@ const getUpdatedAt = (data = {}) => {
   const at = get(data, 'updatedAt');
   return at
     ? moment(at).format('MMMM Do YYYY, h:mm:ss a')
-    : '--';
+    : null;
 };
 
-const getModifiedBy = (data = {}) =>
-  formatUser(get(data, 'lastModifiedBy'));
+const getModifiedBy = (data = {}) => {
+  const u = formatUser(get(data, 'lastModifiedBy'));
+  const d = getUpdatedAt(data);
+  let out = '';
+
+  if (!u && !d) return null;
+  if (u) out += u;
+  if (d && u) {
+    out += ` on ${d}`;
+  } else {
+    out += d;
+  }
+
+  return out;
+};
 
 const Sidebar = ({
   children,
@@ -51,6 +64,27 @@ const Sidebar = ({
   const { data } = React.useContext(Store);
   const params = [data, dispatchers, t];
 
+  const createdBy = getCreatedBy(data);
+  const updatedBy = getModifiedBy(data);
+
+  const defaultOptions = invoke(registerOptions, ...params);
+
+  if (createdBy)
+    defaultOptions.push({
+      color: teal[700],
+      icon: AccountBox,
+      title: t('labels:creator'),
+      description: createdBy,
+    });
+
+  if (updatedBy)
+    defaultOptions.push({
+      color: orange[700],
+      icon: HistoryIcon,
+      title: t('labels:lastUpdated'),
+      description: updatedBy,
+    });
+
   return (
     <Column>
       <SidebarTabs {...rest}>
@@ -61,39 +95,19 @@ const Sidebar = ({
             </Panel>
           ),
         )}
-        <Panel title="general">
-          <List>
-            {invoke(registerOptions, ...params)
-              .concat([
-                {
-                  color: teal[700],
-                  icon: AccountBox,
-                  title: t('labels:creator'),
-                  description: getCreatedBy(data),
-                },
-                {
-                  color: orange[700],
-                  icon: HistoryIcon,
-                  title: t('labels:modifiedBy'),
-                  description: getModifiedBy(data),
-                },
-                {
-                  color: blue[900],
-                  icon: DateRange,
-                  title: t('labels:lastUpdated'),
-                  description: getUpdatedAt(data),
-                },
-              ])
-              .map((option, i) => (
+        {defaultOptions.length > 0 && (
+          <Panel title="general">
+            <List>
+              {defaultOptions.map((option, i) => (
                 <ListItem key={i} {...option}>
                   <ActionBar actions={option.actions}>
                     {option.action}
                   </ActionBar>
                 </ListItem>
               ))}
-          </List>
-        </Panel>
-
+            </List>
+          </Panel>
+        )}
         {children}
       </SidebarTabs>
     </Column>
