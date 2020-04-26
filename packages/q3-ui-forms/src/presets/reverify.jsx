@@ -1,34 +1,24 @@
 import React from 'react';
-import Axios from 'axios';
-import { navigate } from '@reach/router';
-import Field from '../builders/field';
-import Form from '../builders/form';
-import useFormHandler from '../providers/formik';
+import PropTypes from 'prop-types';
+import Email from './email';
+import { handleSubmitWrapper } from './utils';
 
-const { onStart, onComplete } = useFormHandler('formik');
+const Reverify = ({ children, ...rest }) => (
+  <Email {...rest}>{children}</Email>
+);
 
-export const handleSubmit = (values, actions) => {
-  onStart(actions);
-  return Axios.post('/reverify', values)
-    .then(({ data }) => {
-      onComplete(null, actions);
-      navigate('/verify');
-      return data;
-    })
-    .catch(() => {
-      return null;
-    });
+Reverify.propTypes = {
+  children: PropTypes.node,
+  onSubmit: PropTypes.func,
 };
 
-const Reverify = () => (
-  <Form
-    onSubmit={handleSubmit}
-    initialValues={{
-      email: '',
-    }}
-  >
-    <Field name="email" type="email" />
-  </Form>
-);
+Reverify.defaultProps = {
+  children: null,
+  onSubmit: handleSubmitWrapper('/reverify', {
+    onSuccessStatus: 'reverificationSuccess',
+    onErrorStatus: 'reverificationFailed',
+    navigateTo: '/verify',
+  }),
+};
 
 export default Reverify;

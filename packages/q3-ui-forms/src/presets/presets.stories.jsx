@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Location from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import {
   Login,
@@ -13,8 +14,14 @@ export default {
   title: 'Q3 Forms|Presets',
 };
 
+const acceptEmail = (resp) => {
+  const { email } = JSON.parse(resp.data);
+  return [email === 'foo@bar.com' ? 200 : 422];
+};
+
 const mockup = (m) => {
-  m.onPost(/reverify/).reply(204);
+  m.onPost(/reverify/).reply(acceptEmail);
+  m.onPost(/password-reset/).reply(acceptEmail);
 
   m.onPost(/verify/).reply((resp) => {
     const { id } = JSON.parse(resp.data);
@@ -24,10 +31,6 @@ const mockup = (m) => {
   m.onPost(/password-change/).reply((resp) => {
     const { previousPassword } = JSON.parse(resp.data);
     return [previousPassword === 'password' ? 200 : 422];
-  });
-
-  m.onPost(/password-reset/).reply(204, {
-    message: 'If the email exists, you will get a message',
   });
 
   m.onPost(/authenticate/).reply(({ url, ...rest }) => {
@@ -47,32 +50,31 @@ const mockup = (m) => {
   });
 };
 
-export const LoginExample = () => (
+const wrapper = (Component) => (
   <MockApi define={mockup}>
-    <Login />
+    <Location initialPath="/test">
+      <Component />
+      <LocationDebugger />
+    </Location>
   </MockApi>
 );
 
-export const PasswordChangeDefault = () => (
-  <MockApi define={mockup}>
-    <PasswordChange />
-  </MockApi>
-);
+export const LoginExample = wrapper(() => <Login />);
 
-export const PasswordResetDefault = () => (
-  <MockApi define={mockup}>
-    <PasswordReset />
-  </MockApi>
-);
+export const PasswordChangeDefault = wrapper(() => (
+  <PasswordChange />
+));
 
-export const ReverifyDefault = () => (
-  <MockApi define={mockup}>
-    <Reverify />
-  </MockApi>
-);
+export const PasswordChangeViaToken = wrapper(() => (
+  <PasswordChange passwordResetToken="123" debug />
+));
 
-export const VerifyDefault = () => (
-  <MockApi define={mockup}>
-    <Verify id="123" verificationCode="12345" />
-  </MockApi>
-);
+export const PasswordResetDefault = wrapper(() => (
+  <PasswordReset />
+));
+
+export const ReverifyDefault = wrapper(() => <Reverify />);
+
+export const VerifyDefault = wrapper(() => (
+  <Verify id="123" verificationCode="12345" />
+));

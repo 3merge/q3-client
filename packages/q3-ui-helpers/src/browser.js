@@ -21,4 +21,6 @@ export const proxySessionStorageApi = (method, ...args) =>
     : null;
 
 export const redirectIn = (path = '/', interval = 2000) =>
-  setTimeout(() => navigate(path), [interval]);
+  setTimeout(() => {
+    navigate(path);
+  }, [interval]);
