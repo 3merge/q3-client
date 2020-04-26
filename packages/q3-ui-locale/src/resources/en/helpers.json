@@ -20,5 +20,7 @@
   "lorem": "This is a popover! Use it to display additional non-critical information.",
   "tel": "Supports country code (+1) and extensions (x123)",
   "phone": "Supports country code (+1) and extensions (x123)",
-  "noMatch": "Passwords do not match"
+  "noMatch": "Passwords do not match",
+  "hasLength": "Must contain between 8 and 16 characters",
+  "matches": "Must match the new password set above"
 }

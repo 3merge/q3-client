@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,6 +9,7 @@ import Alert from 'q3-ui/lib/alert';
 import Container from '@material-ui/core/Container';
 import { Throw } from 'q3-ui-assets';
 import { useAuth } from 'q3-ui-permissions';
+import { browser } from 'q3-ui-helpers';
 import connect from '../connect';
 
 export const Trash = ({
@@ -30,7 +30,7 @@ export const Trash = ({
     onDelete()
       .then(() => {
         setShowRedirect(true);
-        setTimeout(() => navigate(directoryPath), [2000]);
+        browser.redirectIn(directoryPath);
       })
       .catch(() => {
         setShowError(true);

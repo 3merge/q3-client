@@ -1,4 +1,5 @@
 import { invoke } from 'lodash';
+import { navigate } from '@reach/router';
 
 export const isBrowserReady = () =>
   typeof window !== 'undefined';
@@ -18,3 +19,6 @@ export const proxySessionStorageApi = (method, ...args) =>
   isBrowserReady()
     ? invoke(window.sessionStorage, method, ...args)
     : null;
+
+export const redirectIn = (path = '/', interval = 2000) =>
+  setTimeout(() => navigate(path), [interval]);

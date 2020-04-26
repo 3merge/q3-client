@@ -1,11 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
-import { navigate } from '@reach/router';
+import { browser } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
-import {
-  useNewPassword,
-  useConfirmPassword,
-} from './utils';
+import { NewPasswordHelpers } from './passwordChange';
 import Field from '../builders/field';
 import Form from '../builders/form';
 import useFormHandler from '../providers/formik';
@@ -17,60 +14,46 @@ export const handleSubmit = (values, actions) => {
   return Axios.post('/verify', values)
     .then(({ data }) => {
       onComplete(null, actions);
-      navigate('/login');
+      actions.setStatus('Success:verificationSuccess');
+      browser.redirectIn();
       return data;
     })
-    .catch(() => {
+
+    .catch((err) => {
+      onComplete(err, actions);
+      actions.setStatus('Error:verificationFailed');
       return null;
     });
 };
 
-const Verify = ({ id, verificationCode }) => {
-  const password = useNewPassword();
-  const confirm = useConfirmPassword();
-
-  return (
-    <Form
-      isNew
-      onSubmit={handleSubmit}
-      redirect="login"
-      initialValues={{
-        id,
-        verificationCode,
-        confirmNewPassword: '',
-        newPassword: '',
-      }}
-    >
-      <Field name="id" type="string" required />
-      <Field
-        name="verificationCode"
-        type="string"
-        required
-      />
-      <Field
-        name="newPassword"
-        type="password"
-        required
-        validate={password}
-      />
-      <Field
-        name="confirmNewPassword"
-        type="password"
-        validate={confirm}
-        required
-      />
-    </Form>
-  );
-};
+const Verify = ({ id, verificationCode, onSubmit }) => (
+  <Form
+    isNew
+    onSubmit={onSubmit}
+    redirect="login"
+    initialValues={{
+      id,
+      verificationCode,
+      confirmNewPassword: '',
+      newPassword: '',
+    }}
+  >
+    <Field name="id" type="string" required />
+    <Field name="verificationCode" type="string" required />
+    <NewPasswordHelpers />
+  </Form>
+);
 
 Verify.propTypes = {
   id: PropTypes.string,
   verificationCode: PropTypes.string,
+  onSubmit: PropTypes.func,
 };
 
 Verify.defaultProps = {
   id: '',
   verificationCode: '',
+  onSubmit: handleSubmit,
 };
 
 export default Verify;

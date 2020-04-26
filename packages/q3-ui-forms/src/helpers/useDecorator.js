@@ -95,6 +95,7 @@ export default ({
   name,
   label,
   helper,
+  suppressHelper,
   ...rest
 }) => {
   const { t } = useTranslation();
@@ -109,6 +110,7 @@ export default ({
 
   if (!label) propper.helper = t(`helpers:${name}`, vars);
   if (helper) propper.helper = t(`helpers:${helper}`, vars);
+  if (suppressHelper) propper.helper = '';
 
   return {
     ...rest,

@@ -183,5 +183,7 @@
   "turnOnOrOffColumns": "Enable/disable columns in the table",
   "byPreset": "By preset",
   "byField": "By property",
-  "genReport": "Generate a report"
+  "genReport": "Generate a report",
+  "strength": "Strength validation",
+  "confirmation": "Confirmation"
 }
