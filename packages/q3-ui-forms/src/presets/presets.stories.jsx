@@ -1,6 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { loadReCaptcha } from 'react-recaptcha-google';
+
 import MockApi from 'q3-ui-test-utils/lib/rest';
 import {
   Login,
@@ -15,8 +14,17 @@ export default {
 };
 
 const mockup = (m) => {
-  m.onPost(/verify/).reply(204);
   m.onPost(/reverify/).reply(204);
+
+  m.onPost(/verify/).reply((resp) => {
+    const { id } = JSON.parse(resp.data);
+    return [id === '123' ? 204 : 422];
+  });
+
+  m.onPost(/password-change/).reply((resp) => {
+    const { previousPassword } = JSON.parse(resp.data);
+    return [previousPassword === 'password' ? 200 : 422];
+  });
 
   m.onPost(/password-reset/).reply(204, {
     message: 'If the email exists, you will get a message',
@@ -65,6 +73,6 @@ export const ReverifyDefault = () => (
 
 export const VerifyDefault = () => (
   <MockApi define={mockup}>
-    <Verify id="1223" verificationCode="12345" />
+    <Verify id="123" verificationCode="12345" />
   </MockApi>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios from 'axios';
-import { navigate } from '@reach/router';
+import { browser } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
 import { NewPasswordHelpers } from './passwordChange';
 import Field from '../builders/field';
@@ -14,18 +14,22 @@ export const handleSubmit = (values, actions) => {
   return Axios.post('/verify', values)
     .then(({ data }) => {
       onComplete(null, actions);
-      navigate('/login');
+      actions.setStatus('Success:verificationSuccess');
+      browser.redirectIn();
       return data;
     })
-    .catch(() => {
+
+    .catch((err) => {
+      onComplete(err, actions);
+      actions.setStatus('Error:verificationFailed');
       return null;
     });
 };
 
-const Verify = ({ id, verificationCode }) => (
+const Verify = ({ id, verificationCode, onSubmit }) => (
   <Form
     isNew
-    onSubmit={handleSubmit}
+    onSubmit={onSubmit}
     redirect="login"
     initialValues={{
       id,
@@ -43,11 +47,13 @@ const Verify = ({ id, verificationCode }) => (
 Verify.propTypes = {
   id: PropTypes.string,
   verificationCode: PropTypes.string,
+  onSubmit: PropTypes.func,
 };
 
 Verify.defaultProps = {
   id: '',
   verificationCode: '',
+  onSubmit: handleSubmit,
 };
 
 export default Verify;

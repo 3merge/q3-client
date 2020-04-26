@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Axios from 'axios';
 import { navigate } from '@reach/router';
 import Field from '../builders/field';
@@ -32,5 +33,13 @@ const PasswordReset = ({ children }) => (
     {children}
   </Form>
 );
+
+PasswordReset.propTypes = {
+  children: PropTypes.node,
+};
+
+PasswordReset.defaultProps = {
+  children: null,
+};
 
 export default PasswordReset;
