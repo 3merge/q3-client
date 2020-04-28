@@ -154,6 +154,7 @@ export const NewPasswordHelpers = () => (
 
 const PasswordChange = ({
   passwordResetToken,
+  email,
   ...rest
 }) => (
   <Form
@@ -162,6 +163,7 @@ const PasswordChange = ({
       newPassword: '',
       confirmNewPassword: '',
       passwordResetToken,
+      email,
     }}
     {...rest}
   >
@@ -178,11 +180,13 @@ const PasswordChange = ({
 
 PasswordChange.propTypes = {
   passwordResetToken: PropTypes.string,
+  email: PropTypes.string,
   onSubmit: PropTypes.func,
 };
 
 PasswordChange.defaultProps = {
   passwordResetToken: '',
+  email: '',
   onSubmit: handleSubmitWrapper('/password-change', {
     onSuccessStatus: 'passwordChangeSuccess',
     onErrorStatus: 'passwordChangeFail',

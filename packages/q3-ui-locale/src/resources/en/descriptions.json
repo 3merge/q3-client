@@ -2,7 +2,7 @@
   "demo": "Welcome to your new component! Descriptions auto-populate from the locale file and will not display if they aren't set.",
   "softDelete": "You are about to delete a resource from this application. This may have unwanted side-effects. To proceed, please type the code below.",
   "deleteConfirmation": "Please enter the word DELETE",
-  "passwordChange": "Note that changing your password will not log you out; it only affects new authentication requests.",
+  "passwordChange": "Note that changing your password will not log you out of other devices; it only affects new authentication requests.",
   "resetPassword": "Enter your email address to send a temporary password to your inbox.",
   "empty": "Looks like there are no results yet. Create a new resource and then come back.",
   "error": "The server responded unexpectedly. Please refresh and report a bug if this issue persists",
