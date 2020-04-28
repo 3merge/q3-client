@@ -6,7 +6,7 @@ import {
 
 describe('CreditCard', () => {
   it('should return Amex', () => {
-    expect(getFirstLetterOfCard('AS')).toBe(3);
+    expect(getFirstLetterOfCard('AS')).toBe(34);
   });
 
   it('should return Visa', () => {

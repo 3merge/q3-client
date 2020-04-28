@@ -50,7 +50,19 @@ const Tooltip = ({
             {t(`descriptions:${step.content}`)}
           </Typography>
         )}
-        {!isLastStep && (
+        {isLastStep ? (
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Button
+                {...primaryProps}
+                variant="contained"
+                color="secondary"
+              >
+                {t('labels:done')}
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
           <Grid container justify="space-between">
             <Grid item>
               <Button {...skipProps}>

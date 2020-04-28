@@ -64,6 +64,8 @@ export const Attributes = ({
   const { tableCell } = useStyle();
   const { t } = useTranslation('labels');
 
+  if (!Array.isArray(attributes)) return null;
+
   return attributes.map((attribute) => (
     <TableCell className={tableCell} key={attribute}>
       <Grid container spacing={2}>

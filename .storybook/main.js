@@ -40,6 +40,7 @@ module.exports = {
     '../packages/q3-ui/**/slider/**.stories.jsx',
     '../packages/q3-ui/**/splitButton/*.stories.jsx',
     '../packages/q3-ui/**/subMenu/*.stories.jsx',
+    '../packages/q3-ui/**/tour/**.stories.jsx',
         '../packages/q3-ui/**/upload/*.stories.jsx',
     '../packages/q3-ui-forms/**/builders/**.stories.jsx',
     '../packages/q3-ui-forms/**/builders/**/**.stories.jsx',

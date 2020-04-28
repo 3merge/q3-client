@@ -1,4 +1,4 @@
-import { addToList } from '.';
+import { addToList } from './Tour';
 
 describe('Tour', () => {
   describe('"addToList"', () => {

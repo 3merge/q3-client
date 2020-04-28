@@ -63,14 +63,4 @@ describe('ItemHeader', () => {
     expect(getItemHeader().find(Typography)).toHaveLength(
       0,
     ));
-
-  it('should render custom renderer functions', () => {
-    const el = getItemHeader({
-      renderMobileColumns: () => <div id="mobile" />,
-      icon: () => <div id="icon" />,
-    });
-
-    expect(el.find('#mobile')).toHaveLength(1);
-    expect(el.find('#icon')).toHaveLength(1);
-  });
 });
