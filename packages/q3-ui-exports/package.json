@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-exports",
-  "version": "1.13.2",
+  "version": "1.14.5",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.13.2"
