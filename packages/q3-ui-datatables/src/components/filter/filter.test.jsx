@@ -57,8 +57,7 @@ describe('Filter', () => {
         true,
       );
 
-    expect(el).toHaveLength(3);
+    expect(el).toHaveLength(2);
     isDisabled(1);
-    isDisabled(2);
   });
 });

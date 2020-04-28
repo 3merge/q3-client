@@ -81,13 +81,13 @@ const Tour = ({ steps }) => {
       window.MutationObserver ||
       window.WebKitMutationObserver;
 
-    const observer = new MutationObserver(() =>
+    const observer = new MutationObserver(() => {
       setActiveSteps(
         activeSteps.filter(({ target }) =>
           document.querySelector(target),
         ),
-      ),
-    );
+      );
+    });
 
     observer.observe(document, {
       subtree: true,

@@ -1,12 +1,14 @@
 import React from 'react';
-import Dialog from 'q3-ui-dialog';
-import DeleteModal from './DeleteModal';
+import DeleteModal, {
+  DeleteModalInterior,
+} from './DeleteModal';
 
 let spy;
 
 const getLengthOfDialog = (props) =>
-  global.shallow(<DeleteModal {...props} />).find(Dialog)
-    .length;
+  global
+    .shallow(<DeleteModal {...props} />)
+    .find(DeleteModalInterior).length;
 
 beforeAll(() => {
   spy = jest.spyOn(React, 'useContext');
@@ -23,7 +25,7 @@ describe('DeleteModal', () => {
     expect(getLengthOfDialog({ id: '1' })).toBe(0);
   });
 
-  it('should return Dialog with both id and remove function', () => {
+  it.only('should return Dialog with both id and remove function', () => {
     const remove = jest.fn();
     spy.mockReturnValue({ remove });
     expect(getLengthOfDialog({ id: '1' })).toBe(1);

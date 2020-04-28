@@ -25,12 +25,15 @@ beforeEach(() => {
 
 describe('Actionbar', () => {
   it('should render custom actions', () => {
-    renderActions([
-      genActionProps('Foo'),
-      genActionProps('Bar'),
-      genActionProps('Quuz'),
-    ]).forEach((fn) => {
-      expect(fn().type.displayName).toMatch(
+    renderActions(
+      [
+        genActionProps('Foo'),
+        genActionProps('Bar'),
+        genActionProps('Quuz'),
+      ],
+      jest.fn(),
+    ).forEach((fn) => {
+      expect(fn.type.displayName).toMatch(
         'BottomNavigationAction',
       );
     });
