@@ -44,6 +44,7 @@ const Tour = ({ steps }) => {
   const [activeSteps, setActiveSteps] = React.useState(
     steps.filter(filterByLocalStorage),
   );
+
   const [running, setRunning] = React.useState(false);
   const hasLength = activeSteps.length > 0;
 
@@ -68,7 +69,6 @@ const Tour = ({ steps }) => {
     } else if (
       [STATUS.FINISHED, STATUS.SKIPPED].includes(status)
     ) {
-      // / setRunning(false);
       addToLocalStorage(
         activeSteps.map(({ target }) => target).join(','),
       );

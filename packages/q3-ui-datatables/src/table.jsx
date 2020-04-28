@@ -39,8 +39,11 @@ const TableHeader = ({
   return (
     <TableHead>
       <TableRow className={mobile}>
-        <TableCell className={boxes}>{children}</TableCell>
+        <TableCell id="q3-table-boxes" className={boxes}>
+          {children}
+        </TableCell>
         <ColumnHeader
+          disableDnD
           title={aliasForName}
           className={tableHead}
           {...rest}

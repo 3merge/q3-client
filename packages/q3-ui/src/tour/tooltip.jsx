@@ -40,15 +40,15 @@ const Tooltip = ({
           activeStep={index}
           style={{ fontSize: '0.799rem' }}
         />
-        {step.title && (
-          <Typography variant="h5">
-            {t(`titles:${step.title}`)}
-          </Typography>
-        )}
         {step.content && (
-          <Typography>
-            {t(`descriptions:${step.content}`)}
-          </Typography>
+          <>
+            <Typography variant="h5">
+              {t(`titles:${step.content}`)}
+            </Typography>
+            <Typography>
+              {t(`descriptions:${step.content}`)}
+            </Typography>
+          </>
         )}
         {isLastStep ? (
           <Grid container justify="flex-end">

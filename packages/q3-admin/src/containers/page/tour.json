@@ -1,42 +1,58 @@
 [
   {
     "target": "#q3",
-    "content": "Welcome",
-    "title": "Title"
+    "content": "welcome"
+  },
+  {
+    "target": "#q3-profile",
+    "content": "profileDropdown"
   },
   {
     "target": "#flyout-menu",
-    "title": "Title",
-    "content": "This another awesome feature!"
+    "content": "offcanvasMenu"
   },
   {
     "target": "#app-add-dialog",
-    "title": "Title",
-    "content": "This another awesome feature!"
+    "content": "addDocument"
   },
   {
-    "title": "Title",
+    "target": "#app-searchbar",
+    "content": "searchbar"
+  },
+  {
     "target": "#column-configurator",
-    "content": "This another awesome feature!"
+    "content": "configureColumns"
   },
   {
-    "title": "Title",
     "target": "#filter-configurator",
-    "content": "This another awesome feature!"
+    "content": "configureFilters"
+  },
+  {
+    "target": ".q3-dnd-table-header",
+    "content": "dragAndSort"
+  },
+  {
+    "target": ".q3-table-boxes",
+    "content": "multiselectRows"
+  },
+  {
+    "target": "#q3-sidebar",
+    "content": "sidebar"
   },
   {
     "target": ".q3-repeater-editor-button",
-    "title": "Content",
-    "content": "Edit this"
+    "content": "editSubDocument"
   },
   {
     "target": ".q3-repeater-delete-button",
-    "title": "Content",
-    "content": "Edit this"
+    "content": "deleteSubDocument"
   },
   {
     "target": "#q3-repeater-add-button",
-    "title": "Content",
-    "content": "Add to this"
+    "content": "addSubDocument"
+  },
+  {
+    "target": "#q3-repeater-select",
+    "content": "multiSelectSubDocument"
   }
 ]
