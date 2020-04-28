@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
+import Box from '@material-ui/core/Box';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -64,37 +65,39 @@ export const PasswordValidationChecklist = () => {
   const [{ value }] = useField('newPassword');
 
   return (
-    <List
-      subheader={
-        <ListSubheader>{t('strength')}</ListSubheader>
-      }
-    >
-      <PasswordHelperListItem
-        value={value}
-        name="hasLength"
-        re={hasLength}
-      />
-      <PasswordHelperListItem
-        value={value}
-        name="lowercase"
-        re={hasLowercase}
-      />
-      <PasswordHelperListItem
-        value={value}
-        name="uppercase"
-        re={hasUppercase}
-      />
-      <PasswordHelperListItem
-        value={value}
-        name="numbers"
-        re={hasNumber}
-      />
-      <PasswordHelperListItem
-        value={value}
-        name="special"
-        re={hasSpecialCharacter}
-      />
-    </List>
+    <Box my={1}>
+      <List
+        subheader={
+          <ListSubheader>{t('strength')}</ListSubheader>
+        }
+      >
+        <PasswordHelperListItem
+          value={value}
+          name="hasLength"
+          re={hasLength}
+        />
+        <PasswordHelperListItem
+          value={value}
+          name="lowercase"
+          re={hasLowercase}
+        />
+        <PasswordHelperListItem
+          value={value}
+          name="uppercase"
+          re={hasUppercase}
+        />
+        <PasswordHelperListItem
+          value={value}
+          name="numbers"
+          re={hasNumber}
+        />
+        <PasswordHelperListItem
+          value={value}
+          name="special"
+          re={hasSpecialCharacter}
+        />
+      </List>
+    </Box>
   );
 };
 
@@ -106,17 +109,19 @@ export const PasswordMatch = () => {
   );
 
   return (
-    <List
-      subheader={
-        <ListSubheader>{t('confirmation')}</ListSubheader>
-      }
-    >
-      <PasswordHelperListItem
-        value={value}
-        name="matches"
-        re={() => valueNew === value}
-      />
-    </List>
+    <Box my={1}>
+      <List
+        subheader={
+          <ListSubheader>{t('confirmation')}</ListSubheader>
+        }
+      >
+        <PasswordHelperListItem
+          value={value}
+          name="matches"
+          re={() => valueNew === value}
+        />
+      </List>
+    </Box>
   );
 };
 
