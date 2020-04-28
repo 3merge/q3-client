@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Location } from '@reach/router';
+import { Router } from '@reach/router';
 import Rest from 'q3-ui-test-utils/lib/rest';
 import { AuthContext } from 'q3-ui-permissions';
 import LocationProvider from 'q3-ui-test-utils/lib/location';

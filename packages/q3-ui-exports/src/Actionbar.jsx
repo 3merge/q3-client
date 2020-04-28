@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pick } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import Fade from '@material-ui/core/Fade';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -34,18 +35,20 @@ export const intersects = (
     : []
   ).filter((v) => matches(ids, v.id));
 
-export const renderActions = (actions) =>
+export const renderActions = (actions, t) =>
   Array.isArray(actions)
-    ? actions.map((a) => () =>
-        React.createElement(BottomNavigationAction, {
-          key: a.label,
-          showLabel: true,
-          ...a,
-        }),
-      )
+    ? actions.map((a) => (
+        <BottomNavigationAction
+          {...a}
+          key={a.label}
+          label={t(a.label)}
+          showLabel
+        />
+      ))
     : null;
 
 const ActionBar = ({ actions, data, columns }) => {
+  const { t } = useTranslation('labels');
   const { hasChecked, checked } = React.useContext(State);
   const picked = intersects(data, columns, checked);
   const { actionBar } = useStyle();
@@ -57,7 +60,7 @@ const ActionBar = ({ actions, data, columns }) => {
           <Unselect />
           <DataToCsv data={picked} />
           <DataToExcel data={picked} />
-          {renderActions(actions)}
+          {renderActions(actions, t)}
         </BottomNavigation>
       </div>
     </Fade>

@@ -16,11 +16,24 @@ function equalsDeletePhrase(v) {
   return v === 'DELETE';
 }
 
+export const handleSubmit = (onSubmit, onSuccess) => (
+  values,
+  actions,
+) =>
+  onSubmit()
+    .then(() => {
+      onSuccess();
+      actions.resetForm();
+    })
+    .catch(() => {
+      // noop
+    });
+
 //= ===============================================================================
 // Partials
 //= ===============================================================================
 
-const ModalContentForm = ({ onSubmit }) => (
+export const ModalContentForm = ({ onSubmit }) => (
   <Form initialValues={{ confirm: '' }} onSubmit={onSubmit}>
     <Field
       autoFocus
@@ -39,46 +52,49 @@ ModalContentForm.propTypes = {
 // Component
 //= ===============================================================================
 
-const DeleteModal = ({ id }) => {
+export const DeleteModalInterior = ({
+  title,
+  renderTrigger,
+  service,
+  ...rest
+}) => (
+  <Auth op="Delete">
+    <Dialog
+      title={title}
+      description="delete"
+      renderTrigger={renderTrigger}
+      renderContent={(close) => (
+        <ModalContentForm
+          onSubmit={handleSubmit(service, close)}
+        />
+      )}
+      {...rest}
+    />
+  </Auth>
+);
+
+const DeleteModal = ({ id, ...rest }) => {
   const { remove } = React.useContext(RepeaterState);
-  if (!remove || !id) return null;
 
-  const onSubmit = remove(id);
-  const handleSubmit = (onSuccess) => (values, actions) =>
-    onSubmit()
-      .then(() => {
-        onSuccess();
-        actions.resetForm();
-      })
-      .catch(() => {
-        // noop
-      });
-
-  return (
-    <Auth op="Delete">
-      <Dialog
-        title="delete"
-        description="delete"
-        renderTrigger={(onClick) => (
-          <IconButton
-            icon={DeleteIcon}
-            label="delete"
-            buttonProps={{
-              className: 'q3-repeater-delete-button',
-              onClick,
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        )}
-        renderContent={(close) => (
-          <ModalContentForm
-            onSubmit={handleSubmit(close)}
-          />
-        )}
-      />
-    </Auth>
-  );
+  return remove && id ? (
+    <DeleteModalInterior
+      service={remove(id)}
+      title="delete"
+      renderTrigger={(onClick) => (
+        <IconButton
+          icon={DeleteIcon}
+          label="delete"
+          buttonProps={{
+            className: 'q3-repeater-delete-button',
+            onClick,
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+      )}
+      {...rest}
+    />
+  ) : null;
 };
 
 DeleteModal.propTypes = {

@@ -43,8 +43,10 @@ const SubDetail = ({
         collectionName={collectionName}
         data={subdocumentState[root]}
         edit={subdocumentState.patch}
+        editBulk={subdocumentState.patchBulk}
         create={subdocumentState.post}
         remove={subdocumentState.remove}
+        removeBulk={subdocumentState.removeBulk}
         {...subdocumentState}
         {...rest}
       >

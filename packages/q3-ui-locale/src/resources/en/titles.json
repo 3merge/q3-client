@@ -35,5 +35,7 @@
   "addToList": "Add an item",
   "meetTheTeam": "Meet the team",
   "cartError": "Your cart experienced an error",
-  "cartEmpty": "Your cart is empty"
+  "cartEmpty": "Your cart is empty",
+  "deleteMany": "Bulk delete tool",
+  "editMany": "Bulk editing tool"
 }

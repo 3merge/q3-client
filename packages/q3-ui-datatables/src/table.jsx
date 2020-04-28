@@ -83,7 +83,7 @@ export const TableView = ({
   defaultColumns,
   aliasForName,
   total,
-  actions,
+  // actions,
   resolvers,
   data = [],
   renderFilter,
@@ -96,11 +96,7 @@ export const TableView = ({
 
   return (
     <Exports>
-      <Actionbar
-        actions={actions}
-        columns={allColumns}
-        data={data}
-      />
+      <Actionbar columns={allColumns} data={data} />
       <ColumnConfigurator
         id={id}
         allColumns={allColumns}

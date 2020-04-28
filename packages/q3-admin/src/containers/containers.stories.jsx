@@ -116,6 +116,11 @@ const Investments = () => (
       company: '',
       shares: 1,
     }}
+    bulkEditorComponent={(props) => (
+      <Form {...props}>
+        <Field name="shares" type="number" min={1} />
+      </Form>
+    )}
   >
     <Form>
       <Field name="company" type="text" required />

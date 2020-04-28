@@ -186,5 +186,13 @@
   "genReport": "Generate a report",
   "strength": "Strength validation",
   "confirmation": "Confirmation",
-  "goBackToCollection": "Back to all {{resourceName}}"
+  "goBackToCollection": "Back to all {{resourceName}}",
+  "viewAll": "View all",
+  "toExcel": "To excel",
+  "toCsv": "To csv",
+  "bulkEdit": "Bulk edit",
+  "bulkDelete": "Bulk delete",
+  "save": "Save",
+  "remove": "Remove",
+  "close": "Close"
 }

@@ -32,6 +32,9 @@ export const makePath = (a = []) =>
     .map(prependForwardSlash)
     .join('');
 
+export const makeQueryPath = (url, ids) =>
+  `${url}?ids[]=${ids.join('&ids[]=')}`;
+
 export const addSearchQuery = (v, term) =>
   v.includes('?')
     ? `${v}&search=${term}`

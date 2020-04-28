@@ -59,10 +59,10 @@ export const FilterConfig = ({
       renderer: renderFilterTemplates,
       label: t('byPreset'),
     },
-    {
+    /* {
       renderer: renderReports,
       label: t('genReport'),
-    },
+    }, */
   ];
 
   return (

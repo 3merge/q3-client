@@ -48,12 +48,14 @@ const DialogWrapper = ({
                 : undefined,
           }}
         >
-          {description && (
-            <DialogContentText variant="body2">
-              {t(`descriptions:${description}`)}
-            </DialogContentText>
-          )}
-          <Box py={2}>{renderContent(close)}</Box>
+          <Box py={2}>
+            {description && (
+              <DialogContentText>
+                {t(`descriptions:${description}`)}
+              </DialogContentText>
+            )}
+            {renderContent(close)}
+          </Box>
         </DialogContent>
         <DialogFooter
           onNext={onNext}

@@ -96,6 +96,14 @@ const withForm = (Component) => () => {
     seedData,
   );
 
+  const nextStateWithNewProp = (nextState) => {
+    setInitialValues(nextState);
+    return {
+      ...nextState,
+      newProp: true,
+    };
+  };
+
   const onCreate = (values) =>
     genResolver(() => {
       const nextState = [
@@ -120,19 +128,36 @@ const withForm = (Component) => () => {
       return nextState;
     });
 
-  const onUpdate = (id) => (values) =>
+  const onRemoveBulk = (ids) => () =>
     genResolver(() => {
-      const nextState = initialValues.map((v) => {
-        if (v.id === id) return values;
-        return v;
-      });
+      const nextState = initialValues.filter(
+        (v) => !ids.includes(v.id),
+      );
 
       setInitialValues(nextState);
-      return {
-        ...nextState,
-        newProp: true,
-      };
+      return nextState;
     });
+
+  const onUpdateBulk = (ids) => (values) =>
+    genResolver(() =>
+      nextStateWithNewProp(
+        initialValues.map((v) => {
+          if (ids.includes(v.id))
+            return { ...v, ...values };
+          return v;
+        }),
+      ),
+    );
+
+  const onUpdate = (id) => (values) =>
+    genResolver(() =>
+      nextStateWithNewProp(
+        initialValues.map((v) => {
+          if (v.id === id) return values;
+          return v;
+        }),
+      ),
+    );
 
   return (
     <AuthContext.Provider value={seedPermissions}>
@@ -143,7 +168,9 @@ const withForm = (Component) => () => {
           data={initialValues}
           create={onCreate}
           edit={onUpdate}
+          editBulk={onUpdateBulk}
           remove={onRemove}
+          removeBulk={onRemoveBulk}
           initialValues={{
             firstName: '',
             lastName: '',
@@ -302,6 +329,7 @@ export const MultistepFormWithLimitedPermissions = withForm(
   (props) => (
     <Repeater
       {...props}
+      bulkEditorComponent={() => <p>For all!</p>}
       cardProps={{
         onColor: (item) =>
           item.age < 20 ? 'orange' : 'blue',
