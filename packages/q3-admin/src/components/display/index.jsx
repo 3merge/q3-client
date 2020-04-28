@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 const Display = ({
   loading,
@@ -11,7 +12,9 @@ const Display = ({
 }) => {
   const { t } = useTranslation('labels');
   if (loading) return <CircularProgress />;
-  if (error) return t(errorLabel);
+  if (error)
+    return errorLabel ? t(errorLabel) : <BrokenImageIcon />;
+
   return children;
 };
 

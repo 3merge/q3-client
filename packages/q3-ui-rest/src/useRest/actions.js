@@ -3,7 +3,11 @@ import Axios from 'axios';
 import { navigate } from '@reach/router';
 import { get, invoke } from 'lodash';
 import { useFormHandler } from 'q3-ui-forms';
-import { makePath, formatUrlPath } from '../helpers';
+import {
+  makePath,
+  makeQueryPath,
+  formatUrlPath,
+} from '../helpers';
 import reducer from './reducer';
 import {
   FETCHING,
@@ -116,21 +120,40 @@ const useRest = ({
     },
 
     removeBulk(ids = []) {
-      return Axios.delete(
-        `${url}?ids[]=${ids.join('&ids[]=')}`,
-      )
-        .then(() => {
-          call(DELETED_MANY, { ids });
-          return poll ? poll() : null;
-        })
-        .catch((err) => {
-          return err;
-        });
+      return () =>
+        Axios.delete(makeQueryPath(url, ids))
+          .then(() => {
+            call(DELETED_MANY, { ids });
+            return poll ? poll() : null;
+          })
+          .catch((err) => {
+            return err;
+          });
     },
 
     patch(id) {
       const { name } = methods.patch;
       return wrapUpdateFn(id, name);
+    },
+
+    patchBulk(ids, done) {
+      return (values, actions) => {
+        invoke(decorators, 'patch', values);
+
+        return handleRequest(
+          invoke(
+            Axios,
+            'patch',
+            makeQueryPath(url, ids),
+            values,
+          ),
+          actions,
+          UPDATED,
+        ).then((r) => {
+          if (done) done();
+          return r;
+        });
+      };
     },
 
     put(id) {

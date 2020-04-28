@@ -39,8 +39,11 @@ const TableHeader = ({
   return (
     <TableHead>
       <TableRow className={mobile}>
-        <TableCell className={boxes}>{children}</TableCell>
+        <TableCell id="q3-table-boxes" className={boxes}>
+          {children}
+        </TableCell>
         <ColumnHeader
+          disableDnD
           title={aliasForName}
           className={tableHead}
           {...rest}
@@ -83,7 +86,7 @@ export const TableView = ({
   defaultColumns,
   aliasForName,
   total,
-  actions,
+  // actions,
   resolvers,
   data = [],
   renderFilter,
@@ -96,11 +99,7 @@ export const TableView = ({
 
   return (
     <Exports>
-      <Actionbar
-        actions={actions}
-        columns={allColumns}
-        data={data}
-      />
+      <Actionbar columns={allColumns} data={data} />
       <ColumnConfigurator
         id={id}
         allColumns={allColumns}

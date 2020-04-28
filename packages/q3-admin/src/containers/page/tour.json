@@ -1,0 +1,58 @@
+[
+  {
+    "target": "#q3",
+    "content": "welcome"
+  },
+  {
+    "target": "#q3-profile",
+    "content": "profileDropdown"
+  },
+  {
+    "target": "#flyout-menu",
+    "content": "offcanvasMenu"
+  },
+  {
+    "target": "#app-add-dialog",
+    "content": "addDocument"
+  },
+  {
+    "target": "#app-searchbar",
+    "content": "searchbar"
+  },
+  {
+    "target": "#column-configurator",
+    "content": "configureColumns"
+  },
+  {
+    "target": "#filter-configurator",
+    "content": "configureFilters"
+  },
+  {
+    "target": ".q3-dnd-table-header",
+    "content": "dragAndSort"
+  },
+  {
+    "target": ".q3-table-boxes",
+    "content": "multiselectRows"
+  },
+  {
+    "target": "#q3-sidebar",
+    "content": "sidebar"
+  },
+  {
+    "target": ".q3-repeater-editor-button",
+    "content": "editSubDocument"
+  },
+  {
+    "target": ".q3-repeater-delete-button",
+    "content": "deleteSubDocument"
+  },
+  {
+    "target": "#q3-repeater-add-button",
+    "content": "addSubDocument"
+  },
+  {
+    "target": "#q3-repeater-select",
+    "content": "multiSelectSubDocument"
+  }
+]

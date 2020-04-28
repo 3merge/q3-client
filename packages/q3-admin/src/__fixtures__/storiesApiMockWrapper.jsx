@@ -64,6 +64,34 @@ const StoriesApiMockWrapper = ({ children }) => {
     });
 
     m.onPatch(
+      /\/api-investors\/\d+\/investments\?ids=*/,
+    ).reply(({ url, data }) => {
+      const ids = url
+        .split('?')[1]
+        .split('&')
+        .map((v) => v.split('ids[]=')[1]);
+
+      const [sub] = getSubId(url);
+      const investor = findById(sub);
+      const newInvestor = {
+        ...investor,
+        investments: investor.investments.map((i) => {
+          return ids.includes(String(i.id))
+            ? { ...i, ...JSON.parse(data) }
+            : i;
+        }),
+      };
+
+      const investors = mapById(sub, newInvestor);
+      setDataSource(investors);
+
+      return [
+        200,
+        { investments: newInvestor.investments },
+      ];
+    });
+
+    m.onPatch(
       /\/api-investors\/\d+\/investments\/\d+/,
     ).reply(({ url, data }) => {
       const [sub, , resource] = getSubId(url);

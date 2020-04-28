@@ -41,7 +41,7 @@ export const Search = ({ intercept, params }) => {
   );
 
   return (
-    <Box className={root}>
+    <Box id="app-searchbar" className={root}>
       <SearchBar
         getResults={handleResults}
         redirectPath={directoryPath}

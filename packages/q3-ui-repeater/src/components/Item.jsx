@@ -118,7 +118,6 @@ const Item = ({
       />
       <Attributes
         attributes={attributes}
-        show={showAttributes}
         isIn={isIn}
         component={withAttribute({
           data: item,

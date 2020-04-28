@@ -30,7 +30,6 @@ ItemHeaderTitle.propTypes = {
 };
 
 const ItemHeader = ({
-  renderMobileColumns,
   showMultiselect,
   item,
   color,
@@ -45,21 +44,21 @@ const ItemHeader = ({
   const { multiselect } = React.useContext(RepeaterState);
   const selected = multiselect.isChecked(id);
 
-  const { titleCls } = useStyle({
+  const { titleCls, tableCell } = useStyle({
     selected,
     color,
   });
 
   return (
-    <TableCell>
+    <TableCell className={tableCell}>
       <Box p={0.5} maxWidth="350px">
         <Grid alignItems="center" container spacing={1}>
           {showMultiselect && (
-            <Grid item>
-              <Hidden mdDown>
+            <Hidden mdDown>
+              <Grid item>
                 <SelectOne id={id} />
-              </Hidden>
-            </Grid>
+              </Grid>
+            </Hidden>
           )}
           {icon && <Grid item>{icon(item)}</Grid>}
           {photo && (
@@ -80,10 +79,6 @@ const ItemHeader = ({
             {description && (
               <Typography>{description}</Typography>
             )}
-            <Hidden mdUp>
-              {renderMobileColumns &&
-                renderMobileColumns(item)}
-            </Hidden>
           </Grid>
         </Grid>
       </Box>
@@ -101,14 +96,12 @@ ItemHeader.propTypes = {
   showMultiselect: PropTypes.bool,
   save: PropTypes.func.isRequired,
   isIn: PropTypes.func.isRequired,
-  renderMobileColumns: PropTypes.func,
   icon: PropTypes.func,
   photo: PropTypes.string,
 };
 
 ItemHeader.defaultProps = {
   description: null,
-  renderMobileColumns: null,
   showMultiselect: true,
   color: null,
   icon: null,

@@ -13,11 +13,12 @@ const StickyPopover = ({
   icon: Icon,
   label,
   count,
+  ...rest
 }) => {
   const { trigger } = useStyles();
 
   return (
-    <Box mb={0.25} mr={0.25}>
+    <Box {...rest} mb={0.25} mr={0.25}>
       <Dialog
         title={label}
         renderContent={() => children}

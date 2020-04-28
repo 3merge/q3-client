@@ -1,5 +1,5 @@
 import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from 'q3-ui/lib/iconButton';
 import Back from './back';
 import { useReferrer } from '../use';
 
@@ -20,6 +20,9 @@ test('Back should assign resource name to hook', () => {
     .find(IconButton)
     .props();
 
-  expect(props).toHaveProperty('to', directoryPath);
+  expect(props.buttonProps).toHaveProperty(
+    'to',
+    directoryPath,
+  );
   expect(useReferrer).toHaveBeenCalledWith(directoryPath);
 });

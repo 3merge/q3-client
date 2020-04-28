@@ -47,11 +47,14 @@ export default makeStyles((theme) => ({
     },
   },
   launch: {
-    marginBottom: theme.spacing(0.5),
-
-    '& svg': {
-      marginRight: theme.spacing(1),
-    },
+    backgroundColor: 'transparent',
+    border: 0,
+    outline: 0,
+    padding: '0 1rem',
+    lineHeight: '45px',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    cursor: 'pointer',
   },
   bordered: {
     textOverflow: 'ellipsis',
@@ -77,7 +80,7 @@ export default makeStyles((theme) => ({
     }),
   },
   drawerClose: {
-    top: 'calc(100% - 58px)',
+    top: 'calc(100% - 70px)',
     transition: theme.transitions.create('top', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

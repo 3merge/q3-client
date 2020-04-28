@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 const Title = ({ title, subtitle }) => (
   <Box
-    height={68}
     display="flex"
     alignItems="flex-start"
     flexDirection="column"

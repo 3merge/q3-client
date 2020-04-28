@@ -2,9 +2,11 @@ import React from 'react';
 import { invoke } from 'lodash';
 import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
+import { pick } from 'lodash';
 import { useChecked, useValue } from 'useful-state';
-import Exports, { Actionbar } from 'q3-ui-exports';
+import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
+import CustomActionBar from './components/ActionBar';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
@@ -13,8 +15,10 @@ const Repeater = ({
   data,
   name,
   edit,
+  editBulk,
   create,
   remove,
+  removeBulk,
   children,
   initialValues,
   collectionName,
@@ -24,20 +28,13 @@ const Repeater = ({
   renderNestedTableRow,
   renderMobileColumns,
   addComponent: AddComponent,
+  bulkEditorComponent: BulkEditorComponent,
   actions,
   ...rest
 }) => {
   const search = useValue('');
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
-
-  const execAuthFn = (fn, returnValue) =>
-    invoke(auth, fn, name) || !collectionName
-      ? returnValue
-      : null;
-
-  const onRemove = execAuthFn('canDeleteSub', remove);
-  const onUpdate = execAuthFn('canEditSub', edit);
 
   return (
     <Context.Provider
@@ -48,20 +45,22 @@ const Repeater = ({
         multiselect,
         search,
         edit,
+        editBulk,
         create,
         remove,
+        removeBulk,
       }}
     >
       <Auth op="Read">
         <Exports>
-          <Actionbar actions={actions} data={data} />
+          <CustomActionBar data={data}>
+            {BulkEditorComponent && <BulkEditorComponent />}
+          </CustomActionBar>
           <Table>
             {data.length > 0 && (
               <List
                 {...rest}
                 data={data}
-                onRemove={onRemove}
-                onUpdate={onUpdate}
                 disableEditor={disableEditor}
                 disableRemove={disableRemove}
                 renderNestedTableRow={renderNestedTableRow}

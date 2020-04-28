@@ -15,6 +15,9 @@ export default makeStyles((theme) => ({
   },
   appBarPadding: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: '1rem 0.5rem',
+    },
   },
   spacing: {
     overflow: 'hidden',

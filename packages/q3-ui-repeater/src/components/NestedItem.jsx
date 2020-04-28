@@ -5,13 +5,17 @@ import Collapse from '@material-ui/core/Collapse';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { useToggle } from 'useful-state';
+import useStyle from './useStyle';
 import Item from './Item';
 
-export const FullSpanTableRow = ({ children }) => (
-  <TableRow>
-    <TableCell colSpan="100%">{children}</TableCell>
-  </TableRow>
-);
+export const FullSpanTableRow = ({ children }) => {
+  const { tableRow } = useStyle();
+  return (
+    <TableRow className={tableRow}>
+      <TableCell colSpan="100%">{children}</TableCell>
+    </TableRow>
+  );
+};
 
 FullSpanTableRow.propTypes = {
   children: PropTypes.node.isRequired,

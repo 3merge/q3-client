@@ -46,6 +46,7 @@ const ProfileBar = ({
               </Hidden>
               <Fab
                 onClick={toggle}
+                id="flyout-menu"
                 className={matches ? trigger : center}
                 size="small"
               >
@@ -54,7 +55,7 @@ const ProfileBar = ({
             </>
           )}
         </Offcanvas>
-        <Box py={1} px={1} align="center">
+        <Box id="q3-profile" py={1} px={1} align="center">
           <AccountMenu
             {...rest}
             items={popoutMenuItems}

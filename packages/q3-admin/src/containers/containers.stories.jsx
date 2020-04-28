@@ -5,6 +5,7 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
 import { Equals } from 'q3-ui-filters/lib/components';
+import Tour from 'q3-ui/lib/tour';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -115,6 +116,11 @@ const Investments = () => (
       company: '',
       shares: 1,
     }}
+    bulkEditorComponent={(props) => (
+      <Form {...props}>
+        <Field name="shares" type="number" min={1} />
+      </Form>
+    )}
   >
     <Form>
       <Field name="company" type="text" required />

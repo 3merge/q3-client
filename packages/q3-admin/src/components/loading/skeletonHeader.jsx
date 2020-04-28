@@ -7,7 +7,7 @@ const SkeletonHeader = () => (
     variant="rectangle"
     style={{
       backgroundColor: '#FFF',
-      height: 116,
+      height: 96,
       width: '100%',
     }}
   />

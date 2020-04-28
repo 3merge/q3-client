@@ -21,6 +21,7 @@ export const ColumnHeader = ({
   setCols,
   dragOver,
   setDragOver,
+  disableDnD,
 }) => {
   const sort = getFrom('sort');
   const { t } = useTranslation();
@@ -61,6 +62,7 @@ export const ColumnHeader = ({
   return (
     <TableCell
       component="th"
+      className="q3-dnd-table-header"
       dragOver={title === dragOver}
       onDrop={handleOnDrop}
       style={{
@@ -72,7 +74,7 @@ export const ColumnHeader = ({
         direction={isAsc ? 'asc' : 'desc'}
         component={Link}
         to={`?${params.toString()}`}
-        draggable
+        draggable={!disableDnD}
         id={title}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
@@ -112,10 +114,19 @@ ColumnHeader.propTypes = {
     set: PropTypes.func,
   }).isRequired,
 
+  /**
+   * Remove  DnD support
+   */
+  disableDnD: PropTypes.bool,
+
   cols: PropTypes.arrayOf(PropTypes.string).isRequired,
   setCols: PropTypes.func.isRequired,
   dragOver: PropTypes.string.isRequired,
   setDragOver: PropTypes.func.isRequired,
+};
+
+ColumnHeader.defaultProps = {
+  disableDnD: false,
 };
 
 export default withLocation(ColumnHeader);
