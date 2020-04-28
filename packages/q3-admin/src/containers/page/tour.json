@@ -1,0 +1,42 @@
+[
+  {
+    "target": "#q3",
+    "content": "Welcome",
+    "title": "Title"
+  },
+  {
+    "target": "#flyout-menu",
+    "title": "Title",
+    "content": "This another awesome feature!"
+  },
+  {
+    "target": "#app-add-dialog",
+    "title": "Title",
+    "content": "This another awesome feature!"
+  },
+  {
+    "title": "Title",
+    "target": "#column-configurator",
+    "content": "This another awesome feature!"
+  },
+  {
+    "title": "Title",
+    "target": "#filter-configurator",
+    "content": "This another awesome feature!"
+  },
+  {
+    "target": ".q3-repeater-editor-button",
+    "title": "Content",
+    "content": "Edit this"
+  },
+  {
+    "target": ".q3-repeater-delete-button",
+    "title": "Content",
+    "content": "Edit this"
+  },
+  {
+    "target": "#q3-repeater-add-button",
+    "title": "Content",
+    "content": "Add to this"
+  }
+]

@@ -60,6 +60,16 @@ export default makeStyles((theme) => ({
     },
   },
 
+  tableRow: {},
+
+  tableCell: {
+    display: 'table-cell',
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      border: '0 !important',
+    },
+  },
+
   label: {
     color: colors.grey[500],
     lineHeight: 1.2,
@@ -85,6 +95,12 @@ export default makeStyles((theme) => ({
   row: ({ hasNested }) => ({
     '& td': {
       borderBottom: hasNested ? 'none' : undefined,
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      borderBottom: '2px solid whitesmoke !important',
+      marginBottom: '0.25rem',
+      width: '100%',
     },
   }),
 }));

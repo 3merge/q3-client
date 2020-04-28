@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import RepeaterState from './state';
+import useStyle from './useStyle';
 
 //= ===============================================================================
 // Helpers
@@ -111,11 +112,15 @@ const ItemActions = ({
   nestedIsVisible,
   renderNestedTableRow,
 }) => {
+  const { tableCell } = useStyle();
   const data = parent[currentIndex];
   const { id } = data;
 
   return (
-    <TableCell style={{ textAlign: 'right' }}>
+    <TableCell
+      className={tableCell}
+      style={{ textAlign: 'right' }}
+    >
       {renderNestedTableRow && (
         <IconButton
           label="toggleInfo"

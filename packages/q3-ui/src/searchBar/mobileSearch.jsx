@@ -15,6 +15,8 @@ const MobileSearch = ({
   initialValue,
   redirectPath,
 }) => {
+  const ref = React.useRef();
+
   const {
     value,
     setValue,
@@ -24,6 +26,7 @@ const MobileSearch = ({
   const { loading, results } = useAutocompleteSearchResults(
     getResults,
     value,
+    ref,
   );
 
   return (
@@ -35,6 +38,7 @@ const MobileSearch = ({
               {...rest}
               autoFocus
               value={value}
+              innerRef={ref}
               onKeyPress={handleSearch(close, redirectPath)}
               startAdornment={
                 <Box display="flex" mr={1}>

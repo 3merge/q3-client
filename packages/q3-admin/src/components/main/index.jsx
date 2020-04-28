@@ -17,7 +17,21 @@ const Main = ({
   const height = useHeight(false);
 
   return (
-    <Box component="article">
+    <Box
+      className="app"
+      component="article"
+      style={{
+        backgroundColor: 'whitesmoke',
+        maxHeight: '100vh',
+        overflow: 'hidden',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 1,
+      }}
+    >
       <Grid container className={cls.offsetHeight}>
         <Grid item>
           <ProfileBar

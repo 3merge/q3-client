@@ -46,17 +46,25 @@ const List = ({
     <>
       <TableHead>
         <TableRow>
-          <TableCell>
+          <TableCell
+            style={{
+              borderBottomo: !showAttributes
+                ? 'none !important'
+                : undefined,
+            }}
+          >
             <Search />
           </TableCell>
-          {showAttributes
-            ? attributes.map((name) => (
-                <TableCell component="th" item>
+          {showAttributes && (
+            <>
+              {attributes.map((name) => (
+                <TableCell component="th">
                   {t(name)}
                 </TableCell>
-              ))
-            : null}
-          <TableCell />
+              ))}
+              <TableCell />
+            </>
+          )}
         </TableRow>
       </TableHead>
       <TableBody>

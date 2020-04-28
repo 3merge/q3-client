@@ -100,7 +100,6 @@ const DesktopSearch = ({
             {...rest}
             {...params}
             onKeyPress={onSearch}
-            variant="outlined"
           />
         )}
       />

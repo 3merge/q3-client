@@ -28,16 +28,16 @@ const CreateDialog = (props) => {
             </IconButton>
           </Hidden>
           <Hidden smDown>
-            <Tooltip title={t('labels:add')}>
-              <Fab
-                color="secondary"
-                className={floatOnDesktop}
-                onClick={open}
-                elevation={15}
-              >
-                <AddIcon />
-              </Fab>
-            </Tooltip>
+            <Fab
+              aria-label={t('labels:add')}
+              color="secondary"
+              className={floatOnDesktop}
+              id="app-add-dialog"
+              onClick={open}
+              elevation={15}
+            >
+              <AddIcon />
+            </Fab>
           </Hidden>
         </>
       )}

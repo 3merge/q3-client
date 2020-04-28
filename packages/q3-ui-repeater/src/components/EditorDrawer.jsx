@@ -19,6 +19,7 @@ const EditorDrawer = ({ children, ...rest }) => {
           icon={Pageview}
           label="edit"
           buttonProps={{
+            className: 'q3-repeater-editor-button',
             onClick,
           }}
         >

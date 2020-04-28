@@ -7,7 +7,7 @@ const Logo = ({ name }) => {
   const { logo } = useStyles();
 
   return (
-    <Link to="/" aria-label={name} className={logo}>
+    <Link id="q3" to="/" aria-label={name} className={logo}>
       <svg viewBox="0 0 1000 1000">
         <g>
           <polygon points="509.9,657.01 423.84,570.95 490.68,570.95 576.74,657.01 	" />

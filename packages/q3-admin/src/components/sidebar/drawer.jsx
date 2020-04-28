@@ -6,7 +6,6 @@ import MoreVert from '@material-ui/icons/MoreHoriz';
 import Close from '@material-ui/icons/Close';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { useToggle } from 'useful-state';
-import Button from '@material-ui/core/Button';
 import useStyle from './useStyle';
 
 const SidebarDrawer = ({ children }) => {
@@ -40,14 +39,14 @@ const SidebarDrawer = ({ children }) => {
         }),
       }}
     >
-      <Button
-        fullWidth
+      <button
+        type="button"
         onClick={toggle}
         className={classes.launch}
+        aria-label={state ? t('close') : t('more')}
       >
         {state ? <Close /> : <MoreVert />}
-        {state ? t('close') : t('more')}
-      </Button>
+      </button>
       {children}
     </SwipeableDrawer>
   );

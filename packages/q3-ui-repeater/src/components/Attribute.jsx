@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { get } from 'lodash';
+import Grid from '@material-ui/core/Grid';
 import TableCell from '@material-ui/core/TableCell';
-
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import useStyle from './useStyle';
 import EditableTypography from './EditableTypography';
 
 //= ===============================================================================
@@ -54,18 +58,35 @@ Attribute.propTypes = {
 export const Attributes = ({
   component: Component,
   attributes,
-  show,
+
   isIn,
-}) =>
-  show &&
-  attributes.map((attribute) => (
-    <TableCell key={attribute}>
-      <Component
-        editable={isIn(attribute)}
-        name={attribute}
-      />
+}) => {
+  const { tableCell } = useStyle();
+  const { t } = useTranslation('labels');
+
+  return attributes.map((attribute) => (
+    <TableCell className={tableCell} key={attribute}>
+      <Grid container spacing={2}>
+        <Hidden mdUp>
+          <Grid item style={{ marginLeft: '0.25rem' }}>
+            <Typography
+              variant="subtitle2"
+              style={{ textTransform: 'uppercase' }}
+            >
+              {t(attribute)}:
+            </Typography>
+          </Grid>
+        </Hidden>
+        <Grid item>
+          <Component
+            editable={isIn(attribute)}
+            name={attribute}
+          />
+        </Grid>
+      </Grid>
     </TableCell>
   ));
+};
 
 /**
  * This will allow us to configure the component props once

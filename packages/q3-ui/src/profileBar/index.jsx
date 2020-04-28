@@ -46,6 +46,7 @@ const ProfileBar = ({
               </Hidden>
               <Fab
                 onClick={toggle}
+                id="flyout-menu"
                 className={matches ? trigger : center}
                 size="small"
               >

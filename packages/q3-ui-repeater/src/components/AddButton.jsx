@@ -26,7 +26,7 @@ const AddButtonTrigger = ({ onClick }) => {
   const { t } = useTranslation();
 
   return (
-    <Box p={1}>
+    <Box p={1} id="q3-repeater-add-button">
       <Grid
         container
         role="button"

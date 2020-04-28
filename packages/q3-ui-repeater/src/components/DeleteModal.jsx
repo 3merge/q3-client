@@ -64,6 +64,7 @@ const DeleteModal = ({ id }) => {
             icon={DeleteIcon}
             label="delete"
             buttonProps={{
+              className: 'q3-repeater-delete-button',
               onClick,
             }}
           >

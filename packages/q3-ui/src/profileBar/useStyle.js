@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   trigger: {
     position: 'absolute',
-    top: '6rem',
+    top: '4.5rem',
     left: 'calc(100% - 1rem)',
     zIndex: 100,
 

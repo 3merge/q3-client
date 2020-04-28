@@ -185,5 +185,6 @@
   "byField": "By property",
   "genReport": "Generate a report",
   "strength": "Strength validation",
-  "confirmation": "Confirmation"
+  "confirmation": "Confirmation",
+  "goBackToCollection": "Back to all {{resourceName}}"
 }
