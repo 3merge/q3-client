@@ -21,6 +21,7 @@ module.exports = {
     '../packages/q3-ui/**/bannerWithOffset/**.stories.jsx',
     '../packages/q3-ui/**/breadcrumbs/**.stories.jsx',
     '../packages/q3-ui/**/card/*.stories.jsx',
+    '../packages/q3-ui/**/creditCard/**.stories.jsx',
     '../packages/q3-ui/**/callToAction/*.stories.jsx',
     '../packages/q3-ui/**/clickableLogo/*.stories.jsx',
     '../packages/q3-ui/**/collapsibleFieldLabel/**.stories.jsx',
