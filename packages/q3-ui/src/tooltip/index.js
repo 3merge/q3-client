@@ -5,7 +5,7 @@ export default withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.secondary.main,
     fontSize: theme.typography.pxToRem(15),
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.5),
   },
   arrow: {
     color: theme.palette.secondary.main,

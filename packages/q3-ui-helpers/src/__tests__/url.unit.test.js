@@ -13,11 +13,23 @@ describe('URL', () => {
     it('should replace special codes', () => {
       expect(url.decode('%2Elength%21')).toMatch('.0!');
     });
+
+    it('should replace special codes', () => {
+      expect(url.decode('test%2Enested%2Eprops')).toMatch(
+        'test.nested.props',
+      );
+    });
   });
 
   describe('"encode"', () => {
     it('should replace special codes', () => {
       expect(url.encode('.0!')).toMatch('%2Elength%21');
+    });
+
+    it('should replace special codes', () => {
+      expect(url.encode('nested.props.0!')).toMatch(
+        'nested%2Eprops%2Elength%21',
+      );
     });
   });
 

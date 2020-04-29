@@ -34,12 +34,17 @@ describe('Props', () => {
       expect(
         props.mapBy(
           [
-            { props: { name: 'foo' } },
+            {
+              props: {
+                name: 'foo',
+                children: [{ props: { name: 'quuz' } }],
+              },
+            },
             { props: { name: 'bar' } },
           ],
           'name',
         ),
-      ).toEqual(['foo', 'bar']);
+      ).toEqual(['foo', 'quuz', 'bar']);
     });
   });
 });

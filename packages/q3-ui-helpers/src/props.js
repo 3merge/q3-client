@@ -15,5 +15,16 @@ export const callOnChildren = (v, fn) => {
   return Array.isArray(c) ? c.map(fn) : fn(c);
 };
 
+export const isNotEmpty = (v) =>
+  v !== null && v !== undefined && v.length;
+
 export const mapBy = (c, propName) =>
-  is(c).map((item) => get(item, `props.${propName}`));
+  is(c).flatMap((item) =>
+    [
+      get(item, `props.${propName}`),
+      mapBy(
+        get(item, 'props.children', []),
+        propName,
+      ).filter(isNotEmpty),
+    ].flat(),
+  );

@@ -133,6 +133,7 @@ const Item = ({
         currentIndex={currentIndex}
         nestedIsVisible={nestedIsVisible}
         renderNestedTableRow={renderNestedTableRow}
+        {...item}
       >
         {children}
       </ItemActions>

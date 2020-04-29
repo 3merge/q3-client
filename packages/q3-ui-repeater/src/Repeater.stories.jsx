@@ -63,6 +63,8 @@ const seedData = [
     firstName: 'Forrest',
     lastName: 'Gump',
     age: 23,
+    linkTo: '/hey',
+    linkToLabel: 'Go to hey',
   },
 ];
 

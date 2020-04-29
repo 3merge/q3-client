@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
 import IconButton from 'q3-ui/lib/iconButton';
 import Down from '@material-ui/icons/KeyboardArrowDown';
 import Up from '@material-ui/icons/KeyboardArrowUp';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TableCell from '@material-ui/core/TableCell';
+import LaunchIcon from '@material-ui/icons/Launch';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import RepeaterState from './state';
@@ -111,6 +113,8 @@ const ItemActions = ({
   setCurrentIndex,
   nestedIsVisible,
   renderNestedTableRow,
+  linkTo,
+  linkToLabel,
 }) => {
   const { tableCell } = useStyle();
   const data = parent[currentIndex];
@@ -147,6 +151,16 @@ const ItemActions = ({
         </EditorDrawer>
       )}
       {showRemove && <DeleteModal id={id} />}
+      {linkTo && (
+        <IconButton
+          label={linkToLabel}
+          icon={LaunchIcon}
+          buttonProps={{
+            component: Link,
+            to: linkTo,
+          }}
+        />
+      )}
     </TableCell>
   );
 };
@@ -162,6 +176,8 @@ ItemActions.propTypes = {
   showRemove: PropTypes.bool,
   nestedIsVisible: PropTypes.bool,
   renderNestedTableRow: PropTypes.func,
+  linkTo: PropTypes.string,
+  linkToLabel: PropTypes.string,
 };
 
 ItemActions.defaultProps = {
@@ -169,6 +185,8 @@ ItemActions.defaultProps = {
   showEditor: true,
   nestedIsVisible: false,
   renderNestedTableRow: null,
+  linkTo: null,
+  linkToLabel: '',
 };
 
 export default ItemActions;
