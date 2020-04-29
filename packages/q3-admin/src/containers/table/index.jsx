@@ -13,7 +13,7 @@ export const ListContainer = ({ children, overflowY }) => {
   const height = useHeight();
   return (
     <Box style={{ height, overflowY }}>
-      <Box my={3} px={2}>
+      <Box my={2.5} px={1}>
         {children}
       </Box>
     </Box>
@@ -44,7 +44,7 @@ const List = ({ renderForm, renderTop, ...rest }) => {
   return (
     <Redirect op="Read" to="/">
       <Box style={{ height, overflowY: 'scroll' }}>
-        <Box my={3} px={2}>
+        <Box my={renderTop ? 1 : 2.5} px={1}>
           {renderTop && renderTop()}
           <Table
             {...rest}

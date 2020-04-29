@@ -25,10 +25,12 @@ const Section = ({
           component="section"
           item
         >
-          <Box py={3} height={height}>
-            <Container maxWidth="xl">
-              {renderInside}
-            </Container>
+          <Box height={height}>
+            <Box px={1} py={1} pb={4}>
+              <Container maxWidth="xl" disableGutters>
+                {renderInside}
+              </Container>
+            </Box>
           </Box>
         </Grid>
         {renderOutside}

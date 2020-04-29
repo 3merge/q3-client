@@ -22,6 +22,9 @@ const Popper = ({
         open={state}
         anchorEl={innerRef.current}
         transition
+        style={{
+          zIndex: 10000,
+        }}
       >
         {({ TransitionProps, placement }) => (
           <Grow

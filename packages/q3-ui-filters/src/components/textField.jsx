@@ -26,7 +26,7 @@ const FilterTextField = ({
 
   if (type === 'select')
     return (
-      <FormControl variant="filled" fullWidth>
+      <FormControl variant="filled" size="small" fullWidth>
         <InputLabel htmlFor={name}>{label}</InputLabel>
         <Select
           fullWidth
@@ -55,6 +55,7 @@ const FilterTextField = ({
       <KeyboardDatePicker
         {...rest}
         type="text"
+        size="small"
         name={name}
         label={label}
         value={
@@ -83,6 +84,7 @@ const FilterTextField = ({
       name={name}
       label={label}
       variant="filled"
+      size="small"
       onChange={handleOnChange(setValue, op)}
       value={realValue}
       onBlur={submitForm}

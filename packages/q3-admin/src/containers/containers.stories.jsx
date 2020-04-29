@@ -5,7 +5,7 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
 import { Equals } from 'q3-ui-filters/lib/components';
-import Tour from 'q3-ui/lib/tour';
+import Groups from '../components/groups';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -65,6 +65,16 @@ const Investors = (props) => (
       <Search intercept={resolver} />
     </Header>
     <Table
+      renderTop={() => (
+        <Groups
+          search="?"
+          queries={{
+            Ready: 'kind=ready',
+            NotReady: 'kind=notReady',
+            AlmostReady: 'kind=almostReady',
+          }}
+        />
+      )}
       resolvers={resolver}
       defaultColumns={[
         'gender',

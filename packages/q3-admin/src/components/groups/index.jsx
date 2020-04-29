@@ -5,6 +5,16 @@ import PropTypes from 'prop-types';
 import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles((theme) => ({
+  root: {
+    paddingLeft: 60,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+    },
+  },
+}));
 
 const clamp = (v) => (v === -1 ? 0 : v + 1);
 const isString = (v) => typeof v === 'string';
@@ -31,11 +41,11 @@ export const withSearchQuery = (Component) => (props) => (
 
 export const Groups = ({ queries, search }) => {
   const { t } = useTranslation('labels');
+  const { root } = useStyle();
 
   return (
-    <Container>
+    <Container disableGutter className={root}>
       <Tabs
-        centered
         value={findIndexByStartsWith(queries, search)}
         variant="fullWidth"
         scrollButtons="auto"
