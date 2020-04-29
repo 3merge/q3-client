@@ -27,11 +27,11 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const Offset = ({ children }) => (
+const Offset = ({ children, PaperProps }) => (
   <Box position="relative" mt="-15vh" component="section">
     <Wrapper backgroundColor="transparent">
       <Box px={1}>
-        <Paper elevation={1}>{children}</Paper>
+        <Paper {...PaperProps}>{children}</Paper>
       </Box>
     </Wrapper>
   </Box>
@@ -39,6 +39,15 @@ const Offset = ({ children }) => (
 
 Offset.propTypes = {
   children: PropTypes.node.isRequired,
+  PaperProps: PropTypes.shape({
+    elevation: PropTypes.number,
+  }),
+};
+
+Offset.defaultProps = {
+  PaperProps: {
+    elevation: 1,
+  },
 };
 
 const BannerWithOffset = ({
@@ -49,6 +58,7 @@ const BannerWithOffset = ({
   filter,
   bottom,
   top,
+  ...rest
 }) => {
   const cls = useStyle({
     filter,
@@ -99,7 +109,7 @@ const BannerWithOffset = ({
           {bottom}
         </Box>
       </Box>
-      {children && <Offset>{children}</Offset>}
+      {children && <Offset {...rest}>{children}</Offset>}
     </Box>
   );
 };

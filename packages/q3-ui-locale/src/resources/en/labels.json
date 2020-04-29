@@ -147,7 +147,7 @@
   "browseOrClick": "Click a result at any time from the auto-populated list to visit the page.",
   "changesRestored": "Un-saved changes have been restored into this form. Please save or delete them to proceed.",
   "unsavedChangesOn": "Un-saved changes detected! Please save them before exiting this view.",
-  "creator": "Created by",
+  "creator": "Creator",
   "lastUpdated": "Last updated",
   "help": "Documentation",
   "documentationError": "Could not load the documentation.",

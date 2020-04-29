@@ -4,53 +4,25 @@ import { get } from 'lodash';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
-import DateRange from '@material-ui/icons/DateRange';
-import {
-  teal,
-  orange,
-  blue,
-} from '@material-ui/core/colors';
+import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
+import { getMeta } from 'q3-ui/lib/timeline';
 import { Dispatcher, Store } from '../../containers/state';
 import SidebarTabs from './tabs';
 import Column from './column';
 import Panel from './panel';
-import 'react-json-pretty/themes/acai.css';
-
-const formatUser = (u) =>
-  u ? `${u.firstName} ${u.lastName}` : null;
 
 const invoke = (fn, data, dispatchers, t) =>
   typeof fn === 'function' && Object.keys(data).length
     ? fn(data, dispatchers, t)
     : [];
 
-const getCreatedBy = (data = {}) =>
-  formatUser(get(data, 'createdBy'));
-
-const getUpdatedAt = (data = {}) => {
-  const at = get(data, 'updatedAt');
-  return at
-    ? moment(at).format('MMMM Do YYYY, h:mm:ss a')
-    : null;
-};
-
-const getModifiedBy = (data = {}) => {
-  const u = formatUser(get(data, 'lastModifiedBy'));
-  const d = getUpdatedAt(data);
-  let out = '';
-
-  if (!u && !d) return null;
-  if (u) out += u;
-  if (d && u) {
-    out += ` on ${d}`;
-  } else {
-    out += d;
-  }
-
-  return out;
-};
+const getAuthorship = getMeta('createdBy', 'createdAt');
+const getLastModification = getMeta(
+  'lastModifiedBy',
+  'updatedAt',
+);
 
 const Sidebar = ({
   children,
@@ -64,8 +36,8 @@ const Sidebar = ({
   const { data } = React.useContext(Store);
   const params = [data, dispatchers, t];
 
-  const createdBy = getCreatedBy(data);
-  const updatedBy = getModifiedBy(data);
+  const createdBy = getAuthorship(data);
+  const updatedBy = getLastModification(data);
 
   const defaultOptions = invoke(registerOptions, ...params);
 

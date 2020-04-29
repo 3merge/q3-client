@@ -18,15 +18,14 @@ const useStyles = makeStyles((theme) => ({
       height: 350,
       width: '100%',
     },
-    [theme.breakpoints.down('xs')]: {
-      height: 225,
-      width: '100%',
-    },
   },
   root: {
     height: '100vh',
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    boxSizing: 'border-box',
     [theme.breakpoints.down('sm')]: {
-      height: '100%',
+      height: 'auto',
       width: '100%',
     },
   },
@@ -37,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
   mobileWrapper: {
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1),
+      display: 'block',
+      backgroundColor: '#FFF',
+      minHeight: '100vh',
     },
   },
 }));
@@ -50,18 +51,15 @@ const FeaturedImage = ({ children }) => {
       <Grid container className={mobileWrapper}>
         <Grid item md={6} sm={12} className={img} />
         <Grid item md={6} sm={12} className={view}>
-          <Paper>
-            <Box component="main">
-              <Box
-                className={root}
-                display="flex"
-                alignItems="center"
-                p={4}
-              >
-                {children}
-              </Box>
-            </Box>
-          </Paper>
+          <Box
+            component="main"
+            className={root}
+            display="flex"
+            flexWrap="wrap"
+            alignItems="center"
+          >
+            <Box m={4}>{children}</Box>
+          </Box>
         </Grid>
       </Grid>
     </Box>

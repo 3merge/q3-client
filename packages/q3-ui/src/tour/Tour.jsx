@@ -6,7 +6,6 @@ import Joyride, {
   EVENTS,
   STATUS,
 } from 'react-joyride';
-import { orange } from '@material-ui/core/colors';
 import { browser } from 'q3-ui-helpers';
 import Tooltip from './tooltip';
 
@@ -108,11 +107,6 @@ const Tour = ({ steps }) => {
         tooltipComponent={Tooltip}
         callback={handleJoyrideCallback}
         stepIndex={stepIndex}
-        styles={{
-          options: {
-            primaryColor: orange[900],
-          },
-        }}
       />
     )
   );

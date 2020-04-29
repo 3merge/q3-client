@@ -1,6 +1,5 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Timeline from 'q3-ui/lib/timeline';
 import { Definitions } from '../state';
@@ -39,9 +38,6 @@ const History = () => {
   );
 };
 
-History.propTypes = {
-  collectionName: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-};
+History.propTypes = {};
 
 export default History;

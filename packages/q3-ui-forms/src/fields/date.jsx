@@ -29,6 +29,7 @@ const DateSelect = (props) => {
       value={value || null}
       onChange={intercept(onChange, name)}
       placeholder="yyyy-mm-dd"
+      size="small"
       format="YYYY-MM-DD"
       clearable
       autoOk

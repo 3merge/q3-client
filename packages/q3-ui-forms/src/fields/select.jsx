@@ -18,7 +18,12 @@ export const SelectWrapper = ({
   helperText,
   ...rest
 }) => (
-  <FormControl variant="filled" fullWidth {...rest}>
+  <FormControl
+    variant="filled"
+    size="small"
+    fullWidth
+    {...rest}
+  >
     <InputLabel htmlFor={name}>{label}</InputLabel>
     {children}
     <Collapse in={Boolean(helperText)}>

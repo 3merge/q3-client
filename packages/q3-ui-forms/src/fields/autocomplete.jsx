@@ -60,6 +60,7 @@ export const AutoCompleteWrapper = (props) => {
       loading={loading}
       defaultValue={getValue()}
       value={getValue()}
+      size="small"
       renderInput={getCustomInput}
       getOptionLabel={getDropdownLabel(value)}
       onChange={intercept(handleChange, name)}

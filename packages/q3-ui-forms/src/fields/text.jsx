@@ -23,6 +23,7 @@ const Text = (props) => {
       {...etc}
       disabled={disabled}
       readOnly={readOnly}
+      size="small"
       error={error}
       fullWidth
       label={label}

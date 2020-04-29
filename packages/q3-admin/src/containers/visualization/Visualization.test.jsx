@@ -1,10 +1,5 @@
-import React from 'react';
 import axios from 'axios';
-import {
-  makeQueryString,
-  getFrom,
-  useVisualization,
-} from './Visualization';
+import { makeQueryString, getFrom } from './Visualization';
 
 jest.mock('axios', () => {
   const inst = {};
@@ -15,7 +10,7 @@ jest.mock('axios', () => {
     });
 
   inst.then = thenable({ data: { foo: 1 } });
-  inst.catch = thenable(false);
+  inst.catch = thenable();
 
   return { get: jest.fn().mockReturnValue(inst) };
 });
@@ -40,7 +35,7 @@ describe('Visualization', () => {
       getFrom('/localhost', onData, onError);
       expect(axios.get).toHaveBeenCalledWith('/localhost');
       expect(onData).toHaveBeenCalledWith({ foo: 1 });
-      expect(onError).toHaveBeenCalledWith(false);
+      expect(onError).toHaveBeenCalledWith(true);
     });
   });
 });

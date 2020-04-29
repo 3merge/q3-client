@@ -51,5 +51,6 @@
   "deleteSubDocument": "Delete subdocument",
   "addSubDocument": "Add subdocument",
   "multiSelectSubDocument": "Select multiple subdocuments",
-  "sidebar": "Sidebar"
+  "sidebar": "Sidebar",
+  "log": "History log"
 }

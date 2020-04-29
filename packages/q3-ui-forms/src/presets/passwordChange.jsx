@@ -37,14 +37,15 @@ export const PasswordHelperListItem = ({
   const getIcon = () => (passed ? <Check /> : <Close />);
 
   return (
-    <ListItem dense style={{ padding: 0 }}>
+    <ListItem dense style={{ padding: 0, margin: 0 }}>
       <ListItemIcon style={{ color: getColor() }}>
         {getIcon()}
       </ListItemIcon>
       <ListItemText
         primary={t(name)}
+        style={{ margin: 0 }}
         primaryTypographyProps={{
-          style: { fontSize: '1rem' },
+          style: { fontSize: '0.877rem' },
         }}
       />
     </ListItem>

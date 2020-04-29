@@ -58,6 +58,7 @@ const Chips = (props) => {
         filterSelectedOptions
         defaultValue={value || []}
         options={items}
+        size="small"
         getOptionLabel={getDropdownLabel(value)}
         onChange={intercept(onChange, name)}
         renderTags={(values, getTagProps) =>

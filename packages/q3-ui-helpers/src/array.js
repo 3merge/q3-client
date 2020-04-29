@@ -74,3 +74,17 @@ export const matchOnSome = (rules = [], term) =>
   hasLength(rules) && string.is(term)
     ? rules.some((rule) => string.hasMatch(term, rule))
     : false;
+
+/**
+ * Filter full array by search term.
+ */
+
+export const filterByTerm = (a = [], value) =>
+  is(a).filter((item) => {
+    if (typeof value !== 'string') return true;
+    if (!value.length) return true;
+
+    return JSON.stringify(item)
+      .toLowerCase()
+      .includes(value.toLowerCase());
+  });

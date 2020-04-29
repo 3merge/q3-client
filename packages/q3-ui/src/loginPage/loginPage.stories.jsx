@@ -1,8 +1,21 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import Box from '@material-ui/core/Box';
 import LoginPage from '.';
 
-storiesOf('Components|LoginPage', module).add(
-  'Auto image',
-  () => <LoginPage>Form goes here :)</LoginPage>,
+export default {
+  title: 'Q3 UI|Components/LoginPage',
+};
+
+export const AutoImage = () => (
+  <LoginPage>
+    <Box>Form goes here :)</Box>
+  </LoginPage>
+);
+
+export const AutoScroll = () => (
+  <LoginPage>
+    <Box height="350vh" style={{ backgroundColor: 'red' }}>
+      Form goes here :)
+    </Box>
+  </LoginPage>
 );
