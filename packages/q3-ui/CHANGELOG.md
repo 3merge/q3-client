@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.9](https://github.com/3merge/q/compare/v1.14.8...v1.14.9) (2020-04-29)
+
+
+### Bug Fixes
+
+* zindex on tour ([d954d4c](https://github.com/3merge/q/commit/d954d4c6cfc77a8e0e3fdcca09c448c9e5cf7fc9))
+
+
+
+
+
 ## [1.14.8](https://github.com/3merge/q/compare/v1.14.7...v1.14.8) (2020-04-29)
 
 **Note:** Version bump only for package q3-ui
