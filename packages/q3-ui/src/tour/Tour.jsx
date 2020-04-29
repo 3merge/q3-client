@@ -107,6 +107,11 @@ const Tour = ({ steps }) => {
         tooltipComponent={Tooltip}
         callback={handleJoyrideCallback}
         stepIndex={stepIndex}
+        styles={{
+          options: {
+            zIndex: 1000000,
+          },
+        }}
       />
     )
   );
