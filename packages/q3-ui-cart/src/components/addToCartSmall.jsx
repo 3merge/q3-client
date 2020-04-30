@@ -1,18 +1,23 @@
 /** eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import PropTypes from 'prop-types';
-import QuantityField from './quantityFieldHorizontal';
+import { Quantity } from 'q3-components';
+import Grid from '@material-ui/core/Grid';
 import AddToCartIconButton from './addToCartIconButton';
 
 const AddToCart = ({ product }) => (
-  <QuantityField>
-    {(quantity) => (
-      <AddToCartIconButton
-        quantity={quantity}
-        product={product}
-      />
-    )}
-  </QuantityField>
+  <Grid container spacing={1}>
+    <Quantity size="small">
+      {(quantity) => (
+        <Grid item xs>
+          <AddToCartIconButton
+            quantity={quantity}
+            product={product}
+          />
+        </Grid>
+      )}
+    </Quantity>
+  </Grid>
 );
 
 AddToCart.propTypes = {

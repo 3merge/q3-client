@@ -5,14 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Add from '@material-ui/icons/Add';
-import Remove from '@material-ui/icons/Remove';
+import { string } from 'q3-ui-helpers';
+import { Quantity } from 'q3-components';
 import { CartContext } from '../context';
 
 const RemoveFromCart = ({ id }) => {
@@ -40,8 +37,7 @@ RemoveFromCart.propTypes = {
 };
 
 const Toggle = ({ id, product, quantity }) => {
-  const { t } = useTranslation();
-  const [value, setQuantity] = React.useState(quantity);
+  const [setQuantity] = React.useState(quantity);
   const { update, remove, loading } = React.useContext(
     CartContext,
   );
@@ -51,62 +47,17 @@ const Toggle = ({ id, product, quantity }) => {
       return setQuantity(newValue);
     });
 
-  const increase = () => sendUpdateRequest(value + 1);
-
-  const decrease = () => {
-    const newValue = value - 1;
-    if (newValue > 0) {
-      return sendUpdateRequest(newValue);
-    }
-    return remove(id);
-  };
-
   return (
-    <TextField
+    <Quantity
+      defaultValue={quantity}
       disabled={loading}
-      variant="outlined"
-      name="quantity"
-      value={value}
-      onChange={({ target }) => {
-        setQuantity(target.value);
+      minimum={1}
+      onBlur={({ target: { value } }) => {
+        if (value) sendUpdateRequest(value);
       }}
-      onBlur={() => {
-        sendUpdateRequest(value);
-      }}
-      inputProps={{
-        'aria-label': t('labels:quantity'),
-        style: {
-          textAlign: 'center',
-        },
-      }}
-      InputProps={{
-        style: {
-          width: 135,
-        },
-
-        startAdornment: (
-          <InputAdornment position="start">
-            <IconButton
-              size="small"
-              onClick={decrease}
-              disabled={loading}
-            >
-              <Remove />
-            </IconButton>
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <InputAdornment position="end">
-            <IconButton
-              size="small"
-              onClick={increase}
-              disabled={loading}
-            >
-              <Add />
-            </IconButton>
-          </InputAdornment>
-        ),
-      }}
+      onMinimum={remove}
+      onQuantityChange={sendUpdateRequest}
+      variant="spread"
     />
   );
 };
@@ -166,7 +117,7 @@ export default ({ children }) => {
                           ${price} ea.
                         </Typography>
                         <Typography
-                          variant="h5"
+                          variant="h4"
                           component="h4"
                         >
                           {name}
@@ -181,34 +132,24 @@ export default ({ children }) => {
                 </Grid>
 
                 <Grid item lg={4} sm={12}>
-                  <Grid
-                    container
-                    spacing={2}
-                    alignItems="center"
-                    justifyContent="flex-end"
+                  <Typography
+                    color="primary"
+                    variant="h5"
+                    component="span"
                   >
-                    <Grid item lg={5} md={3} xs={12}>
-                      <Typography
-                        color="primary"
-                        variant="h4"
-                        component="span"
-                      >
-                        ${subtotal}
-                      </Typography>
-                      <RemoveFromCart
-                        id={id}
-                        product={product}
-                      />
-                    </Grid>
-                    <Grid item lg={5} md={12}>
-                      <Toggle
-                        id={id}
-                        product={product}
-                        quantity={quantity}
-                        price={price}
-                      />
-                    </Grid>
-                  </Grid>
+                    {string.toPrice(subtotal)}
+                  </Typography>
+
+                  <Toggle
+                    id={id}
+                    product={product}
+                    quantity={quantity}
+                    price={price}
+                  />
+                  <RemoveFromCart
+                    id={id}
+                    product={product}
+                  />
                 </Grid>
               </Grid>
 

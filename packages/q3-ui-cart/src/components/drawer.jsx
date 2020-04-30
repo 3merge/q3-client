@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
+import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import DeleteForever from '@material-ui/icons/DeleteForever';
@@ -123,7 +124,11 @@ const CartDrawer = ({
     items,
     clear,
     saveCartTitle,
+    cartTitleProp,
+    ...rest
   } = React.useContext(CartContext);
+
+  const title = get(rest, cartTitleProp, t('titles:cart'));
 
   return (
     <Drawer open={isOpen} anchor="right" onClose={close}>
@@ -149,14 +154,21 @@ const CartDrawer = ({
               <EditableTypography
                 variant="h3"
                 onSubmit={saveCartTitle}
-                initialValues={{ title: t('titles:cart') }}
+                initialValues={{ title }}
                 fieldProps={{ name: 'title', type: 'text' }}
-                style={{ marginLeft: '1rem' }}
+                style={{
+                  marginLeft: '1rem',
+                  maxWidth: 350,
+                  textOverflow: 'ellipsis',
+                  display: 'block',
+                  overflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                }}
                 isEditable={
                   typeof saveCartTitle === 'function'
                 }
               >
-                {t('titles:cart')}
+                {title}
               </EditableTypography>
             </Box>
             <Box display="flex" alignItems="center">
