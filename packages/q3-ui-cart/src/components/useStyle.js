@@ -10,14 +10,25 @@ const baseButtonStyle = {
   right: 8,
 };
 
+const withoutOuterSpin = {
+  '&::-webkit-inner-spin-button,&::-webkit-outer-spin-button': {
+    appearance: 'none',
+    margin: 0,
+  },
+};
+
 export default makeStyles(() => ({
   input: {
     height: 28,
     fontSize: 22,
-    '&::-webkit-inner-spin-button,&::-webkit-outer-spin-button': {
-      appearance: 'none',
-      margin: 0,
-    },
+    ...withoutOuterSpin,
+  },
+  inputSmall: {
+    fontSize: '0.877rem',
+    width: 45,
+  },
+  inputSmallToggles: {
+    fontSize: '0.877rem',
   },
   float: {
     backgroundColor: grey[200],

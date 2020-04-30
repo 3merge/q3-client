@@ -24,7 +24,9 @@ export const SelectWrapper = ({
     fullWidth
     {...rest}
   >
-    <InputLabel htmlFor={name}>{label}</InputLabel>
+    {label && (
+      <InputLabel htmlFor={name}>{label}</InputLabel>
+    )}
     {children}
     <Collapse in={Boolean(helperText)}>
       <FormHelperText>{helperText}</FormHelperText>

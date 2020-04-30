@@ -95,6 +95,7 @@ export default ({
   name,
   label,
   helper,
+  suppressLabel,
   suppressHelper,
   ...rest
 }) => {
@@ -106,7 +107,8 @@ export default ({
     disabled,
   );
 
-  propper.label = t(`labels:${label || name}`, vars);
+  if (!suppressLabel)
+    propper.label = t(`labels:${label || name}`, vars);
 
   if (!label) propper.helper = t(`helpers:${name}`, vars);
   if (helper) propper.helper = t(`helpers:${helper}`, vars);

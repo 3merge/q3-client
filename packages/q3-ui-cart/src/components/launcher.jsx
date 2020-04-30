@@ -3,23 +3,11 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButtonWithLoading } from 'q3-ui/lib/iconButton';
 import useOpen from 'useful-state/lib/useOpen';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import Fade from '@material-ui/core/Fade';
 import { CartContext } from '../context';
 
-const useStyles = makeStyles(() => ({
-  loader: {
-    height: '100% !important',
-    position: 'absolute',
-    width: '100% !important',
-  },
-}));
-
 const CartLauncher = ({ children }) => {
-  const { loader } = useStyles();
   const {
     items = [],
     loading,
@@ -27,7 +15,6 @@ const CartLauncher = ({ children }) => {
   } = React.useContext(CartContext);
 
   const { isOpen, close, open } = useOpen();
-  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (hasError)
@@ -38,22 +25,15 @@ const CartLauncher = ({ children }) => {
 
   return (
     <>
-      <IconButton
-        onClick={open}
-        aria-label={t('labels:openCart')}
-        disabled={loading}
-      >
-        <Fade in={loading}>
-          <CircularProgress className={loader} />
-        </Fade>
-        <Badge
-          color="secondary"
-          variant={items.length ? 'standard' : 'dot'}
-          badgeContent={items.length}
-        >
-          <ShoppingCart />
-        </Badge>
-      </IconButton>
+      <IconButtonWithLoading
+        label="openCart"
+        loading={loading}
+        icon={ShoppingCart}
+        badgeContent={items.length}
+        buttonProps={{
+          onClick: open,
+        }}
+      />
       {children && children(close, isOpen)}
     </>
   );
