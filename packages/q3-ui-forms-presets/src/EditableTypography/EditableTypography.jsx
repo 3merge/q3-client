@@ -8,16 +8,16 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import { useToggle } from 'useful-state';
-import { browser, string } from 'q3-ui-helpers';
+import { string } from 'q3-ui-helpers';
 import useStyle from '../useStyle';
 import EditableTypographyFormField from './EditableTypographyFormField';
 
 const defaultPlaceholder = '--';
 
-const makeEdittingProps = (isEditable, args) =>
+export const makeEdittingProps = (isEditable, args) =>
   isEditable ? args : {};
 
-const formatText = (value, type, trans) => {
+export const formatText = (value, type, trans) => {
   switch (type) {
     case 'number':
       return string.toNumber(value, defaultPlaceholder);
@@ -48,24 +48,8 @@ const EditableTypography = ({
     isEditable,
   });
 
-  React.useEffect(() => {
-    const eventName = 'keydown';
-    const onEscape = (e) => {
-      if (e.key === 'Escape' && state) close();
-    };
-
-    if (browser.isBrowserReady()) {
-      document.addEventListener(eventName, onEscape);
-      return () => {
-        document.removeEventListener(eventName, onEscape);
-      };
-    }
-
-    return undefined;
-  }, [state]);
-
   if (isEditable && typeof renderer === 'function')
-    return renderer(initialValues || data, onSubmit);
+    return renderer(initialValues, data, onSubmit);
 
   return (
     <span ref={ref}>
@@ -117,17 +101,21 @@ EditableTypography.propTypes = {
     PropTypes.number,
     PropTypes.bool,
   ]),
-  editable: PropTypes.shape({
-    type: PropTypes.string,
-    name: PropTypes.string,
-    renderer: PropTypes.func,
-  }),
   name: PropTypes.string.isRequired,
+
+  onSubmit: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  renderer: PropTypes.func,
+  initialValues: PropTypes.shape({}).isRequired,
+  fieldProps: PropTypes.shape({
+    text: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
 };
 
 EditableTypography.defaultProps = {
   children: '',
-  editable: null,
+  renderer: null,
 };
 
 export default EditableTypography;

@@ -51,7 +51,7 @@ export const toTruthy = (str, trans) => {
  * Standardize date display.
  */
 export const toDate = (str, fallbackText = '') =>
-  moment(str).isValid()
+  moment(str, moment.ISO_8601).isValid()
     ? moment(str).format('LLL')
     : fallbackText;
 
