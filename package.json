@@ -14,8 +14,7 @@
     "deploy-storybook": "storybook-to-ghpages -- --out=.out"
   },
   "workspaces": [
-    "packages/*",
-    "integration-testing"
+    "packages/*"
   ],
   "resolutions": {
     "acorn": "^7.1.1",
