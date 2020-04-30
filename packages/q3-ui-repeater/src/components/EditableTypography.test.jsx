@@ -1,9 +1,9 @@
 import React from 'react';
 import { useToggle } from 'useful-state';
-import { EditableTypography } from 'q3-ui-forms-presets';
+import { EditableTypography } from 'q3-components';
 import EditableTypographyWrapper from './EditableTypography';
 
-jest.mock('q3-ui-forms-presets', () => ({
+jest.mock('q3-components', () => ({
   EditableTypography: jest
     .fn()
     .mockImplementation(() => null),

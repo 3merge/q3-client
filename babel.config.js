@@ -3,6 +3,7 @@ const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
   'q3-admin',
+  'q3-components',
   'q3-ui-assets',
   'q3-ui-locale',
   'q3-ui',
@@ -10,7 +11,6 @@ const alias = [
   'q3-ui-dialog',
   'q3-ui-exports',
   'q3-ui-filters',
-  'q3-ui-forms-presets',
   'q3-ui-forms',
   'q3-ui-helpers',
   'q3-ui-permissions',

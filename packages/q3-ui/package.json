@@ -55,5 +55,6 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-i18next": "^11.3.1"
-  }
+  },
+  "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

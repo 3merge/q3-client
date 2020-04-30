@@ -22,5 +22,6 @@
     "prop-types": "^15.7.2",
     "q3-ui-test-utils": "1.9.6",
     "react": "^16.10.2"
-  }
+  },
+  "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

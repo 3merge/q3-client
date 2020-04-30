@@ -7,7 +7,7 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import Box from '@material-ui/core/Box';
 import IconButton from 'q3-ui/lib/iconButton';
 import AppBar from '@material-ui/core/AppBar';
-import { EditableTypography } from 'q3-ui-forms-presets';
+import { EditableTypography } from 'q3-components';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';

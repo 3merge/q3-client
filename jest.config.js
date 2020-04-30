@@ -12,6 +12,7 @@ module.exports = {
     '<rootDir>/packages/(?:.+?)/node_modules/',
     '<rootDir>/packages/q3-ui-assets',
     '.stories.',
+    '.json',
   ],
   transform: {
     '^.+\\.jsx?$': 'babel-jest',

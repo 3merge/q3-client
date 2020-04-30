@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { invoke } from 'lodash';
 import { object } from 'q3-ui-helpers';
-import { EditableTypography } from 'q3-ui-forms-presets';
+import { EditableTypography } from 'q3-components';
 import RepeaterState from './state';
 
 const { hasKeys } = object;

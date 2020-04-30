@@ -13,5 +13,6 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.10.2"
-  }
+  },
+  "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

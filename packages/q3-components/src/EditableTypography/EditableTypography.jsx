@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import classnames from 'class-names';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
@@ -9,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import { useToggle } from 'useful-state';
 import { string } from 'q3-ui-helpers';
-import useStyle from '../useStyle';
+import useStyle from './useStyle';
 import EditableTypographyFormField from './EditableTypographyFormField';
 
 const defaultPlaceholder = '--';
