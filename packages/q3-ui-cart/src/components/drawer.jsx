@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import Box from '@material-ui/core/Box';
+import IconButton from 'q3-ui/lib/iconButton';
 import AppBar from '@material-ui/core/AppBar';
+import { EditableTypography } from 'q3-ui-forms-presets';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import { Signal, Connect } from 'q3-ui-assets';
+import { red } from '@material-ui/core/colors';
 import { CartContext } from '../context';
 
 const useStyles = makeStyles((theme) => ({
@@ -108,7 +111,6 @@ const CartDrawer = ({
   close,
   shopPath,
   checkoutPath,
-  clear,
   children,
   currency,
 }) => {
@@ -119,6 +121,8 @@ const CartDrawer = ({
     loading,
     hasError,
     items,
+    clear,
+    saveCartTitle,
   } = React.useContext(CartContext);
 
   return (
@@ -133,15 +137,46 @@ const CartDrawer = ({
             <LinearProgress />
           </Fade>
           <Toolbar className={bar}>
-            <IconButton color="primary" onClick={close}>
-              <KeyboardBackspace />
-            </IconButton>
-            <Typography variant="h3">
-              {t('titles:cart')}
-            </Typography>
-            <Typography variant="body2">
-              {renderNumber(subtotal)} {currency}
-            </Typography>
+            <Box display="flex" alignItems="center">
+              <IconButton
+                icon={KeyboardBackspace}
+                label="close"
+                buttonProps={{
+                  onClick: close,
+                  color: 'primary',
+                }}
+              />
+              <EditableTypography
+                variant="h3"
+                onSubmit={saveCartTitle}
+                initialValues={{ title: t('titles:cart') }}
+                fieldProps={{ name: 'title', type: 'text' }}
+                style={{ marginLeft: '1rem' }}
+                isEditable={
+                  typeof saveCartTitle === 'function'
+                }
+              >
+                {t('titles:cart')}
+              </EditableTypography>
+            </Box>
+            <Box display="flex" alignItems="center">
+              <Typography variant="body2">
+                {renderNumber(subtotal)} {currency}
+              </Typography>
+              {clear && (
+                <IconButton
+                  icon={DeleteForever}
+                  label="startOver"
+                  buttonProps={{
+                    onClick: clear,
+                    style: {
+                      color: red[900],
+                      marginLeft: '0.5rem',
+                    },
+                  }}
+                />
+              )}
+            </Box>
           </Toolbar>
         </AppBar>
         <Box>
@@ -209,7 +244,6 @@ CartDrawer.propTypes = {
   isOpen: PropTypes.bool,
   currency: PropTypes.string,
   children: PropTypes.node,
-  clear: PropTypes.func,
 };
 
 CartDrawer.defaultProps = {
@@ -218,7 +252,6 @@ CartDrawer.defaultProps = {
   checkoutPath: '/checkout',
   shopPath: '/shop',
   children: null,
-  clear: null,
 };
 
 export default CartDrawer;

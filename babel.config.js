@@ -10,6 +10,7 @@ const alias = [
   'q3-ui-dialog',
   'q3-ui-exports',
   'q3-ui-filters',
+  'q3-ui-forms-presets',
   'q3-ui-forms',
   'q3-ui-helpers',
   'q3-ui-permissions',

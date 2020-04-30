@@ -1,5 +1,11 @@
 module.exports = {
-  addons: ['@storybook/addon-docs', '@storybook/addon-knobs/register'],
+  addons: [
+    '@storybook/addon-actions/register',
+    '@storybook/addon-a11y/register',
+    '@storybook/addon-docs', 
+    '@storybook/addon-knobs/register',
+  ],
+
   stories: [
     '../packages/q3-admin/**/containers/**/**.stories.jsx',
     '../packages/q3-admin/**/components/add/**.stories.jsx',
@@ -59,6 +65,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/presets/northAmericaRegionalSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/provinceSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/**.stories.jsx',
+    '../packages/q3-ui-forms-presets/**.stories.jsx',
     '../packages/q3-ui-permissions/**.stories.jsx',
     '../packages/q3-ui-repeater/**.stories.jsx',
   ],

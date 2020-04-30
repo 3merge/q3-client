@@ -64,7 +64,7 @@ addDecorator((story) => (
 addParameters({
   options: {
     selectedPanel: 'docs',
-    showPanel: false,
+   // showPanel: false,
     panelPosition: 'right',
   },
    docs: {

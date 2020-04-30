@@ -3,10 +3,12 @@ import { AuthContext } from 'q3-ui-permissions';
 import {
   AddToCart,
   AddToCartIconButton,
+  AddToCartSmall,
   LineItems,
   Launcher,
   Drawer,
   QuantityField,
+  QuantityFieldHorizontal,
 } from './components';
 import Provider from './context';
 
@@ -45,6 +47,8 @@ const withProvider = (Component, props) => (
       updateItemInOrder={fakeRequestDelay}
       removeItemInOrder={fakeRequestDelay}
       pollOrder={refreshOrder}
+      saveCartTitle={() => null}
+      clear={() => null}
       {...props}
     >
       <Component />
@@ -66,11 +70,16 @@ export const Empty = withProvider(() => (
       )}
     </Launcher>
     <AddToCart product={12} />
+    <AddToCartSmall product={12} />
   </>
 ));
 
 export const JustTheField = withProvider(() => (
   <QuantityField />
+));
+
+export const InputVariant = withProvider(() => (
+  <QuantityFieldHorizontal />
 ));
 
 export const JustTheButton = withProvider(() => (

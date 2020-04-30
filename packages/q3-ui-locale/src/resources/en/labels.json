@@ -194,5 +194,10 @@
   "bulkDelete": "Bulk delete",
   "save": "Save",
   "remove": "Remove",
-  "close": "Close"
+  "close": "Close",
+  "quickAdd": "Quick-add",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "age": "Age",
+  "enabled": "Enabled"
 }

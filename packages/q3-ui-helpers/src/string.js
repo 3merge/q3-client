@@ -38,9 +38,11 @@ export const hasMatch = (target, pattern) =>
  */
 export const toTruthy = (str, trans) => {
   const t = (v) => (trans ? trans(v) : v);
-  return str === true ||
+
+  return (str === true ||
     str === 'true' ||
-    (str && str !== 'false')
+    (str && str !== 'false')) &&
+    (typeof str !== 'string' || str.toUpperCase() !== 'NO')
     ? t('yes').toUpperCase()
     : t('no').toUpperCase();
 };
@@ -48,7 +50,10 @@ export const toTruthy = (str, trans) => {
 /**
  * Standardize date display.
  */
-export const toDate = (str) => moment(str).format('LLL');
+export const toDate = (str, fallbackText = '') =>
+  moment(str, moment.ISO_8601).isValid()
+    ? moment(str).format('LLL')
+    : fallbackText;
 
 /**
  * Standardize cost display.
@@ -58,4 +63,9 @@ export const toPrice = (str) => {
   return num && !Number.isNaN(num)
     ? `$${num.toFixed(2)}`
     : '$0';
+};
+
+export const toNumber = (str, fallbackText = '') => {
+  const num = Number(str);
+  return Number.isNaN(num) ? fallbackText : num;
 };

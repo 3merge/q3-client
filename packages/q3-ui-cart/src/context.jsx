@@ -18,6 +18,7 @@ const CartProvider = ({
   updateItemInOrder,
   removeItemInOrder,
   pollOrder,
+  ...rest
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [hasError, setHasError] = React.useState(false);
@@ -58,6 +59,7 @@ const CartProvider = ({
     <CartContext.Provider
       value={{
         ...state,
+        ...rest,
         loading,
         hasError,
         add: re(addItemToOrder),

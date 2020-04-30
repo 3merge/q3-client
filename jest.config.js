@@ -1,7 +1,6 @@
 module.exports = {
   verbose: false,
   testPathIgnorePatterns: [
-    '<rootDir>/integration-testing/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
   ],
@@ -9,7 +8,6 @@ module.exports = {
     '<rootDir>/.github/',
     '<rootDir>/.storybook/',
     '<rootDir>/.vscode/',
-    '<rootDir>/integration-testing/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
     '<rootDir>/packages/q3-ui-assets',

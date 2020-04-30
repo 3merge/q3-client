@@ -69,7 +69,7 @@ const theme = createMuiTheme({
       lineHeight: 1.35,
     },
     body1: {
-      color: '#687285',
+      color: '#4f5868',
       '&:not(:last-child)': {
         marginBottom: '1rem',
       },
@@ -79,7 +79,7 @@ const theme = createMuiTheme({
       fontWeight: 400,
     },
     subtitle1: {
-      color: '#687285',
+      color: '#4f5868',
       fontSize: '1.15rem',
       fontWeight: 600,
     },
