@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms-presets",
-  "version": "1.0.0",
+  "version": "1.15.1",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.0",
@@ -10,7 +10,7 @@
     "axios": "^0.19.0",
     "class-names": "^1.0.0",
     "lodash": "^4.17.15",
-    "q3-ui-forms": "^1.14.6",
+    "q3-ui-forms": "^1.15.1",
     "react-i18next": "11.3.1",
     "useful-state": "^1.2.0",
     "yup": "^0.27.0"
