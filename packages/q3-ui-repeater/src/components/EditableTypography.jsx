@@ -34,7 +34,6 @@ const EditableTypographyWrapper = ({
       isEditable={isEditable}
       renderer={editable.renderer}
       initialValues={data}
-      data={data}
       fieldProps={{
         name: prefixedName,
         ...editable,

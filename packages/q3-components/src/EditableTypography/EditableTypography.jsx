@@ -37,7 +37,6 @@ const EditableTypography = ({
   renderer,
   initialValues,
   fieldProps,
-  data,
   ...rest
 }) => {
   const ref = React.useRef();
@@ -49,7 +48,7 @@ const EditableTypography = ({
   });
 
   if (isEditable && typeof renderer === 'function')
-    return renderer(initialValues, data, onSubmit);
+    return renderer(initialValues, onSubmit);
 
   return (
     <span ref={ref}>
@@ -96,9 +95,6 @@ const EditableTypography = ({
 };
 
 EditableTypography.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-  }),
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -117,7 +113,6 @@ EditableTypography.propTypes = {
 EditableTypography.defaultProps = {
   children: '',
   renderer: null,
-  data: null,
 };
 
 export default EditableTypography;

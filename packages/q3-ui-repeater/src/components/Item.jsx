@@ -26,6 +26,13 @@ export const interpretCardsProps = (
   color: invoke(cardProps, 'onColor', currentData),
   description: invoke(cardProps, 'describe', currentData),
 
+  linkTo: invoke(cardProps, 'makeLink', currentData),
+  linkToLabel: invoke(
+    cardProps,
+    'makeLinkLabel',
+    currentData,
+  ),
+
   showEditor: !get(
     cardProps,
     'disableEditor',
@@ -93,6 +100,8 @@ const Item = ({
     title,
     icon,
     photo,
+    linkTo,
+    linkToLabel,
   } = interpretCardsProps(
     rowResolver || cardProps,
     item,
@@ -131,6 +140,8 @@ const Item = ({
         toggleNested={toggleNested}
         setCurrentIndex={setCurrentIndex}
         currentIndex={currentIndex}
+        linkTo={linkTo}
+        linkToLabel={linkToLabel}
         nestedIsVisible={nestedIsVisible}
         renderNestedTableRow={renderNestedTableRow}
         {...item}
