@@ -34,7 +34,7 @@
   "newUser": "Add a user",
   "addToList": "Add an item",
   "meetTheTeam": "Meet the team",
-  "cartError": "Your cart experienced an error",
+  "cartError": "Something went wrong",
   "cartEmpty": "Your cart is empty",
   "deleteMany": "Bulk delete tool",
   "editMany": "Bulk editing tool",

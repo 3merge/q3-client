@@ -11,6 +11,7 @@ export const executeCallbackAfterPromise = (
   done,
 ) => (values, actions) => {
   const fn = onSave(values, actions);
+
   if (fn && 'then' in fn)
     return fn.then((r) => {
       done();

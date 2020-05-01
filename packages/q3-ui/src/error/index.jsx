@@ -25,6 +25,7 @@ const ErrorTemplate = ({
   title,
   description,
   transparent,
+  disableGutter,
 }) => {
   const { t } = useTranslation();
   const { graphic } = useStyles();
@@ -43,7 +44,7 @@ const ErrorTemplate = ({
         <Box
           textAlign="center"
           mt={-2}
-          pb={4}
+          pb={disableGutter ? 1 : 4}
           position="relative"
         >
           <Typography variant="h2" gutterBottom>
@@ -68,12 +69,14 @@ ErrorTemplate.propTypes = {
   description: PropTypes.string,
   children: childrenProp.isRequired,
   transparent: PropTypes.bool,
+  disableGutter: PropTypes.bool,
 };
 
 ErrorTemplate.defaultProps = {
   title: 'error',
   description: 'error',
   transparent: false,
+  disableGutter: false,
 };
 
 export default ErrorTemplate;

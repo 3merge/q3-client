@@ -3,6 +3,8 @@ import moment from 'moment';
 
 export const is = (v) => typeof v === 'string';
 
+export const hasLength = (v) => is(v) && v.length > 0;
+
 export const castToLowercase = (s = '') =>
   is(s) ? s.toLowerCase().trim() : s;
 

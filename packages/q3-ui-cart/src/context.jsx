@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { AuthContext } from 'q3-ui-permissions';
 
 const contextDefaults = {
+  clear: null,
+  update: null,
   items: [],
   subtotal: 0,
   total: 0,
@@ -18,6 +20,8 @@ const CartProvider = ({
   updateItemInOrder,
   removeItemInOrder,
   pollOrder,
+  updateOrder,
+  clear,
   ...rest
 }) => {
   const [loading, setLoading] = React.useState(false);
@@ -26,6 +30,8 @@ const CartProvider = ({
   const auth = React.useContext(AuthContext);
 
   const processPromise = (p) => {
+    if (!p) return null;
+
     setLoading(true);
     return p
       .then((response) => {
@@ -65,6 +71,9 @@ const CartProvider = ({
         add: re(addItemToOrder),
         remove: re(removeItemInOrder),
         update: re(updateItemInOrder),
+        updateOrder: (...args) =>
+          processPromise(updateOrder(...args)),
+        clear: (...args) => processPromise(clear(...args)),
         poll,
       }}
     >

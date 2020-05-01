@@ -35,7 +35,7 @@
   "reverify": "Still awaiting your email verification? No problem, resend it now.",
   "verify": "If the account ID and verification code do not auto-fill, copy-and-paste from the email. Verification codes are valid for only five days. After that, you'll need to request a new code.",
   "passwordReset": "Enter the email you login with below. If an email doesn't arrive shortly after, it is possible that you have entered the wrong address or that your account is suspended. ",
-  "cartError": "Cart errors occur from time-to-time. Sometimes, cached data causes your browser to load an unavailable order and causes a connection issues. Please refresh and try again.Looks like there is a problem with this order or the order no longer exists. Please refresh your page, as sometimes an outdated cache can cause such problems.",
+  "cartError": "Please refresh the page. If this error persists, clear your cache, as a stored reference to an expired or missing order can cause problems.",
   "cartEmpty": "You must first add products to your order before you can checkout.",
   "passwordChangeFail": "Your password failed to change. Please check your inputs and try again.",
   "passwordChangeSuccess": "Your password has been updated. This page will redirect in two seconds back home.",

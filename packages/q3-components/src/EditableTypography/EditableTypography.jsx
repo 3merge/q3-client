@@ -59,12 +59,11 @@ const EditableTypography = ({
           onKeyPress: open,
           tabIndex: 0,
         })}
-        role="switch"
-        aria-checked={Boolean(open)}
         className={classnames(field, rest.className)}
+        aria-haspopup
       >
         {formatText(children, get(fieldProps, 'type'), t)}
-        {isEditable && <Edit className={fieldIcon} />}
+        {isEditable ? <Edit className={fieldIcon} /> : null}
       </Typography>
       <Popover
         open={state}

@@ -83,7 +83,7 @@ AccessibleIconButton.propTypes = {
 
 AccessibleIconButton.defaultProps = {
   buttonProps: {},
-  badgeContent: false,
+  badgeContent: 0,
 };
 
 IconButtonWithLoading.propTypes = {
