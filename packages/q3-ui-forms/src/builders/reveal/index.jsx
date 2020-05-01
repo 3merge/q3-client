@@ -24,7 +24,7 @@ Reveal.propTypes = {
    * YUP validation schema.
    */
   validation: PropTypes.shape({
-    _nodes: PropTypes.object,
+    _nodes: PropTypes.array,
   }).isRequired,
 };
 

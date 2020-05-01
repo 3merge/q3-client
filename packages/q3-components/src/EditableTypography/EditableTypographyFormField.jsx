@@ -5,12 +5,14 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import { POPOVER_CLASS } from './constants';
 
 export const executeCallbackAfterPromise = (
   onSave,
   done,
 ) => (values, actions) => {
   const fn = onSave(values, actions);
+
   if (fn && 'then' in fn)
     return fn.then((r) => {
       done();
@@ -34,7 +36,13 @@ const EditableTypographyFormField = ({
   const check = isCheckbox(type);
 
   return (
-    <Box p={1} pb={0} minWidth={230} maxWidth="90%">
+    <Box
+      p={1}
+      pb={0}
+      minWidth={230}
+      maxWidth="90%"
+      className={POPOVER_CLASS}
+    >
       <Typography
         id="name"
         aria-label={name}
@@ -57,7 +65,7 @@ const EditableTypographyFormField = ({
           autoFocus
           {...fieldProps}
           variant="standard"
-          aria-labelledBy={`#${name}`}
+          aria-labelledby={`#${name}`}
           suppressLabel={!check}
           label={check ? 'enabled' : ''}
         />

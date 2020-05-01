@@ -54,15 +54,15 @@ const makeInputStyle = ({ size, variant }) => {
 };
 
 const makeTextFieldStyle = ({ size }) => {
-  let width = 210;
+  let width = 275;
 
   if (size === SMALL) {
-    width = 85;
+    width = 155;
   } else if (size === LARGE) {
-    width = '100%';
+    width = 650;
   }
 
-  return { maxWidth: '100%', width };
+  return { margin: 0, maxWidth: '100%', width };
 };
 
 const makeIconStyle = ({ size }) => {
@@ -97,5 +97,9 @@ export default makeStyles(() => ({
     justifyContent: 'center',
     height: '100%',
     padding: 0,
+  },
+
+  grow: {
+    flex: 1,
   },
 }));

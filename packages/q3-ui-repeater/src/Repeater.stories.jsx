@@ -63,8 +63,6 @@ const seedData = [
     firstName: 'Forrest',
     lastName: 'Gump',
     age: 23,
-    linkTo: '/hey',
-    linkToLabel: 'Go to hey',
   },
 ];
 
@@ -286,6 +284,8 @@ export const CustomEditableRenderer = withForm((props) => (
             renderer: () => <div>Something custom!</div>,
           },
         },
+        makeLink: () => '/to',
+        makeLinkLabel: ({ id }) => id,
       }}
     >
       <div />

@@ -10,6 +10,7 @@ import { useToggle } from 'useful-state';
 import { string } from 'q3-ui-helpers';
 import useStyle from './useStyle';
 import EditableTypographyFormField from './EditableTypographyFormField';
+import { TYPOGRAPHY_CLASS } from './constants';
 
 const defaultPlaceholder = '--';
 
@@ -36,7 +37,6 @@ const EditableTypography = ({
   renderer,
   initialValues,
   fieldProps,
-  data,
   ...rest
 }) => {
   const ref = React.useRef();
@@ -48,7 +48,7 @@ const EditableTypography = ({
   });
 
   if (isEditable && typeof renderer === 'function')
-    return renderer(initialValues, data, onSubmit);
+    return renderer(initialValues, onSubmit);
 
   return (
     <span ref={ref}>
@@ -59,12 +59,15 @@ const EditableTypography = ({
           onKeyPress: open,
           tabIndex: 0,
         })}
-        role="switch"
-        aria-checked={Boolean(open)}
-        className={classnames(field, rest.className)}
+        className={classnames(
+          TYPOGRAPHY_CLASS,
+          field,
+          rest.className,
+        )}
+        aria-haspopup
       >
         {formatText(children, get(fieldProps, 'type'), t)}
-        {isEditable && <Edit className={fieldIcon} />}
+        {isEditable ? <Edit className={fieldIcon} /> : null}
       </Typography>
       <Popover
         open={state}
@@ -92,16 +95,11 @@ const EditableTypography = ({
 };
 
 EditableTypography.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.string,
-  }).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.bool,
   ]),
-  name: PropTypes.string.isRequired,
-
   onSubmit: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   renderer: PropTypes.func,

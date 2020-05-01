@@ -97,21 +97,20 @@ const Quantity = ({
 
   return (
     <>
-      <Grid item>
-        <TextField
-          color="secondary"
-          type="number"
-          variant="outlined"
-          className={text}
-          onChange={handleQuantity}
-          onBlur={reset}
-          helperText={message}
-          error={hasError}
-          value={quantity}
-          {...styles}
-          {...rest}
-        />
-      </Grid>
+      <TextField
+        color="secondary"
+        type="number"
+        variant="outlined"
+        className={text}
+        onChange={handleQuantity}
+        onBlur={reset}
+        helperText={message}
+        error={hasError}
+        value={quantity}
+        {...styles}
+        {...rest}
+      />
+
       {children ? children(quantity, reset) : null}
     </>
   );

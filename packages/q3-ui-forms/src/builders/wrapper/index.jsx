@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dot from 'dot-helpers';
 import BuilderState from '../builderState';
 import Reveal from '../reveal';
 import { getInitialStatus } from './utils';
@@ -96,7 +95,7 @@ const Wrapper = (Component) => {
     /**
      * Resource/collection being modified
      */
-    collectionName: PropTypes.string.isRequired,
+    collectionName: PropTypes.string,
 
     /**
      * Resource/collection being modified
@@ -147,6 +146,7 @@ const Wrapper = (Component) => {
   InnerForm.defaultProps = {
     initialValues: {},
     validateOnMount: false,
+    collectionName: null,
     isNew: false,
     initialStatus: null,
     keep: [],

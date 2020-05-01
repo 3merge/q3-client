@@ -2,10 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { object } from 'q3-ui-helpers';
 
-export const addBy = (qty) => qty + 1;
+export const addBy = (qty) => Number(qty) + 1;
 
 export const reduceBy = (qty, minimum = 0) =>
-  qty > minimum ? qty - 1 : minimum;
+  qty > minimum ? Number(qty) - 1 : minimum;
 
 export const clamp = (qty, threshold) =>
   qty > threshold ? qty : threshold;

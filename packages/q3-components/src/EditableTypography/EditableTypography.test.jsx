@@ -14,7 +14,6 @@ jest.mock('useful-state', () => ({
 
 const getGeneralProps = () => ({
   initialValues: { foo: 'bar' },
-  data: { id: 1 },
   onSubmit: jest.fn(),
 });
 
@@ -32,7 +31,6 @@ describe('EditableTypography', () => {
     );
 
     expect(renderer).toHaveBeenCalledWith(
-      expect.any(Object),
       expect.any(Object),
       expect.any(Function),
     );
