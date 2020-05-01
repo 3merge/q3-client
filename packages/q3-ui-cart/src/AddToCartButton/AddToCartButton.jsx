@@ -8,6 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { CartContext } from '../context';
 import AddToCartButtonLoading from '../AddToCartButtonLoading';
+import { ADD_TO_CART_CLASS } from '../constants';
 
 const AddToCart = ({ quantity = 1, product }) => {
   const { add } = React.useContext(CartContext);
@@ -34,7 +35,7 @@ const AddToCart = ({ quantity = 1, product }) => {
   return (
     <Button
       fullWidth
-      className="add-to-cart"
+      className={ADD_TO_CART_CLASS}
       onClick={onClick}
       disabled={disabled}
       variant="contained"

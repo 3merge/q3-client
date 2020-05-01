@@ -1,73 +1,15 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
-import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { string } from 'q3-ui-helpers';
-import { Quantity } from 'q3-components';
 import { CartContext } from '../context';
-
-const RemoveFromCart = ({ id }) => {
-  const { t } = useTranslation();
-  const { remove } = React.useContext(CartContext);
-
-  return (
-    <Box>
-      <Button
-        size="small"
-        onClick={() => remove(id)}
-        style={{
-          textDecoration: 'underline',
-          justifyContent: 'flex-start',
-        }}
-      >
-        {t('labels:remove')}
-      </Button>
-    </Box>
-  );
-};
-
-RemoveFromCart.propTypes = {
-  id: PropTypes.string.isRequired,
-};
-
-const Toggle = ({ id, product, quantity }) => {
-  const [setQuantity] = React.useState(quantity);
-  const { update, remove, loading } = React.useContext(
-    CartContext,
-  );
-
-  const sendUpdateRequest = (newValue) =>
-    update({ id, product, quantity: newValue }).then(() => {
-      return setQuantity(newValue);
-    });
-
-  return (
-    <Quantity
-      size="small"
-      defaultValue={quantity}
-      disabled={loading}
-      minimum={1}
-      onBlur={({ target: { value } }) => {
-        if (value) sendUpdateRequest(value);
-      }}
-      onMinimum={remove}
-      onQuantityChange={sendUpdateRequest}
-      variant="spread"
-    />
-  );
-};
-
-Toggle.propTypes = {
-  quantity: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  product: PropTypes.string.isRequired,
-};
+import { DRAWER_LINE_ITEM_CLASS } from '../constants';
+import LineItemRemove from '../LineItemRemove';
+import LineItemToggle from '../LineItemToggle';
 
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
@@ -87,7 +29,7 @@ export default ({ children }) => {
     return (
       <Box
         key={id || i}
-        className="q3-cart-line-item"
+        className={DRAWER_LINE_ITEM_CLASS}
         mb={1}
       >
         <Paper elevation={2}>
@@ -120,7 +62,7 @@ export default ({ children }) => {
                           variant="overline"
                           color="primary"
                         >
-                          ${price} ea.
+                          {string.toPrice(price)} ea.
                         </Typography>
                         <Typography
                           variant="h4"
@@ -128,7 +70,6 @@ export default ({ children }) => {
                         >
                           {name}
                         </Typography>
-
                         <Typography>
                           {description}
                         </Typography>
@@ -146,13 +87,13 @@ export default ({ children }) => {
                     {string.toPrice(subtotal)}
                   </Typography>
 
-                  <Toggle
+                  <LineItemToggle
                     id={id}
                     product={product}
                     quantity={quantity}
                     price={price}
                   />
-                  <RemoveFromCart
+                  <LineItemRemove
                     id={id}
                     product={product}
                   />

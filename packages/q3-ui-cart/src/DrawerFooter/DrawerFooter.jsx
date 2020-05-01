@@ -22,28 +22,25 @@ const DrawerFooter = ({
   };
 
   return (
-    <Box my={1}>
-      <Typography align="center">
+    <Box component="footer" my={1} align="center">
+      <Button
+        onClick={handleNavigate(checkoutPath)}
+        disabled={!array.hasLength(items)}
+        variant="contained"
+        color="secondary"
+        size="large"
+        fullWidth
+      >
+        {t('labels:checkout')}
+      </Button>
+      <Box my={0.5}>
         <Button
-          onClick={handleNavigate(checkoutPath)}
-          disabled={!array.hasLength(items)}
-          variant="contained"
-          color="secondary"
-          size="large"
-          fullWidth
+          onClick={handleNavigate(shopPath)}
+          size="small"
         >
-          {t('labels:checkout')}
+          {t('labels:shop')}
         </Button>
-        <Box my={0.5}>
-          <Button
-            onClick={handleNavigate(shopPath)}
-            gutterBottom
-            size="small"
-          >
-            {t('labels:shop')}
-          </Button>
-        </Box>
-      </Typography>
+      </Box>
     </Box>
   );
 };

@@ -4,6 +4,7 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { IconButtonWithLoading } from 'q3-ui/lib/iconButton';
 import { useOpen } from 'useful-state';
 import { CartContext } from '../context';
+import { DRAWER_LAUNCHER } from '../constants';
 
 const CartLauncher = ({ children }) => {
   const {
@@ -29,6 +30,7 @@ const CartLauncher = ({ children }) => {
         icon={ShoppingCart}
         badgeContent={items.length}
         buttonProps={{
+          className: DRAWER_LAUNCHER,
           onClick: open,
         }}
       />

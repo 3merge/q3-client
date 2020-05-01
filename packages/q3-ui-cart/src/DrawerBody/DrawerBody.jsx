@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import { Signal, Connect } from 'q3-ui-assets';
 import ErrorMessage from 'q3-ui/lib/error';
 import { array } from 'q3-ui-helpers';
@@ -22,7 +21,7 @@ const DrawerBody = ({ children }) => {
   const Icon = hasError ? Signal : Connect;
 
   return (
-    <Container className={root}>
+    <Box component="section" className={root}>
       {!len || hasError ? (
         <ErrorMessage
           title={namespace}
@@ -34,7 +33,7 @@ const DrawerBody = ({ children }) => {
       ) : (
         children
       )}
-    </Container>
+    </Box>
   );
 };
 

@@ -31,6 +31,8 @@ export const withFixtures = () => {
                   titleKey="title"
                   close={close}
                   isOpen={isOpen}
+                  shopPath="/shop"
+                  checkoutPath="/checkout"
                 >
                   <LineItem />
                 </Drawer>

@@ -1,4 +1,5 @@
 const genProduct = ({ product, quantity }) => ({
+  id: '1',
   product,
   quantity,
   name: product,
@@ -39,7 +40,6 @@ export default () => {
 
     removeItemInOrder: () => {
       order.items = [];
-
       return Promise.resolve(order);
     },
 

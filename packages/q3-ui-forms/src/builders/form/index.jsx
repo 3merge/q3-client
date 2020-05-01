@@ -80,12 +80,6 @@ FormBuilder.propTypes = {
   onReset: PropTypes.func,
 
   /**
-   * An initial state value for each field registered.
-   * Shape cannot be defined as fields are app-specific.
-   */
-  initialValues: PropTypes.shape({}).isRequired,
-
-  /**
    * Enable a state viewer for debugging purposes.
    */
   debug: PropTypes.bool,

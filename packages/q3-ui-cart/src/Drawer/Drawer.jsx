@@ -7,6 +7,7 @@ import DrawerMui from '@material-ui/core/Drawer';
 import DrawerBody from '../DrawerBody';
 import DrawerFooter from '../DrawerFooter';
 import DrawerHeader from '../DrawerHeader';
+import useStyle from './useStyle';
 
 const Drawer = ({
   isOpen,
@@ -15,28 +16,31 @@ const Drawer = ({
   checkoutPath,
   children,
   ...rest
-}) => (
-  <DrawerMui open={isOpen} anchor="right" onClose={close}>
-    <DrawerHeader {...rest}>
-      <IconButton
-        icon={KeyboardBackspace}
-        label="close"
-        buttonProps={{
-          onClick: close,
-          color: 'primary',
-        }}
-      />
-    </DrawerHeader>
-    <Box p={2}>
-      <DrawerBody>{children}</DrawerBody>
-      <DrawerFooter
-        checkoutPath={checkoutPath}
-        shopPath={shopPath}
-        close={close}
-      />
-    </Box>
-  </DrawerMui>
-);
+}) => {
+  const { root } = useStyle();
+  return (
+    <DrawerMui open={isOpen} anchor="right" onClose={close}>
+      <DrawerHeader {...rest}>
+        <IconButton
+          icon={KeyboardBackspace}
+          label="close"
+          buttonProps={{
+            onClick: close,
+            color: 'primary',
+          }}
+        />
+      </DrawerHeader>
+      <Box className={root}>
+        <DrawerBody>{children}</DrawerBody>
+        <DrawerFooter
+          checkoutPath={checkoutPath}
+          shopPath={shopPath}
+          close={close}
+        />
+      </Box>
+    </DrawerMui>
+  );
+};
 
 Drawer.propTypes = {
   /**

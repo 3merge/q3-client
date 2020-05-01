@@ -10,6 +10,7 @@ import { useToggle } from 'useful-state';
 import { string } from 'q3-ui-helpers';
 import useStyle from './useStyle';
 import EditableTypographyFormField from './EditableTypographyFormField';
+import { TYPOGRAPHY_CLASS } from './constants';
 
 const defaultPlaceholder = '--';
 
@@ -59,7 +60,11 @@ const EditableTypography = ({
           onKeyPress: open,
           tabIndex: 0,
         })}
-        className={classnames(field, rest.className)}
+        className={classnames(
+          TYPOGRAPHY_CLASS,
+          field,
+          rest.className,
+        )}
         aria-haspopup
       >
         {formatText(children, get(fieldProps, 'type'), t)}
@@ -93,14 +98,12 @@ const EditableTypography = ({
 EditableTypography.propTypes = {
   data: PropTypes.shape({
     id: PropTypes.string,
-  }).isRequired,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.bool,
   ]),
-  name: PropTypes.string.isRequired,
-
   onSubmit: PropTypes.func.isRequired,
   isEditable: PropTypes.bool.isRequired,
   renderer: PropTypes.func,
@@ -114,6 +117,7 @@ EditableTypography.propTypes = {
 EditableTypography.defaultProps = {
   children: '',
   renderer: null,
+  data: null,
 };
 
 export default EditableTypography;

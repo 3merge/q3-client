@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { EditableTypography } from 'q3-components';
 import { CartContext } from '../context';
 import useStyle from './useStyle';
+import { DRAWER_TITLE_ID } from '../constants';
 
 const DrawerTitle = ({ titleKey }) => {
   const { t } = useTranslation('titles');
@@ -15,16 +16,17 @@ const DrawerTitle = ({ titleKey }) => {
     CartContext,
   );
 
-  const isEditable =
-    object.isFn(updateOrder) && array.hasLength(items);
+  const isEditable = Boolean(
+    object.isFn(updateOrder) && array.hasLength(items),
+  );
 
   let title = get(rest, titleKey);
 
   if (!string.hasLength(title)) title = t('cart');
-  console.log(titleKey);
 
   return (
     <EditableTypography
+      id={DRAWER_TITLE_ID}
       variant="h2"
       className={root}
       onSubmit={updateOrder}
