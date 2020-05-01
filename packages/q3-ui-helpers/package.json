@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-helpers",
-  "version": "1.15.2",
+  "version": "1.15.4",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.13.2"
