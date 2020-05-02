@@ -9,10 +9,13 @@ import { string } from 'q3-ui-helpers';
 import { CartContext } from '../context';
 import { DRAWER_LINE_ITEM_CLASS } from '../constants';
 import LineItemRemove from '../LineItemRemove';
+import LineItemSubtotal from '../LineItemSubtotal';
 import LineItemToggle from '../LineItemToggle';
+import useStyle from './useStyle';
 
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
+  const { avatar, action } = useStyle();
 
   return items.map((item, i) => {
     const {
@@ -38,19 +41,14 @@ export default ({ children }) => {
               <Grid
                 container
                 spacing={1}
-                alignItems="center"
                 justify="space-between"
               >
-                <Grid item lg={8} md={12} sm={12}>
+                <Grid item xs>
                   <Grid container spacing={2}>
                     <Grid item style={{ width: 'auto' }}>
                       <Avatar
                         variant="rounded"
-                        style={{
-                          width: 95,
-                          height: 95,
-                          marginTop: 10,
-                        }}
+                        className={avatar}
                       >
                         <img src={img} alt={product} />
                       </Avatar>
@@ -65,28 +63,25 @@ export default ({ children }) => {
                           {string.toPrice(price)} ea.
                         </Typography>
                         <Typography
-                          variant="h4"
-                          component="h4"
+                          variant="h3"
+                          gutterBottom
                         >
                           {name}
                         </Typography>
                         <Typography>
                           {description}
                         </Typography>
+                        <LineItemSubtotal
+                          subtotal={subtotal}
+                        />
                       </Box>
                     </Grid>
                   </Grid>
+
+                  {children && children(item)}
                 </Grid>
 
-                <Grid item lg={4} sm={12}>
-                  <Typography
-                    color="primary"
-                    variant="h5"
-                    component="p"
-                  >
-                    {string.toPrice(subtotal)}
-                  </Typography>
-
+                <Grid item className={action}>
                   <LineItemToggle
                     id={id}
                     product={product}
@@ -99,8 +94,6 @@ export default ({ children }) => {
                   />
                 </Grid>
               </Grid>
-
-              {children && children(item)}
             </Box>
           </Box>
         </Paper>

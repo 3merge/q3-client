@@ -199,5 +199,7 @@
   "firstName": "First name",
   "lastName": "Last name",
   "age": "Age",
-  "enabled": "Enabled"
+  "enabled": "Enabled",
+  "openCart": "Open cart",
+  "subtotalOf": "Subtotal {{price}}"
 }

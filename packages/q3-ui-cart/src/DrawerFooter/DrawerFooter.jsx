@@ -4,7 +4,6 @@ import { navigate } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { array } from 'q3-ui-helpers';
 import { CartContext } from '../context';
 
@@ -14,12 +13,15 @@ const DrawerFooter = ({
   checkoutPath,
 }) => {
   const { t } = useTranslation();
-  const { items } = React.useContext(CartContext);
+  const { items, hasError } = React.useContext(CartContext);
 
   const handleNavigate = (to) => () => {
     navigate(to);
     close();
   };
+
+  // rather than disabling
+  if (hasError) return null;
 
   return (
     <Box component="footer" my={1} align="center">

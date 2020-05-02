@@ -34,7 +34,17 @@ export const withFixtures = () => {
                   shopPath="/shop"
                   checkoutPath="/checkout"
                 >
-                  <LineItem />
+                  <LineItem>
+                    {() => (
+                      <p
+                        style={{
+                          backgroundColor: 'whitesmoke',
+                        }}
+                      >
+                        This is a custom element..
+                      </p>
+                    )}
+                  </LineItem>
                 </Drawer>
               )}
             </Launcher>
