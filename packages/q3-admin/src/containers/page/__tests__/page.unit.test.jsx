@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
+import ErrorView from 'q3-ui-assets';
 import Loading from '../../../components/loading';
-import ErrorView from '../../../components/error';
 import Page, { getDirectoryPath } from '..';
 
 jest.mock('../../state');

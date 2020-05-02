@@ -3,6 +3,8 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
+    '<rootDir>/e2e-tests',
+    '<rootDir>/gatsby-theme-q3',
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/.github/',

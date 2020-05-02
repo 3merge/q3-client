@@ -1,7 +1,7 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { navigate } from '@reach/router';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from 'q3-ui/lib/alert';
 import { Trash } from '.';
 
@@ -28,21 +28,25 @@ beforeEach(() => {
 });
 
 describe('Trash', () => {
-  const renderAndClick = (onDelete) => {
-    return global
-      .shallow(
-        <Trash
-          onDelete={onDelete}
-          directoryPath="/app/foo"
-          collectionName="foo"
-        />,
-      )
-      .find(Button)
-      .props()
-      .onClick();
+  const renderAndClick = async (onDelete) => {
+    const el = global.mount(
+      <Trash
+        onDelete={onDelete}
+        directoryPath="/app/foo"
+        collectionName="foo"
+      />,
+    );
+
+    await act(async () => {
+      el.find(Button)
+        .props()
+        .onClick();
+    });
+
+    el.update();
   };
 
-  it('should redirect on resolve', () => {
+  it('should redirect on resolve', async () => {
     const onClick = jest.fn().mockImplementation(() => {
       const [promise, thenable] = makeThenable();
       promise.then = thenable;
@@ -51,14 +55,16 @@ describe('Trash', () => {
       return promise;
     });
 
-    renderAndClick(onClick);
+    await renderAndClick(onClick);
     jest.runAllTimers();
 
     expect(onClick).toHaveBeenCalled();
-    expect(navigate).toHaveBeenCalledWith('/app/foo');
+    return expect(navigate).toHaveBeenCalledWith(
+      '/app/foo',
+    );
   });
 
-  it('should do nothing on reject', () => {
+  it('should do nothing on reject', async () => {
     const onClick = jest.fn().mockImplementation(() => {
       const [promise, thenable] = makeThenable();
       promise.then = () => promise;
@@ -67,11 +73,13 @@ describe('Trash', () => {
       return promise;
     });
 
-    renderAndClick(onClick);
+    await renderAndClick(onClick);
     jest.runAllTimers();
 
     expect(onClick).toHaveBeenCalled();
-    expect(navigate).not.toHaveBeenCalledWith('/app/foo');
+    return expect(navigate).not.toHaveBeenCalledWith(
+      '/app/foo',
+    );
   });
 
   it('should render alerts', () => {
@@ -88,6 +96,5 @@ describe('Trash', () => {
     );
 
     expect(el.find(Alert)).toHaveLength(2);
-    expect(el.find(CircularProgress)).toHaveLength(1);
   });
 });

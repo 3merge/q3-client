@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Router } from '@reach/router';
 import { Protected } from 'q3-ui-permissions';
-import NotFound from './404';
+import Graphic from 'q3-ui-assets';
+
+const NotFound = () => (
+  <Graphic icon="Missing" title="missing" />
+);
 
 export const makePath = ({
   resourceName,

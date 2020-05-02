@@ -52,5 +52,6 @@
   "addSubDocument": "Add subdocument",
   "multiSelectSubDocument": "Select multiple subdocuments",
   "sidebar": "Sidebar",
-  "log": "History log"
+  "log": "History log",
+  "missing": "404"
 }

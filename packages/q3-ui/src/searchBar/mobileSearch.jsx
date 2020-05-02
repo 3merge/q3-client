@@ -53,6 +53,7 @@ const MobileSearch = ({
         )}
         renderContent={(c) => (
           <SearchResults
+            term={value}
             results={results}
             loading={loading}
             onClick={(v) => () =>

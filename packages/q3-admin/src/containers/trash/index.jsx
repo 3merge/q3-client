@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Alert from 'q3-ui/lib/alert';
 import Container from '@material-ui/core/Container';
+import Graphic from 'q3-ui-assets';
 import { Throw } from 'q3-ui-assets';
 import { useAuth } from 'q3-ui-permissions';
 import { browser } from 'q3-ui-helpers';
@@ -40,7 +41,7 @@ export const Trash = ({
       });
 
   return (
-    <Container maxWidth="sm">
+    <>
       {showError && (
         <Alert
           type="error"
@@ -55,30 +56,28 @@ export const Trash = ({
           dismissable={false}
         />
       )}
-      <Box align="center">
-        <Box maxWidth="350px" mb={2}>
-          <Throw />
-        </Box>
-        <Typography variant="body2" gutterBottom>
-          {t('descriptions:trashDescription')}
-        </Typography>
-        <Box mt={2}>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              onClick={navigateOnResolve}
-              disabled={!canDelete}
-            >
-              {t('labels:addToTrash')}
-            </Button>
-          )}
-        </Box>
-      </Box>
-    </Container>
+      <Graphic
+        description="trashDescription"
+        icon="Throw"
+        renderBottom={() => (
+          <Box mt={2}>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                onClick={navigateOnResolve}
+                disabled={!canDelete}
+              >
+                {t('labels:addToTrash')}
+              </Button>
+            )}
+          </Box>
+        )}
+      />
+    </>
   );
 };
 
