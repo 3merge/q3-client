@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import { Signal, Connect } from 'q3-ui-assets';
-import ErrorMessage from 'q3-ui/lib/error';
+import Graphic from 'q3-ui-assets';
 import { array } from 'q3-ui-helpers';
 import { CartContext } from '../context';
 import useStyle from './useStyle';
 
 const getNamespace = (hasError) =>
   hasError ? 'cartError' : 'cartEmpty';
+
+const getIconName = (hasError) =>
+  hasError ? 'Signal' : 'Connect';
 
 const DrawerBody = ({ children }) => {
   const { root } = useStyle();
@@ -18,18 +20,12 @@ const DrawerBody = ({ children }) => {
 
   const len = array.hasLength(items);
   const namespace = getNamespace(hasError);
-  const Icon = hasError ? Signal : Connect;
+  const icon = getIconName(hasError);
 
   return (
     <Box component="section" className={root}>
       {!len || hasError ? (
-        <ErrorMessage
-          title={namespace}
-          description={namespace}
-          disableGutter
-        >
-          <Icon />
-        </ErrorMessage>
+        <Graphic title={namespace} icon={icon} />
       ) : (
         children
       )}

@@ -5,8 +5,8 @@ import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Tour from 'q3-ui/lib/tour';
+import Graphic from 'q3-ui-assets';
 import Loading from '../../components/loading';
-import ErrorView from '../../components/error';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
@@ -26,15 +26,15 @@ const PageChildren = ({
   fetchingError,
 }) =>
   !hasEntered || fetching ? (
-    <Fade in timeout={350}>
+    <Fade in>
       <Loading id={id} />
     </Fade>
   ) : (
-    <Fade in timeout={350}>
+    <Fade in>
       <Box>
         {fetchingError ? (
           <Box m={4}>
-            <ErrorView />
+            <Graphic title="error" icon="Error" />
           </Box>
         ) : (
           children

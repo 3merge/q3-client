@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
@@ -24,6 +23,7 @@ const Quantity = ({
   onQuantityChange,
   defaultValue,
   children,
+  disabled,
   ...rest
 }) => {
   const { t } = useTranslation('labels');
@@ -51,6 +51,7 @@ const Quantity = ({
 
   const renderDecreaseInput = () => (
     <IconButton
+      disabled={disabled}
       className={bottom}
       aria-label={t('subtract')}
       onClick={decrease}
@@ -62,6 +63,7 @@ const Quantity = ({
 
   const renderIncreaseInput = () => (
     <IconButton
+      disabled={disabled}
       className={top}
       aria-label={t('add')}
       onClick={increase}
@@ -107,6 +109,7 @@ const Quantity = ({
         helperText={message}
         error={hasError}
         value={quantity}
+        disabled={disabled}
         {...styles}
         {...rest}
       />
@@ -118,6 +121,7 @@ const Quantity = ({
 
 Quantity.defaultProps = {
   children: null,
+  disabled: false,
   defaultValue: 1,
   minimum: 0,
   onMinimum: null,
@@ -131,6 +135,12 @@ Quantity.propTypes = {
    * Render a child element and pass along the quantity value and reset function.
    */
   children: PropTypes.func,
+
+  /**
+   * Disable all number functionality, including the up/down buttons.
+   */
+  disabled: PropTypes.bool,
+
   /**
    * Initial value of the input.
    */
@@ -161,5 +171,4 @@ Quantity.propTypes = {
    */
   variant: PropTypes.oneOf([STACKED, SPREAD]),
 };
-
 export default Quantity;

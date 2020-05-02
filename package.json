@@ -14,6 +14,8 @@
     "deploy-storybook": "storybook-to-ghpages -- --out=.out"
   },
   "workspaces": [
+    "e2e-tests",
+    "gatsby-theme-q3",
     "packages/*"
   ],
   "resolutions": {

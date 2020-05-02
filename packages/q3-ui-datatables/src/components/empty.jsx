@@ -4,8 +4,7 @@ import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import ErrorComponent from 'q3-ui/lib/error';
-import { Empty } from 'q3-ui-assets';
+import Graphic from 'q3-ui-assets';
 import { withLocation } from 'with-location';
 import { object } from 'q3-ui-helpers';
 
@@ -21,29 +20,27 @@ export default withLocation(
       navigate(get(location, 'pathname', '/'));
     };
 
+    const getClear = () =>
+      object.hasKeys(getAll()) ? (
+        <Box my={2}>
+          <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            onClick={onClear}
+            size="large"
+          >
+            {t('labels:clear')}
+          </Button>
+        </Box>
+      ) : null;
+
     return (
-      <Box
-        pt={4}
-        pb={2}
-        style={{ backgroundColor: '#FFF' }}
-      >
-        <ErrorComponent title="empty" description="empty">
-          <Empty />
-        </ErrorComponent>
-        {object.hasKeys(getAll()) && (
-          <Box mt={-3} pb={4} align="center">
-            <Button
-              type="button"
-              variant="contained"
-              color="secondary"
-              size="large"
-              onClick={onClear}
-            >
-              {t('labels:clear')}
-            </Button>
-          </Box>
-        )}
-      </Box>
+      <Graphic
+        icon="Empty"
+        title="empty"
+        renderBottom={getClear}
+      />
     );
   },
 );

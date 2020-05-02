@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorMessage from 'q3-ui/lib/error';
+import Graphic from 'q3-ui-assets';
 import DrawerBody from './DrawerBody';
 
 jest.mock('./useStyle', () =>
@@ -25,7 +25,7 @@ const getNamespaceFromErrorComponent = () =>
         <div />
       </DrawerBody>,
     )
-    .find(ErrorMessage)
+    .find(Graphic)
     .props().title;
 
 describe('DrawerBody', () => {

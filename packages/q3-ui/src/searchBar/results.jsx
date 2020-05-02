@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { NoResults, Search } from 'q3-ui-assets';
 import { array } from 'q3-ui-helpers';
-import ErrorComponent from '../error';
+import Graphic from 'q3-ui-assets';
 import SearchResultListItem from './searchResultListItem';
 
 const hasTerm = (term) =>
-  typeof term === 'string' && term.length;
+  typeof term === 'string' && term.length > 1;
 
 const getErrorProps = (term) =>
   hasTerm(term)
     ? {
         title: 'noResults',
         description: 'noResults',
+        icon: 'NoResults',
       }
     : {
         title: 'startTyping',
         description: 'browseOrClick',
+        icon: 'Search',
       };
 
 export const SearchResultList = ({
@@ -29,8 +30,6 @@ export const SearchResultList = ({
   setResults,
   onClick,
 }) => {
-  const Icon = hasTerm(term) ? NoResults : Search;
-
   if (loading)
     return (
       <Box align="center" p={3}>
@@ -39,14 +38,7 @@ export const SearchResultList = ({
     );
 
   return !array.hasLength(results) ? (
-    <ErrorComponent {...getErrorProps(term)}>
-      <Icon
-        style={{
-          height: 150,
-          margin: '3rem auto',
-        }}
-      />
-    </ErrorComponent>
+    <Graphic {...getErrorProps(term)} />
   ) : (
     <List component="ul">
       {results.map((result) => (

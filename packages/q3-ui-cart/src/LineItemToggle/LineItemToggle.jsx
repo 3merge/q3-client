@@ -1,10 +1,14 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import { Quantity } from 'q3-components';
 import { CartContext } from '../context';
 import { DRAWER_LINE_ITEM_UPDATE_CLASS } from '../constants';
+
+export const getValueFromParam = (e) =>
+  get(e, 'target.value', e);
 
 export const LineItemToggle = ({
   id,
@@ -16,14 +20,12 @@ export const LineItemToggle = ({
   );
 
   const sendUpdateRequest = React.useCallback(
-    ({ target: { value } }) =>
-      value
-        ? update({ id, product, quantity: value }).then(
-            () => {
-              // noop
-            },
-          )
-        : null,
+    (e) => {
+      const newQuantity = getValueFromParam(e);
+      return newQuantity
+        ? update({ id, product, quantity: newQuantity })
+        : remove(id);
+    },
     [product, quantity],
   );
 
@@ -33,7 +35,7 @@ export const LineItemToggle = ({
         size="small"
         defaultValue={quantity}
         disabled={loading}
-        minimum={1}
+        minimum={0}
         onBlur={sendUpdateRequest}
         onMinimum={remove}
         onQuantityChange={sendUpdateRequest}
