@@ -26,11 +26,11 @@ const PageChildren = ({
   fetchingError,
 }) =>
   !hasEntered || fetching ? (
-    <Fade in timeout={350}>
+    <Fade in>
       <Loading id={id} />
     </Fade>
   ) : (
-    <Fade in timeout={350}>
+    <Fade in>
       <Box>
         {fetchingError ? (
           <Box m={4}>
