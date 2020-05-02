@@ -5,6 +5,7 @@ import {
   withKnobs,
   select,
   number,
+  boolean,
 } from '@storybook/addon-knobs';
 import Quantity from './Quantity';
 import {
@@ -44,11 +45,13 @@ export const WithVariableSizing = () => {
 export const WithMinimum = () => {
   const minimum = number('Minimum value', 5);
   const defaultValue = number('Default value', 10);
+  const disabled = boolean('Disable', false);
 
   return (
     <Quantity
       minimum={minimum}
       defaultValue={defaultValue}
+      disabled={disabled}
     />
   );
 };
