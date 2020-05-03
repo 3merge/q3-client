@@ -1,6 +1,6 @@
 {
   "name": "q3-components",
-  "version": "1.15.4",
+  "version": "1.15.5",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.0",
