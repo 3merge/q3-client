@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
@@ -9,25 +8,8 @@ import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import { SelectOne } from 'q3-ui-exports';
 import useStyle from './useStyle';
-import EditableTypography from './EditableTypography';
 import RepeaterState from './state';
-
-const ItemHeaderTitle = ({ item, title, ...rest }) =>
-  typeof title === 'function' ? (
-    <Typography {...rest}>{title(item)}</Typography>
-  ) : (
-    <EditableTypography {...rest} name={title} data={item}>
-      {get(item, title)}
-    </EditableTypography>
-  );
-
-ItemHeaderTitle.propTypes = {
-  item: PropTypes.shape({}).isRequired,
-  title: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]).isRequired,
-};
+import withEditableTypography from '../withEditableTypography';
 
 const ItemHeader = ({
   showMultiselect,
@@ -37,12 +19,15 @@ const ItemHeader = ({
   icon,
   photo,
   isIn,
-  save,
   title,
 }) => {
   const { id } = item;
   const { multiselect } = React.useContext(RepeaterState);
   const selected = multiselect.isChecked(id);
+
+  const Title = withEditableTypography({
+    data: item,
+  });
 
   const { titleCls, tableCell } = useStyle({
     selected,
@@ -67,14 +52,12 @@ const ItemHeader = ({
             </Grid>
           )}
           <Grid item xs zeroMinWidth>
-            <ItemHeaderTitle
+            <Title
               component="h3"
               color="primary"
-              title={title}
+              name={title}
               editable={isIn(title)}
-              save={save}
               className={titleCls}
-              item={item}
             />
             {description && (
               <Typography>{description}</Typography>
@@ -87,14 +70,13 @@ const ItemHeader = ({
 };
 
 ItemHeader.propTypes = {
-  // eslint-disable-next-line
-  title: ItemHeaderTitle.propTypes.title,
+  title: PropTypes.oneOf([PropTypes.string, PropTypes.func])
+    .isRequired,
   description: PropTypes.string,
   item: PropTypes.shape({ id: PropTypes.string.isRequired })
     .isRequired,
   color: PropTypes.string,
   showMultiselect: PropTypes.bool,
-  save: PropTypes.func.isRequired,
   isIn: PropTypes.func.isRequired,
   icon: PropTypes.func,
   photo: PropTypes.string,

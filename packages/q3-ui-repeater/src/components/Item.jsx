@@ -5,7 +5,8 @@ import TableRow from '@material-ui/core/TableRow';
 import ItemActions from './ItemActions';
 import useStyle from './useStyle';
 import ItemHeader from './ItemHeader';
-import withAttribute, { Attributes } from './Attribute';
+import Attributes from './Attribute';
+import withEditableTypography from '../withEditableTypography'
 import { override } from '../helpers';
 
 //= ===============================================================================
@@ -128,7 +129,7 @@ const Item = ({
       <Attributes
         attributes={attributes}
         isIn={isIn}
-        component={withAttribute({
+        component={withEditableTypography({
           data: item,
         })}
       />
