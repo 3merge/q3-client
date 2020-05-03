@@ -1,8 +1,6 @@
 import React from 'react';
-import { invoke } from 'lodash';
 import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
-import { pick } from 'lodash';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';

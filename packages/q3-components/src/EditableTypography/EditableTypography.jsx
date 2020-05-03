@@ -66,7 +66,8 @@ const EditableTypography = ({
         )}
         aria-haspopup
       >
-        {formatText(children, get(fieldProps, 'type'), t)}
+        {formatText(children, get(fieldProps, 'type'), t) ||
+          '--'}
         {isEditable ? <Edit className={fieldIcon} /> : null}
       </Typography>
       <Popover

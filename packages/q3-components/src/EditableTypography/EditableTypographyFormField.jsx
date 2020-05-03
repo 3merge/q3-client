@@ -46,12 +46,11 @@ const EditableTypographyFormField = ({
       <Typography
         id="name"
         aria-label={name}
-        variant="body2"
+        variant="overline"
         color="primary"
-        component="p"
         gutterBottom
       >
-        <strong>{t(name)}</strong>
+        {t(name)}
       </Typography>
       <Form
         enableSubmit={false}
