@@ -10,6 +10,8 @@ module.exports = {
     '<rootDir>/.github/',
     '<rootDir>/.storybook/',
     '<rootDir>/.vscode/',
+    '<rootDir>/e2e-tests/',
+    '<rootDir>/gatsby-theme-q3/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
     '<rootDir>/packages/q3-ui-assets',

@@ -1,22 +1,33 @@
 /** eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'class-names';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { CartContext } from '../context';
 import AddToCartButtonLoading from '../AddToCartButtonLoading';
 import { ADD_TO_CART_CLASS } from '../constants';
+import useStyle, { getFromProps } from './useStyle';
+import useReset from './useReset';
 
 const AddToCart = ({ quantity = 1, product }) => {
   const { add } = React.useContext(CartContext);
   const { t } = useTranslation('labels');
   const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = useReset();
+  const [error, setError] = useReset();
+  const { btn } = useStyle({
+    success,
+    error,
+  });
 
   const disabled = quantity <= 0 || loading;
-  const label = t('addToCart');
+  const { icon: Icon, label } = getFromProps({
+    success,
+    error,
+  });
 
   const onClick = React.useCallback(() => {
     setLoading(true);
@@ -24,9 +35,8 @@ const AddToCart = ({ quantity = 1, product }) => {
       product,
       quantity,
     })
-      .catch(() => {
-        // noop
-      })
+      .then(setSuccess)
+      .catch(setError)
       .finally(() => {
         setLoading(false);
       });
@@ -35,24 +45,19 @@ const AddToCart = ({ quantity = 1, product }) => {
   return (
     <Button
       fullWidth
-      className={ADD_TO_CART_CLASS}
+      className={classnames(ADD_TO_CART_CLASS, btn)}
       onClick={onClick}
       disabled={disabled}
       variant="contained"
       size="large"
       color="primary"
-      aria-label={label}
+      aria-label={t(label)}
       aria-busy={loading}
-      style={{
-        alignSelf: 'stretch',
-        display: 'flex',
-        margin: '0 0 0 0.25rem',
-      }}
     >
       <AddToCartButtonLoading loading={loading}>
-        <ShoppingCart />
-        <Hidden xsDown>
-          <Box ml={0.5}>{label}</Box>
+        <Icon />
+        <Hidden smDown>
+          <Box ml={0.5}>{t(label)}</Box>
         </Hidden>
       </AddToCartButtonLoading>
     </Button>
