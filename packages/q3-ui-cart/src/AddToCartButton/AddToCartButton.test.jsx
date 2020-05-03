@@ -2,12 +2,17 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import AddToCartButton from './AddToCartButton';
 
-jest.spyOn(React, 'useContext').mockReturnValue({
-  add: jest.fn().mockReturnValue({
-    catch: jest.fn().mockReturnValue({
-      finally: jest.fn(),
-    }),
+jest.mock('./useStyle', () => ({
+  __esModule: true,
+  default: jest.fn().mockReturnValue({}),
+  getFromProps: jest.fn().mockReturnValue({
+    icon: () => null,
+    label: 'addToCart',
   }),
+}));
+
+jest.spyOn(React, 'useContext').mockReturnValue({
+  add: jest.fn().mockReturnValue(Promise.resolve()),
 });
 
 describe('AddToCartButton', () => {
@@ -31,6 +36,7 @@ describe('AddToCartButton', () => {
     const el = global.shallow(
       <AddToCartButton quantity={1} product="abcd" />,
     );
+
     const btn = el.find(Button).props();
     btn.onClick();
 
