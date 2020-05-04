@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.4](https://github.com/3merge/q/compare/v1.16.3...v1.16.4) (2020-05-04)
+
+
+### Bug Fixes
+
+* **q3-admin:** sidebar tabs default ([a1a8b9e](https://github.com/3merge/q/commit/a1a8b9e5cc3c663b19804400eec5c601e01981f4))
+
+
+
+
+
 ## [1.16.3](https://github.com/3merge/q/compare/v1.16.2...v1.16.3) (2020-05-04)
 
 **Note:** Version bump only for package q3-admin
