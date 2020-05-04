@@ -6,12 +6,12 @@ import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from 'gatsby-image';
 import CardHeader from '../header';
 import useStyles from '../useStyle';
 
 const ResourceCard = ({
-  imgSrc,
+  fluid,
   title,
   buttonText,
   to,
@@ -41,8 +41,8 @@ const ResourceCard = ({
         <Grid container spacing={1} alignItems="center">
           <Grid item lx={4} lg={6} xs={12}>
             <Box {...imgContainerProps}>
-              <LazyLoadImage
-                src={imgSrc}
+              <Image
+                fluid={fluid}
                 alt={title}
                 style={{ width: '100%', height: '100%' }}
               />
@@ -94,7 +94,9 @@ ResourceCard.propTypes = {
   /**
    * A logo URL for this resource.
    */
-  imgSrc: PropTypes.string.isRequired,
+  fluid: PropTypes.shape({
+    src: PropTypes.string,
+  }).isRequired,
 
   /**
    * Defines the ObjectFit value for images.

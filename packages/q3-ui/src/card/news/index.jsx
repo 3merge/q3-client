@@ -4,7 +4,7 @@ import moment from 'moment';
 import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from 'gatsby-image';
 import Header from '../header';
 import Wrapper from '../wrapper';
 import useStyles from '../useStyle';
@@ -45,12 +45,16 @@ Ribbon.defaultProps = {
   text: null,
 };
 
-export const CardImage = ({ src, alt, hasRibbon }) => {
+export const CardImage = ({ fluid, alt, hasRibbon }) => {
   const { iconCls } = useStyles();
 
-  return src ? (
+  return fluid ? (
     <div className={iconCls}>
-      <LazyLoadImage src={src} alt={alt} />
+      <Image
+        fluid={fluid}
+        alt={alt}
+        style={{ height: '100%', width: '100%' }}
+      />
     </div>
   ) : (
     // not the height to offset ribbon
@@ -62,7 +66,9 @@ CardImage.propTypes = {
   /**
    *Image URL.
    */
-  src: PropTypes.string,
+  fluid: PropTypes.shape({
+    src: PropTypes.string,
+  }),
 
   /**
    *Image alt attribute.
@@ -76,12 +82,11 @@ CardImage.propTypes = {
 };
 
 CardImage.defaultProps = {
-  src: null,
+  fluid: null,
   hasRibbon: false,
 };
 
 const NewsCard = ({
-  imgSrc,
   title,
   to,
   label,
@@ -92,8 +97,8 @@ const NewsCard = ({
   <Wrapper md={md} sm={6} xs={12} to={to}>
     <CardImage
       alt={title}
-      src={imgSrc}
       hasRibbon={Boolean(label)}
+      {...rest}
     />
     <CardContent>
       <Ribbon text={label} />

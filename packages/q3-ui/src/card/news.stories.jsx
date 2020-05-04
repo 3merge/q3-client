@@ -16,8 +16,10 @@ const getProps = () => ({
     'A small blur of text that will wrap onto the second line',
   name: 'Overline',
   label: 'Badge!',
-  imgSrc:
-    'https://images.unsplash.com/photo-1580579180004-78e804547550?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+  fluid: {
+    src:
+      'https://images.unsplash.com/photo-1580579180004-78e804547550?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+  },
   to: '/',
 });
 
@@ -25,7 +27,7 @@ export const WithAllProps = () => <News {...getProps()} />;
 export const WithoutImage = () => {
   const props = getProps();
   // eslint-disable-next-line
-  delete props.imgSrc;
+  delete props.fluid;
 
   return <News {...props} />;
 };

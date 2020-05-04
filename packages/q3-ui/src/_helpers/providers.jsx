@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import baseQ3Theme from '../mui';
+import 'swiper/css/swiper.css';
 
 const Providers = ({ children, theme }) => (
   <Locale>

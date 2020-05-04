@@ -7,12 +7,6 @@ export default makeStyles((theme) => ({
     margin: '0 auto',
     maxWidth: '100%',
     height: 210,
-    '& img': {
-      width: '100%',
-      height: '100%',
-      position: 'relative',
-      objectFit: 'cover',
-    },
   },
   negativeMargin: {
     backgroundColor: theme.palette.primary.main,

@@ -6,7 +6,7 @@ import ResourceCard from '.';
 const getProps = (args) => ({
   title: 'Foo',
   description: 'Bar',
-  imgSrc: 'https://google.ca',
+  fluid: { src: 'https://google.ca' },
   to: '/',
   buttonText: 'Click me!',
   ...args,
@@ -22,10 +22,7 @@ describe('ResourceCard', () => {
 
   it('should render image container as a link', () => {
     const getBoxProps = (el) =>
-      global
-        .shallow(el)
-        .find(Box)
-        .props();
+      global.shallow(el).find(Box).props();
 
     const withLink = getBoxProps(
       <ResourceCard {...getProps()} />,

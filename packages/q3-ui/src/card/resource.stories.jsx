@@ -16,7 +16,7 @@ const getProps = (args) => ({
   to: '/',
   buttonText: 'First',
 
-  imgSrc: 'https://picsum.photos/id/237/200/300',
+  fluid: { src: 'https://picsum.photos/id/237/200/300' },
   ...args,
 });
 

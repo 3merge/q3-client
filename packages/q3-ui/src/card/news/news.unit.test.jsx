@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Image from 'gatsby-image';
 import { DateString, CardImage, Ribbon } from '.';
 
 describe('NewsCard partials', () => {
@@ -21,20 +21,20 @@ describe('NewsCard partials', () => {
   describe('"CardImage"', () => {
     it('should return empty component', () =>
       expect(
-        global
-          .shallow(<CardImage alt="alt" />)
-          .find(LazyLoadImage),
+        global.shallow(<CardImage alt="alt" />).find(Image),
       ).toHaveLength(0));
 
     it('should assign src/alt attributes', () => {
       const img = global
-        .shallow(<CardImage alt="alt" src="src" />)
-        .find(LazyLoadImage);
+        .shallow(
+          <CardImage alt="alt" fluid={{ src: 'src' }} />,
+        )
+        .find(Image);
 
       expect(img).toHaveLength(1);
       expect(img.props()).toMatchObject({
         alt: 'alt',
-        src: 'src',
+        fluid: expect.any(Object),
       });
     });
   });

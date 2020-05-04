@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { invoke } from 'lodash';
 import Swiper from 'react-id-swiper';
 import Container from '@material-ui/core/Container';
-import { Helmet } from 'react-helmet';
 import Box from '@material-ui/core/Box';
 import Steps from './steps';
 import Pagination from './pagination';
@@ -71,12 +70,6 @@ const Slider = ({
   return (
     <Container maxWidth="xl">
       <Box className={root}>
-        <Helmet>
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css"
-          />
-        </Helmet>
         <Box>
           <Swiper {...params} getSwiper={updateSwiper}>
             {slides.map(({ id, Component, style = {} }) => (
