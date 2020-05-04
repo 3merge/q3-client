@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-filters",
-  "version": "1.15.4",
+  "version": "1.16.0",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.13.2"
@@ -14,7 +14,7 @@
     "decode-uri-component": "^0.2.0",
     "formik": "^2.0.4",
     "lodash": "^4.17.15",
-    "q3-ui-helpers": "^1.15.4",
+    "q3-ui-helpers": "^1.16.0",
     "react-i18next": "11.4.0",
     "with-location": "^1.3.6"
   },
