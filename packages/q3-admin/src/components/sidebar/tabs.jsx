@@ -32,26 +32,25 @@ const SidebarTabs = ({
           variant="fullWidth"
         >
           <Tab label={t('meta')} className={item} />
-          <Tab
-            label={t('internalComments')}
-            disabled={!commentTab}
-            className={item}
-          />
-          <Tab
-            label={t('files')}
-            disabled={!filesTab}
-            className={item}
-          />
-          <Tab
-            label={t('documentation')}
-            disabled={!documentationTab}
-            className={item}
-          />
-          <Tab
-            label={t('history')}
-            disabled={!historyTab}
-            className={item}
-          />
+          {commentTab && (
+            <Tab
+              label={t('internalComments')}
+              className={item}
+            />
+          )}
+          {filesTab && (
+            <Tab label={t('files')} className={item} />
+          )}
+          {documentationTab && (
+            <Tab
+              label={t('documentation')}
+              disabled={!documentationTab}
+              className={item}
+            />
+          )}
+          {historyTab && (
+            <Tab label={t('history')} className={item} />
+          )}
         </Tabs>
         <Box p={1}>
           {isStep(0, step, children)}

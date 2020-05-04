@@ -204,5 +204,6 @@
   "subtotalOf": "Subtotal {{price}}",
   "addToCartFail": "Failed",
   "addToCartSuccess": "Done",
-  "addToCart": "Buy now"
+  "addToCart": "Buy now",
+  "files": "Files"
 }
