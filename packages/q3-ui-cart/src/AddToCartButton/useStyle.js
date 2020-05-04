@@ -9,14 +9,14 @@ export const getFromProps = ({ success, error }) => {
     return {
       backgroundColor: green[900],
       icon: CheckCircleIcon,
-      label: 'done',
+      label: 'addToCartSuccess',
     };
 
   if (error)
     return {
       backgroundColor: red[900],
       icon: ErrorIcon,
-      label: 'failed',
+      label: 'addToCartFail',
     };
 
   return {

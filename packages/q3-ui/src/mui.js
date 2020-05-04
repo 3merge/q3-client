@@ -10,7 +10,7 @@ const headingFont = {
   // color: '#242a31',
   fontWeight: 400,
   fontFamily: '"Source Sans Pro", sans-serif',
-  lineHeight: 0.95,
+  lineHeight: 1.1,
 };
 
 const generateShadows = () => {

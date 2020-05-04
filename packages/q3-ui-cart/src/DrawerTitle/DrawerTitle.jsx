@@ -16,6 +16,8 @@ const DrawerTitle = ({ titleKey }) => {
     CartContext,
   );
 
+  console.log(updateOrder);
+
   const isEditable = Boolean(
     object.isFn(updateOrder) && array.hasLength(items),
   );

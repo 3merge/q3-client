@@ -30,7 +30,7 @@ export const LineItemToggle = ({
   );
 
   return (
-    <Box className={DRAWER_LINE_ITEM_UPDATE_CLASS}>
+    <Box mt={1} className={DRAWER_LINE_ITEM_UPDATE_CLASS}>
       <Quantity
         size="small"
         defaultValue={quantity}

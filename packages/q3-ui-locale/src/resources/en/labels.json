@@ -201,5 +201,8 @@
   "age": "Age",
   "enabled": "Enabled",
   "openCart": "Open cart",
-  "subtotalOf": "Subtotal {{price}}"
+  "subtotalOf": "Subtotal {{price}}",
+  "addToCartFail": "Failed",
+  "addToCartSuccess": "Done",
+  "addToCart": "Buy now"
 }

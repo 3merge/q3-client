@@ -71,8 +71,10 @@ const CartProvider = ({
         add: re(addItemToOrder),
         remove: re(removeItemInOrder),
         update: re(updateItemInOrder),
-        updateOrder: (...args) =>
-          processPromise(updateOrder(...args)),
+        updateOrder: updateOrder
+          ? (...args) =>
+              processPromise(updateOrder(...args))
+          : null,
         clear: (...args) => processPromise(clear(...args)),
         poll,
       }}
