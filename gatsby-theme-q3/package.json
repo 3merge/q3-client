@@ -57,6 +57,7 @@
     "gatsby-transformer-sharp": "^2.4.6",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
+    "query-string": "^6.12.1",
     "react-share": "^4.1.0",
     "slugify": "^1.4.0"
   }

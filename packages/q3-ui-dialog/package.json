@@ -8,7 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
-    "react-i18next": "11.3.1",
+    "react-i18next": "11.4.0",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

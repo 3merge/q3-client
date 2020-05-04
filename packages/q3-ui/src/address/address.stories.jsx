@@ -38,6 +38,7 @@ export const SideBySide = () => (
           phone1="416-789-1234"
           country="CA"
           email="sample@address.com"
+          helper="This is a billing address"
         />
       </Grid>
       <Grid item>

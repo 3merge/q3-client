@@ -18,8 +18,12 @@ const LineItemSubtotal = ({ subtotal }) => {
   );
 };
 
+LineItemSubtotal.defaultProps = {
+  subtotal: 0,
+};
+
 LineItemSubtotal.propTypes = {
-  subtotal: PropTypes.number.isRequired,
+  subtotal: PropTypes.number,
 };
 
 export default LineItemSubtotal;

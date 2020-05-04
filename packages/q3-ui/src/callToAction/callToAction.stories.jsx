@@ -6,7 +6,12 @@ export default {
   title: 'Q3 UI/Components/CallToAction',
 };
 
-export const Default = () => <CallToAction {...fixture} />;
+export const Default = () => (
+  <CallToAction
+    {...fixture}
+    body="If more information is required"
+  />
+);
 export const Light = () => (
   <CallToAction
     {...fixture}

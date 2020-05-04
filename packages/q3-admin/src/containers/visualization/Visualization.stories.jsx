@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import MockRest from 'q3-ui-test-utils/lib/rest';
 import Visualization from './Visualization';
 

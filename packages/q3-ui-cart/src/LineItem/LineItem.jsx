@@ -38,50 +38,30 @@ export default ({ children }) => {
         <Paper elevation={2}>
           <Box p={2}>
             <Box component="div">
-              <Grid
-                container
-                spacing={1}
-                justify="space-between"
-              >
-                <Grid item xs>
-                  <Grid container spacing={2}>
-                    <Grid item style={{ width: 'auto' }}>
-                      <Avatar
-                        variant="rounded"
-                        className={avatar}
-                      >
-                        <img src={img} alt={product} />
-                      </Avatar>
-                    </Grid>
-
-                    <Grid item md={8} sm={9} xs={12}>
-                      <Box>
-                        <Typography
-                          variant="overline"
-                          color="primary"
-                        >
-                          {string.toPrice(price)} ea.
-                        </Typography>
-                        <Typography
-                          variant="h3"
-                          gutterBottom
-                        >
-                          {name}
-                        </Typography>
-                        <Typography>
-                          {description}
-                        </Typography>
-                        <LineItemSubtotal
-                          subtotal={subtotal}
-                        />
-                      </Box>
-                    </Grid>
-                  </Grid>
-
-                  {children && children(item)}
+              <Grid container spacing={2}>
+                <Grid item style={{ width: 'auto' }}>
+                  <Avatar
+                    variant="rounded"
+                    className={avatar}
+                  >
+                    <img src={img} alt={product} />
+                  </Avatar>
                 </Grid>
-
-                <Grid item className={action}>
+                <Grid item md={10} sm={9} xs={12}>
+                  <Box>
+                    <Typography
+                      variant="overline"
+                      color="primary"
+                    >
+                      {string.toPrice(price)} ea.
+                    </Typography>
+                    <Typography variant="h3" gutterBottom>
+                      {name}
+                    </Typography>
+                    <Typography>{description}</Typography>
+                    <LineItemSubtotal subtotal={subtotal} />
+                  </Box>
+                  {children && children(item)}
                   <LineItemToggle
                     id={id}
                     product={product}

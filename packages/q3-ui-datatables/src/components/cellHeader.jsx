@@ -21,7 +21,7 @@ const CellHeader = ({ name, sub, imgSrc, to, onClick }) => {
             container
             alignItems="center"
             spacing={1}
-            style={{ width: 'auto' }}
+            style={{ width: 'auto', padding: '8px 0' }}
           >
             <Grid item>
               <Avatar word={name} imgSrc={imgSrc} />

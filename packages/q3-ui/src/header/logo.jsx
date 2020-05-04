@@ -19,12 +19,7 @@ const Logo = ({
       <LazyLoadImage src={logoImgSrc} alt={name} />
     </Link>
   ) : (
-    <Typography
-      variant="h3"
-      style={{ padding: '0 1rem' }}
-      component="h1"
-      color="inherit"
-    >
+    <Typography variant="h4" component="h1" color="inherit">
       {name}
     </Typography>
   );

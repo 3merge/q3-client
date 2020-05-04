@@ -2,6 +2,7 @@ import React from 'react';
 import { merge } from 'lodash';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import MomentUtils from '@date-io/moment';
 import Locale from 'q3-ui-locale';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -19,7 +20,11 @@ const Providers = ({ children, theme }) => (
           rel="stylesheet"
         />
       </Helmet>
-      <MuiPickersUtilsProvider utils={MomentUtils}>
+      <MuiPickersUtilsProvider
+        libInstance={moment}
+        utils={MomentUtils}
+        locale="en"
+      >
         {children}
       </MuiPickersUtilsProvider>
     </ThemeProvider>

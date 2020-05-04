@@ -17,22 +17,24 @@ export const SelectWrapper = ({
   children,
   helperText,
   ...rest
-}) => (
-  <FormControl
-    variant="filled"
-    size="small"
-    fullWidth
-    {...rest}
-  >
-    {label && (
-      <InputLabel htmlFor={name}>{label}</InputLabel>
-    )}
-    {children}
-    <Collapse in={Boolean(helperText)}>
-      <FormHelperText>{helperText}</FormHelperText>
-    </Collapse>
-  </FormControl>
-);
+}) => {
+  return (
+    <FormControl
+      variant="filled"
+      size="small"
+      fullWidth
+      {...rest}
+    >
+      {label && (
+        <InputLabel htmlFor={name}>{label}</InputLabel>
+      )}
+      {children}
+      <Collapse in={Boolean(helperText)}>
+        <FormHelperText>{helperText}</FormHelperText>
+      </Collapse>
+    </FormControl>
+  );
+};
 
 SelectWrapper.propTypes = {
   name: PropTypes.string.isRequired,
@@ -79,6 +81,7 @@ const NativeSelect = (props) => {
         {...rest}
         native
         name={name}
+        labelId="label"
         value={items.length ? value : ''}
         disabled={disabled}
         readOnly={readOnly}
@@ -92,6 +95,10 @@ const NativeSelect = (props) => {
             : undefined
         }
         onChange={onChange}
+        inputProps={{
+          name: 'age',
+          id: name,
+        }}
       >
         <option
           value=""

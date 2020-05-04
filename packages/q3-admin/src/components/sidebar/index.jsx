@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';

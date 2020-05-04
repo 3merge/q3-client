@@ -39,7 +39,7 @@ export default makeStyles((theme) => ({
     return {
       backgroundColor: fn(50),
       color: fn(900),
-      fontSize: '0.9rem',
+      fontSize: '0.783rem',
       marginBottom: 2,
     };
   },

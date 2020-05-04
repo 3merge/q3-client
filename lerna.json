@@ -2,6 +2,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
+    "gatsby-theme-q3",
     "packages/*"
   ],
   "version": "1.15.5",

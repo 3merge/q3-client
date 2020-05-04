@@ -1,105 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import { Form, Field } from 'q3-ui-forms/lib/builders';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
-import { POPOVER_CLASS } from './constants';
+import { Field } from 'q3-ui-forms/lib/builders';
 
-export const executeCallbackAfterPromise = (
-  onSave,
-  done,
-) => (values, actions) => {
-  const fn = onSave(values, actions);
-
-  if (fn && 'then' in fn)
-    return fn.then((r) => {
-      done();
-      return r;
-    });
-
-  done();
-  return fn;
-};
-
-const isCheckbox = (type) => type === 'checkbox';
+export const isCheckbox = (type) => type === 'checkbox';
 
 const EditableTypographyFormField = ({
-  onClose,
-  onSave,
-  fieldProps,
-  initialValues,
+  name,
+  type,
+  ...rest
 }) => {
-  const { t } = useTranslation('labels');
-  const { name, type } = fieldProps;
   const check = isCheckbox(type);
 
   return (
-    <Box
-      p={1}
-      pb={0}
-      minWidth={230}
-      maxWidth="90%"
-      className={POPOVER_CLASS}
-    >
-      <Typography
-        id="name"
-        aria-label={name}
-        variant="overline"
-        color="primary"
-        gutterBottom
-      >
-        {t(name)}
-      </Typography>
-      <Form
-        enableSubmit={false}
-        initialValues={initialValues}
-        onSubmit={executeCallbackAfterPromise(
-          onSave,
-          onClose,
-        )}
-      >
-        <Field
-          autoFocus
-          {...fieldProps}
-          variant="standard"
-          aria-labelledby={`#${name}`}
-          suppressLabel={!check}
-          label={check ? 'enabled' : ''}
-        />
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          mt={0.5}
-        >
-          <Button onClick={onClose} size="small">
-            {t('cancel')}
-          </Button>
-
-          <Button
-            type="submit"
-            size="small"
-            variant="contained"
-            color="secondary"
-            style={{ marginLeft: '0.5rem' }}
-          >
-            {t('apply')}
-          </Button>
-        </Box>
-      </Form>
-    </Box>
+    <Field
+      {...rest}
+      autoFocus
+      variant="standard"
+      name={name}
+      type={type}
+      aria-labelledby={`#${name}`}
+      suppressLabel={!check}
+      label={check ? 'enabled' : ''}
+    />
   );
 };
 
 EditableTypographyFormField.propTypes = {
-  initialValues: PropTypes.shape({}).isRequired,
-  fieldProps: PropTypes.shape({
-    type: PropTypes.string,
-    name: PropTypes.string,
-  }).isRequired,
-  onSave: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+};
+
+EditableTypographyFormField.defaultProps = {
+  type: 'text',
 };
 
 export default EditableTypographyFormField;

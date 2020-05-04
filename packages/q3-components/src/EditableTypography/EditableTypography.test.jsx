@@ -1,8 +1,5 @@
 import React from 'react';
-import Edit from '@material-ui/icons/Edit';
-import EditableTypography, {
-  formatText,
-} from './EditableTypography';
+import EditableTypography from './EditableTypography';
 
 jest.mock('useful-state', () => ({
   useToggle: jest.fn().mockReturnValue({
@@ -15,6 +12,10 @@ jest.mock('useful-state', () => ({
 const getGeneralProps = () => ({
   initialValues: { foo: 'bar' },
   onSubmit: jest.fn(),
+  fieldProps: {
+    type: 'text',
+    name: 'foo',
+  },
 });
 
 describe('EditableTypography', () => {
@@ -37,7 +38,7 @@ describe('EditableTypography', () => {
   });
 
   it('should render edit icon', () => {
-    const icon = global
+    const trigger = global
       .shallow(
         <EditableTypography
           isEditable
@@ -46,28 +47,17 @@ describe('EditableTypography', () => {
           Text
         </EditableTypography>,
       )
-      .find(Edit);
+      .props()
+      .buttonComponent(jest.fn(), true);
 
-    expect(icon).toHaveLength(1);
-  });
+    expect(trigger.type.name).toMatch(
+      'EditableTypographyTrigger',
+    );
 
-  describe('"formatText"', () => {
-    it('should return a number', () => {
-      expect(formatText('12.12', 'number')).toBe(12.12);
-      expect(formatText('string', 'number')).toMatch('--');
-    });
-
-    it('should return a date', () => {
-      expect(formatText('2020-12-12', 'date')).toMatch(
-        'December',
-      );
-      expect(formatText('not-a-date', 'date')).toMatch(
-        '--',
-      );
-    });
-
-    it('should return Yes', () => {
-      expect(formatText(true, 'checkbox')).toMatch('YES');
-    });
+    expect(trigger.props).toHaveProperty('isOpen', true);
+    expect(trigger.props).toHaveProperty(
+      'open',
+      expect.any(Function),
+    );
   });
 });

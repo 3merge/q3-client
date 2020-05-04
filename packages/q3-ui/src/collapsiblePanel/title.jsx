@@ -11,23 +11,29 @@ export default withCriticalProp(
     return (
       <Grid
         item
-        lg={3}
-        md={12}
+        lg={2}
+        md={3}
         sm={12}
         xs={12}
         style={{ margin: 0 }}
       >
-        <Grid container spacing={1}>
+        <Grid container alignItems="center">
           {Icon && (
-            <Grid item>
-              <Icon {...rest} />
-            </Grid>
+            <Icon
+              {...rest}
+              style={{
+                fontSize: '100%',
+                marginRight: '0.25rem',
+              }}
+            />
           )}
           <Grid item xs zeroMinWidth>
             <Typography
               component="h3"
-              variant="body1"
-              style={{ fontWeight: 600 }}
+              style={{
+                fontWeight: 600,
+                fontSize: '0.855rem',
+              }}
               {...rest}
             >
               {t(title)}

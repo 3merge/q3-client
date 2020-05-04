@@ -44,7 +44,7 @@ Phone.propTypes = {
   number: PropTypes.string.isRequired,
 };
 
-export const AddressLink = ({ children }) => {
+export const AddressLink = ({ children, ...rest }) => {
   const q = reduceChildren(children);
 
   return (
@@ -52,6 +52,7 @@ export const AddressLink = ({ children }) => {
       href={`http://maps.google.com/maps?q=${q}`}
       rel="noopener"
       target="_blank"
+      {...rest}
     >
       {children}
     </Link>

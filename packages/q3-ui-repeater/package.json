@@ -8,7 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.31",
+    "@material-ui/lab": "^4.0.0-alpha.51",
     "@material-ui/pickers": "^3.2.8",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
@@ -16,7 +16,7 @@
     "q3-ui-dialog": "^1.14.6",
     "q3-ui-exports": "^1.14.6",
     "q3-ui-forms": "^1.15.4",
-    "react-i18next": "11.3.1",
+    "react-i18next": "11.4.0",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

@@ -3,18 +3,18 @@
   "version": "1.15.5",
   "main": "lib/index.js",
   "devDependencies": {
-    "jest-localstorage-mock": "^2.4.0",
+    "jest-localstorage-mock": "^2.4.2",
     "q3-ui-test-utils": "^1.13.2"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "class-names": "^1.0.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "2.24.0",
     "q3-ui-forms": "^1.15.4",
-    "react-i18next": "11.3.1",
+    "react-i18next": "11.4.0",
     "useful-state": "^1.2.0",
-    "yup": "^0.27.0"
+    "yup": "^0.28.5"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.5.1",

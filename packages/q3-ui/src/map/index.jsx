@@ -42,7 +42,14 @@ MarkerLocator.propTypes = {
 
 const Wrapped = withScriptjs(withGoogleMap(MarkerLocator));
 
-const Map = ({ apiKey, street, city, postal, ...rest }) => {
+const Map = ({
+  apiKey,
+  street,
+  city,
+  postal,
+  size,
+  ...rest
+}) => {
   const [coordinates, setCoordinates] = React.useState([]);
 
   const renderMap = (google) => {
@@ -74,7 +81,11 @@ const Map = ({ apiKey, street, city, postal, ...rest }) => {
       renderMap={renderMap}
       containerElement={
         <div
-          style={{ height: '400px', marginBottom: '50px' }}
+          style={
+            size === 'small'
+              ? { height: 250 }
+              : { height: '400px', marginBottom: '50px' }
+          }
         />
       }
     />
@@ -86,6 +97,11 @@ Map.propTypes = {
   street: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   postal: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(['small', 'regular']),
+};
+
+Map.defaultProps = {
+  size: 'regular',
 };
 
 export default Map;

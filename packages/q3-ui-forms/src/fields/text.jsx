@@ -31,9 +31,10 @@ const Text = (props) => {
       {...removeHelperProps(etc)}
       disabled={disabled}
       readOnly={readOnly}
-      size="small"
-      error={error}
+      // size="small"
       fullWidth
+      margin="dense"
+      error={error}
       label={label}
       helperText={helperText}
       variant="filled"

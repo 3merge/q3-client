@@ -4,6 +4,7 @@ import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import AppBar from '@material-ui/core/AppBar';
+import Locale from 'q3-ui-locale';
 import useFixtures from './useFixtures';
 
 import Provider, {
@@ -21,49 +22,51 @@ export const withFixtures = () => {
   const fixtures = useFixtures();
 
   return (
-    <Provider {...fixtures}>
-      <Box>
-        <AppBar color="inherit">
-          <Box>
-            <Launcher>
-              {(close, isOpen) => (
-                <Drawer
-                  titleKey="title"
-                  close={close}
-                  isOpen={isOpen}
-                  shopPath="/shop"
-                  checkoutPath="/checkout"
-                >
-                  <LineItem>
-                    {() => (
-                      <p
-                        style={{
-                          backgroundColor: 'whitesmoke',
-                        }}
-                      >
-                        This is a custom element..
-                      </p>
-                    )}
-                  </LineItem>
-                </Drawer>
-              )}
-            </Launcher>
+    <Locale>
+      <Provider {...fixtures}>
+        <Box>
+          <AppBar color="inherit">
+            <Box>
+              <Launcher>
+                {(close, isOpen) => (
+                  <Drawer
+                    titleKey="title"
+                    close={close}
+                    isOpen={isOpen}
+                    shopPath="/shop"
+                    checkoutPath="/checkout"
+                  >
+                    <LineItem>
+                      {() => (
+                        <p
+                          style={{
+                            backgroundColor: 'whitesmoke',
+                          }}
+                        >
+                          This is a custom element..
+                        </p>
+                      )}
+                    </LineItem>
+                  </Drawer>
+                )}
+              </Launcher>
+            </Box>
+          </AppBar>
+          <Box my={8}>
+            <Container>
+              <Card style={{ width: 350 }}>
+                <CardContent>
+                  <AddToCart
+                    product="abc"
+                    variant="spread"
+                    size="small"
+                  />
+                </CardContent>
+              </Card>
+            </Container>
           </Box>
-        </AppBar>
-        <Box my={8}>
-          <Container>
-            <Card style={{ width: 350 }}>
-              <CardContent>
-                <AddToCart
-                  product="abc"
-                  variant="spread"
-                  size="small"
-                />
-              </CardContent>
-            </Card>
-          </Container>
         </Box>
-      </Box>
-    </Provider>
+      </Provider>
+    </Locale>
   );
 };

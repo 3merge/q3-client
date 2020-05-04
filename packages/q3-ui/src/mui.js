@@ -7,9 +7,10 @@ import grey from '@material-ui/core/colors/grey';
 const color = '#1f2026';
 
 const headingFont = {
-  color: '#242a31',
+  // color: '#242a31',
   fontWeight: 400,
   fontFamily: '"Source Sans Pro", sans-serif',
+  lineHeight: 0.95,
 };
 
 const generateShadows = () => {
@@ -41,34 +42,35 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       ...headingFont,
-      fontSize: '2.887rem',
+      fontSize: '2.658rem',
       fontWeight: 600,
     },
     h2: {
       ...headingFont,
       marginTop: 8,
-      fontSize: '2.281rem',
+      fontSize: '2.353rem',
     },
     h3: {
       ...headingFont,
-      fontSize: '1.802rem',
+      fontSize: '2.082rem',
     },
     h4: {
       ...headingFont,
-      fontSize: '1.602rem',
+      fontSize: '1.842rem',
     },
     h5: {
       ...headingFont,
-      fontSize: '1.266rem',
+      fontSize: '1.63rem',
     },
     h6: {
       ...headingFont,
-      fontSize: '0.889rem',
+      fontSize: '1.443rem',
     },
     overline: {
       color: '#4d555e',
       fontWeight: 400,
       lineHeight: 1.35,
+      fontSize: '0.885rem',
     },
     body1: {
       color: '#4f5868',
@@ -77,12 +79,15 @@ const theme = createMuiTheme({
       },
     },
     body2: {
-      fontSize: '1.15rem',
+      fontSize: '1.443rem',
       fontWeight: 400,
+    },
+    subtitle2: {
+      fontSize: '1.277rem',
     },
     subtitle1: {
       color: '#4f5868',
-      fontSize: '1.15rem',
+      fontSize: '1.13rem',
       fontWeight: 600,
     },
     fontFamily: '"Roboto", sans-serif',
@@ -96,9 +101,11 @@ Object.assign(theme, {
     MuiCssBaseline: {
       '@global': {
         body: {
+          fontSize: 'initial !important',
           color,
         },
         html: {
+          fontSize: 'initial !important',
           color,
         },
         img: {
@@ -108,7 +115,7 @@ Object.assign(theme, {
     },
     MuiLink: {
       root: {
-        textDecoration: 'none !important',
+        textDecoration: 'underline !important',
       },
     },
     MuiPaper: {
@@ -174,7 +181,7 @@ Object.assign(theme, {
       },
       root: {
         overflow: 'hidden',
-        padding: '4px 8px',
+        padding: '0 8px',
         borderBottom: `2px solid ${grey[100]}`,
         fontSize: '1rem !important',
       },
@@ -297,6 +304,12 @@ Object.assign(theme, {
         '&.Mui-disabled': {
           opacity: 1,
         },
+      },
+    },
+
+    MuiTab: {
+      root: {
+        textTransform: 'none',
       },
     },
 

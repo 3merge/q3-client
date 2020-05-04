@@ -6,10 +6,8 @@ export default makeStyles((theme) => ({
   }),
   columnWidth: ({ height }) => ({
     height,
-    width: 495,
-    [theme.breakpoints.down('lg')]: {
-      width: 405,
-    },
+    width: 405,
+
     [theme.breakpoints.down('md')]: {
       width: 315,
     },

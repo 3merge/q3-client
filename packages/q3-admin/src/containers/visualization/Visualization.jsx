@@ -6,11 +6,13 @@ import BannerWithOffset from 'q3-ui/lib/bannerWithOffset';
 import axios from 'axios';
 import { get } from 'lodash';
 import Grid from '@material-ui/core/Grid';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Statistic from 'q3-ui/lib/statistic';
 import { object, browser } from 'q3-ui-helpers';
+import { Chart } from 'q3-components';
 
 export const getFrom = (url, onData, onError) =>
   axios
@@ -43,7 +45,7 @@ export const useVisualization = (url, filters) => {
       setSrc,
       setErr,
     );
-  }, []);
+  }, [filters]);
 
   return {
     src,
@@ -52,9 +54,13 @@ export const useVisualization = (url, filters) => {
 };
 
 export const MongoChart = ({ id, title, filters }) => {
+  const [initialValues, setInitialValues] = React.useState(
+    filters,
+  );
+
   const { src, err } = useVisualization(
     `/charts?id=${id}`,
-    filters,
+    initialValues,
   );
 
   const url = get(src, 'url');
@@ -73,19 +79,12 @@ export const MongoChart = ({ id, title, filters }) => {
     );
 
   return (
-    <Box p={1}>
-      <Paper>
-        <Box height={480} p={2}>
-          <iframe
-            width="100%"
-            height="100%"
-            frameBorder={0}
-            title={title}
-            src={url}
-          />
-        </Box>
-      </Paper>
-    </Box>
+    <Chart
+      title={title}
+      url={url}
+      filters={initialValues}
+      onSubmit={(values) => setInitialValues(values)}
+    />
   );
 };
 

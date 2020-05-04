@@ -1,71 +1,65 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import Pin from '@material-ui/icons/Map';
+import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import { IconLabel } from 'q3-components';
+import { Inline } from 'q3-components';
 import { AddressLink, Phone, Email } from '../link';
 import useStyle from './useStyle';
+import Map from '../map';
 
-export const AddressLabel = ({ icon: Icon, label }) => {
-  const { t } = useTranslation('labels');
-  const cls = useStyle();
+export const AddressLine = IconLabel;
 
-  return (
-    <Grid item>
-      <Typography variant="overline" className={cls.label}>
-        <Icon className={cls.icon} />
-        {t(label)}
-      </Typography>
-    </Grid>
-  );
-};
-
-AddressLabel.propTypes = {
-  icon: PropTypes.node.isRequired,
-  label: PropTypes.string.isRequired,
-};
-
-export const AddressLine = ({ children, ...rest }) => (
-  <Box mb={0.25}>
-    <Grid container alignItems="flex-start">
-      <AddressLabel {...rest} />
-      <Grid item xs>
-        {children}
-      </Grid>
-    </Grid>
-  </Box>
-);
-
-AddressLine.propTypes = {
-  ...AddressLabel.propTypes,
-  children: PropTypes.node.isRequired,
-};
-
-export const AddressHeader = ({ label, title }) => (
+export const AddressHeader = ({ label, title, helper }) => (
   <Box mb={1}>
-    <Box mb={1}>
-      {label && (
-        <Typography
-          component="p"
-          variant="h6"
-          color="primary"
-        >
-          {label}
-        </Typography>
+    <Grid
+      container
+      alignItems="center"
+      justify="space-between"
+    >
+      <Grid item>
+        <Box mb={1}>
+          {label && (
+            <Typography
+              component="p"
+              variant="h6"
+              color="primary"
+            >
+              {label}
+            </Typography>
+          )}
+          <Typography
+            color="primary"
+            variant="body2"
+            gutterBottom
+          >
+            <strong>{title}</strong>
+          </Typography>
+        </Box>
+      </Grid>
+      {helper && (
+        <Grid item>
+          <Inline
+            title={label}
+            withHover
+            renderContent={() => (
+              <p style={{ margin: 0 }}>{helper}</p>
+            )}
+            renderTrigger={(open, isOpen, events) => (
+              <span {...events} aria-label="Help">
+                <NotListedLocationIcon />
+              </span>
+            )}
+          />
+        </Grid>
       )}
-      <Typography
-        color="primary"
-        variant="body2"
-        gutterBottom
-      >
-        <strong>{title}</strong>
-      </Typography>
-    </Box>
+    </Grid>
     <Divider />
   </Box>
 );
@@ -87,11 +81,16 @@ const Address = ({
   region,
   country,
   postal,
+  helper,
 }) => {
   const cls = useStyle();
   return (
     <Typography component="address" className={cls.root}>
-      <AddressHeader label={label} title={company} />
+      <AddressHeader
+        label={label}
+        title={company}
+        helper={helper}
+      />
       {email && (
         <AddressLine icon={EmailIcon} label="email">
           <Email address={email} />
@@ -103,19 +102,36 @@ const Address = ({
         </AddressLine>
       )}
       <AddressLine icon={Pin} label="address">
-        <AddressLink>
-          {streetNumber} {streetLine1}
-          {streetLine2 && (
-            <>
-              <br />
-              {streetLine2}
-            </>
+        <Inline
+          withHover
+          title="GoogleMaps"
+          renderContent={() => (
+            <Box width="100%">
+              <Map
+                size="small"
+                apiKey="AIzaSyCt7yombMtPIeU_-mWAi4_3iuOfh-Z_LY0"
+                street={streetLine1}
+                city={city}
+                postal={postal}
+              />
+            </Box>
           )}
-          <br />
-          {city} {region}
-          <br />
-          {country} {postal}
-        </AddressLink>
+          renderTrigger={(open, isOpen, events) => (
+            <AddressLink {...events}>
+              {streetNumber} {streetLine1}
+              {streetLine2 && (
+                <>
+                  <br />
+                  {streetLine2}
+                </>
+              )}
+              <br />
+              {city} {region}
+              <br />
+              {country} {postal}
+            </AddressLink>
+          )}
+        />
       </AddressLine>
     </Typography>
   );
@@ -136,6 +152,7 @@ Address.propTypes = {
   region: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
   postal: PropTypes.string.isRequired,
+  helper: PropTypes.string,
 };
 
 Address.defaultProps = {
@@ -143,6 +160,7 @@ Address.defaultProps = {
   streetLine2: '',
   phone1: '',
   email: '',
+  helper: '',
 };
 
 export default Address;

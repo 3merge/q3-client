@@ -11,12 +11,12 @@ export default withCriticalProp(
     const { iconFont } = useStyle(rest);
 
     return (
-      <Grid item lg={9} md={12} sm={12} xs={12}>
+      <Grid item lg={10} md={9} sm={12} xs={12}>
         <Typography
           component="em"
           className={iconFont}
           style={{
-            fontSize: '0.91rem',
+            fontSize: '0.855rem',
           }}
         >
           {typeof description === 'string'

@@ -1,4 +1,5 @@
 import React from 'react';
+import queryString from 'query-string';
 import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { PasswordChange as PasswordChangePreset } from 'q3-ui-forms/lib/presets';
@@ -7,18 +8,19 @@ import FormBox from '../components/FormBox';
 
 export default (props) => {
   const { t } = useTranslation();
-  const search = new URLSearchParams(
+  const { passwordResetToken, email } = queryString.parse(
     get(props, 'location.search', ''),
+    {
+      decode: false,
+    },
   );
 
   return (
     <FormBox
       renderBottom={
         <PasswordChangePreset
-          email={search.get('email')}
-          passwordResetToken={search.get(
-            'passwordResetToken',
-          )}
+          email={email}
+          passwordResetToken={passwordResetToken}
         />
       }
       renderTop={

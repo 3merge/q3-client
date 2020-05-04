@@ -40,6 +40,7 @@ CallToActionButton.defaultProps = {
 const CallToAction = ({
   title,
   description,
+  body,
   color,
   to,
   buttonText,
@@ -81,9 +82,19 @@ const CallToAction = ({
         variant="h3"
         gutterBottom
         component="p"
+        style={{ marginTop: '0.75rem' }}
       >
         {description}
       </Typography>
+      {body && (
+        <Typography
+          color="inherit"
+          gutterBottom
+          component="p"
+        >
+          {body}
+        </Typography>
+      )}
       <CallToActionButton
         to={to}
         text={buttonText}

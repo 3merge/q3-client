@@ -1,34 +1,8 @@
 import React from 'react';
-import classnames from 'class-names';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Edit from '@material-ui/icons/Edit';
-import { useToggle } from 'useful-state';
-import { string } from 'q3-ui-helpers';
-import useStyle from './useStyle';
 import EditableTypographyFormField from './EditableTypographyFormField';
-import { TYPOGRAPHY_CLASS } from './constants';
-
-const defaultPlaceholder = '--';
-
-export const makeEdittingProps = (isEditable, args) =>
-  isEditable ? args : {};
-
-export const formatText = (value, type, trans) => {
-  switch (type) {
-    case 'number':
-      return string.toNumber(value, defaultPlaceholder);
-    case 'checkbox':
-      return string.toTruthy(value, trans);
-    case 'date':
-      return string.toDate(value, defaultPlaceholder);
-    default:
-      return value;
-  }
-};
+import InlineEditor from '../InlineEditor';
+import EditableTypographyTrigger from './EditableTypographyTrigger';
 
 const EditableTypography = ({
   children,
@@ -39,59 +13,28 @@ const EditableTypography = ({
   fieldProps,
   ...rest
 }) => {
-  const ref = React.useRef();
-  const { t } = useTranslation('labels');
-  const { state, open, close } = useToggle();
-  const { field, fieldIcon } = useStyle({
-    isOpen: state,
-    isEditable,
-  });
-
   if (isEditable && typeof renderer === 'function')
     return renderer(initialValues, onSubmit);
 
   return (
-    <span ref={ref}>
-      <Typography
-        {...rest}
-        {...makeEdittingProps(isEditable, {
-          onClick: open,
-          onKeyPress: open,
-          tabIndex: 0,
-        })}
-        className={classnames(
-          TYPOGRAPHY_CLASS,
-          field,
-          rest.className,
-        )}
-        aria-haspopup
-      >
-        {formatText(children, get(fieldProps, 'type'), t) ||
-          '--'}
-        {isEditable ? <Edit className={fieldIcon} /> : null}
-      </Typography>
-      <Popover
-        open={state}
-        onClose={close}
-        anchorEl={ref.current}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        elevation={15}
-      >
-        <EditableTypographyFormField
-          fieldProps={fieldProps}
-          initialValues={initialValues}
-          onSave={onSubmit}
-          onClose={close}
-        />
-      </Popover>
-    </span>
+    <InlineEditor
+      title={fieldProps.name}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      buttonComponent={(open, isOpen) => (
+        <EditableTypographyTrigger
+          isOpen={isOpen}
+          open={open}
+          isEditable={isEditable}
+          {...fieldProps}
+          {...rest}
+        >
+          {children}
+        </EditableTypographyTrigger>
+      )}
+    >
+      <EditableTypographyFormField {...fieldProps} />
+    </InlineEditor>
   );
 };
 
