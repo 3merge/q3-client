@@ -13,7 +13,7 @@ module.exports = ({
     );
 
   const plugins = [
-    'gatsby-plugin-remove-trailing-slashes',
+    'gatsby-plugin-force-trailing-slashes',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-polyfill-io',
     'gatsby-plugin-material-ui',
