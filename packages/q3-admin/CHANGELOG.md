@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.3](https://github.com/3merge/q/compare/v1.16.2...v1.16.3) (2020-05-04)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
 # [1.16.0](https://github.com/3merge/q/compare/v1.15.5...v1.16.0) (2020-05-04)
 
 

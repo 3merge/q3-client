@@ -1,6 +1,6 @@
 {
   "name": "q3-ui",
-  "version": "1.16.2",
+  "version": "1.16.3",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -19,7 +19,7 @@
     "moment": "2.24.0",
     "prop-types": "^15.7.2",
     "q3-ui-assets": "^1.16.1",
-    "q3-ui-locale": "^1.16.2",
+    "q3-ui-locale": "^1.16.3",
     "react-content-loader": "^4.2.2",
     "react-credit-cards": "^0.8.0",
     "react-dropzone": "^11.0.1",
