@@ -12,14 +12,18 @@ describe('SidebarTabs', () => {
       )
       .find(Tab);
 
-    // there are three tabs in total
-    expect(el.at(1).props()).toHaveProperty(
-      'disabled',
-      true,
-    );
-    expect(el.at(2).props()).toHaveProperty(
-      'disabled',
-      true,
-    );
+    expect(el).toHaveLength(0);
+  });
+
+  it('should show ID if one other tab exists', () => {
+    const el = global
+      .shallow(
+        <SidebarTabs commentTab={() => null}>
+          <div />
+        </SidebarTabs>,
+      )
+      .find(Tab);
+
+    expect(el).toHaveLength(2);
   });
 });

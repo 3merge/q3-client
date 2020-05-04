@@ -21,6 +21,12 @@ const SidebarTabs = ({
   const [step, setStep] = React.useState(0);
   const { root, item } = useStyles();
 
+  const hasNoOptions =
+    !commentTab &&
+    !historyTab &&
+    !documentationTab &&
+    !filesTab;
+
   return (
     <Paper className={root} component="aside" elevation={0}>
       <Box p={1}>
@@ -31,7 +37,9 @@ const SidebarTabs = ({
           textColor="primary"
           variant="fullWidth"
         >
-          <Tab label={t('meta')} className={item} />
+          {!hasNoOptions && (
+            <Tab label={t('meta')} className={item} />
+          )}
           {commentTab && (
             <Tab
               label={t('internalComments')}
