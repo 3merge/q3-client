@@ -1,7 +1,7 @@
 {
   "name": "e2e-tests",
   "private": true,
-  "version": "1.16.0",
+  "version": "1.16.1",
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
@@ -10,7 +10,7 @@
     "@reach/router": "^1.2.1",
     "axios": "^0.19.0",
     "gatsby": "^2.19.7",
-    "gatsby-theme-q3": "^1.16.0",
+    "gatsby-theme-q3": "^1.16.1",
     "i18next": "^19.4.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
