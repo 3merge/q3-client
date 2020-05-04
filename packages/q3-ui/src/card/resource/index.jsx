@@ -25,6 +25,7 @@ const ResourceCard = ({
 
   const imgContainerProps = linkImage
     ? {
+        'aria-label': title,
         display: 'block',
         className: imgCover,
         component: Link,

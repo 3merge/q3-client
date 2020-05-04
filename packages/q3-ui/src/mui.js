@@ -42,35 +42,35 @@ const theme = createMuiTheme({
   typography: {
     h1: {
       ...headingFont,
-      fontSize: '2.658rem',
+      fontSize: '2.558rem',
       fontWeight: 600,
     },
     h2: {
       ...headingFont,
       marginTop: 8,
-      fontSize: '2.353rem',
+      fontSize: '2.076rem',
     },
     h3: {
       ...headingFont,
-      fontSize: '2.082rem',
+      fontSize: '1.87rem',
     },
     h4: {
       ...headingFont,
-      fontSize: '1.842rem',
+      fontSize: '1.685rem',
     },
     h5: {
       ...headingFont,
-      fontSize: '1.63rem',
+      fontSize: '1.518rem',
     },
     h6: {
       ...headingFont,
-      fontSize: '1.443rem',
+      fontSize: '1.368rem',
     },
     overline: {
       color: '#4d555e',
       fontWeight: 400,
       lineHeight: 1.35,
-      fontSize: '0.885rem',
+      fontSize: '0.901rem',
     },
     body1: {
       color: '#4f5868',
@@ -79,15 +79,15 @@ const theme = createMuiTheme({
       },
     },
     body2: {
-      fontSize: '1.443rem',
+      fontSize: '1.232rem',
       fontWeight: 400,
     },
     subtitle2: {
-      fontSize: '1.277rem',
+      fontSize: '1.232rem',
     },
     subtitle1: {
       color: '#4f5868',
-      fontSize: '1.13rem',
+      fontSize: '1.11rem',
       fontWeight: 600,
     },
     fontFamily: '"Roboto", sans-serif',

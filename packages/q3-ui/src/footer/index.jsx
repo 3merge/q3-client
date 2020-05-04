@@ -23,6 +23,7 @@ export const SocialLinks = ({ links, size }) => (
       <SocialIcon
         url={link}
         key={link}
+        rel="noreferrer noopener"
         target="_blank"
         style={{
           margin: '0.25rem',

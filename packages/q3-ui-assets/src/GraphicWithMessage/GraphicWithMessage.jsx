@@ -37,6 +37,7 @@ const GraphicWithMessage = ({
   transparent,
   renderTop,
   renderBottom,
+  h1,
 }) => {
   const { t } = useTranslation();
   const { root, graphic } = useStyles({
@@ -59,7 +60,10 @@ const GraphicWithMessage = ({
             position="relative"
           >
             {title && (
-              <Typography variant="h2" gutterBottom>
+              <Typography
+                variant={h1 ? 'h1' : 'h2'}
+                gutterBottom
+              >
                 {t(`titles:${title}`)}
               </Typography>
             )}
@@ -84,6 +88,7 @@ GraphicWithMessage.propTypes = {
   renderTop: PropTypes.func,
   renderBottom: PropTypes.func,
   transparent: PropTypes.bool,
+  h1: PropTypes.bool,
 };
 
 GraphicWithMessage.defaultProps = {
@@ -94,6 +99,7 @@ GraphicWithMessage.defaultProps = {
   renderTop: null,
   renderBottom: null,
   transparent: false,
+  h1: false,
 };
 
 export default GraphicWithMessage;

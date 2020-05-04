@@ -19,6 +19,7 @@ module.exports = ({
     'gatsby-plugin-material-ui',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-robots-txt',
     {
       resolve: 'gatsby-source-contentful',
       options: {
