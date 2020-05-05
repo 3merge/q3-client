@@ -26,7 +26,7 @@ const FilterTextField = ({
 
   if (type === 'select')
     return (
-      <FormControl variant="filled" size="small" fullWidth>
+      <FormControl variant="outlined" fullWidth>
         <InputLabel htmlFor={name}>{label}</InputLabel>
         <Select
           fullWidth
@@ -55,7 +55,6 @@ const FilterTextField = ({
       <DatePicker
         {...rest}
         type="text"
-        size="small"
         name={name}
         label={label}
         value={
@@ -70,7 +69,7 @@ const FilterTextField = ({
 
           submitForm();
         }}
-        inputVariant="filled"
+        variant="outlined"
         placeholder="yyyy-mm-dd"
         format="YYYY-MM-DD"
         clearable
@@ -83,8 +82,7 @@ const FilterTextField = ({
       {...rest}
       name={name}
       label={label}
-      variant="filled"
-      size="small"
+      variant="outlined"
       onChange={handleOnChange(setValue, op)}
       value={realValue}
       onBlur={submitForm}

@@ -6,6 +6,14 @@ import useDecorator from '../helpers/useDecorator';
 const toISO = (v) =>
   v !== undefined ? v.toISOString() : v;
 
+export const handleDateChange = (fn, name) => (value) =>
+  fn({
+    target: {
+      name,
+      value: toISO(value),
+    },
+  });
+
 const DateSelect = ({ from, to, ...rest }) => {
   const {
     onChange: onChangeFrom,
@@ -34,23 +42,14 @@ const DateSelect = ({ from, to, ...rest }) => {
         startText={startText}
         endText={endText}
         variant="outlined"
-        size="small"
         fullWidth
         value={[fromValue, toValue]}
         onChange={([newFromValue, newToValue]) => {
-          onChangeFrom({
-            target: {
-              name: from,
-              value: toISO(newFromValue),
-            },
-          });
-
-          onChangeTo({
-            target: {
-              name: to,
-              value: toISO(newToValue),
-            },
-          });
+          handleDateChange(onChangeTo, to)(newToValue);
+          handleDateChange(
+            onChangeFrom,
+            from,
+          )(newFromValue);
         }}
       />
     </Grid>

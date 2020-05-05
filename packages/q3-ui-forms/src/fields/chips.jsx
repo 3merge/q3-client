@@ -49,7 +49,6 @@ const Chips = (props) => {
       <Autocomplete
         {...props}
         multiple
-        size="small"
         fullWidth
         loading={loading}
         filterSelectedOptions
@@ -63,7 +62,6 @@ const Chips = (props) => {
               color="primary"
               label={t(option)}
               disabled={index === 0}
-              size="small"
               {...getTagProps({ index })}
             />
           ))

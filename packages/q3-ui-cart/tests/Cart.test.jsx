@@ -20,6 +20,11 @@ let Stage;
 jest.unmock('formik');
 jest.unmock('useful-state');
 
+jest.mock(
+  '@material-ui/core/Hidden',
+  () => ({ children }) => children,
+);
+
 beforeAll(() => {
   Stage = Fixtures;
 });
@@ -38,28 +43,19 @@ const getItemsInCart = (el) =>
     .hostNodes();
 
 const openCartDrawer = (el) =>
-  el
-    .find(`.${DRAWER_LAUNCHER}`)
-    .first()
-    .simulate('click');
+  el.find(`.${DRAWER_LAUNCHER}`).first().simulate('click');
 
 const renameCartDrawer = async (el, value) =>
   act(async () => {
     const pop = el.find(`.${POPOVER_CLASS}`);
 
-    pop
-      .find('input')
-      .props()
-      .onChange({
-        target: {
-          value,
-        },
-      });
+    pop.find('input').props().onChange({
+      target: {
+        value,
+      },
+    });
 
-    pop
-      .find('form')
-      .first()
-      .simulate('submit');
+    pop.find('form').first().simulate('submit');
   });
 
 describe('Cart', () => {
@@ -126,10 +122,7 @@ describe('Cart', () => {
     await renameCartDrawer(el, newTitle);
 
     expect(
-      el
-        .find(`#${DRAWER_TITLE_ID}`)
-        .first()
-        .text(),
+      el.find(`#${DRAWER_TITLE_ID}`).first().text(),
     ).toMatch(newTitle);
   });
 });

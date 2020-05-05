@@ -50,7 +50,8 @@ const FilterForm = () => (
     <Exists
       type="checkbox"
       label="Does exist"
-      name="exists"
+      name="exists%2Enested%2Edeeply"
+      strict
     />
     <Exists
       type="checkbox"
@@ -81,10 +82,11 @@ const FilterForm = () => (
     />
     <In
       label="In this list"
-      name="in"
+      name="in%2Enested%2Edeeply"
       type="checkboxGroup"
       options={opts}
     />
+
     <LessThanOrEqualTo
       label="Less than or equal to this value"
       name="LessThanOrEqualTo"
@@ -107,9 +109,17 @@ export const EmptyState = () => {
 };
 
 export const FullState = () => {
+  const [children, setChildren] = React.useState(null);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setChildren(<FilterForm />);
+    }, 500);
+  });
+
   return (
-    <Location search="?notIn=AU&equals=sample&!doesNotExist&example%2E0=&in=CA,US&equals.nested=Text">
-      <FilterForm />
+    <Location search="?notIn=AU&equals=sample&!doesNotExist&example%2E0=&in%2Enested%2Edeeply=CA,US&equals.nested=Text&exists.nested.deeply=true">
+      {children}
     </Location>
   );
 };

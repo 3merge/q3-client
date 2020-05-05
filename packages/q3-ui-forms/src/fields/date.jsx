@@ -2,7 +2,7 @@ import React from 'react';
 import { DatePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import useDecorator from '../helpers/useDecorator';
-import { simulateEventHandler } from './helpers';
+import { handleDateChange } from './dateRange';
 
 const DateSelect = (props) => {
   const { value, onChange, name, ...deco } = useDecorator(
@@ -20,9 +20,8 @@ const DateSelect = (props) => {
         type="text"
         variant="outlined"
         fullWidth
-        size="small"
         value={value || null}
-        onChange={simulateEventHandler(onChange, name)}
+        onChange={handleDateChange(onChange, name)}
         placeholder="yyyy-mm-dd"
         format="YYYY-MM-DD"
         clearable

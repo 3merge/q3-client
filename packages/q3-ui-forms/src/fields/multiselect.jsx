@@ -36,7 +36,6 @@ const Multiselect = (props) => {
     <SelectWrapper
       label={label}
       helperText={helperText}
-      size="small"
       error={error}
     >
       <Select
