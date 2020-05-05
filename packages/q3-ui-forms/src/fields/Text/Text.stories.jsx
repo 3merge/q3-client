@@ -1,9 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import MockApi from 'q3-ui-test-utils/lib/rest';
-import Container from '@material-ui/core/Container';
-import Form from '../builders/form';
-import Field from '../builders/field';
+import Form from '../../builders/form';
+import Field from '../../builders/field';
 
 export default {
   title: 'Q3 Forms|Fields/Text',
@@ -28,6 +25,7 @@ export const Validation = () => (
   >
     <Field name="name" type="text" />
     <Field name="date" type="date" />
+    <Field from="from" to="to" type="dateRange" />
     <Field
       name="loremVars"
       vars={{ hello: 'world' }}

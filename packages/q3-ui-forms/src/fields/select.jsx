@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Collapse from '@material-ui/core/Collapse';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useOptions from '../helpers/useOptions';
-import useDecorator from '../helpers/useDecorator';
+import withGrid from './withGrid';
 
 export const SelectWrapper = ({
   name,
@@ -19,12 +19,7 @@ export const SelectWrapper = ({
   ...rest
 }) => {
   return (
-    <FormControl
-      variant="filled"
-      size="small"
-      fullWidth
-      {...rest}
-    >
+    <FormControl variant="outlined" fullWidth {...rest}>
       {label && (
         <InputLabel htmlFor={name}>{label}</InputLabel>
       )}
@@ -49,7 +44,6 @@ SelectWrapper.defaultProps = {
 
 const NativeSelect = (props) => {
   const { t } = useTranslation();
-  const deco = useDecorator(props);
 
   const {
     label,
@@ -62,12 +56,12 @@ const NativeSelect = (props) => {
     error,
     required,
     ...rest
-  } = deco;
+  } = props;
 
   const { loading, items } = useOptions({
     minimumCharacterCount: 0,
     loadOptionsPlainly: true,
-    ...deco,
+    ...props,
   });
 
   return (
@@ -114,4 +108,4 @@ const NativeSelect = (props) => {
   );
 };
 
-export default NativeSelect;
+export default withGrid(NativeSelect);

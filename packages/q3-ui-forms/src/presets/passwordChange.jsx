@@ -66,7 +66,7 @@ export const PasswordValidationChecklist = () => {
   const [{ value }] = useField('newPassword');
 
   return (
-    <Box my={1}>
+    <Box width="100%">
       <List
         subheader={
           <ListSubheader>{t('strength')}</ListSubheader>
@@ -110,7 +110,7 @@ export const PasswordMatch = () => {
   );
 
   return (
-    <Box my={1}>
+    <Box width="100%">
       <List
         subheader={
           <ListSubheader>{t('confirmation')}</ListSubheader>
@@ -127,7 +127,7 @@ export const PasswordMatch = () => {
 };
 
 export const NewPasswordHelpers = () => (
-  <>
+  <Box>
     <Field
       name="newPassword"
       type="password"
@@ -155,7 +155,7 @@ export const NewPasswordHelpers = () => (
       required
     />
     <PasswordMatch />
-  </>
+  </Box>
 );
 
 const PasswordChange = ({

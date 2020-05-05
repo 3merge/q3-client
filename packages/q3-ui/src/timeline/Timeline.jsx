@@ -74,7 +74,6 @@ const Timeline = ({ entries }) => {
         onChange={onChange}
         value={value}
         label="Search"
-        variant="filled"
         size="small"
         fullWidth
       />

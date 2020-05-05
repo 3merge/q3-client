@@ -4,18 +4,12 @@ import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import useOptions from '../helpers/useOptions';
-import { intercept } from './date';
-import useDecorator from '../helpers/useDecorator';
+import {
+  getLabelWithFallback,
+  simulateEventHandler,
+} from './helpers';
 import { isObject } from '../helpers';
-
-export const getDropdownLabel = (value) => (option) => {
-  if (typeof option === 'object') return option.label;
-
-  if (isObject(value) && value.value === option)
-    return value.label;
-
-  return option;
-};
+import withGrid from './withGrid';
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
@@ -28,7 +22,7 @@ export const AutoCompleteWrapper = (props) => {
     field,
     name,
     value,
-  } = useDecorator(props);
+  } = props;
 
   const { loading, onChange, items = [] } = useOptions(
     props,
@@ -41,13 +35,14 @@ export const AutoCompleteWrapper = (props) => {
       helperText,
       onChange,
       error: Boolean(error),
-      variant: 'filled',
+      variant: 'outlined',
       fullWidth: true,
       inputProps: {
         autoComplete: new Date().toISOString(),
         ...params.inputProps,
       },
     });
+
   const getValue = () =>
     isObject(value) ? value.value : value;
 
@@ -60,10 +55,9 @@ export const AutoCompleteWrapper = (props) => {
       loading={loading}
       defaultValue={getValue()}
       value={getValue()}
-      size="small"
       renderInput={getCustomInput}
-      getOptionLabel={getDropdownLabel(value)}
-      onChange={intercept(handleChange, name)}
+      getOptionLabel={getLabelWithFallback(value)}
+      onChange={simulateEventHandler(handleChange, name)}
       filterOptions={
         disableFilter
           ? (options) => {
@@ -90,4 +84,4 @@ AutoCompleteWrapper.defaultProps = {
   options: [],
 };
 
-export default AutoCompleteWrapper;
+export default withGrid(AutoCompleteWrapper);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { string, object, array } from 'q3-ui-helpers';
+import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'react-i18next';
 import { EditableTypography } from 'q3-components';
 import { CartContext } from '../context';
@@ -16,8 +17,6 @@ const DrawerTitle = ({ titleKey }) => {
     CartContext,
   );
 
-  console.log(updateOrder);
-
   const isEditable = Boolean(
     object.isFn(updateOrder) && array.hasLength(items),
   );
@@ -27,17 +26,19 @@ const DrawerTitle = ({ titleKey }) => {
   if (!string.hasLength(title)) title = t('cart');
 
   return (
-    <EditableTypography
-      id={DRAWER_TITLE_ID}
-      variant="h2"
-      className={root}
-      onSubmit={updateOrder}
-      initialValues={{ title }}
-      fieldProps={{ name: 'title', type: 'text' }}
-      isEditable={isEditable}
-    >
-      {title}
-    </EditableTypography>
+    <Hidden smDown>
+      <EditableTypography
+        id={DRAWER_TITLE_ID}
+        variant="h2"
+        className={root}
+        onSubmit={updateOrder}
+        initialValues={{ title }}
+        fieldProps={{ name: 'title', type: 'text' }}
+        isEditable={isEditable}
+      >
+        {title}
+      </EditableTypography>
+    </Hidden>
   );
 };
 

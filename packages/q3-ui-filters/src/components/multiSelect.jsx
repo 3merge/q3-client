@@ -107,8 +107,6 @@ const FilterTextField = ({
             <Chip
               label={option}
               disabled={index === 0}
-              size="small"
-              variant="outlined"
               color="primary"
               {...getTagProps({ index })}
             />
@@ -119,8 +117,7 @@ const FilterTextField = ({
             {...params}
             label={label}
             fullWidth
-            variant="filled"
-            size="small"
+            variant="outlined"
             InputProps={{
               ...params.InputProps,
             }}

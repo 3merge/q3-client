@@ -11,7 +11,7 @@ const Multitext = (props) => {
       <ChipInput
         {...rest}
         value={Array.isArray(value) ? value : []}
-        variant="filled"
+        variant="outlined"
         onAdd={onArrayPush}
         onDelete={onArrayPull}
         fullWidth

@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import { connect, Formik, Form } from 'formik';
 import JSONPretty from 'react-json-pretty';
 import { get } from 'lodash';
+import Grid from '@material-ui/core/Grid';
 import Back from './back';
 import Next from './next';
 import withWrapper from './wrapper';
@@ -17,15 +18,9 @@ import Persist from './persist';
 import Validate from './validate';
 
 export const Fieldset = ({ children }) => (
-  <fieldset
-    style={{
-      border: 0,
-      padding: 0,
-      margin: 0,
-    }}
-  >
+  <Grid container spacing={2}>
     {children}
-  </fieldset>
+  </Grid>
 );
 
 Fieldset.propTypes = {
