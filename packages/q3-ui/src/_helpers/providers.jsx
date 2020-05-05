@@ -2,13 +2,14 @@ import React from 'react';
 import { merge } from 'lodash';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import MomentUtils from '@date-io/moment';
 import Locale from 'q3-ui-locale';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentAdapter from '@material-ui/pickers/adapter/moment';
+import { LocalizationProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import baseQ3Theme from '../mui';
+
+import 'moment/locale/fr';
 import 'swiper/css/swiper.css';
 
 const Providers = ({ children, theme }) => (
@@ -21,13 +22,9 @@ const Providers = ({ children, theme }) => (
           rel="stylesheet"
         />
       </Helmet>
-      <MuiPickersUtilsProvider
-        libInstance={moment}
-        utils={MomentUtils}
-        locale="en"
-      >
+      <LocalizationProvider dateAdapter={MomentAdapter}>
         {children}
-      </MuiPickersUtilsProvider>
+      </LocalizationProvider>
     </ThemeProvider>
   </Locale>
 );

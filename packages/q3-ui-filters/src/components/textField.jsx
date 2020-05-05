@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@material-ui/pickers';
 import { useField, useFormikContext } from 'formik';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -52,7 +52,7 @@ const FilterTextField = ({
 
   if (type === 'date')
     return (
-      <KeyboardDatePicker
+      <DatePicker
         {...rest}
         type="text"
         size="small"

@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
     color: error ? red[900] : grey[900],
     display: 'block',
-    fontSize: '1.21rem',
+    fontSize: '1rem',
     lineHeight: 1.2,
     margin: '0 !important',
   }),

@@ -6,16 +6,11 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import useOptions from '../helpers/useOptions';
-import useDecorator from '../helpers/useDecorator';
-import { getDropdownLabel } from './autocomplete';
-
-export const intercept = (fn, name) => (e, newValue) =>
-  fn({
-    target: {
-      value: newValue,
-      name,
-    },
-  });
+import {
+  simulateEventHandler,
+  getLabelWithFallback,
+} from './helpers';
+import withGrid, { fieldProps } from './withGrid';
 
 const Chips = (props) => {
   const { t } = useTranslation('labels');
@@ -26,7 +21,7 @@ const Chips = (props) => {
     error,
     name,
     value,
-  } = useDecorator(props);
+  } = props;
 
   const { loading, items = [] } = useOptions({
     minimumCharacterCount: 0,
@@ -54,13 +49,13 @@ const Chips = (props) => {
       <Autocomplete
         {...props}
         multiple
+        fullWidth
         loading={loading}
         filterSelectedOptions
         defaultValue={value || []}
         options={items}
-        size="small"
-        getOptionLabel={getDropdownLabel(value)}
-        onChange={intercept(onChange, name)}
+        getOptionLabel={getLabelWithFallback(value)}
+        onChange={simulateEventHandler(onChange, name)}
         renderTags={(values, getTagProps) =>
           getTags(values).map((option, index) => (
             <Chip
@@ -78,7 +73,7 @@ const Chips = (props) => {
             label={label}
             helperText={helperText}
             error={error}
-            variant="filled"
+            variant="outlined"
             fullWidth
           />
         )}
@@ -88,6 +83,7 @@ const Chips = (props) => {
 };
 
 Chips.propTypes = {
+  ...fieldProps,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.string,
@@ -100,4 +96,4 @@ Chips.defaultProps = {
   options: [],
 };
 
-export default Chips;
+export default withGrid(Chips);

@@ -1,15 +1,8 @@
 import React from 'react';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import { DatePicker } from '@material-ui/pickers';
+import Grid from '@material-ui/core/Grid';
 import useDecorator from '../helpers/useDecorator';
-
-export const intercept = (fn, name) => (e, newValue) => {
-  return fn({
-    target: {
-      value: newValue || '',
-      name,
-    },
-  });
-};
+import { simulateEventHandler } from './helpers';
 
 const DateSelect = (props) => {
   const { value, onChange, name, ...deco } = useDecorator(
@@ -20,20 +13,21 @@ const DateSelect = (props) => {
   delete deco.onArrayPush;
 
   return (
-    <KeyboardDatePicker
-      {...deco}
-      name={name}
-      type="text"
-      fullWidth
-      inputVariant="filled"
-      value={value || null}
-      onChange={intercept(onChange, name)}
-      placeholder="yyyy-mm-dd"
-      size="small"
-      format="YYYY-MM-DD"
-      clearable
-      autoOk
-    />
+    <Grid item sm={6} xs={12}>
+      <DatePicker
+        {...deco}
+        name={name}
+        type="text"
+        variant="outlined"
+        fullWidth
+        value={value || null}
+        onChange={simulateEventHandler(onChange, name)}
+        placeholder="yyyy-mm-dd"
+        format="YYYY-MM-DD"
+        clearable
+        autoOk
+      />
+    </Grid>
   );
 };
 

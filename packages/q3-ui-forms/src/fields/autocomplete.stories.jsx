@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'debounce-promise';
 import Form from '../builders/form';
 import Field from '../builders/field';
 import Autocomplete from './autocomplete';
@@ -67,9 +68,10 @@ export const WithCustomLabel = () => (
           {v.continent}
         </>
       )}
-      loadOptions={(e) => {
+      loadOptions={debounce((e) => {
         return new Promise((resolve) =>
           setTimeout(() => {
+            console.log(e);
             resolve(
               opts.filter((item) => {
                 return e.split(' ').some((v) => {
@@ -82,7 +84,7 @@ export const WithCustomLabel = () => (
             );
           }, 200),
         );
-      }}
+      }, 500)}
     />
   </Form>
 );

@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import { FormikDebug } from '../multistep';
 import Back from '../back';
 import Next from '../next';
@@ -44,7 +45,9 @@ export const FormBuilder = ({
           <Persist id={prefixForSessionStorage(name, id)} />
         )}
         <Validate />
-        {children}
+        <Grid container spacing={1}>
+          {children}
+        </Grid>
         <Box mt={1}>
           {enableSubmit && (
             <Next submit label={submitLabel} />
