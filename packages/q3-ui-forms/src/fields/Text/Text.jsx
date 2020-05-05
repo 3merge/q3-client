@@ -18,6 +18,7 @@ export const Text = (props) => {
       fullWidth
       readOnly={readOnly}
       variant="outlined"
+      size="small"
       InputProps={{
         ...(readOnly && {
           endAdornment: <Lock />,

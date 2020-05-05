@@ -20,6 +20,7 @@ const DateSelect = (props) => {
         type="text"
         variant="outlined"
         fullWidth
+        size="small"
         value={value || null}
         onChange={simulateEventHandler(onChange, name)}
         placeholder="yyyy-mm-dd"

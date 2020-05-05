@@ -52,6 +52,7 @@ export const AutoCompleteWrapper = (props) => {
       {...field}
       label={t(name)}
       options={items}
+      size="small"
       loading={loading}
       defaultValue={getValue()}
       value={getValue()}

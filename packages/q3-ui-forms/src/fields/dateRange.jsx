@@ -34,6 +34,8 @@ const DateSelect = ({ from, to, ...rest }) => {
         startText={startText}
         endText={endText}
         variant="outlined"
+        size="small"
+        fullWidth
         value={[fromValue, toValue]}
         onChange={([newFromValue, newToValue]) => {
           onChangeFrom({

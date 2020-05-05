@@ -19,7 +19,12 @@ export const SelectWrapper = ({
   ...rest
 }) => {
   return (
-    <FormControl variant="outlined" fullWidth {...rest}>
+    <FormControl
+      variant="outlined"
+      size="small"
+      fullWidth
+      {...rest}
+    >
       {label && (
         <InputLabel htmlFor={name}>{label}</InputLabel>
       )}

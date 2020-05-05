@@ -49,6 +49,7 @@ const Chips = (props) => {
       <Autocomplete
         {...props}
         multiple
+        size="small"
         fullWidth
         loading={loading}
         filterSelectedOptions
