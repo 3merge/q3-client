@@ -22,5 +22,6 @@
   "phone": "Supports country code (+1) and extensions (x123)",
   "noMatch": "Passwords do not match",
   "hasLength": "Must contain between 8 and 16 characters",
-  "matches": "Must match the new password set above"
+  "matches": "Must match the new password set above",
+  "filterName": "When provided, applying changes to this form will modify/save the active filter"
 }

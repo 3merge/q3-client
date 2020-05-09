@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   trigger: {
     position: 'absolute',
-    top: '4.5rem',
-    left: 'calc(100% - 1rem)',
+    bottom: '5rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
     zIndex: 100,
 
     [theme.breakpoints.down('sm')]: {
@@ -12,8 +13,9 @@ export default makeStyles((theme) => ({
       color: '#FFF',
       position: 'relative',
       left: 'auto',
-      top: 'auto',
+      bottom: 'auto',
       margin: theme.spacing(1),
+      transform: 'none',
     },
   },
   center: {
@@ -24,7 +26,7 @@ export default makeStyles((theme) => ({
   },
 
   shell: {
-    width: 105,
+    width: 92,
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
@@ -40,7 +42,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     height: '100vh',
     position: 'fixed',
-    width: 105,
+    width: 92,
     zIndex: 100,
     flexDirection: 'column',
     justifyContent: 'space-between',

@@ -5,8 +5,14 @@ export default makeStyles((theme) => ({
     fill: '#FFF',
     textDecoration: 'none',
     display: 'block',
+    transform: 'scale(1.15)',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '1.3em',
+      display: 'inline-block',
+      transform: 'scale(2)',
+      fontSize: '100%',
+      height: '15px',
+      width: '35px',
+      marginLeft: '1rem',
     },
   },
 }));

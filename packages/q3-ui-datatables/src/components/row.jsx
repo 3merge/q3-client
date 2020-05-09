@@ -42,19 +42,22 @@ export const renderTableCells = (
   items = {},
   columns = [],
   translateUtil,
-) =>
-  hasKeys(items) && Array.isArray(columns)
-    ? Object.entries(intersectWithKeys(items, columns)).map(
-        ([key, value]) => (
-          <TableCell
-            key={key}
-            data-title={translateUtil(key)}
-          >
-            {value || get(items, key, '--')}
-          </TableCell>
-        ),
-      )
+) => {
+  const entries = Object.entries(
+    intersectWithKeys(items, columns),
+  );
+  return hasKeys(items) && Array.isArray(columns)
+    ? entries.map(([key, value], i) => (
+        <TableCell
+          key={key}
+          data-title={translateUtil(key)}
+          colSpan={entries.length - 1 === i ? 2 : undefined}
+        >
+          {value || get(items, key, '--')}
+        </TableCell>
+      ))
     : [];
+};
 
 const Row = ({
   id,

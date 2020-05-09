@@ -5,18 +5,19 @@ import { useTranslation } from 'react-i18next';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Hidden from '@material-ui/core/Hidden';
-import FullScreen from '../../components/fullScreen';
+import Dialog from 'q3-ui-dialog';
 import useStyles from './useStyle';
 
-const CreateDialog = (props) => {
+const CreateDialog = ({ children, ...props }) => {
   const { floatOnDesktop } = useStyles();
   const { t } = useTranslation();
 
   return (
-    <FullScreen
+    <Dialog
       {...props}
+      variant="drawer"
+      renderContent={children}
       renderTrigger={(open) => (
         <>
           <Hidden mdUp>

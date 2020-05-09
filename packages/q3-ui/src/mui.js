@@ -145,6 +145,18 @@ Object.assign(theme, {
         minWidth: '300px !important',
       },
     },
+
+    MuiButtonGroup: {
+      groupedContainedHorizontal: {
+        '&:not(:last-child)': {
+          border: '0 !Important',
+        },
+        '&:last-child': {
+          padding: '0 !Important',
+        },
+      },
+    },
+
     MuiListItemIcon: {
       root: {
         minWidth: 32,

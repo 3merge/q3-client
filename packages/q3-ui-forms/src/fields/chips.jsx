@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, merge } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
+import { chosenTextFieldDisplayAttributes } from './TextBase/TextBase';
 import useOptions from '../helpers/useOptions';
 import {
   simulateEventHandler,
   getLabelWithFallback,
 } from './helpers';
+import useDecorator from '../helpers/useDecorator';
 import withGrid, { fieldProps } from './withGrid';
 
 const Chips = (props) => {
@@ -21,7 +23,7 @@ const Chips = (props) => {
     error,
     name,
     value,
-  } = props;
+  } = useDecorator(props);
 
   const { loading, items = [] } = useOptions({
     minimumCharacterCount: 0,
@@ -45,39 +47,46 @@ const Chips = (props) => {
       .filter(Boolean);
 
   return (
-    value !== undefined && (
-      <Autocomplete
-        {...props}
-        multiple
-        fullWidth
-        loading={loading}
-        filterSelectedOptions
-        defaultValue={value || []}
-        options={items}
-        getOptionLabel={getLabelWithFallback(value)}
-        onChange={simulateEventHandler(onChange, name)}
-        renderTags={(values, getTagProps) =>
-          getTags(values).map((option, index) => (
-            <Chip
-              color="primary"
-              label={t(option)}
-              disabled={index === 0}
-              {...getTagProps({ index })}
-            />
-          ))
-        }
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label={label}
-            helperText={helperText}
-            error={error}
-            variant="outlined"
-            fullWidth
+    <Autocomplete
+      {...props}
+      multiple
+      loading={loading}
+      filterSelectedOptions
+      name={name}
+      value={value}
+      options={items}
+      getOptionLabel={getLabelWithFallback(value)}
+      onChange={(e, newValue) => {
+        return onChange({
+          target: {
+            value: newValue.map((o) => get(o, 'value', o)),
+            name,
+          },
+        });
+      }}
+      renderTags={(values, getTagProps) =>
+        getTags(values).map((option, index) => (
+          <Chip
+            size="small"
+            label={t(option)}
+            {...getTagProps({ index })}
           />
-        )}
-      />
-    )
+        ))
+      }
+      renderInput={(params) => (
+        <TextField
+          {...merge(
+            params,
+            chosenTextFieldDisplayAttributes,
+          )}
+          label={label}
+          helperText={helperText}
+          error={error}
+          value={value}
+          name={name}
+        />
+      )}
+    />
   );
 };
 
@@ -95,4 +104,7 @@ Chips.defaultProps = {
   options: [],
 };
 
-export default withGrid(Chips);
+export default withGrid(Chips, {
+  lg: 12,
+  md: 12,
+});

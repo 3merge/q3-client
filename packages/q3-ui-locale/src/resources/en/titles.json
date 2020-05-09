@@ -53,5 +53,6 @@
   "multiSelectSubDocument": "Select multiple subdocuments",
   "sidebar": "Sidebar",
   "log": "History log",
-  "missing": "404"
+  "missing": "404",
+  "customizeFilter": "Custom filter builder"
 }

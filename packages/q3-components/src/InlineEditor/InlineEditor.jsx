@@ -6,6 +6,7 @@ import IconButton from 'q3-ui/lib/iconButton';
 import Box from '@material-ui/core/Box';
 import { Form } from 'q3-ui-forms/lib/builders';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Inline from '../Inline';
 
 export const executeCallbackAfterPromise = (
@@ -57,24 +58,26 @@ const InlineEditor = ({
           )}
         >
           {children}
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            mt={0.5}
-          >
-            <Button onClick={close} size="small">
-              {t('cancel')}
-            </Button>
-            <Button
-              type="submit"
-              size="small"
-              variant="contained"
-              color="secondary"
-              style={{ marginLeft: '0.5rem' }}
+          <Grid item xs={12}>
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              mt={0.5}
             >
-              {t('apply')}
-            </Button>
-          </Box>
+              <Button onClick={close} size="small">
+                {t('cancel')}
+              </Button>
+              <Button
+                type="submit"
+                size="small"
+                variant="contained"
+                color="secondary"
+                style={{ marginLeft: '0.5rem' }}
+              >
+                {t('apply')}
+              </Button>
+            </Box>
+          </Grid>
         </Form>
       )}
     />

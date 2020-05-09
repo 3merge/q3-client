@@ -13,31 +13,23 @@ const requiresArray = (v) =>
 export const extractTextualValue = (v, defaultValue = '') =>
   get(v, 'value', defaultValue);
 
-export const handleOnChange = (
-  setFieldValue,
-  operand,
-  fn,
-) => (e) => {
+export const handleOnChange = (setFieldValue, operand) => (
+  e,
+) => {
   setFieldValue({
     value: get(e, 'target.value'),
     operand,
   });
-
-  if (fn) fn();
 };
 
 export const handleOnChangeBoolean = (
   setFieldValue,
   operand,
-  fn,
-) => (e, status) => {
+) => (e, status) =>
   setFieldValue({
     value: status,
     operand,
   });
-
-  if (fn) fn();
-};
 
 const getKey = (k, operand) => {
   const n = url.encode(k);
@@ -86,26 +78,27 @@ export const queryParam = (key, operand, value) => {
  */
 export const marshalFormFieldsIntoUrlString = (
   v = {},
+  conversionMap,
   { remove },
 ) =>
-  Object.entries(v).reduce(
-    (curr, [key, { value, operand }]) => {
-      const [newKey, newValue] = queryParam(
-        key,
-        operand,
-        value,
-      );
+  Object.entries(v).reduce((curr, [key, value]) => {
+    if (!value) return curr;
 
-      if (!newValue) remove(getKey(newKey, operand));
+    const operand = conversionMap[key];
+    const [newKey, newValue] = queryParam(
+      key,
+      operand,
+      value,
+    );
 
-      return operand
-        ? Object.assign(curr, {
-            [url.decode(newKey)]: newValue,
-          })
-        : curr;
-    },
-    {},
-  );
+    if (!newValue) remove(getKey(newKey, operand));
+
+    return operand
+      ? Object.assign(curr, {
+          [url.decode(newKey)]: newValue,
+        })
+      : curr;
+  }, {});
 
 const reduceArrayAsObject = (a = []) =>
   Array.isArray(a)
@@ -136,9 +129,9 @@ const reduceChildrenAsArray = (keys, values) => (child) => {
           ? Object.assign(
               acc,
               {
-                [get(item, 'props.name')]: {
-                  value: getValue(item.props),
-                },
+                [get(item, 'props.name')]: getValue(
+                  item.props,
+                ),
               },
               reduceArrayAsObject(
                 props.callOnChildren(item, exec),
@@ -155,14 +148,13 @@ const reduceChildrenAsArray = (keys, values) => (child) => {
  * For initializing state with existing URL values.
  * Note that the values reference field names - not the keys.
  */
-export const appendEmptyValues = (a, next = {}) => {
-  const fn = reduceChildrenAsArray(
-    Object.keys(next)
-      .map(url.encode)
-      .map(url.checksArray),
-    Object.values(next),
+export const appendEmptyValues = (
+  currentLocationState = {},
+) =>
+  Object.entries(currentLocationState).reduce(
+    (acc, [key, value]) => {
+      acc[url.encode(key)] = value;
+      return acc;
+    },
+    {},
   );
-
-  const out = fn(a);
-  return out;
-};

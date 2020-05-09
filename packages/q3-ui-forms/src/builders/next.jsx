@@ -111,7 +111,7 @@ Next.propTypes = {
 Next.defaultProps = {
   submit: false,
   onClick: null,
-  size: 'large',
+  size: 'normal',
   disabled: false,
   children: null,
 };

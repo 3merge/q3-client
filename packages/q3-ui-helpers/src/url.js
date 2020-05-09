@@ -17,13 +17,21 @@ export const decode = (name) =>
   isString(name)
     .replace(/%2E/g, '.')
     .replace(/length/g, '0')
-    .replace(/%21/g, '!');
+    .replace(/%21/g, '!')
+    .replace(/%3C/g, '<')
+    .replace(/%3E/g, '>')
+    .replace(/\+/g, ' ')
+    .replace(/%5F/g, '_');
 
 export const encode = (name) =>
   isString(name)
-    .replace(/[^a-zA-Z0-9 !%.]/g, '')
+    .replace(/[^a-zA-Z0-9 !%_.><=\s+]/g, '')
     .replace(/\./g, '%2E')
     .replace(/!/g, '%21')
+    .replace(/_/g, '%5F')
+    .replace(/</g, '%3C')
+    .replace(/>/g, '%3E')
+    .replace(/\s/g, '+')
     .replace(/%2E0/g, '%2Elength');
 
 /**

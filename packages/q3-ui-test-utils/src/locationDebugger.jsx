@@ -1,9 +1,14 @@
 import React from 'react';
-import { Location } from '@reach/router';
+import { withLocation } from 'with-location';
 import PrettyJson from 'react-json-pretty';
 
-const LocationDebugger = () => (
-  <Location>{(l) => <PrettyJson data={l} />}</Location>
+export const LocationDebugger = withLocation(
+  ({ children, location }) => (
+    <>
+      <PrettyJson data={location} />
+      {children}
+    </>
+  ),
 );
 
 export default LocationDebugger;

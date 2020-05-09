@@ -1,0 +1,136 @@
+import React from 'react';
+import { withLocation } from 'with-location';
+import PropTypes from 'prop-types';
+import { url } from 'q3-ui-helpers';
+import Form from '../../builders/form';
+
+const getParamName = (v) => {
+  const [name] = v.split('*').map(url.decode);
+  return name;
+};
+
+const removeLeadingQueryCharacter = (v) =>
+  String(v).charAt(0) === '?' ? v.substr(1) : v;
+
+export const serialize = (o) =>
+  Object.entries(o)
+    .reduce((acc, [key, value]) => {
+      const normalized = Array.isArray(value)
+        ? value.join(',')
+        : String(value);
+
+      const hasAsterisk = key.includes('*');
+      const name = getParamName(key);
+
+      if (hasAsterisk && normalized === 'true') {
+        acc.push(name);
+      } else if (
+        !hasAsterisk &&
+        normalized !== 'undefined' &&
+        normalized.length
+      ) {
+        acc.push(`${name}=${normalized}`);
+      }
+
+      return acc;
+    }, [])
+    .join('&');
+
+export const deserialize = (v) => {
+  if (!v) return {};
+
+  return removeLeadingQueryCharacter(v)
+    .split('&')
+    .reduce((acc, next) => {
+      // eslint-disable-next-line
+      let [key, value] = next ? next.split('=') : [next];
+
+      if (value === undefined) value = true;
+      if (String(value).includes(','))
+        value = value.split(',');
+
+      acc[url.encode(key)] = value;
+      return acc;
+    }, {});
+};
+
+export const handleStateEncoding = (onDone) => (
+  values,
+  actions,
+) => {
+  onDone(`?${serialize(values)}`);
+  actions.setSubmitting(false);
+};
+
+export const handleStateDecoding = (values, defaults) => ({
+  ...defaults,
+  ...deserialize(values),
+});
+
+export const handleStateClear = (
+  values,
+  locationUtils,
+) => () => {
+  const { params, navigate } = locationUtils;
+
+  Object.keys(values)
+    .map(getParamName)
+    .forEach((v) => params.delete(v));
+
+  return navigate(params.toString());
+};
+
+const EncodedUrl = ({
+  children,
+  navigate,
+  location,
+  initialValues,
+  query,
+  withClear,
+  onSave,
+  ...props
+}) => (
+  <Form
+    {...props}
+    enableReset={withClear}
+    submitLabel="apply"
+    resetLabel="clear"
+    onReset={handleStateClear(initialValues, {
+      ...props,
+      navigate,
+    })}
+    onSubmit={handleStateEncoding(onSave || navigate)}
+    initialValues={handleStateDecoding(
+      // allowed to override with empty string
+      query === undefined ? location.search : query,
+      initialValues,
+    )}
+  >
+    {children}
+  </Form>
+);
+
+EncodedUrl.propTypes = {
+  children: PropTypes.node.isRequired,
+  navigate: PropTypes.func.isRequired,
+  onSave: PropTypes.func,
+  withClear: PropTypes.bool,
+  query: PropTypes.string,
+  initialValues: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+};
+
+EncodedUrl.defaultProps = {
+  onSave: null,
+  withClear: false,
+  query: undefined,
+};
+
+/**
+ * @NOTE
+ * There is some duplication with utilities available through this HOC.
+ * Some of this logic is very particular to our implementation, though, so it'll remain separate for now.
+ */
+export default withLocation(EncodedUrl);

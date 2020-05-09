@@ -116,7 +116,7 @@ export class Validator {
 
         break;
       case 'date':
-        this.$base = this.$base.date();
+        this.$base = this.$base.date().nullable();
         break;
       case 'multi':
       case 'multiselect':

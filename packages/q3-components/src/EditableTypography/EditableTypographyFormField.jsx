@@ -21,6 +21,8 @@ const EditableTypographyFormField = ({
       aria-labelledby={`#${name}`}
       suppressLabel={!check}
       label={check ? 'enabled' : ''}
+      xl={12}
+      lg={12}
     />
   );
 };

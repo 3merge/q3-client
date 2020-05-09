@@ -10,6 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import baseQ3Theme from '../mui';
 
 import 'moment/locale/fr';
+import 'moment/locale/en-ca';
 import 'swiper/css/swiper.css';
 
 const Providers = ({ children, theme }) => (

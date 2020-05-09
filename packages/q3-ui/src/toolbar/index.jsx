@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
@@ -52,12 +53,12 @@ export const DropDownMenu = ({ id, children, items }) => {
         elevation={15}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
       >
         {items.map((item) => (
           <MenuItem
-            dense
+            style={{ margin: 0 }}
             key={item.label}
             onClick={(e) => {
               item.onClick(e);

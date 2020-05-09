@@ -84,14 +84,10 @@ export default makeStyles((theme) => ({
     background: '#FFF',
     borderBottom: '3px solid whitesmoke',
   },
-  overflow: ({ hasSidebar }) => ({
+  overflow: {
     maxWidth: '100%',
     position: 'relative',
-    paddingLeft: hasSidebar ? 60 : 0,
-    [theme.breakpoints.down('sm')]: {
-      paddingLeft: 0,
-    },
-  }),
+  },
   expand: {
     flex: 1,
     width: '100%',

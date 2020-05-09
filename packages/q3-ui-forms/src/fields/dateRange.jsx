@@ -1,10 +1,17 @@
 import React from 'react';
-import { DesktopDateRangePicker } from '@material-ui/pickers';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import {
+  MobileDateRangePicker,
+  DateRangeDelimiter,
+} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import useDecorator from '../helpers/useDecorator';
+import TextBase from './TextBase';
 
 const toISO = (v) =>
-  v !== undefined ? v.toISOString() : v;
+  v !== undefined ? moment(v).format('YYYY-MM-DD') : v;
 
 export const handleDateChange = (fn, name) => (value) =>
   fn({
@@ -19,30 +26,24 @@ const DateSelect = ({ from, to, ...rest }) => {
     onChange: onChangeFrom,
     label: startText,
     value: fromValue,
-    ...deco
+    ...fromDecorators
   } = useDecorator({ ...rest, name: from });
 
   const {
     value: toValue,
     label: endText,
     onChange: onChangeTo,
+    ...toDecorators
   } = useDecorator({
     ...rest,
     name: to,
   });
 
-  delete deco.onArrayPull;
-  delete deco.onArrayPush;
-
   return (
     <Grid item xs={12}>
-      <DesktopDateRangePicker
-        {...deco}
-        disablePast
+      <MobileDateRangePicker
         startText={startText}
         endText={endText}
-        variant="outlined"
-        fullWidth
         value={[fromValue, toValue]}
         onChange={([newFromValue, newToValue]) => {
           handleDateChange(onChangeTo, to)(newToValue);
@@ -51,9 +52,61 @@ const DateSelect = ({ from, to, ...rest }) => {
             from,
           )(newFromValue);
         }}
+        renderInput={(startProps, endProps) => {
+          delete startProps.inputProps;
+          delete endProps.inputProps;
+
+          return (
+            <Grid
+              container
+              alignItems="center"
+              justify="space-between"
+            >
+              <TextBase
+                {...startProps}
+                {...fromDecorators}
+                lg={5}
+                md={5}
+                onChange={onChangeFrom}
+                onFocus={startProps.onFocus}
+                onBlur={startProps.onBlur}
+                label={startText}
+                value={toValue}
+                type="date"
+              />
+              <Grid
+                item
+                xs={1}
+                style={{ textAlign: 'center' }}
+              >
+                <DateRangeDelimiter>
+                  <TrendingFlatIcon aria-label="Date range delimiter" />
+                </DateRangeDelimiter>
+              </Grid>
+
+              <TextBase
+                {...endProps}
+                {...toDecorators}
+                lg={5}
+                md={5}
+                onChange={onChangeFrom}
+                onFocus={endProps.onFocus}
+                onBlur={endProps.onBlur}
+                label={endText}
+                value={toValue}
+                type="date"
+              />
+            </Grid>
+          );
+        }}
       />
     </Grid>
   );
+};
+
+DateSelect.propTypes = {
+  from: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 export default DateSelect;

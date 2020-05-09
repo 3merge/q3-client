@@ -10,6 +10,8 @@ import {
 } from './helpers';
 import { isObject } from '../helpers';
 import withGrid from './withGrid';
+import useDecorator from '../helpers/useDecorator';
+import { chosenTextFieldDisplayAttributes } from './TextBase/TextBase';
 
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
@@ -22,7 +24,7 @@ export const AutoCompleteWrapper = (props) => {
     field,
     name,
     value,
-  } = props;
+  } = useDecorator(props);
 
   const { loading, onChange, items = [] } = useOptions(
     props,
@@ -50,6 +52,7 @@ export const AutoCompleteWrapper = (props) => {
     <Autocomplete
       {...props}
       {...field}
+      {...chosenTextFieldDisplayAttributes}
       label={t(name)}
       options={items}
       loading={loading}

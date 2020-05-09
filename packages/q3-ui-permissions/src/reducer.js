@@ -5,6 +5,7 @@ import {
   TOKEN,
   INIT,
   RESET,
+  UPDATE,
 } from './utils/constants';
 
 export const destroySession = () => {
@@ -45,6 +46,8 @@ export default (state, action) => {
       return { init: true, ...data };
     case RESET:
       return { init: false };
+    case UPDATE:
+      return { data };
     default:
       throw new Error('Unknown reducer');
   }

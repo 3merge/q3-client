@@ -5,7 +5,6 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
 import { Equals } from 'q3-ui-filters/lib/components';
-import Groups from '../components/groups';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -18,6 +17,7 @@ import Detail from './detail';
 import Header from './header';
 import Page from './page';
 import Table from './table';
+import Filters from './filters';
 import SubDetail from './subDetail';
 import connect from './connect';
 import Filter from './filter';
@@ -66,14 +66,27 @@ const Investors = (props) => (
     </Header>
     <Table
       renderTop={() => (
-        <Groups
-          search="?"
-          queries={{
-            Ready: 'kind=ready',
-            NotReady: 'kind=notReady',
-            AlmostReady: 'kind=almostReady',
+        <Filters
+          lookup={['gender']}
+          initialValues={{
+            'investments&2Elength': '',
+            gender: '',
           }}
-        />
+        >
+          {(filters) => (
+            <>
+              <Field
+                name="gender"
+                type="select"
+                options={filters.gender}
+              />
+              <Field
+                name="investments&2Elength"
+                type="number"
+              />
+            </>
+          )}
+        </Filters>
       )}
       resolvers={resolver}
       defaultColumns={[

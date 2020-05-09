@@ -40,11 +40,12 @@ const ProfileBar = ({
         >
           {(toggle) => (
             <>
+              <Logo name={companyName} />
               <Hidden smDown implementation="css">
-                <Logo name={companyName} />
                 {matches && <IconMenu items={items} />}
               </Hidden>
               <Fab
+                color="primary"
                 onClick={toggle}
                 id="flyout-menu"
                 className={matches ? trigger : center}

@@ -1,12 +1,11 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { DatePicker } from '@material-ui/pickers';
 import { useField, useFormikContext } from 'formik';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
+import DateBase from 'q3-ui-forms/lib/fields/DateBase';
+import TextBase from 'q3-ui-forms/lib/fields/TextBase';
+import SelectBase from 'q3-ui-forms/lib/fields/SelectBase';
+
 import {
   extractTextualValue,
   handleOnChange,
@@ -24,43 +23,27 @@ const FilterTextField = ({
   const [{ value }, , { setValue }] = useField(name);
   const realValue = extractTextualValue(value, '');
 
-  if (type === 'select')
+  if (type === 'select') {
     return (
-      <FormControl variant="outlined" fullWidth>
-        <InputLabel htmlFor={name}>{label}</InputLabel>
-        <Select
-          fullWidth
-          id={name}
-          value={realValue}
-          native
-          onChange={handleOnChange(
-            setValue,
-            op,
-            submitForm,
-          )}
-          name={name}
-        >
-          <option value="" aria-label="Empty" />
-          {options.map(({ value: v, label: l }) => (
-            <option key={v} value={v}>
-              {l}
-            </option>
-          ))}
-        </Select>
-      </FormControl>
+      <SelectBase
+        id={name}
+        value={realValue}
+        onChange={handleOnChange(setValue, op)}
+        items={options}
+        name={name}
+        label={label}
+      />
     );
+  }
 
   if (type === 'date')
     return (
-      <DatePicker
+      <DateBase
         {...rest}
         type="text"
         name={name}
         label={label}
-        value={
-          realValue && realValue.length ? realValue : null
-        }
-        fullWidth
+        value={realValue}
         onChange={(e, v) => {
           setValue({
             operand: op,
@@ -69,33 +52,17 @@ const FilterTextField = ({
 
           submitForm();
         }}
-        variant="outlined"
-        placeholder="yyyy-mm-dd"
-        format="YYYY-MM-DD"
-        clearable
-        autoOk
       />
     );
 
   return (
-    <TextField
+    <TextBase
       {...rest}
       name={name}
       label={label}
-      variant="outlined"
       onChange={handleOnChange(setValue, op)}
       value={realValue}
-      onBlur={submitForm}
-      inputProps={{
-        onKeyPress: (e) => {
-          const charCode =
-            typeof e.which === 'number'
-              ? e.which
-              : e.keyCode;
-          if (charCode === 13) submitForm();
-        },
-      }}
-      fullWidth
+      // onBlur={submitForm}
     />
   );
 };

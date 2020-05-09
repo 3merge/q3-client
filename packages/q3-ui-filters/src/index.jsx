@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { merge } from 'lodash';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { Formik, Form } from 'formik';
+import { Form } from 'q3-ui-forms/lib/builders';
 import { withLocation } from 'with-location';
 import { url } from 'q3-ui-helpers';
 import {
@@ -37,75 +38,70 @@ export const FilterForm = ({
   redirect,
   autosave,
   applyLabel,
+  location,
+  conversionMap,
+  initialValues,
   ...rest
 }) => {
   const currentState = getAll();
   const remove = params.delete.bind(params);
-  const initialValues = appendEmptyValues(
-    children,
-    currentState,
+  const [init, setInitialValues] = React.useState(
+    initialValues,
   );
 
-  const apply = (values) =>
-    pushTo(
-      marshalFormFieldsIntoUrlString(values, {
-        remove,
-      }),
-    );
+  const apply = (values, actions) => {
+    try {
+      const v = marshalFormFieldsIntoUrlString(
+        values,
+        conversionMap,
+        {
+          remove,
+        },
+      );
 
-  const handleSubmit = (values) => {
-    if (!autosave) return;
-    apply(values);
+      params.merge(v);
+      console.log(params.toString());
+      // pushTo(params);
+      actions.resetForm(initialValues);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  return (
-    <Formik
-      {...rest}
-      enableReinitialize
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-    >
-      {({ values, resetForm }) => (
-        <Form>
-          {children}
-          <Box mt={1}>
-            {!autosave && (
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{
-                  marginRight: '0.5rem',
-                }}
-                onClick={() => {
-                  apply(values);
-                  if (next) next();
-                }}
-              >
-                {applyLabel}
-              </Button>
-            )}
-            <Button
-              size="large"
-              variant="contained"
-              onClick={handleClear({
-                remove,
-                values,
-                state: currentState,
+  React.useEffect(() => {
+    setInitialValues(
+      merge(initialValues, appendEmptyValues(currentState)),
+    );
+  }, [location]);
 
-                done: () => {
-                  resetForm();
-                  redirect();
-                },
-              })}
-            >
-              {clearLabel}
-            </Button>
-          </Box>
-        </Form>
-      )}
-    </Formik>
+  return (
+    <Form
+      {...rest}
+      debug
+      labelSubmit="apply"
+      initialValues={init}
+      onSubmit={apply}
+    >
+      {children}
+      <Box mt={1}>
+        <Button
+          size="large"
+          variant="contained"
+          onClick={handleClear({
+            remove,
+            // values,
+            state: currentState,
+
+            done: () => {
+              //  resetForm();
+              redirect();
+            },
+          })}
+        >
+          {clearLabel}
+        </Button>
+      </Box>
+    </Form>
   );
 };
 

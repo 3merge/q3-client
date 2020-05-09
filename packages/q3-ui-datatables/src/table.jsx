@@ -31,6 +31,7 @@ const TableHeader = ({
   columns,
   aliasForName,
   setActiveColumns,
+  renderLast,
   ...rest
 }) => {
   const { mobile, boxes, tableHead } = useStyles();
@@ -60,6 +61,12 @@ const TableHeader = ({
             {...rest}
           />
         ))}
+        <TableCell
+          id="q3-table-boxes"
+          style={{ width: 55 }}
+        >
+          {renderLast}
+        </TableCell>
       </TableRow>
     </TableHead>
   );
@@ -89,9 +96,7 @@ export const TableView = ({
   // actions,
   resolvers,
   data = [],
-  renderFilter,
   onClick,
-  ...rest
 }) => {
   const { root } = useStyles();
 
@@ -110,20 +115,7 @@ export const TableView = ({
           activeColumns = [],
           setActiveColumns,
         ) => (
-          <Wrapper
-            hasSidebar={
-              Boolean(renderFilter) ||
-              (Array.isArray(allColumns) &&
-                allColumns.length)
-            }
-          >
-            <StickyIconNavigator>
-              <ColumnConfiguratorIconButton />
-              <FilterConfig
-                renderFilter={renderFilter}
-                {...rest}
-              />
-            </StickyIconNavigator>
+          <Wrapper>
             <Paper
               elevation={0}
               style={{ minWidth: '100%' }}
@@ -134,6 +126,9 @@ export const TableView = ({
                   aliasForName={aliasForName}
                   columns={activeColumns}
                   setActiveColumns={setActiveColumns}
+                  renderLast={
+                    <ColumnConfiguratorIconButton />
+                  }
                 >
                   <SelectAll ids={extractIds(data)} />
                 </TableHeader>
@@ -224,11 +219,6 @@ TableView.propTypes = {
    * It fires before navigating.
    */
   onClick: PropTypes.func,
-
-  /**
-   * A renderer for inside the filter popover.
-   */
-  renderFilter: PropTypes.func,
 };
 
 TableView.defaultProps = {
@@ -238,7 +228,6 @@ TableView.defaultProps = {
   allColumns: [],
   defaultColumns: [],
   onClick: null,
-  renderFilter: null,
 };
 
 export default TableView;

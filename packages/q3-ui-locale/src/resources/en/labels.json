@@ -205,5 +205,6 @@
   "addToCartFail": "Failed",
   "addToCartSuccess": "Done",
   "addToCart": "Buy now",
-  "files": "Files"
+  "files": "Files",
+  "filterName": "Filter name"
 }

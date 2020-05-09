@@ -8,7 +8,6 @@ import {
   filterbyColl,
   findByOp,
   isDefined,
-  satisfiesOwnership,
   hasField,
 } from './utils/helpers';
 
@@ -18,13 +17,6 @@ const getPermissions = (c) =>
   Array.isArray(c.state.permissions)
     ? c.state.permissions
     : [];
-
-const getProfile = (c) =>
-  c &&
-  typeof c.state === 'object' &&
-  typeof c.state.profile === 'object'
-    ? c.state.profile.id
-    : '';
 
 export const asProtectedRoute = (ctx) => {
   const ProtectedRoute = ({

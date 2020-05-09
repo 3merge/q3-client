@@ -10,7 +10,7 @@ import reducer, {
   getSession,
   setSession,
 } from './reducer';
-import { RESET } from './utils/constants';
+import { RESET, UPDATE } from './utils/constants';
 import { invoke } from './utils/helpers';
 
 export const AuthContext = React.createContext({
@@ -48,6 +48,13 @@ export const Provider = ({
     getSession(dispatch);
   };
 
+  const update = (values, done) =>
+    Axios.post('/profile', values)
+      .then(({ data }) => {
+        dispatch({ type: UPDATE, ...state, ...data });
+      })
+      .then(done);
+
   React.useEffect(() => {
     Axios.interceptors.request.use((config) => {
       const cls = new AuthenticationHeaders(config);
@@ -64,6 +71,7 @@ export const Provider = ({
         state,
         dispatch,
         refresh,
+        update,
       }}
     >
       {invokeRendererFns()}

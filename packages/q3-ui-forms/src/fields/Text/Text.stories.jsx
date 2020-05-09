@@ -21,6 +21,7 @@ export const Validation = () => (
       postal: '',
       email: '',
       tel: '',
+      date: '',
     }}
   >
     <Field name="name" type="text" />
@@ -37,6 +38,7 @@ export const Validation = () => (
     <Field
       name="friend"
       type="text"
+      disabled
       override={({ values }) => ({
         label: values.name ? 'OVERRIDE!' : undefined,
       })}

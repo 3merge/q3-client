@@ -1,7 +1,8 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Form from '../builders/form';
 import Field from '../builders/field';
-import Select from './select';
+import Select from './Select';
 
 const opts = [
   { value: 'CA', label: 'Canada' },
@@ -47,6 +48,23 @@ export const WithOptions = () => (
   >
     <Field name="countries" type="select" options={opts} />
   </Form>
+);
+
+export const WithMultiSelect = () => (
+  <Box p={1}>
+    <Form
+      onSubmit={() => null}
+      initialValues={{
+        countries: opts[1].value,
+      }}
+    >
+      <Field
+        name="countries"
+        type="multiselect"
+        options={opts}
+      />
+    </Form>
+  </Box>
 );
 
 export const WithDynamicOptions = () => (
