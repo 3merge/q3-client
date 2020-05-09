@@ -41,8 +41,11 @@ const FiltersCustomAction = ({
           <ButtonGroup
             variant="contained"
             aria-label={label}
-            style={{ margin: '0.25rem' }}
             color={color}
+            style={{
+              marginRight: '0.25rem',
+              marginBottom: '0.25rem',
+            }}
           >
             <Button onClick={() => navigate(query)}>
               {name}

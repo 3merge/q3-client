@@ -4,7 +4,7 @@ export { default as Chip } from './chip';
 export { default as ColumnConfigurator } from './columnConfigurator';
 export { default as ColumnHeader } from './columnHeader';
 export { default as Empty } from './empty';
-export { default as FilterConfig } from './filter';
+
 export { default as Pagination } from './pagination';
 export { default as Progress } from './progress';
 export { default as Row } from './row';

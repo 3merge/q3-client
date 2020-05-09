@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from 'q3-ui/lib/tooltip';
 import Badge from '@material-ui/core/Badge';
 import Dialog from 'q3-ui-dialog';
-import useStyles from '../../utils/useStyles';
 
 const StickyPopover = ({
   children,
@@ -14,38 +13,34 @@ const StickyPopover = ({
   label,
   count,
   ...rest
-}) => {
-  const { trigger } = useStyles();
-
-  return (
-    <Box {...rest} p="12px">
-      <Dialog
-        title={label}
-        renderContent={() => children}
-        renderTrigger={(open, isOpen) => (
-          <Tooltip
-            arrow
-            title={label}
-            placement="bottom-start"
+}) => (
+  <Box {...rest} p="12px">
+    <Dialog
+      title={label}
+      renderContent={() => children}
+      renderTrigger={(open, isOpen) => (
+        <Tooltip
+          arrow
+          title={label}
+          placement="bottom-start"
+        >
+          <Badge
+            color="secondary"
+            badgeContent={count}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
           >
-            <Badge
-              color="secondary"
-              badgeContent={count}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <IconButton onClick={open} size="small">
-                {isOpen ? <Close /> : <Icon />}
-              </IconButton>
-            </Badge>
-          </Tooltip>
-        )}
-      />
-    </Box>
-  );
-};
+            <IconButton onClick={open} size="small">
+              {isOpen ? <Close /> : <Icon />}
+            </IconButton>
+          </Badge>
+        </Tooltip>
+      )}
+    />
+  </Box>
+);
 
 StickyPopover.propTypes = {
   children: PropTypes.node.isRequired,

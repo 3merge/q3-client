@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -18,11 +16,9 @@ import { extractIds } from './utils/helpers';
 import {
   ColumnConfigurator,
   ColumnHeader,
-  FilterConfig,
   Empty,
   Wrapper,
   Pagination,
-  StickyIconNavigator,
   Row,
 } from './components';
 
