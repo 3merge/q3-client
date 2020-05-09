@@ -81,7 +81,7 @@ ButtonSplit.propTypes = {
   /**
    * Will showing a loading icon
    */
-  loading: PropTypes.func,
+  loading: PropTypes.bool,
 
   /**
    * Controls the colour of both buttons.

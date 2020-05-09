@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { get } from 'lodash';
-import debounce from 'debounce-promise';
 
 export const extractData = (v, path) => {
   let label;
@@ -41,13 +40,10 @@ export const handleResponse = (
       )
     : get(data, key, []);
 
-export default debounce(
-  (url, ...rest) =>
-    axios
-      .get(url)
-      .then(handleResponse(...rest))
-      .catch(() => {
-        return [];
-      }),
-  170,
-);
+export default (url, ...rest) =>
+  axios
+    .get(url)
+    .then(handleResponse(...rest))
+    .catch(() => {
+      return [];
+    });

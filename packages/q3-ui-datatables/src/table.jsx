@@ -69,7 +69,10 @@ const TableHeader = ({
 };
 
 TableHeader.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   columns: PropTypes.arrayOf(PropTypes.string),
   aliasForName: PropTypes.string,
   children: PropTypes.oneOfType([
@@ -129,18 +132,19 @@ export const TableView = ({
                   <SelectAll ids={extractIds(data)} />
                 </TableHeader>
                 <TableBody>
-                  {data.map((c, i) =>
-                    React.createElement(Row, {
-                      id: c.id || i,
+                  {data.map((c, i) => {
+                    const rowId = c.id || i;
+                    return React.createElement(Row, {
+                      id: rowId,
+                      key: rowId,
                       onClick,
-
                       activeColumns,
                       columns:
                         typeof resolvers === 'function'
                           ? resolvers(c)
                           : c,
-                    }),
-                  )}
+                    });
+                  })}
                 </TableBody>
                 <TableFooter>
                   <TableRow>
@@ -178,9 +182,11 @@ TableView.propTypes = {
    * Typically, you'd nest an array of Row components within the Table.
    * This component reads the "id" prop of each to configure mobile headers.
    */
-  data: PropTypes.arrayOf({
-    id: PropTypes.string,
-  }).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  ).isRequired,
 
   /**
    * On row selection, the user can click from a toolbar of pre-determined actions.

@@ -10,9 +10,8 @@ import {
   green,
   blue,
 } from '@material-ui/core/colors';
+import { Status } from 'q3-components';
 import TableView, {
-  TableBadge,
-  TableChip,
   TableProgress,
   TableCheck,
   withPropsResolver,
@@ -26,7 +25,7 @@ export default {
   },
 };
 
-const fn = withPropsResolver(TableChip, {
+const fn = withPropsResolver(Status, {
   toDate: true,
   resolve: () => {
     return {
@@ -36,7 +35,7 @@ const fn = withPropsResolver(TableChip, {
   },
 });
 
-const price = withPropsResolver(TableBadge, {
+const price = withPropsResolver(Status, {
   toPrice: true,
   resolve: (v) => ({
     color: v > 50 ? green[900] : blue[900],
@@ -120,7 +119,7 @@ export const Full = () => (
             <a href={`mailTo:${v.email}`}>{v.email}</a>
           ),
           status: (
-            <TableBadge status={v.status} color={v.color} />
+            <Status label={v.status} color={v.color} />
           ),
         })}
         actions={[

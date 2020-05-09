@@ -23,8 +23,9 @@ const FiltersForm = ({
   const { collectionName, location } = React.useContext(
     Definitions,
   );
+
   const { t } = useTranslation();
-  const { value, onChange, ...etc } = useValue(name);
+  const { value, onChange } = useValue(name);
   const runSave = (res) => handleSave(value, res);
 
   const { fields = {}, loading } = useFilters({
@@ -60,7 +61,7 @@ const FiltersForm = ({
 };
 
 FiltersForm.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.func.isRequired,
   handleSave: PropTypes.func.isRequired,
   name: PropTypes.string,
   query: PropTypes.string,

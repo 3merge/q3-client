@@ -27,7 +27,7 @@ const FeatureSizingBase = ({
 );
 
 FeatureSizingBase.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   lg: PropTypes.number,
   md: PropTypes.number,
   sm: PropTypes.number,
@@ -35,6 +35,7 @@ FeatureSizingBase.propTypes = {
 };
 
 FeatureSizingBase.defaultProps = {
+  children: null,
   lg: 4,
   md: 4,
   sm: 6,

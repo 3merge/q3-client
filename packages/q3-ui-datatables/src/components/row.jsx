@@ -104,7 +104,10 @@ const Row = ({
 };
 
 Row.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   onClick: PropTypes.func,
 
   rowToolbar: PropTypes.arrayOf(

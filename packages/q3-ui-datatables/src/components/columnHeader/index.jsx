@@ -42,7 +42,7 @@ export const ColumnHeader = ({
   const handleDragOver = (e) => e.preventDefault();
   const handleDragEnter = (e) => {
     const { id: tid } = e.target;
-    setDragOver(tid);
+    if (setDragOver) setDragOver(tid);
   };
 
   const handleOnDrop = (e) => {
@@ -55,15 +55,14 @@ export const ColumnHeader = ({
     tempCols[draggedColIdx] = cols[droppedColIdx];
     tempCols[droppedColIdx] = cols[draggedColIdx];
 
-    setCols(tempCols);
-    setDragOver('');
+    if (setCols) setCols(tempCols);
+    if (setDragOver) setDragOver('');
   };
 
   return (
     <TableCell
       component="th"
       className="q3-dnd-table-header"
-      dragOver={title === dragOver}
       onDrop={handleOnDrop}
       style={{
         whiteSpace: 'nowrap',
@@ -119,14 +118,18 @@ ColumnHeader.propTypes = {
    */
   disableDnD: PropTypes.bool,
 
-  cols: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setCols: PropTypes.func.isRequired,
-  dragOver: PropTypes.string.isRequired,
-  setDragOver: PropTypes.func.isRequired,
+  cols: PropTypes.arrayOf(PropTypes.string),
+  setCols: PropTypes.func,
+  dragOver: PropTypes.string,
+  setDragOver: PropTypes.func,
 };
 
 ColumnHeader.defaultProps = {
+  cols: [],
   disableDnD: false,
+  setDragOver: undefined,
+  setCols: undefined,
+  dragOver: undefined,
 };
 
 export default withLocation(ColumnHeader);

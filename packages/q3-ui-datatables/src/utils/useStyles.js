@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
   root: {
     backgroundColor: '#FFF',
     '& td': {
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('sm')]: {
         border: 0,
         display: 'block',
         '&::before': {
@@ -18,7 +18,7 @@ export default makeStyles((theme) => ({
     },
   },
   tableHead: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'block',
       width: '100% !important',
     },
@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
       backgroundColor: grey[100],
       transition: 'background-color 250ms',
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       borderBottom: `2px solid ${grey[100]}`,
       display: 'block',
       padding: theme.spacing(1),
@@ -52,7 +52,7 @@ export default makeStyles((theme) => ({
     '&:hover>.visible-on-hover button': {
       opacity: 1,
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       '&>.visible-on-hover button': {
         opacity: 1,
       },
@@ -76,7 +76,7 @@ export default makeStyles((theme) => ({
     minWidth: 350,
   },
   mobile: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
@@ -100,13 +100,13 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   mobileCheckbox: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       float: 'right',
     },
   },
   withoutPseudo: {
     minWidth: 270,
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       minWidth: 'auto',
     },
 

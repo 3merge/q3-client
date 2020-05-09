@@ -14,29 +14,41 @@ const DialogFooter = ({ onClose, onNext, onPrev }) => {
 
   return (
     <BottomNavigation showLabels>
-      <BottomNavigationAction
-        label={t('labels:previous')}
-        icon={<NavigateBeforeIcon />}
-        onClick={onPrev}
-      />
-      <BottomNavigationAction
-        label={t('labels:escape')}
-        icon={<Keyboard />}
-        onClick={onClose}
-      />
-      <BottomNavigationAction
-        label={t('labels:next')}
-        icon={<NavigateNextIcon />}
-        onClick={onNext}
-      />
+      {onPrev && (
+        <BottomNavigationAction
+          label={t('labels:previous')}
+          icon={<NavigateBeforeIcon />}
+          onClick={onPrev}
+        />
+      )}
+      {onClose && (
+        <BottomNavigationAction
+          label={t('labels:escape')}
+          icon={<Keyboard />}
+          onClick={onClose}
+        />
+      )}
+      {onNext && (
+        <BottomNavigationAction
+          label={t('labels:next')}
+          icon={<NavigateNextIcon />}
+          onClick={onNext}
+        />
+      )}
     </BottomNavigation>
   );
 };
 
 DialogFooter.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onNext: PropTypes.func.isRequired,
-  onPrev: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+  onNext: PropTypes.func,
+  onPrev: PropTypes.func,
+};
+
+DialogFooter.defaultProps = {
+  onClose: undefined,
+  onPrev: undefined,
+  onNext: undefined,
 };
 
 export default DialogFooter;

@@ -77,7 +77,7 @@ const DialogVariant = ({
 DialogVariant.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  onExit: PropTypes.func.isRequired,
+  onExit: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['drawer', 'modal']),
@@ -85,6 +85,7 @@ DialogVariant.propTypes = {
 
 DialogVariant.defaultProps = {
   variant: 'modal',
+  onExit: null,
 };
 
 export default DialogVariant;

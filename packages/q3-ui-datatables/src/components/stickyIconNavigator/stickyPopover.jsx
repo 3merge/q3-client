@@ -44,7 +44,10 @@ const StickyPopover = ({
 
 StickyPopover.propTypes = {
   children: PropTypes.node.isRequired,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]).isRequired,
   label: PropTypes.string.isRequired,
   count: PropTypes.number,
 };

@@ -1,12 +1,12 @@
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
-import FiltersAdd from './FiltersAdd';
+import FiltersClear from './FiltersClear';
 
-describe('FiltersAdd', () => {
+describe('FiltersClear', () => {
   it('should provide 0 value to badge content when active filter is in place', () => {
     const { badgeContent } = global
       .shallow(
-        <FiltersAdd
+        <FiltersClear
           onClick={jest.fn()}
           hasActiveFilter
           numberOfFiltersApplied={10}
@@ -21,7 +21,7 @@ describe('FiltersAdd', () => {
   it('should render number of filters when no active filter is in place', () => {
     const { badgeContent } = global
       .shallow(
-        <FiltersAdd
+        <FiltersClear
           onClick={jest.fn()}
           hasActiveFilter={false}
           numberOfFiltersApplied={3}
