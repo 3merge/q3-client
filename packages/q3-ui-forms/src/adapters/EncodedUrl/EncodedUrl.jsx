@@ -92,13 +92,7 @@ const EncodedUrl = ({
 }) => (
   <Form
     {...props}
-    enableReset={withClear}
-    submitLabel="apply"
-    resetLabel="clear"
-    onReset={handleStateClear(initialValues, {
-      ...props,
-      navigate,
-    })}
+    enableSubmit={false}
     onSubmit={handleStateEncoding(onSave || navigate)}
     initialValues={handleStateDecoding(
       // allowed to override with empty string

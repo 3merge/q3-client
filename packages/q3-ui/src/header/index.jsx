@@ -52,6 +52,7 @@ const Header = ({
   offcanvasRenderBottom,
   menuPosition,
   transparent,
+  wide,
   color,
   children,
   position,
@@ -59,6 +60,7 @@ const Header = ({
 }) => {
   const { appBar, appBarPadding } = useStyles({
     transparent,
+    wide,
   });
 
   return (

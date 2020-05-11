@@ -34,9 +34,6 @@ export default makeStyles((theme) => ({
 
   colourful: ({ isOpen }) => ({
     backgroundColor: theme.palette.primary.main,
-    boxShadow: isOpen
-      ? theme.shadows[25]
-      : theme.shadows[5],
     boxSizing: 'border-box',
     color: '#FFF',
     display: 'flex',

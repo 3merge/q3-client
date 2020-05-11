@@ -69,8 +69,7 @@ const theme = createMuiTheme({
     overline: {
       color: '#4d555e',
       fontWeight: 400,
-      lineHeight: 1.35,
-      fontSize: '0.901rem',
+      fontSize: '0.812rem !important',
     },
     body1: {
       color: '#4f5868',
@@ -110,6 +109,9 @@ Object.assign(theme, {
         },
         img: {
           maxWidth: '100%',
+        },
+        small: {
+          fontSize: '0.812rem',
         },
       },
     },
@@ -224,7 +226,7 @@ Object.assign(theme, {
     },
     MuiTablePagination: {
       caption: {
-        fontSize: '0.88rem',
+        fontSize: '0.901rem',
       },
       spacer: {
         display: 'none',
@@ -293,10 +295,10 @@ Object.assign(theme, {
         },
       },
       primary: {
-        fontSize: '1.125em',
+        fontSize: '1rem',
       },
       secondary: {
-        fontSize: '1em',
+        fontSize: '0.901rem',
       },
     },
     MuiListItemSecondaryAction: {

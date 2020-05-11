@@ -1,23 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import { Field } from 'q3-ui-forms/lib/builders';
+import Button from '@material-ui/core/Button';
+import FilterIcon from '@material-ui/icons/FilterList';
 import Paper from '@material-ui/core/Paper';
-import InlineEditor from '../InlineEditor';
+import IconButton from 'q3-ui/lib/iconButton';
+import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
+import Inline from '../Inline';
 
-const Chart = ({ url, title, filters, onSubmit }) => (
+const Chart = ({
+  url,
+  title,
+  children,
+  onSave,
+  initialValues,
+}) => (
   <Box p={1}>
     <Paper>
       <Box height={480} p={2} position="relative">
         <Box position="absolute" top="1rem" right="1rem">
-          <InlineEditor
-            title="Date ranges"
-            initialValues={filters}
-            onSubmit={onSubmit}
-          >
-            <Field name="from" type="date" />
-            <Field name="to" type="date" />
-          </InlineEditor>
+          <Inline
+            title="Filter"
+            renderContent={() => (
+              <EncodedUrl
+                onSave={onSave}
+                initialValues={initialValues}
+              >
+                {children}
+                <Button type="submit">Apply</Button>
+              </EncodedUrl>
+            )}
+            renderTrigger={(onClick) => (
+              <IconButton
+                icon={FilterIcon}
+                label="Filter"
+                buttonProps={{ onClick }}
+              />
+            )}
+          />
         </Box>
         <iframe
           width="100%"

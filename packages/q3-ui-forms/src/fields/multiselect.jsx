@@ -22,7 +22,11 @@ const Multiselect = (props) => {
     ...deco
   } = useDecorator(props);
 
-  const v = Array.isArray(value) ? value.flat() : [];
+  const v = (Array.isArray(value)
+    ? value.flat()
+    : [value]
+  ).filter(Boolean);
+
   const { t } = useTranslation();
   const { loading, items } = useOptions({
     minimumCharacterCount: 0,
@@ -33,6 +37,9 @@ const Multiselect = (props) => {
   return (
     <TextBase
       select
+      lg={12}
+      xl={12}
+      md={12}
       name={name}
       label={label}
       error={error}

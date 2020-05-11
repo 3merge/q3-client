@@ -30,18 +30,22 @@ const FiltersCustomAction = ({
   return (
     <DropDownMenu items={items}>
       {(open, isOpen) => {
-        let color;
+        let variant = 'outlined';
         const label = `${name} filter context actions`;
 
-        if (isActive) color = 'secondary';
+        if (isActive) variant = 'contained';
 
         const ifOpen = (v) => (isOpen ? v : undefined);
 
         return (
           <ButtonGroup
-            variant="contained"
+            onContextMenu={(e) => {
+              e.preventDefault();
+              open(e);
+            }}
+            variant={variant}
             aria-label={label}
-            color={color}
+            color="secondary"
             style={{
               marginRight: '0.25rem',
               marginBottom: '0.25rem',
@@ -51,7 +55,6 @@ const FiltersCustomAction = ({
               {name}
             </Button>
             <Button
-              color={color}
               aria-controls={ifOpen(label)}
               aria-expanded={ifOpen('true')}
               aria-label={name}

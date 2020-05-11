@@ -8,7 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.51",
+    "@material-ui/lab": "^4.0.0-alpha.52",
     "@reach/router": "^1.2.1",
     "lodash": "^4.17.15",
     "q3-ui-exports": "^1.16.0",

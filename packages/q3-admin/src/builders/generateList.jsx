@@ -3,17 +3,19 @@ import { Add, Header, Search, Table } from '../containers';
 
 export default ({
   addForm: AddForm,
-  onSearch,
   ListProps,
   AddProps,
+  filter,
 }) => () => (
   <>
-    <Header>
-      <Search intercept={onSearch} />
-      <Add {...AddProps}>
-        <AddForm />
-      </Add>
-    </Header>
-    <Table {...ListProps} />
+    <Table
+      {...ListProps}
+      filter={filter}
+      addComponent={
+        <Add {...AddProps}>
+          <AddForm />
+        </Add>
+      }
+    />
   </>
 );

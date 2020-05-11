@@ -8,7 +8,6 @@ const SelectBase = ({
   disabled,
   loading,
   items,
-  value,
   required,
   ...props
 }) => {
@@ -18,8 +17,8 @@ const SelectBase = ({
     <TextBase
       {...props}
       select
+      xl={12}
       lg={12}
-      md={12}
       required={required}
       disabled={disabled || loading}
       SelectProps={{

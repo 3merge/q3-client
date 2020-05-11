@@ -11,12 +11,9 @@ export const simulateEventHandler = (fn, name) => (
   event,
   newValue,
 ) => {
-  console.log(newValue);
   return fn({
     target: {
-      value: newValue
-        ? get(newValue, 'value')
-        : getTargetValue(event),
+      value: newValue || getTargetValue(event),
       name,
     },
   });

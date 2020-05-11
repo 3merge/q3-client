@@ -32,8 +32,10 @@ export const getActiveSearchQueryByKey = (search) => (
     (acc, [label, query]) =>
       removeQueryCharacter(query)
         .split('&')
-        .every((filter) =>
-          split.find((term) => matchTerms(term, filter)),
+        .every(
+          (filter) =>
+            hasReservedWord(filter) ||
+            split.find((term) => matchTerms(term, filter)),
         )
         ? acc.concat(label)
         : acc,

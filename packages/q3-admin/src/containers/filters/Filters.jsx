@@ -1,15 +1,21 @@
 import React from 'react';
 import { get } from 'lodash';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { DropDownMenu } from 'q3-ui/lib/toolbar';
 import Box from '@material-ui/core/Box';
 import { AuthContext } from 'q3-ui-permissions';
+import Grid from '@material-ui/core/Grid';
 import { Definitions } from '../state';
 import withSearch from '../withSearch';
-import FiltersAdd from './FiltersClear';
-import FiltersCustomAction from './FiltersCustomAction';
-
-import FiltersDrawer from './FiltersDrawer';
+import FiltersForm from './FiltersForm';
+import FiltersClear from './FiltersClear';
+import FiltersDelete from './FiltersDelete';
+import FiltersName from './FiltersName';
+import Panel from '../../components/sidebar/panel';
 
 const Groups = ({
   children,
@@ -17,11 +23,21 @@ const Groups = ({
   customFiltersApplied,
   ...etc
 }) => {
-  const { collectionName } = React.useContext(Definitions);
+  const { collectionName, rootPath } = React.useContext(
+    Definitions,
+  );
+
   const { state, update } = React.useContext(AuthContext);
-  const filters = get(state, 'filters', {});
+  const filters = get(state, 'profile.filters', {});
   const items = get(filters, collectionName, {});
-  const activeFitler = getActive(items);
+  const active = getActive(items);
+
+  const menuItems = Object.entries(items).map(
+    ([key, query]) => ({
+      onClick: () => navigate(query),
+      label: key,
+    }),
+  );
 
   const patchProfile = (newFilterObj, done) => {
     const master = { ...filters };
@@ -35,56 +51,93 @@ const Groups = ({
     );
   };
 
-  const onModify = (name, query) => {
-    const copy = { ...items };
-    copy[name] = query;
-    return patchProfile(copy, () => navigate(query));
-  };
+  const onModify = (name) => (query) => {
+    if (name) {
+      const copy = { ...items };
 
-  const onDelete = (name) => {
-    const copy = { ...items };
-    delete copy[name];
-    return patchProfile(copy);
+      // fully replace it
+      delete copy[active];
+      copy[name] = query;
+
+      return patchProfile(copy, () =>
+        navigate(`${rootPath}${query}`),
+      );
+    }
+    navigate(`${rootPath}${query}`);
   };
 
   return (
-    <Box
-      disableGutter
-      maxWidth="xl"
-      id="q3-custom-filter-groups"
-    >
-      <FiltersDrawer
-        handleSave={onModify}
-        formFields={children}
-        {...etc}
-      >
-        {(onClick) => (
-          <FiltersAdd
-            onClick={onClick}
-            hasActiveFilter={Boolean(activeFitler)}
-            numberOfFiltersApplied={customFiltersApplied}
-          />
-        )}
-      </FiltersDrawer>
-      {Object.entries(items).map(([label, query]) => (
-        <FiltersDrawer
-          name={label}
-          query={query}
-          handleSave={onModify}
-          formFields={children}
-          {...etc}
-        >
-          {(onClick) => (
-            <FiltersCustomAction
-              onClick={onClick}
-              onDelete={onDelete}
-              isActive={activeFitler === label}
-              name={label}
-              query={query}
-            />
-          )}
-        </FiltersDrawer>
-      ))}
+    <Box>
+      <Panel title="Segments">
+        <Box>
+          <FiltersName name={active}>
+            {(name, renderInput) => (
+              <FiltersForm
+                {...etc}
+                handleSave={onModify(name)}
+              >
+                {(...params) => (
+                  <>
+                    <Grid item xs={12}>
+                      <DropDownMenu
+                        id="q3-segments"
+                        items={menuItems}
+                        MenuListProps={{
+                          style: {
+                            width: 270,
+                          },
+                        }}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                        variant="selectedMenu"
+                      >
+                        {(open) => (
+                          <Button
+                            onClick={open}
+                            aria-controls="q3-segments"
+                            aria-haspopup="true"
+                            disabled={!menuItems.length}
+                            size="large"
+                            variant="contained"
+                            fullWidth
+                            style={{
+                              justifyContent:
+                                'space-between',
+                            }}
+                          >
+                            {active || 'Default'}
+                            <ExpandMore />
+                          </Button>
+                        )}
+                      </DropDownMenu>
+
+                      {renderInput()}
+                      <br />
+                    </Grid>
+                    {children(...params)}
+                    <Grid item xs={12}>
+                      <ButtonGroup
+                        size="small"
+                        variant="text"
+                      >
+                        <FiltersDelete name={active} />
+                        <Button type="submit">Apply</Button>
+                        <FiltersClear />
+                      </ButtonGroup>
+                    </Grid>
+                  </>
+                )}
+              </FiltersForm>
+            )}
+          </FiltersName>
+        </Box>
+      </Panel>
     </Box>
   );
 };

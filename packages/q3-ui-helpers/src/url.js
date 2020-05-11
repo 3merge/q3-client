@@ -21,17 +21,19 @@ export const decode = (name) =>
     .replace(/%3C/g, '<')
     .replace(/%3E/g, '>')
     .replace(/\+/g, ' ')
-    .replace(/%5F/g, '_');
+    .replace(/%5F/g, '_')
+    .replace(/%2C/g, ',');
 
 export const encode = (name) =>
   isString(name)
-    .replace(/[^a-zA-Z0-9 !%_.><=\s+]/g, '')
+    .replace(/[^a-zA-Z0-9 !%_.><=\s+,]/g, '')
     .replace(/\./g, '%2E')
     .replace(/!/g, '%21')
     .replace(/_/g, '%5F')
     .replace(/</g, '%3C')
     .replace(/>/g, '%3E')
     .replace(/\s/g, '+')
+    .replace(/,/, '%2C')
     .replace(/%2E0/g, '%2Elength');
 
 /**

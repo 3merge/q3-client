@@ -8,9 +8,9 @@ export default ({ coll, fields, query }) => {
 
   const state = useRest({
     url: `/search?${fieldString}${
-      query ? `&${query}` : ''
+      query ? `&${query.replace('?', '')}` : ''
     }`,
-    runOnInit: false,
+    runOnInit: true,
     key: 'fields',
   });
 

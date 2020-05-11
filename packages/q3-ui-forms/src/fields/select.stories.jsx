@@ -53,7 +53,8 @@ export const WithOptions = () => (
 export const WithMultiSelect = () => (
   <Box p={1}>
     <Form
-      onSubmit={() => null}
+      debug
+      onSubmit={console.log}
       initialValues={{
         countries: opts[1].value,
       }}

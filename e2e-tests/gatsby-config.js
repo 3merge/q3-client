@@ -18,7 +18,6 @@ module.exports = {
     author: '@gatsbyjs',
     siteUrl: 'https://google.ca',
     brand: '3merge',
-    // logo,
   },
   plugins: [
     {
@@ -26,6 +25,7 @@ module.exports = {
       options: {
         contentfulSpaceID: CONTENTFUL_SPACE_ID,
         contentfulAccessToken: CONTENTFUL_ACCESS_TOKEN,
+        baseURL: 'http://localhost:9000/',
 
         locale: loadContent(
           path.resolve(__dirname, './locale'),

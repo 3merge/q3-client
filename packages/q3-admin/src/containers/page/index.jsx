@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
-import Tour from 'q3-ui/lib/tour';
 import Graphic from 'q3-ui-assets';
 import Loading from '../../components/loading';
 import { slugify } from './utils';
@@ -16,7 +15,6 @@ import {
   useRootPath,
 } from '../use';
 import withSorting from './withSorting';
-import tourDefaults from './tour.json';
 
 const PageChildren = ({
   children,
@@ -66,7 +64,6 @@ const Page = ({
   onExit,
   onInit,
   viewResolutions,
-  tour,
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
@@ -149,11 +146,6 @@ const Page = ({
               fetchingError={fetchingError}
             >
               {children}
-              <Tour
-                steps={tourDefaults
-                  .concat(tour)
-                  .filter(Boolean)}
-              />
             </PageChildren>
           )}
         </Store.Provider>

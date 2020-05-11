@@ -60,7 +60,7 @@ const RouterBreadcrumbs = ({ root, mode, locale }) => {
           <Breadcrumbs
             className={mode === 'dark' ? contrast : null}
             aria-label="Navigation breadcrumbs"
-            maxItems={3}
+            maxItems={4}
           >
             <BreadcrumbsHome root={root} />
             {paths.map((breadcrumb, i, arr) => {

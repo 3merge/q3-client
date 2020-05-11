@@ -13,7 +13,10 @@ const SkeletonSidebar = () => {
       <Skeleton
         id="app-sidebar"
         variant="rectangle"
-        style={{ backgroundColor: '#FFF', height: '100%' }}
+        style={{
+          backgroundColor: 'whitesmoke',
+          height: '100%',
+        }}
         className={root}
       />
     </Grid>

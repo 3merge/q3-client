@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@reach/router';
 import { SearchEngine } from 'gatsby-theme-q3/src/components';
 import { useTranslation } from 'react-i18next';
 import Header from 'q3-ui/lib/header';
@@ -10,7 +11,16 @@ const IndexPage = () => {
   return (
     <>
       <SearchEngine title={t('titles:sample')} />
-      <Header />
+      <Header>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/app"
+        >
+          {t('labels:app')}
+        </Button>
+      </Header>
       <Button variant="contained" color="primary">
         {t('labels:lorem')}
       </Button>

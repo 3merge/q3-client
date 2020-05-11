@@ -51,7 +51,13 @@ export const Provider = ({
   const update = (values, done) =>
     Axios.post('/profile', values)
       .then(({ data }) => {
-        dispatch({ type: UPDATE, ...state, ...data });
+        dispatch({
+          type: UPDATE,
+          data: {
+            ...state,
+            ...data,
+          },
+        });
       })
       .then(done);
 

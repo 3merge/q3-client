@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import useHeight from '../sidebar/useHeight';
 import useStyle from '../sidebar/useStyle';
 
 const Section = ({
@@ -12,12 +10,12 @@ const Section = ({
   renderOutside,
   ...rest
 }) => {
-  const height = useHeight();
   const { articleBox, sectionWidth } = useStyle(rest);
 
   return (
-    <Box id="detail-article" component="article">
+    <Paper id="detail-article" component="article">
       <Grid container>
+        {renderOutside}
         <Grid
           xs
           zeroMinWidth
@@ -25,17 +23,10 @@ const Section = ({
           component="section"
           item
         >
-          <Box height={height}>
-            <Box px={1} py={1} pb={4}>
-              <Container maxWidth="xl" disableGutters>
-                {renderInside}
-              </Container>
-            </Box>
-          </Box>
+          {renderInside}
         </Grid>
-        {renderOutside}
       </Grid>
-    </Box>
+    </Paper>
   );
 };
 

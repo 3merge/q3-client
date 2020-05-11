@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'q3-ui/lib/tabs';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
 import { Definitions } from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
@@ -9,8 +12,24 @@ import Documentation from '../documentation';
 import History from '../history';
 import PictureUpload from '../../components/picture';
 import Trash from '../trash';
+import Header from '../header';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
+
+const useStyle = makeStyles((theme) => ({
+  tabs: {
+    maxWidth: 750,
+    [theme.breakpoints.down('lg')]: {
+      maxWidth: 550,
+    },
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 625,
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '95vw',
+    },
+  },
+}));
 
 const TrashPreset = {
   to: '/trash',
@@ -21,7 +40,27 @@ const TrashPreset = {
     }),
 };
 
+const Overflow = ({ children }) => {
+  return (
+    <Box pb={4}>
+      <Container disableGutters fixed>
+        {children}
+      </Container>
+    </Box>
+  );
+};
+
+const HeaderMaxWidth = (props) => ({ children }) => {
+  const { tabs } = useStyle();
+  return (
+    <Header {...props}>
+      <Box className={tabs}>{children}</Box>
+    </Header>
+  );
+};
+
 const Detail = ({
+  HeaderProps,
   history,
   filepath,
   children,
@@ -56,7 +95,11 @@ const Detail = ({
       }
       renderInside={
         <Tabs
+          dense
+          wrap={HeaderMaxWidth(HeaderProps)}
+          wrapBody={Overflow}
           root={rootPath}
+          scrollButtons="on"
           views={mapToNestedRoute(children)
             .concat([TrashPreset])
             .filter(filterByExclusion)}

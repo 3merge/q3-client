@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import useStyle from './useStyle';
-import useHeight from './useHeight';
 import Drawer from './drawer';
 
 const Column = ({ children }) => {
-  const height = useHeight();
-  const { columnWidth } = useStyle({ height });
+  const { columnWidth } = useStyle();
 
   return (
     <Box id="q3-sidebar">

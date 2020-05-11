@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
+import Hidden from '@material-ui/core/Hidden';
+import Breadcrumbs from 'q3-ui/lib/breadcrumbs';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
 import { useReferrer } from '../use';
+import Section from '../../components/section';
+import Sidebar from '../../components/sidebar';
+import Search from '../search';
+import Header from '../header';
 
 export const ListContainer = ({ children, overflowY }) => {
   const height = useHeight();
@@ -28,8 +34,13 @@ ListContainer.defaultProps = {
   overflowY: 'auto',
 };
 
-const List = ({ renderForm, renderTop, ...rest }) => {
-  const height = useHeight();
+const List = ({
+  renderForm,
+  renderTop,
+  filters,
+  addComponent,
+  ...rest
+}) => {
   const tableProps = React.useContext(Store);
   const { collectionName } = React.useContext(Definitions);
   const { removeBulk } = React.useContext(Dispatcher);
@@ -43,19 +54,37 @@ const List = ({ renderForm, renderTop, ...rest }) => {
 
   return (
     <Redirect op="Read" to="/">
-      <Box style={{ height, overflowY: 'scroll' }}>
-        <Box my={renderTop ? 1 : 2.5} px={1}>
-          {renderTop && renderTop()}
-          <Table
-            {...rest}
-            {...tableProps}
-            actions={actions}
-            id={collectionName}
-            renderFilter={renderForm}
-            onClick={setPath}
-          />
-        </Box>
-      </Box>
+      <Section
+        renderOutside={
+          <Sidebar>
+            <Box my={1.5}>
+              <Search {...tableProps} />
+            </Box>
+            {filters}
+          </Sidebar>
+        }
+        renderInside={
+          <Box>
+            <Header
+              transparent
+              color="transparent"
+              subtitle={<Breadcrumbs />}
+            >
+              <Hidden lgUp>
+                <Search {...tableProps} />
+              </Hidden>
+            </Header>
+            {addComponent}
+            <Table
+              {...rest}
+              {...tableProps}
+              actions={actions}
+              id={collectionName}
+              onClick={setPath}
+            />
+          </Box>
+        }
+      />
     </Redirect>
   );
 };

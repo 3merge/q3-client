@@ -123,7 +123,7 @@ export class Validator {
       case 'multitext':
       case 'checkset':
       case 'chips':
-        this.$base = this.$base.array();
+        this.$base = this.$base.array().ensure();
         break;
       case 'autocomplete':
         this.$base = this.$base.mixed().test(autocomplete);

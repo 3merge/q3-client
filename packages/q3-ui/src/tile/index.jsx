@@ -28,6 +28,7 @@ const Tile = ({
   subtitle,
   renderFooter,
   slim,
+  divider,
 }) => {
   const { t } = useTranslation();
   const { tiled } = useStyles();
@@ -41,7 +42,18 @@ const Tile = ({
     >
       <Box pt={2} pb={slim ? 0 : 2} px={slim ? 0 : 2}>
         {title && (
-          <Box px={slim ? 2 : 0}>
+          <Box
+            px={slim ? 2 : 0}
+            style={
+              divider
+                ? {
+                    borderBottom: '2px solid whitesmoke',
+                    paddingBottom: '1rem',
+                    marginBottom: '1rem',
+                  }
+                : {}
+            }
+          >
             <Typography variant="overline" component="h3">
               {t(`titles:${title}`)}
             </Typography>

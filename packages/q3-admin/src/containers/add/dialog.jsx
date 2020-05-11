@@ -19,28 +19,16 @@ const CreateDialog = ({ children, ...props }) => {
       variant="drawer"
       renderContent={children}
       renderTrigger={(open) => (
-        <>
-          <Hidden mdUp>
-            <IconButton
-              onClick={open}
-              aria-label={t('labels:add')}
-            >
-              <AddIcon />
-            </IconButton>
-          </Hidden>
-          <Hidden smDown>
-            <Fab
-              aria-label={t('labels:add')}
-              color="secondary"
-              className={floatOnDesktop}
-              id="app-add-dialog"
-              onClick={open}
-              elevation={15}
-            >
-              <AddIcon />
-            </Fab>
-          </Hidden>
-        </>
+        <Fab
+          aria-label={t('labels:add')}
+          color="secondary"
+          className={floatOnDesktop}
+          id="app-add-dialog"
+          onClick={open}
+          elevation={15}
+        >
+          <AddIcon />
+        </Fab>
       )}
     />
   );

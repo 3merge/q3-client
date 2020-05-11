@@ -6,6 +6,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
@@ -99,7 +101,17 @@ const DesktopSearch = ({
           <TextField
             {...rest}
             {...params}
+            disableUnderline
             onKeyPress={onSearch}
+            InputProps={{
+              ...params.InputProps,
+              disableUnderline: true,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
         )}
       />

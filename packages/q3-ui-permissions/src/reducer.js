@@ -47,7 +47,7 @@ export default (state, action) => {
     case RESET:
       return { init: false };
     case UPDATE:
-      return { data };
+      return { init: true, ...data };
     default:
       throw new Error('Unknown reducer');
   }

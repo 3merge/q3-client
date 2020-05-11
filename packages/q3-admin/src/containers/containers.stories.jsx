@@ -46,46 +46,27 @@ const resolver = ({
 
 const Investors = (props) => (
   <Page index {...props}>
-    <Add>
-      <Form
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
-        }}
-      >
-        <Field name="firstName" type="text" required />
-        <Field name="lastName" type="text" required />
-        <Field name="email" type="email" required />
-      </Form>
-    </Add>
-    <Header>
-      <Search intercept={resolver} />
-    </Header>
     <Table
-      renderTop={() => (
-        <Filters
-          lookup={['gender']}
-          initialValues={{
-            'investments&2Elength': '',
-            gender: '',
-          }}
-        >
-          {(filters) => (
-            <>
-              <Field
-                name="gender"
-                type="select"
-                options={filters.gender}
-              />
-              <Field
-                name="investments&2Elength"
-                type="number"
-              />
-            </>
-          )}
+      addComponent={
+        <Add>
+          <Form
+            initialValues={{
+              firstName: '',
+              lastName: '',
+              email: '',
+            }}
+          >
+            <Field name="firstName" type="text" required />
+            <Field name="lastName" type="text" required />
+            <Field name="email" type="email" required />
+          </Form>
+        </Add>
+      }
+      filters={
+        <Filters lookup={[]}>
+          {() => <Field name="role" type="text" />}
         </Filters>
-      )}
+      }
       resolvers={resolver}
       defaultColumns={[
         'gender',
@@ -163,8 +144,14 @@ const Investor = (props) => (
       },
     }}
   >
-    <Header titleProp="firstName" />
     <Detail registerPanels={panels} files picture history>
+      <General name="general" />
+      <General name="general" />
+      <General name="general" />
+      <General name="general" />
+      <General name="general" />
+      <General name="general" />
+      <General name="general" />
       <General name="general" />
       <Investments name="investments" />
       <Hidden name="hidden" />

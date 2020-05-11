@@ -28,49 +28,47 @@ const SidebarTabs = ({
     !filesTab;
 
   return (
-    <Paper className={root} component="aside" elevation={0}>
-      <Box p={hasNoOptions ? 0 : 1}>
-        {!hasNoOptions && (
-          <Tabs
-            value={step}
-            onChange={(e, num) => setStep(num)}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-          >
-            {!hasNoOptions && (
-              <Tab label={t('meta')} className={item} />
-            )}
-            {commentTab && (
-              <Tab
-                label={t('internalComments')}
-                className={item}
-              />
-            )}
-            {filesTab && (
-              <Tab label={t('files')} className={item} />
-            )}
-            {documentationTab && (
-              <Tab
-                label={t('documentation')}
-                disabled={!documentationTab}
-                className={item}
-              />
-            )}
-            {historyTab && (
-              <Tab label={t('history')} className={item} />
-            )}
-          </Tabs>
-        )}
-        <Box p={1}>
-          {isStep(0, step, children)}
-          {isStep(1, step, commentTab)}
-          {isStep(2, step, filesTab)}
-          {isStep(3, step, documentationTab)}
-          {isStep(4, step, historyTab)}
-        </Box>
-      </Box>
-    </Paper>
+    <Box className={root} component="aside" elevation={0}>
+      {!hasNoOptions && (
+        <Tabs
+          value={step}
+          onChange={(e, num) => setStep(num)}
+          indicatorColor="primary"
+          textColor="primary"
+          style={{ minHeight: 36, marginBottom: '1.5rem' }}
+          centered
+        >
+          {!hasNoOptions && (
+            <Tab label={t('meta')} className={item} />
+          )}
+          {commentTab && (
+            <Tab
+              label={t('internalComments')}
+              className={item}
+            />
+          )}
+          {filesTab && (
+            <Tab label={t('files')} className={item} />
+          )}
+          {documentationTab && (
+            <Tab
+              label={t('documentation')}
+              disabled={!documentationTab}
+              className={item}
+            />
+          )}
+          {historyTab && (
+            <Tab label={t('history')} className={item} />
+          )}
+        </Tabs>
+      )}
+
+      {isStep(0, step, children)}
+      {isStep(1, step, commentTab)}
+      {isStep(2, step, filesTab)}
+      {isStep(3, step, documentationTab)}
+      {isStep(4, step, historyTab)}
+    </Box>
   );
 };
 

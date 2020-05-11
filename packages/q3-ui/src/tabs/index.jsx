@@ -43,8 +43,21 @@ const slug = (a, b) =>
     .replace(/([^:]\/)\/+/g, '$1')
     .replace(/\/$/, '');
 
-const TabsWithRouter = ({ views, root }) => {
+const Nav = (props) => React.createElement('nav', props);
+const Article = (props) =>
+  React.createElement('article', props);
+
+const TabsWithRouter = ({
+  views,
+  root,
+  wrap,
+  wrapBody,
+  dense,
+  ...rest
+}) => {
   const { t } = useTranslation();
+  const Wrapper = wrap || Nav;
+  const WrapperBody = wrapBody || Article;
 
   return (
     <Box>
@@ -54,32 +67,44 @@ const TabsWithRouter = ({ views, root }) => {
         defaultIndex={0}
       >
         {(value) => (
-          <Tabs
-            value={value}
-            scrollButtons="auto"
-            variant="scrollable"
-            orientation="horizontal"
-          >
-            {views.map((view) => (
-              <Tab
-                key={`${root}${view.to}`}
-                to={slug(root, view.to)}
-                label={t(`labels:${view.label}`)}
-                component={Link}
-              />
-            ))}
-          </Tabs>
+          <Wrapper>
+            <Tabs
+              value={value}
+              variant="scrollable"
+              {...rest}
+            >
+              {views.map((view) => (
+                <Tab
+                  key={`${root}${view.to}`}
+                  to={slug(root, view.to)}
+                  label={t(`labels:${view.label}`)}
+                  style={
+                    dense
+                      ? {
+                          minWidth: 'auto',
+                          paddingLeft: '1.5rem',
+                          paddingRight: '1.5rem',
+                        }
+                      : {}
+                  }
+                  component={Link}
+                />
+              ))}
+            </Tabs>
+          </Wrapper>
         )}
       </LocationMatch>
-      <Router primary={false}>
-        {views.map(({ component: Comp, to }) => (
-          <WrappedRoute
-            renderer={Comp}
-            path={to}
-            key={to}
-          />
-        ))}
-      </Router>
+      <WrapperBody>
+        <Router primary={false}>
+          {views.map(({ component: Comp, to }) => (
+            <WrappedRoute
+              renderer={Comp}
+              path={to}
+              key={to}
+            />
+          ))}
+        </Router>
+      </WrapperBody>
     </Box>
   );
 };

@@ -4,6 +4,7 @@ import { getSafelyForAutoCompleteWithProjection } from 'q3-ui-rest';
 import { withLocation } from 'with-location';
 import SearchBar from 'q3-ui/lib/searchBar';
 import Box from '@material-ui/core/Box';
+import debounce from 'debounce-promise';
 import { Definitions } from '../state';
 import useStyle from './useStyle';
 
@@ -13,18 +14,25 @@ const normalizeParams = (params) => {
   params.set('limit', 25);
 };
 
-const handleInterceptor = (promise, fn) =>
-  promise
-    .then((results) => (fn ? results.map(fn) : fn))
-    .catch(() => []);
+const handleInterceptor = debounce(
+  (promise, fn) =>
+    promise
+      .then((results) => (fn ? results.map(fn) : results))
+      .catch(() => []),
+  250,
+);
 
-export const Search = ({ intercept, params }) => {
-  const { root } = useStyle();
+export const Search = ({
+  resolvers: intercept,
+  params,
+}) => {
   const {
     collectionName,
     resourceName,
     directoryPath,
+    rootPath,
   } = React.useContext(Definitions);
+  const { root } = useStyle();
 
   const handleResults = React.useCallback(
     (e) => {
@@ -35,13 +43,18 @@ export const Search = ({ intercept, params }) => {
           resourceName,
         )(e),
         intercept,
+      ).then((r) =>
+        r.map((item) => ({
+          ...item,
+          url: `${rootPath}/${item.id}`,
+        })),
       );
     },
     [intercept],
   );
 
   return (
-    <Box id="app-searchbar" className={root}>
+    <Box className={root}>
       <SearchBar
         getResults={handleResults}
         redirectPath={directoryPath}
@@ -55,7 +68,7 @@ export const Search = ({ intercept, params }) => {
  * Use this to modify search results pre-init q3-ui/lib/searchBar.
  */
 Search.propTypes = {
-  intercept: PropTypes.func.isRequired,
+  resolvers: PropTypes.func.isRequired,
   params: PropTypes.shape({
     delete: PropTypes.func,
     set: PropTypes.func,

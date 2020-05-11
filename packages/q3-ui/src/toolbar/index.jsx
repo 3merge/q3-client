@@ -39,7 +39,12 @@ export const useOpen = () => {
   };
 };
 
-export const DropDownMenu = ({ id, children, items }) => {
+export const DropDownMenu = ({
+  id,
+  children,
+  items,
+  ...etc
+}) => {
   const { open, openMenu, closeMenu } = useOpen();
 
   return (
@@ -48,13 +53,11 @@ export const DropDownMenu = ({ id, children, items }) => {
       <Menu
         id={id}
         anchorEl={open}
+        getContentAnchorEl={null}
         open={Boolean(open)}
         onClose={closeMenu}
-        elevation={15}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
+        elevation={5}
+        {...etc}
       >
         {items.map((item) => (
           <MenuItem
