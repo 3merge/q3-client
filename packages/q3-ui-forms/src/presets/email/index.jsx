@@ -5,7 +5,13 @@ import Form from '../../builders/form';
 
 const Email = ({ children, ...rest }) => (
   <Form initialValues={{ email: '' }} {...rest}>
-    <Field name="email" type="email" required />
+    <Field
+      name="email"
+      type="email"
+      required
+      xl={12}
+      lg={12}
+    />
     {children}
   </Form>
 );

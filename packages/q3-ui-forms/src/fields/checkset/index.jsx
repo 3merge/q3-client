@@ -5,6 +5,7 @@ import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import useDecorator from '../../helpers/useDecorator';
 import Bool from '../bool';
 import OptionsThreshold from '../optionsThreshold';
+import withGrid from '../withGrid';
 
 const Checkset = ({ maxVisible, ...props }) => {
   const [{ value = [] }, { error }] = useField(props);
@@ -51,4 +52,7 @@ Checkset.defaultProps = {
   maxVisible: 0,
 };
 
-export default Checkset;
+export default withGrid(Checkset, {
+  xl: 12,
+  lg: 12,
+});

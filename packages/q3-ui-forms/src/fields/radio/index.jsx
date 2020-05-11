@@ -4,6 +4,7 @@ import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import Bool from '../bool';
 import Options from '../optionsThreshold';
 import useDecorator from '../../helpers/useDecorator';
+import withGrid from '../withGrid';
 
 const Radioset = (props) => {
   const {
@@ -52,4 +53,7 @@ const Radioset = (props) => {
   );
 };
 
-export default Radioset;
+export default withGrid(Radioset, {
+  xl: 12,
+  lg: 12,
+});

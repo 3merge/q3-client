@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
 import List from '@material-ui/core/List';
-import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -66,7 +66,7 @@ export const PasswordValidationChecklist = () => {
   const [{ value }] = useField('newPassword');
 
   return (
-    <Box width="100%">
+    <Grid item xs={12}>
       <List
         subheader={
           <ListSubheader>{t('strength')}</ListSubheader>
@@ -98,7 +98,7 @@ export const PasswordValidationChecklist = () => {
           re={hasSpecialCharacter}
         />
       </List>
-    </Box>
+    </Grid>
   );
 };
 
@@ -110,7 +110,7 @@ export const PasswordMatch = () => {
   );
 
   return (
-    <Box width="100%">
+    <Grid item xs={12}>
       <List
         subheader={
           <ListSubheader>{t('confirmation')}</ListSubheader>
@@ -122,12 +122,12 @@ export const PasswordMatch = () => {
           re={() => valueNew === value}
         />
       </List>
-    </Box>
+    </Grid>
   );
 };
 
 export const NewPasswordHelpers = () => (
-  <Box>
+  <>
     <Field
       name="newPassword"
       type="password"
@@ -142,6 +142,8 @@ export const NewPasswordHelpers = () => (
         .required()}
       suppressHelper
       required
+      xl={12}
+      lg={12}
     />
     <PasswordValidationChecklist />
     <Field
@@ -153,9 +155,11 @@ export const NewPasswordHelpers = () => (
         .required()}
       suppressHelper
       required
+      xl={12}
+      lg={12}
     />
     <PasswordMatch />
-  </Box>
+  </>
 );
 
 const PasswordChange = ({
@@ -178,6 +182,8 @@ const PasswordChange = ({
         name="previousPassword"
         type="password"
         required
+        xl={12}
+        lg={12}
       />
     )}
     <NewPasswordHelpers />

@@ -32,6 +32,7 @@ import { Placeholder } from 'q3-ui-assets';
 import { array, string } from 'q3-ui-helpers';
 import useDecorator from '../helpers/useDecorator';
 import useOptions from '../helpers/useOptions';
+import withGrid from './withGrid';
 
 const fn = (exec, args) => (props) => exec(args, props);
 
@@ -417,4 +418,7 @@ TransferList.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default TransferList;
+export default withGrid(TransferList, {
+  xl: 12,
+  lg: 12,
+});

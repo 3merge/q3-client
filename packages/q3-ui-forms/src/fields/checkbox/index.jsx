@@ -3,6 +3,7 @@ import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import useDecorator from '../../helpers/useDecorator';
 import Bool from '../bool';
+import withGrid from '../withGrid';
 
 export const castToBoolean = (v) => {
   if (v === 'true' || v === '*') return true;
@@ -51,4 +52,7 @@ Checkbox.defaultProps = {
   variant: 'checkbox',
 };
 
-export default Checkbox;
+export default withGrid(Checkbox, {
+  xl: 12,
+  lg: 12,
+});

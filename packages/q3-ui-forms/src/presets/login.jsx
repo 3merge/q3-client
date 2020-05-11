@@ -23,8 +23,20 @@ const Login = ({ children, redirectPath, ...rest }) => {
       }}
       {...rest}
     >
-      <Field name="email" type="email" required />
-      <Field required name="password" type="password" />
+      <Field
+        name="email"
+        type="email"
+        required
+        xl={12}
+        lg={12}
+      />
+      <Field
+        required
+        name="password"
+        type="password"
+        xl={12}
+        lg={12}
+      />
       {children}
     </Form>
   );
