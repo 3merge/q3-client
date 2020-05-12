@@ -22,30 +22,25 @@ const matches = (arr = [], id) =>
     ? arr.map(String).includes(String(id))
     : true;
 
-const redact = (arr = [], item) =>
-  arr.length ? pick(item, arr.concat(['id'])) : item;
-
-export const intersects = (
-  data = [],
-  columns = [],
-  ids = [],
-) =>
-  (Array.isArray(data)
-    ? data.map(assignId).map((d) => redact(columns, d))
-    : []
-  ).filter((v) => matches(ids, v.id));
-
-export const renderActions = (actions, t) =>
+export const renderActions = (actions, t, picked) =>
   Array.isArray(actions)
     ? actions.map((a) => (
         <BottomNavigationAction
           {...a}
           key={a.label}
           label={t(a.label)}
+          onClick={
+            a.onClick ? () => a.onClick(picked) : undefined
+          }
           showLabel
         />
       ))
     : null;
+
+const intersects = (data = [], columns = [], ids = []) =>
+  Array.isArray(data)
+    ? data.map(assignId).filter((v) => matches(ids, v.id))
+    : [];
 
 const ActionBar = ({ actions, data, columns }) => {
   const { t } = useTranslation('labels');
@@ -60,7 +55,7 @@ const ActionBar = ({ actions, data, columns }) => {
           <Unselect />
           <DataToCsv data={picked} />
           <DataToExcel data={picked} />
-          {renderActions(actions, t)}
+          {renderActions(actions, t, picked)}
         </BottomNavigation>
       </div>
     </Fade>

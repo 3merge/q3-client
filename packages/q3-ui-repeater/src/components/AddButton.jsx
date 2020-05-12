@@ -5,20 +5,16 @@ import Dialog from 'q3-ui-dialog';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TableFooter from '@material-ui/core/TableFooter';
 import Add from '@material-ui/icons/Add';
-import { FullSpanTableRow } from './NestedItem';
 import useStyle from './useStyle';
 
 const ForwardProps = ({ children, ...rest }) =>
   React.cloneElement(children, rest);
 
 const AddButtonTableRow = (props) => (
-  <TableFooter>
-    <FullSpanTableRow>
-      <Dialog {...props} />
-    </FullSpanTableRow>
-  </TableFooter>
+  <Box>
+    <Dialog {...props} />
+  </Box>
 );
 
 const AddButtonTrigger = ({ onClick }) => {

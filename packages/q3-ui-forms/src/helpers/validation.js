@@ -123,6 +123,7 @@ export class Validator {
       case 'multitext':
       case 'checkset':
       case 'chips':
+      case 'dateRange':
         this.$base = this.$base.array().ensure();
         break;
       case 'autocomplete':

@@ -22,6 +22,7 @@ export const ColumnHeader = ({
   dragOver,
   setDragOver,
   disableDnD,
+  onSort,
 }) => {
   const sort = getFrom('sort');
   const { t } = useTranslation();
@@ -71,8 +72,13 @@ export const ColumnHeader = ({
       <TableSortLabel
         active={sort && sort.includes(title)}
         direction={isAsc ? 'asc' : 'desc'}
-        component={Link}
-        to={`?${params.toString()}`}
+        // component={Link}
+        // to={`?${params.toString()}`}
+        onClick={() =>
+          onSort
+            ? onSort(!sort || isAsc ? title : `-${title}`)
+            : null
+        }
         draggable={!disableDnD}
         id={title}
         onDragStart={handleDragStart}

@@ -2,11 +2,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
-import Hidden from '@material-ui/core/Hidden';
-import { useAuth } from 'q3-ui-permissions';
-import Typography from '@material-ui/core/Typography';
-import Breadcrumbs from 'q3-ui/lib/breadcrumbs';
+import { AuthContext, useAuth } from 'q3-ui-permissions';
+import { get } from 'lodash';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
@@ -43,7 +42,9 @@ const List = ({
   ...rest
 }) => {
   const tableProps = React.useContext(Store);
-  const { collectionName } = React.useContext(Definitions);
+  const { collectionName, location } = React.useContext(
+    Definitions,
+  );
   const { removeBulk } = React.useContext(Dispatcher);
   const { Redirect, canDelete } = useAuth(collectionName);
   const { setPath } = useReferrer();
@@ -52,6 +53,37 @@ const List = ({
     collectionName,
     canDelete && removeBulk ? removeBulk : null,
   );
+
+  const { state, update } = React.useContext(AuthContext);
+
+  const updateSortPrefence = (sort) => {
+    const sorting = get(state, 'profile.sorting', {});
+    sorting[collectionName] = sort;
+
+    const q = new URLSearchParams(
+      get(location, 'search', ''),
+    );
+
+    q.set('sort', sort);
+
+    return update(
+      {
+        sorting,
+      },
+      () =>
+        navigate(
+          `?${q.toString()}`,
+          {
+            state: {
+              init: true,
+            },
+          },
+          {
+            replace: true,
+          },
+        ),
+    );
+  };
 
   return (
     <Redirect op="Read" to="/">
@@ -69,6 +101,7 @@ const List = ({
               actions={actions}
               id={collectionName}
               onClick={setPath}
+              onSort={updateSortPrefence}
             />
           </Box>
         }

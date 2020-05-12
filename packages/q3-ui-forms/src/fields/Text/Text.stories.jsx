@@ -14,7 +14,10 @@ export default {
 export const Validation = () => (
   <Form
     debug
-    onSubmit={Promise.resolve()}
+    onSubmit={(values) => {
+      // eslint-disable-next-line
+      console.log(values);
+    }}
     initialValues={{
       name: '',
       friend: '',

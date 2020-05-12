@@ -55,10 +55,9 @@ export const MongoChart = ({
   filters,
   ...rest
 }) => {
-  const [
-    initialValues,
-    setInitialValues,
-  ] = React.useState();
+  const [initialValues, setInitialValues] = React.useState(
+    defaultQuery,
+  );
 
   const { src, err } = useVisualization(
     `/charts?id=${id}`,

@@ -28,6 +28,7 @@ const TableHeader = ({
   aliasForName,
   setActiveColumns,
   renderLast,
+  onSort,
   ...rest
 }) => {
   const { mobile, boxes, tableHead } = useStyles();
@@ -43,6 +44,7 @@ const TableHeader = ({
           disableDnD
           title={aliasForName}
           className={tableHead}
+          onSort={onSort}
           {...rest}
         />
         {columns.map((header) => (
@@ -54,6 +56,7 @@ const TableHeader = ({
             setCols={setActiveColumns}
             setDragOver={setDragOver}
             dragOver={dragOver}
+            onSort={onSort}
             {...rest}
           />
         ))}
@@ -93,9 +96,11 @@ export const TableView = ({
   aliasForName,
   total,
   // actions,
+  renderCustomActions,
   resolvers,
   data = [],
   onClick,
+  onSort,
 }) => {
   const { root } = useStyles();
 
@@ -103,7 +108,15 @@ export const TableView = ({
 
   return (
     <Exports>
-      <Actionbar columns={allColumns} data={data} />
+      <Actionbar
+        columns={allColumns}
+        data={data}
+        actions={
+          renderCustomActions
+            ? renderCustomActions(data)
+            : []
+        }
+      />
       <ColumnConfigurator
         id={id}
         allColumns={allColumns}
@@ -122,6 +135,7 @@ export const TableView = ({
               <Table stickyHeader className={root}>
                 <TableHeader
                   id={id}
+                  onSort={onSort}
                   aliasForName={aliasForName}
                   columns={activeColumns}
                   setActiveColumns={setActiveColumns}

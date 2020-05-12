@@ -2,18 +2,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   articleBox: ({ overflowY = 'auto' }) => ({
-    overflowY,
-    height: '100vh',
+    overflow: 'auto',
+    height: 'calc(100vh - 10px)',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
     },
 
     '&::-webkit-scrollbar': {
-      width: '5px',
+      height: 10,
+      width: 7,
     },
 
     '&::-webkit-scrollbar-track': {
-      background: '#f1f1f1',
+      background: '#E6ECF1',
     },
 
     /* Handle */
@@ -51,7 +52,7 @@ export default makeStyles((theme) => ({
     backgroundColor: '#F5F7F9',
     height: '100%',
     fontSize: '1rem !important',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
     padding: '1.5rem',
@@ -66,7 +67,7 @@ export default makeStyles((theme) => ({
     },
 
     '&::-webkit-scrollbar': {
-      width: '3px',
+      width: 4,
     },
 
     '&::-webkit-scrollbar-track': {

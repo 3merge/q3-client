@@ -106,5 +106,5 @@ Chips.defaultProps = {
 
 export default withGrid(Chips, {
   lg: 12,
-  md: 12,
+  xl: 12,
 });

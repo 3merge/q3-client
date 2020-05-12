@@ -51,6 +51,22 @@ const Repeater = ({
     >
       <Auth op="Read">
         <Exports>
+          <Auth op="Create">
+            {AddComponent ? (
+              <AddComponent
+                create={create}
+                initialValues={initialValues}
+              />
+            ) : (
+              <AddButton
+                create={create}
+                initialValues={initialValues}
+                {...rest}
+              >
+                {children}
+              </AddButton>
+            )}
+          </Auth>
           <CustomActionBar data={data}>
             {BulkEditorComponent && <BulkEditorComponent />}
           </CustomActionBar>
@@ -67,26 +83,6 @@ const Repeater = ({
                 {children}
               </List>
             )}
-            <Auth op="Create">
-              {AddComponent ? (
-                <tr>
-                  <td colSpan="100%">
-                    <AddComponent
-                      create={create}
-                      initialValues={initialValues}
-                    />
-                  </td>
-                </tr>
-              ) : (
-                <AddButton
-                  create={create}
-                  initialValues={initialValues}
-                  {...rest}
-                >
-                  {children}
-                </AddButton>
-              )}
-            </Auth>
           </Table>
         </Exports>
       </Auth>

@@ -8,7 +8,7 @@ export default () => (
       <>
         <Field
           name="role"
-          type="multiselect"
+          type="chips"
           options={getOptions('role')}
         />
         <Field
