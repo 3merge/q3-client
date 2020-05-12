@@ -24,7 +24,7 @@ const Status = ({ icon: Icon, label, color }) => {
 };
 
 Status.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   color: PropTypes.string.isRequired,
   icon: PropTypes.oneOfType([
     PropTypes.node,
@@ -34,6 +34,7 @@ Status.propTypes = {
 
 Status.defaultProps = {
   icon: null,
+  label: 'Unassigned',
 };
 
 export default Status;

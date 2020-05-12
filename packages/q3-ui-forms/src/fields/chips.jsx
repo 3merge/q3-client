@@ -7,10 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import TextField from '@material-ui/core/TextField';
 import { chosenTextFieldDisplayAttributes } from './TextBase/TextBase';
 import useOptions from '../helpers/useOptions';
-import {
-  simulateEventHandler,
-  getLabelWithFallback,
-} from './helpers';
+import { getLabelWithFallback } from './helpers';
 import useDecorator from '../helpers/useDecorator';
 import withGrid, { fieldProps } from './withGrid';
 
@@ -53,8 +50,8 @@ const Chips = (props) => {
       loading={loading}
       filterSelectedOptions
       name={name}
-      value={value}
       options={items}
+      value={[value].flat()}
       getOptionLabel={getLabelWithFallback(value)}
       onChange={(e, newValue) => {
         return onChange({

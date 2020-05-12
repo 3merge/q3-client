@@ -3,9 +3,13 @@ import { Location } from '@reach/router';
 import { url } from 'q3-ui-helpers';
 
 const hasReservedWord = (v) =>
-  ['search', 'sort', 'page', 'limit'].some((term) =>
-    v.startsWith(term),
-  );
+  [
+    'search',
+    'sort',
+    'page',
+    'limit',
+    'active',
+  ].some((term) => v.startsWith(term));
 
 const removeQueryCharacter = (v) =>
   String(v).charAt(0) === '?'

@@ -5,16 +5,31 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Badge from '@material-ui/core/Badge';
 import useStyle from './useStyle';
 
-export const Panel = ({ title, children, onClick }) => {
+export const Panel = ({
+  title,
+  children,
+  onClick,
+  badgeContent,
+}) => {
   const { bordered, subtext } = useStyle();
   const { t } = useTranslation();
 
   return (
     <Box className={bordered} mb={1} mt={0.25}>
       <Typography variant="overline">
-        {t(`titles:${title}`)}
+        <Badge
+          badgeContent={badgeContent}
+          color="secondary"
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          {t(`titles:${title}`)}
+        </Badge>
       </Typography>
       <Divider style={{ border: '1px solid #E6ECF1' }} />
       <Box my={1} className={subtext}>

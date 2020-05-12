@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { useValue } from 'useful-state';
-import { red } from '@material-ui/core/colors';
 
 const Groups = ({ onSave, active, items }) => {
   const ref = React.useRef();
@@ -25,7 +24,7 @@ const Groups = ({ onSave, active, items }) => {
       <InputBase
         name="Custom"
         aria-label="New custom segment"
-        placeholder="Add as new segment"
+        placeholder="Save search as segment"
         value={value}
         onChange={onChange}
         inputProps={{

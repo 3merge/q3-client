@@ -3,7 +3,10 @@ import { get } from 'lodash';
 import { navigate } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
 import { Definitions } from './state';
-import { getActiveSearchQueryByKey } from './withSearch';
+import {
+  getActiveSearchQueryByKey,
+  getCustomFilters,
+} from './withSearch';
 
 export default (search) => {
   const {
@@ -85,6 +88,7 @@ export default (search) => {
         .filter(({ label }) => label !== 'default'),
     ],
 
+    numberApplied: getCustomFilters(search).length,
     isActive: main === active,
     defaultQuery: {
       ...items,

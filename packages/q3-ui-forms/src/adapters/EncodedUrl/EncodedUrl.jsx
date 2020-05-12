@@ -9,6 +9,8 @@ const getParamName = (v) => {
   return name;
 };
 
+const clean = (v) => v.replace('%20', ' ');
+
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
@@ -43,9 +45,10 @@ export const deserialize = (v) => {
       // eslint-disable-next-line
       let [key, value] = next ? next.split('=') : [next];
 
+      if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;
       if (String(value).includes(','))
-        value = value.split(',');
+        value = value.split(',').map(clean);
 
       acc[url.encode(key)] = value;
       return acc;

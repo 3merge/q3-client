@@ -23,7 +23,7 @@ export const decode = (name) =>
     .replace(/%21/g, '!')
     .replace(/%3C/g, '<')
     .replace(/%3E/g, '>')
-    .replace(/\+/g, ' ')
+    .replace(/%20/g, ' ')
     .replace(/%5F/g, '_')
     .replace(/%2C/g, ',');
 
@@ -35,7 +35,7 @@ export const encode = (name) =>
     .replace(/_/g, '%5F')
     .replace(/</g, '%3C')
     .replace(/>/g, '%3E')
-    .replace(/\s/g, '+')
+    .replace(/\s/g, '%20')
     .replace(/,/, '%2C')
     .replace(/%2E0/g, '%2Elength');
 

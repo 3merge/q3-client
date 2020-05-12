@@ -4,13 +4,13 @@ import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Store } from '../state';
 
-const FiltersForm = ({ children, search, handleSave }) => {
+const FiltersForm = ({ children, search, ...etc }) => {
   const { filters } = React.useContext(Store);
 
   return filters.fetching ? (
     <CircularProgress />
   ) : (
-    <EncodedUrl query={search} onSave={handleSave}>
+    <EncodedUrl query={search} {...etc}>
       {children(filters.fields, filters.getOptions)}
     </EncodedUrl>
   );

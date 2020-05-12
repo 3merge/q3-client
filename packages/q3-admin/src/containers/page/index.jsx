@@ -3,6 +3,7 @@ import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
+import { get } from 'lodash';
 import Fade from '@material-ui/core/Fade';
 import Graphic from 'q3-ui-assets';
 import { useFilters } from 'q3-ui-rest';
@@ -20,10 +21,11 @@ const PageChildren = ({
   hasEntered,
   fetching,
   fetchingError,
+  loadingComponent,
 }) =>
   !hasEntered || fetching ? (
     <Fade in>
-      <Loading id={id} />
+      {loadingComponent || <Loading id={id} />}
     </Fade>
   ) : (
     <Fade in>
@@ -50,6 +52,11 @@ PageChildren.propTypes = {
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
 
+export const executeOnChildren = (children, args = {}) =>
+  typeof children === 'function'
+    ? children(args)
+    : children;
+
 const Page = ({
   children,
   select,
@@ -59,7 +66,9 @@ const Page = ({
   onExit,
   onInit,
   viewResolutions,
+  loadingComponent,
   lookup,
+  runOnSearch,
 }) => {
   const {
     resourceNameSingular,
@@ -87,6 +96,7 @@ const Page = ({
   });
 
   const filters = useFilters({
+    query: runOnSearch ? get(location, 'search', '') : null,
     fields: lookup,
     coll: collectionName,
     location,
@@ -102,19 +112,12 @@ const Page = ({
     data,
   );
 
-  return typeof children === 'function' ? (
-    children({
-      hasEntered,
-      fetching,
-      id,
-      data,
-      ...state,
-    })
-  ) : (
+  return (
     <PageChildren
       hasEntered={hasEntered}
       fetching={fetching}
       fetchingError={fetchingError}
+      loadingComponent={loadingComponent}
       id={id}
     >
       <Dispatcher.Provider
@@ -142,7 +145,11 @@ const Page = ({
             ]),
           }}
         >
-          {children}
+          {executeOnChildren(children, {
+            ...state,
+            id,
+            data,
+          })}
         </Store.Provider>
       </Dispatcher.Provider>
     </PageChildren>
@@ -197,6 +204,7 @@ Page.propTypes = {
   viewResolutions: PropTypes.shape({}),
 
   lookup: PropTypes.arrayOf(PropTypes.string),
+  loadingComponent: PropTypes.node,
 };
 
 Page.defaultProps = {
@@ -207,6 +215,7 @@ Page.defaultProps = {
   select: null,
   viewResolutions: {},
   lookup: [],
+  loadingComponent: null,
 };
 
 export default withActiveFilter(withSorting(Page));

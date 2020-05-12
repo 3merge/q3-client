@@ -12,3 +12,7 @@ export default {
 export const TeamPageExample = () => (
   <Gallery photos={people} />
 );
+
+export const TeamPageExampleSmall = () => (
+  <Gallery photos={people} size="small" />
+);

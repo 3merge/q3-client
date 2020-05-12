@@ -36,7 +36,12 @@ const SubDetail = ({
       <CircularProgress />
     </Box>
   ) : (
-    <Tile title={root} subtitle={root} {...TileProps}>
+    <Tile
+      title={root}
+      subtitle={root}
+      {...TileProps}
+      divider
+    >
       {renderTop}
       <Repeater
         name={root}

@@ -55,7 +55,7 @@ export default makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
-    padding: '1.5rem',
+    padding: '1.25rem',
     [theme.breakpoints.down('md')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',
@@ -112,7 +112,7 @@ export default makeStyles((theme) => ({
   bordered: {
     textOverflow: 'ellipsis',
     position: 'relative',
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   subtext: {
     fontSize: '1rem',
