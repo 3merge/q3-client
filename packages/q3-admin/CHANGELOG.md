@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.11](https://github.com/3merge/q/compare/v1.16.10...v1.16.11) (2020-05-12)
+
+
+### Bug Fixes
+
+* default filtering ([7e98504](https://github.com/3merge/q/commit/7e985045f98a2ba822b1524599573d0f08e0665c))
+
+
+
+
+
 ## [1.16.10](https://github.com/3merge/q/compare/v1.16.9...v1.16.10) (2020-05-12)
 
 
