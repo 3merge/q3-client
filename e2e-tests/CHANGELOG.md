@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.16.10](https://github.com/3merge/q/compare/v1.16.9...v1.16.10) (2020-05-12)
+
+
+### Bug Fixes
+
+* sorting on profile ([a7c06a0](https://github.com/3merge/q/commit/a7c06a0fa0b7c78ca969c3c5b9a2b9fbbbbf12f4))
+
+
+
+
+
 ## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
 
 **Note:** Version bump only for package e2e-tests
