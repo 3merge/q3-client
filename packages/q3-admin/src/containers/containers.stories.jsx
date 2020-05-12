@@ -10,10 +10,9 @@ import {
 } from '../__fixtures__';
 import App from '../components/app';
 import Main from '../components/main';
-import Search from './search';
 import Add from './add';
 import Detail from './detail';
-import Header from './header';
+import Collection from './collection';
 import Page from './page';
 import Table from './table';
 import Filters from './filters';
@@ -45,42 +44,48 @@ const resolver = ({
 });
 
 const Investors = (props) => (
-  <Page index {...props}>
-    <Table
-      addComponent={
-        <Add>
-          <Form
-            initialValues={{
-              firstName: '',
-              lastName: '',
-              email: '',
-            }}
-          >
-            <Field name="firstName" type="text" required />
-            <Field name="lastName" type="text" required />
-            <Field name="email" type="email" required />
-          </Form>
-        </Add>
-      }
-      filters={
-        <Filters lookup={[]}>
-          {() => <Field name="role" type="text" />}
-        </Filters>
-      }
-      resolvers={resolver}
-      defaultColumns={[
-        'gender',
-        'updatedAt',
-        'investments',
-      ]}
-      allColumns={[
-        'gender',
-        'updatedAt',
-        'investments',
-        'createdBy',
-      ]}
-    />
-  </Page>
+  <Collection {...props}>
+    <Page index {...props}>
+      <Table
+        addComponent={
+          <Add>
+            <Form
+              initialValues={{
+                firstName: '',
+                lastName: '',
+                email: '',
+              }}
+            >
+              <Field
+                name="firstName"
+                type="text"
+                required
+              />
+              <Field name="lastName" type="text" required />
+              <Field name="email" type="email" required />
+            </Form>
+          </Add>
+        }
+        filters={
+          <Filters lookup={[]}>
+            {() => <Field name="role" type="text" />}
+          </Filters>
+        }
+        resolvers={resolver}
+        defaultColumns={[
+          'gender',
+          'updatedAt',
+          'investments',
+        ]}
+        allColumns={[
+          'gender',
+          'updatedAt',
+          'investments',
+          'createdBy',
+        ]}
+      />
+    </Page>
+  </Collection>
 );
 
 const General = connect(({ data, ...rest }) => (
@@ -134,29 +139,37 @@ const panels = (data) => {
 };
 
 const Investor = (props) => (
-  <Page
-    {...props}
-    index
-    viewResolutions={{
-      hidden: {
-        roles: ['Admin'],
-        conditional: ['gender=Male'],
-      },
-    }}
-  >
-    <Detail registerPanels={panels} files picture history>
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <General name="general" />
-      <Investments name="investments" />
-      <Hidden name="hidden" />
-    </Detail>
-  </Page>
+  <Collection {...props}>
+    <Page
+      {...props}
+      index
+      viewResolutions={{
+        hidden: {
+          roles: ['Admin'],
+          conditional: ['gender=Male'],
+        },
+      }}
+    >
+      <Detail
+        registerPanels={panels}
+        files
+        picture
+        history
+        links={[{ label: 'Test', to: '/' }]}
+      >
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <General name="general" />
+        <Investments name="investments" />
+        <Hidden name="hidden" />
+      </Detail>
+    </Page>
+  </Collection>
 );
 
 const pages = [

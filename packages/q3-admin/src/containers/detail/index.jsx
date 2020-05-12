@@ -4,11 +4,11 @@ import Tabs from 'q3-ui/lib/tabs';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import { Definitions } from '../state';
+import { Dispatcher } from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
 import Notes from '../notes';
-import Documentation from '../documentation';
+import RelatedLinks from './RelatedLinks';
 import History from '../history';
 import PictureUpload from '../../components/picture';
 import Trash from '../trash';
@@ -59,6 +59,16 @@ const HeaderMaxWidth = (props) => ({ children }) => {
   );
 };
 
+const DetailBody = ({ links, children }) => {
+  // const { rootPath } = React.useContext(Definitions);
+
+  return (
+    <RelatedLinks links={links}>
+      <Overflow>{children}</Overflow>
+    </RelatedLinks>
+  );
+};
+
 const Detail = ({
   HeaderProps,
   history,
@@ -67,11 +77,10 @@ const Detail = ({
   notes,
   picture,
   files,
+  links,
   ...rest
 }) => {
-  const { exclusions, rootPath } = React.useContext(
-    Definitions,
-  );
+  const { exclusions } = React.useContext(Dispatcher);
 
   const filterByExclusion = (item) =>
     !exclusions.includes(item.label);
@@ -84,11 +93,6 @@ const Detail = ({
           commentTab={notes && <Notes />}
           historyTab={history && <History />}
           filesTab={files && <Upload />}
-          documentationTab={
-            filepath && (
-              <Documentation filepath={filepath} />
-            )
-          }
         >
           {picture && <PictureUpload />}
         </Sidebar>
@@ -97,8 +101,13 @@ const Detail = ({
         <Tabs
           dense
           wrap={HeaderMaxWidth(HeaderProps)}
-          wrapBody={Overflow}
-          root={rootPath}
+          // eslint-disable-next-line
+          wrapBody={({ children }) => (
+            <RelatedLinks links={links}>
+              <Overflow>{children}</Overflow>
+            </RelatedLinks>
+          )}
+          // root={rootPath}
           scrollButtons="on"
           views={mapToNestedRoute(children)
             .concat([TrashPreset])
@@ -146,71 +155,3 @@ Detail.defaultProps = {
 };
 
 export default React.memo(Detail);
-
-/**
-
-
-
-  /*
- console.log('rerender');
-  const data = get(state, resourceNameSingular, {});
-
-  const authorization = useAuth(
-    collectionName,
-    getCreatedBy(data),
-  );
-*/
-
-/*
-  if (trash && authorization.canDelete)
-    tabs.push({
-      to: '/trash',
-      label: 'trash',
-      component: () => (
-        <Trash
-          url={`/${resourceName}`}
-          onClick={state.remove()}
-        />
-      ),
-    });
- 
-
- 
-        renderSidebar={() => (
-          <Sidebar
-            {...rest}
-            state={state}
-            createdBy={getAuthor(data)}
-            lastUpdated={get(data, 'updatedAt')}
-            documentationTab={
-              filepath && (
-                <Documentation filepath={filepath} />
-              )
-            }
-            commentTab={
-              notes && (
-                <Notes
-                  id={id}
-                  collectionName={collectionName}
-                />
-              )
-            }
-            historyTab={
-              history && (
-                <History
-                  id={id}
-                  collectionName={collectionName}
-                />
-              )
-            }
-          >
-            {picture && (
-              <PictureUpload
-                url={`/${collectionName}/${id}`}
-                photo={data.photo}
-              />
-            )}
-          </Sidebar>
-        )} 
-
- */

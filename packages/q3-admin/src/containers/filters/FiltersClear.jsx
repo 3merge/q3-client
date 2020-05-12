@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
 const FiltersClear = (props) => (
-  <Button {...props} onClick={() => navigate('?')}>
+  <Button {...props} onClick={() => navigate('?active')}>
     Clear
   </Button>
 );

@@ -38,7 +38,7 @@ export const useVisualization = (url, filters) => {
   const [err, setErr] = React.useState(false);
 
   React.useEffect(() => {
-    if (!browser.isBrowserReady()) return;
+    if (!browser.isBrowserReady() || !filters) return;
     getFrom(`${url}&${filters}`, setSrc, setErr);
   }, [filters]);
 
@@ -55,9 +55,10 @@ export const MongoChart = ({
   filters,
   ...rest
 }) => {
-  const [initialValues, setInitialValues] = React.useState(
-    defaultQuery,
-  );
+  const [
+    initialValues,
+    setInitialValues,
+  ] = React.useState();
 
   const { src, err } = useVisualization(
     `/charts?id=${id}`,
@@ -80,14 +81,8 @@ export const MongoChart = ({
     );
 
   return (
-    <Chart
-      title={title}
-      url={url}
-      onSave={setInitialValues}
-      query={defaultQuery}
-      {...rest}
-    >
-      {filters}
+    <Chart title={title} url={url} {...rest}>
+      {(close) => filters(setInitialValues, close)}
     </Chart>
   );
 };
@@ -167,7 +162,7 @@ const Visualization = ({
       PaperProps={{
         elevation: 0,
         style: {
-          backgroundColor: 'whitesmoke',
+          backgroundColor: '#F5F7F9',
         },
       }}
     >

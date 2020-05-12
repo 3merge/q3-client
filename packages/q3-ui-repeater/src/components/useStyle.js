@@ -98,7 +98,7 @@ export default makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       display: 'block',
-      borderBottom: '2px solid whitesmoke !important',
+      borderBottom: '2px solid #F5F7F9 !important',
       marginBottom: '0.25rem',
       width: '100%',
     },

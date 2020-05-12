@@ -48,13 +48,13 @@ export default makeStyles((theme) => ({
     },
   },
   root: {
-    backgroundColor: 'whitesmoke',
+    backgroundColor: '#F5F7F9',
     height: '100%',
     fontSize: '1rem !important',
     overflowY: 'scroll',
     overflowX: 'hidden',
     position: 'relative',
-    padding: '1rem 1rem',
+    padding: '1.5rem',
     [theme.breakpoints.down('md')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',
@@ -66,11 +66,11 @@ export default makeStyles((theme) => ({
     },
 
     '&::-webkit-scrollbar': {
-      width: '5px',
+      width: '3px',
     },
 
     '&::-webkit-scrollbar-track': {
-      background: '#f1f1f1',
+      background: '#E6ECF1',
     },
 
     /* Handle */

@@ -3,26 +3,44 @@ import {
   genCollection,
   genList,
   genDetail,
-  genLazy,
 } from 'q3-admin/lib/builders';
 import GroupIcon from '@material-ui/icons/Group';
 import CharacterFilter from '../../components/CharacterFilter';
+import General from './general';
 
 const collectionInfo = {
   icon: GroupIcon,
   collectionName: 'characters',
   resourceName: 'characters',
   resourceNameSingular: 'character',
+  lookup: ['role', 'gender'],
+  segments: {
+    'Lead Roles': '?role=Lead',
+  },
 };
 
 const views = {
-  general: genLazy(import('./general')),
+  general: General,
 };
 
 const DetailProps = {
   files: true,
   notes: true,
   history: true,
+  links: () => [
+    {
+      to: '/',
+      label: 'Home',
+    },
+    {
+      to: '/',
+      label: 'Related characters',
+    },
+    {
+      to: '/',
+      label: 'Props',
+    },
+  ],
 };
 
 const ListProps = {
@@ -44,6 +62,7 @@ const PageDetailProps = {
 };
 
 const PageList = genList({
+  addForm: () => <p>ADD</p>,
   ListProps,
 });
 

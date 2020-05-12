@@ -47,7 +47,7 @@ const Tile = ({
             style={
               divider
                 ? {
-                    borderBottom: '2px solid whitesmoke',
+                    borderBottom: '2px solid #F5F7F9',
                     paddingBottom: '1rem',
                     marginBottom: '1rem',
                   }

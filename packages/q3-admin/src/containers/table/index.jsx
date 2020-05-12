@@ -3,8 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Table from 'q3-ui-datatables';
-import { useAuth } from 'q3-ui-permissions';
 import Hidden from '@material-ui/core/Hidden';
+import { useAuth } from 'q3-ui-permissions';
+import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from 'q3-ui/lib/breadcrumbs';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
@@ -55,24 +56,11 @@ const List = ({
   return (
     <Redirect op="Read" to="/">
       <Section
-        renderOutside={
-          <Sidebar>
-            <Box my={1.5}>
-              <Search {...tableProps} />
-            </Box>
-            {filters}
-          </Sidebar>
-        }
+        renderOutside={<Sidebar>{filters}</Sidebar>}
         renderInside={
           <Box>
-            <Header
-              transparent
-              color="transparent"
-              subtitle={<Breadcrumbs />}
-            >
-              <Hidden lgUp>
-                <Search {...tableProps} />
-              </Hidden>
+            <Header>
+              <Search />
             </Header>
             {addComponent}
             <Table

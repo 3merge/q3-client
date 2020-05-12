@@ -72,7 +72,7 @@ const Row = ({
 
   return (
     <TableRow className={row}>
-      <TableCell className={mobileCheckbox}>
+      <TableCell className={mobileCheckbox} colSpan={!columns ? 2 : undefined}>
         <SelectOne id={id} />
         {hasLength(rowToolbar) ? (
           <DropDownMenu items={invoke(rowToolbar)}>

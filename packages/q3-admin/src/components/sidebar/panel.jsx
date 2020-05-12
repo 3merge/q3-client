@@ -16,7 +16,7 @@ export const Panel = ({ title, children, onClick }) => {
       <Typography variant="overline">
         {t(`titles:${title}`)}
       </Typography>
-      <Divider style={{ border: '1px solid #DDD' }} />
+      <Divider style={{ border: '1px solid #E6ECF1' }} />
       <Box my={1} className={subtext}>
         {children}
       </Box>

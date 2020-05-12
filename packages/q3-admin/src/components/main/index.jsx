@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import ProfileBar from 'q3-ui/lib/profileBar';
 import useStyles from './useStyle';
 import useMenu from './useMenu';
-import useHeight from '../sidebar/useHeight';
 
 const Main = ({
   render,

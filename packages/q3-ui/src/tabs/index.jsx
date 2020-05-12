@@ -76,7 +76,7 @@ const TabsWithRouter = ({
               {views.map((view) => (
                 <Tab
                   key={`${root}${view.to}`}
-                  to={slug(root, view.to)}
+                  to={`.${view.to}`}
                   label={t(`labels:${view.label}`)}
                   style={
                     dense
@@ -95,7 +95,7 @@ const TabsWithRouter = ({
         )}
       </LocationMatch>
       <WrapperBody>
-        <Router primary={false}>
+        <Router primary={false} basePath="*">
           {views.map(({ component: Comp, to }) => (
             <WrappedRoute
               renderer={Comp}

@@ -25,11 +25,11 @@ export default makeStyles((theme) => ({
   },
   row: {
     '&:hover': {
-      backgroundColor: grey[100],
+      backgroundColor: '#f9fbfd',
       transition: 'background-color 250ms',
     },
     [theme.breakpoints.down('sm')]: {
-      borderBottom: `2px solid ${grey[100]}`,
+      borderBottom: `2px solid #E6ECF1`,
       display: 'block',
       padding: theme.spacing(1),
     },
@@ -82,7 +82,7 @@ export default makeStyles((theme) => ({
   },
   rowlike: {
     background: '#FFF',
-    borderBottom: '3px solid whitesmoke',
+    borderBottom: '3px solid #F5F7F9',
   },
   overflow: {
     maxWidth: '100%',

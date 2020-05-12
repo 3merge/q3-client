@@ -3,10 +3,7 @@ import { Filters } from 'q3-admin/lib/containers';
 import { Field } from 'q3-ui-forms/lib/builders';
 
 export default () => (
-  <Filters
-    lookup={['role', 'gender']}
-    initialValues={{ role: [], gender: [] }}
-  >
+  <Filters initialValues={{ role: [], gender: [] }}>
     {(fields, getOptions) => (
       <>
         <Field

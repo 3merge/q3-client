@@ -113,17 +113,8 @@ export const useReferrer = (resourceName = '/') => {
  * (ie Detail Tabs were problematic in previous releases).
  */
 export const useRootPath = (location, id, resourceName) => {
-  const [rootPath, setRootPath] = React.useState('');
   const part = id || resourceName;
-
-  const getFirstPathNamePart = () =>
-    location && typeof location.pathname === 'string'
-      ? `${location.pathname.split(part)[0]}${part}`
-      : '/';
-
-  React.useEffect(() => {
-    setRootPath(getFirstPathNamePart());
-  }, [part]);
-
-  return rootPath;
+  return location && typeof location.pathname === 'string'
+    ? `${location.pathname.split(part)[0]}${part}`
+    : '/';
 };

@@ -9,9 +9,6 @@ const getParamName = (v) => {
   return name;
 };
 
-const removeLeadingQueryCharacter = (v) =>
-  String(v).charAt(0) === '?' ? v.substr(1) : v;
-
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
@@ -39,7 +36,8 @@ export const serialize = (o) =>
 export const deserialize = (v) => {
   if (!v) return {};
 
-  return removeLeadingQueryCharacter(v)
+  return url
+    .removeLeadingQueryCharacter(v)
     .split('&')
     .reduce((acc, next) => {
       // eslint-disable-next-line

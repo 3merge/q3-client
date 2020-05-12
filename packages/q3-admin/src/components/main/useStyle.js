@@ -43,7 +43,7 @@ export default makeStyles((theme) => ({
     left: 'calc(100% - 1rem)',
   },
   wrapper: {
-    backgroundColor: 'whitesmoke',
+    backgroundColor: '#F5F7F9',
     maxHeight: '100vh',
     overflow: 'hidden',
     position: 'absolute',

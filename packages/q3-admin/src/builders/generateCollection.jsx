@@ -1,5 +1,6 @@
 import React from 'react';
 import Page from '../containers/page';
+import Collection from '../containers/collection';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -25,9 +26,11 @@ export default ({
     id: true,
     ...getCollectionInformation(etc),
     component: (props) => (
-      <Page id {...props} {...PageDetailProps}>
-        <PageDetail />
-      </Page>
+      <Collection id {...props}>
+        <Page id {...props} {...PageDetailProps}>
+          <PageDetail />
+        </Page>
+      </Collection>
     ),
   },
   {
@@ -35,9 +38,11 @@ export default ({
     index: true,
     ...getCollectionInformation(etc),
     component: (props) => (
-      <Page index {...props} {...PageListProps}>
-        <PageList />
-      </Page>
+      <Collection index {...props}>
+        <Page index {...props} {...PageListProps}>
+          <PageList />
+        </Page>
+      </Collection>
     ),
   },
 ];

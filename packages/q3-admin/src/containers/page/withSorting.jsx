@@ -18,6 +18,7 @@ export default (Component) => (props) => {
   );
 
   const sort = q.get('sort');
+  /*
   const skip = sort || id || !navigate;
 
   React.useEffect(() => {
@@ -33,7 +34,7 @@ export default (Component) => (props) => {
 
     q.set('sort', newState);
     navigate(`?${q.toString()}`);
-  }, [sort, id]);
+  }, [sort, id]); */
 
-  return skip ? <Component {...props} /> : null;
+  return <Component {...props} />;
 };

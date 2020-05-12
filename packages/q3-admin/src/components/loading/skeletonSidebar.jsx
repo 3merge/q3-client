@@ -14,7 +14,7 @@ const SkeletonSidebar = () => {
         id="app-sidebar"
         variant="rectangle"
         style={{
-          backgroundColor: 'whitesmoke',
+          backgroundColor: '#F5F7F9',
           height: '100%',
         }}
         className={root}

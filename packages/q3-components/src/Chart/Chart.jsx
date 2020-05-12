@@ -1,35 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import FilterIcon from '@material-ui/icons/FilterList';
 import Paper from '@material-ui/core/Paper';
 import IconButton from 'q3-ui/lib/iconButton';
-import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
 import Inline from '../Inline';
 
-const Chart = ({
-  url,
-  title,
-  children,
-  onSave,
-  initialValues,
-}) => (
+const Chart = ({ url, title, children }) => (
   <Box p={1}>
     <Paper>
       <Box height={480} p={2} position="relative">
         <Box position="absolute" top="1rem" right="1rem">
           <Inline
             title="Filter"
-            renderContent={() => (
-              <EncodedUrl
-                onSave={onSave}
-                initialValues={initialValues}
-              >
-                {children}
-                <Button type="submit">Apply</Button>
-              </EncodedUrl>
-            )}
+            renderContent={children}
             renderTrigger={(onClick) => (
               <IconButton
                 icon={FilterIcon}
@@ -54,18 +38,7 @@ const Chart = ({
 Chart.propTypes = {
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  filters: PropTypes.shape({
-    from: PropTypes.string,
-    to: PropTypes.string,
-  }),
-  onSubmit: PropTypes.func.isRequired,
-};
-
-Chart.defaultProps = {
-  filters: {
-    from: '',
-    to: '',
-  },
+  children: PropTypes.func.isRequired,
 };
 
 export default Chart;

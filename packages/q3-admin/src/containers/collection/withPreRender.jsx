@@ -10,9 +10,9 @@ export default (Component) => (props) => {
   );
 
   React.useEffect(() => {
-    if (hasFn) {
+    if (!hasFinished) {
       onMount();
-      setHasFinished();
+      setHasFinished(true);
     }
   }, [hasFinished, onMount]);
 

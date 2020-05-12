@@ -100,6 +100,7 @@ Object.assign(theme, {
     MuiCssBaseline: {
       '@global': {
         body: {
+          backgroundColor: '#F5F7F9',
           fontSize: 'initial !important',
           color,
         },
@@ -189,6 +190,9 @@ Object.assign(theme, {
         },
       },
     },
+    MuiTable: {
+      borderColor: '#F5F7F9'
+    },
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',
@@ -201,7 +205,7 @@ Object.assign(theme, {
       root: {
         overflow: 'hidden',
         padding: '0 8px',
-        borderBottom: `2px solid ${grey[100]}`,
+        borderBottom: `2px solid #F5F7F9`,
         fontSize: '1rem !important',
       },
       sizeSmall: {

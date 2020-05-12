@@ -44,7 +44,7 @@ const price = withPropsResolver(Status, {
 
 export const Full = () => (
   <LocationProvider initialPath="/">
-    <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
+    <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
       <TableView
         id="for-testing"
         aliasForName="fullName"
@@ -136,7 +136,7 @@ export const Full = () => (
 );
 
 export const Empty = () => (
-  <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
+  <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
     <TableView data={[]} />
   </Box>
 );

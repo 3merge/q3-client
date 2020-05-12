@@ -1,0 +1,46 @@
+import React from 'react';
+import InputBase from '@material-ui/core/InputBase';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { useValue } from 'useful-state';
+import { red } from '@material-ui/core/colors';
+
+const Groups = ({ onSave, active, items }) => {
+  const ref = React.useRef();
+  const { value, onChange } = useValue('');
+
+  const handleClick = () => {
+    if (value.length) {
+      return onSave(value);
+    }
+
+    ref.current.focus();
+    return null;
+  };
+
+  return (
+    <ListItem fullWidth variant="contained">
+      <InputBase
+        name="Custom"
+        aria-label="New custom segment"
+        placeholder="Add as new segment"
+        value={value}
+        onChange={onChange}
+        inputProps={{
+          ref,
+        }}
+      />
+      <ListItemSecondaryAction>
+        <IconButton size="small" onClick={handleClick}>
+          <AddIcon />
+        </IconButton>
+      </ListItemSecondaryAction>
+    </ListItem>
+  );
+};
+
+Groups.propTypes = {};
+
+export default Groups;

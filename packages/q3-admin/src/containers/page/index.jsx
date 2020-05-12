@@ -5,16 +5,14 @@ import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import Graphic from 'q3-ui-assets';
+import { useFilters } from 'q3-ui-rest';
 import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
-import {
-  useDataStore,
-  useViewResolutions,
-  useRootPath,
-} from '../use';
+import { useDataStore, useViewResolutions } from '../use';
 import withSorting from './withSorting';
+import withActiveFilter from './withActiveFilter';
 
 const PageChildren = ({
   children,
@@ -54,19 +52,20 @@ export const getDirectoryPath = (root, id) =>
 
 const Page = ({
   children,
-  collectionName,
-  resourceName,
   select,
-  resourceNameSingular,
   id,
   location,
   onEnter,
   onExit,
   onInit,
   viewResolutions,
+  lookup,
 }) => {
-  const rootPath = useRootPath(location, id, resourceName);
-  const directoryPath = getDirectoryPath(rootPath, id);
+  const {
+    resourceNameSingular,
+    collectionName,
+    resourceName,
+  } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
 
   const state = useRest({
@@ -79,11 +78,18 @@ const Page = ({
   });
 
   const { fetching, fetchingError } = state;
+
   const data = useDataStore({
     resourceNameSingular,
     resourceName,
     state,
     id,
+  });
+
+  const filters = useFilters({
+    fields: lookup,
+    coll: collectionName,
+    location,
   });
 
   const hasEntered = useOnRender(
@@ -96,32 +102,38 @@ const Page = ({
     data,
   );
 
-  return (
-    <Definitions.Provider
-      value={{
-        id,
-        exclusions,
-        collectionName,
-        resourceNameSingular,
-        resourceName,
-        rootPath,
-        directoryPath,
-        location,
-      }}
+  return typeof children === 'function' ? (
+    children({
+      hasEntered,
+      fetching,
+      id,
+      data,
+      ...state,
+    })
+  ) : (
+    <PageChildren
+      hasEntered={hasEntered}
+      fetching={fetching}
+      fetchingError={fetchingError}
+      id={id}
     >
       <Dispatcher.Provider
-        value={pick(state, [
-          'get',
-          'poll',
-          'remove',
-          'removeBulk',
-          'patch',
-          'put',
-          'post',
-        ])}
+        value={{
+          exclusions,
+          ...pick(state, [
+            'get',
+            'poll',
+            'remove',
+            'removeBulk',
+            'patch',
+            'put',
+            'post',
+          ]),
+        }}
       >
         <Store.Provider
           value={{
+            filters,
             data,
             ...pick(state, [
               'total',
@@ -130,27 +142,10 @@ const Page = ({
             ]),
           }}
         >
-          {typeof children === 'function' ? (
-            children({
-              hasEntered,
-              fetching,
-              id,
-              data,
-              ...state,
-            })
-          ) : (
-            <PageChildren
-              hasEntered={hasEntered}
-              fetching={fetching}
-              id={id}
-              fetchingError={fetchingError}
-            >
-              {children}
-            </PageChildren>
-          )}
+          {children}
         </Store.Provider>
       </Dispatcher.Provider>
-    </Definitions.Provider>
+    </PageChildren>
   );
 };
 
@@ -180,21 +175,6 @@ Page.propTypes = {
   ]).isRequired,
 
   /**
-   * The directory to call. For example, defining "foo" would send requests to "http://localhost/foo".
-   */
-  collectionName: PropTypes.string.isRequired,
-
-  /**
-   * The key inside the API response payload containing a list of documents.
-   */
-  resourceName: PropTypes.string.isRequired,
-
-  /**
-   * The key inside API response payload containing a single document.
-   */
-  resourceNameSingular: PropTypes.string.isRequired,
-
-  /**
    * This value is appended to "collectionName" for document-specific queries.
    */
   id: PropTypes.string,
@@ -215,6 +195,8 @@ Page.propTypes = {
    * Used to hide/display tabs based on state or role.
    */
   viewResolutions: PropTypes.shape({}),
+
+  lookup: PropTypes.arrayOf(PropTypes.string),
 };
 
 Page.defaultProps = {
@@ -224,6 +206,7 @@ Page.defaultProps = {
   onInit: null,
   select: null,
   viewResolutions: {},
+  lookup: [],
 };
 
-export default withSorting(Page);
+export default withActiveFilter(withSorting(Page));

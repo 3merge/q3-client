@@ -57,6 +57,8 @@ const Note = ({
         type="text"
         multiline
         name="message"
+        xl={12}
+        lg={12}
         rows={5}
       />
       <Button type="submit">{t('save')}</Button>

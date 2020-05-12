@@ -5,6 +5,9 @@ const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\
 const isString = (v = '') =>
   typeof v === 'string' ? v : String(v);
 
+export const removeLeadingQueryCharacter = (v = '') =>
+  String(v).charAt(0) === '?' ? v.substr(1) : v;
+
 export const checksArray = (name) =>
   name &&
   (name.endsWith('.') ||
