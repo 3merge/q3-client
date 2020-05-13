@@ -81,7 +81,9 @@ export const MongoChart = ({
 
   return (
     <Chart title={title} url={url} {...rest}>
-      {(close) => filters(setInitialValues, close)}
+      {(close) =>
+        filters(setInitialValues, close, initialValues)
+      }
     </Chart>
   );
 };

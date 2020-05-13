@@ -59,13 +59,6 @@ const Sidebar = ({
   return (
     <Column>
       <SidebarTabs {...rest}>
-        {invoke(registerPanels, ...params).map(
-          (panel, i) => (
-            <Panel {...panel} key={i}>
-              {panel.content}
-            </Panel>
-          ),
-        )}
         {defaultOptions.length > 0 && (
           <Panel title="general">
             <List>
@@ -78,6 +71,13 @@ const Sidebar = ({
               ))}
             </List>
           </Panel>
+        )}
+        {invoke(registerPanels, ...params).map(
+          (panel, i) => (
+            <Panel {...panel} key={i}>
+              {panel.content}
+            </Panel>
+          ),
         )}
         {children}
       </SidebarTabs>

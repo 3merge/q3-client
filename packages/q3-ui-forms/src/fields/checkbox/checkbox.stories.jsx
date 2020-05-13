@@ -24,6 +24,12 @@ export const WithCustomValue = () => (
   </Form>
 );
 
+export const WithForcedBoolean = () => (
+  <Form debug initialValues={{ demo: '' }}>
+    <Field name="demo" type="checkbox" checkedValue />
+  </Form>
+);
+
 export const AsSwitch = () => (
   <Form debug initialValues={{ lorem: true }}>
     <Field name="lorem" type="checkbox" variant="switch" />

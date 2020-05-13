@@ -61,7 +61,6 @@ const Page = ({
   children,
   select,
   id,
-  location,
   onEnter,
   onExit,
   onInit,
@@ -69,11 +68,13 @@ const Page = ({
   loadingComponent,
   lookup,
   runOnSearch,
+  runWithSearch,
 }) => {
   const {
     resourceNameSingular,
     collectionName,
     resourceName,
+    location,
   } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
 
@@ -95,11 +96,21 @@ const Page = ({
     id,
   });
 
+  /**
+   * @TODO
+   * Move into an abstracted hook of its own.
+   */
+
+  let query;
+
+  if (runOnSearch) query = get(location, 'search', '');
+  if (runWithSearch) query = runWithSearch;
+
   const filters = useFilters({
-    query: runOnSearch ? get(location, 'search', '') : null,
     fields: lookup,
     coll: collectionName,
     location,
+    query,
   });
 
   const hasEntered = useOnRender(
@@ -149,6 +160,7 @@ const Page = ({
             ...state,
             id,
             data,
+            filters,
           })}
         </Store.Provider>
       </Dispatcher.Provider>
@@ -185,13 +197,6 @@ Page.propTypes = {
    * This value is appended to "collectionName" for document-specific queries.
    */
   id: PropTypes.string,
-
-  /**
-   * Location props passed via @reach/router
-   */
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
 
   /**
    * Reduce payload by projecting which fields to include.

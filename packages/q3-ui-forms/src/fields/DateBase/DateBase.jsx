@@ -9,12 +9,7 @@ const DateBase = (props) => (
     <MobileDatePicker
       {...props}
       renderInput={(inputProps) => (
-        <Text
-          {...merge(inputProps, props)}
-          lg={12}
-          md={12}
-          type="date"
-        />
+        <Text {...merge(inputProps, props)} type="date" />
       )}
     />
   </Grid>

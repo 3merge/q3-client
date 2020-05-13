@@ -105,7 +105,7 @@ const Bool = ({
   });
 
   return (
-    <Box my={my}>
+    <Box my={0.5}>
       <FormControlLabel
         style={{ userSelect: 'none' }}
         control={

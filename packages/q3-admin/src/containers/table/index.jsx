@@ -92,7 +92,7 @@ const List = ({
         renderInside={
           <Box>
             <Header>
-              <Search />
+              <Search {...rest} />
             </Header>
             {addComponent}
             <Table

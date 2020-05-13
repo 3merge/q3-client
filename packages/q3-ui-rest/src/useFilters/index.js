@@ -2,6 +2,9 @@ import { get } from 'lodash';
 import useRest from '../useRest';
 
 export default ({ coll, fields, query }) => {
+  if (!fields || !Array.isArray(fields) || !fields.length)
+    return {};
+
   const fieldString = `collectionName=${coll}&${fields
     .map((field) => `fields[]=${field}`)
     .join('&')}`;

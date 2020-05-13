@@ -3,7 +3,9 @@ import { Filters } from 'q3-admin/lib/containers';
 import { Field } from 'q3-ui-forms/lib/builders';
 
 export default () => (
-  <Filters initialValues={{ role: [], gender: [] }}>
+  <Filters
+    initialValues={{ role: [], gender: [], flag: '' }}
+  >
     {(fields, getOptions) => (
       <>
         <Field
@@ -16,6 +18,7 @@ export default () => (
           type="select"
           options={getOptions('gender')}
         />
+        <Field name="flag" type="checkbox" />
       </>
     )}
   </Filters>

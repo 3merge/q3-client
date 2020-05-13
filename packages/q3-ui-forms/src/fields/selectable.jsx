@@ -44,6 +44,7 @@ const SelectableList = (props) => {
       {items.map(({ value, label, img }) => (
         <ListItem
           key={value}
+          dense
           onClick={() => onChange(value)}
           className={classNames(
             root,

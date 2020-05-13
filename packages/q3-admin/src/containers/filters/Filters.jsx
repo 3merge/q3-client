@@ -47,7 +47,8 @@ const Groups = ({ children, initialValues }) => {
               {
                 label: 'All',
                 onClick: () => navigate('?active'),
-                isActive: !main || active === 'All',
+                isActive:
+                  !main || active === 'All' || !active,
               },
             ]
               .concat(filters)

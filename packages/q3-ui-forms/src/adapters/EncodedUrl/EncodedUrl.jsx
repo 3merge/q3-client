@@ -9,7 +9,7 @@ const getParamName = (v) => {
   return name;
 };
 
-const clean = (v) => v.replace('%20', ' ');
+const clean = (v) => v.replace(/%20/g, ' ');
 
 export const serialize = (o) =>
   Object.entries(o)

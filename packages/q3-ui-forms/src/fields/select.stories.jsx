@@ -90,6 +90,27 @@ export const WithDynamicOptions = () => (
   </Form>
 );
 
+export const WithGraphics = () => (
+  <Form
+    onSubmit={() => null}
+    initialValues={{
+      countries: '',
+      name: '',
+    }}
+  >
+    <Field
+      name="countries"
+      type="selectable"
+      options={[]}
+      override={({ values }) => ({
+        options: values.name.length
+          ? opts
+          : [{ label: 'Brazil', value: 'BZ' }],
+      })}
+    />
+  </Form>
+);
+
 export const WithDynamicLoadOptions = () => (
   <Form
     onSubmit={() => null}
