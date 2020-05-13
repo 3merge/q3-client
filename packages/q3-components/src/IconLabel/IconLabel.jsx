@@ -15,7 +15,7 @@ export const IconLabel = ({
   const { t } = useTranslation('labels');
 
   return (
-    <Box mb={0.5}>
+    <Box>
       <Grid container alignItems="center">
         <Grid item>
           <Typography
@@ -27,7 +27,9 @@ export const IconLabel = ({
           </Typography>
         </Grid>
         <Grid item xs>
-          {children}
+          <div style={{ fontSize: '0.911rem' }}>
+            {children}
+          </div>
         </Grid>
       </Grid>
     </Box>

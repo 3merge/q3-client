@@ -7,6 +7,7 @@ import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { IconLabel } from 'q3-components';
 import { Inline } from 'q3-components';
@@ -47,14 +48,17 @@ export const AddressHeader = ({ label, title, helper }) => (
         <Grid item>
           <Inline
             title={label}
-            withHover
             renderContent={() => (
               <p style={{ margin: 0 }}>{helper}</p>
             )}
-            renderTrigger={(open, isOpen, events) => (
-              <span {...events} aria-label="Help">
+            renderTrigger={(open) => (
+              <IconButton
+                size="small"
+                onClick={open}
+                aria-label="Help"
+              >
                 <NotListedLocationIcon />
-              </span>
+              </IconButton>
             )}
           />
         </Grid>
@@ -103,7 +107,6 @@ const Address = ({
       )}
       <AddressLine icon={Pin} label="address">
         <Inline
-          withHover
           title="GoogleMaps"
           renderContent={() => (
             <Box width="100%">
@@ -116,8 +119,13 @@ const Address = ({
               />
             </Box>
           )}
-          renderTrigger={(open, isOpen, events) => (
-            <AddressLink {...events}>
+          renderTrigger={(open) => (
+            <AddressLink
+              onClick={(e) => {
+                e.preventDefault();
+                open();
+              }}
+            >
               {streetNumber} {streetLine1}
               {streetLine2 && (
                 <>

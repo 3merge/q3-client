@@ -7,8 +7,22 @@ import {
 } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
+import { makeStyles } from '@material-ui/core/styles';
 import useDecorator from '../helpers/useDecorator';
 import TextBase from './TextBase';
+
+const useStyle = makeStyles((theme) => ({
+  delimiter: {
+    position: 'absolute',
+    transform: 'translate(-50%, -50%) scale(0.8)',
+    top: '50%',
+    left: '50%',
+    [theme.breakpoints.down('md')]: {
+      transform:
+        'translate(-50%, -50%) scale(0.8) rotate(90deg)',
+    },
+  },
+}));
 
 const toISO = (v) =>
   v !== undefined ? moment(v).format('YYYY-MM-DD') : v;
@@ -22,6 +36,7 @@ export const handleDateChange = (fn, name) => (value) =>
   });
 
 const DateSelect = ({ from, to, ...rest }) => {
+  const cls = useStyle();
   const {
     onChange: onChangeFrom,
     label: startText,
@@ -61,24 +76,22 @@ const DateSelect = ({ from, to, ...rest }) => {
               container
               alignItems="center"
               justify="space-between"
+              spacing={2}
+              style={{ position: 'relative' }}
             >
               <TextBase
                 {...startProps}
                 {...fromDecorators}
-                lg={5}
-                md={5}
+                lg={6}
+                xl={6}
                 onChange={onChangeFrom}
                 onFocus={startProps.onFocus}
                 onBlur={startProps.onBlur}
                 label={startText}
-                value={toValue}
+                value={fromValue}
                 type="date"
               />
-              <Grid
-                item
-                xs={1}
-                style={{ textAlign: 'center' }}
-              >
+              <Grid className={cls.delimiter}>
                 <DateRangeDelimiter>
                   <TrendingFlatIcon aria-label="Date range delimiter" />
                 </DateRangeDelimiter>
@@ -87,8 +100,8 @@ const DateSelect = ({ from, to, ...rest }) => {
               <TextBase
                 {...endProps}
                 {...toDecorators}
-                lg={5}
-                md={5}
+                lg={6}
+                xl={6}
                 onChange={onChangeFrom}
                 onFocus={endProps.onFocus}
                 onBlur={endProps.onBlur}
