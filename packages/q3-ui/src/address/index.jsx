@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Pin from '@material-ui/icons/Map';
+import AccountBox from '@material-ui/icons/AccountBox';
 import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -76,6 +77,7 @@ AddressHeader.propTypes = {
 const Address = ({
   label,
   company,
+  firstName,
   streetNumber,
   streetLine1,
   streetLine2,
@@ -86,6 +88,7 @@ const Address = ({
   country,
   postal,
   helper,
+  lastName,
 }) => {
   const cls = useStyle();
   return (
@@ -95,6 +98,11 @@ const Address = ({
         title={company}
         helper={helper}
       />
+      {firstName && (
+        <AddressLine icon={AccountBox} label="name">
+          {firstName} {lastName}
+        </AddressLine>
+      )}
       {email && (
         <AddressLine icon={EmailIcon} label="email">
           <Email address={email} />
@@ -161,6 +169,8 @@ Address.propTypes = {
   country: PropTypes.string.isRequired,
   postal: PropTypes.string.isRequired,
   helper: PropTypes.string,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
 };
 
 Address.defaultProps = {
