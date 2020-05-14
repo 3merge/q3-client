@@ -11,6 +11,7 @@ import {
   blue,
 } from '@material-ui/core/colors';
 import { Status } from 'q3-components';
+import orders from '../__fixtures__/orders.json';
 import TableView, {
   TableProgress,
   TableCheck,
@@ -121,6 +122,33 @@ export const Full = () => (
           status: (
             <Status label={v.status} color={v.color} />
           ),
+        })}
+        actions={[
+          {
+            label: 'Yikes',
+            onClick: () => null,
+            icon: AccountBox,
+          },
+        ]}
+      />
+    </Box>
+    <LocationDebugger />
+  </LocationProvider>
+);
+
+export const HeavyData = () => (
+  <LocationProvider initialPath="/">
+    <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
+      <TableView
+        id="for-testing"
+        aliasForName="seq"
+        total={orders.total}
+        data={orders.orders}
+        defaultColumns={['seq', 'createdAt', 'updatedAt']}
+        resolvers={(v) => ({
+          ...v,
+          name: v.id,
+          description: v.status,
         })}
         actions={[
           {

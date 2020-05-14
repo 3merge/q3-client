@@ -15,7 +15,7 @@ const Collection = ({
   id,
   location,
   segments,
-  pre,
+  // pre,
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);

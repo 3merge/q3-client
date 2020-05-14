@@ -105,18 +105,10 @@ export const TableView = ({
   const { root } = useStyles();
 
   if (!data || !data.length) return <Empty />;
+  console.log('HIT');
 
   return (
     <Exports>
-      <Actionbar
-        columns={allColumns}
-        data={data}
-        actions={
-          renderCustomActions
-            ? renderCustomActions(data)
-            : []
-        }
-      />
       <ColumnConfigurator
         id={id}
         allColumns={allColumns}
@@ -170,6 +162,15 @@ export const TableView = ({
           </Wrapper>
         )}
       </ColumnConfigurator>
+      <Actionbar
+        columns={allColumns}
+        data={data}
+        actions={
+          renderCustomActions
+            ? renderCustomActions(data)
+            : []
+        }
+      />
     </Exports>
   );
 };

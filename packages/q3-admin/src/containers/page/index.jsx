@@ -60,7 +60,6 @@ export const executeOnChildren = (children, args = {}) =>
 const Page = ({
   children,
   select,
-  id,
   onEnter,
   onExit,
   onInit,
@@ -71,6 +70,7 @@ const Page = ({
   runWithSearch,
 }) => {
   const {
+    id,
     resourceNameSingular,
     collectionName,
     resourceName,

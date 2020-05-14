@@ -48,13 +48,15 @@ const ActionBar = ({ actions, data, columns }) => {
   const picked = intersects(data, columns, checked);
   const { actionBar } = useStyle();
 
+  if (!hasChecked()) return null;
+
   return (
-    <Fade in={hasChecked()}>
+    <Fade in>
       <div>
         <BottomNavigation className={actionBar}>
           <Unselect />
           <DataToCsv data={picked} />
-          <DataToExcel data={picked} />
+          {/* <DataToExcel data={picked} /> */}
           {renderActions(actions, t, picked)}
         </BottomNavigation>
       </div>
