@@ -55,7 +55,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       position: 'relative',
       maxHeight: 'none',
-      overflow: 'visible',
+      overflow: 'initial',
     },
   },
 }));

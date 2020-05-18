@@ -107,6 +107,7 @@ const Page = ({
   if (runWithSearch) query = runWithSearch;
 
   const filters = useFilters({
+    runOnInit: !id,
     fields: lookup,
     coll: collectionName,
     location,

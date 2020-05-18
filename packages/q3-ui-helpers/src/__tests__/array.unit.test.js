@@ -56,4 +56,26 @@ describe('Props', () => {
       ).toBeFalsy();
     });
   });
+
+  describe('mergeUnique', () => {
+    it('should drop duplicates', () => {
+      expect(
+        array.mergeUnique(
+          ['foo', 'bar', 'foo', 'bar'],
+          ['foo', 'quuz'],
+        ),
+      ).toEqual(['foo', 'bar', 'quuz']);
+    });
+  });
+
+  describe('sortByIndexingArray', () => {
+    it('should prioritize active columns', () => {
+      expect(
+        array.sortByIndexingArray(
+          ['foo', 'bar', 'thux', 'garply', 'quuz'],
+          ['bar', 'quuz'],
+        ),
+      ).toEqual(['bar', 'quuz', 'foo', 'garply', 'thux']);
+    });
+  });
 });

@@ -54,5 +54,6 @@
   "sidebar": "Sidebar",
   "log": "History log",
   "missing": "404",
-  "customizeFilter": "Custom filter builder"
+  "customizeFilter": "Custom filter builder",
+  "tableConfigurator": "Datatable configuration"
 }

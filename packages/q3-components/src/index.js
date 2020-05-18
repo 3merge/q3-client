@@ -1,6 +1,11 @@
 export { default as Chart } from './Chart';
+export { default as Dot } from './Dot';
+export { default as Helper } from './Helper';
 export { default as IconLabel } from './IconLabel';
 export { default as Inline } from './Inline';
+export { default as FilterChip } from './FilterChip';
+export { default as FilterGroup } from './FilterGroup';
+export { default as Panel } from './Panel';
 export { default as EditableTypography } from './EditableTypography';
 export { default as Quantity } from './Quantity';
 export { default as Status } from './Status';

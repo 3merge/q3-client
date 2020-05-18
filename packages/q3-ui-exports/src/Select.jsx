@@ -17,23 +17,21 @@ export const SelectAll = ({ ids }) => {
     : t('labels:selectAll');
 
   return (
-    <Box p="12px">
-      <Badge
-        badgeContent={checked.length}
-        color="secondary"
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <Checkbox
-          style={{ padding: 0 }}
-          aria-label={label}
-          onClick={onCheckAll(ids)}
-          checked={hasChecked()}
-        />
-      </Badge>
-    </Box>
+    <Badge
+      badgeContent={checked.length}
+      color="secondary"
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+    >
+      <Checkbox
+        style={{ padding: 0 }}
+        aria-label={label}
+        onClick={onCheckAll(ids)}
+        checked={hasChecked()}
+      />
+    </Badge>
   );
 };
 
@@ -58,7 +56,7 @@ export const SelectOne = ({ id }) => {
       aria-label={t('labels:check')}
       onClick={onCheck(id)}
       checked={isChecked(id)}
-      style={{ padding: 12 }}
+      style={{ padding: 0 }}
     />
   );
 };

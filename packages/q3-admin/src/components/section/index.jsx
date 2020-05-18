@@ -10,11 +10,15 @@ const Section = ({
   renderOutside,
   ...rest
 }) => {
-  const { articleBox, sectionWidth } = useStyle(rest);
+  const {
+    articleBox,
+    sectionWidth,
+    articleWrapper,
+  } = useStyle(rest);
 
   return (
     <Paper id="detail-article" component="article">
-      <Grid container>
+      <Grid container className={articleWrapper}>
         {renderOutside}
         <Grid
           xs

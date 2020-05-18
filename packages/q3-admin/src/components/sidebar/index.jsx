@@ -7,10 +7,10 @@ import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
+import { Panel } from 'q3-components';
 import { Dispatcher, Store } from '../../containers/state';
 import SidebarTabs from './tabs';
 import Column from './column';
-import Panel from './panel';
 
 const invoke = (fn, data, dispatchers, t) =>
   typeof fn === 'function' && Object.keys(data).length

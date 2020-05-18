@@ -10,6 +10,7 @@ export { default as File } from './file';
 export { default as Multiselect } from './multiselect';
 export { default as Multitext } from './multitext';
 export { default as Radio } from './radio';
+export { default as Range } from './Range';
 export { default as Select } from './Select';
 export { default as Selectable } from './selectable';
 export { default as Text } from './Text';

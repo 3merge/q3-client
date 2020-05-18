@@ -88,3 +88,40 @@ export const filterByTerm = (a = [], value) =>
       .toLowerCase()
       .includes(value.toLowerCase());
   });
+
+export const mergeUnique = (arr1 = [], arr2 = []) =>
+  arr1.concat(arr2).reduce((acc, next) => {
+    if (!acc.includes(next)) acc.push(next);
+    return acc;
+  }, []);
+
+export const intersects = (arr1 = [], arr2 = []) =>
+  arr1.filter((item) => arr2.includes(item));
+
+export const sortByIndexingArray = (
+  arr1 = [],
+  arr2 = [],
+) => {
+  const { active, inactive } = arr1.reduce(
+    (acc, next) => {
+      if (arr2.includes(next)) {
+        acc.active.push(next);
+      } else {
+        acc.inactive.push(next);
+      }
+
+      return acc;
+    },
+    {
+      active: [],
+      inactive: [],
+    },
+  );
+
+  return [
+    ...active.sort(
+      (a, b) => arr2.indexOf(a) - arr2.indexOf(b),
+    ),
+    ...inactive.sort(),
+  ];
+};

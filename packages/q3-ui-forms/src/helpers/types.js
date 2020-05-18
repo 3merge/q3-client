@@ -17,6 +17,7 @@ import {
   Transfer,
   File,
   Chips,
+  Range,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -47,6 +48,7 @@ const internalFieldTypes = {
   radio: Radio,
   transfer: Transfer,
   autocomplete: Autocomplete,
+  range: Range,
   multitext: Multitext,
   multiselect: Multiselect,
   selectable: Selectable,

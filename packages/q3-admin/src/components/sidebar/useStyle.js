@@ -6,25 +6,7 @@ export default makeStyles((theme) => ({
     height: 'calc(100vh - 10px)',
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
-    },
-
-    '&::-webkit-scrollbar': {
-      height: 10,
-      width: 7,
-    },
-
-    '&::-webkit-scrollbar-track': {
-      background: '#E6ECF1',
-    },
-
-    /* Handle */
-    '&::-webkit-scrollbar-thumb': {
-      background: '#DDD',
-    },
-
-    /* Handle on hover */
-    '&::-webkit-scrollbar-thumb:hover': {
-      background: '#EEE',
+      overflow: 'initial',
     },
   }),
   columnWidth: {
@@ -35,6 +17,12 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   },
+
+  articleWrapper: {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+    },
+  },
   sectionWidth: {
     overflowY: 'auto',
     width: 'calc(100% - 495px)',
@@ -42,7 +30,7 @@ export default makeStyles((theme) => ({
       width: 'calc(100% - 405px)',
     },
     [theme.breakpoints.down('md')]: {
-      width: 'calc(100% - 315px)',
+      width: '100%',
     },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -65,24 +53,6 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
-
-    '&::-webkit-scrollbar': {
-      width: 4,
-    },
-
-    '&::-webkit-scrollbar-track': {
-      background: '#E6ECF1',
-    },
-
-    /* Handle */
-    '&::-webkit-scrollbar-thumb': {
-      background: '#DDD',
-    },
-
-    /* Handle on hover */
-    '&::-webkit-scrollbar-thumb:hover': {
-      background: '#EEE',
-    },
   },
   item: {
     minWidth: 'auto',
@@ -100,14 +70,10 @@ export default makeStyles((theme) => ({
     },
   },
   launch: {
-    backgroundColor: 'transparent',
-    border: 0,
-    outline: 0,
-    padding: '0 1rem',
-    lineHeight: '45px',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    cursor: 'pointer',
+    position: 'sticky',
+    top: '.5rem',
+    marginTop: '1rem',
+    right: '2rem',
   },
   bordered: {
     textOverflow: 'ellipsis',
@@ -136,14 +102,14 @@ export default makeStyles((theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
     [theme.breakpoints.down('md')]: {
-      top: '96px',
+      top: '30%',
     },
     [theme.breakpoints.down('sm')]: {
-      top: '70px',
+      top: '30%',
     },
   },
   drawerClose: {
-    top: 'calc(100% - 70px)',
+    top: '100%',
     transition: theme.transitions.create('top', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

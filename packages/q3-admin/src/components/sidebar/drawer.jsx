@@ -1,54 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
-import MoreVert from '@material-ui/icons/MoreHoriz';
-import Close from '@material-ui/icons/Close';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { useToggle } from 'useful-state';
-import useStyle from './useStyle';
+import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import Drawer from 'q3-ui-dialog';
 
 const SidebarDrawer = ({ children }) => {
-  const classes = useStyle();
-  const { state, toggle, close } = useToggle();
   const { t } = useTranslation('labels');
 
   return (
-    <SwipeableDrawer
-      anchor="bottom"
-      variant="permanent"
-      open={state}
-      onClose={close}
-      swipeAreaWidth={50}
-      ModalProps={{
-        disablePortal: true,
-        keepMounted: true,
-        disableBackdropTransition: true,
-      }}
-      PaperProps={{
-        className: classes.paper,
-      }}
-      className={clsx(classes.drawer, {
-        [classes.drawerOpen]: state,
-        [classes.drawerClose]: !state,
-      })}
-      classes={{
-        paper: clsx({
-          [classes.drawerOpen]: state,
-          [classes.drawerClose]: !state,
-        }),
-      }}
+    <Drawer
+      title="Context menu"
+      renderTrigger={(onClick, isOpened) => (
+        <Hidden lgUp>
+          <Button
+            fullWidth
+            type="button"
+            onClick={onClick}
+            variant="contained"
+            size="small"
+            aria-label={isOpened ? t('close') : t('more')}
+            style={{
+              borderRadius: 0,
+            }}
+          >
+            Context menu
+          </Button>
+        </Hidden>
+      )}
+      renderContent={() => children}
     >
-      <button
-        type="button"
-        onClick={toggle}
-        className={classes.launch}
-        aria-label={state ? t('close') : t('more')}
-      >
-        {state ? <Close /> : <MoreVert />}
-      </button>
       {children}
-    </SwipeableDrawer>
+    </Drawer>
   );
 };
 

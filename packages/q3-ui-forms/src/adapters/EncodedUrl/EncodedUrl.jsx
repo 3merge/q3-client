@@ -5,7 +5,7 @@ import { url } from 'q3-ui-helpers';
 import Form from '../../builders/form';
 
 const getParamName = (v) => {
-  const [name] = v.split('*').map(url.decode);
+  const [name] = v.split('*').map(decodeURIComponent);
   return name;
 };
 
@@ -28,7 +28,11 @@ export const serialize = (o) =>
         normalized !== 'undefined' &&
         normalized.length
       ) {
-        acc.push(`${name}=${normalized}`);
+        acc.push(
+          normalized.includes('=')
+            ? `${name}${normalized}`
+            : `${name}=${normalized}`,
+        );
       }
 
       return acc;
@@ -50,7 +54,7 @@ export const deserialize = (v) => {
       if (String(value).includes(','))
         value = value.split(',').map(clean);
 
-      acc[url.encode(key)] = value;
+      acc[encodeURIComponent(key)] = value;
       return acc;
     }, {});
 };

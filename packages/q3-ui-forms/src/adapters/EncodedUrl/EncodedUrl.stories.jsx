@@ -14,6 +14,7 @@ export const ToNavigate = () => (
     <LocationDebugger>
       <EncodedUrl
         debug
+        onSave={alert}
         initialValues={{
           try: '',
           paymentOption: '',
@@ -31,13 +32,39 @@ export const ToNavigate = () => (
             'PayPal',
           ])}
         />
-        <Field name="total%3E" type="number" />
-        <Field name="total%3C" type="number" />
+
+        <Field name="total" encode type="range" />
         <Field
           name="currency"
           type="multiselect"
           options={asOptions(['CAD', 'USD'])}
         />
+        <Field
+          name="draft"
+          strict
+          type="checkbox"
+          checkedValue="!=isVisble"
+        />
+        <Field
+          name="approved"
+          type="radio"
+          collapse={false}
+          options={[
+            {
+              label: 'Is approved',
+              value: '=true',
+            },
+            {
+              label: 'Is not approved',
+              value: '!=true',
+            },
+            {
+              label: 'Either',
+              value: '',
+            },
+          ]}
+        />
+        <button type="submit">Enter</button>
       </EncodedUrl>
     </LocationDebugger>
   </LocationProvider>

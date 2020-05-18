@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Fade from '@material-ui/core/Fade';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
 import DataToCsv from './DataToCsv';
-import DataToExcel from './DataToExcel';
 import Unselect from './Unselect';
 import useStyle from './useStyle';
 

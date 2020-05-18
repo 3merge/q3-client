@@ -10,6 +10,7 @@ import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import { makeStyles } from '@material-ui/core/styles';
 import useDecorator from '../helpers/useDecorator';
 import TextBase from './TextBase';
+import RangeDelimiter from './RangeDelimiter';
 
 const useStyle = makeStyles((theme) => ({
   delimiter: {
@@ -72,44 +73,36 @@ const DateSelect = ({ from, to, ...rest }) => {
           delete endProps.inputProps;
 
           return (
-            <Grid
-              container
-              alignItems="center"
-              justify="space-between"
-              spacing={2}
-              style={{ position: 'relative' }}
-            >
-              <TextBase
-                {...startProps}
-                {...fromDecorators}
-                lg={6}
-                xl={6}
-                onChange={onChangeFrom}
-                onFocus={startProps.onFocus}
-                onBlur={startProps.onBlur}
-                label={startText}
-                value={fromValue}
-                type="date"
-              />
-              <Grid className={cls.delimiter}>
-                <DateRangeDelimiter>
-                  <TrendingFlatIcon aria-label="Date range delimiter" />
-                </DateRangeDelimiter>
-              </Grid>
-
-              <TextBase
-                {...endProps}
-                {...toDecorators}
-                lg={6}
-                xl={6}
-                onChange={onChangeFrom}
-                onFocus={endProps.onFocus}
-                onBlur={endProps.onBlur}
-                label={endText}
-                value={toValue}
-                type="date"
-              />
-            </Grid>
+            <RangeDelimiter
+              leftRenderer={
+                <TextBase
+                  {...startProps}
+                  {...fromDecorators}
+                  lg={6}
+                  xl={6}
+                  onChange={onChangeFrom}
+                  onFocus={startProps.onFocus}
+                  onBlur={startProps.onBlur}
+                  label={startText}
+                  value={fromValue}
+                  type="date"
+                />
+              }
+              rightRenderer={
+                <TextBase
+                  {...endProps}
+                  {...toDecorators}
+                  lg={6}
+                  xl={6}
+                  onChange={onChangeFrom}
+                  onFocus={endProps.onFocus}
+                  onBlur={endProps.onBlur}
+                  label={endText}
+                  value={toValue}
+                  type="date"
+                />
+              }
+            />
           );
         }}
       />

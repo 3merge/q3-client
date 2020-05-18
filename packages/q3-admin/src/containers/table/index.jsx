@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
+import Chip from '@material-ui/core/Chip';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
+import { FilterChip } from 'q3-components';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
@@ -95,6 +97,9 @@ const List = ({
               <Search {...rest} />
             </Header>
             {addComponent}
+            <Box p={1}>
+              <FilterChip />
+            </Box>
             <Table
               {...rest}
               {...tableProps}

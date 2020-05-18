@@ -124,6 +124,7 @@ export class Validator {
       case 'checkset':
       case 'chips':
       case 'dateRange':
+      case 'range':
         this.$base = this.$base.array().ensure();
         break;
       case 'autocomplete':

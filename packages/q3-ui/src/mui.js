@@ -191,7 +191,7 @@ Object.assign(theme, {
       },
     },
     MuiTable: {
-      borderColor: '#F5F7F9'
+      borderColor: '#F5F7F9',
     },
     MuiTableCell: {
       head: {
@@ -205,8 +205,8 @@ Object.assign(theme, {
       root: {
         overflow: 'hidden',
         padding: '0 8px',
-        borderBottom: `2px solid #F5F7F9`,
-        fontSize: '1rem !important',
+        borderBottom: '2px solid #F5F7F9',
+        fontSize: '0.901rem !important',
       },
       sizeSmall: {
         padding: '6px 0px 6px 24px',
@@ -306,14 +306,14 @@ Object.assign(theme, {
       },
     },
     MuiListItemSecondaryAction: {
-      root: {
+      /* root: {
         [theme.breakpoints.down('md')]: {
           position: 'relative',
           right: 'auto',
           top: 'auto',
           transform: 'none',
         },
-      },
+      }, */
     },
     MuiExpansionPanel: {
       root: {
@@ -327,6 +327,12 @@ Object.assign(theme, {
         '&.Mui-disabled': {
           opacity: 1,
         },
+      },
+    },
+
+    MuiChip: {
+      labelSmall: {
+        fontSize: '0.659rem',
       },
     },
 

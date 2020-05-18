@@ -1,12 +1,9 @@
 import React from 'react';
-import { get } from 'lodash';
 import Button from '@material-ui/core/Button';
 import { navigate } from '@reach/router';
 import PropTypes from 'prop-types';
-import InputBase from '@material-ui/core/InputBase';
 import { DropDownMenu } from 'q3-ui/lib/toolbar';
 import Box from '@material-ui/core/Box';
-import { AuthContext } from 'q3-ui-permissions';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import StarIcon from '@material-ui/icons/Star';
@@ -16,14 +13,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Dialog from 'q3-ui-dialog';
+import { Panel } from 'q3-components';
 import FiltersAdd from './FiltersAdd';
 import { Definitions } from '../state';
-
 import FiltersForm from './FiltersForm';
 import FiltersClear from './FiltersClear';
 import FiltersName from './FiltersName';
 import useActiveFilter from '../useActiveFilter';
-import Panel from '../../components/sidebar/panel';
 
 const Groups = ({ children, initialValues }) => {
   const { location } = React.useContext(Definitions);
@@ -163,7 +159,7 @@ const Groups = ({ children, initialValues }) => {
           </List>
         </Box>
       </Panel>
-      <Panel title="Filters" badgeContent={numberApplied}>
+      <Panel title="Filters">
         <FiltersForm
           initialValues={initialValues}
           search={location.search}

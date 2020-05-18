@@ -15,7 +15,7 @@ const Main = ({
   const items = useMenu(pages);
 
   return (
-    <Box component="article" className={cls.wrapper}>
+    <Box className={cls.wrapper}>
       <Grid container className={cls.offsetHeight}>
         <Grid item>
           <ProfileBar
@@ -30,9 +30,7 @@ const Main = ({
           className={cls.muted}
           component="main"
         >
-          <Box width="100%" overflow="hidden">
-            {render ? render() : null}
-          </Box>
+          {render ? render() : null}
         </Grid>
       </Grid>
     </Box>

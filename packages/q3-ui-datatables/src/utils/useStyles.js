@@ -3,37 +3,48 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
+    display: 'block',
     backgroundColor: '#FFF',
-    '& td': {
-      [theme.breakpoints.down('sm')]: {
-        border: 0,
-        display: 'block',
-        '&::before': {
-          content: 'attr(data-title)',
-          textTransform: 'uppercase',
-          marginRight: '1rem',
-          fontSize: '0.833rem',
+    whiteSpace: 'nowrap',
+
+    '& tbody': {
+      display: 'inline-block',
+      minWidth: '100%',
+    },
+
+    '& tr': {
+      display: 'flex',
+      '&:hover': {
+        backgroundColor: '#f9fbfd',
+        transition: 'background-color 250ms',
+        '& td': {
+          backgroundColor: '#f9fbfd !important',
         },
       },
     },
+
+    '& td': {
+      display: 'flex',
+      fontSize: '0.833rem !important',
+      borderBottom: 'none !important',
+      padding: '0 !important',
+    },
   },
   tableHead: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      width: '100% !important',
-    },
+    padding: 0,
   },
-  row: {
-    '&:hover': {
-      backgroundColor: '#f9fbfd',
-      transition: 'background-color 250ms',
-    },
-    [theme.breakpoints.down('sm')]: {
-      borderBottom: `2px solid #E6ECF1`,
-      display: 'block',
-      padding: theme.spacing(1),
-    },
-  },
+
+  cellWidth: ({ width = 0 }) => ({
+    width,
+    display: 'flex',
+    alignItems: 'center',
+    transition: 'width 250ms',
+    willChange: 'width',
+    height: 62,
+    boxSizing: 'border-box',
+    padding: '0 6px',
+  }),
+
   tableRowHover: {
     transition: 'all 500ms',
     '&:nth-child(even)': {
@@ -80,10 +91,7 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   },
-  rowlike: {
-    background: '#FFF',
-    borderBottom: '3px solid #F5F7F9',
-  },
+
   overflow: {
     maxWidth: '100%',
     position: 'relative',
@@ -100,19 +108,14 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   mobileCheckbox: {
+    paddingLeft: 290,
     [theme.breakpoints.down('sm')]: {
       float: 'right',
     },
   },
   withoutPseudo: {
-    minWidth: 270,
-    [theme.breakpoints.down('sm')]: {
-      minWidth: 'auto',
-    },
-
-    '&::before': {
-      display: 'none',
-    },
+    padding: 8,
+    display: 'block',
   },
 
   actionbar: {
@@ -167,4 +170,75 @@ export default makeStyles((theme) => ({
       zIndex: 100,
     },
   },
+
+  cellAvatar: {
+    width: 57,
+    minWidth: 57,
+    position: 'sticky',
+    left: 0,
+    padding: '.25rem',
+    textAlign: 'center',
+    '& div': {
+      margin: '0 auto',
+    },
+  },
+
+  flexRow: {
+    borderTop: '2px solid #F5F7F9',
+    display: 'flex !important',
+    justifyContent: 'flex-end',
+    minWidth: '100%',
+  },
+
+  cellHeader: {
+    position: 'sticky',
+    backgroundColor: '#FFF',
+    left: 0,
+    transition: 'box-shadow 250ms',
+    margin: 0,
+    marginRight: 'auto',
+
+    padding: 0,
+    minWidth: 325,
+    width: 325,
+    zIndex: 1,
+
+    [theme.breakpoints.down('sm')]: {
+      boxShadow: 'none !important',
+      position: 'static',
+      width: 'auto',
+    },
+  },
+
+  cellHeaderWrapper: {
+    boxSizing: 'border-box',
+    height: 62,
+    padding: '.35rem 0.5rem',
+    margin: 0,
+    width: 325,
+
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+    },
+  },
+
+  cellHeaderLink: {
+    color: theme.palette.primary.main,
+    display: 'inline-block',
+  },
+
+  grids: ({ elevated }) => ({
+    userSelect: 'none',
+
+    '& .liftup': {
+      boxShadow: elevated ? theme.shadows[10] : 'none',
+    },
+  }),
+
+  headers: () => ({
+    position: 'sticky',
+    top: 0,
+    zIndex: 10,
+    backgroundColor: '#FFF',
+  }),
 }));

@@ -4,6 +4,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
+import { FilterGroup } from 'q3-components';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
@@ -33,14 +34,22 @@ const resolver = ({
   investments,
   ...rest
 }) => ({
+  ...rest,
   id,
   name: `${firstName} ${lastName}`,
   description: email,
   url: `/investors/${id}`,
-  investments: investments ? investments.length : 0,
+  investments: {
+    base: investments ? investments.length : 0,
+    toPrice: true,
+  },
   createdBy: createdBy ? `${createdBy.firstName}` : 'Sys',
   photo,
-  ...rest,
+  updatedAt: {
+    base: rest.updatedAt,
+    toDate: true,
+    toChip: true,
+  },
 });
 
 const Investors = (props) => (
@@ -68,7 +77,16 @@ const Investors = (props) => (
         }
         filters={
           <Filters lookup={[]}>
-            {() => <Field name="role" type="text" />}
+            {() => (
+              <FilterGroup title="work" count={['role']}>
+                <Field
+                  name="role"
+                  type="text"
+                  xl={12}
+                  lg={12}
+                />
+              </FilterGroup>
+            )}
           </Filters>
         }
         resolvers={resolver}
@@ -76,6 +94,15 @@ const Investors = (props) => (
           'gender',
           'updatedAt',
           'investments',
+          'updatedAt',
+          'investments',
+          'createdBy',
+          'gender',
+          'updatedAt',
+          'investments',
+          'updatedAt',
+          'investments',
+          'createdBy',
         ]}
         allColumns={[
           'gender',

@@ -1,7 +1,12 @@
 import { get } from 'lodash';
 import useRest from '../useRest';
 
-export default ({ coll, fields, query }) => {
+export default ({
+  runOnInit = true,
+  coll,
+  fields,
+  query,
+}) => {
   if (!fields || !Array.isArray(fields) || !fields.length)
     return {};
 
@@ -13,8 +18,8 @@ export default ({ coll, fields, query }) => {
     url: `/search?${fieldString}${
       query ? `&${query.replace('?', '')}` : ''
     }`,
-    runOnInit: true,
     key: 'fields',
+    runOnInit,
   });
 
   return {

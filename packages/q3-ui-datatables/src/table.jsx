@@ -1,167 +1,142 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import TableHead from '@material-ui/core/TableHead';
+import Table from '@material-ui/core/Table';
+import Box from '@material-ui/core/Box';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
-import Exports, {
-  Actionbar,
-  SelectAll,
-} from 'q3-ui-exports';
+import Exports, { Actionbar } from 'q3-ui-exports';
+import {
+  ScrollSync,
+  ScrollSyncPane,
+} from 'react-scroll-sync';
+import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
-import {
-  ColumnConfigurator,
-  ColumnHeader,
-  Empty,
-  Wrapper,
-  Pagination,
-  Row,
-} from './components';
+import ColumnReorderDialog from './ColumnReorderDialog';
+import ColumnSort from './ColumnSort';
+import Cell from './Cell';
+import RowHeader from './RowHeader';
+import Pagination from './Pagination';
+import Scrollbar from './Scrollbar';
+import useElevated from './useElevated';
+import useColumns from './useColumns';
+import useWidth from './useWidth';
+import withEmpty from './withEmpty';
 
-const TableHeader = ({
-  children,
-  columns,
-  aliasForName,
-  setActiveColumns,
-  renderLast,
-  onSort,
-  ...rest
-}) => {
-  const { mobile, boxes, tableHead } = useStyles();
-  const [dragOver, setDragOver] = React.useState('');
-
-  return (
-    <TableHead>
-      <TableRow className={mobile}>
-        <TableCell id="q3-table-boxes" className={boxes}>
-          {children}
-        </TableCell>
-        <ColumnHeader
-          disableDnD
-          title={aliasForName}
-          className={tableHead}
-          onSort={onSort}
-          {...rest}
-        />
-        {columns.map((header) => (
-          <ColumnHeader
-            key={header}
-            title={header}
-            className={tableHead}
-            cols={columns}
-            setCols={setActiveColumns}
-            setDragOver={setDragOver}
-            dragOver={dragOver}
-            onSort={onSort}
-            {...rest}
-          />
-        ))}
-        <TableCell
-          id="q3-table-boxes"
-          style={{ width: 55 }}
-        >
-          {renderLast}
-        </TableCell>
-      </TableRow>
-    </TableHead>
-  );
-};
-
-TableHeader.propTypes = {
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  columns: PropTypes.arrayOf(PropTypes.string),
-  aliasForName: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
-};
-
-TableHeader.defaultProps = {
-  columns: [],
-  aliasForName: 'name',
-};
-
-export const TableView = ({
+const TableView = ({
   id,
   allColumns,
   defaultColumns,
   aliasForName,
   total,
-  // actions,
   renderCustomActions,
   resolvers,
   data = [],
-  onClick,
   onSort,
 }) => {
-  const { root } = useStyles();
+  const { activeColumns, columns, setColumns } = useColumns(
+    id,
+    defaultColumns,
+    allColumns,
+  );
 
-  if (!data || !data.length) return <Empty />;
-  console.log('HIT');
+  const [boundingClientRef, width] = useWidth(
+    activeColumns,
+  );
+
+  const elevated = useElevated(boundingClientRef);
+
+  const {
+    root,
+    flexRow,
+    grids,
+    headers,
+    cellWidth,
+  } = useStyles({
+    elevated,
+    columns,
+    width,
+  });
 
   return (
     <Exports>
-      <ColumnConfigurator
-        id={id}
-        allColumns={allColumns}
-        activeColumns={defaultColumns}
-      >
-        {(
-          ColumnConfiguratorIconButton,
-          activeColumns = [],
-          setActiveColumns,
-        ) => (
-          <Wrapper>
-            <Paper
-              elevation={0}
-              style={{ minWidth: '100%' }}
-            >
-              <Table stickyHeader className={root}>
-                <TableHeader
-                  id={id}
-                  onSort={onSort}
-                  aliasForName={aliasForName}
-                  columns={activeColumns}
-                  setActiveColumns={setActiveColumns}
-                  renderLast={
-                    <ColumnConfiguratorIconButton />
-                  }
-                >
-                  <SelectAll ids={extractIds(data)} />
-                </TableHeader>
-                <TableBody>
-                  {data.map((c, i) => {
-                    const rowId = c.id || i;
-                    return React.createElement(Row, {
-                      id: rowId,
-                      key: rowId,
-                      onClick,
-                      activeColumns,
-                      columns:
-                        typeof resolvers === 'function'
-                          ? resolvers(c)
-                          : c,
-                    });
-                  })}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <Pagination id={id} total={total} />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </Paper>
-          </Wrapper>
-        )}
-      </ColumnConfigurator>
+      <Paper elevation={0} className={grids}>
+        <ScrollSync>
+          <Box position="relative">
+            <ScrollSyncPane>
+              <Box
+                className={headers}
+                overflow="hidden"
+                maxWidth="100%"
+              >
+                <Box display="inline-block" minWidth="100%">
+                  <Box className={flexRow}>
+                    <ColumnSelectAll
+                      ids={extractIds(data)}
+                      title={aliasForName}
+                    >
+                      <ColumnReorderDialog
+                        onDone={setColumns}
+                        defaultColumns={activeColumns}
+                        columns={columns}
+                      />
+                    </ColumnSelectAll>
+
+                    {activeColumns.map((column) => (
+                      <ColumnSort
+                        title={column}
+                        onSort={onSort}
+                        className={cellWidth}
+                        {...column}
+                      />
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+            </ScrollSyncPane>
+
+            <ScrollSyncPane>
+              <Box
+                ref={boundingClientRef}
+                overflow="hidden"
+              >
+                <Table className={root}>
+                  <TableBody>
+                    {data.map(resolvers).map((row) => (
+                      <TableRow className={flexRow}>
+                        <RowHeader {...row} />
+                        {activeColumns.map((column) => (
+                          <Cell
+                            id={column}
+                            component="td"
+                            className={cellWidth}
+                            headers={`${column} ${row.name}`}
+                            key={`${row.id}-${column}`}
+                            value={row[column]}
+                          />
+                        ))}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <Pagination id={id} total={total} />
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </Box>
+            </ScrollSyncPane>
+            <ScrollSyncPane>
+              <Scrollbar
+                columns={activeColumns}
+                width={width}
+              />
+            </ScrollSyncPane>
+          </Box>
+        </ScrollSync>
+      </Paper>
       <Actionbar
         columns={allColumns}
         data={data}
@@ -207,13 +182,7 @@ TableView.propTypes = {
    * On row selection, the user can click from a toolbar of pre-determined actions.
    * Use this array to populate said toolbar with icons and handlers.
    */
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object,
-      label: PropTypes.string,
-      onClick: PropTypes.func,
-    }),
-  ),
+  renderCustomActions: PropTypes.func,
 
   /**
    * Func for resolving TableCells with custom components/text.
@@ -230,21 +199,15 @@ TableView.propTypes = {
    * Otherwise, it will just look for the name and description fields.
    */
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
-
-  /**
-   * All function that gets passed down to the Row's link.
-   * It fires before navigating.
-   */
-  onClick: PropTypes.func,
+  onSort: PropTypes.func.isRequired,
 };
 
 TableView.defaultProps = {
   aliasForName: 'name',
   total: 0,
-  actions: [],
   allColumns: [],
   defaultColumns: [],
-  onClick: null,
+  renderCustomActions: null,
 };
 
-export default TableView;
+export default withEmpty(TableView);
