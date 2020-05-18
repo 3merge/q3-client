@@ -24,21 +24,17 @@ const PageChildren = ({
   loadingComponent,
 }) =>
   !hasEntered || fetching ? (
-    <Fade in>
-      {loadingComponent || <Loading id={id} />}
-    </Fade>
+    loadingComponent || <Loading id={id} />
   ) : (
-    <Fade in>
-      <Box>
-        {fetchingError ? (
-          <Box m={4}>
-            <Graphic title="error" icon="Error" />
-          </Box>
-        ) : (
-          children
-        )}
-      </Box>
-    </Fade>
+    <Box>
+      {fetchingError ? (
+        <Box m={4}>
+          <Graphic title="error" icon="Error" />
+        </Box>
+      ) : (
+        children
+      )}
+    </Box>
   );
 
 PageChildren.propTypes = {
@@ -127,7 +123,7 @@ const Page = ({
   return (
     <PageChildren
       hasEntered={hasEntered}
-      fetching={fetching}
+      fetching={fetching || filters.fetching}
       fetchingError={fetchingError}
       loadingComponent={loadingComponent}
       id={id}

@@ -46,6 +46,29 @@ const DetailProps = {
 const ListProps = {
   renderTop: CharacterFilter,
   filters: <CharacterFilter />,
+  defaultColumns: ['role', 'updatedAt', 'createdAt'],
+  resolvers: ({
+    id,
+    name,
+    role,
+    updatedAt,
+    createdAt,
+  }) => ({
+    id,
+    name,
+    role: {
+      base: role,
+      toChip: true,
+    },
+    updatedAt: {
+      base: updatedAt,
+      toDate: true,
+    },
+    createdAt: {
+      base: createdAt,
+      toDate: true,
+    },
+  }),
 };
 
 const PageDetail = genDetail({

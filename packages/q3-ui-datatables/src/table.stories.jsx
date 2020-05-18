@@ -41,16 +41,28 @@ export const HeavyData = () => (
           'currency',
           'paymentOption',
           'shippingOption',
+          'draft',
         ]}
+        columnWidths={{
+          seq: 65,
+          tax: 115,
+          draft: 45,
+          updatedAt: 165,
+          createdAt: 165,
+        }}
         resolvers={(v) => ({
           ...v,
           name: v.seq,
-          imgSrc: 'https://i.pravatar.cc/150?img=20',
+          // imgSrc: 'https://i.pravatar.cc/150?img=20',
           description: v.id,
           url: v.id,
           currency: {
             base: v.currency,
             toChip: true,
+          },
+          draft: {
+            base: v.draft,
+            toTruthy: true,
           },
           seq: {
             base: v.seq,

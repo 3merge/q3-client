@@ -56,7 +56,9 @@ const Chips = (props) => {
       onChange={(e, newValue) => {
         return onChange({
           target: {
-            value: newValue.map((o) => get(o, 'value', o)),
+            value: newValue
+              .map((o) => get(o, 'value', o))
+              .filter(Boolean),
             name,
           },
         });
@@ -75,12 +77,17 @@ const Chips = (props) => {
           {...merge(
             params,
             chosenTextFieldDisplayAttributes,
+            {
+              inputProps: {
+                autoComplete: new Date().toISOString(),
+              },
+            },
           )}
           label={label}
           helperText={helperText}
           error={error}
           value={value}
-          name={name}
+          name={new Date().toISOString()}
         />
       )}
     />

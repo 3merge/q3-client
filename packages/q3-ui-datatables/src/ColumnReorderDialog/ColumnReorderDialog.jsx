@@ -6,7 +6,11 @@ import Box from '@material-ui/core/Box';
 import TuneIcon from '@material-ui/icons/Tune';
 import ColumnReorder from '../ColumnReorder';
 
-const ColumnReorderDialog = ({ onDone, ...rest }) => (
+const ColumnReorderDialog = ({
+  onDone,
+  disabled,
+  ...rest
+}) => (
   <Dialog
     title="tableConfigurator"
     variant="drawer"
@@ -17,6 +21,7 @@ const ColumnReorderDialog = ({ onDone, ...rest }) => (
           icon={TuneIcon}
           buttonProps={{
             size: 'small',
+            disabled,
             onClick,
           }}
         />

@@ -15,56 +15,51 @@ const Cell = ({ id, value, className, ...props }) => {
     typeof value === 'object' &&
     'base' in value
   ) {
-    if (value.base) {
-      const args =
-        typeof value.renderProps === 'function'
-          ? value.renderProps(value)
-          : value.renderProps;
+    const args =
+      typeof value.renderProps === 'function'
+        ? value.renderProps(value)
+        : value.renderProps;
 
-      if (value.toString) formatted = String(value.base);
+    if (value.toString) formatted = String(value.base);
 
-      if (value.toTruthy)
-        formatted = string.toTruthy(value.base, t);
-      if (value.toDate)
-        formatted = string.toDate(value.base);
-      if (value.toPrice)
-        formatted = string.toPrice(value.base);
-      if (value.trans) formatted = t(value.base);
+    if (value.toTruthy)
+      formatted = string.toTruthy(value.base, t);
+    if (value.toDate) formatted = string.toDate(value.base);
+    if (value.toPrice)
+      formatted = string.toPrice(value.base);
+    if (value.trans) formatted = t(value.base);
 
-      if (value.toChip)
-        formatted = <Status label={formatted} {...args} />;
+    if (value.toChip)
+      formatted = <Status label={formatted} {...args} />;
 
-      if (value.toDot)
-        formatted = <Dot label={formatted} {...args} />;
+    if (value.toDot)
+      formatted = <Dot label={formatted} {...args} />;
 
-      if (value.helperText)
-        formatted = (
-          <Helper
-            label={formatted}
-            helperText={value.helperText}
-          />
-        );
+    if (value.helperText)
+      formatted = (
+        <Helper
+          label={formatted}
+          helperText={value.helperText}
+        />
+      );
 
-      if (value.toAction)
-        formatted = (
-          <IconButton
-            color="secondary"
-            size="small"
-            {...args}
-          >
-            {React.createElement(value.icon)}
-          </IconButton>
-        );
-    } else {
-      formatted = '--';
-    }
+    if (value.toAction)
+      formatted = (
+        <IconButton
+          color="secondary"
+          size="small"
+          {...args}
+        >
+          {React.createElement(value.icon)}
+        </IconButton>
+      );
+
+    if (!formatted) formatted = '--';
   }
 
   return (
-    <TableCell {...props}>
-      <CellExpansion id={id} className={className}>
-        {formatted}
-      </CellExpansion>
+    <TableCell {...props} id={id} className={className}>
+      <div>{formatted}</div>
     </TableCell>
   );
 };

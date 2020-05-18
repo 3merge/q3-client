@@ -44,12 +44,14 @@ const List = ({
   ...rest
 }) => {
   const tableProps = React.useContext(Store);
-  const { collectionName, location } = React.useContext(
-    Definitions,
-  );
+  const {
+    collectionName,
+    location,
+    rootPath,
+  } = React.useContext(Definitions);
   const { removeBulk } = React.useContext(Dispatcher);
   const { Redirect, canDelete } = useAuth(collectionName);
-  const { setPath } = useReferrer();
+  // const { setPath } = useReferrer();
 
   const actions = getActions(
     collectionName,
@@ -103,9 +105,15 @@ const List = ({
             <Table
               {...rest}
               {...tableProps}
+              data={get(tableProps, 'data', []).map(
+                (row) => ({
+                  ...row,
+                  url: `${rootPath}/${row.id}`,
+                }),
+              )}
               actions={actions}
               id={collectionName}
-              onClick={setPath}
+              // onClick={setPath}
               onSort={updateSortPrefence}
             />
           </Box>

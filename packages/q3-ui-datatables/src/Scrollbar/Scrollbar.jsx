@@ -4,18 +4,17 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import useStyle from './useStyle';
 
-const Scrollbar = ({ columns, width }) => {
-  const { root, headerCell, snap, fixedCell } = useStyle({
-    width,
-  });
+const Scrollbar = ({ columns, className, getWidth }) => {
+  const { root, headerCell, snap } = useStyle();
 
   return (
-    <Box className={root}>
+    <Box id="q3-datatable-scroller" className={root}>
       <Box className={classnames(snap, headerCell)} />
       {columns.map((column) => (
         <Box
           key={column}
-          className={classnames(snap, fixedCell)}
+          className={classnames(snap, className)}
+          style={getWidth(column)}
         />
       ))}
     </Box>
@@ -24,7 +23,7 @@ const Scrollbar = ({ columns, width }) => {
 
 Scrollbar.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-  width: PropTypes.number.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default Scrollbar;

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import TableCell from '@material-ui/core/TableCell';
 import withSort from '../withSort';
@@ -10,27 +11,24 @@ const ColumnSortText = withSort(({ title }) => {
   return t(`labels:${title}`);
 });
 
-const ColumnSort = ({ className, title, ...props }) => {
+const ColumnSort = ({
+  className,
+  title,
+  onSort,
+  ...props
+}) => {
   const { tableHead } = useStyles();
 
   return (
     <TableCell
-      component="div"
+      component="th"
       variant="head"
-      className={tableHead}
-      style={{
-        borderBottomWidth: '0',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap',
-      }}
+      className={classnames(tableHead, className)}
+      style={{ borderBottom: 0 }}
       {...props}
     >
-      <div
-        id={title}
-        data-q3-cell={title}
-        className={className}
-      >
-        <ColumnSortText title={title} />
+      <div id={title} data-q3-cell={title}>
+        <ColumnSortText onSort={onSort} title={title} />
       </div>
     </TableCell>
   );
@@ -39,6 +37,7 @@ const ColumnSort = ({ className, title, ...props }) => {
 ColumnSort.propTypes = {
   title: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
+  onSort: PropTypes.func.isRequired,
 };
 
 export default ColumnSort;

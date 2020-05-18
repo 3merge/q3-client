@@ -10,11 +10,11 @@ export default {
 };
 
 export const ToNavigate = () => (
-  <LocationProvider search="?paymentOption=Visa&currency=CAD,USD&total>=100&total<=1500">
+  <LocationProvider search="?paymentOption=Visa&currency=CAD,USD&total>=100&total<=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
     <LocationDebugger>
       <EncodedUrl
         debug
-        onSave={alert}
+        onSave={console.log}
         initialValues={{
           try: '',
           paymentOption: '',
@@ -61,6 +61,17 @@ export const ToNavigate = () => (
             {
               label: 'Either',
               value: '',
+            },
+          ]}
+        />
+
+        <Field
+          name="email"
+          type="chips"
+          options={[
+            {
+              label: 'Mike',
+              value: 'mibberson+demo@3merge.ca',
             },
           ]}
         />

@@ -5,15 +5,20 @@ export default makeStyles((theme) => ({
   root: {
     display: 'block',
     backgroundColor: '#FFF',
-    whiteSpace: 'nowrap',
+    overflow: 'hidden',
 
-    '& tbody': {
+    '& th': {
+      border: '0 !important',
+    },
+
+    '& tbody, & thead, & tfooter': {
       display: 'inline-block',
       minWidth: '100%',
     },
 
-    '& tr': {
-      display: 'flex',
+    '& tbody tr': {
+      borderTop: '2px solid #F5F7F9',
+
       '&:hover': {
         backgroundColor: '#f9fbfd',
         transition: 'background-color 250ms',
@@ -30,19 +35,31 @@ export default makeStyles((theme) => ({
       padding: '0 !important',
     },
   },
+
   tableHead: {
     padding: 0,
   },
 
-  cellWidth: ({ width = 0 }) => ({
-    width,
+  tableBody: {
+    minWidth: 'max-content',
+    maxWidth: 'none',
+    display: 'block',
+    width: 'fit-content',
+  },
+
+  cellWidth: () => ({
     display: 'flex',
     alignItems: 'center',
     transition: 'width 250ms',
+    minWidth: 125,
+    width: 125,
     willChange: 'width',
     height: 62,
     boxSizing: 'border-box',
-    padding: '0 6px',
+
+    '& > div': {
+      padding: '0 12px',
+    },
   }),
 
   tableRowHover: {
@@ -184,10 +201,10 @@ export default makeStyles((theme) => ({
   },
 
   flexRow: {
-    borderTop: '2px solid #F5F7F9',
     display: 'flex !important',
     justifyContent: 'flex-end',
-    minWidth: '100%',
+    flexWrap: 'nowrap',
+    minWidth: 'max-content',
   },
 
   cellHeader: {
@@ -240,5 +257,7 @@ export default makeStyles((theme) => ({
     top: 0,
     zIndex: 10,
     backgroundColor: '#FFF',
+    overflow: 'hidden',
+    maxWidth: '100%',
   }),
 }));

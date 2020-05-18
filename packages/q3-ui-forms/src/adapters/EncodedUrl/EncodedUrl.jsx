@@ -11,12 +11,26 @@ const getParamName = (v) => {
 
 const clean = (v) => v.replace(/%20/g, ' ');
 
+const join = (key, value) => {
+  if (value.startsWith('=')) return `${key}${value}`;
+  if (value.startsWith('~'))
+    return `${key}${value.substring(1)}`;
+
+  if (value.startsWith('!~')) {
+    return `!${key}${value.substring(2)}`;
+  }
+
+  return `${key}=${value}`;
+};
+
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
-      const normalized = Array.isArray(value)
-        ? value.join(',')
-        : String(value);
+      const normalized = encodeURIComponent(
+        Array.isArray(value)
+          ? value.join(',')
+          : String(value),
+      );
 
       const hasAsterisk = key.includes('*');
       const name = getParamName(key);
@@ -28,11 +42,7 @@ export const serialize = (o) =>
         normalized !== 'undefined' &&
         normalized.length
       ) {
-        acc.push(
-          normalized.includes('=')
-            ? `${name}${normalized}`
-            : `${name}=${normalized}`,
-        );
+        acc.push(join(name, normalized));
       }
 
       return acc;
@@ -54,7 +64,9 @@ export const deserialize = (v) => {
       if (String(value).includes(','))
         value = value.split(',').map(clean);
 
-      acc[encodeURIComponent(key)] = value;
+      acc[encodeURIComponent(key)] = Array.isArray(value)
+        ? value.map(decodeURIComponent)
+        : decodeURIComponent(value);
       return acc;
     }, {});
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
+import { pick } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
@@ -11,6 +12,8 @@ import {
   ScrollSync,
   ScrollSyncPane,
 } from 'react-scroll-sync';
+import TableHead from '@material-ui/core/TableHead';
+import { object } from 'q3-ui-helpers';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
@@ -22,8 +25,16 @@ import Pagination from './Pagination';
 import Scrollbar from './Scrollbar';
 import useElevated from './useElevated';
 import useColumns from './useColumns';
-import useWidth from './useWidth';
 import withEmpty from './withEmpty';
+
+const getWidth = (widths, column) => {
+  if (!object.hasKeys(widths)) return {};
+  const width = widths[column];
+  return {
+    minWidth: width,
+    width,
+  };
+};
 
 const TableView = ({
   id,
@@ -35,30 +46,45 @@ const TableView = ({
   resolvers,
   data = [],
   onSort,
+  columnWidths = [],
 }) => {
+  const ref = React.useRef();
   const { activeColumns, columns, setColumns } = useColumns(
     id,
     defaultColumns,
     allColumns,
   );
 
-  const [boundingClientRef, width] = useWidth(
-    activeColumns,
-  );
-
-  const elevated = useElevated(boundingClientRef);
+  const elevated = useElevated(ref);
 
   const {
     root,
     flexRow,
     grids,
-    headers,
     cellWidth,
+    tableBody,
   } = useStyles({
+    width: ref.current ? ref.current.clientWith : '100%',
     elevated,
     columns,
-    width,
   });
+
+  const processed = data.map((row) =>
+    pick(
+      typeof resolvers === 'function'
+        ? { ...row, ...resolvers(row) }
+        : row,
+      [
+        // append required HEADER props
+        ...activeColumns,
+        'name',
+        'description',
+        'imgSrc',
+        'url',
+        'id',
+      ],
+    ),
+  );
 
   return (
     <Exports>
@@ -66,72 +92,81 @@ const TableView = ({
         <ScrollSync>
           <Box position="relative">
             <ScrollSyncPane>
-              <Box
-                className={headers}
-                overflow="hidden"
-                maxWidth="100%"
+              <Table
+                className={root}
+                style={{
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 1000,
+                }}
               >
-                <Box display="inline-block" minWidth="100%">
-                  <Box className={flexRow}>
+                <TableHead className={tableBody}>
+                  <TableRow className={flexRow}>
                     <ColumnSelectAll
                       ids={extractIds(data)}
                       title={aliasForName}
+                      onSort={onSort}
                     >
                       <ColumnReorderDialog
                         onDone={setColumns}
                         defaultColumns={activeColumns}
+                        disabled={!columns.length}
                         columns={columns}
                       />
                     </ColumnSelectAll>
-
                     {activeColumns.map((column) => (
                       <ColumnSort
                         title={column}
                         onSort={onSort}
                         className={cellWidth}
+                        style={getWidth(
+                          columnWidths,
+                          column,
+                        )}
                         {...column}
                       />
                     ))}
-                  </Box>
-                </Box>
-              </Box>
+                  </TableRow>
+                </TableHead>
+              </Table>
             </ScrollSyncPane>
-
             <ScrollSyncPane>
-              <Box
-                ref={boundingClientRef}
-                overflow="hidden"
-              >
-                <Table className={root}>
-                  <TableBody>
-                    {data.map(resolvers).map((row) => (
-                      <TableRow className={flexRow}>
-                        <RowHeader {...row} />
-                        {activeColumns.map((column) => (
-                          <Cell
-                            id={column}
-                            component="td"
-                            className={cellWidth}
-                            headers={`${column} ${row.name}`}
-                            key={`${row.id}-${column}`}
-                            value={row[column]}
-                          />
-                        ))}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                  <TableFooter>
-                    <TableRow>
-                      <Pagination id={id} total={total} />
+              <Table className={root}>
+                <TableBody className={tableBody}>
+                  {processed.map((row) => (
+                    <TableRow className={flexRow}>
+                      <RowHeader {...row} />
+                      {activeColumns.map((column) => (
+                        <Cell
+                          id={column}
+                          component="td"
+                          className={cellWidth}
+                          headers={`${column} ${row.name}`}
+                          key={`${row.id}-${column}`}
+                          value={row[column]}
+                          style={getWidth(
+                            columnWidths,
+                            column,
+                          )}
+                        />
+                      ))}
                     </TableRow>
-                  </TableFooter>
-                </Table>
-              </Box>
+                  ))}
+                </TableBody>
+                <TableFooter>
+                  <TableRow>
+                    <Pagination id={id} total={total} />
+                  </TableRow>
+                </TableFooter>
+              </Table>
             </ScrollSyncPane>
             <ScrollSyncPane>
               <Scrollbar
                 columns={activeColumns}
-                width={width}
+                className={cellWidth}
+                getWidth={(column) =>
+                  getWidth(columnWidths, column)
+                }
               />
             </ScrollSyncPane>
           </Box>

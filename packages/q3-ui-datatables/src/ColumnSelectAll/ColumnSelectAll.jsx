@@ -15,6 +15,7 @@ export const ColumnSelectAll = ({
   ...rest
 }) => (
   <CellWithCheckbox
+    component="th"
     renderCheckbox={<SelectAll ids={ids} />}
     renderContent={
       <>
@@ -24,7 +25,6 @@ export const ColumnSelectAll = ({
         </Grid>
       </>
     }
-    component="div"
     variant="head"
   />
 );
