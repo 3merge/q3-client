@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.3](https://github.com/3merge/q/compare/v1.17.2...v1.17.3) (2020-05-18)
+
+
+### Bug Fixes
+
+* table forced re-rendering ([2d17439](https://github.com/3merge/q/commit/2d17439b412b77a3b65500e0a79e659e04a11002))
+
+
+
+
+
 ## [1.16.12](https://github.com/3merge/q/compare/v1.16.11...v1.16.12) (2020-05-13)
 
 
