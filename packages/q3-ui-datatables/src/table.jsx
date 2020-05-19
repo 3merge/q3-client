@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
-import { pick } from 'lodash';
+import { get, pick } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
@@ -16,7 +16,6 @@ import ColumnSort from './ColumnSort';
 import Cell from './Cell';
 import RowHeader from './RowHeader';
 import Pagination from './Pagination';
-import useElevated from './useElevated';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
 
@@ -114,7 +113,7 @@ const TableView = ({
                       className={cellWidth}
                       headers={`${column} ${row.name}`}
                       key={`${row.id}-${column}`}
-                      value={row[column]}
+                      value={get(row, column)}
                     />
                   ))}
                 </TableRow>

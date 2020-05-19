@@ -251,6 +251,8 @@ export default makeStyles((theme) => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       paddingRight: '1rem',
+      wordBreak: 'normal',
+      whiteSpace: 'break-spaces',
     },
   },
 
