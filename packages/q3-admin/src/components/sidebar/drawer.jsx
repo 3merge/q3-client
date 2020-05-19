@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
 import Drawer from 'q3-ui-dialog';
 
 const SidebarDrawer = ({ children }) => {
@@ -13,19 +15,21 @@ const SidebarDrawer = ({ children }) => {
       title="Context menu"
       renderTrigger={(onClick, isOpened) => (
         <Hidden lgUp>
-          <Button
-            fullWidth
-            type="button"
-            onClick={onClick}
-            variant="contained"
-            size="small"
-            aria-label={isOpened ? t('close') : t('more')}
-            style={{
-              borderRadius: 0,
-            }}
+          <Box
+            position="fixed"
+            bottom="3rem"
+            right="1rem"
+            zIndex={1000}
           >
-            Context menu
-          </Button>
+            <Fab
+              onClick={onClick}
+              color="secondary"
+              size="large"
+              aria-label={isOpened ? t('close') : t('more')}
+            >
+              <MoreVertIcon />
+            </Fab>
+          </Box>
         </Hidden>
       )}
       renderContent={() => children}

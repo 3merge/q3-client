@@ -2,15 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
-import useStyles from './useStyle';
 
 const CreateDialog = ({ children, ...props }) => {
-  const { floatOnDesktop } = useStyles();
   const { t } = useTranslation();
 
   return (
@@ -19,16 +15,16 @@ const CreateDialog = ({ children, ...props }) => {
       variant="drawer"
       renderContent={children}
       renderTrigger={(open) => (
-        <Fab
+        <Button
           aria-label={t('labels:add')}
-          color="secondary"
-          className={floatOnDesktop}
+          size="small"
+          variant="extended"
           id="app-add-dialog"
           onClick={open}
-          elevation={15}
+          style={{ margin: '0 1rem' }}
         >
-          <AddIcon />
-        </Fab>
+          <AddIcon /> Add new
+        </Button>
       )}
     />
   );

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import TableCell from '@material-ui/core/TableCell';
+import Sticky from 'react-stickynode';
 import withSort from '../withSort';
 import useStyles from '../utils/useStyles';
 

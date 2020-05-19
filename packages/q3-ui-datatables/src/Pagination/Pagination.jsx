@@ -31,6 +31,7 @@ export default withLocation(
         onChangeRowsPerPage={onChangeRowsPerPage}
         rowsPerPageOptions={[10, 25, 50, 100, 250]}
         page={Number(getFrom('page') || 0)}
+        component="div"
       />
     );
   },

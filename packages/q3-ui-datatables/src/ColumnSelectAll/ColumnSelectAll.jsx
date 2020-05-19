@@ -16,6 +16,9 @@ export const ColumnSelectAll = ({
 }) => (
   <CellWithCheckbox
     component="th"
+    style={{
+      zIndex: 3,
+    }}
     renderCheckbox={<SelectAll ids={ids} />}
     renderContent={
       <>

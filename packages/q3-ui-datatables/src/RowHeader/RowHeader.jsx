@@ -25,6 +25,7 @@ const CellHeader = ({
     <CellWithCheckbox
       id={name}
       component="td"
+      style={{ borderTop: '2px solid #F5F7F9' }}
       renderCheckbox={<SelectOne id={id} />}
       renderContent={
         <>

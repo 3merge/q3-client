@@ -5,15 +5,9 @@ import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
 import { pick } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
-import {
-  ScrollSync,
-  ScrollSyncPane,
-} from 'react-scroll-sync';
 import TableHead from '@material-ui/core/TableHead';
-import { object } from 'q3-ui-helpers';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
@@ -22,19 +16,9 @@ import ColumnSort from './ColumnSort';
 import Cell from './Cell';
 import RowHeader from './RowHeader';
 import Pagination from './Pagination';
-import Scrollbar from './Scrollbar';
 import useElevated from './useElevated';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
-
-const getWidth = (widths, column) => {
-  if (!object.hasKeys(widths)) return {};
-  const width = widths[column];
-  return {
-    minWidth: width,
-    width,
-  };
-};
 
 const TableView = ({
   id,
@@ -46,16 +30,14 @@ const TableView = ({
   resolvers,
   data = [],
   onSort,
-  columnWidths = [],
+  className,
+  children,
 }) => {
-  const ref = React.useRef();
   const { activeColumns, columns, setColumns } = useColumns(
     id,
     defaultColumns,
     allColumns,
   );
-
-  const elevated = useElevated(ref);
 
   const {
     root,
@@ -64,8 +46,6 @@ const TableView = ({
     cellWidth,
     tableBody,
   } = useStyles({
-    width: ref.current ? ref.current.clientWith : '100%',
-    elevated,
     columns,
   });
 
@@ -89,88 +69,63 @@ const TableView = ({
   return (
     <Exports>
       <Paper elevation={0} className={grids}>
-        <ScrollSync>
-          <Box position="relative">
-            <ScrollSyncPane>
-              <Table
-                className={root}
-                style={{
-                  position: 'sticky',
-                  top: 0,
-                  zIndex: 1000,
-                }}
-              >
-                <TableHead className={tableBody}>
-                  <TableRow className={flexRow}>
-                    <ColumnSelectAll
-                      ids={extractIds(data)}
-                      title={aliasForName}
-                      onSort={onSort}
-                    >
-                      <ColumnReorderDialog
-                        onDone={setColumns}
-                        defaultColumns={activeColumns}
-                        disabled={!columns.length}
-                        columns={columns}
-                      />
-                    </ColumnSelectAll>
-                    {activeColumns.map((column) => (
-                      <ColumnSort
-                        title={column}
-                        onSort={onSort}
-                        className={cellWidth}
-                        style={getWidth(
-                          columnWidths,
-                          column,
-                        )}
-                        {...column}
-                      />
-                    ))}
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </ScrollSyncPane>
-            <ScrollSyncPane>
-              <Table className={root}>
-                <TableBody className={tableBody}>
-                  {processed.map((row) => (
-                    <TableRow className={flexRow}>
-                      <RowHeader {...row} />
-                      {activeColumns.map((column) => (
-                        <Cell
-                          id={column}
-                          component="td"
-                          className={cellWidth}
-                          headers={`${column} ${row.name}`}
-                          key={`${row.id}-${column}`}
-                          value={row[column]}
-                          style={getWidth(
-                            columnWidths,
-                            column,
-                          )}
-                        />
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <Pagination id={id} total={total} />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </ScrollSyncPane>
-            <ScrollSyncPane>
-              <Scrollbar
-                columns={activeColumns}
-                className={cellWidth}
-                getWidth={(column) =>
-                  getWidth(columnWidths, column)
-                }
-              />
-            </ScrollSyncPane>
+        <Box
+          position="relative"
+          maxWidth="100%"
+          overflow="auto"
+          className={className}
+        >
+          <Box position="sticky" left="0" width="100%">
+            {children}
           </Box>
-        </ScrollSync>
+          <Table stickyHeader className={root}>
+            <TableHead className={tableBody}>
+              <TableRow className={flexRow}>
+                <ColumnSelectAll
+                  ids={extractIds(data)}
+                  title={aliasForName}
+                  onSort={onSort}
+                >
+                  <ColumnReorderDialog
+                    onDone={setColumns}
+                    defaultColumns={activeColumns}
+                    disabled={!columns.length}
+                    columns={columns}
+                  />
+                </ColumnSelectAll>
+                {activeColumns.map((column) => (
+                  <ColumnSort
+                    title={column}
+                    onSort={onSort}
+                    className={cellWidth}
+                    {...column}
+                  />
+                ))}
+              </TableRow>
+            </TableHead>
+
+            <TableBody className={tableBody}>
+              {processed.map((row) => (
+                <TableRow className={flexRow}>
+                  <RowHeader {...row} />
+                  {activeColumns.map((column) => (
+                    <Cell
+                      id={column}
+                      component="td"
+                      className={cellWidth}
+                      headers={`${column} ${row.name}`}
+                      key={`${row.id}-${column}`}
+                      value={row[column]}
+                    />
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+        <Box py={1}>
+          <Pagination id={id} total={total} />
+        </Box>
       </Paper>
       <Actionbar
         columns={allColumns}

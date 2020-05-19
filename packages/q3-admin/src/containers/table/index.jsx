@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
-import Chip from '@material-ui/core/Chip';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
 import { FilterChip } from 'q3-components';
+import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
@@ -16,6 +16,17 @@ import Section from '../../components/section';
 import Sidebar from '../../components/sidebar';
 import Search from '../search';
 import Header from '../header';
+
+const useStyle = makeStyles((theme) => ({
+  view: {
+    maxHeight: 'calc(100vh - 76px)',
+
+    [theme.breakpoints.down('md')]: {
+      minHeight: 'calc(100vh - 146px)',
+      maxHeight: 'calc(100vh - 146px)',
+    },
+  },
+}));
 
 export const ListContainer = ({ children, overflowY }) => {
   const height = useHeight();
@@ -43,6 +54,7 @@ const List = ({
   addComponent,
   ...rest
 }) => {
+  const { view } = useStyle();
   const tableProps = React.useContext(Store);
   const {
     collectionName,
@@ -94,29 +106,27 @@ const List = ({
       <Section
         renderOutside={<Sidebar>{filters}</Sidebar>}
         renderInside={
-          <Box>
-            <Header>
+          <Table
+            {...rest}
+            {...tableProps}
+            className={view}
+            data={get(tableProps, 'data', []).map(
+              (row) => ({
+                ...row,
+                url: `${rootPath}/${row.id}`,
+              }),
+            )}
+            actions={actions}
+            id={collectionName}
+            onSort={updateSortPrefence}
+          >
+            <Header renderLeftAlways={() => addComponent}>
               <Search {...rest} />
             </Header>
-            {addComponent}
             <Box p={1}>
               <FilterChip />
             </Box>
-            <Table
-              {...rest}
-              {...tableProps}
-              data={get(tableProps, 'data', []).map(
-                (row) => ({
-                  ...row,
-                  url: `${rootPath}/${row.id}`,
-                }),
-              )}
-              actions={actions}
-              id={collectionName}
-              // onClick={setPath}
-              onSort={updateSortPrefence}
-            />
-          </Box>
+          </Table>
         }
       />
     </Redirect>

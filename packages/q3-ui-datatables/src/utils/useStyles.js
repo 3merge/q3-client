@@ -3,17 +3,22 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    display: 'block',
+    //  display: 'block',
     backgroundColor: '#FFF',
-    overflow: 'hidden',
+    // overflow: 'hidden',
 
     '& th': {
       border: '0 !important',
+      zIndex: 2,
+    },
+
+    '& thead tr': {
+      // boxShadow: theme.shadows[1],
     },
 
     '& tbody, & thead, & tfooter': {
-      display: 'inline-block',
-      minWidth: '100%',
+      //   display: 'inline-block',
+      //   minWidth: '100%',
     },
 
     '& tbody tr': {
@@ -29,10 +34,16 @@ export default makeStyles((theme) => ({
     },
 
     '& td': {
-      display: 'flex',
+      borderTop: '2px solid #F5F7F9',
       fontSize: '0.833rem !important',
       borderBottom: 'none !important',
       padding: '0 !important',
+    },
+
+    '& td, & th': {
+      '&:nth-child(2)': {
+        paddingLeft: '1.5rem !important',
+      },
     },
   },
 
@@ -41,18 +52,16 @@ export default makeStyles((theme) => ({
   },
 
   tableBody: {
-    minWidth: 'max-content',
-    maxWidth: 'none',
-    display: 'block',
-    width: 'fit-content',
+    // minWidth: 'max-content',
+    // maxWidth: 'none',
+    //    display: 'block',
+    //  width: 'fit-content',
   },
 
   cellWidth: () => ({
-    display: 'flex',
-    alignItems: 'center',
+    // alignItems: 'center',
     transition: 'width 250ms',
-    minWidth: 125,
-    width: 125,
+
     willChange: 'width',
     boxSizing: 'border-box',
 
@@ -200,9 +209,9 @@ export default makeStyles((theme) => ({
   },
 
   flexRow: {
-    display: 'flex !important',
-    justifyContent: 'flex-end',
-    flexWrap: 'nowrap',
+    //  display: 'flex !important',
+    // justifyContent: 'flex-end',
+    // flexWrap: 'nowrap',
     minWidth: 'max-content',
   },
 
@@ -220,8 +229,8 @@ export default makeStyles((theme) => ({
     zIndex: 1,
 
     [theme.breakpoints.down('sm')]: {
-      boxShadow: 'none !important',
-      position: 'static',
+      // boxShadow: 'none !important',
+      // position: 'static',
       width: 'auto',
     },
   },
@@ -243,11 +252,16 @@ export default makeStyles((theme) => ({
     maxWidth: 216,
   },
 
-  grids: ({ elevated }) => ({
+  grids: () => ({
     userSelect: 'none',
 
-    '& .liftup': {
-      boxShadow: elevated ? theme.shadows[10] : 'none',
+    '& td.liftup': {
+      boxShadow: theme.shadows[1],
+      zIndex: 2,
+    },
+
+    '& tbody tr:last-of-type .liftup': {
+      boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
     },
   }),
 

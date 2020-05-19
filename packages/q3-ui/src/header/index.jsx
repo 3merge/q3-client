@@ -62,6 +62,7 @@ const Header = ({
             <Wrapper {...rest}>
               {invoke(rest, 'renderPreIdentifier')}
               <Logo {...rest} />
+              {invoke(rest, 'renderLeftAlways')}
               <Hidden smDown>
                 {invoke(rest, 'renderLeft')}
                 <TabMenu

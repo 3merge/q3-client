@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Fade from '@material-ui/core/Fade';
+import Grow from '@material-ui/core/Fade';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
@@ -49,7 +49,7 @@ const ActionBar = ({ actions, data, columns }) => {
   if (!hasChecked()) return null;
 
   return (
-    <Fade in>
+    <Grow in>
       <div>
         <BottomNavigation className={actionBar}>
           <Unselect />
@@ -58,7 +58,7 @@ const ActionBar = ({ actions, data, columns }) => {
           {renderActions(actions, t, picked)}
         </BottomNavigation>
       </div>
-    </Fade>
+    </Grow>
   );
 };
 

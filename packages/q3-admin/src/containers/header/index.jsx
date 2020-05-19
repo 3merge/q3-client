@@ -60,6 +60,7 @@ const Header = ({
 
   return (
     <HeaderQ3
+      {...etc}
       transparent
       position="relative"
       renderPreIdentifier={rendererLeft(id, resourceName)}

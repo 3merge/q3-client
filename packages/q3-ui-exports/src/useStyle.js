@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     left: '50%',
     maxWidth: '100%',
     transform: 'translateX(-50%)',
-    width: 1092,
+    width: '85vw',
     position: 'fixed',
     zIndex: 1000000,
 
