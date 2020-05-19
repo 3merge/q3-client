@@ -9,6 +9,7 @@ export default makeStyles((theme) => ({
 
     '& th': {
       border: '0 !important',
+      whiteSpace: 'nowrap',
       zIndex: 2,
     },
 
@@ -224,8 +225,6 @@ export default makeStyles((theme) => ({
     marginRight: 'auto',
 
     padding: 0,
-    minWidth: 325,
-    width: 325,
     zIndex: 1,
 
     [theme.breakpoints.down('sm')]: {
@@ -238,18 +237,21 @@ export default makeStyles((theme) => ({
   cellHeaderWrapper: {
     boxSizing: 'border-box',
     padding: '.35rem 0.5rem',
+    width: 'max-content',
     margin: 0,
-    width: 325,
-
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-    },
   },
 
   cellHeaderLink: {
     color: theme.palette.primary.main,
-    display: 'inline-block',
-    maxWidth: 216,
+    display: 'block',
+    '& small': {
+      maxWidth: 250,
+      minWidth: 200,
+      width: 'min-content',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingRight: '1rem',
+    },
   },
 
   grids: () => ({

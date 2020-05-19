@@ -103,7 +103,6 @@ const TableView = ({
                 ))}
               </TableRow>
             </TableHead>
-
             <TableBody className={tableBody}>
               {processed.map((row) => (
                 <TableRow className={flexRow}>
