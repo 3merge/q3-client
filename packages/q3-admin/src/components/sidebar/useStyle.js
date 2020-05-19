@@ -1,15 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  articleBox: ({ overflowY = 'auto' }) => ({
-    overflow: 'auto',
-    height: 'calc(100vh - 10px)',
+  articleBox: () => ({
+    overflow: 'initial',
+
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
       overflow: 'initial',
     },
   }),
   columnWidth: {
+    position: 'sticky',
+    top: 0,
     height: '100vh',
     width: 325,
 

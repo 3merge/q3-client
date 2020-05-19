@@ -53,8 +53,8 @@ export const HeavyData = () => (
         resolvers={(v) => ({
           ...v,
           name: v.seq,
-          // imgSrc: 'https://i.pravatar.cc/150?img=20',
-          description: v.id,
+          imgSrc: 'https://i.pravatar.cc/150?img=20',
+          description: `${v.id} ${v.id}`,
           url: v.id,
           currency: {
             base: v.currency,

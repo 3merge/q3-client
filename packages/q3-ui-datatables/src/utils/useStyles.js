@@ -54,7 +54,6 @@ export default makeStyles((theme) => ({
     minWidth: 125,
     width: 125,
     willChange: 'width',
-    height: 62,
     boxSizing: 'border-box',
 
     '& > div': {
@@ -229,7 +228,6 @@ export default makeStyles((theme) => ({
 
   cellHeaderWrapper: {
     boxSizing: 'border-box',
-    height: 62,
     padding: '.35rem 0.5rem',
     margin: 0,
     width: 325,
@@ -242,6 +240,7 @@ export default makeStyles((theme) => ({
   cellHeaderLink: {
     color: theme.palette.primary.main,
     display: 'inline-block',
+    maxWidth: 216,
   },
 
   grids: ({ elevated }) => ({

@@ -237,7 +237,6 @@ const withProviders = (initialPath = '/') => (
           />
         </StoriesApiMockWrapper>
       </StoriesApiMockAuthentication>
-      <LocationDebugger />
     </LocationProvider>
   </Loading>
 );

@@ -44,18 +44,5 @@ export default makeStyles((theme) => ({
   },
   wrapper: {
     backgroundColor: '#F5F7F9',
-    maxHeight: '100vh',
-    overflow: 'hidden',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
-    [theme.breakpoints.down('sm')]: {
-      position: 'relative',
-      maxHeight: 'none',
-      overflow: 'initial',
-    },
   },
 }));
