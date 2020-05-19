@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.7](https://github.com/3merge/q/compare/v1.17.6...v1.17.7) (2020-05-19)
+
+
+### Bug Fixes
+
+* dot-notation using lodash to fix nested data resolution ([53a84a7](https://github.com/3merge/q/commit/53a84a7dc2f48b68966c79d9c4d0ee4e8aedeb90))
+
+
+
+
+
 ## [1.17.6](https://github.com/3merge/q/compare/v1.17.5...v1.17.6) (2020-05-19)
 
 **Note:** Version bump only for package q3-client
