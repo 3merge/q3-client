@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.5](https://github.com/3merge/q/compare/v1.17.4...v1.17.5) (2020-05-19)
+
+
+### Bug Fixes
+
+* datatable scrolling ([7531860](https://github.com/3merge/q/commit/7531860b020a8ecb42d330ce7e06c8e127042fdb))
+
+
+
+
+
 ## [1.17.4](https://github.com/3merge/q/compare/v1.17.3...v1.17.4) (2020-05-19)
 
 
