@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.11](https://github.com/3merge/q/compare/v1.17.10...v1.17.11) (2020-05-20)
+
+
+### Bug Fixes
+
+* template layouts ([edff406](https://github.com/3merge/q/commit/edff4062250f3fa3c865d6b61f5832be6fbea83a))
+
+
+
+
+
 ## [1.17.10](https://github.com/3merge/q/compare/v1.17.9...v1.17.10) (2020-05-20)
 
 **Note:** Version bump only for package gatsby-theme-q3
