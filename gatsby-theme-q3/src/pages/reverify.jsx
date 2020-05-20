@@ -15,7 +15,7 @@ export default () => {
           <Typography variant="h1" gutterBottom>
             {t('titles:reverify')}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography gutterBottom>
             {t('descriptions:reverify')}
           </Typography>
         </>

@@ -28,7 +28,7 @@ export default (props) => {
           <Typography variant="h1" gutterBottom>
             {t('titles:passwordChange')}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography gutterBottom>
             {t('descriptions:passwordChange')}
           </Typography>
         </>

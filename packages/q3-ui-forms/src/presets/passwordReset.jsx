@@ -17,7 +17,8 @@ PasswordReset.defaultProps = {
   onSubmit: handleSubmitWrapper('/password-reset', {
     onSuccessStatus: 'passwordResetSuccess',
     onErrorStatus: 'passwordResetFail',
-    navigateTo: '/login',
+    navigateTo: '/password-reset-notice',
+    timeout: 0,
   }),
 };
 

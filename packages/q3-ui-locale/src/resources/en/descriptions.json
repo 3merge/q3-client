@@ -59,5 +59,7 @@
   "addSubDocument": "Add a new item to this list by click on this button. Sometimes, a custom element will render for more complex data editing experiences.",
   "multiselectSubDocument": "Edit, export, and delete items in bulk. Which options appear will vary based on where you are in the app.",
   "sidebar": "The sidebar is very dynamic. There are tabs along the top for common features, but some resources will disable those not in use. Typically, on the ID tab, you'll find quick actions, links, and global data. You may also find a featured photo uploader. On mobile, the sidebar is a swipe-in feature from the bottom of the screen.",
-  "missing": "The page you've requested does not exist. Please return home and try again."
+  "missing": "The page you've requested does not exist. Please return home and try again.",
+  "reverified": "A new verification link has been generated and sent to your inbox.",
+  "passwordResetNotice": "If you have an account, you will momentarily receive an email with a link to change your password."
 }

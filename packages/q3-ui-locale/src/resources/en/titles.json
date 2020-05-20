@@ -55,5 +55,7 @@
   "log": "History log",
   "missing": "404",
   "customizeFilter": "Custom filter builder",
-  "tableConfigurator": "Datatable configuration"
+  "tableConfigurator": "Datatable configuration",
+  "reverified": "Done!",
+  "passwordResetNotice": "Done!"
 }

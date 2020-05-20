@@ -15,7 +15,7 @@ export default () => {
           <Typography variant="h1" gutterBottom>
             {t('titles:passwordReset')}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography gutterBottom>
             {t('descriptions:passwordReset')}
           </Typography>
         </>

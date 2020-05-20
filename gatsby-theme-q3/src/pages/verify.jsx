@@ -24,7 +24,7 @@ export default (props) => {
           <Typography variant="h1" gutterBottom>
             {t('titles:verify')}
           </Typography>
-          <Typography variant="body2" gutterBottom>
+          <Typography gutterBottom>
             {t('descriptions:verify')}
           </Typography>
         </>

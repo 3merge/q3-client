@@ -17,7 +17,8 @@ Reverify.defaultProps = {
   onSubmit: handleSubmitWrapper('/reverify', {
     onSuccessStatus: 'reverificationSuccess',
     onErrorStatus: 'reverificationFailed',
-    navigateTo: '/verify',
+    navigateTo: '/reverify-notice',
+    timeout: 0,
   }),
 };
 

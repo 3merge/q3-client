@@ -18,6 +18,7 @@ const CreateDialog = ({ children, ...props }) => {
         <Button
           aria-label={t('labels:add')}
           size="small"
+          color="secondary"
           variant="extended"
           id="app-add-dialog"
           onClick={open}
