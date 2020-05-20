@@ -1,31 +1,38 @@
 import React from 'react';
-import Graphic from 'q3-ui-assets';
-import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Wrapper from 'q3-ui/lib/wrapper';
 import { Link } from 'gatsby';
+import { useTranslation } from 'react-i18next';
+import FormBox from '../components/FormBox';
 
-const PasswordResetNotice = () => (
-  <Wrapper backgroundColor="transparent">
-    <Graphic
-      h1
-      title="passwordResetNotice"
-      icon="Done"
-      renderBottom={() => (
-        <Box mt={1}>
-          <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            color="secondary"
-            size="large"
-          >
-            Login
-          </Button>
-        </Box>
-      )}
+const PasswordResetNotice = () => {
+  const { t } = useTranslation();
+
+  return (
+    <FormBox
+      renderTop={
+        <>
+          <Typography variant="h1" gutterBottom>
+            {t('titles:passwordResetNotice')}
+          </Typography>
+          <Typography gutterBottom>
+            {t('descriptions:passwordResetNotice')}
+          </Typography>
+        </>
+      }
+      renderBottom={
+        <Button
+          component={Link}
+          to="/login"
+          variant="contained"
+          color="secondary"
+          size="large"
+        >
+          Login
+        </Button>
+      }
     />
-  </Wrapper>
-);
+  );
+};
 
 export default PasswordResetNotice;
