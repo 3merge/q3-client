@@ -13,7 +13,10 @@ import SidebarTabs from './tabs';
 import Column from './column';
 
 const invoke = (fn, data, dispatchers, t) =>
-  typeof fn === 'function' && Object.keys(data).length
+  typeof fn === 'function' &&
+  typeof data === 'object' &&
+  data !== null &&
+  Object.keys(data).length
     ? fn(data, dispatchers, t)
     : [];
 

@@ -24,7 +24,10 @@ const Attributes = ({
           <Grid item style={{ marginLeft: '0.25rem' }}>
             <Typography
               variant="subtitle2"
-              style={{ textTransform: 'uppercase' }}
+              style={{
+                textTransform: 'uppercase',
+                fontSize: '0.833rem',
+              }}
             >
               {t(attribute)}:
             </Typography>

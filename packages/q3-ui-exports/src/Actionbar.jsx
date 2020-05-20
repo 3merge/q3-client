@@ -28,7 +28,9 @@ export const renderActions = (actions, t, picked) =>
           key={a.label}
           label={t(a.label)}
           onClick={
-            a.onClick ? () => a.onClick(picked) : undefined
+            a.onClick
+              ? (e) => a.onClick(e, picked)
+              : undefined
           }
           showLabel
         />

@@ -207,6 +207,12 @@ export default makeStyles((theme) => ({
     '& div': {
       margin: '0 auto',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      // boxShadow: 'none !important',
+      position: 'static',
+      width: 'auto',
+    },
   },
 
   flexRow: {
@@ -229,7 +235,7 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('sm')]: {
       // boxShadow: 'none !important',
-      // position: 'static',
+      position: 'static',
       width: 'auto',
     },
   },

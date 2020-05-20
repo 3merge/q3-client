@@ -53,7 +53,10 @@ const List = ({
                 : undefined,
             }}
           >
-            <Search />
+            <Search
+              {...rest}
+              ids={filtered.map((item) => item.id)}
+            />
           </TableCell>
           {showAttributes && (
             <>

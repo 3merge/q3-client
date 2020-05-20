@@ -59,16 +59,6 @@ const HeaderMaxWidth = (props) => ({ children }) => {
   );
 };
 
-const DetailBody = ({ links, children }) => {
-  // const { rootPath } = React.useContext(Definitions);
-
-  return (
-    <RelatedLinks links={links}>
-      <Overflow>{children}</Overflow>
-    </RelatedLinks>
-  );
-};
-
 const Detail = ({
   HeaderProps,
   history,
@@ -78,6 +68,7 @@ const Detail = ({
   picture,
   files,
   links,
+  trashComponent,
   ...rest
 }) => {
   const { exclusions } = React.useContext(Dispatcher);
@@ -110,7 +101,7 @@ const Detail = ({
           // root={rootPath}
           scrollButtons="on"
           views={mapToNestedRoute(children)
-            .concat([TrashPreset])
+            .concat([trashComponent || TrashPreset])
             .filter(filterByExclusion)}
         />
       }

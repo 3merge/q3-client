@@ -8,7 +8,13 @@ const { onStart, onComplete } = configFormHandler('formik');
 
 export const handleSubmitWrapper = (
   requestUrl,
-  { onSuccessStatus, onErrorStatus, onDone, navigateTo },
+  {
+    onSuccessStatus,
+    onErrorStatus,
+    onDone,
+    navigateTo,
+    timeout,
+  },
 ) => (values, actions) => {
   onStart(actions);
 
@@ -19,8 +25,9 @@ export const handleSubmitWrapper = (
       if (object.isFn(onDone)) {
         onDone(data);
       } else {
-        actions.setStatus(`Success:${onSuccessStatus}`);
-        browser.redirectIn(navigateTo);
+        if (timeout !== 0)
+          actions.setStatus(`Success:${onSuccessStatus}`);
+        browser.redirectIn(navigateTo, timeout);
       }
 
       return data;

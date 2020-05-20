@@ -116,13 +116,13 @@ const ItemActions = ({
   linkTo,
   linkToLabel,
 }) => {
-  const { tableCell } = useStyle();
+  const { tableCellActions } = useStyle();
   const data = parent[currentIndex];
   const { id } = data;
 
   return (
     <TableCell
-      className={tableCell}
+      className={tableCellActions}
       style={{ textAlign: 'right' }}
     >
       {renderNestedTableRow && (
