@@ -68,13 +68,13 @@ const Detail = ({
   picture,
   files,
   links,
-  trashComponent,
+  disableTrash,
   ...rest
 }) => {
   const { exclusions } = React.useContext(Dispatcher);
 
   const filterByExclusion = (item) =>
-    !exclusions.includes(item.label);
+    item && !exclusions.includes(item.label);
 
   return (
     <Section
@@ -101,7 +101,7 @@ const Detail = ({
           // root={rootPath}
           scrollButtons="on"
           views={mapToNestedRoute(children)
-            .concat([trashComponent || TrashPreset])
+            .concat([disableTrash ? null : TrashPreset])
             .filter(filterByExclusion)}
         />
       }

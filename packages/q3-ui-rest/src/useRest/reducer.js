@@ -83,12 +83,12 @@ export default (
               ? state[resource].filter(
                   ({ id }) => id !== data.id,
                 )
-              : null,
+              : state[resource],
             [resources]: Array.isArray(state[resources])
               ? state[resources].filter(
                   ({ id }) => id !== data.id,
                 )
-              : null,
+              : state[resources],
           };
     },
 
