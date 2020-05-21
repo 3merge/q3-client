@@ -39,6 +39,7 @@ export const Validation = () => (
     <Field name="tel" required type="tel" />
     <Field name="email" required type="email" />
     <Field name="postal" required type="postal" />
+    <Field name="multi" type="multitext" />
     <Field
       name="friend"
       type="text"
