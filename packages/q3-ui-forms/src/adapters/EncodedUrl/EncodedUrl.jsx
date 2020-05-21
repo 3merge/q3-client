@@ -5,7 +5,9 @@ import { url } from 'q3-ui-helpers';
 import Form from '../../builders/form';
 
 const getParamName = (v) => {
-  const [name] = v.split('*');
+  const [name] = encodeURIComponent(v)
+    .replace(/~/g, '.')
+    .split('*');
   return name;
 };
 
@@ -60,7 +62,9 @@ export const deserialize = (v) => {
       if (String(value).includes(','))
         value = value.split(',').map(clean);
 
-      acc[encodeURIComponent(key)] = Array.isArray(value)
+      acc[
+        decodeURIComponent(key).replace(/\./g, '~')
+      ] = Array.isArray(value)
         ? value.map(decodeURIComponent)
         : decodeURIComponent(String(value));
 

@@ -120,10 +120,11 @@ const List = ({
             id={collectionName}
             onSort={updateSortPrefence}
           >
-            <Header renderLeftAlways={() => addComponent}>
+            <Header>
               <Search {...rest} />
+              {addComponent}
             </Header>
-            <Box p={1}>
+            <Box px={2} py={1} mt={-1}>
               <FilterChip />
             </Box>
           </Table>

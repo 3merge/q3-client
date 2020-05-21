@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import Dialog from 'q3-ui-dialog';
 
@@ -15,17 +15,17 @@ const CreateDialog = ({ children, ...props }) => {
       variant="drawer"
       renderContent={children}
       renderTrigger={(open) => (
-        <Fab
+        <Button
           aria-label={t('labels:add')}
           size="small"
-          variant="extended"
+          variant="contained"
+          elevation={4}
           color="secondary"
           id="app-add-dialog"
           onClick={open}
-          style={{ margin: '0 1rem', paddingRight: '1rem' }}
         >
           <AddIcon /> Add new
-        </Fab>
+        </Button>
       )}
     />
   );

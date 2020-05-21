@@ -10,13 +10,32 @@ export const unwind = (str = '', value) =>
     .filter((v) => v !== value)
     .join(',');
 
-export const getOp = (str) => {
-  if (str.includes('!=') && str.includes(','))
-    return 'NOT IN';
-  if (str.includes('!=')) return 'IS NOT';
-  if (str.includes('=') && str.includes(',')) return 'IN';
-  if (str.includes('=')) return 'IS';
-  return 'HAS';
+export const getOp = (op, name, value) => {
+  if (op.includes('exists(true)')) return `${name}`;
+  if (op.includes('exists(false)')) return `NOT ${name}`;
+  if (op.includes('has(true)')) return `HAS ${name}`;
+  if (op.includes('has(false)')) return `HAS NOT ${name}`;
+
+  if (op.includes('!=') && op.includes(','))
+    return `${value} NOT IN ${name}`;
+
+  if (op.includes('!=') && op.includes(','))
+    return `${value} NOT IN ${name}`;
+
+  if (op.includes('>='))
+    return `${name} IS MORE THAN ${value}`;
+  if (op.includes('<'))
+    return `${name} IS LESS THAN ${value}`;
+
+  if (op.includes('=') && op.includes(','))
+    return `${value} IN ${name}`;
+
+  if (op.includes('!=')) return `${name} IS NOT ${value}`;
+  if (op.includes('=') && op.includes(','))
+    return `IN ${value}`;
+  if (op.includes('=')) return `${name} IS ${value}`;
+
+  return '';
 };
 
 const FilterChip = ({ getAll, params, navigate }) => {
@@ -45,6 +64,9 @@ const FilterChip = ({ getAll, params, navigate }) => {
     navigate(`?${params.toString()}`);
   };
 
+  const getChipLabel = (chip, name, value) =>
+    getOp(chip, t(name), t(value));
+
   return chips.map((chip) => {
     const [name, value] = chip.split('=');
     return value && value.includes(',') ? (
@@ -54,9 +76,8 @@ const FilterChip = ({ getAll, params, navigate }) => {
           <Chip
             style={{ marginRight: '0.25rem' }}
             key={`${chip}-${label}`}
-            label={`${getOp(chip)} ${t(
-              label.toLowerCase(),
-            )}`}
+            label={getChipLabel(chip, name, label)}
+            variant="outlined"
             onDelete={modifyInSearchString(
               name,
               label,
@@ -68,15 +89,9 @@ const FilterChip = ({ getAll, params, navigate }) => {
       <Chip
         key={chip}
         style={{ marginRight: '0.25rem' }}
+        variant="outlined"
         onDelete={removeFromSearchString(name, value)}
-        label={`${getOp(chip)} ${t(
-          (value && value !== 'true' && value !== 'false'
-            ? value
-            : name
-          )
-            .replace('!', '')
-            .toLowerCase(),
-        )}`}
+        label={getChipLabel(chip, name, value)}
       />
     );
   });
