@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.12](https://github.com/3merge/q/compare/v1.17.11...v1.17.12) (2020-05-21)
+
+
+### Bug Fixes
+
+* fitlers ([7cecbe7](https://github.com/3merge/q/commit/7cecbe7eae5e6a267e7d7a0f95c3b33520de7b3c))
+
+
+
+
+
 ## [1.17.10](https://github.com/3merge/q/compare/v1.17.9...v1.17.10) (2020-05-20)
 
 **Note:** Version bump only for package q3-ui-forms
