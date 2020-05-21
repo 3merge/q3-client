@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.17.14](https://github.com/3merge/q/compare/v1.17.13...v1.17.14) (2020-05-21)
+
+
+### Bug Fixes
+
+* change decoding on filters ([dc85d0c](https://github.com/3merge/q/commit/dc85d0c5970fce68c58256822cc73408768df76f))
+
+
+
+
+
 ## [1.17.13](https://github.com/3merge/q/compare/v1.17.12...v1.17.13) (2020-05-21)
 
 **Note:** Version bump only for package q3-ui-forms
