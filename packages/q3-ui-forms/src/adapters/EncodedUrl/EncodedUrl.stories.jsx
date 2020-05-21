@@ -56,7 +56,26 @@ export const ToNavigate = () => (
             },
             {
               label: 'Is not approved',
-              value: '!=true',
+              value: '%21=true',
+            },
+            {
+              label: 'Either',
+              value: '',
+            },
+          ]}
+        />
+        <Field
+          name="hasLength"
+          type="radio"
+          collapse={false}
+          options={[
+            {
+              label: 'Has at least one',
+              value: '%2Elength',
+            },
+            {
+              label: 'Has none',
+              value: '!%2Elength',
             },
             {
               label: 'Either',

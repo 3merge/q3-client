@@ -25,11 +25,13 @@ export const decode = (name) =>
     .replace(/%3E/g, '>')
     .replace(/%20/g, ' ')
     .replace(/%5F/g, '_')
-    .replace(/%2C/g, ',');
+    .replace(/%2C/g, ',')
+    .replace(/%2B/g, '+')
+    .replace(/%40/g, '@');
 
 export const encode = (name) =>
   isString(name)
-    .replace(/[^a-zA-Z0-9 !%_.><=\s+,]/g, '')
+    .replace(/[^a-zA-Z0-9 !%_.><=\s+,@]/g, '')
     .replace(/\./g, '%2E')
     .replace(/!/g, '%21')
     .replace(/_/g, '%5F')

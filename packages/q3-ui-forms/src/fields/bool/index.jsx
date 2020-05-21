@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
     color: error ? red[900] : grey[900],
     display: 'block',
-    fontSize: '1rem',
+    fontSize: '0.911rem',
     lineHeight: 1.2,
     margin: '0 !important',
   }),
@@ -47,7 +47,7 @@ export const ExpandedBoolLabel = ({
       <Typography
         component="strong"
         className={control}
-        style={{ fontWeight: 800 }}
+        style={{ fontWeight: 800, fontSize: '1rem' }}
       >
         {label}
       </Typography>
@@ -56,11 +56,7 @@ export const ExpandedBoolLabel = ({
       </Typography>
     </>
   ) : (
-    <Typography
-      variant="body1"
-      component="span"
-      className={control}
-    >
+    <Typography component="span" className={control}>
       {label}
     </Typography>
   );

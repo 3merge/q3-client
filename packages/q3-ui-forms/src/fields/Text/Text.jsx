@@ -8,6 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { red, grey } from '@material-ui/core/colors';
 import Lock from '@material-ui/icons/Lock';
+import moment from 'moment';
 import useDecorator from '../../helpers/useDecorator';
 import TextBase from '../TextBase';
 
@@ -42,6 +43,9 @@ const renderAdornmentIcon = (
 export const Text = (props) => {
   const { readOnly, disabled, type, icon } = props;
   const deco = useDecorator(props);
+
+  if (type === 'date' && deco.value)
+    deco.value = moment(deco.value).format('YYYY-MM-DD');
 
   return (
     <TextBase

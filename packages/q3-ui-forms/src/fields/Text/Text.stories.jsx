@@ -14,6 +14,7 @@ export default {
 export const Validation = () => (
   <Form
     debug
+    id="WATCHER"
     onSubmit={(values) => {
       // eslint-disable-next-line
       console.log(values);
@@ -24,7 +25,7 @@ export const Validation = () => (
       postal: '',
       email: '',
       tel: '',
-      date: '',
+      date: new Date().toISOString(),
     }}
   >
     <Field name="name" type="text" />

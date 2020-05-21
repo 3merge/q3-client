@@ -12,21 +12,18 @@ const getParamName = (v) => {
 const clean = (v) => v.replace(/%20/g, ' ');
 
 const join = (key, value) => {
-  if (value.startsWith('=')) return `${key}${value}`;
-  if (value.startsWith('~'))
-    return `${key}${value.substring(1)}`;
-
-  if (value.startsWith('!~')) {
-    return `!${key}${value.substring(2)}`;
-  }
-
+  console.log(value);
+  if (value.startsWith('=') || value.startsWith('%21='))
+    return `${key}${value}`;
+  if (value === '%2Elength') return String(`${key}.0`);
+  if (value === '%21%2Elength') return String(`!${key}.0`);
   return `${key}=${value}`;
 };
 
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
-      const normalized = encodeURIComponent(
+      const normalized = url.encode(
         Array.isArray(value)
           ? value.join(',')
           : String(value),
@@ -64,9 +61,19 @@ export const deserialize = (v) => {
       if (String(value).includes(','))
         value = value.split(',').map(clean);
 
-      acc[encodeURIComponent(key)] = Array.isArray(value)
-        ? value.map(decodeURIComponent)
-        : decodeURIComponent(value);
+      if (key.startsWith('!') && key.endsWith('.0')) {
+        key = key.replace('!', '').replace('.0', '');
+        value = '!%2Elength';
+      } else if (key.endsWith('.0')) {
+        key = key.replace('.0', '');
+        value = '%2Elength';
+      } else {
+        value = url.decode(value);
+      }
+
+      acc[url.encode(key)] = Array.isArray(value)
+        ? value.map(url.decode)
+        : value;
       return acc;
     }, {});
 };

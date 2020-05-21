@@ -14,6 +14,12 @@ export default makeStyles((theme) => ({
     top: 0,
     height: '100vh',
     width: 325,
+    overflow: 'auto',
+    resize: 'horizontal',
+
+    '& > div': {
+      minWidth: 275,
+    },
 
     [theme.breakpoints.down('md')]: {
       display: 'none',

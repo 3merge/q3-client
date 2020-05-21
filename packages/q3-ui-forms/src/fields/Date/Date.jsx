@@ -13,7 +13,7 @@ const Date = (props) => {
       {...deco}
       name={name}
       onChange={handleDateChange(onChange, name)}
-      value={value || ''}
+      value={value}
     />
   );
 };
