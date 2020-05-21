@@ -19,7 +19,7 @@ export const ToNavigate = () => (
           try: '',
           paymentOption: '',
           currency: [],
-          'total%3E': '',
+          'total%>': '',
           'total%3C': '',
         }}
       >
@@ -52,11 +52,11 @@ export const ToNavigate = () => (
           options={[
             {
               label: 'Is approved',
-              value: '=true',
+              value: 'exists(true)',
             },
             {
               label: 'Is not approved',
-              value: '%21=true',
+              value: 'exists(false)',
             },
             {
               label: 'Either',
@@ -65,17 +65,17 @@ export const ToNavigate = () => (
           ]}
         />
         <Field
-          name="hasLength"
+          name="items%2E0"
           type="radio"
           collapse={false}
           options={[
             {
               label: 'Has at least one',
-              value: '%2Elength',
+              value: 'has(true)',
             },
             {
               label: 'Has none',
-              value: '!%2Elength',
+              value: 'has(false)',
             },
             {
               label: 'Either',

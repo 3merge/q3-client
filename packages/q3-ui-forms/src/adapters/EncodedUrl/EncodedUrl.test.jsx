@@ -15,7 +15,7 @@ describe('EncodedUrl adapter', () => {
       });
 
       expect(s).toEqual(
-        'createdAt>=2020-04-01&createdAt<=2020-04-6&tags!=a,b,c',
+        'createdAt>=2020-04-01&createdAt<=2020-04-6&tags!=a%2Cb%2Cc',
       );
     });
 
@@ -62,10 +62,10 @@ describe('EncodedUrl adapter', () => {
     it('should convert length', () => {
       expect(
         deserialize(
-          'items.0&total<=100&payment=Visa,Mastercard',
+          'items.0=exists(true)&total<=100&payment=Visa,Mastercard',
         ),
       ).toMatchObject({
-        'items%2Elength': true,
+        'items.0': 'exists(true)',
         'total%3C': '100',
         payment: ['Visa', 'Mastercard'],
       });

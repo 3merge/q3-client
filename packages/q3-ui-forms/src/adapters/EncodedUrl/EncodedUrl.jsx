@@ -5,25 +5,23 @@ import { url } from 'q3-ui-helpers';
 import Form from '../../builders/form';
 
 const getParamName = (v) => {
-  const [name] = v.split('*').map(decodeURIComponent);
+  const [name] = v.split('*');
   return name;
 };
 
 const clean = (v) => v.replace(/%20/g, ' ');
 
 const join = (key, value) => {
-  console.log(value);
-  if (value.startsWith('=') || value.startsWith('%21='))
+  if (value.startsWith('=') || value.startsWith('!'))
     return `${key}${value}`;
-  if (value === '%2Elength') return String(`${key}.0`);
-  if (value === '%21%2Elength') return String(`!${key}.0`);
+
   return `${key}=${value}`;
 };
 
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
-      const normalized = url.encode(
+      const normalized = encodeURIComponent(
         Array.isArray(value)
           ? value.join(',')
           : String(value),
@@ -58,22 +56,14 @@ export const deserialize = (v) => {
 
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;
+
       if (String(value).includes(','))
         value = value.split(',').map(clean);
 
-      if (key.startsWith('!') && key.endsWith('.0')) {
-        key = key.replace('!', '').replace('.0', '');
-        value = '!%2Elength';
-      } else if (key.endsWith('.0')) {
-        key = key.replace('.0', '');
-        value = '%2Elength';
-      } else {
-        value = url.decode(value);
-      }
+      acc[encodeURIComponent(key)] = Array.isArray(value)
+        ? value.map(decodeURIComponent)
+        : decodeURIComponent(String(value));
 
-      acc[url.encode(key)] = Array.isArray(value)
-        ? value.map(url.decode)
-        : value;
       return acc;
     }, {});
 };
@@ -82,8 +72,12 @@ export const handleStateEncoding = (onDone) => (
   values,
   actions,
 ) => {
-  onDone(`?${serialize(values)}`);
-  actions.setSubmitting(false);
+  try {
+    onDone(`?${serialize(values)}`);
+    actions.setSubmitting(false);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const handleStateDecoding = (values, defaults) => ({
