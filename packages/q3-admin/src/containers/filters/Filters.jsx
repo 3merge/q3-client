@@ -184,4 +184,4 @@ Groups.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Groups;
+export default React.memo(Groups);

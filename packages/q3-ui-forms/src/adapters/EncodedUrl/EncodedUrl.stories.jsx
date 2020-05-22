@@ -10,7 +10,7 @@ export default {
 };
 
 export const ToNavigate = () => (
-  <LocationProvider search="?paymentOption=Visa&currency=CAD,USD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
+  <LocationProvider search="?paymentOption=Visa&currency.commons=CAD,USD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
     <LocationDebugger>
       <EncodedUrl
         debug
@@ -35,7 +35,7 @@ export const ToNavigate = () => (
 
         <Field name="total" type="range" />
         <Field
-          name="currency"
+          name="currency~commons"
           type="multiselect"
           options={asOptions(['CAD', 'USD'])}
         />
@@ -65,7 +65,7 @@ export const ToNavigate = () => (
           ]}
         />
         <Field
-          name="items%2E0"
+          name="items~0"
           type="radio"
           collapse={false}
           options={[

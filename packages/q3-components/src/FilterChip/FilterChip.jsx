@@ -39,7 +39,7 @@ export const getOp = (op, name, value) => {
 };
 
 const FilterChip = ({ getAll, params, navigate }) => {
-  const { t } = useTranslation('filters');
+  const { t } = useTranslation();
 
   const chips = Object.entries(getAll())
     .filter(
@@ -65,7 +65,15 @@ const FilterChip = ({ getAll, params, navigate }) => {
   };
 
   const getChipLabel = (chip, name, value) =>
-    getOp(chip, t(name), t(value));
+    getOp(chip, t(`labels:${name}`), t(`filters:${value}`));
+
+  const sharedProps = {
+    variant: 'outlined',
+    style: {
+      marginRight: '0.25rem',
+      marginBottom: '0.25rem',
+    },
+  };
 
   return chips.map((chip) => {
     const [name, value] = chip.split('=');
@@ -74,10 +82,9 @@ const FilterChip = ({ getAll, params, navigate }) => {
         .split(',')
         .map((label) => (
           <Chip
-            style={{ marginRight: '0.25rem' }}
+            {...sharedProps}
             key={`${chip}-${label}`}
             label={getChipLabel(chip, name, label)}
-            variant="outlined"
             onDelete={modifyInSearchString(
               name,
               label,
@@ -87,9 +94,8 @@ const FilterChip = ({ getAll, params, navigate }) => {
         ))
     ) : (
       <Chip
+        {...sharedProps}
         key={chip}
-        style={{ marginRight: '0.25rem' }}
-        variant="outlined"
         onDelete={removeFromSearchString(name, value)}
         label={getChipLabel(chip, name, value)}
       />

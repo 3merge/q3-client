@@ -64,6 +64,7 @@ const Page = ({
   lookup,
   runOnSearch,
   runWithSearch,
+  poll,
 }) => {
   const {
     id,
@@ -119,6 +120,21 @@ const Page = ({
     viewResolutions,
     data,
   );
+
+  React.useEffect(() => {
+    let timer;
+
+    if (poll)
+      timer = setInterval(() => {
+        state.poll().then(() => {
+          // noop
+        });
+      }, poll);
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, []);
 
   return (
     <PageChildren

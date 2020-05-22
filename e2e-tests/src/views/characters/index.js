@@ -91,6 +91,7 @@ const PageList = genList({
 
 export default genCollection({
   ...collectionInfo,
+  poll: 5000,
   PageDetail,
   PageList,
   PageDetailProps,
