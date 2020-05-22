@@ -131,6 +131,6 @@ export const HeavyData = () => (
 
 export const Empty = () => (
   <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
-    <TableView data={[]} />
+    <TableView data={[]}>Render Me!</TableView>
   </Box>
 );

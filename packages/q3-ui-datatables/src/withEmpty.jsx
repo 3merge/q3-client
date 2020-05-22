@@ -9,7 +9,7 @@ import { withLocation } from 'with-location';
 import { object } from 'q3-ui-helpers';
 
 const Empty = withLocation(
-  ({ location, navigate, params, getAll }) => {
+  ({ children, location, navigate, params, getAll }) => {
     const { t } = useTranslation();
 
     const onClear = () => {
@@ -36,18 +36,21 @@ const Empty = withLocation(
       ) : null;
 
     return (
-      <Graphic
-        icon="Empty"
-        title="empty"
-        renderBottom={getClear}
-      />
+      <>
+        {children}
+        <Graphic
+          icon="Empty"
+          title="empty"
+          renderBottom={getClear}
+        />
+      </>
     );
   },
 );
 
 export default (Component) => (props) =>
   !props.data || !props.data.length ? (
-    <Empty />
+    <Empty {...props} />
   ) : (
     <Component {...props} />
   );
