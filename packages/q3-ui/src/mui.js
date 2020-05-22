@@ -148,7 +148,13 @@ Object.assign(theme, {
         minWidth: '300px !important',
       },
     },
-
+    MuiSwitch: {
+      colorSecondary: {
+        '&.Mui-disabled': {
+          color: '#DDD',
+        },
+      },
+    },
     MuiButtonGroup: {
       groupedContainedHorizontal: {
         '&:not(:last-child)': {

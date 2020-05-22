@@ -9,9 +9,9 @@ describe('EncodedUrl adapter', () => {
   describe('serialize', () => {
     it('should convert greater than and less than operators', () => {
       const s = serialize({
-        'createdAt%3E': '2020-04-01',
-        'createdAt%3C': '2020-04-6',
-        'tags%21': ['a', 'b', 'c'],
+        'createdAt>': '2020-04-01',
+        'createdAt<': '2020-04-6',
+        'tags!': ['a', 'b', 'c'],
       });
 
       expect(s).toEqual(
@@ -22,7 +22,7 @@ describe('EncodedUrl adapter', () => {
     it('should convert weak booleans ($exists)', () => {
       const s = serialize({
         'status*': true,
-        '%21payment*': true,
+        '!payment*': true,
         'verified*': '',
       });
 
@@ -65,7 +65,7 @@ describe('EncodedUrl adapter', () => {
           'items.0=exists(true)&total<=100&payment=Visa,Mastercard',
         ),
       ).toMatchObject({
-        'items.0': 'exists(true)',
+        'items%30': 'exists(true)',
         'total%3C': '100',
         payment: ['Visa', 'Mastercard'],
       });

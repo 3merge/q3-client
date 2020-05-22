@@ -25,6 +25,10 @@ export const Switch = () => (
   <Bool {...props} variant="switch" />
 );
 
+export const SwitchDisabled = () => (
+  <Bool {...props} variant="switch" disabled />
+);
+
 export const StackedBools = () => (
   <>
     <Bool

@@ -63,7 +63,7 @@ export const deserialize = (v) => {
         value = value.split(',').map(clean);
 
       acc[
-        decodeURIComponent(key).replace(/\./g, '~')
+        encodeURIComponent(key).replace(/\./g, '~')
       ] = Array.isArray(value)
         ? value.map(decodeURIComponent)
         : decodeURIComponent(String(value));
