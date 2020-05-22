@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.18.0",
+  "version": "1.18.1",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.16.8"
@@ -12,10 +12,10 @@
     "@material-ui/pickers": "4.0.0-alpha.7",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
-    "q3-components": "^1.18.0",
+    "q3-components": "^1.18.1",
     "q3-ui-dialog": "^1.16.9",
     "q3-ui-exports": "^1.17.8",
-    "q3-ui-forms": "^1.18.0",
+    "q3-ui-forms": "^1.18.1",
     "react-i18next": "11.4.0",
     "useful-state": "^1.2.0"
   },
