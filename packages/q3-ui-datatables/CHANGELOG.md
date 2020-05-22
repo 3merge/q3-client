@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+
+### Bug Fixes
+
+* **gom-468:** show children despite empty results on table ([b702b01](https://github.com/3merge/q/commit/b702b01ab970bce360b5ed3eaa826201763c84b4))
+
+
+
+
+
 ## [1.17.8](https://github.com/3merge/q/compare/v1.17.7...v1.17.8) (2020-05-20)
 
 **Note:** Version bump only for package q3-ui-datatables

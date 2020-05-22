@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+
+### Bug Fixes
+
+* **gom-468:** show children despite empty results on table ([b702b01](https://github.com/3merge/q/commit/b702b01ab970bce360b5ed3eaa826201763c84b4))
+
+
+### Features
+
+* **gom-452:** polling by internal on page container ([efd721c](https://github.com/3merge/q/commit/efd721c37fe1a954d226b1feae1f0484d047ee60))
+
+
+
+
+
 ## [1.17.15](https://github.com/3merge/q/compare/v1.17.14...v1.17.15) (2020-05-21)
 
 

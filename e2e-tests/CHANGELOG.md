@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+
+### Features
+
+* **gom-452:** polling by internal on page container ([efd721c](https://github.com/3merge/q/commit/efd721c37fe1a954d226b1feae1f0484d047ee60))
+
+
+
+
+
 ## [1.17.11](https://github.com/3merge/q/compare/v1.17.10...v1.17.11) (2020-05-20)
 
 **Note:** Version bump only for package e2e-tests
