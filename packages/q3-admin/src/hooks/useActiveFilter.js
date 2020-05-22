@@ -66,7 +66,9 @@ export default (search) => {
 
   const active = getActiveSearchQueryByKey(search)({
     ...items,
-    ...segments,
+    ...(typeof segments === 'function'
+      ? segments()
+      : segments),
   });
 
   const main = items.default;

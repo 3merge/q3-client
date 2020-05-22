@@ -23,8 +23,6 @@ export const Auth = ({ children, op }) => {
     RepeaterState,
   );
 
-  console.log(name);
-
   const can = invoke(
     useAuth(collectionName),
     getAuthByMethodName(op),

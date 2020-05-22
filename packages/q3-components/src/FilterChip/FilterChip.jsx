@@ -38,6 +38,20 @@ export const getOp = (op, name, value) => {
   return '';
 };
 
+const DecoratedChip = ({ onDelete, label }) =>
+  label ? (
+    <Chip
+      size="small"
+      label={label}
+      onDelete={onDelete}
+      variant="outlined"
+      style={{
+        marginRight: '0.25rem',
+        marginBottom: '0.25rem',
+      }}
+    />
+  ) : null;
+
 const FilterChip = ({ getAll, params, navigate }) => {
   const { t } = useTranslation();
 
@@ -46,9 +60,15 @@ const FilterChip = ({ getAll, params, navigate }) => {
       ([key]) =>
         !['sort', 'page', 'search', 'limit'].includes(key),
     )
-    .map(([key, value]) =>
-      decodeURIComponent(value ? `${key}=${value}` : key),
-    );
+    .map(([key, value]) => {
+      try {
+        return decodeURIComponent(
+          value ? `${key}=${value}` : key,
+        );
+      } catch (e) {
+        return `${key}=${value}`;
+      }
+    });
 
   const removeFromSearchString = (name) => () => {
     params.delete(name);
@@ -67,22 +87,14 @@ const FilterChip = ({ getAll, params, navigate }) => {
   const getChipLabel = (chip, name, value) =>
     getOp(chip, t(`labels:${name}`), t(`filters:${value}`));
 
-  const sharedProps = {
-    variant: 'outlined',
-    style: {
-      marginRight: '0.25rem',
-      marginBottom: '0.25rem',
-    },
-  };
-
   return chips.map((chip) => {
-    const [name, value] = chip.split('=');
+    // allow it to split only once
+    const [name, value] = chip.split(/=(.+)/);
     return value && value.includes(',') ? (
       value
         .split(',')
         .map((label) => (
-          <Chip
-            {...sharedProps}
+          <DecoratedChip
             key={`${chip}-${label}`}
             label={getChipLabel(chip, name, label)}
             onDelete={modifyInSearchString(
@@ -93,8 +105,7 @@ const FilterChip = ({ getAll, params, navigate }) => {
           />
         ))
     ) : (
-      <Chip
-        {...sharedProps}
+      <DecoratedChip
         key={chip}
         onDelete={removeFromSearchString(name, value)}
         label={getChipLabel(chip, name, value)}

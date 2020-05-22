@@ -59,8 +59,8 @@ export const deserialize = (v) => {
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;
 
-      if (String(value).includes(','))
-        value = value.split(',').map(clean);
+      if (String(value).includes('%2C'))
+        value = value.split('%2C').map(decodeURIComponent);
 
       acc[
         encodeURIComponent(key).replace(/\./g, '~')

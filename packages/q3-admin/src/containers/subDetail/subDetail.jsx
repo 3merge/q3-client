@@ -44,7 +44,6 @@ const SubDetail = ({
     >
       {renderTop}
       <Repeater
-        name={root}
         collectionName={collectionName}
         data={subdocumentState[root]}
         edit={subdocumentState.patch}
@@ -54,6 +53,9 @@ const SubDetail = ({
         removeBulk={subdocumentState.removeBulk}
         {...subdocumentState}
         {...rest}
+        // must take effect as root for permissions to work
+        // rest or subdstate was overriding it
+        name={root}
       >
         {children}
       </Repeater>

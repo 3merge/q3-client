@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
+import Box from '@material-ui/core/Box';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
@@ -28,6 +29,7 @@ const Repeater = ({
   renderMobileColumns,
   addComponent: AddComponent,
   bulkEditorComponent: BulkEditorComponent,
+  disableEmptyState,
   actions,
   ...rest
 }) => {
@@ -52,6 +54,18 @@ const Repeater = ({
     >
       <Auth op="Read">
         <Exports>
+          {!data.length && !disableEmptyState ? (
+            <Box
+              mb={2}
+              pb={2}
+              style={{
+                borderBottom:
+                  '2px solid rgb(245, 247, 249)',
+              }}
+            >
+              <Graphic icon="Build" title="addFirst" />
+            </Box>
+          ) : null}
           <Auth op="Create">
             {AddComponent ? (
               <AddComponent
@@ -71,8 +85,9 @@ const Repeater = ({
           <CustomActionBar data={data}>
             {BulkEditorComponent && <BulkEditorComponent />}
           </CustomActionBar>
+
           <Table>
-            {data.length > 0 ? (
+            {data.length > 0 && (
               <List
                 {...rest}
                 data={data}
@@ -83,8 +98,6 @@ const Repeater = ({
               >
                 {children}
               </List>
-            ) : (
-              <Graphic icon="Build" title="addFirst" />
             )}
           </Table>
         </Exports>
@@ -127,6 +140,7 @@ Repeater.propTypes = {
    * a custom renderer for inside the row header.
    */
   renderMobileColumns: PropTypes.func,
+  disableEmptyState: PropTypes.bool,
   ...override.propTypes,
 };
 
@@ -138,6 +152,7 @@ Repeater.defaultProps = {
   create: null,
   renderCustomAddForm: null,
   renderNestedTableRow: null,
+  disableEmptyState: false,
   ...override.defaultProps,
 };
 
