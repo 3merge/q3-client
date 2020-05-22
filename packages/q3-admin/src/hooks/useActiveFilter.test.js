@@ -1,10 +1,9 @@
 import {
-  matchTerms,
   getCustomFilters,
   getActiveSearchQueryByKey,
-} from './withSearch';
+} from './useActiveFilter';
 
-describe('withSearch', () => {
+describe('useActiveFilter', () => {
   describe('"getCustomFilters"', () => {
     it('should ignore global query words', () => {
       expect(
@@ -19,10 +18,10 @@ describe('withSearch', () => {
     it('should compare strings', () => {
       expect(
         getActiveSearchQueryByKey(
-          '?search=foo&status=Quote&sort-createdAt&payment=None+Yet',
+          '?search=foo&status=Quote&sort-createdAt&payment=None%20Yet',
         )({
           foo: '?payment=Done',
-          bar: 'payment=None Yet',
+          bar: 'payment=None%20Yet',
         }),
       ).toMatch('bar');
     });
@@ -30,25 +29,14 @@ describe('withSearch', () => {
     it('should choose the longest match', () => {
       expect(
         getActiveSearchQueryByKey(
-          '?search=foo&status=Quote&total%3E=100&sort-createdAt&payment=None+Yet&currency=CAD',
+          '?search=foo&status=Quote&total%3E=100&sort=-createdAt&payment=None%20Yet&currency=CAD',
         )({
-          foo: '?payment=None Yet&currency=CAD&total>=100',
-          bar: 'payment=None Yet&currency=CAD',
+          foo:
+            '?payment=None%20Yet&currency=CAD&total%3E=100',
+          bar: 'payment=None%20Yet&currency=CAD',
           quuz: 'currency=CAD',
         }),
       ).toMatch('foo');
-    });
-  });
-
-  describe('"matchTerms"', () => {
-    it('should match either as decoded or encoded', () => {
-      expect(
-        matchTerms('payment=None+Yet', 'payment=None Yet'),
-      ).toBeTruthy();
-
-      expect(
-        matchTerms('total%3E=100', 'total>=100'),
-      ).toBeTruthy();
     });
   });
 });

@@ -19,7 +19,7 @@ import { Definitions } from '../state';
 import FiltersForm from './FiltersForm';
 import FiltersClear from './FiltersClear';
 import FiltersName from './FiltersName';
-import useActiveFilter from '../useActiveFilter';
+import { useActiveFilter } from '../../hooks';
 
 const Groups = ({ children, initialValues }) => {
   const { location } = React.useContext(Definitions);
@@ -31,7 +31,6 @@ const Groups = ({ children, initialValues }) => {
     filters,
     favourite,
     main,
-    numberApplied,
   } = useActiveFilter(location.search);
 
   return (

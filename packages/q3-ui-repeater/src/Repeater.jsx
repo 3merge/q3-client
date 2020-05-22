@@ -4,6 +4,7 @@ import { useAuth } from 'q3-ui-permissions';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
+import Graphic from 'q3-ui-assets';
 import CustomActionBar from './components/ActionBar';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
@@ -71,7 +72,7 @@ const Repeater = ({
             {BulkEditorComponent && <BulkEditorComponent />}
           </CustomActionBar>
           <Table>
-            {data.length > 0 && (
+            {data.length > 0 ? (
               <List
                 {...rest}
                 data={data}
@@ -82,6 +83,8 @@ const Repeater = ({
               >
                 {children}
               </List>
+            ) : (
+              <Graphic icon="Build" title="addFirst" />
             )}
           </Table>
         </Exports>

@@ -36,7 +36,7 @@ const InlineEditor = ({
 
   return (
     <Inline
-      title={title}
+      title={t(`labels:${title}`)}
       renderTrigger={(open, state) =>
         buttonComponent ? (
           buttonComponent(open, state)

@@ -18,7 +18,7 @@ describe('EditableTypography', () => {
 
     it('should return a date', () => {
       expect(formatText('2020-12-12', 'date')).toMatch(
-        'December',
+        'Dec',
       );
       expect(formatText('not-a-date', 'date')).toMatch(
         '--',

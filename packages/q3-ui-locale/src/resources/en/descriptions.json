@@ -61,5 +61,6 @@
   "sidebar": "The sidebar is very dynamic. There are tabs along the top for common features, but some resources will disable those not in use. Typically, on the ID tab, you'll find quick actions, links, and global data. You may also find a featured photo uploader. On mobile, the sidebar is a swipe-in feature from the bottom of the screen.",
   "missing": "The page you've requested does not exist. Please return home and try again.",
   "reverified": "A new verification link has been generated and sent to your inbox.",
-  "passwordResetNotice": "If you have an account, you will momentarily receive an email with a link to change your password."
+  "passwordResetNotice": "If you have an account, you will momentarily receive an email with a link to change your password.",
+  "addFirst": "To get started, click \"Add an item\" above (if available) or ask for help creating a resource."
 }

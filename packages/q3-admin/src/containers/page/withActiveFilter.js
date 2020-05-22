@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from '@reach/router';
 import { get } from 'lodash';
-import useActiveFilter from '../useActiveFilter';
+import { useActiveFilter } from '../../hooks';
 
 export default (Component) => (props) => {
   const { defaultQuery } = useActiveFilter(
