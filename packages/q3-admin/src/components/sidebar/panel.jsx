@@ -28,10 +28,16 @@ export const Panel = ({
             horizontal: 'right',
           }}
         >
-          {t(`titles:${title}`)}
+          <span style={{ fontWeight: '800 !important' }}>
+            {t(`titles:${title}`)}
+          </span>
         </Badge>
       </Typography>
-      <Divider style={{ border: '1px solid #E6ECF1' }} />
+      <Divider
+        style={{
+          border: '1px solid rgba(104, 113, 123, 0.05)',
+        }}
+      />
       <Box my={1} className={subtext}>
         {children}
       </Box>

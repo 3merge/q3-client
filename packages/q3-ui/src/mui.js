@@ -67,9 +67,10 @@ const theme = createMuiTheme({
       fontSize: '1.368rem',
     },
     overline: {
-      color: '#4d555e',
-      fontWeight: 400,
-      fontSize: '0.812rem !important',
+      color: '#565656',
+      fontSize: '0.731rem !important',
+      fontWeight: 800,
+      letterSpacing: '0.2px',
     },
     body1: {
       color: '#4f5868',

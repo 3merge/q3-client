@@ -168,8 +168,14 @@ const Groups = ({ children, initialValues }) => {
               {children(...params)}
               <Grid item xs={12}>
                 <Grid container>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                  >
+                    Apply
+                  </Button>
                   <FiltersClear />
-                  <Button type="submit">Apply</Button>
                 </Grid>
               </Grid>
             </>

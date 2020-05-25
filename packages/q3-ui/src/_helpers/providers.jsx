@@ -20,7 +20,7 @@ const Providers = ({ children, theme }) => (
       <CssBaseline />
       <Helmet>
         <link
-          href="https://fonts.googleapis.com/css?family=Roboto&Source+Sans+Pro:400&display=swap"
+          href="https://fonts.googleapis.com/css?family=Roboto:600&Source+Sans+Pro:400&display=swap"
           rel="stylesheet"
         />
       </Helmet>

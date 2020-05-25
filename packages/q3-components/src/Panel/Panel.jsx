@@ -23,8 +23,12 @@ export const Panel = ({ title, children }) => {
           {t(`titles:${title}`)}
         </Typography>
       </Box>
-      <Divider style={{ border: '1px solid #E6ECF1' }} />
-      <Box my={1} className={subtext}>
+      <Divider
+        style={{
+          border: '1px solid rgba(104, 113, 123, 0.2)',
+        }}
+      />
+      <Box mt={0.5} mb={1} className={subtext}>
         {children}
       </Box>
     </Box>

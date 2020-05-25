@@ -19,7 +19,7 @@ const Logo = ({
       <LazyLoadImage src={logoImgSrc} alt={name} />
     </Link>
   ) : (
-    <Typography variant="h4" component="h1" color="inherit">
+    <Typography variant="h3" component="h1" color="inherit">
       {name}
     </Typography>
   );

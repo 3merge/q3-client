@@ -52,7 +52,9 @@ export const FilterGroup = ({
         tabIndex={0}
       >
         <Grid item>
-          <Typography>{t(`titles:${title}`)}</Typography>
+          <Typography style={{ fontWeight: 'bold' }}>
+            {t(`titles:${title}`)}
+          </Typography>
         </Grid>
         <Grid item>
           <Badge
