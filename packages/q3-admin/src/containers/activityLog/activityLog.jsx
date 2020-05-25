@@ -34,7 +34,7 @@ const History = () => {
       subtitle="activityLog"
       divider
     >
-      {!fetchingError ? (
+      {fetchingError ? (
         <Typography>
           {t('failedToLoadVersionHistory')}
         </Typography>
