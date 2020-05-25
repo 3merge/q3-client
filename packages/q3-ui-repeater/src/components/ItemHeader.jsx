@@ -53,14 +53,18 @@ const ItemHeader = ({
           )}
           <Grid item xs zeroMinWidth>
             <Title
-              component="h3"
+              component="h4"
               color="primary"
               name={title}
               editable={isIn(title)}
               className={titleCls}
             />
             {description && (
-              <Typography>{description}</Typography>
+              <Typography style={{
+                
+          fontSize: '0.901rem'
+     
+              }}>{description}</Typography>
             )}
           </Grid>
         </Grid>

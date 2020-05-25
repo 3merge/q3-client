@@ -22,7 +22,6 @@ export default makeStyles((theme) => ({
   titleCls: {
     color: theme.palette.primary.light,
     fontWeight: '600',
-    fontSize: '1.049rem',
     margin: '0 !important',
   },
 
