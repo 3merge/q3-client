@@ -8,6 +8,7 @@ const DateBase = (props) => (
   <Grid item xs={12}>
     <MobileDatePicker
       {...props}
+      clearable
       renderInput={(inputProps) => (
         <Text {...merge(inputProps, props)} type="date" />
       )}

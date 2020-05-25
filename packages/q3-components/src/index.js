@@ -9,3 +9,4 @@ export { default as Panel } from './Panel';
 export { default as EditableTypography } from './EditableTypography';
 export { default as Quantity } from './Quantity';
 export { default as Status } from './Status';
+export { default as Timeline } from './Timeline';

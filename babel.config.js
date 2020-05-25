@@ -39,7 +39,10 @@ const withAlias = {
 };
 
 const config = {
-  plugins: ['@babel/plugin-proposal-export-namespace-from'],
+  plugins: [
+    '@babel/plugin-proposal-export-namespace-from',
+    '@babel/plugin-transform-modules-commonjs',
+  ],
   presets: [
     [
       '@babel/preset-env',

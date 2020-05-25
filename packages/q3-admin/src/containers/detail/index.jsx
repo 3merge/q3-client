@@ -11,10 +11,13 @@ import Notes from '../notes';
 import RelatedLinks from './RelatedLinks';
 import History from '../history';
 import PictureUpload from '../../components/picture';
-import Trash from '../trash';
+
 import Header from '../header';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
+
+import ActivityLog from '../activityLog';
+import Trash from '../trash';
 
 const useStyle = makeStyles((theme) => ({
   tabs: {
@@ -30,6 +33,15 @@ const useStyle = makeStyles((theme) => ({
     },
   },
 }));
+
+const ActivityLogPreset = {
+  to: '/log',
+  label: 'log',
+  component: () =>
+    React.createElement(ActivityLog, {
+      name: 'log',
+    }),
+};
 
 const TrashPreset = {
   to: '/trash',
@@ -69,6 +81,7 @@ const Detail = ({
   files,
   links,
   disableTrash,
+  disableLog,
   ...rest
 }) => {
   const { exclusions } = React.useContext(Dispatcher);
@@ -101,7 +114,10 @@ const Detail = ({
           // root={rootPath}
           scrollButtons="on"
           views={mapToNestedRoute(children)
-            .concat([disableTrash ? null : TrashPreset])
+            .concat([
+              disableTrash ? null : TrashPreset,
+              disableLog ? null : ActivityLogPreset,
+            ])
             .filter(filterByExclusion)}
         />
       }

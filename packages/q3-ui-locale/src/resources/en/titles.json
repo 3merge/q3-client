@@ -58,5 +58,6 @@
   "tableConfigurator": "Datatable configuration",
   "reverified": "Done!",
   "passwordResetNotice": "Done!",
-  "addFirst": "Nothing here yet"
+  "addFirst": "Nothing here yet",
+  "activityLog": "Activity log"
 }

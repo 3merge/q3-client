@@ -7,6 +7,7 @@ import {
 import GroupIcon from '@material-ui/icons/Group';
 import CharacterFilter from '../../components/CharacterFilter';
 import General from './general';
+import Movies from './movies';
 
 const collectionInfo = {
   icon: GroupIcon,
@@ -21,6 +22,7 @@ const collectionInfo = {
 
 const views = {
   general: General,
+  movies: Movies,
 };
 
 const DetailProps = {

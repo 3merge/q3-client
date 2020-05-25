@@ -6,6 +6,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
 import DataToCsv from './DataToCsv';
+import DataToExcel from './DataToExcel';
 import Unselect from './Unselect';
 import useStyle from './useStyle';
 
@@ -56,7 +57,7 @@ const ActionBar = ({ actions, data, columns }) => {
         <BottomNavigation className={actionBar}>
           <Unselect />
           <DataToCsv data={picked} />
-          {/* <DataToExcel data={picked} /> */}
+          <DataToExcel data={picked} />
           {renderActions(actions, t, picked)}
         </BottomNavigation>
       </div>

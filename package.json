@@ -27,6 +27,7 @@
     "@babel/cli": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-knobs": "^5.3.17",
@@ -57,7 +58,6 @@
     "lerna": "^3.18.1",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
-    "xlsx": "^0.16.0",
     "yarn-deduplicate": "^2.0.0",
     "yarn-workspace-sync-deps": "^0.3.2"
   },

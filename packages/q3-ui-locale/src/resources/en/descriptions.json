@@ -62,5 +62,7 @@
   "missing": "The page you've requested does not exist. Please return home and try again.",
   "reverified": "A new verification link has been generated and sent to your inbox.",
   "passwordResetNotice": "If you have an account, you will momentarily receive an email with a link to change your password.",
-  "addFirst": "To get started, click \"Add an item\" (if available) or ask for help creating a resource."
+  "addFirst": "To get started, click \"Add an item\" (if available) or ask for help creating a resource.",
+  "activityLog": "A rolling history of operations performed on this resource",
+  "failedToLoadVersionHistory": "The activity log for this module could not be loaded."
 }

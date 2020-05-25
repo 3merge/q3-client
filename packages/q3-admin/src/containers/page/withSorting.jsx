@@ -36,7 +36,7 @@ export default (Component) => (props) => {
 
     q.set('sort', sortPreference);
     navigate(
-      `?${q.toString()}`,
+      `?${q.toString().replace(/\+/g, '%20')}`,
       {
         state: {
           init: true,

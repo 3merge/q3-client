@@ -57,11 +57,11 @@ const Notes = () => {
             {...v}
           />
         ))}
+        <AddNote
+          show={auth.canCreateSub(key)}
+          onSubmit={post}
+        />
       </DisplayNotes>
-      <AddNote
-        show={auth.canCreateSub(key)}
-        onSubmit={post}
-      />
     </Box>
   );
 };

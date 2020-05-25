@@ -206,5 +206,6 @@
   "addToCartSuccess": "Done",
   "addToCart": "Buy now",
   "files": "Files",
-  "filterName": "Filter name"
+  "filterName": "Filter name",
+  "notesError": "Notes in this module could not be loaded."
 }

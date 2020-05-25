@@ -45,7 +45,9 @@ export const Text = (props) => {
   const deco = useDecorator(props);
 
   if (type === 'date' && deco.value)
-    deco.value = moment(deco.value).format('YYYY-MM-DD');
+    deco.value = moment
+      .utc(deco.value)
+      .format('YYYY-MM-DD');
 
   return (
     <TextBase

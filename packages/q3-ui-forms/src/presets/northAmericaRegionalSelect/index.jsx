@@ -1,5 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
+import Grid from '@material-ui/core/Grid';
 import { Field } from '../../builders';
 import { asOptions } from '../../helpers';
 
@@ -83,27 +84,34 @@ export const getRegions = (values) => {
     : asOptions(PROVINCES);
 };
 
-const NorthAmericaRegionalSelect = () => (
-  <>
-    <Field
-      name="region"
-      type="select"
-      required
-      override={({ values }) => ({
-        options: getRegions(values),
-      })}
-    />
-
-    <Field
-      name="country"
-      type="select"
-      required
-      options={[
-        { value: CA, label: 'Canada' },
-        { value: US, label: 'United States' },
-      ]}
-    />
-  </>
+const NorthAmericaRegionalSelect = (props) => (
+  <Grid item xs={12}>
+    <Grid container spacing={1}>
+      <Grid item sm={6} xs={12}>
+        <Field
+          name="region"
+          type="select"
+          required
+          override={({ values }) => ({
+            options: getRegions(values),
+          })}
+          {...props}
+        />
+      </Grid>
+      <Grid item sm={6} xs={12}>
+        <Field
+          name="country"
+          type="select"
+          required
+          options={[
+            { value: CA, label: 'Canada' },
+            { value: US, label: 'United States' },
+          ]}
+          {...props}
+        />
+      </Grid>
+    </Grid>
+  </Grid>
 );
 
 export default NorthAmericaRegionalSelect;

@@ -79,33 +79,25 @@ const useRest = ({
     );
   };
 
-  const methods = {
-    get(query = '') {
-      call(FETCHING);
-      return Axios.get(formatUrlPath(url, query, select))
-        .then(({ data }) => {
-          invoke(decorators, 'get', data);
-          call(FETCHED, data);
-          return Promise.resolve(data);
-        })
-        .catch((err) => {
-          call(FETCHED, null, err);
-          return Promise.reject(err);
-        });
-    },
+  const invokeFetchingWithQueryString = (
+    callWithLoading,
+  ) => (query = '') => {
+    if (callWithLoading) call(FETCHING);
+    return Axios.get(formatUrlPath(url, query, select))
+      .then(({ data }) => {
+        invoke(decorators, 'get', data);
+        call(FETCHED, data);
+        return Promise.resolve(data);
+      })
+      .catch((err) => {
+        call(FETCHED, null, err);
+        return Promise.reject(err);
+      });
+  };
 
-    poll() {
-      return Axios.get(url)
-        .then(({ data }) => {
-          invoke(decorators, 'get', data);
-          call(FETCHED, data);
-          return Promise.resolve(data);
-        })
-        .catch((err) => {
-          call(FETCHED, null, err);
-          return Promise.reject(err);
-        });
-    },
+  const methods = {
+    get: invokeFetchingWithQueryString(true),
+    poll: invokeFetchingWithQueryString(false),
 
     remove(id) {
       return () =>

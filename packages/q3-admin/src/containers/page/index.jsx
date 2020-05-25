@@ -124,11 +124,13 @@ const Page = ({
   React.useEffect(() => {
     let timer;
 
-    if (poll)
+    if (poll && !id)
       timer = setInterval(() => {
-        state.poll().then(() => {
-          // noop
-        });
+        state
+          .poll(location ? location.search : '')
+          .then(() => {
+            // noop
+          });
       }, poll);
 
     return () => {

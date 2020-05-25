@@ -54,18 +54,6 @@ const Repeater = ({
     >
       <Auth op="Read">
         <Exports>
-          {!data.length && !disableEmptyState ? (
-            <Box
-              mb={2}
-              pb={2}
-              style={{
-                borderBottom:
-                  '2px solid rgb(245, 247, 249)',
-              }}
-            >
-              <Graphic icon="Build" title="addFirst" />
-            </Box>
-          ) : null}
           <Auth op="Create">
             {AddComponent ? (
               <AddComponent

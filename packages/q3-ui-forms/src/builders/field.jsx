@@ -6,7 +6,14 @@ import FieldDetector from '../helpers/types';
 import useListen from '../helpers/useListen';
 
 const Field = (props) => {
-  const { name, override, type, under, ...rest } = props;
+  const {
+    name,
+    override,
+    type,
+    under,
+    disabled,
+    ...rest
+  } = props;
 
   useField(name);
   useListen(props);
@@ -57,8 +64,8 @@ const Field = (props) => {
 
   return canSee && attrs && el.current
     ? React.createElement(el.current, {
-        readOnly: !canEdit,
-        disabled: !canEdit,
+        disabled: !canEdit || Boolean(disabled),
+        readOnly: !canEdit || Boolean(disabled),
         ...attrs,
         type,
         name,

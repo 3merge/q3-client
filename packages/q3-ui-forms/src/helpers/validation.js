@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { get } from 'lodash';
+import moment from 'moment';
 
 const isRequired = (re, value, ctx) =>
   get(ctx, 'schema._exclusive.required', false)
@@ -116,7 +117,15 @@ export class Validator {
 
         break;
       case 'date':
-        this.$base = this.$base.date().nullable();
+        this.$base = this.$base
+          .string()
+          .test(
+            'is-date',
+            // eslint-disable-next-line
+            '${path} is not an acceptable date value',
+            (value) => !value || moment(value).isValid(),
+          )
+          .nullable();
         break;
       case 'multi':
       case 'multiselect':
