@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.5](https://github.com/3merge/q/compare/v1.18.4...v1.18.5) (2020-05-25)
+
+
+### Bug Fixes
+
+* outbound links in notice ([a2ddede](https://github.com/3merge/q/commit/a2ddede91391ef34833073918ef9fef104b3cb15))
+
+
+
+
+
 ## [1.18.4](https://github.com/3merge/q/compare/v1.18.3...v1.18.4) (2020-05-25)
 
 
