@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.3](https://github.com/3merge/q/compare/v1.18.2...v1.18.3) (2020-05-25)
+
+
+### Bug Fixes
+
+* invert fetching error check on activity log ([74e4d71](https://github.com/3merge/q/commit/74e4d71f2e9116db2d89c9f062980815336a4064))
+
+
+
+
+
 ## [1.18.2](https://github.com/3merge/q/compare/v1.18.1...v1.18.2) (2020-05-25)
 
 **Note:** Version bump only for package q3-admin
