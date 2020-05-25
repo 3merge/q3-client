@@ -23,14 +23,12 @@ const Attributes = ({
         <Hidden mdUp>
           <Grid item style={{ marginLeft: '0.5rem' }}>
             <Typography
-           
               style={{
                 fontWeight: 'bold',
-               fontSize: '0.75rem'
+                fontSize: '0.75rem',
               }}
-            > 
+            >
               {t(attribute)}:
-               
             </Typography>
           </Grid>
         </Hidden>
