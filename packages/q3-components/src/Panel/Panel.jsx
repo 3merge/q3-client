@@ -19,16 +19,16 @@ export const Panel = ({ title, children }) => {
       component="section"
     >
       <Box display="flex" justifyContent="space-between">
-        <Typography variant="overline">
+        <Typography variant="overline" color="primary">
           {t(`titles:${title}`)}
         </Typography>
       </Box>
       <Divider
         style={{
-          border: '1px solid rgba(104, 113, 123, 0.2)',
+          border: '1px solid rgb(230, 236, 241)',
         }}
       />
-      <Box mt={0.5} mb={1} className={subtext}>
+      <Box my={1} className={subtext}>
         {children}
       </Box>
     </Box>
