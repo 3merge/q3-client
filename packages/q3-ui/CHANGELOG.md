@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.8](https://github.com/3merge/q/compare/v1.18.7...v1.18.8) (2020-05-25)
+
+
+### Bug Fixes
+
+* unnecessary character conversion in useOptions ([8f36f5f](https://github.com/3merge/q/commit/8f36f5f11d36e6e6ffee9625472cbb576e27e287))
+
+
+
+
+
 ## [1.18.6](https://github.com/3merge/q/compare/v1.18.5...v1.18.6) (2020-05-25)
 
 **Note:** Version bump only for package q3-ui
