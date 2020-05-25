@@ -24,8 +24,7 @@ export default ({
     setResults: setItems,
   } = useResults(
     loadOptions,
-    // + is used for regex powered search
-    [value.replace('*', '+'), values],
+    [value, values],
     options,
     minimumCharacterCount,
   );

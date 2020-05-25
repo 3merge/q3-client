@@ -62,9 +62,7 @@ const Statistic = ({ difference, num, text, to }) => {
           <Difference value={difference} />
         </Typography>
         <Typography
-          variant="overline"
           style={{
-            lineHeight: 1.5,
             display: 'block',
             marginTop: '1rem',
           }}
