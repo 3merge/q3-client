@@ -20,3 +20,10 @@ export const WithLink = () => (
 export const WithoutLink = () => (
   <Notice content="This is an information bar without more to read" />
 );
+
+export const WithoutOutbondLink = () => (
+  <Notice
+    content="This is an information bar without more to read"
+    to="https://google.ca"
+  />
+);

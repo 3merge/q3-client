@@ -12,6 +12,20 @@ const Notice = ({ content, to }) => {
   const { t } = useTranslation('labels');
   const { notice, noMargin } = useStyle();
 
+  const getLinkAtts = (v) => {
+    const isOutbound = String(v).startsWith('http');
+
+    return isOutbound
+      ? {
+          component: 'a',
+          href: v,
+        }
+      : {
+          component: ReachLink,
+          to: v,
+        };
+  };
+
   return (
     <Collapse in>
       <Box className={notice} component="aside" p={1}>
@@ -24,11 +38,7 @@ const Notice = ({ content, to }) => {
         </Typography>
         {to && (
           <Box display="inline-block" ml={2}>
-            <Link
-              component={ReachLink}
-              to={to}
-              color="inherit"
-            >
+            <Link color="inherit" {...getLinkAtts(to)}>
               {t('learnMore')}
             </Link>
           </Box>
