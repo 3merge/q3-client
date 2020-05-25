@@ -39,7 +39,7 @@ const castToString = (v) =>
     canBeStringified(v) ? JSON.stringify(v) : delimite(v),
   ).replace(/%20/gi, ' ');
 
-const toTable = (items = [], t) => {
+export const toTable = (items = [], t) => {
   const keys = getAllPossibleKeys(items);
 
   return items.reduce((acc, row, i) => {
