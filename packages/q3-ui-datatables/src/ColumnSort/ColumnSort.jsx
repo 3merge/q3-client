@@ -29,7 +29,11 @@ const ColumnSort = ({
       {...props}
     >
       <div id={title} data-q3-cell={title}>
-        <ColumnSortText onSort={onSort} title={title} />
+        {onSort ? (
+          <ColumnSortText onSort={onSort} title={title} />
+        ) : (
+          title
+        )}
       </div>
     </TableCell>
   );

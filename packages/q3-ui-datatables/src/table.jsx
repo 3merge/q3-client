@@ -29,6 +29,7 @@ const TableView = ({
   resolvers,
   data = [],
   onSort,
+  virtuals,
   className,
   children,
 }) => {
@@ -92,14 +93,20 @@ const TableView = ({
                     columns={columns}
                   />
                 </ColumnSelectAll>
-                {activeColumns.map((column) => (
-                  <ColumnSort
-                    title={column}
-                    onSort={onSort}
-                    className={cellWidth}
-                    {...column}
-                  />
-                ))}
+                {activeColumns.map((column) => {
+                  const sortable = Array.isArray(virtuals)
+                    ? !virtuals.includes(column)
+                    : true;
+
+                  return (
+                    <ColumnSort
+                      title={column}
+                      onSort={sortable ? onSort : null}
+                      className={cellWidth}
+                      {...column}
+                    />
+                  );
+                })}
               </TableRow>
             </TableHead>
             <TableBody className={tableBody}>

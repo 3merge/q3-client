@@ -26,6 +26,8 @@ export const HeavyData = () => (
   <LocationProvider initialPath="/">
     <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
       <TableView
+        // eslint-disable-next-line
+        onSort={console.log}
         id="for-testing"
         aliasForName="seq"
         total={orders.total}
@@ -43,6 +45,7 @@ export const HeavyData = () => (
           'shippingOption',
           'draft',
         ]}
+        virtuals={['status']}
         columnWidths={{
           seq: 65,
           tax: 115,
