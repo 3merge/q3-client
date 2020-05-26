@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.9](https://github.com/3merge/q/compare/v1.18.8...v1.18.9) (2020-05-26)
+
+
+### Bug Fixes
+
+* date inputs and encoding ([dfead9d](https://github.com/3merge/q/commit/dfead9d02b4c252a5edb7720a6d573ddf7fd64c2))
+
+
+
+
+
 ## [1.18.4](https://github.com/3merge/q/compare/v1.18.3...v1.18.4) (2020-05-25)
 
 **Note:** Version bump only for package q3-ui-datatables
