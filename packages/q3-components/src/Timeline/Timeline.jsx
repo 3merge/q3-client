@@ -79,7 +79,10 @@ const TimelineListItem = ({
               op,
               target,
               t,
-            )} on ${moment.utc(modifiedOn).format('LLLL')}`}
+            )} on ${moment
+              .utc(modifiedOn)
+              .local()
+              .format('LLLL')}`}
           </Typography>
           <Typography component="ul">
             {Object.entries(modified).map(

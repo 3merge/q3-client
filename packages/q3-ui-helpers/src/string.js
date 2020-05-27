@@ -54,7 +54,7 @@ export const toTruthy = (str, trans) => {
  */
 export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
-    ? moment.utc(str).format('MMM DD, Y LT')
+    ? moment.utc(str).local().format('MMM DD, Y LT')
     : fallbackText;
 
 /**

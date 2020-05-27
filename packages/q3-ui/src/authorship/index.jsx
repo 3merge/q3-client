@@ -26,9 +26,10 @@ const Authorship = ({ author, date }) => {
       my={0.5}
       ml={2}
     >
-      {`${author} ${t('on')} ${moment.utc(date).format(
-        'MMM DD, YYYY',
-      )}`}
+      {`${author} ${t('on')} ${moment
+        .utc(date)
+        .local()
+        .format('MMM DD, YYYY')}`}
     </Box>
   );
 };

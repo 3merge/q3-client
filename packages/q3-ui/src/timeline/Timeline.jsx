@@ -18,7 +18,10 @@ const formatUser = (u) =>
 const getUpdatedAt = (data = {}, key) => {
   const at = get(data, key);
   return at
-    ? moment.utc(at).format('MMMM Do YYYY, h:mm:ss a')
+    ? moment
+        .utc(at)
+        .local()
+        .format('MMMM Do YYYY, h:mm:ss a')
     : null;
 };
 
