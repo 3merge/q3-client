@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.14](https://github.com/3merge/q/compare/v1.18.13...v1.18.14) (2020-05-27)
+
+
+### Bug Fixes
+
+* localized timezone ([8e9e3f6](https://github.com/3merge/q/commit/8e9e3f6cbff86dd530cf53216461cd09fc463bfe))
+
+
+
+
+
 ## [1.18.13](https://github.com/3merge/q/compare/v1.18.12...v1.18.13) (2020-05-27)
 
 **Note:** Version bump only for package q3-client
