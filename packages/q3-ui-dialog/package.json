@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-dialog",
-  "version": "1.16.9",
+  "version": "1.18.12",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.16.8"
