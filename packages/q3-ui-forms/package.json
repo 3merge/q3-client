@@ -20,6 +20,7 @@
     "lodash": "^4.17.15",
     "material-ui-chip-input": "^1.1.0",
     "minimatch": "^3.0.4",
+    "moment": "2.26.0",
     "notistack": "^0.9.16",
     "q3-ui-dialog": "^1.18.12",
     "react-i18next": "11.5.0",

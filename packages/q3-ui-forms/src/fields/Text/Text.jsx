@@ -47,6 +47,7 @@ export const Text = (props) => {
   if (type === 'date' && deco.value)
     deco.value = moment
       .utc(deco.value)
+      .local()
       .format('YYYY-MM-DD');
 
   return (

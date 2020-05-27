@@ -59,4 +59,39 @@ describe('useDot', () => {
       null,
     );
   });
+
+  it('should run marshal and drop', () => {
+    const handleSubmit = jest.fn();
+    const { onSubmit } = useDot({
+      onSubmit: handleSubmit,
+      marshalSelectively: true,
+      marshal: {
+        bar: 'bar',
+        'quuz.ref': 'quuz.quux',
+      },
+    });
+
+    onSubmit(
+      {
+        foo: 1,
+        bar: 1,
+        quuz: {
+          quux: 1,
+        },
+      },
+      null,
+    );
+
+    expect(handleSubmit).toHaveBeenCalledWith(
+      {
+        foo: 1,
+        bar: 1,
+        quuz: {
+          quux: 1,
+          ref: 1,
+        },
+      },
+      null,
+    );
+  });
 });

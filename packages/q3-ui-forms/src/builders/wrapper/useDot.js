@@ -8,15 +8,24 @@ export default (
     marshal = {},
     modify = {},
     translate = {},
+    marshalSelectively,
     onSubmit,
   },
   data,
 ) => ({
-  onSubmit: (values, actions) =>
-    onSubmit(
-      dot.translateAndModify(values, marshal),
+  onSubmit: (values, actions) => {
+    const newValues = dot.translateAndModify(
+      values,
+      marshal,
+    );
+
+    return onSubmit(
+      marshalSelectively
+        ? merge({}, values, newValues)
+        : newValues,
       actions,
-    ),
+    );
+  },
 
   initialValues: dot.modify(
     merge(

@@ -1,5 +1,7 @@
 import React from 'react';
 
+export * from './casters';
+
 export const isObject = (item) =>
   item !== null &&
   typeof item === 'object' &&

@@ -11,6 +11,7 @@ const Wrapper = (Component) => {
   const InnerForm = ({
     drop,
     keep,
+    marshalSelectively,
     marshal,
     modify,
     translate,
@@ -32,6 +33,7 @@ const Wrapper = (Component) => {
     const { initialValues, onSubmit } = useDot(
       {
         onSubmit: handleSubmit,
+        marshalSelectively,
         keep,
         marshal,
         modify,
