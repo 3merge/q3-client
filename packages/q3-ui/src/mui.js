@@ -165,10 +165,20 @@ Object.assign(theme, {
         },
       },
     },
-
+    MuiAvatar: {
+      root: {
+        width: 38,
+        height: 38,
+      },
+    },
+    MuiListItemAvatar: {
+      root: {
+        minWidth: 46,
+      },
+    },
     MuiListItemIcon: {
       root: {
-        minWidth: 32,
+        minWidth: 38,
       },
     },
     MuiFormControl: {

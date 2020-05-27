@@ -28,11 +28,7 @@ export const AddressHeader = ({ label, title, helper }) => (
       <Grid item>
         <Box mb={1}>
           {label && (
-            <Typography
-              component="p"
-              variant="h6"
-              color="primary"
-            >
+            <Typography component="small" color="primary">
               {label}
             </Typography>
           )}

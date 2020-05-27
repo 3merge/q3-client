@@ -19,6 +19,7 @@ import { Definitions } from '../state';
 import FiltersForm from './FiltersForm';
 import FiltersClear from './FiltersClear';
 import FiltersName from './FiltersName';
+import FiltersShare from './FiltersShare';
 import { useActiveFilter } from '../../hooks';
 
 const Groups = ({ children, initialValues }) => {
@@ -37,7 +38,7 @@ const Groups = ({ children, initialValues }) => {
     <Box>
       <Panel title="Segments">
         <Box>
-          <List>
+          <List style={{ margin: 0, padding: 0 }}>
             {[
               {
                 label: 'All',
@@ -167,15 +168,28 @@ const Groups = ({ children, initialValues }) => {
             <>
               {children(...params)}
               <Grid item xs={12}>
-                <Grid container>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Apply
-                  </Button>
-                  <FiltersClear />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="small"
+                  color="secondary"
+                  style={{ marginBottom: '0.5rem' }}
+                  fullWidth
+                >
+                  Apply filters
+                </Button>
+
+                <Grid
+                  container
+                  justify="center"
+                  spacing={1}
+                >
+                  <Grid item lg={4} xs={6}>
+                    <FiltersShare />
+                  </Grid>
+                  <Grid item lg={4} xs={6}>
+                    <FiltersClear />
+                  </Grid>
                 </Grid>
               </Grid>
             </>

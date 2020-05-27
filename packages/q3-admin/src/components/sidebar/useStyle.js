@@ -51,7 +51,7 @@ export default makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
-    padding: '1.25rem',
+    padding: '1.25rem 0.5rem',
     [theme.breakpoints.down('md')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',

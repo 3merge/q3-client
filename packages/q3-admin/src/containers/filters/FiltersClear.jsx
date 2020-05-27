@@ -7,12 +7,10 @@ const FiltersClear = (props) => (
   <Button
     {...props}
     onClick={() => navigate('?active')}
-    style={{
-      marginLeft: '.25rem',
-      textDecoration: 'underline',
-    }}
+    fullWidth
+    size="small"
   >
-    Clear
+    Clear all
   </Button>
 );
 

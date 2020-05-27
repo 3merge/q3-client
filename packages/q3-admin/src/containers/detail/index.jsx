@@ -4,6 +4,7 @@ import Tabs from 'q3-ui/lib/tabs';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
+import { Panel } from 'q3-components';
 import { Dispatcher } from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
@@ -11,7 +12,6 @@ import Notes from '../notes';
 import RelatedLinks from './RelatedLinks';
 import History from '../history';
 import PictureUpload from '../../components/picture';
-
 import Header from '../header';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
@@ -98,7 +98,11 @@ const Detail = ({
           historyTab={history && <History />}
           filesTab={files && <Upload />}
         >
-          {picture && <PictureUpload />}
+          {picture && (
+            <Panel title="Picture">
+              <PictureUpload />
+            </Panel>
+          )}
         </Sidebar>
       }
       renderInside={

@@ -6,6 +6,7 @@ export default makeStyles(() => ({
     width: 155,
     display: 'flex',
     alignItems: 'center',
+    fontWeight: 400,
   },
   icon: {
     marginRight: '0.5rem',

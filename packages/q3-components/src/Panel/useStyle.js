@@ -110,8 +110,15 @@ export default makeStyles((theme) => ({
     cursor: 'pointer',
   },
   bordered: {
+    boxShadow: 'rgba(0, 0, 0, 0.045) 0px 5px 20px 0px',
     textOverflow: 'ellipsis',
     position: 'relative',
+    backgroundColor: '#f6f8fa',
+    padding: '.75rem',
+    [theme.breakpoints.down('md')]: {
+      boxShadow: theme.shadows[0],
+      backgroundColor: 'transparent',
+    },
     // overflow: 'hidden',
   },
   subtext: {

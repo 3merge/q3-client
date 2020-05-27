@@ -42,6 +42,7 @@ const Sidebar = ({
   const updatedBy = getLastModification(data);
 
   const defaultOptions = invoke(registerOptions, ...params);
+  const panels = invoke(registerPanels, ...params);
 
   if (createdBy)
     defaultOptions.push({
@@ -75,14 +76,20 @@ const Sidebar = ({
             </List>
           </Panel>
         )}
-        {invoke(registerPanels, ...params).map(
-          (panel, i) => (
-            <Panel {...panel} key={i}>
-              {panel.content}
-            </Panel>
-          ),
-        )}
-        {children}
+        {panels.map((panel, i) => (
+          <Panel
+            {...panel}
+            key={i}
+            transitionDelay={i + 1 * 150}
+          >
+            {panel.content}
+          </Panel>
+        ))}
+        {children
+          ? React.cloneElement(children, {
+              transitionDelay: panels.length * 150,
+            })
+          : null}
       </SidebarTabs>
     </Column>
   );
