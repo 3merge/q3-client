@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.15](https://github.com/3merge/q/compare/v1.18.14...v1.18.15) (2020-05-27)
+
+
+### Bug Fixes
+
+* value caster helpers ([b12888e](https://github.com/3merge/q/commit/b12888e8466ada6d90159c37988d1091b7e282d2))
+
+
+
+
+
 ## [1.18.14](https://github.com/3merge/q/compare/v1.18.13...v1.18.14) (2020-05-27)
 
 
