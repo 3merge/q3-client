@@ -20,7 +20,7 @@ const BlogTemplateSharePublication = ({ publishedOn }) => (
   <Grid container spacing={1}>
     {publishedOn && (
       <Grid item>
-        <TodayIcon /> {moment(publishedOn).format('LL')}
+        <TodayIcon /> {moment.utc(publishedOn).format('LL')}
       </Grid>
     )}
     <Grid item>

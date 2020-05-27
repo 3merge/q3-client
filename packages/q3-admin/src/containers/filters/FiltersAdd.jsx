@@ -32,7 +32,7 @@ const Groups = ({ onSave, active, items }) => {
         }}
       />
       <ListItemSecondaryAction>
-        <IconButton size="small" onClick={handleClick}>
+        <IconButton onClick={handleClick}>
           <AddIcon />
         </IconButton>
       </ListItemSecondaryAction>

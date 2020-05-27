@@ -63,6 +63,8 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
+    padding: 0,
+
     [theme.breakpoints.down('sm')]: {
       display: 'grid',
       gridTemplateColumns: '120px 1fr',

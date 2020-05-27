@@ -27,7 +27,7 @@ const useStyle = makeStyles((theme) => ({
 
 const toISO = (v) =>
   v !== undefined && v !== null
-    ? moment(v).format('YYYY-MM-DD')
+    ? moment.utc(v).format('YYYY-MM-DD')
     : '';
 
 export const handleDateChange = (fn, name) => (value) =>

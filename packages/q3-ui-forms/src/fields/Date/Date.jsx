@@ -10,6 +10,7 @@ const Date = (props) => {
 
   return (
     <DateBase
+      {...props}
       {...deco}
       name={name}
       onChange={handleDateChange(onChange, name)}

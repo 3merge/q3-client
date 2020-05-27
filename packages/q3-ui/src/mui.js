@@ -224,6 +224,7 @@ Object.assign(theme, {
         fontSize: '0.75rem !important',
         fontWeight: 600,
         textTransform: 'uppercase',
+        lineHeight: '1.5',
       },
       root: {
         overflow: 'hidden',

@@ -72,7 +72,7 @@ const Groups = ({ children, initialValues }) => {
                     <ListItemText primary={label} />
                     <ListItemSecondaryAction>
                       {main === label && (
-                        <IconButton disabled size="small">
+                        <IconButton disabled>
                           <StarIcon
                             style={{ color: 'orange' }}
                           />
@@ -114,10 +114,7 @@ const Groups = ({ children, initialValues }) => {
                             variant="selectedMenu"
                           >
                             {(o) => (
-                              <IconButton
-                                size="small"
-                                onClick={o}
-                              >
+                              <IconButton onClick={o}>
                                 <MoreVertIcon />
                               </IconButton>
                             )}
@@ -178,7 +175,6 @@ const Groups = ({ children, initialValues }) => {
                 >
                   Apply filters
                 </Button>
-
                 <Grid
                   container
                   justify="center"
