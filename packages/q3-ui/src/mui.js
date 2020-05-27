@@ -147,7 +147,11 @@ Object.assign(theme, {
         width: 300,
         minWidth: '300px !important',
       },
+      message: {
+        fontSize: '1rem',
+      },
     },
+
     MuiSwitch: {
       colorSecondary: {
         '&.Mui-disabled': {
@@ -191,7 +195,7 @@ Object.assign(theme, {
     MuiIconButton: {
       sizeSmall: {
         '& svg': {
-          fontSize: '1rem !important',
+          fontSize: '1.232rem !important',
         },
       },
     },
@@ -216,6 +220,7 @@ Object.assign(theme, {
     MuiTable: {
       borderColor: '#F5F7F9',
     },
+
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',
