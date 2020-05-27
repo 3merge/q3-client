@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
@@ -13,6 +14,7 @@ export const ListItem = ({
   description,
   icon: Icon,
   renderListItemProps,
+  href,
   color,
 }) => {
   const primary = formatArrayAsCommaDelineatedString(title);
@@ -24,6 +26,10 @@ export const ListItem = ({
     <ListItemMui
       id={id}
       disableGutters
+      onClick={() => {
+        if (href) navigate(href);
+      }}
+      button={Boolean(href)}
       component="li"
       dense
     >
@@ -35,7 +41,10 @@ export const ListItem = ({
         </ListItemAvatarMui>
       )}
       <ListItemTextMui
-        style={{ color }}
+        style={{
+          color,
+          textDecoration: href ? 'underline' : 'none',
+        }}
         primary={primary}
         secondary={secondary}
         {...(renderListItemProps

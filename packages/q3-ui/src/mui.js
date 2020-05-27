@@ -86,7 +86,7 @@ const theme = createMuiTheme({
     },
     subtitle1: {
       color: '#4f5868',
-      fontSize: '1.11rem',
+      fontSize: '1.368rem',
       fontWeight: 600,
     },
     fontFamily: '"Roboto", sans-serif',
@@ -173,7 +173,8 @@ Object.assign(theme, {
     },
     MuiListItemAvatar: {
       root: {
-        minWidth: 46,
+        minWidth: 38,
+        margin: '0 .55rem',
       },
     },
     MuiListItemIcon: {
@@ -187,7 +188,13 @@ Object.assign(theme, {
         marginTop: 4,
       },
     },
-
+    MuiIconButton: {
+      sizeSmall: {
+        '& svg': {
+          fontSize: '1rem !important',
+        },
+      },
+    },
     MuiButton: {
       root: {
         '&.Mui-selected': {
