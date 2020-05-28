@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.16](https://github.com/3merge/q/compare/v1.18.15...v1.18.16) (2020-05-28)
+
+
+### Bug Fixes
+
+* pass props from editable typogrpahy ([fc7e778](https://github.com/3merge/q/commit/fc7e7785dfd5f9b30567f76edad0ded12e18ee11))
+
+
+
+
+
 ## [1.18.15](https://github.com/3merge/q/compare/v1.18.14...v1.18.15) (2020-05-27)
 
 
