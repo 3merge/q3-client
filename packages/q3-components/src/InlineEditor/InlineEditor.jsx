@@ -31,6 +31,7 @@ const InlineEditor = ({
   buttonComponent,
   onSubmit,
   title,
+  ...rest
 }) => {
   const { t } = useTranslation();
 
@@ -50,6 +51,8 @@ const InlineEditor = ({
       }
       renderContent={(close) => (
         <Form
+          {...rest}
+          marshalSelectively
           enableSubmit={false}
           initialValues={initialValues}
           onSubmit={executeCallbackAfterPromise(
