@@ -67,7 +67,7 @@ const Inline = ({
           <Typography
             id="name"
             aria-label={title}
-            variant="subtitle1"
+            variant="subtitle2"
             color="primary"
           >
             {title}
