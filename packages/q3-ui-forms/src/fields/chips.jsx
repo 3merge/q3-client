@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, merge } from 'lodash';
+import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
-import TextField from '@material-ui/core/TextField';
 import { chosenTextFieldDisplayAttributes } from './TextBase/TextBase';
 import useOptions from '../helpers/useOptions';
 import { getLabelWithFallback } from './helpers';
 import useDecorator from '../helpers/useDecorator';
 import withGrid, { fieldProps } from './withGrid';
+import {
+  getCustomInput,
+  filterOptions,
+} from './autocomplete';
 
-const Chips = (props) => {
+const AbstractedAutoComplete = ({
+  items,
+  handleChange,
+  inputValue,
+  loading,
+  ...props
+}) => {
   const { t } = useTranslation('labels');
   const {
     label,
@@ -22,21 +31,18 @@ const Chips = (props) => {
     value,
   } = useDecorator(props);
 
-  const { loading, items = [] } = useOptions({
-    minimumCharacterCount: 0,
-    ...props,
-  });
-
   const getTags = (values = []) =>
     values
       .map((v) => {
+        if (!items.length) return get(v, 'label', v);
+
         const match = items.find((item) => {
           const compare =
             typeof v !== 'object' ? v : v.value;
 
           return typeof item === 'string'
-            ? item === compare
-            : item.value === compare;
+            ? String(item) === String(compare)
+            : String(item.value) === String(compare);
         });
 
         return get(match, 'label', match);
@@ -46,50 +52,67 @@ const Chips = (props) => {
   return (
     <Autocomplete
       {...props}
+      {...chosenTextFieldDisplayAttributes}
       multiple
-      loading={loading}
-      filterSelectedOptions
       name={name}
       options={items}
-      value={[value].flat()}
+      defaultValue={[value].flat()}
+      inputValue={inputValue}
+      loading={loading}
+      filterOptions={filterOptions(props)}
       getOptionLabel={getLabelWithFallback(value)}
-      onChange={(e, newValue) => {
-        return onChange({
+      renderInput={getCustomInput({
+        label,
+        helperText,
+        error: Boolean(error),
+        variant: 'outlined',
+        fullWidth: true,
+      })}
+      renderTags={(values, getTagProps) =>
+        getTags(values).map((option, index) => (
+          <Chip
+            label={t(option)}
+            disabled={index === 0}
+            size="small"
+            {...getTagProps({ index })}
+          />
+        ))
+      }
+      onInputChange={(event, newInputValue) => {
+        handleChange(newInputValue);
+      }}
+      onChange={(event, newValue) =>
+        onChange({
           target: {
             value: newValue
               .map((o) => get(o, 'value', o))
               .filter(Boolean),
             name,
           },
-        });
-      }}
-      renderTags={(values, getTagProps) =>
-        getTags(values).map((option, index) => (
-          <Chip
-            size="small"
-            label={t(option)}
-            {...getTagProps({ index })}
-          />
-        ))
+        })
       }
-      renderInput={(params) => (
-        <TextField
-          {...merge(
-            params,
-            chosenTextFieldDisplayAttributes,
-            {
-              inputProps: {
-                autoComplete: new Date().toISOString(),
-              },
-            },
-          )}
-          label={label}
-          helperText={helperText}
-          error={error}
-          value={value}
-          name={new Date().toISOString()}
-        />
-      )}
+    />
+  );
+};
+
+const Chips = (props) => {
+  const {
+    loading,
+    items = [],
+    value,
+    setValue,
+  } = useOptions({
+    minimumCharacterCount: 1,
+    ...props,
+  });
+
+  return (
+    <AbstractedAutoComplete
+      {...props}
+      items={items}
+      handleChange={setValue}
+      loading={loading}
+      inputValue={value}
     />
   );
 };

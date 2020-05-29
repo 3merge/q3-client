@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { get, isNull, isPlainObject } from 'lodash';
 import flat from 'flat';
 import save from 'file-saver';
-import alpha from 'alphabetize-object-keys';
 import { renameKeys } from './helpers';
 import saveAsExcel from './useXls';
 
@@ -35,17 +34,17 @@ const canBeStringified = (v) =>
   isPlainObject(v) && !isNull(v);
 
 const castToString = (v) =>
-  escape(
+  String(
     canBeStringified(v) ? JSON.stringify(v) : delimite(v),
-  ).replace(/%20/gi, ' ');
+  )
+    .replace(/%20/gi, ' ')
+    .replace(/,/gi, ';');
 
 export const toTable = (items = [], t) => {
   const keys = getAllPossibleKeys(items);
 
   return items.reduce((acc, row, i) => {
-    const formatted = alpha(
-      renameKeys(fillKeys(keys, row), t),
-    );
+    const formatted = renameKeys(fillKeys(keys, row), t);
 
     if (i === 0)
       acc.push(

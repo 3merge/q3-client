@@ -13,12 +13,33 @@ import withGrid from './withGrid';
 import useDecorator from '../helpers/useDecorator';
 import { chosenTextFieldDisplayAttributes } from './TextBase/TextBase';
 
+export const getCustomInput = (customProps) => (params) =>
+  React.createElement(TextField, {
+    ...params,
+    ...customProps,
+    variant: 'outlined',
+    fullWidth: true,
+    inputProps: {
+      autoComplete: new Date().toISOString(),
+      ...params.inputProps,
+    },
+  });
+
+export const getValue = (value) =>
+  isObject(value) ? value.value : value;
+
+export const filterOptions = ({ disableFilter }) =>
+  disableFilter
+    ? (options) => {
+        return options;
+      }
+    : undefined;
+
 export const AutoCompleteWrapper = (props) => {
   const { t } = useTranslation('labels');
   const {
     label,
     helperText,
-    disableFilter,
     onChange: handleChange,
     error,
     field,
@@ -26,27 +47,10 @@ export const AutoCompleteWrapper = (props) => {
     value,
   } = useDecorator(props);
 
-  const { loading, onChange, items = [] } = useOptions(
-    props,
-  );
-
-  const getCustomInput = (params) =>
-    React.createElement(TextField, {
-      ...params,
-      label,
-      helperText,
-      onChange,
-      error: Boolean(error),
-      variant: 'outlined',
-      fullWidth: true,
-      inputProps: {
-        autoComplete: new Date().toISOString(),
-        ...params.inputProps,
-      },
-    });
-
-  const getValue = () =>
-    isObject(value) ? value.value : value;
+  const { loading, onChange, items = [] } = useOptions({
+    minimumCharacterCount: 1,
+    ...props,
+  });
 
   return (
     <Autocomplete
@@ -56,18 +60,17 @@ export const AutoCompleteWrapper = (props) => {
       label={t(name)}
       options={items}
       loading={loading}
-      defaultValue={getValue()}
-      value={getValue()}
-      renderInput={getCustomInput}
+      defaultValue={getValue(value)}
+      value={getValue(value)}
       getOptionLabel={getLabelWithFallback(value)}
       onChange={simulateEventHandler(handleChange, name)}
-      filterOptions={
-        disableFilter
-          ? (options) => {
-              return options;
-            }
-          : undefined
-      }
+      filterOptions={filterOptions(props)}
+      renderInput={getCustomInput({
+        error: Boolean(error),
+        label,
+        helperText,
+        onChange,
+      })}
     />
   );
 };

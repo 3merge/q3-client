@@ -14,8 +14,10 @@ export default ({
   options = [],
   minimumCharacterCount,
 }) => {
-  const { value, onChange } = useValue(initialValue);
   const { values } = useFormikContext();
+  const { value, onChange, setValue } = useValue(
+    initialValue,
+  );
 
   const {
     loading,
@@ -53,6 +55,7 @@ export default ({
     loading,
     value,
     onChange,
+    setValue,
     items,
   };
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import Form from '../builders/form';
 import Field from '../builders/field';
 import Chips from './chips';
+import { autocomplete } from './__fixtures__/options';
 
 export default {
   title: 'Q3 Forms|Fields/Chips Field',
@@ -40,6 +41,19 @@ export const AsLabelValuePair = () => (
       loadOptions={() =>
         Promise.resolve([{ value: 1, label: 'One' }])
       }
+    />
+  </Form>
+);
+
+export const AsAutocomplete = () => (
+  <Form debug initialValues={{ demo: [] }}>
+    <Field
+      type="chips"
+      name="demo"
+      loadOptions={autocomplete}
+      // filterSelectedOptions={false}
+      // minimumCharacterCount={1}
+      // disableFilter
     />
   </Form>
 );

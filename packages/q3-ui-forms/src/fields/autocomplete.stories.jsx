@@ -1,26 +1,11 @@
 import React from 'react';
-import debounce from 'debounce-promise';
 import Form from '../builders/form';
 import Field from '../builders/field';
 import Autocomplete from './autocomplete';
-
-const opts = [
-  {
-    value: 'CA',
-    label: 'Canada',
-    continent: 'North America',
-  },
-  {
-    value: 'GB',
-    label: 'England',
-    continent: 'UK',
-  },
-  {
-    value: 'US',
-    label: 'United States',
-    continent: 'North America',
-  },
-];
+import {
+  autocomplete,
+  countries,
+} from './__fixtures__/options';
 
 export default {
   title: 'Q3 Forms|Fields/Autocomplete',
@@ -42,7 +27,7 @@ export const WithOptions = () => (
       required
       name="countries"
       type="autocomplete"
-      options={opts}
+      options={countries}
     />
   </Form>
 );
@@ -59,7 +44,7 @@ export const WithCustomLabel = () => (
       name="countries"
       type="autocomplete"
       filterSelectedOptions={false}
-      options={opts}
+      loadOptions={autocomplete}
       disableFilter
       renderOption={(v) => (
         <>
@@ -68,23 +53,6 @@ export const WithCustomLabel = () => (
           {v.continent}
         </>
       )}
-      loadOptions={debounce((e) => {
-        return new Promise((resolve) =>
-          setTimeout(() => {
-            console.log(e);
-            resolve(
-              opts.filter((item) => {
-                return e.split(' ').some((v) => {
-                  return (
-                    item.label.includes(v) ||
-                    item.continent.includes(v)
-                  );
-                });
-              }),
-            );
-          }, 200),
-        );
-      }, 500)}
     />
   </Form>
 );
