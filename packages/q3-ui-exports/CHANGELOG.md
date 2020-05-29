@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.17](https://github.com/3merge/q/compare/v1.18.16...v1.18.17) (2020-05-29)
+
+
+### Bug Fixes
+
+* chips autocomplete ([85f10e7](https://github.com/3merge/q/commit/85f10e7fbe49fcd5adabd37cfc9ceede9e0948ee))
+
+
+
+
+
 ## [1.18.12](https://github.com/3merge/q/compare/v1.18.11...v1.18.12) (2020-05-27)
 
 **Note:** Version bump only for package q3-ui-exports
