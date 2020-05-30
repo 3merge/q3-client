@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import { Panel } from 'q3-components';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import AddNote from './add';
@@ -43,12 +43,17 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <Box>
+    <Panel title="thread">
       <DisplayNotes
         loading={fetching}
         error={fetchingError}
         errorLabel={t('notesError')}
       >
+        <AddNote
+          show={auth.canCreateSub(key)}
+          onSubmit={post}
+        />
+
         {thread.map((v) => (
           <Note
             key={v.id}
@@ -57,12 +62,8 @@ const Notes = () => {
             {...v}
           />
         ))}
-        <AddNote
-          show={auth.canCreateSub(key)}
-          onSubmit={post}
-        />
       </DisplayNotes>
-    </Box>
+    </Panel>
   );
 };
 

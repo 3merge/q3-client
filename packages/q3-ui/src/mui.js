@@ -322,9 +322,8 @@ Object.assign(theme, {
     },
     MuiListItemText: {
       root: {
-        // maxWidth: '55% !important',
-        [theme.breakpoints.down('md')]: {
-          // maxWidth: '100% !important',
+        '& p, & span': {
+          marginBottom: '0 !important',
         },
       },
       primary: {

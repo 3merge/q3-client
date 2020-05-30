@@ -12,7 +12,6 @@ const isStep = (step, activeStep, content) =>
 const SidebarTabs = ({
   children,
   commentTab,
-  historyTab,
   documentationTab,
   filesTab,
 }) => {
@@ -21,10 +20,7 @@ const SidebarTabs = ({
   const { root, item } = useStyles();
 
   const hasNoOptions =
-    !commentTab &&
-    !historyTab &&
-    !documentationTab &&
-    !filesTab;
+    !commentTab && !documentationTab && !filesTab;
 
   return (
     <Box className={root} component="aside" elevation={0}>

@@ -1,41 +1,26 @@
 import React from 'react';
 import Upload from 'q3-ui/lib/upload';
 import useRest from 'q3-ui-rest';
-import List, { ActionBar, ListItem } from 'q3-ui/lib/list';
-import IconButton from '@material-ui/core/IconButton';
+import List from 'q3-ui/lib/list';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
-import Image from '@material-ui/icons/Image';
-import Description from '@material-ui/icons/Description';
-import CloudDownload from '@material-ui/icons/CloudDownload';
+import Box from '@material-ui/core/Box';
+import { Panel } from 'q3-components';
 import { Definitions } from '../state';
-
-const getFileIcon = (t) => {
-  switch (t) {
-    case 'PNG':
-    case 'JPG':
-    case 'JPEG':
-    case 'SVG':
-      return Image;
-    case 'PDF':
-      return PictureAsPdf;
-    default:
-      return Description;
-  }
-};
-
-const fileType = (file) =>
-  file.name
-    .toUpperCase()
-    .split('.')
-    .pop();
+import FileName from './FileName';
+import FileManage from './FileManage';
 
 const Files = () => {
   const { collectionName, id } = React.useContext(
     Definitions,
   );
 
-  const { uploads = [], post, fetching } = useRest({
+  const {
+    uploads = [],
+    post,
+    patch,
+    remove,
+    fetching,
+  } = useRest({
     runOnInit: true,
     url: `/${collectionName}/${id}/uploads`,
     key: 'uploads',
@@ -45,12 +30,50 @@ const Files = () => {
   });
 
   return (
-    <>
+    <Panel title="fileManager">
       <Upload fn={post} />
       {fetching && <CircularProgress />}
       {uploads.length ? (
         <List>
           {uploads.map((file) => (
+            <Box
+              key={file.url}
+              component="li"
+              mb={0.15}
+              p={0.25}
+              style={{ backgroundColor: '#FFF' }}
+            >
+              <FileName
+                file={file}
+                update={patch(file.id)}
+                {...file}
+              >
+                <FileManage
+                  view={file.url}
+                  remove={remove(file.id)}
+                />
+              </FileName>
+            </Box>
+          ))}
+          <Box mt={1}>
+            <em>
+              <small>
+                Rename any file above by clicking on its
+                text and editing the value
+              </small>
+            </em>
+          </Box>
+        </List>
+      ) : null}
+    </Panel>
+  );
+};
+
+export default Files;
+
+/**
+
+{/*
             <ListItem
               title={file.name}
               description={fileType(file)}
@@ -67,12 +90,5 @@ const Files = () => {
                   <CloudDownload />
                 </IconButton>
               </ActionBar>
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
-    </>
-  );
-};
-
-export default Files;
+            </ListItem> 
+ */
