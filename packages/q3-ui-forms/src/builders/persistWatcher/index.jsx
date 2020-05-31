@@ -51,6 +51,7 @@ export const PersistWatcher = ({ filterById }) => {
       <Notify
         show={hasUnsavedChanges}
         title={t('unsavedChangesOn')}
+        label={t('unsavedChanges')}
       />
     ));
 };

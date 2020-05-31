@@ -3,6 +3,7 @@ import { Location, Link, Router } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
+import { get } from 'lodash';
 import Tab from '@material-ui/core/Tab';
 import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
@@ -67,7 +68,7 @@ const TabsWithRouter = ({
         defaultIndex={0}
       >
         {(value) => (
-          <Wrapper>
+          <Wrapper name={get(views, `${value}.label`, '')}>
             <Tabs
               value={value}
               variant="scrollable"

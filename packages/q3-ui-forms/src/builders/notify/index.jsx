@@ -2,14 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
-import Collapse from '@material-ui/core/Collapse';
+import Slide from '@material-ui/core/Slide';
 
-const Notify = ({ show, title }) => (
-  <Collapse in={Boolean(show)}>
-    <Box mb={1}>
-      <Alert severity="warning">{title}</Alert>
-    </Box>
-  </Collapse>
+const Notify = ({ show, title, label }) => (
+  <Box position="sticky" top={0} zIndex="10">
+    <Slide in={Boolean(show)}>
+      <div>
+        <Alert severity="warning">
+          {label && <strong>{label}: </strong>}
+          {title}
+        </Alert>
+      </div>
+    </Slide>
+  </Box>
 );
 
 Notify.propTypes = {

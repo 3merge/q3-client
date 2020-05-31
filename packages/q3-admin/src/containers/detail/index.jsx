@@ -1,11 +1,12 @@
 import React from 'react';
+import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
 import PropTypes from 'prop-types';
 import Tabs from 'q3-ui/lib/tabs';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import { Panel } from 'q3-components';
-import { Dispatcher } from '../state';
+import { Dispatcher, Definitions } from '../state';
 import Sidebar from '../../components/sidebar';
 import Section from '../../components/section';
 import Notes from '../notes';
@@ -62,12 +63,21 @@ const Overflow = ({ children }) => {
   );
 };
 
-const HeaderMaxWidth = (props) => ({ children }) => {
+const PersistWatcherOnDetail = ({ name }) => {
+  const { id } = React.useContext(Definitions);
+  return <PersistWatcher filterById={`${name}-${id}`} />;
+};
+
+const HeaderMaxWidth = (props) => ({ children, name }) => {
   const { tabs } = useStyle();
+
   return (
-    <Header {...props}>
-      <Box className={tabs}>{children}</Box>
-    </Header>
+    <>
+      <PersistWatcherOnDetail name={name} />
+      <Header {...props}>
+        <Box className={tabs}>{children}</Box>
+      </Header>
+    </>
   );
 };
 
