@@ -121,9 +121,7 @@ export const AccountMenu = ({
         name ? (
           <Button color="inherit" onClick={toggle}>
             {name}
-            <KeyboardArrowDown
-              style={{ marginRight: 16 }}
-            />
+            <KeyboardArrowDown style={{ marginRight: 8 }} />
             <Avatar alt={name} src={profileImgSrc} />
           </Button>
         ) : (
