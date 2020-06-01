@@ -55,6 +55,9 @@ const Investors = (props) => (
   <Collection {...props}>
     <Page index {...props}>
       <Table
+        HeaderProps={{
+          subtitle: 'Testing',
+        }}
         addComponent={
           <Add>
             <Form

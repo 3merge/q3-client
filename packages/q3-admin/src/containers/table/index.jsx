@@ -52,6 +52,7 @@ const List = ({
   renderTop,
   filters,
   addComponent,
+  HeaderProps,
   ...rest
 }) => {
   const { view } = useStyle();
@@ -120,7 +121,7 @@ const List = ({
             id={collectionName}
             onSort={updateSortPrefence}
           >
-            <Header>
+            <Header {...HeaderProps}>
               <Search {...rest} />
               {addComponent}
             </Header>
