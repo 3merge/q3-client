@@ -1,31 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { get, isNull, isPlainObject } from 'lodash';
-import flat from 'flat';
+import { isNull, isPlainObject } from 'lodash';
 import save from 'file-saver';
+import { object } from 'q3-ui-helpers';
 import { renameKeys } from './helpers';
 import saveAsExcel from './useXls';
 
 const DELIMETER_CHAR = ',';
-
-const getAllPossibleKeys = (a) =>
-  Object.keys(
-    a.reduce(
-      (res, item) => ({
-        ...res,
-        ...flat(item),
-      }),
-      {},
-    ),
-  );
-
-const fillKeys = (keys, target) =>
-  keys.reduce(
-    (result, key) =>
-      Object.assign(result, {
-        [key]: get(target, key, ''),
-      }),
-    {},
-  );
 
 const delimite = (v) =>
   Array.isArray(v) ? v.join(DELIMETER_CHAR) : v;
@@ -41,10 +21,13 @@ const castToString = (v) =>
     .replace(/,/gi, ';');
 
 export const toTable = (items = [], t) => {
-  const keys = getAllPossibleKeys(items);
+  const keys = object.getAllPossibleKeys(items);
 
   return items.reduce((acc, row, i) => {
-    const formatted = renameKeys(fillKeys(keys, row), t);
+    const formatted = renameKeys(
+      object.fillKeys(keys, row),
+      t,
+    );
 
     if (i === 0)
       acc.push(

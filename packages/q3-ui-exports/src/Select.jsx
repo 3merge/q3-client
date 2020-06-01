@@ -2,7 +2,6 @@ import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
 import Checkbox from '@material-ui/core/Checkbox';
 import { State } from './Context';
 

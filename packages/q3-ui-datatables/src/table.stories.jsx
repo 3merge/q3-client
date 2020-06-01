@@ -33,6 +33,7 @@ export const HeavyData = () => (
         total={orders.total}
         data={orders.orders}
         defaultColumns={[
+          'unknown',
           'seq',
           'status',
           'createdAt',

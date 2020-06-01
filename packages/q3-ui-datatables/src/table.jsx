@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
 import TableHead from '@material-ui/core/TableHead';
+import { object } from 'q3-ui-helpers';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
@@ -18,6 +19,14 @@ import RowHeader from './RowHeader';
 import Pagination from './Pagination';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
+
+const filterByPossibleKeys = (payload) => {
+  const potentialColumns = object.getAllPossibleKeys(
+    payload,
+  );
+  return (a = []) =>
+    a.filter((v) => potentialColumns.includes(v));
+};
 
 const TableView = ({
   id,
@@ -33,10 +42,11 @@ const TableView = ({
   className,
   children,
 }) => {
+  const reducer = filterByPossibleKeys(data);
   const { activeColumns, columns, setColumns } = useColumns(
     id,
-    defaultColumns,
-    allColumns,
+    reducer(defaultColumns),
+    reducer(allColumns),
   );
 
   const {
