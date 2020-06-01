@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.18.20",
+  "version": "1.18.22",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.16.8"
@@ -14,7 +14,7 @@
     "lodash": "^4.17.15",
     "q3-components": "^1.18.20",
     "q3-ui-dialog": "^1.18.12",
-    "q3-ui-exports": "^1.18.17",
+    "q3-ui-exports": "^1.18.22",
     "q3-ui-forms": "^1.18.19",
     "react-i18next": "11.5.0",
     "useful-state": "^1.2.0"
