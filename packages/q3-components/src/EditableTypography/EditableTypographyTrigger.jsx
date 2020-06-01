@@ -32,6 +32,7 @@ const EditableTypographyTrigger = ({
   type,
   open,
   isOpen,
+  innerStyle,
   ...rest
 }) => {
   const { t } = useTranslation('labels');
@@ -55,7 +56,9 @@ const EditableTypographyTrigger = ({
       )}
       aria-haspopup
     >
-      {formatText(children, type, t) || '--'}
+      <span style={innerStyle}>
+        {formatText(children, type, t) || '--'}
+      </span>
       {isEditable ? <Edit className={fieldIcon} /> : null}
     </Typography>
   );

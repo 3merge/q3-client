@@ -9,7 +9,7 @@ import { Definitions } from '../state';
 import FileName from './FileName';
 import FileManage from './FileManage';
 
-const Files = () => {
+const Files = ({ tagOptions, tagInstructions }) => {
   const { collectionName, id } = React.useContext(
     Definitions,
   );
@@ -40,11 +40,12 @@ const Files = () => {
               key={file.url}
               component="li"
               mb={0.15}
-              p={0.25}
+              p={1}
               style={{ backgroundColor: '#FFF' }}
             >
               <FileName
                 file={file}
+                tagOptions={tagOptions}
                 update={patch(file.id)}
                 {...file}
               >
@@ -55,16 +56,9 @@ const Files = () => {
               </FileName>
             </Box>
           ))}
-          <Box mt={1}>
-            <em>
-              <small>
-                Rename any file above by clicking on its
-                text and editing the value
-              </small>
-            </em>
-          </Box>
         </List>
       ) : null}
+      {tagInstructions}
     </Panel>
   );
 };

@@ -89,6 +89,8 @@ const Detail = ({
   notes,
   picture,
   files,
+  tagOptions,
+  tagInstructions,
   links,
   disableTrash,
   disableLog,
@@ -106,7 +108,14 @@ const Detail = ({
           {...rest}
           commentTab={notes && <Notes />}
           historyTab={history && <History />}
-          filesTab={files && <Upload />}
+          filesTab={
+            files && (
+              <Upload
+                tagOptions={tagOptions}
+                tagInstructions={tagInstructions}
+              />
+            )
+          }
         >
           {picture && (
             <Panel title="Picture">
