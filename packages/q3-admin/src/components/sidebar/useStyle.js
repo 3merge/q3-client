@@ -26,6 +26,12 @@ export default makeStyles((theme) => ({
     },
   },
 
+  docs: {
+    '& p, & li': {
+      fontSize: '0.933rem !important',
+    },
+  },
+
   articleWrapper: {
     [theme.breakpoints.down('md')]: {
       display: 'block',

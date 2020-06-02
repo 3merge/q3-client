@@ -54,7 +54,7 @@ export const Search = ({
   );
 
   return (
-    <Box className={root}>
+    <Box id="q3-searchbar" className={root}>
       <SearchBar
         getResults={handleResults}
         redirectPath={directoryPath}

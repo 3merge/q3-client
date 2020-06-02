@@ -37,7 +37,7 @@ const Groups = ({ children, initialValues }) => {
   return (
     <Box>
       <Panel title="Segments">
-        <Box>
+        <Box id="q3-segments">
           <List style={{ margin: 0, padding: 0 }}>
             {[
               {
@@ -157,40 +157,42 @@ const Groups = ({ children, initialValues }) => {
         </Box>
       </Panel>
       <Panel title="Filters">
-        <FiltersForm
-          initialValues={initialValues}
-          search={location.search}
-        >
-          {(...params) => (
-            <>
-              {children(...params)}
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="small"
-                  color="secondary"
-                  style={{ marginBottom: '0.5rem' }}
-                  fullWidth
-                >
-                  Apply filters
-                </Button>
-                <Grid
-                  container
-                  justify="center"
-                  spacing={1}
-                >
-                  <Grid item lg={4} xs={6}>
-                    <FiltersShare />
-                  </Grid>
-                  <Grid item lg={4} xs={6}>
-                    <FiltersClear />
+        <Box id="q3-filters">
+          <FiltersForm
+            initialValues={initialValues}
+            search={location.search}
+          >
+            {(...params) => (
+              <>
+                {children(...params)}
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="small"
+                    color="secondary"
+                    style={{ marginBottom: '0.5rem' }}
+                    fullWidth
+                  >
+                    Apply filters
+                  </Button>
+                  <Grid
+                    container
+                    justify="center"
+                    spacing={1}
+                  >
+                    <Grid item lg={4} xs={6}>
+                      <FiltersShare />
+                    </Grid>
+                    <Grid item lg={4} xs={6}>
+                      <FiltersClear />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </>
-          )}
-        </FiltersForm>
+              </>
+            )}
+          </FiltersForm>
+        </Box>
       </Panel>
     </Box>
   );

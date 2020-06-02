@@ -15,6 +15,7 @@ export const ColumnSelectAll = ({
   ...rest
 }) => (
   <CellWithCheckbox
+    id="q3-datatable-select"
     component="th"
     style={{
       zIndex: 3,

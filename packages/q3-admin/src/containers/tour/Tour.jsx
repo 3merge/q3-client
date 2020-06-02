@@ -9,21 +9,17 @@ const AdminTour = ({ steps, children }) => {
   const { state, update } = React.useContext(AuthContext);
   const tours = get(state, 'profile.tours', []);
 
+  const reloadSession = () => {
+    if (browser.isBrowserReady()) window.location.reload();
+  };
+
   const markAsSeen = (latestTours) =>
     update({
       tours: [...tours, ...latestTours],
-    });
+    }).then(reloadSession);
 
   const restartTours = () =>
-    update(
-      {
-        tours: [],
-      },
-      () => {
-        if (browser.isBrowserReady())
-          window.location.reload();
-      },
-    );
+    update({ tours: [] }, reloadSession);
 
   return (
     <>

@@ -126,7 +126,12 @@ const List = ({
               {addComponent}
             </Header>
             <Box px={2} py={1} mt={-1}>
-              <FilterChip />
+              <Box
+                display="inline-block"
+                id="q3-filter-chips"
+              >
+                <FilterChip />
+              </Box>
             </Box>
           </Table>
         }

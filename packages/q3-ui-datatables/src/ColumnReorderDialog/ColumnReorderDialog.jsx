@@ -15,7 +15,7 @@ const ColumnReorderDialog = ({
     title="tableConfigurator"
     variant="drawer"
     renderTrigger={(onClick) => (
-      <Box width={35}>
+      <Box width={35} id="q3-datatable-reorder">
         <IconButton
           label="configure"
           icon={TuneIcon}

@@ -91,6 +91,7 @@ const Detail = ({
   files,
   tagOptions,
   tagInstructions,
+  documentation,
   links,
   disableTrash,
   disableLog,
@@ -106,6 +107,7 @@ const Detail = ({
       renderOutside={
         <Sidebar
           {...rest}
+          documentation={documentation}
           commentTab={notes && <Notes />}
           historyTab={history && <History />}
           filesTab={

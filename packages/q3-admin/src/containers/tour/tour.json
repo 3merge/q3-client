@@ -1,58 +1,78 @@
 [
   {
     "target": "#q3",
-    "content": "welcome"
+    "content": "howToQ3"
   },
   {
     "target": "#q3-profile",
-    "content": "profileDropdown"
+    "content": "howToProfile"
   },
   {
     "target": "#flyout-menu",
-    "content": "offcanvasMenu"
+    "content": "howToMenu"
+  },
+  {
+    "target": "#q3-segments",
+    "content": "howToUseSegments"
+  },
+  {
+    "target": "#q3-filters",
+    "content": "howToUseFilters"
   },
   {
     "target": "#app-add-dialog",
-    "content": "addDocument"
+    "content": "howToAdd"
   },
   {
-    "target": "#app-searchbar",
-    "content": "searchbar"
+    "target": "#q3-searchbar",
+    "content": "howToSearch"
   },
   {
-    "target": "#column-configurator",
-    "content": "configureColumns"
+    "target": "#q3-filter-chips",
+    "content": "howToFilterGroups"
   },
   {
-    "target": "#filter-configurator",
-    "content": "configureFilters"
+    "target": "#q3-datatable-select",
+    "content": "howToSelect"
   },
   {
-    "target": ".q3-dnd-table-header",
-    "content": "dragAndSort"
-  },
-  {
-    "target": ".q3-table-boxes",
-    "content": "multiselectRows"
-  },
-  {
-    "target": "#q3-sidebar",
-    "content": "sidebar"
+    "target": "#q3-datatable-reorder",
+    "content": "howToReorder"
   },
   {
     "target": ".q3-repeater-editor-button",
-    "content": "editSubDocument"
+    "content": "howToEdit"
   },
   {
     "target": ".q3-repeater-delete-button",
-    "content": "deleteSubDocument"
+    "content": "howToDelete"
   },
   {
     "target": "#q3-repeater-add-button",
-    "content": "addSubDocument"
+    "content": "howToInsert"
   },
   {
     "target": "#q3-repeater-select",
-    "content": "multiSelectSubDocument"
+    "content": "howToMultiselect"
+  },
+  {
+    "target": "#q3-meta",
+    "content": "howToUseMeta"
+  },
+  {
+    "target": "#q3-thread",
+    "content": "howToUseThread"
+  },
+  {
+    "target": "#q3-files",
+    "content": "howToUseFiles"
+  },
+  {
+    "target": "#q3-docs",
+    "content": "howToUseDocs"
+  },
+  {
+    "target": "#q3-related-links",
+    "content": "howToUseRelatedLinks"
   }
 ]

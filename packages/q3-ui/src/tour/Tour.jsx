@@ -71,9 +71,12 @@ const Tour = ({ steps, onDone, previouslySeen }) => {
         type,
       )
     ) {
+      const a = activeSteps;
+      a.splice(index + 1);
+
       completed = [
         ...completedSteps,
-        get(activeSteps[index], 'target'),
+        ...a.map((v) => v.target),
       ];
 
       setStepIndex(

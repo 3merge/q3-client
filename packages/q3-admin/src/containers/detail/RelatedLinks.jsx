@@ -14,7 +14,11 @@ const RelatedLinks = ({ children, links }) => {
       <Grid item className={cls.fill}>
         {children}
       </Grid>
-      <Grid item className={cls.column}>
+      <Grid
+        id="q3-related-links"
+        item
+        className={cls.column}
+      >
         <RelatedLinksResolver fn={links} />
       </Grid>
     </Grid>
