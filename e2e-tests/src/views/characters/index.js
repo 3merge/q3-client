@@ -29,6 +29,7 @@ const DetailProps = {
   files: true,
   notes: true,
   history: true,
+  documentation: <p>HEY!</p>,
   links: () => [
     {
       to: '/',
