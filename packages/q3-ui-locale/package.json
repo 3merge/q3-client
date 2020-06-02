@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-locale",
-  "version": "1.18.19",
+  "version": "1.18.23",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",

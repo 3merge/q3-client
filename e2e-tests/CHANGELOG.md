@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.23](https://github.com/3merge/q/compare/v1.18.22...v1.18.23) (2020-06-02)
+
+**Note:** Version bump only for package e2e-tests
+
+
+
+
+
 ## [1.18.18](https://github.com/3merge/q/compare/v1.18.17...v1.18.18) (2020-05-30)
 
 **Note:** Version bump only for package e2e-tests

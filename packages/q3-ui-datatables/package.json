@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-datatables",
-  "version": "1.18.22",
+  "version": "1.18.23",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.16.8"
