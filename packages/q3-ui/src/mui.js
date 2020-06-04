@@ -61,6 +61,7 @@ const theme = createMuiTheme({
     h5: {
       ...headingFont,
       fontSize: '1.518rem',
+      fontWeight: 'bold',
     },
     h6: {
       ...headingFont,

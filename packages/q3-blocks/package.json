@@ -1,0 +1,23 @@
+{
+  "name": "q3-components",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.4.2",
+    "q3-ui-test-utils": "^1.16.8"
+  },
+  "dependencies": {
+    "class-names": "^1.0.0",
+    "lodash": "^4.17.15",
+    "react-i18next": "11.5.0"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.31",
+    "@reach/router": "^1.2.1",
+    "formik": "^2.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2"
+  }
+}

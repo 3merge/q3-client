@@ -67,6 +67,7 @@ module.exports = {
     '../packages/q3-ui-forms/**/presets/northAmericaRegionalSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/provinceSelect/*.stories.jsx',
     '../packages/q3-ui-forms/**/presets/**.stories.jsx',
+    '../packages/q3-blocks/**.stories.jsx',
     '../packages/q3-components/**.stories.jsx',
     '../packages/q3-ui-permissions/**.stories.jsx',
     '../packages/q3-ui-repeater/**.stories.jsx',
