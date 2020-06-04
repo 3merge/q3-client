@@ -1,5 +1,5 @@
 {
-  "name": "q3-components",
+  "name": "q3-blocks",
   "version": "1.0.0",
   "main": "lib/index.js",
   "devDependencies": {

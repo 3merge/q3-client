@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import ContentVideoModal from '../ContentVideoModal';
 import useStyle from './useStyle';
 
 const ContentHalvesColumn = ({ children }) => (
@@ -26,7 +25,6 @@ const ContentHalves = ({
   label,
   flip,
   action,
-  videoUrl,
 }) => {
   const cls = useStyle({ flip });
 
@@ -34,11 +32,7 @@ const ContentHalves = ({
     <Container maxWidth="lg" component="section">
       <Grid container spacing={3} className={cls.root}>
         <ContentHalvesColumn>
-          {videoUrl ? (
-            <ContentVideoModal url={videoUrl} />
-          ) : (
-            <Image {...imageProps} className={cls.image} />
-          )}
+          <Image {...imageProps} className={cls.image} />
         </ContentHalvesColumn>
         <ContentHalvesColumn>
           {label && (

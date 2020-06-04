@@ -24,7 +24,11 @@ export const pair = (a = []) =>
     return curr;
   }, []);
 
-const ContentImageGallery = ({ images }) => {
+const ContentImageGallery = ({
+  title,
+  subtitle,
+  images,
+}) => {
   const cls = useStyle();
 
   if (!array.hasLength(images)) return null;
@@ -70,11 +74,10 @@ const ContentImageGallery = ({ images }) => {
         <Grid item md={3} xs={12}>
           <Box textAlign="center">
             <Typography variant="overline" component="span">
-              hy
+              {title}
             </Typography>
             <Typography variant="subtitle2" component="h3">
-              This is the title for this section that we
-              only allow so many characters for...
+              {subtitle}
             </Typography>
           </Box>
         </Grid>
