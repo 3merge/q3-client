@@ -7,8 +7,10 @@ import Box from '@material-ui/core/Box';
 const HeaderTagline = ({ children, tagline, title }) => (
   <Container maxWidth="md" align="center" variant="section">
     <Box my={2}>
-      <Typography variant="h1">{title}</Typography>
-      <Typography variant="subtitle1" component="p">
+      <Typography variant="h1" gutterBottom>
+        {title}
+      </Typography>
+      <Typography variant="subtitle2" component="p">
         {tagline}
       </Typography>
       {children}

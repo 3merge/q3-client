@@ -7,9 +7,10 @@ export default makeStyles((theme) => ({
   description: { '& p, & li': { fontSize: '0.933rem' } },
   divider: {
     backgroundColor: theme.palette.secondary.main,
-    height: 2,
+    borderRadius: 5,
+    height: 5,
     margin: '.5rem 0 1rem',
-    maxWidth: 95,
+    maxWidth: 55,
   },
   image: {
     height: '100%',

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import GatsbyImage from 'gatsby-image';
 import { url } from 'q3-ui-helpers';
 import Fab from '@material-ui/core/Fab';
@@ -32,11 +33,18 @@ const HeaderTaglineWithFeaturedVideo = ({
           }
         >
           {(toggle) => (
-            <Box position="relative">
+            <Paper
+              elevation={5}
+              style={{ position: 'relative' }}
+            >
               <GatsbyImage
                 alt={youtubeTitle}
                 fluid={{ src: thumbnail }}
-                style={{ height: 500, width: '100%' }}
+                style={{
+                  borderRadius: 5,
+                  height: 350,
+                  width: '100%',
+                }}
               />
               <Box
                 position="absolute"
@@ -54,7 +62,7 @@ const HeaderTaglineWithFeaturedVideo = ({
                   <PlayArrowIcon />
                 </Fab>
               </Box>
-            </Box>
+            </Paper>
           )}
         </ContentMediaModal>
       </Box>
