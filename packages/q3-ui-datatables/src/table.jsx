@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
 import TableHead from '@material-ui/core/TableHead';
 import { object } from 'q3-ui-helpers';
+import classNames from 'classnames';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
@@ -41,6 +42,7 @@ const TableView = ({
   virtuals,
   className,
   children,
+  actionbarPosition,
 }) => {
   const reducer = filterByPossibleKeys(data);
   const { activeColumns, columns, setColumns } = useColumns(
@@ -78,16 +80,17 @@ const TableView = ({
 
   return (
     <Exports>
-      <Paper elevation={0} className={grids}>
+      <Paper
+        elevation={0}
+        className={classNames(grids, className)}
+      >
+        {children}
         <Box
           position="relative"
           maxWidth="100%"
           overflow="auto"
-          className={className}
+          width="100%"
         >
-          <Box position="sticky" left="0" width="100%">
-            {children}
-          </Box>
           <Table stickyHeader className={root}>
             <TableHead className={tableBody}>
               <TableRow className={flexRow}>
@@ -143,6 +146,7 @@ const TableView = ({
         </Box>
       </Paper>
       <Actionbar
+        position={actionbarPosition}
         columns={allColumns}
         data={data}
         actions={

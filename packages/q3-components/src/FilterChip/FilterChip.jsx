@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import { withLocation } from 'with-location';
 import { useTranslation } from 'react-i18next';
@@ -87,31 +88,37 @@ const FilterChip = ({ getAll, params, navigate }) => {
   const getChipLabel = (chip, name, value) =>
     getOp(chip, t(`labels:${name}`), t(`filters:${value}`));
 
-  return chips.map((chip) => {
-    // allow it to split only once
-    const [name, value] = chip.split(/=(.+)/);
-    return value && value.includes(',') ? (
-      value
-        .split(',')
-        .map((label) => (
+  if (!chips.length) return null;
+
+  return (
+    <Box id="q3-filter-chips" display="inline-block">
+      {chips.map((chip) => {
+        // allow it to split only once
+        const [name, value] = chip.split(/=(.+)/);
+        return value && value.includes(',') ? (
+          value
+            .split(',')
+            .map((label) => (
+              <DecoratedChip
+                key={`${chip}-${label}`}
+                label={getChipLabel(chip, name, label)}
+                onDelete={modifyInSearchString(
+                  name,
+                  label,
+                  value,
+                )}
+              />
+            ))
+        ) : (
           <DecoratedChip
-            key={`${chip}-${label}`}
-            label={getChipLabel(chip, name, label)}
-            onDelete={modifyInSearchString(
-              name,
-              label,
-              value,
-            )}
+            key={chip}
+            onDelete={removeFromSearchString(name, value)}
+            label={getChipLabel(chip, name, value)}
           />
-        ))
-    ) : (
-      <DecoratedChip
-        key={chip}
-        onDelete={removeFromSearchString(name, value)}
-        label={getChipLabel(chip, name, value)}
-      />
-    );
-  });
+        );
+      })}
+    </Box>
+  );
 };
 
 FilterChip.propTypes = {};

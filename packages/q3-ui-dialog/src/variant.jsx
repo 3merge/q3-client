@@ -31,7 +31,7 @@ const DialogVariant = ({
 }) => {
   const isDrawer = variant === 'drawer';
   const El = isDrawer ? Drawer : Dialog;
-  const isLaptop = useMediaQuery('(min-width:867px)');
+  const isLaptop = useMediaQuery('(min-width:1040px)');
 
   const getMobileProps = () =>
     isDrawer

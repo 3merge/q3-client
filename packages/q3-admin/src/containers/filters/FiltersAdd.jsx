@@ -30,6 +30,9 @@ const Groups = ({ onSave, active, items }) => {
         inputProps={{
           ref,
         }}
+        style={{
+          fontSize: '0.933rem',
+        }}
       />
       <ListItemSecondaryAction>
         <IconButton onClick={handleClick}>

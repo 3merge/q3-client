@@ -8,6 +8,7 @@ import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import useHeight from '../../components/sidebar/useHeight';
@@ -17,14 +18,9 @@ import Sidebar from '../../components/sidebar';
 import Search from '../search';
 import Header from '../header';
 
-const useStyle = makeStyles((theme) => ({
-  view: {
-    maxHeight: 'calc(100vh - 76px)',
-
-    [theme.breakpoints.down('md')]: {
-      minHeight: 'calc(100vh - 146px)',
-      maxHeight: 'calc(100vh - 146px)',
-    },
+const useStyle = makeStyles(() => ({
+  table: {
+    height: '100%',
   },
 }));
 
@@ -53,9 +49,11 @@ const List = ({
   filters,
   addComponent,
   HeaderProps,
+  disableLink,
+  disableSearch,
   ...rest
 }) => {
-  const { view } = useStyle();
+  const { table } = useStyle();
   const tableProps = React.useContext(Store);
   const {
     collectionName,
@@ -110,29 +108,26 @@ const List = ({
           <Table
             {...rest}
             {...tableProps}
-            className={view}
-            data={get(tableProps, 'data', []).map(
-              (row) => ({
+            className={table}
+            actionbarPosition="absolute"
+            data={get(tableProps, 'data', [])
+              .map((row) => ({
                 ...row,
                 url: `${rootPath}/${row.id}`,
-              }),
-            )}
+              }))
+              .map((item) => {
+                if (disableLink) delete item.url;
+                return item;
+              })}
             actions={actions}
             id={collectionName}
             onSort={updateSortPrefence}
           >
             <Header {...HeaderProps}>
-              <Search {...rest} />
+              {!disableSearch && <Search {...rest} />}
               {addComponent}
             </Header>
-            <Box px={2} py={1} mt={-1}>
-              <Box
-                display="inline-block"
-                id="q3-filter-chips"
-              >
-                <FilterChip />
-              </Box>
-            </Box>
+            <FilterChip />
           </Table>
         }
       />

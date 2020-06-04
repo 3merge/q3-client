@@ -5,12 +5,14 @@ export default makeStyles((theme) => ({
   root: {
     //  display: 'block',
     backgroundColor: '#FFF',
+
     // overflow: 'hidden',
 
     '& th': {
       border: '0 !important',
+      left: 'auto',
       whiteSpace: 'nowrap',
-      zIndex: 2,
+      zIndex: 3,
     },
 
     '& thead tr': {
@@ -263,7 +265,15 @@ export default makeStyles((theme) => ({
   },
 
   grids: () => ({
-    userSelect: 'none',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'baseline',
+    // height: '100vh',
+
+    '& table': {
+      userSelect: 'none',
+    },
 
     '& td.liftup': {
       boxShadow: theme.shadows[1],
@@ -272,6 +282,11 @@ export default makeStyles((theme) => ({
 
     '& tbody tr:last-of-type .liftup': {
       boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      height: 'calc(100vh - 68px)',
+      width: '100%',
     },
   }),
 

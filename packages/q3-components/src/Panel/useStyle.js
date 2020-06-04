@@ -56,13 +56,10 @@ export default makeStyles((theme) => ({
     overflowX: 'hidden',
     position: 'relative',
     padding: '1.25rem',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',
-      marginLeft: 95,
       paddingTop: 0,
-    },
-    [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
     },
 
@@ -115,7 +112,7 @@ export default makeStyles((theme) => ({
     position: 'relative',
     backgroundColor: '#f6f8fa',
     padding: '.75rem',
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       boxShadow: theme.shadows[0],
       backgroundColor: 'transparent',
     },

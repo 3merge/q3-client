@@ -17,14 +17,14 @@ const CreateDialog = ({ children, ...props }) => {
       renderTrigger={(open) => (
         <Button
           aria-label={t('labels:add')}
-          size="small"
+          //   size="small"
           variant="contained"
           elevation={4}
           color="secondary"
           id="app-add-dialog"
           onClick={open}
         >
-          <AddIcon /> Add new
+          <AddIcon style={{ marginLeft: '-6px' }} /> New
         </Button>
       )}
     />

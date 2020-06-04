@@ -37,7 +37,11 @@ const SidebarTabs = ({
           onChange={(e, num) => setStep(num)}
           indicatorColor="primary"
           textColor="primary"
-          style={{ minHeight: 36, marginBottom: '1.5rem' }}
+          style={{
+            minHeight: 36,
+            marginTop: '1.25rem',
+            marginBottom: '1.5rem',
+          }}
           centered
         >
           {!hasNoOptions && (

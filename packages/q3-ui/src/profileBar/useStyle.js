@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
     transform: 'translateX(-50%)',
     zIndex: 100,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       backgroundColor: 'transparent',
       color: '#FFF',
       position: 'relative',
@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
 
   shell: {
     width: 92,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },
@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     paddingBottom: theme.spacing(1),
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       alignItems: 'center',
       flexDirection: 'row',
       padding: 0,

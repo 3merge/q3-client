@@ -13,11 +13,12 @@ const SidebarDrawer = ({ children }) => {
   return (
     <Drawer
       title="Context menu"
+      variant="drawer"
       renderTrigger={(onClick, isOpened) => (
-        <Hidden lgUp>
+        <Hidden mdUp>
           <Box
             position="fixed"
-            bottom="3rem"
+            bottom="6rem"
             right="1rem"
             zIndex={1000}
           >

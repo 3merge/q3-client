@@ -29,6 +29,10 @@ export const SelectAll = ({ ids }) => {
         aria-label={label}
         onClick={onCheckAll(ids)}
         checked={hasChecked()}
+        indeterminate={
+          checked.length > 0 &&
+          checked.length !== ids.length
+        }
       />
     </Badge>
   );

@@ -43,25 +43,28 @@ const intersects = (data = [], columns = [], ids = []) =>
     ? data.map(assignId).filter((v) => matches(ids, v.id))
     : [];
 
-const ActionBar = ({ actions, data, columns }) => {
+const ActionBar = ({
+  actions,
+  data,
+  columns,
+  position,
+}) => {
   const { t } = useTranslation('labels');
   const { hasChecked, checked } = React.useContext(State);
   const picked = intersects(data, columns, checked);
-  const { actionBar } = useStyle();
+  const { actionBar } = useStyle({
+    position,
+  });
 
   if (!hasChecked()) return null;
 
   return (
-    <Grow in>
-      <div>
-        <BottomNavigation className={actionBar}>
-          <Unselect />
-          <DataToCsv data={picked} />
-          <DataToExcel data={picked} />
-          {renderActions(actions, t, picked)}
-        </BottomNavigation>
-      </div>
-    </Grow>
+    <BottomNavigation className={actionBar}>
+      <Unselect />
+      <DataToCsv data={picked} />
+      <DataToExcel data={picked} />
+      {renderActions(actions, t, picked)}
+    </BottomNavigation>
   );
 };
 
@@ -86,12 +89,18 @@ ActionBar.propTypes = {
    * An array of active keys to read from the date.
    */
   columns: PropTypes.arrayOf(String),
+
+  /**
+   * CSS attribute of the actionbar.
+   */
+  position: PropTypes.string,
 };
 
 ActionBar.defaultProps = {
   columns: [],
   actions: [],
   data: [],
+  position: 'sticky',
 };
 
 export default ActionBar;

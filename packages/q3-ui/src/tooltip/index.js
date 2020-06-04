@@ -4,8 +4,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 export default withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.secondary.main,
-    fontSize: theme.typography.pxToRem(15),
-    padding: theme.spacing(0.5),
+    fontSize: '0.75rem',
+    padding: theme.spacing(0.35),
   },
   arrow: {
     color: theme.palette.secondary.main,

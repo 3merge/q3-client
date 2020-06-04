@@ -69,7 +69,14 @@ const Groups = ({ children, initialValues }) => {
                           : undefined,
                     }}
                   >
-                    <ListItemText primary={label} />
+                    <ListItemText
+                      primary={label}
+                      primaryTypographyProps={{
+                        style: {
+                          fontSize: '0.933rem',
+                        },
+                      }}
+                    />
                     <ListItemSecondaryAction>
                       {main === label && (
                         <IconButton disabled>
@@ -168,7 +175,7 @@ const Groups = ({ children, initialValues }) => {
                 <Grid item xs={12}>
                   <Button
                     type="submit"
-                    variant="contained"
+                    variant="outlined"
                     size="small"
                     color="secondary"
                     style={{ marginBottom: '0.5rem' }}

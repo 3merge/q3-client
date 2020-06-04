@@ -107,6 +107,23 @@ Object.assign(theme, {
         html: {
           fontSize: 'initial !important',
           color,
+
+          '& *::-webkit-scrollbar': {
+            height: 10,
+            width: 10,
+          },
+
+          '& *::-webkit-scrollbar-track': {
+            background: '#FFF',
+          },
+
+          '& *::-webkit-scrollbar-thumb': {
+            background: 'rgba(0,0,0,0.2)',
+          },
+
+          '& *::-webkit-scrollbar-thumb:hover': {
+            background: 'rgba(0,0,0,0.4)',
+          },
         },
         img: {
           maxWidth: '100%',
@@ -192,11 +209,21 @@ Object.assign(theme, {
         marginTop: 4,
       },
     },
+    MuiSvgIcon: {
+      root: { fontSize: '1em' },
+    },
     MuiIconButton: {
+      root: {
+        padding: 6,
+        fontSize: '1.232rem !important',
+      },
       sizeSmall: {
-        '& svg': {
-          fontSize: '1.232rem !important',
-        },
+        fontSize: '1rem !important',
+      },
+    },
+    MuiFab: {
+      root: {
+        fontSize: '1.368rem',
       },
     },
     MuiButton: {
@@ -207,6 +234,11 @@ Object.assign(theme, {
       },
       contained: {
         boxShadow: 'none',
+      },
+    },
+    MuiInputAdornment: {
+      root: {
+        fontSize: '1.232rem !important',
       },
     },
     MuiInputBase: {
@@ -220,7 +252,6 @@ Object.assign(theme, {
     MuiTable: {
       borderColor: '#F5F7F9',
     },
-
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',

@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
     display: 'block',
     transform: 'scale(1.15)',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'inline-block',
       transform: 'scale(2)',
       fontSize: '100%',

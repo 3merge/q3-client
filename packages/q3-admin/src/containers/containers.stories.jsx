@@ -37,7 +37,6 @@ const resolver = ({
   id,
   name: `${firstName} ${lastName}`,
   description: email,
-  url: `/investors/${id}`,
   investments: {
     base: investments ? investments.length : 0,
     toPrice: true,
@@ -81,6 +80,12 @@ const Investors = (props) => (
           <Filters lookup={[]}>
             {() => (
               <FilterGroup title="work" count={['role']}>
+                <Field
+                  name="total"
+                  type="range"
+                  xl={12}
+                  lg={12}
+                />
                 <Field
                   name="role"
                   type="text"

@@ -1,6 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  view: {
+    height: 'calc((100 * var(--vh)))',
+    position: 'relative',
+    zIndex: 1,
+
+    [theme.breakpoints.down('md')]: {
+      height: 'calc((100 * var(--vh)) - 68px)',
+    },
+  },
+
   articleBox: () => ({
     overflow: 'initial',
 
@@ -12,16 +22,24 @@ export default makeStyles((theme) => ({
   columnWidth: {
     position: 'sticky',
     top: 0,
-    height: '100vh',
-    width: 325,
+    height: '100%',
+    width: 310,
     overflow: 'auto',
     resize: 'horizontal',
 
-    '& > div': {
-      minWidth: 275,
+    '& > aside': {
+      minWidth: 310,
     },
 
     [theme.breakpoints.down('md')]: {
+      width: 285,
+
+      '& > aside': {
+        minWidth: 285,
+      },
+    },
+
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
@@ -33,7 +51,7 @@ export default makeStyles((theme) => ({
   },
 
   articleWrapper: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'block',
     },
   },
@@ -43,10 +61,8 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('lg')]: {
       width: 'calc(100% - 405px)',
     },
+
     [theme.breakpoints.down('md')]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
   },
@@ -57,15 +73,11 @@ export default makeStyles((theme) => ({
     overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
-    padding: '1.25rem 0.5rem',
-    [theme.breakpoints.down('md')]: {
+    padding: '0.1875rem',
+    [theme.breakpoints.down('sm')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',
-      marginLeft: 95,
       paddingTop: 0,
-    },
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
     },
   },
   item: {

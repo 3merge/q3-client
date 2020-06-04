@@ -70,9 +70,6 @@ const Repeater = ({
               </AddButton>
             )}
           </Auth>
-          <CustomActionBar data={data}>
-            {BulkEditorComponent && <BulkEditorComponent />}
-          </CustomActionBar>
 
           <Table>
             {data.length > 0 && (
@@ -88,6 +85,9 @@ const Repeater = ({
               </List>
             )}
           </Table>
+          <CustomActionBar data={data}>
+            {BulkEditorComponent && <BulkEditorComponent />}
+          </CustomActionBar>
         </Exports>
       </Auth>
     </Context.Provider>

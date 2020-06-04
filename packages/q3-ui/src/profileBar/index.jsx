@@ -41,7 +41,7 @@ const ProfileBar = ({
           {(toggle) => (
             <>
               <Logo name={companyName} />
-              <Hidden smDown implementation="css">
+              <Hidden mdDown implementation="css">
                 {matches && <IconMenu items={items} />}
               </Hidden>
               <Fab
