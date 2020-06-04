@@ -17,17 +17,22 @@ const ContentMediaModal = ({ title, media, children }) => {
         maxWidth="md"
         fullWidth
         open={state}
+        PaperProps={{
+          style: { background: 'transparent' },
+        }}
       >
-        {media}
-        <Box position="absolute" top="1rem" right="1rem">
-          <IconButton
-            label="close"
-            icon={Close}
-            buttonProps={{
-              onClick: toggle,
-              style: { color: '#FFF' },
-            }}
-          />
+        <Box p={4} width="100%">
+          {media}
+          <Box position="absolute" top="1rem" right="1rem">
+            <IconButton
+              label="close"
+              icon={Close}
+              buttonProps={{
+                onClick: toggle,
+                style: { color: '#FFF' },
+              }}
+            />
+          </Box>
         </Box>
       </Dialog>
       {children(toggle)}

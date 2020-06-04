@@ -1,2 +1,3 @@
 export { default as ContentHalves } from './ContentHalves';
-export { default as ContentVideoFeature } from './ContentVideoFeature';
+export { default as HeaderTagline } from './HeaderTagline';
+export { default as HeaderTaglineWithFeaturedVideo } from './HeaderTaglineWithFeaturedVideo';

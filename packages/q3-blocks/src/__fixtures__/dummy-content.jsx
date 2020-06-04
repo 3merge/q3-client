@@ -3,6 +3,9 @@ import Typography from '@material-ui/core/Typography';
 
 export const TITLE_TEXT = 'Lorem ipsum dolor sit amet';
 
+export const TITLE_TEXT_LONG =
+  'Sed in turpis ultricies, ultrices mi vel, condimentum mauris';
+
 export const Title = () => (
   <Typography variant="h2">{TITLE_TEXT}</Typography>
 );
