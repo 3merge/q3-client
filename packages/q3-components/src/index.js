@@ -1,3 +1,5 @@
+export { default as AbsoluteCenter } from './AbsoluteCenter';
+export { default as AbsoluteCover } from './AbsoluteCover';
 export { default as Chart } from './Chart';
 export { default as Dot } from './Dot';
 export { default as Helper } from './Helper';
