@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.28](https://github.com/3merge/q/compare/v1.18.27...v1.18.28) (2020-06-06)
+
+**Note:** Version bump only for package q3-blocks
+
+
+
+
+
 ## [1.18.27](https://github.com/3merge/q/compare/v1.18.26...v1.18.27) (2020-06-05)
 
 **Note:** Version bump only for package q3-blocks
