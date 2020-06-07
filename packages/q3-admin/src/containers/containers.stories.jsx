@@ -248,7 +248,9 @@ const withProviders = (initialPath = '/') => (
   </Loading>
 );
 
-export const FromList = withProviders('/investors');
+export const FromList = withProviders(
+  '/investors?status=Hello',
+);
 export const FromDetail = withProviders('/investors/1');
 export const FromSubDetail = withProviders(
   '/investors/1/investments',

@@ -43,6 +43,7 @@ const MenuItem = ({
             <Avatar
               variant="square"
               className="nav-link-icon"
+              style={{ fontSize: '1.5rem' }}
             >
               <Icon />
             </Avatar>

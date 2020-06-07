@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   view: {
     height: 'calc((100 * var(--vh)))',
+    overflow: 'auto',
     position: 'relative',
     zIndex: 1,
 
@@ -22,7 +23,7 @@ export default makeStyles((theme) => ({
   columnWidth: {
     position: 'sticky',
     top: 0,
-    height: '100%',
+    height: 'calc((100 * var(--vh)))',
     width: 310,
     overflow: 'auto',
     resize: 'horizontal',
@@ -32,6 +33,7 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
+      height: 'calc((100 * var(--vh)) - 68px)',
       width: 285,
 
       '& > aside': {

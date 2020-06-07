@@ -91,7 +91,7 @@ const FilterChip = ({ getAll, params, navigate }) => {
   if (!chips.length) return null;
 
   return (
-    <Box id="q3-filter-chips" display="inline-block">
+    <Box id="q3-filter-chips" display="inline-block" px={2}>
       {chips.map((chip) => {
         // allow it to split only once
         const [name, value] = chip.split(/=(.+)/);
