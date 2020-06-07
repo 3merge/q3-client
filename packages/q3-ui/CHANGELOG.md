@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.29](https://github.com/3merge/q/compare/v1.18.28...v1.18.29) (2020-06-07)
+
+
+### Bug Fixes
+
+* vertical scrolling in sidebar ([218f891](https://github.com/3merge/q/commit/218f891450251a86529cc78a98d488d2fc1d8109))
+
+
+
+
+
 ## [1.18.26](https://github.com/3merge/q/compare/v1.18.25...v1.18.26) (2020-06-04)
 
 
