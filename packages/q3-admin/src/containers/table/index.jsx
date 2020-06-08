@@ -82,10 +82,8 @@ ListContainer.defaultProps = {
 };
 
 const List = ({
-  renderForm,
-  renderTop,
-  filters,
   addComponent,
+  filterComponent,
   HeaderProps,
   disableLink,
   disableSearch,
@@ -129,7 +127,7 @@ const List = ({
   return (
     <Redirect op="Read" to="/">
       <Section
-        renderOutside={<Sidebar>{filters}</Sidebar>}
+        renderOutside={<Sidebar>{filterComponent}</Sidebar>}
         renderInside={
           <Table
             {...decorator.build()}
@@ -158,21 +156,8 @@ const List = ({
   );
 };
 
-List.propTypes = {
-  /**
-   * Will create a sidebar view if provided/
-   */
-  renderForm: PropTypes.func,
+List.propTypes = {};
 
-  /**
-   * Will render a component directly above the Table
-   */
-  renderTop: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderForm: null,
-  renderTop: null,
-};
+List.defaultProps = {};
 
 export default List;

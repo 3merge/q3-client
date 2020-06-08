@@ -3,8 +3,14 @@ import { get, setWith } from 'lodash';
 const checkMsgFieldVariants = (v) => {
   const missing =
     !v.msg || v.msg === undefined || v.msg === 'undefined';
+
   if (missing && !v.message)
-    return 'Server validation failed';
+    return get(
+      v,
+      'properties.message',
+      'Server validation failed',
+    );
+
   if (missing && v.message) return v.message;
   return v.msg;
 };
