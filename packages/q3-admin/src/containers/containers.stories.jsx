@@ -192,13 +192,6 @@ const Investor = (props) => (
         links={[{ label: 'Test', to: '/' }]}
       >
         <General name="general" />
-        <General name="general" />
-        <General name="general" />
-        <General name="general" />
-        <General name="general" />
-        <General name="general" />
-        <General name="general" />
-        <General name="general" />
         <Investments name="investments" />
         <Hidden name="hidden" />
       </Detail>

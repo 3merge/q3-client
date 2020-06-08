@@ -32,6 +32,7 @@ export const HeavyData = () => (
         aliasForName="seq"
         total={orders.total}
         data={orders.orders}
+        blacklistColumns={['unknown', 'draft']}
         defaultColumns={[
           'unknown',
           'seq',

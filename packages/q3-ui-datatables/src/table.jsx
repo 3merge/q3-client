@@ -8,7 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
 import TableHead from '@material-ui/core/TableHead';
-import { object } from 'q3-ui-helpers';
+import { array } from 'q3-ui-helpers';
 import classNames from 'classnames';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
@@ -21,18 +21,19 @@ import Pagination from './Pagination';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
 
-const filterByPossibleKeys = (payload) => {
-  const potentialColumns = object.getAllPossibleKeys(
-    payload,
-  );
-  return (a = []) =>
-    a.filter((v) => potentialColumns.includes(v));
-};
+const filterByPossibleKeys = (payload, blacklist = []) => (
+  a = [],
+) =>
+  array.hasLength(blacklist) && array.hasLength(a)
+    ? a.filter((v) => !blacklist.includes(v))
+    : a;
 
 const TableView = ({
-  id,
   allColumns,
   defaultColumns,
+  blacklistColumns,
+
+  id,
   aliasForName,
   total,
   renderCustomActions,
@@ -44,11 +45,15 @@ const TableView = ({
   children,
   actionbarPosition,
 }) => {
-  const reducer = filterByPossibleKeys(data);
+  const filterer = filterByPossibleKeys(
+    data,
+    blacklistColumns,
+  );
+
   const { activeColumns, columns, setColumns } = useColumns(
     id,
-    reducer(defaultColumns),
-    reducer(allColumns),
+    filterer(defaultColumns),
+    filterer(allColumns),
   );
 
   const {
@@ -208,6 +213,13 @@ TableView.propTypes = {
    * Otherwise, it will just look for the name and description fields.
    */
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
+
+  /**
+   * If provided, the table will redact columns that match.
+   * Perfect for dynamic access control settings.
+   */
+  blacklistColumns: PropTypes.arrayOf(PropTypes.string),
+
   onSort: PropTypes.func.isRequired,
 };
 
@@ -216,6 +228,7 @@ TableView.defaultProps = {
   total: 0,
   allColumns: [],
   defaultColumns: [],
+  blacklistColumns: [],
   renderCustomActions: null,
 };
 
