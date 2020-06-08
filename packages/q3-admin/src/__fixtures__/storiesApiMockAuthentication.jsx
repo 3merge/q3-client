@@ -12,7 +12,7 @@ const genPermission = (rest) => ({
 });
 
 const permissions = [
-  genPermission({ op: 'Read' }),
+  genPermission({ op: 'Read', fields: ['!gender'] }),
   genPermission({ op: 'Update' }),
   genPermission({ op: 'Create' }),
   genPermission({ op: 'Delete' }),

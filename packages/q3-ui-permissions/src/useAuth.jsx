@@ -55,16 +55,9 @@ export const asProtectedRoute = (ctx) => {
 export default (ctx) => (coll) => {
   const a = React.useContext(ctx);
   const permissions = getPermissions(a);
-  // const id = getProfile(a);
 
-  const getOp = (name) => {
-    return findByOp(filterbyColl(permissions, coll), name);
-
-    /**
-    return satisfiesOwnership(grant, id, createdBy)
-      ? grant
-      : null;  */
-  };
+  const getOp = (name) =>
+    findByOp(filterbyColl(permissions, coll), name);
 
   const Hide = ({ children, op }) =>
     getOp(op) ? children : null;
