@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.30](https://github.com/3merge/q/compare/v1.18.29...v1.18.30) (2020-06-08)
+
+
+### Bug Fixes
+
+* access control datatable columns ([51597ce](https://github.com/3merge/q/commit/51597cef69de5548ba5647ccb446f4e8ada585bb))
+* **gom-546:** blacklist for column filtering instead of all possible keys ([424c81b](https://github.com/3merge/q/commit/424c81b5759cbd88d6a28ea1a7df7cb3ebc75655))
+
+
+
+
+
 ## [1.18.29](https://github.com/3merge/q/compare/v1.18.28...v1.18.29) (2020-06-07)
 
 
