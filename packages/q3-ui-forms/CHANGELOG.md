@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.19.0](https://github.com/3merge/q/compare/v1.18.31...v1.19.0) (2020-06-08)
+
+
+### Features
+
+* abstract collection building interface ([7ae9de6](https://github.com/3merge/q/commit/7ae9de6fdbfd138886cc7b44dc80e835120911f1))
+
+
+
+
+
 ## [1.18.24](https://github.com/3merge/q/compare/v1.18.23...v1.18.24) (2020-06-04)
 
 **Note:** Version bump only for package q3-ui-forms
