@@ -25,7 +25,7 @@ export const Validation = () => (
       postal: '',
       email: '',
       tel: '',
-      date: new Date().toISOString(),
+      date: '',
     }}
   >
     <Field name="name" type="text" />

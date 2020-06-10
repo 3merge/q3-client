@@ -23,6 +23,8 @@ export const Fieldset = ({ children }) => (
   </Grid>
 );
 
+Fieldset.displayName = 'MultiStepFieldset';
+
 Fieldset.propTypes = {
   children: PropTypes.node.isRequired,
 };
@@ -80,6 +82,24 @@ const MultiFormStepper = connect(
   },
 );
 
+const getAllMultistepFieldsetComponents = (children) =>
+  React.Children.toArray(children)
+    .flatMap((item) => {
+      if (
+        item.type &&
+        item.type.displayName === 'MultiStepFieldset'
+      )
+        return item;
+
+      if (item.props && item.props.children)
+        return getAllMultistepFieldsetComponents(
+          item.props.children,
+        );
+
+      return [];
+    })
+    .filter(Boolean);
+
 export default withWrapper(
   ({
     children,
@@ -91,36 +111,7 @@ export default withWrapper(
     debug,
   }) => {
     const { t } = useTranslation('labels');
-    const childrenArray = React.Children.toArray(children);
     const [activeStep, setActiveStep] = React.useState(0);
-
-    const isLast = (v) => v >= childrenArray.length - 1;
-
-    const processReset = React.useCallback(
-      () =>
-        activeStep === 0
-          ? onReset()
-          : setActiveStep(activeStep - 1),
-      [activeStep],
-    );
-
-    const processSubmit = React.useCallback(
-      (fn) => () =>
-        isLast(activeStep)
-          ? fn()
-          : new Promise((resolve) => {
-              setActiveStep(activeStep + 1);
-
-              resolve();
-            }),
-      [activeStep],
-    );
-
-    const getBackLabel = (i) =>
-      t(i === 0 ? 'reset' : 'back');
-
-    const getNextLabel = (i) =>
-      t(isLast(i) ? 'save' : 'next');
 
     return (
       <Formik
@@ -133,39 +124,71 @@ export default withWrapper(
           })
         }
       >
-        {({ submitForm, validateForm, errors }) => (
-          <Form>
-            <Persist />
-            <Validate />
-            <MultiFormStepper
-              isNew={isNew}
-              steps={childrenArray}
-              activeStep={activeStep}
-              onClickHandler={(v) => () => setActiveStep(v)}
-            >
-              {({ index }) => (
-                <Box mt={1}>
-                  <Back
-                    onClick={processReset}
-                    label={getBackLabel(index)}
-                  />
-                  <Next
-                    onClick={processSubmit(
-                      submitForm,
-                      validateForm,
-                    )}
-                    label={getNextLabel(index)}
-                    disabled={Boolean(
-                      isLast(activeStep) &&
-                        Object.keys(errors).length,
-                    )}
-                  />
-                </Box>
-              )}
-            </MultiFormStepper>
-            <FormikDebug show={debug} />
-          </Form>
-        )}
+        {({ submitForm, validateForm, values, errors }) => {
+          const childrenArray = getAllMultistepFieldsetComponents(
+            typeof children === 'function'
+              ? children(values, errors)
+              : children,
+          );
+
+          const isLast = (v) =>
+            v >= childrenArray.length - 1;
+
+          const processReset = () =>
+            activeStep === 0
+              ? onReset()
+              : setActiveStep(activeStep - 1);
+
+          const processSubmit = (fn) => () =>
+            isLast(activeStep)
+              ? fn()
+              : new Promise((resolve) => {
+                  setActiveStep(activeStep + 1);
+
+                  resolve();
+                });
+
+          const getBackLabel = (i) =>
+            t(i === 0 ? 'reset' : 'back');
+
+          const getNextLabel = (i) =>
+            t(isLast(i) ? 'save' : 'next');
+
+          return (
+            <Form>
+              <Persist />
+              <Validate />
+              <MultiFormStepper
+                isNew={isNew}
+                steps={childrenArray}
+                activeStep={activeStep}
+                onClickHandler={(v) => () =>
+                  setActiveStep(v)}
+              >
+                {({ index }) => (
+                  <Box mt={1}>
+                    <Back
+                      onClick={processReset}
+                      label={getBackLabel(index)}
+                    />
+                    <Next
+                      onClick={processSubmit(
+                        submitForm,
+                        validateForm,
+                      )}
+                      label={getNextLabel(index)}
+                      disabled={Boolean(
+                        isLast(activeStep) &&
+                          Object.keys(errors).length,
+                      )}
+                    />
+                  </Box>
+                )}
+              </MultiFormStepper>
+              <FormikDebug show={debug} />
+            </Form>
+          );
+        }}
       </Formik>
     );
   },

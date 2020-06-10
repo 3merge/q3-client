@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { DateRangeDelimiter } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
-import { makeStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  useTheme,
+} from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const useStyle = makeStyles((theme) => ({
   delimiter: {
@@ -11,9 +15,8 @@ const useStyle = makeStyles((theme) => ({
     transform: 'translate(-50%, -50%) scale(0.8)',
     top: '50%',
     left: '50%',
-    [theme.breakpoints.down('md')]: {
-      transform:
-        'translate(-50%, -50%) scale(0.8) rotate(90deg)',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
 }));
@@ -23,13 +26,17 @@ const RangeDelimiter = ({
   rightRenderer,
 }) => {
   const cls = useStyle();
+  const theme = useTheme();
+  const matches = useMediaQuery(
+    theme.breakpoints.down('sm'),
+  );
 
   return (
     <Grid
       container
       alignItems="center"
       justify="space-between"
-      spacing={3}
+      spacing={matches ? 1 : 3}
       style={{ position: 'relative' }}
     >
       {leftRenderer}

@@ -16,7 +16,7 @@ const renderIconButon = (onClick) => (
 const SegmentDropdownMenu = ({
   children,
   onFavourite,
-  onDelete,
+  onRemove,
   isDefault,
 }) => {
   const { t } = useTranslation();
@@ -39,7 +39,7 @@ const SegmentDropdownMenu = ({
 
       items.push({
         label: t('labels:delete'),
-        onClick: onDelete,
+        onClick: onRemove,
       });
     }
 
@@ -80,7 +80,7 @@ SegmentDropdownMenu.defaultProps = {
 SegmentDropdownMenu.propTypes = {
   children: PropTypes.node.isRequired,
   onFavourite: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   isDefault: PropTypes.bool,
 };
 

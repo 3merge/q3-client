@@ -10,7 +10,9 @@ const DateBase = (props) => (
     renderInput={(inputProps) => (
       <Text
         {...merge(inputProps, props, {
-          shrink: true,
+          InputLabelProps: {
+            shrink: true,
+          },
         })}
         type="date"
       />

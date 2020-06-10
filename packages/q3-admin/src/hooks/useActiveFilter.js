@@ -71,10 +71,7 @@ export default (search) => {
       : segments),
   });
 
-  const main =
-    filters.default && typeof filters.default === 'object'
-      ? filters.default[collectionName]
-      : 'All';
+  const main = items.default;
 
   const updateFiltersInProfile = (newFilterObj, done) => {
     const master = { ...filters };
@@ -128,14 +125,14 @@ export default (search) => {
     filters: [
       ...Object.entries(segments).map(([key, value]) => ({
         label: key,
-        onClick: () => navigate(value),
         searchValue: value,
+        value,
       })),
       ...Object.entries(items)
         .map(([key, value]) => ({
           label: key,
           fromProfile: true,
-          onClick: () => navigate(value),
+          searchValue: value,
           value,
         }))
         .filter(({ label }) => label !== 'default'),

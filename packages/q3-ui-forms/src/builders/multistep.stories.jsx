@@ -56,3 +56,55 @@ export const Default = () => (
     </Fieldset>
   </Multistep>
 );
+
+export const NestedSteps = () => (
+  <Multistep
+    debug
+    initialValues={{
+      firstName: 'Jim',
+      friend: 'david@gmail.com',
+    }}
+    onSubmit={(v, actions) => {
+      alert(JSON.stringify(v));
+      return Promise.resolve(v, actions);
+    }}
+  >
+    <Fieldset name="firstStepLabel">
+      <Field name="firstName" type="text" required />
+    </Fieldset>
+    <div>
+      <Fieldset name="secondStepLabel">
+        <Field name="friend" type="email" required />
+      </Fieldset>
+    </div>
+  </Multistep>
+);
+
+export const DynamicSteps = () => {
+  return (
+    <Multistep
+      debug
+      initialValues={{
+        firstName: 'Jim',
+        friend: 'david@gmail.com',
+      }}
+      onSubmit={(v, actions) => {
+        alert(JSON.stringify(v));
+        return Promise.resolve(v, actions);
+      }}
+    >
+      {(values) => (
+        <>
+          <Fieldset name="firstStepLabel">
+            <Field name="firstName" type="text" required />
+          </Fieldset>
+          {values.firstName === 'Joe' && (
+            <Fieldset name="secondStepLabel">
+              <Field name="friend" type="email" required />
+            </Fieldset>
+          )}
+        </>
+      )}
+    </Multistep>
+  );
+};
