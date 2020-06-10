@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.2](https://github.com/3merge/q/compare/v1.19.1...v1.19.2) (2020-06-10)
+
+
+### Bug Fixes
+
+* reset checked values on length change ([5395616](https://github.com/3merge/q/commit/539561661516c7f44f95d547dca677a7bf007043))
+* **j3-104:** nested fieldsets to allow for dynamic step rendering ([d33ed2c](https://github.com/3merge/q/commit/d33ed2c222fc79215e8c1f36c67d6e7bb380d187))
+
+
+
+
+
 ## [1.19.1](https://github.com/3merge/q/compare/v1.19.0...v1.19.1) (2020-06-10)
 
 **Note:** Version bump only for package q3-client

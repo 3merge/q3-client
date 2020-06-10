@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-datatables",
-  "version": "1.18.31",
+  "version": "1.19.2",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.16.8"
@@ -11,7 +11,7 @@
     "@material-ui/lab": "^4.0.0-alpha.54",
     "@reach/router": "^1.2.1",
     "lodash": "^4.17.15",
-    "q3-ui-exports": "^1.18.24",
+    "q3-ui-exports": "^1.19.2",
     "react-i18next": "11.5.0",
     "react-scroll-sync": "^0.7.1",
     "react-sortable-hoc": "^1.11.0",
