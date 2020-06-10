@@ -8,7 +8,12 @@ const DateBase = (props) => (
     {...props}
     clearable
     renderInput={(inputProps) => (
-      <Text {...merge(inputProps, props)} type="date" />
+      <Text
+        {...merge(inputProps, props, {
+          shrink: true,
+        })}
+        type="date"
+      />
     )}
   />
 );

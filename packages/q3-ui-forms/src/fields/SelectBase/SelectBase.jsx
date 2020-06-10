@@ -21,6 +21,9 @@ const SelectBase = ({
       lg={12}
       required={required}
       disabled={disabled || loading}
+      InputLabelProps={{
+        shrink: true,
+      }}
       SelectProps={{
         native: true,
         IconComponent: loading
@@ -40,7 +43,9 @@ const SelectBase = ({
         value=""
         aria-label={t('unselected')}
         disabled={required}
-      />
+      >
+        {loading ? 'Loading ...' : 'Choose option(s)'}
+      </option>
       {items.map((obj) => (
         <option key={obj.value} value={obj.value}>
           {t(obj.label, obj.vars)}

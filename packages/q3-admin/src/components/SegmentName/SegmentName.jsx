@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { chosenTextFieldDisplayAttributes } from 'q3-ui-forms/lib/fields/TextBase/TextBase';
 import { useValue } from 'useful-state';
 
-const FiltersForm = ({ children, name }) => {
+const SegmentName = ({ children, name }) => {
   const { t } = useTranslation();
   const { value, onChange } = useValue(name);
 
@@ -24,13 +24,13 @@ const FiltersForm = ({ children, name }) => {
   ));
 };
 
-FiltersForm.propTypes = {
+SegmentName.propTypes = {
   children: PropTypes.func.isRequired,
   name: PropTypes.string,
 };
 
-FiltersForm.defaultProps = {
+SegmentName.defaultProps = {
   name: '',
 };
 
-export default FiltersForm;
+export default SegmentName;

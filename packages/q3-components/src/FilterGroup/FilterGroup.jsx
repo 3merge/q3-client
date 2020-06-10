@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
 import { withLocation } from 'with-location';
-import { get } from 'lodash';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { props } from 'q3-ui-helpers';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import Collapse from '@material-ui/core/Collapse';
 import Badge from '@material-ui/core/Badge';
 import { useToggle } from 'useful-state';
+import { makeStyles } from '@material-ui/core/styles';
 
 const { mapBy } = props;
 
@@ -42,21 +43,15 @@ export const FilterGroup = ({
     .filter(Boolean).length;
 
   return (
-    <Box width="100%" my={1} px={2}>
-      <Grid
-        container
-        justify="space-between"
-        role="button"
+    <Box width="100%" maxWidth="100%" px={0.5}>
+      <ListItem
+        button
+        ContainerComponent="div"
         onClick={toggle}
-        style={{ cursor: 'pointer' }}
-        tabIndex={0}
+        selected={state}
       >
-        <Grid item>
-          <Typography style={{ fontWeight: 'bold' }}>
-            {t(`titles:${title}`)}
-          </Typography>
-        </Grid>
-        <Grid item>
+        <ListItemText primary={t(`titles:${title}`)} />
+        <Box mr={0.75}>
           <Badge
             badgeContent={values}
             color="secondary"
@@ -67,10 +62,12 @@ export const FilterGroup = ({
           >
             {state ? <ExpandLess /> : <ExpandMore />}
           </Badge>
-        </Grid>
-      </Grid>
+        </Box>
+      </ListItem>
       <Collapse in={state}>
-        <Box my={1}>{children}</Box>
+        <Box my={1}>
+          <Grid container>{children}</Grid>
+        </Box>
       </Collapse>
     </Box>
   );

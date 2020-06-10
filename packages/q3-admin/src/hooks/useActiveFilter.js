@@ -71,7 +71,10 @@ export default (search) => {
       : segments),
   });
 
-  const main = items.default;
+  const main =
+    filters.default && typeof filters.default === 'object'
+      ? filters.default[collectionName]
+      : 'All';
 
   const updateFiltersInProfile = (newFilterObj, done) => {
     const master = { ...filters };
@@ -102,7 +105,9 @@ export default (search) => {
       updateFiltersInProfile(pushInto(name, search)),
 
     favourite: (name) =>
-      updateFiltersInProfile(pushInto('default', name)),
+      updateFiltersInProfile(
+        pushInto(`default.${collectionName}`, name),
+      ),
 
     remove: (name) =>
       updateFiltersInProfile(pullFrom(name)),
@@ -124,6 +129,7 @@ export default (search) => {
       ...Object.entries(segments).map(([key, value]) => ({
         label: key,
         onClick: () => navigate(value),
+        searchValue: value,
       })),
       ...Object.entries(items)
         .map(([key, value]) => ({

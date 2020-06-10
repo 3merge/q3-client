@@ -24,21 +24,16 @@ export default makeStyles((theme) => ({
     position: 'sticky',
     top: 0,
     height: 'calc((100 * var(--vh)))',
-    width: 310,
+    width: 285,
     overflow: 'auto',
     resize: 'horizontal',
 
     '& > aside': {
-      minWidth: 310,
+      minWidth: 285,
     },
 
     [theme.breakpoints.down('md')]: {
       height: 'calc((100 * var(--vh)) - 68px)',
-      width: 285,
-
-      '& > aside': {
-        minWidth: 285,
-      },
     },
 
     [theme.breakpoints.down('sm')]: {

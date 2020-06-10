@@ -17,7 +17,7 @@ export const WithTitle = () => (
     query="?sample=Sample"
     {...props}
   >
-    <Field name="sample" type="text" />
+    {() => <Field name="sample" type="text" />}
   </FiltersForm>
 );
 

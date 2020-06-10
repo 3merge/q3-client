@@ -88,6 +88,9 @@ const DateSelect = ({ from, to, ...rest }) => {
                   label={startText}
                   value={fromValue}
                   type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               }
               rightRenderer={
@@ -102,6 +105,9 @@ const DateSelect = ({ from, to, ...rest }) => {
                   label={endText}
                   value={toValue}
                   type="date"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               }
             />

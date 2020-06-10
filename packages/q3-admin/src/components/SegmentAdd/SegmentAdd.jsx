@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { useValue } from 'useful-state';
 
-const Groups = ({ onSave, active, items }) => {
+const SegmentAdd = ({ onSave, active, items }) => {
   const ref = React.useRef();
   const { value, onChange } = useValue('');
 
@@ -43,6 +43,6 @@ const Groups = ({ onSave, active, items }) => {
   );
 };
 
-Groups.propTypes = {};
+SegmentAdd.propTypes = {};
 
-export default Groups;
+export default SegmentAdd;

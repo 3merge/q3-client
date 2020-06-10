@@ -11,9 +11,6 @@ export const chosenTextFieldDisplayAttributes = {
   size: 'small',
   variant: 'outlined',
   autoComplete: 'off',
-  InputLabelProps: {
-    shrink: true,
-  },
 };
 
 export const TextBase = (props) => {
