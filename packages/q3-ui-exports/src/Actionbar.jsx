@@ -50,13 +50,23 @@ const ActionBar = ({
   position,
 }) => {
   const { t } = useTranslation('labels');
-  const { hasChecked, checked } = React.useContext(State);
+  const {
+    hasChecked,
+    checked,
+    setChecked,
+  } = React.useContext(State);
   const picked = intersects(data, columns, checked);
   const { actionBar } = useStyle({
     position,
   });
 
-  if (!hasChecked()) return null;
+  const len = hasChecked();
+
+  React.useEffect(() => {
+    if (len) setChecked([]);
+  }, [data.length]);
+
+  if (!len) return null;
 
   return (
     <BottomNavigation className={actionBar}>

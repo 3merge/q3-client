@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
     left: 0,
     width: '100%',
     maxWidth: '100%',
-    zIndex: 1000000,
+    zIndex: 100,
     position,
 
     '&>span': {
