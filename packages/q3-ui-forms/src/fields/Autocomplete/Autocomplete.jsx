@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick } from 'lodash';
+import { pick, merge } from 'lodash';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { object } from 'q3-ui-helpers';
@@ -11,12 +11,17 @@ import withState from '../withState';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
 
 export const getCustomInput = (customProps) => (params) =>
-  React.createElement(TextField, {
-    ...params,
-    ...customProps,
-    variant: 'outlined',
-    fullWidth: true,
-  });
+  React.createElement(
+    TextField,
+    merge(params, customProps, {
+      variant: 'outlined',
+      fullWidth: true,
+      autoComplete: 'Noop',
+      inputProps: {
+        autoComplete: 'NOOP',
+      },
+    }),
+  );
 
 export const compareOptionValueToState = (option, value) =>
   option === value || option.value === value;

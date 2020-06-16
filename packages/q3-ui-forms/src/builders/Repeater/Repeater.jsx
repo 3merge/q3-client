@@ -31,19 +31,17 @@ const Repeater = ({ group, children }) => {
       ).reduce(
         (acc, key) => {
           unset(acc, key);
-          return flat(acc);
+          return acc;
         },
         { ...prev },
       ),
     );
 
   const addToSet = () =>
-    setValues((prev) =>
-      flat({
-        ...prev,
-        ...getEmptyEntry(group, items.length, children),
-      }),
-    );
+    setValues((prev) => ({
+      ...prev,
+      ...flat(getEmptyEntry(group, items.length, children)),
+    }));
 
   const removeFromSet = (index) => () => {
     unsetGroupFieldsFromState(index, setErrors);

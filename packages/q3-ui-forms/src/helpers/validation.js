@@ -83,6 +83,7 @@ export class Validator {
       case 'password':
       case 'transfer':
       case 'file':
+      case 'date':
         this.$base = this.$base.string();
         break;
       case 'email':
@@ -92,10 +93,22 @@ export class Validator {
         this.$base = this.$base.string().url();
         break;
       case 'tel':
-        this.$base = this.$base.string().test(tel);
+        this.$base = this.$base
+          .string()
+          .test(
+            'is-tel',
+            'Must be a valid telephone number',
+            tel,
+          );
         break;
       case 'postal':
-        this.$base = this.$base.string().test(postal);
+        this.$base = this.$base
+          .string()
+          .test(
+            'is-postal',
+            'Must be a valid postal code',
+            postal,
+          );
         break;
       case 'number':
         this.$base = this.$base
@@ -118,7 +131,7 @@ export class Validator {
         });
 
         break;
-      case 'date':
+      case 'tt':
         this.$base = this.$base
           .string()
           .test(

@@ -43,7 +43,10 @@ const Wrapper = (Component) => {
       validateField,
       chain,
     } = useValidation();
-    const { initialValues, executeMarshal } = useDot(
+    const {
+      initialValues,
+      onSubmit: forwardProcessStateValuesIntoOnSubmitHandler,
+    } = useDot(
       {
         onSubmit: handleSubmit,
         marshalSelectively,
@@ -60,8 +63,10 @@ const Wrapper = (Component) => {
       message,
       isSubmitting,
       onChange,
+      onError,
       onReset,
       onSubmit,
+      onSuccess,
       onValidate: validateAt,
       setErrors,
       setValues,
@@ -76,15 +81,16 @@ const Wrapper = (Component) => {
     const { clear } = usePrevious(values);
 
     const execAllSubmitHandlers = onSubmit(() => {
-      const fn = executeMarshal(handleSubmit);
-      const done = fn(values);
-      if (Promise.resolve(done) === done) {
-        done.then(() => {
+      return forwardProcessStateValuesIntoOnSubmitHandler(
+        values,
+      )
+        .then((res) => {
           clear();
+          return onSuccess(res);
+        })
+        .catch((e) => {
+          onError(e);
         });
-      } else {
-        clear();
-      }
     });
 
     return (

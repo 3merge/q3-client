@@ -11,12 +11,15 @@ import usePropOverride from './usePropOverride';
 import FieldDetector from '../helpers/types';
 
 export default (props, readOnly) => {
-  const { name, override, type } = props;
+  const { name, override, type, vars, label } = props;
 
   const { t } = useTranslation();
   const { values, errors } = React.useContext(BuilderState);
   const dispatcher = React.useContext(DispatcherState);
   const { setField } = React.useContext(ValidationState);
+
+  const value = get(values, name);
+  const error = get(errors, name);
 
   const fieldProps = new FieldDetector(
     type,
@@ -26,38 +29,33 @@ export default (props, readOnly) => {
 
   const propper = new BuilderStateDecorator(
     name,
-    dispatcher,
+    {
+      ...dispatcher,
+      value,
+      error,
+    },
     readOnly,
   );
 
-  if (!props.suppressLabel)
-    propper.label = t(
-      `labels:${props.label || name}`,
-      props.vars,
-    );
+  // auto-assemble text based on field name
+  propper.label = t(`labels:${label || name}`, vars);
+  propper.helper = t(`helpers:${props.helper}`, vars);
 
-  if (!props.label)
-    propper.helper = t(`helpers:${name}`, props.vars);
+  // avoid the setter fns
+  if (props.suppressLabel) propper.label = '';
 
-  if (props.helper)
-    propper.helper = t(
-      `helpers:${props.helper}`,
-      props.vars,
-    );
-
-  if (props.suppressHelper) propper.helper = '';
-
-  if (typeof propper.error === 'string')
-    propper.helperText = propper.error;
+  if (
+    props.suppressHelper ||
+    propper.helperText === 'undefined' ||
+    propper.helperText === undefined
+  )
+    propper.helperText = '';
 
   const dynamicProps = usePropOverride(
     name,
     override,
     fieldProps,
   );
-
-  const value = get(values, name);
-  const error = get(errors, name);
 
   React.useLayoutEffect(() => {
     setField(name, props);
@@ -75,6 +73,5 @@ export default (props, readOnly) => {
       'values',
     ]),
     value,
-    error,
   };
 };

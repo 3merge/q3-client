@@ -17,13 +17,13 @@ export default class BuilderStateDecorator {
     this.value = v !== undefined && v !== null ? v : '';
   }
 
-  set helper(t) {
+  set helper(t = '') {
     if (this.error && typeof this.error === 'string') {
       this.helperText = this.error;
       this.error = true;
     } else if (t.localeCompare(this.name) === 0) {
       this.helperText = null;
-    } else {
+    } else if (t) {
       this.helperText = t;
     }
   }
@@ -33,8 +33,18 @@ export default class BuilderStateDecorator {
   }
 
   onChange(e, newValue, mutator) {
-    let val = newValue || parseEventValue(e);
+    let val;
+
+    if (e === null) {
+      val = '';
+    } else if (newValue) {
+      val = newValue;
+    } else {
+      val = parseEventValue(e);
+    }
+
     if (object.isFn(mutator)) val = mutator(val);
+
     return this.next(val);
   }
 

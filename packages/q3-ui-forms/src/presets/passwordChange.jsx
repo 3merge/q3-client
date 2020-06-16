@@ -181,7 +181,13 @@ const PasswordChange = ({
   email,
   ...rest
 }) => (
-  <Form debug {...rest}>
+  <Form
+    {...rest}
+    initialValues={{
+      passwordResetToken,
+      email,
+    }}
+  >
     {(values) => (
       <>
         {!passwordResetToken && (

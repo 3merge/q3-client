@@ -107,6 +107,38 @@ export default ({
     setErrors({});
   }, [initialValues]);
 
+  const onError = React.useCallback(
+    (err) => {
+      if (err) {
+        if (hasErrors(err)) {
+          setErrors(mapErrors(extractErrors(err)));
+        }
+
+        if (err.message)
+          setMessage({
+            error: true,
+            ...err,
+          });
+      }
+
+      return null;
+    },
+    [errors],
+  );
+
+  const onSuccess = React.useCallback((resp) => {
+    if (resp && resp.message) {
+      setMessage({
+        error: false,
+        ...resp,
+      });
+    } else {
+      setMessage(null);
+    }
+
+    return resp;
+  });
+
   const onSubmit = (next) => (e) => {
     if (e) e.preventDefault();
     setIsSubmitting(true);
@@ -115,33 +147,10 @@ export default ({
       .validate(values, {
         abortEarly: false,
       })
-      .then(() => next(values))
-      .then((resp) => {
-        if (resp && resp.message) {
-          setMessage({
-            error: false,
-            ...resp,
-          });
-        } else {
-          setMessage(null);
-        }
-
-        return resp;
-      })
+      .then(next)
       .catch((err) => {
-        if (err) {
-          if (hasErrors(err)) {
-            setErrors(mapErrors(extractErrors(err)));
-          } else if (err.inner) {
-            setErrors(reduceErrorMessages(err.inner));
-          }
-
-          if (err.message)
-            setMessage({
-              error: true,
-              ...err,
-            });
-        }
+        if (err && err.inner)
+          setErrors(reduceErrorMessages(err.inner));
 
         return null;
       })
@@ -161,6 +170,8 @@ export default ({
     isSubmitting,
     message,
     onChange,
+    onError,
+    onSuccess,
     onSubmit,
     onValidate,
     setErrors,

@@ -2,6 +2,7 @@ import React from 'react';
 import Repeater from './Repeater';
 import Field from '../Field';
 import Form from '../Form';
+import { countries } from '../../fields/__fixtures__/options';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
@@ -28,11 +29,17 @@ export default {
 };
 
 export const AsRepeating = () => (
-  <Form onSubmit={onSubmit} onReset={onReset}>
+  <Form debug onSubmit={onSubmit} onReset={onReset}>
     <Repeater group="friends">
       <Field name="firstName" type="text" required />
       <Field name="lastName" type="text" required />
       <Field name="email" type="email" required />
+      <Field
+        name="country"
+        type="autocomplete"
+        options={countries}
+        required
+      />
     </Repeater>
   </Form>
 );

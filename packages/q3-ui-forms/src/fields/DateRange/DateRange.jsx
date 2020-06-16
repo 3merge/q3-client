@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
@@ -10,7 +11,10 @@ import {
   BuilderState,
   DispatcherState,
 } from '../../FormsContext';
-import { makeRangeNames } from '../../helpers';
+import {
+  makeRangeNames,
+  convertToNullish,
+} from '../../helpers';
 
 const DateRange = ({ name }) => {
   const [from, to] = makeRangeNames(name);
@@ -20,40 +24,52 @@ const DateRange = ({ name }) => {
   return (
     <Grid item xs={12}>
       <MobileDateRangePicker
+        clearable
         startText="From"
         endText="To"
-        value={[get(values, from, ''), get(values, to, '')]}
+        value={[
+          convertToNullish(get(values, from, '')),
+          convertToNullish(get(values, to, '')),
+        ]}
         onChange={([newFromValue, newToValue]) =>
           setValues((prev) => {
             return {
               ...prev,
-              [from]: string.toYearMonthDay(newToValue),
-              [to]: string.toYearMonthDay(newFromValue),
+              [from]: string.toYearMonthDay(newFromValue),
+              [to]: string.toYearMonthDay(newToValue),
             };
           })
         }
-        renderInput={(startProps, endProps) => (
-          <RangeDelimiter
-            leftRenderer={
-              <Field
-                {...startProps}
-                type="date"
-                name={from}
-                lg={6}
-                xl={6}
-              />
-            }
-            rightRenderer={
-              <Field
-                {...endProps}
-                type="date"
-                name={to}
-                lg={6}
-                xl={6}
-              />
-            }
-          />
-        )}
+        renderInput={(startProps, endProps) => {
+          delete startProps.helperText;
+          delete startProps.error;
+
+          delete endProps.helperText;
+          delete endProps.error;
+
+          return (
+            <RangeDelimiter
+              leftRenderer={
+                <Field
+                  {...startProps}
+                  type="date"
+                  name={from}
+                  lg={6}
+                  xl={6}
+                />
+              }
+              rightRenderer={
+                <Field
+                  {...endProps}
+                  type="date"
+                  name={to}
+                  lg={6}
+                  xl={6}
+                />
+              }
+            />
+          );
+        }}
       />
     </Grid>
   );

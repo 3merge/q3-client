@@ -29,7 +29,7 @@ export const Validation = () => (
   >
     <Field name="name" type="text" />
     <Field name="date" type="date" />
-    <Field from="from" to="to" type="dateRange" />
+    <Field name="createdAt" type="dateRange" />
     <Field
       name="loremVars"
       vars={{ hello: 'world' }}

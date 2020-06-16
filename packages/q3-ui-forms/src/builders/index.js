@@ -4,6 +4,7 @@ export { default as Field } from './Field';
 export { default as Fieldset } from './Fieldset';
 export { default as Form } from './Form';
 export { default as Next } from './Next';
+export { default as Message } from './Message';
 export { default as Multistep } from './Multistep';
 export { default as Notify } from './notify';
 export { default as PersistWatcher } from './persistWatcher';
