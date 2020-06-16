@@ -1,10 +1,10 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.19.4",
+  "version": "1.19.5",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.2",
-    "q3-ui-test-utils": "^1.16.8"
+    "q3-ui-test-utils": "^1.19.5"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.0",
@@ -23,7 +23,7 @@
     "minimatch": "^3.0.4",
     "moment": "2.26.0",
     "notistack": "^0.9.16",
-    "q3-ui-dialog": "^1.18.24",
+    "q3-ui-dialog": "^1.19.5",
     "react-i18next": "11.5.0",
     "react-json-pretty": "^2.2.0",
     "react-recaptcha-google": "^1.1.1",

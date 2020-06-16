@@ -1,10 +1,10 @@
 {
   "name": "q3-blocks",
-  "version": "1.18.28",
+  "version": "1.19.5",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.2",
-    "q3-ui-test-utils": "^1.16.8"
+    "q3-ui-test-utils": "^1.19.5"
   },
   "dependencies": {
     "class-names": "^1.0.0",

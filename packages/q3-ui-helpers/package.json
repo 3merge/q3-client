@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-helpers",
-  "version": "1.19.3",
+  "version": "1.19.5",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.16.8"
+    "q3-ui-test-utils": "^1.19.5"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
