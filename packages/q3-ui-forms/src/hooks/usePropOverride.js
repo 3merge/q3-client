@@ -1,15 +1,15 @@
 import React from 'react';
+import { merge } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { BuilderState } from '../FormsContext';
 
 export default (name, override, args = {}) => {
   const { values, errors } = React.useContext(BuilderState);
+  const hasKeys = object.hasKeys(args);
 
-  React.useLayoutEffect(() => {
-    const hasKeys = object.hasKeys(args);
-
-    if (object.isFn(override) && hasKeys)
-      Object.assign(
+  return object.isFn(override) && hasKeys
+    ? merge(
+        {},
         args,
         override(
           {
@@ -18,8 +18,6 @@ export default (name, override, args = {}) => {
           },
           args,
         ),
-      );
-  }, [override, values, errors]);
-
-  return args;
+      )
+    : args;
 };

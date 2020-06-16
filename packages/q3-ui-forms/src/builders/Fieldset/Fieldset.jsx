@@ -19,7 +19,7 @@ export const getAllMultistepFieldsetComponents = (
   React.Children.toArray(children)
     .flatMap((item) => {
       if (
-        item.type === Fieldset &&
+        item.type === React.createElement(Fieldset).type &&
         item.props &&
         item.props.name
       )

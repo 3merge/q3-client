@@ -13,8 +13,8 @@ export default withState((props) => {
 
   return (
     <SelectBase
-      {...props}
       {...options}
+      {...props}
       SelectProps={{ native: true }}
     >
       <SelectMenuItem {...options} {...props} />

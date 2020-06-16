@@ -22,6 +22,7 @@ const Field = (props) => {
     ? React.createElement(FieldDetector.is(type), {
         disabled: readOnly,
         readOnly,
+        type,
         ...attributes,
       })
     : null;

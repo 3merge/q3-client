@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
-import Box from '@material-ui/core/Box';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
-import Graphic from 'q3-ui-assets';
+
 import CustomActionBar from './components/ActionBar';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
@@ -31,6 +30,7 @@ const Repeater = ({
   bulkEditorComponent: BulkEditorComponent,
   disableEmptyState,
   actions,
+  poll,
   ...rest
 }) => {
   const search = useValue('');
@@ -50,6 +50,7 @@ const Repeater = ({
         create,
         remove,
         removeBulk,
+        poll,
       }}
     >
       <Auth op="Read">

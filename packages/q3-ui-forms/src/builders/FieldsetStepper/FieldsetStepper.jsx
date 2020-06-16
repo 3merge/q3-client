@@ -20,7 +20,9 @@ export const getFieldNames = (c) =>
       props: { children, name },
     } = el;
 
-    if (type === Field) curr.push(name);
+    if (type === React.createElement(Field).type)
+      curr.push(name);
+
     if (children) curr.push(getFieldNames(children));
     return condense(curr);
   }, []);
