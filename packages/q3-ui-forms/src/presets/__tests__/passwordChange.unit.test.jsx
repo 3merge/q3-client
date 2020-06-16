@@ -1,7 +1,6 @@
 import React from 'react';
 import Check from '@material-ui/icons/Check';
 import Close from '@material-ui/icons/Close';
-import { useField } from 'formik';
 import { Field } from '../../builders';
 import PasswordChange, {
   PasswordMatch,
@@ -84,11 +83,13 @@ describe('PasswordChange', () => {
 
   describe('"PasswordMatch"', () => {
     const getRe = (value) => {
-      useField
-        .mockReturnValueOnce([{ value: 'a' }])
-        .mockReturnValueOnce([{ value }]);
       return global
-        .shallow(<PasswordMatch />)
+        .shallow(
+          <PasswordMatch
+            newPassword="a"
+            confirmNewPassword={value}
+          />,
+        )
         .find(PasswordHelperListItem)
         .props().re;
     };
@@ -97,7 +98,7 @@ describe('PasswordChange', () => {
       expect(getRe('b')()).toBeFalsy();
     });
 
-    it('should  match', () => {
+    it('should match', () => {
       expect(getRe('a')()).toBeTruthy();
     });
   });
@@ -105,18 +106,19 @@ describe('PasswordChange', () => {
   describe('"PasswordChange"', () => {
     const measureFields = (props) =>
       global
-        .shallow(<PasswordChange {...props} />)
+        .mount(<PasswordChange {...props} />)
         .find(Field);
+
     it('should exclude previous password', () => {
       expect(
         measureFields({ passwordResetToken: '123' }),
-      ).toHaveLength(0);
+      ).toHaveLength(2);
     });
 
     it('should include previous password', () => {
       expect(
         measureFields({ passwordResetToken: '' }),
-      ).toHaveLength(1);
+      ).toHaveLength(3);
     });
   });
 });

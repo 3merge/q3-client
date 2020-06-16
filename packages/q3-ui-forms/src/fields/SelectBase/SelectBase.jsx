@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextBase from '../TextBase';
 
@@ -9,51 +8,39 @@ const SelectBase = ({
   loading,
   items,
   required,
+  children,
+  SelectProps,
   ...props
-}) => {
-  const { t } = useTranslation('labels');
-
-  return (
-    <TextBase
-      {...props}
-      select
-      xl={12}
-      lg={12}
-      required={required}
-      disabled={disabled || loading}
-      InputLabelProps={{
-        shrink: true,
-      }}
-      SelectProps={{
-        native: true,
-        IconComponent: loading
-          ? () => (
-              <CircularProgress
-                size="12px"
-                style={{
-                  marginRight: '1rem',
-                  fontSize: 12,
-                }}
-              />
-            )
-          : undefined,
-      }}
-    >
-      <option
-        value=""
-        aria-label={t('unselected')}
-        disabled={required}
-      >
-        {loading ? 'Loading ...' : 'Choose option(s)'}
-      </option>
-      {items.map((obj) => (
-        <option key={obj.value} value={obj.value}>
-          {t(obj.label, obj.vars)}
-        </option>
-      ))}
-    </TextBase>
-  );
-};
+}) => (
+  <TextBase
+    {...props}
+    select
+    xl={12}
+    lg={12}
+    md={12}
+    required={required}
+    disabled={disabled || loading}
+    InputLabelProps={{
+      shrink: true,
+    }}
+    SelectProps={{
+      ...SelectProps,
+      IconComponent: loading
+        ? () => (
+            <CircularProgress
+              size="12px"
+              style={{
+                marginRight: '1rem',
+                fontSize: 12,
+              }}
+            />
+          )
+        : undefined,
+    }}
+  >
+    {children}
+  </TextBase>
+);
 
 SelectBase.defaultProps = {
   disabled: false,
@@ -64,6 +51,11 @@ SelectBase.defaultProps = {
 };
 
 SelectBase.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
   disabled: PropTypes.bool,
   loading: PropTypes.bool,
   items: PropTypes.arrayOf(
@@ -74,6 +66,10 @@ SelectBase.propTypes = {
   ),
   value: PropTypes.string,
   required: PropTypes.bool,
+  SelectProps: PropTypes.shape({
+    native: PropTypes.bool,
+    multiple: PropTypes.bool,
+  }).isRequired,
 };
 
 export default SelectBase;

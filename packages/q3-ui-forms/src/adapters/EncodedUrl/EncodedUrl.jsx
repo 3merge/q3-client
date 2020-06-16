@@ -2,7 +2,7 @@ import React from 'react';
 import { withLocation } from 'with-location';
 import PropTypes from 'prop-types';
 import { url } from 'q3-ui-helpers';
-import Form from '../../builders/form';
+import { Form } from '../../builders';
 
 const getParamName = (v) => {
   const [name] = encodeURIComponent(v)
@@ -72,17 +72,8 @@ export const deserialize = (v) => {
     }, {});
 };
 
-export const handleStateEncoding = (onDone) => (
-  values,
-  actions,
-) => {
-  try {
-    onDone(`?${serialize(values)}`);
-    actions.setSubmitting(false);
-  } catch (e) {
-    console.log(e);
-  }
-};
+export const handleStateEncoding = (onDone) => (values) =>
+  onDone(`?${serialize(values)}`);
 
 export const handleStateDecoding = (values, defaults) => ({
   ...defaults,

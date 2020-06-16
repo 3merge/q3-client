@@ -8,9 +8,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { red, grey } from '@material-ui/core/colors';
 import Lock from '@material-ui/icons/Lock';
-import moment from 'moment';
-import useDecorator from '../../helpers/useDecorator';
 import TextBase from '../TextBase';
+import withState from '../withState';
 
 const renderAdornmentIcon = (
   type,
@@ -40,19 +39,19 @@ const renderAdornmentIcon = (
   ) : null;
 };
 
-export const Text = (props) => {
-  const { readOnly, disabled, type, icon } = props;
-  const deco = useDecorator(props);
+export const Text = (deco) => {
+  const { readOnly, disabled, type, icon } = deco;
 
+  /*
   if (type === 'date' && deco.value)
     deco.value = moment
       .utc(moment(deco.value).toISOString())
       .local()
       .format('YYYY-MM-DD');
+*/
 
   return (
     <TextBase
-      {...props}
       {...deco}
       type={type}
       InputProps={{
@@ -69,7 +68,6 @@ export const Text = (props) => {
 
 Text.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.bool,
   readOnly: PropTypes.bool,
   type: PropTypes.string,
   icon: PropTypes.node,
@@ -77,10 +75,9 @@ Text.propTypes = {
 
 Text.defaultProps = {
   disabled: false,
-  error: false,
   readOnly: false,
   type: 'text',
   icon: null,
 };
 
-export default Text;
+export default withState(Text);

@@ -1,13 +1,11 @@
-export { default as Back } from './back';
-export { default as Field } from './field';
-export { default as Form } from './form';
-export { default as Next } from './next';
-export {
-  default as Multistep,
-  Fieldset,
-} from './multistep';
+export { default as Back } from './Back';
+export { default as Debugger } from './Debugger';
+export { default as Field } from './Field';
+export { default as Fieldset } from './Fieldset';
+export { default as Form } from './Form';
+export { default as Next } from './Next';
+export { default as Multistep } from './Multistep';
 export { default as Notify } from './notify';
-export { default as Persist } from './persist';
 export { default as PersistWatcher } from './persistWatcher';
-export { default as Validate } from './validate';
-export { default as Wrapper } from './wrapper';
+export { default as Repeater } from './Repeater';
+export { default as Wrapper } from './Wrapper';

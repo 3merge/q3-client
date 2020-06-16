@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Alert from '@material-ui/lab/Alert';
-import Slide from '@material-ui/core/Slide';
+import Collapse from '@material-ui/core/Collapse';
 
 const Notify = ({ show, title, label }) => (
   <Box position="sticky" top={0} zIndex="10">
-    <Slide in={Boolean(show)}>
+    <Collapse in={Boolean(show)}>
       <div>
         <Alert severity="warning">
           {label && <strong>{label}: </strong>}
           {title}
         </Alert>
       </div>
-    </Slide>
+    </Collapse>
   </Box>
 );
 

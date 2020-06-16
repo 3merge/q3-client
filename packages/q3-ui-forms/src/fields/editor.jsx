@@ -6,20 +6,19 @@ import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import useDecorator from '../helpers/useDecorator';
+import withState from './withState';
 
-const TinyFormEditor = (props) => {
-  const { name, required } = props;
-  const {
+const TinyFormEditor = withState(
+  ({
     value,
     error,
     onChange,
     disabled,
     label,
     helperText,
-  } = useDecorator(props);
-
-  return (
+    name,
+    required,
+  }) => (
     <Grid item xs={12}>
       <FormControl error={error} fullWidth>
         <Box my={1} p={2}>
@@ -51,8 +50,8 @@ const TinyFormEditor = (props) => {
         </Box>
       </FormControl>
     </Grid>
-  );
-};
+  ),
+);
 
 TinyFormEditor.propTypes = {
   name: PropTypes.string.isRequired,

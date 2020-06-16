@@ -10,19 +10,9 @@ export default {
 };
 
 export const ToNavigate = () => (
-  <LocationProvider search="?paymentOption=Visa&currency.commons=CAD,USD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
+  <LocationProvider search="?paymentOption=Visa&currency.commons=CAD%2CUSD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
     <LocationDebugger>
-      <EncodedUrl
-        debug
-        onSave={console.log}
-        initialValues={{
-          try: '',
-          paymentOption: '',
-          currency: [],
-          'total>': '',
-          'total<': '',
-        }}
-      >
+      <EncodedUrl debug onSave={console.log}>
         <Field
           name="paymentOption"
           type="autocomplete"

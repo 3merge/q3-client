@@ -13,6 +13,13 @@ export const hasIndex = (v) => v !== -1;
 export const is = (a) => (Array.isArray(a) ? a : [a]);
 
 /**
+ * Remove empty values.
+ */
+export const condense = (a) => a.flat().filter(Boolean);
+
+export const print = (arr) => is(arr).join(', ');
+
+/**
  * Cast a string to an array.
  */
 export const castString = (v) => {

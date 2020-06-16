@@ -49,13 +49,20 @@ export const toTruthy = (str, trans) => {
     : t('no').toUpperCase();
 };
 
+const localize = (v) => moment.utc(v).local();
+
 /**
  * Standardize date display.
  */
 export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
-    ? moment.utc(str).local().format('MMM DD, Y LT')
+    ? localize(str).format('MMM DD, Y LT')
     : fallbackText;
+
+export const toYearMonthDay = (str) =>
+  str !== undefined && str !== null
+    ? localize(str).format('YYYY-MM-DD')
+    : '';
 
 /**
  * Standardize cost display.

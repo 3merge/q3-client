@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 
 export default (Component, sizes) => ({
@@ -12,14 +11,3 @@ export default (Component, sizes) => ({
     <Component {...rest} />
   </Grid>
 );
-
-export const fieldProps = {
-  disabled: PropTypes.bool,
-  helperText: PropTypes.string,
-  error: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  readOnly: PropTypes.bool,
-  type: PropTypes.string,
-};

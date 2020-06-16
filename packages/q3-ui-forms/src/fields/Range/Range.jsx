@@ -1,43 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import useDecorator from '../../helpers/useDecorator';
-import TextBase from '../TextBase';
 import RangeDelimiter from '../RangeDelimiter';
+import Field from '../../builders/Field';
+import { makeRangeNames } from '../../helpers';
 
-export const Range = (props) => {
-  const { name, encode, ...rest } = props;
-  const from = encode ? `${name}%3E` : `${name}>`;
-  const to = encode ? `${name}%3C` : `${name}<`;
-
-  const fromDeco = useDecorator({
-    name: from,
-    ...rest,
-  });
-
-  const toDeco = useDecorator({
-    name: to,
-    ...rest,
-  });
-
+export const Range = ({ name, ...props }) => {
+  const [from, to] = makeRangeNames(name);
   return (
     <Grid item xs={12}>
       <RangeDelimiter
         leftRenderer={
-          <TextBase
-            {...fromDeco}
+          <Field
+            {...props}
+            name={from}
+            type="number"
             lg={6}
             xl={6}
-            type="number"
           />
         }
         rightRenderer={
-          <TextBase
-            {...toDeco}
+          <Field
+            {...props}
+            name={to}
+            type="number"
             lg={6}
             xl={6}
-            type="number"
           />
         }
       />
@@ -46,12 +34,7 @@ export const Range = (props) => {
 };
 
 Range.propTypes = {
-  encode: PropTypes.bool,
   name: PropTypes.string.isRequired,
-};
-
-Range.defaultProps = {
-  encode: false,
 };
 
 export default Range;

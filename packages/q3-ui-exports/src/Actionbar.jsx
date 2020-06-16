@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Grow from '@material-ui/core/Fade';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
@@ -38,24 +37,19 @@ export const renderActions = (actions, t, picked) =>
       ))
     : null;
 
-const intersects = (data = [], columns = [], ids = []) =>
+export const intersects = (data = [], ids = []) =>
   Array.isArray(data)
     ? data.map(assignId).filter((v) => matches(ids, v.id))
     : [];
 
-const ActionBar = ({
-  actions,
-  data,
-  columns,
-  position,
-}) => {
+const ActionBar = ({ actions, data, position }) => {
   const { t } = useTranslation('labels');
   const {
     hasChecked,
     checked,
     setChecked,
   } = React.useContext(State);
-  const picked = intersects(data, columns, checked);
+  const picked = intersects(data, checked);
   const { actionBar } = useStyle({
     position,
   });
@@ -96,18 +90,12 @@ ActionBar.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 
   /**
-   * An array of active keys to read from the date.
-   */
-  columns: PropTypes.arrayOf(String),
-
-  /**
    * CSS attribute of the actionbar.
    */
   position: PropTypes.string,
 };
 
 ActionBar.defaultProps = {
-  columns: [],
   actions: [],
   data: [],
   position: 'sticky',

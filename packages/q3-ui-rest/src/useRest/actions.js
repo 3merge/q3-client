@@ -2,7 +2,6 @@ import React from 'react';
 import Axios from 'axios';
 import { navigate } from '@reach/router';
 import { get, invoke } from 'lodash';
-import { useFormHandler } from 'q3-ui-forms';
 import {
   makePath,
   makeQueryPath,
@@ -26,7 +25,6 @@ const useRest = ({
   pluralized,
   select,
   runOnInit = false,
-  strategy = 'formik',
   decorators = {},
   location = {},
   history = {},
@@ -34,7 +32,6 @@ const useRest = ({
 }) => {
   if (!url) throw new Error('Requires a valid URL');
   const { search } = location;
-  const { onStart, onComplete } = useFormHandler(strategy);
   const [state, dispatch] = React.useReducer(reducer, {
     fetching: runOnInit,
     progress: 0,
@@ -49,29 +46,26 @@ const useRest = ({
       type,
     });
 
-  const handleRequest = (promise, actions, verb) => {
-    onStart(actions);
-    return promise
+  const handleRequest = (promise, actions, verb) =>
+    promise
       .then(({ data }) => {
         invoke(decorators, 'get', data);
 
         const resolver = () =>
           new Promise((res) => {
             call(verb, data);
-            onComplete(null, actions);
             res(data);
           });
 
         return poll ? poll().then(resolver) : resolver();
       })
-      .catch((err) => {
-        onComplete(get(err, 'response.data'), actions);
-        return Promise.reject(err);
-      });
-  };
+      .catch((err) =>
+        Promise.reject(get(err, 'response.data')),
+      );
 
   const wrapUpdateFn = (id, verb) => (values, actions) => {
     invoke(decorators, verb, values);
+
     return handleRequest(
       invoke(Axios, verb, makePath([url, id]), values),
       actions,

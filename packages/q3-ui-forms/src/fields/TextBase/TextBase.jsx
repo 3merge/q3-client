@@ -10,11 +10,16 @@ export const chosenTextFieldDisplayAttributes = {
   fullWidth: true,
   size: 'small',
   variant: 'outlined',
-  autoComplete: 'off',
 };
 
 export const TextBase = (props) => {
-  const { children, readOnly, disabled, type } = props;
+  const {
+    children,
+    readOnly,
+    disabled,
+    type,
+    error,
+  } = props;
   const isDisabled = disabled || readOnly;
 
   const { root } = useStyle({
@@ -24,21 +29,23 @@ export const TextBase = (props) => {
   const allProps = merge(
     removeDecoratedProps(omit(props, isUndefined)),
     chosenTextFieldDisplayAttributes,
-    {
-      InputProps: {
-        autoComplete: 'off',
-        autocomplete: 'off',
-      },
-    },
   );
 
   return (
     <TextField
-      {...allProps}
+      // ensure some of the custom props we're using
+      // don't forward into the HTML
+      {...omit(allProps, [
+        'attribute',
+        'errors',
+        'values',
+        'vars',
+      ])}
       className={root}
       disabled={isDisabled}
       readOnly={isDisabled}
       type={type}
+      error={Boolean(error)}
     >
       {children}
     </TextField>
@@ -46,10 +53,17 @@ export const TextBase = (props) => {
 };
 
 TextBase.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+    PropTypes.array,
+  ]),
   disabled: PropTypes.bool,
   helperText: PropTypes.string,
-  error: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
   label: PropTypes.string.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,

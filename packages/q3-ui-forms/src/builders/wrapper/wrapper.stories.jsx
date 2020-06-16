@@ -2,8 +2,8 @@ import React from 'react';
 import Wrapper from '.';
 
 // note already wrapped
-import Form from '../form';
-import Field from '../field';
+import Form from '../Form';
+import Field from '../Field';
 
 export default {
   title: 'Q3 Forms|Builders/Wrapper',

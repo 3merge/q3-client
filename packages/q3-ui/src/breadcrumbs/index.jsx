@@ -99,7 +99,7 @@ RouterBreadcrumbs.propTypes = {
   /**
    * A lang prefix for each path part.
    */
-  locale: PropTypes.string.isRequired,
+  locale: PropTypes.string,
 
   /**
    * Controls the color of the link items
@@ -110,6 +110,7 @@ RouterBreadcrumbs.propTypes = {
 RouterBreadcrumbs.defaultProps = {
   root: '/',
   mode: 'light',
+  locale: 'en-CA',
 };
 
 export default RouterBreadcrumbs;

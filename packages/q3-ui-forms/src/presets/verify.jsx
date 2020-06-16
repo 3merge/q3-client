@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NewPasswordHelpers } from './passwordChange';
-import Field from '../builders/field';
-import Form from '../builders/form';
+import { Form, Field } from '../builders';
 import { handleSubmitWrapper } from './utils';
 
 const Verify = ({ id, verificationCode, ...rest }) => (

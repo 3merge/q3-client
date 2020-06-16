@@ -1,13 +1,13 @@
-export { default as Autocomplete } from './autocomplete';
+export { default as Autocomplete } from './Autocomplete';
 export { default as Bool } from './bool';
 export { default as Checkbox } from './checkbox';
-export { default as Chips } from './chips';
+export { default as Chips } from './Chips';
 export { default as Checkset } from './checkset';
 export { default as DatePicker } from './Date';
-export { default as DateRangePicker } from './dateRange';
+export { default as DateRangePicker } from './DateRange';
 export { default as Editor } from './editor';
 export { default as File } from './file';
-export { default as Multiselect } from './multiselect';
+export { default as Multiselect } from './MultiSelect';
 export { default as Multitext } from './multitext';
 export { default as Radio } from './radio';
 export { default as Range } from './Range';

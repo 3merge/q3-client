@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Form from '../builders/form';
-import Field from '../builders/field';
+import { Form, Field } from '../builders';
 import Select from './Select';
 
 const opts = [

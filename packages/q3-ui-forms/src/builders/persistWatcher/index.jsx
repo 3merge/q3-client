@@ -1,70 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Notify from '../notify';
-import {
-  SESSION_STORAGE_EVENT,
-  onPurge,
-  isBrowserReady,
-} from './dispatch';
-import { isPersistence } from '../persist/utils';
-import useListener from './useListener';
 
-export const useSessionStorage = () => {
-  const [
-    unsavedChanges,
-    setUnsavedChanges,
-  ] = React.useState([]);
+import { listenForChange } from '../../hooks/usePrevious';
 
-  const onStorage = () => {
-    const persistentForms = Object.keys(
-      sessionStorage,
-    ).reduce(
-      (curr, key) =>
-        isPersistence(key) ? curr.concat(key) : curr,
-      [],
-    );
-
-    setUnsavedChanges(persistentForms);
-  };
-
-  const clearLocalStorage = (id) =>
-    isBrowserReady(() => {
-      sessionStorage.removeItem(id);
-      onPurge({ id });
-      onStorage();
-    });
-
-  useListener(SESSION_STORAGE_EVENT, onStorage);
-  return [unsavedChanges, clearLocalStorage];
-};
-
-export const PersistWatcher = ({ filterById }) => {
-  const [hasUnsavedChanges] = useSessionStorage();
+export const PersistWatcher = () => {
   const { t } = useTranslation('labels');
+  const hasUnsavedChanges = listenForChange();
 
-  return hasUnsavedChanges
-    .filter((v) =>
-      filterById ? v.includes(filterById) : true,
-    )
-    .map(() => (
-      <Notify
-        show={hasUnsavedChanges}
-        title={t('unsavedChangesOn')}
-        label={t('unsavedChanges')}
-      />
-    ));
+  return (
+    <Notify
+      show={hasUnsavedChanges}
+      title={t('unsavedChangesOn')}
+      label={t('unsavedChanges')}
+    />
+  );
 };
 
-PersistWatcher.propTypes = {
-  /**
-   * Form ID to check localStorage.
-   */
-  filterById: PropTypes.string,
-};
-
-PersistWatcher.defaultProps = {
-  filterById: null,
-};
+PersistWatcher.propTypes = {};
+PersistWatcher.defaultProps = {};
 
 export default PersistWatcher;

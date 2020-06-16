@@ -15,7 +15,7 @@ describe('EncodedUrl adapter', () => {
       });
 
       expect(s).toEqual(
-        'createdAt>=2020-04-01&createdAt<=2020-04-6&tags!=a%2Cb%2Cc',
+        'createdAt%3E=2020-04-01&createdAt%3C=2020-04-6&tags!=a%2Cb%2Cc',
       );
     });
 
@@ -52,22 +52,10 @@ describe('EncodedUrl adapter', () => {
   describe('deserialize', () => {
     it('should remove first character', () => {
       expect(
-        deserialize('?status=Done&price>=123'),
+        deserialize('?status=Done&price%3E=123'),
       ).toMatchObject({
         status: 'Done',
-        'price%3E': '123',
-      });
-    });
-
-    it('should convert length', () => {
-      expect(
-        deserialize(
-          'items.0=exists(true)&total<=100&payment=Visa,Mastercard',
-        ),
-      ).toMatchObject({
-        'items%30': 'exists(true)',
-        'total%3C': '100',
-        payment: ['Visa', 'Mastercard'],
+        'price>': '123',
       });
     });
   });
@@ -75,12 +63,8 @@ describe('EncodedUrl adapter', () => {
   describe('handleStateEncoding', () => {
     it('should call done function', () => {
       const done = jest.fn();
-      const actions = { setSubmitting: jest.fn() };
-      handleStateEncoding(done)({ foo: 1 }, actions);
+      handleStateEncoding(done)({ foo: 1 });
       expect(done).toHaveBeenCalledWith('?foo=1');
-      expect(actions.setSubmitting).toHaveBeenCalledWith(
-        false,
-      );
     });
   });
 

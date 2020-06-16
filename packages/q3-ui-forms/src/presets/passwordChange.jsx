@@ -11,9 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { green, red } from '@material-ui/core/colors';
 import * as yup from 'yup';
-import { useField } from 'formik';
-import Field from '../builders/field';
-import Form from '../builders/form';
+import { Form, Field } from '../builders';
 import { handleSubmitWrapper } from './utils';
 
 export const hasLowercase = /([a-z])+/;
@@ -30,8 +28,11 @@ export const PasswordHelperListItem = ({
   re,
 }) => {
   const { t } = useTranslation('helpers');
-  const passed =
+  let passed =
     typeof re === 'function' ? re(value) : re.test(value);
+
+  // regardless, it's not valid
+  if (!value) passed = false;
 
   const getColor = () => (passed ? green[500] : red[500]);
   const getIcon = () => (passed ? <Check /> : <Close />);
@@ -61,9 +62,10 @@ PasswordHelperListItem.propTypes = {
   ]).isRequired,
 };
 
-export const PasswordValidationChecklist = () => {
+export const PasswordValidationChecklist = ({
+  newPassword: value,
+}) => {
   const { t } = useTranslation('labels');
-  const [{ value }] = useField('newPassword');
 
   return (
     <Grid item xs={12}>
@@ -102,12 +104,11 @@ export const PasswordValidationChecklist = () => {
   );
 };
 
-export const PasswordMatch = () => {
+export const PasswordMatch = ({
+  newPassword: value,
+  confirmNewPassword: valueNew,
+}) => {
   const { t } = useTranslation('labels');
-  const [{ value }] = useField('newPassword');
-  const [{ value: valueNew }] = useField(
-    'confirmNewPassword',
-  );
 
   return (
     <Grid item xs={12}>
@@ -126,67 +127,76 @@ export const PasswordMatch = () => {
   );
 };
 
-export const NewPasswordHelpers = () => (
-  <>
-    <Field
-      name="newPassword"
-      type="password"
-      validate={yup
-        .string()
-        .min(8)
-        .max(16)
-        .matches(hasLowercase)
-        .matches(hasUppercase)
-        .matches(hasNumber)
-        .matches(hasSpecialCharacter)
-        .required()}
-      suppressHelper
-      required
-      xl={12}
-      lg={12}
-    />
-    <PasswordValidationChecklist />
-    <Field
-      name="confirmNewPassword"
-      type="password"
-      validate={yup
-        .string()
-        .oneOf([yup.ref('newPassword'), null])
-        .required()}
-      suppressHelper
-      required
-      xl={12}
-      lg={12}
-    />
-    <PasswordMatch />
-  </>
-);
+export const NewPasswordHelpers = (props) => {
+  const ref = React.useRef();
+  const { newPassword } = props;
+
+  React.useEffect(() => {
+    ref.current = newPassword;
+  }, [newPassword]);
+
+  return (
+    <>
+      <Field
+        name="newPassword"
+        type="password"
+        validate={yup
+          .string()
+          .min(8)
+          .max(16)
+          .matches(hasLowercase)
+          .matches(hasUppercase)
+          .matches(hasNumber)
+          .matches(hasSpecialCharacter)
+          .required()}
+        suppressHelper
+        required
+        xl={12}
+        lg={12}
+      />
+      <PasswordValidationChecklist {...props} />
+      <Field
+        name="confirmNewPassword"
+        type="password"
+        listen={['newPassword']}
+        validate={yup
+          .string()
+          .test(
+            'matches',
+            'This value must match the new password',
+            (value) => value === ref.current,
+          )}
+        suppressHelper
+        required
+        xl={12}
+        lg={12}
+      />
+      <PasswordMatch {...props} />
+    </>
+  );
+};
 
 const PasswordChange = ({
   passwordResetToken,
   email,
   ...rest
 }) => (
-  <Form
-    initialValues={{
-      previousPassword: '',
-      newPassword: '',
-      confirmNewPassword: '',
-      passwordResetToken,
-      email,
-    }}
-    {...rest}
-  >
-    {!passwordResetToken && (
-      <Field
-        name="previousPassword"
-        type="password"
-        required
-        xl={12}
-        lg={12}
-      />
+  <Form debug {...rest}>
+    {(values) => (
+      <>
+        {!passwordResetToken && (
+          <Field
+            name="previousPassword"
+            type="password"
+            required
+            xl={12}
+            lg={12}
+          />
+        )}
+
+        <NewPasswordHelpers {...values} />
+      </>
     )}
-    <NewPasswordHelpers />
   </Form>
 );
 

@@ -4,10 +4,7 @@ import { tel, postal, autocomplete } from '../validation';
 describe('Custom validators', () => {
   describe('Postal code', () => {
     const schema = yup.object().shape({
-      postal: yup
-        .string()
-        .test(postal)
-        .required(),
+      postal: yup.string().test(postal).required(),
     });
 
     it('it should return false', (done) => {
@@ -96,10 +93,7 @@ describe('Custom validators', () => {
 
   describe('Tel value object', () => {
     const schema = yup.object().shape({
-      tel: yup
-        .string()
-        .test(tel)
-        .required(),
+      tel: yup.string().test(tel).required(),
     });
 
     it('it should return false', (done) => {

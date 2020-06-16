@@ -1,6 +1,5 @@
 import React from 'react';
-import Form from '../../builders/form';
-import Field from '../../builders/field';
+import { Form, Field } from '../../builders';
 
 export default {
   title: 'Q3 Forms|Fields/Text',

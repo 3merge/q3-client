@@ -1,8 +1,5 @@
 import React from 'react';
-import Tile from 'q3-ui/lib/tile';
-import { Router, Link } from '@reach/router';
-import MockLocation from 'q3-ui-test-utils/lib/location';
-import Field from '../field';
+import Field from '../Field';
 import Form, { FormBuilder } from '.';
 import PersistWatcher from '../persistWatcher';
 
@@ -155,5 +152,22 @@ export const WithListening = () => (
       type="text"
       helper="This remains unaffected at all times"
     />
+  </Form>
+);
+
+export const WithInlineMessages = () => (
+  <Form
+    debug
+    onSubmit={() => {
+      const err = new Error();
+      err.message = 'Something terrible as happened';
+      err.errors = {
+        name: { msg: 'We do not know this person' },
+      };
+
+      return Promise.reject(err);
+    }}
+  >
+    <Field name="name" type="text" />
   </Form>
 );

@@ -1,11 +1,15 @@
 import React from 'react';
 import ChipInput from 'material-ui-chip-input';
 import Grid from '@material-ui/core/Grid';
-import useDecorator from '../helpers/useDecorator';
+import withState from './withState';
 
 const Multitext = (props) => {
-  const deco = useDecorator(props);
-  const { onArrayPush, onArrayPull, value, ...rest } = deco;
+  const {
+    onArrayPush,
+    onArrayPull,
+    value,
+    ...rest
+  } = props;
 
   return (
     <Grid item xs={12} style={{ marginBottom: 20 }}>
@@ -23,4 +27,4 @@ const Multitext = (props) => {
   );
 };
 
-export default Multitext;
+export default withState(Multitext);

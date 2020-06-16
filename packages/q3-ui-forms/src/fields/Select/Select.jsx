@@ -1,18 +1,23 @@
 import React from 'react';
-import useOptions from '../../helpers/useOptions';
+import { useOptions } from '../../hooks';
 import SelectBase from '../SelectBase';
-import useDecorator from '../../helpers/useDecorator';
+import withState from '../withState';
+import SelectMenuItem from '../SelectMenuItem';
 
-const Select = (props) => {
-  const deco = useDecorator(props);
-
+export default withState((props) => {
   const options = useOptions({
     minimumCharacterCount: 0,
     loadOptionsPlainly: true,
     ...props,
   });
 
-  return <SelectBase {...options} {...deco} />;
-};
-
-export default Select;
+  return (
+    <SelectBase
+      {...props}
+      {...options}
+      SelectProps={{ native: true }}
+    >
+      <SelectMenuItem {...options} {...props} />
+    </SelectBase>
+  );
+});

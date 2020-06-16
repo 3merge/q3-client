@@ -1,4 +1,9 @@
-import { hasKeys, invokeSafely, isFn } from '../object';
+import {
+  clean,
+  hasKeys,
+  invokeSafely,
+  isFn,
+} from '../object';
 
 describe('Object helpers', () => {
   describe('"hasKeys"', () => {
@@ -28,6 +33,37 @@ describe('Object helpers', () => {
   describe('"isFn"', () => {
     it('should return truthy', () => {
       expect(isFn(jest.fn())).toBeTruthy();
+    });
+  });
+
+  describe('"clean', () => {
+    it('should delete nullish keys', () => {
+      expect(
+        clean({
+          foo: undefined,
+          bar: {
+            baz: null,
+          },
+        }),
+      ).toEqual({});
+    });
+
+    it('should delete empty arrays', () => {
+      expect(
+        clean({
+          foo: [{}, undefined],
+        }),
+      ).toEqual({});
+    });
+
+    it('should retain values', () => {
+      const out = clean({
+        foo: 1,
+        bar: '',
+      });
+
+      expect(out).toHaveProperty('foo');
+      expect(out).toHaveProperty('bar');
     });
   });
 });

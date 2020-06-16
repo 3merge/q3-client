@@ -1,4 +1,4 @@
-import { getColumns, getData } from '../helpers';
+import { getData } from '../helpers';
 
 const mutator = (v) => v.toUpperCase();
 
@@ -10,17 +10,6 @@ const seed = [
 ];
 
 describe('DataToExcel', () => {
-  describe('"getColumns"', () => {
-    it('should cast values to title prop', () => {
-      const columns = getColumns(seed, mutator);
-
-      expect(columns).toEqual([
-        expect.objectContaining({ title: 'KEY1' }),
-        expect.objectContaining({ title: 'KEY2' }),
-      ]);
-    });
-  });
-
   describe('"getData"', () => {
     it('should map value by title', () => {
       const columns = getData(seed, mutator);

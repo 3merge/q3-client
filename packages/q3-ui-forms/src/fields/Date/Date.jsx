@@ -1,22 +1,22 @@
 import React from 'react';
-import useDecorator from '../../helpers/useDecorator';
-import { handleDateChange } from '../dateRange';
+import { get } from 'lodash';
+import { string } from 'q3-ui-helpers';
 import DateBase from '../DateBase';
+import withState from '../withState';
 
-const Date = (props) => {
-  const { value, onChange, name, ...deco } = useDecorator(
-    props,
-  );
-
-  return (
+export default withState(
+  ({ value, onChange, name, ...rest }) => (
     <DateBase
-      {...props}
-      {...deco}
+      {...rest}
       name={name}
-      onChange={handleDateChange(onChange, name)}
       value={value}
+      onChange={(e, val) =>
+        onChange(
+          e,
+          get(val, 'value', val),
+          string.toYearMonthDay,
+        )
+      }
     />
-  );
-};
-
-export default Date;
+  ),
+);

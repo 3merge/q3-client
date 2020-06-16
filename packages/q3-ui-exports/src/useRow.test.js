@@ -25,7 +25,7 @@ describe('toCsv', () => {
       );
 
       expect(out).toMatch(
-        'bar.quuz,bar.thunk,foo\n1,1,1\n2,2,2',
+        'foo,bar.quuz,bar.thunk\n1,1,1\n2,2,2',
       );
     });
 
@@ -33,8 +33,8 @@ describe('toCsv', () => {
       const out = toCsv(
         [
           {
-            foo: 1,
             bar: 1,
+            foo: 1,
             quuz: 1,
           },
           {
@@ -52,7 +52,7 @@ describe('toCsv', () => {
       );
 
       expect(out).toMatch(
-        'bar,foo,garply.0.baz,quuz,thunk\n1,1,,1,\n,2,2,,2',
+        'bar,foo,quuz,thunk,garply.$.baz\n1,1,1,,\n,2,,2,2',
       );
     });
 

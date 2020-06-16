@@ -31,7 +31,9 @@ export function tel(v) {
 
 export function autocomplete(v) {
   const hasValue = v && typeof v === 'object' && v.value;
-  return this.schema._exclusive.required ? hasValue : true;
+  return this.schema._exclusive.required
+    ? hasValue || hasValue === undefined
+    : true;
 }
 
 export function emptyStringToNull(value, originalValue) {
