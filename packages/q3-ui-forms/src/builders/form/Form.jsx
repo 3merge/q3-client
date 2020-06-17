@@ -16,7 +16,7 @@ export const FormBuilder = ({
   resetLabel,
   submitLabel,
 }) => (
-  <Box component="form" onSubmit={onSubmit}>
+  <Box component="form" onSubmit={onSubmit} noValidate>
     <Grid container spacing={1}>
       {children}
       <Grid item xs={12}>

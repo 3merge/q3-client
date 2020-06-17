@@ -25,6 +25,7 @@ const renderAdornmentIcon = (
   if (type === 'postal') El = MarkunreadMailboxIcon;
   if (type === 'date') El = DateRangeIcon;
   if (icon) El = icon;
+
   if (hasError) El = ErrorOutlineIcon;
 
   return El ? (
@@ -40,7 +41,7 @@ const renderAdornmentIcon = (
 };
 
 export const Text = (deco) => {
-  const { readOnly, disabled, type, icon } = deco;
+  const { readOnly, disabled, type, icon, hideIcon } = deco;
 
   /*
   if (type === 'date' && deco.value)
@@ -55,12 +56,14 @@ export const Text = (deco) => {
       {...deco}
       type={type}
       InputProps={{
-        endAdornment: renderAdornmentIcon(
-          type,
-          disabled || readOnly,
-          deco.error,
-          icon,
-        ),
+        endAdornment: !hideIcon
+          ? renderAdornmentIcon(
+              type,
+              disabled || readOnly,
+              deco.error,
+              icon,
+            )
+          : undefined,
       }}
     />
   );

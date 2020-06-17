@@ -5,6 +5,7 @@ import { get } from 'lodash';
 import { MobileDateRangePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import { string } from 'q3-ui-helpers';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Field } from '../../builders';
 import RangeDelimiter from '../RangeDelimiter';
 import {
@@ -20,6 +21,9 @@ const DateRange = ({ name }) => {
   const [from, to] = makeRangeNames(name);
   const { setValues } = React.useContext(DispatcherState);
   const { values } = React.useContext(BuilderState);
+  const isBiggerThanPhone = useMediaQuery(
+    '(min-width:960px)',
+  );
 
   return (
     <Grid item xs={12}>
@@ -47,11 +51,17 @@ const DateRange = ({ name }) => {
           delete endProps.helperText;
           delete endProps.error;
 
+          startProps.inputProps.type = 'date';
+          endProps.inputProps.type = 'date';
+
           return (
             <RangeDelimiter
               leftRenderer={
                 <Field
                   {...startProps}
+                  override={() => ({
+                    hideIcon: isBiggerThanPhone,
+                  })}
                   type="date"
                   name={from}
                   lg={6}

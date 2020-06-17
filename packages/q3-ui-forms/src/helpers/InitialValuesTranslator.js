@@ -58,16 +58,14 @@ export default class InitialValuesTranslator {
 
         if (Array.isArray(value)) {
           const raw = value.filter(Boolean);
-          if (!raw.length) {
+
+          if (raw.length) {
             if (isSimpleArray(raw)) {
               copy[key] = mangleArray(raw);
             } else {
               copy[key] = raw.map(exec);
             }
           }
-
-          // ensure empty values do not get through
-          if (copy[key] === '____') delete copy[key];
         } else if (typeof value === 'object') {
           copy[key] = exec(value);
         } else {
