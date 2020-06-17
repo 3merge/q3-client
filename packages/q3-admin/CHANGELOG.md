@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.8](https://github.com/3merge/q/compare/v1.19.7...v1.19.8) (2020-06-17)
+
+
+### Bug Fixes
+
+* notify/persistence now integrated with toast provider ([34b64c2](https://github.com/3merge/q/commit/34b64c2ada3d131fc98df955ea758441511be948))
+
+
+
+
+
 ## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
 
 **Note:** Version bump only for package q3-admin
