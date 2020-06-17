@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import FormBox from '../components/FormBox';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBoxNotice from '../components/FormBoxNotice';
-import { hasOp, toOp } from './password-reset';
+import { hasOp, toOp } from '../components/utils';
 
 const Reverify = ({ location: { search, pathname } }) => {
   const { t } = useTranslation();

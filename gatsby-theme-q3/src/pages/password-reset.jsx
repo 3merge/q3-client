@@ -1,20 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Link, navigate } from 'gatsby';
+import { Link } from 'gatsby';
 import axios from 'axios';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Button from '@material-ui/core/Button';
 import FormBox from '../components/FormBox';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBoxNotice from '../components/FormBoxNotice';
-
-export const OP = '?op=success';
-export const hasOp = (search) =>
-  search && search.includes(OP);
-
-export const toOp = (pathname) => () =>
-  navigate(`${pathname}${OP}`);
+import { hasOp, toOp } from '../components/utils';
 
 const PasswordReset = ({
   location: { search, pathname },

@@ -1,5 +1,8 @@
 import axios from 'axios';
+import { navigate } from '@reach/router';
 import { setSession } from 'q3-ui-permissions';
+
+export const OP = '?op=success';
 
 export const authenticate = (credentials) =>
   axios
@@ -9,3 +12,9 @@ export const authenticate = (credentials) =>
       window.location.replace('/');
       return data;
     });
+
+export const hasOp = (search) =>
+  search && search.includes(OP);
+
+export const toOp = (pathname) => () =>
+  navigate(`${pathname}${OP}`);
