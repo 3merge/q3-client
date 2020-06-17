@@ -1,5 +1,6 @@
 import { setWith } from 'lodash';
 import { browser, object } from 'q3-ui-helpers';
+import flat from 'flat';
 
 const getFieldMessage = (v) => {
   let response = 'Server validation failed';
@@ -34,5 +35,5 @@ export default (errorInstance) => {
   if ('errors' in payload && object.hasKeys(payload.errors))
     errors = mapErrors(payload.errors);
 
-  return [errors, payload.message];
+  return [flat(errors), payload.message];
 };

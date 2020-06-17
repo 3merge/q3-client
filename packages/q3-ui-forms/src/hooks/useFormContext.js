@@ -21,7 +21,9 @@ export const unsetFromPreviousState = (name) => (
 
 export const reduceErrorMessages = (errors = []) =>
   errors.reduce((acc, next) => {
-    acc[next.path] = next.message;
+    acc[
+      next.path.replace(/\[/gi, '.').replace(/\]/gi, '')
+    ] = next.message;
     return acc;
   }, {});
 
@@ -109,7 +111,7 @@ export default ({
     setIsSubmitting(true);
 
     return validationSchema
-      .validate(values, {
+      .validate(flat.unflatten(values), {
         abortEarly: false,
       })
       .then(next)

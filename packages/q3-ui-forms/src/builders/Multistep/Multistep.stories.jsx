@@ -2,6 +2,7 @@ import React from 'react';
 import Field from '../Field';
 import Multistep from './Multistep';
 import Fieldset from '../Fieldset';
+import Repeater from '../Repeater';
 
 export default {
   title: 'Q3 Forms|Builders/Multiform',
@@ -16,7 +17,7 @@ export const Default = () => (
     isNew={false}
     initialValues={{
       brother: 'Chris',
-      friend: 'david@gmail.com',
+      // friend: 'david@gmail.com',
     }}
     onReset={() => {
       alert('Starting over...');
@@ -39,8 +40,13 @@ export const Default = () => (
         ]}
       />
     </Fieldset>
-
     <Fieldset name="secondStepLabel">
+      <Field name="friend" type="email" required />
+      <Repeater group="hobbies">
+        <Field name="activity" type="text" required />
+      </Repeater>
+    </Fieldset>
+    <Fieldset name="thirdStep">
       <Field
         name="brother"
         type="text"
@@ -49,7 +55,6 @@ export const Default = () => (
           required: values.firstName === 'joe',
         })}
       />
-      <Field name="friend" type="email" required />
       <Field name="birthday" type="date" min="0" />
     </Fieldset>
   </Multistep>

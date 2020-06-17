@@ -21,7 +21,6 @@ export default (props) => {
     <FormBox
       renderBottom={
         <Form
-          debug
           onSubmit={(passwords) =>
             axios.post('/verify', passwords).then(() => {
               if (!email) return navigate('/');

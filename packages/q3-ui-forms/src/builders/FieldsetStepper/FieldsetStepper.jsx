@@ -5,6 +5,7 @@ import Step from '@material-ui/core/Step';
 import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
+import Fade from '@material-ui/core/Fade';
 import { get } from 'lodash';
 import { array } from 'q3-ui-helpers';
 
@@ -65,9 +66,16 @@ const FieldsetStepper = ({
             <StepLabel {...stepProps}>
               {t(stepProps.name)}
             </StepLabel>
-            <StepContent>
-              {stepProps.component}
-              {children(stepProps)}
+            <StepContent
+              TransitionProps={{
+                unmountOnExit: false,
+                mountOnEnter: false,
+              }}
+            >
+              <div>
+                {stepProps.component}
+                {children(stepProps)}
+              </div>
             </StepContent>
           </Step>
         ))}

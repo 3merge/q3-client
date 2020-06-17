@@ -27,7 +27,7 @@ export default withWrapper(({ children, onSubmit }) => {
   };
 
   return (
-    <Box component="form" onSubmit={onSubmit}>
+    <Box noValidate component="form" onSubmit={onSubmit}>
       <FieldsetSteppter
         steps={childrenArray}
         activeStep={activeStep}
