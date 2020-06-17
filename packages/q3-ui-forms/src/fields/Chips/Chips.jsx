@@ -63,6 +63,7 @@ const AbstractedAutoComplete = ({
         'readOnly',
         'required',
       ])}
+      defaultValue={Array.isArray(value) ? value : [value]}
       multiple
       options={items}
       loading={loading}

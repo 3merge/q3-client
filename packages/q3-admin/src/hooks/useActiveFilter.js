@@ -102,9 +102,7 @@ export default (search) => {
       updateFiltersInProfile(pushInto(name, search)),
 
     favourite: (name) =>
-      updateFiltersInProfile(
-        pushInto(`default.${collectionName}`, name),
-      ),
+      updateFiltersInProfile(pushInto('default', name)),
 
     remove: (name) =>
       updateFiltersInProfile(pullFrom(name)),

@@ -17,7 +17,7 @@ import {
   convertToNullish,
 } from '../../helpers';
 
-const DateRange = ({ name }) => {
+const DateRange = ({ name, ...rest }) => {
   const [from, to] = makeRangeNames(name);
   const { setValues } = React.useContext(DispatcherState);
   const { values } = React.useContext(BuilderState);
@@ -58,6 +58,7 @@ const DateRange = ({ name }) => {
             <RangeDelimiter
               leftRenderer={
                 <Field
+                  {...rest}
                   {...startProps}
                   override={() => ({
                     hideIcon: isBiggerThanPhone,
@@ -70,6 +71,7 @@ const DateRange = ({ name }) => {
               }
               rightRenderer={
                 <Field
+                  {...rest}
                   {...endProps}
                   type="date"
                   name={to}

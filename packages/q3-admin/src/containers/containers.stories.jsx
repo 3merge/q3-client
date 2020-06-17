@@ -87,6 +87,13 @@ const Investors = (props) => (
                   lg={12}
                 />
                 <Field
+                  hideIcon
+                  name="createdAt"
+                  type="dateRange"
+                  xl={12}
+                  lg={12}
+                />
+                <Field
                   name="role"
                   type="text"
                   xl={12}

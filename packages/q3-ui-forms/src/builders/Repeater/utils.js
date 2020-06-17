@@ -22,6 +22,7 @@ export const assignNameToFields = (
   prefix,
   index,
   children,
+  t,
 ) => {
   return toArray(children).map((item = {}) => {
     const { children: subChildren, props } = item;
@@ -32,10 +33,12 @@ export const assignNameToFields = (
 
     if (!attribute) return item;
 
+    const label = `${prefix}.${attribute}`;
+
     return React.cloneElement(item, {
       ...props,
       name: `${prefix}.${index}.${attribute}`,
-      label: `${prefix}.${attribute}`,
+      label: t ? t(label) : label,
     });
   });
 };

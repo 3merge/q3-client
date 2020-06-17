@@ -16,7 +16,7 @@ export default {
 };
 
 export const WithOptions = () => (
-  <Form debug>
+  <Form debug initialValues={{ countries: 'CA' }}>
     <Field
       required
       name="countries"

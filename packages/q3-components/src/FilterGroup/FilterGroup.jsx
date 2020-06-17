@@ -46,6 +46,7 @@ export const FilterGroup = ({
     <Box width="100%" maxWidth="100%" px={0.5}>
       <ListItem
         button
+        dense
         ContainerComponent="div"
         onClick={toggle}
         selected={state}

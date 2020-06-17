@@ -69,7 +69,7 @@ const Repeater = ({ group, children }) => {
         <Grid container key={`${group}-${i}`} spacing={1}>
           <Grid item style={{ flex: 1 }}>
             <Grid container spacing={1}>
-              {assignNameToFields(group, i, children)}
+              {assignNameToFields(group, i, children, t)}
             </Grid>
           </Grid>
           <Grid item style={{ width: 'auto' }}>

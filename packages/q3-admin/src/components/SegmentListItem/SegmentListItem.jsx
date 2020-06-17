@@ -34,6 +34,7 @@ const SegmentListItem = ({
   <ListItem
     button
     fullWidth
+    dense
     variant="contained"
     // will href is a parameter of getProps
     // it processes it into a relative path
