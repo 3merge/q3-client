@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.11](https://github.com/3merge/q/compare/v1.19.10...v1.19.11) (2020-06-17)
+
+
+### Bug Fixes
+
+* date range text entry ([fa2db28](https://github.com/3merge/q/commit/fa2db28e15502155c379a93cfc49b64462e9a126))
+
+
+
+
+
 ## [1.19.10](https://github.com/3merge/q/compare/v1.19.9...v1.19.10) (2020-06-17)
 
 
