@@ -36,6 +36,7 @@ export default (Component) => ({ name, ...rest }) => {
         onSubmit={patch()}
         createdBy={createdBy}
         directoryPath={directoryPath}
+        showPersistenceSnack
         {...rest}
       />
     </Tile>

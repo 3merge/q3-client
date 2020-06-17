@@ -1,45 +1,6 @@
 import React from 'react';
-import { browser } from 'q3-ui-helpers';
-
-const SESSION_STORAGE_EVENT = 'storage';
-
-const dispatch = (dirty) => {
-  if (browser.isBrowserReady())
-    window.dispatchEvent(
-      new CustomEvent(SESSION_STORAGE_EVENT, {
-        detail: {
-          dirty,
-        },
-      }),
-    );
-};
-
-export const listenForChange = () => {
-  const [
-    unsavedChanges,
-    setUnsavedChanges,
-  ] = React.useState(false);
-
-  const eventHandler = ({ detail: { dirty } }) =>
-    setUnsavedChanges(dirty);
-
-  React.useEffect(() => {
-    if (!browser.isBrowserReady()) return undefined;
-
-    window.addEventListener(
-      SESSION_STORAGE_EVENT,
-      eventHandler,
-    );
-
-    return () =>
-      window.removeEventListener(
-        SESSION_STORAGE_EVENT,
-        eventHandler,
-      );
-  }, []);
-
-  return unsavedChanges;
-};
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 
 export const usePreviousRef = (value, onClear) => {
   const ref = React.useRef();
@@ -54,29 +15,53 @@ export const usePreviousRef = (value, onClear) => {
 
   React.useEffect(() => {
     clear();
+    return () => {
+      clear();
+    };
   }, []);
 
   return {
     prev: ref.current,
-    clear,
     isModified,
+    clear,
   };
 };
 
-export default (value) => {
+export default (value, showSnack) => {
+  const { t } = useTranslation('labels');
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const ref = React.useRef();
+
+  const teardown = () => {
+    if (ref.current) closeSnackbar(ref.current);
+  };
+
   const out = usePreviousRef(value, () => {
-    dispatch(false);
+    teardown();
   });
 
   const { isModified } = out;
 
-  React.useEffect(() => {
-    dispatch(isModified);
+  React.useLayoutEffect(() => {
+    const timer = setTimeout(() => {
+      if (isModified && showSnack)
+        ref.current = enqueueSnackbar(
+          t('unsavedChangesOn'),
+          {
+            persist: true,
+            variant: 'warning',
+          },
+        );
+    }, [250]);
 
     return () => {
-      dispatch(false);
+      clearTimeout(timer);
     };
   }, [isModified]);
+
+  React.useLayoutEffect(() => {
+    if (!isModified) teardown();
+  });
 
   return out;
 };

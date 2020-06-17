@@ -18,7 +18,7 @@ const Field = (props) => {
   const attributes = useField(props, readOnly);
   const visible = canSee(path);
 
-  return visible
+  return visible && attributes
     ? React.createElement(FieldDetector.is(type), {
         disabled: readOnly,
         readOnly,

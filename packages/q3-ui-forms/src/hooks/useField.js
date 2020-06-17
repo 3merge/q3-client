@@ -61,17 +61,19 @@ export default (props, readOnly) => {
     setField(name, props);
   }, []);
 
-  return {
-    ...propper.get(),
-    ...omit(dynamicProps, [
-      'errors',
-      'override',
-      'suppressLabel',
-      'suppressHelper',
-      'helper',
-      'under',
-      'values',
-    ]),
-    value,
-  };
+  return fieldProps
+    ? {
+        ...propper.get(),
+        ...omit(dynamicProps, [
+          'errors',
+          'override',
+          'suppressLabel',
+          'suppressHelper',
+          'helper',
+          'under',
+          'values',
+        ]),
+        value,
+      }
+    : null;
 };

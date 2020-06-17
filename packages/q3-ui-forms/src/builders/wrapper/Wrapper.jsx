@@ -29,6 +29,8 @@ const Wrapper = (Component) => {
     initialValues: seed,
     debug,
     restart,
+    showSuccessMessage,
+    showPersistenceSnack,
     ...etc
   }) => {
     const {
@@ -76,9 +78,13 @@ const Wrapper = (Component) => {
       restart,
       validateField,
       validationSchema,
+      showSuccessMessage,
     });
 
-    const { clear } = usePrevious(values);
+    const { clear } = usePrevious(
+      values,
+      showPersistenceSnack,
+    );
 
     const execAllSubmitHandlers = onSubmit(() => {
       return forwardProcessStateValuesIntoOnSubmitHandler(
@@ -206,6 +212,16 @@ const Wrapper = (Component) => {
     restart: PropTypes.bool,
 
     onReset: PropTypes.func,
+
+    /**
+     * It will show the success payload's message inline.
+     */
+    showSuccessMessage: PropTypes.bool,
+
+    /**
+     * It will show a notification every time the state changes.
+     */
+    showPersistenceSnack: PropTypes.bool,
   };
 
   InnerForm.defaultProps = {
@@ -223,6 +239,8 @@ const Wrapper = (Component) => {
     modify: {},
     translate: {},
     onReset: null,
+    showSuccessMessage: false,
+    showPersistenceSnack: false,
   };
 
   return InnerForm;

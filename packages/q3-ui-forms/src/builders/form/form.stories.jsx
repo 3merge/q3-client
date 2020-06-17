@@ -1,9 +1,6 @@
 import React from 'react';
 import Field from '../Field';
-import Form, { FormBuilder } from '.';
-import PersistWatcher from '../persistWatcher';
-
-const FORM_ID = 'persistence-demo-form';
+import Form from '.';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
@@ -23,7 +20,7 @@ const onReset = () => {
 export default {
   title: 'Q3 Forms|Builders/Form',
   parameters: {
-    component: FormBuilder,
+    component: Form,
     componentSubtitle:
       'Easily handle form validation and authorization state',
   },

@@ -1,37 +1,10 @@
 import React from 'react';
 import * as Yup from 'yup';
 import flat from 'flat';
-import { get, unset, set, setWith } from 'lodash';
+import { get, unset, set } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { usePreviousRef } from './usePrevious';
-
-const checkMsgFieldVariants = (v) => {
-  const missing =
-    !v.msg || v.msg === undefined || v.msg === 'undefined';
-
-  if (missing && !v.message)
-    return get(
-      v,
-      'properties.message',
-      'Server validation failed',
-    );
-
-  if (missing && v.message) return v.message;
-  return v.msg;
-};
-
-const extractMsg = (v) =>
-  typeof v === 'object' ? checkMsgFieldVariants(v) : v;
-
-const hasErrors = (err) =>
-  err || get(err, 'data.errors') || get(err, 'errors');
-
-const mapErrors = (errors) =>
-  Object.entries(errors).reduce(
-    (acc, [key, value]) =>
-      setWith(acc, key, extractMsg(value)),
-    {},
-  );
+import ErrorResponseAdapter from '../helpers/ErrorResponseAdapter';
 
 export const getValues = (value) =>
   Array.isArray(value)
@@ -63,15 +36,11 @@ export const setInPreviousState = (name, errorInstance) => (
     : copy;
 };
 
-const extractErrors = (err) => {
-  const { errors = {} } = err.data || err;
-  return errors;
-};
-
 export default ({
   initialErrors = {},
   initialValues = {},
   restart = false,
+  showSuccessMessage = false,
   validationSchema,
 }) => {
   const [errors, setErrors] = React.useState(initialErrors);
@@ -109,17 +78,13 @@ export default ({
 
   const onError = React.useCallback(
     (err) => {
-      if (err) {
-        if (hasErrors(err)) {
-          setErrors(mapErrors(extractErrors(err)));
-        }
-
-        if (err.message)
-          setMessage({
-            error: true,
-            ...err,
-          });
-      }
+      const [e, msg] = ErrorResponseAdapter(err);
+      if (errors) setErrors(e);
+      if (msg)
+        setMessage({
+          error: true,
+          message: msg,
+        });
 
       return null;
     },
@@ -127,7 +92,7 @@ export default ({
   );
 
   const onSuccess = React.useCallback((resp) => {
-    if (resp && resp.message) {
+    if (resp && resp.message && showSuccessMessage) {
       setMessage({
         error: false,
         ...resp,

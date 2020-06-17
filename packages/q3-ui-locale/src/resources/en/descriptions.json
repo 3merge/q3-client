@@ -60,7 +60,7 @@
   "howToMultiselect": "Edit, export, and delete items in bulk. Which options appear will vary based on where you are in the app.",
   "sidebar": "The sidebar is very dynamic. There are tabs along the top for common features, but some resources will disable those not in use. Typically, on the ID tab, you'll find quick actions, links, and global data. You may also find a featured photo uploader. On mobile, the sidebar is a swipe-in feature from the bottom of the screen.",
   "missing": "The page you've requested does not exist. Please return home and try again.",
-  "reverified": "A new verification link has been generated and sent to your inbox.",
+  "reverified": "A new verification link has been generated and sent to your inbox. Any prior verification codes have been nullified. If the email still does not arrive, you can try again or contact support.",
   "passwordResetNotice": "If you have an account, you will momentarily receive an email with a link to change your password.",
   "addFirst": "To get started, click \"Add an item\" (if available) or ask for help creating a resource.",
   "activityLog": "A rolling history of operations performed on this resource",
