@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.12](https://github.com/3merge/q/compare/v1.19.11...v1.19.12) (2020-06-17)
+
+
+### Bug Fixes
+
+* range inputs ([6b31bc2](https://github.com/3merge/q/commit/6b31bc2f5a36893a4b712fd7ab576cb332f6d6ec))
+
+
+
+
+
 ## [1.19.8](https://github.com/3merge/q/compare/v1.19.7...v1.19.8) (2020-06-17)
 
 
