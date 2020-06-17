@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.9](https://github.com/3merge/q/compare/v1.19.8...v1.19.9) (2020-06-17)
+
+
+### Bug Fixes
+
+* move helpers to prevent issues with gatsby shadowing ([abc4eed](https://github.com/3merge/q/commit/abc4eede30ec50aebb70ea2aaa2b72086237f57b))
+
+
+
+
+
 ## [1.19.8](https://github.com/3merge/q/compare/v1.19.7...v1.19.8) (2020-06-17)
 
 
