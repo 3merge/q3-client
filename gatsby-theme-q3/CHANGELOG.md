@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.10](https://github.com/3merge/q/compare/v1.19.9...v1.19.10) (2020-06-17)
+
+
+### Bug Fixes
+
+* nested yup validating for repeaters and server responses ([b6303c4](https://github.com/3merge/q/commit/b6303c43da7edb67b50215918ab3e1daaa31ca99))
+
+
+
+
+
 ## [1.19.9](https://github.com/3merge/q/compare/v1.19.8...v1.19.9) (2020-06-17)
 
 
