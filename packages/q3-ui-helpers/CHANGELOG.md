@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.13](https://github.com/3merge/q/compare/v1.19.12...v1.19.13) (2020-06-18)
+
+
+### Bug Fixes
+
+* **J3-163:** de-register validation on unmount and filter empty repeater indices from state values/errors ([43497aa](https://github.com/3merge/q/commit/43497aa188a06aad4a4461699ea61079b7dc4e43))
+
+
+
+
+
 ## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
 
 **Note:** Version bump only for package q3-ui-helpers

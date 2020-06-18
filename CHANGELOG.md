@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.13](https://github.com/3merge/q/compare/v1.19.12...v1.19.13) (2020-06-18)
+
+
+### Bug Fixes
+
+* **J3-159:** required value checking on mixed schema types ([cda13c5](https://github.com/3merge/q/commit/cda13c5a38625c62c46f85f8cada49b02e9d82b6))
+* **J3-162:** include group name prefix on stepper name-to-error matching ([31447b8](https://github.com/3merge/q/commit/31447b8d5a0c9222e9fd432f37d47cf16dba8146))
+* **J3-163:** de-register validation on unmount and filter empty repeater indices from state values/errors ([43497aa](https://github.com/3merge/q/commit/43497aa188a06aad4a4461699ea61079b7dc4e43))
+
+
+
+
+
 ## [1.19.12](https://github.com/3merge/q/compare/v1.19.11...v1.19.12) (2020-06-17)
 
 
