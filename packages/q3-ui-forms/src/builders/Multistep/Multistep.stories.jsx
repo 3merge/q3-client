@@ -3,6 +3,7 @@ import Field from '../Field';
 import Multistep from './Multistep';
 import Fieldset from '../Fieldset';
 import Repeater from '../Repeater';
+import { countries } from '../../fields/__fixtures__/options';
 
 export default {
   title: 'Q3 Forms|Builders/Multiform',
@@ -44,6 +45,12 @@ export const Default = () => (
       <Field name="friend" type="email" required />
       <Repeater group="hobbies">
         <Field name="activity" type="text" required />
+        <Field
+          name="location"
+          type="autocomplete"
+          options={countries}
+          required
+        />
       </Repeater>
     </Fieldset>
     <Fieldset name="thirdStep">

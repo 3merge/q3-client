@@ -5,7 +5,6 @@ import Step from '@material-ui/core/Step';
 import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
-import Fade from '@material-ui/core/Fade';
 import { get } from 'lodash';
 import { array } from 'q3-ui-helpers';
 
@@ -14,17 +13,17 @@ import Field from '../Field/Field';
 
 const { condense, hasLength, intersects } = array;
 
-export const getFieldNames = (c) =>
-  React.Children.toArray(c).reduce((curr, el) => {
+export const getFieldNames = (c, prefix) =>
+  React.Children.toArray(c).reduce((curr, el, ind) => {
     const {
       type,
-      props: { children, name },
+      props: { children, name, group },
     } = el;
 
     if (type === React.createElement(Field).type)
-      curr.push(name);
+      curr.push(prefix ? `${prefix}.${ind}.${name}` : name);
 
-    if (children) curr.push(getFieldNames(children));
+    if (children) curr.push(getFieldNames(children, group));
     return condense(curr);
   }, []);
 

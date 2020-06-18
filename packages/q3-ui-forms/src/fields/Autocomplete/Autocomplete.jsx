@@ -33,7 +33,13 @@ export const filterOptions = ({ disableFilter }) =>
   disableFilter ? (options) => options : undefined;
 
 const AutoCompleteWrapper = (props) => {
-  const { label, helperText, error, value } = props;
+  const {
+    label,
+    helperText,
+    error,
+    value,
+    required,
+  } = props;
   const {
     loading,
     onChange,
@@ -53,9 +59,9 @@ const AutoCompleteWrapper = (props) => {
         'name',
         'onChange',
         'readOnly',
-        'required',
         'value',
       ])}
+      required={required}
       options={items}
       loading={loading}
       getOptionLabel={getLabelWithFallback(value)}
@@ -64,10 +70,10 @@ const AutoCompleteWrapper = (props) => {
       renderInput={getCustomInput({
         error: Boolean(error),
         value: inputValue,
+        required,
         label,
         onChange,
         helperText,
-        required: true,
       })}
     />
   );
@@ -76,6 +82,7 @@ const AutoCompleteWrapper = (props) => {
 AutoCompleteWrapper.propTypes = {
   label: PropTypes.string.isRequired,
   helperText: PropTypes.string,
+  required: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
@@ -102,6 +109,7 @@ AutoCompleteWrapper.defaultProps = {
   loadOptions: null,
   helperText: '',
   error: false,
+  required: false,
   value: '',
 };
 
