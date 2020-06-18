@@ -107,9 +107,14 @@ export default ({
     setIsSubmitting(true);
 
     return validationSchema
-      .validate(flat.unflatten(values), {
-        abortEarly: false,
-      })
+      .validate(
+        object.removeUndefinedValuesFromAllArrays(
+          flat.unflatten(values),
+        ),
+        {
+          abortEarly: false,
+        },
+      )
       .then(next)
       .catch((err) => {
         if (err && err.inner)

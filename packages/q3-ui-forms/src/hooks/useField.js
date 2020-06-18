@@ -16,7 +16,9 @@ export default (props, readOnly) => {
   const { t } = useTranslation();
   const { values, errors } = React.useContext(BuilderState);
   const dispatcher = React.useContext(DispatcherState);
-  const { setField } = React.useContext(ValidationState);
+  const { setField, removeField } = React.useContext(
+    ValidationState,
+  );
 
   const value = get(values, name);
   const error = get(errors, name);
@@ -59,6 +61,10 @@ export default (props, readOnly) => {
 
   React.useLayoutEffect(() => {
     setField(name, props);
+
+    return () => {
+      removeField(name);
+    };
   }, []);
 
   return fieldProps

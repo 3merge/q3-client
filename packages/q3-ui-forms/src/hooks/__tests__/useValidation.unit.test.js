@@ -1,6 +1,7 @@
 import React from 'react';
 import useValidation, {
   assignNewValidationKey,
+  deassignValidationKey,
   convertIntoIndexNumber,
 } from '../useValidation';
 import { Validator } from '../../helpers/validation';
@@ -70,6 +71,41 @@ describe('useValidation', () => {
 
       expect(state).toHaveProperty('foo');
       expect(state.foo).toHaveLength(2);
+    });
+  });
+
+  describe('"deassignValidationKey"', () => {
+    it('should remove parts of nested arrays', () => {
+      const {
+        foo: [a, b],
+      } = deassignValidationKey('foo.1.bar')({
+        foo: [
+          { foo: 1, bar: 1 },
+          { foo: 1, bar: 1 },
+        ],
+      });
+
+      expect(a).toHaveProperty('bar');
+      expect(b).not.toHaveProperty('bar');
+    });
+
+    it('should remove empty nested arrays', () => {
+      const {
+        foo: [a, b],
+      } = deassignValidationKey('foo.1.bar')({
+        foo: [{ bar: 1 }, { bar: 1 }],
+      });
+
+      expect(a).toHaveProperty('bar');
+      expect(b).toBeUndefined();
+    });
+
+    it('should remove property', () => {
+      const { foo } = deassignValidationKey('foo')({
+        foo: 1,
+      });
+
+      expect(foo).toBeUndefined();
     });
   });
 });

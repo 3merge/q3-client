@@ -1,6 +1,10 @@
 import React from 'react';
 import * as yup from 'yup';
+import { object, string } from 'q3-ui-helpers';
 import { Validator } from '../helpers/validation';
+
+export const splitNestedArrayNamesIntoParts = (v) =>
+  string.is(v) ? v.split(/(\.\d\.)/) : [];
 
 export const convertIntoIndexNumber = (value) => {
   const out = value
@@ -10,6 +14,36 @@ export const convertIntoIndexNumber = (value) => {
   return Number.isNaN(out) ? null : out;
 };
 
+const getPath = (value) => {
+  const [key, index, path] = splitNestedArrayNamesIntoParts(
+    value,
+  );
+
+  const arrayIndex = convertIntoIndexNumber(index);
+  return [key, arrayIndex, path];
+};
+
+export const deassignValidationKey = (k) => (prevState) => {
+  if (!k) return prevState;
+
+  const copy = { ...prevState };
+  const [key, arrayIndex, path] = getPath(k);
+
+  if (Array.isArray(copy[key])) {
+    if (copy[key][arrayIndex] && path) {
+      delete copy[key][arrayIndex][path];
+    }
+
+    copy[key] = copy[key].filter(
+      (item) => item && object.hasKeys(item),
+    );
+  } else {
+    delete copy[key];
+  }
+
+  return copy;
+};
+
 export const assignNewValidationKey = (k, args) => (
   prevState,
 ) => {
@@ -17,9 +51,7 @@ export const assignNewValidationKey = (k, args) => (
 
   const copy = { ...prevState };
   const validation = new Validator(args).build();
-
-  const [key, index, path] = k.split(/(\.\d\.)/);
-  const arrayIndex = convertIntoIndexNumber(index);
+  const [key, arrayIndex, path] = getPath(k);
 
   if (path) {
     if (Array.isArray(copy[key])) {
@@ -67,9 +99,16 @@ export default () => {
     [chain],
   );
 
+  const removeField = React.useCallback(
+    (...params) =>
+      setChain(deassignValidationKey(...params)),
+    [chain],
+  );
+
   return {
     validationSchema,
     setField,
+    removeField,
     chain,
   };
 };

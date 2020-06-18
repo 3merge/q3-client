@@ -43,6 +43,7 @@ const Wrapper = (Component) => {
       setField,
       validationSchema,
       validateField,
+      removeField,
       chain,
     } = useValidation();
     const {
@@ -109,6 +110,7 @@ const Wrapper = (Component) => {
         validationSchema={validationSchema}
         validateAt={validateAt}
         setField={setField}
+        removeField={removeField}
         onReset={onReset}
         onChange={onChange}
         setValues={setValues}

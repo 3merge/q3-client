@@ -54,3 +54,24 @@ export const clean = (target = {}) =>
 
     return acc;
   }, {});
+
+export const removeUndefinedValuesFromAllArrays = (
+  target = {},
+) =>
+  Object.entries(target).reduce((acc, [key, value]) => {
+    if (Array.isArray(value)) {
+      acc[key] = value
+        .map((item) =>
+          hasKeys(item)
+            ? removeUndefinedValuesFromAllArrays(item)
+            : item,
+        )
+        .filter((item) => item !== undefined);
+    } else if (hasKeys(value)) {
+      acc[key] = removeUndefinedValuesFromAllArrays(value);
+    } else {
+      acc[key] = value;
+    }
+
+    return acc;
+  }, {});

@@ -24,6 +24,7 @@ export default ({
   isSubmitting,
   errors,
   values,
+  removeField,
 }) => (
   <AuthorizationState.Provider
     value={{
@@ -38,6 +39,7 @@ export default ({
       value={{
         validationSchema,
         validateAt,
+        removeField,
         setField,
         chain,
       }}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
-import { get, unset } from 'lodash';
+import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -25,17 +25,19 @@ const Repeater = ({ group, children }) => {
   const items = get(flat.unflatten(values), group, []);
 
   const unsetGroupFieldsFromState = (index, stateHandler) =>
-    stateHandler((prev) =>
-      Object.keys(
-        getEmptyEntry(group, index, children),
-      ).reduce(
-        (acc, key) => {
-          unset(acc, key);
-          return acc;
-        },
-        { ...prev },
-      ),
-    );
+    stateHandler((prev) => {
+      const current = flat.unflatten(prev);
+
+      current[group] = Array.isArray(current[group])
+        ? current[group].filter((item, i) => i !== index)
+        : [];
+
+      // remove empty references
+      if (current[group].length === 0)
+        delete current[group];
+
+      return flat(current);
+    });
 
   const addToSet = () =>
     setValues((prev) => ({
