@@ -68,13 +68,7 @@ export const WithMultiSelect = () => (
 );
 
 export const WithDynamicOptions = () => (
-  <Form
-    onSubmit={() => null}
-    initialValues={{
-      countries: '',
-      name: '',
-    }}
-  >
+  <Form onSubmit={() => null}>
     <Field name="name" type="text" />
     <Field
       name="countries"
@@ -111,13 +105,7 @@ export const WithGraphics = () => (
 );
 
 export const WithDynamicLoadOptions = () => (
-  <Form
-    onSubmit={() => null}
-    initialValues={{
-      countries: '',
-      name: '',
-    }}
-  >
+  <Form debug onSubmit={() => null}>
     <Field name="name" type="text" />
     <Field name="age" type="number" />
     <Field

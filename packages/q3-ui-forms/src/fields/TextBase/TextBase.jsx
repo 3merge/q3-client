@@ -37,15 +37,17 @@ export const TextBase = (props) => {
       // don't forward into the HTML
       {...omit(allProps, [
         'attribute',
+        'children',
         'errors',
+        'setValue',
         'values',
         'vars',
       ])}
       className={root}
       disabled={isDisabled}
       readOnly={isDisabled}
-      type={type}
       error={Boolean(error)}
+      type={type}
     >
       {children}
     </TextField>

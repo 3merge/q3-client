@@ -67,6 +67,7 @@ const AutoCompleteWrapper = (props) => {
         label,
         onChange,
         helperText,
+        required: true,
       })}
     />
   );

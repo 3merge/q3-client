@@ -35,6 +35,12 @@ export const AsRepeating = () => (
       <Field name="lastName" type="text" required />
       <Field name="email" type="email" required />
       <Field
+        name="locations"
+        type="select"
+        options={countries}
+        required
+      />
+      <Field
         name="country"
         type="autocomplete"
         options={countries}

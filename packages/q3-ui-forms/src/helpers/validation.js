@@ -1,11 +1,22 @@
 import * as yup from 'yup';
 import { get } from 'lodash';
-import moment from 'moment';
+import { browser, string, object } from 'q3-ui-helpers';
+
+export const checkIfEmpty = (v) =>
+  !browser.isDefined(v) ||
+  (!string.hasLength(v) && !object.hasKeys(v));
+
+export const checkIfRequired = (ctx) =>
+  get(ctx, 'schema._exclusive.required', false);
 
 const isRequired = (re, value, ctx) =>
-  get(ctx, 'schema._exclusive.required', false)
+  checkIfRequired(ctx)
     ? re.test(value)
     : re.test(value) || value === '' || value === undefined;
+
+export function hasMixedValue(v) {
+  return !(checkIfEmpty(v) && checkIfRequired(this));
+}
 
 export function postal(v) {
   return isRequired(
@@ -31,7 +42,7 @@ export function tel(v) {
 
 export function autocomplete(v) {
   const hasValue = v && typeof v === 'object' && v.value;
-  return this.schema._exclusive.required
+  return checkIfRequired(this)
     ? hasValue || hasValue === undefined
     : true;
 }
@@ -131,7 +142,8 @@ export class Validator {
         });
 
         break;
-      case 'tt':
+      /*
+      case 'date':
         this.$base = this.$base
           .string()
           .test(
@@ -141,7 +153,7 @@ export class Validator {
             (value) => !value || moment(value).isValid(),
           )
           .nullable();
-        break;
+        break; */
       case 'multi':
       case 'multiselect':
       case 'multitext':
@@ -152,12 +164,24 @@ export class Validator {
         this.$base = this.$base.array().ensure();
         break;
       case 'autocomplete':
-        this.$base = this.$base.mixed().test(autocomplete);
+        this.$base = this.$base
+          .mixed()
+          .test(
+            'is-autocomplete',
+            'This input requires you to make a selection',
+            autocomplete,
+          );
         break;
       case 'radio':
       case 'select':
       case 'selectable':
-        this.$base = this.$base.mixed();
+        this.$base = this.$base
+          .mixed()
+          .test(
+            'is-required',
+            'This is a required field',
+            hasMixedValue,
+          );
         break;
       default:
         break;

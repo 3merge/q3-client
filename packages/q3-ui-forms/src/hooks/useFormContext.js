@@ -59,12 +59,8 @@ export default ({
   const onValidate = (name, nextState) =>
     Yup.reach(validationSchema, name)
       .validate(get(nextState, name))
-      .then(() => {
-        setErrors(unsetFromPreviousState(name));
-      })
-      .catch((e) => {
-        setErrors(setInPreviousState(name, e));
-      });
+      .then(() => setErrors(unsetFromPreviousState(name)))
+      .catch((e) => setErrors(setInPreviousState(name, e)));
 
   const onChange = (key, value) =>
     setValues((prev) => {
