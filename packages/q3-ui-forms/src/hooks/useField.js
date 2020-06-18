@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, omit } from 'lodash';
+import { get, omit, pick } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import {
   BuilderState,
@@ -9,6 +9,7 @@ import {
 import BuilderStateDecorator from '../helpers/BuilderStateDecorator';
 import usePropOverride from './usePropOverride';
 import FieldDetector from '../helpers/types';
+import { VALIDATION_OPTIONS } from '../helpers/validation';
 
 export default (props, readOnly) => {
   const { name, override, type, vars, label } = props;
@@ -59,13 +60,24 @@ export default (props, readOnly) => {
     fieldProps,
   );
 
+  const validationOptions = pick(
+    dynamicProps,
+    VALIDATION_OPTIONS,
+  );
+
   React.useLayoutEffect(() => {
-    setField(name, props);
+    // register validation logic
+    setField(name, {
+      ...props,
+      ...validationOptions,
+    });
 
     return () => {
+      // ensure that the form doesn't attempt validation if removed
       removeField(name);
     };
-  }, []);
+    // allow to re-register validation schema on change
+  }, [JSON.stringify(validationOptions)]);
 
   return fieldProps
     ? {

@@ -2,6 +2,21 @@ import * as yup from 'yup';
 import { get } from 'lodash';
 import { browser, string, object } from 'q3-ui-helpers';
 
+export const VALIDATION_OPTIONS = [
+  'min',
+  'max',
+  'lessThan',
+  'moreThan',
+  'enum',
+  'required',
+  'positive',
+  'negative',
+  'trim',
+  'ensure',
+  'lowercase',
+  'uppercase',
+];
+
 export const checkIfEmpty = (v) =>
   !browser.isDefined(v) ||
   (!string.hasLength(v) && !object.hasKeys(v));
@@ -212,21 +227,7 @@ export class Validator {
     this.checkTypes();
     this.checkEnum();
 
-    this.checkOptions([
-      'min',
-      'max',
-      'lessThan',
-      'moreThan',
-      'enum',
-      'required',
-      'positive',
-      'negative',
-      'trim',
-      'ensure',
-      'lowercase',
-      'uppercase',
-    ]);
-
+    this.checkOptions(VALIDATION_OPTIONS);
     return this.$base;
   }
 }
