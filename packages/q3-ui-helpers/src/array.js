@@ -109,7 +109,7 @@ export const intersects = (arr1 = [], arr2 = []) =>
       arr2.find((val) => {
         try {
           return new RegExp(
-            val.replace('.$.', '.(\\d+).'),
+            `^${val.replace('.$.', '.(\\d+).')}$`,
           ).test(item);
         } catch (e) {
           return val === item;
