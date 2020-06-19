@@ -16,6 +16,7 @@ import {
   makeRangeNames,
   convertToNullish,
 } from '../../helpers';
+import { formatDate } from '../Date/Date';
 
 const DateRange = ({ name, ...rest }) => {
   const [from, to] = makeRangeNames(name);
@@ -39,8 +40,8 @@ const DateRange = ({ name, ...rest }) => {
           setValues((prev) => {
             return {
               ...prev,
-              [from]: string.toYearMonthDay(newFromValue),
-              [to]: string.toYearMonthDay(newToValue),
+              [from]: formatDate(newFromValue),
+              [to]: formatDate(newToValue),
             };
           })
         }

@@ -1,5 +1,6 @@
 import dot from 'dot-helpers';
 import { merge } from 'lodash';
+import flat from 'flat';
 import InitialValuesTranslator from '../helpers/InitialValuesTranslator';
 
 export default (
@@ -14,13 +15,14 @@ export default (
   data,
 ) => {
   const runMarshalOptions = (callback) => (values) => {
+    const expanded = flat.unflatten(values);
     const newValues = dot.translateAndModify(
-      values,
+      expanded,
       marshal,
     );
 
     const output = marshalSelectively
-      ? merge({}, values, newValues)
+      ? merge({}, expanded, newValues)
       : newValues;
 
     return callback ? callback(output) : output;

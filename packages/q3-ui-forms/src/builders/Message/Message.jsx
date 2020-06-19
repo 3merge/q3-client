@@ -8,8 +8,10 @@ import Collapse from '@material-ui/core/Collapse';
 const Message = ({ error, message }) => {
   const { t } = useTranslation('descriptions');
 
+  if (!message) return null;
+
   return (
-    <Collapse in={Boolean(message)}>
+    <Collapse in>
       <Box my={1}>
         <Alert severity={error ? 'error' : 'success'}>
           {t(message)}

@@ -1,8 +1,17 @@
 import React from 'react';
 import { get } from 'lodash';
-import { string } from 'q3-ui-helpers';
+import moment from 'moment';
 import DateBase from '../DateBase';
 import withState from '../withState';
+
+export const formatDate = (val) => {
+  const out =
+    val instanceof moment
+      ? val.format('YYYY-MM-DD')
+      : moment(val).format('YYYY-MM-DD');
+
+  return out === 'Invalid date' ? null : out;
+};
 
 export default withState(
   ({ value, onChange, name, ...rest }) => (
@@ -11,11 +20,7 @@ export default withState(
       name={name}
       value={value}
       onChange={(e, val) =>
-        onChange(
-          e,
-          get(val, 'value', val),
-          string.toYearMonthDay,
-        )
+        onChange(e, get(val, 'value', val), formatDate)
       }
     />
   ),

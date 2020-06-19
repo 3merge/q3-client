@@ -48,11 +48,12 @@ export const handleResponse = (d) => {
 
   return {
     notify(noti) {
-      if (method !== 'get' && startsWith(2)) {
-        noti.onSuccess(
-          data.message ||
-            'Operation completed successfully',
-        );
+      if (
+        method !== 'get' &&
+        startsWith(2) &&
+        data.message
+      ) {
+        noti.onSuccess(data.message);
       } else if (startsWith(4) || startsWith(5)) {
         noti.onFail(data.message);
       }
@@ -102,9 +103,7 @@ export default () => {
   const onResponse = React.useCallback(
     (response) => {
       setLoading(false);
-      handleResponse(response)
-        .notify(noti)
-        .set();
+      handleResponse(response).notify(noti).set();
 
       return response;
     },
