@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.18](https://github.com/3merge/q/compare/v1.19.17...v1.19.18) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** bad regex matching too many results ([3e5154d](https://github.com/3merge/q/commit/3e5154d20b3c544bfcd153d2b5e83dcb2d361623))
+
+
+
+
+
 ## [1.19.17](https://github.com/3merge/q/compare/v1.19.16...v1.19.17) (2020-06-19)
 
 
