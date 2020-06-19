@@ -36,7 +36,8 @@ const Repeater = ({ group, children }) => {
       if (current[group].length === 0)
         delete current[group];
 
-      return flat(current);
+      // preserves nested values in Autcomplete, Chips, etc.
+      return flat(current, { maxDepth: 3 });
     });
 
   const addToSet = () =>
