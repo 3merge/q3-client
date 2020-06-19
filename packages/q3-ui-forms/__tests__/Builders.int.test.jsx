@@ -1,12 +1,15 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
+import StepLabel from '@material-ui/core/StepLabel';
 import {
   Form,
   Field,
   Repeater,
   Debugger,
+  Multistep,
+  Fieldset,
 } from '../src/builders';
-import Textbase from '../src/fields/TextBase';
+import TextBase from '../src/fields/TextBase';
 
 jest.mock('react-i18next');
 
@@ -72,7 +75,7 @@ describe('Builders', () => {
       );
 
       await act(async () => {
-        el.find(Textbase)
+        el.find(TextBase)
           .props()
           .onChange({
             target: {
@@ -99,6 +102,48 @@ describe('Builders', () => {
 
       el.update();
       expect(stateWatcher).toHaveBeenLastCalledWith({}, {});
+    });
+
+    it('should match errors inside the Multistep', async () => {
+      const err = new Error();
+      err.data = {};
+      err.data.errors = {
+        'friends.1.name': 'We do not know who this is',
+      };
+
+      const el = global.mount(
+        <Multistep
+          initialValues={{
+            'friends.0.gender': 'Male',
+            'friends.0.name': 'Bill',
+            'friends.1.gender': 'Femail',
+            'friends.1.name': 'Joe',
+          }}
+          onSubmit={() => Promise.reject(err)}
+        >
+          {() => (
+            <Fieldset name="socialCircle">
+              <Repeater group="friends">
+                <Field name="name" type="text" />
+              </Repeater>
+            </Fieldset>
+          )}
+        </Multistep>,
+      );
+
+      await act(async () =>
+        el.find('form').simulate('submit'),
+      );
+
+      el.update();
+      expect(el.find(StepLabel).props()).toHaveProperty(
+        'error',
+        true,
+      );
+
+      expect(
+        el.find(TextBase).last().props(),
+      ).toHaveProperty('error', true);
     });
   });
 });

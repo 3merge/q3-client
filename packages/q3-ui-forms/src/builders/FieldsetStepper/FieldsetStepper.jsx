@@ -14,14 +14,17 @@ import Field from '../Field/Field';
 const { condense, hasLength, intersects } = array;
 
 export const getFieldNames = (c, prefix) =>
-  React.Children.toArray(c).reduce((curr, el, ind) => {
+  React.Children.toArray(c).reduce((curr, el) => {
     const {
       type,
       props: { children, name, group },
     } = el;
 
-    if (type === React.createElement(Field).type)
-      curr.push(prefix ? `${prefix}.${ind}.${name}` : name);
+    if (
+      name &&
+      type === React.createElement(Field, el.props).type
+    )
+      curr.push(prefix ? `${prefix}.$.${name}` : name);
 
     if (children) curr.push(getFieldNames(children, group));
     return condense(curr);
@@ -54,9 +57,11 @@ const FieldsetStepper = ({
           index: i,
           style: { cursor: 'pointer' },
           onClick: onClickHandler(i),
-          error: checkFieldComponentsForErrors(
-            child.component,
-            errors,
+          error: Boolean(
+            checkFieldComponentsForErrors(
+              child.component,
+              errors,
+            ),
           ),
           ...child,
         }))

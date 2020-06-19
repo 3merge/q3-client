@@ -9,7 +9,11 @@ const Fieldset = ({ children, name }) => (
 );
 
 Fieldset.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
   name: PropTypes.string.isRequired,
 };
 
@@ -19,7 +23,8 @@ export const getAllMultistepFieldsetComponents = (
   React.Children.toArray(children)
     .flatMap((item) => {
       if (
-        item.type === React.createElement(Fieldset).type &&
+        item.type ===
+          React.createElement(Fieldset, item.props).type &&
         item.props &&
         item.props.name
       )

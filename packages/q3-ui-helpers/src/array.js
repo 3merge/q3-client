@@ -1,4 +1,5 @@
 import { difference } from 'lodash';
+import minimatch from 'minimatch';
 
 import * as string from './string';
 
@@ -103,7 +104,18 @@ export const mergeUnique = (arr1 = [], arr2 = []) =>
   }, []);
 
 export const intersects = (arr1 = [], arr2 = []) =>
-  arr1.filter((item) => arr2.includes(item));
+  arr1.filter(
+    (item) =>
+      arr2.find((val) => {
+        try {
+          return new RegExp(
+            val.replace('.$.', '.(\\d+).'),
+          ).test(item);
+        } catch (e) {
+          return val === item;
+        }
+      }) !== -1,
+  );
 
 export const sortByIndexingArray = (
   arr1 = [],
