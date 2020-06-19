@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.15](https://github.com/3merge/q/compare/v1.19.14...v1.19.15) (2020-06-19)
+
+
+### Bug Fixes
+
+* dynamic validation ([81fb0ed](https://github.com/3merge/q/commit/81fb0edc3dd9686b42dee68c6ece748409983e6a))
+
+
+
+
+
 ## [1.19.14](https://github.com/3merge/q/compare/v1.19.13...v1.19.14) (2020-06-18)
 
 **Note:** Version bump only for package q3-ui-forms
