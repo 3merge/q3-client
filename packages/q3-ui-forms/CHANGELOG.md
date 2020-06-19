@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.16](https://github.com/3merge/q/compare/v1.19.15...v1.19.16) (2020-06-19)
+
+
+### Bug Fixes
+
+* **j3-145:** change to useLoading message reporting ([fb67185](https://github.com/3merge/q/commit/fb6718554e011e14d1c5b6f58929fda92d45e732))
+
+
+
+
+
 ## [1.19.15](https://github.com/3merge/q/compare/v1.19.14...v1.19.15) (2020-06-19)
 
 
