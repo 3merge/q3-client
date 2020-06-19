@@ -78,4 +78,15 @@ describe('Props', () => {
       ).toEqual(['bar', 'quuz', 'foo', 'garply', 'thux']);
     });
   });
+
+  describe('intersect', () => {
+    it('should match nested array keys', () => {
+      expect(
+        array.intersects(
+          ['foo', 'bar', 'foo.0.bar', 'foo.1.bar'],
+          ['foo.$.bar'],
+        ),
+      ).toHaveLength(2);
+    });
+  });
 });

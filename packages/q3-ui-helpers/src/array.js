@@ -106,7 +106,7 @@ export const mergeUnique = (arr1 = [], arr2 = []) =>
 export const intersects = (arr1 = [], arr2 = []) =>
   arr1.filter(
     (item) =>
-      arr2.find((val) => {
+      arr2.findIndex((val) => {
         try {
           return new RegExp(
             `^${val.replace('.$.', '.(\\d+).')}$`,
