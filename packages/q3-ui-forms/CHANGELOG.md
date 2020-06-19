@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.17](https://github.com/3merge/q/compare/v1.19.16...v1.19.17) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** repeater .$. character matching for field-level error matching in the FieldsetStepper component ([d55e331](https://github.com/3merge/q/commit/d55e33157fb68eed86f9618def187558db6cc59b))
+
+
+
+
+
 ## [1.19.16](https://github.com/3merge/q/compare/v1.19.15...v1.19.16) (2020-06-19)
 
 
