@@ -1,6 +1,7 @@
 import React from 'react';
 import { get, omit, pick } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { object } from 'q3-ui-helpers';
 import {
   BuilderState,
   DispatcherState,
@@ -16,10 +17,19 @@ export default (props, readOnly) => {
 
   const { t } = useTranslation();
   const { values, errors } = React.useContext(BuilderState);
+
+  const {
+    setField: setFieldValidation,
+    removeField: removeFieldValidation,
+    hasRegistered,
+  } = React.useContext(ValidationState);
   const dispatcher = React.useContext(DispatcherState);
-  const { setField, removeField } = React.useContext(
-    ValidationState,
-  );
+
+  const {
+    initFieldValue,
+    removeFieldValue,
+    removeFieldError,
+  } = dispatcher;
 
   const value = get(values, name);
   const error = get(errors, name);
@@ -29,6 +39,8 @@ export default (props, readOnly) => {
     props,
     values,
   ).build();
+
+  const isVisible = object.hasKeys(fieldProps);
 
   const propper = new BuilderStateDecorator(
     name,
@@ -65,21 +77,42 @@ export default (props, readOnly) => {
     VALIDATION_OPTIONS,
   );
 
-  React.useLayoutEffect(() => {
-    // register validation logic
-    setField(name, {
+  const setup = () => {
+    setFieldValidation(name, {
       ...props,
       ...validationOptions,
+      type,
     });
 
-    return () => {
-      // ensure that the form doesn't attempt validation if removed
-      removeField(name);
-    };
-    // allow to re-register validation schema on change
-  }, [JSON.stringify(validationOptions)]);
+    initFieldValue(name, type);
+  };
 
-  return fieldProps
+  const teardown = () => {
+    removeFieldValidation(name);
+    removeFieldValue(name);
+    removeFieldError(name);
+  };
+
+  React.useLayoutEffect(() => {
+    if (isVisible) {
+      setup();
+    } else {
+      teardown();
+    }
+
+    return () => {
+      teardown();
+    };
+  }, [
+    JSON.stringify({
+      ...validationOptions,
+      isVisible,
+    }),
+  ]);
+
+  return fieldProps &&
+    value !== undefined &&
+    hasRegistered(name)
     ? {
         ...propper.get(),
         ...omit(dynamicProps, [

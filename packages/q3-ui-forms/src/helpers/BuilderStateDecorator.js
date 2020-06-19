@@ -44,7 +44,6 @@ export default class BuilderStateDecorator {
     }
 
     if (object.isFn(mutator)) val = mutator(val);
-
     return this.next(val);
   }
 

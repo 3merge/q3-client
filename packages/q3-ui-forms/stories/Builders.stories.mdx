@@ -28,10 +28,10 @@ Sometimes, we'll need something else.
   <Story name="Simple">
     <Provider>
       <Form
+        debug
         showPersistenceSnack
-        initialValues={{ firstName: '' }}
+        initialValues={{ firstName: 'Jon' }}
       >
-        {console.log(InnerForm)}
         <Field name="firstName" type="text" />
       </Form>
     </Provider>

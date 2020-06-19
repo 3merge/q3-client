@@ -2,14 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   useAuthorization,
+  useDispatcher,
   useDot,
   useFormContext,
-  usePrevious,
+  useModified,
   useValidation,
 } from '../../hooks';
 import Debugger from '../Debugger';
 import Message from '../Message';
-import WrapperContextMapper from './WrapperContextMapper';
+import {
+  AuthorizationState,
+  BuilderState,
+  ValidationState,
+  DispatcherState,
+} from '../../FormsContext';
 
 export const InnerForm = ({
   children,
@@ -41,10 +47,11 @@ export const InnerForm = ({
   const {
     setField,
     validationSchema,
-    validateField,
     removeField,
     chain,
+    hasRegistered,
   } = useValidation();
+
   const {
     initialValues,
     onSubmit: forwardProcessStateValuesIntoOnSubmitHandler,
@@ -61,7 +68,21 @@ export const InnerForm = ({
   );
 
   const {
+    setValues,
+    setErrors,
+    setFieldValue,
+    setFieldError,
+    removeFieldValue,
+    removeFieldError,
+    initFieldValue,
+    values,
     errors,
+    clearPreviousState,
+    previousValues,
+    isModified,
+  } = useDispatcher(initialValues);
+
+  const {
     message,
     isSubmitting,
     onChange,
@@ -69,29 +90,30 @@ export const InnerForm = ({
     onReset,
     onSubmit,
     onSuccess,
-    onValidate: validateAt,
-    setErrors,
-    setValues,
-    values,
   } = useFormContext({
-    initialValues,
     restart,
-    validateField,
     validationSchema,
+    setFieldValue,
+    setFieldError,
     showSuccessMessage,
+    previousValues,
+    setValues,
+    setErrors,
+    removeFieldValue,
+    removeFieldError,
+    values,
+    errors,
   });
 
-  const { clear } = usePrevious(
-    values,
-    showPersistenceSnack,
-  );
+  // simply listens for changes and alerts the user
+  useModified(isModified, showPersistenceSnack);
 
   const execAllSubmitHandlers = onSubmit(() => {
     return forwardProcessStateValuesIntoOnSubmitHandler(
       values,
     )
       .then((res) => {
-        clear();
+        clearPreviousState();
         return onSuccess(res);
       })
       .catch((e) => {
@@ -100,35 +122,55 @@ export const InnerForm = ({
   });
 
   return (
-    <WrapperContextMapper
-      canEdit={checkEditAuthorizationContext}
-      canSee={checkReadAuthorizationContext}
-      collectionName={collectionName}
-      disable={isDisabled()}
-      isNew={isNew}
-      validationSchema={validationSchema}
-      validateAt={validateAt}
-      setField={setField}
-      removeField={removeField}
-      onReset={onReset}
-      onChange={onChange}
-      setValues={setValues}
-      setErrors={setErrors}
-      isSubmitting={isSubmitting}
-      errors={errors}
-      values={values}
-      chain={chain}
+    <AuthorizationState.Provider
+      value={{
+        canEdit: checkEditAuthorizationContext,
+        canSee: checkReadAuthorizationContext,
+        collectionName,
+        disable: isDisabled(),
+        isNew,
+      }}
     >
-      {children({
-        values,
-        errors,
-        onSubmit: execAllSubmitHandlers,
-        onReset: handleReset,
-        ...etc,
-      })}
-      <Message {...message} />
-      <Debugger show={debug} />
-    </WrapperContextMapper>
+      <ValidationState.Provider
+        value={{
+          validationSchema,
+          removeField,
+          setField,
+          chain,
+          hasRegistered,
+        }}
+      >
+        <DispatcherState.Provider
+          value={{
+            onReset,
+            onChange,
+            setValues,
+            setErrors,
+            removeFieldValue,
+            removeFieldError,
+            initFieldValue,
+          }}
+        >
+          <BuilderState.Provider
+            value={{
+              isSubmitting,
+              errors,
+              values,
+            }}
+          >
+            {children({
+              values,
+              errors,
+              onSubmit: execAllSubmitHandlers,
+              onReset: handleReset,
+              ...etc,
+            })}
+            <Message {...message} />
+            <Debugger show={debug} />
+          </BuilderState.Provider>
+        </DispatcherState.Provider>
+      </ValidationState.Provider>
+    </AuthorizationState.Provider>
   );
 };
 
@@ -143,7 +185,7 @@ InnerForm.propTypes = {
    * Passed directly into Formik's provider.
    */
   // eslint-disable-next-line
-    initialValues: PropTypes.object,
+  initialValues: PropTypes.object,
 
   /**
    * Resource/collection being modified

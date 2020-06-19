@@ -3,7 +3,6 @@ import { pick } from 'lodash';
 import {
   BuilderState,
   DispatcherState,
-  ValidationState,
 } from '../FormsContext';
 
 /**
@@ -28,8 +27,10 @@ export const selectFromObject = (
 export default (options = {}) => {
   const { listen, name } = options;
   const { values } = React.useContext(BuilderState);
-  const { validateAt } = React.useContext(ValidationState);
-  const { onChange } = React.useContext(DispatcherState);
+  const {
+    setFieldValue,
+    removeFieldError,
+  } = React.useContext(DispatcherState);
 
   const [prevState, setPrevState] = React.useState('');
   const nextState = selectFromObject(values, listen);
@@ -37,8 +38,8 @@ export default (options = {}) => {
   React.useEffect(() => {
     if (!name || !listen) return;
     if (prevState && prevState !== nextState) {
-      onChange(name, '');
-      validateAt(name);
+      setFieldValue(name, '');
+      removeFieldError(name);
     }
 
     setPrevState(nextState);

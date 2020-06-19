@@ -4,6 +4,7 @@ import { get, pick } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
+import { array } from 'q3-ui-helpers';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
 import { useOptions } from '../../hooks';
 import { getLabelWithFallback } from '../helpers';
@@ -63,10 +64,10 @@ const AbstractedAutoComplete = ({
         'readOnly',
         'required',
       ])}
-      defaultValue={Array.isArray(value) ? value : [value]}
       multiple
       options={items}
       loading={loading}
+      value={array.is(value)}
       filterOptions={filterOptions(props)}
       getOptionLabel={getLabelWithFallback(value)}
       renderInput={getCustomInput({

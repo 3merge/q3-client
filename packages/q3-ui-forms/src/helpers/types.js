@@ -65,6 +65,30 @@ export default class FieldBuilder {
     });
   }
 
+  static getInitialValue(type) {
+    return get(
+      {
+        select: '',
+        chips: [],
+        date: null,
+        dateRange: [null, null],
+        text: '',
+        postal: '',
+        checkbox: '',
+        checkset: [],
+        radio: '',
+        transfer: '',
+        autocomplete: '',
+        multitext: [],
+        multiselect: [],
+        selectable: '',
+        file: null,
+      },
+      type,
+      '',
+    );
+  }
+
   static is(type) {
     return (
       internalFieldTypes[type] || internalFieldTypes.default
@@ -143,7 +167,6 @@ export default class FieldBuilder {
 
     delete this.originalType;
     delete this.type;
-
     return this.show() ? this : null;
   }
 }

@@ -1,10 +1,11 @@
 export { default as useAllowSubmit } from './useAllowSubmit';
 export { default as useAuthorization } from './useAuthorization';
+export { default as useDispatcher } from './useDispatcher';
 export { default as useDot } from './useDot';
 export { default as useField } from './useField';
 export { default as useFormContext } from './useFormContext';
+export { default as useModified } from './useModified';
 export { default as useListener } from './useListener';
 export { default as useOptions } from './useOptions';
 export { default as usePropOverride } from './usePropOverride';
-export { default as usePrevious } from './usePrevious';
 export { default as useValidation } from './useValidation';

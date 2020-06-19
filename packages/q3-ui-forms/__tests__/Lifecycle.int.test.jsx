@@ -6,6 +6,11 @@ import TextBase from '../src/fields/TextBase';
 
 jest.mock('react-i18next');
 
+beforeAll(() => {
+  // disable the error reporting
+  // jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
 const expectErrorProperty = (el) =>
   // everything resolves into the TextBase
   expect(el.find(TextBase).props()).toHaveProperty(
@@ -74,5 +79,72 @@ describe('Lifecycle', () => {
     expect(el.find(Message).text()).toMatch(err.message);
     expectErrorProperty(el);
     expectHelperTextProperty(el, err.errors.email.msg);
+  });
+
+  it('should clear errors and values on unmounting', async () => {
+    const renderer = jest.fn().mockImplementation((v) => (
+      <>
+        <Field name="firstName" type="text" />
+        <Field
+          name="email"
+          type="email"
+          conditional={['firstName=Jon']}
+        />
+      </>
+    ));
+
+    const el = global.mount(
+      <Form
+        onSubmit={jest.fn()}
+        initialValues={{
+          firstName: 'Jon',
+          email: '',
+        }}
+      >
+        {renderer}
+      </Form>,
+    );
+
+    await act(async () => {
+      el.find(TextBase)
+        .last()
+        .props()
+        .onChange({
+          target: {
+            value: 'mibberson',
+          },
+        });
+    });
+
+    el.update();
+    expect(renderer).toHaveBeenLastCalledWith(
+      {
+        firstName: 'Jon',
+        email: 'mibberson',
+      },
+      {
+        email: expect.any(String),
+      },
+    );
+
+    await act(async () => {
+      el.find(TextBase)
+        .first()
+        .props()
+        .onChange({
+          target: {
+            value: 'Greg',
+          },
+        });
+    });
+
+    el.update();
+    expect(el.find(TextBase)).toHaveLength(1);
+    expect(renderer).toHaveBeenLastCalledWith(
+      {
+        firstName: 'Greg',
+      },
+      {},
+    );
   });
 });

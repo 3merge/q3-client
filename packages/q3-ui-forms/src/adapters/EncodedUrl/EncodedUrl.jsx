@@ -102,20 +102,22 @@ const EncodedUrl = ({
   withClear,
   onSave,
   ...props
-}) => (
-  <Form
-    {...props}
-    enableSubmit={false}
-    onSubmit={handleStateEncoding(onSave || navigate)}
-    initialValues={handleStateDecoding(
-      // allowed to override with empty string
-      query === undefined ? location.search : query,
-      initialValues,
-    )}
-  >
-    {children}
-  </Form>
-);
+}) => {
+  return (
+    <Form
+      {...props}
+      enableSubmit={false}
+      onSubmit={handleStateEncoding(onSave || navigate)}
+      initialValues={handleStateDecoding(
+        // allowed to override with empty string
+        query === undefined ? location.search : query,
+        initialValues,
+      )}
+    >
+      {children}
+    </Form>
+  );
+};
 
 EncodedUrl.propTypes = {
   children: PropTypes.node.isRequired,
@@ -123,7 +125,7 @@ EncodedUrl.propTypes = {
   onSave: PropTypes.func,
   withClear: PropTypes.bool,
   query: PropTypes.string,
-  initialValues: PropTypes.shape({}).isRequired,
+  initialValues: PropTypes.shape({}),
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
@@ -133,6 +135,7 @@ EncodedUrl.defaultProps = {
   onSave: null,
   withClear: false,
   query: undefined,
+  initialValues: {},
 };
 
 /**

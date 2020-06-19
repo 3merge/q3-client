@@ -42,6 +42,7 @@ export const TextBase = (props) => {
         'setValue',
         'values',
         'vars',
+        'positive',
       ])}
       className={root}
       disabled={isDisabled}

@@ -43,7 +43,7 @@ const selectCanadaFromDropdown = async (el) => {
   return el;
 };
 
-describe('Builders', () => {
+describe('Fields', () => {
   describe('Autocomplete', () => {
     it('should select an option', async () => {
       const [el, stateWatcher] = setupForm(
@@ -80,7 +80,7 @@ describe('Builders', () => {
       await selectCanadaFromDropdown(el);
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
-          chips: ['CA'],
+          chips: [expect.objectContaining({ value: 'CA' })],
         },
         {},
       );

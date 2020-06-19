@@ -1,23 +1,14 @@
 import React from 'react';
 import * as Yup from 'yup';
 import flat from 'flat';
-import { get, unset, set } from 'lodash';
+import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
-import { usePreviousRef } from './usePrevious';
 import ErrorResponseAdapter from '../helpers/ErrorResponseAdapter';
 
 export const getValues = (value) =>
   Array.isArray(value)
     ? value.map((o) => get(o, 'value', o)).filter(Boolean)
     : value;
-
-export const unsetFromPreviousState = (name) => (
-  prevState,
-) => {
-  const copy = { ...prevState };
-  unset(copy, name);
-  return object.clean(flat(copy));
-};
 
 export const reduceErrorMessages = (errors = []) =>
   errors.reduce((acc, next) => {
@@ -27,52 +18,46 @@ export const reduceErrorMessages = (errors = []) =>
     return acc;
   }, {});
 
-export const setInPreviousState = (name, errorInstance) => (
-  prevState,
-) => {
-  const copy = { ...prevState };
-  return errorInstance
-    ? object.clean(
-        flat(set(copy, name, errorInstance.message)),
-      )
-    : copy;
-};
-
 export default ({
-  initialErrors = {},
-  initialValues = {},
   restart = false,
   showSuccessMessage = false,
   validationSchema,
+  errors,
+  values,
+  setErrors,
+  setValues,
+  setFieldError,
+  setFieldValue,
+  previousValues,
+  removeFieldError,
 }) => {
-  const [errors, setErrors] = React.useState(initialErrors);
-  const [values, setValues] = React.useState(initialValues);
-
-  // used for re-initializing form state on external data change
-  const { isModified } = usePreviousRef(initialValues);
-
   const [message, setMessage] = React.useState();
   const [isSubmitting, setIsSubmitting] = React.useState(
     false,
   );
 
-  const onValidate = (name, nextState) =>
-    Yup.reach(validationSchema, name)
-      .validate(get(nextState, name))
-      .then(() => setErrors(unsetFromPreviousState(name)))
-      .catch((e) => setErrors(setInPreviousState(name, e)));
+  const onValidate = (name, value) => {
+    return Yup.reach(validationSchema, name)
+      .validate(value)
+      .then(() => removeFieldError(name))
+      .catch((e) =>
+        setFieldError(
+          name,
+          get(e, 'message', 'This input is invalid'),
+        ),
+      );
+  };
 
-  const onChange = (key, value) =>
-    setValues((prev) => {
-      const next = { ...prev, [key]: getValues(value) };
-      onValidate(key, next);
-      return next;
-    });
+  const onChange = (key, value) => {
+    onValidate(key, value).finally(() =>
+      setFieldValue(key, value),
+    );
+  };
 
   const onReset = React.useCallback(() => {
-    setValues(initialValues);
+    setValues(previousValues);
     setErrors({});
-  }, [initialValues]);
+  }, [previousValues]);
 
   const onError = React.useCallback(
     (err) => {
@@ -129,12 +114,7 @@ export default ({
       });
   };
 
-  React.useEffect(() => {
-    onReset();
-  }, [isModified]);
-
   return {
-    errors,
     isSubmitting,
     message,
     onChange,
@@ -142,8 +122,5 @@ export default ({
     onSuccess,
     onSubmit,
     onValidate,
-    setErrors,
-    setValues,
-    values,
   };
 };

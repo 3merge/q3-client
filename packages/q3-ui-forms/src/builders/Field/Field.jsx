@@ -18,14 +18,18 @@ const Field = (props) => {
   const attributes = useField(props, readOnly);
   const visible = canSee(path);
 
-  return visible && attributes
-    ? React.createElement(FieldDetector.is(type), {
-        disabled: readOnly,
-        readOnly,
-        type,
-        ...attributes,
-      })
-    : null;
+  return React.useMemo(
+    () =>
+      visible && attributes
+        ? React.createElement(FieldDetector.is(type), {
+            disabled: readOnly,
+            readOnly,
+            type,
+            ...attributes,
+          })
+        : null,
+    [JSON.stringify({ ...attributes, visible })],
+  );
 };
 
 Field.propTypes = {

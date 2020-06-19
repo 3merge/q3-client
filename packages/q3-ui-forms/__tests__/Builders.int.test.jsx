@@ -58,7 +58,7 @@ describe('Builders', () => {
       expect(el.find(Field)).toHaveLength(1);
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
-          'profile.1.email': email,
+          'profile.0.email': email,
         },
         {},
       );

@@ -89,26 +89,40 @@ export const mapNestedArraysToShape = (schema) =>
 
 export default () => {
   const [chain, setChain] = React.useState({});
+  const [registered, setRegistered] = React.useState([]);
+
   const validationSchema = yup
     .object()
     .shape(mapNestedArraysToShape(chain));
 
   const setField = React.useCallback(
-    (...params) =>
-      setChain(assignNewValidationKey(...params)),
+    (...params) => {
+      setRegistered((item) => item.concat(params[0]));
+      setChain(assignNewValidationKey(...params));
+    },
     [chain],
   );
 
   const removeField = React.useCallback(
-    (...params) =>
-      setChain(deassignValidationKey(...params)),
+    (...params) => {
+      setRegistered((v) =>
+        v.filter((item) => item !== params[0]),
+      );
+      setChain(deassignValidationKey(...params));
+    },
     [chain],
   );
+
+  // single we change the path name to match with Yup
+  // we need to keep a registry of original field names so we can tell when something's
+  // been initialized
+  const hasRegistered = (name) => registered.includes(name);
 
   return {
     validationSchema,
     setField,
     removeField,
     chain,
+    hasRegistered,
   };
 };

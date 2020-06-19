@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Box from '@material-ui/core/Box';
+import { omit } from 'lodash';
 import Radio from '@material-ui/core/Radio';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey, red } from '@material-ui/core/colors';
+import withState from '../withState';
 
 const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
@@ -76,7 +78,10 @@ ExpandedBoolLabel.propTypes = {
   /**
    * Is the current value invalid?
    */
-  error: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string,
+  ]),
 };
 
 ExpandedBoolLabel.defaultProps = {
@@ -96,16 +101,28 @@ const Bool = ({
   const ControlVariant = getBoolVariant(variant);
   const { t } = useTranslation('labels');
 
-  Object.assign(rest, {
-    size: getSize(variant),
-  });
+  const cleaned = omit(
+    Object.assign(rest, {
+      size: getSize(variant),
+    }),
+    [
+      'strict',
+      'onArrayPull',
+      'onArrayPush',
+      'error',
+      'helperText',
+    ],
+  );
 
   return (
     <Box my={0.5}>
       <FormControlLabel
         style={{ userSelect: 'none' }}
         control={
-          <ControlVariant checked={isChecked} {...rest} />
+          <ControlVariant
+            checked={isChecked}
+            {...cleaned}
+          />
         }
         label={
           <ExpandedBoolLabel
@@ -114,7 +131,7 @@ const Bool = ({
           />
         }
         onChange={onChange}
-        {...rest}
+        {...cleaned}
       />
     </Box>
   );
@@ -141,7 +158,7 @@ Bool.propTypes = {
   /**
    * The onChange func handler.
    */
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 
   /**
    * The type of control to display.
@@ -164,7 +181,8 @@ Bool.defaultProps = {
   variant: 'checkbox',
   name: null,
   isChecked: false,
+  onChange: undefined,
   my: 0,
 };
 
-export default Bool;
+export default withState(Bool);

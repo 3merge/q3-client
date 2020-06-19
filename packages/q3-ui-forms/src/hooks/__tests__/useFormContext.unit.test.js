@@ -1,7 +1,5 @@
 import {
   getValues,
-  unsetFromPreviousState,
-  setInPreviousState,
   reduceErrorMessages,
 } from '../useFormContext';
 
@@ -27,26 +25,6 @@ describe('useFormContext', () => {
     it('should return unmodifed value when not an array', () => {
       const out = getValues(NEW_KEY);
       expect(out).toMatch(NEW_KEY);
-    });
-  });
-
-  describe('"unsetFromPreviousState"', () => {
-    it('should remove from state', () => {
-      const out = unsetFromPreviousState(NEW_KEY)({
-        [NEW_KEY]: ERROR_MESSAGE,
-      });
-
-      expect(out).not.toHaveProperty(NEW_KEY);
-    });
-  });
-
-  describe('"setInPreviousState"', () => {
-    it('should use the error message', () => {
-      const out = setInPreviousState(NEW_KEY, {
-        message: ERROR_MESSAGE,
-      })({});
-
-      expect(out).toHaveProperty(NEW_KEY, ERROR_MESSAGE);
     });
   });
 

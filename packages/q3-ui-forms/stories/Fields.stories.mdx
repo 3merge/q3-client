@@ -5,11 +5,13 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Tile from 'q3-ui/lib/tile';
+import Provider from '../src';
 import { Form, Field } from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
+import { countries } from '../src/fields/__fixtures__/options';
 
 <Meta title="Forms|Field" component={Field} />
 
@@ -19,28 +21,51 @@ import Wrapper, {
 
 <Preview>
   <Story name="Types">
-    <Form>
-      <Field name="email" type="email" />
-      <Field name="tel" type="tel" />
-      <Field name="postal" type="postal" />
-      <Field name="required" type="text" required />
-      <Field
-        name="number"
-        type="number"
-        min="1"
-        max="10"
-        positive
-        helper="Between 1 and 10"
-      />
-      <Field
-        name="dynamic"
-        type="string"
-        helper="Becomes required if number is greater than 5"
-        override={({ values: { number } }) => ({
-          required: number > 5,
-        })}
-      />
-    </Form>
+    <Provider>
+      <Form debug>
+        <Field name="email" type="email" />
+        <Field name="tel" type="tel" />
+        <Field name="postal" type="postal" />
+        <Field
+          name="autocomplete"
+          type="autocomplete"
+          options={countries}
+        />
+        <Field
+          name="chips"
+          type="chips"
+          options={countries}
+        />
+        <Field
+          name="multiselect"
+          type="multiselect"
+          options={countries}
+        />
+        <Field
+          name="required"
+          type="text"
+          label="Required"
+          required
+        />
+        <Field
+          name="number"
+          type="number"
+          min="1"
+          max="10"
+          positive
+          helper="Between 1 and 10"
+        />
+        <Field
+          name="dynamic"
+          label="Dynamic (via override)"
+          type="string"
+          helper="Becomes required if number is greater than 5"
+          override={({ values: { number } }) => ({
+            required: number > 5,
+          })}
+        />
+      </Form>
+    </Provider>
   </Story>
 </Preview>
 
