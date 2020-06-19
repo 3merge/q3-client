@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.19](https://github.com/3merge/q/compare/v1.19.18...v1.19.19) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** match on index rather than item ([9ffc1c9](https://github.com/3merge/q/commit/9ffc1c9ca9ab366e6513a0d72d5657a025369a55))
+
+
+
+
+
 ## [1.19.18](https://github.com/3merge/q/compare/v1.19.17...v1.19.18) (2020-06-19)
 
 
