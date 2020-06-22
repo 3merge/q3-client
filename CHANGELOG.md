@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.21](https://github.com/3merge/q/compare/v1.19.20...v1.19.21) (2020-06-22)
+
+
+### Bug Fixes
+
+* delimeter sizing and date casting ([2436afb](https://github.com/3merge/q/commit/2436afb98144c088ce6782155f87518dd5725bb8))
+
+
+
+
+
 ## [1.19.20](https://github.com/3merge/q/compare/v1.19.19...v1.19.20) (2020-06-19)
 
 **Note:** Version bump only for package q3-client
