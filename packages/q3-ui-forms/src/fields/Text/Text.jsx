@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
-import DateRangeIcon from '@material-ui/icons/DateRange';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import PhoneIcon from '@material-ui/icons/Phone';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { red, grey } from '@material-ui/core/colors';
 import Lock from '@material-ui/icons/Lock';
+import { browser } from 'q3-ui-helpers';
 import TextBase from '../TextBase';
 import withState from '../withState';
 
@@ -23,7 +25,7 @@ const renderAdornmentIcon = (
   if (type === 'email') El = AlternateEmailIcon;
   if (type === 'tel') El = PhoneIcon;
   if (type === 'postal') El = MarkunreadMailboxIcon;
-  if (type === 'date') El = DateRangeIcon;
+  if (type === 'date') El = CalendarTodayIcon;
   if (icon) El = icon;
 
   if (hasError) El = ErrorOutlineIcon;
@@ -43,27 +45,52 @@ const renderAdornmentIcon = (
 export const Text = (deco) => {
   const { readOnly, disabled, type, icon, hideIcon } = deco;
 
-  /*
-  if (type === 'date' && deco.value)
-    deco.value = moment
-      .utc(moment(deco.value).toISOString())
-      .local()
-      .format('YYYY-MM-DD');
-*/
+  const ref = React.useRef();
+  const [showAdornment, setShowAdornment] = React.useState(
+    true,
+  );
+
+  React.useLayoutEffect(() => {
+    if (!browser.isBrowserReady()) return undefined;
+
+    const controlAdornmentVisibility = debounce(() => {
+      if (ref.current.clientWidth < 359) {
+        setShowAdornment(false);
+      } else {
+        setShowAdornment(true);
+      }
+    }, 150);
+
+    window.addEventListener(
+      'resize',
+      controlAdornmentVisibility,
+    );
+
+    controlAdornmentVisibility();
+
+    return () => {
+      window.removeEventListener(
+        'resize',
+        controlAdornmentVisibility,
+      );
+    };
+  }, []);
 
   return (
     <TextBase
       {...deco}
+      inputRef={ref}
       type={type}
       InputProps={{
-        endAdornment: !hideIcon
-          ? renderAdornmentIcon(
-              type,
-              disabled || readOnly,
-              deco.error,
-              icon,
-            )
-          : undefined,
+        endAdornment:
+          !hideIcon && showAdornment
+            ? renderAdornmentIcon(
+                type,
+                disabled || readOnly,
+                deco.error,
+                icon,
+              )
+            : undefined,
       }}
     />
   );

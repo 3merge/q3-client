@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { MobileDateRangePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
-import { string } from 'q3-ui-helpers';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import { omit } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import { Field } from '../../builders';
 import RangeDelimiter from '../RangeDelimiter';
 import {
@@ -22,9 +23,16 @@ const DateRange = ({ name, ...rest }) => {
   const [from, to] = makeRangeNames(name);
   const { setValues } = React.useContext(DispatcherState);
   const { values } = React.useContext(BuilderState);
-  const isBiggerThanPhone = useMediaQuery(
-    '(min-width:960px)',
-  );
+
+  const { t } = useTranslation('labels');
+  const shared = omit(rest, [
+    'onChange',
+    'onArrayPush',
+    'onArrayPull',
+    'name',
+    'label',
+    'id',
+  ]);
 
   return (
     <Grid item xs={12}>
@@ -46,25 +54,24 @@ const DateRange = ({ name, ...rest }) => {
           })
         }
         renderInput={(startProps, endProps) => {
-          delete startProps.helperText;
-          delete startProps.error;
-
-          delete endProps.helperText;
-          delete endProps.error;
-
-          startProps.inputProps.type = 'date';
-          endProps.inputProps.type = 'date';
+          [startProps, endProps].forEach((p) => {
+            p.inputProps.type = 'date';
+            delete p.helperText;
+            delete p.error;
+            delete p.onChange;
+            delete p.onBlur;
+            delete p.value;
+          });
 
           return (
             <RangeDelimiter
+              icon={DateRangeIcon}
               leftRenderer={
                 <Field
-                  {...rest}
+                  {...shared}
                   {...startProps}
-                  override={() => ({
-                    hideIcon: isBiggerThanPhone,
-                  })}
                   type="date"
+                  helperText={t(name)}
                   name={from}
                   lg={6}
                   xl={6}
@@ -72,9 +79,11 @@ const DateRange = ({ name, ...rest }) => {
               }
               rightRenderer={
                 <Field
-                  {...rest}
+                  {...shared}
                   {...endProps}
+                  icon={DateRangeIcon}
                   type="date"
+                  helperText={t(name)}
                   name={to}
                   lg={6}
                   xl={6}

@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { get } from 'lodash';
+import moment from 'moment';
 import { browser, string, object } from 'q3-ui-helpers';
 
 export const VALIDATION_OPTIONS = [
@@ -109,7 +110,6 @@ export class Validator {
       case 'password':
       case 'transfer':
       case 'file':
-      case 'date':
         this.$base = this.$base.string();
         break;
       case 'email':
@@ -157,7 +157,7 @@ export class Validator {
         });
 
         break;
-      /*
+
       case 'date':
         this.$base = this.$base
           .string()
@@ -168,7 +168,7 @@ export class Validator {
             (value) => !value || moment(value).isValid(),
           )
           .nullable();
-        break; */
+        break;
       case 'multi':
       case 'multiselect':
       case 'multitext':

@@ -43,7 +43,10 @@ export const TextBase = (props) => {
         'values',
         'vars',
         'positive',
+        'value',
       ])}
+      // date inputs cast to null on clear
+      value={allProps.value === null ? '' : allProps.value}
       className={root}
       disabled={isDisabled}
       readOnly={isDisabled}

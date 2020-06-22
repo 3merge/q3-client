@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DateRangeDelimiter } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import {
@@ -17,10 +16,18 @@ const useStyle = makeStyles((theme) => ({
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
 
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
           borderRightWidth: 1,
           borderTopRightRadius: 'inherit',
           borderBottomRightRadius: 'inherit',
+        },
+      },
+
+      '& svg': {
+        marginRight: 6,
+
+        [theme.breakpoints.down('md')]: {
+          marginRight: 0,
         },
       },
     },
@@ -31,7 +38,7 @@ const useStyle = makeStyles((theme) => ({
         borderBottomLeftRadius: 0,
         borderTopLeftRadius: 0,
 
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
           borderLeftWidth: 1,
           borderBottomLeftRadius: 'inherit',
           borderTopLeftRadius: 'inherit',
@@ -39,26 +46,17 @@ const useStyle = makeStyles((theme) => ({
       },
     },
   },
-  delimiter: {
-    position: 'absolute',
-    transform: 'translate(-50%, -50%) scale(0.8)',
-    top: '50%',
-    left: '50%',
-
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-  },
 }));
 
 const RangeDelimiter = ({
   leftRenderer,
   rightRenderer,
+  icon,
 }) => {
   const cls = useStyle();
   const theme = useTheme();
-  const matches = useMediaQuery(
-    theme.breakpoints.down('sm'),
+  const mobile = useMediaQuery(
+    theme.breakpoints.down('md'),
   );
 
   return (
@@ -66,17 +64,15 @@ const RangeDelimiter = ({
       container
       alignItems="center"
       justify="space-between"
-      spacing={matches ? 1 : 0}
+      spacing={mobile ? 1 : 0}
       style={{ position: 'relative' }}
       className={cls.root}
     >
-      {leftRenderer}
-      <Grid className={cls.delimiter}>
-        <DateRangeDelimiter>
-          <TrendingFlatIcon aria-label="Range delimiter" />
-        </DateRangeDelimiter>
-      </Grid>
-
+      {React.cloneElement(leftRenderer, {
+        override: () => ({
+          icon: mobile ? icon : TrendingFlatIcon,
+        }),
+      })}
       {rightRenderer}
     </Grid>
   );

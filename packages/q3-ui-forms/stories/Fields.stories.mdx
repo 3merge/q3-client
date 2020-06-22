@@ -22,51 +22,54 @@ import { countries } from '../src/fields/__fixtures__/options';
 <Preview>
   <Story name="Types">
     <Provider>
-      <Form debug>
-        <Field name="email" type="email" />
-        <Field name="tel" type="tel" />
-        <Field name="postal" type="postal" />
-        <Field
-          name="autocomplete"
-          type="autocomplete"
-          options={countries}
-        />
-        <Field
-          name="chips"
-          type="chips"
-          options={countries}
-        />
-        <Field
-          name="multiselect"
-          type="multiselect"
-          options={countries}
-        />
-        <Field
-          name="required"
-          type="text"
-          label="Required"
-          required
-        />
-        <Field
-          name="number"
-          type="number"
-          min="1"
-          max="10"
-          positive
-          helper="Between 1 and 10"
-        />
-        <Field name="date" type="date" />
-        <Field name="dateRange" type="dateRange" />
-        <Field
-          name="dynamic"
-          label="Dynamic (via override)"
-          type="string"
-          helper="Becomes required if number is greater than 5"
-          override={({ values: { number } }) => ({
-            required: number > 5,
-          })}
-        />
-      </Form>
+      <div>
+        <Form debug>
+          <Field name="email" type="email" />
+          <Field name="tel" type="tel" />
+          <Field name="postal" type="postal" />
+          <Field name="range" type="range" />
+          <Field
+            name="autocomplete"
+            type="autocomplete"
+            options={countries}
+          />
+          <Field
+            name="chips"
+            type="chips"
+            options={countries}
+          />
+          <Field
+            name="multiselect"
+            type="multiselect"
+            options={countries}
+          />
+          <Field
+            name="required"
+            type="text"
+            label="Required"
+            required
+          />
+          <Field
+            name="number"
+            type="number"
+            min="1"
+            max="10"
+            positive
+            helper="Between 1 and 10"
+          />
+          <Field name="date" type="date" />
+          <Field name="dateRange" type="dateRange" />
+          <Field
+            name="dynamic"
+            label="Dynamic (via override)"
+            type="string"
+            helper="Becomes required if number is greater than 5"
+            override={({ values: { number } }) => ({
+              required: number > 5,
+            })}
+          />
+        </Form>
+      </div>
     </Provider>
   </Story>
 </Preview>

@@ -113,13 +113,6 @@ export default makeStyles((theme) => ({
     backgroundColor: '#f6f8fa',
     padding: '.75rem',
 
-    '& fieldset, & input, & label': {
-      fontSize: '80% !important',
-
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 'inherit !important',
-      },
-    },
     [theme.breakpoints.down('sm')]: {
       boxShadow: theme.shadows[0],
       backgroundColor: 'transparent',
