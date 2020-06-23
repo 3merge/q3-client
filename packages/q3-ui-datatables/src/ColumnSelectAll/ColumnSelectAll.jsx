@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SelectAll } from 'q3-ui-exports';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import CellStickyControl from '../CellStickyControl';
 import CellWithCheckbox from '../CellWithCheckbox';
 import withSort from '../withSort';
 
@@ -10,7 +11,7 @@ const useStyle = makeStyles((theme) => ({
   root: {
     zIndex: '4 !important',
     position: 'sticky',
-    left: '0 !important',
+    left: 'var(--cell-header-left) !important',
 
     [theme.breakpoints.down('sm')]: {
       left: 'auto !important',
@@ -43,6 +44,9 @@ export const ColumnSelectAll = ({
           <Grid item>{children}</Grid>
           <Grid item>
             <Label {...rest} />
+          </Grid>
+          <Grid item>
+            <CellStickyControl />
           </Grid>
         </>
       }

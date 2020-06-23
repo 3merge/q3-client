@@ -44,6 +44,7 @@ const TableView = ({
   className,
   children,
   actionbarPosition,
+  style,
 }) => {
   const filterer = filterByPossibleKeys(
     data,
@@ -88,6 +89,7 @@ const TableView = ({
       <Paper
         elevation={0}
         className={classNames(grids, className)}
+        style={style}
       >
         {children}
         <Box

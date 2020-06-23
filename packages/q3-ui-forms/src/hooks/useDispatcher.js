@@ -12,7 +12,6 @@ export const SET_VALUE = 'set-value';
 export const UNSET_ERROR = 'unset-error';
 export const UNSET_VALUE = 'unset-value';
 export const INIT_PREVIOUS_VALUE = 'init-previous';
-export const MERGE_VALUES = 'merge-values';
 
 export const reducerDispatcher = (state, context) => {
   let { errors, values, previousValues } = state;
@@ -65,10 +64,6 @@ export const reducerDispatcher = (state, context) => {
         values[name] = FieldBuilder.getInitialValue(type);
       break;
 
-    case MERGE_VALUES:
-      values = { ...values, ...nextValues };
-      break;
-
     case INIT_PREVIOUS_VALUE:
       previousValues = undefined;
       break;
@@ -116,12 +111,14 @@ export default (initialValues = {}, initialErrors = {}) => {
   const removeField = (action) => (name) =>
     reduce({ action, name });
 
-  React.useEffect(() => {
-    reduce({
-      action: MERGE_VALUES,
-      values: initialValues,
-    });
-  }, [JSON.stringify(initialValues)]);
+  React.useLayoutEffect(
+    () =>
+      reduce({
+        action: REPLACE_VALUES,
+        values: initialValues,
+      }),
+    [JSON.stringify(initialValues)],
+  );
 
   return {
     setValues: setIn(REPLACE_VALUES, 'values'),

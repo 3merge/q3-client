@@ -18,8 +18,8 @@ import {
 } from '../../FormsContext';
 
 export const InnerForm = ({
+  unwind,
   children,
-  drop,
   keep,
   marshalSelectively,
   marshal,
@@ -27,8 +27,6 @@ export const InnerForm = ({
   translate,
   collectionName,
   isNew,
-  validateOnMount,
-  initialStatus,
   onSubmit: handleSubmit,
   onReset: handleReset,
   initialValues: seed,
@@ -63,6 +61,7 @@ export const InnerForm = ({
       marshal,
       modify,
       translate,
+      unwind,
     },
     seed,
   );
@@ -193,16 +192,6 @@ InnerForm.propTypes = {
   collectionName: PropTypes.string,
 
   /**
-   * Resource/collection being modified
-   */
-  validateOnMount: PropTypes.bool,
-
-  /**
-   * Formik initial state text representation.
-   */
-  initialStatus: PropTypes.string,
-
-  /**
    * Is this a create op?
    */
   isNew: PropTypes.bool,
@@ -216,11 +205,6 @@ InnerForm.propTypes = {
    * Specify which keys from initialValues to keep in the state.
    */
   keep: PropTypes.arrayOf(PropTypes.string),
-
-  /**
-   * Specify which keys to discard from the submit handler.
-   */
-  drop: PropTypes.arrayOf(PropTypes.string),
 
   /**
    * Run mutators on specific values pre-submit.
@@ -263,25 +247,28 @@ InnerForm.propTypes = {
    * It will show a notification every time the state changes.
    */
   showPersistenceSnack: PropTypes.bool,
+
+  /**
+   * It will run flat on specified keys in the initial state.
+   */
+  unwind: PropTypes.arrayOf(PropTypes.array),
 };
 
 InnerForm.defaultProps = {
   initialValues: {},
-  validateOnMount: false,
   collectionName: null,
   isNew: false,
-  initialStatus: null,
   marshalSelectively: false,
   restart: false,
   debug: false,
   keep: [],
-  drop: [],
   marshal: {},
   modify: {},
   translate: {},
   onReset: null,
   showSuccessMessage: false,
   showPersistenceSnack: false,
+  unwind: [],
 };
 
 export default (Component) => (props) => (

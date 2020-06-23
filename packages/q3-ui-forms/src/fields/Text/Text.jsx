@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
+import { get, debounce } from 'lodash';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 import MarkunreadMailboxIcon from '@material-ui/icons/MarkunreadMailbox';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import PhoneIcon from '@material-ui/icons/Phone';
+import Fade from '@material-ui/core/Fade';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { red, grey } from '@material-ui/core/colors';
@@ -31,14 +32,16 @@ const renderAdornmentIcon = (
   if (hasError) El = ErrorOutlineIcon;
 
   return El ? (
-    <InputAdornment position="end">
-      <El
-        style={{
-          fontSize: '100%',
-          color: hasError ? red[900] : grey[700],
-        }}
-      />
-    </InputAdornment>
+    <Fade in>
+      <InputAdornment position="end">
+        <El
+          style={{
+            fontSize: '100%',
+            color: hasError ? red[900] : grey[700],
+          }}
+        />
+      </InputAdornment>
+    </Fade>
   ) : null;
 };
 
@@ -47,32 +50,29 @@ export const Text = (deco) => {
 
   const ref = React.useRef();
   const [showAdornment, setShowAdornment] = React.useState(
-    true,
+    false,
   );
 
-  React.useLayoutEffect(() => {
+  const debounceStateFn = debounce((nextState) => {
+    setShowAdornment(nextState);
+  }, 75);
+
+  React.useEffect(() => {
     if (!browser.isBrowserReady()) return undefined;
 
-    const controlAdornmentVisibility = debounce(() => {
-      if (ref.current.clientWidth < 359) {
-        setShowAdornment(false);
+    const resizeObserver = new ResizeObserver((entries) => {
+      const w = get(entries, '0.target.clientWidth', 500);
+      if (w < 359) {
+        debounceStateFn(false);
       } else {
-        setShowAdornment(true);
+        debounceStateFn(true);
       }
-    }, 150);
+    });
 
-    window.addEventListener(
-      'resize',
-      controlAdornmentVisibility,
-    );
-
-    controlAdornmentVisibility();
+    resizeObserver.observe(ref.current);
 
     return () => {
-      window.removeEventListener(
-        'resize',
-        controlAdornmentVisibility,
-      );
+      resizeObserver.unobserve(ref.current);
     };
   }, []);
 

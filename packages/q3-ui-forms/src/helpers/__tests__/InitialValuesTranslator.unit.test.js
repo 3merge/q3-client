@@ -13,7 +13,10 @@ describe('InitialValuesTranslator', () => {
           garply: 1,
         },
       ],
-    }).toString();
+    }).toString([
+      ['thunk', 3],
+      ['bar', 2],
+    ]);
 
     expect(v).toMatchObject({
       foo: '1',

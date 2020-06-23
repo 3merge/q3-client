@@ -225,7 +225,7 @@ export default makeStyles((theme) => ({
   },
 
   cellHeader: {
-    position: 'sticky',
+    position: 'var(--cell-position)',
     backgroundColor: '#FFF',
     left: 0,
     transition: 'box-shadow 250ms',
@@ -253,9 +253,7 @@ export default makeStyles((theme) => ({
     color: theme.palette.primary.main,
     display: 'block',
     '& small': {
-      maxWidth: 250,
-      minWidth: 200,
-      width: 'min-content',
+      maxWidth: 'max-content',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       paddingRight: '1rem',
@@ -270,20 +268,17 @@ export default makeStyles((theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'baseline',
     // height: '100vh',
-
     '& table': {
       userSelect: 'none',
     },
-
     '& td.liftup': {
+      wordWrap: 'break-word',
       boxShadow: theme.shadows[1],
       zIndex: 2,
     },
-
     '& tbody tr:last-of-type .liftup': {
       boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
     },
-
     [theme.breakpoints.down('sm')]: {
       height: 'calc(100vh - 68px)',
       width: '100%',

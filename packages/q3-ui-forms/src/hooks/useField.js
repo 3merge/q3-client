@@ -12,6 +12,22 @@ import usePropOverride from './usePropOverride';
 import FieldDetector from '../helpers/types';
 import { VALIDATION_OPTIONS } from '../helpers/validation';
 
+const useFieldValue = (
+  { value, name, type },
+  initState,
+) => {
+  const requiresValue =
+    // range field types are really non-stateful and just setup
+    // inner fields
+    value === undefined && !type.includes('range');
+
+  React.useLayoutEffect(() => {
+    if (requiresValue) initState(name, type);
+  }, [requiresValue]);
+
+  return requiresValue;
+};
+
 export default (props, readOnly) => {
   const { name, override, type, vars, label } = props;
 
@@ -83,8 +99,6 @@ export default (props, readOnly) => {
       ...validationOptions,
       type,
     });
-
-    initFieldValue(name, type);
   };
 
   const teardown = () => {
@@ -110,9 +124,16 @@ export default (props, readOnly) => {
     }),
   ]);
 
-  return fieldProps &&
-    value !== undefined &&
-    hasRegistered(name)
+  const requiresValue = useFieldValue(
+    {
+      name,
+      type,
+      value,
+    },
+    initFieldValue,
+  );
+
+  return fieldProps && !requiresValue && hasRegistered(name)
     ? {
         ...propper.get(),
         ...omit(dynamicProps, [

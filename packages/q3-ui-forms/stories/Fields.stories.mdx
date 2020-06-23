@@ -6,7 +6,7 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Tile from 'q3-ui/lib/tile';
 import Provider from '../src';
-import { Form, Field } from '../src/builders';
+import { Form, Field, Repeater } from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
   InnerForm,
@@ -23,7 +23,16 @@ import { countries } from '../src/fields/__fixtures__/options';
   <Story name="Types">
     <Provider>
       <div>
-        <Form debug>
+        <Form
+          debug
+          unwind={[['repeats', 3]]}
+          initialValues={{
+            repeats: [
+              { fruit: 'Apple' },
+              { fruit: 'Pear' },
+            ],
+          }}
+        >
           <Field name="email" type="email" />
           <Field name="tel" type="tel" />
           <Field name="postal" type="postal" />
@@ -68,6 +77,9 @@ import { countries } from '../src/fields/__fixtures__/options';
               required: number > 5,
             })}
           />
+          <Repeater group="repeats">
+            <Field name="fruit" type="text" />
+          </Repeater>
         </Form>
       </div>
     </Provider>

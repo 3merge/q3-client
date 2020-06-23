@@ -7,6 +7,7 @@ import {
 import Tile from 'q3-ui/lib/tile';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+import { FilterChip } from 'q3-components';
 import { EncodedUrl } from '../src/adapters';
 import { Form, Field } from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
@@ -24,15 +25,12 @@ import { asOptions } from '../src/helpers';
   <Story name="Types">
     <LocationProvider search="?paymentOption=Visa&approved=exists(true)&currency.commons=CAD%2CUSD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
       <LocationDebugger>
+        <FilterChip />
         <EncodedUrl debug>
           <Field
             name="paymentOption"
             type="autocomplete"
-            options={asOptions([
-              'Visa',
-              'Mastercard',
-              'PayPal',
-            ])}
+            options={['Visa', 'Mastercard', 'PayPal']}
           />
           <Field name="total" type="range" />
           <Field
@@ -49,12 +47,7 @@ import { asOptions } from '../src/helpers';
           <Field
             name="email"
             type="chips"
-            options={[
-              {
-                label: 'Mike',
-                value: 'mibberson+demo@3merge.ca',
-              },
-            ]}
+            options={['mibberson+demo@3merge.ca']}
           />
           <Field
             name="approved"
@@ -74,6 +67,7 @@ import { asOptions } from '../src/helpers';
               },
             ]}
           />
+          <button type="submit">Apply</button>
         </EncodedUrl>
       </LocationDebugger>
     </LocationProvider>

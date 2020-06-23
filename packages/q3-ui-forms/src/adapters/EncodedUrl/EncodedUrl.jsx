@@ -103,16 +103,18 @@ const EncodedUrl = ({
   onSave,
   ...props
 }) => {
+  const init = handleStateDecoding(
+    // allowed to override with empty string
+    query === undefined ? location.search : query,
+    initialValues,
+  );
+
   return (
     <Form
       {...props}
       enableSubmit={false}
       onSubmit={handleStateEncoding(onSave || navigate)}
-      initialValues={handleStateDecoding(
-        // allowed to override with empty string
-        query === undefined ? location.search : query,
-        initialValues,
-      )}
+      initialValues={init}
     >
       {children}
     </Form>

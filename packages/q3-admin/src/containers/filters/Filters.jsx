@@ -10,7 +10,7 @@ import FiltersClear from './FiltersClear';
 import FiltersShare from './FiltersShare';
 import Segments from '../segments';
 
-const Groups = ({ children, initialValues }) => {
+const Groups = ({ children, ...etc }) => {
   const { location } = React.useContext(Definitions);
 
   return (
@@ -18,9 +18,9 @@ const Groups = ({ children, initialValues }) => {
       <Segments>
         {(renderer, onSave, searchValue) => (
           <FiltersForm
-            initialValues={initialValues}
             search={searchValue}
             onSave={onSave}
+            {...etc}
           >
             {(...params) => (
               <>
@@ -38,10 +38,7 @@ const Groups = ({ children, initialValues }) => {
       </Segments>
       <Panel title="Filters">
         <Box id="q3-filters">
-          <FiltersForm
-            initialValues={initialValues}
-            search={location.search}
-          >
+          <FiltersForm search={location.search} {...etc}>
             {(...params) => (
               <>
                 {children(...params)}

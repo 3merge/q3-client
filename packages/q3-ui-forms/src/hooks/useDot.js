@@ -6,6 +6,7 @@ import InitialValuesTranslator from '../helpers/InitialValuesTranslator';
 export default (
   {
     keep = [],
+    unwind = [],
     marshal = {},
     modify = {},
     translate = {},
@@ -36,6 +37,6 @@ export default (
       .translate(translate)
       .prune(keep)
       .modify(modify)
-      .toString(),
+      .toString(unwind),
   };
 };

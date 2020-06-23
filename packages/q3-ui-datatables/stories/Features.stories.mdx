@@ -1,0 +1,139 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Tile from 'q3-ui/lib/tile';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+import AccountBox from '@material-ui/icons/AccountBox';
+import Box from '@material-ui/core/Box';
+import EventIcon from '@material-ui/icons/Event';
+import {
+  purple,
+  green,
+  blue,
+} from '@material-ui/core/colors';
+import orders from '../__fixtures__/orders.json';
+import TableView from '../src';
+
+<Meta title="Datatables|Preview" component={TableView} />
+
+# Table
+
+<Preview>
+  <Story name="Types">
+    <LocationProvider initialPath="/">
+      <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
+        <TableView
+          // eslint-disable-next-line
+          onSort={console.log}
+          className={root}
+          style={{ height: 450 }}
+          id="for-testing"
+          aliasForName="seq"
+          total={orders.total}
+          data={orders.orders}
+          blacklistColumns={['unknown', 'draft']}
+          defaultColumns={[
+            'unknown',
+            'seq',
+            'status',
+            'createdAt',
+            'updatedAt',
+            'tax',
+            'subtotal',
+            'total',
+            'currency',
+            'paymentOption',
+            'shippingOption',
+            'draft',
+          ]}
+          virtuals={['status']}
+          columnWidths={{
+            seq: 65,
+            tax: 115,
+            draft: 45,
+            updatedAt: 165,
+            createdAt: 165,
+          }}
+          resolvers={(v) => ({
+            ...v,
+            name: v.seq,
+            imgSrc: 'https://i.pravatar.cc/150?img=20',
+            description: `${v.id} ${v.id}`,
+            url: v.id,
+            currency: {
+              base: v.currency,
+              toChip: true,
+            },
+            draft: {
+              base: v.draft,
+              toTruthy: true,
+            },
+            seq: {
+              base: v.seq,
+              toAction: true,
+              icon: AccountBox,
+            },
+            paymentOption: {
+              base: v.paymentOption,
+              helperText: (
+                <>
+                  <p>
+                    This is great. But what about super long
+                    and complex tool tips?
+                  </p>
+                  <ul>
+                    <li>Rate = this</li>
+                  </ul>
+                </>
+              ),
+            },
+            tax: {
+              base: v.tax,
+              toPrice: true,
+            },
+            subtotal: {
+              base: v.subtotal,
+              toPrice: true,
+            },
+            total: {
+              base: v.total,
+              toPrice: true,
+            },
+            createdAt: {
+              base: v.createdAt,
+              toDate: true,
+              renderProps: {
+                color: 'success',
+              },
+            },
+            updatedAt: {
+              base: v.updatedAt,
+              toDate: true,
+              renderProps: {
+                color: 'danger',
+              },
+            },
+            status: {
+              base: v.status,
+              toString: true,
+              toDot: true,
+              renderProps: {},
+            },
+          })}
+          actions={[
+            {
+              label: 'Yikes',
+              onClick: () => null,
+              icon: AccountBox,
+            },
+          ]}
+        />
+      </Box>
+      <LocationDebugger />
+    </LocationProvider>
+  </Story>
+</Preview>

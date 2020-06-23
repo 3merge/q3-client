@@ -210,5 +210,7 @@
   "filterName": "Filter name",
   "notesError": "Notes in this module could not be loaded.",
   "howTo": "How-to",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "stick": "Stick",
+  "unstick": "Unstick"
 }

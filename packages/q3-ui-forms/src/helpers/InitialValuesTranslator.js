@@ -1,24 +1,15 @@
 import dot from 'dot-helpers';
-import { merge } from 'lodash';
-import { object } from 'q3-ui-helpers';
+import { merge, pick, omit } from 'lodash';
+import { array, object } from 'q3-ui-helpers';
 import flat from 'flat';
 
-const isSimpleArray = (v) =>
-  Array.isArray(v) &&
-  v.every((item) => typeof item !== 'object');
+const filterNumbers = (arr) =>
+  arr.flat().filter((val) => typeof val !== 'number');
 
-const mangleArray = (v) =>
-  `__${v.map((item) => String(item)).join(',')}__`;
-
-const unmangleArray = (target = {}) =>
-  Object.entries(target).reduce((curr, [key, value]) => {
-    const copy = { ...curr };
-    copy[key] =
-      value.startsWith('__') && value.endsWith('__')
-        ? value.replace(/__/g, '').split(',')
-        : value;
-
-    return copy;
+const reduceAndFlatten = (arr, target) =>
+  arr.reduce((next, [key, maxDepth]) => {
+    merge(next, flat(pick(target, [key]), { maxDepth }));
+    return next;
   }, {});
 
 export default class InitialValuesTranslator {
@@ -51,22 +42,20 @@ export default class InitialValuesTranslator {
     return this;
   }
 
-  toString() {
+  toString(unwind = []) {
     const exec = (obj = {}) =>
       Object.entries(obj).reduce((curr, [key, value]) => {
         const copy = { ...curr };
 
         if (Array.isArray(value)) {
-          const raw = value.filter(Boolean);
-
-          if (raw.length) {
-            if (isSimpleArray(raw)) {
-              copy[key] = mangleArray(raw);
-            } else {
-              copy[key] = raw.map(exec);
-            }
-          }
-        } else if (typeof value === 'object') {
+          copy[key] = value
+            .filter(Boolean)
+            .map((item) =>
+              object.hasKeys(item)
+                ? exec(item)
+                : String(item),
+            );
+        } else if (object.hasKeys(value)) {
           copy[key] = exec(value);
         } else {
           copy[key] = String(value);
@@ -75,10 +64,13 @@ export default class InitialValuesTranslator {
         return copy;
       }, {});
 
-    return unmangleArray(
-      // we only want to flatten complex arrays
-      // so it has to come post-stringify
-      flat(exec(this.initialValues)),
-    );
+    const output = exec(this.initialValues);
+
+    return array.hasLength(unwind)
+      ? {
+          ...omit(output, filterNumbers(unwind)),
+          ...reduceAndFlatten(unwind, output),
+        }
+      : output;
   }
 }

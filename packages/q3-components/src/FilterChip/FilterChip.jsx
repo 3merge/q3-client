@@ -81,8 +81,15 @@ const FilterChip = ({ getAll, params, navigate }) => {
     valueToOmit,
     values,
   ) => () => {
+    const output = [];
+
     params.set(name, unwind(values, valueToOmit));
-    navigate(`?${params.toString()}`);
+
+    params.forEach((value, key) =>
+      output.push(`${key}=${encodeURIComponent(value)}`),
+    );
+
+    navigate(`?${output.join('&')}`);
   };
 
   const getChipLabel = (chip, name, value) =>
