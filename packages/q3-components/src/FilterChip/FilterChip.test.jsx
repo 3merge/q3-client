@@ -1,4 +1,4 @@
-import { getOp, unwind } from './FilterChip';
+import { getOp, unwind } from './utils';
 
 describe('FilterChip', () => {
   it('should replace', () => {

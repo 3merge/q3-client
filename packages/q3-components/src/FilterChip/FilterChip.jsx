@@ -4,40 +4,13 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import { withLocation } from 'with-location';
 import { useTranslation } from 'react-i18next';
-
-export const unwind = (str = '', value) =>
-  str
-    .split(',')
-    .filter((v) => v !== value)
-    .join(',');
-
-export const getOp = (op, name, value) => {
-  if (op.includes('exists(true)')) return `${name}`;
-  if (op.includes('exists(false)')) return `NOT ${name}`;
-  if (op.includes('has(true)')) return `HAS ${name}`;
-  if (op.includes('has(false)')) return `HAS NOT ${name}`;
-
-  if (op.includes('!=') && op.includes(','))
-    return `${value} NOT IN ${name}`;
-
-  if (op.includes('!=') && op.includes(','))
-    return `${value} NOT IN ${name}`;
-
-  if (op.includes('>='))
-    return `${name} IS MORE THAN ${value}`;
-  if (op.includes('<'))
-    return `${name} IS LESS THAN ${value}`;
-
-  if (op.includes('=') && op.includes(','))
-    return `${value} IN ${name}`;
-
-  if (op.includes('!=')) return `${name} IS NOT ${value}`;
-  if (op.includes('=') && op.includes(','))
-    return `IN ${value}`;
-  if (op.includes('=')) return `${name} IS ${value}`;
-
-  return '';
-};
+import {
+  unwind,
+  getOp,
+  filterKeysByReservedSearchKeys,
+  decodeEntry,
+  redirectByParams,
+} from './utils';
 
 const DecoratedChip = ({ onDelete, label }) =>
   label ? (
@@ -55,25 +28,15 @@ const DecoratedChip = ({ onDelete, label }) =>
 
 const FilterChip = ({ getAll, params, navigate }) => {
   const { t } = useTranslation();
+  const redirect = redirectByParams(params, navigate);
 
-  const chips = Object.entries(getAll())
-    .filter(
-      ([key]) =>
-        !['sort', 'page', 'search', 'limit'].includes(key),
-    )
-    .map(([key, value]) => {
-      try {
-        return decodeURIComponent(
-          value ? `${key}=${value}` : key,
-        );
-      } catch (e) {
-        return `${key}=${value}`;
-      }
-    });
+  const chips = filterKeysByReservedSearchKeys(
+    Object.entries(getAll()),
+  ).map(decodeEntry);
 
   const removeFromSearchString = (name) => () => {
     params.delete(name);
-    navigate(`?${params.toString()}`);
+    redirect();
   };
 
   const modifyInSearchString = (
@@ -81,15 +44,8 @@ const FilterChip = ({ getAll, params, navigate }) => {
     valueToOmit,
     values,
   ) => () => {
-    const output = [];
-
     params.set(name, unwind(values, valueToOmit));
-
-    params.forEach((value, key) =>
-      output.push(`${key}=${encodeURIComponent(value)}`),
-    );
-
-    navigate(`?${output.join('&')}`);
+    redirect();
   };
 
   const getChipLabel = (chip, name, value) =>

@@ -159,15 +159,7 @@ export class Validator {
         break;
 
       case 'date':
-        this.$base = this.$base
-          .string()
-          .test(
-            'is-date',
-            // eslint-disable-next-line
-            '${path} is not an acceptable date value',
-            (value) => !value || moment(value).isValid(),
-          )
-          .nullable();
+        this.$base = this.$base.date().nullable();
         break;
       case 'multi':
       case 'multiselect':

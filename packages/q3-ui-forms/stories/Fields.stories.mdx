@@ -4,6 +4,7 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import moment from 'moment';
 import Tile from 'q3-ui/lib/tile';
 import Provider from '../src';
 import { Form, Field, Repeater } from '../src/builders';
@@ -97,11 +98,17 @@ minimum values, maximum values, and required values.
 
 <Preview>
   <Story name="Validation">
-    <Form>
+    <Form debug>
       <Field name="email" type="email" />
       <Field name="tel" type="tel" />
       <Field name="postal" type="postal" />
       <Field name="required" type="text" required />
+      <Field
+        name="date"
+        type="date"
+        min={moment().toDate()}
+        helper="Must be future-looking"
+      />
       <Field
         name="number"
         type="number"

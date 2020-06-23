@@ -60,7 +60,7 @@ export const reducerDispatcher = (state, context) => {
       break;
 
     case INIT_VALUE:
-      if (!(name in values))
+      if (!(name in values) || name[values] === undefined)
         values[name] = FieldBuilder.getInitialValue(type);
       break;
 
