@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.24](https://github.com/3merge/q/compare/v1.19.23...v1.19.24) (2020-06-27)
+
+
+### Bug Fixes
+
+* **gom-579:** extend validation schema builder to array fields ([e6f8fe5](https://github.com/3merge/q/commit/e6f8fe53605ae35a349e867adf858c28b32d4c1f))
+
+
+
+
+
 ## [1.19.23](https://github.com/3merge/q/compare/v1.19.22...v1.19.23) (2020-06-23)
 
 **Note:** Version bump only for package q3-ui-forms
