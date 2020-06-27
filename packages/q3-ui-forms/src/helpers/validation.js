@@ -104,14 +104,6 @@ export class Validator {
 
   checkTypes() {
     switch (this.type) {
-      case 'text':
-      case 'string':
-      case 'editor':
-      case 'password':
-      case 'transfer':
-      case 'file':
-        this.$base = this.$base.string();
-        break;
       case 'email':
         this.$base = this.$base.string().email();
         break;
@@ -198,7 +190,14 @@ export class Validator {
             hasMixedValue,
           );
         break;
+      case 'text':
+      case 'string':
+      case 'editor':
+      case 'password':
+      case 'transfer':
+      case 'file':
       default:
+        this.$base = this.$base.string();
         break;
     }
 
