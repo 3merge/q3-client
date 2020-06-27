@@ -168,7 +168,15 @@ export class Validator {
       case 'chips':
       case 'dateRange':
       case 'range':
-        this.$base = this.$base.array().ensure();
+        this.$base = this.$base
+          .array()
+          .of(
+            this.checkTypes.call({
+              $base: yup,
+              type: this.of,
+            }),
+          )
+          .ensure();
         break;
       case 'autocomplete':
         this.$base = this.$base
@@ -193,6 +201,8 @@ export class Validator {
       default:
         break;
     }
+
+    return this.$base;
   }
 
   checkOptions(a = []) {

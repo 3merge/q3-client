@@ -148,6 +148,8 @@ export const InnerForm = ({
             removeFieldValue,
             removeFieldError,
             initFieldValue,
+            setFieldError,
+            setFieldValue,
           }}
         >
           <BuilderState.Provider
