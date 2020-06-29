@@ -58,7 +58,8 @@ export const Text = (deco) => {
   }, 75);
 
   React.useEffect(() => {
-    if (!browser.isBrowserReady()) return undefined;
+    if (!browser.isBrowserReady() || !ref.current)
+      return undefined;
 
     const resizeObserver = new ResizeObserver((entries) => {
       const w = get(entries, '0.target.clientWidth', 500);

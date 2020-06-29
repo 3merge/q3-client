@@ -21,15 +21,38 @@ export const TextBase = (props) => {
     error,
   } = props;
   const isDisabled = disabled || readOnly;
-
-  const { root } = useStyle({
-    disabled: isDisabled,
+  const [pos, setPos] = React.useState({
+    start: null,
+    end: null,
   });
 
   const allProps = merge(
     removeDecoratedProps(omit(props, isUndefined)),
     chosenTextFieldDisplayAttributes,
   );
+
+  const { root } = useStyle({
+    disabled: isDisabled,
+  });
+
+  const value =
+    allProps.value === null ? '' : allProps.value;
+
+  React.useLayoutEffect(() => {
+    try {
+      if (pos.start) {
+        allProps.inputRef.current.type = 'text';
+        allProps.inputRef.current.setSelectionRange(
+          pos.start,
+          pos.end,
+        );
+
+        allProps.inputRef.current.type = type;
+      }
+    } catch (e) {
+      // noop
+    }
+  }, [value]);
 
   return (
     <TextField
@@ -44,9 +67,26 @@ export const TextBase = (props) => {
         'vars',
         'positive',
         'value',
+        'override',
+        'under',
+        'onChange',
       ])}
-      // date inputs cast to null on clear
-      value={allProps.value === null ? '' : allProps.value}
+      onChange={(event, ...rest) => {
+        event.persist();
+        const caretStart = event.target.selectionStart;
+        const caretEnd = event.target.selectionEnd;
+
+        // update the state and reset the caret
+        if (allProps.onChange)
+          allProps.onChange(event, ...rest);
+
+        setPos({
+          start: caretStart,
+          end: caretEnd,
+        });
+      }}
+      value={value}
+      defaultValue={value}
       className={root}
       disabled={isDisabled}
       readOnly={isDisabled}
@@ -70,9 +110,9 @@ TextBase.propTypes = {
     PropTypes.bool,
     PropTypes.string,
   ]),
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   type: PropTypes.string,
 };
@@ -83,8 +123,10 @@ TextBase.defaultProps = {
   error: false,
   helperText: '',
   onBlur: undefined,
+  onChange: undefined,
   readOnly: false,
   type: 'text',
+  label: '',
 };
 
 export default withGrid(TextBase);

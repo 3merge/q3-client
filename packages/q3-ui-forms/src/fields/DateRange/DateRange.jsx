@@ -38,6 +38,7 @@ const DateRange = ({ name, ...rest }) => {
     <Grid item xs={12}>
       <MobileDateRangePicker
         clearable
+        disableMaskedInput
         startText="From"
         endText="To"
         value={[
@@ -61,6 +62,7 @@ const DateRange = ({ name, ...rest }) => {
             delete p.onChange;
             delete p.onBlur;
             delete p.value;
+            delete p.ref;
           });
 
           return (

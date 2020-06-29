@@ -21,6 +21,7 @@ const DateBase = (props) => {
     <MobileDatePicker
       {...props}
       clearable
+      disableMaskedInput
       value={convertToNullish(get(props, 'value'))}
       renderInput={(inputProps) => (
         <Text

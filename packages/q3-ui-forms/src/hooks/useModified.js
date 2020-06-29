@@ -25,6 +25,7 @@ export default (isModified, show) => {
 
     return () => {
       clearTimeout(timer);
+      teardown();
     };
   }, [isModified, show]);
 
