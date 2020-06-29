@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.25](https://github.com/3merge/q/compare/v1.19.24...v1.19.25) (2020-06-29)
+
+
+### Bug Fixes
+
+* cursor positioning in controlled text field ([56773fa](https://github.com/3merge/q/commit/56773fa48f48a1871000f0ed682adc1255007693))
+
+
+
+
+
 ## [1.19.24](https://github.com/3merge/q/compare/v1.19.23...v1.19.24) (2020-06-27)
 
 
