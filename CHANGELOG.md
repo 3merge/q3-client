@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.26](https://github.com/3merge/q/compare/v1.19.25...v1.19.26) (2020-06-29)
+
+
+### Bug Fixes
+
+* state comparison to included overrideable properties ([6f51f05](https://github.com/3merge/q/commit/6f51f05358e5d00e77c74d913e33778fd955e325))
+
+
+
+
+
 ## [1.19.25](https://github.com/3merge/q/compare/v1.19.24...v1.19.25) (2020-06-29)
 
 
