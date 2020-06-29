@@ -328,9 +328,7 @@ Object.assign(theme, {
         fontSize: 8,
       },
     },
-    MuiAutocomplete: {
-      popup: { zIndex: 1300 },
-    },
+    MuiAutocomplete: {},
     MuiMobileStepper: {
       root: {
         background: '#FFF',

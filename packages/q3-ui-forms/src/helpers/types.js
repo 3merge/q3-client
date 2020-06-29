@@ -78,7 +78,7 @@ export default class FieldBuilder {
         checkset: [],
         radio: '',
         transfer: '',
-        autocomplete: '',
+        autocomplete: null,
         multitext: [],
         multiselect: [],
         selectable: '',

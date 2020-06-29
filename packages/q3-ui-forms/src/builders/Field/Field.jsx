@@ -12,10 +12,12 @@ const FieldBridge = (props) => {
   // useful for conditional
   useListener(props);
 
-  return React.createElement(FieldDetector.is(type), {
-    ...props,
-    ...attributes,
-  });
+  return attributes
+    ? React.createElement(FieldDetector.is(type), {
+        ...props,
+        ...attributes,
+      })
+    : null;
 };
 
 FieldBridge.propTypes = {

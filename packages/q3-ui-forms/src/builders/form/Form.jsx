@@ -40,7 +40,7 @@ FormBuilder.propTypes = {
   /**
    * Handler for submit action.
    */
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 
   /**
    * Handler for reset action.
@@ -74,6 +74,8 @@ FormBuilder.defaultProps = {
   onReset: null,
   enableSubmit: true,
   enableReset: false,
+  // eslint-disable-next-line
+  onSubmit: console.log,
 };
 
 export default withWrapper(FormBuilder);

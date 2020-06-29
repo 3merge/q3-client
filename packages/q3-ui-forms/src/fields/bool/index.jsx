@@ -35,7 +35,7 @@ export const getBoolVariant = (name) => {
 };
 
 export const getSize = (name) =>
-  name === 'switch' ? 'normal' : 'small';
+  name === 'switch' ? 'medium' : 'small';
 
 export const ExpandedBoolLabel = ({
   error,

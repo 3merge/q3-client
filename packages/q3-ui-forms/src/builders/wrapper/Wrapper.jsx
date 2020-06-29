@@ -201,7 +201,7 @@ InnerForm.propTypes = {
   /**
    * Handle Formik onSubmit callback.
    */
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
 
   /**
    * Specify which keys from initialValues to keep in the state.
@@ -271,6 +271,8 @@ InnerForm.defaultProps = {
   showSuccessMessage: false,
   showPersistenceSnack: false,
   unwind: [],
+  // eslint-disable-next-line
+  onSubmit: console.log,
 };
 
 export default (Component) => (props) => (

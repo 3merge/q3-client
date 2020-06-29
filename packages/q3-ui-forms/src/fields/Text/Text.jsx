@@ -101,7 +101,10 @@ Text.propTypes = {
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
   type: PropTypes.string,
-  icon: PropTypes.node,
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]),
 };
 
 Text.defaultProps = {

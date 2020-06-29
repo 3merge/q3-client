@@ -35,8 +35,9 @@ export const TextBase = (props) => {
     disabled: isDisabled,
   });
 
-  const value =
-    allProps.value === null ? '' : allProps.value;
+  const value = String(
+    allProps.value === null ? '' : allProps.value,
+  );
 
   React.useLayoutEffect(() => {
     try {
@@ -86,7 +87,6 @@ export const TextBase = (props) => {
         });
       }}
       value={value}
-      defaultValue={value}
       className={root}
       disabled={isDisabled}
       readOnly={isDisabled}

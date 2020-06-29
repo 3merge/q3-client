@@ -24,7 +24,9 @@ export const getCustomInput = (customProps) => (params) =>
   );
 
 export const compareOptionValueToState = (option, value) =>
-  option === value || option.value === value;
+  option === value ||
+  option.value === value ||
+  value === '';
 
 export const getValue = (value) =>
   object.hasKeys(value) ? value.value : value;
