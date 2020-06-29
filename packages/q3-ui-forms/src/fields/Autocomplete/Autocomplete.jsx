@@ -39,6 +39,7 @@ const AutoCompleteWrapper = (props) => {
     error,
     value,
     required,
+    freeSolo,
   } = props;
   const {
     loading,
@@ -60,6 +61,7 @@ const AutoCompleteWrapper = (props) => {
         'onChange',
         'readOnly',
         'value',
+        'freeSolo',
       ])}
       required={required}
       options={items}
@@ -74,6 +76,14 @@ const AutoCompleteWrapper = (props) => {
         label,
         onChange,
         helperText,
+        ...(freeSolo
+          ? {
+              onBlur: () => {
+                // force update of main value if free-form text
+                if (freeSolo) props.onChange(inputValue);
+              },
+            }
+          : {}),
       })}
     />
   );
@@ -102,6 +112,8 @@ AutoCompleteWrapper.propTypes = {
       PropTypes.string,
     ]),
   ),
+  freeSolo: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
 };
 
 AutoCompleteWrapper.defaultProps = {
@@ -111,6 +123,7 @@ AutoCompleteWrapper.defaultProps = {
   error: false,
   required: false,
   value: '',
+  freeSolo: false,
 };
 
 export default withGrid(withState(AutoCompleteWrapper));

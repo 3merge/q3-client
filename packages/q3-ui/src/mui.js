@@ -163,11 +163,11 @@ Object.assign(theme, {
     },
     MuiSnackbarContent: {
       root: {
-        width: 300,
-        minWidth: '300px !important',
+        width: 350,
+        minWidth: '350px !important',
       },
       message: {
-        fontSize: '1rem',
+        fontSize: '0.911rem',
       },
     },
 
