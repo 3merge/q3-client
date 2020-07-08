@@ -24,7 +24,7 @@ export const AppHeaderPopover = ({
   const { toggle, state, close } = useToggle();
 
   return (
-    <Box display="inline-block" p={1}>
+    <Box display="inline-block">
       <IconButton
         ref={anchorEl}
         onClick={toggle}

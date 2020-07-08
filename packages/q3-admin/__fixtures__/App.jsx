@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { useLoading } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import TvIcon from '@material-ui/icons/Tv';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
@@ -24,6 +25,7 @@ const ExampleApp = ({ initialPath }) => (
             pages={pages}
             icons={{
               entertainment: BeachAccessIcon,
+              shows: TvIcon,
             }}
           />
         </Datasource>

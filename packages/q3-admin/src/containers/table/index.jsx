@@ -2,18 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import TableIo from '../TableIo';
 import Article from '../../components/Article';
 import SidePanel from '../../components/SidePanel';
 import { Dispatcher, Definitions, Store } from '../state';
@@ -74,6 +69,7 @@ const List = ({
   HeaderProps,
   disableLink,
   disableSearch,
+  io,
   ...rest
 }) => {
   const { table } = useStyle();
@@ -116,14 +112,7 @@ const List = ({
     <Redirect op="Read" to="/">
       <Article
         asideComponent={
-          <SidePanel>
-            {!disableSearch && (
-              <Box py={1.5}>
-                <Search {...rest} />
-              </Box>
-            )}
-            {filterComponent}
-          </SidePanel>
+          <SidePanel>{filterComponent}</SidePanel>
         }
       >
         <Table
@@ -138,15 +127,13 @@ const List = ({
           id={collectionName}
           onSort={updateSortPrefence}
         >
-          <TableHeader
-            navComponent={
-              <Box pb={1}>
-                <FilterChip />
-              </Box>
-            }
-          >
+          <TableHeader>
+            <TableIo io={io} />
             {addComponent}
           </TableHeader>
+          <Box pb={1}>
+            <FilterChip />
+          </Box>
         </Table>
       </Article>
     </Redirect>

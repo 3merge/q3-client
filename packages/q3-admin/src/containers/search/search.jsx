@@ -30,7 +30,6 @@ export const Search = ({
     collectionName,
     resourceName,
     directoryPath,
-    rootPath,
   } = React.useContext(Definitions);
   const { root } = useStyle();
 
@@ -46,7 +45,7 @@ export const Search = ({
       ).then((r) =>
         r.map((item) => ({
           ...item,
-          url: `${rootPath}/${item.id}`,
+          url: `${directoryPath}${item.id}`,
         })),
       );
     },

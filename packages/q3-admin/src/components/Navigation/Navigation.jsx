@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Collapse from '@material-ui/core/Collapse';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Divider from '@material-ui/core/Divider';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
@@ -16,6 +17,8 @@ import { array } from 'q3-ui-helpers';
 import { withLocation } from 'with-location';
 import { useToggle } from 'useful-state';
 import Drawer from 'q3-ui-dialog';
+import MuiLink from '@material-ui/core/Link';
+import AccountBox from '@material-ui/icons/AccountBox';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
 import ProfileActions from '../ProfileActions';
@@ -142,6 +145,31 @@ const AppNavigation = ({
     () => (
       <Box className={cls.nav}>
         {recursivelyRenderMenuItems(menuItems)}
+        <Box my={2}>
+          <Divider />
+          <Box py={1}>
+            <Box mb={0.5}>
+              <MuiLink
+                fullWidth
+                component={Link}
+                style={{ fontSize: '0.911rem' }}
+                to="/reports"
+              >
+                Reports
+              </MuiLink>
+            </Box>
+            <Box mb={0.5}>
+              <MuiLink
+                fullWidth
+                component={Link}
+                style={{ fontSize: '0.911rem' }}
+                to="/logs"
+              >
+                Logs
+              </MuiLink>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     ),
     [],
@@ -153,9 +181,6 @@ const AppNavigation = ({
         <Box className={cls.root} px={0.5} component="nav">
           {renderLogoAndDirectoryLink()}
           {renderMenuItems()}
-          <ProfileActions profileItems={profileItems}>
-            {notificationComponent}
-          </ProfileActions>
         </Box>
       </Hidden>
       <Hidden lgUp>
@@ -180,13 +205,7 @@ const AppNavigation = ({
               )}
               renderContent={renderMenuItems}
             />
-
             {renderLogoAndDirectoryLink()}
-          </Box>
-          <Box>
-            <ProfileActions profileItems={profileItems}>
-              {notificationComponent}
-            </ProfileActions>
           </Box>
         </Box>
       </Hidden>

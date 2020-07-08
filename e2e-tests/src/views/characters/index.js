@@ -23,6 +23,9 @@ export default new AbstractCollectionBuilder({
       'updatedAt',
       'createdAt',
     ],
+    io: {
+      exports: ['characterCollection'],
+    },
     resolvers: ({
       id,
       name,

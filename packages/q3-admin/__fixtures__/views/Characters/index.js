@@ -15,6 +15,7 @@ export default new AbstractCollectionBuilder({
   })
   .genList({
     defaultColumns: ['createdAt', 'updatedAt'],
+
     resolvers: ({
       id,
       name,

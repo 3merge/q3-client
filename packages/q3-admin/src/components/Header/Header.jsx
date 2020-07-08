@@ -17,7 +17,7 @@ const Header = ({
         ? '2px solid #f5f7f9'
         : undefined,
     }}
-    pt={1}
+    pt={2}
     width="100%"
   >
     <Container maxWidth="xl" component="header">

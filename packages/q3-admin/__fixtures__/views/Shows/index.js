@@ -14,6 +14,10 @@ export default new AbstractCollectionBuilder({
   })
   .genList({
     defaultColumns: [],
+    io: {
+      exports: ['orders'],
+      imports: [],
+    },
     resolvers: ({
       id,
       name,

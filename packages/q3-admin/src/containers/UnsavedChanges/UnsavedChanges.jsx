@@ -1,6 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import moment from 'moment';
+import Box from '@material-ui/core/Box';
 import { browser } from 'q3-ui-helpers';
 import { Store, Definitions } from '../state';
 import PollIndicator from '../../components/PollIndicator';
@@ -65,15 +66,24 @@ const UnsavedChanges = () => {
   }, [hasPendingUpdate]);
 
   return (
-    <PollIndicator
-      hasPendingUpdate={hasPendingUpdate}
-      lastUpdated={lastUpdated}
-      hasChange={hasChange}
-      close={() => {
-        clearTimeout(timer);
-        setHasPendingUpdate(false);
-      }}
-    />
+    <Box
+      style={{ backgroundColor: '#FFF' }}
+      height="45px"
+      display="flex"
+      alignItems="center"
+      justifyContent="flex-end"
+      width={320}
+    >
+      <PollIndicator
+        hasPendingUpdate={hasPendingUpdate}
+        lastUpdated={lastUpdated}
+        hasChange={hasChange}
+        close={() => {
+          clearTimeout(timer);
+          setHasPendingUpdate(false);
+        }}
+      />
+    </Box>
   );
 };
 

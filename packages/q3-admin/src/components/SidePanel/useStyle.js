@@ -2,7 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: {
-    height: 'calc((100 * var(--vh)) - 2rem)',
+    borderLeft: '2px solid #f4f6f8',
+    borderRight: '2px solid #f4f6f8',
+    height: 'calc((100 * var(--vh)) - 65px)',
+    padding: '1rem 0',
     maxWidth: 310,
     width: 310,
 
@@ -18,6 +21,6 @@ export default makeStyles((theme) => ({
     maxHeight: '100%',
     overflowY: 'auto !important',
     overflowX: 'hidden !important',
-    margin: '0 .25rem',
+    // margin: '0 .25rem',
   },
 }));

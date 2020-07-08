@@ -44,7 +44,6 @@ const TableView = ({
   className,
   children,
   actionbarPosition,
-  footerComponent,
   style,
 }) => {
   const filterer = filterByPossibleKeys(
@@ -149,17 +148,10 @@ const TableView = ({
                 </TableRow>
               ))}
             </TableBody>
-            <tfooter style={{ display: 'table-row-group' }}>
-              <tr>
-                <td colSpan="100%">
-                  <Pagination id={id} total={total} />
-                </td>
-              </tr>
-            </tfooter>
           </Table>
         </Box>
         <Box py={1} width="100%">
-          {footerComponent}
+          <Pagination id={id} total={total} />
         </Box>
       </Paper>
       <Actionbar

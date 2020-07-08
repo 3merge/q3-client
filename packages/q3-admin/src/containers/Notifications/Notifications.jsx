@@ -1,22 +1,26 @@
 import React from 'react';
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import AppHeaderPopover from '../../components/AppHeaderPopover';
-import { useExportSource } from '../../hooks';
+import { getSocketInstance } from '../../hooks/useSocket';
 
-const Notifications = ({ socket }) => {
-  const { list, fetching, markAsSeen } = useExportSource(
-    socket,
-  );
+const Notifications = () => {
+  const [list, setList] = React.useState([]);
+
+  React.useEffect(() => {
+    const io = getSocketInstance();
+
+    io.on('exports', ({ data }) => {
+      setList((prev) => new Set([...prev.concat(data)]));
+    });
+  }, []);
 
   return (
     <AppHeaderPopover
-      disabled={fetching}
       icon={NotificationsActiveIcon}
-      showBadge={list.some((item) => !item.hasDownloaded)}
+      //    showBadge={list.some((item) => !item.hasDownloaded)}
     >
       <List style={{ width: 350, maxHeight: 450 }}>
         {list.length ? (
@@ -25,11 +29,7 @@ const Notifications = ({ socket }) => {
               <ListItemText
                 primary={item.path}
                 secondary={
-                  <a
-                    href={item.url}
-                    download
-                    onClick={() => markAsSeen(item._id)}
-                  >
+                  <a href={item.url} download>
                     Download Export
                   </a>
                 }

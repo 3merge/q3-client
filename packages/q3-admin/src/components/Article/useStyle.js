@@ -3,14 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   view: {
     backgroundColor: '#FFF',
-    height: '100%',
+    height: 'calc(100 * var(--vh) - 75px)',
     position: 'relative',
     width: '100%',
     zIndex: 1,
-  },
-  viewport: {
-    height: 'calc(100 * var(--vh))',
-    boxSizing: 'border-box',
   },
 
   articleBox: () => ({
@@ -20,7 +16,7 @@ export default makeStyles((theme) => ({
   columnWidth: {
     position: 'sticky',
     top: 0,
-    height: 'calc((100 * var(--vh)) - 65px)',
+    height: 'calc(100 * var(--vh))',
     width: 285,
     overflow: 'auto',
     resize: 'horizontal',

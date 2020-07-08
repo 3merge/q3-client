@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
 import Graphic from 'q3-ui-assets';
 import { useFilters } from 'q3-ui-rest';
-import socket from 'socket.io-client';
+import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
@@ -14,6 +14,7 @@ import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore, useViewResolutions } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
+import Search from '../search';
 
 const PageChildren = ({
   children,
@@ -154,6 +155,27 @@ const Page = ({
             ]),
           }}
         >
+          <Box
+            display="flex"
+            px={1}
+            alignItems="center"
+            height={75}
+            pr={12}
+            style={{
+              borderBottom: '2px solid #f4f6f8',
+              borderLeft: '2px solid #f4f6f8',
+            }}
+          >
+            <Search
+              {...{
+                ...state,
+                id,
+                data,
+                filters,
+              }}
+            />
+            <UnsavedChanges />
+          </Box>
           {executeOnChildren(children, {
             ...state,
             id,

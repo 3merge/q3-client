@@ -10,21 +10,16 @@ import useStyle from './useStyle';
 export const SidebarPanelContent = ({
   title,
   children,
-  transitionDelay,
 }) => {
-  const { subtext } = useStyle();
+  const { subtext, bordered } = useStyle();
   const { t } = useTranslation();
 
   return (
-    <Box
-      width="100%"
-      style={{ borderTop: '2px solid #f5f7f9' }}
-    >
+    <Box px={1} width="100%" className={bordered}>
       <Box
         display="flex"
         justifyContent="space-between"
         px={1}
-        pt={1}
       >
         <Typography variant="overline" color="primary">
           {t(`titles:${title}`)}
@@ -39,14 +34,11 @@ export const SidebarPanelContent = ({
   );
 };
 
-SidebarPanelContent.defaultProps = {
-  transitionDelay: 0,
-};
+SidebarPanelContent.defaultProps = {};
 
 SidebarPanelContent.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  transitionDelay: PropTypes.number,
 };
 
 export default SidebarPanelContent;

@@ -13,8 +13,10 @@ export default () => {
     <Router basepath="/app">
       <Admin
         path="*"
+        reports="/app/reports"
+        logs="/app/logs"
+        profile="/app/profile"
         logoSrc="https://image-placeholder.com/images/image-placeholder.png"
-        socket="http://localhost:8080"
         pages={views}
         icons={{
           characters: AccessibilityIcon,

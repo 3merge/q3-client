@@ -11,7 +11,9 @@ const SidePanel = ({ children }) => {
     <>
       <Hidden smDown>
         <Grid item className={cls.root}>
-          <Paper className={cls.scroller}>{children}</Paper>
+          <Paper className={cls.scroller} elevation={0}>
+            {children}
+          </Paper>
         </Grid>
       </Hidden>
       <Hidden mdUp>

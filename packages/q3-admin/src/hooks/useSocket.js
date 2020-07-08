@@ -3,6 +3,15 @@ import { get } from 'lodash';
 import axios from 'axios';
 import socket from 'socket.io-client';
 
+export const getSocketInstance = () => {
+  const url = new URL(
+    get(axios, 'defaults.baseURL', 'http://localhost'),
+  );
+
+  url.port = '8080';
+  return socket(url.toString());
+};
+
 export default (collectionName, id) => {
   const url = new URL(
     get(axios, 'defaults.baseURL', 'http://localhost'),
@@ -11,7 +20,7 @@ export default (collectionName, id) => {
   url.port = '8080';
 
   const [lastUpdated, setLastUpdated] = React.useState();
-  const io = socket(url.toString());
+  const io = getSocketInstance();
 
   React.useEffect(() => {
     const pollOnChange = (d) => {

@@ -22,20 +22,20 @@ const Article = ({ asideComponent, children }) => {
       component="article"
       className={viewport}
     >
-      <Box p={1}>
-        <Grid container className={articleWrapper}>
-          {asideComponent}
-          <Grid
-            xs
-            zeroMinWidth
-            component="section"
-            className={section}
-            item
-          >
-            <Paper className={view}>{children}</Paper>
-          </Grid>
+      <Grid container className={articleWrapper}>
+        {asideComponent}
+        <Grid
+          xs
+          zeroMinWidth
+          component="section"
+          className={section}
+          item
+        >
+          <Paper className={view} elevation={0}>
+            {children}
+          </Paper>
         </Grid>
-      </Box>
+      </Grid>
     </Grid>
   );
 };

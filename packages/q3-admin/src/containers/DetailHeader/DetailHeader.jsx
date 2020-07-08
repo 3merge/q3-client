@@ -3,7 +3,6 @@ import Back from '../back';
 import Header from '../../components/Header';
 import { useTitle } from '../../hooks';
 import { Store } from '../state';
-import UnsavedChanges from '../UnsavedChanges';
 
 const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
@@ -13,9 +12,7 @@ const DetailHeader = (props) => {
       {...props}
       backComponent={<Back />}
       {...useTitle(data, props)}
-    >
-      <UnsavedChanges />
-    </Header>
+    />
   );
 };
 

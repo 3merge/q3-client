@@ -40,6 +40,7 @@ const SidebarTabs = ({
           textColor="primary"
           style={{
             minHeight: 36,
+            marginBottom: '1rem',
           }}
           centered
         >

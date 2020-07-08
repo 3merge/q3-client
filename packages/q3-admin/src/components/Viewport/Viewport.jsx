@@ -32,6 +32,7 @@ const AppViewport = ({ children }) => {
       disableGutters
       component="main"
       style={{
+        backgroundColor: '#FFF',
         overflow: 'hidden',
         maxHeight,
       }}
