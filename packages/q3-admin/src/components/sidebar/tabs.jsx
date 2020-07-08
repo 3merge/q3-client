@@ -29,6 +29,7 @@ const SidebarTabs = ({
       className={root}
       component="aside"
       elevation={0}
+      height="100%"
     >
       {!hasNoOptions && (
         <Tabs
@@ -39,8 +40,6 @@ const SidebarTabs = ({
           textColor="primary"
           style={{
             minHeight: 36,
-            marginTop: '1.25rem',
-            marginBottom: '1.5rem',
           }}
           centered
         >

@@ -1,101 +1,64 @@
-import React from 'react';
-import {
-  genCollection,
-  genList,
-  genDetail,
-} from 'q3-admin/lib/builders';
+import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import GroupIcon from '@material-ui/icons/Group';
-import CharacterFilter from '../../components/CharacterFilter';
-import General from './general';
-import Movies from './movies';
 
-const collectionInfo = {
+export default new AbstractCollectionBuilder({
   icon: GroupIcon,
   collectionName: 'characters',
   resourceName: 'characters',
   resourceNameSingular: 'character',
-  lookup: ['role', 'gender'],
-  segments: {
-    'Lead Roles': '?role=Lead',
-  },
-};
-
-const views = {
-  general: General,
-  movies: Movies,
-};
-
-const DetailProps = {
-  files: true,
-  notes: true,
-  history: true,
-  documentation: <p>HEY!</p>,
-  links: () => [
-    {
-      to: '/',
-      label: 'Home',
-    },
-    {
-      to: '/',
-      label: 'Related characters',
-    },
-    {
-      to: '/',
-      label: 'Props',
-    },
-  ],
-};
-
-const ListProps = {
-  renderTop: CharacterFilter,
-  filters: <CharacterFilter />,
-  defaultColumns: ['role', 'updatedAt', 'createdAt'],
-  resolvers: ({
-    id,
-    name,
-    role,
-    updatedAt,
-    createdAt,
-  }) => ({
-    id,
-    name,
-    role: {
-      base: role,
-      toChip: true,
-    },
-    updatedAt: {
-      base: updatedAt,
-      toDate: true,
-    },
-    createdAt: {
-      base: createdAt,
-      toDate: true,
-    },
-  }),
-};
-
-const PageDetail = genDetail({
-  HeaderProps: {
+})
+  .genHeader({
     titleProp: 'name',
-  },
-  DetailProps,
-  views,
-});
-
-const PageDetailProps = {
-  viewResolutions: {},
-  tour: [],
-};
-
-const PageList = genList({
-  addForm: () => <p>ADD</p>,
-  ListProps,
-});
-
-export default genCollection({
-  ...collectionInfo,
-  poll: 50000,
-  PageDetail,
-  PageList,
-  PageDetailProps,
-});
+  })
+  .genNew(import('./add'))
+  .genFilter(import('./filters'))
+  .genViews({
+    general: import('./general'),
+    movie: import('./movies'),
+  })
+  .genList({
+    defaultColumns: [
+      'gender',
+      'role',
+      'updatedAt',
+      'createdAt',
+    ],
+    resolvers: ({
+      id,
+      name,
+      role,
+      updatedAt,
+      createdAt,
+      gender,
+    }) => ({
+      id,
+      name,
+      gender,
+      role: {
+        base: role,
+        toChip: true,
+      },
+      updatedAt: {
+        base: updatedAt,
+        toDate: true,
+      },
+      createdAt: {
+        base: createdAt,
+        toDate: true,
+      },
+    }),
+  })
+  .genDetail({
+    notes: true,
+    picture: true,
+  })
+  .genListSettings({
+    defaultSortPreference: 'firstName',
+    select:
+      'photo,featuredUpload,name,role,gender,updatedAt,createdAt',
+    lookup: ['role', 'gender'],
+    segments: {
+      'Lead Roles': '?role=Lead',
+    },
+  })
+  .build();

@@ -12,6 +12,22 @@ import usePropOverride from './usePropOverride';
 import FieldDetector from '../helpers/types';
 import { VALIDATION_OPTIONS } from '../helpers/validation';
 
+const useFieldContext = (name) => {
+  const { values, errors } = React.useContext(BuilderState);
+  const value = get(values, name);
+  const error = get(errors, name);
+
+  return React.useMemo(
+    () => ({
+      value,
+      values,
+      error,
+      errors,
+    }),
+    [value, error],
+  );
+};
+
 const useFieldValue = (
   { value, name, type },
   initState,
@@ -32,7 +48,7 @@ export default (props, readOnly) => {
   const { name, override, type, vars, label } = props;
 
   const { t } = useTranslation();
-  const { values, errors } = React.useContext(BuilderState);
+  const { value, values, error } = useFieldContext(name);
 
   const {
     setField: setFieldValidation,
@@ -46,9 +62,6 @@ export default (props, readOnly) => {
     removeFieldValue,
     removeFieldError,
   } = dispatcher;
-
-  const value = get(values, name);
-  const error = get(errors, name);
 
   const fieldProps = new FieldDetector(
     type,

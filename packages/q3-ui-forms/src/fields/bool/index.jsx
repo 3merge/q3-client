@@ -10,7 +10,6 @@ import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { grey, red } from '@material-ui/core/colors';
-import withState from '../withState';
 
 const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
@@ -185,4 +184,4 @@ Bool.defaultProps = {
   my: 0,
 };
 
-export default withState(Bool);
+export default Bool;

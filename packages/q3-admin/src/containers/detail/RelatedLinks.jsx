@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-
+import Container from '@material-ui/core/Container';
 import { object } from 'q3-ui-helpers';
 import useStyle from './useStyle';
 import RelatedLinksResolver from './RelatedLinksResolver';
@@ -9,21 +9,23 @@ import RelatedLinksResolver from './RelatedLinksResolver';
 const RelatedLinks = ({ children, links }) => {
   const cls = useStyle();
 
-  return object.isFn(links) ? (
-    <Grid container justify="space-between">
-      <Grid item className={cls.fill}>
-        {children}
+  return (
+    <Container maxWidth="lg">
+      <Grid container>
+        <Grid item className={cls.fill}>
+          {children}
+        </Grid>
+        {object.isFn(links) ? (
+          <Grid
+            id="q3-related-links"
+            item
+            className={cls.column}
+          >
+            <RelatedLinksResolver fn={links} />
+          </Grid>
+        ) : null}
       </Grid>
-      <Grid
-        id="q3-related-links"
-        item
-        className={cls.column}
-      >
-        <RelatedLinksResolver fn={links} />
-      </Grid>
-    </Grid>
-  ) : (
-    children
+    </Container>
   );
 };
 

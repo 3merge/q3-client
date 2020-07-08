@@ -3,16 +3,20 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   logo: {
     fill: '#FFF',
+    height: 65,
+    display: 'inline-block',
+    fontSize: '100%',
     textDecoration: 'none',
-    display: 'block',
-    transform: 'scale(1.15)',
+    width: 75,
+
+    '& svg': {
+      height: '100%',
+      width: '100%',
+      transform: 'scale(1.25)',
+    },
+
     [theme.breakpoints.down('md')]: {
-      display: 'inline-block',
-      transform: 'scale(2)',
-      fontSize: '100%',
-      height: '10px',
-      width: '32px',
-      marginLeft: '1rem',
+      width: 65,
     },
   },
 }));

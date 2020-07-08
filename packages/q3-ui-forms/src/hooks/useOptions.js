@@ -5,6 +5,7 @@ import { useValue } from 'useful-state';
 import { useResults } from 'q3-ui-helpers/lib/hooks';
 import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
+import { expandOptions } from '../fields/optionsThreshold';
 
 export default ({
   runOnChange = false,
@@ -27,7 +28,7 @@ export default ({
   } = useResults(
     loadOptions,
     [value, values],
-    options,
+    expandOptions(options),
     minimumCharacterCount,
   );
 

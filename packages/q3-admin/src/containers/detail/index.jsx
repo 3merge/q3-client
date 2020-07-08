@@ -3,37 +3,20 @@ import PropTypes from 'prop-types';
 import Tabs from 'q3-ui/lib/tabs';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import { Panel } from 'q3-components';
+import SidePanelContent from '../../components/SidePanelContent';
 import { Dispatcher } from '../state';
 import Sidebar from '../../components/sidebar';
-import Section from '../../components/section';
 import Notes from '../notes';
 import RelatedLinks from './RelatedLinks';
 import History from '../history';
 import PictureUpload from '../../components/picture';
-import Header from '../header';
+import Article from '../../components/Article';
+import SidePanel from '../../components/SidePanel';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
-
 import ActivityLog from '../activityLog';
 import Trash from '../trash';
-
-const useStyle = makeStyles((theme) => ({
-  tabs: {
-    maxWidth: 750,
-    [theme.breakpoints.down('lg')]: {
-      maxWidth: 550,
-    },
-    [theme.breakpoints.down('md')]: {
-      maxWidth: 350,
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '95vw',
-    },
-  },
-}));
+import DetailHeader from '../DetailHeader';
 
 const ActivityLogPreset = {
   to: '/log',
@@ -63,15 +46,9 @@ const Overflow = ({ children }) => {
   );
 };
 
-const HeaderMaxWidth = (props) => ({ children }) => {
-  const { tabs } = useStyle();
-
-  return (
-    <Header {...props}>
-      <Box className={tabs}>{children}</Box>
-    </Header>
-  );
-};
+const HeaderMaxWidth = (HeaderProps) => ({ children }) => (
+  <DetailHeader {...HeaderProps} navComponent={children} />
+);
 
 const Detail = ({
   HeaderProps,
@@ -95,50 +72,53 @@ const Detail = ({
     item && !exclusions.includes(item.label);
 
   return (
-    <Section
-      renderOutside={
-        <Sidebar
-          {...rest}
-          documentation={documentation}
-          commentTab={notes && <Notes />}
-          historyTab={history && <History />}
-          filesTab={
-            files && (
-              <Upload
-                tagOptions={tagOptions}
-                tagInstructions={tagInstructions}
-              />
-            )
-          }
-        >
-          {picture && (
-            <Panel title="Picture">
-              <PictureUpload />
-            </Panel>
-          )}
-        </Sidebar>
+    <Article
+      asideComponent={
+        <SidePanel>
+          <Sidebar
+            {...rest}
+            documentation={documentation}
+            commentTab={notes && <Notes />}
+            historyTab={history && <History />}
+            filesTab={
+              files && (
+                <Upload
+                  tagOptions={tagOptions}
+                  tagInstructions={tagInstructions}
+                />
+              )
+            }
+          >
+            {picture && (
+              <SidePanelContent title="Picture">
+                <Box px={1}>
+                  <PictureUpload />
+                </Box>
+              </SidePanelContent>
+            )}
+          </Sidebar>
+        </SidePanel>
       }
-      renderInside={
-        <Tabs
-          dense
-          wrap={HeaderMaxWidth(HeaderProps)}
-          // eslint-disable-next-line
-          wrapBody={({ children }) => (
-            <RelatedLinks links={links}>
-              <Overflow>{children}</Overflow>
-            </RelatedLinks>
-          )}
-          // root={rootPath}
-          scrollButtons="on"
-          views={mapToNestedRoute(children)
-            .concat([
-              disableTrash ? null : TrashPreset,
-              disableLog ? null : ActivityLogPreset,
-            ])
-            .filter(filterByExclusion)}
-        />
-      }
-    />
+    >
+      <Tabs
+        dense
+        wrap={HeaderMaxWidth(HeaderProps)}
+        // eslint-disable-next-line
+        wrapBody={({ children }) => (
+          <RelatedLinks links={links}>
+            <Overflow>{children}</Overflow>
+          </RelatedLinks>
+        )}
+        // root={rootPath}
+        scrollButtons="on"
+        views={mapToNestedRoute(children)
+          .concat([
+            disableTrash ? null : TrashPreset,
+            disableLog ? null : ActivityLogPreset,
+          ])
+          .filter(filterByExclusion)}
+      />
+    </Article>
   );
 };
 

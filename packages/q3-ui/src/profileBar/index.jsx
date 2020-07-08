@@ -18,54 +18,20 @@ const ProfileBar = ({
   popoutMenuItems,
   ...rest
 }) => {
-  const { colourful, trigger, shell, center } = useStyles();
-  const matches = useMediaQuery('(min-height:720px)');
+  const { colourful, shell } = useStyles();
 
   return (
-    <Box className={shell}>
-      <Box
-        id="profile-bar"
-        component="aside"
-        className={colourful}
-      >
-        <Offcanvas
-          left
-          color="primary"
-          menu={(props) =>
-            React.createElement(Menu, {
-              ...props,
-              items,
-            })
-          }
+    <Hidden mdDown implementation="css">
+      <Box className={shell}>
+        <Box
+          id="profile-bar"
+          component="aside"
+          className={colourful}
         >
-          {(toggle) => (
-            <>
-              <Logo name={companyName} />
-              <Hidden mdDown implementation="css">
-                {matches && <IconMenu items={items} />}
-              </Hidden>
-              <Fab
-                color="primary"
-                onClick={toggle}
-                id="flyout-menu"
-                className={matches ? trigger : center}
-                size="small"
-              >
-                <MenuIcon />
-              </Fab>
-            </>
-          )}
-        </Offcanvas>
-        <Box id="q3-profile" py={1} px={1} align="center">
-          <AccountMenu
-            {...rest}
-            items={popoutMenuItems}
-            isLoggedIn
-            name={null}
-          />
+          <IconMenu items={items} />
         </Box>
       </Box>
-    </Box>
+    </Hidden>
   );
 };
 

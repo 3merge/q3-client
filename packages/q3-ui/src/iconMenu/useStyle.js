@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
   selected: {},
   activeLink: {
     '& .nav-link-icon': {
-      color: `${theme.palette.secondary.light} !important`,
+      color: theme.palette.primary.main,
       transform: 'scale(1.2) !important',
     },
   },
@@ -33,7 +33,7 @@ export default makeStyles((theme) => ({
 
     '& .nav-link-icon': {
       background: 'transparent',
-      color: 'rgba(255,255,255,0.67)',
+      color: theme.palette.secondary.main,
       transform: 'scale(0.9)',
       transitionProperty:
         'background, border, color,transform',
@@ -41,8 +41,8 @@ export default makeStyles((theme) => ({
     },
 
     '&:hover .nav-link-icon': {
-      background: 'rgba(255,255,255,0.1)',
-      color: 'rgba(255,255,255,0.85)',
+      background: theme.palette.secondary.main,
+      color: '#FFF !important',
       transform: 'scale(1)',
     },
   },

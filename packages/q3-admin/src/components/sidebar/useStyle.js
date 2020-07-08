@@ -2,14 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   view: {
-    height: 'calc((100 * var(--vh)))',
+    backgroundColor: '#F5F7F9',
+    padding: '1rem',
+    height: 'calc((100 * var(--vh)) - 65px)',
     overflow: 'auto',
     position: 'relative',
     zIndex: 1,
-
-    [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 68px)',
-    },
   },
 
   articleBox: () => ({
@@ -23,17 +21,13 @@ export default makeStyles((theme) => ({
   columnWidth: {
     position: 'sticky',
     top: 0,
-    height: 'calc((100 * var(--vh)))',
+    height: 'calc((100 * var(--vh)) - 65px)',
     width: 285,
     overflow: 'auto',
     resize: 'horizontal',
 
     '& > aside': {
       minWidth: 285,
-    },
-
-    [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 68px)',
     },
 
     [theme.breakpoints.down('sm')]: {
@@ -64,13 +58,13 @@ export default makeStyles((theme) => ({
     },
   },
   root: {
-    backgroundColor: '#F5F7F9',
-    height: '100%',
+    // backgroundColor: '#F5F7F9',
+    // height: '100%',
     fontSize: '1rem !important',
     overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
-    padding: '0.1875rem',
+    padding: '0',
     [theme.breakpoints.down('sm')]: {
       borderLeft: 0,
       backgroundColor: '#FFF',

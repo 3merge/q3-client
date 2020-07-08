@@ -55,7 +55,10 @@ const MenuItem = ({
 };
 
 const Menu = ({ items, done }) => (
-  <List component="nav" style={{ padding: 0 }}>
+  <List
+    component="nav"
+    style={{ padding: 0, width: '100%' }}
+  >
     {items.map(
       (item) =>
         item.visible && (

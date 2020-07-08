@@ -19,7 +19,7 @@ export const getActiveLink = (href, siblings) => ({
     ).isActive()
       ? // same colour as Mui-selected
         // only this passes the props back to the anchor element
-        'rgba(0, 0, 0, 0.08)'
+        '#f4f6f8'
       : undefined,
   },
 });

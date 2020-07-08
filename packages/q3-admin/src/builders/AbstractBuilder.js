@@ -9,6 +9,7 @@ export default class Collection {
     resourceName,
     resourceNameSingular,
     collectionName,
+    ...rest
   }) {
     // eslint-disable-next-line
     if (!collectionName) collectionName = resourceName;
@@ -18,6 +19,7 @@ export default class Collection {
       resourceNameSingular,
       resourceName,
       collectionName,
+      ...rest,
     };
 
     this.$generateDetail = {};

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "name": "Rick and Morty",
+    "description": "",
+    "createdBy": {
+      "firstName": "Dan"
+    },
+    "createdAt": "2014-01-01",
+    "updatedAt": "2020-01-01"
+  },
+  {
+    "name": "Simpsons",
+    "description": ""
+  },
+  {
+    "name": "Archer",
+    "description": ""
+  },
+  {
+    "name": "Bob's Burgers",
+    "description": ""
+  }
+]

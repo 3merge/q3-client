@@ -273,11 +273,8 @@ export default makeStyles((theme) => ({
     },
     '& td.liftup': {
       wordWrap: 'break-word',
-      boxShadow: theme.shadows[1],
+      // boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
       zIndex: 2,
-    },
-    '& tbody tr:last-of-type .liftup': {
-      boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
     },
     [theme.breakpoints.down('sm')]: {
       height: 'calc(100vh - 68px)',

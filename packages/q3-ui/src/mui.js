@@ -111,20 +111,21 @@ Object.assign(theme, {
           color,
 
           '& *::-webkit-scrollbar': {
-            height: 10,
-            width: 10,
+            height: 8,
+            width: 8,
           },
 
           '& *::-webkit-scrollbar-track': {
-            background: '#FFF',
+            background: '#fff',
           },
 
           '& *::-webkit-scrollbar-thumb': {
-            background: 'rgba(0,0,0,0.2)',
+            background: 'rgba(0,0,0,0.1)',
+            borderRadius: 15,
           },
 
           '& *::-webkit-scrollbar-thumb:hover': {
-            background: 'rgba(0,0,0,0.4)',
+            background: 'rgba(0,0,0,0.25)',
           },
         },
         img: {
@@ -135,6 +136,7 @@ Object.assign(theme, {
         },
       },
     },
+
     MuiAlert: {
       root: {
         fontSize: '0.901rem !important',
@@ -274,22 +276,6 @@ Object.assign(theme, {
         padding: '6px 0px 6px 24px',
       },
     },
-    MuiBottomNavigation: {
-      root: {
-        height: 105,
-      },
-    },
-    MuiBottomNavigationAction: {
-      wrapper: {
-        '& svg': {
-          height: 45,
-          width: 30,
-        },
-      },
-      label: {
-        fontSize: '1rem',
-      },
-    },
     MuiTablePagination: {
       caption: {
         fontSize: '0.901rem',
@@ -351,6 +337,16 @@ Object.assign(theme, {
         textTransform: 'initial',
       },
     },
+    MuiListItem: {
+      root: {
+        '&$selected': {
+          backgroundColor: '#f4f6f8',
+        },
+        '&$hover': {
+          backgroundColor: '#ecf1f7',
+        },
+      },
+    },
     MuiListItemText: {
       root: {
         '& p, & span': {
@@ -361,7 +357,7 @@ Object.assign(theme, {
         fontSize: '1rem',
       },
       secondary: {
-        fontSize: '0.901rem',
+        fontSize: '0.812rem',
       },
     },
     MuiListItemSecondaryAction: {

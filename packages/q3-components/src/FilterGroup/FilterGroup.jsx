@@ -12,7 +12,6 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import Collapse from '@material-ui/core/Collapse';
 import Badge from '@material-ui/core/Badge';
 import { useToggle } from 'useful-state';
-import { makeStyles } from '@material-ui/core/styles';
 
 const { mapBy } = props;
 
@@ -66,9 +65,7 @@ export const FilterGroup = ({
         </Box>
       </ListItem>
       <Collapse in={state}>
-        <Box my={1}>
-          <Grid container>{children}</Grid>
-        </Box>
+        <Grid container>{children}</Grid>
       </Collapse>
     </Box>
   );

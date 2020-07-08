@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -44,15 +45,9 @@ export const intersects = (data = [], ids = []) =>
 
 const ActionBar = ({ actions, data, position }) => {
   const { t } = useTranslation('labels');
-  const {
-    hasChecked,
-    checked,
-    setChecked,
-  } = React.useContext(State);
-  const picked = intersects(data, checked);
-  const { actionBar } = useStyle({
-    position,
-  });
+  const { hasChecked, setChecked } = React.useContext(
+    State,
+  );
 
   const len = hasChecked();
 
@@ -60,16 +55,20 @@ const ActionBar = ({ actions, data, position }) => {
     if (len) setChecked([]);
   }, [data.length]);
 
-  if (!len) return null;
+  // if (!len) return null;
 
+  return null;
+  /*
+   // const picked = intersects(data, checked);
+  const { actionBar } = useStyle({
+    position,
+  });
   return (
     <BottomNavigation className={actionBar}>
-      <Unselect />
       <DataToCsv data={picked} />
-      <DataToExcel data={picked} />
       {renderActions(actions, t, picked)}
     </BottomNavigation>
-  );
+  ); */
 };
 
 ActionBar.propTypes = {

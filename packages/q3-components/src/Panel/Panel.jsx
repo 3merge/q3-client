@@ -19,11 +19,7 @@ export const Panel = ({
       in
       style={{ transitionDelay: `${transitionDelay}ms` }}
     >
-      <Box
-        className={bordered}
-        mt={0.25}
-        component="section"
-      >
+      <Box className={bordered} component="section">
         <Box display="flex" justifyContent="space-between">
           <Typography variant="overline" color="primary">
             {t(`titles:${title}`)}

@@ -4,7 +4,7 @@ import useRest from 'q3-ui-rest';
 import List from 'q3-ui/lib/list';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
-import { Panel } from 'q3-components';
+import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
 import FileName from './FileName';
 import FileManage from './FileManage';
@@ -30,7 +30,7 @@ const Files = ({ tagOptions, tagInstructions }) => {
   });
 
   return (
-    <Panel title="fileManager">
+    <SidePanelContent title="fileManager">
       <Upload fn={post} />
       {fetching && <CircularProgress />}
       {uploads.length ? (
@@ -59,7 +59,7 @@ const Files = ({ tagOptions, tagInstructions }) => {
         </List>
       ) : null}
       {tagInstructions}
-    </Panel>
+    </SidePanelContent>
   );
 };
 

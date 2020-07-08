@@ -78,3 +78,11 @@ export const toNumber = (str, fallbackText = '') => {
   const num = Number(str);
   return Number.isNaN(num) ? fallbackText : num;
 };
+
+/**
+ * Reduce the size of a string by truncating it.
+ */
+export const ellipsis = (str = '', len = 35) =>
+  str && str.length > len
+    ? `${str.substring(0, len)}...`
+    : str;

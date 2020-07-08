@@ -146,7 +146,6 @@
   "startTyping": "Start typing to search",
   "browseOrClick": "Click a result at any time from the auto-populated list to visit the page.",
   "changesRestored": "Un-saved changes have been restored into this form. Please save or delete them to proceed.",
-  "unsavedChanges": "Change detected",
   "unsavedChangesOn": "Save your work before leaving this page.",
   "creator": "Creator",
   "lastUpdated": "Last updated",
@@ -212,5 +211,12 @@
   "howTo": "How-to",
   "tryAgain": "Try again",
   "stick": "Stick",
-  "unstick": "Unstick"
+  "unstick": "Unstick",
+  "trackChanges": "No unsaved changes",
+  "unsavedChanges": "Unsaved changes",
+  "exportCollection": "Export",
+  "importCollection": "Import",
+  "lastRefreshed": "As of {{time}}",
+  "pendingUpdate": "New version available",
+  "changesDetected": "This page will auto-sync in five seconds."
 }

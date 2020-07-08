@@ -56,6 +56,7 @@ const Header = ({
     titleProp,
     parenthesesProp,
     resourceNameSingular,
+    subtitleProp,
   });
 
   return (

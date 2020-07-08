@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
-import { Panel } from 'q3-components';
+import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
 import { useActiveFilter } from '../../hooks';
 import SegmentName from '../../components/SegmentName';
@@ -33,7 +33,7 @@ const Segements = ({ children }) => {
   ];
 
   return (
-    <Panel title="Segments">
+    <SidePanelContent title="Segments">
       <Box id="q3-segments">
         <List style={{ margin: 0, padding: 0 }}>
           {listItems.map(
@@ -71,7 +71,7 @@ const Segements = ({ children }) => {
           <SegmentAdd onSave={add} />
         </List>
       </Box>
-    </Panel>
+    </SidePanelContent>
   );
 };
 

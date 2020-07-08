@@ -1,10 +1,7 @@
 import React from 'react';
 import Tile from 'q3-ui/lib/tile';
-
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
-import Breadcrumbs from 'q3-ui/lib/breadcrumbs';
-
 import { Definitions, Dispatcher, Store } from './state';
 
 export default (Component) => ({ name, ...rest }) => {
@@ -25,8 +22,7 @@ export default (Component) => ({ name, ...rest }) => {
   if (!object.hasKeys(data)) return null;
 
   return (
-    <Tile title={name} subtitle={name} divider>
-      <Breadcrumbs />
+    <Tile subtitle={name} divider>
       <Component
         data={data}
         id={id}

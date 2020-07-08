@@ -44,6 +44,7 @@ const TableView = ({
   className,
   children,
   actionbarPosition,
+  footerComponent,
   style,
 }) => {
   const filterer = filterByPossibleKeys(
@@ -92,7 +93,9 @@ const TableView = ({
         style={style}
       >
         {children}
+
         <Box
+          style={{ flex: 1 }}
           position="relative"
           maxWidth="100%"
           overflow="auto"
@@ -146,10 +149,17 @@ const TableView = ({
                 </TableRow>
               ))}
             </TableBody>
+            <tfooter style={{ display: 'table-row-group' }}>
+              <tr>
+                <td colSpan="100%">
+                  <Pagination id={id} total={total} />
+                </td>
+              </tr>
+            </tfooter>
           </Table>
         </Box>
-        <Box py={1}>
-          <Pagination id={id} total={total} />
+        <Box py={1} width="100%">
+          {footerComponent}
         </Box>
       </Paper>
       <Actionbar

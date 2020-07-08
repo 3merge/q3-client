@@ -7,7 +7,7 @@ import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
-import { Panel } from 'q3-components';
+import SidePanelContent from '../SidePanelContent';
 import { Dispatcher, Store } from '../../containers/state';
 import SidebarTabs from './tabs';
 import Column from './column';
@@ -61,37 +61,35 @@ const Sidebar = ({
     });
 
   return (
-    <Column>
-      <SidebarTabs {...rest}>
-        {defaultOptions.length > 0 && (
-          <Panel title="general">
-            <List>
-              {defaultOptions.map((option, i) => (
-                <ListItem key={i} {...option}>
-                  <ActionBar actions={option.actions}>
-                    {option.action}
-                  </ActionBar>
-                </ListItem>
-              ))}
-            </List>
-          </Panel>
-        )}
-        {panels.map((panel, i) => (
-          <Panel
-            {...panel}
-            key={i}
-            transitionDelay={i + 1 * 150}
-          >
-            {panel.content}
-          </Panel>
-        ))}
-        {children
-          ? React.cloneElement(children, {
-              transitionDelay: panels.length * 150,
-            })
-          : null}
-      </SidebarTabs>
-    </Column>
+    <SidebarTabs {...rest}>
+      {defaultOptions.length > 0 && (
+        <SidePanelContent title="general">
+          <List>
+            {defaultOptions.map((option, i) => (
+              <ListItem key={i} {...option}>
+                <ActionBar actions={option.actions}>
+                  {option.action}
+                </ActionBar>
+              </ListItem>
+            ))}
+          </List>
+        </SidePanelContent>
+      )}
+      {panels.map((panel, i) => (
+        <SidePanelContent
+          {...panel}
+          key={i}
+          transitionDelay={i + 1 * 150}
+        >
+          {panel.content}
+        </SidePanelContent>
+      ))}
+      {children
+        ? React.cloneElement(children, {
+            transitionDelay: panels.length * 150,
+          })
+        : null}
+    </SidebarTabs>
   );
 };
 

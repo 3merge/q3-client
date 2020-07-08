@@ -1,9 +1,9 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
-import { Panel } from 'q3-components';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
+import SidePanelContent from '../../components/SidePanelContent';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
@@ -43,7 +43,7 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <Panel title="thread">
+    <SidePanelContent title="thread">
       <DisplayNotes
         loading={fetching}
         error={fetchingError}
@@ -63,7 +63,7 @@ const Notes = () => {
           />
         ))}
       </DisplayNotes>
-    </Panel>
+    </SidePanelContent>
   );
 };
 

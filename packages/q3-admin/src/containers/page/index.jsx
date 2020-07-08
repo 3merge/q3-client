@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
-import Fade from '@material-ui/core/Fade';
 import Graphic from 'q3-ui-assets';
 import { useFilters } from 'q3-ui-rest';
+import socket from 'socket.io-client';
 import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
@@ -120,23 +120,6 @@ const Page = ({
     viewResolutions,
     data,
   );
-
-  React.useEffect(() => {
-    let timer;
-
-    if (poll && !id)
-      timer = setInterval(() => {
-        state
-          .poll(location ? location.search : '')
-          .then(() => {
-            // noop
-          });
-      }, poll);
-
-    return () => {
-      if (timer) clearInterval(timer);
-    };
-  }, []);
 
   return (
     <PageChildren

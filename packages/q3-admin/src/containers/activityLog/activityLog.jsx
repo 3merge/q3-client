@@ -29,11 +29,7 @@ const History = () => {
   });
 
   return (
-    <Tile
-      title="activityLog"
-      subtitle="activityLog"
-      divider
-    >
+    <Tile subtitle="activityLog" divider>
       {fetchingError ? (
         <Typography>
           {t('failedToLoadVersionHistory')}

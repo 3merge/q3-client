@@ -10,6 +10,7 @@ import useStyle from '../sidebar/useStyle';
 const Section = ({
   renderInside,
   renderOutside,
+  renderTop,
   ...rest
 }) => {
   const {
@@ -46,7 +47,11 @@ const Section = ({
           component="section"
           item
         >
-          <Paper className={view}>{renderInside}</Paper>
+          <Paper className={view} elevation={0}>
+            <Box style={{ backgroundColor: '#FFF' }}>
+              {renderInside}
+            </Box>
+          </Paper>
         </Grid>
       </Grid>
     </Box>

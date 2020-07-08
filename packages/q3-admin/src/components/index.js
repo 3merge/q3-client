@@ -2,6 +2,7 @@ export { default as App } from './app';
 export { default as Loader } from './loader';
 export { default as Main } from './main';
 export { default as Public } from './public';
+export { default as Header } from './Header';
 
 /**
  * @NOTE
@@ -11,7 +12,6 @@ export { default as Public } from './public';
 export {
   Add,
   Detail,
-  Header,
   Table,
   Page,
   Search,

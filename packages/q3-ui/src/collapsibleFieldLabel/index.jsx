@@ -33,18 +33,22 @@ export const CollapsibleFieldLabel = ({
       style={{ display: 'block' }}
       component="fieldset"
     >
-      <Button
-        component={FormLabel}
-        onClick={toggle}
-        disabled={!collapse}
-        style={{
-          justifyContent: 'left',
-          marginBottom: '0.5rem',
-        }}
-      >
-        {renderKeyboardIcon(collapse, show)}
-        <Typography component="legend">{label}</Typography>
-      </Button>
+      {label && (
+        <Button
+          component={FormLabel}
+          onClick={toggle}
+          disabled={!collapse}
+          style={{
+            justifyContent: 'left',
+            marginBottom: '0.5rem',
+          }}
+        >
+          {renderKeyboardIcon(collapse, show)}
+          <Typography component="legend">
+            {label}
+          </Typography>
+        </Button>
+      )}
       <Collapse in={show}>
         <Box mb={1}>{children}</Box>
       </Collapse>

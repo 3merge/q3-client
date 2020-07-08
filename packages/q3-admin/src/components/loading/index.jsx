@@ -4,19 +4,15 @@ import SkeletonHeader from './skeletonHeader';
 import SkeletonSection from './skeletonSection';
 import SkeletonSidebar from './skeletonSidebar';
 import SkeletonTable from './skeletonTable';
-import Section from '../section';
+import Article from '../Article';
 
 const Loading = ({ id }) => (
-  <Section
-    renderInside={
-      <>
-        <SkeletonHeader />
-        {id ? <SkeletonSection /> : <SkeletonTable />}
-      </>
-    }
-    renderOutside={<SkeletonSidebar />}
-    overflowY="hidden"
-  />
+  <Article asideComponent={<SkeletonSidebar />}>
+    <>
+      <SkeletonHeader />
+      {id ? <SkeletonSection /> : <SkeletonTable />}
+    </>
+  </Article>
 );
 
 Loading.propTypes = {

@@ -107,12 +107,16 @@ export default makeStyles((theme) => ({
     cursor: 'pointer',
   },
   bordered: {
-    boxShadow: 'rgba(0, 0, 0, 0.045) 0px 5px 20px 0px',
+    borderBottom: '2px solid #F5F7F9',
+    //  marginBottom: '.25rem',
+    borderRadius: 5,
     textOverflow: 'ellipsis',
     position: 'relative',
-    backgroundColor: '#f6f8fa',
     padding: '.75rem',
 
+    '&:last-of-type': {
+      border: 0,
+    },
     [theme.breakpoints.down('sm')]: {
       boxShadow: theme.shadows[0],
       backgroundColor: 'transparent',
@@ -123,8 +127,7 @@ export default makeStyles((theme) => ({
     fontSize: '1rem',
   },
   paper: {
-    border: 0,
-    boxShadow: theme.shadows[14],
+    //  boxShadow: theme.shadows[14],
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: theme.spacing(1),

@@ -19,44 +19,27 @@ export default makeStyles((theme) => ({
     },
   },
   center: {
-    color: '#FFF',
+    // color: '#FFF',
     backgroundColor: 'transparent',
     left: '50%',
     transform: 'translateX(-50%)',
   },
 
   shell: {
-    width: 92,
+    width: 75,
     [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },
 
   colourful: ({ isOpen }) => ({
-    backgroundColor: theme.palette.primary.main,
-    boxSizing: 'border-box',
-    color: '#FFF',
     display: 'flex',
     height: '100vh',
-    position: 'fixed',
-    width: 92,
+    width: 75,
     zIndex: 100,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingBottom: theme.spacing(1),
-
-    [theme.breakpoints.down('md')]: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      padding: 0,
-      position: 'relative',
-      height: 'auto',
-      width: '100%',
-
-      '&>div': {
-        width: 'auto',
-      },
-    },
+    paddingTop: '2rem',
+    paddingBottom: '2rem',
+    borderRight: '3px solid white',
   }),
 
   mobileColumn: {
