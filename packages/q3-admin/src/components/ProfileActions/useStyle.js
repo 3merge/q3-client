@@ -8,5 +8,10 @@ export default makeStyles((theme) => ({
       height: 'auto',
       flexDirection: 'row-reverse',
     },
+
+    [theme.breakpoints.down('md')]: {
+      height: 'auto',
+      flexDirection: 'row-reverse',
+    },
   },
 }));
