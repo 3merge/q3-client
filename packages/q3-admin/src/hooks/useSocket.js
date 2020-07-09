@@ -41,5 +41,5 @@ export default (collectionName, id) => {
     };
   }, []);
 
-  return { io, lastUpdated };
+  return lastUpdated;
 };

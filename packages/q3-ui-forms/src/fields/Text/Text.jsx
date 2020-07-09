@@ -63,6 +63,7 @@ export const Text = (deco) => {
 
     const resizeObserver = new ResizeObserver((entries) => {
       const w = get(entries, '0.target.clientWidth', 500);
+
       if (w < 359) {
         debounceStateFn(false);
       } else {
@@ -80,7 +81,7 @@ export const Text = (deco) => {
   return (
     <TextBase
       {...deco}
-      inputRef={ref}
+      ref={ref}
       type={type}
       InputProps={{
         endAdornment:

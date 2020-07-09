@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import App from './components/app';
 import { usePages } from './hooks';
 import Notifications from './containers/Notifications';
@@ -16,33 +17,35 @@ const Admin = ({
   tours,
   children,
   profileItems,
-}) => (
-  <Tours steps={tours}>
-    {(restartTour) => (
-      <Viewport>
-        <Navigation
-          logoSrc={logoSrc}
-          menuItems={usePages(pages, icons)}
-        />
-        <div style={{ flex: 1 }}>
-          <ProfileActions
-            profileItems={[
-              ...profileItems,
-              {
-                onClick: restartTour,
-                label: 'restartTour',
-              },
-            ]}
-          >
-            <Notifications socket={socket} />
-          </ProfileActions>
-          <App pages={pages} />
-          {children}
-        </div>
-      </Viewport>
-    )}
-  </Tours>
-);
+}) => {
+  return (
+    <Tours steps={tours}>
+      {(restartTour) => (
+        <Viewport>
+          <Navigation
+            logoSrc={logoSrc}
+            menuItems={usePages(pages, icons)}
+          />
+          <Box flex="1">
+            <ProfileActions
+              profileItems={[
+                ...profileItems,
+                {
+                  onClick: restartTour,
+                  label: 'restartTour',
+                },
+              ]}
+            >
+              <Notifications socket={socket} />
+            </ProfileActions>
+            <App pages={pages} />
+            {children}
+          </Box>
+        </Viewport>
+      )}
+    </Tours>
+  );
+};
 
 Admin.propTypes = {
   logoSrc: PropTypes.string.isRequired,

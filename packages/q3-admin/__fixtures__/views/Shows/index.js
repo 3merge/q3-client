@@ -13,7 +13,6 @@ export default new AbstractCollectionBuilder({
     general: import('./General'),
   })
   .genList({
-    defaultColumns: [],
     io: {
       exports: ['orders'],
       imports: [],

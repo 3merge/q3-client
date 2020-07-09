@@ -9,8 +9,10 @@ export default makeStyles((theme) => ({
       height: 65,
     },
   },
+
   fillViewportHeight: {
     height: 'calc((100 * var(--vh)) - 65px)',
+    overflow: 'auto',
     [theme.breakpoints.down('sm')]: {
       height: 'calc((100 * var(--vh)) - 130px)',
     },

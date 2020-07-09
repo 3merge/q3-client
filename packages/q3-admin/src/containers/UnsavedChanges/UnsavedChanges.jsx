@@ -16,7 +16,7 @@ export const withLastUpdated = (Component) => (props) => {
   );
 
   // real-time changelog timestamp
-  const { lastUpdated } = useSocket(collectionName, id);
+  const lastUpdated = useSocket(collectionName, id);
 
   const hasExpired = (previousLastUpdated) =>
     !previousLastUpdated ||

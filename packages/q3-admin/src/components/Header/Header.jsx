@@ -16,6 +16,10 @@ const Header = ({
       borderBottom: navComponent
         ? '2px solid #f5f7f9'
         : undefined,
+      position: 'sticky',
+      top: 0,
+      zIndex: 10,
+      background: 'white',
     }}
     pt={2}
     width="100%"

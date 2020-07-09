@@ -8,11 +8,11 @@ import { Store } from '../state';
 
 jest.mock('../../hooks/useActiveRequests', () => jest.fn());
 jest.mock('../../hooks/useSocket', () =>
-  jest.fn().mockReturnValue({
+  jest.fn().mockReturnValue(
     // this is the date returned from socket
     // it would represent the real-time timestamp
-    lastUpdated: new Date(),
-  }),
+    new Date(),
+  ),
 );
 
 beforeEach(() => {

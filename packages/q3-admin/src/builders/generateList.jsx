@@ -11,9 +11,11 @@ export default ({
     <Table
       {...rest}
       addComponent={
-        <Add onComplete={onNew}>
-          <AddForm />
-        </Add>
+        AddForm ? (
+          <Add onComplete={onNew}>
+            <AddForm />
+          </Add>
+        ) : null
       }
       filterComponent={<FilterForm />}
     />
