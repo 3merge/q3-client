@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-dialog",
-  "version": "1.19.5",
+  "version": "1.19.27",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.19.5"
+    "q3-ui-test-utils": "^1.19.27"
   },
   "dependencies": {
     "@material-ui/core": "^4.10.0",

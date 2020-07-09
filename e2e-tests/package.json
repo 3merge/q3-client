@@ -1,7 +1,7 @@
 {
   "name": "e2e-tests",
   "private": true,
-  "version": "1.19.10",
+  "version": "1.19.27",
   "dependencies": {
     "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.5.1",
