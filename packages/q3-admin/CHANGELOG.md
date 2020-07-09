@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.29](https://github.com/3merge/q/compare/v1.19.28...v1.19.29) (2020-07-09)
+
+
+### Bug Fixes
+
+* unsaved changes re-mounting socket.io causing severe performance implications ([0386ae7](https://github.com/3merge/q/commit/0386ae76a000ea604b82f3440a4abb477c1e9f57))
+
+
+
+
+
 ## [1.19.28](https://github.com/3merge/q/compare/v1.19.27...v1.19.28) (2020-07-09)
 
 **Note:** Version bump only for package q3-admin
