@@ -5,24 +5,21 @@ import socket from 'socket.io-client';
 
 export const getSocketInstance = () => {
   const url = new URL(
+    // socket.io lives on the same REST server
+    // so we can use axios' config to get the URI
     get(axios, 'defaults.baseURL', 'http://localhost'),
   );
 
+  // in Q3, the socket port is always 8080
   url.port = '8080';
   return socket(url.toString());
 };
 
 export default (collectionName, id) => {
-  const url = new URL(
-    get(axios, 'defaults.baseURL', 'http://localhost'),
-  );
-
-  url.port = '8080';
-
   const [lastUpdated, setLastUpdated] = React.useState();
-  const io = getSocketInstance();
 
   React.useEffect(() => {
+    const io = getSocketInstance();
     const pollOnChange = (d) => {
       if (
         // must match both the collection name and/or document ID

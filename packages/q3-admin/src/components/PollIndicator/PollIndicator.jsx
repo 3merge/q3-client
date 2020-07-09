@@ -42,7 +42,7 @@ const PollIndicator = ({
 
   return (
     <Button
-      variant="small"
+      size="small"
       className={cls.label}
       onClick={() => window.location.reload()}
     >

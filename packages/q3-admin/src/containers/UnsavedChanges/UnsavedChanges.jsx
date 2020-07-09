@@ -1,81 +1,76 @@
 import React from 'react';
 import { get } from 'lodash';
 import moment from 'moment';
-import Box from '@material-ui/core/Box';
 import { browser } from 'q3-ui-helpers';
 import { Store, Definitions } from '../state';
 import PollIndicator from '../../components/PollIndicator';
-import { useActiveRequests, useSocket } from '../../hooks';
+import {
+  useActiveRequests,
+  useReloadState,
+  useSocket,
+} from '../../hooks';
 
-const UnsavedChanges = () => {
-  const { data } = React.useContext(Store);
-  const [
-    hasPendingUpdate,
-    setHasPendingUpdate,
-  ] = React.useState(false);
-  const [hasChange, setHasChange] = React.useState(false);
-
+export const withLastUpdated = (Component) => (props) => {
   const { collectionName, id } = React.useContext(
     Definitions,
   );
 
-  const previousLastUpdated = get(data, 'updatedAt');
-  const numberOfActiveRequests = useActiveRequests();
+  // real-time changelog timestamp
   const { lastUpdated } = useSocket(collectionName, id);
 
-  let timer;
-
-  React.useEffect(() => {
-    if (browser.isBrowserReady())
-      document.addEventListener(
-        'q3-change-detection',
-        (e) => setHasChange(!e.data),
-      );
-  }, []);
-
-  React.useEffect(() => {
-    if (
-      lastUpdated &&
-      numberOfActiveRequests === 0 &&
-      (moment(lastUpdated).isAfter(
-        moment(previousLastUpdated),
-      ) ||
-        !previousLastUpdated)
-    ) {
-      confirm('There is a new version');
-    }
-
-    return () => {
-      timer = null;
-    };
-  }, [
-    previousLastUpdated,
-    numberOfActiveRequests,
-    lastUpdated,
-  ]);
-
-  React.useEffect(() => {
-    if (hasPendingUpdate)
-      timer = setTimeout(() => {
-        window.location.reload();
-      }, 5000);
-
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
-  }, [hasPendingUpdate]);
+  const hasExpired = (previousLastUpdated) =>
+    !previousLastUpdated ||
+    // if the value is before, it means it's out of date
+    // likewise, a missing value needs to be polled
+    moment(previousLastUpdated).isBefore(
+      moment(lastUpdated),
+    );
 
   return (
-    <PollIndicator
-      hasPendingUpdate={hasPendingUpdate}
+    <Component
       lastUpdated={lastUpdated}
-      hasChange={hasChange}
-      close={() => {
-        clearTimeout(timer);
-        setHasPendingUpdate(false);
-      }}
+      hasExpired={hasExpired}
+      {...props}
     />
   );
 };
 
-export default UnsavedChanges;
+// the HOC is important so that we don't re-paint the socket on change detection
+export default withLastUpdated(
+  ({ lastUpdated, hasExpired }) => {
+    const { data } = React.useContext(Store);
+    const [hasChange, setHasChange] = React.useState(false);
+    const hasActiveRequests = useActiveRequests();
+    const runReloadPrompt = useReloadState();
+    const previousLastUpdated = get(data, 'updatedAt');
+
+    React.useEffect(() => {
+      if (browser.isBrowserReady())
+        document.addEventListener(
+          'q3-change-detection',
+          (e) => setHasChange(!e.data),
+        );
+    }, []);
+
+    React.useEffect(() => {
+      if (
+        lastUpdated &&
+        !hasActiveRequests &&
+        hasExpired(previousLastUpdated)
+      )
+        runReloadPrompt();
+    }, [
+      previousLastUpdated,
+      hasActiveRequests,
+      lastUpdated,
+    ]);
+
+    return (
+      <PollIndicator
+        hasPendingUpdate={!hasExpired(previousLastUpdated)}
+        lastUpdated={lastUpdated}
+        hasChange={hasChange}
+      />
+    );
+  },
+);

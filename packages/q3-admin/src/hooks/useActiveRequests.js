@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { debounce } from 'lodash';
 
 export default () => {
   const [
@@ -7,10 +8,12 @@ export default () => {
     setNumOfCalls,
   ] = React.useState(0);
 
+  const hasPendingRequests = numberOfCallsPending > 0;
+
   const delay = (fn) =>
-    setTimeout(() => {
-      setNumOfCalls(fn);
-    }, 250);
+    process.env.NODE_ENV !== 'test'
+      ? debounce(() => setNumOfCalls(fn), 250)
+      : setNumOfCalls(fn);
 
   const add = () => delay((prev) => prev + 1);
   const reduce = () => delay((prev) => prev - 1);
@@ -20,7 +23,9 @@ export default () => {
       add();
       return config;
     },
-    (error) => Promise.reject(error),
+    (error) => {
+      return Promise.reject(error);
+    },
   );
 
   axios.interceptors.response.use(
@@ -34,5 +39,7 @@ export default () => {
     },
   );
 
-  return numberOfCallsPending;
+  return React.useMemo(() => hasPendingRequests, [
+    hasPendingRequests,
+  ]);
 };
