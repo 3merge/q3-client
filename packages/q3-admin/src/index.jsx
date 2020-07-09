@@ -14,6 +14,8 @@ const Admin = ({
   icons,
   socket,
   tours,
+  children,
+  profileItems,
 }) => (
   <Tours steps={tours}>
     {(restartTour) => (
@@ -25,6 +27,7 @@ const Admin = ({
         <div style={{ flex: 1 }}>
           <ProfileActions
             profileItems={[
+              ...profileItems,
               {
                 onClick: restartTour,
                 label: 'restartTour',
@@ -34,6 +37,7 @@ const Admin = ({
             <Notifications socket={socket} />
           </ProfileActions>
           <App pages={pages} />
+          {children}
         </div>
       </Viewport>
     )}
@@ -51,6 +55,8 @@ Admin.propTypes = {
 Admin.defaultProps = {
   icons: [],
   tours: [],
+  profileItems: [],
+  children: null,
 };
 
 export default Admin;
