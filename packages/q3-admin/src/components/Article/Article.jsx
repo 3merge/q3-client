@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import classnames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
 const Article = ({ asideComponent, children }) => {
-  const {
-    view,
-    articleWrapper,
-    section,
-    viewport,
-  } = useStyle();
+  const { view, articleWrapper, section } = useStyle();
+  const globalStyle = useGlobalStyle();
 
   return (
     <Grid
@@ -20,7 +17,6 @@ const Article = ({ asideComponent, children }) => {
       zeroMinWidth
       id="detail-article"
       component="article"
-      className={viewport}
     >
       <Grid container className={articleWrapper}>
         {asideComponent}
@@ -31,7 +27,13 @@ const Article = ({ asideComponent, children }) => {
           className={section}
           item
         >
-          <Paper className={view} elevation={0}>
+          <Paper
+            elevation={0}
+            className={classnames(
+              globalStyle.fillViewportHeight,
+              view,
+            )}
+          >
             {children}
           </Paper>
         </Grid>

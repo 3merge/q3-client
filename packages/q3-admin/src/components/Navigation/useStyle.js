@@ -1,8 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  root: {
+  muted: {
     backgroundColor: '#f5f7f9',
+  },
+  root: {
     height: '100vh',
     position: 'sticky',
     top: 0,
@@ -21,6 +23,9 @@ export default makeStyles((theme) => ({
         // fill: theme.palette.primary.contrastText,
       },
     },
+  },
+  appbar: {
+    height: 65,
   },
   nav: {
     height: 'calc(100vh - 165px)',
@@ -46,8 +51,13 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
-      height: 65,
-      width: 130,
+      height: '100%',
+      width: 120,
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      height: '100%',
+      width: 105,
     },
   },
 }));

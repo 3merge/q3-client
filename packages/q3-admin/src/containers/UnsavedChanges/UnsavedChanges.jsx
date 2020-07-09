@@ -66,24 +66,15 @@ const UnsavedChanges = () => {
   }, [hasPendingUpdate]);
 
   return (
-    <Box
-      style={{ backgroundColor: '#FFF' }}
-      height="45px"
-      display="flex"
-      alignItems="center"
-      justifyContent="flex-end"
-      width={320}
-    >
-      <PollIndicator
-        hasPendingUpdate={hasPendingUpdate}
-        lastUpdated={lastUpdated}
-        hasChange={hasChange}
-        close={() => {
-          clearTimeout(timer);
-          setHasPendingUpdate(false);
-        }}
-      />
-    </Box>
+    <PollIndicator
+      hasPendingUpdate={hasPendingUpdate}
+      lastUpdated={lastUpdated}
+      hasChange={hasChange}
+      close={() => {
+        clearTimeout(timer);
+        setHasPendingUpdate(false);
+      }}
+    />
   );
 };
 

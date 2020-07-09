@@ -53,7 +53,7 @@ const PollIndicator = ({
           hasChange,
         }),
         {
-          time: string.toDate(lastUpdated),
+          time: moment(lastUpdated).format('LT'),
         },
       )}
     </Button>

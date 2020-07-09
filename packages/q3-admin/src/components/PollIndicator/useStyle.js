@@ -16,10 +16,13 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(0.25),
   })),
   label: isIdle((color) => ({
+    backgroundColor: 'transparent',
     textTransform: 'initial !important',
     color: color[900],
     fontSize: '0.812rem',
     fontWeight: 'strong',
+    paddingLeft: '.5rem',
+    whiteSpace: 'nowrap',
   })),
   root: {
     overflow: 'visible',

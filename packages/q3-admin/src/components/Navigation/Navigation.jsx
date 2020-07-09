@@ -18,10 +18,10 @@ import { withLocation } from 'with-location';
 import { useToggle } from 'useful-state';
 import Drawer from 'q3-ui-dialog';
 import MuiLink from '@material-ui/core/Link';
-import AccountBox from '@material-ui/icons/AccountBox';
+import classnames from 'classnames';
+import Grid from '@material-ui/core/Grid';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
-import ProfileActions from '../ProfileActions';
 
 const getAllPaths = (c) =>
   React.Children.toArray(c).flatMap((i) => {
@@ -104,12 +104,7 @@ const AppNavigationMenuItem = withLocation(
   },
 );
 
-const AppNavigation = ({
-  logoSrc,
-  notificationComponent,
-  menuItems,
-  profileItems,
-}) => {
+const AppNavigation = ({ logoSrc, menuItems }) => {
   const cls = useStyle();
 
   const recursivelyRenderMenuItems = React.useCallback(
@@ -178,36 +173,43 @@ const AppNavigation = ({
   return (
     <>
       <Hidden mdDown>
-        <Box className={cls.root} px={0.5} component="nav">
+        <Box
+          className={classnames(cls.root, cls.muted)}
+          px={0.5}
+          component="nav"
+        >
           {renderLogoAndDirectoryLink()}
           {renderMenuItems()}
         </Box>
       </Hidden>
       <Hidden lgUp>
-        <Box
+        <Grid
+          alignItems="center"
+          container
+          className={classnames(cls.muted, cls.appbar)}
           component="nav"
-          display="flex"
-          justifyContent="space-between"
-          px={0.5}
-          width="100%"
         >
-          <Box display="flex">
-            <Drawer
-              variant="drawer"
-              anchor="left"
-              title="menu"
-              renderTrigger={(onClick) => (
-                <IconButton
-                  icon={MenuIcon}
-                  label="menu"
-                  buttonProps={{ onClick }}
-                />
-              )}
-              renderContent={renderMenuItems}
-            />
+          <Drawer
+            variant="drawer"
+            anchor="left"
+            title="menu"
+            renderTrigger={(onClick) => (
+              <Grid item>
+                <Box pl={1}>
+                  <IconButton
+                    icon={MenuIcon}
+                    label="menu"
+                    buttonProps={{ onClick }}
+                  />
+                </Box>
+              </Grid>
+            )}
+            renderContent={renderMenuItems}
+          />
+          <Grid item style={{ height: '100%' }}>
             {renderLogoAndDirectoryLink()}
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </Hidden>
     </>
   );

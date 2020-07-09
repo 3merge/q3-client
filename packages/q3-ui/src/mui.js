@@ -136,7 +136,6 @@ Object.assign(theme, {
         },
       },
     },
-
     MuiAlert: {
       root: {
         fontSize: '0.901rem !important',

@@ -5,7 +5,7 @@ import { usePages } from './hooks';
 import Notifications from './containers/Notifications';
 import Tours from './containers/tour';
 import Navigation from './components/Navigation';
-import Tray from './components/Tray';
+import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 
 const Admin = ({
@@ -23,17 +23,16 @@ const Admin = ({
           menuItems={usePages(pages, icons)}
         />
         <div style={{ flex: 1 }}>
-          <Tray
-            notificationComponent={
-              <Notifications socket={socket} />
-            }
+          <ProfileActions
             profileItems={[
               {
                 onClick: restartTour,
                 label: 'restartTour',
               },
             ]}
-          />
+          >
+            <Notifications socket={socket} />
+          </ProfileActions>
           <App pages={pages} />
         </div>
       </Viewport>

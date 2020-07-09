@@ -1,29 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { destroySession } from 'q3-ui-permissions';
 import AppHeaderDropdown from '../AppHeaderDropdown';
+import useStyle from '../useStyle';
 
 const ProfileActions = ({ children, profileItems }) => {
   const items = [...profileItems];
+  const cls = useStyle();
 
   return (
-    <Grid
-      container
-      alignItems="center"
-      spacing={1}
-      style={{ height: 85 }}
+    <Box
+      position="absolute"
+      top={0}
+      right={1}
+      className={cls.appbar}
     >
-      <Grid item>{children}</Grid>
-      <Grid item>
-        <AppHeaderDropdown
-          items={items.concat({
-            label: 'logout',
-            onClick: destroySession,
-          })}
-        />
+      <Grid
+        container
+        alignItems="center"
+        style={{ height: '100%' }}
+      >
+        <Grid item>{children}</Grid>
+        <Grid item>
+          <AppHeaderDropdown
+            items={items.concat({
+              label: 'logout',
+              onClick: destroySession,
+            })}
+          />
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 

@@ -9,6 +9,11 @@ export default makeStyles((theme) => ({
     maxWidth: 310,
     width: 310,
 
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 265,
+      width: 265,
+    },
+
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
       maxWidth: '100%',

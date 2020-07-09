@@ -4,7 +4,6 @@ import axios from 'axios';
 import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import IconButton from 'q3-ui/lib/iconButton';
-import Button from '@material-ui/core/Button';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import Dialog from 'q3-ui-dialog';
 import { array } from 'q3-ui-helpers';
@@ -12,6 +11,7 @@ import CloudUpload from '@material-ui/icons/CloudUpload';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
+import ButtonWithIcon from '../../components/ButtonWithIcon';
 import FileUpload from '../../components/FileUpload';
 import ActionList from '../../components/ActionList';
 
@@ -98,21 +98,13 @@ const TableIo = ({ io }) => {
         ) : null
       }
       renderTrigger={(onClick) => (
-        <Box display="inline-block" ml={0.5}>
-          <Button
-            variant="contained"
-            disabled={!hasExports && !hasImports}
-            onClick={onClick}
-          >
-            <ImportExportIcon
-              style={{
-                marginRight: '.5rem',
-                marginLeft: '-.5rem',
-              }}
-            />
-            I/O
-          </Button>
-        </Box>
+        <ButtonWithIcon
+          variant="contained"
+          disabled={!hasExports && !hasImports}
+          onClick={onClick}
+          icon={ImportExportIcon}
+          label="i/o"
+        />
       )}
     />
   );

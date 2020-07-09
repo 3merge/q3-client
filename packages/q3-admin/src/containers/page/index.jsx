@@ -8,6 +8,7 @@ import Graphic from 'q3-ui-assets';
 import { useFilters } from 'q3-ui-rest';
 import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
+import Tray from '../../components/Tray';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
@@ -155,17 +156,7 @@ const Page = ({
             ]),
           }}
         >
-          <Box
-            display="flex"
-            px={1}
-            alignItems="center"
-            height={75}
-            pr={12}
-            style={{
-              borderBottom: '2px solid #f4f6f8',
-              borderLeft: '2px solid #f4f6f8',
-            }}
-          >
+          <Tray>
             <Search
               {...{
                 ...state,
@@ -175,7 +166,7 @@ const Page = ({
               }}
             />
             <UnsavedChanges />
-          </Box>
+          </Tray>
           {executeOnChildren(children, {
             ...state,
             id,
