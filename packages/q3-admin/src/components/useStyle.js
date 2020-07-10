@@ -10,6 +10,15 @@ export default makeStyles((theme) => ({
     },
   },
 
+  main: {
+    flex: 1,
+    maxWidth: 'calc(100% - 265px)',
+
+    [theme.breakpoints.down('lg')]: {
+      maxWidth: '100%',
+    },
+  },
+
   fillViewportHeight: {
     height: 'calc((100 * var(--vh)) - 65px)',
     overflow: 'auto',

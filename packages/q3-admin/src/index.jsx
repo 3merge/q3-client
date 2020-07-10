@@ -8,6 +8,7 @@ import Tours from './containers/tour';
 import Navigation from './components/Navigation';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
+import useStyle from './components/useStyle';
 
 const Admin = ({
   logoSrc,
@@ -17,7 +18,9 @@ const Admin = ({
   tours,
   children,
   profileItems,
+  subPages,
 }) => {
+  const cls = useStyle();
   return (
     <Tours steps={tours}>
       {(restartTour) => (
@@ -25,8 +28,9 @@ const Admin = ({
           <Navigation
             logoSrc={logoSrc}
             menuItems={usePages(pages, icons)}
+            subMenuItems={subPages}
           />
-          <Box flex="1">
+          <Box className={cls.main}>
             <ProfileActions
               profileItems={[
                 ...profileItems,

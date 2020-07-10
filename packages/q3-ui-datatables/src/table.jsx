@@ -100,7 +100,7 @@ const TableView = ({
           overflow="auto"
           width="100%"
         >
-          <Table stickyHeader className={root}>
+          <Table className={root}>
             <TableHead className={tableBody}>
               <TableRow className={flexRow}>
                 <ColumnSelectAll

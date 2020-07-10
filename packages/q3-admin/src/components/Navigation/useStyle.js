@@ -12,12 +12,7 @@ export default makeStyles((theme) => ({
     zIndex: 10,
 
     '& .Mui-selected': {
-      color: theme.palette.primary.dark,
-
-      '& span': {
-        fontWeight: 'bold',
-        textDecoration: 'underline',
-      },
+      // color: theme.palette.primary.dark,
 
       '& svg': {
         // fill: theme.palette.primary.contrastText,
@@ -57,6 +52,14 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       height: '100%',
       width: 105,
+    },
+  },
+  menuItem: {
+    display: 'inline-block',
+    padding: theme.spacing(0.5),
+
+    '& svg': {
+      marginRight: theme.spacing(0.75),
     },
   },
 }));

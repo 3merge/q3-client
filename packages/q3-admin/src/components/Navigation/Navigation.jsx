@@ -1,34 +1,22 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Collapse from '@material-ui/core/Collapse';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import ExpandLess from '@material-ui/icons/ExpandLess';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { Link } from '@reach/router';
-import { get } from 'lodash';
 import { array } from 'q3-ui-helpers';
 import { withLocation } from 'with-location';
-import { useToggle } from 'useful-state';
 import Drawer from 'q3-ui-dialog';
 import MuiLink from '@material-ui/core/Link';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
+import TreeView from '@material-ui/lab/TreeView';
+import TreeItem from '@material-ui/lab/TreeItem';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
-
-const getAllPaths = (c) =>
-  React.Children.toArray(c).flatMap((i) => {
-    const { children, to } = get(i, 'props', {});
-    if (children) return getAllPaths(children);
-    return to;
-  });
 
 export const isPartialMatch = (a = '', b = '') => {
   try {
@@ -46,173 +34,183 @@ export const isPartialMatch = (a = '', b = '') => {
   }
 };
 
-const AppNavigationMenuItem = withLocation(
-  ({ icon: Icon, label, to, children, location }) => {
-    const { pathname } = location;
-    const includesAnActivePath =
-      pathname &&
-      getAllPaths(children).includes(
-        pathname.split('?')[0],
-      );
+const AppNavigation = withLocation(
+  ({ location, logoSrc, menuItems, subMenuItems }) => {
+    const cls = useStyle();
 
-    const { toggle, state } = useToggle(
-      includesAnActivePath,
+    const recursivelyRenderMenuItems = (items) =>
+      array.hasLength(items)
+        ? items.map((item) => (
+            <TreeItem
+              nodeId={item.to || item.label}
+              label={
+                item.to ? (
+                  <MuiLink
+                    component={Link}
+                    to={item.to}
+                    className={cls.menuItem}
+                  >
+                    {item.icon && (
+                      <item.icon color="inherit" />
+                    )}
+                    <span variant="body2">
+                      {item.label}
+                    </span>
+                  </MuiLink>
+                ) : (
+                  <span className={cls.menuItem}>
+                    {item.icon && (
+                      <item.icon color="inherit" />
+                    )}
+                    <span variant="body2">
+                      {item.label}
+                    </span>
+                  </span>
+                )
+              }
+            >
+              {recursivelyRenderMenuItems(
+                item.nestedMenuItems,
+              )}
+            </TreeItem>
+          ))
+        : null;
+
+    const renderLogoAndDirectoryLink = React.useCallback(
+      () => (
+        <Link to="/" className={cls.logo}>
+          <img alt="Q3 Client Logo" src={logoSrc} />
+        </Link>
+      ),
+      [],
     );
 
-    return (
-      <ListItem
-        button
-        to={to}
-        selected={isPartialMatch(pathname, to)}
-        component={to ? Link : undefined}
-        onClick={(e) => {
-          e.stopPropagation();
-          toggle();
-        }}
-        disableRipple={Boolean(children)}
-        style={{
-          display: children ? 'block' : undefined,
-          margin: 0,
-          padding: 0,
-        }}
-        dense
-      >
-        <Box
-          display="flex"
-          justify="space-between"
-          alignItems="center"
-          px={1}
-          py={0.5}
-        >
-          {Icon && (
-            <ListItemIcon>
-              <Icon />
-            </ListItemIcon>
-          )}
-          <ListItemText primary={label} />
-          {children && (
-            <Box>
-              {state ? <ExpandLess /> : <ExpandMore />}
+    const renderMenuItems = () => {
+      const getPartialMatch = (a = []) =>
+        a
+          .flatMap((item) => {
+            const out = [];
+            if (item.nestedMenuItems) {
+              out.push(
+                getPartialMatch(item.nestedMenuItems),
+              );
+            }
+
+            return out
+              .concat(
+                isPartialMatch(item.to, location.pathname)
+                  ? item.to
+                  : [],
+              )
+              .flat();
+          })
+          .filter(Boolean);
+
+      const getParentMatch = (a = []) =>
+        a
+          .map((item) => {
+            if (!item.nestedMenuItems) return null;
+            const matched = item.nestedMenuItems.find(
+              (nest) => {
+                if (nest.nestedMenuItems) {
+                  return getParentMatch(
+                    nest.nestedMenuItems,
+                  );
+                }
+
+                return isPartialMatch(
+                  nest.to,
+                  location.pathname,
+                );
+              },
+            );
+
+            return matched ? item.label : null;
+          })
+          .filter(Boolean);
+
+      const defaultSelected = getPartialMatch(menuItems);
+      const defaultExpanded = getParentMatch(menuItems);
+
+      return (
+        <Box className={cls.nav}>
+          <TreeView
+            component="div"
+            style={{ padding: 0 }}
+            defaultExpandIcon={<ArrowRightIcon />}
+            defaultCollapseIcon={<ArrowDropDownIcon />}
+            selected={defaultSelected}
+            defaultExpanded={defaultExpanded}
+          >
+            {recursivelyRenderMenuItems(menuItems)}
+          </TreeView>
+          {subMenuItems ? (
+            <Box my={2}>
+              <Divider />
+              <Box py={1}>
+                {subMenuItems.map((item) => (
+                  <Box mb={0.5}>
+                    <MuiLink
+                      fullWidth
+                      component={Link}
+                      style={{ fontSize: '0.911rem' }}
+                      to={item.to}
+                    >
+                      {item.label}
+                    </MuiLink>
+                  </Box>
+                ))}
+              </Box>
             </Box>
-          )}
+          ) : null}
         </Box>
-        <Collapse in={state}>
-          <Box ml={1}>{children}</Box>
-        </Collapse>
-      </ListItem>
+      );
+    };
+
+    return (
+      <>
+        <Hidden mdDown>
+          <Box
+            className={classnames(cls.root, cls.muted)}
+            px={0.5}
+            component="nav"
+          >
+            {renderLogoAndDirectoryLink()}
+            {renderMenuItems()}
+          </Box>
+        </Hidden>
+        <Hidden lgUp>
+          <Grid
+            alignItems="center"
+            container
+            className={classnames(cls.muted, cls.appbar)}
+            component="nav"
+          >
+            <Drawer
+              variant="drawer"
+              anchor="left"
+              title="menu"
+              renderTrigger={(onClick) => (
+                <Grid item>
+                  <Box pl={1}>
+                    <IconButton
+                      icon={MenuIcon}
+                      label="menu"
+                      buttonProps={{ onClick }}
+                    />
+                  </Box>
+                </Grid>
+              )}
+              renderContent={renderMenuItems}
+            />
+            <Grid item style={{ height: '100%' }}>
+              {renderLogoAndDirectoryLink()}
+            </Grid>
+          </Grid>
+        </Hidden>
+      </>
     );
   },
 );
-
-const AppNavigation = ({ logoSrc, menuItems }) => {
-  const cls = useStyle();
-
-  const recursivelyRenderMenuItems = React.useCallback(
-    (items) =>
-      array.hasLength(items)
-        ? items.map((item) => (
-            <List
-              component="div"
-              key={item.label}
-              style={{ padding: 0 }}
-            >
-              <AppNavigationMenuItem {...item}>
-                {recursivelyRenderMenuItems(
-                  item.nestedMenuItems,
-                )}
-              </AppNavigationMenuItem>
-            </List>
-          ))
-        : null,
-    [],
-  );
-
-  const renderLogoAndDirectoryLink = React.useCallback(
-    () => (
-      <Link to="/" className={cls.logo}>
-        <img alt="Q3 Client Logo" src={logoSrc} />
-      </Link>
-    ),
-    [],
-  );
-
-  const renderMenuItems = React.useCallback(
-    () => (
-      <Box className={cls.nav}>
-        {recursivelyRenderMenuItems(menuItems)}
-        <Box my={2}>
-          <Divider />
-          <Box py={1}>
-            <Box mb={0.5}>
-              <MuiLink
-                fullWidth
-                component={Link}
-                style={{ fontSize: '0.911rem' }}
-                to="/reports"
-              >
-                Reports
-              </MuiLink>
-            </Box>
-            <Box mb={0.5}>
-              <MuiLink
-                fullWidth
-                component={Link}
-                style={{ fontSize: '0.911rem' }}
-                to="/logs"
-              >
-                Logs
-              </MuiLink>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
-    ),
-    [],
-  );
-
-  return (
-    <>
-      <Hidden mdDown>
-        <Box
-          className={classnames(cls.root, cls.muted)}
-          px={0.5}
-          component="nav"
-        >
-          {renderLogoAndDirectoryLink()}
-          {renderMenuItems()}
-        </Box>
-      </Hidden>
-      <Hidden lgUp>
-        <Grid
-          alignItems="center"
-          container
-          className={classnames(cls.muted, cls.appbar)}
-          component="nav"
-        >
-          <Drawer
-            variant="drawer"
-            anchor="left"
-            title="menu"
-            renderTrigger={(onClick) => (
-              <Grid item>
-                <Box pl={1}>
-                  <IconButton
-                    icon={MenuIcon}
-                    label="menu"
-                    buttonProps={{ onClick }}
-                  />
-                </Box>
-              </Grid>
-            )}
-            renderContent={renderMenuItems}
-          />
-          <Grid item style={{ height: '100%' }}>
-            {renderLogoAndDirectoryLink()}
-          </Grid>
-        </Grid>
-      </Hidden>
-    </>
-  );
-};
 
 export default AppNavigation;

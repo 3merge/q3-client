@@ -3,15 +3,16 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    //  display: 'block',
     backgroundColor: '#FFF',
-
-    // overflow: 'hidden',
+    whiteSpace: 'wrap !important',
 
     '& th': {
       border: '0 !important',
       left: 'auto',
-      whiteSpace: 'nowrap',
+      borderBottom: 0,
+      whiteSpace: 'wrap',
+      position: 'sticky',
+      top: 0,
       zIndex: 3,
     },
 

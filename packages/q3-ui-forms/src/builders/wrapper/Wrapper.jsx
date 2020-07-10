@@ -154,6 +154,9 @@ export const InnerForm = ({
         >
           <BuilderState.Provider
             value={{
+              // cannot be a dispatcher due to memoization
+              // it requires fresh values and errors
+              onSubmit: execAllSubmitHandlers,
               isSubmitting,
               errors,
               values,
