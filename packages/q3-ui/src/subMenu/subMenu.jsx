@@ -72,7 +72,7 @@ const SubMenu = ({ children, location }) => {
   return (
     <ClickAwayListener onClickAway={onClose}>
       <Box ref={anchorEl}>
-        <Grid container spacing={1}>
+        <Grid container alignItems="center">
           {arr.map((item, i) => {
             const active = activeItem === i;
             return React.cloneElement(item, {

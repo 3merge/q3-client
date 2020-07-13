@@ -56,4 +56,37 @@ describe('Props', () => {
       ).toBeFalsy();
     });
   });
+
+  describe('mergeUnique', () => {
+    it('should drop duplicates', () => {
+      expect(
+        array.mergeUnique(
+          ['foo', 'bar', 'foo', 'bar'],
+          ['foo', 'quuz'],
+        ),
+      ).toEqual(['foo', 'bar', 'quuz']);
+    });
+  });
+
+  describe('sortByIndexingArray', () => {
+    it('should prioritize active columns', () => {
+      expect(
+        array.sortByIndexingArray(
+          ['foo', 'bar', 'thux', 'garply', 'quuz'],
+          ['bar', 'quuz'],
+        ),
+      ).toEqual(['bar', 'quuz', 'foo', 'garply', 'thux']);
+    });
+  });
+
+  describe('intersect', () => {
+    it('should match nested array keys', () => {
+      expect(
+        array.intersects(
+          ['foo', 'bar', 'foo.0.bar', 'foo.1.bar'],
+          ['foo.$.bar'],
+        ),
+      ).toHaveLength(2);
+    });
+  });
 });

@@ -3,6 +3,268 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.30](https://github.com/3merge/q/compare/v1.19.29...v1.19.30) (2020-07-10)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.19.23](https://github.com/3merge/q/compare/v1.19.22...v1.19.23) (2020-06-23)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.19.22](https://github.com/3merge/q/compare/v1.19.21...v1.19.22) (2020-06-23)
+
+
+### Bug Fixes
+
+* **j3-154:** make sticky columns optional in the datatable ([fe99edb](https://github.com/3merge/q/commit/fe99edb861e6645e61b0043182eb91cd7bb00280))
+
+
+
+
+
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.19.3](https://github.com/3merge/q/compare/v1.19.2...v1.19.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* form state/validation handling ([fa2bcfa](https://github.com/3merge/q/commit/fa2bcfaff164b4b3c5bfd40ba33bcb176b5f515e))
+
+
+
+
+
+## [1.19.2](https://github.com/3merge/q/compare/v1.19.1...v1.19.2) (2020-06-10)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.31](https://github.com/3merge/q/compare/v1.18.30...v1.18.31) (2020-06-08)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.30](https://github.com/3merge/q/compare/v1.18.29...v1.18.30) (2020-06-08)
+
+
+### Bug Fixes
+
+* **gom-546:** blacklist for column filtering instead of all possible keys ([424c81b](https://github.com/3merge/q/commit/424c81b5759cbd88d6a28ea1a7df7cb3ebc75655))
+
+
+
+
+
+## [1.18.24](https://github.com/3merge/q/compare/v1.18.23...v1.18.24) (2020-06-04)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.23](https://github.com/3merge/q/compare/v1.18.22...v1.18.23) (2020-06-02)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.22](https://github.com/3merge/q/compare/v1.18.21...v1.18.22) (2020-06-01)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.17](https://github.com/3merge/q/compare/v1.18.16...v1.18.17) (2020-05-29)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.12](https://github.com/3merge/q/compare/v1.18.11...v1.18.12) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.9](https://github.com/3merge/q/compare/v1.18.8...v1.18.9) (2020-05-26)
+
+
+### Bug Fixes
+
+* date inputs and encoding ([dfead9d](https://github.com/3merge/q/commit/dfead9d02b4c252a5edb7720a6d573ddf7fd64c2))
+
+
+
+
+
+## [1.18.4](https://github.com/3merge/q/compare/v1.18.3...v1.18.4) (2020-05-25)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.18.2](https://github.com/3merge/q/compare/v1.18.1...v1.18.2) (2020-05-25)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+
+### Bug Fixes
+
+* **gom-468:** show children despite empty results on table ([b702b01](https://github.com/3merge/q/commit/b702b01ab970bce360b5ed3eaa826201763c84b4))
+
+
+
+
+
+## [1.17.8](https://github.com/3merge/q/compare/v1.17.7...v1.17.8) (2020-05-20)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.17.7](https://github.com/3merge/q/compare/v1.17.6...v1.17.7) (2020-05-19)
+
+
+### Bug Fixes
+
+* dot-notation using lodash to fix nested data resolution ([53a84a7](https://github.com/3merge/q/commit/53a84a7dc2f48b68966c79d9c4d0ee4e8aedeb90))
+
+
+
+
+
+## [1.17.6](https://github.com/3merge/q/compare/v1.17.5...v1.17.6) (2020-05-19)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.17.5](https://github.com/3merge/q/compare/v1.17.4...v1.17.5) (2020-05-19)
+
+
+### Bug Fixes
+
+* datatable scrolling ([7531860](https://github.com/3merge/q/commit/7531860b020a8ecb42d330ce7e06c8e127042fdb))
+
+
+
+
+
+## [1.17.4](https://github.com/3merge/q/compare/v1.17.3...v1.17.4) (2020-05-19)
+
+
+### Bug Fixes
+
+* table header sizing ([a701394](https://github.com/3merge/q/commit/a701394c674556b9377d394cf0f637b07d2f7e82))
+
+
+
+
+
+## [1.17.3](https://github.com/3merge/q/compare/v1.17.2...v1.17.3) (2020-05-18)
+
+
+### Bug Fixes
+
+* table forced re-rendering ([2d17439](https://github.com/3merge/q/commit/2d17439b412b77a3b65500e0a79e659e04a11002))
+
+
+
+
+
+## [1.17.2](https://github.com/3merge/q/compare/v1.17.1...v1.17.2) (2020-05-18)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.17.1](https://github.com/3merge/q/compare/v1.17.0...v1.17.1) (2020-05-14)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.16.10](https://github.com/3merge/q/compare/v1.16.9...v1.16.10) (2020-05-12)
+
+
+### Bug Fixes
+
+* sorting on profile ([a7c06a0](https://github.com/3merge/q/commit/a7c06a0fa0b7c78ca969c3c5b9a2b9fbbbbf12f4))
+
+
+
+
+
+## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+## [1.16.8](https://github.com/3merge/q/compare/v1.16.7...v1.16.8) (2020-05-11)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
 # [1.16.0](https://github.com/3merge/q/compare/v1.15.5...v1.16.0) (2020-05-04)
 
 

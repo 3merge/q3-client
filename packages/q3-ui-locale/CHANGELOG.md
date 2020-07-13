@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.19.22](https://github.com/3merge/q/compare/v1.19.21...v1.19.22) (2020-06-23)
+
+
+### Bug Fixes
+
+* **j3-154:** make sticky columns optional in the datatable ([fe99edb](https://github.com/3merge/q/commit/fe99edb861e6645e61b0043182eb91cd7bb00280))
+
+
+
+
+
+## [1.19.8](https://github.com/3merge/q/compare/v1.19.7...v1.19.8) (2020-06-17)
+
+
+### Bug Fixes
+
+* notify/persistence now integrated with toast provider ([34b64c2](https://github.com/3merge/q/commit/34b64c2ada3d131fc98df955ea758441511be948))
+
+
+
+
+
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.18.23](https://github.com/3merge/q/compare/v1.18.22...v1.18.23) (2020-06-02)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.18.19](https://github.com/3merge/q/compare/v1.18.18...v1.18.19) (2020-05-31)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.18.18](https://github.com/3merge/q/compare/v1.18.17...v1.18.18) (2020-05-30)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.18.2](https://github.com/3merge/q/compare/v1.18.1...v1.18.2) (2020-05-25)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.18.1](https://github.com/3merge/q/compare/v1.18.0...v1.18.1) (2020-05-22)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.17.10](https://github.com/3merge/q/compare/v1.17.9...v1.17.10) (2020-05-20)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.17.2](https://github.com/3merge/q/compare/v1.17.1...v1.17.2) (2020-05-18)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.16.8](https://github.com/3merge/q/compare/v1.16.7...v1.16.8) (2020-05-11)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
 ## [1.16.3](https://github.com/3merge/q/compare/v1.16.2...v1.16.3) (2020-05-04)
 
 **Note:** Version bump only for package q3-ui-locale

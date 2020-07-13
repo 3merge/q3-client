@@ -1,22 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { useField } from 'formik';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
-import useDecorator from '../../helpers/useDecorator';
+import withState from '../withState';
 import Bool from '../bool';
 import OptionsThreshold from '../optionsThreshold';
+import withGrid from '../withGrid';
 
-const Checkset = ({ maxVisible, ...props }) => {
-  const [{ value = [] }, { error }] = useField(props);
-  const {
+const Checkset = withState(
+  ({
+    maxVisible,
     onArrayPush,
     options,
     disabled,
     readOnly,
+    value,
+    error,
     ...rest
-  } = useDecorator(props);
-
-  return (
+  }) => (
     <CollapsibleFieldLabel {...rest} error={Boolean(error)}>
       <OptionsThreshold
         maxVisible={maxVisible}
@@ -37,18 +36,10 @@ const Checkset = ({ maxVisible, ...props }) => {
         }
       </OptionsThreshold>
     </CollapsibleFieldLabel>
-  );
-};
+  ),
+);
 
-Checkset.propTypes = {
-  /**
-   * Will hide options exceeding this number in length.
-   */
-  maxVisible: PropTypes.number,
-};
-
-Checkset.defaultProps = {
-  maxVisible: 0,
-};
-
-export default Checkset;
+export default withGrid(Checkset, {
+  xl: 12,
+  lg: 12,
+});

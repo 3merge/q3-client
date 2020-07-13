@@ -12,7 +12,7 @@ const genPermission = (rest) => ({
 });
 
 const permissions = [
-  genPermission({ op: 'Read' }),
+  genPermission({ op: 'Read', fields: ['!gender'] }),
   genPermission({ op: 'Update' }),
   genPermission({ op: 'Create' }),
   genPermission({ op: 'Delete' }),
@@ -24,19 +24,33 @@ const profile = {
   firstName: 'Mike',
 };
 
-const StoriesApiMockAuthentication = ({ children }) => (
-  <AuthContext.Provider
-    value={{
-      state: {
-        init: true,
-        profile,
-        permissions,
-      },
-    }}
-  >
-    {children}
-  </AuthContext.Provider>
-);
+const StoriesApiMockAuthentication = ({ children }) => {
+  const [filters, setFilters] = React.useState({
+    'api-investors': {
+      Female: 'gender=Female',
+      Male: 'gender=Male',
+    },
+  });
+
+  return (
+    <AuthContext.Provider
+      value={{
+        update: (data, done) => {
+          setFilters(data.filters);
+          if (done) alert('Called done!');
+        },
+        state: {
+          init: true,
+          profile,
+          permissions,
+          filters,
+        },
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 StoriesApiMockAuthentication.propTypes = {
   children: PropTypes.node.isRequired,

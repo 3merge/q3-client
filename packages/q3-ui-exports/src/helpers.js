@@ -1,9 +1,8 @@
 import { get } from 'lodash';
 import flat from 'flat';
-import { ExcelWorkspaceHeaderCellStyles } from './useStyle';
 
 export const renameKeys = (o = {}, mutator) =>
-  Object.entries(flat(o)).reduce(
+  Object.entries(o).reduce(
     (acc, [key, value]) =>
       Object.assign(acc, {
         [mutator(key)]: value,
@@ -21,12 +20,6 @@ const renameValues = (a = [], mutator) =>
 
     return acc;
   }, []);
-
-export const getColumns = (data, fn) =>
-  Object.values(renameValues(data, fn)).map((title) => ({
-    ...ExcelWorkspaceHeaderCellStyles,
-    title,
-  }));
 
 export const getData = (data, fn) =>
   data.map((row) =>

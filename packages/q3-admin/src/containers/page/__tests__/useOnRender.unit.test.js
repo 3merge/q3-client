@@ -49,7 +49,10 @@ describe('useOnRender', () => {
     });
 
     const onExit = jest.fn();
-    useOnRender({ onExit }, { fetching: false });
+    useOnRender(
+      { onExit, onEnter: jest.fn() },
+      { fetching: false },
+    );
     expect(onExit).toHaveBeenCalled();
   });
 });

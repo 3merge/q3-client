@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
+## [1.17.9](https://github.com/3merge/q/compare/v1.17.8...v1.17.9) (2020-05-20)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
+## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
 ## [1.16.1](https://github.com/3merge/q/compare/v1.16.0...v1.16.1) (2020-05-04)
 
 

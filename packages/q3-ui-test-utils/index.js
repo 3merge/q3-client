@@ -10,6 +10,8 @@ const {
 const oldLocation = global.window.location;
 delete global.window.location;
 
+global.window.ResizeObserver = require('./src/resizeObserverMock').default;
+
 global.window.location = {
   ...oldLocation,
 };

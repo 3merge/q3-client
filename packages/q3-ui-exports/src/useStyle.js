@@ -1,17 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  actionBar: {
+  actionBar: ({ position = 'sticky' }) => ({
     backgroundColor: '#FFF',
-    borderRadius: 50,
-    bottom: theme.spacing(2),
+    borderRadius: 0,
+    bottom: 0,
     boxShadow: theme.shadows[15],
-    left: '50%',
+    left: 0,
+    width: '100%',
     maxWidth: '100%',
-    transform: 'translateX(-50%)',
-    width: 1092,
-    position: 'fixed',
-    zIndex: 1000000,
+    zIndex: 100,
+    position,
 
     '&>span': {
       alignItems: 'center',
@@ -25,7 +24,7 @@ export default makeStyles((theme) => ({
         height: '100%',
       },
     },
-  },
+  }),
 }));
 
 export const ExcelWorkspaceHeaderCellStyles = {

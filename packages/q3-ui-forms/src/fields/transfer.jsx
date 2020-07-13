@@ -30,8 +30,9 @@ import Badge from '@material-ui/core/Badge';
 import useOpen from 'useful-state/lib/useOpen';
 import { Placeholder } from 'q3-ui-assets';
 import { array, string } from 'q3-ui-helpers';
-import useDecorator from '../helpers/useDecorator';
-import useOptions from '../helpers/useOptions';
+import withState from './withState';
+import { useOptions } from '../hooks';
+import withGrid from './withGrid';
 
 const fn = (exec, args) => (props) => exec(args, props);
 
@@ -284,7 +285,7 @@ export function TransferList(props) {
     helperText,
     error,
     ...deco
-  } = useDecorator(props);
+  } = props;
 
   const [selected, setSelected] = React.useState([]);
   const {
@@ -417,4 +418,7 @@ TransferList.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default TransferList;
+export default withGrid(withState(TransferList), {
+  xl: 12,
+  lg: 12,
+});

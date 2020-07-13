@@ -4,6 +4,8 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { useToggle } from 'useful-state';
 import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import { POPOVER_CLASS } from '../EditableTypography/constants';
 
 const Inline = ({
@@ -57,10 +59,15 @@ const Inline = ({
           onMouseLeave={onMouseLeave}
           style={{ boxSizing: 'border-box' }}
         >
+          <Box position="absolute" top="1rem" right="1rem">
+            <IconButton size="small" onClick={close}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
           <Typography
             id="name"
             aria-label={title}
-            variant="subtitle1"
+            variant="subtitle2"
             color="primary"
           >
             {title}

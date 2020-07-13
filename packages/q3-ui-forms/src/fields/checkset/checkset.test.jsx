@@ -1,7 +1,8 @@
 import React from 'react';
-import { useField } from 'formik';
 import Checkset from '.';
 import Bool from '../bool';
+
+jest.mock('../withState');
 
 const options = [
   { value: 1, label: 'One' },
@@ -13,6 +14,7 @@ const options = [
 const getWrapper = (props) =>
   global.mount(
     <Checkset
+      value={[]}
       name="checkset"
       options={options}
       {...props}
@@ -41,15 +43,11 @@ describe('Checkset', () => {
   });
 
   it('should mark as checked', () => {
-    useField.mockReturnValue([
-      { value: [1] },
-      { error: 'Noop' },
-    ]);
-
     expect(
       global
         .mount(
           <Checkset
+            value={[1]}
             name="Set"
             options={[
               { value: 1, label: 'One' },

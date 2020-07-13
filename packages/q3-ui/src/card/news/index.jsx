@@ -12,7 +12,7 @@ import useStyles from '../useStyle';
 export const DateString = ({ iso }) =>
   iso ? (
     <Typography align="right" variant="subtitle2">
-      {moment(iso).format('ddd, MMMM, YYYY')}
+      {moment.utc(iso).local().format('ddd, MMMM, YYYY')}
     </Typography>
   ) : null;
 

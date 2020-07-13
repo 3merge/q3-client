@@ -14,6 +14,7 @@ import { Files } from 'q3-ui-assets';
 export const useStyles = makeStyles(() => ({
   root: {
     border: `2px dotted ${grey[300]}`,
+    backgroundColor: '#FFF',
   },
   isActive: {
     borderColor: blue[200],
@@ -64,6 +65,7 @@ const Upload = ({ fn }) => {
 
   const onDrop = React.useCallback((acceptedFiles) => {
     setLoading(true);
+
     const formData = new FormData();
     acceptedFiles.map((f) => formData.append(f.name, f));
     fn(formData).finally(setLoading);

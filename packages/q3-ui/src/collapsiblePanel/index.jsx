@@ -80,7 +80,7 @@ CollapsiblePanel.propTypes = {
   /**
    * Nodes to render inside collapsed view area.
    */
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 
   /**
    * Determines if the panel renders.
@@ -95,7 +95,10 @@ CollapsiblePanel.propTypes = {
   /**
    * Icon to render beside the title.
    */
-  icon: PropTypes.node,
+  icon: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.node,
+  ]),
 
   /**
    * Handler for the panel's click event.
@@ -115,6 +118,7 @@ CollapsiblePanel.defaultProps = {
   expanded: false,
   icon: null,
   onChange: null,
+  children: null,
 };
 
 export default CollapsiblePanel;

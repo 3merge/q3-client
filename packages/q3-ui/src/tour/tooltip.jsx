@@ -1,6 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { merge } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -26,8 +27,15 @@ const Tooltip = ({
   const { t } = useTranslation();
 
   return (
-    <Paper {...tooltipProps}>
-      <Box p={1} width={450} position="relative">
+    <Paper
+      {...merge({}, tooltipProps, {
+        style: {
+          maxWidth: '90%',
+          width: 425,
+        },
+      })}
+    >
+      <Box p={1} width="100%" position="relative">
         <Box position="absolute" top=".5rem" right=".5rem">
           <IconButton size="small" {...closeProps}>
             <Close />

@@ -1,6 +1,5 @@
 import React from 'react';
-import Form from '../../builders/form';
-import Field from '../../builders/field';
+import { Form, Field } from '../../builders';
 
 export default {
   title: 'Q3 Forms|Fields/Text',
@@ -14,18 +13,23 @@ export default {
 export const Validation = () => (
   <Form
     debug
-    onSubmit={Promise.resolve()}
+    id="WATCHER"
+    onSubmit={(values) => {
+      // eslint-disable-next-line
+      console.log(values);
+    }}
     initialValues={{
       name: '',
       friend: '',
       postal: '',
       email: '',
       tel: '',
+      date: '',
     }}
   >
     <Field name="name" type="text" />
     <Field name="date" type="date" />
-    <Field from="from" to="to" type="dateRange" />
+    <Field name="createdAt" type="dateRange" />
     <Field
       name="loremVars"
       vars={{ hello: 'world' }}
@@ -34,9 +38,12 @@ export const Validation = () => (
     <Field name="tel" required type="tel" />
     <Field name="email" required type="email" />
     <Field name="postal" required type="postal" />
+    <Field name="multi" type="multitext" />
+
     <Field
       name="friend"
       type="text"
+      disabled
       override={({ values }) => ({
         label: values.name ? 'OVERRIDE!' : undefined,
       })}

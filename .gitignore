@@ -10,6 +10,7 @@ yarn-error.log*
 
 # Build directories
 build/
+public/
 dist/
 lib/
 storybook-static

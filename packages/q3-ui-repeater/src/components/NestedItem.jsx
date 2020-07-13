@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+
 import Collapse from '@material-ui/core/Collapse';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -28,7 +29,7 @@ const NestedItem = ({
   renderNestedTableRow,
   ...rest
 }) => {
-  const { state, toggle } = useToggle();
+  const { state, toggle } = useToggle(true);
 
   return (
     <>

@@ -17,6 +17,7 @@ import {
   Transfer,
   File,
   Chips,
+  Range,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -47,6 +48,7 @@ const internalFieldTypes = {
   radio: Radio,
   transfer: Transfer,
   autocomplete: Autocomplete,
+  range: Range,
   multitext: Multitext,
   multiselect: Multiselect,
   selectable: Selectable,
@@ -61,6 +63,31 @@ export default class FieldBuilder {
       type: htmlFieldTypes.includes(type) ? type : null,
       values,
     });
+  }
+
+  static getInitialValue(type) {
+    return get(
+      {
+        select: '',
+        chips: [],
+        date: null,
+        dateRange: undefined,
+        text: '',
+        postal: '',
+        checkbox: '',
+        checkset: [],
+        radio: '',
+        transfer: '',
+        autocomplete: null,
+        multitext: [],
+        multiselect: [],
+        selectable: '',
+        file: null,
+        range: undefined,
+      },
+      type,
+      '',
+    );
   }
 
   static is(type) {
@@ -141,7 +168,6 @@ export default class FieldBuilder {
 
     delete this.originalType;
     delete this.type;
-
     return this.show() ? this : null;
   }
 }

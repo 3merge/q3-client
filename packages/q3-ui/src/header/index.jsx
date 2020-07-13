@@ -17,32 +17,18 @@ import useStyles from './useStyles';
 import Wrapper from './wrapper';
 
 function HideOnScroll({ color, children }) {
-  const trigger = useScrollTrigger();
+  /*  const trigger = useScrollTrigger();
   const needsBackground = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
-  });
+  }); */
 
-  return (
-    <Slide
-      appear={false}
-      direction="down"
-      in={!trigger}
-      timeout="500ms"
-    >
-      {React.cloneElement(children, {
-        style: needsBackground
-          ? {
-              backgroundColor: '#FFF',
-              color: 'inherit',
-            }
-          : {
-              backgroundColor: undefined,
-              color,
-            },
-      })}
-    </Slide>
-  );
+  return React.cloneElement(children, {
+    style: {
+      backgroundColor: undefined,
+      color,
+    },
+  });
 }
 
 const Header = ({
@@ -52,6 +38,7 @@ const Header = ({
   offcanvasRenderBottom,
   menuPosition,
   transparent,
+  wide,
   color,
   children,
   position,
@@ -59,6 +46,7 @@ const Header = ({
 }) => {
   const { appBar, appBarPadding } = useStyles({
     transparent,
+    wide,
   });
 
   return (
@@ -74,6 +62,7 @@ const Header = ({
             <Wrapper {...rest}>
               {invoke(rest, 'renderPreIdentifier')}
               <Logo {...rest} />
+              {invoke(rest, 'renderLeftAlways')}
               <Hidden smDown>
                 {invoke(rest, 'renderLeft')}
                 <TabMenu

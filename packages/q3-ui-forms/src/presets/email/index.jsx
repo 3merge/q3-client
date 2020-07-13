@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Field from '../../builders/field';
-import Form from '../../builders/form';
+import { Form, Field } from '../../builders';
 
 const Email = ({ children, ...rest }) => (
   <Form initialValues={{ email: '' }} {...rest}>
-    <Field name="email" type="email" required />
+    <Field
+      name="email"
+      type="email"
+      required
+      xl={12}
+      lg={12}
+    />
     {children}
   </Form>
 );

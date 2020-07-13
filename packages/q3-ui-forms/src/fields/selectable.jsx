@@ -8,8 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { useTranslation } from 'react-i18next';
-import useDecorator from '../helpers/useDecorator';
-import useOptions from '../helpers/useOptions';
+import withState from './withState';
+import { useOptions } from '../hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,10 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectableList = (props) => {
-  const { value: currentValue, onChange } = useDecorator(
-    props,
-  );
+const SelectableList = withState((props) => {
+  const { value: currentValue, onChange } = props;
+
   const { t } = useTranslation();
   const { root, container, selected, avatar } = useStyles();
   const { items } = useOptions({
@@ -44,6 +43,7 @@ const SelectableList = (props) => {
       {items.map(({ value, label, img }) => (
         <ListItem
           key={value}
+          dense
           onClick={() => onChange(value)}
           className={classNames(
             root,
@@ -68,6 +68,6 @@ const SelectableList = (props) => {
       ))}
     </List>
   );
-};
+});
 
 export default SelectableList;

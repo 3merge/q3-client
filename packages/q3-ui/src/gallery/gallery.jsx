@@ -7,29 +7,42 @@ import Grid from '@material-ui/core/Grid';
 import { array } from 'q3-ui-helpers';
 import useStyle from './useStyle';
 
-const Gallery = ({ photos }) => {
-  const cls = useStyle();
+const Gallery = ({ photos, size }) => {
+  const cls = useStyle({ size });
   if (!array.hasLength(photos)) return null;
+
+  const sizes =
+    size === 'small'
+      ? { style: { width: 155 } }
+      : { style: { width: 225 } };
 
   return (
     <Grid container justify="center">
       {photos.map(({ id, fluid, name, bio }) => (
-        <Grid item key={id} lg={2} md={3} sm={4} xs={6}>
+        <Grid item key={id} {...sizes}>
           <Box height="100%">
             <Image
               alt={name}
               className={cls.headshot}
               fluid={fluid}
             />
-            <Box mb={2}>
-              <Typography
-                variant="h3"
-                className={cls.title}
-              >
+            <Box mb={2} px={0.5}>
+              <Typography variant="h6" gutterBottom>
                 {name}
               </Typography>
-              <Typography component="small">
-                {bio}
+              <Typography>
+                {size === 'small' ? (
+                  <small
+                    style={{
+                      display: 'block',
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {bio}
+                  </small>
+                ) : (
+                  bio
+                )}
               </Typography>
             </Box>
           </Box>
@@ -49,10 +62,12 @@ Gallery.propTypes = {
       bio: PropTypes.string,
     }),
   ),
+  size: PropTypes.oneOf(['medium', 'small']),
 };
 
 Gallery.defaultProps = {
   photos: [],
+  size: 'medium',
 };
 
 export default Gallery;

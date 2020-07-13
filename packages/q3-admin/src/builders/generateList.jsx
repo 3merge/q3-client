@@ -1,19 +1,23 @@
 import React from 'react';
-import { Add, Header, Search, Table } from '../containers';
+import { Add, Table } from '../containers';
 
 export default ({
-  addForm: AddForm,
-  onSearch,
-  ListProps,
-  AddProps,
+  addComponent: AddForm,
+  filterComponent: FilterForm,
+  onNew,
+  ...rest
 }) => () => (
   <>
-    <Header>
-      <Search intercept={onSearch} />
-      <Add {...AddProps}>
-        <AddForm />
-      </Add>
-    </Header>
-    <Table {...ListProps} />
+    <Table
+      {...rest}
+      addComponent={
+        AddForm ? (
+          <Add onComplete={onNew}>
+            <AddForm />
+          </Add>
+        ) : null
+      }
+      filterComponent={FilterForm ? <FilterForm /> : null}
+    />
   </>
 );

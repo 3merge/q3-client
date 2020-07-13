@@ -1,6 +1,5 @@
 import React from 'react';
-import Form from '../../builders/form';
-import Field from '../../builders/field';
+import { Form, Field } from '../../builders';
 import Checkbox from '.';
 
 export default {
@@ -21,6 +20,12 @@ export const Default = () => (
 export const WithCustomValue = () => (
   <Form debug initialValues={{ demo: '' }}>
     <Field name="demo" type="checkbox" checkedValue="*" />
+  </Form>
+);
+
+export const WithForcedBoolean = () => (
+  <Form debug initialValues={{ demo: '' }}>
+    <Field name="demo" type="checkbox" checkedValue />
   </Form>
 );
 

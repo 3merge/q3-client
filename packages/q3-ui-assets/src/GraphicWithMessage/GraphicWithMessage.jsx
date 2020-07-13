@@ -10,10 +10,13 @@ import useStyles from './useStyle';
 
 export const ICON_NAMES = {
   'Add': SvgIcon.Add,
+  'Build': SvgIcon.Build,
   'Connect': SvgIcon.Connect,
+  'Done': SvgIcon.Done,
   'Empty': SvgIcon.Empty,
   'Error': SvgIcon.Error,
   'Files': SvgIcon.Files,
+  'Lock': SvgIcon.Lock,
   'Missing': SvgIcon.Missing,
   'NoResults': SvgIcon.NoResults,
   'Note': SvgIcon.Note,
@@ -22,6 +25,7 @@ export const ICON_NAMES = {
   'Search': SvgIcon.Search,
   'Signal': SvgIcon.Signal,
   'Throw': SvgIcon.Throw,
+  'Unlock': SvgIcon.Unlock,
 };
 
 const getGraphicByName = (name, children = null) => {

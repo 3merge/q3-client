@@ -1219,7 +1219,7 @@ export default (props) => {
         height="160.41"
         x="193.01"
         y="254.52"
-        fill="#f5f5f5"
+        fill="#F5F7F9"
         rx="4.5"
         ry="4.5"
       />
@@ -1509,7 +1509,7 @@ export default (props) => {
         d="M483.31 335.58H554.11V403.59999999999997H483.31z"
       />
       <path
-        fill="#f5f5f5"
+        fill="#F5F7F9"
         d="M484.42 337.24H553V402.21000000000004H484.42z"
       />
       <path
@@ -1542,7 +1542,7 @@ export default (props) => {
         d="M415.44 0H486.24V68.02H415.44z"
       />
       <path
-        fill="#f5f5f5"
+        fill="#F5F7F9"
         d="M416.55 1.67H485.13V66.64H416.55z"
       />
       <path
@@ -1625,7 +1625,7 @@ export default (props) => {
         d="M451.66 185.98H562.49V206.07H451.66z"
       />
       <path
-        fill="#f5f5f5"
+        fill="#F5F7F9"
         d="M460.49 213.36H553.66V225.06H460.49z"
       />
       <path

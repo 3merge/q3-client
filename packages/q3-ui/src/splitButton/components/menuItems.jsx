@@ -15,7 +15,7 @@ const MenuItems = ({ activeIndex, items }) => (
         onClick={onClick}
         style={{
           marginTop: i !== 0 ? '-1rem' : 0,
-          borderBottom: '1px solid whitesmoke',
+          borderBottom: '1px solid #F5F7F9',
           whiteSpace: 'normal',
         }}
       >

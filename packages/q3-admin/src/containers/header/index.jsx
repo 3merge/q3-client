@@ -42,6 +42,7 @@ const Header = ({
   parenthesesProp,
   titleRenderer,
   renderRight,
+  ...etc
 }) => {
   const {
     resourceName,
@@ -55,10 +56,13 @@ const Header = ({
     titleProp,
     parenthesesProp,
     resourceNameSingular,
+    subtitleProp,
   });
 
   return (
     <HeaderQ3
+      {...etc}
+      transparent
       position="relative"
       renderPreIdentifier={rendererLeft(id, resourceName)}
       renderRight={
@@ -76,6 +80,7 @@ const Header = ({
             {...(titleRenderer
               ? titleRenderer(data)
               : null)}
+            {...etc}
           />
         )
       }

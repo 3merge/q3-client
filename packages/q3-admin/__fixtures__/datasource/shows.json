@@ -1,0 +1,87 @@
+[
+  {
+    "id": "1",
+    "name": "Rick and Morty",
+    "description": "",
+    "createdBy": {
+      "firstName": "Dan"
+    },
+    "createdAt": "2014-01-01",
+    "updatedAt": "2020-01-01"
+  },
+  {
+    "id": "2",
+    "name": "Simpsons",
+    "description": ""
+  },
+  {
+    "id": "3",
+    "name": "Archer",
+    "description": ""
+  },
+  {
+    "id": "4",
+    "name": "Bob's Burgers",
+    "description": ""
+  },
+  {
+    "id": "5",
+    "name": "New Girl",
+    "description": ""
+  },
+  {
+    "id": "6",
+    "name": "Silcon Valley",
+    "description": ""
+  },
+  {
+    "id": "7",
+    "name": "Sinner",
+    "description": ""
+  },
+  {
+    "id": "8",
+    "name": "Ozark",
+    "description": ""
+  },
+  {
+    "id": "9",
+    "name": "Hannibal",
+    "description": ""
+  },
+  {
+    "id": "10",
+    "name": "Schitt's Creek",
+    "description": ""
+  },
+  {
+    "id": "11",
+    "name": "Haunting of Hill House",
+    "description": ""
+  },
+  {
+    "id": "12",
+    "name": "The Office",
+    "description": ""
+  },
+  {
+    "id": "13",
+    "name": "Mind Hunter",
+    "description": ""
+  },
+  {
+    "id": "14",
+    "name": "The Good Plan",
+    "description": ""
+  },
+  {
+    "id": "15",
+    "name": "Bojack",
+    "description": ""
+  },
+  {
+    "id": "16",
+    "name": "Stranger Things",
+    "description": ""
+  }
+]

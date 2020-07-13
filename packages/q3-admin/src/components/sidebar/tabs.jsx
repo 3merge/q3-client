@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
+import { Panel } from 'q3-components';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import useStyles from './useStyle';
@@ -13,64 +13,83 @@ const isStep = (step, activeStep, content) =>
 const SidebarTabs = ({
   children,
   commentTab,
-  historyTab,
-  documentationTab,
+  documentation,
   filesTab,
 }) => {
   const { t } = useTranslation('labels');
   const [step, setStep] = React.useState(0);
-  const { root, item } = useStyles();
+  const { root, item, docs } = useStyles();
 
   const hasNoOptions =
-    !commentTab &&
-    !historyTab &&
-    !documentationTab &&
-    !filesTab;
+    !commentTab && !documentation && !filesTab;
 
   return (
-    <Paper className={root} component="aside" elevation={0}>
-      <Box p={hasNoOptions ? 0 : 1}>
-        {!hasNoOptions && (
-          <Tabs
-            value={step}
-            onChange={(e, num) => setStep(num)}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-          >
-            {!hasNoOptions && (
-              <Tab label={t('meta')} className={item} />
-            )}
-            {commentTab && (
-              <Tab
-                label={t('internalComments')}
-                className={item}
-              />
-            )}
-            {filesTab && (
-              <Tab label={t('files')} className={item} />
-            )}
-            {documentationTab && (
-              <Tab
-                label={t('documentation')}
-                disabled={!documentationTab}
-                className={item}
-              />
-            )}
-            {historyTab && (
-              <Tab label={t('history')} className={item} />
-            )}
-          </Tabs>
-        )}
-        <Box p={1}>
-          {isStep(0, step, children)}
-          {isStep(1, step, commentTab)}
-          {isStep(2, step, filesTab)}
-          {isStep(3, step, documentationTab)}
-          {isStep(4, step, historyTab)}
-        </Box>
-      </Box>
-    </Paper>
+    <Box
+      id="q3-tabber"
+      className={root}
+      component="aside"
+      elevation={0}
+      height="100%"
+    >
+      {!hasNoOptions && (
+        <Tabs
+          id="q3-tabber"
+          value={step}
+          onChange={(e, num) => setStep(num)}
+          indicatorColor="primary"
+          textColor="primary"
+          style={{
+            minHeight: 36,
+            marginBottom: '1rem',
+          }}
+          centered
+        >
+          {!hasNoOptions && (
+            <Tab
+              id="q3-meta"
+              label={t('meta')}
+              className={item}
+              value={0}
+            />
+          )}
+          {commentTab && (
+            <Tab
+              id="q3-thread"
+              label={t('internalComments')}
+              className={item}
+              value={1}
+            />
+          )}
+          {filesTab && (
+            <Tab
+              id="q3-files"
+              label={t('files')}
+              className={item}
+              value={2}
+            />
+          )}
+          {documentation && (
+            <Tab
+              id="q3-docs"
+              label={t('documentation')}
+              disabled={!documentation}
+              className={item}
+              value={3}
+            />
+          )}
+        </Tabs>
+      )}
+      {isStep(0, step, children)}
+      {isStep(1, step, commentTab)}
+      {isStep(2, step, filesTab)}
+      {isStep(
+        3,
+        step,
+        <Panel title={t('howTo')}>
+          <Box className={docs}>{documentation}</Box>
+        </Panel>,
+      )}
+    </Box>
   );
 };
 

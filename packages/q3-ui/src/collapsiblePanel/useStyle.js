@@ -49,13 +49,13 @@ export default makeStyles((theme) => ({
       ? makeBorderColorProperty(getColor(props))
       : {}),
     background: props.muted
-      ? 'whitesmoke !important'
+      ? '#F5F7F9 !important'
       : '#FFF  !important',
     boxSizing: 'border-box',
     '&.Mui-expanded': {
       backgroundColor: props.muted
         ? '#FFF  !important'
-        : 'whitesmoke  !important',
+        : '#F5F7F9  !important',
       transition: 'background-color 500ms',
     },
   }),

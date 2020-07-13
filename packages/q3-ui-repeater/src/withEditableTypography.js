@@ -26,11 +26,15 @@ export default ({ data, ...sharedProps }) => ({
   return React.createElement(
     EditableTypography,
     {
+      ...editable,
       isEditable,
       renderer: editable.renderer,
       initialValues: data,
       fieldProps: {
         name: prefix,
+        style: {
+          fontSize: '0.901rem',
+        },
         ...editable,
       },
       onSubmit: (...params) => edit(data.id)(...params),

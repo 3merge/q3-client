@@ -67,7 +67,7 @@ const Picture = ({ photo, service }) => {
           <img
             style={{
               width: 'auto',
-              maxHeight: 150,
+              maxHeight: 125,
               borderRadius: 500,
               overflow: 'hidden',
             }}
@@ -75,10 +75,10 @@ const Picture = ({ photo, service }) => {
             src={url}
           />
         ) : (
-          <Photo style={{ maxWidth: '100%', width: 135 }} />
+          <Photo style={{ maxWidth: '100%', width: 125 }} />
         )}
       </Box>
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         {t('labels:featuredPhotoUpload')}
       </Typography>
     </UploadContainer>

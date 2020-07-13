@@ -12,7 +12,11 @@ const CellCheck = ({ show }) =>
   );
 
 CellCheck.propTypes = {
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.bool,
+};
+
+CellCheck.defaultProps = {
+  show: false,
 };
 
 export default CellCheck;

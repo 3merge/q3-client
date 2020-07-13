@@ -31,7 +31,7 @@ const DialogVariant = ({
 }) => {
   const isDrawer = variant === 'drawer';
   const El = isDrawer ? Drawer : Dialog;
-  const isLaptop = useMediaQuery('(min-width:867px)');
+  const isLaptop = useMediaQuery('(min-width:1040px)');
 
   const getMobileProps = () =>
     isDrawer
@@ -77,7 +77,7 @@ const DialogVariant = ({
 DialogVariant.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  onExit: PropTypes.func.isRequired,
+  onExit: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
   variant: PropTypes.oneOf(['drawer', 'modal']),
@@ -85,6 +85,7 @@ DialogVariant.propTypes = {
 
 DialogVariant.defaultProps = {
   variant: 'modal',
+  onExit: null,
 };
 
 export default DialogVariant;

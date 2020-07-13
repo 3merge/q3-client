@@ -21,10 +21,12 @@ const Attributes = ({
     <TableCell className={tableCell} key={attribute}>
       <Grid container spacing={2}>
         <Hidden mdUp>
-          <Grid item style={{ marginLeft: '0.25rem' }}>
+          <Grid item style={{ marginLeft: '0.5rem' }}>
             <Typography
-              variant="subtitle2"
-              style={{ textTransform: 'uppercase' }}
+              style={{
+                fontWeight: 'bold',
+                fontSize: '0.75rem',
+              }}
             >
               {t(attribute)}:
             </Typography>

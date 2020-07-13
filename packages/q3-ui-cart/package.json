@@ -1,19 +1,19 @@
 {
   "name": "q3-ui-cart",
-  "version": "1.16.7",
+  "version": "1.19.30",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.13.2"
+    "q3-ui-test-utils": "^1.19.27"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.1",
+    "@material-ui/core": "^4.10.0",
     "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.51",
+    "@material-ui/lab": "^4.0.0-alpha.54",
     "class-names": "^1.0.0",
-    "lodash": "^4.17.15",
-    "q3-components": "^1.16.7",
-    "q3-ui-permissions": "^1.16.0",
-    "react-i18next": "11.4.0",
+    "lodash": "^4.17.19",
+    "q3-components": "^1.19.30",
+    "q3-ui-permissions": "^1.19.27",
+    "react-i18next": "11.7.0",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

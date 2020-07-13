@@ -1,34 +1,73 @@
 import React from 'react';
+import queryString from 'query-string';
+import { navigate } from '@reach/router';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import { Verify as VerifyPreset } from 'q3-ui-forms/lib/presets';
-import Typography from '@material-ui/core/Typography';
+import axios from 'axios';
+import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
+import FormBoxContent from '../components/FormBoxContent';
 import FormBox from '../components/FormBox';
+import withAuthenticate from '../components/withAuthenticate';
 
-export default (props) => {
-  const { t } = useTranslation();
-  const search = new URLSearchParams(
-    get(props, 'location.search', ''),
-  );
+export default withAuthenticate(
+  ({ authenticate, ...props }) => {
+    const {
+      verificationCode,
+      id,
+      email,
+    } = queryString.parse(
+      get(props, 'location.search', ''),
+      {
+        decode: false,
+      },
+    );
 
-  return (
-    <FormBox
-      renderBottom={
-        <VerifyPreset
-          verificationCode={search.get('verificationCode')}
-          id={search.get('id')}
-        />
-      }
-      renderTop={
-        <>
-          <Typography variant="h1" gutterBottom>
-            {t('titles:verify')}
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            {t('descriptions:verify')}
-          </Typography>
-        </>
-      }
-    />
-  );
-};
+    return (
+      <FormBox
+        renderBottom={
+          <Form
+            onSubmit={(passwords) =>
+              axios.post('/verify', passwords).then(() => {
+                if (!email) return navigate('/');
+                return authenticate({
+                  password: passwords.newPassword,
+                  email,
+                });
+              })
+            }
+            initialValues={{
+              id,
+              verificationCode,
+            }}
+          >
+            {(values) => (
+              <>
+                <Field
+                  name="id"
+                  type="string"
+                  required
+                  xl={6}
+                  lg={6}
+                />
+                <Field
+                  name="verificationCode"
+                  type="string"
+                  required
+                  xl={6}
+                  lg={6}
+                />
+                <NewPasswordFields {...values} />
+              </>
+            )}
+          </Form>
+        }
+        renderTop={
+          <FormBoxContent
+            title="verify"
+            description="verify"
+          />
+        }
+      />
+    );
+  },
+);

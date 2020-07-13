@@ -121,7 +121,7 @@ export const BannerBase = ({
 };
 
 BannerBase.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   top: PropTypes.node,
   bottom: PropTypes.node,
   style: PropTypes.shape({}),
@@ -137,6 +137,7 @@ BannerBase.defaultProps = {
   negativeMargin: false,
   top: null,
   bottom: null,
+  children: null,
 };
 
 export const FeaturedPhotoBanner = ({
@@ -180,13 +181,14 @@ export const FeaturedPhotoBanner = ({
 FeaturedPhotoBanner.propTypes = {
   imgSrc: PropTypes.string,
   customImgRender: PropTypes.node,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   flip: PropTypes.bool,
 };
 
 FeaturedPhotoBanner.defaultProps = {
   flip: false,
   imgSrc: null,
+  children: null,
   customImgRender: null,
 };
 
@@ -208,10 +210,11 @@ export const FullWidthBanner = ({
 };
 
 FullWidthBanner.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   flip: PropTypes.bool,
 };
 
 FullWidthBanner.defaultProps = {
   flip: false,
+  children: null,
 };

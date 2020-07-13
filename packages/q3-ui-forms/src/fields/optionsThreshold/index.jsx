@@ -6,11 +6,23 @@ import Button from '@material-ui/core/Button';
 
 const isSet = (v) => v > 0;
 
+export const expandOptions = (a) =>
+  a.some((item) => typeof item === 'object')
+    ? a
+    : a.map((value) => ({
+        label: value,
+        value,
+      }));
+
 const getVisibleResults = (arr, numberOfVisible) => {
   if (!Array.isArray(arr)) return [];
-  return numberOfVisible > 0
-    ? arr.slice(0, numberOfVisible)
-    : arr;
+
+  const out =
+    numberOfVisible > 0
+      ? arr.slice(0, numberOfVisible)
+      : arr;
+
+  return expandOptions(out);
 };
 
 export const OptionsThreshold = ({
@@ -30,9 +42,11 @@ export const OptionsThreshold = ({
   const handleVisibilityClick = () =>
     setVisibleResults(showAll ? 0 : maxVisible);
 
+  const items = getVisibleResults(options, visibleResults);
+
   return (
     <>
-      {children(getVisibleResults(options, visibleResults))}
+      {children(items)}
       {isSet(maxVisible) && (
         <Box mt={0.5}>
           <Button

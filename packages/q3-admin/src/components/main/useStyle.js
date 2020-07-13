@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   offsetHeight: {
     position: 'relative',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'block',
     },
   },
@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     position: 'relative',
     width: 1,
     zIndex: 0,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },
@@ -41,5 +41,8 @@ export default makeStyles((theme) => ({
     position: 'absolute',
     top: '8rem',
     left: 'calc(100% - 1rem)',
+  },
+  wrapper: {
+    backgroundColor: '#F5F7F9',
   },
 }));

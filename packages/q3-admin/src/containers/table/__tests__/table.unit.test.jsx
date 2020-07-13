@@ -1,7 +1,4 @@
-import React from 'react';
-import Table from 'q3-ui-datatables';
-import { useAuth } from 'q3-ui-permissions';
-import List from '..';
+import { TableDecorator } from '..';
 
 jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn().mockReturnValue({
@@ -9,23 +6,28 @@ jest.mock('q3-ui-permissions', () => ({
   }),
 }));
 
-const spy = jest.spyOn(React, 'useContext');
+describe('Table', () => {
+  describe('"TableDecorator"', () => {
+    it('should filter values from the first parameter', () => {
+      const value = 'bar';
+      const filterer = jest
+        .fn()
+        .mockImplementation((v) => v === value);
+      const out = TableDecorator({
+        allColumns: ['foo', value, 'quux'],
+        defaultColumns: ['garply'],
+      }).makeBlacklist(filterer);
 
-describe('List', () => {
-  it('should include the bulk delete action', () => {
-    spy.mockReturnValue({
-      resourceName: 'foo',
-      removeBulk: jest.fn(),
-      foo: [{ id: 1 }],
+      expect(out).toHaveLength(3);
+      expect(out).not.toContain(value);
     });
 
-    useAuth.mockReturnValue({
-      Redirect: ({ children }) => children,
-      canDelete: true,
-    });
+    it('should assign URL prop', () => {
+      const out = TableDecorator({
+        data: [{ id: 1 }],
+      }).makeLinks('foo');
 
-    const rows = jest.fn();
-    const el = global.shallow(<List id={1}>{rows}</List>);
-    expect(el.find(Table).props().actions).toHaveLength(1);
+      expect(out[0]).toHaveProperty('url');
+    });
   });
 });

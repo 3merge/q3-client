@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Pin from '@material-ui/icons/Map';
+import AccountBox from '@material-ui/icons/AccountBox';
 import NotListedLocationIcon from '@material-ui/icons/NotListedLocation';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { IconLabel } from 'q3-components';
 import { Inline } from 'q3-components';
@@ -26,11 +28,7 @@ export const AddressHeader = ({ label, title, helper }) => (
       <Grid item>
         <Box mb={1}>
           {label && (
-            <Typography
-              component="p"
-              variant="h6"
-              color="primary"
-            >
+            <Typography component="small" color="primary">
               {label}
             </Typography>
           )}
@@ -47,14 +45,17 @@ export const AddressHeader = ({ label, title, helper }) => (
         <Grid item>
           <Inline
             title={label}
-            withHover
             renderContent={() => (
               <p style={{ margin: 0 }}>{helper}</p>
             )}
-            renderTrigger={(open, isOpen, events) => (
-              <span {...events} aria-label="Help">
+            renderTrigger={(open) => (
+              <IconButton
+                size="small"
+                onClick={open}
+                aria-label="Help"
+              >
                 <NotListedLocationIcon />
-              </span>
+              </IconButton>
             )}
           />
         </Grid>
@@ -72,6 +73,7 @@ AddressHeader.propTypes = {
 const Address = ({
   label,
   company,
+  firstName,
   streetNumber,
   streetLine1,
   streetLine2,
@@ -82,6 +84,7 @@ const Address = ({
   country,
   postal,
   helper,
+  lastName,
 }) => {
   const cls = useStyle();
   return (
@@ -91,6 +94,11 @@ const Address = ({
         title={company}
         helper={helper}
       />
+      {firstName && (
+        <AddressLine icon={AccountBox} label="name">
+          {firstName} {lastName}
+        </AddressLine>
+      )}
       {email && (
         <AddressLine icon={EmailIcon} label="email">
           <Email address={email} />
@@ -103,7 +111,6 @@ const Address = ({
       )}
       <AddressLine icon={Pin} label="address">
         <Inline
-          withHover
           title="GoogleMaps"
           renderContent={() => (
             <Box width="100%">
@@ -116,8 +123,13 @@ const Address = ({
               />
             </Box>
           )}
-          renderTrigger={(open, isOpen, events) => (
-            <AddressLink {...events}>
+          renderTrigger={(open) => (
+            <AddressLink
+              onClick={(e) => {
+                e.preventDefault();
+                open();
+              }}
+            >
               {streetNumber} {streetLine1}
               {streetLine2 && (
                 <>
@@ -153,6 +165,8 @@ Address.propTypes = {
   country: PropTypes.string.isRequired,
   postal: PropTypes.string.isRequired,
   helper: PropTypes.string,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
 };
 
 Address.defaultProps = {

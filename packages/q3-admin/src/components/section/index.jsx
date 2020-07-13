@@ -2,22 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import useHeight from '../sidebar/useHeight';
+import { browser } from 'q3-ui-helpers';
 import useStyle from '../sidebar/useStyle';
 
 const Section = ({
   renderInside,
   renderOutside,
+  renderTop,
   ...rest
 }) => {
-  const height = useHeight();
-  const { articleBox, sectionWidth } = useStyle(rest);
+  const {
+    view,
+    articleBox,
+    sectionWidth,
+    articleWrapper,
+  } = useStyle(rest);
+
+  React.useEffect(() => {
+    if (!browser.isBrowserReady()) return;
+
+    function setViewportUnit() {
+      document
+        .querySelector(':root')
+        .style.setProperty(
+          '--vh',
+          `${window.innerHeight / 100}px`,
+        );
+    }
+
+    window.addEventListener('resize', setViewportUnit);
+    setViewportUnit();
+  }, []);
 
   return (
     <Box id="detail-article" component="article">
-      <Grid container>
+      <Grid container className={articleWrapper}>
+        {renderOutside}
         <Grid
           xs
           zeroMinWidth
@@ -25,15 +47,12 @@ const Section = ({
           component="section"
           item
         >
-          <Box height={height}>
-            <Box px={1} py={1} pb={4}>
-              <Container maxWidth="xl" disableGutters>
-                {renderInside}
-              </Container>
+          <Paper className={view} elevation={0}>
+            <Box style={{ backgroundColor: '#FFF' }}>
+              {renderInside}
             </Box>
-          </Box>
+          </Paper>
         </Grid>
-        {renderOutside}
       </Grid>
     </Box>
   );

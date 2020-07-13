@@ -2,25 +2,22 @@ import React from 'react';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
-import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import { useLoading } from 'q3-ui-rest';
-import { Equals } from 'q3-ui-filters/lib/components';
-import Groups from '../components/groups';
+import { FilterGroup } from 'q3-components';
 import {
   StoriesApiMockAuthentication,
   StoriesApiMockWrapper,
 } from '../__fixtures__';
 import App from '../components/app';
 import Main from '../components/main';
-import Search from './search';
 import Add from './add';
 import Detail from './detail';
-import Header from './header';
+import Collection from './collection';
 import Page from './page';
 import Table from './table';
+import Filters from './filters';
 import SubDetail from './subDetail';
 import connect from './connect';
-import Filter from './filter';
 
 export default {
   title: 'Q3 Admin|Demo',
@@ -36,68 +33,100 @@ const resolver = ({
   investments,
   ...rest
 }) => ({
+  ...rest,
   id,
   name: `${firstName} ${lastName}`,
   description: email,
-  url: `/investors/${id}`,
-  investments: investments ? investments.length : 0,
+  investments: {
+    base: investments ? investments.length : 0,
+    toPrice: true,
+  },
   createdBy: createdBy ? `${createdBy.firstName}` : 'Sys',
   photo,
-  ...rest,
+  updatedAt: {
+    base: rest.updatedAt,
+    toDate: true,
+    toChip: true,
+  },
 });
 
 const Investors = (props) => (
-  <Page index {...props}>
-    <Add>
-      <Form
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          email: '',
+  <Collection {...props}>
+    <Page index {...props}>
+      <Table
+        HeaderProps={{
+          subtitle: 'Testing',
         }}
-      >
-        <Field name="firstName" type="text" required />
-        <Field name="lastName" type="text" required />
-        <Field name="email" type="email" required />
-      </Form>
-    </Add>
-    <Header>
-      <Search intercept={resolver} />
-    </Header>
-    <Table
-      renderTop={() => (
-        <Groups
-          search="?"
-          queries={{
-            Ready: 'kind=ready',
-            NotReady: 'kind=notReady',
-            AlmostReady: 'kind=almostReady',
-          }}
-        />
-      )}
-      resolvers={resolver}
-      defaultColumns={[
-        'gender',
-        'updatedAt',
-        'investments',
-      ]}
-      allColumns={[
-        'gender',
-        'updatedAt',
-        'investments',
-        'createdBy',
-      ]}
-      renderForm={() => (
-        <Filter>
-          <Equals
-            type="text"
-            label="Equals to this value"
-            name="equals"
-          />
-        </Filter>
-      )}
-    />
-  </Page>
+        addComponent={
+          <Add>
+            <Form
+              initialValues={{
+                firstName: '',
+                lastName: '',
+                email: '',
+              }}
+            >
+              <Field
+                name="firstName"
+                type="text"
+                required
+              />
+              <Field name="lastName" type="text" required />
+              <Field name="email" type="email" required />
+            </Form>
+          </Add>
+        }
+        filterComponent={
+          <Filters lookup={[]}>
+            {() => (
+              <FilterGroup title="work" count={['role']}>
+                <Field
+                  name="total"
+                  type="range"
+                  xl={12}
+                  lg={12}
+                />
+                <Field
+                  hideIcon
+                  name="createdAt"
+                  type="dateRange"
+                  xl={12}
+                  lg={12}
+                />
+                <Field
+                  name="role"
+                  type="text"
+                  xl={12}
+                  lg={12}
+                />
+              </FilterGroup>
+            )}
+          </Filters>
+        }
+        resolvers={resolver}
+        defaultColumns={[
+          'gender',
+          'updatedAt',
+          'investments',
+          'updatedAt',
+          'investments',
+          'createdBy',
+          'gender',
+          'updatedAt',
+          'investments',
+          'updatedAt',
+          'investments',
+          'createdBy',
+        ]}
+        allColumns={[
+          'gender',
+          'updatedAt',
+          'investments',
+          'createdBy',
+        ]}
+      />
+    </Page>
+  </Collection>
 );
 
 const General = connect(({ data, ...rest }) => (
@@ -151,23 +180,30 @@ const panels = (data) => {
 };
 
 const Investor = (props) => (
-  <Page
-    {...props}
-    index
-    viewResolutions={{
-      hidden: {
-        roles: ['Admin'],
-        conditional: ['gender=Male'],
-      },
-    }}
-  >
-    <Header titleProp="firstName" />
-    <Detail registerPanels={panels} files picture history>
-      <General name="general" />
-      <Investments name="investments" />
-      <Hidden name="hidden" />
-    </Detail>
-  </Page>
+  <Collection {...props}>
+    <Page
+      {...props}
+      index
+      viewResolutions={{
+        hidden: {
+          roles: ['Admin'],
+          conditional: ['gender=Male'],
+        },
+      }}
+    >
+      <Detail
+        registerPanels={panels}
+        files
+        picture
+        history
+        links={[{ label: 'Test', to: '/' }]}
+      >
+        <General name="general" />
+        <Investments name="investments" />
+        <Hidden name="hidden" />
+      </Detail>
+    </Page>
+  </Collection>
 );
 
 const pages = [
@@ -208,7 +244,6 @@ const withProviders = (initialPath = '/') => (
           />
         </StoriesApiMockWrapper>
       </StoriesApiMockAuthentication>
-      <LocationDebugger />
     </LocationProvider>
   </Loading>
 );
@@ -222,3 +257,5 @@ export const FromSubDetail = withProviders(
 export const FromTrash = withProviders(
   '/investors/1/trash',
 );
+
+export const FromLog = withProviders('/investors/1/log');

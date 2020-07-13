@@ -28,6 +28,7 @@ const Tile = ({
   subtitle,
   renderFooter,
   slim,
+  divider,
 }) => {
   const { t } = useTranslation();
   const { tiled } = useStyles();
@@ -40,21 +41,32 @@ const Tile = ({
       className={tiled}
     >
       <Box pt={2} pb={slim ? 0 : 2} px={slim ? 0 : 2}>
-        {title && (
-          <Box px={slim ? 2 : 0}>
+        <Box
+          px={slim ? 2 : 0}
+          style={
+            divider
+              ? {
+                  borderBottom: '2px solid #F5F7F9',
+                  paddingBottom: '1rem',
+                  marginBottom: '1rem',
+                }
+              : {}
+          }
+        >
+          {title && (
             <Typography variant="overline" component="h3">
               {t(`titles:${title}`)}
             </Typography>
-            {hasSubtitle && (
-              <Typography
-                variant="body2"
-                style={{ maxWidth: '68%' }}
-              >
-                {t(`descriptions:${subtitle}`)}
-              </Typography>
-            )}
-          </Box>
-        )}
+          )}
+          {hasSubtitle && (
+            <Typography
+              variant="body2"
+              style={{ maxWidth: '68%' }}
+            >
+              {t(`descriptions:${subtitle}`)}
+            </Typography>
+          )}
+        </Box>
         <Box my={2}>{children}</Box>
         {renderFooter && <Box pt={1}>{renderFooter()}</Box>}
       </Box>

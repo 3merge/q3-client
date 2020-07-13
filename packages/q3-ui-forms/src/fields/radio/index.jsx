@@ -3,7 +3,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import CollapsibleFieldLabel from 'q3-ui/lib/collapsibleFieldLabel';
 import Bool from '../bool';
 import Options from '../optionsThreshold';
-import useDecorator from '../../helpers/useDecorator';
+import withState from '../withState';
+import withGrid from '../withGrid';
 
 const Radioset = (props) => {
   const {
@@ -17,7 +18,7 @@ const Radioset = (props) => {
     readOnly,
     maxVisible,
     ...etc
-  } = useDecorator(props);
+  } = props;
 
   return (
     <CollapsibleFieldLabel
@@ -52,4 +53,7 @@ const Radioset = (props) => {
   );
 };
 
-export default Radioset;
+export default withGrid(withState(Radioset), {
+  xl: 12,
+  lg: 12,
+});

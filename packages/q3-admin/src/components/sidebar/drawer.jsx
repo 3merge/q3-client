@@ -1,54 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
-import MoreVert from '@material-ui/icons/MoreHoriz';
-import Close from '@material-ui/icons/Close';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import { useToggle } from 'useful-state';
-import useStyle from './useStyle';
+import Fab from '@material-ui/core/Fab';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
+import Drawer from 'q3-ui-dialog';
 
 const SidebarDrawer = ({ children }) => {
-  const classes = useStyle();
-  const { state, toggle, close } = useToggle();
   const { t } = useTranslation('labels');
 
   return (
-    <SwipeableDrawer
-      anchor="bottom"
-      variant="permanent"
-      open={state}
-      onClose={close}
-      swipeAreaWidth={50}
-      ModalProps={{
-        disablePortal: true,
-        keepMounted: true,
-        disableBackdropTransition: true,
-      }}
-      PaperProps={{
-        className: classes.paper,
-      }}
-      className={clsx(classes.drawer, {
-        [classes.drawerOpen]: state,
-        [classes.drawerClose]: !state,
-      })}
-      classes={{
-        paper: clsx({
-          [classes.drawerOpen]: state,
-          [classes.drawerClose]: !state,
-        }),
-      }}
+    <Drawer
+      title="Context menu"
+      variant="drawer"
+      renderTrigger={(onClick, isOpened) => (
+        <Hidden mdUp>
+          <Box
+            position="fixed"
+            bottom="6rem"
+            right="1rem"
+            zIndex={1000}
+          >
+            <Fab
+              onClick={onClick}
+              color="secondary"
+              size="large"
+              aria-label={isOpened ? t('close') : t('more')}
+            >
+              <MoreVertIcon />
+            </Fab>
+          </Box>
+        </Hidden>
+      )}
+      renderContent={() => children}
     >
-      <button
-        type="button"
-        onClick={toggle}
-        className={classes.launch}
-        aria-label={state ? t('close') : t('more')}
-      >
-        {state ? <Close /> : <MoreVert />}
-      </button>
       {children}
-    </SwipeableDrawer>
+    </Drawer>
   );
 };
 

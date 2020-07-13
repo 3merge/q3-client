@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
+## [1.18.24](https://github.com/3merge/q/compare/v1.18.23...v1.18.24) (2020-06-04)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
+## [1.18.12](https://github.com/3merge/q/compare/v1.18.11...v1.18.12) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
+## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
+## [1.16.8](https://github.com/3merge/q/compare/v1.16.7...v1.16.8) (2020-05-11)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
 ## [1.16.7](https://github.com/3merge/q/compare/v1.16.6...v1.16.7) (2020-05-05)
 
 **Note:** Version bump only for package q3-ui-dialog

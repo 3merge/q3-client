@@ -3,7 +3,7 @@ import React from 'react';
 import { SnackbarProvider } from 'notistack';
 
 export { default as useNotification } from './providers/notistack';
-export { default as useFormHandler } from './providers/formik';
+export * as Context from './FormsContext';
 
 // eslint-disable-next-line
 export default ({ children, ...rest }) =>

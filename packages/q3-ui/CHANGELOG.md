@@ -3,6 +3,300 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.19.26](https://github.com/3merge/q/compare/v1.19.25...v1.19.26) (2020-06-29)
+
+
+### Bug Fixes
+
+* state comparison to included overrideable properties ([6f51f05](https://github.com/3merge/q/commit/6f51f05358e5d00e77c74d913e33778fd955e325))
+
+
+
+
+
+## [1.19.25](https://github.com/3merge/q/compare/v1.19.24...v1.19.25) (2020-06-29)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.19.22](https://github.com/3merge/q/compare/v1.19.21...v1.19.22) (2020-06-23)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.19.8](https://github.com/3merge/q/compare/v1.19.7...v1.19.8) (2020-06-17)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.19.3](https://github.com/3merge/q/compare/v1.19.2...v1.19.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* form state/validation handling ([fa2bcfa](https://github.com/3merge/q/commit/fa2bcfaff164b4b3c5bfd40ba33bcb176b5f515e))
+
+
+
+
+
+## [1.18.29](https://github.com/3merge/q/compare/v1.18.28...v1.18.29) (2020-06-07)
+
+
+### Bug Fixes
+
+* vertical scrolling in sidebar ([218f891](https://github.com/3merge/q/commit/218f891450251a86529cc78a98d488d2fc1d8109))
+
+
+
+
+
+## [1.18.26](https://github.com/3merge/q/compare/v1.18.25...v1.18.26) (2020-06-04)
+
+
+### Bug Fixes
+
+* typography sizing in header ([5cc4ff4](https://github.com/3merge/q/commit/5cc4ff41b4e86167990ffe5bb8844e72223eaa60))
+
+
+
+
+
+## [1.18.24](https://github.com/3merge/q/compare/v1.18.23...v1.18.24) (2020-06-04)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.23](https://github.com/3merge/q/compare/v1.18.22...v1.18.23) (2020-06-02)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.19](https://github.com/3merge/q/compare/v1.18.18...v1.18.19) (2020-05-31)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.18](https://github.com/3merge/q/compare/v1.18.17...v1.18.18) (2020-05-30)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.14](https://github.com/3merge/q/compare/v1.18.13...v1.18.14) (2020-05-27)
+
+
+### Bug Fixes
+
+* localized timezone ([8e9e3f6](https://github.com/3merge/q/commit/8e9e3f6cbff86dd530cf53216461cd09fc463bfe))
+
+
+
+
+
+## [1.18.13](https://github.com/3merge/q/compare/v1.18.12...v1.18.13) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.12](https://github.com/3merge/q/compare/v1.18.11...v1.18.12) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.11](https://github.com/3merge/q/compare/v1.18.10...v1.18.11) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.10](https://github.com/3merge/q/compare/v1.18.9...v1.18.10) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.8](https://github.com/3merge/q/compare/v1.18.7...v1.18.8) (2020-05-25)
+
+
+### Bug Fixes
+
+* unnecessary character conversion in useOptions ([8f36f5f](https://github.com/3merge/q/commit/8f36f5f11d36e6e6ffee9625472cbb576e27e287))
+
+
+
+
+
+## [1.18.6](https://github.com/3merge/q/compare/v1.18.5...v1.18.6) (2020-05-25)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.5](https://github.com/3merge/q/compare/v1.18.4...v1.18.5) (2020-05-25)
+
+
+### Bug Fixes
+
+* outbound links in notice ([a2ddede](https://github.com/3merge/q/commit/a2ddede91391ef34833073918ef9fef104b3cb15))
+
+
+
+
+
+## [1.18.2](https://github.com/3merge/q/compare/v1.18.1...v1.18.2) (2020-05-25)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.18.1](https://github.com/3merge/q/compare/v1.18.0...v1.18.1) (2020-05-22)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+# [1.18.0](https://github.com/3merge/q/compare/v1.17.15...v1.18.0) (2020-05-22)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.17.10](https://github.com/3merge/q/compare/v1.17.9...v1.17.10) (2020-05-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.17.9](https://github.com/3merge/q/compare/v1.17.8...v1.17.9) (2020-05-20)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.17.5](https://github.com/3merge/q/compare/v1.17.4...v1.17.5) (2020-05-19)
+
+
+### Bug Fixes
+
+* datatable scrolling ([7531860](https://github.com/3merge/q/commit/7531860b020a8ecb42d330ce7e06c8e127042fdb))
+
+
+
+
+
+## [1.17.2](https://github.com/3merge/q/compare/v1.17.1...v1.17.2) (2020-05-18)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+# [1.17.0](https://github.com/3merge/q/compare/v1.16.13...v1.17.0) (2020-05-13)
+
+
+### Features
+
+* name on address component ([eea88ab](https://github.com/3merge/q/commit/eea88ab3efe03b348a23c577d987c946acb1e09f))
+
+
+
+
+
+## [1.16.13](https://github.com/3merge/q/compare/v1.16.12...v1.16.13) (2020-05-13)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.16.11](https://github.com/3merge/q/compare/v1.16.10...v1.16.11) (2020-05-12)
+
+
+### Bug Fixes
+
+* default filtering ([7e98504](https://github.com/3merge/q/commit/7e985045f98a2ba822b1524599573d0f08e0665c))
+
+
+
+
+
+## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.16.8](https://github.com/3merge/q/compare/v1.16.7...v1.16.8) (2020-05-11)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
 ## [1.16.7](https://github.com/3merge/q/compare/v1.16.6...v1.16.7) (2020-05-05)
 
 **Note:** Version bump only for package q3-ui

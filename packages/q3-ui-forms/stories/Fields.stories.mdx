@@ -1,0 +1,152 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import moment from 'moment';
+import Tile from 'q3-ui/lib/tile';
+import Provider from '../src';
+import { Form, Field, Repeater } from '../src/builders';
+import { FormBuilder } from '../src/builders/Form/Form';
+import Wrapper, {
+  InnerForm,
+} from '../src/builders/Wrapper/Wrapper';
+import { countries } from '../src/fields/__fixtures__/options';
+
+<Meta title="Forms|Field" component={Field} />
+
+# Fields
+
+## Built-in input helpers
+
+<Preview>
+  <Story name="Types">
+    <Provider>
+      <div>
+        <Form
+          debug
+          unwind={[['repeats', 3]]}
+          initialValues={{
+            repeats: [
+              { fruit: 'Apple' },
+              { fruit: 'Pear' },
+            ],
+          }}
+        >
+          <Field name="email" type="email" />
+          <Field name="tel" type="tel" />
+          <Field name="postal" type="postal" />
+          <Field name="range" type="range" />
+          <Field
+            name="autocomplete"
+            type="autocomplete"
+            options={countries}
+          />
+          <Field
+            name="freeSolo"
+            type="autocomplete"
+            options={countries}
+            freeSolo
+          />
+          <Field
+            name="chips"
+            type="chips"
+            options={countries}
+          />
+          <Field
+            name="multiselect"
+            type="multiselect"
+            options={countries}
+          />
+          <Field
+            name="required"
+            type="text"
+            label="Required"
+            required
+          />
+          <Field
+            name="number"
+            type="number"
+            min="1"
+            max="10"
+            positive
+            helper="Between 1 and 10"
+          />
+          <Field name="date" type="date" />
+          <Field name="dateRange" type="dateRange" />
+          <Field name="checkbox" type="checkbox" />
+          <Field
+            name="switch"
+            type="checkbox"
+            variant="switch"
+          />
+          <Field
+            name="dynamic"
+            label="Dynamic (via override)"
+            type="string"
+            helper="Becomes required if number is greater than 5"
+            override={({ values: { number } }) => ({
+              required: number > 5,
+            })}
+          />
+          <Repeater group="repeats">
+            <Field name="fruit" type="text" />
+          </Repeater>
+        </Form>
+      </div>
+    </Provider>
+  </Story>
+</Preview>
+
+## Built-in validation schema
+
+The form field builder will inherit basic validation based
+on its "type" property. For example, an email field will
+check the input against acceptable email formats.
+Additionally, a field can specify validation attributes for
+more refined data-checking. Common ones might include
+minimum values, maximum values, and required values.
+
+<Preview>
+  <Story name="Validation">
+    <Form debug>
+      <Field name="email" type="email" />
+      <Field name="tel" type="tel" />
+      <Field name="postal" type="postal" />
+      <Field name="required" type="text" required />
+      <Field
+        name="date"
+        type="date"
+        min={moment().toDate()}
+        helper="Must be future-looking"
+      />
+      <Field
+        name="multitext"
+        type="multitext"
+        of="email"
+        helper="Each input must be an email"
+      />
+      <Field
+        name="number"
+        type="number"
+        min="1"
+        max="10"
+        positive
+        helper="Between 1 and 10"
+      />
+      <Field
+        name="dynamic"
+        type="string"
+        helper="Becomes required if number is greater than 5"
+        override={({ values: { number } }) => ({
+          required: number > 5,
+        })}
+      />
+    </Form>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Field} />

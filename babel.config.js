@@ -3,6 +3,7 @@ const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
   'q3-admin',
+  'q3-blocks',
   'q3-components',
   'q3-ui-assets',
   'q3-ui-locale',
@@ -10,7 +11,6 @@ const alias = [
   'q3-ui-datatables',
   'q3-ui-dialog',
   'q3-ui-exports',
-  'q3-ui-filters',
   'q3-ui-forms',
   'q3-ui-helpers',
   'q3-ui-permissions',
@@ -40,7 +40,10 @@ const withAlias = {
 };
 
 const config = {
-  plugins: ['@babel/plugin-proposal-export-namespace-from'],
+  plugins: [
+    '@babel/plugin-proposal-export-namespace-from',
+    '@babel/plugin-transform-modules-commonjs',
+  ],
   presets: [
     [
       '@babel/preset-env',

@@ -3,6 +3,158 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.19.23](https://github.com/3merge/q/compare/v1.19.22...v1.19.23) (2020-06-23)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.19.19](https://github.com/3merge/q/compare/v1.19.18...v1.19.19) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** match on index rather than item ([9ffc1c9](https://github.com/3merge/q/commit/9ffc1c9ca9ab366e6513a0d72d5657a025369a55))
+
+
+
+
+
+## [1.19.18](https://github.com/3merge/q/compare/v1.19.17...v1.19.18) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** bad regex matching too many results ([3e5154d](https://github.com/3merge/q/commit/3e5154d20b3c544bfcd153d2b5e83dcb2d361623))
+
+
+
+
+
+## [1.19.17](https://github.com/3merge/q/compare/v1.19.16...v1.19.17) (2020-06-19)
+
+
+### Bug Fixes
+
+* **J3-159:** repeater .$. character matching for field-level error matching in the FieldsetStepper component ([d55e331](https://github.com/3merge/q/commit/d55e33157fb68eed86f9618def187558db6cc59b))
+
+
+
+
+
+## [1.19.13](https://github.com/3merge/q/compare/v1.19.12...v1.19.13) (2020-06-18)
+
+
+### Bug Fixes
+
+* **J3-163:** de-register validation on unmount and filter empty repeater indices from state values/errors ([43497aa](https://github.com/3merge/q/commit/43497aa188a06aad4a4461699ea61079b7dc4e43))
+
+
+
+
+
+## [1.19.5](https://github.com/3merge/q/compare/v1.19.4...v1.19.5) (2020-06-16)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.19.3](https://github.com/3merge/q/compare/v1.19.2...v1.19.3) (2020-06-16)
+
+
+### Bug Fixes
+
+* form state/validation handling ([fa2bcfa](https://github.com/3merge/q/commit/fa2bcfaff164b4b3c5bfd40ba33bcb176b5f515e))
+
+
+
+
+
+## [1.18.22](https://github.com/3merge/q/compare/v1.18.21...v1.18.22) (2020-06-01)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.18.14](https://github.com/3merge/q/compare/v1.18.13...v1.18.14) (2020-05-27)
+
+
+### Bug Fixes
+
+* localized timezone ([8e9e3f6](https://github.com/3merge/q/commit/8e9e3f6cbff86dd530cf53216461cd09fc463bfe))
+
+
+
+
+
+## [1.18.12](https://github.com/3merge/q/compare/v1.18.11...v1.18.12) (2020-05-27)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.17.12](https://github.com/3merge/q/compare/v1.17.11...v1.17.12) (2020-05-21)
+
+
+### Bug Fixes
+
+* fitlers ([7cecbe7](https://github.com/3merge/q/commit/7cecbe7eae5e6a267e7d7a0f95c3b33520de7b3c))
+
+
+
+
+
+## [1.17.2](https://github.com/3merge/q/compare/v1.17.1...v1.17.2) (2020-05-18)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.16.11](https://github.com/3merge/q/compare/v1.16.10...v1.16.11) (2020-05-12)
+
+
+### Bug Fixes
+
+* default filtering ([7e98504](https://github.com/3merge/q/commit/7e985045f98a2ba822b1524599573d0f08e0665c))
+
+
+
+
+
+## [1.16.9](https://github.com/3merge/q/compare/v1.16.8...v1.16.9) (2020-05-12)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.16.8](https://github.com/3merge/q/compare/v1.16.7...v1.16.8) (2020-05-11)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
 ## [1.16.7](https://github.com/3merge/q/compare/v1.16.6...v1.16.7) (2020-05-05)
 
 **Note:** Version bump only for package q3-ui-helpers

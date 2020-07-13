@@ -4,6 +4,7 @@ import { useAuth } from 'q3-ui-permissions';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
+
 import CustomActionBar from './components/ActionBar';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
@@ -27,7 +28,9 @@ const Repeater = ({
   renderMobileColumns,
   addComponent: AddComponent,
   bulkEditorComponent: BulkEditorComponent,
+  disableEmptyState,
   actions,
+  poll,
   ...rest
 }) => {
   const search = useValue('');
@@ -47,13 +50,28 @@ const Repeater = ({
         create,
         remove,
         removeBulk,
+        poll,
       }}
     >
       <Auth op="Read">
         <Exports>
-          <CustomActionBar data={data}>
-            {BulkEditorComponent && <BulkEditorComponent />}
-          </CustomActionBar>
+          <Auth op="Create">
+            {AddComponent ? (
+              <AddComponent
+                create={create}
+                initialValues={initialValues}
+              />
+            ) : (
+              <AddButton
+                create={create}
+                initialValues={initialValues}
+                {...rest}
+              >
+                {children}
+              </AddButton>
+            )}
+          </Auth>
+
           <Table>
             {data.length > 0 && (
               <List
@@ -67,27 +85,10 @@ const Repeater = ({
                 {children}
               </List>
             )}
-            <Auth op="Create">
-              {AddComponent ? (
-                <tr>
-                  <td colSpan="100%">
-                    <AddComponent
-                      create={create}
-                      initialValues={initialValues}
-                    />
-                  </td>
-                </tr>
-              ) : (
-                <AddButton
-                  create={create}
-                  initialValues={initialValues}
-                  {...rest}
-                >
-                  {children}
-                </AddButton>
-              )}
-            </Auth>
           </Table>
+          <CustomActionBar data={data}>
+            {BulkEditorComponent && <BulkEditorComponent />}
+          </CustomActionBar>
         </Exports>
       </Auth>
     </Context.Provider>
@@ -128,6 +129,7 @@ Repeater.propTypes = {
    * a custom renderer for inside the row header.
    */
   renderMobileColumns: PropTypes.func,
+  disableEmptyState: PropTypes.bool,
   ...override.propTypes,
 };
 
@@ -139,6 +141,7 @@ Repeater.defaultProps = {
   create: null,
   renderCustomAddForm: null,
   renderNestedTableRow: null,
+  disableEmptyState: false,
   ...override.defaultProps,
 };
 

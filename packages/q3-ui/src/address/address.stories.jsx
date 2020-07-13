@@ -39,6 +39,8 @@ export const SideBySide = () => (
           country="CA"
           email="sample@address.com"
           helper="This is a billing address"
+          firstName="Mike"
+          lastName="Ibberson"
         />
       </Grid>
       <Grid item>

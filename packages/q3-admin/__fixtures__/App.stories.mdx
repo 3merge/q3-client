@@ -1,0 +1,29 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import App from './App';
+
+<Meta title="_Q3|Demo" component={App} />
+
+# Q3
+
+<Preview>
+  <Story name="Dashboard">
+    <App initialPath="/" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="List">
+    <App initialPath="/shows" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Detail">
+    <App initialPath="/shows/1" />
+  </Story>
+</Preview>

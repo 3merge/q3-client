@@ -1,166 +1,169 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
-import Table from '@material-ui/core/Table';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import TableHead from '@material-ui/core/TableHead';
+import Table from '@material-ui/core/Table';
+import Box from '@material-ui/core/Box';
+import { get, pick } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
-import Exports, {
-  Actionbar,
-  SelectAll,
-} from 'q3-ui-exports';
+import Exports, { Actionbar } from 'q3-ui-exports';
+import TableHead from '@material-ui/core/TableHead';
+import { array } from 'q3-ui-helpers';
+import classNames from 'classnames';
+import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
 import { extractIds } from './utils/helpers';
-import {
-  ColumnConfigurator,
-  ColumnHeader,
-  FilterConfig,
-  Empty,
-  Wrapper,
-  Pagination,
-  StickyIconNavigator,
-  Row,
-} from './components';
+import ColumnReorderDialog from './ColumnReorderDialog';
+import ColumnSort from './ColumnSort';
+import Cell from './Cell';
+import RowHeader from './RowHeader';
+import Pagination from './Pagination';
+import useColumns from './useColumns';
+import withEmpty from './withEmpty';
 
-const TableHeader = ({
-  children,
-  columns,
-  aliasForName,
-  setActiveColumns,
-  ...rest
-}) => {
-  const { mobile, boxes, tableHead } = useStyles();
-  const [dragOver, setDragOver] = React.useState('');
+const filterByPossibleKeys = (payload, blacklist = []) => (
+  a = [],
+) =>
+  array.hasLength(blacklist) && array.hasLength(a)
+    ? a.filter((v) => !blacklist.includes(v))
+    : a;
 
-  return (
-    <TableHead>
-      <TableRow className={mobile}>
-        <TableCell id="q3-table-boxes" className={boxes}>
-          {children}
-        </TableCell>
-        <ColumnHeader
-          disableDnD
-          title={aliasForName}
-          className={tableHead}
-          {...rest}
-        />
-        {columns.map((header) => (
-          <ColumnHeader
-            key={header}
-            title={header}
-            className={tableHead}
-            cols={columns}
-            setCols={setActiveColumns}
-            setDragOver={setDragOver}
-            dragOver={dragOver}
-            {...rest}
-          />
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-};
-
-TableHeader.propTypes = {
-  id: PropTypes.string.isRequired,
-  columns: PropTypes.arrayOf(PropTypes.string),
-  aliasForName: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]).isRequired,
-};
-
-TableHeader.defaultProps = {
-  columns: [],
-  aliasForName: 'name',
-};
-
-export const TableView = ({
-  id,
+const TableView = ({
   allColumns,
   defaultColumns,
+  blacklistColumns,
+
+  id,
   aliasForName,
   total,
-  // actions,
+  renderCustomActions,
   resolvers,
   data = [],
-  renderFilter,
-  onClick,
-  ...rest
+  onSort,
+  virtuals,
+  className,
+  children,
+  actionbarPosition,
+  style,
 }) => {
-  const { root } = useStyles();
+  const filterer = filterByPossibleKeys(
+    data,
+    blacklistColumns,
+  );
 
-  if (!data || !data.length) return <Empty />;
+  const { activeColumns, columns, setColumns } = useColumns(
+    id,
+    filterer(defaultColumns),
+    filterer(allColumns),
+  );
+
+  const {
+    root,
+    flexRow,
+    grids,
+    cellWidth,
+    tableBody,
+  } = useStyles({
+    columns,
+  });
+
+  const processed = data.map((row) =>
+    pick(
+      typeof resolvers === 'function'
+        ? { ...row, ...resolvers(row) }
+        : row,
+      [
+        // append required HEADER props
+        ...activeColumns,
+        'name',
+        'description',
+        'imgSrc',
+        'url',
+        'id',
+      ],
+    ),
+  );
 
   return (
     <Exports>
-      <Actionbar columns={allColumns} data={data} />
-      <ColumnConfigurator
-        id={id}
-        allColumns={allColumns}
-        activeColumns={defaultColumns}
+      <Paper
+        elevation={0}
+        className={classNames(grids, className)}
+        style={style}
       >
-        {(
-          ColumnConfiguratorIconButton,
-          activeColumns = [],
-          setActiveColumns,
-        ) => (
-          <Wrapper
-            hasSidebar={
-              Boolean(renderFilter) ||
-              (Array.isArray(allColumns) &&
-                allColumns.length)
-            }
-          >
-            <StickyIconNavigator>
-              <ColumnConfiguratorIconButton />
-              <FilterConfig
-                renderFilter={renderFilter}
-                {...rest}
-              />
-            </StickyIconNavigator>
-            <Paper
-              elevation={0}
-              style={{ minWidth: '100%' }}
-            >
-              <Table stickyHeader className={root}>
-                <TableHeader
-                  id={id}
-                  aliasForName={aliasForName}
-                  columns={activeColumns}
-                  setActiveColumns={setActiveColumns}
-                >
-                  <SelectAll ids={extractIds(data)} />
-                </TableHeader>
-                <TableBody>
-                  {data.map((c, i) =>
-                    React.createElement(Row, {
-                      id: c.id || i,
-                      onClick,
+        {children}
 
-                      activeColumns,
-                      columns:
-                        typeof resolvers === 'function'
-                          ? resolvers(c)
-                          : c,
-                    }),
-                  )}
-                </TableBody>
-                <TableFooter>
-                  <TableRow>
-                    <Pagination id={id} total={total} />
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </Paper>
-          </Wrapper>
-        )}
-      </ColumnConfigurator>
+        <Box
+          style={{ flex: 1 }}
+          position="relative"
+          maxWidth="100%"
+          overflow="auto"
+          width="100%"
+        >
+          <Table className={root}>
+            <TableHead className={tableBody}>
+              <TableRow className={flexRow}>
+                <ColumnSelectAll
+                  ids={extractIds(data)}
+                  title={aliasForName}
+                  onSort={onSort}
+                >
+                  <ColumnReorderDialog
+                    onDone={setColumns}
+                    defaultColumns={activeColumns}
+                    disabled={!columns.length}
+                    columns={columns}
+                  />
+                </ColumnSelectAll>
+                {activeColumns.map((column) => {
+                  const sortable = Array.isArray(virtuals)
+                    ? !virtuals.includes(column)
+                    : true;
+
+                  return (
+                    <ColumnSort
+                      title={column}
+                      onSort={sortable ? onSort : null}
+                      className={cellWidth}
+                      {...column}
+                    />
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody className={tableBody}>
+              {processed.map((row) => (
+                <TableRow className={flexRow}>
+                  <RowHeader {...row} />
+                  {activeColumns.map((column) => (
+                    <Cell
+                      id={column}
+                      component="td"
+                      className={cellWidth}
+                      headers={`${column} ${row.name}`}
+                      key={`${row.id}-${column}`}
+                      value={get(row, column)}
+                    />
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+        <Box py={1} width="100%">
+          <Pagination id={id} total={total} />
+        </Box>
+      </Paper>
+      <Actionbar
+        position={actionbarPosition}
+        columns={allColumns}
+        data={data}
+        actions={
+          renderCustomActions
+            ? renderCustomActions(data)
+            : []
+        }
+      />
     </Exports>
   );
 };
@@ -187,21 +190,17 @@ TableView.propTypes = {
    * Typically, you'd nest an array of Row components within the Table.
    * This component reads the "id" prop of each to configure mobile headers.
    */
-  data: PropTypes.arrayOf({
-    id: PropTypes.string,
-  }).isRequired,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  ).isRequired,
 
   /**
    * On row selection, the user can click from a toolbar of pre-determined actions.
    * Use this array to populate said toolbar with icons and handlers.
    */
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object,
-      label: PropTypes.string,
-      onClick: PropTypes.func,
-    }),
-  ),
+  renderCustomActions: PropTypes.func,
 
   /**
    * Func for resolving TableCells with custom components/text.
@@ -220,25 +219,21 @@ TableView.propTypes = {
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
 
   /**
-   * All function that gets passed down to the Row's link.
-   * It fires before navigating.
+   * If provided, the table will redact columns that match.
+   * Perfect for dynamic access control settings.
    */
-  onClick: PropTypes.func,
+  blacklistColumns: PropTypes.arrayOf(PropTypes.string),
 
-  /**
-   * A renderer for inside the filter popover.
-   */
-  renderFilter: PropTypes.func,
+  onSort: PropTypes.func.isRequired,
 };
 
 TableView.defaultProps = {
   aliasForName: 'name',
   total: 0,
-  actions: [],
   allColumns: [],
   defaultColumns: [],
-  onClick: null,
-  renderFilter: null,
+  blacklistColumns: [],
+  renderCustomActions: null,
 };
 
-export default TableView;
+export default withEmpty(TableView);

@@ -1,30 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableSkeleton } from 'q3-ui-datatables';
-import { ListContainer } from '../../containers/table';
 import SkeletonHeader from './skeletonHeader';
 import SkeletonSection from './skeletonSection';
 import SkeletonSidebar from './skeletonSidebar';
-import Section from '../section';
+import SkeletonTable from './skeletonTable';
+import Article from '../Article';
 
-const Loading = ({ id }) =>
-  id ? (
+const Loading = ({ id }) => (
+  <Article asideComponent={<SkeletonSidebar />}>
     <>
       <SkeletonHeader />
-      <Section
-        renderInside={<SkeletonSection />}
-        renderOutside={<SkeletonSidebar />}
-        overflowY="hidden"
-      />
+      {id ? <SkeletonSection /> : <SkeletonTable />}
     </>
-  ) : (
-    <>
-      <SkeletonHeader />
-      <ListContainer overflowY="hidden">
-        <TableSkeleton />
-      </ListContainer>
-    </>
-  );
+  </Article>
+);
 
 Loading.propTypes = {
   id: PropTypes.string,

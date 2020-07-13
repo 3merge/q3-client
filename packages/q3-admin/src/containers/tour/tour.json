@@ -1,0 +1,78 @@
+[
+  {
+    "target": "#q3",
+    "content": "howToQ3"
+  },
+  {
+    "target": "#q3-profile",
+    "content": "howToProfile"
+  },
+  {
+    "target": "#flyout-menu",
+    "content": "howToMenu"
+  },
+  {
+    "target": "#q3-segments",
+    "content": "howToUseSegments"
+  },
+  {
+    "target": "#q3-filters",
+    "content": "howToUseFilters"
+  },
+  {
+    "target": "#app-add-dialog",
+    "content": "howToAdd"
+  },
+  {
+    "target": "#q3-searchbar",
+    "content": "howToSearch"
+  },
+  {
+    "target": "#q3-filter-chips",
+    "content": "howToFilterGroups"
+  },
+  {
+    "target": "#q3-datatable-select",
+    "content": "howToSelect"
+  },
+  {
+    "target": "#q3-datatable-reorder",
+    "content": "howToReorder"
+  },
+  {
+    "target": ".q3-repeater-editor-button",
+    "content": "howToEdit"
+  },
+  {
+    "target": ".q3-repeater-delete-button",
+    "content": "howToDelete"
+  },
+  {
+    "target": "#q3-repeater-add-button",
+    "content": "howToInsert"
+  },
+  {
+    "target": "#q3-repeater-select",
+    "content": "howToMultiselect"
+  },
+  {
+    "target": "#q3-meta",
+    "content": "howToUseMeta"
+  },
+  {
+    "target": "#q3-thread",
+    "content": "howToUseThread"
+  },
+  {
+    "target": "#q3-files",
+    "content": "howToUseFiles"
+  },
+  {
+    "target": "#q3-docs",
+    "content": "howToUseDocs"
+  },
+  {
+    "target": "#q3-related-links",
+    "content": "howToUseRelatedLinks"
+  }
+]

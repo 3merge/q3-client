@@ -27,24 +27,22 @@ beforeEach(() => {
 describe('use', () => {
   describe('"useDataStore"', () => {
     it('should return initialize dataStore with an array', () => {
-      const out = useDataStore({
-        resourceName: 'foos',
-        state: { foos: [1, 2] },
-      });
-
-      expect(out).toEqual([]);
-      expect(setState).toHaveBeenCalledWith([1, 2]);
+      expect(
+        useDataStore({
+          resourceName: 'foos',
+          state: { foos: [1, 2] },
+        }),
+      ).toEqual([1, 2]);
     });
 
     it('should return initialize dataStore with an object', () => {
-      const out = useDataStore({
-        id: 1,
-        resourceNameSingular: 'foo',
-        state: { foo: { id: 1 } },
-      });
-
-      expect(out).toEqual({});
-      expect(setState).toHaveBeenCalledWith({
+      expect(
+        useDataStore({
+          id: 1,
+          resourceNameSingular: 'foo',
+          state: { foo: { id: 1 } },
+        }),
+      ).toMatchObject({
         id: 1,
       });
     });
@@ -117,13 +115,15 @@ describe('use', () => {
 
   describe('"useRootPath"', () => {
     it('should retain location root', () => {
-      useRootPath({ pathname: '/app/foo/1' }, '1');
-      expect(setState).toHaveBeenCalledWith('/app/foo/1');
+      expect(
+        useRootPath({ pathname: '/app/foo/1' }, '1'),
+      ).toMatch('/app/foo/1');
     });
 
     it('should strip off sub paths', () => {
-      useRootPath({ pathname: '/app/foo/1/trash' }, '1');
-      expect(setState).toHaveBeenCalledWith('/app/foo/1');
+      expect(
+        useRootPath({ pathname: '/app/foo/1/trash' }, '1'),
+      ).toMatch('/app/foo/1');
     });
   });
 });

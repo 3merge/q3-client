@@ -13,12 +13,12 @@ export default makeStyles((theme) => ({
     willChange: 'background, color',
     transition: 'all 225ms !important',
   },
-  appBarPadding: {
-    padding: theme.spacing(2),
+  appBarPadding: ({ wide }) => ({
+    padding: wide ? '1.5rem 3rem' : '1.5rem',
     [theme.breakpoints.down('sm')]: {
       padding: '1rem 0.5rem',
     },
-  },
+  }),
   spacing: {
     overflow: 'hidden',
     position: 'relative',

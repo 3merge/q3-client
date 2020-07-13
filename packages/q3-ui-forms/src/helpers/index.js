@@ -1,60 +1,27 @@
-import React from 'react';
+import moment from 'moment';
+import { array, string } from 'q3-ui-helpers';
 
-export const isObject = (item) =>
-  item !== null &&
-  typeof item === 'object' &&
-  Object.keys(item).length;
-
-export const condense = (a) => a.flat().filter(Boolean);
-export const isArray = (a) => Array.isArray(a) && a.length;
-
-export const intersects = (a, b) =>
-  condense(a).some((item) => condense(b).includes(item));
+const isUndefined = (v) =>
+  v === null || v === undefined || v === '';
 
 export const asOptions = (a) =>
-  isArray(a)
-    ? a.map((value) => ({
-        label: value,
-        value,
-      }))
-    : [];
+  array.is(a).map((value) => ({
+    label: value,
+    value,
+  }));
 
-export const assignIDs = (a, prop) =>
-  a.map((item, i) => {
-    if (!isObject(item)) return item;
-    if (prop) return { ...item, id: item[prop] };
-    if (!item.id) return { ...item, id: i };
-    return item;
-  });
+export const castToUTC = (v) =>
+  !isUndefined(v)
+    ? moment.utc(moment(v).toISOString()).toISOString()
+    : v;
 
-export const getFieldNames = (c, fieldName) =>
-  React.Children.toArray(c).reduce((curr, el) => {
-    const {
-      type: { displayName },
-      props: { children, name },
-    } = el;
+export const convertToNullish = (v) =>
+  string.hasLength(v) ? v : null;
 
-    if (displayName === fieldName) curr.push(name);
+export const castToBoolean = (v) =>
+  v !== 'false' ? `${Boolean(v)}` : v;
 
-    if (isArray(children))
-      curr.push(getFieldNames(children));
-
-    return condense(curr);
-  }, []);
-
-export const isReady = (formikInst) =>
-  formikInst && formikInst.status === 'Ready';
-
-export const isNotInitializing = (formikInst) =>
-  formikInst && formikInst.status !== 'Initializing';
-
-export const delayPromise = (fn, args, done) =>
-  setTimeout(() => {
-    try {
-      fn(args).then(() => {
-        if (done) done();
-      });
-    } catch (e) {
-      // noop
-    }
-  }, 0);
+export const makeRangeNames = (name) => [
+  `${name}>`,
+  `${name}<`,
+];

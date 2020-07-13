@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
@@ -38,7 +39,12 @@ export const useOpen = () => {
   };
 };
 
-export const DropDownMenu = ({ id, children, items }) => {
+export const DropDownMenu = ({
+  id,
+  children,
+  items,
+  ...etc
+}) => {
   const { open, openMenu, closeMenu } = useOpen();
 
   return (
@@ -47,17 +53,15 @@ export const DropDownMenu = ({ id, children, items }) => {
       <Menu
         id={id}
         anchorEl={open}
+        getContentAnchorEl={null}
         open={Boolean(open)}
         onClose={closeMenu}
-        elevation={15}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
+        elevation={5}
+        {...etc}
       >
         {items.map((item) => (
           <MenuItem
-            dense
+            style={{ margin: 0 }}
             key={item.label}
             onClick={(e) => {
               item.onClick(e);
@@ -117,9 +121,7 @@ export const AccountMenu = ({
         name ? (
           <Button color="inherit" onClick={toggle}>
             {name}
-            <KeyboardArrowDown
-              style={{ marginRight: 16 }}
-            />
+            <KeyboardArrowDown style={{ marginRight: 8 }} />
             <Avatar alt={name} src={profileImgSrc} />
           </Button>
         ) : (

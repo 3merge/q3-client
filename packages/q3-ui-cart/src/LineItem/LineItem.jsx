@@ -55,10 +55,16 @@ export default ({ children }) => {
                     >
                       {string.toPrice(price)} ea.
                     </Typography>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography
+                      variant="h4"
+                      component="h3"
+                      gutterBottom
+                    >
                       {name}
                     </Typography>
-                    <Typography>{description}</Typography>
+                    <Typography>
+                      <small>{description}</small>
+                    </Typography>
                     <LineItemSubtotal subtotal={subtotal} />
                   </Box>
                   {children && children(item)}

@@ -3,20 +3,19 @@ import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
-import Tour from 'q3-ui/lib/tour';
+import { get } from 'lodash';
 import Graphic from 'q3-ui-assets';
+import { useFilters } from 'q3-ui-rest';
+import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
+import Tray from '../../components/Tray';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
-import {
-  useDataStore,
-  useViewResolutions,
-  useRootPath,
-} from '../use';
+import { useDataStore, useViewResolutions } from '../use';
 import withSorting from './withSorting';
-import tourDefaults from './tour.json';
+import withActiveFilter from './withActiveFilter';
+import Search from '../search';
 
 const PageChildren = ({
   children,
@@ -24,23 +23,20 @@ const PageChildren = ({
   hasEntered,
   fetching,
   fetchingError,
+  loadingComponent,
 }) =>
   !hasEntered || fetching ? (
-    <Fade in>
-      <Loading id={id} />
-    </Fade>
+    loadingComponent || <Loading id={id} />
   ) : (
-    <Fade in>
-      <Box>
-        {fetchingError ? (
-          <Box m={4}>
-            <Graphic title="error" icon="Error" />
-          </Box>
-        ) : (
-          children
-        )}
-      </Box>
-    </Fade>
+    <Box>
+      {fetchingError ? (
+        <Box m={4}>
+          <Graphic title="error" icon="Error" />
+        </Box>
+      ) : (
+        children
+      )}
+    </Box>
   );
 
 PageChildren.propTypes = {
@@ -54,22 +50,31 @@ PageChildren.propTypes = {
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
 
+export const executeOnChildren = (children, args = {}) =>
+  typeof children === 'function'
+    ? children(args)
+    : children;
+
 const Page = ({
   children,
-  collectionName,
-  resourceName,
   select,
-  resourceNameSingular,
-  id,
-  location,
   onEnter,
   onExit,
   onInit,
   viewResolutions,
-  tour,
+  loadingComponent,
+  lookup,
+  runOnSearch,
+  runWithSearch,
+  resolvers,
 }) => {
-  const rootPath = useRootPath(location, id, resourceName);
-  const directoryPath = getDirectoryPath(rootPath, id);
+  const {
+    id,
+    resourceNameSingular,
+    collectionName,
+    resourceName,
+    location,
+  } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
 
   const state = useRest({
@@ -82,11 +87,30 @@ const Page = ({
   });
 
   const { fetching, fetchingError } = state;
+
   const data = useDataStore({
     resourceNameSingular,
     resourceName,
     state,
     id,
+  });
+
+  /**
+   * @TODO
+   * Move into an abstracted hook of its own.
+   */
+
+  let query;
+
+  if (runOnSearch) query = get(location, 'search', '');
+  if (runWithSearch) query = runWithSearch;
+
+  const filters = useFilters({
+    runOnInit: !id,
+    fields: lookup,
+    coll: collectionName,
+    location,
+    query,
   });
 
   const hasEntered = useOnRender(
@@ -100,31 +124,30 @@ const Page = ({
   );
 
   return (
-    <Definitions.Provider
-      value={{
-        id,
-        exclusions,
-        collectionName,
-        resourceNameSingular,
-        resourceName,
-        rootPath,
-        directoryPath,
-        location,
-      }}
+    <PageChildren
+      hasEntered={hasEntered}
+      fetching={fetching || filters.fetching}
+      fetchingError={fetchingError}
+      loadingComponent={loadingComponent}
+      id={id}
     >
       <Dispatcher.Provider
-        value={pick(state, [
-          'get',
-          'poll',
-          'remove',
-          'removeBulk',
-          'patch',
-          'put',
-          'post',
-        ])}
+        value={{
+          exclusions,
+          ...pick(state, [
+            'get',
+            'poll',
+            'remove',
+            'removeBulk',
+            'patch',
+            'put',
+            'post',
+          ]),
+        }}
       >
         <Store.Provider
           value={{
+            filters,
             data,
             ...pick(state, [
               'total',
@@ -133,32 +156,19 @@ const Page = ({
             ]),
           }}
         >
-          {typeof children === 'function' ? (
-            children({
-              hasEntered,
-              fetching,
-              id,
-              data,
-              ...state,
-            })
-          ) : (
-            <PageChildren
-              hasEntered={hasEntered}
-              fetching={fetching}
-              id={id}
-              fetchingError={fetchingError}
-            >
-              {children}
-              <Tour
-                steps={tourDefaults
-                  .concat(tour)
-                  .filter(Boolean)}
-              />
-            </PageChildren>
-          )}
+          <Tray>
+            <Search resolvers={resolvers} />
+            <UnsavedChanges />
+          </Tray>
+          {executeOnChildren(children, {
+            ...state,
+            id,
+            data,
+            filters,
+          })}
         </Store.Provider>
       </Dispatcher.Provider>
-    </Definitions.Provider>
+    </PageChildren>
   );
 };
 
@@ -188,33 +198,6 @@ Page.propTypes = {
   ]).isRequired,
 
   /**
-   * The directory to call. For example, defining "foo" would send requests to "http://localhost/foo".
-   */
-  collectionName: PropTypes.string.isRequired,
-
-  /**
-   * The key inside the API response payload containing a list of documents.
-   */
-  resourceName: PropTypes.string.isRequired,
-
-  /**
-   * The key inside API response payload containing a single document.
-   */
-  resourceNameSingular: PropTypes.string.isRequired,
-
-  /**
-   * This value is appended to "collectionName" for document-specific queries.
-   */
-  id: PropTypes.string,
-
-  /**
-   * Location props passed via @reach/router
-   */
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
-
-  /**
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
@@ -223,15 +206,19 @@ Page.propTypes = {
    * Used to hide/display tabs based on state or role.
    */
   viewResolutions: PropTypes.shape({}),
+
+  lookup: PropTypes.arrayOf(PropTypes.string),
+  loadingComponent: PropTypes.node,
 };
 
 Page.defaultProps = {
-  id: null,
   onExit: null,
   onEnter: null,
   onInit: null,
   select: null,
   viewResolutions: {},
+  lookup: [],
+  loadingComponent: null,
 };
 
-export default withSorting(Page);
+export default withActiveFilter(withSorting(Page));

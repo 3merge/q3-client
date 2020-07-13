@@ -24,3 +24,16 @@ export const redirectIn = (path = '/', interval = 2000) =>
   setTimeout(() => {
     navigate(path);
   }, [interval]);
+
+export const isOverflownHorizontal = ({
+  clientWidth,
+  scrollWidth,
+}) => scrollWidth > clientWidth;
+
+export const isOverflownVertical = ({
+  clientHeight,
+  scrollHeight,
+}) => scrollHeight > clientHeight;
+
+export const isOverflown = (el) =>
+  isOverflownVertical(el) || isOverflownHorizontal(el);

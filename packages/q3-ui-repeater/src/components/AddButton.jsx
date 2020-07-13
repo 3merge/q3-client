@@ -5,28 +5,28 @@ import Dialog from 'q3-ui-dialog';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import TableFooter from '@material-ui/core/TableFooter';
 import Add from '@material-ui/icons/Add';
-import { FullSpanTableRow } from './NestedItem';
 import useStyle from './useStyle';
 
 const ForwardProps = ({ children, ...rest }) =>
   React.cloneElement(children, rest);
 
 const AddButtonTableRow = (props) => (
-  <TableFooter>
-    <FullSpanTableRow>
-      <Dialog {...props} />
-    </FullSpanTableRow>
-  </TableFooter>
+  <Box>
+    <Dialog {...props} />
+  </Box>
 );
 
-const AddButtonTrigger = ({ onClick }) => {
+export const AddButtonTrigger = ({
+  onClick,
+  title,
+  description,
+}) => {
   const { addBtn, titleCls } = useStyle();
   const { t } = useTranslation();
 
   return (
-    <Box p={1} id="q3-repeater-add-button">
+    <Box id="q3-repeater-add-button">
       <Grid
         container
         role="button"
@@ -40,10 +40,10 @@ const AddButtonTrigger = ({ onClick }) => {
         </Grid>
         <Grid item xs zeroMinWidth>
           <Typography className={titleCls}>
-            {t('titles:addToList')}
+            {t(`titles:${title}`)}
           </Typography>
           <Typography>
-            {t('descriptions:addToList')}
+            {t(`descriptions:${description}`)}
           </Typography>
         </Grid>
       </Grid>
@@ -51,11 +51,19 @@ const AddButtonTrigger = ({ onClick }) => {
   );
 };
 
+AddButtonTrigger.defaultProps = {
+  title: 'addToList',
+  description: 'addToList',
+};
+
 AddButtonTrigger.propTypes = {
   /**
    * Click handler for custom button.
    */
   onClick: PropTypes.func.isRequired,
+
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
 
 const AddButton = ({

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useField } from 'formik';
 import PropTypes from 'prop-types';
-import useDecorator from '../../helpers/useDecorator';
+import withState from '../withState';
 import Bool from '../bool';
+import withGrid from '../withGrid';
 
 export const castToBoolean = (v) => {
   if (v === 'true' || v === '*') return true;
@@ -19,29 +19,36 @@ export const fallbackToEmptyString = (
   return formikValue ? checkedValue : '';
 };
 
-const Checkbox = ({ variant, ...rest }) => {
-  const deco = useDecorator(rest);
-  const [{ name, value }, { error }] = useField(rest);
+const Checkbox = withState(
+  ({
+    variant,
+    name,
+    value,
+    error,
+    onChange,
+    checkedValue,
+    ...rest
+  }) => {
+    const handleOnChange = (e, v) =>
+      onChange({
+        target: {
+          value: fallbackToEmptyString(checkedValue, v),
+          name,
+        },
+      });
 
-  const handleOnChange = (e, v) =>
-    deco.onChange({
-      target: {
-        value: fallbackToEmptyString(deco.checkedValue, v),
-        name,
-      },
-    });
-
-  return (
-    <Bool
-      {...deco}
-      variant={variant}
-      isChecked={castToBoolean(value)}
-      error={castToBoolean(error)}
-      onChange={handleOnChange}
-      name={name}
-    />
-  );
-};
+    return (
+      <Bool
+        {...rest}
+        variant={variant}
+        isChecked={castToBoolean(value)}
+        error={castToBoolean(error)}
+        onChange={handleOnChange}
+        name={name}
+      />
+    );
+  },
+);
 
 Checkbox.propTypes = {
   variant: PropTypes.string,
@@ -51,4 +58,7 @@ Checkbox.defaultProps = {
   variant: 'checkbox',
 };
 
-export default Checkbox;
+export default withGrid(Checkbox, {
+  xl: 12,
+  lg: 12,
+});

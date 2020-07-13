@@ -1,7 +1,7 @@
 import React from 'react';
-import Form from '../builders/form';
-import Field from '../builders/field';
-import Select from './select';
+import Box from '@material-ui/core/Box';
+import { Form, Field } from '../builders';
+import Select from './Select';
 
 const opts = [
   { value: 'CA', label: 'Canada' },
@@ -49,14 +49,26 @@ export const WithOptions = () => (
   </Form>
 );
 
+export const WithMultiSelect = () => (
+  <Box p={1}>
+    <Form
+      debug
+      onSubmit={console.log}
+      initialValues={{
+        countries: opts[1].value,
+      }}
+    >
+      <Field
+        name="countries"
+        type="multiselect"
+        options={opts}
+      />
+    </Form>
+  </Box>
+);
+
 export const WithDynamicOptions = () => (
-  <Form
-    onSubmit={() => null}
-    initialValues={{
-      countries: '',
-      name: '',
-    }}
-  >
+  <Form onSubmit={() => null}>
     <Field name="name" type="text" />
     <Field
       name="countries"
@@ -71,7 +83,7 @@ export const WithDynamicOptions = () => (
   </Form>
 );
 
-export const WithDynamicLoadOptions = () => (
+export const WithGraphics = () => (
   <Form
     onSubmit={() => null}
     initialValues={{
@@ -79,6 +91,21 @@ export const WithDynamicLoadOptions = () => (
       name: '',
     }}
   >
+    <Field
+      name="countries"
+      type="selectable"
+      options={[]}
+      override={({ values }) => ({
+        options: values.name.length
+          ? opts
+          : [{ label: 'Brazil', value: 'BZ' }],
+      })}
+    />
+  </Form>
+);
+
+export const WithDynamicLoadOptions = () => (
+  <Form debug onSubmit={() => null}>
     <Field name="name" type="text" />
     <Field name="age" type="number" />
     <Field

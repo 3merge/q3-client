@@ -1,13 +1,14 @@
 import React from 'react';
 import queryString from 'query-string';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
-import { PasswordChange as PasswordChangePreset } from 'q3-ui-forms/lib/presets';
-import Typography from '@material-ui/core/Typography';
+import { navigate } from '@reach/router';
+import axios from 'axios';
+import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
+import { Form, Field } from 'q3-ui-forms/lib/builders';
+import FormBoxContent from '../components/FormBoxContent';
 import FormBox from '../components/FormBox';
 
 export default (props) => {
-  const { t } = useTranslation();
   const { passwordResetToken, email } = queryString.parse(
     get(props, 'location.search', ''),
     {
@@ -18,20 +19,40 @@ export default (props) => {
   return (
     <FormBox
       renderBottom={
-        <PasswordChangePreset
-          email={email}
-          passwordResetToken={passwordResetToken}
-        />
+        <Form
+          onSubmit={(passwords) =>
+            axios
+              .post('/password-change', passwords)
+              .then(() => {
+                navigate('/login');
+              })
+          }
+          initialValues={{
+            passwordResetToken,
+            email,
+          }}
+        >
+          {(values) => (
+            <>
+              {!passwordResetToken && (
+                <Field
+                  name="previousPassword"
+                  type="password"
+                  required
+                  xl={12}
+                  lg={12}
+                />
+              )}
+              <NewPasswordFields {...values} />
+            </>
+          )}
+        </Form>
       }
       renderTop={
-        <>
-          <Typography variant="h1" gutterBottom>
-            {t('titles:passwordChange')}
-          </Typography>
-          <Typography variant="body2" gutterBottom>
-            {t('descriptions:passwordChange')}
-          </Typography>
-        </>
+        <FormBoxContent
+          title="passwordChange"
+          description="passwordChange"
+        />
       }
     />
   );

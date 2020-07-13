@@ -15,21 +15,10 @@ export const useDataStore = ({
   resourceName,
   resourceNameSingular,
   id,
-}) => {
-  const [dataStore, setDataStore] = React.useState(
-    id ? {} : [],
-  );
-
-  React.useEffect(() => {
-    const nextValue = id
-      ? state[resourceNameSingular]
-      : state[resourceName];
-
-    if (nextValue) setDataStore(nextValue);
-  }, [state]);
-
-  return dataStore;
-};
+}) =>
+  id
+    ? get(state, resourceNameSingular, {})
+    : get(state, resourceName, []);
 
 /**
  * Used to control the visibility of tabs in the Detail component.
@@ -113,17 +102,8 @@ export const useReferrer = (resourceName = '/') => {
  * (ie Detail Tabs were problematic in previous releases).
  */
 export const useRootPath = (location, id, resourceName) => {
-  const [rootPath, setRootPath] = React.useState('');
   const part = id || resourceName;
-
-  const getFirstPathNamePart = () =>
-    location && typeof location.pathname === 'string'
-      ? `${location.pathname.split(part)[0]}${part}`
-      : '/';
-
-  React.useEffect(() => {
-    setRootPath(getFirstPathNamePart());
-  }, [part]);
-
-  return rootPath;
+  return location && typeof location.pathname === 'string'
+    ? `${location.pathname.split(part)[0]}${part}`
+    : '/';
 };

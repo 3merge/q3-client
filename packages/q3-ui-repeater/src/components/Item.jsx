@@ -6,7 +6,7 @@ import ItemActions from './ItemActions';
 import useStyle from './useStyle';
 import ItemHeader from './ItemHeader';
 import Attributes from './Attribute';
-import withEditableTypography from '../withEditableTypography'
+import withEditableTypography from '../withEditableTypography';
 import { override } from '../helpers';
 
 //= ===============================================================================

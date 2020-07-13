@@ -10,14 +10,14 @@ const getTargetValue = (event) =>
 export const simulateEventHandler = (fn, name) => (
   event,
   newValue,
-) =>
-  fn({
+) => {
+  return fn({
     target: {
       value: newValue || getTargetValue(event),
       name,
     },
   });
-
+};
 /**
  * An option will not allows be key-value pair.
  * Sometimes, it's just plain text.

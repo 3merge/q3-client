@@ -4,36 +4,76 @@ import { grey, yellow } from '@material-ui/core/colors';
 export default makeStyles((theme) => ({
   root: {
     backgroundColor: '#FFF',
-    '& td': {
-      [theme.breakpoints.down('md')]: {
-        border: 0,
-        display: 'block',
-        '&::before': {
-          content: 'attr(data-title)',
-          textTransform: 'uppercase',
-          marginRight: '1rem',
-          fontSize: '0.833rem',
+    whiteSpace: 'wrap !important',
+
+    '& th': {
+      border: '0 !important',
+      left: 'auto',
+      borderBottom: 0,
+      whiteSpace: 'wrap',
+      position: 'sticky',
+      top: 0,
+      zIndex: 3,
+    },
+
+    '& thead tr': {
+      // boxShadow: theme.shadows[1],
+    },
+
+    '& tbody, & thead, & tfooter': {
+      //   display: 'inline-block',
+      //   minWidth: '100%',
+    },
+
+    '& tbody tr': {
+      borderTop: '2px solid #F5F7F9',
+
+      '&:hover': {
+        backgroundColor: '#f9fbfd',
+        transition: 'background-color 250ms',
+        '& td': {
+          backgroundColor: '#f9fbfd !important',
         },
       },
     },
+
+    '& td': {
+      borderTop: '2px solid #F5F7F9',
+      fontSize: '0.833rem !important',
+      borderBottom: 'none !important',
+      padding: '0 !important',
+    },
+
+    '& td, & th': {
+      '&:nth-child(2)': {
+        paddingLeft: '1.5rem !important',
+      },
+    },
   },
+
   tableHead: {
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-      width: '100% !important',
-    },
+    padding: 0,
   },
-  row: {
-    '&:hover': {
-      backgroundColor: grey[100],
-      transition: 'background-color 250ms',
-    },
-    [theme.breakpoints.down('md')]: {
-      borderBottom: `2px solid ${grey[100]}`,
-      display: 'block',
-      padding: theme.spacing(1),
-    },
+
+  tableBody: {
+    // minWidth: 'max-content',
+    // maxWidth: 'none',
+    //    display: 'block',
+    //  width: 'fit-content',
   },
+
+  cellWidth: () => ({
+    // alignItems: 'center',
+    transition: 'width 250ms',
+
+    willChange: 'width',
+    boxSizing: 'border-box',
+
+    '& > div': {
+      padding: '0 12px',
+    },
+  }),
+
   tableRowHover: {
     transition: 'all 500ms',
     '&:nth-child(even)': {
@@ -52,7 +92,7 @@ export default makeStyles((theme) => ({
     '&:hover>.visible-on-hover button': {
       opacity: 1,
     },
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       '&>.visible-on-hover button': {
         opacity: 1,
       },
@@ -76,22 +116,15 @@ export default makeStyles((theme) => ({
     minWidth: 350,
   },
   mobile: {
-    [theme.breakpoints.down('md')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
   },
-  rowlike: {
-    background: '#FFF',
-    borderBottom: '3px solid whitesmoke',
-  },
-  overflow: ({ hasSidebar }) => ({
+
+  overflow: {
     maxWidth: '100%',
     position: 'relative',
-    paddingLeft: hasSidebar ? 60 : 0,
-    [theme.breakpoints.down('sm')]: {
-      paddingLeft: 0,
-    },
-  }),
+  },
   expand: {
     flex: 1,
     width: '100%',
@@ -104,19 +137,14 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   mobileCheckbox: {
-    [theme.breakpoints.down('md')]: {
+    paddingLeft: 290,
+    [theme.breakpoints.down('sm')]: {
       float: 'right',
     },
   },
   withoutPseudo: {
-    minWidth: 270,
-    [theme.breakpoints.down('md')]: {
-      minWidth: 'auto',
-    },
-
-    '&::before': {
-      display: 'none',
-    },
+    padding: 8,
+    display: 'block',
   },
 
   actionbar: {
@@ -171,4 +199,96 @@ export default makeStyles((theme) => ({
       zIndex: 100,
     },
   },
+
+  cellAvatar: {
+    width: 57,
+    minWidth: 57,
+    position: 'sticky',
+    left: 0,
+    padding: '.25rem',
+    textAlign: 'center',
+    '& div': {
+      margin: '0 auto',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      // boxShadow: 'none !important',
+      position: 'static',
+      width: 'auto',
+    },
+  },
+
+  flexRow: {
+    //  display: 'flex !important',
+    // justifyContent: 'flex-end',
+    // flexWrap: 'nowrap',
+    minWidth: 'max-content',
+  },
+
+  cellHeader: {
+    position: 'var(--cell-position)',
+    backgroundColor: '#FFF',
+    left: 0,
+    transition: 'box-shadow 250ms',
+    margin: 0,
+    marginRight: 'auto',
+
+    padding: 0,
+    zIndex: 1,
+
+    [theme.breakpoints.down('sm')]: {
+      // boxShadow: 'none !important',
+      position: 'static',
+      width: 'auto',
+    },
+  },
+
+  cellHeaderWrapper: {
+    boxSizing: 'border-box',
+    padding: '.35rem 0.5rem',
+    width: 'max-content',
+    margin: 0,
+  },
+
+  cellHeaderLink: {
+    color: theme.palette.primary.main,
+    display: 'block',
+    '& small': {
+      maxWidth: 'max-content',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingRight: '1rem',
+      wordBreak: 'normal',
+      whiteSpace: 'break-spaces',
+    },
+  },
+
+  grids: () => ({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'baseline',
+    // height: '100vh',
+    '& table': {
+      userSelect: 'none',
+    },
+    '& td.liftup': {
+      wordWrap: 'break-word',
+      // boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
+      zIndex: 2,
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: 'calc(100vh - 68px)',
+      width: '100%',
+    },
+  }),
+
+  headers: () => ({
+    position: 'sticky',
+    top: 0,
+    zIndex: 10,
+    backgroundColor: '#FFF',
+    overflow: 'hidden',
+    maxWidth: '100%',
+  }),
 }));

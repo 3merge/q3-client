@@ -1,10 +1,15 @@
 import React from 'react';
 import { get } from 'lodash';
 import { browser } from 'q3-ui-helpers';
+import { AuthContext } from 'q3-ui-permissions';
 
 const { isDefined, proxyLocalStorageApi } = browser;
 
+const useSorting = () => {};
+
 export default (Component) => (props) => {
+  const { state } = React.useContext(AuthContext);
+
   const {
     id,
     defaultSortPreference = '-updatedAt',
@@ -13,26 +18,34 @@ export default (Component) => (props) => {
     navigate,
   } = props;
 
+  const sortPreference = get(
+    state,
+    `profile.sorting.${collectionName}`,
+    defaultSortPreference,
+  );
+
   const q = new URLSearchParams(
     get(location, 'search', ''),
   );
 
   const sort = q.get('sort');
-  const skip = sort || id || !navigate;
+  const skip = id || !navigate || sort === sortPreference;
 
   React.useEffect(() => {
     if (skip) return;
-    const prevState = proxyLocalStorageApi(
-      'getItem',
-      collectionName,
+
+    q.set('sort', sortPreference);
+    navigate(
+      `?${q.toString().replace(/\+/g, '%20')}`,
+      {
+        state: {
+          init: true,
+        },
+      },
+      {
+        replace: true,
+      },
     );
-
-    const newState = isDefined(prevState)
-      ? prevState
-      : defaultSortPreference;
-
-    q.set('sort', newState);
-    navigate(`?${q.toString()}`);
   }, [sort, id]);
 
   return skip ? <Component {...props} /> : null;

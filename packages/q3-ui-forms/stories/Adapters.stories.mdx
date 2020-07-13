@@ -1,0 +1,76 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Tile from 'q3-ui/lib/tile';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+import { FilterChip } from 'q3-components';
+import { EncodedUrl } from '../src/adapters';
+import { Form, Field } from '../src/builders';
+import { FormBuilder } from '../src/builders/Form/Form';
+import Wrapper, {
+  InnerForm,
+} from '../src/builders/Wrapper/Wrapper';
+import { countries } from '../src/fields/__fixtures__/options';
+import { asOptions } from '../src/helpers';
+
+<Meta title="Forms|Adapters" component={EncodedUrl} />
+
+# Encoded Url (For filtering data)
+
+<Preview>
+  <Story name="Types">
+    <LocationProvider search="?paymentOption=Visa&approved=exists(true)&currency.commons=CAD%2CUSD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
+      <LocationDebugger>
+        <FilterChip />
+        <EncodedUrl debug>
+          <Field
+            name="paymentOption"
+            type="autocomplete"
+            options={['Visa', 'Mastercard', 'PayPal']}
+          />
+          <Field name="total" type="range" />
+          <Field name="createdOn" type="dateRange" />
+          <Field
+            name="currency~commons"
+            type="multiselect"
+            options={asOptions(['CAD', 'USD'])}
+          />
+          <Field
+            name="draft"
+            strict
+            type="checkbox"
+            checkedValue="!=isVisble"
+          />
+          <Field
+            name="email"
+            type="chips"
+            options={['mibberson+demo@3merge.ca']}
+          />
+          <Field
+            name="approved"
+            type="radio"
+            options={[
+              {
+                label: 'Is approved',
+                value: 'exists(true)',
+              },
+              {
+                label: 'Is not approved',
+                value: 'exists(false)',
+              },
+              {
+                label: 'Either',
+                value: '',
+              },
+            ]}
+          />
+          <button type="submit">Apply</button>
+        </EncodedUrl>
+      </LocationDebugger>
+    </LocationProvider>
+  </Story>
+</Preview>

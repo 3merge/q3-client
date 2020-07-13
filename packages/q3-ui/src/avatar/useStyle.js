@@ -113,6 +113,9 @@ export default makeStyles((theme) => ({
           height: 55,
           width: 55,
         }
-      : {}),
+      : {
+          height: 35,
+          width: 35,
+        }),
   }),
 }));

@@ -11,6 +11,7 @@ const Back = () => {
   const { directoryPath, resourceName } = React.useContext(
     Definitions,
   );
+
   const path = useReferrer(directoryPath).getPath();
 
   return (

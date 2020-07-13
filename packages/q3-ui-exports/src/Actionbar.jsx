@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick } from 'lodash';
+import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import Fade from '@material-ui/core/Fade';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
@@ -22,49 +21,54 @@ const matches = (arr = [], id) =>
     ? arr.map(String).includes(String(id))
     : true;
 
-const redact = (arr = [], item) =>
-  arr.length ? pick(item, arr.concat(['id'])) : item;
-
-export const intersects = (
-  data = [],
-  columns = [],
-  ids = [],
-) =>
-  (Array.isArray(data)
-    ? data.map(assignId).map((d) => redact(columns, d))
-    : []
-  ).filter((v) => matches(ids, v.id));
-
-export const renderActions = (actions, t) =>
+export const renderActions = (actions, t, picked) =>
   Array.isArray(actions)
     ? actions.map((a) => (
         <BottomNavigationAction
           {...a}
           key={a.label}
           label={t(a.label)}
+          onClick={
+            a.onClick
+              ? (e) => a.onClick(e, picked)
+              : undefined
+          }
           showLabel
         />
       ))
     : null;
 
-const ActionBar = ({ actions, data, columns }) => {
-  const { t } = useTranslation('labels');
-  const { hasChecked, checked } = React.useContext(State);
-  const picked = intersects(data, columns, checked);
-  const { actionBar } = useStyle();
+export const intersects = (data = [], ids = []) =>
+  Array.isArray(data)
+    ? data.map(assignId).filter((v) => matches(ids, v.id))
+    : [];
 
-  return (
-    <Fade in={hasChecked()}>
-      <div>
-        <BottomNavigation className={actionBar}>
-          <Unselect />
-          <DataToCsv data={picked} />
-          <DataToExcel data={picked} />
-          {renderActions(actions, t)}
-        </BottomNavigation>
-      </div>
-    </Fade>
+const ActionBar = ({ actions, data, position }) => {
+  const { t } = useTranslation('labels');
+  const { hasChecked, setChecked } = React.useContext(
+    State,
   );
+
+  const len = hasChecked();
+
+  React.useEffect(() => {
+    if (len) setChecked([]);
+  }, [data.length]);
+
+  // if (!len) return null;
+
+  return null;
+  /*
+   // const picked = intersects(data, checked);
+  const { actionBar } = useStyle({
+    position,
+  });
+  return (
+    <BottomNavigation className={actionBar}>
+      <DataToCsv data={picked} />
+      {renderActions(actions, t, picked)}
+    </BottomNavigation>
+  ); */
 };
 
 ActionBar.propTypes = {
@@ -85,15 +89,15 @@ ActionBar.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 
   /**
-   * An array of active keys to read from the date.
+   * CSS attribute of the actionbar.
    */
-  columns: PropTypes.arrayOf(String),
+  position: PropTypes.string,
 };
 
 ActionBar.defaultProps = {
-  columns: [],
   actions: [],
   data: [],
+  position: 'sticky',
 };
 
 export default ActionBar;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow } from 'q3-ui-datatables';
+
 import { AuthContext } from 'q3-ui-permissions';
 import { Store } from '../state';
 import Table from '.';
@@ -128,23 +128,6 @@ export const WithFilterTriggerOnly = () => (
           </p>
         )}
       />
-    </Store.Provider>
-  </Wrapper>
-);
-
-export const Empty = () => (
-  <Wrapper>
-    <Store.Provider
-      value={{
-        ...stub,
-        data: [],
-      }}
-    >
-      <Table>
-        {() => (
-          <TableRow id="1" columns={{ name: 'foo' }} />
-        )}
-      </Table>
     </Store.Provider>
   </Wrapper>
 );

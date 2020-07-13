@@ -1,23 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import { Field } from 'q3-ui-forms/lib/builders';
+import FilterIcon from '@material-ui/icons/FilterList';
 import Paper from '@material-ui/core/Paper';
-import InlineEditor from '../InlineEditor';
+import IconButton from 'q3-ui/lib/iconButton';
+import Inline from '../Inline';
 
-const Chart = ({ url, title, filters, onSubmit }) => (
+const Chart = ({ url, title, children }) => (
   <Box p={1}>
     <Paper>
       <Box height={480} p={2} position="relative">
         <Box position="absolute" top="1rem" right="1rem">
-          <InlineEditor
-            title="Date ranges"
-            initialValues={filters}
-            onSubmit={onSubmit}
-          >
-            <Field name="from" type="date" />
-            <Field name="to" type="date" />
-          </InlineEditor>
+          <Inline
+            title="Filter"
+            renderContent={children}
+            renderTrigger={(onClick) => (
+              <IconButton
+                icon={FilterIcon}
+                label="Filter"
+                buttonProps={{ onClick }}
+              />
+            )}
+          />
         </Box>
         <iframe
           width="100%"
@@ -34,18 +38,7 @@ const Chart = ({ url, title, filters, onSubmit }) => (
 Chart.propTypes = {
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  filters: PropTypes.shape({
-    from: PropTypes.string,
-    to: PropTypes.string,
-  }),
-  onSubmit: PropTypes.func.isRequired,
-};
-
-Chart.defaultProps = {
-  filters: {
-    from: '',
-    to: '',
-  },
+  children: PropTypes.func.isRequired,
 };
 
 export default Chart;

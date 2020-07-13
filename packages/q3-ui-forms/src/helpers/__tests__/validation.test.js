@@ -1,13 +1,31 @@
 import * as yup from 'yup';
-import { tel, postal, autocomplete } from '../validation';
+import {
+  tel,
+  postal,
+  autocomplete,
+  checkIfRequired,
+  checkIfEmpty,
+} from '../validation';
 
 describe('Custom validators', () => {
+  describe('Required', () => {
+    it('should detect required property', () =>
+      expect(
+        checkIfRequired({
+          schema: { _exclusive: { required: true } },
+        }),
+      ).toBeTruthy());
+
+    it('should detect empty values', () =>
+      expect(checkIfEmpty('')).toBeTruthy());
+
+    it('should detect undefined values casted accidentally to strings', () =>
+      expect(checkIfEmpty('undefined')).toBeTruthy());
+  });
+
   describe('Postal code', () => {
     const schema = yup.object().shape({
-      postal: yup
-        .string()
-        .test(postal)
-        .required(),
+      postal: yup.string().test(postal).required(),
     });
 
     it('it should return false', (done) => {
@@ -96,10 +114,7 @@ describe('Custom validators', () => {
 
   describe('Tel value object', () => {
     const schema = yup.object().shape({
-      tel: yup
-        .string()
-        .test(tel)
-        .required(),
+      tel: yup.string().test(tel).required(),
     });
 
     it('it should return false', (done) => {

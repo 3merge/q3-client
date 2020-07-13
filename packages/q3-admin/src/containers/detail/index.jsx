@@ -1,16 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'q3-ui/lib/tabs';
-import { Definitions } from '../state';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import SidePanelContent from '../../components/SidePanelContent';
+import { Dispatcher } from '../state';
 import Sidebar from '../../components/sidebar';
-import Section from '../../components/section';
 import Notes from '../notes';
-import Documentation from '../documentation';
+import RelatedLinks from './RelatedLinks';
 import History from '../history';
 import PictureUpload from '../../components/picture';
-import Trash from '../trash';
+import Article from '../../components/Article';
+import SidePanel from '../../components/SidePanel';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
+import ActivityLog from '../activityLog';
+import Trash from '../trash';
+import DetailHeader from '../DetailHeader';
+
+const ActivityLogPreset = {
+  to: '/log',
+  label: 'log',
+  component: () =>
+    React.createElement(ActivityLog, {
+      name: 'log',
+    }),
+};
 
 const TrashPreset = {
   to: '/trash',
@@ -21,48 +36,89 @@ const TrashPreset = {
     }),
 };
 
+const Overflow = ({ children }) => {
+  return (
+    <Box pb={4}>
+      <Container disableGutters fixed>
+        {children}
+      </Container>
+    </Box>
+  );
+};
+
+const HeaderMaxWidth = (HeaderProps) => ({ children }) => (
+  <DetailHeader {...HeaderProps} navComponent={children} />
+);
+
 const Detail = ({
+  HeaderProps,
   history,
   filepath,
   children,
   notes,
   picture,
   files,
+  tagOptions,
+  tagInstructions,
+  documentation,
+  links,
+  disableTrash,
+  disableLog,
   ...rest
 }) => {
-  const { exclusions, rootPath } = React.useContext(
-    Definitions,
-  );
+  const { exclusions } = React.useContext(Dispatcher);
 
   const filterByExclusion = (item) =>
-    !exclusions.includes(item.label);
+    item && !exclusions.includes(item.label);
 
   return (
-    <Section
-      renderOutside={
-        <Sidebar
-          {...rest}
-          commentTab={notes && <Notes />}
-          historyTab={history && <History />}
-          filesTab={files && <Upload />}
-          documentationTab={
-            filepath && (
-              <Documentation filepath={filepath} />
-            )
-          }
-        >
-          {picture && <PictureUpload />}
-        </Sidebar>
+    <Article
+      asideComponent={
+        <SidePanel>
+          <Sidebar
+            {...rest}
+            documentation={documentation}
+            commentTab={notes && <Notes />}
+            historyTab={history && <History />}
+            filesTab={
+              files && (
+                <Upload
+                  tagOptions={tagOptions}
+                  tagInstructions={tagInstructions}
+                />
+              )
+            }
+          >
+            {picture && (
+              <SidePanelContent title="Picture">
+                <Box px={1}>
+                  <PictureUpload />
+                </Box>
+              </SidePanelContent>
+            )}
+          </Sidebar>
+        </SidePanel>
       }
-      renderInside={
-        <Tabs
-          root={rootPath}
-          views={mapToNestedRoute(children)
-            .concat([TrashPreset])
-            .filter(filterByExclusion)}
-        />
-      }
-    />
+    >
+      <Tabs
+        dense
+        wrap={HeaderMaxWidth(HeaderProps)}
+        // eslint-disable-next-line
+        wrapBody={({ children }) => (
+          <RelatedLinks links={links}>
+            <Overflow>{children}</Overflow>
+          </RelatedLinks>
+        )}
+        // root={rootPath}
+        scrollButtons="on"
+        views={mapToNestedRoute(children)
+          .concat([
+            disableTrash ? null : TrashPreset,
+            disableLog ? null : ActivityLogPreset,
+          ])
+          .filter(filterByExclusion)}
+      />
+    </Article>
   );
 };
 
@@ -103,71 +159,3 @@ Detail.defaultProps = {
 };
 
 export default React.memo(Detail);
-
-/**
-
-
-
-  /*
- console.log('rerender');
-  const data = get(state, resourceNameSingular, {});
-
-  const authorization = useAuth(
-    collectionName,
-    getCreatedBy(data),
-  );
-*/
-
-/*
-  if (trash && authorization.canDelete)
-    tabs.push({
-      to: '/trash',
-      label: 'trash',
-      component: () => (
-        <Trash
-          url={`/${resourceName}`}
-          onClick={state.remove()}
-        />
-      ),
-    });
- 
-
- 
-        renderSidebar={() => (
-          <Sidebar
-            {...rest}
-            state={state}
-            createdBy={getAuthor(data)}
-            lastUpdated={get(data, 'updatedAt')}
-            documentationTab={
-              filepath && (
-                <Documentation filepath={filepath} />
-              )
-            }
-            commentTab={
-              notes && (
-                <Notes
-                  id={id}
-                  collectionName={collectionName}
-                />
-              )
-            }
-            historyTab={
-              history && (
-                <History
-                  id={id}
-                  collectionName={collectionName}
-                />
-              )
-            }
-          >
-            {picture && (
-              <PictureUpload
-                url={`/${collectionName}/${id}`}
-                photo={data.photo}
-              />
-            )}
-          </Sidebar>
-        )} 
-
- */

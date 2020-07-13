@@ -1,3 +1,4 @@
+export { default } from './AbstractBuilder';
 export { default as genCollection } from './generateCollection';
 export { default as genDetail } from './generateDetail';
 export { default as genDetailForm } from './generateDetailForm';

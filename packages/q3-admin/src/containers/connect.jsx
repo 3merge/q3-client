@@ -1,6 +1,5 @@
 import React from 'react';
 import Tile from 'q3-ui/lib/tile';
-import PersistWatcher from 'q3-ui-forms/lib/builders/persistWatcher';
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { Definitions, Dispatcher, Store } from './state';
@@ -14,8 +13,6 @@ export default (Component) => ({ name, ...rest }) => {
     directoryPath,
   } = React.useContext(Definitions);
 
-  const sessionKey = `${name}-${id}`;
-
   const createdBy = get(
     data,
     'createdBy.id',
@@ -25,8 +22,7 @@ export default (Component) => ({ name, ...rest }) => {
   if (!object.hasKeys(data)) return null;
 
   return (
-    <Tile title={name} subtitle={name}>
-      <PersistWatcher filterById={sessionKey} />
+    <Tile subtitle={name} divider>
       <Component
         data={data}
         id={id}
@@ -36,6 +32,7 @@ export default (Component) => ({ name, ...rest }) => {
         onSubmit={patch()}
         createdBy={createdBy}
         directoryPath={directoryPath}
+        showPersistenceSnack
         {...rest}
       />
     </Tile>

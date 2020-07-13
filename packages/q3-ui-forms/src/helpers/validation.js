@@ -1,10 +1,38 @@
 import * as yup from 'yup';
 import { get } from 'lodash';
+import moment from 'moment';
+import { browser, string, object } from 'q3-ui-helpers';
+
+export const VALIDATION_OPTIONS = [
+  'min',
+  'max',
+  'lessThan',
+  'moreThan',
+  'enum',
+  'required',
+  'positive',
+  'negative',
+  'trim',
+  'ensure',
+  'lowercase',
+  'uppercase',
+];
+
+export const checkIfEmpty = (v) =>
+  !browser.isDefined(v) ||
+  (!string.hasLength(v) && !object.hasKeys(v));
+
+export const checkIfRequired = (ctx) =>
+  get(ctx, 'schema._exclusive.required', false);
 
 const isRequired = (re, value, ctx) =>
-  get(ctx, 'schema._exclusive.required', false)
+  checkIfRequired(ctx)
     ? re.test(value)
     : re.test(value) || value === '' || value === undefined;
+
+export function hasMixedValue(v) {
+  return !(checkIfEmpty(v) && checkIfRequired(this));
+}
 
 export function postal(v) {
   return isRequired(
@@ -30,7 +58,9 @@ export function tel(v) {
 
 export function autocomplete(v) {
   const hasValue = v && typeof v === 'object' && v.value;
-  return this.schema._exclusive.required ? hasValue : true;
+  return checkIfRequired(this)
+    ? hasValue || hasValue === undefined
+    : true;
 }
 
 export function emptyStringToNull(value, originalValue) {
@@ -74,14 +104,6 @@ export class Validator {
 
   checkTypes() {
     switch (this.type) {
-      case 'text':
-      case 'string':
-      case 'editor':
-      case 'password':
-      case 'transfer':
-      case 'file':
-        this.$base = this.$base.string();
-        break;
       case 'email':
         this.$base = this.$base.string().email();
         break;
@@ -89,10 +111,22 @@ export class Validator {
         this.$base = this.$base.string().url();
         break;
       case 'tel':
-        this.$base = this.$base.string().test(tel);
+        this.$base = this.$base
+          .string()
+          .test(
+            'is-tel',
+            'Must be a valid telephone number',
+            tel,
+          );
         break;
       case 'postal':
-        this.$base = this.$base.string().test(postal);
+        this.$base = this.$base
+          .string()
+          .test(
+            'is-postal',
+            'Must be a valid postal code',
+            postal,
+          );
         break;
       case 'number':
         this.$base = this.$base
@@ -115,27 +149,59 @@ export class Validator {
         });
 
         break;
+
       case 'date':
-        this.$base = this.$base.date();
+        this.$base = this.$base.date().nullable();
         break;
       case 'multi':
       case 'multiselect':
       case 'multitext':
       case 'checkset':
       case 'chips':
-        this.$base = this.$base.array();
+      case 'dateRange':
+      case 'range':
+        this.$base = this.$base
+          .array()
+          .of(
+            this.checkTypes.call({
+              $base: yup,
+              type: this.of,
+            }),
+          )
+          .ensure();
         break;
       case 'autocomplete':
-        this.$base = this.$base.mixed().test(autocomplete);
+        this.$base = this.$base
+          .mixed()
+          .test(
+            'is-autocomplete',
+            'This input requires you to make a selection',
+            autocomplete,
+          );
         break;
       case 'radio':
       case 'select':
       case 'selectable':
-        this.$base = this.$base.mixed();
+        this.$base = this.$base
+          .mixed()
+          .test(
+            'is-required',
+            'This is a required field',
+            hasMixedValue,
+          );
         break;
+      case 'text':
+      case 'string':
+      case 'editor':
+      case 'password':
+      case 'transfer':
+      case 'file':
       default:
+        this.$base = this.$base.string();
         break;
     }
+
+    return this.$base;
   }
 
   checkOptions(a = []) {
@@ -162,21 +228,7 @@ export class Validator {
     this.checkTypes();
     this.checkEnum();
 
-    this.checkOptions([
-      'min',
-      'max',
-      'lessThan',
-      'moreThan',
-      'enum',
-      'required',
-      'positive',
-      'negative',
-      'trim',
-      'ensure',
-      'lowercase',
-      'uppercase',
-    ]);
-
+    this.checkOptions(VALIDATION_OPTIONS);
     return this.$base;
   }
 }

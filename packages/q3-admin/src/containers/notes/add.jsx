@@ -13,6 +13,8 @@ const AddNote = ({ onSubmit, show }) =>
         type="text"
         multiline
         rows={4}
+        xl={12}
+        lg={12}
       />
     </Form>
   ) : null;

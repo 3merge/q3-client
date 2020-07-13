@@ -1,41 +1,26 @@
 import React from 'react';
 import Upload from 'q3-ui/lib/upload';
 import useRest from 'q3-ui-rest';
-import List, { ActionBar, ListItem } from 'q3-ui/lib/list';
-import IconButton from '@material-ui/core/IconButton';
+import List from 'q3-ui/lib/list';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
-import Image from '@material-ui/icons/Image';
-import Description from '@material-ui/icons/Description';
-import CloudDownload from '@material-ui/icons/CloudDownload';
+import Box from '@material-ui/core/Box';
+import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
+import FileName from './FileName';
+import FileManage from './FileManage';
 
-const getFileIcon = (t) => {
-  switch (t) {
-    case 'PNG':
-    case 'JPG':
-    case 'JPEG':
-    case 'SVG':
-      return Image;
-    case 'PDF':
-      return PictureAsPdf;
-    default:
-      return Description;
-  }
-};
-
-const fileType = (file) =>
-  file.name
-    .toUpperCase()
-    .split('.')
-    .pop();
-
-const Files = () => {
+const Files = ({ tagOptions, tagInstructions }) => {
   const { collectionName, id } = React.useContext(
     Definitions,
   );
 
-  const { uploads = [], post, fetching } = useRest({
+  const {
+    uploads = [],
+    post,
+    patch,
+    remove,
+    fetching,
+  } = useRest({
     runOnInit: true,
     url: `/${collectionName}/${id}/uploads`,
     key: 'uploads',
@@ -45,12 +30,44 @@ const Files = () => {
   });
 
   return (
-    <>
+    <SidePanelContent title="fileManager">
       <Upload fn={post} />
       {fetching && <CircularProgress />}
       {uploads.length ? (
         <List>
           {uploads.map((file) => (
+            <Box
+              key={file.url}
+              component="li"
+              mb={0.15}
+              p={1}
+              style={{ backgroundColor: '#FFF' }}
+            >
+              <FileName
+                file={file}
+                tagOptions={tagOptions}
+                update={patch(file.id)}
+                {...file}
+              >
+                <FileManage
+                  view={file.url}
+                  remove={remove(file.id)}
+                />
+              </FileName>
+            </Box>
+          ))}
+        </List>
+      ) : null}
+      {tagInstructions}
+    </SidePanelContent>
+  );
+};
+
+export default Files;
+
+/**
+
+{/*
             <ListItem
               title={file.name}
               description={fileType(file)}
@@ -67,12 +84,5 @@ const Files = () => {
                   <CloudDownload />
                 </IconButton>
               </ActionBar>
-            </ListItem>
-          ))}
-        </List>
-      ) : null}
-    </>
-  );
-};
-
-export default Files;
+            </ListItem> 
+ */

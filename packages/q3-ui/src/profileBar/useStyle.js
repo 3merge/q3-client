@@ -3,61 +3,43 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   trigger: {
     position: 'absolute',
-    top: '4.5rem',
-    left: 'calc(100% - 1rem)',
+    bottom: '5rem',
+    left: '50%',
+    transform: 'translateX(-50%)',
     zIndex: 100,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       backgroundColor: 'transparent',
       color: '#FFF',
       position: 'relative',
       left: 'auto',
-      top: 'auto',
+      bottom: 'auto',
       margin: theme.spacing(1),
+      transform: 'none',
     },
   },
   center: {
-    color: '#FFF',
+    // color: '#FFF',
     backgroundColor: 'transparent',
     left: '50%',
     transform: 'translateX(-50%)',
   },
 
   shell: {
-    width: 105,
-    [theme.breakpoints.down('sm')]: {
+    width: 75,
+    [theme.breakpoints.down('md')]: {
       width: '100%',
     },
   },
 
   colourful: ({ isOpen }) => ({
-    backgroundColor: theme.palette.primary.main,
-    boxShadow: isOpen
-      ? theme.shadows[25]
-      : theme.shadows[5],
-    boxSizing: 'border-box',
-    color: '#FFF',
     display: 'flex',
     height: '100vh',
-    position: 'fixed',
-    width: 105,
+    width: 75,
     zIndex: 100,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    paddingBottom: theme.spacing(1),
-
-    [theme.breakpoints.down('sm')]: {
-      alignItems: 'center',
-      flexDirection: 'row',
-      padding: 0,
-      position: 'relative',
-      height: 'auto',
-      width: '100%',
-
-      '&>div': {
-        width: 'auto',
-      },
-    },
+    paddingTop: '2rem',
+    paddingBottom: '2rem',
+    borderRight: '3px solid white',
   }),
 
   mobileColumn: {

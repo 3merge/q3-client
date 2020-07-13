@@ -29,17 +29,17 @@ const ItemHeader = ({
     data: item,
   });
 
-  const { titleCls, tableCell } = useStyle({
+  const { titleCls, tableCellHeader } = useStyle({
     selected,
     color,
   });
 
   return (
-    <TableCell className={tableCell}>
+    <TableCell className={tableCellHeader}>
       <Box my={1.25} px={0.5} maxWidth="350px">
         <Grid alignItems="center" container spacing={1}>
           {showMultiselect && (
-            <Hidden mdDown>
+            <Hidden smDown>
               <Grid item>
                 <SelectOne id={id} />
               </Grid>
@@ -53,14 +53,18 @@ const ItemHeader = ({
           )}
           <Grid item xs zeroMinWidth>
             <Title
-              component="h3"
+              component="h4"
               color="primary"
               name={title}
               editable={isIn(title)}
               className={titleCls}
             />
             {description && (
-              <Typography>{description}</Typography>
+              <Typography style={{
+                
+          fontSize: '0.901rem'
+     
+              }}>{description}</Typography>
             )}
           </Grid>
         </Grid>

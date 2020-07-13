@@ -1,63 +1,101 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  articleBox: ({ overflowY = 'auto' }) => ({
-    overflowY,
-  }),
-  columnWidth: ({ height }) => ({
-    height,
-    width: 405,
+  view: {
+    backgroundColor: '#F5F7F9',
+    padding: '1rem',
+    height: 'calc((100 * var(--vh)) - 65px)',
+    overflow: 'auto',
+    position: 'relative',
+    zIndex: 1,
+  },
 
-    [theme.breakpoints.down('md')]: {
-      width: 315,
+  articleBox: () => ({
+    overflow: 'initial',
+
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+      overflow: 'initial',
     },
+  }),
+  columnWidth: {
+    position: 'sticky',
+    top: 0,
+    height: 'calc((100 * var(--vh)) - 65px)',
+    width: 285,
+    overflow: 'auto',
+    resize: 'horizontal',
+
+    '& > aside': {
+      minWidth: 285,
+    },
+
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
-  }),
+  },
+
+  docs: {
+    '& p, & li': {
+      fontSize: '0.933rem !important',
+    },
+  },
+
+  articleWrapper: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+    },
+  },
   sectionWidth: {
     overflowY: 'auto',
     width: 'calc(100% - 495px)',
     [theme.breakpoints.down('lg')]: {
       width: 'calc(100% - 405px)',
     },
+
     [theme.breakpoints.down('md')]: {
-      width: 'calc(100% - 315px)',
-    },
-    [theme.breakpoints.down('sm')]: {
       width: '100%',
     },
   },
   root: {
-    borderTop: '2px solid whitesmoke',
-    height: '100%',
+    // backgroundColor: '#F5F7F9',
+    // height: '100%',
     fontSize: '1rem !important',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     overflowX: 'hidden',
+    position: 'relative',
+    padding: '0',
+    [theme.breakpoints.down('sm')]: {
+      borderLeft: 0,
+      backgroundColor: '#FFF',
+      paddingTop: 0,
+    },
   },
   item: {
     minWidth: 'auto',
-    padding: 0,
+    padding: theme.spacing(1),
+    minHeight: 36,
+    fontSize: '0.731rem',
+    textTransform: 'uppercase',
+    [theme.breakpoints.down('md')]: {
+      marginTop: 0,
+    },
   },
   drawer: {
-    [theme.breakpoints.up('md')]: {
+    [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
   },
   launch: {
-    backgroundColor: 'transparent',
-    border: 0,
-    outline: 0,
-    padding: '0 1rem',
-    lineHeight: '45px',
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    cursor: 'pointer',
+    position: 'sticky',
+    top: '.5rem',
+    marginTop: '1rem',
+    right: '2rem',
   },
   bordered: {
     textOverflow: 'ellipsis',
     position: 'relative',
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
   subtext: {
     fontSize: '1rem',
@@ -69,16 +107,26 @@ export default makeStyles((theme) => ({
     borderTopRightRadius: 20,
     padding: theme.spacing(1),
     overflow: 'hidden',
+    marginLeft: 92,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+    },
   },
   drawerOpen: {
-    top: '20vh',
+    top: '70px',
     transition: theme.transitions.create('top', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('md')]: {
+      top: '30%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      top: '30%',
+    },
   },
   drawerClose: {
-    top: 'calc(100% - 70px)',
+    top: '100%',
     transition: theme.transitions.create('top', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

@@ -1,9 +1,9 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
+import SidePanelContent from '../../components/SidePanelContent';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
@@ -43,12 +43,17 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <Box>
+    <SidePanelContent title="thread">
       <DisplayNotes
         loading={fetching}
         error={fetchingError}
         errorLabel={t('notesError')}
       >
+        <AddNote
+          show={auth.canCreateSub(key)}
+          onSubmit={post}
+        />
+
         {thread.map((v) => (
           <Note
             key={v.id}
@@ -58,11 +63,7 @@ const Notes = () => {
           />
         ))}
       </DisplayNotes>
-      <AddNote
-        show={auth.canCreateSub(key)}
-        onSubmit={post}
-      />
-    </Box>
+    </SidePanelContent>
   );
 };
 

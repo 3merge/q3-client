@@ -23,7 +23,7 @@ const reduceChildren = (C) =>
 
 export default withStyles(() => ({
   root: {
-    fontSize: '1rem',
+    fontSize: 'inherit',
     textDecoration: 'underline !important',
   },
 }))(Link);

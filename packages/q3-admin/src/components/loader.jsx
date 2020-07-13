@@ -16,7 +16,11 @@ const Loader = () => {
         position="fixed"
         zIndex="100000"
       >
-        <LinearProgress color="primary" />
+        <LinearProgress
+          color="primary"
+          variant="query"
+          style={{ height: 2 }}
+        />
       </Box>
     </Fade>
   );

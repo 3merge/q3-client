@@ -3,24 +3,16 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import Box from '@material-ui/core/Box';
-import Filter from 'q3-ui-filters';
-import {
-  Equals,
-  TemplateBuilder,
-} from 'q3-ui-filters/lib/components';
+
 import EventIcon from '@material-ui/icons/Event';
 import {
   purple,
   green,
   blue,
 } from '@material-ui/core/colors';
-import TableView, {
-  TableBadge,
-  TableChip,
-  TableProgress,
-  TableCheck,
-  withPropsResolver,
-} from '.';
+
+import orders from '../__fixtures__/orders.json';
+import TableView from '.';
 
 export default {
   title: 'Q3 Datatables|Table',
@@ -30,102 +22,104 @@ export default {
   },
 };
 
-const fn = withPropsResolver(TableChip, {
-  toDate: true,
-  resolve: () => {
-    return {
-      icon: EventIcon,
-      color: purple[900],
-    };
-  },
-});
-
-const price = withPropsResolver(TableBadge, {
-  toPrice: true,
-  resolve: (v) => ({
-    color: v > 50 ? green[900] : blue[900],
-  }),
-});
-
-export const Full = () => (
+export const HeavyData = () => (
   <LocationProvider initialPath="/">
-    <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
+    <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
       <TableView
+        // eslint-disable-next-line
+        onSort={console.log}
         id="for-testing"
-        aliasForName="fullName"
-        total={50}
-        data={[
-          {
-            name: 'Jonny',
-            description: 'This is a description',
-            email: 'jonny@3merge.ca',
-            photo: 'https://i.pravatar.cc/150?img=17',
-            status: 'Done',
-            color: 'success',
-            value: 100,
-            verified: true,
-          },
-          {
-            name: 'Helen',
-            description: 'This is a description',
-            email: 'helen@3merge.ca',
-            photo: 'https://i.pravatar.cc/150?img=18',
-            status: 'Not Ready',
-            color: 'danger',
-            value: 2,
-            updatedAt: new Date().toISOString(),
-            numberOfRecords: 66,
-          },
-          {
-            name: 'Nolan',
-            description: 'This is a description',
-            email: 'nolan@3merge.ca',
-            photo: 'https://i.pravatar.cc/150?img=19',
-            status: 'Done',
-            color: 'success',
-            value: 87,
-            verified: true,
-            numberOfRecords: 99,
-            updatedAt: new Date().toISOString(),
-          },
-          {
-            name: 'Brie',
-            description: 'This is a description',
-            email: 'brie@3merge.ca',
-            photo: 'https://i.pravatar.cc/150?img=20',
-            status: 'Under Review',
-            color: 'warning',
-            value: 55,
-            updatedAt: new Date().toISOString(),
-            numberOfRecords: 12,
-            cost: {
-              dealer: '12.99',
-            },
-          },
-        ]}
-        allColumns={[
+        aliasForName="seq"
+        total={orders.total}
+        data={orders.orders}
+        blacklistColumns={['unknown', 'draft']}
+        defaultColumns={[
+          'unknown',
+          'seq',
           'status',
-          'progress',
-          'verified',
-          'email',
+          'createdAt',
           'updatedAt',
-          'numberOfRecords',
-          'cost.dealer',
+          'tax',
+          'subtotal',
+          'total',
+          'currency',
+          'paymentOption',
+          'shippingOption',
+          'draft',
         ]}
+        virtuals={['status']}
+        columnWidths={{
+          seq: 65,
+          tax: 115,
+          draft: 45,
+          updatedAt: 165,
+          createdAt: 165,
+        }}
         resolvers={(v) => ({
           ...v,
-          disableLink: v.id === 2,
-          two: <TableCheck show={v.two} />,
-          progress: <TableProgress value={v.progress} />,
-          verified: <TableCheck show={v.verified} />,
-          updatedAt: fn(v.updatedAt),
-          'cost.dealer': price(v.cost ? v.cost.dealer : 0),
-          email: (
-            <a href={`mailTo:${v.email}`}>{v.email}</a>
-          ),
-          status: (
-            <TableBadge status={v.status} color={v.color} />
-          ),
+          name: v.seq,
+          imgSrc: 'https://i.pravatar.cc/150?img=20',
+          description: `${v.id} ${v.id}`,
+          url: v.id,
+          currency: {
+            base: v.currency,
+            toChip: true,
+          },
+          draft: {
+            base: v.draft,
+            toTruthy: true,
+          },
+          seq: {
+            base: v.seq,
+            toAction: true,
+            icon: AccountBox,
+          },
+          paymentOption: {
+            base: v.paymentOption,
+            helperText: (
+              <>
+                <p>
+                  This is great. But what about super long
+                  and complex tool tips?
+                </p>
+                <ul>
+                  <li>Rate = this</li>
+                </ul>
+              </>
+            ),
+          },
+          tax: {
+            base: v.tax,
+            toPrice: true,
+          },
+          subtotal: {
+            base: v.subtotal,
+            toPrice: true,
+          },
+          total: {
+            base: v.total,
+            toPrice: true,
+          },
+          createdAt: {
+            base: v.createdAt,
+            toDate: true,
+            renderProps: {
+              color: 'success',
+            },
+          },
+          updatedAt: {
+            base: v.updatedAt,
+            toDate: true,
+            renderProps: {
+              color: 'danger',
+            },
+          },
+          status: {
+            base: v.status,
+            toString: true,
+            toDot: true,
+            renderProps: {},
+          },
         })}
         actions={[
           {
@@ -134,45 +128,6 @@ export const Full = () => (
             icon: AccountBox,
           },
         ]}
-        renderFilter={() => (
-          <Filter>
-            <Equals
-              type="text"
-              label="Equals to this value"
-              name="equals"
-            />
-            <Equals
-              type="text"
-              label="Equals another value"
-              name="equals1"
-            />
-            <Equals
-              type="text"
-              label="Equals a third value"
-              name="equals2"
-            />
-            <Equals
-              type="text"
-              label="Equals to this value"
-              name="equals3"
-            />
-            <Equals
-              type="text"
-              label="Equals to this value"
-              name="equals4"
-            />
-          </Filter>
-        )}
-        renderFilterTemplates={() => (
-          <TemplateBuilder
-            templates={[
-              {
-                name: 'example',
-                to: '?equals1=232',
-              },
-            ]}
-          />
-        )}
       />
     </Box>
     <LocationDebugger />
@@ -180,7 +135,7 @@ export const Full = () => (
 );
 
 export const Empty = () => (
-  <Box p={4} style={{ backgroundColor: 'whitesmoke' }}>
-    <TableView data={[]} />
+  <Box p={4} style={{ backgroundColor: '#F5F7F9' }}>
+    <TableView data={[]}>Render Me!</TableView>
   </Box>
 );

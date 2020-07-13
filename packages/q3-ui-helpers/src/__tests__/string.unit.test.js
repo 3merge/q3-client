@@ -70,4 +70,12 @@ describe('string', () => {
       expect(string.toPrice('hey')).toMatch('$0');
     });
   });
+
+  describe('"ellipsis"', () => {
+    it('should cut off at the 3rd character', () => {
+      expect(string.ellipsis('Hello World', 3)).toMatch(
+        'Hel...',
+      );
+    });
+  });
 });

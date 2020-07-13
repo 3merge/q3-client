@@ -18,6 +18,7 @@ const EditableTypography = ({
 
   return (
     <InlineEditor
+      {...rest}
       title={fieldProps.name}
       initialValues={initialValues}
       onSubmit={onSubmit}

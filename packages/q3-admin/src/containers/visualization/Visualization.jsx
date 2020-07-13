@@ -38,13 +38,8 @@ export const useVisualization = (url, filters) => {
   const [err, setErr] = React.useState(false);
 
   React.useEffect(() => {
-    if (!browser.isBrowserReady()) return;
-
-    getFrom(
-      `${url}${makeQueryString(filters)}`,
-      setSrc,
-      setErr,
-    );
+    if (!browser.isBrowserReady() || !filters) return;
+    getFrom(`${url}&${filters}`, setSrc, setErr);
   }, [filters]);
 
   return {
@@ -53,9 +48,15 @@ export const useVisualization = (url, filters) => {
   };
 };
 
-export const MongoChart = ({ id, title, filters }) => {
+export const MongoChart = ({
+  id,
+  title,
+  defaultQuery,
+  filters,
+  ...rest
+}) => {
   const [initialValues, setInitialValues] = React.useState(
-    filters,
+    defaultQuery,
   );
 
   const { src, err } = useVisualization(
@@ -79,18 +80,18 @@ export const MongoChart = ({ id, title, filters }) => {
     );
 
   return (
-    <Chart
-      title={title}
-      url={url}
-      filters={initialValues}
-      onSubmit={(values) => setInitialValues(values)}
-    />
+    <Chart title={title} url={url} {...rest}>
+      {(close) =>
+        filters(setInitialValues, close, initialValues)
+      }
+    </Chart>
   );
 };
 
 MongoChart.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  defaultQuery: PropTypes.string.isRequired,
   filters: PropTypes.shape({}).isRequired,
   GridProps: PropTypes.shape({
     xs: PropTypes.number,
@@ -162,7 +163,7 @@ const Visualization = ({
       PaperProps={{
         elevation: 0,
         style: {
-          backgroundColor: 'whitesmoke',
+          backgroundColor: '#F5F7F9',
         },
       }}
     >
