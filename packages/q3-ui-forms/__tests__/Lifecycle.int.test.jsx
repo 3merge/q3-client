@@ -4,8 +4,6 @@ import { countries } from '../src/fields/__fixtures__/options';
 import { Form, Field, Message } from '../src/builders';
 import TextBase from '../src/fields/TextBase';
 
-jest.mock('react-i18next');
-
 beforeAll(() => {
   // disable the error reporting
   // jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -82,7 +80,7 @@ describe('Lifecycle', () => {
   });
 
   it('should clear errors and values on unmounting', async () => {
-    const renderer = jest.fn().mockImplementation((v) => (
+    const renderer = jest.fn().mockImplementation(() => (
       <>
         <Field name="firstName" type="text" />
         <Field
@@ -143,6 +141,7 @@ describe('Lifecycle', () => {
     expect(renderer).toHaveBeenLastCalledWith(
       {
         firstName: 'Greg',
+        email: '',
       },
       {},
     );

@@ -1,6 +1,5 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 
 const getGridItems = (el, expectedNumberOfResults) =>
@@ -14,18 +13,11 @@ const getTitleSpacing = (el, expectedSpaceValue) =>
     expectedSpaceValue,
   );
 
-const getTitleVariant = (el, expectedVariant) =>
-  expect(el.find(Typography).props()).toHaveProperty(
-    'variant',
-    expectedVariant,
-  );
-
 describe('Admin>Header', () => {
   it('should not render backComponent', () => {
     const el = global.shallow(<Header title="test" />);
     getGridItems(el, 5);
     getTitleSpacing(el, 0);
-    getTitleVariant(el, 'h5');
   });
 
   it('should render backComponent', () => {
@@ -35,6 +27,5 @@ describe('Admin>Header', () => {
 
     getGridItems(el, 6);
     getTitleSpacing(el, 1);
-    getTitleVariant(el, 'h6');
   });
 });

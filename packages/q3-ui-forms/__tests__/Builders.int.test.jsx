@@ -11,11 +11,13 @@ import {
 } from '../src/builders';
 import TextBase from '../src/fields/TextBase';
 
-jest.mock('react-i18next');
-
 const setupRepeater = (profile, done) =>
   global.mount(
-    <Form initialValues={{ profile }} onSubmit={jest.fn()}>
+    <Form
+      initialValues={{ profile }}
+      unwind={[['profile', 3]]}
+      onSubmit={jest.fn()}
+    >
       <Repeater group="profile">
         <Field name="email" type="email" />
       </Repeater>

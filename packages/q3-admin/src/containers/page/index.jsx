@@ -66,7 +66,7 @@ const Page = ({
   lookup,
   runOnSearch,
   runWithSearch,
-  poll,
+  resolvers,
 }) => {
   const {
     id,
@@ -157,14 +157,7 @@ const Page = ({
           }}
         >
           <Tray>
-            <Search
-              {...{
-                ...state,
-                id,
-                data,
-                filters,
-              }}
-            />
+            <Search resolvers={resolvers} />
             <UnsavedChanges />
           </Tray>
           {executeOnChildren(children, {
@@ -205,11 +198,6 @@ Page.propTypes = {
   ]).isRequired,
 
   /**
-   * This value is appended to "collectionName" for document-specific queries.
-   */
-  id: PropTypes.string,
-
-  /**
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
@@ -224,7 +212,6 @@ Page.propTypes = {
 };
 
 Page.defaultProps = {
-  id: null,
   onExit: null,
   onEnter: null,
   onInit: null,

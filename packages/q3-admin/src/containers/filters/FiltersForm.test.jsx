@@ -1,67 +1,53 @@
 import React from 'react';
 import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { useFilters } from 'q3-ui-rest';
 import FiltersForm from './FiltersForm';
 
 jest.unmock('useful-state');
 
-jest.mock('q3-ui-rest', () => ({
-  useFilters: jest.fn(),
-}));
+let spy;
 
-const requiredProps = {
-  lookup: ['foo'],
-  handleSave: jest.fn(),
-  initialValues: {},
-};
+beforeEach(() => {
+  spy = jest.spyOn(React, 'useContext');
+});
 
 describe('FiltersForm', () => {
   it('should not provide save callback', () => {
-    useFilters.mockReturnValue({
-      fields: {},
-      loading: false,
+    spy.mockReturnValue({
+      filters: {
+        fetching: false,
+        fields: {
+          foo: 1,
+        },
+      },
     });
-    const { onSave } = global
+
+    const child = jest.fn();
+
+    const { query } = global
       .shallow(
-        <FiltersForm {...requiredProps}>
-          {jest.fn()}
-        </FiltersForm>,
+        <FiltersForm search="foo">{child}</FiltersForm>,
       )
       .find(EncodedUrl)
       .props();
 
-    expect(onSave).toBeNull();
-  });
-
-  it('should  provide save callback', () => {
-    useFilters.mockReturnValue({
-      fields: {},
-      loading: false,
-    });
-
-    const { onSave } = global
-      .shallow(
-        <FiltersForm name="testing" {...requiredProps}>
-          {jest.fn()}
-        </FiltersForm>,
-      )
-      .find(EncodedUrl)
-      .props();
-
-    expect(onSave).toEqual(expect.any(Function));
+    expect(query).toMatch('foo');
+    expect(child).toHaveBeenCalledWith(
+      { foo: 1 },
+      undefined,
+    );
   });
 
   it('should return loading indicator', () => {
-    useFilters.mockReturnValue({
-      loading: true,
+    spy.mockReturnValue({
+      filters: {
+        fetching: true,
+      },
     });
 
     const { length } = global
       .shallow(
-        <FiltersForm {...requiredProps}>
-          {jest.fn()}
-        </FiltersForm>,
+        <FiltersForm search="">{jest.fn()}</FiltersForm>,
       )
       .find(CircularProgress);
 

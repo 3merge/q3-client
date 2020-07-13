@@ -61,8 +61,8 @@ describe('Bool', () => {
       expect(getSize('checkbox')).toMatch('small');
     });
 
-    it('should render with normal sizing', () => {
-      expect(getSize('switch')).toMatch('normal');
+    it('should render with medium sizing', () => {
+      expect(getSize('switch')).toMatch('medium');
     });
   });
 });

@@ -19,6 +19,7 @@ let Stage;
 
 jest.unmock('formik');
 jest.unmock('useful-state');
+jest.useFakeTimers();
 
 jest.mock(
   '@material-ui/core/Hidden',

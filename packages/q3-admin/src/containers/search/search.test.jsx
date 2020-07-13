@@ -1,6 +1,6 @@
 import React from 'react';
 import Searchbar from 'q3-ui/lib/searchBar';
-import { Search } from '../search';
+import { Search } from './search';
 
 jest.mock('q3-ui-rest', () => ({
   getSafelyForAutoCompleteWithProjection: jest
@@ -21,7 +21,7 @@ describe('Search', () => {
 
     const { getResults } = global
       .shallow(
-        <Search intercept={intercept} params={params} />,
+        <Search resolvers={intercept} params={params} />,
       )
       .find(Searchbar)
       .props();

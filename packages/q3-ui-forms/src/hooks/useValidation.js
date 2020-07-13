@@ -53,7 +53,8 @@ export const assignNewValidationKey = (k, args) => (
   const validation = new Validator(args).build();
   const [key, arrayIndex, path] = getPath(k);
 
-  if (args.type.includes('range')) return copy;
+  if (args && args.type && args.type.includes('range'))
+    return copy;
 
   if (path) {
     if (Array.isArray(copy[key])) {
@@ -99,7 +100,11 @@ export default () => {
 
   const setField = React.useCallback(
     (...params) => {
-      setRegistered((item) => item.concat(params[0]));
+      setRegistered((item = []) =>
+        Array.isArray(item)
+          ? item.concat(params[0])
+          : params[0],
+      );
       setChain(assignNewValidationKey(...params));
     },
     [chain],

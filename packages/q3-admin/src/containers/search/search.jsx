@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { getSafelyForAutoCompleteWithProjection } from 'q3-ui-rest';
 import { withLocation } from 'with-location';
 import SearchBar from 'q3-ui/lib/searchBar';
 import Box from '@material-ui/core/Box';
+import { array } from 'q3-ui-helpers';
 import debounce from 'debounce-promise';
 import { Definitions } from '../state';
 import useStyle from './useStyle';
@@ -21,6 +23,16 @@ const handleInterceptor = debounce(
       .catch(() => []),
   250,
 );
+
+const assignDirectoryPathToResults = (directoryPath) => (
+  res = [],
+) =>
+  array.hasLength(res)
+    ? res.map((item) => ({
+        ...item,
+        url: `${directoryPath}${get(item, 'id', '')}`,
+      }))
+    : [];
 
 export const Search = ({
   resolvers: intercept,
@@ -42,12 +54,7 @@ export const Search = ({
           resourceName,
         )(e),
         intercept,
-      ).then((r) =>
-        r.map((item) => ({
-          ...item,
-          url: `${directoryPath}${item.id}`,
-        })),
-      );
+      ).then(assignDirectoryPathToResults(directoryPath));
     },
     [intercept],
   );
@@ -62,17 +69,24 @@ export const Search = ({
   );
 };
 
-/**
- * Intercept data post-REST op.
- * Use this to modify search results pre-init q3-ui/lib/searchBar.
- */
 Search.propTypes = {
-  resolvers: PropTypes.func.isRequired,
+  /**
+   * Function that transforms REST response into the expected search result shape.
+   */
+  resolvers: PropTypes.func,
+
+  /**
+   * Props injected via withLocation HOC function.
+   */
   params: PropTypes.shape({
     delete: PropTypes.func,
     set: PropTypes.func,
     toString: PropTypes.func,
   }).isRequired,
+};
+
+Search.defaultProps = {
+  resolvers: null,
 };
 
 export default withLocation(Search);

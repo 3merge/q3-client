@@ -15,7 +15,7 @@ beforeAll(() => {
     });
 
   jest
-    .spyOn(React, 'useEffect')
+    .spyOn(React, 'useLayoutEffect')
     .mockImplementation(() => null);
 });
 

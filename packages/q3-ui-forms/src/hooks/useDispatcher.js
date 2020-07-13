@@ -102,7 +102,10 @@ export default (initialValues = {}, initialErrors = {}) => {
     if (typeof nextState === 'function')
       data = nextState(state[targetProp]);
 
-    reduce({ action, [targetProp]: data });
+    return reduce({
+      action,
+      [targetProp]: data,
+    });
   };
 
   const setField = (action) => (name, value, done) =>

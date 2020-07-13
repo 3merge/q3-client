@@ -4,7 +4,6 @@ import { Form, Field, Debugger } from '../src/builders';
 import MultiSelectMenuItem from '../src/fields/MultiSelectMenuItem';
 import { countries } from '../src/fields/__fixtures__/options';
 
-jest.mock('react-i18next');
 jest.unmock('useful-state');
 
 const setupForm = (children) => {

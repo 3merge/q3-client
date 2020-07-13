@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { merge, omit, isUndefined } from 'lodash';
+import { object } from 'q3-ui-helpers';
 import withGrid from '../withGrid';
 import useStyle from './useStyle';
 import { removeDecoratedProps } from '../helpers';
@@ -73,7 +74,8 @@ export const TextBase = (props) => {
         'onChange',
       ])}
       onChange={(event, ...rest) => {
-        event.persist();
+        // available on synthetic event objects
+        if (object.isFn(event.persist)) event.persist();
         const caretStart = event.target.selectionStart;
         const caretEnd = event.target.selectionEnd;
 

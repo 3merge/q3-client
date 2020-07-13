@@ -1,5 +1,10 @@
 module.exports = {
   verbose: false,
+  modulePathIgnorePatterns: [
+    '<rootDir>/gatsby-theme-q3/lib/',
+    '<rootDir>/packages/(?:.+?)/lib/',
+    '<rootDir>/cypress/',
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
