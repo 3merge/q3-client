@@ -42,7 +42,12 @@ export const FilterGroup = ({
     .filter(Boolean).length;
 
   return (
-    <Box width="100%" maxWidth="100%" px={0.5}>
+    <Box
+      width="100%"
+      maxWidth="100%"
+      px={0.5}
+      className="q3-filter-group"
+    >
       <ListItem
         button
         dense

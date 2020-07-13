@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 
@@ -40,7 +41,9 @@ export default ({
     component: (props) => (
       <Collection index {...props}>
         <Page index {...props} {...PageListProps}>
-          <PageList />
+          <PageList
+            resolvers={get(PageListProps, 'resolvers')}
+          />
         </Page>
       </Collection>
     ),

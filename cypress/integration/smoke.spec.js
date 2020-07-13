@@ -1,12 +1,10 @@
 import {
   NONCE,
   TOKEN,
-} from 'q3-ui-permissions/lib/utils/constants';
+} from '../../packages/q3-ui-permissions/src/utils/constants';
 
 context('Smoke', () => {
-  before(() => {
-    Cypress.Cookies.preserveOnce(TOKEN, NONCE);
-  });
+  before(() => Cypress.Cookies.preserveOnce(TOKEN, NONCE));
 
   it('should render title tag', () => {
     // see en/titles.json for raw value
@@ -26,8 +24,8 @@ context('Smoke', () => {
     cy.visit('/login');
 
     // simple auth strategy
-    cy.get('[name=email]').type('mibberson@3merge.ca');
-    cy.get('[name=password]').type('4Demo!12');
+    cy.get('[name=email]').type(Cypress.env('email'));
+    cy.get('[name=password]').type(Cypress.env('password'));
     cy.get('form').submit();
 
     // will redirect on success and store secured session cookies
