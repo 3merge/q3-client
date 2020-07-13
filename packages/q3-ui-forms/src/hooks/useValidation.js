@@ -53,6 +53,8 @@ export const assignNewValidationKey = (k, args) => (
   const validation = new Validator(args).build();
   const [key, arrayIndex, path] = getPath(k);
 
+  if (args.type.includes('range')) return copy;
+
   if (path) {
     if (Array.isArray(copy[key])) {
       if (!copy[key][arrayIndex])

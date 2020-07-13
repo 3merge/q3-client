@@ -3,6 +3,7 @@ import Rest from 'q3-ui-test-utils/lib/rest';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
+import { BAR } from '../../src/__fixtures__/visualization';
 
 const makeApiEndpoints = (
   mockInstance,
@@ -53,6 +54,10 @@ export default ({ children }) => {
       collectionName: 'shows',
       resourceName: 'shows',
       resourceNameSingular: 'show',
+    });
+
+    m.onGet(/reports/).reply(() => {
+      return [200, { data: BAR }];
     });
   };
 

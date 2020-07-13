@@ -14,7 +14,6 @@ import SidePanel from '../../components/SidePanel';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import TableHeader from '../TableHeader';
-import Search from '../search';
 
 const assignUrlPath = (base) => (item) => ({
   ...item,

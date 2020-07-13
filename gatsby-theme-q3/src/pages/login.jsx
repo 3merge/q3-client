@@ -8,9 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FormBox from '../components/FormBox';
-import { authenticate } from '../components/utils';
+import withAuthenticate from '../components/withAuthenticate';
 
-export default () => {
+export default withAuthenticate(({ authenticate }) => {
   const { t } = useTranslation();
 
   return (
@@ -53,4 +53,4 @@ export default () => {
       }
     />
   );
-};
+});

@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a",
   "devDependencies": {
-    "jest-mock-axios": "^4.0.0",
+    "jest-mock-axios": "^4.2.0",
     "q3-ui-test-utils": "^1.19.27"
   },
   "peerDependencies": {

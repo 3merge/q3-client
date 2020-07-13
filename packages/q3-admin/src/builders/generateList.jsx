@@ -17,7 +17,7 @@ export default ({
           </Add>
         ) : null
       }
-      filterComponent={<FilterForm />}
+      filterComponent={FilterForm ? <FilterForm /> : null}
     />
   </>
 );

@@ -34,6 +34,7 @@ const AppViewport = ({ children }) => {
       style={{
         backgroundColor: '#FFF',
         overflow: 'hidden',
+        flexWrap: 'nowrap',
         maxHeight,
       }}
     >

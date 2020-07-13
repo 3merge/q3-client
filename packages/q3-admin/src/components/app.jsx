@@ -21,7 +21,11 @@ export const makePath = ({
   throw new Error('Path type not defined');
 };
 
-const App = ({ pages, profile: Profile }) =>
+const App = ({
+  pages,
+  customRoutes,
+  redirectPathForUnauthorizedUsers,
+}) =>
   Array.isArray(pages) ? (
     <Router>
       {pages.map(
@@ -34,14 +38,14 @@ const App = ({ pages, profile: Profile }) =>
               collectionName,
               coll: collectionName,
               path: makePath(etc),
-              to: '/',
+              to: redirectPathForUnauthorizedUsers,
             },
           );
 
           return el;
         },
       )}
-      {Profile && <Profile path="/profile" />}
+      {customRoutes}
       <NotFound noThrow default />
     </Router>
   ) : (
@@ -58,8 +62,13 @@ App.propTypes = {
       resourceName: PropTypes.string,
     }),
   ).isRequired,
-  profile: PropTypes.oneOf([PropTypes.node, PropTypes.func])
-    .isRequired,
+  customRoutes: PropTypes.arrayOf(PropTypes.node),
+  redirectPathForUnauthorizedUsers: PropTypes.string,
+};
+
+App.defaultProps = {
+  customRoutes: null,
+  redirectPathForUnauthorizedUsers: '/',
 };
 
 export default App;

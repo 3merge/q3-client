@@ -1,4 +1,3 @@
-import generateLazyComponent from './generateLazyComponent';
 import generateList from './generateList';
 import generateDetail from './generateDetail';
 import generateCollection from './generateCollection';
@@ -34,18 +33,13 @@ export default class Collection {
   }
 
   genNew(component, onNew) {
-    this.$generateList.addComponent = generateLazyComponent(
-      component,
-    );
-
+    this.$generateList.addComponent = component;
     this.$generateList.onNew = onNew;
     return this;
   }
 
   genFilter(component) {
-    this.$generateList.filterComponent = generateLazyComponent(
-      component,
-    );
+    this.$generateList.filterComponent = component;
     return this;
   }
 
@@ -53,7 +47,7 @@ export default class Collection {
     this.$generateDetail.views = Object.entries(
       views,
     ).reduce((acc, [key, value]) => {
-      acc[key] = generateLazyComponent(value);
+      acc[key.toLowerCase()] = value;
       return acc;
     }, {});
 

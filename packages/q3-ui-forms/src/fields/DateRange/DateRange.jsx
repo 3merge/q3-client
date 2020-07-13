@@ -5,10 +5,11 @@ import { get } from 'lodash';
 import { MobileDateRangePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import { omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { Field } from '../../builders';
-import RangeDelimiter from '../RangeDelimiter';
+import RangeDelimiter, {
+  generateSharedProps,
+} from '../RangeDelimiter';
 import {
   BuilderState,
   DispatcherState,
@@ -25,14 +26,7 @@ const DateRange = ({ name, ...rest }) => {
   const { values } = React.useContext(BuilderState);
 
   const { t } = useTranslation('labels');
-  const shared = omit(rest, [
-    'onChange',
-    'onArrayPush',
-    'onArrayPull',
-    'name',
-    'label',
-    'id',
-  ]);
+  const shared = generateSharedProps(rest);
 
   return (
     <Grid item xs={12}>

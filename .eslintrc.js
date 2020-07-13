@@ -1,8 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  extends: ['react-3merge', 'plugin:mdx/recommended'],
-  plugins: ['module-resolver'],
+  extends: [
+    'react-3merge',
+    'plugin:mdx/recommended',
+    'plugin:cypress/recommended',
+  ],
+  plugins: ['module-resolver', 'cypress'],
   rules: {
     'react/no-array-index-key': 0,
     'import/prefer-default-export': 0,
@@ -20,11 +24,4 @@ module.exports = {
       },
     },
   ],
-  settings: {
-    'import/resolver': {
-      'eslint-import-resolver-lerna': {
-        packages: path.resolve(__dirname, 'packages'),
-      },
-    },
-  },
 };

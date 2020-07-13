@@ -14,7 +14,7 @@ export default makeStyles((theme) => ({
     flex: 1,
     maxWidth: 'calc(100% - 265px)',
 
-    [theme.breakpoints.down('lg')]: {
+    [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
     },
   },

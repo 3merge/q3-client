@@ -28,7 +28,7 @@ export const isPartialMatch = (a = '', b = '') => {
 
     const x = QueryStringMatcher.clean(a);
     const y = QueryStringMatcher.clean(b);
-    return x === y || y.startsWith(x);
+    return x === y || y.includes(x);
   } catch (e) {
     return false;
   }
@@ -42,6 +42,7 @@ const AppNavigation = withLocation(
       array.hasLength(items)
         ? items.map((item) => (
             <TreeItem
+              className="q3-admin-menu-item"
               nodeId={item.to || item.label}
               label={
                 item.to ? (
@@ -196,7 +197,10 @@ const AppNavigation = withLocation(
                     <IconButton
                       icon={MenuIcon}
                       label="menu"
-                      buttonProps={{ onClick }}
+                      buttonProps={{
+                        id: 'q3-admin-mobile-menu',
+                        onClick,
+                      }}
                     />
                   </Box>
                 </Grid>

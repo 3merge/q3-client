@@ -12,13 +12,13 @@ import useStyle from './components/useStyle';
 
 const Admin = ({
   logoSrc,
-  pages,
   icons,
   socket,
   tours,
   children,
   profileItems,
   subPages,
+  AppProps,
 }) => {
   const cls = useStyle();
   return (
@@ -27,7 +27,7 @@ const Admin = ({
         <Viewport>
           <Navigation
             logoSrc={logoSrc}
-            menuItems={usePages(pages, icons)}
+            menuItems={usePages(AppProps.pages, icons)}
             subMenuItems={subPages}
           />
           <Box className={cls.main}>
@@ -42,7 +42,7 @@ const Admin = ({
             >
               <Notifications socket={socket} />
             </ProfileActions>
-            <App pages={pages} />
+            <App {...AppProps} />
             {children}
           </Box>
         </Viewport>
@@ -53,17 +53,37 @@ const Admin = ({
 
 Admin.propTypes = {
   logoSrc: PropTypes.string.isRequired,
-  pages: PropTypes.arrayOf(PropTypes.object).isRequired,
-  icons: PropTypes.arrayOf(PropTypes.object),
+  AppProps: PropTypes.shape({
+    pages: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+
   socket: PropTypes.string.isRequired,
+
+  /**
+   * An array of tour steps (label, html ID, etc.).
+   */
   tours: PropTypes.arrayOf(PropTypes.object),
+
+  /**
+   * Each key-value pair corresponds with a collection name and its menu icon.
+   */
+  icons: PropTypes.shape({}),
+
+  /**
+   * An array of actions to populate the profile dropdown menu.
+   */
+  profileItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      onClick: PropTypes.func,
+      label: PropTypes.string,
+    }),
+  ),
 };
 
 Admin.defaultProps = {
-  icons: [],
+  icons: {},
   tours: [],
   profileItems: [],
-  children: null,
 };
 
 export default Admin;

@@ -4,6 +4,9 @@ describe('"Admin>isPartialMatch"', () => {
   it('should match without leading', () =>
     expect(isPartialMatch('/foo', 'foo')).toBeTruthy());
 
+  it('should match parent directory', () =>
+    expect(isPartialMatch('/app/foo', 'foo')).toBeTruthy());
+
   it('should match subdirectories', () =>
     expect(
       isPartialMatch('/foo', '/foo/123'),

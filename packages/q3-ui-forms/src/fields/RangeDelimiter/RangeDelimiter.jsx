@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { omit } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import {
@@ -47,6 +48,13 @@ const useStyle = makeStyles((theme) => ({
     },
   },
 }));
+
+export const generateSharedProps = (props) =>
+  omit(JSON.parse(JSON.stringify(props)), [
+    'name',
+    'label',
+    'id',
+  ]);
 
 const RangeDelimiter = ({
   leftRenderer,
