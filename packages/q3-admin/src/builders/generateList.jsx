@@ -6,10 +6,11 @@ export default ({
   filterComponent: FilterForm,
   onNew,
   ...rest
-}) => () => (
+}) => (props) => (
   <>
     <Table
       {...rest}
+      {...props}
       addComponent={
         AddForm ? (
           <Add onComplete={onNew}>
