@@ -10,6 +10,25 @@ import withGrid from '../withGrid';
 import withState from '../withState';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
 
+export const controlSearchFilter = ({ filter = false }) =>
+  !filter
+    ? {
+        filterSelectedOptions: false,
+        // disableFilter: true,
+      }
+    : {};
+
+export const pickFromProps = (props) =>
+  pick(props, [
+    'disabled',
+    'label',
+    'name',
+    'onChange',
+    'readOnly',
+    'required',
+    'freeSolo',
+  ]);
+
 export const getCustomInput = (customProps) => (params) =>
   React.createElement(
     TextField,
@@ -56,15 +75,8 @@ const AutoCompleteWrapper = (props) => {
   return (
     <Autocomplete
       {...chosenTextFieldDisplayAttributes}
-      {...pick(props, [
-        'disabled',
-        'label',
-        'name',
-        'onChange',
-        'readOnly',
-        'value',
-        'freeSolo',
-      ])}
+      {...controlSearchFilter(props)}
+      {...pickFromProps(props)}
       required={required}
       options={items}
       loading={loading}

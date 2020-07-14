@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, pick } from 'lodash';
+import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
@@ -11,8 +11,10 @@ import { getLabelWithFallback } from '../helpers';
 import withGrid from '../withGrid';
 import withState from '../withState';
 import {
+  controlSearchFilter,
   getCustomInput,
   filterOptions,
+  pickFromProps,
 } from '../Autocomplete/Autocomplete';
 
 const AbstractedAutoComplete = ({
@@ -37,6 +39,7 @@ const AbstractedAutoComplete = ({
 
     return values
       .map((v) => {
+        if (typeof v === 'string') return v;
         if (!items.length) return get(v, 'label', v);
 
         const match = items.find((item) => {
@@ -56,14 +59,8 @@ const AbstractedAutoComplete = ({
   return (
     <Autocomplete
       {...chosenTextFieldDisplayAttributes}
-      {...pick(props, [
-        'disabled',
-        'label',
-        'name',
-        'onChange',
-        'readOnly',
-        'required',
-      ])}
+      {...controlSearchFilter(props)}
+      {...pickFromProps(props)}
       multiple
       options={items}
       loading={loading}
@@ -92,6 +89,25 @@ const AbstractedAutoComplete = ({
       }}
     />
   );
+};
+
+AbstractedAutoComplete.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
+  ),
+
+  handleChange: PropTypes.func.isRequired,
+  inputValue: PropTypes.string,
+  loading: PropTypes.bool,
+};
+
+AbstractedAutoComplete.defaultProps = {
+  items: [],
+  inputValue: '',
+  loading: false,
 };
 
 const Chips = (props) => {
