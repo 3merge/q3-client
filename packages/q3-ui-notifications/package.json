@@ -1,10 +1,9 @@
 {
   "name": "q3-ui-notifications",
-  "version": "1.0.0",
+  "version": "1.19.31",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
-  "peerDependencies": {},
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",

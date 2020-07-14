@@ -1,9 +1,9 @@
 {
   "name": "q3-admin",
-  "version": "1.19.30",
+  "version": "1.19.31",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.19.27"
+    "q3-ui-test-utils": "^1.19.31"
   },
   "dependencies": {
     "@nivo/bar": "^0.62.0",

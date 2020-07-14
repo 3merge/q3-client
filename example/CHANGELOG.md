@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.31](https://github.com/3merge/q/compare/v1.16.7...v1.19.31) (2020-07-14)
+
+
+### Bug Fixes
+
+* **j3-167:** move resolvers function into page containert rather than table container ([#195](https://github.com/3merge/q/issues/195)) ([fd64f0f](https://github.com/3merge/q/commit/fd64f0f8bb0fbf9d8161099840fd588ef1520d14))
+
+
+
+
+
+
 ## [1.19.27](https://github.com/3merge/q/compare/v1.19.26...v1.19.27) (2020-07-09)
 
 **Note:** Version bump only for package e2e-tests
