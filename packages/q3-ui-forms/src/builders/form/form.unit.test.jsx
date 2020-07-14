@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormBuilder } from './Form';
-import Back from '../back';
-import Next from '../next';
+import Back from '../Back';
+import Next from '../Next';
 
 const diveIntoFormik = (props) =>
   global.shallow(
