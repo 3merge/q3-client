@@ -8,6 +8,9 @@ export const hasKeys = (o) =>
 
 export const isFn = (fn) => typeof fn === 'function';
 
+export const isIn = (target, keyName) =>
+  hasKeys(target) && keyName in target;
+
 export const invokeSafely = (fn) =>
   isFn(fn) ? fn() : null;
 

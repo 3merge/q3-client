@@ -1,0 +1,22 @@
+[
+  {
+    "hasSeen": true,
+    "label": "Order #123 has been approved"
+  },
+  {
+    "hasSeen": false,
+    "label": "New user signup needs review"
+  },
+  {
+    "hasSeen": true,
+    "hasBeenDownloaded": false,
+    "label": "Order exports",
+    "url": "https://google.ca"
+  },
+  {
+    "hasSeen": true,
+    "hasBeenDownloaded": true,
+    "label": "Order sales activity",
+    "url": "https://google.ca"
+  }
+]

@@ -1,0 +1,31 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import Notifications from '../../src/Notifications';
+import data from '../fixtures/notifications';
+
+<Meta
+  title="Notifications|List"
+  component={Notifications}
+/>
+
+# Notifications
+
+<Preview>
+  <Story name="Types">
+    <Notifications
+      data={data}
+      onClick={(e) => {
+        e.preventDefault();
+        action('link-clicked')(e);
+      }}
+      onView={(e) => {
+        action('message-viewed')(e);
+      }}
+    />
+  </Story>
+</Preview>
