@@ -1,0 +1,49 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { withA11y } from '@storybook/addon-a11y';
+import Notifications from '../../src/Notifications';
+import data from './fixture';
+
+<Meta
+  title="Notifications|List"
+  component={Notifications}
+  decorators={[withA11y]}
+/>
+
+# Notifications
+
+<Preview>
+  <Story name="With event handlers">
+    <Notifications
+      data={data}
+      onClick={(e) => {
+        e.preventDefault();
+        action('link-clicked')(e);
+      }}
+      onView={(e) => {
+        action('message-viewed')(e);
+      }}
+    />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Default to opened">
+    <Notifications
+      data={data}
+      defaultValue
+      onClick={(e) => {
+        e.preventDefault();
+        action('link-clicked')(e);
+      }}
+      onView={(e) => {
+        action('message-viewed')(e);
+      }}
+    />
+  </Story>
+</Preview>

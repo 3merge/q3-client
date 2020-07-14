@@ -72,7 +72,7 @@ context('Search', () => {
     isLeaderRoleType(getTableResults());
   });
 
-  it.only('should clear filters one-by-one', () => {
+  it('should clear filters one-by-one', () => {
     getFilterElement('.q3-filter-group').first().click();
     getFilterElement('[name=role] input').type(
       'Leader{downarrow}{enter}',

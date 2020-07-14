@@ -218,5 +218,6 @@
   "importCollection": "Import",
   "lastRefreshed": "As of {{time}}",
   "pendingUpdate": "New version available",
-  "changesDetected": "This page will auto-sync in five seconds."
+  "changesDetected": "This page will auto-sync in five seconds.",
+  "reportStarted": "New report requested"
 }

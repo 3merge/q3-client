@@ -1,52 +1,79 @@
 import React from 'react';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import AppHeaderPopover from '../../components/AppHeaderPopover';
+import Notifications from 'q3-ui-notifications';
+import { set, invoke } from 'lodash';
+import { array } from 'q3-ui-helpers';
 import { getSocketInstance } from '../../hooks/useSocket';
 
-const Notifications = () => {
+const NotificationsContainer = () => {
+  const ref = React.useRef();
   const [list, setList] = React.useState([]);
+
+  const dataToListState = ({ data }) =>
+    setList((prevState = []) =>
+      (array.hasLength(prevState)
+        ? [...new Set([].concat(data).concat(prevState))]
+        : [data]
+      )
+        .flat()
+        .filter(Boolean)
+        .map((item) => ({
+          label: item.path,
+          ...item,
+        })),
+    );
+
+  const sendToSocket = (eventName) => (
+    eventInstance,
+    id,
+  ) => {
+    invoke(ref, 'current.io.emit', eventName, id, () => {
+      setList((prev) =>
+        prev.map((item) => ({
+          ...item,
+          ...(item.id === id
+            ? {
+                'hasDownloaded': true,
+                'hasSeen': true,
+              }
+            : {}),
+        })),
+      );
+    });
+  };
 
   React.useEffect(() => {
     const io = getSocketInstance();
 
-    io.on('exports', ({ data }) => {
-      setList((prev) => new Set([...prev.concat(data)]));
+    io.on('message', dataToListState);
+
+    io.on('connect_error', () => {
+      io.close();
     });
+
+    io.on('error', (e) => {
+      // eslint-disable-next-line
+      console.log(e);
+      io.close();
+    });
+
+    io.on('connect', () => {
+      // prevents it from connecting too often...
+      set(ref, 'current.io', io);
+    });
+
+    return () => {
+      io.close();
+    };
   }, []);
 
   return (
-    <AppHeaderPopover
-      icon={NotificationsActiveIcon}
-      //    showBadge={list.some((item) => !item.hasDownloaded)}
-    >
-      <List style={{ width: 350, maxHeight: 450 }}>
-        {list.length ? (
-          list.map((item) => (
-            <ListItem>
-              <ListItemText
-                primary={item.path}
-                secondary={
-                  <a href={item.url} download>
-                    Download Export
-                  </a>
-                }
-              />
-            </ListItem>
-          ))
-        ) : (
-          <ListItem>
-            <ListItemText
-              primary="No recent exports"
-              secondary="This list will show all seen and unseen exports from the last 24 hour period."
-            />
-          </ListItem>
-        )}
-      </List>
-    </AppHeaderPopover>
+    <Notifications
+      data={list}
+      // we'll handle both the same way for now
+      onClick={sendToSocket('acknowledge')}
+      onView={sendToSocket('acknowledge')}
+    />
   );
 };
 
-export default Notifications;
+export default React.memo(NotificationsContainer);

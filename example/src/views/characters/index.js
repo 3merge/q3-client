@@ -24,6 +24,7 @@ export default new AbstractCollectionBuilder({
     defaultColumns: ['gender', 'updatedAt', 'createdAt'],
     io: {
       exports: ['characterCollection'],
+      imports: ['characterCollection'],
     },
   })
   .genDetail({
