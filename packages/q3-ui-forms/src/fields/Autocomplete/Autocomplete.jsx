@@ -24,6 +24,8 @@ export const pickFromProps = (props) =>
     'label',
     'name',
     'onChange',
+    'getOptionDisabled',
+    'renderOption',
     'readOnly',
     'required',
     'freeSolo',
