@@ -118,10 +118,13 @@ const Chips = (props) => {
 
 Chips.propTypes = {
   options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      label: PropTypes.string,
-    }),
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+      }),
+      PropTypes.string,
+    ]),
   ),
 };
 
