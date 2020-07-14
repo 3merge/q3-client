@@ -4,9 +4,13 @@ import Box from '@material-ui/core/Box';
 import MuiPopover from '@material-ui/core/Popover';
 import { useToggle } from 'useful-state';
 
-const Popover = ({ anchorComponent, children }) => {
+const Popover = ({
+  anchorComponent,
+  defaultValue,
+  children,
+}) => {
   const anchorEl = React.useRef();
-  const { toggle, state, close } = useToggle();
+  const { toggle, state, close } = useToggle(defaultValue);
 
   return (
     <Box display="inline-block">
@@ -36,6 +40,7 @@ const Popover = ({ anchorComponent, children }) => {
 
 Popover.propTypes = {
   anchorComponent: PropTypes.node.isRequired,
+  defaultValue: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.node,
@@ -43,6 +48,8 @@ Popover.propTypes = {
   ]).isRequired,
 };
 
-Popover.defaultProps = {};
+Popover.defaultProps = {
+  defaultValue: false,
+};
 
 export default Popover;

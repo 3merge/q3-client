@@ -15,10 +15,11 @@ function check(el) {
     },
 
     clickValue(expectedValue) {
-      expect(
-        el.find(ListItemText).props().secondary.props,
-      ).toHaveProperty('onClick', expectedValue);
+      const { onClick } = el
+        .find(ListItemText)
+        .props().secondary.props;
 
+      expect(onClick).toEqual(expectedValue);
       return this;
     },
   };
@@ -28,6 +29,7 @@ describe('NotificationLink', () => {
   it('should register click hanlder', () => {
     const el = global.shallow(
       <NotificationLink
+        id="link"
         url="https://google.ca"
         label="File"
         onClick={jest.fn()}
@@ -43,6 +45,7 @@ describe('NotificationLink', () => {
   it('should remove click hanlder', () => {
     const el = global.shallow(
       <NotificationLink
+        id="link"
         url="https://google.ca"
         label="File"
         onClick={jest.fn()}

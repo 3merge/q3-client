@@ -18,5 +18,15 @@
     "hasBeenDownloaded": true,
     "label": "Order sales activity",
     "url": "https://google.ca"
+  },
+  {
+    "hasSeen": false,
+    "label": "New user signup needs review"
+  },
+  {
+    "hasSeen": true,
+    "hasBeenDownloaded": false,
+    "label": "Order exports",
+    "url": "https://google.ca"
   }
 ]

@@ -22,11 +22,11 @@ const NotificationLink = ({
           <Link
             href={url}
             download
-            onClick={(e) => {
-              return !hasBeenDownloaded
-                ? onClick(e, id)
-                : undefined;
-            }}
+            onClick={
+              !hasBeenDownloaded
+                ? (e) => onClick(e, id)
+                : undefined
+            }
           >
             {t('labels:download')} {label}
           </Link>

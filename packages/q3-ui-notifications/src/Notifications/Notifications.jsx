@@ -23,12 +23,18 @@ export const hasActiveNotifications = (items) =>
       )
     : false;
 
-const Notifications = ({ data, onView, onClick }) => {
+const Notifications = ({
+  data,
+  defaultValue,
+  onView,
+  onClick,
+}) => {
   const cls = useStyle();
   const { t } = useTranslation();
 
   return (
     <Popover
+      defaultValue={defaultValue}
       anchorComponent={
         <Bell active={hasActiveNotifications(data)} />
       }
@@ -64,6 +70,7 @@ const Notifications = ({ data, onView, onClick }) => {
 };
 
 Notifications.propTypes = {
+  defaultValue: PropTypes.bool,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
@@ -77,6 +84,7 @@ Notifications.propTypes = {
 
 Notifications.defaultProps = {
   data: [],
+  defaultValue: false,
   onClick: undefined,
   onView: undefined,
 };

@@ -1,52 +1,42 @@
 import React from 'react';
-import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import AppHeaderPopover from '../../components/AppHeaderPopover';
+import Notifications from 'q3-ui-notifications';
+import { array } from 'q3-ui-helpers';
 import { getSocketInstance } from '../../hooks/useSocket';
 
-const Notifications = () => {
+const NotificationsContainer = () => {
   const [list, setList] = React.useState([]);
+  const io = getSocketInstance();
+
+  const dataToListState = ({ data }) =>
+    setList((prevState = []) =>
+      array.hasLength(prevState)
+        ? [...new Set(prevState.concat(data))]
+        : [data],
+    );
+
+  const sendToSocket = (eventName) => (eventInstance, id) =>
+    io.emit(eventName, id);
 
   React.useEffect(() => {
-    const io = getSocketInstance();
+    io.on('message', dataToListState);
+    io.on('download', dataToListState);
 
-    io.on('exports', ({ data }) => {
-      setList((prev) => new Set([...prev.concat(data)]));
+    io.on('connect_error', () => {
+      io.close();
     });
+
+    return () => {
+      io.close();
+    };
   }, []);
 
   return (
-    <AppHeaderPopover
-      icon={NotificationsActiveIcon}
-      //    showBadge={list.some((item) => !item.hasDownloaded)}
-    >
-      <List style={{ width: 350, maxHeight: 450 }}>
-        {list.length ? (
-          list.map((item) => (
-            <ListItem>
-              <ListItemText
-                primary={item.path}
-                secondary={
-                  <a href={item.url} download>
-                    Download Export
-                  </a>
-                }
-              />
-            </ListItem>
-          ))
-        ) : (
-          <ListItem>
-            <ListItemText
-              primary="No recent exports"
-              secondary="This list will show all seen and unseen exports from the last 24 hour period."
-            />
-          </ListItem>
-        )}
-      </List>
-    </AppHeaderPopover>
+    <Notifications
+      data={list}
+      onClick={sendToSocket('downloaded')}
+      onView={sendToSocket('read')}
+    />
   );
 };
 
-export default Notifications;
+export default NotificationsContainer;

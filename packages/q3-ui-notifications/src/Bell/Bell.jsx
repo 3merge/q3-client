@@ -5,6 +5,7 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsPausedIcon from '@material-ui/icons/NotificationsPaused';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import { withStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 
 export const CustomBadge = withStyles((theme) => ({
   dot: {
@@ -13,27 +14,32 @@ export const CustomBadge = withStyles((theme) => ({
 }))(Badge);
 
 export const Bell = React.forwardRef(
-  ({ active, isOpen, ...props }, ref) => (
-    <IconButton
-      color="inherit"
-      aria-haspopup="true"
-      aria-expanded={isOpen}
-      ref={ref}
-      {...props}
-    >
-      <CustomBadge
-        variant="dot"
-        showZero={active}
-        badgeContent={0}
+  ({ active, isOpen, ...props }, ref) => {
+    const { t } = useTranslation('labels');
+
+    return (
+      <IconButton
+        color="inherit"
+        aria-haspopup="true"
+        aria-expanded={isOpen}
+        aria-label={t('notifications')}
+        ref={ref}
+        {...props}
       >
-        {active ? (
-          <NotificationsActiveIcon />
-        ) : (
-          <NotificationsPausedIcon />
-        )}
-      </CustomBadge>
-    </IconButton>
-  ),
+        <CustomBadge
+          variant="dot"
+          showZero={active}
+          badgeContent={0}
+        >
+          {active ? (
+            <NotificationsActiveIcon />
+          ) : (
+            <NotificationsPausedIcon />
+          )}
+        </CustomBadge>
+      </IconButton>
+    );
+  },
 );
 
 Bell.propTypes = {

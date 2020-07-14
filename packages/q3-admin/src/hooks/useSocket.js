@@ -12,6 +12,7 @@ export const getSocketInstance = () => {
 
   // in Q3, the socket port is always 8080
   url.port = '8080';
+
   return socket(url.toString());
 };
 
