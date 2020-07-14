@@ -36,6 +36,7 @@ const clearFilterChips = () =>
   cy
     .get('#q3-filter-chips')
     .find('[role=button] svg')
+    .first()
     .click();
 
 const submitFilters = () =>
