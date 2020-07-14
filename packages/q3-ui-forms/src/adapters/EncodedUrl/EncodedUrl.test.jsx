@@ -1,4 +1,5 @@
 import {
+  extractValue,
   serialize,
   deserialize,
   handleStateEncoding,
@@ -45,7 +46,7 @@ describe('EncodedUrl adapter', () => {
         'payment': '',
       });
 
-      expect(s).toEqual('repeatBuyer=null');
+      expect(s).toHaveLength(0);
     });
   });
 
@@ -79,5 +80,19 @@ describe('EncodedUrl adapter', () => {
         bar: 2,
       });
     });
+  });
+
+  describe('"extractValue"', () => {
+    it('should return as String', () =>
+      expect(extractValue(1)).toEqual(expect.any(String)));
+
+    it('should serialize with commas', () =>
+      expect(
+        extractValue([
+          { value: 'A' },
+          { value: 'B' },
+          { value: 'C' },
+        ]),
+      ).toEqual('A%2CB%2CC'));
   });
 });

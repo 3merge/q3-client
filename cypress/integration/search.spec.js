@@ -6,6 +6,48 @@ const isLeaderRoleType = (el) =>
   // so, we can use the same check to ensure both are connected
   el.first().should('contain', 'Leader');
 
+const getSearch = () =>
+  cy.get(SEARCH_ID).find('[name=search]');
+
+const getSearchResults = () =>
+  cy.get('.MuiAutocomplete-popper').find('li');
+
+const clearSearchResults = () =>
+  cy.get(SEARCH_ID).find('[aria-label=Clear]').click();
+
+const getSearchAndCountSearchResults = (
+  phrase,
+  expectedNumberOfResults,
+) => {
+  getSearch().type(phrase);
+  getSearchResults().should(
+    'have.length',
+    expectedNumberOfResults,
+  );
+};
+
+const getFilterElement = (selector) =>
+  cy.get(FILTER_ID).find(selector);
+
+const getTableResults = () =>
+  cy.get('table').find('tbody').find('tr');
+
+const clearFilterChips = () =>
+  cy
+    .get('#q3-filter-chips')
+    .find('[role=button] svg')
+    .first()
+    .click();
+
+const submitFilters = () =>
+  getFilterElement('[type=submit]').click();
+
+const countTableResults = (expectedNumberOfResults) =>
+  getTableResults().should(
+    'have.length',
+    expectedNumberOfResults,
+  );
+
 context('Search', () => {
   before(() => {
     cy.authenticate();
@@ -13,26 +55,6 @@ context('Search', () => {
   });
 
   it('should suggest documents', () => {
-    const getSearch = () =>
-      cy.get(SEARCH_ID).find('[name=search]');
-
-    const getSearchResults = () =>
-      cy.get('.MuiAutocomplete-popper').find('li');
-
-    const clearSearchResults = () =>
-      cy.get(SEARCH_ID).find('[aria-label=Clear]').click();
-
-    const getSearchAndCountSearchResults = (
-      phrase,
-      expectedNumberOfResults,
-    ) => {
-      getSearch().type(phrase);
-      getSearchResults().should(
-        'have.length',
-        expectedNumberOfResults,
-      );
-    };
-
     getSearchAndCountSearchResults('ick', 2);
     clearSearchResults();
     getSearchAndCountSearchResults('Rick', 1);
@@ -42,24 +64,25 @@ context('Search', () => {
   });
 
   it('should filter documents', () => {
-    const getFilterElement = (selector) =>
-      cy.get(FILTER_ID).find(selector);
-
-    const getTableResults = () =>
-      cy.get('table').find('tbody').find('tr');
-
-    const countTableResults = (expectedNumberOfResults) =>
-      getTableResults().should(
-        'have.length',
-        expectedNumberOfResults,
-      );
-
     countTableResults(5);
     getFilterElement('.q3-filter-group').eq(1).click();
     getFilterElement('input[value=Female]').click();
-    getFilterElement('[type=submit]').click();
-
+    submitFilters();
     countTableResults(2);
     isLeaderRoleType(getTableResults());
+  });
+
+  it.only('should clear filters one-by-one', () => {
+    getFilterElement('.q3-filter-group').first().click();
+    getFilterElement('[name=role] input').type(
+      'Leader{downarrow}{enter}',
+    );
+    getFilterElement('[name=role] input').type(
+      'Supp{enter}',
+    );
+    submitFilters();
+    // should run twice as chip style filters render each option independently
+    clearFilterChips();
+    clearFilterChips();
   });
 });

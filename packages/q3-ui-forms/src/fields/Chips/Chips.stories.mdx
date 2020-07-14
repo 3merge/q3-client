@@ -1,0 +1,54 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Chips from './Chips';
+import {
+  autocomplete,
+  countries,
+} from '../__fixtures__/options';
+import { Form, Field } from '../../builders';
+
+<Meta title="Forms|Fields types" component={Chips} />
+
+<Preview>
+  <Story name="With custom label">
+    <Form debug initialValues={{ demo: ['One', 'Two'] }}>
+      <Field
+        name="demo"
+        type="chips"
+        options={countries.map(({ value }) => value)}
+        label="Custom label"
+        required
+        filter
+      />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With lazy loading">
+    <Form debug>
+      <Field
+        type="chips"
+        name="demo"
+        loadOptions={autocomplete}
+      />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With free solo">
+    <Form debug>
+      <Field
+        type="chips"
+        name="demo"
+        loadOptions={autocomplete}
+        freeSolo
+      />
+    </Form>
+  </Story>
+</Preview>

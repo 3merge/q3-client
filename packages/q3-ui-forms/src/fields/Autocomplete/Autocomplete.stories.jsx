@@ -35,11 +35,10 @@ export const WithCustomLabel = () => (
   >
     <Field
       required
+      filter
       name="countries"
       type="autocomplete"
-      filterSelectedOptions={false}
       loadOptions={autocomplete}
-      disableFilter
       renderOption={(v) => (
         <>
           {v.label}

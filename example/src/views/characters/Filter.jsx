@@ -13,12 +13,14 @@ export default () => {
             name="role"
             type="chips"
             options={fields.role}
+            freeSolo
           />
           <FilterEntry
             name="gender"
             type="checkset"
             options={fields.gender}
           />
+          <FilterEntry name="createdAt" type="dateRange" />
         </>
       )}
     </Filters>

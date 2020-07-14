@@ -20,15 +20,23 @@ const join = (key, value) => {
   return `${key}=${value}`;
 };
 
+export const extractValue = (val) => {
+  const normalize = (a) =>
+    String(typeof a === 'object' ? a.value : a);
+
+  return encodeURIComponent(
+    Array.isArray(val)
+      ? val.map(normalize).join(',')
+      : normalize(val),
+  );
+};
+
 export const serialize = (o) =>
   Object.entries(o)
     .reduce((acc, [key, value]) => {
-      const normalized = encodeURIComponent(
-        Array.isArray(value)
-          ? value.join(',')
-          : String(value),
-      );
+      if (value === null) return acc;
 
+      const normalized = extractValue(value);
       const hasAsterisk = key.includes('*');
       const name = getParamName(key);
 
