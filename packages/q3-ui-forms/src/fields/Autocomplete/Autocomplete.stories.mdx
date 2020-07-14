@@ -4,22 +4,26 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import Chips from './Chips';
+import Autocomplete from './Autocomplete';
 import {
   autocomplete,
   countries,
 } from '../__fixtures__/options';
 import { Form, Field } from '../../builders';
 
-<Meta title="Forms|Fields types/Chips" component={Chips} />
+<Meta
+  title="Forms|Fields types/Autocomplete"
+  component={Autocomplete}
+/>
 
 <Preview>
-  <Story name="With custom label">
-    <Form debug initialValues={{ demo: ['One', 'Two'] }}>
+  <Story name="With disabled options">
+    <Form debug initialValues={{ demo: { value: 'US' } }}>
       <Field
         name="demo"
-        type="chips"
+        type="autocomplete"
         options={countries.map(({ value }) => value)}
+        getOptionDisabled={({ value }) => value === 'CA'}
         label="Custom label"
         required
         filter
@@ -32,7 +36,7 @@ import { Form, Field } from '../../builders';
   <Story name="With lazy loading">
     <Form debug>
       <Field
-        type="chips"
+        type="autocomplete"
         name="demo"
         loadOptions={autocomplete}
       />
@@ -44,7 +48,7 @@ import { Form, Field } from '../../builders';
   <Story name="With free solo">
     <Form debug>
       <Field
-        type="chips"
+        type="autocomplete"
         name="demo"
         loadOptions={autocomplete}
         freeSolo
