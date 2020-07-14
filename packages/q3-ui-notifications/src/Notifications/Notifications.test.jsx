@@ -13,7 +13,7 @@ describe('Notifications', () => {
   describe('"isLink"', () => {
     it('should return truthy when seen but undownloaded', () =>
       expect(
-        isLink({ hasBeenDownloaded: false }),
+        isLink({ url: 'https://google.ca' }),
       ).toBeTruthy());
   });
 
@@ -23,8 +23,7 @@ describe('Notifications', () => {
 
     it('should return truthy when seen but not downloaded', () =>
       checkActive({
-        hasBeenDownloaded: false,
-        hasSeen: true,
+        hasDownloaded: false,
       }).toBeTruthy());
 
     it('should return truthy when unseen', () =>
@@ -32,15 +31,10 @@ describe('Notifications', () => {
         hasSeen: false,
       }).toBeTruthy());
 
-    it('should return falsy when seen and downloaded', () =>
+    it('should return falsy when seen or downloaded is true', () =>
       checkActive({
         hasSeen: true,
-        hasBeenDownloaded: true,
-      }).toBeFalsy());
-
-    it('should return falsy when unseen but undownloadable', () =>
-      checkActive({
-        hasSeen: true,
+        hasDownloaded: true,
       }).toBeFalsy());
   });
 
@@ -51,8 +45,7 @@ describe('Notifications', () => {
           data={[
             { hasSeen: true, label: 'foo' },
             {
-              hasSeen: false,
-              hasBeenDownloaded: false,
+              url: 'http://google.ca/',
               label: 'bar',
             },
           ]}

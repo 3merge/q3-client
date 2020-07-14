@@ -21,14 +21,13 @@ jest.mock('../../hooks/useSocket', () => {
   const on = jest
     .fn()
     .mockImplementation((eventName, callback) => {
-      if (eventName === 'download')
-        callback({
-          data: {
-            hasBeenDownloaded: false,
-            label: 'Foo',
-            id: '1',
-          },
-        });
+      callback({
+        data: {
+          hasDownloaded: false,
+          label: 'Foo',
+          id: '1',
+        },
+      });
     });
 
   return {
@@ -59,11 +58,6 @@ describe('Notifications', () => {
       'message',
       expect.any(Function),
     );
-
-    expect(socketOnEvent).toHaveBeenCalledWith(
-      'download',
-      expect.any(Function),
-    );
   });
 
   it('should emit socket event', () => {
@@ -74,8 +68,9 @@ describe('Notifications', () => {
 
     onView(null, '1');
     expect(socketEmitEvent).toHaveBeenCalledWith(
-      'read',
+      'acknowledge',
       '1',
+      expect.any(Function),
     );
   });
 

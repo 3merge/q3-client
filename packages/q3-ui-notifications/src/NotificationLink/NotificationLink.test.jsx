@@ -33,7 +33,7 @@ describe('NotificationLink', () => {
         url="https://google.ca"
         label="File"
         onClick={jest.fn()}
-        hasBeenDownloaded={false}
+        hasDownloaded={false}
       />,
     );
 
@@ -49,7 +49,7 @@ describe('NotificationLink', () => {
         url="https://google.ca"
         label="File"
         onClick={jest.fn()}
-        hasBeenDownloaded
+        hasDownloaded
       />,
     );
 

@@ -15,21 +15,42 @@ const NotificationReadOnly = ({
   const { t } = useTranslation('titles');
   const ref = React.createRef();
 
+  const detach = (obv) => {
+    try {
+      obv.unobserve(ref.current);
+    } catch (e) {
+      // null
+    }
+  };
+
   React.useEffect(() => {
-    if (!object.isFn(onView) || !browser.isBrowserReady())
+    if (
+      !object.isFn(onView) ||
+      !browser.isBrowserReady() ||
+      !ref.current
+    )
       return undefined;
 
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = get(entries, '0', {});
-        if (get(entry, 'isIntersecting', false) === true)
-          onView(entry, id);
+        if (
+          get(entry, 'isIntersecting', false) === true &&
+          !hasSeen
+        ) {
+          try {
+            onView(entry, id);
+            detach(observer);
+          } catch (e) {
+            // noop
+          }
+        }
       },
       { threshold: [1] },
     );
 
     observer.observe(ref.current);
-    return () => observer.unobserve(ref.current);
+    return () => detach(observer);
   }, []);
 
   return (

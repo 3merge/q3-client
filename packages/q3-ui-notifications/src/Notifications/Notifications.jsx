@@ -12,14 +12,13 @@ import NotificationReadOnly from '../NotificationReadOnly';
 import useStyle from './useStyle';
 
 export const isLink = (target) =>
-  object.isIn(target, 'hasBeenDownloaded');
+  object.isIn(target, 'url');
 
 export const hasActiveNotifications = (items) =>
   array.hasLength(items)
     ? items.some(
-        (item) =>
-          !item.hasSeen ||
-          (isLink(item) && !item.hasBeenDownloaded),
+        // neither of message nor download that has been reached
+        (item) => !item.hasDownloaded && !item.hasSeen,
       )
     : false;
 
@@ -31,31 +30,39 @@ const Notifications = ({
 }) => {
   const cls = useStyle();
   const { t } = useTranslation();
+  const len = array.hasLength(data) > 0;
 
   return (
     <Popover
       defaultValue={defaultValue}
       anchorComponent={
-        <Bell active={hasActiveNotifications(data)} />
+        <Bell
+          active={hasActiveNotifications(data)}
+          hasItems={len}
+        />
       }
     >
       <List className={cls.root}>
-        {array.hasLength(data) > 0 ? (
-          data.map((item) =>
-            isLink(item) ? (
+        {len ? (
+          data.map((item) => {
+            const key = item.id || item.label;
+
+            return item.url ? (
               <NotificationLink
-                key={item.label}
+                key={key}
+                id={key}
                 onClick={onClick}
                 {...item}
               />
             ) : (
               <NotificationReadOnly
-                key={item.label}
+                key={key}
+                id={key}
                 onView={onView}
                 {...item}
               />
-            ),
-          )
+            );
+          })
         ) : (
           <ListItem>
             <ListItemText

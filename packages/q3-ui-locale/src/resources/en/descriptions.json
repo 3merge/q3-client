@@ -79,5 +79,6 @@
   "howToUseThread": "Keep internal notes about the resource you're editing. This is handy for communicating the reason for a change and/or filling users in on history.",
   "howToUseFiles": "Upload files to this resource and tag them for visual organization. You can rename your files, so don't worry about what the upload looks like.",
   "howToUseDocs": "Need some more context? The docs will outline key features unique to the resource you're on.",
-  "howToUseRelatedLinks": "Hop to another area of the app related to the view you are in."
+  "howToUseRelatedLinks": "Hop to another area of the app related to the view you are in.",
+  "noActivity": "Nothing to show here yet. You'll be prompted when something arrives."
 }

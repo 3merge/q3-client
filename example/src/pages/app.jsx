@@ -22,6 +22,16 @@ const CustomDashboard = () => {
         <Field type="dateRange" name="createdAt" />
         <Field type="text" name="gender" />
       </Chart>
+      <Chart
+        backgroundColor="#e6d9cd"
+        template="newCharacters"
+        type="Line"
+        x="month"
+        y="newCharacters"
+      >
+        <Field type="dateRange" name="createdAt" />
+        <Field type="text" name="gender" />
+      </Chart>
     </Dashboard>
   );
 };

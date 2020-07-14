@@ -19,6 +19,7 @@ const DashboardReport = ({
   title,
   type,
   data,
+  onDownload,
   ...rest
 }) => {
   const renderChart = () => {
@@ -71,6 +72,9 @@ const DashboardReport = ({
                   <IconButton
                     label="download"
                     icon={CloudDownload}
+                    buttonProps={{
+                      onClick: onDownload,
+                    }}
                   />
                 </Grid>
               </Form>

@@ -8,14 +8,14 @@ import { useTranslation } from 'react-i18next';
 const NotificationLink = ({
   id,
   label,
-  hasBeenDownloaded,
+  hasDownloaded,
   onClick,
   url,
 }) => {
   const { t } = useTranslation();
 
   return (
-    <ListItem dense selected={!hasBeenDownloaded}>
+    <ListItem dense selected={!hasDownloaded}>
       <ListItemText
         primary={t('titles:downloadable')}
         secondary={
@@ -23,7 +23,7 @@ const NotificationLink = ({
             href={url}
             download
             onClick={
-              !hasBeenDownloaded
+              !hasDownloaded
                 ? (e) => onClick(e, id)
                 : undefined
             }
@@ -39,13 +39,13 @@ const NotificationLink = ({
 NotificationLink.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  hasBeenDownloaded: PropTypes.bool,
+  hasDownloaded: PropTypes.bool,
   onClick: PropTypes.func,
   url: PropTypes.string.isRequired,
 };
 
 NotificationLink.defaultProps = {
-  hasBeenDownloaded: false,
+  hasDownloaded: false,
   onClick: undefined,
 };
 

@@ -78,5 +78,8 @@
   "howToUseThread": "Notes",
   "howToUseFiles": "Files",
   "howToUseDocs": "Docs",
-  "howToUseRelatedLinks": "Related links"
+  "howToUseRelatedLinks": "Related links",
+  "downloadable": "Downloadable",
+  "noActivity": "No activity",
+  "notification": "Notification"
 }

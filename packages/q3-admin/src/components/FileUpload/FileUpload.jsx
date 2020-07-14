@@ -27,7 +27,9 @@ const UploadButton = ({
           <IconButton
             label={label}
             icon={Icon}
-            onClick={browseFiles}
+            buttonProps={{
+              onClick: browseFiles,
+            }}
           />
         )}
       </Files>

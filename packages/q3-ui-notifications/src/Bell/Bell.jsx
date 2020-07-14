@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import NotificationsPausedIcon from '@material-ui/icons/NotificationsPaused';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import { withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
@@ -14,8 +15,14 @@ export const CustomBadge = withStyles((theme) => ({
 }))(Badge);
 
 export const Bell = React.forwardRef(
-  ({ active, isOpen, ...props }, ref) => {
+  ({ active, hasItems, isOpen, ...props }, ref) => {
     const { t } = useTranslation('labels');
+
+    const renderIcon = () => {
+      if (active) return <NotificationsActiveIcon />;
+      if (hasItems) return <NotificationsIcon />;
+      return <NotificationsPausedIcon />;
+    };
 
     return (
       <IconButton
@@ -31,11 +38,7 @@ export const Bell = React.forwardRef(
           showZero={active}
           badgeContent={0}
         >
-          {active ? (
-            <NotificationsActiveIcon />
-          ) : (
-            <NotificationsPausedIcon />
-          )}
+          {renderIcon()}
         </CustomBadge>
       </IconButton>
     );
@@ -45,11 +48,13 @@ export const Bell = React.forwardRef(
 Bell.propTypes = {
   active: PropTypes.bool,
   isOpen: PropTypes.bool,
+  hasItems: PropTypes.bool,
 };
 
 Bell.defaultProps = {
   active: false,
   isOpen: false,
+  hasItems: false,
 };
 
 export default Bell;
