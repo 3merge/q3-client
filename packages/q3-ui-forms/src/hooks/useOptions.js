@@ -41,25 +41,12 @@ export default ({
     setItems(transformOptions ? asOptions(v) : v);
 
   React.useEffect(() => {
-    let cancel;
-
-    // exit early once options are defined
-    if (!runOnChange && items.length) return undefined;
-
-    if (loadOptions && !loading && !cancel) {
+    if (loadOptions) {
       run(values);
     } else {
       runOpts(options);
     }
-
-    return () => {
-      cancel = true;
-    };
-  }, [
-    value,
-    items !== options,
-    JSON.stringify(watchValues),
-  ]);
+  }, [value, JSON.stringify(watchValues)]);
 
   return {
     loading,
