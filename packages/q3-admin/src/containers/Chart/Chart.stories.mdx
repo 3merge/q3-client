@@ -1,0 +1,38 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Chart from './Chart';
+import ChartFixture from './Chart.fixture';
+
+<Meta title="Admin|Chart" component={Chart} />
+
+# Chart
+
+<Preview>
+  <Story name="With custom chart">
+    <ChartFixture>
+      <Chart
+        title="Example bar graph"
+        chartComponent={<p>Chart component of prefence</p>}
+        filterComponent={<p>Filter inputs</p>}
+        initialQueryValue="?template=foo"
+      />
+    </ChartFixture>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With error">
+    <ChartFixture>
+      <Chart
+        title="Example bar graph"
+        chartComponent={<p>Chart component of prefence</p>}
+        filterComponent={<p>Filter inputs</p>}
+        initialQueryValue="?s=foo"
+      />
+    </ChartFixture>
+  </Story>
+</Preview>
