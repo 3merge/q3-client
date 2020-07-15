@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'debounce-promise';
 
 export const invoke = (fn, arg) =>
   // eslint-disable-next-line
@@ -27,7 +28,7 @@ export default (
   const clear = () => setResults([]);
 
   return {
-    run: (state) => {
+    run: debounce((state) => {
       if (!isOfAdequateLength(term, minimumCharacterCount))
         return clear();
 
@@ -41,7 +42,7 @@ export default (
         .finally(() => {
           setLoading(false);
         });
-    },
+    }, 75),
     loading,
     results,
     setResults,

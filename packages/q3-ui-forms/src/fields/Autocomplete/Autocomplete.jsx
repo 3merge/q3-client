@@ -18,8 +18,8 @@ export const controlSearchFilter = ({ filter = false }) =>
       }
     : {};
 
-export const pickFromProps = (props) =>
-  pick(props, [
+export const pickFromProps = (props) => ({
+  ...pick(props, [
     'disabled',
     'label',
     'name',
@@ -29,7 +29,13 @@ export const pickFromProps = (props) =>
     'readOnly',
     'required',
     'freeSolo',
-  ]);
+  ]),
+  ListboxProps: {
+    style: {
+      maxHeight: 250,
+    },
+  },
+});
 
 export const getCustomInput = (customProps) => (params) =>
   React.createElement(
