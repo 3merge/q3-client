@@ -11,13 +11,16 @@ import CloudUpload from '@material-ui/icons/CloudUpload';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
+import { State } from 'q3-ui-exports';
+import { withLocation } from 'with-location';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import FileUpload from '../../components/FileUpload';
 import ActionList from '../../components/ActionList';
 
-const TableIo = ({ io }) => {
+const TableIo = ({ io, data, params }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('descriptions');
+  const { checked } = React.useContext(State);
 
   const gt = React.useCallback(
     (v) => array.hasLength(v) > 0,
@@ -26,13 +29,26 @@ const TableIo = ({ io }) => {
 
   const ex = get(io, 'exports', []);
   const im = get(io, 'imports', []);
+  const renderer = get(io, 'renderer', null);
 
   const hasExports = gt(ex);
   const hasImports = gt(im);
 
+  const getQueryString = (template) => {
+    params.delete('sort');
+    params.delete('page');
+    params.delete('limit');
+    params.set('template', template);
+
+    if (checked && checked.length)
+      params.set('ids', checked.join(','));
+
+    return `?${params.toString()}`;
+  };
+
   const exportCollection = (template) => () =>
     axios
-      .post(`/exports?template=${template}`)
+      .post(`/exports${getQueryString(template)}`)
       .then(() =>
         enqueueSnackbar(t('exportStarted'), {
           variant: 'info',
@@ -45,27 +61,29 @@ const TableIo = ({ io }) => {
       );
 
   const importCollection = (template) => ([f]) =>
-    axios.post(`/imports?template=${template}`).then(() => {
-      const data = new FormData();
+    axios
+      .post(`/imports${getQueryString(template)}`)
+      .then(() => {
+        const formData = new FormData();
 
-      data.append('import', f.src.file);
-      return axios
-        .post(`/imports?template=${template}`, data, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(() =>
-          enqueueSnackbar(t('importStarted'), {
-            variant: 'info',
-          }),
-        )
-        .catch(() =>
-          enqueueSnackbar(t('importFailed'), {
-            variant: 'error',
-          }),
-        );
-    });
+        formData.append('import', f.src.file);
+        return axios
+          .post(`/imports?template=${template}`, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then(() =>
+            enqueueSnackbar(t('importStarted'), {
+              variant: 'info',
+            }),
+          )
+          .catch(() =>
+            enqueueSnackbar(t('importFailed'), {
+              variant: 'error',
+            }),
+          );
+      });
 
   return (
     <Dialog
@@ -77,7 +95,7 @@ const TableIo = ({ io }) => {
             <ActionList actionTitle="imports" actions={im}>
               {(templateName) => (
                 <FileUpload
-                  label="export"
+                  label="import"
                   icon={CloudUpload}
                   done={importCollection(templateName)}
                 />
@@ -94,6 +112,12 @@ const TableIo = ({ io }) => {
                 />
               )}
             </ActionList>
+            {renderer
+              ? renderer({
+                  data,
+                  checked,
+                })
+              : null}
           </Box>
         ) : null
       }
@@ -103,7 +127,11 @@ const TableIo = ({ io }) => {
           disabled={!hasExports && !hasImports}
           onClick={onClick}
           icon={ImportExportIcon}
-          label="i/o"
+          label={
+            checked.length > 0
+              ? `i/o  (${checked.length})`
+              : 'i/o'
+          }
         />
       )}
     />
@@ -121,4 +149,4 @@ TableIo.propTypes = {
   }),
 };
 
-export default TableIo;
+export default withLocation(TableIo);

@@ -1,4 +1,8 @@
+import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
+import Add from './Add';
+import Filters from './Filters';
+import General from './General';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
@@ -7,15 +11,17 @@ export default new AbstractCollectionBuilder({
   .genHeader({
     titleProp: 'name',
   })
-  .genNew(import('./Add'))
-  .genFilter(import('./Filters'))
+  .genNew(Add)
+  .genFilter(Filters)
   .genViews({
-    general: import('./General'),
+    General,
   })
   .genList({
     io: {
       exports: ['orders'],
       imports: [],
+      // eslint-disable-next-line
+      renderer: () => <p>Look at me!</p>,
     },
     resolvers: ({
       id,

@@ -127,7 +127,7 @@ const List = ({
           onSort={updateSortPrefence}
         >
           <TableHeader>
-            <TableIo io={io} />
+            <TableIo io={io} data={tableProps.data} />
             {addComponent}
           </TableHeader>
           <Box pb={1}>

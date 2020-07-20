@@ -1,7 +1,6 @@
 import React from 'react';
-import TableHead from '@material-ui/core/TableHead';
-import TableCell from '@material-ui/core/TableCell';
 import List, { searchObject } from './List';
+import ActionBar from './ActionBar';
 
 const itemStub = {
   foo: 'Foo',
@@ -15,7 +14,7 @@ jest.mock('@material-ui/core/useMediaQuery', () =>
 
 describe('List', () => {
   it('should render attributes', () => {
-    const el = global
+    const { renderUnselected } = global
       .shallow(
         <List
           data={[]}
@@ -24,9 +23,10 @@ describe('List', () => {
           <div />{' '}
         </List>,
       )
-      .find(TableHead)
-      .find(TableCell);
-    expect(el.length).toBeGreaterThan(2);
+      .find(ActionBar)
+      .props();
+
+    expect(renderUnselected).not.toBeNull();
   });
 
   it('should match term to object', () => {

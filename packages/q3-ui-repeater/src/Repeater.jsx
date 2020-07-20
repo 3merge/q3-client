@@ -4,8 +4,6 @@ import { useAuth } from 'q3-ui-permissions';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Table from '@material-ui/core/Table';
-
-import CustomActionBar from './components/ActionBar';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
@@ -23,11 +21,11 @@ const Repeater = ({
   collectionName,
   disableEditor,
   disableRemove,
+  disableMultiselect,
   renderCustomAddForm,
   renderNestedTableRow,
-  renderMobileColumns,
-  addComponent: AddComponent,
-  bulkEditorComponent: BulkEditorComponent,
+  addComponent,
+  bulkEditorComponent,
   disableEmptyState,
   actions,
   poll,
@@ -56,11 +54,11 @@ const Repeater = ({
       <Auth op="Read">
         <Exports>
           <Auth op="Create">
-            {AddComponent ? (
-              <AddComponent
-                create={create}
-                initialValues={initialValues}
-              />
+            {addComponent ? (
+              React.cloneElement(addComponent, {
+                initialValues,
+                create,
+              })
             ) : (
               <AddButton
                 create={create}
@@ -78,17 +76,18 @@ const Repeater = ({
                 {...rest}
                 data={data}
                 disableEditor={disableEditor}
+                disableMultiselect={
+                  disableMultiselect ||
+                  (!auth.canDelete && !bulkEditorComponent)
+                }
                 disableRemove={disableRemove}
                 renderNestedTableRow={renderNestedTableRow}
-                renderMobileColumns={renderMobileColumns}
+                actionComponent={bulkEditorComponent}
               >
                 {children}
               </List>
             )}
           </Table>
-          <CustomActionBar data={data}>
-            {BulkEditorComponent && <BulkEditorComponent />}
-          </CustomActionBar>
         </Exports>
       </Auth>
     </Context.Provider>
@@ -123,12 +122,6 @@ Repeater.propTypes = {
    */
   renderNestedTableRow: PropTypes.func,
 
-  /**
-   * Renderer for mobile-columns on small screens.
-   * The "attributes" disappear on tablet/phone, so we created
-   * a custom renderer for inside the row header.
-   */
-  renderMobileColumns: PropTypes.func,
   disableEmptyState: PropTypes.bool,
   ...override.propTypes,
 };

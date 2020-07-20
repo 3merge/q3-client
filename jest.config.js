@@ -20,6 +20,7 @@ module.exports = {
     '<rootDir>/.vscode/',
     '<rootDir>/example/',
     '<rootDir>/gatsby-theme-q3/',
+    '<rootDir>/packages/(?:.+?)/__fixtures__/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
     '<rootDir>/packages/q3-ui-assets/',
