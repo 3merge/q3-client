@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, omit, pick } from 'lodash';
+import { get, omit, pick, uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { object } from 'q3-ui-helpers';
 import {
@@ -15,7 +15,10 @@ import { VALIDATION_OPTIONS } from '../helpers/validation';
 const useFieldContext = (name) => {
   const { values, errors } = React.useContext(BuilderState);
   const value = get(values, name);
-  const error = get(errors, name);
+  let error = get(errors, name);
+
+  // show multiple validation errors at once
+  if (Array.isArray(error)) error = uniq(error).join('\\n');
 
   return React.useMemo(
     () => ({
@@ -83,7 +86,10 @@ export default (props, readOnly) => {
 
   // auto-assemble text based on field name
   propper.label = t(`labels:${label || name}`, vars);
-  propper.helper = t(`helpers:${props.helper}`, vars);
+  propper.helper = t(
+    `helpers:${props.helper || name}`,
+    vars,
+  );
 
   // avoid the setter fns
   if (props.suppressLabel) propper.label = '';

@@ -3,9 +3,9 @@ import ChipInput from 'material-ui-chip-input';
 import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import { blue } from '@material-ui/core/colors';
-import withState from './withState';
+import withState from '../withState';
 
-const Multitext = (props) => {
+const MultiText = (props) => {
   const {
     onArrayPush,
     onArrayPull,
@@ -57,4 +57,4 @@ const Multitext = (props) => {
   );
 };
 
-export default withState(Multitext);
+export default withState(MultiText);

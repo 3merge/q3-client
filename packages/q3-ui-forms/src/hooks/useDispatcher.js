@@ -1,5 +1,5 @@
 import React from 'react';
-import { set, unset } from 'lodash';
+import { set, unset, pick, merge } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import flat from 'flat';
 import FieldBuilder from '../helpers/types';
@@ -43,7 +43,10 @@ export const reducerDispatcher = (state, context) => {
       break;
 
     case REPLACE_ERRORS:
-      errors = nextErrors;
+      errors = pick(
+        merge(flat.unflatten(nextErrors), nextErrors),
+        Object.keys(values),
+      );
       break;
 
     case REPLACE_VALUES:

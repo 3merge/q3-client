@@ -8,7 +8,7 @@ export { default as DateRangePicker } from './DateRange';
 export { default as Editor } from './editor';
 export { default as File } from './file';
 export { default as Multiselect } from './MultiSelect';
-export { default as Multitext } from './multitext';
+export { default as Multitext } from './MultiText';
 export { default as Radio } from './radio';
 export { default as Range } from './Range';
 export { default as Select } from './Select';

@@ -1,0 +1,32 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import MultiText from './MultiText';
+import { Form, Field } from '../../builders';
+
+<Meta
+  title="Forms|Fields/MultiText"
+  component={MultiText}
+/>
+
+<Preview>
+  <Story name="With validation">
+    <Form debug>
+      <Field name="multitext" type="multitext" of="email" />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With invalid seed">
+    <Form
+      debug
+      initialValues={{ multitext: ['noemail', 'noemail2'] }}
+    >
+      <Field name="multitext" type="multitext" of="email" />
+    </Form>
+  </Story>
+</Preview>

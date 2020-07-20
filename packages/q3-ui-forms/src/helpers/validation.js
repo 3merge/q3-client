@@ -162,13 +162,14 @@ export class Validator {
       case 'range':
         this.$base = this.$base
           .array()
+          .ensure()
           .of(
             this.checkTypes.call({
               $base: yup,
               type: this.of,
             }),
-          )
-          .ensure();
+          );
+
         break;
       case 'autocomplete':
         this.$base = this.$base

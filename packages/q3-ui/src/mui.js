@@ -252,9 +252,6 @@ Object.assign(theme, {
         },
       },
     },
-    MuiTable: {
-      borderColor: '#F5F7F9',
-    },
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',
@@ -340,9 +337,6 @@ Object.assign(theme, {
       root: {
         '&$selected': {
           backgroundColor: '#f4f6f8',
-        },
-        '&$hover': {
-          backgroundColor: '#ecf1f7',
         },
       },
     },
