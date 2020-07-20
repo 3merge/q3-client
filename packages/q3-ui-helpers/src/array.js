@@ -1,5 +1,4 @@
 import { difference } from 'lodash';
-import minimatch from 'minimatch';
 
 import * as string from './string';
 

@@ -42,4 +42,28 @@ describe('Form helpers', () => {
       );
     });
   });
+
+  describe('"convertFromRegexPattern"', () => {
+    it('should strip out regex pattern', () =>
+      expect(
+        helpers.convertFromRegexPattern('/foo/gi'),
+      ).toEqual('foo'));
+
+    it('should strip out regex pattern to all parameters', () =>
+      expect(
+        helpers.convertFromRegexPattern(['/foo/gi']),
+      ).toEqual(['foo']));
+  });
+
+  describe('"castToRegex"', () => {
+    it('should add regex pattern', () =>
+      expect(helpers.castToRegex('foo')).toEqual(
+        '/foo/gi',
+      ));
+
+    it('should add regex pattern to all parameters', () =>
+      expect(helpers.castToRegex(['foo'])).toEqual([
+        '/foo/gi',
+      ]));
+  });
 });

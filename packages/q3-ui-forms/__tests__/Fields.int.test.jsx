@@ -6,10 +6,10 @@ import { countries } from '../src/fields/__fixtures__/options';
 
 jest.unmock('useful-state');
 
-const setupForm = (children) => {
+const setupForm = (children, props) => {
   const stateWatcher = jest.fn();
   const el = global.mount(
-    <Form onSubmit={jest.fn()}>
+    <Form onSubmit={Promise.resolve} {...props}>
       {children}
       <Debugger show>
         {(...params) => {
@@ -117,6 +117,33 @@ describe('Fields', () => {
           multiselect: ['CA'],
         },
         {},
+      );
+    });
+  });
+
+  describe('MutliText', () => {
+    it('should validate invalid data', async () => {
+      const [el, stateWatcher] = setupForm(
+        <Field
+          name="multitext"
+          type="multitext"
+          of="email"
+        />,
+        {
+          initialValues: {
+            multitext: ['foo'],
+          },
+        },
+      );
+
+      await act(async () => {
+        el.find('form').simulate('submit');
+      });
+
+      el.update();
+      expect(stateWatcher).toHaveBeenLastCalledWith(
+        { multitext: ['foo'] },
+        { multitext: expect.any(Array) },
       );
     });
   });

@@ -60,7 +60,7 @@ describe('useDispatcher', () => {
   it('should replace all values', () =>
     setIn('setValues', 'values'));
 
-  it('should replace all errors', () =>
+  it.skip('should replace all errors', () =>
     setIn('setErrors', 'errors'));
 
   it('should remove value and retain and original state values', () =>

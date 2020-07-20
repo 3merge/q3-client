@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { debounce } from 'lodash';
 
 export default () => {
   const [
@@ -12,7 +11,7 @@ export default () => {
 
   const delay = (fn) =>
     process.env.NODE_ENV !== 'test'
-      ? debounce(() => setNumOfCalls(fn), 250)
+      ? setTimeout(() => setNumOfCalls(fn), 0)
       : setNumOfCalls(fn);
 
   const add = () => delay((prev) => prev + 1);

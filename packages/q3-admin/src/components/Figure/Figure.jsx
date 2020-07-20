@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 const Figure = ({
+  paperStyles,
   captionComponent,
   children,
   fullWidth,
@@ -15,7 +16,7 @@ const Figure = ({
     <Paper
       component="figure"
       elevation={0}
-      style={{ margin: 0 }}
+      style={{ margin: 0, ...paperStyles }}
     >
       <Box component="figcaption" px={2} pt={1} mb={-2}>
         <Grid container justify="space-between" spacing={3}>
@@ -27,7 +28,7 @@ const Figure = ({
           <Grid item>{captionComponent}</Grid>
         </Grid>
       </Box>
-      <Box height={450} pb={1} px={1}>
+      <Box pb={1} px={1}>
         {children}
       </Box>
     </Paper>
@@ -39,10 +40,14 @@ Figure.propTypes = {
   children: PropTypes.node.isRequired,
   fullWidth: PropTypes.bool,
   title: PropTypes.string.isRequired,
+  paperStyles: PropTypes.shape({
+    backgroundColor: PropTypes.string,
+  }),
 };
 
 Figure.defaultProps = {
   fullWidth: false,
+  paperStyles: {},
 };
 
 export default Figure;
