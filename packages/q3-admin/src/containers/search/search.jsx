@@ -30,7 +30,11 @@ const assignDirectoryPathToResults = (directoryPath) => (
   array.hasLength(res)
     ? res.map((item) => ({
         ...item,
-        url: `${directoryPath}${get(item, 'id', '')}`,
+        url: `${
+          !directoryPath || directoryPath.endsWith('/')
+            ? directoryPath
+            : `${directoryPath}/`
+        }${get(item, 'id', '')}`,
       }))
     : [];
 

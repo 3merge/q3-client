@@ -1,4 +1,7 @@
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
+import Add from './Add';
+import Filters from './Filters';
+import General from './General';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'characters',
@@ -8,10 +11,10 @@ export default new AbstractCollectionBuilder({
   .genHeader({
     titleProp: 'name',
   })
-  .genNew(import('./Add'))
-  .genFilter(import('./Filters'))
+  .genNew(Add)
+  .genFilter(Filters)
   .genViews({
-    general: import('./General'),
+    General,
   })
   .genList({
     defaultColumns: ['createdAt', 'updatedAt'],

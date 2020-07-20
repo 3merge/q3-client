@@ -21,6 +21,7 @@ export default ({
   PageDetailProps,
   PageList,
   PageListProps,
+  resolvers,
   ...etc
 }) => [
   {
@@ -28,7 +29,12 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection id {...props}>
-        <Page id {...props} {...PageDetailProps}>
+        <Page
+          id
+          {...props}
+          {...PageDetailProps}
+          resolvers={resolvers}
+        >
           <PageDetail />
         </Page>
       </Collection>
@@ -40,10 +46,13 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection index {...props}>
-        <Page index {...props} {...PageListProps}>
-          <PageList
-            resolvers={get(PageListProps, 'resolvers')}
-          />
+        <Page
+          index
+          {...props}
+          {...PageListProps}
+          resolvers={resolvers}
+        >
+          <PageList />
         </Page>
       </Collection>
     ),

@@ -59,7 +59,11 @@ export default makeStyles((theme) => ({
     },
   },
 
-  tableRow: {},
+  tableRow: {
+    [theme.breakpoints.down('sm')]: {
+      border: '0 !important',
+    },
+  },
 
   tableCell: {
     display: 'table-cell',
@@ -84,6 +88,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       border: 0,
+      padding: 0,
     },
   },
 
@@ -92,6 +97,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       border: 0,
+      padding: theme.spacing(1),
     },
   },
 
@@ -123,7 +129,7 @@ export default makeStyles((theme) => ({
     },
     [theme.breakpoints.down('sm')]: {
       display: 'block',
-      borderBottom: '2px solid #F5F7F9 !important',
+      borderBottom: '0 !important',
       marginBottom: '0.25rem',
       width: '100%',
     },

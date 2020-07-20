@@ -11,6 +11,7 @@ import { useTheme } from '@material-ui/core/styles';
 import RepeaterState from './state';
 import Search from './Search';
 import NestedItem from './NestedItem';
+import ActionBar from './ActionBar';
 
 export const searchObject = (item = {}) => (value = '') =>
   !value.length ||
@@ -19,6 +20,7 @@ export const searchObject = (item = {}) => (value = '') =>
 const List = ({
   children,
   data,
+  actionComponent,
   createRenderer,
   renderNestedTableRow,
   ...rest
@@ -48,7 +50,7 @@ const List = ({
         <TableRow>
           <TableCell
             style={{
-              borderBottomo: !showAttributes
+              borderBottom: !showAttributes
                 ? 'none !important'
                 : undefined,
             }}
@@ -58,16 +60,19 @@ const List = ({
               ids={filtered.map((item) => item.id)}
             />
           </TableCell>
-          {showAttributes && (
-            <>
-              {attributes.map((name) => (
-                <TableCell component="th">
-                  {t(name)}
-                </TableCell>
-              ))}
-              <TableCell />
-            </>
-          )}
+          <ActionBar
+            data={data}
+            renderSelected={actionComponent}
+            renderUnselected={
+              showAttributes
+                ? attributes.map((name) => (
+                    <TableCell component="th">
+                      {t(name)}
+                    </TableCell>
+                  ))
+                : null
+            }
+          />
         </TableRow>
       </TableHead>
       <TableBody>

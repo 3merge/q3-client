@@ -1,0 +1,44 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Repeater from '../support';
+
+<Meta title="Repeater|Repeater" component={Repeater} />
+
+# Repeater
+
+<Preview>
+  <Story name="Empty">
+    <Repeater data={[]} />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Custom renderers">
+    <Repeater
+      addComponent={<p>Custom renderer</p>}
+      bulkEditorComponent={<p>Bulk editor</p>}
+      renderNestedTableRow={() => <p>Check me out</p>}
+      cardProps={{
+        title: 'firstName',
+        attributes: ['position'],
+        editable: {
+          position: {
+            renderer: () => <div>Something custom!</div>,
+          },
+        },
+        onColor: (item) =>
+          item.age < 20 ? 'orange' : 'blue',
+        describe: () =>
+          'This is a dynamic sentence generated from the item template.',
+        makeLink: () => '/to',
+        makeLinkLabel: ({ id }) => id,
+      }}
+    >
+      <p>Editor</p>
+    </Repeater>
+  </Story>
+</Preview>

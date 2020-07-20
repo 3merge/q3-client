@@ -92,7 +92,6 @@ const TableView = ({
         style={style}
       >
         {children}
-
         <Box
           style={{ flex: 1 }}
           position="relative"

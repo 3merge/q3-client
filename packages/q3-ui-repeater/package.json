@@ -16,6 +16,7 @@
     "q3-ui-dialog": "^1.19.31",
     "q3-ui-exports": "^1.19.31",
     "q3-ui-forms": "^1.19.32",
+    "q3-ui-permissions": "1.19.31",
     "react-i18next": "11.7.0",
     "useful-state": "^1.2.0"
   },
