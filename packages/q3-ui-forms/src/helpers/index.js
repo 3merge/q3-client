@@ -1,8 +1,11 @@
 import moment from 'moment';
+import { get } from 'lodash';
 import { array, string } from 'q3-ui-helpers';
 
 const isUndefined = (v) =>
   v === null || v === undefined || v === '';
+
+const pullValue = (v) => String(get(v, 'value', v));
 
 export const asOptions = (a) =>
   array.is(a).map((value) => ({
@@ -25,3 +28,25 @@ export const makeRangeNames = (name) => [
   `${name}>`,
   `${name}<`,
 ];
+
+export const convertFromRegexPattern = (v) => {
+  try {
+    const exec = (item) =>
+      pullValue(item).replace('/gi', '').replace('/', '');
+
+    return array.hasLength(v) ? v.map(exec) : exec(v);
+  } catch (e) {
+    return v;
+  }
+};
+
+export const castToRegex = (v) => {
+  try {
+    const exec = (item) =>
+      String(new RegExp(pullValue(item), 'gi'));
+
+    return array.hasLength(v) ? v.map(exec) : exec(v);
+  } catch (e) {
+    return v;
+  }
+};
