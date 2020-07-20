@@ -115,7 +115,7 @@ const Chart = ({
         />
       }
     >
-      <Box height={450}>{renderChartComponent()}</Box>
+      {renderChartComponent()}
     </Figure>
   );
 };
