@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.33](https://github.com/3merge/q/compare/v1.19.32...v1.19.33) (2020-07-21)
+
+
+### Bug Fixes
+
+* repeater exports ([#201](https://github.com/3merge/q/issues/201)) ([6cd2037](https://github.com/3merge/q/commit/6cd20375d29439245c115d037c059e678d2378c6))
+
+
+
+
+
+
 ## [1.19.32](https://github.com/3merge/q/compare/v1.19.31...v1.19.32) (2020-07-15)
 
 **Note:** Version bump only for package q3-components
