@@ -15,6 +15,9 @@ import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
+import Fab from '@material-ui/core/Fab';
+import { useTranslation } from 'react-i18next';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
 
@@ -37,6 +40,7 @@ export const isPartialMatch = (a = '', b = '') => {
 const AppNavigation = withLocation(
   ({ location, logoSrc, menuItems, subMenuItems }) => {
     const cls = useStyle();
+    const { t } = useTranslation();
 
     const recursivelyRenderMenuItems = (items) =>
       array.hasLength(items)
@@ -55,7 +59,7 @@ const AppNavigation = withLocation(
                       <item.icon color="inherit" />
                     )}
                     <span variant="body2">
-                      {item.label}
+                      {t(`labels:${item.label}`)}
                     </span>
                   </MuiLink>
                 ) : (
@@ -64,7 +68,7 @@ const AppNavigation = withLocation(
                       <item.icon color="inherit" />
                     )}
                     <span variant="body2">
-                      {item.label}
+                      {t(`titles:${item.label}`)}
                     </span>
                   </span>
                 )
@@ -137,7 +141,6 @@ const AppNavigation = withLocation(
         <Box className={cls.nav}>
           <TreeView
             component="div"
-            style={{ padding: 0 }}
             defaultExpandIcon={<ArrowRightIcon />}
             defaultCollapseIcon={<ArrowDropDownIcon />}
             selected={defaultSelected}

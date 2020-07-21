@@ -55,8 +55,10 @@ export default makeStyles((theme) => ({
     },
   },
   menuItem: {
-    display: 'inline-block',
+    alignItems: 'center',
+    display: 'flex',
     padding: theme.spacing(0.5),
+    textDecoration: 'none !important',
 
     '& svg': {
       marginRight: theme.spacing(0.75),

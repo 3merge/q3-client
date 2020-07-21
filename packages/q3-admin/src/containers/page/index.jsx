@@ -45,6 +45,14 @@ PageChildren.propTypes = {
   hasEntered: PropTypes.bool.isRequired,
   fetching: PropTypes.bool.isRequired,
   fetchingError: PropTypes.bool.isRequired,
+  loadingComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]),
+};
+
+PageChildren.defaultProps = {
+  loadingComponent: null,
 };
 
 export const getDirectoryPath = (root, id) =>
@@ -94,11 +102,6 @@ const Page = ({
     state,
     id,
   });
-
-  /**
-   * @TODO
-   * Move into an abstracted hook of its own.
-   */
 
   let query;
 
@@ -156,10 +159,12 @@ const Page = ({
             ]),
           }}
         >
-          <Tray>
-            <Search resolvers={resolvers} />
-            <UnsavedChanges />
-          </Tray>
+          {resolvers && (
+            <Tray>
+              <Search resolvers={resolvers} />
+              <UnsavedChanges />
+            </Tray>
+          )}
           {executeOnChildren(children, {
             ...state,
             id,

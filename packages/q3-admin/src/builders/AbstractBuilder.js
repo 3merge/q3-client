@@ -8,6 +8,7 @@ export default class Collection {
     resourceName,
     resourceNameSingular,
     collectionName,
+    resolvers,
     ...rest
   }) {
     // eslint-disable-next-line
@@ -21,10 +22,10 @@ export default class Collection {
       ...rest,
     };
 
-    this.$generateDetail = {};
-    this.$generateList = {};
-    this.$generateDetailProps = {};
-    this.$generateListProps = {};
+    this.$generateDetail = { resolvers };
+    this.$generateList = { resolvers };
+    this.$generateDetailProps = { resolvers };
+    this.$generateListProps = { resolvers };
   }
 
   genHeader(args = {}) {

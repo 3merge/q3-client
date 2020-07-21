@@ -1,4 +1,4 @@
-export default class ResizeObserver {
+module.exports = class ResizeObserver {
   observe() {
     return this;
   }
@@ -6,4 +6,4 @@ export default class ResizeObserver {
   unobserve() {
     return this;
   }
-}
+};

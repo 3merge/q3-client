@@ -252,6 +252,12 @@ Object.assign(theme, {
         },
       },
     },
+    MuiTreeItem: {
+      root: {},
+      label: {
+        borderRadius: 5,
+      },
+    },
     MuiTableCell: {
       head: {
         textOverflow: 'ellipsis',

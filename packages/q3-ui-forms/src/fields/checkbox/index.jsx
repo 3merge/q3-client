@@ -27,6 +27,7 @@ const Checkbox = withState(
     error,
     onChange,
     checkedValue,
+    helperText,
     ...rest
   }) => {
     const handleOnChange = (e, v) =>
@@ -40,6 +41,7 @@ const Checkbox = withState(
     return (
       <Bool
         {...rest}
+        helperText={error ? helperText : undefined}
         variant={variant}
         isChecked={castToBoolean(value)}
         error={castToBoolean(error)}
@@ -61,4 +63,10 @@ Checkbox.defaultProps = {
 export default withGrid(Checkbox, {
   xl: 12,
   lg: 12,
+  style: {
+    marginBottom: 0,
+    marginTop: 0,
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
 });
