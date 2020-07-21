@@ -20,7 +20,8 @@ import ActionList from '../../components/ActionList';
 const TableIo = ({ io, data, params }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('descriptions');
-  const { checked } = React.useContext(State);
+  const exportState = React.useContext(State);
+  const checked = get(exportState, 'checked', []);
 
   const gt = React.useCallback(
     (v) => array.hasLength(v) > 0,

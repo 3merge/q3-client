@@ -11,8 +11,20 @@ import IconButton from 'q3-ui/lib/iconButton';
 import Dialog from 'q3-ui-dialog';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { red } from '@material-ui/core/colors';
+import { browser } from 'q3-ui-helpers';
+import moment from 'moment';
 import ChartDownload from '../ChartDownload';
 import Figure from '../../components/Figure';
+
+const getDate = (s, key) => {
+  if (!browser.isBrowserReady()) return 'N/A';
+
+  console.log(s, key);
+
+  return moment(new URLSearchParams(s).get(key)).format(
+    'MMMM DD',
+  );
+};
 
 // eslint-disable-next-line
 const ChartLoadingContainer = ({ children }) => (
@@ -31,6 +43,8 @@ const Chart = ({
   initialQueryValue,
   chartComponent,
   filterComponent,
+  from,
+  to,
   ...FigureProps
 }) => {
   const [data, setData] = React.useState();
@@ -97,8 +111,14 @@ const Chart = ({
             </EncodedUrl>
           )}
           renderTrigger={(onClick) => (
-            <Grid container>
+            <Grid container alignItems="center">
               <Grid item>
+                <small style={{ marginRight: '1rem' }}>
+                  {[
+                    getDate(query, from),
+                    getDate(query, to),
+                  ].join(' to ')}
+                </small>
                 <IconButton
                   label="filter"
                   icon={FilterList}
@@ -131,6 +151,14 @@ Chart.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]).isRequired,
+
+  from: PropTypes.string,
+  to: PropTypes.string,
+};
+
+Chart.defaultProps = {
+  from: 'createdAt>',
+  to: 'createdAt<',
 };
 
 export default Chart;
