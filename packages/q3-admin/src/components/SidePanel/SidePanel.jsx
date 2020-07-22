@@ -10,8 +10,11 @@ import Box from '@material-ui/core/Box';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
-const SidePanel = ({ children }) => {
-  const cls = useStyle();
+const SidePanel = ({ children, open = true }) => {
+  const cls = useStyle({
+    open,
+  });
+
   const globalStyle = useGlobalStyle();
   return (
     <>

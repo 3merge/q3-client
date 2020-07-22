@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import Tabs from 'q3-ui/lib/tabs';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import SidePanelContent from '../../components/SidePanelContent';
 import { Dispatcher } from '../state';
-import Sidebar from '../../components/sidebar';
 import Notes from '../notes';
 import RelatedLinks from './RelatedLinks';
-import History from '../history';
 import PictureUpload from '../../components/picture';
 import Article from '../../components/Article';
-import SidePanel from '../../components/SidePanel';
+
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
 import ActivityLog from '../activityLog';
 import Trash from '../trash';
 import DetailHeader from '../DetailHeader';
+import DetailSidePanel from '../DetailSidePanel';
+import DetailSidePanelContent from '../DetailSidePanelContent';
 
 const ActivityLogPreset = {
   to: '/log',
@@ -66,7 +65,9 @@ const Detail = ({
   disableLog,
   ...rest
 }) => {
-  const { exclusions } = React.useContext(Dispatcher);
+  const { exclusions, ...etc } = React.useContext(
+    Dispatcher,
+  );
 
   const filterByExclusion = (item) =>
     item && !exclusions.includes(item.label);
@@ -74,30 +75,21 @@ const Detail = ({
   return (
     <Article
       asideComponent={
-        <SidePanel>
-          <Sidebar
-            {...rest}
-            documentation={documentation}
-            commentTab={notes && <Notes />}
-            historyTab={history && <History />}
-            filesTab={
-              files && (
-                <Upload
-                  tagOptions={tagOptions}
-                  tagInstructions={tagInstructions}
-                />
-              )
-            }
-          >
-            {picture && (
-              <SidePanelContent title="Picture">
-                <Box px={1}>
-                  <PictureUpload />
-                </Box>
-              </SidePanelContent>
-            )}
-          </Sidebar>
-        </SidePanel>
+        <DetailSidePanel
+          picture={files && <PictureUpload />}
+          documentation={documentation}
+          notes={notes && <Notes />}
+          files={
+            files && (
+              <Upload
+                tagOptions={tagOptions}
+                tagInstructions={tagInstructions}
+              />
+            )
+          }
+        >
+          <DetailSidePanelContent {...rest} />
+        </DetailSidePanel>
       }
     >
       <Tabs

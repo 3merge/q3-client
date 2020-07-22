@@ -6,6 +6,7 @@ const profile = {
   id: 1,
   photo: 'https://randomuser.me/api/portraits/men/22.jpg',
   firstName: 'Mike',
+  role: 'Developer',
 };
 
 const genPermission = (rest) => ({

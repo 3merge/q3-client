@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
 import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
-import SidePanelContent from '../SidePanelContent';
-import { Dispatcher, Store } from '../../containers/state';
-import SidebarTabs from './tabs';
-import Column from './column';
+import SidePanelContent from '../../components/SidePanelContent';
+import { Dispatcher, Store } from '../state';
 
 const invoke = (fn, data, dispatchers, t) =>
   typeof fn === 'function' &&
@@ -26,8 +23,7 @@ const getLastModification = getMeta(
   'updatedAt',
 );
 
-const Sidebar = ({
-  children,
+const DetailSidePanelContent = ({
   registerOptions,
   registerPanels,
 }) => {
@@ -82,30 +78,11 @@ const Sidebar = ({
           {panel.content}
         </SidePanelContent>
       ))}
-      {children}
     </>
   );
 };
 
-Sidebar.propTypes = {
-  /**
-   * Displays in the first tab, underneath the standard meta information.
-   */
-  children: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.object,
-  ]).isRequired,
-
-  /**
-   * Ideally, a first and last name of the user who created the resource.
-   */
-  createdBy: PropTypes.string,
-
-  /**
-   * Date object representating last update date.
-   */
-  lastUpdated: PropTypes.string,
-
+DetailSidePanelContent.propTypes = {
   /**
    * Programatically add options to the list.
    */
@@ -117,11 +94,9 @@ Sidebar.propTypes = {
   registerPanels: PropTypes.func,
 };
 
-Sidebar.defaultProps = {
-  createdBy: null,
-  lastUpdated: null,
+DetailSidePanelContent.defaultProps = {
   registerOptions: null,
   registerPanels: null,
 };
 
-export default Sidebar;
+export default DetailSidePanelContent;

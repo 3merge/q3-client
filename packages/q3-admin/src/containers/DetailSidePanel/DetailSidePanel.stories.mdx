@@ -4,17 +4,29 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import AppHeader from './DetailSidePanel';
+import DetailSidePanel from './DetailSidePanel';
 
 <Meta
-  title="Admin|DetailSidePanel"
+  title="Admin|Detail Side Panel"
   component={DetailSidePanel}
 />
 
-# initialTitle="3merge"
+<Preview>
+  <Story name="With just child">
+    <DetailSidePanel>
+      <p>Child</p>
+    </DetailSidePanel>
+  </Story>
+</Preview>
 
 <Preview>
-  <Story name="With initial value">
-    <DetailSidePanel />
+  <Story name="With tabs">
+    <DetailSidePanel
+      documentation={<p>Docs</p>}
+      notes={<p>Notes</p>}
+      thread={<p>Thread</p>}
+    >
+      <p>Child</p>
+    </DetailSidePanel>
   </Story>
 </Preview>
