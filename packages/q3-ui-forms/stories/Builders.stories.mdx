@@ -10,6 +10,7 @@ import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
+import { countries } from '../src/fields/__fixtures__/options';
 
 <Meta
   title="Forms|Builder"
@@ -27,12 +28,13 @@ Sometimes, we'll need something else.
 <Preview>
   <Story name="Simple">
     <Provider>
-      <Form
-        debug
-        showPersistenceSnack
-        initialValues={{ firstName: 'Jon' }}
-      >
+      <Form debug restart showPersistenceSnack>
         <Field name="firstName" type="text" />
+        <Field
+          name="countries"
+          type="autocomplete"
+          options={countries}
+        />
       </Form>
     </Provider>
   </Story>

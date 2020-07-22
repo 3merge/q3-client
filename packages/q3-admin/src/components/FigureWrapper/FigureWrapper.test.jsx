@@ -1,23 +1,19 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Figure from './Figure';
+import FigureWrapper from './FigureWrapper';
 
 const renderFigureGridElement = (props, len) => {
   const el = global.shallow(
-    <Figure
-      title="title"
-      captionComponent={<span>Caption</span>}
-      {...props}
-    >
+    <FigureWrapper {...props}>
       <div />
-    </Figure>,
+    </FigureWrapper>,
   );
 
   const target = el.find(Grid).first().props();
   return expect(target).toHaveProperty('lg', len);
 };
 
-describe('Figure', () => {
+describe('FigureWrapper', () => {
   it('should render 12-point grid item', () =>
     renderFigureGridElement({ fullWidth: true }, 12));
 

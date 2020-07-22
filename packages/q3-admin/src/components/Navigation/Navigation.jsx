@@ -15,9 +15,8 @@ import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
-import Fab from '@material-ui/core/Fab';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import DashboardIcon from '@material-ui/icons/Dashboard';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
 
@@ -38,7 +37,14 @@ export const isPartialMatch = (a = '', b = '') => {
 };
 
 const AppNavigation = withLocation(
-  ({ location, logoSrc, menuItems, subMenuItems }) => {
+  ({
+    location,
+    logoSrc,
+    menuItems,
+    subMenuItems,
+    footerComponent,
+    title = 'Menu',
+  }) => {
     const cls = useStyle();
     const { t } = useTranslation();
 
@@ -139,34 +145,50 @@ const AppNavigation = withLocation(
 
       return (
         <Box className={cls.nav}>
-          <TreeView
-            component="div"
-            defaultExpandIcon={<ArrowRightIcon />}
-            defaultCollapseIcon={<ArrowDropDownIcon />}
-            selected={defaultSelected}
-            defaultExpanded={defaultExpanded}
-          >
-            {recursivelyRenderMenuItems(menuItems)}
-          </TreeView>
-          {subMenuItems ? (
-            <Box my={2}>
-              <Divider />
-              <Box py={1}>
-                {subMenuItems.map((item) => (
-                  <Box mb={0.5}>
-                    <MuiLink
-                      fullWidth
-                      component={Link}
-                      style={{ fontSize: '0.911rem' }}
-                      to={item.to}
-                    >
-                      {item.label}
-                    </MuiLink>
-                  </Box>
-                ))}
+          <Box>
+            {title && (
+              <Hidden mdDown>
+                <Box pb={3} px={1}>
+                  <Typography
+                    variant="body2"
+                    component="h1"
+                    align="center"
+                  >
+                    <strong>{title}</strong>
+                  </Typography>
+                </Box>
+              </Hidden>
+            )}
+            <TreeView
+              component="div"
+              defaultExpandIcon={<ArrowRightIcon />}
+              defaultCollapseIcon={<ArrowDropDownIcon />}
+              selected={defaultSelected}
+              defaultExpanded={defaultExpanded}
+            >
+              {recursivelyRenderMenuItems(menuItems)}
+            </TreeView>
+            {subMenuItems ? (
+              <Box my={2}>
+                <Divider />
+                <Box py={1}>
+                  {subMenuItems.map((item) => (
+                    <Box mb={0.5}>
+                      <MuiLink
+                        fullWidth
+                        component={Link}
+                        style={{ fontSize: '0.911rem' }}
+                        to={item.to}
+                      >
+                        {item.label}
+                      </MuiLink>
+                    </Box>
+                  ))}
+                </Box>
               </Box>
-            </Box>
-          ) : null}
+            ) : null}
+          </Box>
+          <Box>{footerComponent}</Box>
         </Box>
       );
     };
@@ -193,7 +215,7 @@ const AppNavigation = withLocation(
             <Drawer
               variant="drawer"
               anchor="left"
-              title="menu"
+              title={title}
               renderTrigger={(onClick) => (
                 <Grid item>
                   <Box pl={1}>

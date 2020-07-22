@@ -28,10 +28,13 @@ const ExampleApp = ({ initialPath }) => (
       <Authentication>
         <Datasource>
           <Admin
-            logoSrc={logo}
             AppProps={{
               pages,
               customRoutes: [<DashboardRoute path="/" />],
+            }}
+            NavProps={{
+              title: 'Demo app',
+              logoSrc: logo,
             }}
             icons={{
               entertainment: BeachAccessIcon,

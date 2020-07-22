@@ -24,8 +24,25 @@ export default class Collection {
 
     this.$generateDetail = { resolvers };
     this.$generateList = { resolvers };
-    this.$generateDetailProps = { resolvers };
+    this.$generateDetailProps = {
+      resolvers,
+    };
     this.$generateListProps = { resolvers };
+  }
+
+  genResolver(resolvers) {
+    [
+      '$generateDetail',
+      '$generateList',
+      '$generateDetailProps',
+      '$generateListProps',
+    ].forEach((namespace) => {
+      Object.assign(this[namespace], {
+        resolvers,
+      });
+    });
+
+    return this;
   }
 
   genHeader(args = {}) {

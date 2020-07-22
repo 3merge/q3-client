@@ -23,7 +23,10 @@ export default makeStyles((theme) => ({
     height: 65,
   },
   nav: {
-    height: 'calc(100vh - 165px)',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    display: 'flex',
+    height: 'calc(100vh - 75px)',
     padding: theme.spacing(1.5),
   },
   actions: {

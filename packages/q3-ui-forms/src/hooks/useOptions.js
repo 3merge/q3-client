@@ -37,22 +37,24 @@ export default ({
   if (Array.isArray(runOnChange))
     watchValues = pick(values, runOnChange);
 
-  const runOpts = (v) =>
-    setItems(transformOptions ? asOptions(v) : v);
+  const runOpts = React.useCallback(
+    (v) => setItems(transformOptions ? asOptions(v) : v),
+    [transformOptions],
+  );
 
-  React.useEffect(() => {
+  return React.useMemo(() => {
     if (loadOptions) {
       run(values);
     } else {
       runOpts(options);
     }
-  }, [value, JSON.stringify(watchValues)]);
 
-  return {
-    loading,
-    value,
-    onChange,
-    setValue,
-    items,
-  };
+    return {
+      loading,
+      value,
+      onChange,
+      setValue,
+      items,
+    };
+  }, [value, JSON.stringify(watchValues)]);
 };

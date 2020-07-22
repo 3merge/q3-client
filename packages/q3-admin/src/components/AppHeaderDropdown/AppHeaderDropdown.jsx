@@ -66,6 +66,7 @@ export const DropDownMenu = ({
 
 export const AccountMenu = ({
   name,
+  src,
   items,
   icon: Icon,
 }) => {
@@ -76,10 +77,7 @@ export const AccountMenu = ({
           {Icon ? (
             <Icon />
           ) : (
-            <Avatar
-              alt="Default profile picture"
-              // src={profileImgSrc}
-            />
+            <Avatar alt="Profile picture" src={src} />
           )}
         </IconButton>
       )}

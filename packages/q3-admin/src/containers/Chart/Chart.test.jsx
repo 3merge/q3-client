@@ -1,9 +1,8 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import Chart from './Chart';
 import ChartFixture from './Chart.fixture.jsx';
+import FigureSkeleton from '../../components/FigureSkeleton';
 
 jest.unmock('axios');
 
@@ -35,7 +34,7 @@ describe('Chart', () => {
     );
 
     const getCircularProgress = (expectedLength) =>
-      expect(el.find(CircularProgress)).toHaveLength(
+      expect(el.find(FigureSkeleton)).toHaveLength(
         expectedLength,
       );
 
@@ -44,7 +43,6 @@ describe('Chart', () => {
     return waitForMock(() => {
       el.update();
       getCircularProgress(0);
-      expect(el.find(BrokenImageIcon)).toHaveLength(1);
     });
   });
 

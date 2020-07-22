@@ -70,6 +70,7 @@ const AutoCompleteWrapper = (props) => {
     required,
     freeSolo,
   } = props;
+
   const {
     loading,
     onChange,

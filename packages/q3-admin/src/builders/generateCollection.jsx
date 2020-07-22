@@ -1,5 +1,4 @@
 import React from 'react';
-import { get } from 'lodash';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 
@@ -21,7 +20,6 @@ export default ({
   PageDetailProps,
   PageList,
   PageListProps,
-  resolvers,
   ...etc
 }) => [
   {
@@ -29,12 +27,7 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection id {...props}>
-        <Page
-          id
-          {...props}
-          {...PageDetailProps}
-          resolvers={resolvers}
-        >
+        <Page id {...props} {...PageDetailProps}>
           <PageDetail />
         </Page>
       </Collection>
@@ -46,12 +39,7 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection index {...props}>
-        <Page
-          index
-          {...props}
-          {...PageListProps}
-          resolvers={resolvers}
-        >
+        <Page index {...props} {...PageListProps}>
           <PageList />
         </Page>
       </Collection>

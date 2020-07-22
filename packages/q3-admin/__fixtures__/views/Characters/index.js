@@ -7,6 +7,26 @@ export default new AbstractCollectionBuilder({
   resourceName: 'characters',
   resourceNameSingular: 'character',
   parent: 'entertainment',
+
+  resolvers: ({
+    id,
+    name,
+    description,
+    createdAt,
+    updatedAt,
+  }) => ({
+    id,
+    name,
+    description,
+    createdAt: {
+      base: createdAt,
+      toDate: true,
+    },
+    updatedAt: {
+      base: updatedAt,
+      toDate: true,
+    },
+  }),
 })
   .genHeader({
     titleProp: 'name',
@@ -18,26 +38,6 @@ export default new AbstractCollectionBuilder({
   })
   .genList({
     defaultColumns: ['createdAt', 'updatedAt'],
-
-    resolvers: ({
-      id,
-      name,
-      description,
-      createdAt,
-      updatedAt,
-    }) => ({
-      id,
-      name,
-      description,
-      createdAt: {
-        base: createdAt,
-        toDate: true,
-      },
-      updatedAt: {
-        base: updatedAt,
-        toDate: true,
-      },
-    }),
   })
   .genListSettings({
     defaultSortPreference: 'name',

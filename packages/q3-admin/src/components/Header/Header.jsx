@@ -41,7 +41,7 @@ const Header = ({
               <Grid item>{backComponent}</Grid>
             )}
             <Grid item>
-              <Typography variant="h5" component="h1">
+              <Typography variant="h5" component="h2">
                 {title}
               </Typography>
             </Grid>

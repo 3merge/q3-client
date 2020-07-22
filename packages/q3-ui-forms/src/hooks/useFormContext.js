@@ -55,7 +55,7 @@ export default ({
   };
 
   const onReset = React.useCallback(() => {
-    setValues(previousValues);
+    setValues({});
     setErrors({});
   }, [previousValues]);
 

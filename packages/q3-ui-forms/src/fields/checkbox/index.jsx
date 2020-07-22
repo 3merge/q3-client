@@ -41,7 +41,9 @@ const Checkbox = withState(
     return (
       <Bool
         {...rest}
-        helperText={error ? helperText : undefined}
+        helperText={
+          error || variant ? helperText : undefined
+        }
         variant={variant}
         isChecked={castToBoolean(value)}
         error={castToBoolean(error)}

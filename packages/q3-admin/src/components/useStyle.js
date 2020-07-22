@@ -26,4 +26,8 @@ export default makeStyles((theme) => ({
       height: 'calc((100 * var(--vh)) - 130px)',
     },
   },
+
+  muted: {
+    backgroundColor: '#f5f7f9',
+  },
 }));

@@ -11,14 +11,13 @@ import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 
 const Admin = ({
-  logoSrc,
   icons,
   socket,
   tours,
   children,
   profileItems,
-  subPages,
   AppProps,
+  NavProps,
 }) => {
   const cls = useStyle();
   return (
@@ -26,9 +25,8 @@ const Admin = ({
       {(restartTour) => (
         <Viewport>
           <Navigation
-            logoSrc={logoSrc}
+            {...NavProps}
             menuItems={usePages(AppProps.pages, icons)}
-            subMenuItems={subPages}
           />
           <Box className={cls.main}>
             <ProfileActions

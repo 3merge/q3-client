@@ -8,6 +8,21 @@ export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
 })
+  .genResolver(
+    ({ id, name, description, createdAt, updatedAt }) => ({
+      id,
+      name,
+      description,
+      createdAt: {
+        base: createdAt,
+        toDate: true,
+      },
+      updatedAt: {
+        base: updatedAt,
+        toDate: true,
+      },
+    }),
+  )
   .genHeader({
     titleProp: 'name',
   })
@@ -23,25 +38,6 @@ export default new AbstractCollectionBuilder({
       // eslint-disable-next-line
       renderer: () => <p>Look at me!</p>,
     },
-    resolvers: ({
-      id,
-      name,
-      description,
-      createdAt,
-      updatedAt,
-    }) => ({
-      id,
-      name,
-      description,
-      createdAt: {
-        base: createdAt,
-        toDate: true,
-      },
-      updatedAt: {
-        base: updatedAt,
-        toDate: true,
-      },
-    }),
   })
   .genListSettings({
     defaultSortPreference: 'name',

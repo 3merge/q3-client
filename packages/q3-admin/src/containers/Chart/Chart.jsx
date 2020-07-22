@@ -3,41 +3,22 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
 import { Next } from 'q3-ui-forms/lib/builders';
-import Box from '@material-ui/core/Box';
 import FilterList from '@material-ui/icons/FilterList';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import IconButton from 'q3-ui/lib/iconButton';
 import Dialog from 'q3-ui-dialog';
-import BrokenImageIcon from '@material-ui/icons/BrokenImage';
-import { red } from '@material-ui/core/colors';
 import { browser } from 'q3-ui-helpers';
 import moment from 'moment';
 import ChartDownload from '../ChartDownload';
 import Figure from '../../components/Figure';
+import FigureSkeleton from '../../components/FigureSkeleton';
 
 const getDate = (s, key) => {
   if (!browser.isBrowserReady()) return 'N/A';
-
-  console.log(s, key);
-
   return moment(new URLSearchParams(s).get(key)).format(
     'MMMM DD',
   );
 };
-
-// eslint-disable-next-line
-const ChartLoadingContainer = ({ children }) => (
-  <Box
-    display="flex"
-    height="100%"
-    width="100%"
-    alignItems="center"
-    justifyContent="center"
-  >
-    {children}
-  </Box>
-);
 
 const Chart = ({
   initialQueryValue,
@@ -56,27 +37,6 @@ const Chart = ({
 
   const uri = `/reports${query}`;
 
-  const renderChartComponent = () => {
-    if (error)
-      return (
-        <ChartLoadingContainer>
-          <BrokenImageIcon
-            style={{ color: red[900], fontSize: 26 }}
-          />
-        </ChartLoadingContainer>
-      );
-
-    if (loading)
-      return (
-        <ChartLoadingContainer>
-          <CircularProgress />
-        </ChartLoadingContainer>
-      );
-    return React.cloneElement(chartComponent, {
-      data,
-    });
-  };
-
   React.useEffect(() => {
     setLoading(true);
     axios
@@ -89,6 +49,14 @@ const Chart = ({
         setLoading(false);
       });
   }, [uri]);
+
+  if (error) {
+    // eslint-disable-next-line
+    console.error(error);
+    return null;
+  }
+
+  if (loading) return <FigureSkeleton {...FigureProps} />;
 
   return (
     <Figure
@@ -135,7 +103,9 @@ const Chart = ({
         />
       }
     >
-      {renderChartComponent()}
+      {React.cloneElement(chartComponent, {
+        data,
+      })}
     </Figure>
   );
 };
