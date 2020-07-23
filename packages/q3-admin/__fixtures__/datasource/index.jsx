@@ -26,6 +26,18 @@ const makeApiEndpoints = (
     });
 
   mockInstance
+    // single resource
+    .onPatch(new RegExp(`${collectionName}\\/\\d+`))
+    .reply((params) => {
+      const output = ops.patchData(
+        resourceNameSingular,
+        params,
+      );
+
+      return [200, output];
+    });
+
+  mockInstance
     // collection
     .onGet(new RegExp(collectionName))
     .reply(({ url }) => {

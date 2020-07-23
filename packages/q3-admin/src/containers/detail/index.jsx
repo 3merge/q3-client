@@ -1,54 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tabs from 'q3-ui/lib/tabs';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import SidePanelContent from '../../components/SidePanelContent';
-import { Dispatcher } from '../state';
-import Sidebar from '../../components/sidebar';
 import Notes from '../notes';
-import RelatedLinks from './RelatedLinks';
-import History from '../history';
 import PictureUpload from '../../components/picture';
 import Article from '../../components/Article';
-import SidePanel from '../../components/SidePanel';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
 import ActivityLog from '../activityLog';
 import Trash from '../trash';
-import DetailHeader from '../DetailHeader';
-
-const ActivityLogPreset = {
-  to: '/log',
-  label: 'log',
-  component: () =>
-    React.createElement(ActivityLog, {
-      name: 'log',
-    }),
-};
-
-const TrashPreset = {
-  to: '/trash',
-  label: 'trash',
-  component: () =>
-    React.createElement(Trash, {
-      name: 'trash',
-    }),
-};
-
-const Overflow = ({ children }) => {
-  return (
-    <Box pb={4}>
-      <Container disableGutters fixed>
-        {children}
-      </Container>
-    </Box>
-  );
-};
-
-const HeaderMaxWidth = (HeaderProps) => ({ children }) => (
-  <DetailHeader {...HeaderProps} navComponent={children} />
-);
+import DetailSidePanel from '../DetailSidePanel';
+import DetailSidePanelContent from '../DetailSidePanelContent';
+import DetailViews from '../DetailViews';
+import DetailRelatedLinks from '../DetailRelatedLinks';
+import DetailNavigation from '../DetailNavigation';
+import { useAppContext } from '../../hooks';
+import { Store } from '../state';
 
 const Detail = ({
   HeaderProps,
@@ -62,65 +27,34 @@ const Detail = ({
   tagInstructions,
   documentation,
   links,
-  disableTrash,
-  disableLog,
+  views,
   ...rest
-}) => {
-  const { exclusions } = React.useContext(Dispatcher);
-
-  const filterByExclusion = (item) =>
-    item && !exclusions.includes(item.label);
-
-  return (
-    <Article
-      asideComponent={
-        <SidePanel>
-          <Sidebar
-            {...rest}
-            documentation={documentation}
-            commentTab={notes && <Notes />}
-            historyTab={history && <History />}
-            filesTab={
-              files && (
-                <Upload
-                  tagOptions={tagOptions}
-                  tagInstructions={tagInstructions}
-                />
-              )
-            }
-          >
-            {picture && (
-              <SidePanelContent title="Picture">
-                <Box px={1}>
-                  <PictureUpload />
-                </Box>
-              </SidePanelContent>
-            )}
-          </Sidebar>
-        </SidePanel>
-      }
-    >
-      <Tabs
-        dense
-        wrap={HeaderMaxWidth(HeaderProps)}
-        // eslint-disable-next-line
-        wrapBody={({ children }) => (
-          <RelatedLinks links={links}>
-            <Overflow>{children}</Overflow>
-          </RelatedLinks>
-        )}
-        // root={rootPath}
-        scrollButtons="on"
-        views={mapToNestedRoute(children)
-          .concat([
-            disableTrash ? null : TrashPreset,
-            disableLog ? null : ActivityLogPreset,
-          ])
-          .filter(filterByExclusion)}
-      />
-    </Article>
-  );
-};
+}) => (
+  <Article
+    asideComponent={
+      <DetailSidePanel
+        picture={files && <PictureUpload />}
+        documentation={documentation}
+        notes={notes && <Notes />}
+        files={
+          files && (
+            <Upload
+              tagOptions={tagOptions}
+              tagInstructions={tagInstructions}
+            />
+          )
+        }
+      >
+        <DetailSidePanelContent {...rest} />
+      </DetailSidePanel>
+    }
+  >
+    <DetailNavigation {...HeaderProps} views={views} />
+    <DetailRelatedLinks links={links}>
+      <DetailViews views={views} />
+    </DetailRelatedLinks>
+  </Article>
+);
 
 Detail.propTypes = {
   children: PropTypes.oneOfType([
@@ -158,4 +92,43 @@ Detail.defaultProps = {
   picture: false,
 };
 
-export default React.memo(Detail);
+const withDynamicViews = (Component) => ({
+  children,
+  ...props
+}) => {
+  const { check } = useAppContext();
+  const { data } = React.useContext(Store);
+
+  const makeView = React.useCallback(
+    (label, el) => ({
+      to: `/${label}`,
+      component: () =>
+        React.createElement(el, {
+          name: label,
+        }),
+      label,
+    }),
+    [],
+  );
+
+  const views = mapToNestedRoute(children)
+    .concat([
+      makeView('trash', Trash),
+      makeView('logs', ActivityLog),
+    ])
+    .filter((el) => {
+      return check(el.label, el, data);
+    });
+
+  return React.useMemo(
+    () =>
+      views.findIndex((view) => view.to === '/') === -1 ? (
+        <div>Cannot see this</div>
+      ) : (
+        <Component views={views} {...props} />
+      ),
+    [JSON.stringify(views)],
+  );
+};
+
+export default withDynamicViews(Detail);

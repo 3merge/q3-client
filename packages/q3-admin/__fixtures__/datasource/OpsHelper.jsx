@@ -54,6 +54,17 @@ export default class OpsHelper {
     };
   }
 
+  patchData(keyName, { url, data }) {
+    const id = this.getIdFromUrl(url);
+    const init = this.findById(id);
+    const doc = Object.assign(init, JSON.parse(data));
+    this.$__store = this.mapById(id, doc);
+
+    return {
+      [keyName]: doc,
+    };
+  }
+
   getNestedData(keyName, { url }) {
     const [sub] = this.findByNestedId(url);
     const out = get(this.findById(sub), keyName);

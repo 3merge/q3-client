@@ -11,7 +11,6 @@ import { browser } from 'q3-ui-helpers';
 import moment from 'moment';
 import ChartDownload from '../ChartDownload';
 import Figure from '../../components/Figure';
-import FigureSkeleton from '../../components/FigureSkeleton';
 
 const getDate = (s, key) => {
   if (!browser.isBrowserReady()) return 'N/A';
@@ -30,7 +29,7 @@ const Chart = ({
 }) => {
   const [data, setData] = React.useState();
   const [error, setError] = React.useState();
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [query, setQuery] = React.useState(
     initialQueryValue,
   );
@@ -55,8 +54,6 @@ const Chart = ({
     console.error(error);
     return null;
   }
-
-  if (loading) return <FigureSkeleton {...FigureProps} />;
 
   return (
     <Figure
@@ -104,6 +101,7 @@ const Chart = ({
       }
     >
       {React.cloneElement(chartComponent, {
+        loading,
         data,
       })}
     </Figure>

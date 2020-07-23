@@ -23,6 +23,10 @@ beforeEach(() => {
     .spyOn(React, 'useCallback')
     .mockImplementation((fn) => () => fn());
 
+  jest.spyOn(React, 'useRef').mockReturnValue({
+    current: null,
+  });
+
   state = jest
     .spyOn(React, 'useState')
     .mockImplementation((v) => [v, stateFn]);

@@ -12,7 +12,7 @@ import Tray from '../../components/Tray';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
-import { useDataStore, useViewResolutions } from '../use';
+import { useDataStore } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
 import Search from '../search';
@@ -69,7 +69,6 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
-  viewResolutions,
   loadingComponent,
   lookup,
   runOnSearch,
@@ -121,11 +120,6 @@ const Page = ({
     { ...state, url },
   );
 
-  const exclusions = useViewResolutions(
-    viewResolutions,
-    data,
-  );
-
   return (
     <PageChildren
       hasEntered={hasEntered}
@@ -135,18 +129,15 @@ const Page = ({
       id={id}
     >
       <Dispatcher.Provider
-        value={{
-          exclusions,
-          ...pick(state, [
-            'get',
-            'poll',
-            'remove',
-            'removeBulk',
-            'patch',
-            'put',
-            'post',
-          ]),
-        }}
+        value={pick(state, [
+          'get',
+          'poll',
+          'remove',
+          'removeBulk',
+          'patch',
+          'put',
+          'post',
+        ])}
       >
         <Store.Provider
           value={{
@@ -207,11 +198,6 @@ Page.propTypes = {
    */
   select: PropTypes.string,
 
-  /**
-   * Used to hide/display tabs based on state or role.
-   */
-  viewResolutions: PropTypes.shape({}),
-
   lookup: PropTypes.arrayOf(PropTypes.string),
   loadingComponent: PropTypes.node,
 };
@@ -221,7 +207,6 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
-  viewResolutions: {},
   lookup: [],
   loadingComponent: null,
 };

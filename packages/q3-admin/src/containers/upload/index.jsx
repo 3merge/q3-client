@@ -64,25 +64,3 @@ const Files = ({ tagOptions, tagInstructions }) => {
 };
 
 export default Files;
-
-/**
-
-{/*
-            <ListItem
-              title={file.name}
-              description={fileType(file)}
-              icon={getFileIcon(fileType(file))}
-            >
-              <ActionBar>
-                <IconButton
-                  component="a"
-                  href={file.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Download file"
-                >
-                  <CloudDownload />
-                </IconButton>
-              </ActionBar>
-            </ListItem> 
- */

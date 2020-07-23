@@ -13,6 +13,10 @@ jest
   .spyOn(React, 'useCallback')
   .mockImplementation((fn) => (params) => fn(params));
 
+jest
+  .spyOn(React, 'useRef')
+  .mockReturnValue({ current: null });
+
 describe('useResults', () => {
   it('should return truthy', () =>
     expect(isOfAdequateLength('aabb', 2)).toBeTruthy());

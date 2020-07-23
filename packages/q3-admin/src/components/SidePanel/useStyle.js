@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
     borderRight: '2px solid #f4f6f8',
     height: 'calc((100 * var(--vh)) - 65px)',
     padding: '1rem 0',
+    position: 'relative',
     maxWidth: 310,
     width: 310,
 
@@ -26,6 +27,14 @@ export default makeStyles((theme) => ({
     maxHeight: '100%',
     overflowY: 'auto !important',
     overflowX: 'hidden !important',
-    // margin: '0 .25rem',
+    width: 310,
+
+    [theme.breakpoints.down('md')]: {
+      width: 265,
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
 }));
