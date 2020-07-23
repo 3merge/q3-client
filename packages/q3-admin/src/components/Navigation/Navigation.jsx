@@ -17,6 +17,7 @@ import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from 'q3-ui-permissions';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
 
@@ -47,6 +48,8 @@ const AppNavigation = withLocation(
   }) => {
     const cls = useStyle();
     const { t } = useTranslation();
+
+    // const auth = useAuth();
 
     const recursivelyRenderMenuItems = (items) =>
       array.hasLength(items)
@@ -177,7 +180,9 @@ const AppNavigation = withLocation(
                       <MuiLink
                         fullWidth
                         component={Link}
-                        style={{ fontSize: '0.911rem' }}
+                        style={{
+                          fontSize: '0.911rem',
+                        }}
                         to={item.to}
                       >
                         {item.label}

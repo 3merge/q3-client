@@ -30,4 +30,8 @@ export default makeStyles((theme) => ({
   muted: {
     backgroundColor: '#f5f7f9',
   },
+
+  light: {
+    backgroundColor: '#FFF',
+  },
 }));

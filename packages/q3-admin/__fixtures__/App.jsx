@@ -4,7 +4,7 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { useLoading } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
-import Dashboard from '../src/components/Dashboard';
+import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
@@ -16,12 +16,6 @@ const Loading = ({ children }) => {
   return children;
 };
 
-const DashboardRoute = () => (
-  <Dashboard title="Sample app" version="1.0.0">
-    <div />
-  </Dashboard>
-);
-
 const ExampleApp = ({ initialPath }) => (
   <Loading>
     <LocationProvider initialPath={initialPath}>
@@ -30,7 +24,7 @@ const ExampleApp = ({ initialPath }) => (
           <Admin
             AppProps={{
               pages,
-              customRoutes: [<DashboardRoute path="/" />],
+              customRoutes: [<Template muted path="/" />],
             }}
             NavProps={{
               title: 'Demo app',

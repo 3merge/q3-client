@@ -16,7 +16,7 @@ beforeEach(() => {
   });
 
   jest
-    .spyOn(React, 'useMemo')
+    .spyOn(React, 'useEffect')
     .mockImplementation((v) => v());
 
   jest

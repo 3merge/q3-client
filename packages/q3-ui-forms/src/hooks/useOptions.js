@@ -42,19 +42,19 @@ export default ({
     [transformOptions],
   );
 
-  return React.useMemo(() => {
+  React.useEffect(() => {
     if (loadOptions) {
       run(values);
     } else {
       runOpts(options);
     }
-
-    return {
-      loading,
-      value,
-      onChange,
-      setValue,
-      items,
-    };
   }, [value, JSON.stringify(watchValues)]);
+
+  return {
+    loading,
+    value,
+    onChange,
+    setValue,
+    items,
+  };
 };
