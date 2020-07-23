@@ -39,11 +39,6 @@ const WrappedRoute = ({ renderer: Renderer }) => (
   </Fade>
 );
 
-const slug = (a, b) =>
-  `${a}${b}`
-    .replace(/([^:]\/)\/+/g, '$1')
-    .replace(/\/$/, '');
-
 const Nav = (props) => React.createElement('nav', props);
 const Article = (props) =>
   React.createElement('article', props);

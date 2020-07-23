@@ -8,6 +8,9 @@ export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
 })
+  .genUserOptions('Developer', {
+    all: true,
+  })
   .genResolver(
     ({ id, name, description, createdAt, updatedAt }) => ({
       id,

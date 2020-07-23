@@ -9,7 +9,6 @@ import Navigation from './components/Navigation';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
-import AppContext from './AppContext';
 
 const Admin = ({
   icons,
@@ -19,37 +18,34 @@ const Admin = ({
   profileItems,
   AppProps,
   NavProps,
-  config,
 }) => {
   const cls = useStyle();
   return (
-    <AppContext appConfigDefaults={config}>
-      <Tours steps={tours}>
-        {(restartTour) => (
-          <Viewport>
-            <Navigation
-              {...NavProps}
-              menuItems={usePages(AppProps.pages, icons)}
-            />
-            <Box className={cls.main}>
-              <ProfileActions
-                profileItems={[
-                  ...profileItems,
-                  {
-                    onClick: restartTour,
-                    label: 'restartTour',
-                  },
-                ]}
-              >
-                <Notifications socket={socket} />
-              </ProfileActions>
-              <App {...AppProps} />
-              {children}
-            </Box>
-          </Viewport>
-        )}
-      </Tours>
-    </AppContext>
+    <Tours steps={tours}>
+      {(restartTour) => (
+        <Viewport>
+          <Navigation
+            {...NavProps}
+            menuItems={usePages(AppProps.pages, icons)}
+          />
+          <Box className={cls.main}>
+            <ProfileActions
+              profileItems={[
+                ...profileItems,
+                {
+                  onClick: restartTour,
+                  label: 'restartTour',
+                },
+              ]}
+            >
+              <Notifications socket={socket} />
+            </ProfileActions>
+            <App {...AppProps} />
+            {children}
+          </Box>
+        </Viewport>
+      )}
+    </Tours>
   );
 };
 

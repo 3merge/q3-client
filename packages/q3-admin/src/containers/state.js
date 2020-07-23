@@ -2,6 +2,10 @@ import React from 'react';
 
 export default React.createContext();
 
+export const Options = React.createContext({
+  all: true,
+});
+
 export const Definitions = React.createContext(
   {
     collectionName: null,

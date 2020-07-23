@@ -40,17 +40,6 @@ const ExampleApp = ({ initialPath }) => (
               entertainment: BeachAccessIcon,
               shows: TvIcon,
             }}
-            config={{
-              shows: {
-                Developer: [
-                  'aside',
-                  'files',
-                  'picture',
-                  'docs',
-                  'notes',
-                ],
-              },
-            }}
           />
         </Datasource>
       </Authentication>

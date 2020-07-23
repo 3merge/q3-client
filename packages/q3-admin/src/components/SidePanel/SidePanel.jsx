@@ -10,14 +10,12 @@ import Box from '@material-ui/core/Box';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
-const SidePanel = ({ children, open = true }) => {
-  const cls = useStyle({
-    open,
-  });
-
+const SidePanel = ({ id, children }) => {
   const globalStyle = useGlobalStyle();
+  const cls = useStyle();
+
   return (
-    <>
+    <div id={id}>
       <Hidden smDown>
         <Grid
           item
@@ -26,7 +24,11 @@ const SidePanel = ({ children, open = true }) => {
             cls.root,
           )}
         >
-          <Paper className={cls.scroller} elevation={0}>
+          <Paper
+            component="aside"
+            className={cls.scroller}
+            elevation={0}
+          >
             {children}
           </Paper>
         </Grid>
@@ -46,7 +48,7 @@ const SidePanel = ({ children, open = true }) => {
           )}
         />
       </Hidden>
-    </>
+    </div>
   );
 };
 

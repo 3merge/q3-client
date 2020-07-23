@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
-import Box from '@material-ui/core/Box';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -36,7 +35,7 @@ const DetailSidePanel = ({ children, ...props }) => {
   const { root, item } = useStyle();
   const { t } = useTranslation('labels');
 
-  const can = useAppContext({
+  const { can } = useAppContext({
     // used to hide the sidebar overall
     aside: true,
     ...props,
@@ -71,14 +70,13 @@ const DetailSidePanel = ({ children, ...props }) => {
       Object.entries(outputTabs)
         .filter(hasValue)
         .map(([key], i) => (
-          <Tooltip title={t(key)}>
+          <Tooltip title={t(key)} key={i}>
             <BottomNavigationAction
               icon={icons[key]}
               label={t(key)}
               className={classnames(['q3-tabs-item', item])}
               value={i}
               id={key}
-              key={key}
             />
           </Tooltip>
         )),
@@ -93,12 +91,11 @@ const DetailSidePanel = ({ children, ...props }) => {
     [tabs, step],
   );
 
-  return (
-    <SidePanel open={can('aside')}>
+  return can('aside') ? (
+    <SidePanel id="q3-tabber">
       {outputTabs['q3-meta'] && (
         <Paper elevation={0} className={root}>
           <BottomNavigation
-            id="q3-tabber"
             value={step}
             onChange={handleChange}
           >
@@ -106,10 +103,9 @@ const DetailSidePanel = ({ children, ...props }) => {
           </BottomNavigation>
         </Paper>
       )}
-
       {renderSteps()}
     </SidePanel>
-  );
+  ) : null;
 };
 
 DetailSidePanel.propTypes = {

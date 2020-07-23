@@ -27,7 +27,18 @@ export default class Collection {
     this.$generateDetailProps = {
       resolvers,
     };
+
     this.$generateListProps = { resolvers };
+  }
+
+  genUserOptions(roleType, args = {}) {
+    if (!this.$meta.options) this.$meta.options = {};
+
+    Object.assign(this.$meta.options, {
+      [roleType]: args,
+    });
+
+    return this;
   }
 
   genResolver(resolvers) {

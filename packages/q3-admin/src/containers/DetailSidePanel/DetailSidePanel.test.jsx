@@ -6,15 +6,20 @@ import DetailSidePanel, {
   isStep,
 } from './DetailSidePanel';
 
+jest.mock('@material-ui/core/Hidden', () =>
+  // this component blocks mount from finding nested components
+  jest.fn().mockImplementation(({ children }) => children),
+);
+
 describe('DetailSidePanel', () => {
   it('should return children without props', () => {
     const el = global.mount(
       <DetailSidePanel>
-        <div />
+        <div id="child" />
       </DetailSidePanel>,
     );
 
-    expect(el.find('div')).toHaveLength(1);
+    expect(el.find('#child').exists()).toBeTruthy();
   });
 
   it('should return children with tabs', () => {
