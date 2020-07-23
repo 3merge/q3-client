@@ -2,7 +2,6 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import Chart from './Chart';
 import ChartFixture from './Chart.fixture.jsx';
-import FigureSkeleton from '../../components/FigureSkeleton';
 
 jest.unmock('axios');
 
@@ -19,30 +18,40 @@ const waitForMock = (next) =>
     );
   });
 
+const genChild = () => {
+  const Child = () => <div />;
+
+  return {
+    el: Child,
+    getProps: (el) => el.find(Child).first().props(),
+  };
+};
+
 describe('Chart', () => {
   it('should render loading indicator', async () => {
+    const { el: Child, getProps } = genChild();
     const el = global.mount(
       <ChartFixture>
         <Chart
           title="Mock"
-          // unknown report
-          initialQueryValue="?template=bar"
-          chartComponent={<div />}
+          initialQueryValue="?template=foo"
+          chartComponent={<Child />}
           filterComponent={<div />}
         />
       </ChartFixture>,
     );
 
-    const getCircularProgress = (expectedLength) =>
-      expect(el.find(FigureSkeleton)).toHaveLength(
-        expectedLength,
+    const getCircularProgress = (expectedResult) =>
+      expect(getProps(el)).toHaveProperty(
+        'loading',
+        expectedResult,
       );
 
-    getCircularProgress(1);
+    getCircularProgress(true);
 
     return waitForMock(() => {
       el.update();
-      getCircularProgress(0);
+      getCircularProgress(false);
     });
   });
 

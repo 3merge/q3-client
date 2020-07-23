@@ -1,5 +1,4 @@
 import React from 'react';
-import debounce from 'debounce-promise';
 
 export const invoke = (fn, arg) =>
   // eslint-disable-next-line
@@ -25,24 +24,35 @@ export default (
     defaultState,
   );
 
-  const clear = () => setResults([]);
+  const ref = React.useRef();
+
+  const clear = () => {
+    ref.current = null;
+    setResults([]);
+  };
 
   return {
-    run: debounce((state) => {
+    run: (state) => {
       if (!isOfAdequateLength(term, minimumCharacterCount))
         return clear();
 
+      ref.current = () =>
+        invoke(service, [].concat([term, state]).flat())
+          .then(setResults)
+          .catch(clear)
+          .finally(() => {
+            setLoading(false);
+          });
+
+      if (loading) return null;
       setLoading(true);
-      return invoke(
-        service,
-        [].concat([term, state]).flat(),
-      )
-        .then(setResults)
-        .catch(clear)
-        .finally(() => {
-          setLoading(false);
-        });
-    }, 75),
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(ref.current());
+        }, 65);
+      });
+    },
     loading,
     results,
     setResults,
