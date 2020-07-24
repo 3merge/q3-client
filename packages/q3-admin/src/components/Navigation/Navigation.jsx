@@ -1,23 +1,21 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { Link } from '@reach/router';
-import { array } from 'q3-ui-helpers';
+import { array, object } from 'q3-ui-helpers';
 import { withLocation } from 'with-location';
 import Drawer from 'q3-ui-dialog';
-import MuiLink from '@material-ui/core/Link';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
-import { useAuth } from 'q3-ui-permissions';
+import NavigationLink from '../NavigationLink';
+import NavigationSubMenu from '../NavigationSubMenu';
 import useStyle from './useStyle';
 import { QueryStringMatcher } from '../../helpers';
 
@@ -47,47 +45,38 @@ const AppNavigation = withLocation(
     title = 'Menu',
   }) => {
     const cls = useStyle();
-    const { t } = useTranslation();
 
-    // const auth = useAuth();
+    const filterByVisibility = (a = []) =>
+      array.hasLength(a)
+        ? a.filter(
+            (item) =>
+              array.hasLength(item.nestedMenuItems) ||
+              (object.isIn(item, 'visible') &&
+                item.visible),
+          )
+        : [];
 
     const recursivelyRenderMenuItems = (items) =>
       array.hasLength(items)
-        ? items.map((item) => (
-            <TreeItem
-              className="q3-admin-menu-item"
-              nodeId={item.to || item.label}
-              label={
-                item.to ? (
-                  <MuiLink
-                    component={Link}
-                    to={item.to}
-                    className={cls.menuItem}
-                  >
-                    {item.icon && (
-                      <item.icon color="inherit" />
-                    )}
-                    <span variant="body2">
-                      {t(`labels:${item.label}`)}
-                    </span>
-                  </MuiLink>
-                ) : (
-                  <span className={cls.menuItem}>
-                    {item.icon && (
-                      <item.icon color="inherit" />
-                    )}
-                    <span variant="body2">
-                      {t(`titles:${item.label}`)}
-                    </span>
-                  </span>
-                )
-              }
-            >
-              {recursivelyRenderMenuItems(
-                item.nestedMenuItems,
-              )}
-            </TreeItem>
-          ))
+        ? items.map((item) => {
+            const nodeId = item.to || item.label;
+            const sub = filterByVisibility(
+              item.nestedMenuItems,
+            );
+
+            const render = sub.length > 0 || item.to;
+
+            return render ? (
+              <TreeItem
+                className="q3-admin-menu-item"
+                label={<NavigationLink {...item} />}
+                nodeId={nodeId}
+                key={nodeId}
+              >
+                {recursivelyRenderMenuItems(sub)}
+              </TreeItem>
+            ) : null;
+          })
         : null;
 
     const renderLogoAndDirectoryLink = React.useCallback(
@@ -169,29 +158,11 @@ const AppNavigation = withLocation(
               selected={defaultSelected}
               defaultExpanded={defaultExpanded}
             >
-              {recursivelyRenderMenuItems(menuItems)}
+              {recursivelyRenderMenuItems(
+                filterByVisibility(menuItems),
+              )}
             </TreeView>
-            {subMenuItems ? (
-              <Box my={2}>
-                <Divider />
-                <Box py={1}>
-                  {subMenuItems.map((item) => (
-                    <Box mb={0.5}>
-                      <MuiLink
-                        fullWidth
-                        component={Link}
-                        style={{
-                          fontSize: '0.911rem',
-                        }}
-                        to={item.to}
-                      >
-                        {item.label}
-                      </MuiLink>
-                    </Box>
-                  ))}
-                </Box>
-              </Box>
-            ) : null}
+            <NavigationSubMenu items={subMenuItems} />
           </Box>
           <Box>{footerComponent}</Box>
         </Box>
@@ -203,8 +174,8 @@ const AppNavigation = withLocation(
         <Hidden mdDown>
           <Box
             className={classnames(cls.root, cls.muted)}
-            px={0.5}
             component="nav"
+            px={0.5}
           >
             {renderLogoAndDirectoryLink()}
             {renderMenuItems()}

@@ -72,7 +72,7 @@ describe('DetailSidePanel', () => {
     it('should return null on mismatch', () =>
       expect(isStep(0, 1, 'foo')).toBeNull());
 
-    it('should return null without third param', () =>
+    it.only('should return null without third param', () =>
       expect(isStep(0, 0)).toBeNull());
   });
 });

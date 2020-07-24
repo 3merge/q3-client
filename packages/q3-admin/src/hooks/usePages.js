@@ -10,7 +10,7 @@ export default (pages = [], icons = {}) => {
   const makePage = (page) => ({
     ...page,
     to: makePath(page),
-    visible: useAuth(page.collectionName).canSee,
+    visible: useAuth(page.collectionName).inClient,
     label: t(`labels:${page.resourceName}`),
     icon: icons[page.collectionName],
   });

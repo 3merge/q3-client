@@ -7,6 +7,7 @@ import General from './General';
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
+  parent: 'entertainment',
 })
   .genUserOptions('Developer', {
     all: true,

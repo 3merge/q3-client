@@ -95,18 +95,22 @@ export default (ctx) => (coll) => {
     to: '/login',
   };
 
-  return {
-    canSee: isDefined(getOp('Read')),
-    canDelete: isDefined(getOp('Delete')),
-    canCreate: isDefined(getOp('Create')),
-    canEdit:
-      isDefined(getOp('Read')) &&
-      isDefined(getOp('Update')),
+  const read = getOp('Read');
+  const del = getOp('Delete');
+  const update = getOp('Update');
+  const create = getOp('Create');
 
-    canCreateSub: (sub) => hasField(getOp('Create'), sub),
-    canEditSub: (sub) => hasField(getOp('Update'), sub),
-    canDeleteSub: (sub) => hasField(getOp('Delete'), sub),
-    canSeeSub: (sub) => hasField(getOp('Read'), sub),
+  return {
+    canSee: isDefined(read),
+    canDelete: isDefined(del),
+    canCreate: isDefined(create),
+    canEdit: isDefined(read) && isDefined(update),
+    inClient: isDefined(read) && read.inClient,
+
+    canCreateSub: (sub) => hasField(create, sub),
+    canEditSub: (sub) => hasField(update, sub),
+    canDeleteSub: (sub) => hasField(del, sub),
+    canSeeSub: (sub) => hasField(read, sub),
 
     HideByField,
     Redirect,

@@ -38,9 +38,9 @@ const SearchResultListItem = ({
 
   return (
     <ListItem dense className={root} {...props} {...etc}>
-      <ListItemAvatar>
+      {/* <ListItemAvatar>
         <Avatar word={name} imgSrc={photo} {...etc} />
-      </ListItemAvatar>
+      </ListItemAvatar> */}
       <ListItemText
         primary={name}
         secondary={description}
