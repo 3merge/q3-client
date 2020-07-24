@@ -86,6 +86,7 @@ const AutoCompleteWrapper = (props) => {
       {...chosenTextFieldDisplayAttributes}
       {...controlSearchFilter(props)}
       {...pickFromProps(props)}
+      value={value}
       required={required}
       options={items}
       loading={loading}

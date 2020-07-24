@@ -16,7 +16,7 @@ const genPermission = (rest) => ({
 });
 
 const setupProfilePermissions = (coll) => [
-  genPermission({ op: 'Read', coll }),
+  genPermission({ op: 'Read', coll, inClient: true }),
   genPermission({ op: 'Update', coll }),
   genPermission({ op: 'Create', coll }),
   genPermission({ op: 'Delete', coll }),

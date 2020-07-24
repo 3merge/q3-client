@@ -1,26 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SkeletonHeader from './skeletonHeader';
-import SkeletonSection from './skeletonSection';
-import SkeletonSidebar from './skeletonSidebar';
-import SkeletonTable from './skeletonTable';
-import Article from '../Article';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Loading = ({ id }) => (
-  <Article asideComponent={<SkeletonSidebar />}>
-    <>
-      <SkeletonHeader />
-      {id ? <SkeletonSection /> : <SkeletonTable />}
-    </>
-  </Article>
+const Loading = () => (
+  <Box
+    p={6}
+    display="flex"
+    height="100%"
+    width="100%"
+    alignItems="center"
+    justifyContent="center"
+  >
+    <CircularProgress />
+  </Box>
 );
 
-Loading.propTypes = {
-  id: PropTypes.string,
-};
-
-Loading.defaultProps = {
-  id: null,
-};
+Loading.propTypes = {};
+Loading.defaultProps = {};
 
 export default Loading;

@@ -1,0 +1,29 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import TemplateFullWidth from './TemplateFullWidth';
+
+<Meta
+  title="Admin|TemplateFullWidth"
+  component={TemplateFullWidth}
+/>
+
+# Template - Full Width
+
+Sometimes, apps require peripheral pages. Common use-cases
+include profile pages and changelogs. This template variant
+allows you to construct such content within the constraints
+of the admin viewport.
+
+<Preview>
+  <Story name="With title">
+    <TemplateFullWidth title="Title">
+      <p>Perfect for custom content pages.</p>
+    </TemplateFullWidth>
+  </Story>
+</Preview>
+
+<Props of={TemplateFullWidth} />

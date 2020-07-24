@@ -1,0 +1,33 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Template from './Template';
+
+<Meta title="Admin|Template" component={Template} />
+
+# Template
+
+<Preview>
+  <Story name="As muted">
+    <Template muted>
+      <div style={{ height: '200vh' }}>
+        Offset built-in for the Tray component
+      </div>
+    </Template>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="As default">
+    <Template>
+      <div style={{ height: '200vh' }}>
+        Offset built-in for the Tray component
+      </div>
+    </Template>
+  </Story>
+</Preview>
+
+<Props of={Template} />

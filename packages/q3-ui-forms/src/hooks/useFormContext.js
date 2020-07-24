@@ -80,6 +80,10 @@ export default ({
         error: false,
         ...resp,
       });
+
+      setTimeout(() => {
+        setMessage(null);
+      }, 2000);
     } else {
       setMessage(null);
     }

@@ -14,6 +14,7 @@ import SidePanel from '../../components/SidePanel';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import TableHeader from '../TableHeader';
+import { useAppContext } from '../../hooks';
 
 const assignUrlPath = (base) => (item) => ({
   ...item,
@@ -74,6 +75,14 @@ const List = ({
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
 
+  const { can } = useAppContext({
+    io: <TableIo io={io} data={tableProps.data} />,
+    filter: filterComponent ? (
+      <SidePanel>{filterComponent}</SidePanel>
+    ) : null,
+    add: addComponent,
+  });
+
   const {
     collectionName,
     location,
@@ -109,11 +118,7 @@ const List = ({
 
   return (
     <Redirect op="Read" to="/">
-      <Article
-        asideComponent={
-          <SidePanel>{filterComponent}</SidePanel>
-        }
-      >
+      <Article asideComponent={can('filter')}>
         <Table
           {...decorator.build()}
           blacklistColumns={decorator.makeBlacklist(
@@ -127,8 +132,8 @@ const List = ({
           onSort={updateSortPrefence}
         >
           <TableHeader>
-            <TableIo io={io} data={tableProps.data} />
-            {addComponent}
+            {can('io')}
+            {can('add')}
           </TableHeader>
           <Box pb={1}>
             <FilterChip />

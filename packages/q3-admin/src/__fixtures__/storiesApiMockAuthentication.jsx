@@ -6,13 +6,18 @@ export const COLLECTION_NAME = 'api-investors';
 
 const genPermission = (rest) => ({
   coll: COLLECTION_NAME,
+
   ownership: 'Any',
   fields: '*',
   ...rest,
 });
 
 const permissions = [
-  genPermission({ op: 'Read', fields: ['!gender'] }),
+  genPermission({
+    op: 'Read',
+    fields: ['!gender'],
+    inClient: true,
+  }),
   genPermission({ op: 'Update' }),
   genPermission({ op: 'Create' }),
   genPermission({ op: 'Delete' }),

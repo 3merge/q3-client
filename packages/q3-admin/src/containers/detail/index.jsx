@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Notes from '../notes';
 import PictureUpload from '../../components/picture';
 import Article from '../../components/Article';
+import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
 import ActivityLog from '../activityLog';
@@ -123,7 +124,7 @@ const withDynamicViews = (Component) => ({
   return React.useMemo(
     () =>
       views.findIndex((view) => view.to === '/') === -1 ? (
-        <div>Cannot see this</div>
+        <ViewNotAllowed />
       ) : (
         <Component views={views} {...props} />
       ),
