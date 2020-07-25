@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Tile from 'q3-ui/lib/tile';
 import Template from '../Template';
 
 const TemplateGrid = ({
   children,
-  title,
+
   asideComponent,
+  ...etc
 }) => (
   <Template>
-    <Grid container spacing={1}>
-      <Grid item xs={12} component="header">
-        <Typography variant="h2">{title}</Typography>
-      </Grid>
-      <Grid item md={4} xs={12} component="aside">
-        {asideComponent}
-      </Grid>
-      <Grid item md={8} xs={12} component="article">
-        {children}
-      </Grid>
-    </Grid>
+    <Container maxWidth="md" component="article">
+      <Tile {...etc} divider>
+        <Grid container spacing={1}>
+          <Grid item md={4} xs={12} component="aside">
+            {asideComponent}
+          </Grid>
+          <Grid item md={8} xs={12} component="article">
+            {children}
+          </Grid>
+        </Grid>
+      </Tile>
+    </Container>
   </Template>
 );
 
@@ -30,7 +33,6 @@ TemplateGrid.propTypes = {
     PropTypes.node,
     PropTypes.array,
   ]).isRequired,
-  title: PropTypes.string.isRequired,
   asideComponent: PropTypes.node.isRequired,
 };
 

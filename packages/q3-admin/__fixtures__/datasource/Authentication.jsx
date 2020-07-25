@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from 'q3-ui-permissions';
+import users from './users';
 
 const profile = {
-  id: 1,
-  photo: 'https://randomuser.me/api/portraits/men/22.jpg',
-  firstName: 'Mike',
+  ...users[0],
   role: 'Developer',
 };
 

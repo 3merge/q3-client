@@ -50,12 +50,17 @@ const renameCartDrawer = async (el, value) =>
   act(async () => {
     const pop = el.find(`.${POPOVER_CLASS}`);
 
-    pop.find('input').props().onChange({
-      target: {
-        value,
-      },
-    });
+    pop
+      .find('input')
+      .props()
+      .onChange({
+        target: {
+          persist: jest.fn(),
+          value,
+        },
+      });
 
+    jest.runOnlyPendingTimers();
     pop.find('form').first().simulate('submit');
   });
 

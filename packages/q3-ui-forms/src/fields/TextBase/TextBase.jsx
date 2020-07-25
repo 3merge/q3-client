@@ -21,40 +21,21 @@ export const TextBase = (props) => {
     type,
     error,
   } = props;
-  const isDisabled = disabled || readOnly;
-  const [pos, setPos] = React.useState({
-    start: null,
-    end: null,
-  });
 
   const allProps = merge(
     removeDecoratedProps(omit(props, isUndefined)),
     chosenTextFieldDisplayAttributes,
   );
 
+  const isDisabled = disabled || readOnly;
+
   const { root } = useStyle({
     disabled: isDisabled,
   });
 
-  const value = String(
-    allProps.value === null ? '' : allProps.value,
+  const [value, setLocalValue] = React.useState(
+    String(allProps.value === null ? '' : allProps.value),
   );
-
-  React.useLayoutEffect(() => {
-    try {
-      if (pos.start) {
-        allProps.inputRef.current.type = 'text';
-        allProps.inputRef.current.setSelectionRange(
-          pos.start,
-          pos.end,
-        );
-
-        allProps.inputRef.current.type = type;
-      }
-    } catch (e) {
-      // noop
-    }
-  }, [value]);
 
   return (
     <TextField
@@ -76,17 +57,14 @@ export const TextBase = (props) => {
       onChange={(event, ...rest) => {
         // available on synthetic event objects
         if (object.isFn(event.persist)) event.persist();
-        const caretStart = event.target.selectionStart;
-        const caretEnd = event.target.selectionEnd;
 
         // update the state and reset the caret
-        if (allProps.onChange)
-          allProps.onChange(event, ...rest);
-
-        setPos({
-          start: caretStart,
-          end: caretEnd,
+        setTimeout(() => {
+          if (allProps.onChange)
+            allProps.onChange(event, ...rest);
         });
+
+        setLocalValue(event.target.value);
       }}
       value={value}
       className={root}

@@ -81,6 +81,7 @@ export const Text = (deco) => {
   return (
     <TextBase
       {...deco}
+      inputRef={ref}
       ref={ref}
       type={type}
       InputProps={{

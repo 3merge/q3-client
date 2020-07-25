@@ -82,5 +82,6 @@
   "downloadable": "Downloadable",
   "noActivity": "No activity",
   "notification": "Notification",
-  "upgradeAccount": "Upgrade required"
+  "upgradeAccount": "Upgrade required",
+  "changePassword": "Change password"
 }

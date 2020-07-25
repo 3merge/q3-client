@@ -24,7 +24,11 @@ const Header = ({
     pt={2}
     width="100%"
   >
-    <Container maxWidth="xl" component="header">
+    <Container
+      maxWidth="xl"
+      component="header"
+      style={{ padding: '0 1.5rem' }}
+    >
       <Grid
         container
         alignItems="center"

@@ -15,6 +15,7 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
+import SidePanelContent from '../../components/SidePanelContent';
 
 const Detail = ({
   HeaderProps,
@@ -34,7 +35,13 @@ const Detail = ({
   <Article
     asideComponent={
       <DetailSidePanel
-        picture={files && <PictureUpload />}
+        picture={
+          files && (
+            <SidePanelContent title="featuredImage">
+              <PictureUpload />
+            </SidePanelContent>
+          )
+        }
         documentation={documentation}
         notes={notes && <Notes />}
         files={
