@@ -30,6 +30,9 @@ const ExampleApp = ({ initialPath }) => (
               title: 'Demo app',
               logoSrc: logo,
             }}
+            ProfileProps={{
+              fields: <p>Append custom form fields!</p>,
+            }}
             icons={{
               entertainment: BeachAccessIcon,
               shows: TvIcon,

@@ -25,6 +25,7 @@ const App = ({
   pages,
   customRoutes,
   redirectPathForUnauthorizedUsers,
+  children,
 }) =>
   Array.isArray(pages) ? (
     <Router>
@@ -46,6 +47,7 @@ const App = ({
         },
       )}
       {customRoutes}
+      {children}
       <NotFound noThrow default />
     </Router>
   ) : (

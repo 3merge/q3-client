@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import App from './components/app';
 import { usePages } from './hooks';
 import Notifications from './containers/Notifications';
 import Tours from './containers/tour';
 import Navigation from './components/Navigation';
+import Profile from './containers/Profile';
+import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
+
+export const goTo = (path) => () => navigate(path);
 
 const Admin = ({
   icons,
@@ -18,6 +23,7 @@ const Admin = ({
   profileItems,
   AppProps,
   NavProps,
+  ProfileProps,
 }) => {
   const cls = useStyle();
   return (
@@ -33,6 +39,14 @@ const Admin = ({
               profileItems={[
                 ...profileItems,
                 {
+                  onClick: goTo('/account/profile'),
+                  label: 'profile',
+                },
+                {
+                  onClick: goTo('/account/change-password'),
+                  label: 'changePassword',
+                },
+                {
                   onClick: restartTour,
                   label: 'restartTour',
                 },
@@ -40,7 +54,13 @@ const Admin = ({
             >
               <Notifications socket={socket} />
             </ProfileActions>
-            <App {...AppProps} />
+            <App {...AppProps}>
+              <Profile
+                path="/account/profile"
+                {...ProfileProps}
+              />
+              <ProfileChangePassword path="/account/change-password" />
+            </App>
             {children}
           </Box>
         </Viewport>

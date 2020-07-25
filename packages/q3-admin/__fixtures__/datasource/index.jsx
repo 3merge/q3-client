@@ -3,6 +3,7 @@ import Rest from 'q3-ui-test-utils/lib/rest';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
+import users from './users';
 import { BAR } from '../../src/__fixtures__/visualization';
 
 const makeApiEndpoints = (
@@ -57,6 +58,11 @@ const makeApiEndpoints = (
 // eslint-disable-next-line
 export default ({ children }) => {
   const defineMockRoutes = (m) => {
+    makeApiEndpoints(m, users, {
+      collectionName: 'q3-api-users',
+      resourceName: 'users',
+      resourceNameSingular: 'user',
+    });
     makeApiEndpoints(m, characters, {
       collectionName: 'characters',
       resourceName: 'characters',
