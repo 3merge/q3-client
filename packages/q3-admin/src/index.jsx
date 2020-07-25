@@ -39,6 +39,10 @@ const Admin = ({
               profileItems={[
                 ...profileItems,
                 {
+                  onClick: goTo('/account/profile'),
+                  label: 'profile',
+                },
+                {
                   onClick: goTo('/account/change-password'),
                   label: 'changePassword',
                 },
