@@ -9,18 +9,19 @@ import TemplateGrid from '../../components/TemplateGrid';
 import Collection from '../collection';
 import Page from '../page';
 
-const Profile = ({ fields, fieldKeys, formProps }) => {
-  const { t } = useTranslation();
-  const { state, update } = React.useContext(AuthContext);
+export const generateInitialValues = (
+  state,
+  additionalKeys = [],
+) => {
   const keys = [
     'id',
     'email',
     'firstName',
     'lastName',
-    ...fieldKeys,
+    ...additionalKeys,
   ];
 
-  const initialValues = pick(
+  return pick(
     get(
       state,
       'profile',
@@ -31,6 +32,16 @@ const Profile = ({ fields, fieldKeys, formProps }) => {
       ),
     ),
     keys,
+  );
+};
+
+const Profile = ({ fields, fieldKeys, formProps }) => {
+  const { t } = useTranslation();
+  const { state, update } = React.useContext(AuthContext);
+
+  const initialValues = generateInitialValues(
+    state,
+    fieldKeys,
   );
 
   return (
