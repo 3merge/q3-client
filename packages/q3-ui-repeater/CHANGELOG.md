@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.20.0](https://github.com/3merge/q/compare/v1.19.39...v1.20.0) (2020-07-26)
+
+**Note:** Version bump only for package q3-ui-repeater
+
+
+
+
+
 ## [1.19.39](https://github.com/3merge/q/compare/v1.19.38...v1.19.39) (2020-07-26)
 
 **Note:** Version bump only for package q3-ui-repeater
