@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.19.39](https://github.com/3merge/q/compare/v1.19.38...v1.19.39) (2020-07-26)
+
+
+### Bug Fixes
+
+* debounced useResult hook ([#206](https://github.com/3merge/q/issues/206)) ([2759430](https://github.com/3merge/q/commit/275943039f6a9fe6985a53972069c5c4eb3412ae))
+
+
+
+
+
 ## [1.19.38](https://github.com/3merge/q/compare/v1.19.37...v1.19.38) (2020-07-25)
 
 **Note:** Version bump only for package q3-admin
