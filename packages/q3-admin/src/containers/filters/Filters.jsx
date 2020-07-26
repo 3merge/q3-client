@@ -14,7 +14,7 @@ const Groups = ({ children, ...etc }) => {
   const { location } = React.useContext(Definitions);
 
   return (
-    <Box>
+    <Box my={1}>
       <Segments>
         {(renderer, onSave, searchValue) => (
           <FiltersForm

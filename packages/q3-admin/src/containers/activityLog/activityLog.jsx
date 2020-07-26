@@ -3,7 +3,6 @@ import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
 import { Timeline } from 'q3-components';
 import Typography from '@material-ui/core/Typography';
-import Tile from 'q3-ui/lib/tile';
 import { Definitions } from '../state';
 
 export const getAuthor = (v) => {
@@ -28,16 +27,12 @@ const History = () => {
     runOnInit: true,
   });
 
-  return (
-    <Tile subtitle="activityLog" divider>
-      {fetchingError ? (
-        <Typography>
-          {t('failedToLoadVersionHistory')}
-        </Typography>
-      ) : (
-        <Timeline fetching={fetching} entries={versions} />
-      )}
-    </Tile>
+  return fetchingError ? (
+    <Typography>
+      {t('failedToLoadVersionHistory')}
+    </Typography>
+  ) : (
+    <Timeline fetching={fetching} entries={versions} />
   );
 };
 

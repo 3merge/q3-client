@@ -22,19 +22,17 @@ export default (Component) => ({ name, ...rest }) => {
   if (!object.hasKeys(data)) return null;
 
   return (
-    <Tile subtitle={name} divider>
-      <Component
-        data={data}
-        id={id}
-        name={name}
-        collectionName={collectionName}
-        onDelete={remove()}
-        onSubmit={patch()}
-        createdBy={createdBy}
-        directoryPath={directoryPath}
-        showPersistenceSnack
-        {...rest}
-      />
-    </Tile>
+    <Component
+      data={data}
+      id={id}
+      name={name}
+      collectionName={collectionName}
+      onDelete={remove()}
+      onSubmit={patch()}
+      createdBy={createdBy}
+      directoryPath={directoryPath}
+      showPersistenceSnack
+      {...rest}
+    />
   );
 };

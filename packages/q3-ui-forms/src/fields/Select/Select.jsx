@@ -8,6 +8,7 @@ export default withState((props) => {
   const options = useOptions({
     minimumCharacterCount: 0,
     loadOptionsPlainly: true,
+    preload: true,
     ...props,
   });
 

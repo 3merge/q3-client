@@ -15,4 +15,12 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   },
+  wrapper: {
+    padding: theme.spacing(2.5),
+
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1.5),
+      marginTop: theme.spacing(1),
+    },
+  },
 }));

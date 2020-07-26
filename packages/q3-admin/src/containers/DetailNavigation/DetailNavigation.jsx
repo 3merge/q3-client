@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import DetailHeader from '../DetailHeader';
+import useStyle from './useStyle';
 
 export const LocationMatch = ({
   views,
@@ -30,6 +31,7 @@ export const LocationMatch = ({
 
 const TabsWithRouter = ({ views, ...rest }) => {
   const { t } = useTranslation();
+  const cls = useStyle();
 
   if (!views || views.length < 2)
     return <DetailHeader {...rest} />;
@@ -40,7 +42,11 @@ const TabsWithRouter = ({ views, ...rest }) => {
         <DetailHeader
           {...rest}
           navComponent={
-            <Tabs value={value} variant="scrollable">
+            <Tabs
+              value={value}
+              variant="scrollable"
+              className={cls.root}
+            >
               {views.map((view) => (
                 <Tab
                   key={view.to}
