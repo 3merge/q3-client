@@ -55,12 +55,7 @@ const Notes = () => {
         />
 
         {thread.map((v) => (
-          <Note
-            key={v.id}
-            author={getAuthor(v)}
-            {...args}
-            {...v}
-          />
+          <Note key={v.id} {...args} {...v} />
         ))}
       </DisplayNotes>
     </SidePanelContent>
