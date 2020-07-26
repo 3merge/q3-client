@@ -43,6 +43,7 @@ const AppNavigation = withLocation(
     subMenuItems,
     footerComponent,
     title = 'Menu',
+    root = '/',
   }) => {
     const cls = useStyle();
 
@@ -81,7 +82,7 @@ const AppNavigation = withLocation(
 
     const renderLogoAndDirectoryLink = React.useCallback(
       () => (
-        <Link to="/" className={cls.logo}>
+        <Link to={root} className={cls.logo}>
           <img alt="Q3 Client Logo" src={logoSrc} />
         </Link>
       ),

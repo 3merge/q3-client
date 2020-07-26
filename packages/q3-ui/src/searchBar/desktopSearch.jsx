@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
+import { useDebounce } from 'use-debounce';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
@@ -57,9 +58,14 @@ const DesktopSearch = ({
     onClear,
     ...rest
   } = useAutocompleteSearch(initialValue);
+
+  const [v] = useDebounce(value, 350, {
+    maxWait: 750,
+  });
+
   const { loading, results } = useAutocompleteSearchResults(
     getResults,
-    value,
+    v,
     ref,
   );
 

@@ -4,10 +4,14 @@ export default makeStyles((theme) => ({
   root: {
     width: '100%',
     fontSize: '1rem !important',
+    marginBottom: theme.spacing(2),
     overflowY: 'auto',
     overflowX: 'hidden',
-    position: 'relative',
-    marginBottom: theme.spacing(2),
+    padding: '1rem',
+    position: 'sticky',
+    top: 0,
+    background: 'white',
+    zIndex: 1,
   },
   item: {
     minWidth: 'auto',

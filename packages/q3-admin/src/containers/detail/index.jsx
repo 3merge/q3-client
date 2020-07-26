@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Notes from '../notes';
 import PictureUpload from '../../components/picture';
 import Article from '../../components/Article';
@@ -16,6 +17,7 @@ import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
 import SidePanelContent from '../../components/SidePanelContent';
+import useStyle from './useStyle';
 
 const Detail = ({
   HeaderProps,
@@ -31,38 +33,47 @@ const Detail = ({
   links,
   views,
   ...rest
-}) => (
-  <Article
-    asideComponent={
-      <DetailSidePanel
-        picture={
-          files && (
-            <SidePanelContent title="featuredImage">
-              <PictureUpload />
-            </SidePanelContent>
-          )
-        }
-        documentation={documentation}
-        notes={notes && <Notes />}
-        files={
-          files && (
-            <Upload
-              tagOptions={tagOptions}
-              tagInstructions={tagInstructions}
-            />
-          )
-        }
-      >
-        <DetailSidePanelContent {...rest} />
-      </DetailSidePanel>
-    }
-  >
-    <DetailNavigation {...HeaderProps} views={views} />
-    <DetailRelatedLinks links={links}>
-      <DetailViews views={views} />
-    </DetailRelatedLinks>
-  </Article>
-);
+}) => {
+  const cls = useStyle();
+  return (
+    <Article
+      asideComponent={
+        <DetailSidePanel
+          picture={
+            files && (
+              <SidePanelContent title="featuredImage">
+                <PictureUpload />
+              </SidePanelContent>
+            )
+          }
+          documentation={
+            documentation ? (
+              <Box className={cls.docs}>
+                {documentation}
+              </Box>
+            ) : null
+          }
+          notes={notes && <Notes />}
+          files={
+            files && (
+              <Upload
+                tagOptions={tagOptions}
+                tagInstructions={tagInstructions}
+              />
+            )
+          }
+        >
+          <DetailSidePanelContent {...rest} />
+        </DetailSidePanel>
+      }
+    >
+      <DetailNavigation {...HeaderProps} views={views} />
+      <DetailRelatedLinks links={links}>
+        <DetailViews views={views} />
+      </DetailRelatedLinks>
+    </Article>
+  );
+};
 
 Detail.propTypes = {
   children: PropTypes.oneOfType([
