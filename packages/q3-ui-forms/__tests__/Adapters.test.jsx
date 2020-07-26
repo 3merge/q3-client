@@ -50,6 +50,7 @@ class EncodedUrlRenderer {
     return this.$__do(async () => {
       this.$__wrapper
         .find('.MuiAutocomplete-popper li')
+        .first()
         .simulate('click');
     });
   }

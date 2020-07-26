@@ -10,13 +10,18 @@ import withGrid from '../withGrid';
 import withState from '../withState';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
 
-export const controlSearchFilter = ({ filter = false }) =>
-  !filter
+export const controlSearchFilter = ({
+  filter = false,
+  preload = false,
+  loadOptions,
+}) => {
+  return !filter || (loadOptions && !preload)
     ? {
         filterSelectedOptions: false,
         // disableFilter: true,
       }
     : {};
+};
 
 export const pickFromProps = (props) => ({
   ...pick(props, [
@@ -53,7 +58,7 @@ export const getCustomInput = (customProps) => (params) =>
 export const compareOptionValueToState = (option, value) =>
   option === value ||
   option.value === value ||
-  value === '';
+  (value === '' && !option);
 
 export const getValue = (value) =>
   object.hasKeys(value) ? value.value : value;

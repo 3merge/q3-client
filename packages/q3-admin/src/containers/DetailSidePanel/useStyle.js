@@ -4,10 +4,9 @@ export default makeStyles((theme) => ({
   root: {
     width: '100%',
     fontSize: '1rem !important',
-    marginBottom: theme.spacing(2),
     overflowY: 'auto',
     overflowX: 'hidden',
-    padding: '1rem',
+    padding: '.5rem',
     position: 'sticky',
     top: 0,
     background: 'white',
@@ -20,6 +19,10 @@ export default makeStyles((theme) => ({
     paddingRight: 0,
     '& svg': {
       fontSize: '1.232rem',
+    },
+
+    '&.Mui-selected': {
+      color: theme.palette.secondary.main,
     },
   },
 }));

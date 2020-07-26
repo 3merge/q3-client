@@ -26,7 +26,6 @@ import { Form, Field } from '../../builders';
         getOptionDisabled={({ value }) => value === 'CA'}
         label="Custom label"
         required
-        filter
       />
     </Form>
   </Story>
@@ -39,6 +38,19 @@ import { Form, Field } from '../../builders';
         type="autocomplete"
         name="demo"
         loadOptions={autocomplete}
+      />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With preload">
+    <Form debug>
+      <Field
+        type="autocomplete"
+        name="demo"
+        loadOptions={autocomplete}
+        preload
       />
     </Form>
   </Story>

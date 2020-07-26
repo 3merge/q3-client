@@ -3,6 +3,7 @@ import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
 import { useResults } from 'q3-ui-helpers/lib/hooks';
+import { array } from 'q3-ui-helpers';
 import { useDebounce } from 'use-debounce';
 import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
@@ -11,6 +12,7 @@ import { expandOptions } from '../fields/optionsThreshold';
 export default ({
   runOnChange = false,
   transformOptions = false,
+  preload = false,
   initialValue = '',
   loadOptions,
   options = [],
@@ -49,8 +51,12 @@ export default ({
 
   React.useEffect(() => {
     if (loadOptions) {
-      run(values);
-    } else {
+      if (!array.hasLength(items) && preload) {
+        loadOptions(debounced).then(setItems);
+      } else if (loadOptions && debounced && !preload) {
+        run(values);
+      }
+    } else if (runOpts) {
       runOpts(options);
     }
   }, [debounced, JSON.stringify(watchValues)]);

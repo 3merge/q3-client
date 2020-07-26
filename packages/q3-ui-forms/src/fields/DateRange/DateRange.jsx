@@ -22,7 +22,10 @@ import { formatDate } from '../Date/Date';
 
 const DateRange = ({ name, ...rest }) => {
   const [from, to] = makeRangeNames(name);
-  const { setValues } = React.useContext(DispatcherState);
+  const { setValues, setErrors } = React.useContext(
+    DispatcherState,
+  );
+
   const { values } = React.useContext(BuilderState);
 
   const { t } = useTranslation('labels');
@@ -39,15 +42,21 @@ const DateRange = ({ name, ...rest }) => {
           convertToNullish(get(values, from, '')),
           convertToNullish(get(values, to, '')),
         ]}
-        onChange={([newFromValue, newToValue]) =>
+        onChange={([newFromValue, newToValue]) => {
           setValues((prev) => {
             return {
               ...prev,
               [from]: formatDate(newFromValue),
               [to]: formatDate(newToValue),
             };
-          })
-        }
+          });
+          setErrors((prev) => {
+            const next = { ...prev };
+            delete next[from];
+            delete next[to];
+            return next;
+          });
+        }}
         renderInput={(startProps, endProps) => {
           [startProps, endProps].forEach((p) => {
             p.inputProps.type = 'date';

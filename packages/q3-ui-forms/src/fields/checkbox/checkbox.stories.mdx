@@ -1,0 +1,54 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Checkboox from '.';
+import { Form, Field } from '../../builders';
+
+<Meta
+  title="Forms|Fields/Checkboox"
+  component={Checkboox}
+/>
+
+<Preview>
+  <Story name="As default">
+    <Form debug initialValues={{ demo: false }}>
+      <Field
+        name="demo"
+        type="checkbox"
+        helper="Do not render"
+      />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With custom value">
+    <Form debug initialValues={{ demo: '' }}>
+      <Field name="demo" type="checkbox" checkedValue="*" />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="With forced boolean">
+    <Form debug initialValues={{ demo: '' }}>
+      <Field name="demo" type="checkbox" checkedValue />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="As switch">
+    <Form debug initialValues={{ lorem: true }}>
+      <Field
+        name="lorem"
+        type="checkbox"
+        variant="switch"
+        helper="Hey"
+      />
+    </Form>
+  </Story>
+</Preview>

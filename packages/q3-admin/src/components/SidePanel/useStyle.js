@@ -3,13 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: {
     borderLeft: '2px solid #f4f6f8',
-    height: 'calc((100 * var(--vh)) - 65px)',
+    height: 'calc((100 * var(--vh)) - 75px)',
+    overflow: 'hidden',
     padding: '0',
     position: 'relative',
     maxWidth: 310,
     width: 310,
 
     [theme.breakpoints.down('md')]: {
+      height: 'calc((100 * var(--vh)) - 65px)',
       maxWidth: 265,
       width: 265,
     },

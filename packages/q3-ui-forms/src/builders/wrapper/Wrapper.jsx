@@ -30,6 +30,7 @@ export const InnerForm = ({
   onSubmit: handleSubmit,
   onReset: handleReset,
   initialValues: seed,
+  initialErrors,
   debug,
   restart,
   showSuccessMessage,
@@ -79,7 +80,7 @@ export const InnerForm = ({
     clearPreviousState,
     previousValues,
     isModified,
-  } = useDispatcher(initialValues);
+  } = useDispatcher(initialValues, initialErrors);
 
   const {
     message,
