@@ -27,6 +27,9 @@ import { countries } from '../src/fields/__fixtures__/options';
         <Form
           debug
           unwind={[['repeats', 3]]}
+          initialErrors={{
+            'dateRange>': 'Not a known date',
+          }}
           initialValues={{
             repeats: [
               { fruit: 'Apple' },

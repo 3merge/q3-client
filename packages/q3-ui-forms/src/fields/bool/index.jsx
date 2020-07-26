@@ -113,6 +113,10 @@ const Bool = ({
     ],
   );
 
+  if (variant === 'checkbox' && !rest.error)
+    // eslint-disable-next-line
+    delete rest.helperText;
+
   return (
     <Box my={0.5}>
       <FormControlLabel

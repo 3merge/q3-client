@@ -20,19 +20,19 @@ export const countries = [
     continent: 'North America',
   },
   {
-    value: 'GB',
-    label: 'England',
-    continent: 'UK',
-  },
-  {
     value: 'US',
     label: 'United States',
     continent: 'North America',
   },
+  {
+    value: 'UK',
+    label: 'United Kingdom',
+    continent: 'North America',
+  },
 ];
 
-export const autocomplete = debounce((e) => {
-  return new Promise((resolve) =>
+export const autocomplete = (e) =>
+  new Promise((resolve) =>
     setTimeout(() => {
       resolve(
         countries.filter((item) => {
@@ -46,4 +46,3 @@ export const autocomplete = debounce((e) => {
       );
     }, 200),
   );
-}, 500);

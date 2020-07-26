@@ -33,3 +33,7 @@ export default ({ children }) => (
     {children}
   </MockRestAdapter>
 );
+
+export const FilterComponent = (props) => (
+  <p>{`Prop keys: ${Object.keys(props).join(',')}`}</p>
+);

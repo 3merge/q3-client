@@ -61,20 +61,19 @@ const Chart = ({
       captionComponent={
         <Dialog
           title="filter"
-          renderContent={(close) => (
-            <EncodedUrl
-              query={query}
-              onSave={(values) => {
+          renderContent={(close) =>
+            React.cloneElement(filterComponent, {
+              query,
+              onSave: (values) => {
                 close();
                 setQuery(values);
-              }}
-            >
-              {filterComponent}
-              <Grid item xs={12}>
-                <Next submit />
-              </Grid>
-            </EncodedUrl>
-          )}
+              },
+              onReset: () => {
+                close();
+                setQuery(initialQueryValue);
+              },
+            })
+          }
           renderTrigger={(onClick) => (
             <Grid container alignItems="center">
               <Grid item>

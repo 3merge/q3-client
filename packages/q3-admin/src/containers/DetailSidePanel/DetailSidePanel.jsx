@@ -73,7 +73,7 @@ const DetailSidePanel = ({ children, ...props }) => {
           <Tooltip title={t(key)} key={i}>
             <BottomNavigationAction
               icon={icons[key]}
-              label={t(key)}
+              aria-label={t(key)}
               className={classnames(['q3-tabs-item', item])}
               value={i}
               id={key}

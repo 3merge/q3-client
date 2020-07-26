@@ -5,7 +5,9 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Chart from './Chart';
-import ChartFixture from './Chart.fixture';
+import ChartFixture, {
+  FilterComponent,
+} from './Chart.fixture';
 
 <Meta title="Admin|Chart" component={Chart} />
 
@@ -17,7 +19,7 @@ import ChartFixture from './Chart.fixture';
       <Chart
         title="Example bar graph"
         chartComponent={<p>Chart component of prefence</p>}
-        filterComponent={<p>Filter inputs</p>}
+        filterComponent={<FilterComponent />}
         initialQueryValue="?template=foo"
       />
     </ChartFixture>
@@ -30,7 +32,7 @@ import ChartFixture from './Chart.fixture';
       <Chart
         title="Example bar graph"
         chartComponent={<p>Chart component of prefence</p>}
-        filterComponent={<p>Filter inputs</p>}
+        filterComponent={<FilterComponent />}
         initialQueryValue="?s=foo&createdAt<=2012-01-12&createdAt>=2012-09-12"
       />
     </ChartFixture>
