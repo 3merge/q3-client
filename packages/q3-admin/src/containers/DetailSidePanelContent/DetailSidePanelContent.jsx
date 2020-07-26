@@ -74,6 +74,7 @@ const DetailSidePanelContent = ({
           {...panel}
           key={i}
           transitionDelay={i + 1 * 150}
+          gutters
         >
           {panel.content}
         </SidePanelContent>

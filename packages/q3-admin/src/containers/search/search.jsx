@@ -6,7 +6,6 @@ import { withLocation } from 'with-location';
 import SearchBar from 'q3-ui/lib/searchBar';
 import Box from '@material-ui/core/Box';
 import { array } from 'q3-ui-helpers';
-import debounce from 'debounce-promise';
 import { Definitions } from '../state';
 import useStyle from './useStyle';
 
@@ -16,13 +15,12 @@ const normalizeParams = (params) => {
   params.set('limit', 25);
 };
 
-const handleInterceptor = debounce(
-  (promise, fn) =>
-    promise
-      .then((results) => (fn ? results.map(fn) : results))
-      .catch(() => []),
-  250,
-);
+const handleInterceptor = (promise, fn) =>
+  promise
+    .then((results) => {
+      return fn ? results.map(fn) : results;
+    })
+    .catch(() => []);
 
 const assignDirectoryPathToResults = (directoryPath) => (
   res = [],
@@ -49,19 +47,16 @@ export const Search = ({
   } = React.useContext(Definitions);
   const { root } = useStyle();
 
-  const handleResults = React.useCallback(
-    (e) => {
-      normalizeParams(params);
-      return handleInterceptor(
-        getSafelyForAutoCompleteWithProjection(
-          `/${collectionName}?${params.toString()}`,
-          resourceName,
-        )(e),
-        intercept,
-      ).then(assignDirectoryPathToResults(directoryPath));
-    },
-    [intercept],
-  );
+  const handleResults = (e) => {
+    normalizeParams(params);
+    return handleInterceptor(
+      getSafelyForAutoCompleteWithProjection(
+        `/${collectionName}?${params.toString()}`,
+        resourceName,
+      )(e),
+      intercept,
+    ).then(assignDirectoryPathToResults(directoryPath));
+  };
 
   return (
     <Box id="q3-searchbar" className={root}>

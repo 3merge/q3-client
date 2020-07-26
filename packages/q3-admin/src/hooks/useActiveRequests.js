@@ -3,23 +3,18 @@ import axios from 'axios';
 
 export default () => {
   const [
-    numberOfCallsPending,
-    setNumOfCalls,
-  ] = React.useState(0);
+    hasPendingRequests,
+    setHasPendingRequests,
+  ] = React.useState(false);
 
-  const hasPendingRequests = numberOfCallsPending > 0;
-
-  const delay = (fn) =>
+  const delay = (value) =>
     process.env.NODE_ENV !== 'test'
-      ? setTimeout(() => setNumOfCalls(fn), 0)
-      : setNumOfCalls(fn);
-
-  const add = () => delay((prev) => prev + 1);
-  const reduce = () => delay((prev) => prev - 1);
+      ? setTimeout(() => setHasPendingRequests(value), 0)
+      : setHasPendingRequests(value);
 
   axios.interceptors.request.use(
     (config) => {
-      add();
+      if (!hasPendingRequests) delay(true);
       return config;
     },
     (error) => {
@@ -29,16 +24,14 @@ export default () => {
 
   axios.interceptors.response.use(
     (response) => {
-      reduce();
+      if (hasPendingRequests) delay(false);
       return response;
     },
     (error) => {
-      reduce();
+      if (hasPendingRequests) delay(false);
       return Promise.reject(error);
     },
   );
 
-  return React.useMemo(() => hasPendingRequests, [
-    hasPendingRequests,
-  ]);
+  return hasPendingRequests;
 };

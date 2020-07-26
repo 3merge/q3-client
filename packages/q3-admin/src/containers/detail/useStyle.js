@@ -15,4 +15,11 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   },
+  docs: {
+    padding: '0 2rem',
+
+    '& p': {
+      fontSize: '0.812rem !important',
+    },
+  },
 }));

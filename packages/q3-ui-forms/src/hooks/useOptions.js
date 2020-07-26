@@ -3,6 +3,7 @@ import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
 import { useResults } from 'q3-ui-helpers/lib/hooks';
+import { useDebounce } from 'use-debounce';
 import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
 import { expandOptions } from '../fields/optionsThreshold';
@@ -20,6 +21,10 @@ export default ({
     initialValue,
   );
 
+  const [debounced] = useDebounce(value, 135, {
+    maxWait: 450,
+  });
+
   const {
     loading,
     run,
@@ -27,7 +32,7 @@ export default ({
     setResults: setItems,
   } = useResults(
     loadOptions,
-    [value, values],
+    debounced,
     expandOptions(options),
     minimumCharacterCount,
   );
@@ -48,7 +53,7 @@ export default ({
     } else {
       runOpts(options);
     }
-  }, [value, JSON.stringify(watchValues)]);
+  }, [debounced, JSON.stringify(watchValues)]);
 
   return {
     loading,

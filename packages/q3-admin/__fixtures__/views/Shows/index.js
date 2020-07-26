@@ -3,6 +3,7 @@ import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
+import Docs from './Docs';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
@@ -50,5 +51,6 @@ export default new AbstractCollectionBuilder({
     picture: true,
     files: true,
     notes: true,
+    documentation: <Docs />,
   })
   .build();

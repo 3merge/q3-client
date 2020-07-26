@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import useStyle from './useStyle';
 
 export const SidebarPanelContent = ({
   title,
   children,
+  gutters,
 }) => {
   const { subtext, bordered } = useStyle();
   const { t } = useTranslation();
@@ -26,7 +25,12 @@ export const SidebarPanelContent = ({
         </Typography>
       </Box>
       {children && (
-        <Box mt={0.5} mb={1} className={subtext}>
+        <Box
+          mt={0.5}
+          mb={gutters ? 2 : 1}
+          px={gutters ? 1 : 0}
+          className={subtext}
+        >
           {children}
         </Box>
       )}

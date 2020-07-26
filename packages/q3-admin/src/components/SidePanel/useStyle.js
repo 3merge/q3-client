@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   root: {
     borderLeft: '2px solid #f4f6f8',
     height: 'calc((100 * var(--vh)) - 65px)',
-    padding: '1rem 0',
+    padding: '0',
     position: 'relative',
     maxWidth: 310,
     width: 310,

@@ -45,11 +45,20 @@ const makeApiEndpoints = (
       if (url.includes('empty'))
         return [200, { [resourceName]: [] }];
 
+      const urlParams = new URLSearchParams(url);
+      const s = urlParams.get('search');
+
       return [
         200,
         {
           total: seedData.length,
-          [resourceName]: seedData,
+          [resourceName]: s
+            ? seedData.filter((i) =>
+                i.name
+                  .toLowerCase()
+                  .includes(s.toLowerCase()),
+              )
+            : seedData,
         },
       ];
     });

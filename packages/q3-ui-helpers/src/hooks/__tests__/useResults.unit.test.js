@@ -15,7 +15,7 @@ jest
 
 jest
   .spyOn(React, 'useRef')
-  .mockReturnValue({ current: null });
+  .mockReturnValue({ current: {} });
 
 describe('useResults', () => {
   it('should return truthy', () =>
@@ -24,7 +24,7 @@ describe('useResults', () => {
   it('should return falsy', () =>
     expect(isOfAdequateLength('a', 2)).toBeFalsy());
 
-  it('should', async () => {
+  it.only('should', async () => {
     const { run } = useResults(
       () => Promise.resolve([1, 2]),
       'Term',

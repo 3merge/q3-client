@@ -38,6 +38,7 @@ export const generateInitialValues = (
 const Profile = ({ fields, fieldKeys, formProps }) => {
   const { t } = useTranslation();
   const { state, update } = React.useContext(AuthContext);
+  const id = get(state, 'profile.id');
 
   const initialValues = generateInitialValues(
     state,
@@ -46,13 +47,13 @@ const Profile = ({ fields, fieldKeys, formProps }) => {
 
   return (
     <Collection
-      id={get(state, 'profile.id')}
+      id={id}
       collectionName="q3-api-users"
       resourceName="users"
       resourceNameSingular="user"
       location={{}}
     >
-      <Page location={{}}>
+      <Page id={id} location={{}}>
         <TemplateGrid
           title={t('titles:profile')}
           subtitle={t('descriptions:profile')}

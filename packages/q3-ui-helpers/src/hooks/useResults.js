@@ -24,35 +24,55 @@ export default (
     defaultState,
   );
 
-  const ref = React.useRef();
+  const cache = React.useRef({});
 
-  const clear = () => {
-    ref.current = null;
-    setResults([]);
-  };
+  React.useCallback(() => {
+    return () => {
+      cache.current = {};
+    };
+  });
 
   return {
-    run: (state) => {
-      if (!isOfAdequateLength(term, minimumCharacterCount))
-        return clear();
+    run: React.useCallback(
+      (s) => {
+        if (
+          !isOfAdequateLength(term, minimumCharacterCount)
+        )
+          return setResults([]);
 
-      ref.current = () =>
-        invoke(service, [].concat([term, state]).flat())
-          .then(setResults)
-          .catch(clear)
+        if (loading) return null;
+
+        try {
+          if (
+            cache.current[term.toLowerCase()] &&
+            cache.current[term.toLowerCase()].length
+          ) {
+            setResults(cache.current[term.toLowerCase()]);
+            return null;
+          }
+        } catch (e) {
+          // noop
+        }
+
+        setLoading(true);
+
+        return invoke(service, [].concat([term, s]).flat())
+          .then((r) => {
+            cache.current[term] = r;
+            setResults(r);
+            return r;
+          })
+          .catch(() => {
+            const out = [];
+            setResults(out);
+            return out;
+          })
           .finally(() => {
             setLoading(false);
           });
-
-      if (loading) return null;
-      setLoading(true);
-
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(ref.current());
-        }, 65);
-      });
-    },
+      },
+      [term],
+    ),
     loading,
     results,
     setResults,

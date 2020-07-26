@@ -12,17 +12,11 @@ afterEach(() => {
 });
 
 describe('useActiveRequests', () => {
-  it('should memoize the return value as true/false', async () => {
-    const numberOfCallsToMake = 3;
-    const renderer = jest.fn().mockImplementation((v) => {
-      return String(v);
-    });
-
+  it('should memoize the return value as true/false', () => {
     const el = global.mount(
-      React.createElement(() => {
-        const num = useActiveRequests();
-        return renderer(num);
-      }),
+      React.createElement(() =>
+        String(useActiveRequests()),
+      ),
     );
 
     const iterateInterceptor = (type) => {
@@ -32,20 +26,14 @@ describe('useActiveRequests', () => {
       );
 
       act(() => {
-        for (let i = 0; i < numberOfCallsToMake; i += 1)
-          fn();
+        fn();
       });
-
-      el.update();
     };
 
-    iterateInterceptor('request');
-
-    expect(renderer).toHaveBeenCalledTimes(2);
-    expect(el.text()).toBe('true');
-    iterateInterceptor('response');
-
-    expect(renderer).toHaveBeenCalledTimes(3);
     expect(el.text()).toBe('false');
+    iterateInterceptor('request');
+    el.update();
+
+    expect(el.text()).toBe('true');
   });
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
+import { get } from 'lodash';
 import App from './components/app';
 import { usePages } from './hooks';
 import Notifications from './containers/Notifications';
@@ -26,6 +27,8 @@ const Admin = ({
   ProfileProps,
 }) => {
   const cls = useStyle();
+  const root = get(AppProps, 'directory', '/');
+
   return (
     <Tours steps={tours}>
       {(restartTour) => (
@@ -33,17 +36,20 @@ const Admin = ({
           <Navigation
             {...NavProps}
             menuItems={usePages(AppProps.pages, icons)}
+            root={root}
           />
           <Box className={cls.main}>
             <ProfileActions
               profileItems={[
                 ...profileItems,
                 {
-                  onClick: goTo('/account/profile'),
+                  onClick: goTo(`${root}account/profile`),
                   label: 'profile',
                 },
                 {
-                  onClick: goTo('/account/change-password'),
+                  onClick: goTo(
+                    `${root}account/change-password`,
+                  ),
                   label: 'changePassword',
                 },
                 {
