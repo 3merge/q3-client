@@ -39,7 +39,7 @@ export const reducerDispatcher = (state, context) => {
         previousValues = { ...values };
       // values do not always have a flatten structure, do to dynamic field types
       // like Autocomplete, Chips and Select
-      values[name] = value;
+      set(values, name, value);
       break;
 
     case REPLACE_ERRORS:
@@ -60,11 +60,17 @@ export const reducerDispatcher = (state, context) => {
     case UNSET_ERROR:
       unset(errors, name);
       errors = object.clean(flat(errors));
+
       break;
 
     case INIT_VALUE:
       if (!(name in values) || name[values] === undefined)
-        values[name] = FieldBuilder.getInitialValue(type);
+        set(
+          values,
+          name,
+          FieldBuilder.getInitialValue(type),
+        );
+
       break;
 
     case INIT_PREVIOUS_VALUE:

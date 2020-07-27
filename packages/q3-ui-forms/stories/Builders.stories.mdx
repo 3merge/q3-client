@@ -28,8 +28,18 @@ Sometimes, we'll need something else.
 <Preview>
   <Story name="Simple">
     <Provider>
-      <Form debug restart showPersistenceSnack>
+      <Form
+        debug
+        restart
+        showPersistenceSnack
+        initialErrors={{
+          'preferences': {
+            colour: 'Not a real colour',
+          },
+        }}
+      >
         <Field name="firstName" type="text" />
+        <Field name="preferences.colour" type="text" />
         <Field
           name="countries"
           type="autocomplete"

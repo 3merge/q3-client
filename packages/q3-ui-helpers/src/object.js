@@ -51,7 +51,11 @@ export const clean = (target = {}) =>
       if (hasKeys(inner)) acc[key] = inner;
 
       // only allow through populated values
-    } else if (value !== null && value !== undefined) {
+    } else if (
+      value !== null &&
+      value !== undefined &&
+      typeof value !== 'object'
+    ) {
       acc[key] = value;
     }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as yup from 'yup';
+import { set, unset } from 'lodash';
 import { object, string } from 'q3-ui-helpers';
 import { Validator } from '../helpers/validation';
 
@@ -20,28 +21,21 @@ const getPath = (value) => {
   );
 
   const arrayIndex = convertIntoIndexNumber(index);
-  return [key, arrayIndex, path];
+  return [key, arrayIndex, path]
+    .filter(
+      (v) => v !== undefined && v !== null && v !== '',
+    )
+    .join('.')
+    .replace(/\.$/, '');
 };
 
 export const deassignValidationKey = (k) => (prevState) => {
   if (!k) return prevState;
 
   const copy = { ...prevState };
-  const [key, arrayIndex, path] = getPath(k);
-
-  if (Array.isArray(copy[key])) {
-    if (copy[key][arrayIndex] && path) {
-      delete copy[key][arrayIndex][path];
-    }
-
-    copy[key] = copy[key].filter(
-      (item) => item && object.hasKeys(item),
-    );
-  } else {
-    delete copy[key];
-  }
-
-  return copy;
+  const path = getPath(k);
+  unset(copy, path);
+  return object.clean(copy);
 };
 
 export const assignNewValidationKey = (k, args) => (
@@ -51,44 +45,34 @@ export const assignNewValidationKey = (k, args) => (
 
   const copy = { ...prevState };
   const validation = new Validator(args).build();
-  const [key, arrayIndex, path] = getPath(k);
+  const path = getPath(k);
 
   if (args && args.type && args.type.includes('range'))
     return copy;
 
-  if (path) {
-    if (Array.isArray(copy[key])) {
-      if (!copy[key][arrayIndex])
-        copy[key][arrayIndex] = {};
-
-      copy[key][arrayIndex][path] = validation;
-      return copy;
-    }
-
-    if (arrayIndex || arrayIndex === 0) {
-      copy[key] = [
-        {
-          [path]: validation,
-        },
-      ];
-
-      return copy;
-    }
-  }
-
-  return {
-    ...copy,
-    [key]: validation,
-  };
+  set(copy, path, validation);
+  return copy;
 };
 
-export const mapNestedArraysToShape = (schema) =>
-  Object.entries(schema).reduce((acc, [key, value]) => {
-    acc[key] = Array.isArray(value)
-      ? yup.array().of(yup.object().shape(value[0]))
-      : value;
-    return acc;
-  }, {});
+export const mapNestedArraysToShape = (schema) => {
+  return Object.entries(schema).reduce(
+    (acc, [key, value]) => {
+      if (Array.isArray(value))
+        acc[key] = yup
+          .array()
+          .of(yup.object().shape(value[0]));
+      else if (
+        typeof value === 'object' &&
+        !('_type' in value)
+      )
+        acc[key] = yup.object(value);
+      else Object.assign(acc, { [key]: value });
+
+      return acc;
+    },
+    {},
+  );
+};
 
 export default () => {
   const [chain, setChain] = React.useState({});

@@ -26,7 +26,7 @@ const DateRange = ({ name, ...rest }) => {
     DispatcherState,
   );
 
-  const { values } = React.useContext(BuilderState);
+  const { values, errors } = React.useContext(BuilderState);
 
   const { t } = useTranslation('labels');
   const shared = generateSharedProps(rest);
@@ -75,8 +75,9 @@ const DateRange = ({ name, ...rest }) => {
                 <Field
                   {...shared}
                   {...startProps}
+                  error={get(errors, from)}
+                  helperText={get(errors, from) || t(name)}
                   type="date"
-                  helperText={t(name)}
                   name={from}
                   lg={6}
                   xl={6}
@@ -86,9 +87,10 @@ const DateRange = ({ name, ...rest }) => {
                 <Field
                   {...shared}
                   {...endProps}
+                  error={get(errors, to)}
+                  helperText={get(errors, to) || t(name)}
                   icon={DateRangeIcon}
                   type="date"
-                  helperText={t(name)}
                   name={to}
                   lg={6}
                   xl={6}
