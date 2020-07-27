@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.5](https://github.com/3merge/q/compare/v1.20.4...v1.20.5) (2020-07-27)
+
+
+### Bug Fixes
+
+* nested form structures ([161a98d](https://github.com/3merge/q/commit/161a98de03be240701b6915217d96c1ff7fb28da))
+
+
+
+
+
 ## [1.20.4](https://github.com/3merge/q/compare/v1.20.3...v1.20.4) (2020-07-27)
 
 
