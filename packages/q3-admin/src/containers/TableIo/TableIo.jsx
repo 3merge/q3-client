@@ -61,30 +61,27 @@ const TableIo = ({ io, data, params }) => {
         }),
       );
 
-  const importCollection = (template) => ([f]) =>
-    axios
-      .post(`/imports${getQueryString(template)}`)
-      .then(() => {
-        const formData = new FormData();
+  const importCollection = (template) => ([f]) => {
+    const formData = new FormData();
 
-        formData.append('import', f.src.file);
-        return axios
-          .post(`/imports?template=${template}`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          })
-          .then(() =>
-            enqueueSnackbar(t('importStarted'), {
-              variant: 'info',
-            }),
-          )
-          .catch(() =>
-            enqueueSnackbar(t('importFailed'), {
-              variant: 'error',
-            }),
-          );
-      });
+    formData.append('import', f.src.file);
+    return axios
+      .post(`/imports?template=${template}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() =>
+        enqueueSnackbar(t('importStarted'), {
+          variant: 'info',
+        }),
+      )
+      .catch(() =>
+        enqueueSnackbar(t('importFailed'), {
+          variant: 'error',
+        }),
+      );
+  };
 
   return (
     <Dialog

@@ -60,6 +60,7 @@ const Chart = ({
       {...FigureProps}
       captionComponent={
         <Dialog
+          variant="drawer"
           title="filter"
           renderContent={(close) =>
             React.cloneElement(filterComponent, {
