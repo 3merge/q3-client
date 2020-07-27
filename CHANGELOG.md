@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.4](https://github.com/3merge/q/compare/v1.20.3...v1.20.4) (2020-07-27)
+
+
+### Bug Fixes
+
+* nested object structures with yup ([1a66015](https://github.com/3merge/q/commit/1a6601541c5cf595a48d4f9778b0215f0f94befe))
+
+
+
+
+
 ## [1.20.3](https://github.com/3merge/q/compare/v1.20.2...v1.20.3) (2020-07-27)
 
 
