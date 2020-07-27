@@ -14,6 +14,7 @@ import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
+import { Exists, Has } from '../src/presets';
 import { countries } from '../src/fields/__fixtures__/options';
 import { asOptions } from '../src/helpers';
 
@@ -50,24 +51,8 @@ import { asOptions } from '../src/helpers';
             type="chips"
             options={['mibberson+demo@3merge.ca']}
           />
-          <Field
-            name="approved"
-            type="radio"
-            options={[
-              {
-                label: 'Is approved',
-                value: 'exists(true)',
-              },
-              {
-                label: 'Is not approved',
-                value: 'exists(false)',
-              },
-              {
-                label: 'Either',
-                value: '',
-              },
-            ]}
-          />
+          <Has name="items" />
+          <Exists name="approved" />
           <button type="submit">Apply</button>
         </EncodedUrl>
       </LocationDebugger>

@@ -4,11 +4,7 @@ import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
 import { Store, Definitions } from '../state';
 import PollIndicator from '../../components/PollIndicator';
-import {
-  useActiveRequests,
-  useReloadState,
-  useSocket,
-} from '../../hooks';
+import { useReloadState, useSocket } from '../../hooks';
 
 export const withLastUpdated = (Component) => (props) => {
   const { collectionName, id } = React.useContext(
@@ -40,9 +36,11 @@ export default withLastUpdated(
   ({ lastUpdated, hasExpired }) => {
     const { data } = React.useContext(Store);
     const [hasChange, setHasChange] = React.useState(false);
-    const hasActiveRequests = useActiveRequests();
+
     const runReloadPrompt = useReloadState();
     const previousLastUpdated = get(data, 'updatedAt');
+    const hasPendingUpdate =
+      lastUpdated && hasExpired(previousLastUpdated);
 
     React.useEffect(() => {
       if (browser.isBrowserReady())
@@ -53,21 +51,12 @@ export default withLastUpdated(
     }, []);
 
     React.useEffect(() => {
-      if (
-        lastUpdated &&
-        !hasActiveRequests &&
-        hasExpired(previousLastUpdated)
-      )
-        runReloadPrompt();
-    }, [
-      previousLastUpdated,
-      hasActiveRequests,
-      lastUpdated,
-    ]);
+      if (hasPendingUpdate) runReloadPrompt();
+    }, [hasPendingUpdate]);
 
     return (
       <PollIndicator
-        hasPendingUpdate={!hasExpired(previousLastUpdated)}
+        hasPendingUpdate={hasPendingUpdate}
         lastUpdated={lastUpdated}
         hasChange={hasChange}
       />
