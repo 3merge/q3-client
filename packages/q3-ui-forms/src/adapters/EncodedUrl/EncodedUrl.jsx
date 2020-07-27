@@ -1,6 +1,7 @@
 import React from 'react';
 import { withLocation } from 'with-location';
 import PropTypes from 'prop-types';
+import flat from 'flat';
 import { url } from 'q3-ui-helpers';
 import { Form } from '../../builders';
 
@@ -32,7 +33,7 @@ export const extractValue = (val) => {
 };
 
 export const serialize = (o) =>
-  Object.entries(o)
+  Object.entries(flat.unflatten(o))
     .reduce((acc, [key, value]) => {
       if (value === null) return acc;
 

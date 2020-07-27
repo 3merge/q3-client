@@ -87,7 +87,6 @@ export const InnerForm = ({
     isSubmitting,
     onChange,
     onError,
-    onReset,
     onSubmit,
     onSuccess,
   } = useFormContext({
@@ -108,12 +107,18 @@ export const InnerForm = ({
   // simply listens for changes and alerts the user
   useModified(isModified, showPersistenceSnack);
 
+  const onReset = () => {
+    setValues(seed);
+    setErrors(initialErrors);
+  };
+
   const execAllSubmitHandlers = onSubmit(() => {
     return forwardProcessStateValuesIntoOnSubmitHandler(
       values,
     )
       .then((res) => {
         clearPreviousState();
+        if (restart) onReset();
         return onSuccess(res);
       })
       .catch((e) => {
@@ -167,7 +172,7 @@ export const InnerForm = ({
               values,
               errors,
               onSubmit: execAllSubmitHandlers,
-              onReset: handleReset,
+              onReset: handleReset || onReset,
               ...etc,
             })}
             <Message {...message} />
@@ -186,11 +191,10 @@ InnerForm.propTypes = {
     PropTypes.func,
   ]).isRequired,
 
-  /**
-   * Passed directly into Formik's provider.
-   */
   // eslint-disable-next-line
   initialValues: PropTypes.object,
+  // eslint-disable-next-line
+  initialErrors: PropTypes.object,
 
   /**
    * Resource/collection being modified
@@ -277,6 +281,7 @@ InnerForm.defaultProps = {
   unwind: [],
   // eslint-disable-next-line
   onSubmit: console.log,
+  initialErrors: {},
 };
 
 export default (Component) => (props) => (

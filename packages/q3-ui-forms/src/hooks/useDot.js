@@ -16,15 +16,17 @@ export default (
   data,
 ) => {
   const runMarshalOptions = (callback) => (values) => {
-    const expanded = flat.unflatten(values);
+    const expanded = flat(values);
     const newValues = dot.translateAndModify(
       expanded,
       marshal,
     );
 
-    const output = marshalSelectively
-      ? merge({}, expanded, newValues)
-      : newValues;
+    const output = flat.unflatten(
+      marshalSelectively
+        ? merge({}, expanded, newValues)
+        : newValues,
+    );
 
     return callback ? callback(output) : output;
   };

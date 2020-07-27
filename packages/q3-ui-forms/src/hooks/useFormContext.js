@@ -19,16 +19,13 @@ export const reduceErrorMessages = (errors = []) =>
   }, {});
 
 export default ({
-  restart = false,
   showSuccessMessage = false,
   validationSchema,
   errors,
   values,
   setErrors,
-  setValues,
   setFieldError,
   setFieldValue,
-  previousValues,
   removeFieldError,
 }) => {
   const [message, setMessage] = React.useState();
@@ -53,11 +50,6 @@ export default ({
       setFieldValue(key, value),
     );
   };
-
-  const onReset = React.useCallback(() => {
-    setValues({});
-    setErrors({});
-  }, [previousValues]);
 
   const onError = React.useCallback(
     (err) => {
@@ -114,7 +106,6 @@ export default ({
 
       .finally(() => {
         setIsSubmitting(false);
-        if (restart) onReset();
       });
   };
 

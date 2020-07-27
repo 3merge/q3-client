@@ -35,7 +35,7 @@ export const deassignValidationKey = (k) => (prevState) => {
   const copy = { ...prevState };
   const path = getPath(k);
   unset(copy, path);
-  return object.clean(copy);
+  return copy;
 };
 
 export const assignNewValidationKey = (k, args) => (

@@ -97,7 +97,7 @@ describe('useValidation', () => {
       });
 
       expect(a).toHaveProperty('bar');
-      expect(b).toBeUndefined();
+      expect(b).toEqual({});
     });
 
     it('should remove property', () => {

@@ -37,6 +37,11 @@ export const TextBase = (props) => {
     String(allProps.value === null ? '' : allProps.value),
   );
 
+  React.useEffect(() => {
+    if (allProps.value !== value)
+      setLocalValue(allProps.value);
+  }, [allProps.value]);
+
   return (
     <TextField
       // ensure some of the custom props we're using
