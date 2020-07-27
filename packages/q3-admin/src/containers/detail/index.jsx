@@ -40,7 +40,7 @@ const Detail = ({
       asideComponent={
         <DetailSidePanel
           picture={
-            files && (
+            picture && (
               <SidePanelContent title="featuredImage">
                 <PictureUpload />
               </SidePanelContent>

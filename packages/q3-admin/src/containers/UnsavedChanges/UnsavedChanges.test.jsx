@@ -1,12 +1,10 @@
 import React from 'react';
 import moment from 'moment';
-import useActiveRequests from '../../hooks/useActiveRequests';
 import UnsavedChanges, {
   withLastUpdated,
 } from './UnsavedChanges';
 import { Store } from '../state';
 
-jest.mock('../../hooks/useActiveRequests', () => jest.fn());
 jest.mock('../../hooks/useSocket', () =>
   jest.fn().mockReturnValue(
     // this is the date returned from socket
@@ -50,14 +48,7 @@ describe('Admin>UnsavedChanges', () => {
         </Store.Provider>,
       );
 
-    it('should not prompt confirmation if there are active requests', () => {
-      useActiveRequests.mockReturnValue(true);
-      mockProvider({ updatedAt: moment() });
-      expect(window.confirm).not.toHaveBeenCalled();
-    });
-
     it('should prompt confirmation if the date has expired', () => {
-      useActiveRequests.mockReturnValue(false);
       mockProvider({
         updatedAt: moment().subtract(2, 'days'),
       });

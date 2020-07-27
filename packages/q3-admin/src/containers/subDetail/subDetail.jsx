@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Tile from 'q3-ui/lib/tile';
 import Repeater from 'q3-ui-repeater';
 import { Definitions, Dispatcher } from '../state';
 
@@ -14,7 +13,7 @@ const SubDetail = ({
   runPoll,
   renderTop,
   renderBottom,
-  TileProps,
+
   ...rest
 }) => {
   const { poll } = React.useContext(Dispatcher);
@@ -36,7 +35,7 @@ const SubDetail = ({
       <CircularProgress />
     </Box>
   ) : (
-    <Tile subtitle={root} {...TileProps} divider>
+    <Box>
       {renderTop}
       <Repeater
         collectionName={collectionName}
@@ -55,7 +54,7 @@ const SubDetail = ({
         {children}
       </Repeater>
       {renderBottom}
-    </Tile>
+    </Box>
   );
 };
 

@@ -13,6 +13,7 @@ import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
 import { countries } from '../src/fields/__fixtures__/options';
+import { Exists } from '../src/presets';
 
 <Meta title="Forms|Field" component={Field} />
 
@@ -41,6 +42,7 @@ import { countries } from '../src/fields/__fixtures__/options';
           <Field name="tel" type="tel" />
           <Field name="postal" type="postal" />
           <Field name="range" type="range" />
+          <Exists name="group" />
           <Field
             name="autocomplete"
             type="autocomplete"

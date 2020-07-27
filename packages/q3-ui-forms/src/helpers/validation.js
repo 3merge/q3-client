@@ -183,6 +183,7 @@ export class Validator {
       case 'radio':
       case 'select':
       case 'selectable':
+      case 'group':
         this.$base = this.$base
           .mixed()
           .test(

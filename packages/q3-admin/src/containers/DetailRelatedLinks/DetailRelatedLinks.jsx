@@ -17,52 +17,54 @@ const RelatedLinks = ({ children, links }) => {
   const cls = useStyle();
 
   return (
-    <Container maxWidth="lg">
-      <Grid container>
-        <Grid item className={cls.fill}>
-          <Box pb={4}>
-            <Container disableGutters fixed>
-              {children}
-            </Container>
-          </Box>
-        </Grid>
-        {object.isFn(links) ? (
-          <Grid
-            id="q3-related-links"
-            item
-            className={cls.column}
-          >
-            <List
-              subheader={
-                <ListSubheader
-                  component="div"
-                  id="nested-list-subheader"
-                >
-                  Related links
-                </ListSubheader>
-              }
-            >
-              {links(data).map((link) => (
-                <ListItem
-                  button
-                  dense
-                  key={link.to}
-                  to={link.to}
-                  component={Link}
-                >
-                  <ListItemText
-                    primary={link.label}
-                    primaryTypographyProps={{
-                      className: cls.root,
-                    }}
-                  />
-                </ListItem>
-              ))}
-            </List>
+    <Box className={cls.wrapper}>
+      <Container maxWidth="xl" disableGutters>
+        <Grid container>
+          <Grid item className={cls.fill}>
+            <Box pb={4}>
+              <Container disableGutters maxWidth="xl">
+                {children}
+              </Container>
+            </Box>
           </Grid>
-        ) : null}
-      </Grid>
-    </Container>
+          {object.isFn(links) ? (
+            <Grid
+              id="q3-related-links"
+              item
+              className={cls.column}
+            >
+              <List
+                subheader={
+                  <ListSubheader
+                    component="div"
+                    id="nested-list-subheader"
+                  >
+                    Related links
+                  </ListSubheader>
+                }
+              >
+                {links(data).map((link) => (
+                  <ListItem
+                    button
+                    dense
+                    key={link.to}
+                    to={link.to}
+                    component={Link}
+                  >
+                    <ListItemText
+                      primary={link.label}
+                      primaryTypographyProps={{
+                        className: cls.root,
+                      }}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </Grid>
+          ) : null}
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 

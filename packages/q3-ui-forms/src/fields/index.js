@@ -7,6 +7,7 @@ export { default as DatePicker } from './Date';
 export { default as DateRangePicker } from './DateRange';
 export { default as Editor } from './editor';
 export { default as File } from './file';
+export { default as Group } from './Group';
 export { default as Multiselect } from './MultiSelect';
 export { default as MultiText } from './MultiText';
 export { default as Radio } from './radio';
