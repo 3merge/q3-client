@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.7](https://github.com/3merge/q/compare/v1.20.6...v1.20.7) (2020-07-28)
+
+
+### Bug Fixes
+
+* downloads socket ([0694381](https://github.com/3merge/q/commit/069438177611d3acf8be2425d66c699a7a7e7b95))
+
+
+
+
+
 ## [1.20.6](https://github.com/3merge/q/compare/v1.20.5...v1.20.6) (2020-07-28)
 
 **Note:** Version bump only for package q3-client
