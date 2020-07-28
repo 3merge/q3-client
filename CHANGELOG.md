@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.8](https://github.com/3merge/q/compare/v1.20.7...v1.20.8) (2020-07-28)
+
+
+### Bug Fixes
+
+* boolean/lazy schema ([1374889](https://github.com/3merge/q/commit/137488990bae2ba01c87c4d887adb432998ec2e4))
+
+
+
+
+
 ## [1.20.7](https://github.com/3merge/q/compare/v1.20.6...v1.20.7) (2020-07-28)
 
 
