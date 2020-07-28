@@ -1,12 +1,11 @@
 import React from 'react';
 import Notifications from 'q3-ui-notifications';
-import { set, invoke } from 'lodash';
 import { array } from 'q3-ui-helpers';
-import { getSocketInstance } from '../../hooks/useSocket';
+import { SocketContext } from '../Socket';
 
 const NotificationsContainer = () => {
-  const ref = React.useRef();
   const [list, setList] = React.useState([]);
+  const { emit, on } = React.useContext(SocketContext);
 
   const dataToListState = ({ data }) =>
     setList((prevState = []) =>
@@ -26,7 +25,7 @@ const NotificationsContainer = () => {
     eventInstance,
     id,
   ) => {
-    invoke(ref, 'current.io.emit', eventName, id, () => {
+    emit(eventName, id, () => {
       setList((prev) =>
         prev.map((item) => ({
           ...item,
@@ -42,28 +41,8 @@ const NotificationsContainer = () => {
   };
 
   React.useEffect(() => {
-    const io = getSocketInstance();
-
-    io.on('message', dataToListState);
-
-    io.on('connect_error', () => {
-      io.close();
-    });
-
-    io.on('error', (e) => {
-      // eslint-disable-next-line
-      console.log(e);
-      io.close();
-    });
-
-    io.on('connect', () => {
-      // prevents it from connecting too often...
-      set(ref, 'current.io', io);
-    });
-
-    return () => {
-      io.close();
-    };
+    on('download', dataToListState);
+    on('recent', dataToListState);
   }, []);
 
   return (

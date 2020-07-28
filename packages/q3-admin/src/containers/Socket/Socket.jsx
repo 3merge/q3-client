@@ -7,6 +7,16 @@ const Socket = ({ children }) => {
   const io = getSocketInstance();
 
   React.useEffect(() => {
+    io.on('connect_error', () => {
+      io.close();
+    });
+
+    io.on('error', (e) => {
+      // eslint-disable-next-line
+      console.log(e);
+      io.close();
+    });
+
     return () => {
       io.close();
     };
@@ -35,6 +45,9 @@ const Socket = ({ children }) => {
         watch(onWatch) {
           io.on('refresh', onWatch);
         },
+
+        on: io.on.bind(io),
+        emit: io.emit.bind(io),
       }}
     >
       {children}

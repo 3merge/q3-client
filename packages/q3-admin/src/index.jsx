@@ -39,29 +39,29 @@ const Admin = ({
             menuItems={usePages(AppProps.pages, icons)}
             root={root}
           />
-          <Box className={cls.main}>
-            <ProfileActions
-              profileItems={[
-                ...profileItems,
-                {
-                  onClick: goTo(`${root}account/profile`),
-                  label: 'profile',
-                },
-                {
-                  onClick: goTo(
-                    `${root}account/change-password`,
-                  ),
-                  label: 'changePassword',
-                },
-                {
-                  onClick: restartTour,
-                  label: 'restartTour',
-                },
-              ]}
-            >
-              <Notifications socket={socket} />
-            </ProfileActions>
-            <Socket>
+          <Socket>
+            <Box className={cls.main}>
+              <ProfileActions
+                profileItems={[
+                  ...profileItems,
+                  {
+                    onClick: goTo(`${root}account/profile`),
+                    label: 'profile',
+                  },
+                  {
+                    onClick: goTo(
+                      `${root}account/change-password`,
+                    ),
+                    label: 'changePassword',
+                  },
+                  {
+                    onClick: restartTour,
+                    label: 'restartTour',
+                  },
+                ]}
+              >
+                <Notifications socket={socket} />
+              </ProfileActions>
               <App {...AppProps}>
                 <Profile
                   path="/account/profile"
@@ -69,9 +69,9 @@ const Admin = ({
                 />
                 <ProfileChangePassword path="/account/change-password" />
               </App>
-            </Socket>
-            {children}
-          </Box>
+              {children}
+            </Box>
+          </Socket>
         </Viewport>
       )}
     </Tours>
