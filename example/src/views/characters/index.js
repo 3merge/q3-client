@@ -20,6 +20,25 @@ export default new AbstractCollectionBuilder({
     General,
     Movies,
   })
+  .genResolver(
+    ({ id, name, role, updatedAt, createdAt }) => ({
+      id,
+      name,
+      description: role,
+      gender: {
+        base: role,
+        toChip: true,
+      },
+      updatedAt: {
+        base: updatedAt,
+        toDate: true,
+      },
+      createdAt: {
+        base: createdAt,
+        toDate: true,
+      },
+    }),
+  )
   .genList({
     defaultColumns: ['gender', 'updatedAt', 'createdAt'],
     io: {
@@ -39,28 +58,5 @@ export default new AbstractCollectionBuilder({
     segments: {
       'Lead Roles': '?role=Lead',
     },
-    resolvers: ({
-      id,
-      name,
-      role,
-      updatedAt,
-      createdAt,
-    }) => ({
-      id,
-      name,
-      description: role,
-      gender: {
-        base: role,
-        toChip: true,
-      },
-      updatedAt: {
-        base: updatedAt,
-        toDate: true,
-      },
-      createdAt: {
-        base: createdAt,
-        toDate: true,
-      },
-    }),
   })
   .build();

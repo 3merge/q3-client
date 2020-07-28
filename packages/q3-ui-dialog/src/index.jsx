@@ -19,9 +19,10 @@ const DialogWrapper = ({
   contentClassName,
   onNext,
   onPrev,
+  initialValue,
   ...rest
 }) => {
-  const { isOpen, open, close } = useOpen();
+  const { isOpen, open, close } = useOpen(initialValue);
   const { t } = useTranslation();
 
   return (
@@ -117,6 +118,11 @@ DialogWrapper.propTypes = {
    * Function to execute on previous. Will not render without both onPrev and onNext.
    */
   onPrev: PropTypes.func,
+
+  /**
+   * Should the initial dialog state be open or close?
+   */
+  initialValue: PropTypes.bool,
 };
 
 DialogWrapper.defaultProps = {
@@ -127,6 +133,7 @@ DialogWrapper.defaultProps = {
   renderHeader: null,
   onNext: null,
   onPrev: null,
+  initialValue: false,
 };
 
 export default DialogWrapper;

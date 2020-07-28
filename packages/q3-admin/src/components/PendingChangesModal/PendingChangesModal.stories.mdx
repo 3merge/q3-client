@@ -1,0 +1,22 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import PendingChangesModal from './PendingChangesModal';
+
+<Meta
+  title="Admin|Pending Changes Modal"
+  component={PendingChangesModal}
+/>
+
+<Preview>
+  <Story name="As default">
+    <PendingChangesModal
+      onDecline={action('decline')}
+      onReload={action('reload')}
+    />
+  </Story>
+</Preview>

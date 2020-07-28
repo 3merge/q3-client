@@ -141,6 +141,11 @@ Object.assign(theme, {
         fontSize: '0.901rem !important',
       },
     },
+    MuiDialog: {
+      scrollPaper: {
+        alignItems: 'flex-start',
+      },
+    },
     MuiLink: {
       root: {
         textDecoration: 'underline !important',

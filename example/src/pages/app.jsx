@@ -49,7 +49,7 @@ export default () => {
         }}
         profileItems={[]}
         AppProps={{
-          customRoutes: [<CustomDashboard path="/" />],
+          directory: '/app',
           redirectPathForUnauthorizedUsers: '/login',
           pages,
         }}

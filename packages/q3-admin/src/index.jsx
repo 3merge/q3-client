@@ -10,6 +10,7 @@ import Tours from './containers/tour';
 import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
+import Socket from './containers/Socket';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
@@ -60,13 +61,15 @@ const Admin = ({
             >
               <Notifications socket={socket} />
             </ProfileActions>
-            <App {...AppProps}>
-              <Profile
-                path="/account/profile"
-                {...ProfileProps}
-              />
-              <ProfileChangePassword path="/account/change-password" />
-            </App>
+            <Socket>
+              <App {...AppProps}>
+                <Profile
+                  path="/account/profile"
+                  {...ProfileProps}
+                />
+                <ProfileChangePassword path="/account/change-password" />
+              </App>
+            </Socket>
             {children}
           </Box>
         </Viewport>

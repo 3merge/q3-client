@@ -59,6 +59,7 @@ const DialogVariant = ({
           onClose,
           open: isOpen,
           onExited: onExit,
+          maxWidth: 'sm',
         };
 
   return (

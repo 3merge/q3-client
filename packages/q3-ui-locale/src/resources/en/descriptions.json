@@ -83,5 +83,6 @@
   "noActivity": "Nothing to show here yet. You'll be prompted when something arrives.",
   "upgradeAccount": "Your current user role does not allow you to see this resource. Upgrade your account to continue.",
   "changePassword": "Set a new password for this account that you haven't yet used",
-  "changePasswordSuccess": "Your password has been changed"
+  "changePasswordSuccess": "Your password has been changed",
+  "willRefresh": "The resource you are viewing has changed. The page will auto-refresh in 10 seconds unless you press cancel to continue with your progress."
 }

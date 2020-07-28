@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import { asOptions } from 'q3-ui-forms/lib/helpers';
 
 export default (props) => (
   <Form {...props}>
@@ -8,7 +9,7 @@ export default (props) => (
     <Field
       name="gender"
       type="select"
-      options={['Male', 'Female']}
+      options={asOptions(['Male', 'Female'])}
       required
     />
   </Form>

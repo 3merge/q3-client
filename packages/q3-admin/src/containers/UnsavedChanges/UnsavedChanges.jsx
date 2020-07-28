@@ -1,65 +1,101 @@
 import React from 'react';
-import { get } from 'lodash';
 import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
 import { Store, Definitions } from '../state';
+import { SocketContext } from '../Socket';
 import PollIndicator from '../../components/PollIndicator';
-import { useReloadState, useSocket } from '../../hooks';
-
-export const withLastUpdated = (Component) => (props) => {
-  const { collectionName, id } = React.useContext(
-    Definitions,
-  );
-
-  // real-time changelog timestamp
-  const lastUpdated = useSocket(collectionName, id);
-
-  const hasExpired = (previousLastUpdated) =>
-    !previousLastUpdated ||
-    // if the value is before, it means it's out of date
-    // likewise, a missing value needs to be polled
-    moment(previousLastUpdated).isBefore(
-      moment(lastUpdated),
-    );
-
-  return (
-    <Component
-      lastUpdated={lastUpdated}
-      hasExpired={hasExpired}
-      {...props}
-    />
-  );
-};
+import PendingChangesModal from '../../components/PendingChangesModal';
 
 // the HOC is important so that we don't re-paint the socket on change detection
-export default withLastUpdated(
-  ({ lastUpdated, hasExpired }) => {
-    const { data } = React.useContext(Store);
-    const [hasChange, setHasChange] = React.useState(false);
+export default () => {
+  const {
+    broadcast,
+    join,
+    leave,
+    watch,
+  } = React.useContext(SocketContext);
+  const { collectionName } = React.useContext(Definitions);
+  const { data } = React.useContext(Store);
+  const [showRefresh, setShowRefresh] = React.useState(
+    false,
+  );
 
-    const runReloadPrompt = useReloadState();
-    const previousLastUpdated = get(data, 'updatedAt');
-    const hasPendingUpdate =
-      lastUpdated && hasExpired(previousLastUpdated);
+  const [hasChange, setHasChange] = React.useState(false);
+  const [hasPending, setHasPending] = React.useState(false);
+  const [init, setInit] = React.useState(false);
 
-    React.useEffect(() => {
-      if (browser.isBrowserReady())
-        document.addEventListener(
-          'q3-change-detection',
-          (e) => setHasChange(!e.data),
-        );
-    }, []);
+  const { id, updatedAt } = data;
+  const args = { id, collectionName };
 
-    React.useEffect(() => {
-      if (hasPendingUpdate) runReloadPrompt();
-    }, [hasPendingUpdate]);
+  const refresh = () => {
+    if (typeof window !== 'undefined')
+      window.location.reload();
+  };
 
-    return (
+  const prompt = () => {
+    setHasPending(true);
+    setShowRefresh(true);
+  };
+
+  const decline = () => {
+    setShowRefresh(false);
+  };
+
+  React.useEffect(() => {
+    let timer;
+
+    join(args, (datestamp) => {
+      if (
+        datestamp &&
+        moment(updatedAt).isBefore(moment(datestamp))
+      )
+        prompt();
+    });
+
+    watch(() => {
+      timer = setTimeout(() => {
+        prompt();
+      }, 5000);
+    });
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      leave(args);
+    };
+  }, [id, collectionName]);
+
+  React.useEffect(() => {
+    if (init) {
+      setHasPending(false);
+      broadcast({
+        updatedAt,
+        ...args,
+      });
+    } else {
+      setInit(true);
+    }
+  }, [updatedAt]);
+
+  React.useEffect(() => {
+    if (browser.isBrowserReady())
+      document.addEventListener(
+        'q3-change-detection',
+        (e) => setHasChange(!e.data),
+      );
+  }, []);
+
+  return (
+    <>
       <PollIndicator
-        hasPendingUpdate={hasPendingUpdate}
-        lastUpdated={lastUpdated}
+        hasPendingUpdate={hasPending}
         hasChange={hasChange}
       />
-    );
-  },
-);
+      {showRefresh && (
+        <PendingChangesModal
+          onDecline={decline}
+          onReload={refresh}
+        />
+      )}
+    </>
+  );
+};

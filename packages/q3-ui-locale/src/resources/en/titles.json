@@ -83,5 +83,6 @@
   "noActivity": "No activity",
   "notification": "Notification",
   "upgradeAccount": "Upgrade required",
-  "changePassword": "Change password"
+  "changePassword": "Change password",
+  "changesDetected": "Changes detected"
 }

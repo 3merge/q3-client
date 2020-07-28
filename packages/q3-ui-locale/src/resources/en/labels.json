@@ -220,5 +220,6 @@
   "pendingUpdate": "New version available",
   "changesDetected": "This page will auto-sync in five seconds.",
   "reportStarted": "New report requested",
-  "goBack": "Go back"
+  "goBack": "Go back",
+  "reloadNow": "Reload"
 }
