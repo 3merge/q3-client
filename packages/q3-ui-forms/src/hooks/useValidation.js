@@ -63,7 +63,8 @@ export const mapNestedArraysToShape = (schema) => {
           .of(yup.object().shape(value[0]));
       else if (
         typeof value === 'object' &&
-        !('_type' in value)
+        !('_type' in value) &&
+        !('_resolve' in value)
       )
         acc[key] = yup.object(value);
       else Object.assign(acc, { [key]: value });
