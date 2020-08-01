@@ -37,6 +37,7 @@ export default makeStyles((theme) => ({
     display: 'block',
     fill: theme.palette.primary.contrastText,
     marginBottom: theme.spacing(1),
+    padding: '.75rem',
     height: 75,
     width: '100%',
 

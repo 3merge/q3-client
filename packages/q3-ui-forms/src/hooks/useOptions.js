@@ -9,6 +9,18 @@ import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
 import { expandOptions } from '../fields/optionsThreshold';
 
+const formatFieldOptions = (items = []) =>
+  array.hasLength(items)
+    ? items.map((item) =>
+        typeof item === 'string'
+          ? {
+              label: item,
+              value: item,
+            }
+          : item,
+      )
+    : items;
+
 export default ({
   runOnChange = false,
   transformOptions = false,
@@ -30,6 +42,7 @@ export default ({
   const {
     loading,
     run,
+    invokeService,
     results: items,
     setResults: setItems,
   } = useResults(
@@ -50,22 +63,25 @@ export default ({
   );
 
   React.useEffect(() => {
+    const shouldInit = () =>
+      preload && !array.hasLength(items);
+
     if (loadOptions) {
-      if (!array.hasLength(items) && preload) {
-        loadOptions(debounced).then(setItems);
-      } else if (loadOptions && debounced && !preload) {
+      if (shouldInit() || runOnChange) {
+        invokeService(values);
+      } else if (debounced && !preload) {
         run(values);
       }
     } else if (runOpts) {
       runOpts(options);
     }
-  }, [debounced, JSON.stringify(watchValues)]);
+  }, [debounced, runOnChange, JSON.stringify(watchValues)]);
 
   return {
+    items: formatFieldOptions(items),
     loading,
     value,
     onChange,
     setValue,
-    items,
   };
 };
