@@ -84,5 +84,7 @@
   "notification": "Notification",
   "upgradeAccount": "Upgrade required",
   "changePassword": "Change password",
-  "changesDetected": "Changes detected"
+  "changesDetected": "Changes detected",
+  "featuredImage": "Featured image",
+  "fileManager": "File manager"
 }

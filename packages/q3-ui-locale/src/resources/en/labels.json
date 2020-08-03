@@ -221,5 +221,14 @@
   "changesDetected": "This page will auto-sync in five seconds.",
   "reportStarted": "New report requested",
   "goBack": "Go back",
-  "reloadNow": "Reload"
+  "reloadNow": "Reload",
+  "profile": "Profile",
+  "changePassword": "Change password",
+  "logout": "Logout",
+  "restartTour": "Restart tour",
+  "q3-meta": "Summary",
+  "q3-thread": "Notes",
+  "q3-picture": "Image",
+  "q3-docs": "Docs",
+  "q3-files": "Files"
 }

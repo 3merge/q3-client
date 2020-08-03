@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Box from '@material-ui/core/Box';
+import { get } from 'lodash';
 import useOpen from 'useful-state/lib/useOpen';
+import { withLocation } from 'with-location';
 import DialogHeader from './header';
 import DialogFooter from './footer';
 import DialogVariant from './variant';
@@ -20,10 +22,15 @@ const DialogWrapper = ({
   onNext,
   onPrev,
   initialValue,
+  closeOnRouteChange,
   ...rest
 }) => {
   const { isOpen, open, close } = useOpen(initialValue);
   const { t } = useTranslation();
+
+  React.useEffect(() => {
+    if (closeOnRouteChange) close();
+  }, [get(rest, 'location.pathname')]);
 
   return (
     <>
@@ -123,6 +130,11 @@ DialogWrapper.propTypes = {
    * Should the initial dialog state be open or close?
    */
   initialValue: PropTypes.bool,
+
+  /**
+   * Close the drawer if the page route changes.
+   */
+  closeOnRouteChange: PropTypes.bool,
 };
 
 DialogWrapper.defaultProps = {
@@ -134,6 +146,7 @@ DialogWrapper.defaultProps = {
   onNext: null,
   onPrev: null,
   initialValue: false,
+  closeOnRouteChange: false,
 };
 
-export default DialogWrapper;
+export default withLocation(DialogWrapper);

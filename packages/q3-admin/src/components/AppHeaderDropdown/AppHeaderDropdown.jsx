@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
+import { useTranslation } from 'react-i18next';
 
 export const useOpen = () => {
   const [open, setOpen] = React.useState();
@@ -33,6 +34,7 @@ export const DropDownMenu = ({
   ...etc
 }) => {
   const { open, openMenu, closeMenu } = useOpen();
+  const { t } = useTranslation('labels');
 
   return (
     <>
@@ -56,7 +58,7 @@ export const DropDownMenu = ({
             }}
           >
             {item.element}
-            {item.label}
+            {t(item.label)}
           </MenuItem>
         ))}
       </Menu>

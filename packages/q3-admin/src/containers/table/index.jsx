@@ -16,10 +16,16 @@ import { getActions } from './utils';
 import TableHeader from '../TableHeader';
 import { useAppContext } from '../../hooks';
 
-const assignUrlPath = (base) => (item) => ({
-  ...item,
-  url: `${base}/${item.id}`,
-});
+const assignUrlPath = (base) => (item) => {
+  // property changed in previous update
+  // now it's always "photo" from the API
+  if (item && item.photo) item.imgSrc = item.photo;
+
+  return {
+    ...item,
+    url: `${base}/${item.id}`,
+  };
+};
 
 const removeUrlPath = (filterUrl) => (item) => {
   if (filterUrl) delete item.url;

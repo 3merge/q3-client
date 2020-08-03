@@ -192,6 +192,7 @@ const AppNavigation = withLocation(
               variant="drawer"
               anchor="left"
               title={title}
+              closeOnRouteChange
               renderTrigger={(onClick) => (
                 <Grid item>
                   <Box pl={1}>

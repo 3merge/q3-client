@@ -120,18 +120,11 @@ export default ({ entries, fetching }) => {
   const { root } = useStyle();
   return (
     <Box className={root} component="ul">
-      {fetching ? (
-        <>
-          <TimelineSkeleton op="Create" />
-          <TimelineSkeleton op="Update" />
-          <TimelineSkeleton op="Update" />
-          <TimelineSkeleton op="Delete" />
-        </>
-      ) : (
-        entries.map(({ ref: id, ...etc }) => (
-          <TimelineListItem key={id} {...etc} />
-        ))
-      )}
+      {fetching
+        ? null
+        : entries.map(({ ref: id, ...etc }) => (
+            <TimelineListItem key={id} {...etc} />
+          ))}
     </Box>
   );
 };
