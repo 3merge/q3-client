@@ -26,21 +26,44 @@ export default (
 
   const cache = React.useRef({});
 
-  React.useCallback(() => {
+  const invokeService = React.useCallback(
+    (stateValues) => {
+      setLoading(true);
+
+      return invoke(service, [term, stateValues])
+        .then((r) => {
+          cache.current[term] = r;
+          setResults(r);
+          return r;
+        })
+        .catch(() => {
+          const out = [];
+          setResults(out);
+          return out;
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [term, loading],
+  );
+
+  React.useEffect(() => {
     return () => {
       cache.current = {};
     };
   });
 
   return {
+    invokeService,
     run: React.useCallback(
-      (s) => {
+      (stateValues) => {
+        if (loading) return null;
+
         if (
           !isOfAdequateLength(term, minimumCharacterCount)
         )
           return setResults([]);
-
-        if (loading) return null;
 
         try {
           if (
@@ -50,26 +73,11 @@ export default (
             setResults(cache.current[term.toLowerCase()]);
             return null;
           }
+
+          throw new Error('Cache not found');
         } catch (e) {
-          // noop
+          return invokeService(stateValues);
         }
-
-        setLoading(true);
-
-        return invoke(service, [].concat([term, s]).flat())
-          .then((r) => {
-            cache.current[term] = r;
-            setResults(r);
-            return r;
-          })
-          .catch(() => {
-            const out = [];
-            setResults(out);
-            return out;
-          })
-          .finally(() => {
-            setLoading(false);
-          });
       },
       [term],
     ),

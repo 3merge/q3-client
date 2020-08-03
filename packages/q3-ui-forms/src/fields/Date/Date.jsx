@@ -19,9 +19,13 @@ export default withState(
       {...rest}
       name={name}
       value={value}
-      onChange={(e, val) =>
-        onChange(e, get(val, 'value', val), formatDate)
-      }
+      onChange={(e, val) => {
+        return onChange(
+          e,
+          get(val, 'value', val),
+          formatDate,
+        );
+      }}
     />
   ),
 );

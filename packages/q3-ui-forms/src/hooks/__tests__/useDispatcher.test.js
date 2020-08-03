@@ -17,6 +17,10 @@ beforeAll(() => {
   jest
     .spyOn(React, 'useLayoutEffect')
     .mockImplementation(() => null);
+
+  jest
+    .spyOn(React, 'useEffect')
+    .mockImplementation(() => null);
 });
 
 const setup = () => {

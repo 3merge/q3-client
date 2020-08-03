@@ -4,6 +4,7 @@ import { object } from 'q3-ui-helpers';
 import flat from 'flat';
 import FieldBuilder from '../helpers/types';
 
+export const CLEAN = 'clean-state';
 export const INIT_VALUE = 'init-value';
 export const REPLACE_ERRORS = 'value-errors';
 export const REPLACE_VALUES = 'replace-values';
@@ -77,6 +78,10 @@ export const reducerDispatcher = (state, context) => {
       previousValues = undefined;
       break;
 
+    case CLEAN:
+      previousValues = undefined;
+      break;
+
     default:
       break;
   }
@@ -131,6 +136,16 @@ export default (initialValues = {}, initialErrors = {}) => {
       }),
     [JSON.stringify(initialValues)],
   );
+
+  React.useEffect(() => {
+    return () => {
+      reduce({
+        action: REPLACE_VALUES,
+        values: {},
+        errors: {},
+      });
+    };
+  }, []);
 
   return {
     setValues: setIn(REPLACE_VALUES, 'values'),

@@ -141,7 +141,7 @@ const AppNavigation = withLocation(
           <Box>
             {title && (
               <Hidden mdDown>
-                <Box pb={3} px={1}>
+                <Box pb={1} px={1}>
                   <Typography
                     variant="body2"
                     component="h1"
@@ -176,7 +176,6 @@ const AppNavigation = withLocation(
           <Box
             className={classnames(cls.root, cls.muted)}
             component="nav"
-            px={0.5}
           >
             {renderLogoAndDirectoryLink()}
             {renderMenuItems()}
@@ -193,6 +192,7 @@ const AppNavigation = withLocation(
               variant="drawer"
               anchor="left"
               title={title}
+              closeOnRouteChange
               renderTrigger={(onClick) => (
                 <Grid item>
                   <Box pl={1}>

@@ -14,6 +14,10 @@ jest
   .mockImplementation((fn) => (params) => fn(params));
 
 jest
+  .spyOn(React, 'useEffect')
+  .mockImplementation((fn) => fn());
+
+jest
   .spyOn(React, 'useRef')
   .mockReturnValue({ current: {} });
 
