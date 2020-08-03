@@ -62,11 +62,15 @@ export const TextBase = (props) => {
       onChange={(event, ...rest) => {
         // available on synthetic event objects
         if (object.isFn(event.persist)) event.persist();
+        const val = event.target.value;
 
         // update the state and reset the caret
         setTimeout(() => {
-          if (allProps.onChange)
-            allProps.onChange(event, ...rest);
+          if (!allProps.onChange) return null;
+
+          return allProps.type === 'date'
+            ? allProps.onChange(event, val)
+            : allProps.onChange(event, ...rest);
         });
 
         setLocalValue(event.target.value);

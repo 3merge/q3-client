@@ -1,4 +1,4 @@
-import { difference } from 'lodash';
+import { difference, uniq } from 'lodash';
 
 import * as string from './string';
 
@@ -46,10 +46,14 @@ export const hasValue = (a = [], v) =>
  * If adding an existing value, if will instead remove it from the array.
  */
 export const addToSet = (a = [], v) => {
-  if (!Array.isArray(a)) return [v].flat();
-  if (Array.isArray(v)) return v;
-  if (hasValue(a, v)) return filterValue(a, v);
-  return a.concat(v);
+  let base = is(a);
+  if (hasValue(base, v)) {
+    base = filterValue(base, v);
+  } else {
+    base.push(v);
+  }
+
+  return uniq(base.flat());
 };
 
 /**

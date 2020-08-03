@@ -22,17 +22,19 @@ const Checkset = withState(
         options={options}
       >
         {(res = []) =>
-          res.map((option) => (
-            <Bool
-              {...option}
-              variant="checkbox"
-              key={option.label}
-              onChange={onArrayPush}
-              isChecked={value.includes(option.value)}
-              disabled={disabled}
-              readOnly={readOnly}
-            />
-          ))
+          res.map((option) => {
+            return (
+              <Bool
+                {...option}
+                variant="checkbox"
+                key={option.label}
+                onChange={onArrayPush}
+                isChecked={value.includes(option.value)}
+                disabled={disabled}
+                readOnly={readOnly}
+              />
+            );
+          })
         }
       </OptionsThreshold>
     </CollapsibleFieldLabel>

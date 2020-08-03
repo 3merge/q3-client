@@ -84,6 +84,7 @@ describe('BuilderStateDecorator', () => {
 
       inst.onArrayPush('new');
       expect(bag.onChange).toHaveBeenCalledWith('foo', [
+        'old',
         'new',
       ]);
     });
@@ -125,8 +126,8 @@ describe('BuilderStateDecorator', () => {
 
       inst.onArrayPush(['new', 'old']);
       expect(onChange).toHaveBeenCalledWith('foo', [
-        'new',
         'old',
+        'new',
       ]);
     });
   });

@@ -33,6 +33,11 @@ import { asOptions } from '../src/helpers';
             type="autocomplete"
             options={['Visa', 'Mastercard', 'PayPal']}
           />
+          <Field
+            name="paymentOption"
+            type="checkset"
+            options={['Visa', 'Mastercard', 'PayPal']}
+          />
           <Field name="total" type="range" />
           <Field name="createdOn" type="dateRange" />
           <Field

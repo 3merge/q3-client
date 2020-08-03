@@ -18,6 +18,8 @@ const stringifyStateProps = (v) =>
 export default (Component) =>
   React.memo(Component, (a, b) => {
     return (
-      stringifyStateProps(a) === stringifyStateProps(b)
+      stringifyStateProps(a) === stringifyStateProps(b) &&
+      // ensure for more complex field values
+      a.value === b.value
     );
   });
