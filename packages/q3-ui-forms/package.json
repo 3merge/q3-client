@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.20.8",
+  "version": "1.20.9",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.3",
@@ -23,7 +23,7 @@
     "minimatch": "^3.0.4",
     "moment": "2.27.0",
     "notistack": "^0.9.17",
-    "q3-ui-dialog": "^1.20.6",
+    "q3-ui-dialog": "^1.20.9",
     "react-i18next": "11.7.0",
     "react-json-pretty": "^2.2.0",
     "react-recaptcha-google": "^1.1.1",
