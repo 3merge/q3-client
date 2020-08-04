@@ -69,7 +69,7 @@ export default () => {
       if (timer) clearTimeout(timer);
       leave(args);
     };
-  }, [id, collectionName]);
+  }, [id, collectionName, updatedAt]);
 
   React.useEffect(() => {
     if (init) {
