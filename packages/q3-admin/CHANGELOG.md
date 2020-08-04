@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.12](https://github.com/3merge/q/compare/v1.20.11...v1.20.12) (2020-08-04)
+
+
+### Bug Fixes
+
+* add updatedAt prop to socket effect ([c66e709](https://github.com/3merge/q/commit/c66e7094f806471b769dba1f1caf2b6043236258))
+
+
+
+
+
 ## [1.20.11](https://github.com/3merge/q/compare/v1.20.10...v1.20.11) (2020-08-04)
 
 
