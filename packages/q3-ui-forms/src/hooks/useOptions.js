@@ -36,7 +36,7 @@ export default ({
   );
 
   const [debounced] = useDebounce(value, 135, {
-    maxWait: 450,
+    maxWait: 1150,
   });
 
   const {
