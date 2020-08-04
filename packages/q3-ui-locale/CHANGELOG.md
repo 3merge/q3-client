@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.10](https://github.com/3merge/q/compare/v1.20.9...v1.20.10) (2020-08-04)
+
+
+### Bug Fixes
+
+* allow duplicate notifications given that users might take the same action twice ([e6f10c0](https://github.com/3merge/q/commit/e6f10c03e38b8e998a76e5e8bb831d3288b59352))
+
+
+
+
+
 ## [1.20.9](https://github.com/3merge/q/compare/v1.20.8...v1.20.9) (2020-08-03)
 
 **Note:** Version bump only for package q3-ui-locale
