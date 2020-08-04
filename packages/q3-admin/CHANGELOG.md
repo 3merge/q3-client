@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.14](https://github.com/3merge/q/compare/v1.20.13...v1.20.14) (2020-08-04)
+
+
+### Bug Fixes
+
+* websocket port reference ([25f8225](https://github.com/3merge/q/commit/25f82258b12c4ee670c7ec4550714826fbea4e18))
+
+
+
+
+
 ## [1.20.12](https://github.com/3merge/q/compare/v1.20.11...v1.20.12) (2020-08-04)
 
 
