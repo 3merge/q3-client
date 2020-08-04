@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.11](https://github.com/3merge/q/compare/v1.20.10...v1.20.11) (2020-08-04)
+
+
+### Bug Fixes
+
+* socket closing on un-mount ([1d3b05d](https://github.com/3merge/q/commit/1d3b05d5e61eceb912670184e2ac8bcc18d7ff80))
+
+
+
+
+
 ## [1.20.10](https://github.com/3merge/q/compare/v1.20.9...v1.20.10) (2020-08-04)
 
 
