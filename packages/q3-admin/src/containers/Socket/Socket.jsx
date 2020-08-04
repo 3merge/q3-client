@@ -16,10 +16,6 @@ const Socket = ({ children }) => {
       console.log(e);
       io.close();
     });
-
-    return () => {
-      io.close();
-    };
   });
 
   return (

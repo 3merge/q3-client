@@ -41,16 +41,23 @@ export default () => {
     setShowRefresh(false);
   };
 
+  const compareTimeStamps = React.useCallback(
+    (datestamp) => {
+      setTimeout(() => {
+        if (
+          datestamp &&
+          moment(updatedAt).isBefore(moment(datestamp))
+        )
+          prompt();
+      }, 7500);
+    },
+    [updatedAt],
+  );
+
   React.useEffect(() => {
     let timer;
 
-    join(args, (datestamp) => {
-      if (
-        datestamp &&
-        moment(updatedAt).isBefore(moment(datestamp))
-      )
-        prompt();
-    });
+    join(args, compareTimeStamps);
 
     watch(() => {
       timer = setTimeout(() => {

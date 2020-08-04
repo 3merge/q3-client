@@ -230,5 +230,6 @@
   "q3-thread": "Notes",
   "q3-picture": "Image",
   "q3-docs": "Docs",
-  "q3-files": "Files"
+  "q3-files": "Files",
+  "markAsDefault": "Set as default"
 }
