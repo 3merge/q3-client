@@ -14,8 +14,8 @@ const SelectMenuItem = ({ loading, items, required }) => {
       >
         {loading ? 'Loading ...' : 'Choose option(s)'}
       </option>
-      {items.map((obj) => (
-        <option key={obj.value} value={obj.value}>
+      {items.map((obj, i) => (
+        <option key={i} value={obj.value}>
           {t(obj.label, obj.vars)}
         </option>
       ))}

@@ -11,8 +11,8 @@ export const getSocketInstance = () => {
     get(axios, 'defaults.baseURL', 'http://localhost'),
   );
 
-  // in Q3, the socket port is always 8080
-  url.port = '8080';
+  url.protocol = 'ws';
+
   url.search = Object.entries(new Headers().tokens)
     .reduce((acc, [key, value]) => {
       return acc.concat(`${key}=${value}`);
