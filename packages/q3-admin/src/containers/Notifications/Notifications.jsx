@@ -10,7 +10,7 @@ const NotificationsContainer = () => {
   const dataToListState = ({ data }) =>
     setList((prevState = []) =>
       (array.hasLength(prevState)
-        ? [...new Set([].concat(data).concat(prevState))]
+        ? [].concat(data).concat(prevState)
         : [data]
       )
         .flat()

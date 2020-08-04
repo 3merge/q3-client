@@ -86,5 +86,11 @@
   "changePasswordSuccess": "Your password has been changed",
   "willRefresh": "The resource you are viewing has changed. The page will auto-refresh in 10 seconds unless you press cancel to continue with your progress.",
   "profileUpdated": "Your profile has been updated",
-  "profile": "Edit your user's contact details"
+  "profile": "Edit your user's contact details",
+  "importFailed": "Import process failed to start",
+  "importStarted": "Import process queued",
+  "exportFailed": "Export process failed to start",
+  "exportStarted": "Export process queued",
+  "reportStarted": "Report process queued",
+  "reportFailed": "Report process failed to start"
 }
