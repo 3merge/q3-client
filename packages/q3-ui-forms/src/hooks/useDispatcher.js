@@ -15,7 +15,7 @@ export const UNSET_VALUE = 'unset-value';
 export const INIT_PREVIOUS_VALUE = 'init-previous';
 
 export const reducerDispatcher = (state, context) => {
-  let { errors, values, previousValues } = state;
+  let { previousValues, errors = {}, values = {} } = state;
 
   const {
     action,
@@ -52,6 +52,7 @@ export const reducerDispatcher = (state, context) => {
 
     case REPLACE_VALUES:
       values = nextValues;
+      errors = nextErrors;
       break;
 
     case UNSET_VALUE:
@@ -133,6 +134,7 @@ export default (initialValues = {}, initialErrors = {}) => {
       reduce({
         action: REPLACE_VALUES,
         values: initialValues,
+        errors: {},
       }),
     [JSON.stringify(initialValues)],
   );

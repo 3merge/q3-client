@@ -76,7 +76,7 @@ export default ({
     } else if (runOpts) {
       runOpts(options);
     }
-  }, [debounced, runOnChange, JSON.stringify(watchValues)]);
+  }, [debounced, JSON.stringify(watchValues)]);
 
   return {
     items: loadOptionsPlainly
