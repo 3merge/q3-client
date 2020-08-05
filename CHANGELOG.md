@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.19](https://github.com/3merge/q/compare/v1.20.18...v1.20.19) (2020-08-05)
+
+
+### Bug Fixes
+
+* empty error state causing errors in multistep ([8a57cc2](https://github.com/3merge/q/commit/8a57cc2890a458173cc66e34ba25ce1daceeb3f8))
+
+
+
+
+
 ## [1.20.18](https://github.com/3merge/q/compare/v1.20.17...v1.20.18) (2020-08-05)
 
 
