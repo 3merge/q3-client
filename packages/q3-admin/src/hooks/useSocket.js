@@ -11,8 +11,6 @@ export const getSocketInstance = () => {
     get(axios, 'defaults.baseURL', 'http://localhost'),
   );
 
-  url.protocol = 'ws';
-
   url.search = Object.entries(new Headers().tokens)
     .reduce((acc, [key, value]) => {
       return acc.concat(`${key}=${value}`);

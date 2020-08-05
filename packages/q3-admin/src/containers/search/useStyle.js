@@ -15,10 +15,8 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      backgroundColor: '#fff',
+      backgroundColor: '#f5f7f9',
       marginRight: 0,
-      paddingLeft: theme.spacing(1.25),
-      width: 60,
     },
   },
 }));

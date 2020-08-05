@@ -20,13 +20,15 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      left: 0,
+      backgroundColor: '#f4f6f8',
+      border: 0,
+      left: 72,
       marginLeft: 0,
       justifyContent: 'space-between',
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(1),
-      position: 'relative',
-      width: '100%',
+      paddingLeft: 0,
+      paddingRight: 0,
+      //  transform: 'translateX(-50%)',
+      width: 'calc(100% - 148px)',
     },
   },
 }));

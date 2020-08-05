@@ -49,13 +49,23 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
+      padding: '.25rem',
       height: '100%',
       width: 120,
+
+      '& img': {
+        objectPosition: 'left',
+      },
     },
 
-    [theme.breakpoints.down('xs')]: {
-      height: '100%',
-      width: 105,
+    [theme.breakpoints.down('sm')]: {
+      left: '50%',
+      position: 'absolute',
+      zIndex: 1,
+      height: 65,
+      padding: 0,
+      transform: 'translateX(-50%)',
+      width: '25vw',
     },
   },
   menuItem: {

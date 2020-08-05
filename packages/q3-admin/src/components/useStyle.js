@@ -26,10 +26,6 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       height: 'calc((100 * var(--vh)) - 65px)',
     },
-
-    [theme.breakpoints.down('sm')]: {
-      height: 'calc((100 * var(--vh)) - 130px)',
-    },
   },
 
   muted: {

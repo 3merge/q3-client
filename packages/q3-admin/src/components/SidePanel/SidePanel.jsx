@@ -38,7 +38,14 @@ const SidePanel = ({ id, children }) => {
           title="options"
           renderContent={() => children}
           renderTrigger={(onClick) => (
-            <Box position="absolute" top="-50px" left={12}>
+            <Box
+              position="absolute"
+              top="-65px"
+              left="45px"
+              display="flex"
+              alignItems="center"
+              height="65px"
+            >
               <IconButton
                 label="options"
                 icon={AppsIcon}

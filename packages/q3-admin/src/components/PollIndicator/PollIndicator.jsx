@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { string } from 'q3-ui-helpers';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
@@ -47,15 +46,17 @@ const PollIndicator = ({
       onClick={() => window.location.reload()}
     >
       <IconEl ref={ref} className={cls.dot} />
-      {t(
-        getText({
-          hasPendingUpdate,
-          hasChange,
-        }),
-        {
-          time: moment(lastUpdated).format('LT'),
-        },
-      )}
+      <span className={cls.text}>
+        {t(
+          getText({
+            hasPendingUpdate,
+            hasChange,
+          }),
+          {
+            time: moment(lastUpdated).format('LT'),
+          },
+        )}
+      </span>
     </Button>
   );
 };

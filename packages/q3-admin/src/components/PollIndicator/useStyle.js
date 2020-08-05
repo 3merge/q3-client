@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
   dot: isIdle((color) => ({
     borderRadius: 500,
     color: color[900],
-    fontSize: '1.211rem',
+    fontSize: '1.5rem',
     marginRight: theme.spacing(0.5),
     padding: theme.spacing(0.25),
   })),
@@ -23,11 +23,14 @@ export default makeStyles((theme) => ({
     fontWeight: 'strong',
     paddingLeft: '.5rem',
     whiteSpace: 'nowrap',
+
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 'auto !important',
+    },
   })),
   root: {
     overflow: 'visible',
     marginTop: '1rem',
-    width: 175,
 
     '& small': {
       fontSize: '0.812rem',
@@ -45,6 +48,15 @@ export default makeStyles((theme) => ({
       borderTop: '10px solid transparent',
       transform: 'translateX(-50%)',
       zIndex: 10,
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+    },
+  },
+  text: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
 }));
