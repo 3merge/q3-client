@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.18](https://github.com/3merge/q/compare/v1.20.17...v1.20.18) (2020-08-05)
+
+
+### Bug Fixes
+
+* debounced value useOptions ([117e993](https://github.com/3merge/q/commit/117e993e330a1fe8616d0ab06cc812816826ad81))
+
+
+
+
+
 ## [1.20.17](https://github.com/3merge/q/compare/v1.20.16...v1.20.17) (2020-08-05)
 
 
