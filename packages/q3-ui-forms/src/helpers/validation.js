@@ -151,7 +151,11 @@ export class Validator {
         break;
 
       case 'date':
-        this.$base = this.$base.date().nullable();
+        this.$base = this.$base
+          .date()
+          .transform((val) => (val === 'null' ? null : val))
+          .nullable()
+          .default(undefined);
         break;
       case 'multi':
       case 'multiselect':

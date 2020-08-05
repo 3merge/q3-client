@@ -66,6 +66,10 @@ export default makeStyles((theme) => ({
       padding: 0,
       transform: 'translateX(-50%)',
       width: '25vw',
+
+      '& img': {
+        objectPosition: 'center',
+      },
     },
   },
   menuItem: {

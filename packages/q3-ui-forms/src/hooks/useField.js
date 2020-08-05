@@ -20,15 +20,12 @@ const useFieldContext = (name) => {
   // show multiple validation errors at once
   if (Array.isArray(error)) error = uniq(error).join('\\n');
 
-  return React.useMemo(
-    () => ({
-      value,
-      values,
-      error,
-      errors,
-    }),
-    [value, error],
-  );
+  return {
+    value,
+    values,
+    error,
+    errors,
+  };
 };
 
 const useFieldValue = (

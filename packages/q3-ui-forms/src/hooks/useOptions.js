@@ -24,6 +24,7 @@ const formatFieldOptions = (items = []) =>
 export default ({
   runOnChange = false,
   transformOptions = false,
+  loadOptionsPlainly = false,
   preload = false,
   initialValue = '',
   loadOptions,
@@ -78,7 +79,9 @@ export default ({
   }, [debounced, runOnChange, JSON.stringify(watchValues)]);
 
   return {
-    items: formatFieldOptions(items),
+    items: loadOptionsPlainly
+      ? items
+      : formatFieldOptions(items),
     loading,
     value,
     onChange,

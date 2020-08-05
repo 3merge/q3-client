@@ -17,8 +17,11 @@ export const getFieldNames = (c, prefix) =>
   React.Children.toArray(c).reduce((curr, el) => {
     const {
       type,
-      props: { children, name, group },
+      props: { children, name, group, contains },
     } = el;
+
+    // allows us to watch fields rendered inside other custom components
+    if (hasLength(contains)) curr.push(contains);
 
     if (
       name &&
