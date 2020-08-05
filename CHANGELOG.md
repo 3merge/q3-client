@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.20.17](https://github.com/3merge/q/compare/v1.20.16...v1.20.17) (2020-08-05)
+
+
+### Bug Fixes
+
+* useOptions memoized argument ([b0e37b9](https://github.com/3merge/q/commit/b0e37b91d6a67b3127d9fa293ac8f46575ad481d))
+
+
+
+
+
 ## [1.20.16](https://github.com/3merge/q/compare/v1.20.15...v1.20.16) (2020-08-05)
 
 
