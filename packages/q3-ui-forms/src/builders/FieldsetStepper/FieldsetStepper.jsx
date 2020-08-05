@@ -17,7 +17,7 @@ export const getFieldNames = (c, prefix) =>
   React.Children.toArray(c).reduce((curr, el) => {
     const {
       type,
-      props: { children, name, group, contains },
+      props: { children, name, group, contains = [] },
     } = el;
 
     // allows us to watch fields rendered inside other custom components
@@ -35,11 +35,11 @@ export const getFieldNames = (c, prefix) =>
 
 export const checkFieldComponentsForErrors = (
   Component,
-  errors,
+  errors = {},
 ) =>
   hasLength(
     intersects(
-      Object.keys(errors),
+      errors ? Object.keys(errors) : {},
       getFieldNames(get(Component, 'props.children', [])),
     ),
   );
