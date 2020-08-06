@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
   },
   column: {
     padding: theme.spacing(2),
-    width: 255,
+    width: 206,
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },

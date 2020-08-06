@@ -19,11 +19,7 @@ const Attributes = ({
 
   return attributes.map((attribute) => (
     <TableCell className={tableCell} key={attribute}>
-      <Grid
-        container
-        disableGutters
-        style={{ minWidth: 115 }}
-      >
+      <Grid container disableGutters>
         <Hidden mdUp>
           <Grid item style={{ marginLeft: '0.5rem' }}>
             <Typography
