@@ -38,7 +38,7 @@ describe('string', () => {
       undefined,
       0,
     ])('should return NO', (v) =>
-      expect(string.toTruthy(v)).toMatch('NO'),
+      expect(string.toTruthy(v)).toMatch('no'),
     );
 
     test.each([
@@ -47,13 +47,13 @@ describe('string', () => {
       'true',
       12,
     ])('should return YES', (v) =>
-      expect(string.toTruthy(v)).toMatch('YES'),
+      expect(string.toTruthy(v)).toMatch('yes'),
     );
 
     it('should run fn', () => {
       expect(
         string.toTruthy(true, (v) => String(v)),
-      ).toMatch('YES');
+      ).toMatch('yes');
     });
   });
 

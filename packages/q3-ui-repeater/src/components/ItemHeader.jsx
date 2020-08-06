@@ -36,7 +36,7 @@ const ItemHeader = ({
 
   return (
     <TableCell className={tableCellHeader}>
-      <Box my={1.25} px={0.5}>
+      <Box my={1.25} px={0.5} maxWidth="375px">
         <Grid alignItems="center" container spacing={1}>
           {showMultiselect && (
             <Hidden smDown>

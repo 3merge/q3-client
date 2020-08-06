@@ -45,8 +45,8 @@ export const toTruthy = (str, trans) => {
     str === 'true' ||
     (str && str !== 'false')) &&
     (typeof str !== 'string' || str.toUpperCase() !== 'NO')
-    ? t('yes').toUpperCase()
-    : t('no').toUpperCase();
+    ? t('yes')
+    : t('no');
 };
 
 const localize = (v) => moment.utc(v).local();
