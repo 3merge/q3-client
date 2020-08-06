@@ -66,7 +66,10 @@ const List = ({
             renderUnselected={
               showAttributes
                 ? attributes.map((name) => (
-                    <TableCell component="th">
+                    <TableCell
+                      component="th"
+                      style={{ padding: 0 }}
+                    >
                       {t(name)}
                     </TableCell>
                   ))

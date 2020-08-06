@@ -15,7 +15,6 @@ const EditableTypographyFormField = ({
     <Field
       {...rest}
       autoFocus
-      variant="standard"
       name={name}
       type={type}
       aria-labelledby={`#${name}`}

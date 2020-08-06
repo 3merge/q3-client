@@ -36,7 +36,7 @@ const ItemHeader = ({
 
   return (
     <TableCell className={tableCellHeader}>
-      <Box my={1.25} px={0.5} maxWidth="350px">
+      <Box my={1.25} px={0.5}>
         <Grid alignItems="center" container spacing={1}>
           {showMultiselect && (
             <Hidden smDown>
@@ -60,11 +60,13 @@ const ItemHeader = ({
               className={titleCls}
             />
             {description && (
-              <Typography style={{
-                
-          fontSize: '0.901rem'
-     
-              }}>{description}</Typography>
+              <Typography
+                style={{
+                  fontSize: '0.901rem',
+                }}
+              >
+                {description}
+              </Typography>
             )}
           </Grid>
         </Grid>

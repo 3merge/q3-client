@@ -123,7 +123,7 @@ const ItemActions = ({
   return (
     <TableCell
       className={tableCellActions}
-      style={{ textAlign: 'right' }}
+      style={{ textAlign: 'right', minWidth: 115 }}
     >
       {renderNestedTableRow && (
         <IconButton
