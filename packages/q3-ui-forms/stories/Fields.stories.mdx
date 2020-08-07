@@ -97,7 +97,12 @@ import { Exists } from '../src/presets';
               required: number > 5,
             })}
           />
-          <Repeater group="repeats">
+          <Repeater
+            group="repeats"
+            required
+            min={2}
+            max={10}
+          >
             <Field name="fruit" type="text" />
           </Repeater>
         </Form>
