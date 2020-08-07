@@ -14,6 +14,7 @@ export const getEmptyEntry = (prefix, index, children) => {
 
     if (!name) return acc;
     acc[`${prefix}.${index}.${name}`] = '';
+
     return acc;
   }, {});
 };

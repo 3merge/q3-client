@@ -1,5 +1,5 @@
 import React from 'react';
-import { set, unset, pick, merge } from 'lodash';
+import { get, set, unset, pick, merge } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import flat from 'flat';
 import FieldBuilder from '../helpers/types';
@@ -25,6 +25,7 @@ export const reducerDispatcher = (state, context) => {
     done,
     errors: nextErrors,
     values: nextValues,
+    options = {},
   } = context;
 
   switch (action) {
@@ -40,7 +41,13 @@ export const reducerDispatcher = (state, context) => {
         previousValues = { ...values };
       // values do not always have a flatten structure, do to dynamic field types
       // like Autocomplete, Chips and Select
-      set(values, name, value);
+
+      if (get(options, 'flat')) {
+        Object.assign(values, { [name]: value });
+      } else {
+        set(values, name, value);
+      }
+
       break;
 
     case REPLACE_ERRORS:
@@ -109,7 +116,7 @@ export default (initialValues = {}, initialErrors = {}) => {
     },
   );
 
-  const setIn = (action, targetProp) => (
+  const setIn = (action, targetProp, options = {}) => (
     nextState = {},
   ) => {
     let data = nextState;
@@ -120,11 +127,34 @@ export default (initialValues = {}, initialErrors = {}) => {
     return reduce({
       action,
       [targetProp]: data,
+      options,
     });
   };
 
-  const setField = (action) => (name, value, done) =>
-    reduce({ action, name, value, done });
+  const setField = (action) => (
+    name,
+    value,
+    done,
+    options = {},
+  ) => {
+    if (
+      typeof done !== 'function' &&
+      object.hasKeys(done)
+    ) {
+      // eslint-disable-next-line
+      options = done;
+      // eslint-disable-next-line
+      done = null;
+    }
+
+    return reduce({
+      action,
+      name,
+      value,
+      done,
+      options,
+    });
+  };
 
   const removeField = (action) => (name) =>
     reduce({ action, name });

@@ -11,14 +11,20 @@ import {
 } from '../src/builders';
 import TextBase from '../src/fields/TextBase';
 
-const setupRepeater = (profile, done) =>
+const setupRepeater = (profile, done, options = {}) =>
   global.mount(
     <Form
-      initialValues={{ profile }}
+      initialValues={{
+        ...(profile
+          ? {
+              profile,
+            }
+          : {}),
+      }}
       unwind={[['profile', 3]]}
       onSubmit={jest.fn()}
     >
-      <Repeater group="profile">
+      <Repeater group="profile" {...options}>
         <Field name="email" type="email" />
       </Repeater>
       <Debugger show>
@@ -67,6 +73,28 @@ describe('Builders', () => {
         },
         {},
       );
+    });
+
+    it('should require and init the first row', async () => {
+      const stateWatcher = jest.fn();
+      const el = setupRepeater(undefined, stateWatcher, {
+        required: true,
+      });
+
+      expect(el.find(Field)).toHaveLength(1);
+      expect(stateWatcher).toHaveBeenLastCalledWith(
+        {
+          'profile.0.email': '',
+        },
+        {},
+      );
+
+      expect(
+        el
+          .find('.q3-forms-repeater-remove')
+          .first()
+          .props(),
+      ).toHaveProperty('disabled', true);
     });
 
     it('should clear state errors when a row is removed', async () => {

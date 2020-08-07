@@ -68,7 +68,7 @@
   "howToQ3": "Got a few seconds? We have some things to show you before diving into your new app.",
   "howToProfile": "When you click on your profile, a small menu will appear with more actions that you can take.",
   "howToMenu": "The menu contains all top-level views in your app. It's easily accessible at all times from either the bottom left (desktop) or top left (mobile). That said, on larger computers, a secondary icon menu will appear.",
-  "howToUseSegments": "Segments help you organize your data. Think of them as saveable filters. At any point, while searching and sifting through results, you can save a query for later user.",
+  "howToUseSegments": "Segments help you organize your data. Think of them as saveable filters. At any point, while searching and sifting through results, you can save a query for later use.",
   "howToUseFilters": "Filters narrow down your search results. Some filters will be grouped together based on a common theme. In such cases, a small counter will appear to display the number of active filters in said group.",
   "howToAdd": "Quickly add to your collection by opening the Add New wizard. Upon creation, you'll be redirected to edit the item further.",
   "howToSearch": "After two characters, your search will start to suggest results. Clicking on a result will bring you directly to the page.",

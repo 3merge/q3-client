@@ -6,6 +6,8 @@ export const hasKeys = (o) =>
   typeof o === 'object' &&
   Object.keys(o).length > 0;
 
+export const is = (o) => (hasKeys(o) ? o : {});
+
 export const isFn = (fn) => typeof fn === 'function';
 
 export const isIn = (target, keyName) =>
