@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/3merge/q/compare/v1.20.22...v1.21.0) (2020-08-07)
+
+
+### Features
+
+* support required/min/max props on repeater field ([#217](https://github.com/3merge/q/issues/217)) ([7d944bc](https://github.com/3merge/q/commit/7d944bcb31780c59bef6c28ad19d30368e661f8d))
+
+
+
+
+
 ## [1.20.21](https://github.com/3merge/q/compare/v1.20.20...v1.20.21) (2020-08-06)
 
 **Note:** Version bump only for package q3-ui-helpers
