@@ -1,0 +1,22 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import FilePending from './FilePending';
+
+<Meta title="Files|FilePending" component={FilePending} />
+
+# FilePending
+
+<Preview>
+  <Story name="As default">
+    <FilePending
+      tag="examples"
+      name="example-file.jpg"
+      type="text/csv"
+      size={13400}
+    />
+  </Story>
+</Preview>

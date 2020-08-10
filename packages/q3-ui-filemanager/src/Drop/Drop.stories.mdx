@@ -1,0 +1,18 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Drop from './Drop';
+import support from '../../tests/support';
+
+<Meta title="Files|Drop" component={Drop} />
+
+# Drop
+
+<Preview>
+  <Story name="As default">
+    <Drop onDrop={support.onDrop.succeed} />
+  </Story>
+</Preview>

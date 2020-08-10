@@ -22,5 +22,6 @@
   "noMatch": "Passwords do not match",
   "hasLength": "Must contain between 8 and 16 characters",
   "matches": "Must match the new password set above",
-  "filterName": "When provided, applying changes to this form will modify/save the active filter"
+  "filterName": "When provided, applying changes to this form will modify/save the active filter",
+  "fileUpload": "Click the input above to set a file"
 }
