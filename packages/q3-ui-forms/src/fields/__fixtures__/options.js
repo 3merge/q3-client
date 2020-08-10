@@ -1,5 +1,3 @@
-import debounce from 'debounce-promise';
-
 export default null;
 
 export const options = [
