@@ -203,7 +203,7 @@ export class Validator {
       case 'transfer':
       case 'file':
       default:
-        this.$base = this.$base.string();
+        this.$base = this.$base.string().nullable();
         break;
     }
 

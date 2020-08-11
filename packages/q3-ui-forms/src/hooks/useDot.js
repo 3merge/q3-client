@@ -15,7 +15,10 @@ export default (
   },
   data,
 ) => {
-  const runMarshalOptions = (callback) => (values) => {
+  const runMarshalOptions = (callback) => (
+    values,
+    ...rest
+  ) => {
     const expanded = flat.unflatten(values);
     const newValues = dot.translateAndModify(
       expanded,
@@ -26,7 +29,7 @@ export default (
       ? merge({}, expanded, newValues)
       : newValues;
 
-    return callback ? callback(output) : output;
+    return callback ? callback(output, ...rest) : output;
   };
 
   return {

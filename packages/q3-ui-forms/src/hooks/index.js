@@ -1,4 +1,5 @@
 export { default as useAllowSubmit } from './useAllowSubmit';
+export { default as useAttachments } from './useAttachments';
 export { default as useAuthorization } from './useAuthorization';
 export { default as useDispatcher } from './useDispatcher';
 export { default as useDot } from './useDot';

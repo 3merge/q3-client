@@ -4,11 +4,13 @@ import JSONPretty from 'react-json-pretty';
 import { BuilderState } from '../../FormsContext';
 
 const Debugger = ({ children, show }) => {
-  const { values, errors } = React.useContext(BuilderState);
+  const { attachments, values, errors } = React.useContext(
+    BuilderState,
+  );
 
   return show ? (
-    <JSONPretty data={{ values, errors }}>
-      {children && children(values, errors)}
+    <JSONPretty data={{ attachments, values, errors }}>
+      {children && children(values, errors, attachments)}
     </JSONPretty>
   ) : null;
 };

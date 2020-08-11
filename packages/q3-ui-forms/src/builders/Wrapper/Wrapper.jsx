@@ -37,6 +37,8 @@ export const InnerForm = ({
   showPersistenceSnack,
   ...etc
 }) => {
+  const [attachments, setAttachments] = React.useState([]);
+
   const {
     isDisabled,
     checkReadAuthorizationContext,
@@ -115,6 +117,7 @@ export const InnerForm = ({
   const execAllSubmitHandlers = onSubmit(() => {
     return forwardProcessStateValuesIntoOnSubmitHandler(
       values,
+      attachments,
     )
       .then((res) => {
         clearPreviousState();
@@ -156,6 +159,7 @@ export const InnerForm = ({
             initFieldValue,
             setFieldError,
             setFieldValue,
+            setAttachments,
           }}
         >
           <BuilderState.Provider
@@ -166,6 +170,7 @@ export const InnerForm = ({
               isSubmitting,
               errors,
               values,
+              attachments,
             }}
           >
             {children({

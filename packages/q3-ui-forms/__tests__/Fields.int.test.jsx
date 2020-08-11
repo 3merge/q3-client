@@ -62,6 +62,7 @@ describe('Fields', () => {
           }),
         },
         {},
+        [],
       );
     });
   });
@@ -82,6 +83,7 @@ describe('Fields', () => {
           chips: [expect.objectContaining({ value: 'CA' })],
         },
         {},
+        [],
       );
     });
   });
@@ -117,6 +119,7 @@ describe('Fields', () => {
           multiselect: ['CA'],
         },
         {},
+        [],
       );
     });
   });
@@ -144,6 +147,7 @@ describe('Fields', () => {
       expect(stateWatcher).toHaveBeenLastCalledWith(
         { multitext: ['foo'] },
         { multitext: expect.any(Array) },
+        [],
       );
     });
   });

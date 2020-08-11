@@ -24,6 +24,7 @@
     "moment": "2.27.0",
     "notistack": "^0.9.17",
     "q3-ui-dialog": "^1.20.9",
+    "react-dropzone": "^11.0.2",
     "react-i18next": "11.7.0",
     "react-json-pretty": "^2.2.0",
     "react-window": "^1.8.5",
