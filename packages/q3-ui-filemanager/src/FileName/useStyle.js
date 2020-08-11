@@ -1,13 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  label: {
-    fontSize: '0.877rem',
-    textTransform: 'uppercase',
-  },
   link: {
     color: theme.palette.primary.dark,
     fontWeight: 'bold',
+    fontSize: '.812rem',
   },
   mark: {
     color: theme.palette.primary.light,

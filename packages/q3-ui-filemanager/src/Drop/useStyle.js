@@ -5,15 +5,13 @@ const genGradient = (
   color = {},
 ) => `repeating-linear-gradient(
     -55deg,
-      ${grey[200]},
-      ${grey[200]} 2px,
-      ${color[50]} 2px,
+      ${grey[100]},
+      ${grey[100]} 1px,
+      ${color[50]} 1px,
       ${color[50]} 5px
     )`;
 
 export default makeStyles(() => ({
-  root: {},
-  isActive: {},
   container: {
     background: genGradient(grey),
     border: `1px solid ${grey[300]}`,
@@ -34,5 +32,8 @@ export default makeStyles(() => ({
       border: `1px solid ${blue[300]}`,
       color: blue[900],
     },
+  },
+  icon: {
+    transform: 'rotate(45deg)',
   },
 }));
