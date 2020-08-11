@@ -24,20 +24,29 @@ beforeEach(() => {
 describe('useAttachments', () => {
   describe('hook', () => {
     it('should clear file reference', () => {
+      const stopPropagation = jest.fn();
+      const inputRef = {
+        current: { value: 1 },
+      };
+
       useContext.mockReturnValue({
         setFieldValue: jest.fn(),
         setFieldError: jest.fn(),
+        setAttachments: jest.fn(),
       });
 
       useDropzone.mockReturnValue({
         getRootProps: jest.fn(),
         getInputProps: jest.fn(),
-        inputRef: {
-          current: null,
-        },
+        inputRef,
       });
 
-      useAttachments(name);
+      useAttachments(name).onClear({
+        stopPropagation,
+      });
+
+      expect(stopPropagation).toHaveBeenCalled();
+      expect(inputRef.current.value).toBeNull();
     });
   });
 

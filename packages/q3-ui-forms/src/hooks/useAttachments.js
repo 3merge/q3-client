@@ -1,4 +1,5 @@
 import React from 'react';
+import { set } from 'lodash';
 import { useDropzone } from 'react-dropzone';
 import { DispatcherState } from '../FormsContext';
 
@@ -78,12 +79,12 @@ export default (name, args = {}) => {
     getInputProps(),
   );
 
-  const onClear = React.useCallback((e) => {
+  const onClear = (e) => {
     e.stopPropagation();
-    inputRef.current.value = null;
+    set(inputRef, 'current.value', null);
     removeFromAttachmentsState();
     setFieldError(name, null);
-  }, []);
+  };
 
   return {
     rootProps: getRootProps(),
