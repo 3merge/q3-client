@@ -1,11 +1,13 @@
 import React from 'react';
-import { merge, groupBy, set } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { merge, set } from 'lodash';
+import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import FileListBreadcrumbs from '../FileListBreadcrumbs';
+import FileListMake from '../FileListMake';
 import File from '../File';
 import Drop from '../Drop';
+import FileName from '../FileName';
 
 const getPath = (filename) => {
   const dir = filename.split('/');
@@ -30,16 +32,11 @@ export const makeDirectories = (a = []) =>
     }, {});
 
 const FilterList = ({ drop, files }) => {
-  const { t } = useTranslation();
-
-  const b = groupBy(files, (v) => {
-    return v.tag;
+  const dirfiles = makeDirectories(files);
+  const [dir, setDir] = React.useState({
+    data: dirfiles,
+    path: [],
   });
-
-  const getTitle = (tag) =>
-    tag && String(tag) !== 'undefined'
-      ? t(`titles:${tag}`)
-      : t('titles:misc');
 
   const renderFile = (file, i) => (
     <File
@@ -50,24 +47,54 @@ const FilterList = ({ drop, files }) => {
     />
   );
 
-  return Object.entries(b).map(([tag, group], i) => (
-    <Box width="100%">
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link color="inherit" href="/">
-          Material-UI
-        </Link>
-      </Breadcrumbs>
-      {drop.includes(tag) ? (
-        <Drop onDrop={() => null}>
-          {(pending) =>
-            [...pending, ...group].map(renderFile)
-          }
-        </Drop>
-      ) : (
-        group.map(renderFile)
+  const renderDirectoryUploadSurface = (
+    listItems = [],
+    children,
+  ) => (
+    <Drop onDrop={() => null}>
+      {(pending) => {
+        return (
+          <>
+            {children}
+            {[...pending, ...listItems].map(renderFile)}
+          </>
+        );
+      }}
+    </Drop>
+  );
+
+  return (
+    <Box p={1}>
+      <Grid container justify="space-between">
+        <Grid item>
+          <FileListBreadcrumbs
+            files={dirfiles}
+            setState={setDir}
+            state={dir}
+          />
+        </Grid>
+        <Grid item>
+          <FileListMake setState={setDir} state={dir} />
+        </Grid>
+      </Grid>
+      {renderDirectoryUploadSurface(
+        dir.data.default,
+        Object.keys(alpha(dir.data)).map((name) =>
+          name !== 'default' ? (
+            <FileName
+              name={name}
+              onClick={() => {
+                setDir(({ data, path }) => ({
+                  data: data[name],
+                  path: path.concat(name),
+                }));
+              }}
+            />
+          ) : null,
+        ),
       )}
     </Box>
-  ));
+  );
 };
 
 export default FilterList;

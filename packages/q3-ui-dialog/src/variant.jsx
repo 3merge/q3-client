@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pick } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import Drawer from '@material-ui/core/Drawer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -67,7 +68,8 @@ const DialogVariant = ({
       {...{
         ...getMobileProps(),
         ...asModal(),
-        ...rest,
+        // there might be others
+        ...pick(rest, ['className']),
       }}
     >
       <div>{children}</div>

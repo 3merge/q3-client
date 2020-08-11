@@ -19,7 +19,7 @@ const FilePending = ({ name, size, type, url, ...etc }) => {
       display="flex"
       width="100%"
     >
-      <FileName {...etc} name={name} />
+      <FileName {...etc} name={name} url={url} />
       {!url ? (
         <Box alignItems="center" display="flex">
           <LinearProgress style={{ width: 85 }} />
