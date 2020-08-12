@@ -12,7 +12,7 @@ import useStyle from './useStyle';
 import withGrid from '../withGrid';
 import useAttachments from '../../hooks/useAttachments';
 
-export const renderEndAdornment = (renderer) => ({
+const renderEndAdornment = (renderer) => ({
   endAdornment: (
     <InputAdornment position="end">
       {renderer}
@@ -20,7 +20,7 @@ export const renderEndAdornment = (renderer) => ({
   ),
 });
 
-export const renderCustomFileInput = (value) => (props) => {
+const renderCustomFileInput = (value) => (props) => {
   const cls = useStyle();
 
   return (
@@ -36,7 +36,7 @@ export const renderCustomFileInput = (value) => (props) => {
   );
 };
 
-const FileInput = ({ name, required, value, ...props }) => {
+export const FileInput = ({ name, value, ...props }) => {
   const cls = useStyle();
   const { t } = useTranslation();
 
@@ -57,7 +57,6 @@ const FileInput = ({ name, required, value, ...props }) => {
       variant="outlined"
       size="small"
       fullWidth
-      required={required}
       inputRef={inputRef}
       inputProps={{
         ...inputProps,
@@ -88,17 +87,11 @@ const FileInput = ({ name, required, value, ...props }) => {
 };
 
 FileInput.propTypes = {
-  error: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onError: PropTypes.func.isRequired,
-  required: PropTypes.bool,
   value: PropTypes.string,
 };
 
 FileInput.defaultProps = {
-  required: false,
-  error: false,
   value: '',
 };
 

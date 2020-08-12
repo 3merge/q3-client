@@ -16,7 +16,9 @@ export const getDropzoneRejectedMessages = (e) =>
     ? e.errors.map((err) => err.message).join(', ')
     : null;
 
-export const setNextState = (name, file) => (prevState) => {
+export const setNextState = (name, file) => (
+  prevState = {},
+) => {
   const clone = { ...prevState };
   if (file) {
     clone[name] = file;

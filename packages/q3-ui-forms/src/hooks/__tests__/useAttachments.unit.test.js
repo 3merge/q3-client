@@ -12,28 +12,68 @@ jest.mock('react-dropzone', () => ({
 
 const name = 'ATTACHMENT_TEST';
 
-let useContext;
+const appendMock = (target, key) =>
+  Object.assign(target, {
+    [key]: jest.fn(),
+  });
+
+const stubContext = (mock) => {
+  jest.spyOn(React, 'useContext').mockReturnValue(mock);
+  return mock;
+};
+
+const genContextMocks = () => {
+  const mocks = [
+    'prevStateHandler',
+    'setAttachments',
+    'setFieldError',
+    'setFieldValue',
+  ].reduce(appendMock, {});
+
+  mocks.setAttachments = jest
+    .fn()
+    .mockImplementation((fn) => {
+      mocks.prevStateHandler(
+        fn({
+          [name]: 1,
+        }),
+      );
+    });
+
+  return stubContext({
+    ...mocks,
+    inputRef: {
+      current: {
+        value: 1,
+      },
+    },
+  });
+};
+
+const genDropzoneMocks = (current = null) => ({
+  getRootProps: jest.fn(),
+  getInputProps: jest.fn(),
+  inputRef: {
+    current,
+  },
+});
 
 beforeEach(() => {
-  useContext = jest.spyOn(React, 'useContext');
   jest
     .spyOn(React, 'useCallback')
-    .mockReturnValue((fn) => (args) => fn(args));
+    .mockImplementation((fn) => (...args) => fn(...args));
 });
 
 describe('useAttachments', () => {
   describe('hook', () => {
     it('should clear file reference', () => {
       const stopPropagation = jest.fn();
-      const inputRef = {
-        current: { value: 1 },
-      };
 
-      useContext.mockReturnValue({
-        setFieldValue: jest.fn(),
-        setFieldError: jest.fn(),
-        setAttachments: jest.fn(),
-      });
+      const {
+        inputRef,
+        setFieldError,
+        prevStateHandler,
+      } = genContextMocks();
 
       useDropzone.mockReturnValue({
         getRootProps: jest.fn(),
@@ -47,6 +87,55 @@ describe('useAttachments', () => {
 
       expect(stopPropagation).toHaveBeenCalled();
       expect(inputRef.current.value).toBeNull();
+      expect(prevStateHandler).toHaveBeenCalledWith({});
+      expect(setFieldError).toHaveBeenCalledWith(
+        name,
+        null,
+      );
+    });
+
+    it('should add file to state', () => {
+      const { prevStateHandler } = genContextMocks();
+
+      useDropzone.mockImplementation(({ onDrop }) => {
+        onDrop([{ name: 'foo.csv' }], []);
+        return genDropzoneMocks();
+      });
+
+      useAttachments(name);
+      expect(prevStateHandler).toHaveBeenCalledWith({
+        [name]: {
+          name: 'foo.csv',
+        },
+      });
+    });
+
+    it('should add error to state', () => {
+      const { setFieldError } = genContextMocks();
+      const message = 'Whoops';
+
+      useDropzone.mockImplementation(({ onDrop }) => {
+        onDrop(
+          [],
+          [
+            {
+              errors: [
+                {
+                  message,
+                },
+              ],
+            },
+          ],
+        );
+
+        return genDropzoneMocks();
+      });
+
+      useAttachments(name);
+      expect(setFieldError).toHaveBeenCalledWith(
+        name,
+        message,
+      );
     });
   });
 
