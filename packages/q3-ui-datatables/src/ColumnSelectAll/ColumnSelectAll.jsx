@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SelectAll } from 'q3-ui-exports';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import CellStickyControl from '../CellStickyControl';
 import CellWithCheckbox from '../CellWithCheckbox';
 import withSort from '../withSort';
@@ -19,9 +20,10 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const Label = withSort((props) => (
-  <span>{props.title}</span>
-));
+const Label = withSort((props) => {
+  const { t } = useTranslation('labels');
+  return <span>{t(props.title)}</span>;
+});
 
 export const ColumnSelectAll = ({
   ids,
