@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
 import PersonIcon from '@material-ui/icons/Person';
+import Box from '@material-ui/core/Box';
 import Drop from '../Drop';
 import useStyle from './useStyle';
 
@@ -12,7 +14,7 @@ export const FileUploadPreview = ({ src }) => {
   const cls = useStyle();
 
   return (
-    <div className={cls.previewContainer}>
+    <Box className={cls.previewContainer}>
       {src ? (
         <img
           alt={t('imageThumbnailPreview')}
@@ -22,7 +24,7 @@ export const FileUploadPreview = ({ src }) => {
       ) : (
         <PersonIcon className={cls.fit} />
       )}
-    </div>
+    </Box>
   );
 };
 
@@ -36,15 +38,24 @@ FileUploadPreview.propTypes = {
 
 export const FileUploadStatus = ({ file, onDelete }) => {
   const { t } = useTranslation('labels');
+  const cls = useStyle();
 
   if (!file) return t('clickToSetPhoto');
   if (file.error) return t('photoFailedToUpload');
   if (file.url)
     return (
-      <Button type="button" onClick={onDelete}>
-        {t('unsetPhoto')}
-      </Button>
+      <Box mt={-1}>
+        <Button
+          type="button"
+          onClick={onDelete}
+          className={cls.danger}
+          fullWidth
+        >
+          {t('unsetPhoto')}
+        </Button>
+      </Box>
     );
+
   return t('uploadingPhoto');
 };
 

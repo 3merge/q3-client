@@ -4,7 +4,7 @@ import { get, pick } from 'lodash';
 import { AuthContext } from 'q3-ui-permissions';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import { useTranslation } from 'react-i18next';
-import Picture from '../../components/picture';
+import { PhotoUpload } from 'q3-ui-filemanager';
 import TemplateGrid from '../../components/TemplateGrid';
 import Collection from '../collection';
 import Page from '../page';
@@ -39,6 +39,7 @@ const Profile = ({ fields, fieldKeys, formProps }) => {
   const { t } = useTranslation();
   const { state, update } = React.useContext(AuthContext);
   const id = get(state, 'profile.id');
+  const src = get(state, 'profile.photo');
 
   const initialValues = generateInitialValues(
     state,
@@ -57,9 +58,7 @@ const Profile = ({ fields, fieldKeys, formProps }) => {
         <TemplateGrid
           title={t('titles:profile')}
           subtitle={t('descriptions:profile')}
-          asideComponent={
-            <Picture title={t('labels:profilePicture')} />
-          }
+          asideComponent={<PhotoUpload src={src} />}
         >
           <Form
             {...formProps}

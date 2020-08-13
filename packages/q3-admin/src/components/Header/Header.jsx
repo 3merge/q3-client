@@ -21,7 +21,7 @@ const Header = ({
       zIndex: 10,
       background: 'white',
     }}
-    pt={2}
+    pt={1}
     width="100%"
   >
     <Container
@@ -35,21 +35,23 @@ const Header = ({
         justify="space-between"
       >
         <Grid item>
-          <Grid
-            container
-            spacing={backComponent ? 1 : 0}
+          <Box
+            display="flex"
             alignItems="center"
             id="q3-app-title"
           >
-            {backComponent && (
-              <Grid item>{backComponent}</Grid>
-            )}
-            <Grid item>
-              <Typography variant="h5" component="h2">
-                {title}
-              </Typography>
-            </Grid>
-          </Grid>
+            {backComponent}
+            <Typography
+              style={{
+                display: 'inline-block',
+                paddingLeft: backComponent ? '1rem' : 0,
+              }}
+              variant="h5"
+              component="h2"
+            >
+              {title}
+            </Typography>
+          </Box>
         </Grid>
         <Grid item>{children}</Grid>
       </Grid>
@@ -80,6 +82,12 @@ Header.propTypes = {
     PropTypes.array,
     PropTypes.object,
   ]),
+
+  navComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   /**
    * Populates the H1 element of this component.
    */
@@ -89,6 +97,7 @@ Header.propTypes = {
 Header.defaultProps = {
   backComponent: null,
   children: null,
+  navComponent: null,
 };
 
 export default Header;

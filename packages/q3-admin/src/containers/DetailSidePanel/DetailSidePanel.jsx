@@ -9,7 +9,6 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import Tooltip from 'q3-ui/lib/tooltip';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import ForumIcon from '@material-ui/icons/Forum';
-import PanoramaIcon from '@material-ui/icons/Panorama';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import useStyle from './useStyle';
 import { useAppContext } from '../../hooks';
@@ -43,14 +42,12 @@ const DetailSidePanel = ({ children, ...props }) => {
 
   const icons = {
     'q3-meta': <FingerprintIcon />,
-    'q3-picture': <PanoramaIcon />,
     'q3-thread': <ForumIcon />,
     'q3-files': <AttachFileIcon />,
     'q3-docs': <ContactSupportIcon />,
   };
 
   const tabs = {
-    'q3-picture': can('picture'),
     'q3-thread': can('notes'),
     'q3-files': can('files'),
     'q3-docs': can('documentation'),

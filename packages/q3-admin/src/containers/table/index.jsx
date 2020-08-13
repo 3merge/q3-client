@@ -64,6 +64,7 @@ const executeNavigation = (query) =>
 
 const useStyle = makeStyles(() => ({
   table: {
+    marginTop: 0,
     height: '100%',
     flex: 1,
   },

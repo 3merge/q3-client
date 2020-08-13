@@ -1,7 +1,10 @@
-import { grey } from '@material-ui/core/colors';
+import { grey, red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
+  danger: {
+    color: red[900],
+  },
   previewContainer: {
     height: 250,
   },
