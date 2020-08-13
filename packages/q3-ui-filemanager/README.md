@@ -1,4 +1,4 @@
-# Q3 UI File Manager
+# 🗃️ Q3 UI File Manager
 
 ## FileList
 
@@ -8,8 +8,8 @@ A file manager built with drop-zone for multi-directory file storage. It allows 
 
 | Prop | Type | Description |
 |--|--|--|
-| onDrop | Function | Receives FormData instance as first parameter, which contains all uploading files |
-| files | Array | Organizes existing files by shared directory
+| `onDrop` | `Function` | Receives FormData instance as first parameter, which contains all uploading files |
+| `files` | `Array` | Organizes existing files by shared directory
 
 ### Example
 ```javascript
@@ -18,7 +18,8 @@ import {  FileList } from 'q3-ui-filemanager';
 
 const data = [
 	{
-		name: 'filename.csv',
+        // Will render icon based on file extension
+        name: 'filename.csv',
 		url: 'https://path-to-download.com/',
 	}
 ]
