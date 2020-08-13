@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from 'q3-ui/lib/iconButton';
 import Box from '@material-ui/core/Box';
-import { Form } from 'q3-ui-forms/lib/builders';
+import { Form, Next } from 'q3-ui-forms/lib/builders';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Inline from '../Inline';
@@ -23,6 +23,63 @@ export const executeCallbackAfterPromise = (
 
   done();
   return fn;
+};
+
+export const InlineEditorFormContent = ({
+  children,
+  onSubmit,
+  close,
+  ...rest
+}) => {
+  const { t } = useTranslation('labels');
+
+  return (
+    <Form
+      {...rest}
+      marshalSelectively
+      enableSubmit={false}
+      onSubmit={executeCallbackAfterPromise(
+        onSubmit,
+        close,
+      )}
+    >
+      {children}
+      <Grid item xs={12}>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          mt={0.5}
+        >
+          <Button onClick={close} size="small">
+            {t('cancel')}
+          </Button>
+          <Next submit>
+            {(nextProps) => (
+              <Button
+                {...nextProps}
+                size="small"
+                variant="contained"
+                color="secondary"
+                style={{ marginLeft: '0.5rem' }}
+              >
+                {t('apply')}
+              </Button>
+            )}
+          </Next>
+        </Box>
+      </Grid>
+    </Form>
+  );
+};
+
+InlineEditorFormContent.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.array,
+    PropTypes.object,
+  ]).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
 };
 
 const InlineEditor = ({
@@ -50,38 +107,14 @@ const InlineEditor = ({
         )
       }
       renderContent={(close) => (
-        <Form
-          {...rest}
-          marshalSelectively
-          enableSubmit={false}
+        <InlineEditorFormContent
+          close={close}
+          onSubmit={onSubmit}
           initialValues={initialValues}
-          onSubmit={executeCallbackAfterPromise(
-            onSubmit,
-            close,
-          )}
+          {...rest}
         >
           {children}
-          <Grid item xs={12}>
-            <Box
-              display="flex"
-              justifyContent="flex-end"
-              mt={0.5}
-            >
-              <Button onClick={close} size="small">
-                {t('cancel')}
-              </Button>
-              <Button
-                type="submit"
-                size="small"
-                variant="contained"
-                color="secondary"
-                style={{ marginLeft: '0.5rem' }}
-              >
-                {t('apply')}
-              </Button>
-            </Box>
-          </Grid>
-        </Form>
+        </InlineEditorFormContent>
       )}
     />
   );

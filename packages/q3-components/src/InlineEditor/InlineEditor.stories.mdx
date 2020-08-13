@@ -4,7 +4,10 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import { Builders } from 'q3-ui-forms';
 import InlineEditor from './InlineEditor';
+import { simulateNetworkDelay } from '../../tests/support';
 
 <Meta
   title="Components|InlineEditor"
@@ -15,6 +18,22 @@ import InlineEditor from './InlineEditor';
 
 <Preview>
   <Story name="Example">
-    <div />
+    <InlineEditor
+      title="demo"
+      onSubmit={(values) =>
+        simulateNetworkDelay(values).then(
+          action('onSubmit'),
+        )
+      }
+    >
+      <Builders.Field
+        name="demo"
+        type="text"
+        suppressLabel
+        required
+        xl={12}
+        lg={12}
+      />
+    </InlineEditor>
   </Story>
 </Preview>
