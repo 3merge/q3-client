@@ -12,11 +12,14 @@ import TextField from '@material-ui/core/TextField';
 import JSONPrettyMon from 'react-json-pretty/dist/monikai';
 import { array } from 'q3-ui-helpers';
 
-export const formatUser = (u) =>
-  ['firstName', 'lastName']
-    .filter((name) => u[name])
-    .map((name) => u[name])
-    .join(' ') || null;
+export const formatUser = (u) => {
+  return (
+    ['firstName', 'lastName']
+      .filter((name) => u && u[name])
+      .map((name) => u[name])
+      .join(' ') || null
+  );
+};
 
 const getUpdatedAt = (data = {}, key) => {
   const at = get(data, key);
