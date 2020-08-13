@@ -37,3 +37,18 @@ export const isOverflownVertical = ({
 
 export const isOverflown = (el) =>
   isOverflownVertical(el) || isOverflownHorizontal(el);
+
+export const getFileThumbnail = (file, callback) => {
+  const reader = new FileReader();
+
+  if (file) {
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      callback(null, e.currentTarget.result);
+    };
+
+    reader.onerror = (e) => {
+      callback(e);
+    };
+  }
+};

@@ -49,7 +49,13 @@ export const handleFocusStateOnDrag = (isDragActive) => {
     );
 };
 
-const Drop = ({ children, onDrop, root }) => {
+const Drop = ({
+  children,
+  onDrop,
+  previewComponent,
+  root,
+  ...rest
+}) => {
   const { container, icon } = useStyles();
   const { t } = useTranslation('descriptions');
 
@@ -61,17 +67,24 @@ const Drop = ({ children, onDrop, root }) => {
     (acceptedFiles) => {
       const formData = new FormData();
       const fs = new AcceptedFileDecorator(acceptedFiles);
+
+      const handleError = () =>
+        setPendingFiles(fs.withErrors());
+
       fs.directory = root;
 
       setPendingFiles(fs.data);
 
-      return onDrop(formData)
-        .then(() => {
-          setPendingFiles([]);
-        })
-        .catch(() => {
-          setPendingFiles(fs.withErrors());
-        });
+      try {
+        return onDrop(formData)
+          .then(() => {
+            setPendingFiles([]);
+          })
+          .catch(handleError);
+      } catch (e) {
+        // should only run if onDrop is undefined
+        return handleError();
+      }
     },
     [root],
   );
@@ -82,6 +95,7 @@ const Drop = ({ children, onDrop, root }) => {
     isDragActive,
   } = useDropzone({
     onDrop: onDropHandler,
+    ...rest,
   });
 
   const getDropperHandlers = () => ({
@@ -101,8 +115,12 @@ const Drop = ({ children, onDrop, root }) => {
         {...getDropperHandlers()}
       >
         <input {...getInputProps()} />
-        <AttachFileIcon className={icon} />
-        {t('clickOrDrop')}
+        {previewComponent || (
+          <>
+            <AttachFileIcon className={icon} />
+            {t('clickOrDrop')}{' '}
+          </>
+        )}
       </div>
       {children(pendingFiles)}
     </>
