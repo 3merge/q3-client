@@ -4,6 +4,7 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
 import PhotoUpload from './PhotoUpload';
 import files from '../../tests/fixtures/files.json';
 import support from '../../tests/support';
@@ -13,8 +14,18 @@ import support from '../../tests/support';
 # PhotoUpload
 
 <Preview>
-  <Story name="As default">
-    <PhotoUpload />
+  <Story name="With existing file">
+    <PhotoUpload
+      url="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
+      onDrop={support.onDrop.fail}
+      onDelete={action('on-delete')}
+    />
+  </Story>
+  <Story name="Will succeed">
+    <PhotoUpload onDrop={support.onDrop.succeed} />
+  </Story>
+  <Story name="Will Fail">
+    <PhotoUpload onDrop={support.onDrop.fail} />
   </Story>
 </Preview>
 
