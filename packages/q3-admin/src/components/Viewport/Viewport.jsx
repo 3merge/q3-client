@@ -13,13 +13,10 @@ const setViewportUnit = () => {
 };
 
 const AppViewport = ({ children }) => {
-  React.useEffect(() => {
-    setViewportUnit();
-  }, []);
-
   React.useLayoutEffect(() => {
     if (!browser.isBrowserReady()) return undefined;
     window.addEventListener('resize', setViewportUnit);
+    setViewportUnit();
 
     return () => {
       window.removeEventListener('resize', setViewportUnit);
