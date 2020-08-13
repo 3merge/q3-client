@@ -35,6 +35,7 @@ const AppViewport = ({ children }) => {
         backgroundColor: '#FFF',
         overflow: 'hidden',
         flexWrap: 'nowrap',
+        position: 'relative',
       }}
     >
       <Grid container>{children}</Grid>
