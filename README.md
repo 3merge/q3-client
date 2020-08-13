@@ -17,3 +17,7 @@
   </a>
 </p>
 <h2>Production release coming soon, along with documentation and example projects.</p>
+
+## Packages
+
+<a href="./packages/q3-ui-filemanager">File Manager</a>
