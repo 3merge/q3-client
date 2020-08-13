@@ -64,12 +64,17 @@ const Example = () => (
 		// Do something to remove external file from API
 	};
 
-	const handleApiService = (formData) => {
-		// Attaches all uploaded files to a FormData instance
-		// See: https://developer.mozilla.org/en-US/docs/Web/API/FormData
+	const onDrop = (formData) => {
+		// See FileList for description
 	};
 
-	return <FileList url="https://google.images.ca/1" onDelete={onDelete} onDrop={handleApiService} />;
+	return (
+		<PhotoUpload
+			url="https://google.images.ca/1"
+			onDrop={onDrop}
+			onDelete={onDelete}
+		/>
+	);
 );
 
 export default Example;
