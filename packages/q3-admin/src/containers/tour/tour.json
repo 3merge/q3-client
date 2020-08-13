@@ -13,8 +13,7 @@
   },
   {
     "target": "#q3-segments",
-    "content": "howToUseSegments",
-    "placement": "auto"
+    "content": "howToUseSegments"
   },
   {
     "target": "#q3-filters",
