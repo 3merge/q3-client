@@ -61,8 +61,8 @@ FileUploadStatus.propTypes = {
   onDelete: PropTypes.func.isRequired,
 };
 
-const PhotoUpload = ({ url, onDelete, ...etc }) => {
-  const [previewUrl, setPreviewUrl] = React.useState(url);
+const PhotoUpload = ({ src, onDelete, ...etc }) => {
+  const [previewUrl, setPreviewUrl] = React.useState(src);
 
   return (
     <Drop
@@ -74,14 +74,17 @@ const PhotoUpload = ({ url, onDelete, ...etc }) => {
       }
     >
       {([file]) => {
-        browser.getFileThumbnail(file, (err, src) => {
-          if (src) setPreviewUrl(src);
-        });
+        browser.getFileThumbnail(
+          file,
+          (err, previewSrc) => {
+            if (src) setPreviewUrl(previewSrc);
+          },
+        );
 
         // allows us to "fake" the existing file blob
         return (
           <FileUploadStatus
-            file={file || { url }}
+            file={file || { url: src }}
             onDelete={onDelete}
           />
         );
@@ -91,11 +94,11 @@ const PhotoUpload = ({ url, onDelete, ...etc }) => {
 };
 
 PhotoUpload.defaultProps = {
-  url: '',
+  src: '',
 };
 
 PhotoUpload.propTypes = {
-  url: PropTypes.string,
+  src: PropTypes.string,
   onDelete: PropTypes.func.isRequired,
 };
 

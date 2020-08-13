@@ -22,15 +22,11 @@ import {
 
 ### Browser
 
-#### Methods
-
 | Name               | Description                                                                                            | Parameters         | Return      |
 | ------------------ | ------------------------------------------------------------------------------------------------------ | ------------------ | ----------- |
 | `getFileThumbnail` | Takes a file and invokes the callback with either an error object or temporary URL to preview the file | `Blob`, `Function` | `Undefined` |
 
 ### String
-
-#### Methods
 
 | Name      | Description                                                                                                | Parameters | Return   |
 | --------- | ---------------------------------------------------------------------------------------------------------- | ---------- | -------- |

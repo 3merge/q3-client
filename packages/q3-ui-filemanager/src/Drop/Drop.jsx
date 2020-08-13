@@ -129,11 +129,13 @@ const Drop = ({
 
 Drop.defaultProps = {
   root: '',
+  previewComponent: null,
 };
 
 Drop.propTypes = {
   children: PropTypes.func.isRequired,
   onDrop: PropTypes.instanceOf(Promise).isRequired,
+  previewComponent: PropTypes.node,
   root: PropTypes.string,
 };
 
