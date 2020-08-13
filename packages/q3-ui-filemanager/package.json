@@ -10,6 +10,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
     "prop-types": "^15.7.2",
+    "q3-ui-helpers": "1.21.0",
     "react": "^16.10.2",
     "react-i18next": "11.7.0"
   },

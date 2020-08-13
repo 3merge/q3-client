@@ -1,50 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-import PictureAsPdf from '@material-ui/icons/PictureAsPdf';
-import Image from '@material-ui/icons/Image';
-import Description from '@material-ui/icons/Description';
 import Grid from '@material-ui/core/Grid';
-import {
-  indigo,
-  teal,
-  orange,
-  blue,
-} from '@material-ui/core/colors';
-import FolderIcon from '@material-ui/icons/Folder';
 import useStyle from './useStyle';
-
-const getFileColour = (t) => {
-  switch (t ? t.toUpperCase() : '') {
-    case 'PNG':
-    case 'JPG':
-    case 'JPEG':
-    case 'SVG':
-      return indigo[400];
-    case 'PDF':
-      return teal[400];
-    case '':
-      return blue[400];
-    default:
-      return orange[400];
-  }
-};
-
-const renderFileIcon = (t = '') => {
-  switch (t ? t.toUpperCase() : '') {
-    case 'PNG':
-    case 'JPG':
-    case 'JPEG':
-    case 'SVG':
-      return <Image />;
-    case 'PDF':
-      return <PictureAsPdf />;
-    case '':
-      return <FolderIcon />;
-    default:
-      return <Description />;
-  }
-};
+import FileExtensions from '../FileExtensions';
 
 const FileName = ({ name, url, onClick }) => {
   const [, ext] = name.split('.');
@@ -82,10 +41,10 @@ const FileName = ({ name, url, onClick }) => {
         <Avatar
           style={{
             backgroundColor: 'transparent',
-            color: getFileColour(ext),
+            color: FileExtensions.getColor(ext),
           }}
         >
-          {renderFileIcon(ext)}
+          {FileExtensions.getIcon(ext)}
         </Avatar>
       </Grid>
       <Grid item>{renderer()}</Grid>

@@ -4,7 +4,7 @@
 
 A file manager built with drop-zone for multi-directory file storage. It allows users to browse files, create new folders and upload files of all types and sizes. The file list best suits bulk file handling needs. 
 
-## API
+### API
 
 | Prop | Type | Description |
 |--|--|--|

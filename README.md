@@ -16,8 +16,8 @@
     <img src="https://img.shields.io/twitter/follow/3mergeinc.svg?label=3merge" alt="@3mergeinc" />
   </a>
 </p>
-<h2>Production release coming soon, along with documentation and example projects.</p>
 
 ## Packages
 
-<a href="./packages/q3-ui-filemanager">File Manager</a>
+<a href="./packages/q3-ui-filemanager">🗃️ File Manager Docs</a>
+<a href="./packages/q3-ui-helpers">🆘 Helpers Docs</a>
