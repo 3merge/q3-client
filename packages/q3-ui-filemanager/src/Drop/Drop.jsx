@@ -1,13 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import { browser } from 'q3-ui-helpers';
+import { browser, array, object } from 'q3-ui-helpers';
 import { useDropzone } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
 import useStyles from './useStyle';
 
-const Drop = ({ children, onDrop }) => {
+const DROPPER_ID = 'dropper';
+
+const joinFilePaths = (a = []) => {
+  const out = array
+    .is(a)
+    .filter(Boolean)
+    .join('/')
+    .replace(/\/+/g, '/');
+
+  return out.startsWith('/') ? out.substr(1) : out;
+};
+
+export class AcceptedFileDecorator {
+  constructor(files) {
+    this.data = array.is(files);
+  }
+
+  set directory(name) {
+    this.data.forEach((item) => {
+      // eslint-disable-next-line
+      item.name = joinFilePaths([name, item.name]);
+    });
+
+    return this;
+  }
+
+  withErrors() {
+    return this.data.map((item) => {
+      // eslint-disable-next-line
+      item.error = true;
+      return item;
+    });
+  }
+}
+
+export const handleFocusStateOnDrag = (isDragActive) => {
+  if (browser.isBrowserReady())
+    object.invokeInSafely(
+      document.getElementById(DROPPER_ID),
+      isDragActive ? 'focus' : 'blur',
+    );
+};
+
+const Drop = ({ children, onDrop, root }) => {
   const [loading, setLoading] = React.useState();
-  const { container: className, icon } = useStyles();
+  const { container, icon } = useStyles();
+  const { t } = useTranslation('descriptions');
 
   const [pendingFiles, setPendingFiles] = React.useState(
     [],
@@ -16,13 +61,16 @@ const Drop = ({ children, onDrop }) => {
   const onDropHandler = React.useCallback(
     (acceptedFiles) => {
       const formData = new FormData();
-      setPendingFiles(acceptedFiles);
+      const fs = new AcceptedFileDecorator(acceptedFiles);
+      fs.directory = root;
 
-      onDrop(formData)
+      setPendingFiles(fs.data);
+
+      return onDrop(formData)
         .then(() => {
-          // clear pending
           setPendingFiles([]);
         })
+        .then(() => setPendingFiles(fs.withErrors()))
         .finally(setLoading);
     },
     [],
@@ -37,21 +85,13 @@ const Drop = ({ children, onDrop }) => {
   });
 
   const getDropperHandlers = () => ({
-    id: 'dropper',
-    className,
+    id: DROPPER_ID,
+    className: container,
     ...(!loading ? getRootProps() : {}),
   });
 
   React.useEffect(() => {
-    if (browser.isBrowserReady()) {
-      const el = document.getElementById('dropper');
-
-      if (isDragActive) {
-        el.focus();
-      } else {
-        el.blur();
-      }
-    }
+    handleFocusStateOnDrag(isDragActive);
   }, [isDragActive]);
 
   return (
@@ -61,16 +101,22 @@ const Drop = ({ children, onDrop }) => {
         {...getDropperHandlers()}
       >
         <input {...getInputProps()} />
-        <AttachFileIcon className={icon} /> Add file or
-        drops file here
+        <AttachFileIcon className={icon} />
+        {t('clickOrDrop')}
       </div>
       {children(pendingFiles)}
     </>
   );
 };
 
+Drop.defaultProps = {
+  root: '',
+};
+
 Drop.propTypes = {
+  children: PropTypes.func.isRequired,
   onDrop: PropTypes.instanceOf(Promise).isRequired,
+  root: PropTypes.string,
 };
 
 export default Drop;

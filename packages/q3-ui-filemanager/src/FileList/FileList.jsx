@@ -1,5 +1,6 @@
 import React from 'react';
-import { merge, set } from 'lodash';
+import PropTypes from 'prop-types';
+import { merge, setWith, last } from 'lodash';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -16,6 +17,11 @@ const getPath = (filename) => {
   return dir.join('.');
 };
 
+const removeDirectoryFromFileName = (file) => ({
+  ...file,
+  file: last(file.name.split('/')),
+});
+
 const removeFileExtension = (filename) =>
   filename.substring(0, filename.lastIndexOf('.')) ||
   filename;
@@ -23,15 +29,18 @@ const removeFileExtension = (filename) =>
 export const makeDirectories = (a = []) =>
   a
     .map((next) =>
-      set({}, getPath(removeFileExtension(next.name)), [
-        next,
-      ]),
+      setWith(
+        {},
+        // cannot use regular set in case there are dirs with numbers
+        // otherwise, it creates an array instead
+        getPath(removeFileExtension(next.name)),
+        [removeDirectoryFromFileName(next)],
+        Object,
+      ),
     )
-    .reduce((acc, next) => {
-      return merge({}, acc, next);
-    }, {});
+    .reduce((acc, next) => merge({}, acc, next), {});
 
-const FilterList = ({ drop, files }) => {
+const FileList = ({ files, ...props }) => {
   const dirfiles = makeDirectories(files);
   const [dir, setDir] = React.useState({
     data: dirfiles,
@@ -51,7 +60,7 @@ const FilterList = ({ drop, files }) => {
     listItems = [],
     children,
   ) => (
-    <Drop onDrop={() => null}>
+    <Drop {...props} root={dir.path.join('/')}>
       {(pending) => {
         return (
           <>
@@ -97,4 +106,21 @@ const FilterList = ({ drop, files }) => {
   );
 };
 
-export default FilterList;
+FileList.defaultProps = {
+  files: [],
+};
+
+FileList.propTypes = {
+  /**
+   * Files will sort into directories automatically based on the file name.
+   * For instance, "foo/bar.csv" will only be available for download in the child directory.
+   */
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string,
+    }),
+  ),
+};
+
+export default FileList;

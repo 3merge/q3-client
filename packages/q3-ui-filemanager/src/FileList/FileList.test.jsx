@@ -1,25 +1,17 @@
 import { makeDirectories } from './FileList';
+import files from '../../tests/fixtures/files';
 
 describe('FileList', () => {
   it('should group by file directory', () => {
-    const a = [
-      'foo/bar.csv',
-      'bar/baz/quuz.pdf',
-      'thunk.doc',
-    ].map((name) => ({
-      name,
-    }));
+    const f = makeDirectories(files);
+    expect(f).toHaveProperty(
+      'archives.2020.default',
+      expect.any(Array),
+    );
 
-    expect(makeDirectories(a)).toEqual({
-      foo: {
-        default: [{ name: 'foo/bar.csv' }],
-      },
-      bar: {
-        baz: {
-          default: [{ name: 'bar/baz/quuz.pdf' }],
-        },
-      },
-      default: [{ name: 'thunk.doc' }],
-    });
+    expect(f).toHaveProperty(
+      'pos.default',
+      expect.any(Array),
+    );
   });
 });
