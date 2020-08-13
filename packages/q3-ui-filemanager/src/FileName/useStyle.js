@@ -9,12 +9,20 @@ export default makeStyles((theme) => ({
     fontWeight: 'bold',
     fontSize: '.812rem',
   },
-  mark: {
-    color: theme.palette.primary.light,
-    padding: theme.spacing(0.35),
-
-    '& *': {
-      fontSize: '65%',
-    },
+  truncate: {
+    textOverflow: 'ellipsis',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  root: {
+    flexWrap: 'nowrap',
+    maxWidth: '70%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+  },
+  cover: {
+    height: '100%',
+    position: 'absolute',
+    width: '100%',
   },
 }));

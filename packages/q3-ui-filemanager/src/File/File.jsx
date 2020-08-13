@@ -1,5 +1,5 @@
 import React from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
@@ -23,12 +23,16 @@ const FilePending = ({
   ...etc
 }) => {
   const renderAction = () => {
-    if (error) return <WarningIcon color={red[900]} />;
+    if (error)
+      return (
+        <Avatar style={{ background: 'transparent' }}>
+          <WarningIcon style={{ color: red[900] }} />
+        </Avatar>
+      );
 
     if (!url)
       return (
         <Box alignItems="center" display="flex">
-          <LinearProgress style={{ width: 85 }} />
           <Box
             alignItems="center"
             component="span"
@@ -57,7 +61,12 @@ const FilePending = ({
       display="flex"
       width="100%"
     >
-      <FileName {...etc} name={name} url={url} />
+      <FileName
+        {...etc}
+        loading={!url && !error}
+        name={name}
+        url={url}
+      />
       {renderAction()}
     </Box>
   );

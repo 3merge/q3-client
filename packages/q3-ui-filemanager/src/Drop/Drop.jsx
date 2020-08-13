@@ -73,9 +73,13 @@ const Drop = ({
 
       fs.directory = root;
 
-      setPendingFiles(fs.data);
+      fs.data.forEach((item) => {
+        formData.append(item.name, item);
+      });
 
       try {
+        setPendingFiles(fs.data);
+
         return onDrop(formData)
           .then(() => {
             setPendingFiles([]);

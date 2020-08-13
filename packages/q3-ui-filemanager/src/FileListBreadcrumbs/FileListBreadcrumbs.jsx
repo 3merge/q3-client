@@ -5,13 +5,16 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import useStyle from './useStyle';
 
 const FilterListBreadcrumbs = ({
   files,
   setState,
   state,
 }) => {
+  const cls = useStyle();
   const { t } = useTranslation('titles');
+
   const { path = [] } = state;
 
   const handleDirectoryChange = (ind) => () => {
@@ -36,6 +39,7 @@ const FilterListBreadcrumbs = ({
         color="inherit"
         disabled={!path.length}
         onClick={handleDirectoryReset}
+        className={cls.link}
       >
         {t('fileManager')}
       </Button>
@@ -45,6 +49,7 @@ const FilterListBreadcrumbs = ({
           component={Link}
           disabled={i === path.length - 1}
           onClick={handleDirectoryChange(i)}
+          className={cls.link}
           key={i}
         >
           {t(item)}

@@ -4,6 +4,7 @@ import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
 import users from './users';
+import uploads from './files';
 import { BAR } from '../../src/__fixtures__/visualization';
 
 const makeApiEndpoints = (
@@ -13,6 +14,35 @@ const makeApiEndpoints = (
 ) => {
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
+
+  mockInstance
+    .onGet(new RegExp(`${collectionName}\\/\\d+\\/uploads`))
+    .reply(200, {
+      uploads,
+    });
+
+  mockInstance
+    .onPost(
+      new RegExp(`${collectionName}\\/\\d+\\/uploads`),
+    )
+    .reply(({ data }) => {
+      const [pair] = data.entries();
+
+      return [
+        201,
+        {
+          uploads: [
+            ...uploads,
+            {
+              ...pair[1],
+              url: uploads[0].url,
+              name: pair[0],
+              relativePath: pair[1].relativePath,
+            },
+          ],
+        },
+      ];
+    });
 
   mockInstance
     // single resource

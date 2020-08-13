@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge, setWith } from 'lodash';
+import { mergeWith, setWith } from 'lodash';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -10,6 +10,13 @@ import File from '../File';
 import Drop from '../Drop';
 import FileName from '../FileName';
 
+const customizer = (objValue, srcValue) => {
+  if (Array.isArray(objValue))
+    return objValue.concat(srcValue);
+
+  return undefined;
+};
+
 const getPath = (filename) => {
   const dir = filename.split('/');
   dir.pop();
@@ -18,33 +25,44 @@ const getPath = (filename) => {
 };
 
 const removeFileExtension = (filename) =>
-  filename.substring(0, filename.lastIndexOf('.')) ||
-  filename;
+  filename
+    ? filename.substring(0, filename.lastIndexOf('.')) ||
+      filename
+    : '';
 
 export const makeDirectories = (a = []) =>
   a
-    .map((next) =>
-      setWith(
+    .map((next) => {
+      return setWith(
         {},
         // cannot use regular set in case there are dirs with numbers
         // otherwise, it creates an array instead
         getPath(removeFileExtension(next.relativePath)),
         [next],
         Object,
-      ),
-    )
-    .reduce((acc, next) => merge({}, acc, next), {});
+      );
+    })
+    .reduce((acc, next) => {
+      return mergeWith(acc, next, customizer);
+    }, {});
 
 const FileList = ({ files, ...props }) => {
-  const dirfiles = makeDirectories(files);
   const [dir, setDir] = React.useState({
-    data: dirfiles,
+    data: {},
     path: [],
   });
+
+  React.useEffect(() => {
+    setDir((prevState) => ({
+      ...prevState,
+      data: makeDirectories(files),
+    }));
+  }, [files]);
 
   const renderFile = (file, i) => (
     <File
       key={i}
+      error={file.error}
       name={file.name}
       url={file.url}
       size={file.size}
@@ -67,10 +85,14 @@ const FileList = ({ files, ...props }) => {
 
   return (
     <Box p={1}>
-      <Grid container justify="space-between">
+      <Grid
+        alignItems="center"
+        justify="space-between"
+        container
+      >
         <Grid item>
           <FileListBreadcrumbs
-            files={dirfiles}
+            files={makeDirectories(files)}
             setState={setDir}
             state={dir}
           />

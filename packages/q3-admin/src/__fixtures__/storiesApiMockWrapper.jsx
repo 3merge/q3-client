@@ -58,6 +58,11 @@ const StoriesApiMockWrapper = ({ children }) => {
       ],
     });
 
+    m.onPost(/\/api-investors\/\d+\/uploads/).reply((v) => {
+      console.log(v);
+      return [200, { uploads: [] }];
+    });
+
     m.onGet(/\/api-investors\/\d+/).reply(({ url }) => {
       const investor = findById(getId(url));
       return [200, { investor }];
