@@ -6,7 +6,7 @@ import {
 } from '@storybook/addon-docs/blocks';
 import FileList from './FileList';
 import files from '../../tests/fixtures/files.json';
-import support from '../../tests/support'
+import support from '../../tests/support';
 
 <Meta title="Files|FileList" component={FileList} />
 
@@ -14,7 +14,10 @@ import support from '../../tests/support'
 
 <Preview>
   <Story name="As default">
-    <FileList files={files} onDrop={support.onDrop.succeed()} />
+    <FileList
+      files={files}
+      onDrop={support.onDrop.succeed}
+    />
   </Story>
 </Preview>
 

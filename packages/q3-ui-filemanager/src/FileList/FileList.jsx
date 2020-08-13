@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { merge, setWith, last } from 'lodash';
+import { merge, setWith } from 'lodash';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -17,11 +17,6 @@ const getPath = (filename) => {
   return dir.join('.');
 };
 
-const removeDirectoryFromFileName = (file) => ({
-  ...file,
-  file: last(file.name.split('/')),
-});
-
 const removeFileExtension = (filename) =>
   filename.substring(0, filename.lastIndexOf('.')) ||
   filename;
@@ -33,8 +28,8 @@ export const makeDirectories = (a = []) =>
         {},
         // cannot use regular set in case there are dirs with numbers
         // otherwise, it creates an array instead
-        getPath(removeFileExtension(next.name)),
-        [removeDirectoryFromFileName(next)],
+        getPath(removeFileExtension(next.relativePath)),
+        [next],
         Object,
       ),
     )
@@ -61,14 +56,12 @@ const FileList = ({ files, ...props }) => {
     children,
   ) => (
     <Drop {...props} root={dir.path.join('/')}>
-      {(pending) => {
-        return (
-          <>
-            {children}
-            {[...pending, ...listItems].map(renderFile)}
-          </>
-        );
-      }}
+      {(pending) => (
+        <>
+          {children}
+          {[...pending, ...listItems].map(renderFile)}
+        </>
+      )}
     </Drop>
   );
 

@@ -2,7 +2,7 @@ const simulateNetworkRequestLatency = (next) =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       next(resolve, reject);
-    }, 1500);
+    }, 5000);
   });
 
 export const succeed = () =>

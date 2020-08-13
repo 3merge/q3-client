@@ -26,7 +26,7 @@ export class AcceptedFileDecorator {
   set directory(name) {
     this.data.forEach((item) => {
       // eslint-disable-next-line
-      item.name = joinFilePaths([name, item.name]);
+      item.relativePath = joinFilePaths([name, item.name]);
     });
 
     return this;
@@ -50,7 +50,6 @@ export const handleFocusStateOnDrag = (isDragActive) => {
 };
 
 const Drop = ({ children, onDrop, root }) => {
-  const [loading, setLoading] = React.useState();
   const { container, icon } = useStyles();
   const { t } = useTranslation('descriptions');
 
@@ -70,10 +69,11 @@ const Drop = ({ children, onDrop, root }) => {
         .then(() => {
           setPendingFiles([]);
         })
-        .then(() => setPendingFiles(fs.withErrors()))
-        .finally(setLoading);
+        .catch(() => {
+          setPendingFiles(fs.withErrors());
+        });
     },
-    [],
+    [root],
   );
 
   const {
@@ -87,7 +87,7 @@ const Drop = ({ children, onDrop, root }) => {
   const getDropperHandlers = () => ({
     id: DROPPER_ID,
     className: container,
-    ...(!loading ? getRootProps() : {}),
+    ...getRootProps(),
   });
 
   React.useEffect(() => {

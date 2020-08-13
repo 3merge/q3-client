@@ -20,7 +20,10 @@ const testFileName = (
   ]);
 
   afd.directory = directory;
-  expect(afd.data[0]).toHaveProperty('name', expectedValue);
+  expect(afd.data[0]).toHaveProperty(
+    'relativePath',
+    expectedValue,
+  );
 };
 
 describe('Drop', () => {

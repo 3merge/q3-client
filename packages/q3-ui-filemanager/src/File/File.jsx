@@ -3,6 +3,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import IconButton from '@material-ui/core/IconButton';
 import TrashIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
+import WarningIcon from '@material-ui/icons/Warning';
+import { red } from '@material-ui/core/colors';
 import FileName from '../FileName';
 
 const getApproximateSize = (num) => {
@@ -12,15 +14,19 @@ const getApproximateSize = (num) => {
   return `~${kb > 1000 ? `${mb}MB` : `${kb}KB`}`;
 };
 
-const FilePending = ({ name, size, type, url, ...etc }) => {
-  return (
-    <Box
-      justifyContent="space-between"
-      display="flex"
-      width="100%"
-    >
-      <FileName {...etc} name={name} url={url} />
-      {!url ? (
+const FilePending = ({
+  name,
+  size,
+  type,
+  url,
+  error,
+  ...etc
+}) => {
+  const renderAction = () => {
+    if (error) return <WarningIcon color={red[900]} />;
+
+    if (!url)
+      return (
         <Box alignItems="center" display="flex">
           <LinearProgress style={{ width: 85 }} />
           <Box
@@ -36,11 +42,23 @@ const FilePending = ({ name, size, type, url, ...etc }) => {
             {getApproximateSize(size)}
           </Box>
         </Box>
-      ) : (
-        <IconButton>
-          <TrashIcon />
-        </IconButton>
-      )}
+      );
+
+    return (
+      <IconButton>
+        <TrashIcon />
+      </IconButton>
+    );
+  };
+
+  return (
+    <Box
+      justifyContent="space-between"
+      display="flex"
+      width="100%"
+    >
+      <FileName {...etc} name={name} url={url} />
+      {renderAction()}
     </Box>
   );
 };

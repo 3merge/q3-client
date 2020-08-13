@@ -1,18 +1,22 @@
 [
   {
-    "name": "pos/example-file.jpg",
+    "name": "example-file.jpg",
+    "relativePath": "pos/example-file.jpg",
     "url": "http://google.ca"
   },
   {
-    "name": "pos/example-file2.csv",
+    "relativePath": "pos/example-file2.csv",
+    "name": "example-file2.csv",
     "url": "http://google.ca"
   },
   {
+    "relativePath": "root.pdf",
     "name": "root.pdf",
     "url": "http://google.ca"
   },
   {
-    "name": "archives/2020/sample.doc",
+    "relativePath": "archives/2020/sample.doc",
+    "name": "sample.doc",
     "url": "http://google.ca"
   }
 ]
