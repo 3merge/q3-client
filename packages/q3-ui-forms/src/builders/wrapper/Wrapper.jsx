@@ -122,6 +122,8 @@ export const InnerForm = ({
       .then((res) => {
         clearPreviousState();
         if (restart) onReset();
+        // always clear the files
+        setAttachments([]);
         return onSuccess(res);
       })
       .catch((e) => {

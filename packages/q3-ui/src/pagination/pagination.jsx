@@ -9,6 +9,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 
 const useStyle = makeStyles((theme) => ({
   matchHeight: {
@@ -17,6 +18,12 @@ const useStyle = makeStyles((theme) => ({
   order: {
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column-reverse',
+    },
+  },
+  card: {
+    '&.Mui-disabled': {
+      backgroundColor: grey[100],
+      color: `${grey[900]} !important`,
     },
   },
 }));
@@ -38,25 +45,30 @@ export const PaginationCard = ({
   children,
   onClick,
   ...etc
-}) => (
-  <Card style={{ height: '100%' }}>
-    <CardActionArea
-      style={{ height: '100%' }}
-      onClick={onClick}
-      {...etc}
-    >
-      <Box p={2}>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          {children}
+}) => {
+  const { card } = useStyle();
+
+  return (
+    <Card style={{ height: '100%' }}>
+      <CardActionArea
+        className={card}
+        style={{ height: '100%' }}
+        onClick={onClick}
+        {...etc}
+      >
+        <Box p={2}>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            {children}
+          </Box>
         </Box>
-      </Box>
-    </CardActionArea>
-  </Card>
-);
+      </CardActionArea>
+    </Card>
+  );
+};
 
 PaginationCard.propTypes = {
   children: PropTypes.node.isRequired,
