@@ -4,7 +4,6 @@ import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-
 import Box from '@material-ui/core/Box';
 import Drop from '../Drop';
 import useStyle from './useStyle';
