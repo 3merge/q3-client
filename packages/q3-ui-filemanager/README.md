@@ -1,14 +1,5 @@
 # 🗃️ Q3 UI File Manager
 
-## API
-
-| Prop                                | Type       | Description                                                                                               |
-| ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
-| `customizer`                        | `Function` | An optional callback fuction for customizing the file name before appending to the formData instance      |
-| `onDelete`                          | `Function` | Calls when a URL is provided to an existing photo                                                         |
-| `onDrop`                            | `Function` | Receives FormData instance as first parameter (https://developer.mozilla.org/en-US/docs/Web/API/FormData) |
-| `url` (Avatar and PhotoUpload only) | `String`   | External source for the existing photo                                                                    |
-
 ## Components
 
 ### Avatar
@@ -64,14 +55,22 @@ auto-generate a preview for all uploaded files.
 
 ```javascript
 import React from 'react';
-import {  PhotoUpload } from 'q3-ui-filemanager';
+import { PhotoUpload } from 'q3-ui-filemanager';
 
-export default () =>  (
-		<PhotoUpload
-			url="https://google.images.ca/1"
-			onDrop={jest.fn()}
-			onDelete={jest.fn()}
-		/>
-	);
+export default () => (
+  <PhotoUpload
+    url="https://google.images.ca/1"
+    onDrop={jest.fn()}
+    onDelete={jest.fn()}
+  />
 );
 ```
+
+## API
+
+| Prop                                | Type       | Description                                                                                               |
+| ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| `customizer`                        | `Function` | An optional callback fuction for customizing the file name before appending to the formData instance      |
+| `onDelete`                          | `Function` | Calls when a URL is provided to an existing photo                                                         |
+| `onDrop`                            | `Function` | Receives FormData instance as first parameter (https://developer.mozilla.org/en-US/docs/Web/API/FormData) |
+| `url` (Avatar and PhotoUpload only) | `String`   | External source for the existing photo                                                                    |
