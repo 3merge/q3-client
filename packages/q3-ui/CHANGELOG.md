@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.1](https://github.com/3merge/q/compare/v1.21.0...v1.21.1) (2020-08-14)
+
+
+### Bug Fixes
+
+* authorship printing out undefined undefined now filters empty/nullish values ([#219](https://github.com/3merge/q/issues/219)) ([e23f993](https://github.com/3merge/q/commit/e23f99337d2f64e15b6e347fe54cc1ba658c3791))
+
+
+
+
+
+
 # [1.21.0](https://github.com/3merge/q/compare/v1.20.22...v1.21.0) (2020-08-07)
 
 **Note:** Version bump only for package q3-ui
