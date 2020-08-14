@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.4](https://github.com/3merge/q/compare/v1.21.3...v1.21.4) (2020-08-14)
+
+
+### Bug Fixes
+
+* stringify array in formData handler ([2d263d3](https://github.com/3merge/q/commit/2d263d34506cecefbdc25a1ac912f5a090b6edee))
+
+
+
+
+
 ## [1.21.3](https://github.com/3merge/q/compare/v1.21.2...v1.21.3) (2020-08-14)
 
 **Note:** Version bump only for package q3-ui-forms
