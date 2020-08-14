@@ -5,41 +5,41 @@ import Header from '../../components/Header';
 import { useAppContext } from '../../hooks';
 import { useTitle } from '../../hooks';
 import { Dispatcher, Store } from '../state';
+import FeaturedPhoto from '../FeaturedPhoto';
 
-export const FEATURED_UPLOAD_KEY = 'featuredUpload';
-
-const DetailHeader = (props) => {
+export const DetailHeaderBackComponent = (props) => {
   const { data } = React.useContext(Store);
   const { patch } = React.useContext(Dispatcher);
   const { can } = useAppContext(props);
   const fn = patch();
 
   return (
+    <>
+      <Back />
+      {can('picture') ? (
+        <FeaturedPhoto
+          component={Avatar}
+          src={data.photo}
+          update={fn}
+        />
+      ) : (
+        // offset missing avatar
+        <div style={{ height: 50 }} />
+      )}
+    </>
+  );
+};
+
+const DetailHeader = (props) => {
+  const { data } = React.useContext(Store);
+
+  return (
     <Header
       {...props}
-      backComponent={
-        <>
-          <Back />
-          {can('picture') ? (
-            <Avatar
-              src={data.photo}
-              customizer={() => {
-                return FEATURED_UPLOAD_KEY;
-              }}
-              onDrop={fn}
-              onDelete={() =>
-                fn({
-                  [FEATURED_UPLOAD_KEY]: null,
-                })
-              }
-            />
-          ) : (
-            // offset missing avatar
-            <div style={{ height: 50 }} />
-          )}
-        </>
-      }
       {...useTitle(data, props)}
+      backComponent={
+        <DetailHeaderBackComponent {...props} />
+      }
     />
   );
 };

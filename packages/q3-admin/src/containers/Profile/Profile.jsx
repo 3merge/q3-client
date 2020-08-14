@@ -6,7 +6,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import { useTranslation } from 'react-i18next';
 import { PhotoUpload } from 'q3-ui-filemanager';
 import TemplateGrid from '../../components/TemplateGrid';
-import { FEATURED_UPLOAD_KEY } from '../DetailHeader/DetailHeader';
+import FeaturedPhoto from '../FeaturedPhoto';
 
 export const generateInitialValues = (
   state,
@@ -49,17 +49,10 @@ const Profile = ({ fields, fieldKeys, formProps }) => {
       title={t('titles:profile')}
       subtitle={t('descriptions:profile')}
       asideComponent={
-        <PhotoUpload
+        <FeaturedPhoto
           src={src}
-          customizer={() => {
-            return FEATURED_UPLOAD_KEY;
-          }}
-          onDrop={update}
-          onDelete={() =>
-            update({
-              [FEATURED_UPLOAD_KEY]: null,
-            })
-          }
+          update={update}
+          component={PhotoUpload}
         />
       }
     >

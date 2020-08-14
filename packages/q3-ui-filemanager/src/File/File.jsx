@@ -8,9 +8,9 @@ import { red } from '@material-ui/core/colors';
 import FileName from '../FileName';
 
 const getApproximateSize = (num) => {
-  const kb = Math.floor(num / 1000);
-  const mb = Math.floor(num / 1000000);
-
+  const roundDown = (v) => Math.floor(num / v);
+  const kb = roundDown(1000);
+  const mb = roundDown(1000000);
   return `~${kb > 1000 ? `${mb}MB` : `${kb}KB`}`;
 };
 
