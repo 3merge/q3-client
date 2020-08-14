@@ -12,7 +12,7 @@
     "alphabetize-object-keys": "^3.0.0",
     "exceljs": "^4.1.0",
     "file-saver": "^2.0.2",
-    "flat": "^5.0.0",
+    "flat": "^5.0.2",
     "lodash": "^4.17.19",
     "micromatch": "^4.0.2",
     "react-i18next": "11.7.0",

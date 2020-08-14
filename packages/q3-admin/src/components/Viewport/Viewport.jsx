@@ -33,6 +33,7 @@ const AppViewport = ({ children }) => {
         overflow: 'hidden',
         flexWrap: 'nowrap',
         position: 'relative',
+        maxHeight: 'calc(100vh - var(--vh))',
       }}
     >
       <Grid container>{children}</Grid>

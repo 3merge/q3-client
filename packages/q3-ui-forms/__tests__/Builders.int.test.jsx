@@ -72,6 +72,7 @@ describe('Builders', () => {
           'profile.0.email': email,
         },
         {},
+        [],
       );
     });
 
@@ -87,6 +88,7 @@ describe('Builders', () => {
           'profile.0.email': '',
         },
         {},
+        [],
       );
 
       expect(
@@ -122,6 +124,7 @@ describe('Builders', () => {
         {
           'profile.0.email': expect.any(String),
         },
+        [],
       );
 
       await act(async () => {
@@ -131,7 +134,11 @@ describe('Builders', () => {
       });
 
       el.update();
-      expect(stateWatcher).toHaveBeenLastCalledWith({}, {});
+      expect(stateWatcher).toHaveBeenLastCalledWith(
+        {},
+        {},
+        [],
+      );
     });
 
     it('should match errors inside the Multistep', async () => {

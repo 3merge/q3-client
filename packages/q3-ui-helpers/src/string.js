@@ -1,6 +1,8 @@
 import minimatch from 'minimatch';
 import moment from 'moment';
 
+const localize = (v) => moment.utc(v).local();
+
 export const is = (v) => typeof v === 'string';
 
 export const hasLength = (v) => is(v) && v.length > 0;
@@ -24,9 +26,6 @@ export const transformArrayIntoDelineatedString = (
   arr = [],
 ) => sanitizeAll(arr).join(', ');
 
-/**
- * Compares two expressions.
- */
 export const hasMatch = (target, pattern) =>
   is(target) && is(pattern)
     ? minimatch(
@@ -35,9 +34,6 @@ export const hasMatch = (target, pattern) =>
       )
     : false;
 
-/**
- * Turns an expression into yes/no
- */
 export const toTruthy = (str, trans) => {
   const t = (v) => (trans ? trans(v) : v);
 
@@ -49,11 +45,6 @@ export const toTruthy = (str, trans) => {
     : t('no');
 };
 
-const localize = (v) => moment.utc(v).local();
-
-/**
- * Standardize date display.
- */
 export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
     ? localize(str).format('MMM DD, Y LT')
@@ -64,9 +55,6 @@ export const toYearMonthDay = (str) =>
     ? localize(str).format('YYYY-MM-DD')
     : '';
 
-/**
- * Standardize cost display.
- */
 export const toPrice = (str) => {
   const num = Number(str);
   return num && !Number.isNaN(num)
@@ -79,10 +67,10 @@ export const toNumber = (str, fallbackText = '') => {
   return Number.isNaN(num) ? fallbackText : num;
 };
 
-/**
- * Reduce the size of a string by truncating it.
- */
 export const ellipsis = (str = '', len = 35) =>
   str && str.length > len
     ? `${str.substring(0, len)}...`
     : str;
+
+export const toUpper = (v) =>
+  typeof v === 'string' ? v.toUpperCase() : '';

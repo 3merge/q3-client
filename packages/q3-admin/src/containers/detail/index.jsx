@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Notes from '../notes';
-import PictureUpload from '../../components/picture';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
@@ -16,7 +15,6 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
-import SidePanelContent from '../../components/SidePanelContent';
 import useStyle from './useStyle';
 
 const Detail = ({
@@ -39,13 +37,6 @@ const Detail = ({
     <Article
       asideComponent={
         <DetailSidePanel
-          picture={
-            picture && (
-              <SidePanelContent title="featuredImage">
-                <PictureUpload />
-              </SidePanelContent>
-            )
-          }
           documentation={
             documentation ? (
               <Box className={cls.docs}>
@@ -67,7 +58,11 @@ const Detail = ({
         </DetailSidePanel>
       }
     >
-      <DetailNavigation {...HeaderProps} views={views} />
+      <DetailNavigation
+        {...HeaderProps}
+        views={views}
+        picture={picture}
+      />
       <DetailRelatedLinks links={links}>
         <DetailViews views={views} />
       </DetailRelatedLinks>

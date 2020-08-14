@@ -92,5 +92,7 @@
   "exportFailed": "Export process failed to start",
   "exportStarted": "Export process queued",
   "reportStarted": "Report process queued",
-  "reportFailed": "Report process failed to start"
+  "reportFailed": "Report process failed to start",
+  "folderNameExists": "This folder already exists",
+  "clickOrDrop": "Click here or drop a file(s) to upload"
 }

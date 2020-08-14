@@ -7,7 +7,6 @@ import Template from '../Template';
 
 const TemplateGrid = ({
   children,
-
   asideComponent,
   ...etc
 }) => (

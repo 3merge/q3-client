@@ -16,6 +16,11 @@ export const isIn = (target, keyName) =>
 export const invokeSafely = (fn) =>
   isFn(fn) ? fn() : null;
 
+export const invokeInSafely = (obj, methodName, ...args) =>
+  isIn(obj, methodName) && isFn(obj[methodName])
+    ? obj[methodName](...args)
+    : undefined;
+
 export const getAllPossibleKeys = (a) =>
   Object.keys(
     a.reduce(

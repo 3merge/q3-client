@@ -1,5 +1,4 @@
 import React from 'react';
-import Tile from 'q3-ui/lib/tile';
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { Definitions, Dispatcher, Store } from './state';

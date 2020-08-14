@@ -231,5 +231,11 @@
   "q3-picture": "Image",
   "q3-docs": "Docs",
   "q3-files": "Files",
-  "markAsDefault": "Set as default"
+  "markAsDefault": "Set as default",
+  "createFolder": "Create folder",
+  "uploadingPhoto": "Upload the photo...",
+  "unsetPhoto": "Delete this photo",
+  "photoFailedToUpload": "Photo failed to upload",
+  "clickToSetPhoto": "Click above or drag a file to set a photo",
+  "imageThumbnailPreview": "Upload preview image"
 }

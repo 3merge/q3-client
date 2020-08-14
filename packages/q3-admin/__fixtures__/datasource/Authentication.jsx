@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from 'q3-ui-permissions';
+import axios from 'axios';
 import users from './users';
 
 const profile = {
@@ -23,6 +24,7 @@ const setupProfilePermissions = (coll) => [
 
 const StoriesApiMockAuthentication = ({ children }) => {
   const [filters, setFilters] = React.useState({});
+  const [session, setSession] = React.useState(profile);
   const characters = setupProfilePermissions('characters');
   const shows = setupProfilePermissions('shows');
 
@@ -31,10 +33,13 @@ const StoriesApiMockAuthentication = ({ children }) => {
       value={{
         update: (data) => {
           setFilters(data.filters);
+          return axios.post('/profile', data).then((r) => {
+            setSession(r.data.profile);
+          });
         },
         state: {
           init: true,
-          profile,
+          profile: session,
           permissions: [...characters, ...shows],
           filters,
         },

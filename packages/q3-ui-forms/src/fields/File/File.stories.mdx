@@ -1,0 +1,30 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Form from '../../builders/Form';
+import { action } from '@storybook/addon-actions';
+import Field from '../../builders/Field';
+
+<Meta title="Forms|Fields/File" component={Field} />
+
+# File
+
+<Preview>
+  <Story name="As default">
+    <Form debug onSubmit={action('onSubmit')}>
+      <Field name="sample" type="file" required />
+    </Form>
+  </Story>
+  <Story name="With value">
+    <Form
+      debug
+      initialValues={{ sample: 'sample.csv' }}
+      onSubmit={action('onSubmit')}
+    >
+      <Field name="sample" type="file" />
+    </Form>
+  </Story>
+</Preview>
