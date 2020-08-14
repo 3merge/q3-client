@@ -14,7 +14,7 @@ export const DetailHeaderBackComponent = (props) => {
   const fn = patch();
 
   return (
-    <span id="q3-detail-back">
+    <>
       <Back />
       {can('picture') ? (
         <>
@@ -26,9 +26,14 @@ export const DetailHeaderBackComponent = (props) => {
         </>
       ) : (
         // offset missing avatar
-        <div style={{ height: 50 }} />
+        <div
+          style={{
+            display: 'inline-block',
+            height: 50,
+          }}
+        />
       )}
-    </span>
+    </>
   );
 };
 

@@ -7,8 +7,15 @@ export default (fn) => (values, attachments) => {
 
   const castToString = (data) =>
     Object.entries(data).reduce((acc, [name, value]) => {
+      let v = value;
+
+      if (Array.isArray(v))
+        v = value.length ? value.map(JSON.stringify) : '';
+
+      if (typeof v === 'object') v = JSON.stringify(value);
+
       Object.assign(acc, {
-        [name]: JSON.stringify(value),
+        [name]: v,
       });
 
       return acc;
