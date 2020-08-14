@@ -1,36 +1,53 @@
 import { object } from 'q3-ui-helpers';
 import { invoke, last } from 'lodash';
+import flat from 'flat';
 
 export default (fn) => (values, attachments) => {
   const formData = new FormData();
 
+  const castToString = (data) =>
+    Object.entries(data).reduce((acc, [name, value]) => {
+      Object.assign(acc, {
+        [name]: JSON.stringify(value),
+      });
+
+      return acc;
+    }, {});
+
   const iterateEntries = (data, methodName, customizer) =>
-    object.hasKeys(data)
-      ? Object.entries(data).forEach(([name, value]) => {
-          invoke(
-            formData,
-            methodName,
-            ...(customizer
-              ? customizer(name, value)
-              : [name, value]),
-          );
-        })
-      : null;
+    Object.entries(data).forEach(([name, value]) => {
+      invoke(
+        formData,
+        methodName,
+        ...(customizer
+          ? customizer(name, value)
+          : [name, value]),
+      );
+    });
 
-  iterateEntries(values, 'set');
+  if (object.hasKeys(values))
+    iterateEntries(
+      castToString(
+        flat(values, {
+          safe: true,
+        }),
+      ),
+      'set',
+    );
 
-  iterateEntries(attachments, 'append', (name, item) => {
-    if (!item.$locals) return [name, item];
+  if (object.hasKeys(attachments))
+    iterateEntries(attachments, 'append', (name, item) => {
+      if (!item.$locals) return [name, item];
 
-    const ext = last(item.name.split('.'));
-    const newFileName = `${item.$locals.saveAs}.${ext}`;
+      const ext = last(item.name.split('.'));
+      const newFileName = `${item.$locals.saveAs}.${ext}`;
 
-    return [
-      `${item.$locals.relativePath}/${newFileName}`,
-      item,
-      newFileName,
-    ];
-  });
+      return [
+        `${item.$locals.relativePath}/${newFileName}`,
+        item,
+        newFileName,
+      ];
+    });
 
   fn(formData);
 };

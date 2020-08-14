@@ -34,4 +34,19 @@ describe('formData', () => {
       foo: 1,
     });
   });
+
+  it('should preserve arrays', (done) => {
+    const handler = jest.fn().mockImplementation((data) => {
+      expect(data.get('foo.bar')).toMatch('1');
+      expect(JSON.parse(data.get('quuz'))).toHaveLength(2);
+      done();
+    });
+
+    formData(handler)({
+      foo: {
+        bar: 1,
+      },
+      quuz: [{ name: 'uno' }, { name: 'duo' }],
+    });
+  });
 });
