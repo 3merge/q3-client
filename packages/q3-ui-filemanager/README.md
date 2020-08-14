@@ -1,20 +1,40 @@
 # 🗃️ Q3 UI File Manager
 
-## FileList
+## API
+
+| Prop                                | Type       | Description                                                                                               |
+| ----------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| `customizer`                        | `Function` | An optional callback fuction for customizing the file name before appending to the formData instance      |
+| `onDelete`                          | `Function` | Calls when a URL is provided to an existing photo                                                         |
+| `onDrop`                            | `Function` | Receives FormData instance as first parameter (https://developer.mozilla.org/en-US/docs/Web/API/FormData) |
+| `url` (Avatar and PhotoUpload only) | `String`   | External source for the existing photo                                                                    |
+
+## Components
+
+### Avatar
+
+An interactive avatar component for setting and removing a
+featured photo (uses a Q3 Dialog to wrap `PhotoUpload`).
+
+```javascript
+import React from 'react';
+import { Avatar } from 'q3-ui-filemanager';
+
+export default () => (
+  <Avatar
+    url="https://google.images.ca/1"
+    onDrop={jest.fn()}
+    onDelete={jest.fn()}
+  />
+);
+```
+
+### FileList
 
 A file manager built with drop-zone for multi-directory file
 storage. It allows users to browse files, create new folders
 and upload files of all types and sizes. The file list best
 suits bulk file handling needs.
-
-### API
-
-| Prop     | Type       | Description                                                                       |
-| -------- | ---------- | --------------------------------------------------------------------------------- |
-| `onDrop` | `Function` | Receives FormData instance as first parameter, which contains all uploading files |
-| `files`  | `Array`    | Organizes existing files by shared directory                                      |
-
-### Example
 
 ```javascript
 import React from 'react';
@@ -28,54 +48,30 @@ const data = [
 	}
 ]
 
-const Example = () => (
-	const handleApiService = (formData) => {
-		// Attaches all uploaded files to a FormData instance
-		// See: https://developer.mozilla.org/en-US/docs/Web/API/FormData
-	};
-
-	return <FileList files={data} onDrop={handleApiService} />;
+export default = () => (
+	<FileList
+		files={data}
+		onDrop={jest.fn()}
+	/>
 );
 
-export default Example;
 ```
 
-## PhotoUpload
+### PhotoUpload
 
 A featured photo manager with delete action. It will
 auto-generate a preview for all uploaded files.
-
-### API
-
-| Prop       | Type       | Description                                                                       |
-| ---------- | ---------- | --------------------------------------------------------------------------------- |
-| `onDelete` | `Function` | Calls when a URL is provided to an existing photo                                 |
-| `onDrop`   | `Function` | Receives FormData instance as first parameter, which contains all uploading files |
-| `url`      | `String`   | External source for the existing photo                                            |
-
-### Example
 
 ```javascript
 import React from 'react';
 import {  PhotoUpload } from 'q3-ui-filemanager';
 
-const Example = () => (
-	const onDelete = () => {
-		// Do something to remove external file from API
-	};
-
-	const onDrop = (formData) => {
-		// See FileList for description
-	};
-
-	return (
+export default () =>  (
 		<PhotoUpload
 			url="https://google.images.ca/1"
-			onDrop={onDrop}
-			onDelete={onDelete}
+			onDrop={jest.fn()}
+			onDelete={jest.fn()}
 		/>
 	);
 );
-
-export default Example;
 ```
