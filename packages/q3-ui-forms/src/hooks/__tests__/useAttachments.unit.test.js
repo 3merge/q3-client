@@ -105,6 +105,7 @@ describe('useAttachments', () => {
       useAttachments(name);
       expect(prevStateHandler).toHaveBeenCalledWith({
         [name]: {
+          $locals: {},
           name: 'foo.csv',
         },
       });

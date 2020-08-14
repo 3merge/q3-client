@@ -58,6 +58,7 @@ export default (name, args = {}) => {
         removeFromAttachmentsState();
         setFieldError(name, e);
       } else {
+        file.$locals = args;
         addToAttachmentsState(file);
         setFieldError(name, null);
       }
