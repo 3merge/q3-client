@@ -46,6 +46,7 @@ export const FileUploadStatus = ({ file, onDelete }) => {
     return (
       <Box mt={-1}>
         <Button
+          id="q3-photo-remove"
           type="button"
           onClick={onDelete}
           className={cls.danger}
@@ -83,7 +84,7 @@ const PhotoUpload = ({ src, onDelete, ...etc }) => {
     <Drop
       {...etc}
       multiple={false}
-      accept=".png,.jpg,.jpeg,.svg"
+      accept=".png,.jpg,.jpeg,.svg,.jfif"
       previewComponent={
         <FileUploadPreview src={previewUrl} />
       }
