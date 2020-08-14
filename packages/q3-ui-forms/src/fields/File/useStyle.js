@@ -7,6 +7,7 @@ export default makeStyles(() => ({
     display: 'flex',
     padding: '10px 18.5px',
     position: 'relative',
+    height: '100%',
     width: '100%',
   },
   button: {

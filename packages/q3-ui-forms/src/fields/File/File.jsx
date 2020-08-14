@@ -69,7 +69,7 @@ export const FileInput = ({ name, value, ...props }) => {
       InputProps={
         value
           ? {
-              inputComponent: renderCustomFileInput,
+              inputComponent: renderCustomFileInput(value),
               ...renderEndAdornment(
                 <IconButton
                   className={cls.remove}

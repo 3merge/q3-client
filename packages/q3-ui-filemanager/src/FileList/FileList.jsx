@@ -61,11 +61,15 @@ const FileList = ({ files, ...props }) => {
 
   const renderFile = (file, i) => (
     <File
+      {...props}
+      {...file}
       key={i}
+      // cannot deconstruct properties of the File Api
+      // so we must explicitly assign here
       error={file.error}
       name={file.name}
-      url={file.url}
       size={file.size}
+      url={file.url}
     />
   );
 

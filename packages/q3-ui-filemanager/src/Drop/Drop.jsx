@@ -51,6 +51,7 @@ export const handleFocusStateOnDrag = (isDragActive) => {
 
 const Drop = ({
   children,
+  customizer,
   onDrop,
   previewComponent,
   root,
@@ -74,7 +75,12 @@ const Drop = ({
       fs.directory = root;
 
       fs.data.forEach((item) => {
-        formData.append(item.name, item);
+        formData.append(
+          customizer
+            ? customizer(item.relativePath)
+            : item.relativePath,
+          item,
+        );
       });
 
       try {

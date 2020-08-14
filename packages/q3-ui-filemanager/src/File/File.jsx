@@ -15,11 +15,13 @@ const getApproximateSize = (num) => {
 };
 
 const FilePending = ({
+  id,
   name,
   size,
   type,
   url,
   error,
+  onDelete,
   ...etc
 }) => {
   const renderAction = () => {
@@ -49,7 +51,7 @@ const FilePending = ({
       );
 
     return (
-      <IconButton>
+      <IconButton onClick={onDelete(id)}>
         <TrashIcon />
       </IconButton>
     );

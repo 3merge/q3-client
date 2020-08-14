@@ -73,7 +73,11 @@ FileUploadStatus.propTypes = {
 };
 
 const PhotoUpload = ({ src, onDelete, ...etc }) => {
-  const [previewUrl, setPreviewUrl] = React.useState(src);
+  const [previewUrl, setPreviewUrl] = React.useState();
+
+  React.useEffect(() => {
+    setPreviewUrl(src);
+  }, [src]);
 
   return (
     <Drop

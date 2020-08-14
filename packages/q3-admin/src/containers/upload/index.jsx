@@ -1,7 +1,7 @@
 import React from 'react';
+import { FileList } from 'q3-ui-filemanager';
 import useRest from 'q3-ui-rest';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { FileList } from 'q3-ui-filemanager';
 import { Definitions } from '../state';
 
 const Upload = () => {
@@ -21,7 +21,7 @@ const Upload = () => {
   return !fetching ? (
     <FileList
       files={uploads}
-      onDelete={remove()}
+      onDelete={remove}
       onDrop={post}
     />
   ) : (
