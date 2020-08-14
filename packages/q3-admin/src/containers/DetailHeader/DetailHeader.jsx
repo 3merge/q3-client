@@ -17,13 +17,13 @@ export const DetailHeaderBackComponent = (props) => {
     <span id="q3-detail-back">
       <Back />
       {can('picture') ? (
-        <span id="q3-detail-avatar">
+        <>
           <FeaturedPhoto
             component={Avatar}
             src={data.photo}
             update={fn}
           />
-        </span>
+        </>
       ) : (
         // offset missing avatar
         <div style={{ height: 50 }} />

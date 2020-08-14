@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import DeleteIcon from '@material-ui/icons/DeleteForever';
-import PersonIcon from '@material-ui/icons/Person';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
 import Box from '@material-ui/core/Box';
 import Drop from '../Drop';
 import useStyle from './useStyle';
@@ -22,7 +22,7 @@ export const FileUploadPreview = ({ src }) => {
           src={src}
         />
       ) : (
-        <PersonIcon className={cls.fit} />
+        <PhotoCameraIcon className={cls.fit} />
       )}
     </Box>
   );
