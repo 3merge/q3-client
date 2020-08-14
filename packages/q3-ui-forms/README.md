@@ -15,7 +15,7 @@ The `Next` component renders a submit button, controlled by
 the form's master validation and submission state. In other
 words, it will disable on load or error automatically.
 
-### Example
+#### Example
 
 ```javascript
 import { Builders } from  'q3-ui-forms';
@@ -38,7 +38,7 @@ export const AsDefault () => (
 );
 ```
 
-### API
+#### API
 
 | Name       | Description                                                   | Type       |
 | ---------- | ------------------------------------------------------------- | ---------- |
@@ -46,3 +46,27 @@ export const AsDefault () => (
 | `children` | Used to forward all state props into a custom element         | `Function` |
 | `label`    | Replace the default button label                              | `String`   |
 | `onClick`  | Used for non-submit buttons that still need to be state-aware | `Function` |
+
+## Helpers
+
+### `handleFormData`
+
+The `handleFormData` curries the `onSubmit` handler to
+process attachments for you. Rather than receiving the raw
+data object, you'll get a FormData instance that can be sent
+directly to your API.
+
+#### Example
+
+```javascript
+import React from 'react';
+import { Builders, helpers } from 'q3-ui-forms';
+
+export default ({ onSubmit }) => (
+  <Builders.Form
+    onSubmit={helpers.handleFormData(onSubmit)}
+  >
+    <Builders.Field type="file" name="example" />
+  </Builders.Form>
+);
+```

@@ -33,7 +33,6 @@ import {  FileList } from 'q3-ui-filemanager';
 
 const data = [
 	{
-    // Will render icon based on file extension
     name: 'filename.csv',
 		url: 'https://path-to-download.com/',
 	}
@@ -45,7 +44,6 @@ export default = () => (
 		onDrop={jest.fn()}
 	/>
 );
-
 ```
 
 ### PhotoUpload

@@ -2,7 +2,7 @@ import moment from 'moment';
 import { get } from 'lodash';
 import { array, string } from 'q3-ui-helpers';
 
-export { default as formData } from './formData';
+export { default as handleFormData } from './formData';
 
 const isUndefined = (v) =>
   v === null || v === undefined || v === '';
