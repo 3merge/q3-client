@@ -21,8 +21,14 @@ import Field from '../../builders/Field';
   <Story name="With value">
     <Form
       debug
+      restart
       initialValues={{ sample: 'sample.csv' }}
-      onSubmit={action('onSubmit')}
+      onSubmit={(v) =>
+        new Promise((r) => {
+          action('onSubmit')(v);
+          r();
+        })
+      }
     >
       <Field name="sample" type="file" />
     </Form>

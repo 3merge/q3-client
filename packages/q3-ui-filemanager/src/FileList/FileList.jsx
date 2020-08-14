@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeWith, setWith } from 'lodash';
+import { mergeWith, setWith, get } from 'lodash';
+import { array } from 'q3-ui-helpers';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -52,10 +53,21 @@ const FileList = ({ files, ...props }) => {
     path: [],
   });
 
+  const getFilesForActivePath = React.useCallback(
+    (data) => {
+      const structuredFiles = makeDirectories(data);
+      const { path = [] } = dir;
+      return array.hasLength(path)
+        ? get(structuredFiles, path, {})
+        : structuredFiles;
+    },
+    [dir],
+  );
+
   React.useEffect(() => {
     setDir((prevState) => ({
       ...prevState,
-      data: makeDirectories(files),
+      data: getFilesForActivePath(files),
     }));
   }, [files]);
 
@@ -96,6 +108,7 @@ const FileList = ({ files, ...props }) => {
       >
         <Grid item>
           <FileListBreadcrumbs
+            getFilesForActivePath={getFilesForActivePath}
             files={makeDirectories(files)}
             setState={setDir}
             state={dir}

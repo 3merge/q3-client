@@ -1,5 +1,6 @@
 import React from 'react';
 import { set } from 'lodash';
+import { object } from 'q3-ui-helpers';
 import { useDropzone } from 'react-dropzone';
 import { DispatcherState } from '../FormsContext';
 
@@ -83,7 +84,9 @@ export default (name, args = {}) => {
   );
 
   const onClear = (e) => {
-    e.stopPropagation();
+    if (object.hasKeys(e) && object.isFn(e.stopPropagation))
+      e.stopPropagation();
+
     set(inputRef, 'current.value', null);
     removeFromAttachmentsState();
     setFieldError(name, null);

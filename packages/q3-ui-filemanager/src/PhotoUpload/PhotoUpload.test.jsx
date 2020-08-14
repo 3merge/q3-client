@@ -1,5 +1,5 @@
 import React from 'react';
-import PersonIcon from '@material-ui/icons/Person';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import {
   FileUploadPreview,
   FileUploadStatus,
@@ -47,5 +47,5 @@ describe('PhotoUpload', () => {
     expectVisual('https://google.ca', 'img'));
 
   it('should render icon', () =>
-    expectVisual(undefined, PersonIcon));
+    expectVisual(undefined, PhotoCameraIcon));
 });
