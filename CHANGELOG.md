@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.5](https://github.com/3merge/q/compare/v1.21.4...v1.21.5) (2020-08-15)
+
+
+### Bug Fixes
+
+* file folder structure for input fields ([12d78f1](https://github.com/3merge/q/commit/12d78f1685dcfa343a48987855c11e8358aad824))
+
+
+
+
+
 ## [1.21.4](https://github.com/3merge/q/compare/v1.21.3...v1.21.4) (2020-08-14)
 
 
