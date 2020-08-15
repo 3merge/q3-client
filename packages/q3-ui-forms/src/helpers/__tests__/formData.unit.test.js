@@ -6,14 +6,13 @@ describe('formData', () => {
 
     foo.name = 'sample.csv';
     foo.$locals = {
-      relativePath: 'parent',
-      saveAs: 'child',
+      folder: 'parent',
     };
 
     const handler = jest.fn().mockImplementation((data) => {
-      expect(data.get('parent/child.csv')).toHaveProperty(
+      expect(data.get('parent/sample.csv')).toHaveProperty(
         'name',
-        'child.csv',
+        'sample.csv',
       );
 
       done();

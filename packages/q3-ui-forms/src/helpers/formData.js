@@ -1,5 +1,5 @@
 import { object } from 'q3-ui-helpers';
-import { invoke, last } from 'lodash';
+import { invoke } from 'lodash';
 import flat from 'flat';
 
 export default (fn) => (values, attachments) => {
@@ -42,16 +42,13 @@ export default (fn) => (values, attachments) => {
 
   if (object.hasKeys(attachments))
     iterateEntries(attachments, 'append', (name, item) => {
-      if (!item.$locals) return [name, item];
-
-      const ext = last(item.name.split('.'));
-      const newFileName = `${item.$locals.saveAs}.${ext}`;
-
-      return [
-        `${item.$locals.relativePath}/${newFileName}`,
-        item,
-        newFileName,
-      ];
+      return item.$locals && item.$locals.folder
+        ? [
+            `${item.$locals.folder}/${item.name}`,
+            item,
+            item.name,
+          ]
+        : [item.name, item, item.name];
     });
 
   fn(formData);
