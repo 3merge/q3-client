@@ -12,7 +12,6 @@ import Segments from '../segments';
 
 const Groups = ({ children, ...etc }) => {
   const { location } = React.useContext(Definitions);
-
   return (
     <Box my={1}>
       <Segments>

@@ -347,7 +347,12 @@ Object.assign(theme, {
     MuiListItem: {
       root: {
         '&$selected': {
-          backgroundColor: '#f4f6f8',
+          backgroundColor: 'rgba(30, 20, 52, 0.08)',
+        },
+      },
+      button: {
+        '&:hover': {
+          backgroundColor: 'rgba(30, 20, 52, 0.08)',
         },
       },
     },
