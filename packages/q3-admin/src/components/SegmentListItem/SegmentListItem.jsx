@@ -48,7 +48,6 @@ const SegmentListItem = ({
       primaryTypographyProps={{
         style: {
           fontSize: '0.933rem',
-          color: 'blue',
         },
       }}
     />
