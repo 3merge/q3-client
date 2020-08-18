@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
   },
 
   muted: {
-    backgroundColor: '#f5f7f9',
+    backgroundColor: '#f4f4f5',
   },
 
   light: {

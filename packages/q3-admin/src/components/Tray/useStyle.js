@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: {
     alignItems: 'center',
-    borderBottom: '2px solid #f4f6f8',
-    borderLeft: '2px solid #f4f6f8',
+    borderBottom: '2px solid #f4f4f5',
+    borderLeft: '2px solid #f4f4f5',
     display: 'flex',
     paddingLeft: theme.spacing(1),
     paddingRight: 150,
@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      backgroundColor: '#f4f6f8',
+      backgroundColor: '#f4f4f5',
       border: 0,
       left: 72,
       marginLeft: 0,

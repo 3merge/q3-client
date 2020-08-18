@@ -258,9 +258,10 @@ Object.assign(theme, {
       },
     },
     MuiTreeItem: {
-      root: {},
-      label: {
-        borderRadius: 5,
+      root: {
+        '&$selected > $content $label': {
+          backgroundColor: 'rgb(231 232 232)',
+        },
       },
     },
     MuiTableCell: {
@@ -347,7 +348,12 @@ Object.assign(theme, {
     MuiListItem: {
       root: {
         '&$selected': {
-          backgroundColor: '#f4f6f8',
+          backgroundColor: 'rgba(30, 20, 52, 0.08)',
+        },
+      },
+      button: {
+        '&:hover': {
+          backgroundColor: 'rgba(30, 20, 52, 0.08)',
         },
       },
     },

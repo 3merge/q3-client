@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
     width: '100%',
 
     [theme.breakpoints.down('md')]: {
-      backgroundColor: '#e2e7ec',
+      backgroundColor: 'rgb(231 232 232)',
     },
 
     [theme.breakpoints.down('sm')]: {
