@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   muted: {
-    backgroundColor: '#f5f7f9',
+    backgroundColor: '#f4f4f5',
   },
   root: {
     height: '100vh',
@@ -33,7 +33,7 @@ export default makeStyles((theme) => ({
     height: 95,
   },
   logo: {
-    backgroundColor: '#f5f7f9',
+    backgroundColor: '#f4f4f5',
     display: 'block',
     fill: theme.palette.primary.contrastText,
     marginBottom: theme.spacing(1),

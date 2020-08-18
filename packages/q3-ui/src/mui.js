@@ -258,9 +258,10 @@ Object.assign(theme, {
       },
     },
     MuiTreeItem: {
-      root: {},
-      label: {
-        borderRadius: 5,
+      root: {
+        '&$selected > $content $label': {
+          backgroundColor: 'rgb(231 232 232)',
+        },
       },
     },
     MuiTableCell: {
