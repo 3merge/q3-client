@@ -26,7 +26,7 @@ describe('EditableTypography', () => {
     });
 
     it('should return Yes', () => {
-      expect(formatText(true, 'checkbox')).toMatch('YES');
+      expect(formatText(true, 'checkbox')).toMatch('yes');
     });
   });
 });

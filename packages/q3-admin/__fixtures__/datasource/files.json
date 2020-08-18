@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "one.csv",
+    "relativePath": "csvs/one.csv",
+    "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": 2,
+    "name": "one.pdf",
+    "relativePath": "docs/one.docx",
+    "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": 3,
+    "name": "me.png",
+    "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  },
+  {
+    "id": 4,
+    "name": "software.exe",
+    "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+  }
+]

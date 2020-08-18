@@ -78,4 +78,12 @@ describe('string', () => {
       );
     });
   });
+
+  describe('"toUppercase"', () => {
+    it('should return empty string', () =>
+      expect(string.toUpper(1)).toEqual(''));
+
+    it('should return uppercase', () =>
+      expect(string.toUpper('foo')).toEqual('FOO'));
+  });
 });

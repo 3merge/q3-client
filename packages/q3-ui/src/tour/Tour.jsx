@@ -107,9 +107,11 @@ const Tour = ({ steps, onDone, previouslySeen }) => {
 
     const observer = new MutationObserver(() => {
       setActiveSteps(
-        activeSteps.filter(({ target }) =>
-          document.querySelector(target),
-        ),
+        activeSteps
+          .filter(({ target }) =>
+            document.querySelector(target),
+          )
+          .map((step) => ({ ...step, placement: 'auto' })),
       );
     });
 

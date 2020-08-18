@@ -4,68 +4,64 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import useStyle from './useStyle';
 
 const Header = ({
   backComponent,
   navComponent,
   children,
   title,
-}) => (
-  <Box
-    style={{
-      borderBottom: navComponent
-        ? '2px solid #f5f7f9'
-        : undefined,
-      position: 'sticky',
-      top: 0,
-      zIndex: 10,
-      background: 'white',
-    }}
-    pt={2}
-    width="100%"
-  >
-    <Container
-      maxWidth="xl"
-      component="header"
-      style={{ padding: '0 1.5rem' }}
-    >
-      <Grid
-        container
-        alignItems="center"
-        justify="space-between"
+}) => {
+  const cls = useStyle({
+    backComponent,
+    navComponent,
+  });
+
+  return (
+    <Box className={cls.root} pt={1} width="100%">
+      <Container
+        maxWidth="xl"
+        component="header"
+        className={cls.header}
       >
-        <Grid item>
-          <Grid
-            container
-            spacing={backComponent ? 1 : 0}
-            alignItems="center"
-            id="q3-app-title"
-          >
-            {backComponent && (
-              <Grid item>{backComponent}</Grid>
-            )}
-            <Grid item>
-              <Typography variant="h5" component="h2">
+        <Grid
+          container
+          alignItems="center"
+          justify="space-between"
+        >
+          <Grid item>
+            <Box
+              display="flex"
+              alignItems="center"
+              id="q3-app-title"
+            >
+              {backComponent}
+              <Typography
+                className={cls.title}
+                variant="h5"
+                component="h2"
+              >
                 {title}
               </Typography>
-            </Grid>
+            </Box>
           </Grid>
+          <Grid item>{children}</Grid>
         </Grid>
-        <Grid item>{children}</Grid>
-      </Grid>
-    </Container>
-    {navComponent && (
-      <Box
-        style={{ backgroundColor: '#FFF' }}
-        zIndex={10}
-        position="sticky"
-        top="0"
-      >
-        {navComponent}
-      </Box>
-    )}
-  </Box>
-);
+      </Container>
+      {navComponent && (
+        <Box
+          id="q3-app-subnav"
+          className={cls.white}
+          zIndex={10}
+          position="sticky"
+          top="0"
+        >
+          {navComponent}
+        </Box>
+      )}
+    </Box>
+  );
+};
 
 Header.propTypes = {
   /**
@@ -80,6 +76,12 @@ Header.propTypes = {
     PropTypes.array,
     PropTypes.object,
   ]),
+
+  navComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   /**
    * Populates the H1 element of this component.
    */
@@ -89,6 +91,7 @@ Header.propTypes = {
 Header.defaultProps = {
   backComponent: null,
   children: null,
+  navComponent: null,
 };
 
 export default Header;

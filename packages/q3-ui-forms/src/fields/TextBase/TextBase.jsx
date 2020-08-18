@@ -7,6 +7,21 @@ import withGrid from '../withGrid';
 import useStyle from './useStyle';
 import { removeDecoratedProps } from '../helpers';
 
+export const marshalProps = (v) =>
+  omit(v, [
+    'attribute',
+    'children',
+    'errors',
+    'setValue',
+    'values',
+    'vars',
+    'positive',
+    'value',
+    'override',
+    'under',
+    'onChange',
+  ]);
+
 export const chosenTextFieldDisplayAttributes = {
   fullWidth: true,
   size: 'small',
@@ -46,19 +61,7 @@ export const TextBase = (props) => {
     <TextField
       // ensure some of the custom props we're using
       // don't forward into the HTML
-      {...omit(allProps, [
-        'attribute',
-        'children',
-        'errors',
-        'setValue',
-        'values',
-        'vars',
-        'positive',
-        'value',
-        'override',
-        'under',
-        'onChange',
-      ])}
+      {...marshalProps(allProps)}
       onChange={(event, ...rest) => {
         // available on synthetic event objects
         if (object.isFn(event.persist)) event.persist();

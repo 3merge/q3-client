@@ -1,6 +1,6 @@
 {
   "name": "q3-components",
-  "version": "1.21.0",
+  "version": "1.21.5",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.3",
@@ -11,10 +11,10 @@
     "class-names": "^1.0.0",
     "lodash": "^4.17.19",
     "moment": "2.27.0",
-    "q3-ui-forms": "^1.21.0",
+    "q3-ui-forms": "^1.21.5",
     "react-i18next": "11.7.0",
     "useful-state": "^1.2.0",
-    "yup": "^0.29.1"
+    "yup": "^0.29.3"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.5.1",

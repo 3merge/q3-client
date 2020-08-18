@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.3](https://github.com/3merge/q/compare/v1.21.2...v1.21.3) (2020-08-14)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.21.2](https://github.com/3merge/q/compare/v1.21.1...v1.21.2) (2020-08-14)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+## [1.21.1](https://github.com/3merge/q/compare/v1.21.0...v1.21.1) (2020-08-14)
+
+
+### Bug Fixes
+
+* prevent icons from floating to right ([#223](https://github.com/3merge/q/issues/223)) ([ca2f451](https://github.com/3merge/q/commit/ca2f451375a1181f83a19ffcdbb45fd24a06a9a3))
+
+
+
+
+
+
 ## [1.20.22](https://github.com/3merge/q/compare/v1.20.21...v1.20.22) (2020-08-06)
 
 **Note:** Version bump only for package q3-admin

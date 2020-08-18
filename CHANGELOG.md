@@ -3,6 +3,58 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.5](https://github.com/3merge/q/compare/v1.21.4...v1.21.5) (2020-08-15)
+
+
+### Bug Fixes
+
+* file folder structure for input fields ([12d78f1](https://github.com/3merge/q/commit/12d78f1685dcfa343a48987855c11e8358aad824))
+
+
+
+
+
+## [1.21.4](https://github.com/3merge/q/compare/v1.21.3...v1.21.4) (2020-08-14)
+
+
+### Bug Fixes
+
+* stringify array in formData handler ([2d263d3](https://github.com/3merge/q/commit/2d263d34506cecefbdc25a1ac912f5a090b6edee))
+
+
+
+
+
+## [1.21.3](https://github.com/3merge/q/compare/v1.21.2...v1.21.3) (2020-08-14)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.21.2](https://github.com/3merge/q/compare/v1.21.1...v1.21.2) (2020-08-14)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.21.1](https://github.com/3merge/q/compare/v1.21.0...v1.21.1) (2020-08-14)
+
+
+### Bug Fixes
+
+* authorship printing out undefined undefined now filters empty/nullish values ([#219](https://github.com/3merge/q/issues/219)) ([e23f993](https://github.com/3merge/q/commit/e23f99337d2f64e15b6e347fe54cc1ba658c3791))
+* prevent icons from floating to right ([#223](https://github.com/3merge/q/issues/223)) ([ca2f451](https://github.com/3merge/q/commit/ca2f451375a1181f83a19ffcdbb45fd24a06a9a3))
+* translate overrideable title prop (closes [#218](https://github.com/3merge/q/issues/218)) ([#220](https://github.com/3merge/q/issues/220)) ([93414c5](https://github.com/3merge/q/commit/93414c5c5abdf4120cad4f5debe9875fd5376947))
+
+
+
+
+
+
 # [1.21.0](https://github.com/3merge/q/compare/v1.20.22...v1.21.0) (2020-08-07)
 
 

@@ -159,6 +159,15 @@ const useRest = ({
   };
 
   React.useEffect(() => {
+    Axios.interceptors.request.use(function (config) {
+      if (config.data instanceof FormData)
+        // eslint-disable-next-line
+        config.headers['Content-Type'] =
+          'multipart/form-data';
+
+      return config;
+    });
+
     const saved = null; // localStorage.getItem(url);
     if (
       !location.search &&

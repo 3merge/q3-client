@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.1](https://github.com/3merge/q/compare/v1.21.0...v1.21.1) (2020-08-14)
+
+
+### Bug Fixes
+
+* translate overrideable title prop (closes [#218](https://github.com/3merge/q/issues/218)) ([#220](https://github.com/3merge/q/issues/220)) ([93414c5](https://github.com/3merge/q/commit/93414c5c5abdf4120cad4f5debe9875fd5376947))
+
+
+
+
+
+
 ## [1.19.34](https://github.com/3merge/q/compare/v1.19.32...v1.19.34) (2020-07-21)
 
 
