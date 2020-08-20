@@ -47,7 +47,7 @@ export const castToRegex = (v) => {
     const exec = (item) =>
       String(new RegExp(pullValue(item), 'gi'));
 
-    return array.hasLength(v) ? v.map(exec) : exec(v);
+    return Array.isArray(v) ? v.map(exec) : exec(v);
   } catch (e) {
     return v;
   }

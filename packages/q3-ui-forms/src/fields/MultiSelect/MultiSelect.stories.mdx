@@ -1,0 +1,32 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import MultiSelect from './MultiSelect';
+import {
+  autocomplete,
+  countries,
+} from '../__fixtures__/options';
+import { Form, Field } from '../../builders';
+
+<Meta
+  title="Forms|Fields/MultiSelect"
+  component={MultiSelect}
+/>
+
+<Preview>
+  <Story name="AsDefault">
+    <Form debug initialValues={{ demo: ['CA'] }}>
+      <Field
+        name="demo"
+        type="multiselect"
+        options={countries}
+        label="Custom label"
+        required
+        filter
+      />
+    </Form>
+  </Story>
+</Preview>

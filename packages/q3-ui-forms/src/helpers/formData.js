@@ -51,5 +51,5 @@ export default (fn) => (values, attachments) => {
         : [item.name, item, item.name];
     });
 
-  fn(formData);
+  return fn(formData);
 };

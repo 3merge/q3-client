@@ -74,16 +74,16 @@ const AbstractedAutoComplete = ({
         variant: 'outlined',
         fullWidth: true,
       })}
-      renderTags={(values, getTagProps) =>
-        getTags(values).map((option, index) => (
+      renderTags={(values, getTagProps) => {
+        return getTags(values).map((option, index) => (
           <Chip
             label={t(option)}
             disabled={index === 0}
             size="small"
             {...getTagProps({ index })}
           />
-        ))
-      }
+        ));
+      }}
       onInputChange={(event, newInputValue) => {
         handleChange(newInputValue);
       }}
