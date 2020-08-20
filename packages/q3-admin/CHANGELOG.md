@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.6](https://github.com/3merge/q/compare/v1.21.5...v1.21.6) (2020-08-20)
+
+
+### Bug Fixes
+
+* hover and active colour ([#228](https://github.com/3merge/q/issues/228)) ([b98677c](https://github.com/3merge/q/commit/b98677c3cb4197ee502e13f3f7f7972216d1abb2))
+* multiselect, filter comparison and other minor tweaks ([#230](https://github.com/3merge/q/issues/230)) ([2453b59](https://github.com/3merge/q/commit/2453b59072b74a2e428dc8ac37ba0e778ddad3af))
+
+
+
+
+
+
 ## [1.21.3](https://github.com/3merge/q/compare/v1.21.2...v1.21.3) (2020-08-14)
 
 **Note:** Version bump only for package q3-admin
