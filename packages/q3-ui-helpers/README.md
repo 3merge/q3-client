@@ -20,6 +20,12 @@ import {
 } from 'q3-ui-helpers';
 ```
 
+### Array
+
+| Name        | Description                                                                         | Parameters | Return    |
+| ----------- | ----------------------------------------------------------------------------------- | ---------- | --------- |
+| `hasLength` | Takes a parameter and determines if its (a) an array and (b) has at least one index | `Any`      | `Boolean` |
+
 ### Browser
 
 | Name               | Description                                                                                            | Parameters         | Return      |
