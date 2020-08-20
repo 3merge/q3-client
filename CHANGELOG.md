@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.7](https://github.com/3merge/q/compare/v1.21.6...v1.21.7) (2020-08-20)
+
+
+### Bug Fixes
+
+* last updated component ([2ffc13c](https://github.com/3merge/q/commit/2ffc13cfc9aa2e5f80051c57e31a9e72cafb262d))
+
+
+
+
+
 ## [1.21.6](https://github.com/3merge/q/compare/v1.21.5...v1.21.6) (2020-08-20)
 
 
