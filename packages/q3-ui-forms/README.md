@@ -12,11 +12,9 @@ components and hooks directly.
 ### Form
 
 The `Form` component renders a basic HTML form element with
-a few decorations like its `onSubmit` handler, `onReset`
-handler, submit button and inline validation system. It also
-sets up a MUI `Grid` for better formatting of internal
-fields. The same features extended to `MultiStep` via the
-HOC `Wrapper`. See `Wrapper` for more information.
+a few decorations like `onSubmit`, `onReset`, a submit
+button and validation. It also sets up a MUI `Grid` for
+formatting. See `Wrapper` for more information.
 
 ### Next
 
@@ -67,18 +65,22 @@ functions and values into each.
 ```javascript
 import { Builders } from  'q3-ui-forms';
 
+const incrementOne = v => v * 1.5;
+const incrementTwo = v => v * 2.5;
+
 export const WithProps () => (
 	<Builders.Form
-		initialData={{ foo: 1, bar: 1 }}
+		initialValues={{ foo: 1, bar: 1 }}
 		// will drop "bar" from state
 		keep={['foo']}
 		marshal={{
-			foo: [(v) => {
-				return v * 1.5;
-			}]
+			foo: [
+				incrementOne,
+				incrementTwo,
+			]
 		}}
 		onSubmit={(values) => {
-			// values.foo contains the marshaled value
+			// values.foo will output 3.75
 			// noop
 		}}
 	>
@@ -89,10 +91,10 @@ export const WithProps () => (
 
 #### Api
 
-| Name      | Description                                                                   | Type       |
-| --------- | ----------------------------------------------------------------------------- | ---------- |
-| `keep`    | Drops every key from `initialValues` that doesn't match an item of this array | `Array`    |
-| `marshal` | Mutates internal field values pre-submit                                      | `Function` |
+| Name      | Description                                                                      | Type       |
+| --------- | -------------------------------------------------------------------------------- | ---------- |
+| `keep`    | Drops every key from `initialValues` that doesn't match an item of this array    | `Array`    |
+| `marshal` | Mutates internal field values pre-submit using a series of compounding functions | `Function` |
 
 ## Helpers
 
