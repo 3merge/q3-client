@@ -46,9 +46,18 @@ export default class QueryStringMatcher {
   }
 
   compare() {
-    return this.next.every((item) =>
-      this.current.includes(item),
-    );
+    return this.next.every((item) => {
+      const includes = this.current.includes(item);
+      try {
+        return (
+          decodeURIComponent(this.current).includes(
+            decodeURIComponent(item),
+          ) || includes
+        );
+      } catch (e) {
+        return includes;
+      }
+    });
   }
 
   isActive() {

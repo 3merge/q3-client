@@ -93,7 +93,7 @@ describe('Adapters', () => {
     return renderer.test('?chips=Canada');
   });
 
-  it('should comma-delineate the state', async () => {
+  it.only('should comma-delineate the state', async () => {
     const renderer = new EncodedUrlRenderer(
       renderChips(countries),
     );

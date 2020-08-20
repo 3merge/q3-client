@@ -10,7 +10,7 @@ export default withState(
     name,
     label,
     helperText,
-    onArrayPush,
+    onChange,
     readOnly,
     disabled,
     error,
@@ -34,7 +34,7 @@ export default withState(
         disabled={disabled}
         helperText={helperText}
         required={required}
-        onChange={onArrayPush}
+        onChange={(e) => onChange(e)}
         SelectProps={{
           value: v,
           renderValue: array.print,
