@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.8](https://github.com/3merge/q/compare/v1.21.7...v1.21.8) (2020-08-26)
+
+
+### Bug Fixes
+
+* **gom-639:** cell translation on non-sort headers ([a0f40c3](https://github.com/3merge/q/commit/a0f40c3dbbf286f79a7d455f9e890a7832921186))
+
+
+
+
+
 ## [1.21.6](https://github.com/3merge/q/compare/v1.21.5...v1.21.6) (2020-08-20)
 
 
