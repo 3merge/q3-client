@@ -89,7 +89,12 @@ export const AccountMenu = ({
 
   if (!isLoggedIn) {
     return (
-      <Grid container spacing={1} justify="flex-end">
+      <Grid
+        container
+        spacing={1}
+        justify="flex-end"
+        wrap="nowrap"
+      >
         <Hidden smDown>
           <Grid item>
             <Button

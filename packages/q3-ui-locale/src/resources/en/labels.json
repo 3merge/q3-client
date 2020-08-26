@@ -238,5 +238,7 @@
   "photoFailedToUpload": "Photo failed to upload",
   "clickToSetPhoto": "Click above or drag a file to set a photo",
   "imageThumbnailPreview": "Upload preview image",
-  "changeFeaturedPhoto": "Change featured photo"
+  "changeFeaturedPhoto": "Change featured photo",
+  "createdAt": "Created",
+  "updatedAt": "Updated"
 }
