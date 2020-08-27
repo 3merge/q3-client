@@ -25,6 +25,8 @@ const Dash = () => (
   </Template>
 );
 
+const Foo = () => null;
+
 const ExampleApp = ({ initialPath }) => (
   <Loading>
     <LocationProvider initialPath={initialPath}>
@@ -41,6 +43,13 @@ const ExampleApp = ({ initialPath }) => (
             }}
             ProfileProps={{
               fields: <p>Append custom form fields!</p>,
+              items: [
+                {
+                  label: 'other',
+                  component: Foo,
+                },
+              ],
+              type: 'multipage',
             }}
             icons={{
               entertainment: BeachAccessIcon,
