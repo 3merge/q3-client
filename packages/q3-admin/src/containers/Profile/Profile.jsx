@@ -7,7 +7,7 @@ import ProfileGeneral from '../ProfileGeneral';
 import ProfileWrapper from '../ProfileWrapper';
 import ProfileNavigation from '../ProfileNavigation';
 
-const Profile = ({
+export const Profile = ({
   type,
   component,
   items: menuItems,
