@@ -5,6 +5,7 @@ import { AuthContext } from 'q3-ui-permissions';
 import Collection from '../collection';
 import Page from '../page';
 
+// eslint-disable-next-line
 export default ({ children }) => {
   const state = React.useContext(AuthContext);
   const ref = get(state, 'state.profile.id');
