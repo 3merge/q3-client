@@ -42,6 +42,7 @@ const AppNavigation = withLocation(
     menuItems,
     subMenuItems,
     footerComponent,
+    menuComponent,
     title = 'Menu',
     root = '/',
   }) => {
@@ -152,18 +153,24 @@ const AppNavigation = withLocation(
                 </Box>
               </Hidden>
             )}
-            <TreeView
-              component="div"
-              defaultExpandIcon={<ArrowRightIcon />}
-              defaultCollapseIcon={<ArrowDropDownIcon />}
-              selected={defaultSelected}
-              defaultExpanded={defaultExpanded}
-            >
-              {recursivelyRenderMenuItems(
-                filterByVisibility(menuItems),
-              )}
-            </TreeView>
-            <NavigationSubMenu items={subMenuItems} />
+            {menuComponent || (
+              <>
+                <TreeView
+                  component="div"
+                  defaultExpandIcon={<ArrowRightIcon />}
+                  defaultCollapseIcon={
+                    <ArrowDropDownIcon />
+                  }
+                  selected={defaultSelected}
+                  defaultExpanded={defaultExpanded}
+                >
+                  {recursivelyRenderMenuItems(
+                    filterByVisibility(menuItems),
+                  )}
+                </TreeView>
+                <NavigationSubMenu items={subMenuItems} />
+              </>
+            )}
           </Box>
           <Box>{footerComponent}</Box>
         </Box>
