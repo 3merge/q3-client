@@ -81,6 +81,7 @@ Tile.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
+    PropTypes.node,
   ]).isRequired,
 };
 

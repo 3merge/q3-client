@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
 import ProfileGeneral from '../ProfileGeneral';
 import ProfileWrapper from '../ProfileWrapper';
 import ProfileNavigation from '../ProfileNavigation';
@@ -30,9 +31,10 @@ export const Profile = ({
 
   const getEl = React.useCallback(() => {
     const el = items.find((item, i) => i === value);
-    return React.createElement(
-      el !== undefined ? el.component : 'div',
-      rest,
+    return el !== undefined ? (
+      React.createElement(el.component, rest)
+    ) : (
+      <Typography>{t('missingConfiguration')}</Typography>
     );
   }, [value, rest]);
 
@@ -49,7 +51,11 @@ export const Profile = ({
             variant="scrollable"
           >
             {items.map((item, i) => (
-              <Tab label={t(item.label)} value={i} />
+              <Tab
+                label={t(item.label)}
+                key={i}
+                value={i}
+              />
             ))}
           </Tabs>
         ) : undefined
@@ -65,8 +71,7 @@ Profile.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      // eslint-disable-next-line
-      component: PropTypes.object,
+      component: PropTypes.func,
     }),
   ),
   type: PropTypes.oneOf(['basic', 'multipage']),
