@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tile from 'q3-ui/lib/tile';
-import Container from '@material-ui/core/Container';
-import Template from '../Template';
+import Grid from '@material-ui/core/Grid';
+import TemplateNavigation from '../TemplateNavigation';
 
-const TemplateFullWidth = ({ children, ...etc }) => (
-  <Template>
-    <Container maxWidth="md" component="article">
-      <Tile {...etc} divider>
-        {children}
-      </Tile>
-    </Container>
-  </Template>
+const TemplateFullWidth = ({
+  asideComponent,
+  children,
+  ...etc
+}) => (
+  <TemplateNavigation {...etc}>
+    {asideComponent && (
+      <Grid item md={4} xs={12} component="aside">
+        {asideComponent}
+      </Grid>
+    )}
+    <Grid item xs component="article">
+      {children}
+    </Grid>
+  </TemplateNavigation>
 );
 
 TemplateFullWidth.propTypes = {
@@ -21,6 +27,11 @@ TemplateFullWidth.propTypes = {
     PropTypes.array,
   ]).isRequired,
   title: PropTypes.string.isRequired,
+  asideComponent: PropTypes.node,
+};
+
+TemplateFullWidth.defaultProps = {
+  asideComponent: null,
 };
 
 export default TemplateFullWidth;

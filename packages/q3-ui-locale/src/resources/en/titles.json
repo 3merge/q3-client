@@ -88,5 +88,6 @@
   "featuredImage": "Featured image",
   "fileManager": "File manager",
   "createFolder": "Create folder",
-  "featuredPhoto": "Featured photo"
+  "featuredPhoto": "Featured photo",
+  "missingConfiguration": "This component requires configuration"
 }

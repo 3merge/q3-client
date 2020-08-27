@@ -1,1 +1,2 @@
-export { default } from './TemplateGrid';
+// aliased to support previous projects
+export { default } from '../TemplateFullWidth';

@@ -1,99 +1,90 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, pick } from 'lodash';
-import { AuthContext } from 'q3-ui-permissions';
-import { Form, Field } from 'q3-ui-forms/lib/builders';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import { useTranslation } from 'react-i18next';
-import { PhotoUpload } from 'q3-ui-filemanager';
-import TemplateGrid from '../../components/TemplateGrid';
-import FeaturedPhoto from '../FeaturedPhoto';
+import Typography from '@material-ui/core/Typography';
+import ProfileGeneral from '../ProfileGeneral';
+import ProfileWrapper from '../ProfileWrapper';
+import ProfileNavigation from '../ProfileNavigation';
 
-export const generateInitialValues = (
-  state,
-  additionalKeys = [],
-) => {
-  const keys = [
-    'id',
-    'email',
-    'firstName',
-    'lastName',
-    ...additionalKeys,
-  ];
+export const Profile = ({
+  type,
+  component,
+  items: menuItems,
+  ...rest
+}) => {
+  const [value, setValue] = React.useState(0);
+  const { t } = useTranslation('titles');
 
-  return pick(
-    get(
-      state,
-      'profile',
-      keys.reduce((acc, next) =>
-        Object.assign(acc, {
-          [next]: '',
-        }),
-      ),
-    ),
-    keys,
-  );
-};
+  const items = [
+    {
+      label: 'General',
+      component: ProfileGeneral,
+    },
+  ].concat(menuItems);
 
-const Profile = ({ fields, fieldKeys, formProps }) => {
-  const { t } = useTranslation();
-  const { state, update } = React.useContext(AuthContext);
-  const src = get(state, 'profile.photo', null);
-
-  const initialValues = generateInitialValues(
-    state,
-    fieldKeys,
+  const handleOnChange = React.useCallback(
+    (e, val) => setValue(val),
+    [value],
   );
 
-  return (
-    <TemplateGrid
-      title={t('titles:profile')}
-      subtitle={t('descriptions:profile')}
-      asideComponent={
-        <FeaturedPhoto
-          src={src}
-          update={update}
-          component={PhotoUpload}
-        />
+  const getEl = React.useCallback(() => {
+    const el = items.find((item, i) => i === value);
+    return el !== undefined ? (
+      React.createElement(el.component, rest)
+    ) : (
+      <Typography>{t('missingConfiguration')}</Typography>
+    );
+  }, [value, rest]);
+
+  return component ? (
+    React.createElement(component)
+  ) : (
+    <ProfileNavigation
+      withPhoto={value === 0}
+      navComponent={
+        items.length > 1 ? (
+          <Tabs
+            onChange={handleOnChange}
+            value={value}
+            variant="scrollable"
+          >
+            {items.map((item, i) => (
+              <Tab
+                label={t(item.label)}
+                key={i}
+                value={i}
+              />
+            ))}
+          </Tabs>
+        ) : undefined
       }
     >
-      <Form
-        {...formProps}
-        showSuccessMessage
-        initialValues={initialValues}
-        onSubmit={(values) =>
-          update(values).then(() => ({
-            message: t('descriptions:profileUpdated'),
-          }))
-        }
-      >
-        <Field name="firstName" type="text" required />
-        <Field name="lastName" type="text" required />
-        <Field name="email" type="email" required />
-        {fields}
-      </Form>
-    </TemplateGrid>
+      {getEl()}
+    </ProfileNavigation>
   );
 };
 
 Profile.propTypes = {
-  fields: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.array,
-  ]),
-  fieldKeys: PropTypes.arrayOf(PropTypes.string),
-  formProps: PropTypes.shape({
-    // eslint-disable-next-line
-    marshal: PropTypes.object,
-    // eslint-disable-next-line
-    translate: PropTypes.object,
-    marshalSelectively: PropTypes.bool,
-  }),
+  component: PropTypes.node,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      component: PropTypes.func,
+    }),
+  ),
+  type: PropTypes.oneOf(['basic', 'multipage']),
 };
 
 Profile.defaultProps = {
-  fields: null,
-  fieldKeys: [],
-  formProps: {},
+  component: null,
+  items: [],
+  type: 'basic',
 };
 
-export default Profile;
+export default (args) => (
+  <ProfileWrapper>
+    {(col) => <Profile {...args} {...col} />}
+  </ProfileWrapper>
+);
