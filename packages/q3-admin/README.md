@@ -7,7 +7,9 @@ state and routing for you. As such, there's a lot of props
 available to customize this setup process. Most are optional
 and used in more advanced cases.
 
-### API
+### Admin
+
+#### API
 
 | Prop                     | Description                                                                                                                                                  | Type     |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
@@ -20,7 +22,7 @@ and used in more advanced cases.
 | `ProfileProps.fieldKeys` | An array of profile attributes to add into the `ProfileGeneral` `initialValues` prop state. Otherwise, it defaults to `firstName`, `lastName` and `email`.   | `array`  |
 | `ProfileProps.formProps` | An object forwarded into the `ProfileGeneral` inner `Form` component.                                                                                        | `object` |
 
-### Example
+#### Example
 
 ```javascript
 import React from 'react';
