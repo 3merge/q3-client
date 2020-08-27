@@ -25,7 +25,9 @@ const Dash = () => (
   </Template>
 );
 
-const Foo = () => null;
+const Foo = (props) => (
+  <p>Custom profile view: {JSON.stringify(props)}</p>
+);
 
 const ExampleApp = ({ initialPath }) => (
   <Loading>
@@ -49,7 +51,6 @@ const ExampleApp = ({ initialPath }) => (
                   component: Foo,
                 },
               ],
-              type: 'multipage',
             }}
             icons={{
               entertainment: BeachAccessIcon,
