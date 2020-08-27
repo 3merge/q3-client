@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/3merge/q/compare/v1.21.8...v1.22.0) (2020-08-27)
+
+
+### Features
+
+* configurable profile route ([30bdc16](https://github.com/3merge/q/commit/30bdc162fc748970a023401a32ccd86939f9f0dd))
+
+
+
+
+
 ## [1.21.8](https://github.com/3merge/q/compare/v1.21.7...v1.21.8) (2020-08-26)
 
 
