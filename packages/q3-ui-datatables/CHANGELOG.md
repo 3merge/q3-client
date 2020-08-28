@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.22.2](https://github.com/3merge/q/compare/v1.22.1...v1.22.2) (2020-08-28)
+
+
+### Bug Fixes
+
+* sorting via non-translated cell title ([db349fb](https://github.com/3merge/q/commit/db349fb02e4f5bdec4330be052bc6fb4c2d16684))
+
+
+
+
+
 ## [1.21.8](https://github.com/3merge/q/compare/v1.21.7...v1.21.8) (2020-08-26)
 
 
