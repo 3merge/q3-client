@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import withSort from '../withSort';
 import useStyles from '../utils/useStyles';
 
-const ColumnSortText = withSort(({ title }) => title);
+const ColumnSortText = withSort(({ label }) => label);
 
 const ColumnSort = ({
   className,
@@ -29,7 +29,8 @@ const ColumnSort = ({
         {onSort ? (
           <ColumnSortText
             onSort={onSort}
-            title={t(title)}
+            title={title}
+            label={t(title)}
           />
         ) : (
           t(title)
