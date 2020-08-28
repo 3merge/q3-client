@@ -26,7 +26,11 @@ const useBrokenLinkChecker = (imgSrc, setFallback) => {
 };
 
 // eslint-disable-next-line
-export const WithBadge = ({ children, className, superscript }) =>
+export const WithBadge = ({
+  children,
+  className,
+  superscript,
+}) =>
   superscript ? (
     <Badge badgeContent={superscript} className={className}>
       {children}
@@ -76,8 +80,8 @@ const ColoredAvatar = ({
 
   const getChildren = () => {
     const Ic = imgSrc;
+    if (Ic && typeof Ic !== 'string') return <Ic />;
 
-    if (Ic) return <Ic />;
     return shouldDisplay(src) ? src : text;
   };
 
