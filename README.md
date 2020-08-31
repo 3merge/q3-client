@@ -16,10 +16,11 @@
 
 <ul>
 <li>
+<a href="./packages/q3-admin">🧰 Q3 Admin Docs</a></li>
+<li>
 <a href="./packages/q3-ui-filemanager">🗃️ File Manager Docs</a></li>
 <li>
 <a href="./packages/q3-ui-filemanager">⌨️ Form Docs</a></li>
-<li>
 <li>
 <a href="./packages/q3-ui-helpers">🆘 Helpers Docs</a>
 </li>
