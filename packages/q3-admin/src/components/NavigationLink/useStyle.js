@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     padding: theme.spacing(0.5),
     textDecoration: 'none !important',
-    color: theme.palette.primary.main,
+    color: 'inherit',
 
     '& svg': {
       marginRight: theme.spacing(0.75),
