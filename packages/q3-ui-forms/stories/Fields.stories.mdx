@@ -7,6 +7,7 @@ import {
 import moment from 'moment';
 import Tile from 'q3-ui/lib/tile';
 import Provider from '../src';
+import Container from '@material-ui/core/Container';
 import { Form, Field, Repeater } from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
@@ -24,7 +25,7 @@ import { Exists } from '../src/presets';
 <Preview>
   <Story name="Types">
     <Provider>
-      <div>
+      <Container>
         <Form
           debug
           unwind={[['repeats', 3]]}
@@ -42,6 +43,13 @@ import { Exists } from '../src/presets';
           <Field name="tel" type="tel" />
           <Field name="postal" type="postal" />
           <Field name="range" type="range" />
+          <Field
+            name="scale"
+            type="scale"
+            step={1}
+            min={0}
+            max={5}
+          />
           <Exists name="group" />
           <Field
             name="autocomplete"
@@ -107,7 +115,7 @@ import { Exists } from '../src/presets';
             <Field name="fruit" type="text" />
           </Repeater>
         </Form>
-      </div>
+      </Container>
     </Provider>
   </Story>
 </Preview>

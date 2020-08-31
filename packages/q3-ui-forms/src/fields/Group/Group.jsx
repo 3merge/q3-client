@@ -13,11 +13,13 @@ const Group = ({
   name,
 }) => (
   <Box my={0.5}>
-    <Box mb={0.25}>
-      <FormLabel component="label" id={name}>
-        {label}:
-      </FormLabel>
-    </Box>
+    {label && (
+      <Box mb={0.25}>
+        <FormLabel component="label" id={name}>
+          {label}:
+        </FormLabel>
+      </Box>
+    )}
     <ButtonGroup role="radiogroup" aria-labelledby={name}>
       {options.map((option) => {
         const checked = option.value === value;

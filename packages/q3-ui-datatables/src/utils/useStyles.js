@@ -251,7 +251,7 @@ export default makeStyles((theme) => ({
   },
 
   cellHeaderLink: {
-    color: theme.palette.primary.main,
+    color: 'inherit',
     display: 'block',
     '& small': {
       maxWidth: 'max-content',
