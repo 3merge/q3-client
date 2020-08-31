@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.24.0](https://github.com/3merge/q/compare/v1.23.0...v1.24.0) (2020-08-31)
+
+
+### Features
+
+* scale field input ([#234](https://github.com/3merge/q/issues/234)) ([eb86686](https://github.com/3merge/q/commit/eb8668662875b025d57b81d1b6df618d212d5d39))
+
+
+
+
+
 ## [1.22.2](https://github.com/3merge/q/compare/v1.22.1...v1.22.2) (2020-08-28)
 
 
