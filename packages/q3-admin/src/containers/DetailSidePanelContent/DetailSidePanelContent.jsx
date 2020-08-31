@@ -8,14 +8,7 @@ import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Dispatcher, Store } from '../state';
-
-const invoke = (fn, data, dispatchers, t) =>
-  typeof fn === 'function' &&
-  typeof data === 'object' &&
-  data !== null &&
-  Object.keys(data).length
-    ? fn(data, dispatchers, t)
-    : [];
+import { makeSidePanelContent } from './helpers';
 
 const getAuthorship = getMeta('createdBy', 'createdAt');
 const getLastModification = getMeta(
@@ -35,8 +28,15 @@ const DetailSidePanelContent = ({
   const createdBy = getAuthorship(data);
   const updatedBy = getLastModification(data);
 
-  const defaultOptions = invoke(registerOptions, ...params);
-  const panels = invoke(registerPanels, ...params);
+  const defaultOptions = makeSidePanelContent(
+    registerOptions,
+    ...params,
+  );
+
+  const panels = makeSidePanelContent(
+    registerPanels,
+    ...params,
+  );
 
   if (createdBy)
     defaultOptions.push({
