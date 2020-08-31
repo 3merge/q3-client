@@ -4,6 +4,7 @@ export { default as Main } from './main';
 export { default as Public } from './public';
 export { default as Header } from './Header';
 export { default as SidePanelContent } from './SidePanelContent';
+export { default as SidePanelAction } from './SidePanelAction';
 
 /**
  * @NOTE
