@@ -25,8 +25,7 @@ const Detail = ({
   notes,
   picture,
   files,
-  tagOptions,
-  tagInstructions,
+
   documentation,
   links,
   views,
@@ -45,14 +44,7 @@ const Detail = ({
             ) : null
           }
           notes={notes && <Notes />}
-          files={
-            files && (
-              <Upload
-                tagOptions={tagOptions}
-                tagInstructions={tagInstructions}
-              />
-            )
-          }
+          files={files && <Upload />}
         >
           <DetailSidePanelContent {...rest} />
         </DetailSidePanel>
