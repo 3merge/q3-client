@@ -79,7 +79,7 @@ using the builders, properties of `genDetail` and
 
 ```javascript
 // programmatic method
-export const registerOptions = (data, methods, t) => {
+export const registerOptions = (data, dispatchers, t) => {
   const out = [];
   if (data.isOn)
     out.push({
@@ -93,8 +93,11 @@ export const registerOptions = (data, methods, t) => {
 // inferred method
 export const registerPanels = [
   {
+    // is localized
     title: 'hello',
-    component: () => null,
+    // receives all params from method above
+    component: ({ data, dispatchers, t }) => null,
+    // runs through comparisons for easy conditional rendering
     conditions: ['foo=1'],
   },
 ];
