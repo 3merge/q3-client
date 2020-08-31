@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.23.0](https://github.com/3merge/q/compare/v1.22.3...v1.23.0) (2020-08-31)
+
+
+### Features
+
+* aside options and panel helper ([#233](https://github.com/3merge/q/issues/233)) ([9eb5dea](https://github.com/3merge/q/commit/9eb5dea4a4f55df1c30a0c424d9c157783766d7e))
+
+
+
+
+
 ## [1.22.1](https://github.com/3merge/q/compare/v1.22.0...v1.22.1) (2020-08-27)
 
 **Note:** Version bump only for package q3-admin
