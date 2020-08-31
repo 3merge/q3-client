@@ -1,0 +1,26 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import SidePanel from '../SidePanel';
+import SidePanelAction from './SidePanelAction';
+
+<Meta
+  title="Admin|SidePanelAction"
+  component={SidePanelAction}
+/>
+
+<Preview>
+  <Story name="With description and button">
+    <SidePanel>
+      <SidePanelAction
+        description="foo"
+        label="foo"
+        onClick={action('onClick')}
+      />
+    </SidePanel>
+  </Story>
+</Preview>
