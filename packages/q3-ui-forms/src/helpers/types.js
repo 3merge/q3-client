@@ -19,6 +19,7 @@ import {
   File,
   Chips,
   Range,
+  Scale,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -56,6 +57,7 @@ const internalFieldTypes = {
   selectable: Selectable,
   editor: Editor,
   file: File,
+  scale: Scale,
 };
 
 export default class FieldBuilder {
@@ -86,6 +88,7 @@ export default class FieldBuilder {
         selectable: '',
         file: null,
         range: undefined,
+        scale: [],
       },
       type,
       '',

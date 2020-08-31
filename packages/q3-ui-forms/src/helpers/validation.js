@@ -149,7 +149,17 @@ export class Validator {
         });
 
         break;
-
+      case 'scale':
+        this.$base = this.$base
+          .array()
+          .ensure()
+          .of(
+            yup
+              .number()
+              .min(this.min || 0)
+              .max(this.max || 100),
+          );
+        break;
       case 'date':
         this.$base = this.$base
           .date()

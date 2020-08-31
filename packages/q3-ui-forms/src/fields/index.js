@@ -12,6 +12,7 @@ export { default as Multiselect } from './MultiSelect';
 export { default as MultiText } from './MultiText';
 export { default as Radio } from './radio';
 export { default as Range } from './Range';
+export { default as Scale } from './Scale';
 export { default as Select } from './Select';
 export { default as Selectable } from './selectable';
 export { default as Text } from './Text';
