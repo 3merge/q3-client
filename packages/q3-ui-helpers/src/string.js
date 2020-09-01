@@ -34,15 +34,15 @@ export const hasMatch = (target, pattern) =>
       )
     : false;
 
-export const toTruthy = (str, trans) => {
-  const t = (v) => (trans ? trans(v) : v);
-
-  return (str === true ||
+export const strToBool = (str) =>
+  (str === true ||
     str === 'true' ||
     (str && str !== 'false')) &&
-    (typeof str !== 'string' || str.toUpperCase() !== 'NO')
-    ? t('yes')
-    : t('no');
+  (typeof str !== 'string' || str.toUpperCase() !== 'NO');
+
+export const toTruthy = (str, trans) => {
+  const t = (v) => (trans ? trans(v) : v);
+  return strToBool(str) ? t('yes') : t('no');
 };
 
 export const toDate = (str, fallbackText = '') =>
