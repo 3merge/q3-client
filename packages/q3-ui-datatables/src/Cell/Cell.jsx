@@ -36,9 +36,9 @@ const Cell = ({ id, value, className, ...props }) => {
 
     if (value.toCheck) {
       formatted = string.strToBool(value.base) ? (
-        <CheckIcon htmlColor="green" />
+        <CheckIcon htmlColor="green" {...args} />
       ) : (
-        <ClearIcon htmlColor="red" />
+        <ClearIcon htmlColor="red" {...args} />
       );
     }
 

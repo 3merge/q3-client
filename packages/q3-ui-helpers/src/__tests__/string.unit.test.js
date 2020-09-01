@@ -30,15 +30,15 @@ describe('string', () => {
     ).toEqual('foo, bar');
   });
 
-  describe('"toTruthy"', () => {
+  describe('"strToBool"', () => {
     test.each([
       false,
       'false',
       null,
       undefined,
       0,
-    ])('should return NO', (v) =>
-      expect(string.toTruthy(v)).toMatch('no'),
+    ])('should return true', (v) =>
+      expect(string.strToBool(v)).toBeFalsy(),
     );
 
     test.each([
@@ -46,10 +46,12 @@ describe('string', () => {
       true,
       'true',
       12,
-    ])('should return YES', (v) =>
-      expect(string.toTruthy(v)).toMatch('yes'),
+    ])('should return false', (v) =>
+      expect(string.strToBool(v)).toBeTruthy(),
     );
+  });
 
+  describe('"toTruthy"', () => {
     it('should run fn', () => {
       expect(
         string.toTruthy(true, (v) => String(v)),
