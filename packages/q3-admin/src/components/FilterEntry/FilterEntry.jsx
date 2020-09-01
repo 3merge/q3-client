@@ -9,13 +9,13 @@ const FilterEntry = (rest) => (
     <Box px={1} width="100%">
       <Grid container>
         <Field
-          {...rest}
           collapse={false}
           suppressHelper
           suppressLabel
           xl={12}
           lg={12}
           md={12}
+          {...rest}
         />
       </Grid>
     </Box>

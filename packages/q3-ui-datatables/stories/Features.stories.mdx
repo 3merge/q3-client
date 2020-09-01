@@ -35,7 +35,7 @@ import TableView from '../src';
           aliasForName="seq"
           total={orders.total}
           data={orders.orders}
-          blacklistColumns={['unknown', 'draft']}
+          blacklistColumns={['unknown']}
           defaultColumns={[
             'unknown',
             'seq',
@@ -70,7 +70,7 @@ import TableView from '../src';
             },
             draft: {
               base: v.draft,
-              toTruthy: true,
+              toCheck: true,
             },
             seq: {
               base: v.seq,

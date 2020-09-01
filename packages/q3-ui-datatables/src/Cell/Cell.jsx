@@ -6,6 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'react-i18next';
 import { string } from 'q3-ui-helpers';
 import { Dot, Helper, Status } from 'q3-components';
+import { green, red } from '@material-ui/core/colors';
 import CellExpansion from '../CellExpansion';
 
 const Cell = ({ id, value, className, ...props }) => {
@@ -36,9 +37,9 @@ const Cell = ({ id, value, className, ...props }) => {
 
     if (value.toCheck) {
       formatted = string.strToBool(value.base) ? (
-        <CheckIcon htmlColor="green" {...args} />
+        <CheckIcon htmlColor={green[500]} {...args} />
       ) : (
-        <ClearIcon htmlColor="red" {...args} />
+        <ClearIcon htmlColor={red[500]} {...args} />
       );
     }
 

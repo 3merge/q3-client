@@ -11,6 +11,7 @@ const Group = ({
   onChange,
   value,
   name,
+  ...rest
 }) => (
   <Box my={0.5}>
     {label && (
@@ -20,7 +21,11 @@ const Group = ({
         </FormLabel>
       </Box>
     )}
-    <ButtonGroup role="radiogroup" aria-labelledby={name}>
+    <ButtonGroup
+      role="radiogroup"
+      aria-labelledby={name}
+      {...rest}
+    >
       {options.map((option) => {
         const checked = option.value === value;
         return (
