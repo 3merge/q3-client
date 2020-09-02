@@ -10,14 +10,14 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
     "@material-ui/pickers": "4.0.0-alpha.9",
-    "axios": "^0.19.0",
-    "lodash": "^4.17.19",
+    "axios": "^0.20.0",
+    "lodash": "^4.17.20",
     "q3-components": "^1.24.1",
     "q3-ui-dialog": "^1.21.1",
     "q3-ui-exports": "^1.21.1",
     "q3-ui-forms": "^1.24.1",
     "q3-ui-permissions": "^1.19.37",
-    "react-i18next": "11.7.0",
+    "react-i18next": "11.7.2",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

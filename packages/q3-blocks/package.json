@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "class-names": "^1.0.0",
-    "lodash": "^4.17.19",
-    "react-i18next": "11.7.0"
+    "lodash": "^4.17.20",
+    "react-i18next": "11.7.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.5.1",

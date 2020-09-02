@@ -25,9 +25,7 @@ const Dash = () => (
   </Template>
 );
 
-const Foo = (props) => (
-  <p>Custom profile view: {JSON.stringify(props)}</p>
-);
+const Foo = () => <p>Custom profile view</p>;
 
 const ExampleApp = ({ initialPath }) => (
   <Loading>
