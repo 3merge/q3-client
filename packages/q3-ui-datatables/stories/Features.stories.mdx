@@ -5,6 +5,7 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Tile from 'q3-ui/lib/tile';
+import IconButton from 'q3-ui/lib/iconButton';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import AccountBox from '@material-ui/icons/AccountBox';
@@ -124,6 +125,16 @@ import TableView from '../src';
               renderProps: {},
             },
           })}
+          renderCustomRowActions={() => (
+            <IconButton
+              label="DO SOmething"
+              icon={AccountBox}
+              buttonProps={{
+                color: 'secondary',
+                size: 'small',
+              }}
+            />
+          )}
           actions={[
             {
               label: 'Yikes',

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import IconButton from 'q3-ui/lib/iconButton';
@@ -9,17 +8,14 @@ import Dialog from 'q3-ui-dialog';
 import { array } from 'q3-ui-helpers';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import CloudDownload from '@material-ui/icons/CloudDownload';
-import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
 import { State } from 'q3-ui-exports';
 import { withLocation } from 'with-location';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import FileUpload from '../../components/FileUpload';
 import ActionList from '../../components/ActionList';
+import useIo from '../../hooks/useIo';
 
 const TableIo = ({ io, data, params }) => {
-  const { enqueueSnackbar } = useSnackbar();
-  const { t } = useTranslation('descriptions');
   const exportState = React.useContext(State);
   const checked = get(exportState, 'checked', []);
 
@@ -35,53 +31,10 @@ const TableIo = ({ io, data, params }) => {
   const hasExports = gt(ex);
   const hasImports = gt(im);
 
-  const getQueryString = (template) => {
-    params.delete('sort');
-    params.delete('page');
-    params.delete('limit');
-    params.set('template', template);
-
-    if (checked && checked.length)
-      params.set('ids', checked.join(','));
-
-    return `?${params.toString()}`;
-  };
-
-  const exportCollection = (template) => () =>
-    axios
-      .post(`/exports${getQueryString(template)}`)
-      .then(() =>
-        enqueueSnackbar(t('exportStarted'), {
-          variant: 'info',
-        }),
-      )
-      .catch(() =>
-        enqueueSnackbar(t('exportFailed'), {
-          variant: 'error',
-        }),
-      );
-
-  const importCollection = (template) => ([f]) => {
-    const formData = new FormData();
-
-    formData.append('import', f.src.file);
-    return axios
-      .post(`/imports?template=${template}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(() =>
-        enqueueSnackbar(t('importStarted'), {
-          variant: 'info',
-        }),
-      )
-      .catch(() =>
-        enqueueSnackbar(t('importFailed'), {
-          variant: 'error',
-        }),
-      );
-  };
+  const { exportCollection, importCollection } = useIo(
+    checked,
+    params,
+  );
 
   return (
     <Dialog
