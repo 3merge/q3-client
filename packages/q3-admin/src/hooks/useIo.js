@@ -9,7 +9,9 @@ export default (ids, ...rest) => {
 
   const getQueryString = (template, urlParams) => {
     if (!object.hasKeys(urlParams))
-      return `?template=${template}`;
+      return ids
+        ? `?template=${template}&ids=${ids}`
+        : `?template=${template}`;
 
     urlParams.delete('limit');
     urlParams.delete('page');

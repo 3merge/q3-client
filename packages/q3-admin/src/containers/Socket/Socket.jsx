@@ -3,10 +3,12 @@ import { getSocketInstance } from '../../hooks/useSocket';
 
 export const SocketContext = React.createContext();
 
-const Socket = ({ children }) => {
+const Socket = ({ children, onDownload }) => {
   const io = getSocketInstance();
 
   React.useEffect(() => {
+    io.on('download', onDownload);
+
     io.on('connect_error', () => {
       io.close();
     });

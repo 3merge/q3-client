@@ -176,7 +176,13 @@ Object.assign(theme, {
         fontSize: '0.911rem',
       },
     },
-
+    MuiSnackbar: {
+      root: {
+        '& *': {
+          fontSize: '0.911rem !important',
+        },
+      },
+    },
     MuiSwitch: {
       colorSecondary: {
         '&.Mui-disabled': {
