@@ -4,6 +4,7 @@ import Add from './Add';
 import Filters from './Filters';
 import General from './General';
 import Docs from './Docs';
+import useIo from '../../../src/hooks/useIo';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
@@ -42,6 +43,10 @@ export default new AbstractCollectionBuilder({
       imports: [],
       // eslint-disable-next-line
       renderer: () => <p>Look at me!</p>,
+    },
+    renderCustomRowActions: (row) => {
+      const { exportCollection } = useIo(row.id);
+      return <p>FN</p>;
     },
   })
   .genListSettings({

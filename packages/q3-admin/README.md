@@ -131,3 +131,39 @@ export default ({ isOn, update }) => (
   />
 );
 ```
+
+## Hooks
+
+### useIo
+
+Returns `exportCollection` and `importCollection` for
+connecting to Q3 API's process automation. Both methods are
+curried and intended for use with click handlers. Note that
+this hook does not actual call React hooks API, so it may be
+used in non-components.
+
+#### API
+
+| Parameter | Description                                                 | Type     |
+| --------- | ----------------------------------------------------------- | -------- |
+| `ids`     | Document IDs to target in the bulk operation                | `string  | array` |
+| `params`  | Location URL parameter methods (i.e. delete, set, toString) | `object` |
+
+#### Example
+
+```javascript
+import { useIo } from 'q3-admin/lib/hooks';
+import { withLocation } from 'with-location';
+
+export default withLocation(({ params }) => {
+  const { exportCollection } = useIo(1, params);
+  return (
+    <button
+      type="button"
+      onClick={exportCollection('templateName')}
+    >
+      Export ID #1
+    </button>
+  );
+});
+```

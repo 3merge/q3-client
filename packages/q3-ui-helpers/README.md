@@ -32,6 +32,28 @@ import {
 | ------------------ | ------------------------------------------------------------------------------------------------------ | ------------------ | ----------- |
 | `getFileThumbnail` | Takes a file and invokes the callback with either an error object or temporary URL to preview the file | `Blob`, `Function` | `Undefined` |
 
+### Object
+
+| Name             | Description                                                                                            | Parameters                    | Return |
+| ---------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------- | ------ |
+| `invokeSafely`   | Takes a function and fowards all parameters into it if it is in fact a function                        | `Function`, [`Any`]           | `Any*` |
+| `invokeInSafely` | Takes an object and a targetted method then fowards all parameters into it if it is in fact a function | `Function`, `String`, [`Any`] | `Any*` |
+
+#### Examples
+
+```javascript
+import { object } from 'q3-ui-helpers';
+
+const fn = (num) => 1 * num;
+const target = { fn };
+
+object.invokeSafely(null, 10); // returns undefined
+object.invokeSafely(fn, 10); // returns 10
+
+object.invokeInSafely(null, undefined, 10); // returns undefined
+object.invokeInSafely(target, 'fn', 10); // returns 10
+```
+
 ### String
 
 | Name      | Description                                                                                                | Parameters | Return   |

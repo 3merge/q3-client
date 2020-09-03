@@ -8,11 +8,11 @@ import {
   UPDATE,
 } from './utils/constants';
 
-export const destroySession = () => {
+export const destroySession = (location = '/') => {
   Cookies.remove(TOKEN);
   Cookies.remove(NONCE);
   localStorage.clear();
-  window.location.replace('/');
+  window.location.replace(location);
 };
 
 export const setSession = ({ token, nonce }) => {

@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
+import TableCell from '@material-ui/core/TableCell';
 import { get, pick } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
 import TableHead from '@material-ui/core/TableHead';
-import { array } from 'q3-ui-helpers';
+import { array, object } from 'q3-ui-helpers';
 import classNames from 'classnames';
 import ColumnSelectAll from './ColumnSelectAll';
 import useStyles from './utils/useStyles';
@@ -32,11 +33,11 @@ const TableView = ({
   allColumns,
   defaultColumns,
   blacklistColumns,
-
   id,
   aliasForName,
   total,
   renderCustomActions,
+  renderCustomRowActions,
   resolvers,
   data = [],
   onSort,
@@ -114,6 +115,9 @@ const TableView = ({
                     columns={columns}
                   />
                 </ColumnSelectAll>
+                {object.isFn(renderCustomRowActions) ? (
+                  <th aria-label="Actions" />
+                ) : undefined}
                 {activeColumns.map((column) => {
                   const sortable = Array.isArray(virtuals)
                     ? !virtuals.includes(column)
@@ -134,6 +138,14 @@ const TableView = ({
               {processed.map((row) => (
                 <TableRow className={flexRow}>
                   <RowHeader {...row} />
+                  {object.isFn(renderCustomRowActions) ? (
+                    <TableCell className={cellWidth}>
+                      <div>
+                        {renderCustomRowActions(row)}
+                      </div>
+                    </TableCell>
+                  ) : null}
+
                   {activeColumns.map((column) => (
                     <Cell
                       id={column}
@@ -158,7 +170,7 @@ const TableView = ({
         columns={allColumns}
         data={data}
         actions={
-          renderCustomActions
+          object.isFn(renderCustomActions)
             ? renderCustomActions(data)
             : []
         }

@@ -13,8 +13,8 @@ export const isFn = (fn) => typeof fn === 'function';
 export const isIn = (target, keyName) =>
   hasKeys(target) && keyName in target;
 
-export const invokeSafely = (fn) =>
-  isFn(fn) ? fn() : null;
+export const invokeSafely = (fn, ...args) =>
+  isFn(fn) ? fn(...args) : null;
 
 export const invokeInSafely = (obj, methodName, ...args) =>
   isIn(obj, methodName) && isFn(obj[methodName])

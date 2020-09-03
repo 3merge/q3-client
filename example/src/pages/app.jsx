@@ -3,6 +3,8 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import { Router } from '@reach/router';
 import Admin from 'q3-admin';
 import { AuthContext } from 'q3-ui-permissions';
+import file from 'file-saver';
+import { last } from 'lodash';
 import pages from '../views';
 
 export default () => {
@@ -21,6 +23,15 @@ export default () => {
           directory: '/app/',
           redirectPathForUnauthorizedUsers: '/login',
           pages,
+        }}
+        SocketProps={{
+          onDownload: ({ data }) => {
+            if (
+              data &&
+              data.path.includes('characters.pdf')
+            )
+              window.open(data.url);
+          },
         }}
       />
     </Router>

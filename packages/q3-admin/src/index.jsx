@@ -26,6 +26,7 @@ const Admin = ({
   AppProps,
   NavProps,
   ProfileProps,
+  SocketProps,
 }) => {
   const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
@@ -39,7 +40,7 @@ const Admin = ({
             menuItems={usePages(AppProps.pages, icons)}
             root={root}
           />
-          <Socket>
+          <Socket {...SocketProps}>
             <Box className={cls.main}>
               <ProfileActions
                 profileItems={[
