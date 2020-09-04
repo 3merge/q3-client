@@ -65,10 +65,6 @@ const CartProvider = ({
     if (auth && auth.state && auth.state.init) poll();
   }, [auth]);
 
-  const Renderer = React.useMemo(() => {
-    return children;
-  }, [JSON.stringify(state), hasError]);
-
   return (
     <CartLoadingContext.Provider value={loading}>
       <CartContext.Provider
@@ -88,7 +84,7 @@ const CartProvider = ({
           poll,
         }}
       >
-        {Renderer}
+        {children}
       </CartContext.Provider>
     </CartLoadingContext.Provider>
   );

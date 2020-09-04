@@ -87,13 +87,12 @@ describe('Cart', () => {
     await addItemToCart(el);
     openCartDrawer(el);
 
-    await act(async () => {
-      const btn = el
-        .find(Drawer)
-        .find(`.${DRAWER_LINE_ITEM_UPDATE_CLASS}`)
-        .find('input');
+    const btn = el
+      .find(Drawer)
+      .find(`.${DRAWER_LINE_ITEM_UPDATE_CLASS}`)
+      .find('input');
 
-      btn.update();
+    await act(async () => {
       btn.props().onBlur({
         target: {
           value: 6,
@@ -102,6 +101,7 @@ describe('Cart', () => {
     });
 
     el.update();
+
     expect(
       el
         .find(`.${DRAWER_LINE_ITEM_UPDATE_CLASS}`)
