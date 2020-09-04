@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import { CartContext } from '../context';
+import {
+  CartContext,
+  CartLoadingContext,
+} from '../context';
 import { DRAWER_LINE_ITEM_REMOVE_CLASS } from '../constants';
 
 const LineItemRemove = ({ id }) => {
   const { t } = useTranslation();
   const { remove } = React.useContext(CartContext);
+  const loading = React.useContext(CartLoadingContext);
 
   return (
     <Box>
@@ -17,6 +21,7 @@ const LineItemRemove = ({ id }) => {
         size="small"
         onClick={() => remove(id)}
         className={DRAWER_LINE_ITEM_REMOVE_CLASS}
+        disabled={loading}
         style={{
           textDecoration: 'underline',
           justifyContent: 'flex-start',

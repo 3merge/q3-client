@@ -15,7 +15,7 @@ import useStyle from './useStyle';
 
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
-  const { avatar, action } = useStyle();
+  const { avatar } = useStyle();
 
   return items.map((item, i) => {
     const {
