@@ -10,6 +10,10 @@ const contextDefaults = {
   total: 0,
 };
 
+export const CartLoadingContext = React.createContext(
+  false,
+);
+
 export const CartContext = React.createContext(
   contextDefaults,
 );
@@ -61,26 +65,32 @@ const CartProvider = ({
     if (auth && auth.state && auth.state.init) poll();
   }, [auth]);
 
+  const Renderer = React.useMemo(() => {
+    return children;
+  }, [JSON.stringify(state), hasError]);
+
   return (
-    <CartContext.Provider
-      value={{
-        ...state,
-        ...rest,
-        loading,
-        hasError,
-        add: re(addItemToOrder),
-        remove: re(removeItemInOrder),
-        update: re(updateItemInOrder),
-        updateOrder: updateOrder
-          ? (...args) =>
-              processPromise(updateOrder(...args))
-          : null,
-        clear: (...args) => processPromise(clear(...args)),
-        poll,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
+    <CartLoadingContext.Provider value={loading}>
+      <CartContext.Provider
+        value={{
+          ...state,
+          ...rest,
+          hasError,
+          add: re(addItemToOrder),
+          remove: re(removeItemInOrder),
+          update: re(updateItemInOrder),
+          updateOrder: updateOrder
+            ? (...args) =>
+                processPromise(updateOrder(...args))
+            : null,
+          clear: (...args) =>
+            processPromise(clear(...args)),
+          poll,
+        }}
+      >
+        {Renderer}
+      </CartContext.Provider>
+    </CartLoadingContext.Provider>
   );
 };
 

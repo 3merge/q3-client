@@ -5,19 +5,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Fade from '@material-ui/core/Fade';
-import { CartContext } from '../context';
+import { CartLoadingContext } from '../context';
 import DrawerSubtotal from '../DrawerSubtotal';
 import DrawerTitle from '../DrawerTitle';
 import DrawerTrash from '../DrawerTrash';
 import useStyle from './useStyle';
 
 const CartDrawer = ({ children, ...rest }) => {
-  const { loading } = React.useContext(CartContext);
+  const loading = React.useContext(CartLoadingContext);
   const { bar } = useStyle();
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       color="inherit"
       elevation={10}
     >

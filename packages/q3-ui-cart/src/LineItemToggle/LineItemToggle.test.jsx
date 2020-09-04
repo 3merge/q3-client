@@ -21,7 +21,7 @@ const getQuantityField = () =>
 
 describe('LineItemToggle', () => {
   it('should disable the quantity field on load', () => {
-    stubContext({ loading: true });
+    stubContext(true);
     expect(getQuantityField()).toHaveProperty(
       'disabled',
       true,
@@ -38,7 +38,7 @@ describe('LineItemToggle', () => {
     expect(getValueFromParam(12)).toBe(12);
   });
 
-  it('should disable the quantity field on load', () => {
+  it('should call update', () => {
     const update = jest.fn();
     stubContext({
       update,
@@ -53,7 +53,7 @@ describe('LineItemToggle', () => {
     expect(update).toHaveBeenCalled();
   });
 
-  it('should disable the quantity field on load', () => {
+  it('should call remove', () => {
     const remove = jest.fn();
     stubContext({
       remove,

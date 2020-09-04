@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { IconButtonWithLoading } from 'q3-ui/lib/iconButton';
 import { useOpen } from 'useful-state';
-import { CartContext } from '../context';
+import {
+  CartContext,
+  CartLoadingContext,
+} from '../context';
 import { DRAWER_LAUNCHER } from '../constants';
 
 const CartLauncher = ({ children }) => {
-  const {
-    loading,
-    hasError,
-    items = [],
-  } = React.useContext(CartContext);
+  const { hasError, items = [] } = React.useContext(
+    CartContext,
+  );
+  const loading = React.useContext(CartLoadingContext);
 
   const { isOpen, close, open } = useOpen();
 

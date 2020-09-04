@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Box from '@material-ui/core/Box';
 import { Quantity } from 'q3-components';
-import { CartContext } from '../context';
+import {
+  CartContext,
+  CartLoadingContext,
+} from '../context';
 import { DRAWER_LINE_ITEM_UPDATE_CLASS } from '../constants';
 
 export const getValueFromParam = (e) =>
@@ -15,9 +18,8 @@ export const LineItemToggle = ({
   product,
   quantity,
 }) => {
-  const { update, remove, loading } = React.useContext(
-    CartContext,
-  );
+  const loading = React.useContext(CartLoadingContext);
+  const { update, remove } = React.useContext(CartContext);
 
   const sendUpdateRequest = React.useCallback(
     (e) => {
