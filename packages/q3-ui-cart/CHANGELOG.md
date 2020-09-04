@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.6](https://github.com/3merge/q/compare/v1.24.5...v1.24.6) (2020-09-04)
+
+
+### Bug Fixes
+
+* memo in cart ([3b92161](https://github.com/3merge/q/commit/3b92161fd8460a04f2eef23cd9dacc104deee0ea))
+
+
+
+
+
 ## [1.24.5](https://github.com/3merge/q/compare/v1.24.4...v1.24.5) (2020-09-04)
 
 **Note:** Version bump only for package q3-ui-cart
