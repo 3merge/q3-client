@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.4](https://github.com/3merge/q/compare/v1.24.3...v1.24.4) (2020-09-04)
+
+
+### Bug Fixes
+
+* non-processed props to custom row renderer ([#238](https://github.com/3merge/q/issues/238)) ([2da30b9](https://github.com/3merge/q/commit/2da30b96975e78792b761b431fc8d1fd172883c1))
+* prevent destroySession from getting event object ([#237](https://github.com/3merge/q/issues/237)) ([b168b6c](https://github.com/3merge/q/commit/b168b6c81875d40b381b2d4c78f16a1ca41d7580))
+
+
+
+
+
 ## [1.24.3](https://github.com/3merge/q/compare/v1.24.2...v1.24.3) (2020-09-03)
 
 **Note:** Version bump only for package q3-client
