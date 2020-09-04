@@ -31,7 +31,7 @@ const ProfileActions = ({ children, profileItems }) => {
             src={get(state, 'profile.photo')}
             items={items.concat({
               label: 'logout',
-              onClick: destroySession,
+              onClick: () => destroySession(),
             })}
           />
         </Grid>
