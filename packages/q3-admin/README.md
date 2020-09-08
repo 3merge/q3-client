@@ -103,6 +103,43 @@ export const registerPanels = [
 ];
 ```
 
+### Gatekeeper
+
+The container for checking user authentication. Redirects
+users if necessary.
+
+#### API
+
+| Prop                    | Description                                                                                                                                                                                     | Type     |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `redirectCheck`         | Redirects users when the function returns a string. The function can take user profile as an argument. Note: redirectPathOnPublic and redirectPathOnSession are evaluated before this function. | `func`   |
+| `redirectPathOnSession` | Redirects a user when logged in and this prop is a string.                                                                                                                                      | `string` |
+| `redirectPathOnPublic`  | Redirects a user when not logged in and this prop is a string                                                                                                                                   | `string` |
+| `children`              | children will be returned when none of conditions are true                                                                                                                                      | `node`   |
+
+#### Example
+
+```javascript
+import { Gatekeeper } from  'q3-admin/lib/containers';
+import  IsBrowserReady  from  'gatsby-theme-q3/src/components/IsBrowserReady';
+
+const shouldRedirect = (auth) => auth.role === 'Employer" ? '/employers' : undefined;
+
+const AdminPrivateGateway = ({ children, ...rest }) => {
+	return (
+		<IsBrowserReady>
+			<Gatekeeper
+				redirectCheck={shouldRedirect}
+				redirectPathOnPublic="/login"
+				{...rest}
+			>
+				{children}
+			</Gatekeeper>
+		</IsBrowserReady>
+	);
+};
+```
+
 ## Components
 
 ### SidePanelAction
