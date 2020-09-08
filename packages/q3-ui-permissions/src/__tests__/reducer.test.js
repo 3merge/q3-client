@@ -44,6 +44,10 @@ describe('Permissions reducer', () => {
       ).toThrowError());
   });
 
+  // {
+  //   "q3-datatables-column-employers": "industry,rating.accessible,rating.disabilities,rating.gender,rating.immigrants,rating.indigenous,rating.universalDesign"
+  // }
+
   describe('destroySession', () => {
     it('should destroy cookies', () => {
       destroySession();

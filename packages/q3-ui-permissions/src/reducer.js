@@ -8,10 +8,19 @@ import {
   UPDATE,
 } from './utils/constants';
 
+const removeLocalStorageExceptQ3 = () => {
+  // eslint-disable-next-line consistent-return
+  Object.keys(localStorage).forEach((key) => {
+    if (!key.includes('q3'))
+      return localStorage.removeItem(key);
+  });
+};
+
 export const destroySession = (location = '/') => {
   Cookies.remove(TOKEN);
   Cookies.remove(NONCE);
-  localStorage.clear();
+  removeLocalStorageExceptQ3();
+
   window.location.replace(location);
 };
 
