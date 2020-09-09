@@ -2,7 +2,7 @@ import moment from 'moment';
 import {
   serializeDateFromUtcToLocalTime,
   convertUtcDateStringsToLocalTime,
-} from '../localTimeInterceptors';
+} from './useTimezoneInterceptor';
 
 describe('Rest config', () => {
   describe('"serializeDateFromUtcToLocalTime"', () => {

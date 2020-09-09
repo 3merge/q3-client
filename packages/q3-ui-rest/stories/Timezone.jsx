@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import localTimeInterceptors from '../src/helpers/localTimeInterceptors';
-import { Form } from '../src/builders';
+import useTimezoneInterceptor from '../src/useTimezoneInterceptor';
 
 const Dates = ({ data }) =>
   data.map((t) => {
@@ -19,10 +18,12 @@ const Dates = ({ data }) =>
   });
 
 const Timezone = () => {
+  useTimezoneInterceptor();
+
   const [ds, setDs] = useState([]);
 
-  const onSubmit = () => {
-    return axios
+  const onClick = () =>
+    axios
       .get('https://rickandmortyapi.com/api/character/')
       .then(({ data }) => {
         const res = data.results;
@@ -34,15 +35,12 @@ const Timezone = () => {
         ]);
         setDs(result);
       });
-  };
-
-  localTimeInterceptors();
 
   return (
     <>
-      <Form showSuccessMessage onSubmit={onSubmit}>
+      <button type="button" onClick={onClick}>
         <h2>Click the button to get times</h2>
-      </Form>
+      </button>
       <Dates data={ds} />
     </>
   );
