@@ -6,7 +6,7 @@ import { TIMEZONE } from '../constants';
 
 const getTimezone = () => moment.tz.guess();
 
-const setTimezone = (timezone) =>
+const setTimezone = (timezone = '') =>
   localStorage.setItem(
     TIMEZONE,
     timezone.trim() || getTimezone(),

@@ -80,7 +80,7 @@ export const WithFilter = () => (
       value={{
         ...stub,
         // eslint-disable-next-line
-        removeBulk: ()=> alert('Bulk delete!'),
+        removeBulk: () => alert('Bulk delete!'),
         data: renderRows(),
       }}
     >
@@ -116,7 +116,7 @@ export const WithFilterTriggerOnly = () => (
       value={{
         ...stub,
         // eslint-disable-next-line
-        removeBulk: ()=> alert('Bulk delete!'),
+        removeBulk: () => alert('Bulk delete!'),
         data: renderRows(),
       }}
     >
