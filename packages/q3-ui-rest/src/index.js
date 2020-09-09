@@ -7,4 +7,5 @@ export {
   getSafelyForAutoCompleteWithProjection,
 } from './getForAutocomplete';
 
+export { default as useTimezoneInterceptor } from './useTimezoneInterceptor';
 export { getAsCSV as getCSV } from './helpers';

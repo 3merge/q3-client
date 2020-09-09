@@ -64,6 +64,8 @@ export function convertUtcDateStringsToLocalTime(
 const useUTCToLocalInterceptors = (timezone) => {
   setTimezone(timezone);
 
+  console.log(getTimezone());
+
   axios.interceptors.request.use(
     serializeDateFromUtcToLocalTime,
   );
