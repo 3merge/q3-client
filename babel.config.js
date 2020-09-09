@@ -1,4 +1,10 @@
-const withPackageOpts = (s) => `./packages/${s}/src`;
+const os = require('os');
+
+const withPackageOpts = (s) =>
+  os.type() === 'Windows_NT'
+    ? `./packages/${s}/src`
+    : `/packages/${s}/src`;
+
 const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [

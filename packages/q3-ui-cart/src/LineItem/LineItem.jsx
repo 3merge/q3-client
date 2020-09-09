@@ -29,6 +29,7 @@ export default ({ children }) => {
           subtotal,
           quantity,
           description,
+          disabled,
         } = item;
 
         return (
@@ -77,6 +78,7 @@ export default ({ children }) => {
                         product={product}
                         quantity={quantity}
                         price={price}
+                        disabled={disabled}
                       />
                       <LineItemRemove
                         id={id}
