@@ -17,6 +17,7 @@ export const LineItemToggle = ({
   id,
   product,
   quantity,
+  disabled,
 }) => {
   const loading = React.useContext(CartLoadingContext);
   const { update, remove } = React.useContext(CartContext);
@@ -36,7 +37,7 @@ export const LineItemToggle = ({
       <Quantity
         size="small"
         defaultValue={quantity}
-        disabled={loading}
+        disabled={loading || disabled}
         minimum={0}
         onBlur={sendUpdateRequest}
         onMinimum={remove}
@@ -51,6 +52,11 @@ LineItemToggle.propTypes = {
   quantity: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   product: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+};
+
+LineItemToggle.defaultProps = {
+  disabled: false,
 };
 
 export default LineItemToggle;

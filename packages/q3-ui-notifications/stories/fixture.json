@@ -5,19 +5,21 @@
   },
   {
     "hasSeen": false,
-    "label": "New user signup needs review"
+    "label": "New user signup needs review",
+    "createdAt": "2011-10-05T14:48:00.000Z"
   },
   {
     "hasSeen": true,
     "hasBeenDownloaded": false,
-    "label": "Order exports",
+    "label": "/path/to/file/export.pdf",
     "url": "https://google.ca"
   },
   {
     "hasSeen": true,
     "hasBeenDownloaded": true,
     "label": "Order sales activity",
-    "url": "https://google.ca"
+    "url": "https://google.ca",
+    "createdAt": "2011-10-05T14:48:00.000Z"
   },
   {
     "hasSeen": false,
@@ -27,6 +29,7 @@
     "hasSeen": true,
     "hasBeenDownloaded": false,
     "label": "Order exports",
-    "url": "https://google.ca"
+    "url": "https://google.ca",
+    "createdAt": "2011-10-05T14:48:00.000Z"
   }
 ]

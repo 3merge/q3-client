@@ -240,5 +240,6 @@
   "imageThumbnailPreview": "Upload preview image",
   "changeFeaturedPhoto": "Change featured photo",
   "createdAt": "Created",
-  "updatedAt": "Updated"
+  "updatedAt": "Updated",
+  "within48": "Within the last 48 hours"
 }
