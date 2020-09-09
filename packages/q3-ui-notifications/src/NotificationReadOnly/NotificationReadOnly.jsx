@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { useTranslation } from 'react-i18next';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { browser, object } from 'q3-ui-helpers';
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import { useCreatedAtTitle } from '../NotificationLink/NotificationLink';
 
 const NotificationReadOnly = ({
   id,
   label,
   hasSeen,
   onView,
+  ...rest
 }) => {
-  const { t } = useTranslation('titles');
   const ref = React.createRef();
 
   const detach = (obv) => {
@@ -55,8 +57,11 @@ const NotificationReadOnly = ({
 
   return (
     <ListItem ref={ref} selected={!hasSeen}>
+      <ListItemIcon>
+        <AnnouncementIcon />
+      </ListItemIcon>
       <ListItemText
-        primary={t('notification')}
+        primary={useCreatedAtTitle(rest)}
         secondary={label}
       />
     </ListItem>
