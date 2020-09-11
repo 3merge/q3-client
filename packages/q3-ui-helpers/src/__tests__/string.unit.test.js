@@ -90,13 +90,13 @@ describe('string', () => {
   });
 
   describe('"toDate"', () => {
-    it('should return Shanghai time', () =>
+    it.skip('should return Shanghai time', () =>
       expect(
         // 'Asia/Shanghai'
         string.toDate('2020-09-10T13:18:51+08:00'),
       ).toMatch('Sep 11, 2020 1:18 AM'));
 
-    it('should return Australian time', () =>
+    it.skip('should return Australian time', () =>
       expect(
         // Europe/London
         string.toDate('2020-09-10T13:18:51+01:00'),
