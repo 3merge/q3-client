@@ -5,6 +5,7 @@ import FilterEntry from 'q3-admin/lib/components/FilterEntry';
 export default () => {
   return (
     <Filters
+      debug
       initialValues={{ role: [], gender: [], flag: '' }}
     >
       {(fields) => (

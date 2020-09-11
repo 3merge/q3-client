@@ -8,7 +8,7 @@ import pages from '../views';
 
 export default () => {
   const { state } = React.useContext(AuthContext);
-  useTimezoneInterceptor('Europe/London');
+  useTimezoneInterceptor('America/Los_Angeles');
 
   return state.init ? (
     <Router basepath="/app">

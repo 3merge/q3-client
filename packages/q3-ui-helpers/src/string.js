@@ -46,7 +46,7 @@ export const toTruthy = (str, trans) => {
 export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
     ? moment
-        .parseZone(str, 'YYYY-MM-DD HH:mm')
+        .parseZone(str, moment.HTML5_FMT.DATETIME_LOCAL_MS)
         .format('MMM DD, Y LT')
     : fallbackText;
 

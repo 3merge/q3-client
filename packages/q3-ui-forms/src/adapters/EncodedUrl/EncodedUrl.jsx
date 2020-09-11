@@ -69,7 +69,7 @@ export const deserialize = (v) => {
       let [key, value] = next ? next.split('=') : [next];
 
       if (timezone.isUtc(value))
-        value = timezone.toLocal(timezone.YMD);
+        value = timezone.toLocal(value, timezone.YMD);
 
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;

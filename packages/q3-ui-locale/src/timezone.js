@@ -18,7 +18,7 @@ export const isUtc = (value) =>
 
 export const setTimezone = (timezone = '') => {
   const value =
-    timezone === 'string' && timezone.trim().length
+    typeof timezone === 'string' && timezone.trim().length
       ? timezone.trim()
       : guess();
 
