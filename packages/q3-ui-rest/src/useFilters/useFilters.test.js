@@ -49,8 +49,8 @@ describe('useFilters custom hook', () => {
     });
 
     expect(filters.getOptions('example')).toEqual([
-      { label: 'foo', value: 'foo' },
-      { label: 'bar', value: 'bar' },
+      'foo',
+      'bar',
     ]);
   });
 });

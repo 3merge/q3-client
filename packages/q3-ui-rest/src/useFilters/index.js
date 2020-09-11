@@ -32,9 +32,6 @@ export default ({
   return {
     ...state,
     getOptions: (name) =>
-      get(state, `fields.${name}`, []).map((value) => ({
-        label: value,
-        value,
-      })),
+      get(state, `fields.${name}`, []).map(String),
   };
 };
