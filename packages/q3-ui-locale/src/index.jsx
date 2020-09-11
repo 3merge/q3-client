@@ -7,6 +7,7 @@ import {
 } from 'react-i18next';
 import resources from './resources';
 import setDeps from './deps';
+import * as timezone from './timezone';
 
 i18n.use(initReactI18next);
 i18n.init(resources, setDeps);
@@ -23,5 +24,5 @@ Provider.propTypes = {
   ]).isRequired,
 };
 
-export { i18n };
+export { i18n, timezone };
 export default Provider;

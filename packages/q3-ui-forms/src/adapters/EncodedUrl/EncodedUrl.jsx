@@ -3,6 +3,7 @@ import { withLocation } from 'with-location';
 import PropTypes from 'prop-types';
 import flat from 'flat';
 import { url } from 'q3-ui-helpers';
+import { timezone } from 'q3-ui-locale';
 import { Form } from '../../builders';
 
 const getParamName = (v) => {
@@ -41,7 +42,9 @@ export const serialize = (o) =>
       const hasAsterisk = key.includes('*');
       const name = getParamName(key);
 
-      if (hasAsterisk && normalized === 'true') {
+      if (timezone.isYmd(value)) {
+        acc.push(join(name, timezone.toUtc(value)));
+      } else if (hasAsterisk && normalized === 'true') {
         acc.push(name);
       } else if (
         !hasAsterisk &&
@@ -64,6 +67,9 @@ export const deserialize = (v) => {
     .reduce((acc, next) => {
       // eslint-disable-next-line
       let [key, value] = next ? next.split('=') : [next];
+
+      if (timezone.isUtc(value))
+        value = timezone.toLocal(timezone.YMD);
 
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;

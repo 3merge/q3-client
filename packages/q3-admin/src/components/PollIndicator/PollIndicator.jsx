@@ -53,7 +53,9 @@ const PollIndicator = ({
             hasChange,
           }),
           {
-            time: moment(lastUpdated).format('LT'),
+            time: moment
+              .parseZone(lastUpdated)
+              .format('LT'),
           },
         )}
       </span>
