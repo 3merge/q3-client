@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.9](https://github.com/3merge/q/compare/v1.24.8...v1.24.9) (2020-09-11)
+
+
+### Bug Fixes
+
+* getFrom filters to return plain array ([34f83af](https://github.com/3merge/q/commit/34f83af70ff4df51edc2a3b3aea56c9587197702))
+
+
+
+
+
 ## [1.24.8](https://github.com/3merge/q/compare/v1.24.7...v1.24.8) (2020-09-11)
 
 **Note:** Version bump only for package q3-client
