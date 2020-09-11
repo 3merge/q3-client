@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
-import { useLoading } from 'q3-ui-rest';
+import {
+  useLoading,
+  useTimezoneInterceptor,
+} from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
 import { PaginationCard } from 'q3-ui/lib/pagination';
@@ -27,39 +30,43 @@ const Dash = () => (
 
 const Foo = () => <p>Custom profile view</p>;
 
-const ExampleApp = ({ initialPath }) => (
-  <Loading>
-    <LocationProvider initialPath={initialPath}>
-      <Authentication>
-        <Datasource>
-          <Admin
-            AppProps={{
-              pages,
-              customRoutes: [<Dash path="/" />],
-            }}
-            NavProps={{
-              title: 'Demo app',
-              logoSrc: logo,
-            }}
-            ProfileProps={{
-              fields: <p>Append custom form fields!</p>,
-              items: [
-                {
-                  label: 'other',
-                  component: Foo,
-                },
-              ],
-            }}
-            icons={{
-              entertainment: BeachAccessIcon,
-              shows: TvIcon,
-            }}
-          />
-        </Datasource>
-      </Authentication>
-    </LocationProvider>
-  </Loading>
-);
+const ExampleApp = ({ initialPath }) => {
+  useTimezoneInterceptor();
+
+  return (
+    <Loading>
+      <LocationProvider initialPath={initialPath}>
+        <Authentication>
+          <Datasource>
+            <Admin
+              AppProps={{
+                pages,
+                customRoutes: [<Dash path="/" />],
+              }}
+              NavProps={{
+                title: 'Demo app',
+                logoSrc: logo,
+              }}
+              ProfileProps={{
+                fields: <p>Append custom form fields!</p>,
+                items: [
+                  {
+                    label: 'other',
+                    component: Foo,
+                  },
+                ],
+              }}
+              icons={{
+                entertainment: BeachAccessIcon,
+                shows: TvIcon,
+              }}
+            />
+          </Datasource>
+        </Authentication>
+      </LocationProvider>
+    </Loading>
+  );
+};
 
 ExampleApp.propTypes = {
   initialPath: PropTypes.string,

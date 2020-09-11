@@ -1,7 +1,7 @@
 const os = require('os');
 
 const withPackageOpts = (s) =>
-  os.type() === 'Windows_NT'
+  os.type() !== 'Darwin'
     ? `./packages/${s}/src`
     : `/packages/${s}/src`;
 

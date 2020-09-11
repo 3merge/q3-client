@@ -6,6 +6,10 @@ import {
   handleStateDecoding,
 } from './EncodedUrl';
 
+beforeAll(() => {
+  localStorage.getItem.mockReturnValue('America/Toronto');
+});
+
 describe('EncodedUrl adapter', () => {
   describe('serialize', () => {
     it('should convert greater than and less than operators', () => {
@@ -16,7 +20,7 @@ describe('EncodedUrl adapter', () => {
       });
 
       expect(s).toEqual(
-        'createdAt%3E=2020-04-01&createdAt%3C=2020-04-6&tags!=a%2Cb%2Cc',
+        'createdAt%3E=2020-04-01T04:00:00.000Z&createdAt%3C=2020-04-6&tags!=a%2Cb%2Cc',
       );
     });
 

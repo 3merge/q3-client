@@ -1,8 +1,6 @@
 import minimatch from 'minimatch';
 import moment from 'moment';
 
-const localize = (v) => moment.utc(v).local();
-
 export const is = (v) => typeof v === 'string';
 
 export const hasLength = (v) => is(v) && v.length > 0;
@@ -47,12 +45,14 @@ export const toTruthy = (str, trans) => {
 
 export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
-    ? localize(str).format('MMM DD, Y LT')
+    ? moment
+        .parseZone(str, moment.HTML5_FMT.DATETIME_LOCAL_MS)
+        .format('MMM DD, Y LT')
     : fallbackText;
 
 export const toYearMonthDay = (str) =>
   str !== undefined && str !== null
-    ? localize(str).format('YYYY-MM-DD')
+    ? moment(str).format('YYYY-MM-DD')
     : '';
 
 export const toPrice = (str) => {

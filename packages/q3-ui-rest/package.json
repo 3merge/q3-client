@@ -15,7 +15,10 @@
   },
   "dependencies": {
     "debounce-promise": "^3.1.2",
+    "flat": "^5.0.2",
     "js-file-download": "^0.4.12",
+    "moment-timezone": "^0.5.31",
+    "qs": "^6.9.4",
     "react-dom": "^16.10.2"
   }
 }

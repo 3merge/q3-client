@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { timezone } from 'q3-ui-locale';
 
 export const unwind = (str = '', value) =>
   str
@@ -61,3 +62,16 @@ export const redirectByParams = (
 
   navigate(`?${output.join('&')}`);
 };
+
+export const formatter = (v = '') => ({
+  get key() {
+    return v.replace(/(>|<)/gi, '').replace(/~/gi, '.');
+  },
+
+  get value() {
+    if (timezone.isUtc(v))
+      return timezone.toLocal(v, timezone.YMD);
+
+    return v;
+  },
+});

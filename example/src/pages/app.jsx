@@ -3,12 +3,12 @@ import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import { Router } from '@reach/router';
 import Admin from 'q3-admin';
 import { AuthContext } from 'q3-ui-permissions';
-import file from 'file-saver';
-import { last } from 'lodash';
+import { useTimezoneInterceptor } from 'q3-ui-rest';
 import pages from '../views';
 
 export default () => {
   const { state } = React.useContext(AuthContext);
+  useTimezoneInterceptor('America/Los_Angeles');
 
   return state.init ? (
     <Router basepath="/app">

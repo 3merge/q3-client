@@ -1,4 +1,4 @@
-import { getOp, unwind } from './utils';
+import { formatter, getOp, unwind } from './utils';
 
 describe('FilterChip', () => {
   it('should replace', () => {
@@ -21,5 +21,21 @@ describe('FilterChip', () => {
 
   it('should return IS NOT', () => {
     expect(getOp('foo!=one')).toMatch('IS NOT');
+  });
+
+  describe('formatter', () => {
+    it('should return sanitized key', () => {
+      expect(formatter('foo><~bar')).toHaveProperty(
+        'key',
+        'foo.bar',
+      );
+    });
+
+    it.skip('should return sanitized key', () => {
+      expect(
+        // local offset
+        formatter('2020-01-01T00:00:00.000Z'),
+      ).toHaveProperty('value', '2019-12-31');
+    });
   });
 });

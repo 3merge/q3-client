@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import JSONPretty from 'react-json-pretty';
@@ -10,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { useValue } from 'useful-state';
 import TextField from '@material-ui/core/TextField';
 import JSONPrettyMon from 'react-json-pretty/dist/monikai';
-import { array } from 'q3-ui-helpers';
+import { array, string } from 'q3-ui-helpers';
 
 export const formatUser = (u) => {
   return (
@@ -21,15 +20,8 @@ export const formatUser = (u) => {
   );
 };
 
-const getUpdatedAt = (data = {}, key) => {
-  const at = get(data, key);
-  return at
-    ? moment
-        .utc(at)
-        .local()
-        .format('MMMM Do YYYY, h:mm:ss a')
-    : null;
-};
+const getUpdatedAt = (data = {}, key) =>
+  string.toDate(get(data, key), null);
 
 export const getMeta = (authorshipKey, timeKey) => (
   data = {},
