@@ -1,0 +1,45 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import useLoading from '.';
+
+<Meta title="REST/Introduction" />
+
+# 🚀 Q3 UI REST
+
+## Helpers
+
+### getForAutoComplete
+
+### getForAutoCompleteSafely
+
+### getForAutoCompleteSafelyWithProjection
+
+<Story
+  name="test"
+  argTypes={{
+    label: {
+      name: 'HEY',
+    },
+  }}
+>
+  <div />
+</Story>
+
+```javascript
+import { getForAutoComplete } from 'q3-ui-rest';
+
+getForAutoComplete('/');
+```
+
+## Hooks
+
+### useLoading
+
+The `useLoading` hook tracks whenever an Axios request is in
+transit. It's an aggregated value
+
+### useFilters

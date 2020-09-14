@@ -14,6 +14,9 @@ export const isYmd = (value) =>
   moment(value, YMD, true).isValid();
 
 export const isUtc = (value) =>
+  typeof value !== 'number' &&
+  // eslint-disable-next-line
+  Number.isNaN(Number(value)) &&
   moment(value, moment.ISO_8601, true).isValid();
 
 export const setTimezone = (timezone = '') => {
