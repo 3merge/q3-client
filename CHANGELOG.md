@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.10](https://github.com/3merge/q/compare/v1.24.9...v1.24.10) (2020-09-14)
+
+
+### Bug Fixes
+
+* isUtc matching against integers ([29db03b](https://github.com/3merge/q/commit/29db03bea3b0b0e30865a08369f929bdd5e67502))
+
+
+
+
+
 ## [1.24.9](https://github.com/3merge/q/compare/v1.24.8...v1.24.9) (2020-09-11)
 
 
