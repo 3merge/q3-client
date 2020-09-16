@@ -73,6 +73,10 @@ export const reducerDispatcher = (state, context) => {
       break;
 
     case INIT_VALUE:
+      console.log(
+        'new state',
+        FieldBuilder.getInitialValue(type),
+      );
       if (!(name in values) || name[values] === undefined)
         set(
           values,

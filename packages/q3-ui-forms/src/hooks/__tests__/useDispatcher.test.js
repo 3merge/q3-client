@@ -1,7 +1,9 @@
 import React from 'react';
 import useDispatcher, {
   reducerDispatcher,
+  INIT_VALUE,
 } from '../useDispatcher';
+import FieldBuilder from '../../helpers/types';
 
 beforeAll(() => {
   jest
@@ -77,5 +79,22 @@ describe('useDispatcher', () => {
     const d = setup();
     d.initFieldValue('bar', 'select');
     expect(d.values).toHaveProperty('bar', '');
+  });
+
+  jest
+    .spyOn(FieldBuilder, 'getInitialValue')
+    .mockReturnValue({ foo: 'boo' });
+
+  it('should do the thing', () => {
+    const state = reducerDispatcher(
+      { values: { 'employer.value': null } },
+      {
+        action: INIT_VALUE,
+        value: { 'employer.value': true },
+        name: 'employer',
+        type: { employer: 'hey' },
+      },
+    );
+    console.log(state);
   });
 });
