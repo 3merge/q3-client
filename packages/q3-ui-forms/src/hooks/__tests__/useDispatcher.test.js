@@ -3,7 +3,10 @@ import useDispatcher, {
   reducerDispatcher,
   INIT_VALUE,
 } from '../useDispatcher';
-import FieldBuilder from '../../helpers/types';
+
+jest.mock('../../helpers/types', () => ({
+  getInitialValue: jest.fn().mockReturnValue(1),
+}));
 
 beforeAll(() => {
   jest
@@ -56,6 +59,18 @@ const unsetOnField = (methodName, stateProperty) => {
   expect(state[stateProperty]).not.toHaveProperty('bar');
 };
 
+const runReducerForInitValue = (values = {}) => {
+  const state = reducerDispatcher(
+    { values },
+    {
+      action: INIT_VALUE,
+      name: 'employer',
+    },
+  );
+
+  return state.values;
+};
+
 describe('useDispatcher', () => {
   it('should set value and retain and original state values', () =>
     setOnField('setFieldValue', 'values'));
@@ -75,26 +90,35 @@ describe('useDispatcher', () => {
   it('should remove error and retain and original state errors', () =>
     unsetOnField('removeFieldError', 'errors'));
 
-  it('should set an initial balue', () => {
-    const d = setup();
-    d.initFieldValue('bar', 'select');
-    expect(d.values).toHaveProperty('bar', '');
+  it('should retain initial value', () => {
+    expect(
+      runReducerForInitValue({ 'employer': 5 }),
+    ).toHaveProperty('employer', 5);
   });
 
-  jest
-    .spyOn(FieldBuilder, 'getInitialValue')
-    .mockReturnValue({ foo: 'boo' });
-
-  it('should do the thing', () => {
-    const state = reducerDispatcher(
-      { values: { 'employer.value': null } },
-      {
-        action: INIT_VALUE,
-        value: { 'employer.value': true },
-        name: 'employer',
-        type: { employer: 'hey' },
-      },
+  it('should retain initial value', () => {
+    expect(runReducerForInitValue()).toHaveProperty(
+      'employer',
+      1,
     );
-    console.log(state);
+  });
+
+  it('should retain initial nested values', () => {
+    const values = runReducerForInitValue({
+      'employer.value': 5,
+    });
+
+    expect(values['employer.value']).toBe(5);
+    expect(values).not.toHaveProperty('employer');
+  });
+
+  it('should retain initial nested values', () => {
+    const values = runReducerForInitValue({
+      'employer': {
+        value: 5,
+      },
+    });
+
+    expect(values).toHaveProperty('employer.value', 5);
   });
 });

@@ -16,7 +16,7 @@ import Wrapper, {
 import { countries } from '../src/fields/__fixtures__/options';
 import { Exists } from '../src/presets';
 
-<Meta title="Forms|Field" component={Field} />
+<Meta title="Forms/Field" component={Field} />
 
 # Fields
 
@@ -33,6 +33,10 @@ import { Exists } from '../src/presets';
             'dateRange>': 'Not a known date',
           }}
           initialValues={{
+            autocomplete: {
+              value: 'CA',
+              label: 'Canada',
+            },
             repeats: [
               { fruit: 'Apple' },
               { fruit: 'Pear' },
