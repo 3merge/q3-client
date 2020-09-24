@@ -17,7 +17,7 @@ import {
 } from './useStyle';
 
 export default {
-  title: 'Components|Quantity',
+  title: 'Components/Quantity',
   decorators: [withA11y, withKnobs],
   parameters: {
     component: Quantity,

@@ -57,7 +57,7 @@ const MenuImplementationStory = () => (
 
 export default MenuImplementationStory;
 
-storiesOf('Components|Menu', module)
+storiesOf('Components/Menu', module)
   .addParameters({
     jest: ['menu'],
     readme: {

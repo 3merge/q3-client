@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Docs from './README.md';
 import Title from '.';
 
-storiesOf('Components|Title', module)
+storiesOf('Components/Title', module)
   .addParameters({
     jest: ['title'],
     readme: {

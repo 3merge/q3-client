@@ -6,7 +6,7 @@ import Repeater from '../Repeater';
 import { countries } from '../../fields/__fixtures__/options';
 
 export default {
-  title: 'Q3 Forms|Builders/Multiform',
+  title: 'Q3 Forms/Builders/Multiform',
   parameters: {
     component: Multistep,
   },

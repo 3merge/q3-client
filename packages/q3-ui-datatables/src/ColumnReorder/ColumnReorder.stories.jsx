@@ -2,7 +2,7 @@ import React from 'react';
 import ColumnReorder from './ColumnReorder';
 
 export default {
-  title: 'Q3 Datatables|Reorder',
+  title: 'Q3 Datatables/Reorder',
 };
 
 export const Example = () => (

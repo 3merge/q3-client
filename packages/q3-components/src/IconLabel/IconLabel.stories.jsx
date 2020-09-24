@@ -5,7 +5,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import IconLabel from './IconLabel';
 
 export default {
-  title: 'Components|IconLabel',
+  title: 'Components/IconLabel',
   decorators: [withA11y, withKnobs],
   parameters: {
     component: IconLabel,

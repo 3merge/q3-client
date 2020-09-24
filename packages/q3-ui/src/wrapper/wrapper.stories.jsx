@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Box from '@material-ui/core/Box';
 import Wrapper from '.';
 
-storiesOf('Components|Wrapper', module)
+storiesOf('Components/Wrapper', module)
   .add('With custom background color', () => (
     <Wrapper backgroundColor="#FFF" />
   ))

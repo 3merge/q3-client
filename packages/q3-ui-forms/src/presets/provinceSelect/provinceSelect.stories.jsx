@@ -3,7 +3,7 @@ import { Form } from '../../builders';
 import Province from '.';
 
 export default {
-  title: 'Q3 Forms|Presets/Province select',
+  title: 'Q3 Forms/Presets/Province select',
   parameters: {
     component: Province,
     componentSubtitle: 'Canadian province dropdown',

@@ -5,7 +5,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import Status from './Status';
 
 export default {
-  title: 'Components|Status',
+  title: 'Components/Status',
   decorators: [withA11y, withKnobs],
 };
 

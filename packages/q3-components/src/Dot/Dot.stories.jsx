@@ -5,7 +5,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import Dot from './Dot';
 
 export default {
-  title: 'Components|Dot',
+  title: 'Components/Dot',
   decorators: [withA11y, withKnobs],
 };
 

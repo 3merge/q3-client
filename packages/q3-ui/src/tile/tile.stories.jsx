@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Title from '.';
 
-storiesOf('Components|Tile', module).add(
+storiesOf('Components/Tile', module).add(
   'Default render',
   () => (
     <div style={{ display: 'flex' }}>

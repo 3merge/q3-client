@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Footer, { Copyright, SocialLinks } from '.';
 
-storiesOf('Components|Footer', module).add(
+storiesOf('Components/Footer', module).add(
   'With social links',
   () => (
     <Footer

@@ -2,7 +2,7 @@ import React from 'react';
 import ColumnReorderDialog from './ColumnReorderDialog';
 
 export default {
-  title: 'Q3 Datatables|Reorder Dialog',
+  title: 'Q3 Datatables/Reorder Dialog',
 };
 
 export const Example = () => (

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Testimonial from '.';
 
 storiesOf(
-  'Components|Testimonial',
+  'Components/Testimonial',
   module,
 ).add('Default render', () => (
   <Testimonial

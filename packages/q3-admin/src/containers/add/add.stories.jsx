@@ -9,7 +9,7 @@ import Add from './add';
 import State from '../state';
 
 export default {
-  title: 'Q3 Admin|Components/Add',
+  title: 'Q3 Admin/Components/Add',
   parameters: {
     component: Add,
     componentSubtitle:

@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import Chart from './Chart';
 
 export default {
-  title: 'Components|Chart',
+  title: 'Components/Chart',
   decorators: [withA11y, withKnobs],
   parameters: {
     component: Chart,

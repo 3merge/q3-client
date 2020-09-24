@@ -4,7 +4,7 @@ import Checkset from '.';
 import { options } from '../__fixtures__/options';
 
 export default {
-  title: 'Q3 Forms|Fields/Checkset',
+  title: 'Q3 Forms/Fields/Checkset',
   parameters: {
     component: Checkset,
     componentSubtitle: 'Collapsible sets of checkboxes',

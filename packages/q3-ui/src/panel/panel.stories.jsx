@@ -7,7 +7,7 @@ import {
   ThreeColumnPanel,
 } from '.';
 
-storiesOf('Components|Panel', module)
+storiesOf('Components/Panel', module)
   .add('Split', () => (
     <SplitPanel
       size="md"
