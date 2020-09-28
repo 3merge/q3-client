@@ -4,7 +4,7 @@ import { Field } from 'q3-ui-forms/lib/builders';
 import FiltersForm from './FiltersForm';
 
 export default {
-  title: 'Q3 Admin|Filters/Form',
+  title: 'Q3 Admin/Filters/Form',
 };
 
 const props = actions({

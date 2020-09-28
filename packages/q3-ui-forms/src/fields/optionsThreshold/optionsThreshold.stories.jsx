@@ -4,7 +4,7 @@ import OptionsThreshold from '.';
 import { options } from '../__fixtures__/options';
 
 export default {
-  title: 'Q3 Forms|Fields/Options Threshold',
+  title: 'Q3 Forms/Fields/Options Threshold',
   parameters: {
     component: OptionsThreshold,
     componentSubtitle:

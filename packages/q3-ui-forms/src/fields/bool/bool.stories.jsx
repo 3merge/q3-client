@@ -3,7 +3,7 @@ import React from 'react';
 import Bool from '.';
 
 export default {
-  title: 'Q3 Forms|Fields/Bool',
+  title: 'Q3 Forms/Fields/Bool',
   parameters: {
     component: Bool,
     componentSubtitle:

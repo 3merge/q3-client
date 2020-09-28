@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import DynamicAccordion from '.';
 
-storiesOf('Components|Dynamic Accordion', module).add(
+storiesOf('Components/Dynamic Accordion', module).add(
   'Default',
   () => (
     <DynamicAccordion

@@ -2,7 +2,7 @@ import React from 'react';
 import Timeline from './Timeline';
 
 export default {
-  title: 'Components|Timeline',
+  title: 'Components/Timeline',
 };
 
 export const Populated = () => (

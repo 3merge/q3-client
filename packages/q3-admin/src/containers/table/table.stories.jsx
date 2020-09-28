@@ -7,7 +7,7 @@ import Table from '.';
 import Groups from '../../components/groups';
 
 export default {
-  title: 'Q3 Admin|Containers/Table',
+  title: 'Q3 Admin/Containers/Table',
   parameters: {
     component: Table,
     componentSubtitle:

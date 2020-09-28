@@ -6,7 +6,7 @@ import { countries } from '../../fields/__fixtures__/options';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
-  console.log(values)
+  console.log(values);
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
@@ -20,7 +20,7 @@ const onReset = () => {
 };
 
 export default {
-  title: 'Q3 Forms|Builders/Repeater',
+  title: 'Q3 Forms/Builders/Repeater',
   parameters: {
     component: Repeater,
     componentSubtitle:

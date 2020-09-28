@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Divider from '.';
 
-storiesOf('Components|Divider', module)
+storiesOf('Components/Divider', module)
   .add('Wave', () => (
     <Divider fill="orange" variant="wave" invert />
   ))

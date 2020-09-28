@@ -34,7 +34,7 @@ export default (fn) => (values, attachments) => {
     iterateEntries(
       castToString(
         flat(values, {
-          safe: true,
+          safe: false,
         }),
       ),
       'set',
