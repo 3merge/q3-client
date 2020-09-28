@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { get } from 'lodash';
+import { uniq, get } from 'lodash';
 import { array, string } from 'q3-ui-helpers';
 
 export { default as handleFormData } from './formData';
@@ -25,6 +25,15 @@ export const convertToNullish = (v) =>
 
 export const castToBoolean = (v) =>
   v !== 'false' ? `${Boolean(v)}` : v;
+
+export const castToSimpleArray = (v) =>
+  Array.isArray(v)
+    ? uniq(
+        v.map((item) =>
+          typeof item === 'object' ? item.value : item,
+        ),
+      )
+    : [];
 
 export const makeRangeNames = (name) => [
   `${name}>`,

@@ -37,7 +37,8 @@ describe('formData', () => {
   it('should preserve arrays', (done) => {
     const handler = jest.fn().mockImplementation((data) => {
       expect(data.get('foo.bar')).toMatch('1');
-      expect(JSON.parse(data.get('quuz'))).toHaveLength(2);
+      expect(data.get('quuz.0.name')).toMatch('uno');
+      expect(data.get('quuz.1.name')).toMatch('duo');
       done();
     });
 
