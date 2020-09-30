@@ -3,18 +3,10 @@ import { mergeWith } from 'lodash';
 import flat from 'flat';
 import InitialValuesTranslator from '../helpers/InitialValuesTranslator';
 
-const replaceWithArray = (
-  objValue,
-  srcValue,
-  key,
-  object,
-  source,
-  stack,
-) => {
-  // console.log(objValue);
-  // console.log(srcValue);
-  // console.log(key);
-};
+const replaceWithArray = (objValue, srcValue) =>
+  Array.isArray(objValue) && Array.isArray(srcValue)
+    ? srcValue
+    : undefined;
 
 export default (
   {
@@ -38,8 +30,6 @@ export default (
       marshal,
     );
 
-    console.log('expanded', expanded);
-    console.log('newValues', newValues);
     const output = marshalSelectively
       ? mergeWith(expanded, newValues, replaceWithArray)
       : newValues;

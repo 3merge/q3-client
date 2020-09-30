@@ -1,8 +1,6 @@
 import { castToSimpleArray } from 'q3-ui-forms/lib/helpers';
 import useDot from '../useDot';
 
-console.log(castToSimpleArray);
-
 describe('useDot', () => {
   it('should run translate and keeper', () => {
     const { initialValues } = useDot(
@@ -92,21 +90,19 @@ describe('useDot', () => {
     skills: ['C++', 'CSS', { label: 'CSS', value: 'CSS' }],
   };
 
-  const newValue = {
-    skills: ['C++', 'CSS'],
-  };
-
-  it.only('should replace if array type', () => {
+  it('should replace if array type', () => {
     const { executeMarshal } = useDot({
       marshalSelectively: true,
-      marshal: { skills: [castToSimpleArray] },
+      marshal: {
+        skills: [castToSimpleArray],
+        firstName: [() => 'new firstName'],
+      },
     });
     const result = executeMarshal()(original);
-    console.log(result);
 
     expect(result).toEqual({
       bio: 'Testing!',
-      firstName: 'new first name',
+      firstName: 'new firstName',
       skills: ['C++', 'CSS'],
     });
   });
