@@ -87,6 +87,20 @@ const AbstractedAutoComplete = ({
       onInputChange={(event, newInputValue) => {
         handleChange(newInputValue);
       }}
+      getOptionSelected={(option) => {
+        try {
+          return array
+            .is(value)
+            .some(
+              (item) =>
+                item === option ||
+                item === option.value ||
+                item.value === option.value,
+            );
+        } catch (e) {
+          return false;
+        }
+      }}
     />
   );
 };
