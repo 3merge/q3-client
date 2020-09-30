@@ -23,6 +23,18 @@ beforeAll(async () => {
             coll: 'foo',
             op: 'Read',
             fields: '+(bar|quux)',
+            'documentConditions': ['approved=false'],
+          },
+          {
+            coll: 'job',
+            op: 'Read',
+            fields: '+(bar|quux)',
+          },
+          {
+            coll: 'job',
+            op: 'Update',
+            fields: '+(bar|quux)',
+            'documentConditions': ['approved=false'],
           },
         ],
       },
@@ -59,9 +71,16 @@ describe('useAuth', () => {
 
     it('canDeleteSub should be truthy', () =>
       expect(hook('foo').canDeleteSub('bar')).toBeFalsy());
+
+    it('canEditConditionally should be truthy', () => {
+      const test = hook('job').canEditConditionally({
+        approved: false,
+      });
+      expect(test).toBeTruthy();
+    });
   });
 
-  describe('compoents', () => {
+  describe('components', () => {
     it('Hide should return null', () => {
       const { Hide } = hook('foo');
       const Foo = () => null;
@@ -73,7 +92,7 @@ describe('useAuth', () => {
       expect(wrapper.find(Foo)).toHaveLength(0);
     });
 
-    it.only('HideByField should return null', () => {
+    it('HideByField should return null', () => {
       const { HideByField } = hook('foo');
       const Foo = () => null;
       const wrapper = global.shallow(

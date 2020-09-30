@@ -4,6 +4,7 @@ import {
   navigate,
 } from '@reach/router';
 import PropTypes from 'prop-types';
+import Comparison from 'comparisons';
 import {
   filterbyColl,
   findByOp,
@@ -56,6 +57,8 @@ export default (ctx) => (coll) => {
   const a = React.useContext(ctx);
   const permissions = getPermissions(a);
 
+  // console.log(permissions);
+
   const getOp = (name) =>
     findByOp(filterbyColl(permissions, coll), name);
 
@@ -106,6 +109,14 @@ export default (ctx) => (coll) => {
     canCreate: isDefined(create),
     canEdit: isDefined(read) && isDefined(update),
     inClient: isDefined(read) && read.inClient,
+
+    canEditConditionally(d) {
+      const documentConditions = update?.documentConditions
+        ? new Comparison(update.documentConditions).eval(d)
+        : true;
+
+      return this.canEdit && documentConditions;
+    },
 
     canCreateSub: (sub) => hasField(create, sub),
     canEditSub: (sub) => hasField(update, sub),
