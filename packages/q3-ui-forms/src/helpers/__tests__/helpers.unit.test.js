@@ -43,6 +43,20 @@ describe('Form helpers', () => {
     });
   });
 
+  describe('castToSimpleArray', () => {
+    it('should return empty array', () =>
+      expect(helpers.castToSimpleArray(true)).toEqual([]));
+
+    it('should return flattened array', () =>
+      expect(
+        helpers.castToSimpleArray([
+          'one',
+          { value: 'two' },
+          'two',
+        ]),
+      ).toEqual(['one', 'two']));
+  });
+
   describe('"convertFromRegexPattern"', () => {
     it('should strip out regex pattern', () =>
       expect(

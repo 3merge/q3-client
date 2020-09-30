@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Main from '.';
 
 export default {
-  title: 'Q3 Admin|Components/Main',
+  title: 'Q3 Admin/Components/Main',
   parameters: {
     component: Main,
     componentSubtitle: "Q3's standard application layout",

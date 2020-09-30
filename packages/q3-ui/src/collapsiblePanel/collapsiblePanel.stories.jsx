@@ -4,7 +4,7 @@ import Accordion from './accordion';
 import CollapsiblePanel from '.';
 
 export default {
-  title: 'Q3 UI/Components|CollapsiblePanel',
+  title: 'Q3 UI/Components/CollapsiblePanel',
   parameters: {
     component: CollapsiblePanel,
     componentSubtitle: 'Accordion-style panels',

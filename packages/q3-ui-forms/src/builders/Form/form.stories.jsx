@@ -4,7 +4,7 @@ import Form from '.';
 
 const onSubmit = (values) => {
   // eslint-disable-next-line
-  console.log(values)
+  console.log(values);
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
@@ -18,7 +18,7 @@ const onReset = () => {
 };
 
 export default {
-  title: 'Q3 Forms|Builders/Form',
+  title: 'Q3 Forms/Builders/Form',
   parameters: {
     component: Form,
     componentSubtitle:

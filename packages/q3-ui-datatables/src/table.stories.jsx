@@ -15,7 +15,7 @@ import orders from '../__fixtures__/orders.json';
 import TableView from '.';
 
 export default {
-  title: 'Q3 Datatables|Table',
+  title: 'Q3 Datatables/Table',
   parameters: {
     component: TableView,
     componentSubtitle: 'For data-rich UIs and list views',

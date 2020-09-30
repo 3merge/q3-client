@@ -3,7 +3,7 @@ import Display from '.';
 import Public from '../public';
 
 export default {
-  title: 'Q3 Admin|Components/Display',
+  title: 'Q3 Admin/Components/Display',
   parameters: {
     component: Display,
     componentSubtitle:

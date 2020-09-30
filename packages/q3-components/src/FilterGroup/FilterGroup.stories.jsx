@@ -5,7 +5,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FilterGroup from './FilterGroup';
 
 export default {
-  title: 'Components|FilterGroup',
+  title: 'Components/FilterGroup',
 };
 
 export const withFilters = () => (

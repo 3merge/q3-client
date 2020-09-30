@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Typography from '@material-ui/core/Typography';
 import HelperText from '.';
 
-storiesOf('Components|HelperText', module).add(
+storiesOf('Components/HelperText', module).add(
   'Default',
   () => (
     <Typography>

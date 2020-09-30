@@ -10,7 +10,7 @@ const opts = [
 ];
 
 export default {
-  title: 'Q3 Forms|Fields/Select',
+  title: 'Q3 Forms/Fields/Select',
   parameters: {
     component: Select,
     componentSubtitle: 'Desktop-native select input',

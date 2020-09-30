@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import sidebar from './README.md';
 import Tabs from '.';
 
-storiesOf('Components|Tabs', module)
+storiesOf('Components/Tabs', module)
   .addParameters({
     jest: ['tabs'],
     readme: {

@@ -6,7 +6,7 @@ import Form from '../Form';
 import Field from '../Field';
 
 export default {
-  title: 'Q3 Forms|Builders/Wrapper',
+  title: 'Q3 Forms/Builders/Wrapper',
   parameters: {
     component: Wrapper(),
     componentSubtitle:

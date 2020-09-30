@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Field } from '../../builders';
 
 export default {
-  title: 'Q3 Forms|Fields/Text',
+  title: 'Q3 Forms/Fields/Text',
   parameters: {
     component: Field,
     componentSubtitle:

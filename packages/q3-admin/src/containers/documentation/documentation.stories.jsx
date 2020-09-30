@@ -3,7 +3,7 @@ import Documentation from '.';
 import fixture from './__fixtures__/markdown.md';
 
 export default {
-  title: 'Q3 Admin|Containers/Documentation',
+  title: 'Q3 Admin/Containers/Documentation',
   parameters: {
     component: Documentation,
     componentSubtitle:

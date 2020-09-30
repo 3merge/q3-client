@@ -6,7 +6,7 @@ import { Field } from '../../builders';
 import { asOptions } from '../../helpers';
 
 export default {
-  title: 'Q3 Forms|Adapters/EncodedUrl',
+  title: 'Q3 Forms/Adapters/EncodedUrl',
 };
 
 export const ToNavigate = () => (

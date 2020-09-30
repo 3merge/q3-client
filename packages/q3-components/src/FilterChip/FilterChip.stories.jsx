@@ -4,7 +4,7 @@ import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
 import FilterChip from './FilterChip';
 
 export default {
-  title: 'Components|FilterChip',
+  title: 'Components/FilterChip',
 };
 
 export const withFilters = () => (

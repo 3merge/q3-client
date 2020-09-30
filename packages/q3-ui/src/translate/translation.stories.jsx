@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Translate from '.';
 
-storiesOf('Components|Translate', module).add(
+storiesOf('Components/Translate', module).add(
   'Default',
   () => (
     <Translate

@@ -6,7 +6,7 @@ import imgSrc from '../../images/ready.png';
 import { FeaturedPhotoBanner, FullWidthBanner } from '.';
 import docs from './README.md';
 
-storiesOf('Components|Banner', module)
+storiesOf('Components/Banner', module)
   .addParameters({
     jest: ['banner'],
     readme: {

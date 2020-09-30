@@ -5,7 +5,7 @@ import withMockPermissions from './__support__/withPermissions';
 import Notes from '.';
 
 export default {
-  title: 'Q3 Admin|Containers/Notes',
+  title: 'Q3 Admin/Containers/Notes',
   parameters: {
     component: Notes,
     componentSubtitle: 'Comment threading',

@@ -6,7 +6,7 @@ import Segments from './Segments';
 import { Definitions } from '../state';
 
 export default {
-  title: 'Q3 Admin|Containers/Segments',
+  title: 'Q3 Admin/Containers/Segments',
 };
 
 export const asDefault = () => {

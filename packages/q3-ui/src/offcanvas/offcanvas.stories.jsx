@@ -23,7 +23,7 @@ const menuItems = [
   },
 ];
 
-storiesOf('Components|Offcanvas', module).add(
+storiesOf('Components/Offcanvas', module).add(
   'Default',
   () => (
     <Offcanvas

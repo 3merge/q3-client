@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Statistic from '.';
 
-storiesOf('Components|Statistic', module)
+storiesOf('Components/Statistic', module)
   .add('Negative', () => (
     <Statistic
       difference={-12}

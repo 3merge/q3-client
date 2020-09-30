@@ -5,7 +5,7 @@ import { withKnobs, select } from '@storybook/addon-knobs';
 import Panel from './Panel';
 
 export default {
-  title: 'Components|Panel',
+  title: 'Components/Panel',
   decorators: [withA11y, withKnobs],
 };
 

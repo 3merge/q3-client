@@ -4,7 +4,7 @@ import Toolbar from '.';
 import Header from '../header';
 import Translate from '../translate';
 
-storiesOf('Components|Toolbar', module)
+storiesOf('Components/Toolbar', module)
   .add('Not logged in', () => (
     <Header name="Hooli">
       <Toolbar

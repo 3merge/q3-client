@@ -12,7 +12,7 @@ import Page from '../page';
 import State from '../state';
 
 export default {
-  title: 'Q3 Admin|Containers/SubDetail',
+  title: 'Q3 Admin/Containers/SubDetail',
   parameters: {
     component: SubDetail,
     componentSubtitle:
