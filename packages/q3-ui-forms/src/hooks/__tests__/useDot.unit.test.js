@@ -1,3 +1,4 @@
+import { castToSimpleArray } from 'q3-ui-forms/lib/helpers';
 import useDot from '../useDot';
 
 describe('useDot', () => {
@@ -80,6 +81,29 @@ describe('useDot', () => {
         quux: 1,
         ref: 1,
       },
+    });
+  });
+
+  const original = {
+    bio: 'Testing!',
+    firstName: 'Gregory Alan',
+    skills: ['C++', 'CSS', { label: 'CSS', value: 'CSS' }],
+  };
+
+  it('should replace if array type', () => {
+    const { executeMarshal } = useDot({
+      marshalSelectively: true,
+      marshal: {
+        skills: [castToSimpleArray],
+        firstName: [() => 'new firstName'],
+      },
+    });
+    const result = executeMarshal()(original);
+
+    expect(result).toEqual({
+      bio: 'Testing!',
+      firstName: 'new firstName',
+      skills: ['C++', 'CSS'],
     });
   });
 });

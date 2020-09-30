@@ -1,7 +1,12 @@
 import dot from 'dot-helpers';
-import { merge } from 'lodash';
+import { mergeWith } from 'lodash';
 import flat from 'flat';
 import InitialValuesTranslator from '../helpers/InitialValuesTranslator';
+
+const replaceWithArray = (objValue, srcValue) =>
+  Array.isArray(objValue) && Array.isArray(srcValue)
+    ? srcValue
+    : undefined;
 
 export default (
   {
@@ -26,7 +31,7 @@ export default (
     );
 
     const output = marshalSelectively
-      ? merge({}, expanded, newValues)
+      ? mergeWith(expanded, newValues, replaceWithArray)
       : newValues;
 
     return callback ? callback(output, ...rest) : output;
