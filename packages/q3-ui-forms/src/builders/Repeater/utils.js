@@ -20,8 +20,7 @@ export const getEmptyEntry = (prefix, index, children) => {
 };
 
 export const assignNameToFields = (
-  prefix,
-  index,
+  { prefix, index, ...rest },
   children,
   t,
 ) => {
@@ -38,6 +37,7 @@ export const assignNameToFields = (
 
     return React.cloneElement(item, {
       ...props,
+      ...rest,
       name: `${prefix}.${index}.${attribute}`,
       label: t ? t(label) : label,
     });

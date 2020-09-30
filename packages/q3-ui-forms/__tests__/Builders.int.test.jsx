@@ -36,6 +36,47 @@ const setupRepeater = (profile, done, options = {}) =>
     </Form>,
   );
 
+const interactWithRepeaterElement = (el) => {
+  const REMOVE_CLS = '.q3-forms-repeater-remove';
+
+  const actAndUpdateEl = async (callback) => {
+    await act(callback);
+    el.update();
+  };
+
+  const findAndSimulateClick = (selector) =>
+    el.find(selector).first().simulate('click');
+
+  return {
+    addRow: async () =>
+      actAndUpdateEl(async () => {
+        findAndSimulateClick('.q3-forms-repeater-add');
+      }),
+
+    getRemoveRowButton: () =>
+      el.find(REMOVE_CLS).first().props(),
+
+    hasFields: (expectedNumberOfFields) =>
+      expect(el.find(Field)).toHaveLength(
+        expectedNumberOfFields,
+      ),
+
+    removeRow: async () =>
+      actAndUpdateEl(async () => {
+        findAndSimulateClick(REMOVE_CLS);
+      }),
+
+    type: async (value) =>
+      actAndUpdateEl(async () => {
+        el.find(TextBase).props().onChange({
+          target: {
+            value,
+          },
+        });
+      }),
+  };
+};
+
 describe('Builders', () => {
   describe('Repeater', () => {
     it('should add a row', async () => {
@@ -54,19 +95,17 @@ describe('Builders', () => {
     it('should remove a row', async () => {
       const email = 'Jonathan@gmail.com';
       const stateWatcher = jest.fn();
-      const el = setupRepeater(
-        [{ email: 'Mike@gmail.com' }, { email }],
-        stateWatcher,
+
+      const interact = interactWithRepeaterElement(
+        setupRepeater(
+          [{ email: 'Mike@gmail.com' }, { email }],
+          stateWatcher,
+        ),
       );
 
-      await act(async () => {
-        el.find('.q3-forms-repeater-remove')
-          .first()
-          .simulate('click');
-      });
+      await interact.removeRow();
+      interact.hasFields(1);
 
-      el.update();
-      expect(el.find(Field)).toHaveLength(1);
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
           'profile.0.email': email,
@@ -78,11 +117,12 @@ describe('Builders', () => {
 
     it('should require and init the first row', async () => {
       const stateWatcher = jest.fn();
-      const el = setupRepeater(undefined, stateWatcher, {
-        required: true,
-      });
+      const interact = interactWithRepeaterElement(
+        setupRepeater(undefined, stateWatcher, {
+          min: 1,
+        }),
+      );
 
-      expect(el.find(Field)).toHaveLength(1);
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
           'profile.0.email': '',
@@ -91,32 +131,21 @@ describe('Builders', () => {
         [],
       );
 
-      expect(
-        el
-          .find('.q3-forms-repeater-remove')
-          .first()
-          .props(),
-      ).toHaveProperty('disabled', true);
+      interact.hasFields(1);
+      expect(interact.getRemoveRowButton()).toHaveProperty(
+        'disabled',
+        true,
+      );
     });
 
     it('should clear state errors when a row is removed', async () => {
       const stateWatcher = jest.fn();
-      const el = setupRepeater(
-        [{ email: '' }],
-        stateWatcher,
+      const interact = interactWithRepeaterElement(
+        setupRepeater([{ email: '' }], stateWatcher),
       );
 
-      await act(async () => {
-        el.find(TextBase)
-          .props()
-          .onChange({
-            target: {
-              value: 'Henry',
-            },
-          });
-      });
+      await interact.type('Henry');
 
-      el.update();
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
           'profile.0.email': 'Henry',
@@ -127,15 +156,13 @@ describe('Builders', () => {
         [],
       );
 
-      await act(async () => {
-        el.find('.q3-forms-repeater-remove')
-          .first()
-          .simulate('click');
-      });
+      await interact.addRow();
+      await interact.removeRow();
 
-      el.update();
       expect(stateWatcher).toHaveBeenLastCalledWith(
-        {},
+        {
+          'profile.0.email': '',
+        },
         {},
         [],
       );
