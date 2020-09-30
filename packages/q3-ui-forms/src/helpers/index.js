@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { uniq, get } from 'lodash';
-import { array, string } from 'q3-ui-helpers';
+import { object, array, string } from 'q3-ui-helpers';
 
 export { default as handleFormData } from './formData';
 
@@ -14,6 +14,9 @@ export const asOptions = (a) =>
     label: value,
     value,
   }));
+
+// alias this method to match newer naming conventions
+export const castToOptions = asOptions;
 
 export const castToUTC = (v) =>
   !isUndefined(v)
@@ -61,3 +64,13 @@ export const castToRegex = (v) => {
     return v;
   }
 };
+
+export const castFromOptions = (a = []) =>
+  array
+    .is(a)
+    .map((item) => {
+      if (typeof item === 'string') return item;
+      if (object.isIn(item, 'value')) return item.value;
+      return '';
+    })
+    .filter(Boolean);

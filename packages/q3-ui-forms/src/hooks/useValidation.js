@@ -1,7 +1,7 @@
 import React from 'react';
 import * as yup from 'yup';
 import { set, unset } from 'lodash';
-import { object, string } from 'q3-ui-helpers';
+import { string } from 'q3-ui-helpers';
 import { Validator } from '../helpers/validation';
 
 export const splitNestedArrayNamesIntoParts = (v) =>

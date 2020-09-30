@@ -1,0 +1,62 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { action } from '@storybook/addon-actions';
+import moment from 'moment';
+import Tile from 'q3-ui/lib/tile';
+import Container from '@material-ui/core/Container';
+import Repeater from '../Repeater';
+import Form from '../Form';
+import Field from '../Field';
+import {
+  castToOptions,
+  castFromOptions,
+} from '../../helpers';
+
+<Meta title="Forms/Builders" component={Repeater} />
+
+# Repeater
+
+## Using modify, marshal and unwind declarations
+
+<Preview>
+  <Story name="FormSetup">
+    <Container>
+      <Form
+        debug
+        unwind={[['repeats', 3]]}
+        onSubmit={action('submit')}
+        initialValues={{
+          repeats: ['Apple', 'Pear'],
+        }}
+        modify={{
+          repeats: [castToOptions],
+        }}
+        marshal={{
+          repeats: [castFromOptions],
+        }}
+      >
+        <Repeater group="repeats">
+          <Field name="value" type="text" xl={12} lg={12} />
+        </Repeater>
+      </Form>
+    </Container>
+  </Story>
+</Preview>
+
+## Using minimum and maximum values
+
+<Preview>
+  <Story name="Min/Max">
+    <Container>
+      <Form debug onSubmit={action('submit')}>
+        <Repeater group="repeats" min={3} max={5}>
+          <Field name="value" type="text" xl={12} lg={12} />
+        </Repeater>
+      </Form>
+    </Container>
+  </Story>
+</Preview>
