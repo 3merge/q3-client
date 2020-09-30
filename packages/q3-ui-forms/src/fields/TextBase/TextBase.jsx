@@ -20,6 +20,7 @@ export const marshalProps = (v) =>
     'override',
     'under',
     'onChange',
+    'validate',
   ]);
 
 export const chosenTextFieldDisplayAttributes = {

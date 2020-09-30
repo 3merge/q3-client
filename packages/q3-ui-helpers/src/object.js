@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, last } from 'lodash';
 import flat from 'flat';
 
 export const hasKeys = (o) =>
@@ -89,3 +89,5 @@ export const removeUndefinedValuesFromAllArrays = (
 
     return acc;
   }, {});
+
+export const getBottomKey = (v) => last(Object.keys(v));

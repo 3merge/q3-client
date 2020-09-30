@@ -1,6 +1,5 @@
 import * as yup from 'yup';
 import { get } from 'lodash';
-import moment from 'moment';
 import { browser, string, object } from 'q3-ui-helpers';
 
 export const VALIDATION_OPTIONS = [
@@ -239,12 +238,25 @@ export class Validator {
   }
 
   build() {
-    // skip everything for custom
-    if (this.validate) return this.validate;
+    const hasCustomTestFn =
+      typeof this.validate === 'function';
+
+    // skip everything for custom schema
+    if (this.validate && !hasCustomTestFn)
+      return this.validate;
+
     this.checkTypes();
     this.checkEnum();
 
     this.checkOptions(VALIDATION_OPTIONS);
+
+    if (hasCustomTestFn)
+      return this.$base.test(
+        'custom-validator',
+        'Check that your data is correct and/or complete',
+        this.validate,
+      );
+
     return this.$base;
   }
 }
