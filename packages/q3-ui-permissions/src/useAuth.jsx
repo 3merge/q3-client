@@ -57,8 +57,6 @@ export default (ctx) => (coll) => {
   const a = React.useContext(ctx);
   const permissions = getPermissions(a);
 
-  // console.log(permissions);
-
   const getOp = (name) =>
     findByOp(filterbyColl(permissions, coll), name);
 
