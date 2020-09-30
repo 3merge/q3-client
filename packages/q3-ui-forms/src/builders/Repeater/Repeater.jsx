@@ -2,67 +2,64 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import flat from 'flat';
 import { useTranslation } from 'react-i18next';
-import { get, last, first } from 'lodash';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import IconButton from 'q3-ui/lib/iconButton';
-import { array, object } from 'q3-ui-helpers';
+import { object } from 'q3-ui-helpers';
 import {
   BuilderState,
   DispatcherState,
 } from '../../FormsContext';
-import { getEmptyEntry, assignNameToFields } from './utils';
-
-const autofocusNewField = (key) =>
-  setTimeout(() => {
-    try {
-      document.getElementById(key).focus();
-    } catch (e) {
-      // null
-    }
-  });
+import {
+  autofocusNewField,
+  getEmptyEntry,
+  checkValueIfWithinMinimumThreshold,
+  assignNameToFields,
+  makeStateProxy,
+} from './utils';
 
 const Repeater = ({ group, children, min, max }) => {
   const { t } = useTranslation('labels');
-  const { values } = React.useContext(BuilderState);
+
   const {
     setFieldValue,
     setValues,
     setErrors,
   } = React.useContext(DispatcherState);
 
-  const items = array
-    .is(get(flat.unflatten(object.is(values)), group, []))
-    .filter(object.hasKeys);
+  const proxy = makeStateProxy(
+    React.useContext(BuilderState),
+    group,
+  );
 
-  const canRemoveRows = items.length > min;
+  const items = proxy.getAll();
   const canAddRows = items.length < max;
+  const canRemoveRows = items.length > min;
 
   const unsetGroupFieldsFromState = (index, stateHandler) =>
     stateHandler((prev) => {
       const current = flat.unflatten(object.is(prev));
-
-      current[group] = Array.isArray(current[group])
-        ? current[group].filter((item, i) => i !== index)
-        : [];
+      current[group] = proxy.filterByIndex(current, index);
 
       // remove empty references
       if (current[group].length === 0)
         delete current[group];
 
       // preserves nested values in Autcomplete, Chips, etc.
-      return flat(current, { maxDepth: 3 });
+      return flat(current, {
+        maxDepth: 3,
+      });
     });
 
   const deconstructEntriesIntoFieldState = (obj = {}) =>
-    Object.entries(obj).forEach(([key, init]) => {
+    Object.entries(obj).forEach(([key, init]) =>
       setFieldValue(key, init, {
         flat: true,
-      });
-    });
+      }),
+    );
 
   const addToSet = () => {
     const newState = flat(
@@ -70,7 +67,7 @@ const Repeater = ({ group, children, min, max }) => {
     );
 
     deconstructEntriesIntoFieldState(newState);
-    autofocusNewField(last(Object.keys(newState)));
+    autofocusNewField(object.getBottomKey(newState));
   };
 
   const removeFromSet = (index) => () => {
@@ -78,24 +75,12 @@ const Repeater = ({ group, children, min, max }) => {
     unsetGroupFieldsFromState(index, setValues);
   };
 
-  const init = () => {
-    const empty = Array.from({
-      length: min,
-    }).reduce((acc, _, index) => {
-      if (index < items.length) return acc;
-
-      return Object.assign(
-        acc,
-        getEmptyEntry(
-          group,
-          items.length + index,
-          children,
-        ),
-      );
-    }, {});
-
-    deconstructEntriesIntoFieldState(empty);
-  };
+  const init = () =>
+    deconstructEntriesIntoFieldState(
+      proxy.fill(min, (indexValue) =>
+        getEmptyEntry(group, indexValue, children),
+      ),
+    );
 
   React.useEffect(() => {
     init();
@@ -113,22 +98,9 @@ const Repeater = ({ group, children, min, max }) => {
             <Grid container spacing={1}>
               {assignNameToFields(
                 {
-                  validate(val) {
-                    try {
-                      const num = first(
-                        // eslint-disable-next-line
-                        last(this.path.split('[')).split(
-                          ']',
-                        ),
-                      );
-
-                      return Number(num) < min
-                        ? Boolean(val)
-                        : true;
-                    } catch (e) {
-                      return true;
-                    }
-                  },
+                  validate: checkValueIfWithinMinimumThreshold(
+                    min,
+                  ),
                   prefix: group,
                   index: i,
                 },

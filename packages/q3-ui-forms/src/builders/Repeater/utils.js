@@ -1,11 +1,13 @@
 import React from 'react';
-import { get } from 'lodash';
+import { get, first, last } from 'lodash';
+import flat from 'flat';
+import { array, object } from 'q3-ui-helpers';
 
 const toArray = (children) =>
   React.Children.toArray(children);
 
-export const getEmptyEntry = (prefix, index, children) => {
-  return toArray(children).reduce((acc, item = {}) => {
+export const getEmptyEntry = (prefix, index, children) =>
+  toArray(children).reduce((acc, item = {}) => {
     const { children: subChildren, props } = item;
     const name = get(props, 'name');
 
@@ -17,14 +19,13 @@ export const getEmptyEntry = (prefix, index, children) => {
 
     return acc;
   }, {});
-};
 
 export const assignNameToFields = (
   { prefix, index, ...rest },
   children,
   t,
-) => {
-  return toArray(children).map((item = {}) => {
+) =>
+  toArray(children).map((item = {}) => {
     const { children: subChildren, props } = item;
     const attribute = get(props, 'name');
 
@@ -42,4 +43,65 @@ export const assignNameToFields = (
       label: t ? t(label) : label,
     });
   });
+
+export const autofocusNewField = (key) =>
+  setTimeout(() => {
+    try {
+      document.getElementById(key).focus();
+    } catch (e) {
+      // null
+    }
+  });
+
+export const getNumberFromRepeaterFieldName = (
+  pathname,
+) => {
+  try {
+    return Number(
+      first(last(pathname.split('[')).split(']')),
+    );
+  } catch (e) {
+    return 0;
+  }
 };
+
+export const checkValueIfWithinMinimumThreshold = (
+  minimumValue,
+) =>
+  function customYupValidationMethod(inputValue) {
+    return getNumberFromRepeaterFieldName(this.path) <
+      minimumValue
+      ? Boolean(inputValue)
+      : true;
+  };
+
+export const makeStateProxy = ({ values = {} }, group) => ({
+  getAll() {
+    return array
+      .is(get(flat.unflatten(object.is(values)), group, []))
+      .filter(object.hasKeys);
+  },
+
+  filterByIndex(newState, index) {
+    return Array.isArray(newState[group])
+      ? newState[group].filter((item, i) => i !== index)
+      : [];
+  },
+
+  fill(minLength, genArrayItem) {
+    const items = this.getAll();
+
+    return Array.from({
+      length: minLength,
+    }).reduce(
+      (acc, _, index) =>
+        index >= items.length
+          ? Object.assign(
+              acc,
+              genArrayItem(items.length + index),
+            )
+          : acc,
+      {},
+    );
+  },
+});
