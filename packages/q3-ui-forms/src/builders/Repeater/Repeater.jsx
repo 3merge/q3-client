@@ -21,7 +21,13 @@ import {
   makeStateProxy,
 } from './utils';
 
-const Repeater = ({ group, children, min, max }) => {
+const Repeater = ({
+  group,
+  required,
+  children,
+  min,
+  max,
+}) => {
   const { t } = useTranslation('labels');
 
   const {
@@ -75,32 +81,25 @@ const Repeater = ({ group, children, min, max }) => {
     unsetGroupFieldsFromState(index, setValues);
   };
 
-  const init = () =>
-    deconstructEntriesIntoFieldState(
-      proxy.fill(min, (indexValue) =>
-        getEmptyEntry(group, indexValue, children),
-      ),
-    );
-
-  React.useEffect(() => {
-    init();
-  }, []);
-
   return (
     <Grid item xs={12}>
       <Typography variant="overline" component="span">
         {t(group)} (Min: {min}, Max: {max})
       </Typography>
 
-      {items.map((item, i) => (
+      {Array.from({
+        length: Math.max(items.length, min),
+      }).map((_, i) => (
         <Grid container key={`${group}-${i}`} spacing={1}>
           <Grid item style={{ flex: 1 }}>
             <Grid container spacing={1}>
               {assignNameToFields(
                 {
-                  validate: checkValueIfWithinMinimumThreshold(
-                    min,
-                  ),
+                  validate: required
+                    ? checkValueIfWithinMinimumThreshold(
+                        min,
+                      )
+                    : undefined,
                   prefix: group,
                   index: i,
                 },
@@ -152,9 +151,11 @@ Repeater.propTypes = {
     PropTypes.array,
     PropTypes.object,
   ]).isRequired,
+  required: PropTypes.bool,
 };
 
 Repeater.defaultProps = {
+  required: false,
   max: Infinity,
   min: 1,
 };

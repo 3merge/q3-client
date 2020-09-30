@@ -123,15 +123,16 @@ describe('Builders', () => {
         }),
       );
 
+      interact.hasFields(1);
+
       expect(stateWatcher).toHaveBeenLastCalledWith(
         {
-          'profile.0.email': '',
+          'profile': [{ email: '' }],
         },
         {},
         [],
       );
 
-      interact.hasFields(1);
       expect(interact.getRemoveRowButton()).toHaveProperty(
         'disabled',
         true,
