@@ -53,7 +53,13 @@ const AbstractedAutoComplete = ({
 
         return get(match, 'label', match);
       })
-      .filter(Boolean);
+      .reduce(
+        (acc, x) =>
+          Boolean(x) && !acc.includes(x)
+            ? acc.concat(x)
+            : acc,
+        [],
+      );
   };
 
   return (
@@ -86,20 +92,6 @@ const AbstractedAutoComplete = ({
       }}
       onInputChange={(event, newInputValue) => {
         handleChange(newInputValue);
-      }}
-      getOptionSelected={(option) => {
-        try {
-          return array
-            .is(value)
-            .some(
-              (item) =>
-                item === option ||
-                item === option.value ||
-                item.value === option.value,
-            );
-        } catch (e) {
-          return false;
-        }
       }}
     />
   );
