@@ -17,6 +17,38 @@ import {
   pickFromProps,
 } from '../Autocomplete/Autocomplete';
 
+export const getTags = (
+  currentState = [],
+  options = [],
+) => {
+  if (!Array.isArray(currentState)) return [];
+
+  console.log(currentState, options);
+
+  return currentState
+    .map((v) => {
+      if (typeof v === 'string') return v;
+      if (!options.length) return get(v, 'label', v);
+
+      const match = options.find((item) => {
+        const compare = typeof v !== 'object' ? v : v.value;
+
+        return typeof item === 'string'
+          ? String(item) === String(compare)
+          : String(item.value) === String(compare);
+      });
+
+      return get(match, 'label', match);
+    })
+    .reduce(
+      (acc, x) =>
+        Boolean(x) && !acc.includes(x)
+          ? acc.concat(x)
+          : acc,
+      [],
+    );
+};
+
 const AbstractedAutoComplete = ({
   items,
   handleChange,
@@ -33,34 +65,6 @@ const AbstractedAutoComplete = ({
     name,
     value,
   } = props;
-
-  const getTags = (values = []) => {
-    if (!Array.isArray(values)) return [];
-
-    return values
-      .map((v) => {
-        if (typeof v === 'string') return v;
-        if (!items.length) return get(v, 'label', v);
-
-        const match = items.find((item) => {
-          const compare =
-            typeof v !== 'object' ? v : v.value;
-
-          return typeof item === 'string'
-            ? String(item) === String(compare)
-            : String(item.value) === String(compare);
-        });
-
-        return get(match, 'label', match);
-      })
-      .reduce(
-        (acc, x) =>
-          Boolean(x) && !acc.includes(x)
-            ? acc.concat(x)
-            : acc,
-        [],
-      );
-  };
 
   return (
     <Autocomplete
@@ -81,7 +85,10 @@ const AbstractedAutoComplete = ({
         fullWidth: true,
       })}
       renderTags={(values, getTagProps) => {
-        return getTags(values).map((option, index) => (
+        return getTags(
+          values,
+          items,
+        ).map((option, index) => (
           <Chip
             label={t(option)}
             disabled={index === 0}

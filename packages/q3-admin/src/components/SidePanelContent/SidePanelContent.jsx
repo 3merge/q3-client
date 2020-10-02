@@ -14,7 +14,7 @@ export const SidebarPanelContent = ({
   const { t } = useTranslation();
 
   return (
-    <Box px={1} width="100%" className={bordered}>
+    <Box width="100%" className={bordered}>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -38,11 +38,14 @@ export const SidebarPanelContent = ({
   );
 };
 
-SidebarPanelContent.defaultProps = {};
+SidebarPanelContent.defaultProps = {
+  gutters: false,
+};
 
 SidebarPanelContent.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  gutters: PropTypes.bool,
 };
 
 export default SidebarPanelContent;
