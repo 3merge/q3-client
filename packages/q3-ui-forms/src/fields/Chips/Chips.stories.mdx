@@ -13,39 +13,45 @@ import { Form, Field } from '../../builders';
 
 <Meta title="Forms/Fields/Chips" component={Chips} />
 
-<Preview>
-  <Story name="With custom label">
-    <Form debug initialValues={{ demo: ['One', 'Two'] }}>
-      <Field
-        name="demo"
-        type="chips"
-        options={countries.map(({ value }) => value)}
-        label="Custom label"
-        required
-        filter
-      />
-    </Form>
-  </Story>
-</Preview>
+# Chips
+
+Use Chips to suggest or control an input otherwise suitable
+for Multi-Text entry. Whenever you need to select from a big
+(potentially dynamic list), use Chips over Checkset or
+Multi-Select.
+
+## Lazy-loading options
+
+Although Chips can take an _options_ array, much like Select
+or Checkset, it's often preferable to lazy-load results. If
+you'd like to only fetch once, specify _preload_ to avoid
+subsequent network calls on change.
 
 <Preview>
-  <Story name="With lazy loading">
-    <Form debug>
+  <Story name="Lazy load">
+    <Form>
       <Field
         type="chips"
         name="demo"
         loadOptions={autocomplete}
+        helperText="Options include Canada, United States and United Kingdom"
       />
     </Form>
   </Story>
 </Preview>
 
+## Free-solo text entry
+
+When Chips needs to be more suggestive, add the _freeSolo_
+prop to enable users to enter anything they choose.
+
 <Preview>
-  <Story name="With free solo">
-    <Form debug>
+  <Story name="Free-solo">
+    <Form>
       <Field
         type="chips"
         name="demo"
+        preload
         loadOptions={autocomplete}
         freeSolo
       />

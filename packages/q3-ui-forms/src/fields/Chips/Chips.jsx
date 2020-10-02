@@ -1,21 +1,96 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, uniqBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
-import { array } from 'q3-ui-helpers';
+import { array, object } from 'q3-ui-helpers';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
 import { useOptions } from '../../hooks';
 import { getLabelWithFallback } from '../helpers';
 import withGrid from '../withGrid';
 import withState from '../withState';
 import {
+  compareOptionValueToState,
   controlSearchFilter,
   getCustomInput,
   filterOptions,
   pickFromProps,
 } from '../Autocomplete/Autocomplete';
+
+const getFromValue = (prop) => (val) =>
+  typeof val === 'object' ? val[prop] : val;
+
+export const getValueLabel = getFromValue('label');
+export const getValueEntry = getFromValue('value');
+
+export const checkCurrentState = (currentState = []) => ({
+  getSelectedOptions: (option) =>
+    currentState.some((val) =>
+      compareOptionValueToState(option, getValueEntry(val)),
+    ),
+
+  getTags: (options = []) => {
+    if (!Array.isArray(currentState)) return [];
+    if (!Array.isArray(options)) return currentState;
+
+    const formatStateValue = (singleStateValue) => {
+      const context = {
+        get original() {
+          return getValueLabel(singleStateValue);
+        },
+
+        get populate() {
+          const match = options.find((item) =>
+            compareOptionValueToState(
+              item,
+              getValueEntry(singleStateValue),
+            ),
+          );
+
+          return get(match, 'label', match);
+        },
+
+        exec() {
+          // determines if the tag requires a label
+          // think of when the value is an ObjectId but has no human-friendly text
+          // typically, this only works for preload
+          return typeof singleStateValue === 'string' ||
+            object.isIn(singleStateValue, 'label')
+            ? this.original
+            : this.populate;
+        },
+      };
+
+      return context.exec();
+    };
+
+    return currentState
+      .map(formatStateValue)
+      .filter(Boolean);
+  },
+});
+
+export const matchFreeSoloWithOptions = (
+  items = [],
+  next,
+) => (v, newValue) => {
+  const formatted = newValue.map((val) => {
+    if (typeof val === 'string')
+      return (
+        items.find((item) =>
+          compareOptionValueToState(item, val),
+        ) || {
+          label: val,
+          value: val,
+        }
+      );
+
+    return val;
+  });
+
+  return next(v, uniqBy(formatted, 'value'));
+};
 
 const AbstractedAutoComplete = ({
   items,
@@ -34,39 +109,22 @@ const AbstractedAutoComplete = ({
     value,
   } = props;
 
-  const getTags = (values = []) => {
-    if (!Array.isArray(values)) return [];
-
-    return values
-      .map((v) => {
-        if (typeof v === 'string') return v;
-        if (!items.length) return get(v, 'label', v);
-
-        const match = items.find((item) => {
-          const compare =
-            typeof v !== 'object' ? v : v.value;
-
-          return typeof item === 'string'
-            ? String(item) === String(compare)
-            : String(item.value) === String(compare);
-        });
-
-        return get(match, 'label', match);
-      })
-      .filter(Boolean);
-  };
+  const currentState = array.is(value);
+  const check = checkCurrentState(currentState);
 
   return (
     <Autocomplete
       {...chosenTextFieldDisplayAttributes}
       {...controlSearchFilter(props)}
       {...pickFromProps(props)}
+      onChange={matchFreeSoloWithOptions(items, onChange)}
       multiple
       options={items}
       loading={loading}
-      value={array.is(value)}
+      value={currentState}
       filterOptions={filterOptions(props)}
       getOptionLabel={getLabelWithFallback(value)}
+      getOptionSelected={check.getSelectedOptions}
       renderInput={getCustomInput({
         label,
         helperText,
@@ -74,32 +132,20 @@ const AbstractedAutoComplete = ({
         variant: 'outlined',
         fullWidth: true,
       })}
-      renderTags={(values, getTagProps) => {
-        return getTags(values).map((option, index) => (
-          <Chip
-            label={t(option)}
-            disabled={index === 0}
-            size="small"
-            {...getTagProps({ index })}
-          />
-        ));
-      }}
+      renderTags={(values, getTagProps) =>
+        check
+          .getTags(items)
+          .map((option, index) => (
+            <Chip
+              label={t(option)}
+              disabled={index === 0}
+              size="small"
+              {...getTagProps({ index })}
+            />
+          ))
+      }
       onInputChange={(event, newInputValue) => {
         handleChange(newInputValue);
-      }}
-      getOptionSelected={(option) => {
-        try {
-          return array
-            .is(value)
-            .some(
-              (item) =>
-                item === option ||
-                item === option.value ||
-                item.value === option.value,
-            );
-        } catch (e) {
-          return false;
-        }
       }}
     />
   );

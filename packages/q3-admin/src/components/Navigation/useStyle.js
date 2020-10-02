@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
     height: '100vh',
     position: 'sticky',
     top: 0,
-    width: 265,
+    width: 255,
     zIndex: 10,
 
     '& .Mui-selected': {
@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     display: 'flex',
     height: 'calc(100vh - 75px)',
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(0.75),
   },
   actions: {
     height: 95,

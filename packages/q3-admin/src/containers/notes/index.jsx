@@ -43,7 +43,7 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <SidePanelContent title="thread">
+    <SidePanelContent title="thread" gutters>
       <DisplayNotes
         loading={fetching}
         error={fetchingError}

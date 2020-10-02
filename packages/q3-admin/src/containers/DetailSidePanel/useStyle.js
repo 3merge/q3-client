@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     fontSize: '1rem !important',
     overflowY: 'auto',
     overflowX: 'hidden',
-    padding: '.5rem',
+    padding: '.5rem 0',
     position: 'sticky',
     top: 0,
     background: 'white',
