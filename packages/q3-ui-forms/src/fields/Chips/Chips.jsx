@@ -11,7 +11,6 @@ import { getLabelWithFallback } from '../helpers';
 import withGrid from '../withGrid';
 import withState from '../withState';
 import {
-  compareOptionLabelToState,
   compareOptionValueToState,
   controlSearchFilter,
   getCustomInput,
@@ -22,8 +21,8 @@ import {
 const getFromValue = (prop) => (val) =>
   typeof val === 'object' ? val[prop] : val;
 
-const getValueLabel = getFromValue('label');
-const getValueEntry = getFromValue('value');
+export const getValueLabel = getFromValue('label');
+export const getValueEntry = getFromValue('value');
 
 export const checkCurrentState = (currentState = []) => ({
   getSelectedOptions: (option) =>
@@ -53,10 +52,13 @@ export const checkCurrentState = (currentState = []) => ({
         },
 
         exec() {
+          // determines if the tag requires a label
+          // think of when the value is an ObjectId but has no human-friendly text
+          // typically, this only works for preload
           return typeof singleStateValue === 'string' ||
             object.isIn(singleStateValue, 'label')
             ? this.original
-            : this.populated;
+            : this.populate;
         },
       };
 
@@ -69,15 +71,15 @@ export const checkCurrentState = (currentState = []) => ({
   },
 });
 
-const matchFreeSoloWithOptions = (items = [], next) => (
-  v,
-  newValue,
-) => {
+export const matchFreeSoloWithOptions = (
+  items = [],
+  next,
+) => (v, newValue) => {
   const formatted = newValue.map((val) => {
     if (typeof val === 'string')
       return (
         items.find((item) =>
-          compareOptionLabelToState(item, val),
+          compareOptionValueToState(item, val),
         ) || {
           label: val,
           value: val,
