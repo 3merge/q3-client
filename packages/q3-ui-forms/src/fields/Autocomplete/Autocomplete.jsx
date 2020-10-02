@@ -18,10 +18,13 @@ const shouldDisableFilter = ({
 export const controlSearchFilter = (args = {}) =>
   shouldDisableFilter(args)
     ? {
-        filterSelectedOptions: false,
+        filterSelectedOptions: true,
         disableFilter: true,
       }
-    : {};
+    : {
+        filterSelectedOptions: true,
+        disableFilter: false,
+      };
 
 export const pickFromProps = (props) => ({
   ...pick(props, [
@@ -55,10 +58,18 @@ export const getCustomInput = (customProps) => (params) =>
     }),
   );
 
-export const compareOptionValueToState = (option, value) =>
+const compareToState = (optionProp) => (option, value) =>
   option === value ||
-  option.value === value ||
+  option[optionProp] === value ||
   (value === '' && !option);
+
+export const compareOptionValueToState = compareToState(
+  'value',
+);
+
+export const compareOptionLabelToState = compareToState(
+  'label',
+);
 
 export const getValue = (value) =>
   object.hasKeys(value) ? value.value : value;
