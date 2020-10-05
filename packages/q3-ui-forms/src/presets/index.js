@@ -1,3 +1,4 @@
+export { default as FieldGroup } from './FieldGroup';
 export { default as Exists } from './Exists';
 export { default as Has } from './Has';
 export { default as NorthAmericaRegionalSelect } from './northAmericaRegionalSelect';
