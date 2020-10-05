@@ -208,7 +208,4 @@ Chips.defaultProps = {
   options: [],
 };
 
-export default withGrid(withState(Chips), {
-  lg: 12,
-  xl: 12,
-});
+export default withGrid(withState(Chips));

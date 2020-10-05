@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextBase from '../TextBase';
+import withGrid from '../withGrid';
 
 const SelectBase = ({
   disabled,
@@ -72,4 +73,4 @@ SelectBase.propTypes = {
   }).isRequired,
 };
 
-export default SelectBase;
+export default withGrid(SelectBase);
