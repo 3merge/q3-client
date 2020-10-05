@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
   },
   fill: {
     flex: 1,
+    maxWidth: '100%',
   },
   column: {
     padding: theme.spacing(2),
