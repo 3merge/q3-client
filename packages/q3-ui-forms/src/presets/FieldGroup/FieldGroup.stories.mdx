@@ -1,0 +1,26 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import FieldGroup from '.';
+import { Form, Field } from '../../builders';
+
+<Meta
+  title="Forms/Presets/FieldGroup"
+  component={FieldGroup}
+/>
+
+# FieldGroup
+
+<Preview>
+  <Story name="Types">
+    <LocationDebugger />
+    <Form>
+      <FieldGroup label="Custom label">
+        <Field name="test" xl={12} lg={12} />
+      </FieldGroup>
+    </Form>
+  </Story>
+</Preview>
