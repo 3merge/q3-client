@@ -11,7 +11,14 @@ export const filterbyColl = (a, name) =>
   a.filter((v) => v.coll.localeCompare(name) === 0);
 
 export const findByOp = (a, op) =>
-  a && a.length ? a.find((grant) => grant.op === op) : null;
+  a && a.length
+    ? a.find(
+        (grant) =>
+          // the default for undefined inClient values is true
+          // this differs from the Read op, which is somewhere else
+          grant.op === op && grant.inClient !== false,
+      )
+    : null;
 
 export const isDefined = (arg) =>
   arg !== undefined && arg !== null;
