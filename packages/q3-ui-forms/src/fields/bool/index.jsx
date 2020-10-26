@@ -95,6 +95,7 @@ const Bool = ({
   isChecked,
   variant,
   my,
+  id,
   ...rest
 }) => {
   const ControlVariant = getBoolVariant(variant);
@@ -123,6 +124,7 @@ const Bool = ({
         style={{ userSelect: 'none' }}
         control={
           <ControlVariant
+            id={id}
             checked={isChecked}
             {...cleaned}
           />
@@ -185,6 +187,11 @@ Bool.propTypes = {
    * Vertical margin value.
    */
   my: PropTypes.number,
+
+  /**
+   * Input ID.
+   */
+  id: PropTypes.string.isRequired,
 };
 
 Bool.defaultProps = {

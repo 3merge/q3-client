@@ -1,0 +1,35 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Checkset from '.';
+import { Form, Field } from '../../builders';
+
+<Meta title="Forms/Fields/Checkset" component={Checkset} />
+
+<Preview>
+  <Story name="Collapsible">
+    <Form debug initialValues={{ demo: false }}>
+      <Field
+        name="demo"
+        type="checkset"
+        options={['One', 'Two', 'Three']}
+      />
+    </Form>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Static">
+    <Form debug initialValues={{ demo: false }}>
+      <Field
+        name="demo"
+        type="checkset"
+        options={['One', 'Two', 'Three']}
+        collapse={false}
+      />
+    </Form>
+  </Story>
+</Preview>
