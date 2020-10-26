@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.20](https://github.com/3merge/q/compare/v1.24.19...v1.24.20) (2020-10-26)
+
+
+### Bug Fixes
+
+* overwritable logo href ([a9fe34e](https://github.com/3merge/q/commit/a9fe34ed866dab839762a841766156b446bb932b))
+
+
+
+
+
 ## [1.24.19](https://github.com/3merge/q/compare/v1.24.18...v1.24.19) (2020-10-26)
 
 
