@@ -3,11 +3,16 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import useStyles from './useStyle';
 
-const Logo = ({ name }) => {
+const Logo = ({ name, to }) => {
   const { logo } = useStyles();
 
   return (
-    <Link id="q3" to="/" aria-label={name} className={logo}>
+    <Link
+      id="q3"
+      to={to}
+      aria-label={name}
+      className={logo}
+    >
       <svg viewBox="0 0 1000 1000">
         <g>
           <polygon points="509.9,657.01 423.84,570.95 490.68,570.95 576.74,657.01 	" />
@@ -24,6 +29,15 @@ Logo.propTypes = {
    * Brand for alt attribute.
    */
   name: PropTypes.string.isRequired,
+
+  /**
+   * Link destination for logo
+   */
+  to: PropTypes.string,
+};
+
+Logo.defaultProps = {
+  to: '/',
 };
 
 export default Logo;
