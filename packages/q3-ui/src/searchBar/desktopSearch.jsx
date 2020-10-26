@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import { useDebounce } from 'use-debounce';
+import { useTranslation } from 'react-i18next';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
@@ -51,6 +52,7 @@ const DesktopSearch = ({
   redirectPath,
 }) => {
   const ref = React.useRef();
+  const { t } = useTranslation('labels');
 
   const {
     value,
@@ -109,6 +111,11 @@ const DesktopSearch = ({
             {...params}
             disableUnderline
             onKeyPress={onSearch}
+            inputProps={{
+              ...params.inputProps,
+              'aria-label': t('searchSite'),
+            }}
+            // eslint-disable-next-line
             InputProps={{
               ...params.InputProps,
               disableUnderline: true,
