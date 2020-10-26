@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Location, Link as ReachLink } from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -31,9 +32,14 @@ LastBreadcrumb.propTypes = {
 
 const BreadcrumbsHome = ({ root }) => {
   const { capitalize } = useStyles();
+  const { t } = useTranslation('labels');
 
   return (
-    <Link to={root} component={ForwardedLink}>
+    <Link
+      aria-label={t('home')}
+      to={root}
+      component={ForwardedLink}
+    >
       <Home className={capitalize} />
     </Link>
   );
