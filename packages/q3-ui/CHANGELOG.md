@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.19](https://github.com/3merge/q/compare/v1.24.18...v1.24.19) (2020-10-26)
+
+
+### Bug Fixes
+
+* accessibility issues ([#254](https://github.com/3merge/q/issues/254)) ([666432f](https://github.com/3merge/q/commit/666432f8c9fbc0d6c2bd063751e61af6640e03a6))
+
+
+
+
+
 ## [1.24.13](https://github.com/3merge/q/compare/v1.24.12...v1.24.13) (2020-09-30)
 
 **Note:** Version bump only for package q3-ui
