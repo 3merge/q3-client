@@ -136,7 +136,11 @@ const Bool = ({
         onChange={onChange}
         onKeyPress={(e) => {
           // enable keyboard toggling
-          if (e.key === 'Enter') onChange(e, !isChecked);
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+            onChange(e, !isChecked);
+          }
         }}
         {...cleaned}
       />
