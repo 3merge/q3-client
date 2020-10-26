@@ -10,6 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardUp from '@material-ui/icons/KeyboardArrowUp';
 
+const makeId = (v) =>
+  `${
+    typeof v === 'string'
+      ? v.toLowerCase().replace(/\s/g, '-')
+      : ''
+  }-checkset-options`;
+
 export const renderKeyboardIcon = (
   shouldCollapse,
   show,
@@ -27,6 +34,7 @@ export const CollapsibleFieldLabel = ({
 }) => {
   const [show, setShow] = React.useState(true);
   const toggle = () => setShow(!show);
+  const id = makeId(label);
 
   return (
     <FormControl
@@ -35,7 +43,9 @@ export const CollapsibleFieldLabel = ({
     >
       {label && (
         <Button
-          component={FormLabel}
+          aria-controls={id}
+          aria-expanded={show}
+          role="button"
           onClick={toggle}
           disabled={!collapse}
           style={{
@@ -49,7 +59,7 @@ export const CollapsibleFieldLabel = ({
           </Typography>
         </Button>
       )}
-      <Collapse in={show}>
+      <Collapse id={id} in={show}>
         <Box mb={1}>{children}</Box>
       </Collapse>
       {helperText && (

@@ -21,7 +21,6 @@ export default withStyles((theme) => ({
 }))((props) => <Tab disableRipple {...props} />);
 
 export const a11yProps = (index) => ({
-  id: `simple-tab-${index}`,
-  'aria-controls': `simple-tabpanel-${index}`,
+  id: `app-menu-${index}`,
   value: index,
 });

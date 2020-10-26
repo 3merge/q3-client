@@ -40,7 +40,11 @@ const ContentHalves = ({
               {label}
             </Typography>
           )}
-          <Typography variant="h3" color="secondary">
+          <Typography
+            variant="h3"
+            component="h2"
+            color="secondary"
+          >
             {title}
           </Typography>
           <Divider className={cls.divider} />

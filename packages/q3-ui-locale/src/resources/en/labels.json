@@ -241,5 +241,6 @@
   "changeFeaturedPhoto": "Change featured photo",
   "createdAt": "Created",
   "updatedAt": "Updated",
-  "within48": "Within the last 48 hours"
+  "within48": "Within the last 48 hours",
+  "searchSite": "Search this site by keyword"
 }
