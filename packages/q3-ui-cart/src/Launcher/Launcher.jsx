@@ -36,6 +36,7 @@ const CartLauncher = ({ children }) => {
         buttonProps={{
           className: DRAWER_LAUNCHER,
           onClick: open,
+          'aria-expanded': isOpen,
         }}
       />
       {children && children(close, isOpen)}
