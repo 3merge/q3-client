@@ -27,7 +27,9 @@ const CartLauncher = ({ children }) => {
   return (
     <>
       <IconButtonWithLoading
-        label="openCart"
+        label={`${items.length} ${
+          items.length === 1 ? 'item' : 'items'
+        } in shopping cart`}
         loading={loading}
         icon={ShoppingCart}
         badgeContent={items.length}
