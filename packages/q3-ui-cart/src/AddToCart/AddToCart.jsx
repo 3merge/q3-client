@@ -5,13 +5,14 @@ import { Quantity } from 'q3-components';
 import Box from '@material-ui/core/Box';
 import AddToCartButton from '../AddToCartButton';
 
-const AddToCart = ({ product, size, ...rest }) => (
+const AddToCart = ({ product, size, name, ...rest }) => (
   <Box display="flex" alignItems="stretch">
     <Quantity {...rest} size={size}>
       {(quantity) => (
         <AddToCartButton
           quantity={quantity}
           product={product}
+          name={name}
         />
       )}
     </Quantity>
@@ -21,6 +22,7 @@ const AddToCart = ({ product, size, ...rest }) => (
 AddToCart.propTypes = {
   product: PropTypes.string.isRequired,
   size: PropTypes.oneOf(['large', 'regular', 'small']),
+  name: PropTypes.string.isRequired,
 };
 
 AddToCart.defaultProps = {
