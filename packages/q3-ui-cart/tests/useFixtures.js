@@ -1,4 +1,4 @@
-const genProduct = ({ product, quantity }) => ({
+export const genProduct = ({ product, quantity }) => ({
   id: '1',
   product,
   quantity,
@@ -11,10 +11,11 @@ const genProduct = ({ product, quantity }) => ({
     'https://images.unsplash.com/photo-1580793210854-d22f57782c62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
 });
 
-export default () => {
-  const order = { items: [] };
+export default (items = []) => {
+  const order = { items };
 
   return {
+    items,
     order,
 
     updateOrder: (args) => {

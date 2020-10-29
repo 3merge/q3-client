@@ -15,7 +15,6 @@ import useStyle from './useStyle';
 
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
-  const { avatar } = useStyle();
 
   return React.useMemo(
     () =>
@@ -33,63 +32,52 @@ export default ({ children }) => {
         } = item;
 
         return (
-          <Box
-            key={id || i}
-            className={DRAWER_LINE_ITEM_CLASS}
-            mb={1}
+          <Grid
+            role="rowgroup"
+            container
+            alignItems="center"
+            key={id}
+            spacing={3}
           >
-            <Paper elevation={2}>
-              <Box p={2}>
-                <Box component="div">
-                  <Grid container spacing={2}>
-                    <Grid item style={{ width: 'auto' }}>
-                      <Avatar
-                        variant="rounded"
-                        className={avatar}
-                      >
-                        <img src={img} alt={product} />
-                      </Avatar>
-                    </Grid>
-                    <Grid item md={10} sm={9} xs={12}>
-                      <Box>
-                        <Typography
-                          variant="overline"
-                          color="primary"
-                        >
-                          {string.toPrice(price)} ea.
-                        </Typography>
-                        <Typography
-                          variant="h4"
-                          component="h3"
-                          gutterBottom
-                        >
-                          {name}
-                        </Typography>
-                        <Typography>
-                          <small>{description}</small>
-                        </Typography>
-                        <LineItemSubtotal
-                          subtotal={subtotal}
-                        />
-                      </Box>
-                      {children && children(item)}
-                      <LineItemToggle
-                        id={id}
-                        product={product}
-                        quantity={quantity}
-                        price={price}
-                        disabled={disabled}
-                      />
-                      <LineItemRemove
-                        id={id}
-                        product={product}
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </Box>
-            </Paper>
-          </Box>
+            <Grid
+              item
+              role="rowheader"
+              style={{ maxWidth: 230 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item style={{ width: 65 }}>
+                  <Avatar aria-hidden variant="rounded">
+                    <img src={img} alt={product} />
+                  </Avatar>
+                </Grid>
+                <Grid item xs>
+                  <Typography
+                    gutterBottom
+                    variant="overline"
+                  >
+                    {name}
+                  </Typography>
+                  <Typography>{description}</Typography>
+                  <Typography>
+                    {string.toPrice(price)} each
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item role="cell">
+              {string.toPrice(subtotal)}
+            </Grid>
+            <Grid item role="cell">
+              <LineItemToggle
+                id={id}
+                product={product}
+                quantity={quantity}
+                price={price}
+                disabled={disabled}
+              />
+              <LineItemRemove id={id} product={product} />
+            </Grid>
+          </Grid>
         );
       }),
     [JSON.stringify(items)],

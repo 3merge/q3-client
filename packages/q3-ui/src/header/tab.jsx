@@ -18,7 +18,7 @@ export default withStyles((theme) => ({
       opacity: 1,
     },
   },
-}))((props) => <Tab disableRipple {...props} />);
+}))((props) => <Tab tabIndex={0} {...props} />);
 
 export const a11yProps = (index) => ({
   id: `app-menu-${index}`,

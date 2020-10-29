@@ -15,8 +15,13 @@ const Logo = ({
   const { logo } = useStyles(rest);
 
   return logoImgSrc ? (
-    <Link to={to} className={logo} style={logoStyles}>
-      <LazyLoadImage src={logoImgSrc} alt={name} />
+    <Link
+      aria-label="site index"
+      className={logo}
+      style={logoStyles}
+      to={to}
+    >
+      <LazyLoadImage alt="" src={logoImgSrc} />
     </Link>
   ) : (
     <Typography variant="h3" component="h1" color="inherit">
