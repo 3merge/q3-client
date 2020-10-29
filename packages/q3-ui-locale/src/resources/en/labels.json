@@ -242,5 +242,6 @@
   "createdAt": "Created",
   "updatedAt": "Updated",
   "within48": "Within the last 48 hours",
-  "searchSite": "Search this site by keyword"
+  "searchSite": "Search this site by keyword",
+  "inCart": "{{num}} item(s) in the cart"
 }

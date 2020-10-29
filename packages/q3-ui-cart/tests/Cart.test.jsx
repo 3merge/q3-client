@@ -4,6 +4,10 @@ import {
   POPOVER_CLASS,
   TYPOGRAPHY_CLASS,
 } from 'q3-components/lib/EditableTypography/constants';
+import {
+  ThemeProvider,
+  createMuiTheme,
+} from '@material-ui/core/styles';
 import { Drawer } from '../src';
 import {
   DRAWER_TITLE_ID,
@@ -27,7 +31,11 @@ jest.mock(
 );
 
 beforeAll(() => {
-  Stage = Fixtures;
+  Stage = (props) => (
+    <ThemeProvider theme={createMuiTheme()}>
+      <Fixtures {...props} />
+    </ThemeProvider>
+  );
 });
 
 const addItemToCart = async (el) =>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import { useTranslation } from 'react-i18next';
 import { IconButtonWithLoading } from 'q3-ui/lib/iconButton';
 import { useOpen } from 'useful-state';
 import {
@@ -14,7 +15,7 @@ const CartLauncher = ({ children }) => {
     CartContext,
   );
   const loading = React.useContext(CartLoadingContext);
-
+  const { t } = useTranslation('labels');
   const { isOpen, close, open } = useOpen();
 
   React.useEffect(() => {
@@ -27,9 +28,7 @@ const CartLauncher = ({ children }) => {
   return (
     <>
       <IconButtonWithLoading
-        label={`${items.length} ${
-          items.length === 1 ? 'item' : 'items'
-        } in shopping cart`}
+        label={t('inCart', { num: String(items.length) })}
         loading={loading}
         icon={ShoppingCart}
         badgeContent={items.length}
@@ -45,7 +44,11 @@ const CartLauncher = ({ children }) => {
 };
 
 CartLauncher.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.func,
+};
+
+CartLauncher.defaultProps = {
+  children: null,
 };
 
 export default CartLauncher;

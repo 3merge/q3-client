@@ -53,7 +53,7 @@ const makeInputStyle = ({ size, variant }) => {
   };
 };
 
-const makeTextFieldStyle = ({ size }) => {
+const makeTextFieldStyle = (theme) => ({ size }) => {
   let width = 275;
 
   if (size === SMALL) {
@@ -62,7 +62,14 @@ const makeTextFieldStyle = ({ size }) => {
     width = 650;
   }
 
-  return { margin: 0, maxWidth: '100%', width };
+  return {
+    margin: 0,
+    maxWidth: '100%',
+    width,
+    [theme.breakpoints.down('md')]: {
+      width: 'auto',
+    },
+  };
 };
 
 const makeIconStyle = ({ size }) => {
@@ -84,11 +91,11 @@ const makeIconStyle = ({ size }) => {
   };
 };
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   bottom: makeIconStyle,
   input: makeInputStyle,
   top: makeIconStyle,
-  text: makeTextFieldStyle,
+  text: makeTextFieldStyle(theme),
 
   float: {
     alignItems: 'center',

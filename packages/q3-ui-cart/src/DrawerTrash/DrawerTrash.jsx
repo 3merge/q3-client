@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteForever from '@material-ui/icons/DeleteForever';
+import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 import IconButton from 'q3-ui/lib/iconButton';
 import { CartContext } from '../context';
 import useStyle from './useStyle';
@@ -12,7 +12,7 @@ const DrawerTrash = () => {
 
   return (
     <IconButton
-      icon={DeleteForever}
+      icon={RemoveShoppingCartIcon}
       label="startOver"
       buttonProps={{
         className: trash,

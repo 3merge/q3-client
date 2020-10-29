@@ -12,7 +12,7 @@ import { ADD_TO_CART_CLASS } from '../constants';
 import useStyle, { getFromProps } from './useStyle';
 import useReset from './useReset';
 
-const AddToCart = ({ quantity = 1, product, name }) => {
+const AddToCart = ({ quantity = 1, product }) => {
   const { add } = React.useContext(CartContext);
   const { t } = useTranslation('labels');
   const [loading, setLoading] = React.useState(false);
@@ -51,7 +51,7 @@ const AddToCart = ({ quantity = 1, product, name }) => {
       variant="contained"
       size="large"
       color="primary"
-      aria-label={`${t('add')} ${quantity} ${name}`}
+      aria-label={`${t('add')} ${quantity}`}
       aria-busy={loading}
     >
       <AddToCartButtonLoading loading={loading}>
@@ -67,7 +67,6 @@ const AddToCart = ({ quantity = 1, product, name }) => {
 AddToCart.propTypes = {
   quantity: PropTypes.number.isRequired,
   product: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default AddToCart;

@@ -10,7 +10,17 @@ const DrawerSubtotal = () => {
   } = React.useContext(CartContext);
 
   return (
-    <Typography variant="body2">
+    <Typography aria-live="polite" variant="body2">
+      <span
+        style={{
+          position: 'absolute',
+          width: 0,
+          height: 0,
+          overflow: 'hidden',
+        }}
+      >
+        subtotal
+      </span>
       <strong>{string.toPrice(subtotal)}</strong>{' '}
       <small>{currency}</small>
     </Typography>

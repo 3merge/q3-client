@@ -15,7 +15,6 @@ export default (items = []) => {
   const order = { items };
 
   return {
-    items,
     order,
 
     updateOrder: (args) => {
@@ -35,6 +34,14 @@ export default (items = []) => {
     },
 
     updateItemInOrder: (args) => {
+      // eslint-disable-next-line
+      order.items[0].subtotal =
+        args.quantity * order.items[0].price;
+
+      order.subtotal = order.items.reduce(
+        (acc, next) => acc + next.subtotal,
+        0,
+      );
       Object.assign(order.items[0], args);
       return Promise.resolve(order);
     },
@@ -44,6 +51,8 @@ export default (items = []) => {
       return Promise.resolve(order);
     },
 
-    pollOrder: () => Promise.resolve(order),
+    pollOrder: () => {
+      return Promise.resolve(order);
+    },
   };
 };

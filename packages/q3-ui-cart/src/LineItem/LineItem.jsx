@@ -1,24 +1,26 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
+import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
+import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { string } from 'q3-ui-helpers';
 import { CartContext } from '../context';
 import { DRAWER_LINE_ITEM_CLASS } from '../constants';
 import LineItemRemove from '../LineItemRemove';
-import LineItemSubtotal from '../LineItemSubtotal';
 import LineItemToggle from '../LineItemToggle';
-import useStyle from './useStyle';
 
 export default ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
+  const { t } = useTranslation('labels');
 
-  return React.useMemo(
+  const rows = React.useMemo(
     () =>
-      items.map((item, i) => {
+      items.map((item) => {
         const {
           id,
           product,
@@ -32,54 +34,77 @@ export default ({ children }) => {
         } = item;
 
         return (
-          <Grid
-            role="rowgroup"
-            container
-            alignItems="center"
-            key={id}
-            spacing={3}
-          >
-            <Grid
-              item
-              role="rowheader"
-              style={{ maxWidth: 230 }}
-            >
-              <Grid container spacing={2}>
-                <Grid item style={{ width: 65 }}>
-                  <Avatar aria-hidden variant="rounded">
-                    <img src={img} alt={product} />
-                  </Avatar>
-                </Grid>
-                <Grid item xs>
-                  <Typography
-                    gutterBottom
-                    variant="overline"
+          <React.Fragment key={id}>
+            <TableRow className={DRAWER_LINE_ITEM_CLASS}>
+              <TableCell>
+                <Grid
+                  container
+                  spacing={2}
+                  style={{ padding: '1rem 0' }}
+                >
+                  <Grid
+                    aria-hidden
+                    item
+                    style={{
+                      width: 'auto',
+                    }}
                   >
-                    {name}
-                  </Typography>
-                  <Typography>{description}</Typography>
-                  <Typography>
-                    {string.toPrice(price)} each
-                  </Typography>
+                    <Avatar variant="rounded">
+                      <img src={img} alt={product} />
+                    </Avatar>
+                  </Grid>
+                  <Grid item md xs={12}>
+                    <strong>{name}</strong>
+                    <br /> {description}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            <Grid item role="cell">
-              {string.toPrice(subtotal)}
-            </Grid>
-            <Grid item role="cell">
-              <LineItemToggle
-                id={id}
-                product={product}
-                quantity={quantity}
-                price={price}
-                disabled={disabled}
-              />
-              <LineItemRemove id={id} product={product} />
-            </Grid>
-          </Grid>
+              </TableCell>
+              <TableCell>{string.toPrice(price)}</TableCell>
+              <TableCell>
+                <LineItemToggle
+                  id={id}
+                  product={product}
+                  quantity={quantity}
+                  price={price}
+                  disabled={disabled}
+                  helperText={`Subtotal ${string.toPrice(
+                    subtotal,
+                  )}`}
+                />
+              </TableCell>
+              <TableCell>
+                <LineItemRemove id={id} product={product} />
+              </TableCell>
+            </TableRow>
+            {children && (
+              <TableRow>
+                <TableCell colspan={5}>
+                  {children(item)}
+                </TableCell>
+              </TableRow>
+            )}
+          </React.Fragment>
         );
       }),
     [JSON.stringify(items)],
+  );
+
+  return (
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell component="th">
+            {t('product')}
+          </TableCell>
+          <TableCell component="th">{t('price')}</TableCell>
+          <TableCell component="th">{t('qty')}</TableCell>
+          <TableCell
+            component="th"
+            aria-label={t('actions')}
+          />
+        </TableRow>
+      </TableHead>
+      <TableBody>{rows}</TableBody>
+    </Table>
   );
 };

@@ -6,6 +6,7 @@ import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyle, {
   REGULAR,
   LARGE,
@@ -32,6 +33,12 @@ const Quantity = ({
     variant,
   });
 
+  const isResponsive = !useMediaQuery((theme) =>
+    theme
+      ? theme.breakpoints.down('sm')
+      : '(min-width:600px)',
+  );
+
   const {
     decrease,
     handleQuantity,
@@ -53,7 +60,7 @@ const Quantity = ({
     <IconButton
       disabled={disabled}
       className={bottom}
-      aria-label={t('subtract')}
+      aria-hidden
       onClick={decrease}
       tabIndex={-1}
     >
@@ -65,7 +72,7 @@ const Quantity = ({
     <IconButton
       disabled={disabled}
       className={top}
-      aria-label={t('add')}
+      aria-hidden
       onClick={increase}
       tabIndex={-1}
     >
@@ -84,17 +91,19 @@ const Quantity = ({
       className: input,
       'aria-label': t('quantity'),
     },
-    InputProps: {
-      startAdornment: !isStacked
-        ? withAdornment(renderDecreaseInput)
-        : null,
-      endAdornment: withAdornment(() => (
-        <>
-          {renderIncreaseInput()}
-          {isStacked && renderDecreaseInput()}
-        </>
-      )),
-    },
+    InputProps: isResponsive
+      ? {
+          startAdornment: !isStacked
+            ? withAdornment(renderDecreaseInput)
+            : null,
+          endAdornment: withAdornment(() => (
+            <>
+              {renderIncreaseInput()}
+              {isStacked && renderDecreaseInput()}
+            </>
+          )),
+        }
+      : {},
   };
 
   return (

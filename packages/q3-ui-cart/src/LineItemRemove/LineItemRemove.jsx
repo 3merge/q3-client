@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import IconButton from 'q3-ui/lib/iconButton';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {
   CartContext,
   CartLoadingContext,
@@ -16,20 +16,15 @@ const LineItemRemove = ({ id }) => {
   const loading = React.useContext(CartLoadingContext);
 
   return (
-    <Box>
-      <Button
-        size="small"
-        onClick={() => remove(id)}
-        className={DRAWER_LINE_ITEM_REMOVE_CLASS}
-        disabled={loading}
-        style={{
-          textDecoration: 'underline',
-          justifyContent: 'flex-start',
-        }}
-      >
-        {t('labels:remove')}
-      </Button>
-    </Box>
+    <IconButton
+      icon={DeleteOutlineIcon}
+      label={t('labels:remove')}
+      buttonProps={{
+        onClick: () => remove(id),
+        className: DRAWER_LINE_ITEM_REMOVE_CLASS,
+        disabled: loading,
+      }}
+    />
   );
 };
 
