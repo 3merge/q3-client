@@ -16,11 +16,7 @@ const CartDrawer = ({ children, ...rest }) => {
   const { bar } = useStyle();
 
   return (
-    <AppBar
-      position="sticky"
-      color="inherit"
-      elevation={10}
-    >
+    <AppBar position="sticky" color="inherit" elevation={0}>
       <Fade in={loading}>
         <LinearProgress />
       </Fade>

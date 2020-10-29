@@ -19,7 +19,12 @@ const Drawer = ({
 }) => {
   const { root } = useStyle();
   return (
-    <DrawerMui open={isOpen} anchor="right" onClose={close}>
+    <DrawerMui
+      open={isOpen}
+      anchor="right"
+      onClose={close}
+      aria-expanded={isOpen}
+    >
       <DrawerHeader {...rest}>
         <IconButton
           icon={KeyboardBackspace}

@@ -1,4 +1,4 @@
-const genProduct = ({ product, quantity }) => ({
+export const genProduct = ({ product, quantity }) => ({
   id: '1',
   product,
   quantity,
@@ -11,8 +11,8 @@ const genProduct = ({ product, quantity }) => ({
     'https://images.unsplash.com/photo-1580793210854-d22f57782c62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
 });
 
-export default () => {
-  const order = { items: [] };
+export default (items = []) => {
+  const order = { items };
 
   return {
     order,
@@ -34,6 +34,14 @@ export default () => {
     },
 
     updateItemInOrder: (args) => {
+      // eslint-disable-next-line
+      order.items[0].subtotal =
+        args.quantity * order.items[0].price;
+
+      order.subtotal = order.items.reduce(
+        (acc, next) => acc + next.subtotal,
+        0,
+      );
       Object.assign(order.items[0], args);
       return Promise.resolve(order);
     },
@@ -43,6 +51,8 @@ export default () => {
       return Promise.resolve(order);
     },
 
-    pollOrder: () => Promise.resolve(order),
+    pollOrder: () => {
+      return Promise.resolve(order);
+    },
   };
 };

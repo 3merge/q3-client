@@ -45,7 +45,7 @@ export default makeStyles((theme) => ({
     maxWidth: desktopWidth,
     width: 'auto',
     '&:focus': {
-      outline: 1,
+      outline: 'auto',
       borderRadius: 3,
       fontWeight: 800,
     },

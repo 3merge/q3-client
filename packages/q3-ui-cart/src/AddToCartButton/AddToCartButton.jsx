@@ -51,7 +51,7 @@ const AddToCart = ({ quantity = 1, product }) => {
       variant="contained"
       size="large"
       color="primary"
-      aria-label={t(label)}
+      aria-label={`${t('add')} ${quantity}`}
       aria-busy={loading}
     >
       <AddToCartButtonLoading loading={loading}>

@@ -1,10 +1,11 @@
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
 import AppBar from '@material-ui/core/AppBar';
 import Locale from 'q3-ui-locale';
-import useFixtures from './useFixtures';
+import useFixtures, { genProduct } from './useFixtures';
 
 import Provider, {
   AddToCart,
@@ -53,6 +54,23 @@ import Provider, {
             </Container>
           </Box>
         </Box>
+      </Provider>
+    </Locale>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Opened">
+    <Locale>
+      <Provider
+        {...useFixtures([
+          genProduct({ product: 'abc', quantity: 1 }),
+        ])}
+      >
+        <main>
+          <h1>Checkout</h1>
+          <LineItem />
+        </main>
       </Provider>
     </Locale>
   </Story>

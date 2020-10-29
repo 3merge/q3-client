@@ -22,5 +22,6 @@
   "enlarge": "Click to enlarge",
   "searchPlaceholder": "Press Enter to search",
   "submit": "Send",
-  "province": "Province"
+  "province": "Province",
+  "inCart": "{{num}} élément(s) dans le panier"
 }
