@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
+import useStyles from './useStyles';
 
 const getEnterEvent = (value) => ({
   key: 'Enter',
@@ -53,6 +54,7 @@ const DesktopSearch = ({
 }) => {
   const ref = React.useRef();
   const { t } = useTranslation('labels');
+  const cls = useStyles();
 
   const {
     value,
@@ -114,6 +116,7 @@ const DesktopSearch = ({
             inputProps={{
               ...params.inputProps,
               'aria-label': t('searchSite'),
+              className: cls.input,
             }}
             // eslint-disable-next-line
             InputProps={{

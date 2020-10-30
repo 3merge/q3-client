@@ -8,6 +8,7 @@ import useAutocompleteSearchResults from './useAutocompleteSearchResults';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import { SearchTrigger, CloseTrigger } from './triggers';
 import SearchResults from './results';
+import useStyles from './useStyles';
 
 const MobileSearch = ({
   getResults,
@@ -16,6 +17,7 @@ const MobileSearch = ({
   redirectPath,
 }) => {
   const ref = React.useRef();
+  const cls = useStyles();
 
   const {
     value,
@@ -45,6 +47,9 @@ const MobileSearch = ({
                   <CloseTrigger onClick={close} />
                 </Box>
               }
+              inputProps={{
+                className: cls.input,
+              }}
             />
           </Box>
         )}
