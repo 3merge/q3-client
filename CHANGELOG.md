@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.22](https://github.com/3merge/q/compare/v1.24.21...v1.24.22) (2020-10-30)
+
+
+### Bug Fixes
+
+* search and tab accessibility ([#256](https://github.com/3merge/q/issues/256)) ([8b6fde7](https://github.com/3merge/q/commit/8b6fde7d33db3dbb16a7aa601d5e1e14779d0463))
+
+
+
+
+
 ## [1.24.21](https://github.com/3merge/q/compare/v1.24.20...v1.24.21) (2020-10-29)
 
 
