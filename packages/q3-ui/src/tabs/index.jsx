@@ -73,6 +73,7 @@ const TabsWithRouter = ({
                 <Tab
                   key={`${root}${view.to}`}
                   to={`.${view.to}`}
+                  tabIndex={view.tabIndex || 0}
                   label={t(`labels:${view.label}`)}
                   style={
                     dense

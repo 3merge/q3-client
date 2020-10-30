@@ -1,0 +1,75 @@
+import React from 'react';
+import Tabs from '.';
+
+<Meta title="UI/Tab" component={Tabs} />
+
+# Header
+
+<Preview>
+  <Story name="Demo">
+    <div style={{ marginTop: '2rem' }}>
+      <Tabs
+        root="/"
+        views={[
+          {
+            to: '/',
+            label: 'Entry',
+            component: () => (
+              <p style={{ height: '200vh' }}>Default</p>
+            ),
+          },
+          {
+            to: 'foo',
+            label: 'Foo',
+            component: () => <p>ONE</p>,
+          },
+          {
+            to: 'bar',
+            label: 'Bar',
+            component: () => <p>TWO</p>,
+          },
+          {
+            to: 'quux',
+            label: 'Quux',
+            component: () => <p>THREE</p>,
+          },
+          {
+            to: 'garply',
+            label: 'Garply',
+            component: () => <p>FOUR</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'uno',
+            label: 'Uno',
+            component: () => <p>Size</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+          {
+            to: 'uno',
+            label: 'Uno',
+            component: () => <p>Size</p>,
+          },
+          {
+            to: 'baz',
+            label: 'Baz',
+            component: () => <p>Five</p>,
+          },
+        ]}
+      />
+    </div>
+  </Story>
+</Preview>
