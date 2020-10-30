@@ -5,6 +5,10 @@ const useStyles = makeStyles(() => ({
     '&::placeholder': {
       opacity: 0.8,
     },
+    '&:focus': {
+      'outline-style': 'auto',
+      'outline-width': 'medium',
+    },
   },
 }));
 
