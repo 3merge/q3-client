@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useValue } from 'useful-state';
+import useStyles from './useStyles';
 
 export default (initialValue) => {
   const { t } = useTranslation('labels');
+  const cls = useStyles();
 
   const {
     value,
@@ -31,6 +33,7 @@ export default (initialValue) => {
     placeholder: t('searchPlaceholder'),
     inputProps: {
       'aria-label': t('labels:search'),
+      className: cls.input,
     },
   };
 };

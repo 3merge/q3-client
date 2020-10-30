@@ -1,0 +1,26 @@
+import Search from './desktopSearch';
+import MobileSearch from './mobileSearch.jsx';
+
+<Meta title="UI/Search" component={Search} />
+
+# Search
+
+<Preview>
+  <Story name="Desktop">
+    <Search
+      redirectPath="/"
+      getResults={() => {}}
+      handleSearch={() => {}}
+    />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Mobile">
+    <MobileSearch
+      redirectPath="/"
+      getResults={() => {}}
+      handleSearch={() => {}}
+    />
+  </Story>
+</Preview>
