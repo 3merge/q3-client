@@ -111,6 +111,7 @@ const DesktopSearch = ({
           <TextField
             {...rest}
             {...params}
+            style={{ flexWrap: 'nowrap' }}
             disableUnderline
             onKeyPress={onSearch}
             inputProps={{
@@ -121,6 +122,7 @@ const DesktopSearch = ({
             // eslint-disable-next-line
             InputProps={{
               ...params.InputProps,
+              style: { flexWrap: 'nowrap' },
               disableUnderline: true,
               startAdornment: (
                 <InputAdornment position="start">
