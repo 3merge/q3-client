@@ -111,7 +111,6 @@ const DesktopSearch = ({
           <TextField
             {...rest}
             {...params}
-            style={{ flexWrap: 'nowrap' }}
             disableUnderline
             onKeyPress={onSearch}
             inputProps={{
