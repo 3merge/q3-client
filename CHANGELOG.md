@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.23](https://github.com/3merge/q/compare/v1.24.22...v1.24.23) (2020-11-02)
+
+
+### Bug Fixes
+
+* storybook jsx file path ([b46f276](https://github.com/3merge/q/commit/b46f276a56f9af771d373e131a939721434e7c48))
+
+
+
+
+
 ## [1.24.22](https://github.com/3merge/q/compare/v1.24.21...v1.24.22) (2020-10-30)
 
 
