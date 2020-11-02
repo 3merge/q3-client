@@ -121,6 +121,7 @@ const DesktopSearch = ({
             // eslint-disable-next-line
             InputProps={{
               ...params.InputProps,
+              style: { flexWrap: 'nowrap' },
               disableUnderline: true,
               startAdornment: (
                 <InputAdornment position="start">
