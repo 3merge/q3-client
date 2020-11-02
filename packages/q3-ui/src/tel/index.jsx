@@ -39,7 +39,7 @@ const FeaturedPhoneNumber = ({ number }) => {
   return (
     <Box>
       <Hidden xsDown>
-        <Button {...opts} disableRipple>
+        <Button {...opts}>
           <HeadsetMic color="secondary" />
           <Box className={root}>
             <Typography
