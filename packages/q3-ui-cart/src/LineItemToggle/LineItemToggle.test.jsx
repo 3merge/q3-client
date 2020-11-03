@@ -56,7 +56,6 @@ describe('LineItemToggle', () => {
         value: 19,
       },
     });
-
     expect(update).toHaveBeenCalled();
   });
 
