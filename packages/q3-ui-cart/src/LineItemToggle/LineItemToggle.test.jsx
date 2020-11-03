@@ -39,7 +39,9 @@ describe('LineItemToggle', () => {
   });
 
   it('should call update', () => {
-    const update = jest.fn();
+    const update = jest
+      .fn()
+      .mockReturnValue({ then: jest.fn() });
     stubContext({
       update,
     });
@@ -61,5 +63,18 @@ describe('LineItemToggle', () => {
 
     getQuantityField().onQuantityChange(0);
     expect(remove).toHaveBeenCalled();
+  });
+
+  it('should not update or remove', () => {
+    const update = jest.fn();
+    const remove = jest.fn();
+    stubContext({
+      update,
+      remove,
+    });
+
+    getQuantityField().onQuantityChange(1);
+    expect(update).not.toHaveBeenCalled();
+    expect(remove).not.toHaveBeenCalled();
   });
 });
