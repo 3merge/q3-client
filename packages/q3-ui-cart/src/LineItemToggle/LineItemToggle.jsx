@@ -26,8 +26,18 @@ export const LineItemToggle = ({
   const sendUpdateRequest = React.useCallback(
     (e) => {
       const newQuantity = getValueFromParam(e);
+      if (Number(newQuantity) === Number(quantity)) return;
+
+      const el = e.target;
+      // eslint-disable-next-line consistent-return
       return newQuantity
-        ? update({ id, product, quantity: newQuantity })
+        ? update({
+            id,
+            product,
+            quantity: newQuantity,
+          }).then(() => {
+            el.focus();
+          })
         : remove(id);
     },
     [product, quantity],

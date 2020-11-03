@@ -10,6 +10,14 @@ const getStub = () => ({
   quantity: 1,
 });
 
+let update;
+let remove;
+
+beforeEach(() => {
+  update = jest.fn().mockReturnValue({ then: jest.fn() });
+  remove = jest.fn();
+});
+
 const stubContext = (args) =>
   jest.spyOn(React, 'useContext').mockReturnValue(args);
 
@@ -39,7 +47,6 @@ describe('LineItemToggle', () => {
   });
 
   it('should call update', () => {
-    const update = jest.fn();
     stubContext({
       update,
     });
@@ -49,17 +56,26 @@ describe('LineItemToggle', () => {
         value: 19,
       },
     });
-
     expect(update).toHaveBeenCalled();
   });
 
   it('should call remove', () => {
-    const remove = jest.fn();
     stubContext({
       remove,
     });
 
     getQuantityField().onQuantityChange(0);
     expect(remove).toHaveBeenCalled();
+  });
+
+  it('should not update or remove', () => {
+    stubContext({
+      update,
+      remove,
+    });
+
+    getQuantityField().onQuantityChange(1);
+    expect(update).not.toHaveBeenCalled();
+    expect(remove).not.toHaveBeenCalled();
   });
 });

@@ -104,6 +104,7 @@ describe('Cart', () => {
       btn.props().onBlur({
         target: {
           value: 6,
+          focus: jest.fn(),
         },
       });
     });
