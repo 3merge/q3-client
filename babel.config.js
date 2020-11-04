@@ -1,9 +1,4 @@
-const os = require('os');
-
-const withPackageOpts = (s) =>
-  os.type() !== 'Darwin'
-    ? `./packages/${s}/src`
-    : `/packages/${s}/src`;
+const withPackageOpts = (s) => `./packages/${s}/src`;
 
 const withBundledDir = (s) => `${s}/lib`;
 
