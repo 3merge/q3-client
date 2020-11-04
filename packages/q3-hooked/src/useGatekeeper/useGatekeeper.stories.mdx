@@ -14,16 +14,16 @@ unauthorized users
 
 ## Props
 
-| Property              | Type          | Description                                                                                                                         |
-| --------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| redirectPathOnPublic  | string        | path for unauthorized users                                                                                                         |
-| redirectPathOnSession | string        | path for authorized users                                                                                                           |
-| redirectCheck         | (a) -> string | redirectCheck is called automatically with auth state. useGatekeeper uses this string to navigate if redirectCheck returns a string |
+| Property              | Type          | Description                                                                                                                             |
+| --------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| redirectPathOnPublic  | string        | path for unauthorized users                                                                                                             |
+| redirectPathOnSession | string        | path for authorized users                                                                                                               |
+| redirectCheck         | (a) -> string | redirectCheck is called automatically with the auth state. useGatekeeper uses this string to navigate if redirectCheck returns a string |
 
 ## Return value
 
 useGatekeeper returns boolean whilte authorizing users. It
-automatically navigate unauthorized users respectively.
+automatically navigates unauthorized users respectively.
 Therefore, it does not return values if users are
 unauthorized.
 
