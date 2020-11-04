@@ -40,6 +40,8 @@ export const Gatekeeper = ({
   }
 
   if (typeof redirectStr === 'string') {
+    console.log(redirectStr);
+    console.log(destroySession);
     destroySession(redirectStr);
     return null;
   }

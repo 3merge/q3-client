@@ -1,6 +1,7 @@
 import React from 'react';
 import { navigate } from '@reach/router';
 import { destroySession } from 'q3-ui-permissions';
+// import { destroySession } from '../../../../q3-ui-permissions';
 import Gatekeeper from '.';
 
 let spy;
@@ -9,9 +10,19 @@ jest.mock('@reach/router', () => ({
   navigate: jest.fn(),
 }));
 
+// jest.mock('../../../../q3-ui-permissions', () => ({
+//   destroySession: jest.fn(),
+// }));
 jest.mock('q3-ui-permissions', () => ({
   destroySession: jest.fn(),
 }));
+
+// beforeAll(() => {
+//   Object.defineProperty(window.location, 'replace', {
+//     writable: true,
+//   });
+//   window.location.replace = jest.fn();
+// });
 
 beforeEach(() => {
   spy = jest.spyOn(React, 'useContext');
@@ -39,7 +50,7 @@ describe('Gatekeeper', () => {
     const customPath = 'custom-fail';
     const redirectCheck = jest
       .fn()
-      .mockReturnValue(customPath);
+      .mockImplementation(() => customPath);
 
     global.shallow(
       <Gatekeeper
