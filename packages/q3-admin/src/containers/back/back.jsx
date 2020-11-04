@@ -1,26 +1,19 @@
 import React from 'react';
-import { Link } from '@reach/router';
 import IconButton from 'q3-ui/lib/iconButton';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { useTranslation } from 'react-i18next';
-import { Definitions } from '../state';
-import { useReferrer } from '../use';
+import { useBack } from 'q3-hooked';
 
 const Back = () => {
   const { t } = useTranslation('labels');
-  const { directoryPath, resourceName } = React.useContext(
-    Definitions,
-  );
-
-  const path = useReferrer(directoryPath).getPath();
+  const { renderer } = useBack();
 
   return (
     <IconButton
-      label={t('goBackToCollection', { resourceName })}
+      label={t('previous')}
       icon={KeyboardBackspace}
       buttonProps={{
-        component: Link,
-        to: path,
+        component: renderer,
       }}
     />
   );

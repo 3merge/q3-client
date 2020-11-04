@@ -1,0 +1,41 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+
+<Meta title="Hooked/useBack" />
+
+# useBack
+
+Used to return to the previous collection's index page. It
+relies on a @reach/router state assumed to have been set by
+another component like Q3 Datatables.
+
+## Return value
+
+| Property   | Description |
+| ---------- | ----------- |
+| `onClick`  | ss          |
+| `renderer` | ss          |
+
+## Example
+
+```javascript
+import { useBack } from 'q3-hooked';
+import Button from './Button';
+
+export default () => {
+  const { onClick, renderer: BackComponent } = useBack();
+
+  return (
+    <>
+      // use with custom button
+      <Button onClick={onClick}>Return</Button>
+      // or with default link
+      <BackComponent>Return</BackComponent>
+    </>
+  );
+};
+```

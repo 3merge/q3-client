@@ -19,7 +19,12 @@ const CellHeader = ({
   url,
 }) => {
   const { cellHeaderLink } = useStyles();
-  const asLink = url ? { component: Link, to: url } : {};
+  const asLink = url
+    ? {
+        component: Link,
+        to: url,
+      }
+    : {};
 
   return (
     <CellWithCheckbox

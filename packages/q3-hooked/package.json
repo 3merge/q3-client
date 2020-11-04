@@ -1,0 +1,12 @@
+{
+  "name": "q3-hooked",
+  "version": "1.0.00",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@reach/router": "^1.3.4",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1"
+  },
+  "peerDependencies": {}
+}
