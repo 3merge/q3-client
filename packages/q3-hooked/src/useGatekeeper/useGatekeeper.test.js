@@ -1,12 +1,16 @@
 import React from 'react';
-import * as R from '@reach/router';
-import * as q3 from 'q3-ui-permissions';
+import { navigate } from '@reach/router';
+import { destroySession } from 'q3-ui-permissions';
 import useGatekeeper_ from '.';
 
-jest.mock('@reach/router');
-jest.mock('q3-ui-permissions');
+jest.mock('@reach/router', () => ({
+  navigate: jest.fn(),
+}));
+jest.mock('q3-ui-permissions', () => ({
+  destroySession: jest.fn(),
+}));
 
-let Auth;
+let Auth = jest.spyOn(React, 'useContext');
 const redirectPathOnPublic = '/public';
 const redirectPathOnSession = '/session';
 const redirectCheck = jest.fn();
@@ -23,7 +27,7 @@ const useGatekeeper = () =>
 
 beforeEach(() => {
   Auth = jest.spyOn(React, 'useContext');
-  R.navigate.mockClear();
+  navigate.mockClear();
   redirectCheck.mockClear();
 });
 
@@ -42,7 +46,7 @@ describe('useGatekeeper', () => {
       stubContext(context);
       useGatekeeper();
 
-      expect(R.navigate).toHaveBeenCalledWith(path);
+      expect(navigate).toHaveBeenCalledWith(path);
     },
   );
 
@@ -64,6 +68,6 @@ describe('useGatekeeper', () => {
       redirectCheck,
     });
 
-    expect(q3.destroySession).toHaveBeenCalledWith('foo');
+    expect(destroySession).toHaveBeenCalledWith('foo');
   });
 });
