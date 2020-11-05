@@ -1,6 +1,6 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
-import { get } from 'lodash';
+import { get, pick } from 'lodash';
 import { Definitions } from '../context';
 
 export default ({ select, onEnter, onExit, onInit }) => {
@@ -15,6 +15,8 @@ export default ({ select, onEnter, onExit, onInit }) => {
   const [hasEntered, setHasEntered] = React.useState(
     !onEnter && !onInit,
   );
+
+  return {};
 
   const url = slugify(collectionName, id);
 
@@ -51,10 +53,12 @@ export default ({ select, onEnter, onExit, onInit }) => {
     };
   }, [hasEntered, state.fetching, url]);
 
+  // hasError
+  // ALL RENAME THE DATASOURCE STUFF>..
+
   return {
     ...state,
     hasEntered,
-    data,
 
     operations: pick(state, [
       'get',
@@ -65,5 +69,14 @@ export default ({ select, onEnter, onExit, onInit }) => {
       'put',
       'post',
     ]),
+
+    store: {
+      data,
+      ...pick(state, [
+        'total',
+        'hasNextPage',
+        'hasPrevPage',
+      ]),
+    },
   };
 };

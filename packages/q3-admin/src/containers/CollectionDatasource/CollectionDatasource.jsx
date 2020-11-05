@@ -8,14 +8,6 @@ import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
 import { Dispatcher, Store } from '../state';
 
-export const getDirectoryPath = (root, id) =>
-  typeof root === 'string' ? root.split(id)[0] : '/';
-
-export const executeOnChildren = (children, args = {}) =>
-  typeof children === 'function'
-    ? children(args)
-    : children;
-
 const CollectionDatasource = ({
   children,
   loadingComponent,
@@ -25,15 +17,14 @@ const CollectionDatasource = ({
     operations,
     store,
     hasEntered,
-    fetching,
-    fetchingError,
+    hasError,
   } = useDatasource(options);
 
-  return !hasEntered || fetching ? (
+  return !hasEntered ? (
     loadingComponent || <Loading id={get(store, 'id')} />
   ) : (
     <Box>
-      {fetchingError ? (
+      {hasError ? (
         <Box m={4}>
           <Graphic title="error" icon="Error" />
         </Box>
