@@ -109,7 +109,10 @@ export default class Collection {
       PageDetail: generateDetail(this.$generateDetail),
       PageDetailProps: this.$generateDetailProps,
       PageList: generateList(this.$generateList),
-      PageListProps: this.$generateListProps,
+      PageListProps: {
+        ...this.$generateList,
+        ...this.$generateListProps,
+      },
     });
   }
 }

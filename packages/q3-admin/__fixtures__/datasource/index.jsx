@@ -102,7 +102,10 @@ const makeApiEndpoints = (
                   .toLowerCase()
                   .includes(s.toLowerCase()),
               )
-            : seedData,
+            : seedData.map((item) => ({
+                random: Math.random(0, 100),
+                ...item,
+              })),
         },
       ];
     });

@@ -124,30 +124,24 @@ const List = ({
   };
 
   return (
-    <Redirect op="Read" to="/">
-      <Article asideComponent={can('filter')}>
-        <Table
-          {...decorator.build()}
-          blacklistColumns={decorator.makeBlacklist(
-            canSeeSub,
-          )}
-          className={table}
-          actionbarPosition="absolute"
-          data={decorator.makeLinks(rootPath, disableLink)}
-          actions={actions}
-          id={collectionName}
-          onSort={updateSortPrefence}
-        >
-          <TableHeader>
-            {can('io')}
-            {can('add')}
-          </TableHeader>
-          <Box pb={1}>
-            <FilterChip />
-          </Box>
-        </Table>
-      </Article>
-    </Redirect>
+    <Table
+      {...decorator.build()}
+      blacklistColumns={decorator.makeBlacklist(canSeeSub)}
+      className={table}
+      actionbarPosition="absolute"
+      data={decorator.makeLinks(rootPath, disableLink)}
+      actions={actions}
+      id={collectionName}
+      onSort={updateSortPrefence}
+    >
+      <TableHeader>
+        {can('io')}
+        {can('add')}
+      </TableHeader>
+      <Box pb={1}>
+        <FilterChip />
+      </Box>
+    </Table>
   );
 };
 

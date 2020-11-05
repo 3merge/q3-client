@@ -15,7 +15,15 @@ export default new AbstractCollectionBuilder({
     all: true,
   })
   .genResolver(
-    ({ id, name, description, createdAt, updatedAt }) => ({
+    ({
+      id,
+      name,
+      description,
+      createdAt,
+      updatedAt,
+      ...etc
+    }) => ({
+      ...etc,
       id,
       name,
       description,
@@ -48,6 +56,7 @@ export default new AbstractCollectionBuilder({
       const { exportCollection } = useIo(row.id);
       return <p>FN</p>;
     },
+    defaultColumns: ['random'],
   })
   .genListSettings({
     defaultSortPreference: 'name',

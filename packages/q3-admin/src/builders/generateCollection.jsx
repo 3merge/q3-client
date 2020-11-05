@@ -1,6 +1,7 @@
 import React from 'react';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
+import CollectionList from '../containers/CollectionList';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -39,9 +40,9 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection index {...props}>
-        <Page index {...props} {...PageListProps}>
+        <CollectionList index {...props} {...PageListProps}>
           <PageList />
-        </Page>
+        </CollectionList>
       </Collection>
     ),
   },

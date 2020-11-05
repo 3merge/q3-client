@@ -7,7 +7,7 @@ import PollIndicator from '../../components/PollIndicator';
 import PendingChangesModal from '../../components/PendingChangesModal';
 
 // the HOC is important so that we don't re-paint the socket on change detection
-export default () => {
+export default ({ onRefresh }) => {
   const {
     broadcast,
     join,
@@ -61,7 +61,8 @@ export default () => {
 
     watch(() => {
       timer = setTimeout(() => {
-        prompt();
+        if (onRefresh) onRefresh();
+        else prompt();
       }, 5000);
     });
 

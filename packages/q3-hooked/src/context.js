@@ -2,6 +2,12 @@ import React from 'react';
 
 export default React.createContext();
 
+export const Filters = React.createContext({
+  getOptions: () => [],
+  fetching: false,
+  fields: {},
+});
+
 export const Options = React.createContext({
   all: true,
 });
@@ -32,5 +38,8 @@ export const Dispatcher = React.createContext(
 );
 
 export const Store = React.createContext({
+  hasInitialized: false,
+  hasEntered: false,
+  hasExited: false,
   data: {},
 });
