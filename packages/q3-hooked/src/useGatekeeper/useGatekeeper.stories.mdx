@@ -10,25 +10,25 @@ import {
 # useGatekeeper
 
 Used to protect certain components and routes from
-unauthorized users
+unauthorized users or redirect users when authorized.
 
 ## Props
 
-| Property              | Type          | Description                                                                                                                             |
-| --------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| redirectPathOnPublic  | string        | path for unauthorized users                                                                                                             |
-| redirectPathOnSession | string        | path for authorized users                                                                                                               |
-| redirectCheck         | (a) -> string | redirectCheck is called automatically with the auth state. useGatekeeper uses this string to navigate if redirectCheck returns a string |
+| Property              | Type       | Description                                                                                                                                                                                                                                          |
+| --------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| redirectPathOnPublic  | `string`   | Redirect path for unauthorized users                                                                                                                                                                                                                 |
+| redirectPathOnSession | `string`   | Redirect path for authorized users                                                                                                                                                                                                                   |
+| redirectCheck         | `function` | If provided, useGateKeeper will invoke the function with the authentication state. This allows developers to add custom authorization logic. If redirectCheck returns a string, then useGateKeeper will execute a redirect. Otherwise, it continues. |
 
 ## Return value
 
-useGatekeeper returns boolean whilte authorizing users. It
-automatically navigates unauthorized users respectively. It
-returns null if users are authorized.
+`useGatekeeper` returns a `boolean` while authorizing users
+to indicate loading state. It automatically navigates
+unauthorized users respectively.
 
 | Property  | Description |
 | --------- | ----------- |
-| `default` | boolean     | null |
+| `default` | `boolean`   |
 
 ## Example
 

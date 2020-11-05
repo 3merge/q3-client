@@ -1,16 +1,18 @@
 import React from 'react';
 import { navigate } from '@reach/router';
 import { destroySession } from 'q3-ui-permissions';
-import useGatekeeper_ from '.';
+import useGatekeeper from '.';
 
 jest.mock('@reach/router', () => ({
   navigate: jest.fn(),
 }));
+
 jest.mock('q3-ui-permissions', () => ({
   destroySession: jest.fn(),
 }));
 
 let Auth = jest.spyOn(React, 'useContext');
+
 const redirectPathOnPublic = '/public';
 const redirectPathOnSession = '/session';
 const redirectCheck = jest.fn();
@@ -19,8 +21,8 @@ const stubContext = (
   args = { init: true, profile: true },
 ) => Auth.mockReturnValue({ state: { ...args } });
 
-const useGatekeeper = () =>
-  useGatekeeper_({
+const runGatekeeper = () =>
+  useGatekeeper({
     redirectPathOnPublic,
     redirectPathOnSession,
   });
@@ -34,7 +36,7 @@ beforeEach(() => {
 describe('useGatekeeper', () => {
   it('should return true for loading auth', () => {
     stubContext({ init: false });
-    expect(useGatekeeper()).toBeTruthy();
+    expect(runGatekeeper()).toBeTruthy();
   });
 
   it.each([
@@ -44,7 +46,7 @@ describe('useGatekeeper', () => {
     'should redirect for not being authenticated',
     (context, path) => {
       stubContext(context);
-      useGatekeeper();
+      runGatekeeper();
 
       expect(navigate).toHaveBeenCalledWith(path);
     },
@@ -52,17 +54,17 @@ describe('useGatekeeper', () => {
 
   it('should return null for being authenticated', () => {
     stubContext();
-    const res = useGatekeeper(
+    const res = runGatekeeper(
       redirectCheck.mockReturnValue(null),
     );
     expect(redirectCheck).not.toHaveBeenCalled();
-    expect(res).toBeNull();
+    expect(res).toBeFalsy();
   });
 
   it('should call destroySession', () => {
     stubContext();
     redirectCheck.mockReturnValue('foo');
-    useGatekeeper_({
+    useGatekeeper({
       redirectPathOnPublic,
       redirectPathOnSession: null,
       redirectCheck,
