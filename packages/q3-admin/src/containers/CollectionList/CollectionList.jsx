@@ -5,7 +5,8 @@ import Search from '../search';
 import Article from '../../components/Article';
 import { useAppContext } from '../../hooks';
 import CollectionDatasource from '../CollectionDatasource';
-import CollectionListFilter from '../CollectionListFilter';
+import CollectionFilter from '../CollectionFilter';
+import SidePanel from '../../components/SidePanel';
 
 export default ({
   filterComponent: Filter,
@@ -14,9 +15,11 @@ export default ({
 }) => {
   const { can } = useAppContext({
     filter: Filter ? (
-      <CollectionListFilter {...rest}>
-        <Filter />
-      </CollectionListFilter>
+      <SidePanel>
+        <CollectionFilter {...rest}>
+          <Filter />
+        </CollectionFilter>
+      </SidePanel>
     ) : null,
   });
 

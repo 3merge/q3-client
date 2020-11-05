@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { useFilters } from 'q3-ui-rest';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { Filters, Definitions } from '../state';
-import SidePanel from '../../components/SidePanel';
 
-const CollectionListFilter = ({ children, ...props }) => {
+const CollectionFilter = ({ children, ...props }) => {
   const { collectionName, location } = React.useContext(
     Definitions,
   );
@@ -57,27 +57,16 @@ const CollectionListFilter = ({ children, ...props }) => {
     query,
   });
 
-  /**
-  const FiltersForm = ({ children, search, ...etc }) => {
-  const filters = React.useContext(Filters);
-
-  return filters.fetching ? (
+  return value.fetching ? (
     <CircularProgress />
   ) : (
-    <EncodedUrl query={search} {...etc}>
-      {children(filters.fields, filters.getOptions)}
-    </EncodedUrl>
-  );
-}; */
-
-  return (
     <Filters.Provider value={value}>
-      <SidePanel>{children}</SidePanel>
+      {children}
     </Filters.Provider>
   );
 };
 
-CollectionListFilter.propTypes = {
+CollectionFilter.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.object,
@@ -88,10 +77,10 @@ CollectionListFilter.propTypes = {
   includeSearchQueryAs: PropTypes.string,
 };
 
-CollectionListFilter.defaultProps = {
+CollectionFilter.defaultProps = {
   children: null,
   includeSearchQuery: undefined,
   includeSearchQueryAs: undefined,
 };
 
-export default CollectionListFilter;
+export default CollectionFilter;

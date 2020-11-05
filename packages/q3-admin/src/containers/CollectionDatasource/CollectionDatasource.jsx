@@ -8,6 +8,11 @@ import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
 import { Dispatcher, Store } from '../state';
 
+export const executeOnChildren = (children, args = {}) =>
+  typeof children === 'function'
+    ? children(args)
+    : children;
+
 const CollectionDatasource = ({
   children,
   loadingComponent,

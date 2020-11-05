@@ -3,6 +3,19 @@ import useRest from 'q3-ui-rest';
 import { get, pick } from 'lodash';
 import { Definitions } from '../context';
 
+const slugify = (v, id) => (id ? `/${v}/${id}` : `/${v}`);
+
+const invokeFnWithCallback = (fn, args, done) => {
+  if (typeof fn === 'function') {
+    const f = fn(args);
+    if (f && (f instanceof Promise || 'then' in f)) {
+      f.then(done);
+    } else {
+      done();
+    }
+  }
+};
+
 export default ({ select, onEnter, onExit, onInit }) => {
   const {
     id,
@@ -12,11 +25,7 @@ export default ({ select, onEnter, onExit, onInit }) => {
     location,
   } = React.useContext(Definitions);
 
-  const [hasEntered, setHasEntered] = React.useState(
-    !onEnter && !onInit,
-  );
-
-  return {};
+  const [hasEntered, setHasEntered] = React.useState(false);
 
   const url = slugify(collectionName, id);
 
@@ -35,10 +44,11 @@ export default ({ select, onEnter, onExit, onInit }) => {
 
   React.useEffect(() => {
     if (state.fetching && onInit) onInit();
-    if (!state.fetching && !hasEntered)
+    if (!state.fetching && onEnter)
       invokeFnWithCallback(onEnter, state, () =>
         setHasEntered(true),
       );
+    else if (!state.fetching) setHasEntered(true);
 
     return () => {
       if (
@@ -53,12 +63,10 @@ export default ({ select, onEnter, onExit, onInit }) => {
     };
   }, [hasEntered, state.fetching, url]);
 
-  // hasError
-  // ALL RENAME THE DATASOURCE STUFF>..
-
   return {
     ...state,
     hasEntered,
+    data,
 
     operations: pick(state, [
       'get',

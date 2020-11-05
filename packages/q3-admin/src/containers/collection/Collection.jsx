@@ -12,10 +12,9 @@ const Collection = ({ children, options, ...args }) => {
     hasAppliedFavouriteSegment,
   } = useSegments();
 
-  React.useEffect(
-    () => (hasMounted ? ensureFavourite() : undefined),
-    [hasMounted],
-  );
+  React.useEffect(() => {
+    if (hasMounted) ensureFavourite();
+  }, [hasMounted]);
 
   return hasMounted && hasAppliedFavouriteSegment ? (
     <Definitions.Provider value={value}>

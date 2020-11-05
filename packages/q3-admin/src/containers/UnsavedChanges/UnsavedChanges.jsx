@@ -94,11 +94,13 @@ export default ({ onRefresh }) => {
 
   return (
     <>
-      <PollIndicator
-        hasPendingUpdate={hasPending}
-        hasChange={hasChange}
-        lastUpdated={new Date()}
-      />
+      {!onRefresh && (
+        <PollIndicator
+          hasPendingUpdate={hasPending}
+          hasChange={hasChange}
+          lastUpdated={new Date()}
+        />
+      )}
       {showRefresh && (
         <PendingChangesModal
           onDecline={decline}

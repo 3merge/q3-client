@@ -43,20 +43,16 @@ export default (args = {}) => {
     args,
   );
 
-  React.useEffect(
-    () =>
-      Promise.resolve(
-        typeof onMount === 'function'
-          ? onMount()
-          : undefined,
-      ).then(() => {
-        setHasMounted(true);
-      }),
-    [hasMounted, onMount],
-  );
+  React.useEffect(() => {
+    Promise.resolve(
+      typeof onMount === 'function' ? onMount() : undefined,
+    ).then(() => {
+      setHasMounted(true);
+    });
+  }, [hasMounted, onMount]);
 
   return {
-    ...rest,
+    ...args,
     directoryPath,
     hasMounted,
     location,

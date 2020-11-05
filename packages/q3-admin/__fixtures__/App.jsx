@@ -8,6 +8,13 @@ import {
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
 import { PaginationCard } from 'q3-ui/lib/pagination';
+import Collection from 'q3-admin/lib/containers/collection';
+import CollectionDatasource from 'q3-admin/lib/containers/CollectionDatasource';
+import List from 'q3-admin/lib/containers/table';
+import CollectionFilter from 'q3-admin/lib/containers/CollectionFilter';
+import Container from '@material-ui/core/Container';
+import { Builders } from 'q3-ui-forms';
+import Box from '@material-ui/core/Box';
 import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
@@ -30,6 +37,27 @@ const Dash = () => (
 
 const Foo = () => <p>Custom profile view</p>;
 
+const CustomShows = () => (
+  <Collection
+    collectionName="shows"
+    resourceName="shows"
+    resourceNameSingular="show"
+  >
+    <Container>
+      <CollectionDatasource>
+        <CollectionFilter>
+          <Box p={3}>
+            <Builders.Form>
+              <Builders.Field name="test" type="text" />
+            </Builders.Form>
+          </Box>
+        </CollectionFilter>
+        <List />
+      </CollectionDatasource>
+    </Container>
+  </Collection>
+);
+
 const ExampleApp = ({ initialPath }) => {
   useTimezoneInterceptor();
 
@@ -41,7 +69,10 @@ const ExampleApp = ({ initialPath }) => {
             <Admin
               AppProps={{
                 pages,
-                customRoutes: [<Dash path="/" />],
+                customRoutes: [
+                  <Dash path="/" />,
+                  <CustomShows path="/custom" />,
+                ],
               }}
               NavProps={{
                 title: 'Demo app',

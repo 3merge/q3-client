@@ -42,6 +42,7 @@ const Admin = ({
           />
           <Socket {...SocketProps}>
             <Box className={cls.main}>
+              {/*
               <ProfileActions
                 profileItems={[
                   ...profileItems,
@@ -62,7 +63,7 @@ const Admin = ({
                 ]}
               >
                 <Notifications socket={socket} />
-              </ProfileActions>
+              </ProfileActions> */}
               <App {...AppProps}>
                 <Profile
                   path="/account/profile"

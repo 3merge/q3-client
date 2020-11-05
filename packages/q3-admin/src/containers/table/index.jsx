@@ -134,13 +134,14 @@ const List = ({
       id={collectionName}
       onSort={updateSortPrefence}
     >
+      {/*
       <TableHeader>
         {can('io')}
         {can('add')}
       </TableHeader>
       <Box pb={1}>
         <FilterChip />
-      </Box>
+      </Box> */}
     </Table>
   );
 };
