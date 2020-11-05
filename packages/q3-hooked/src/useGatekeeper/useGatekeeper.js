@@ -6,19 +6,20 @@ import {
 } from 'q3-ui-permissions';
 import { object } from 'q3-ui-helpers';
 
+// eslint-disable-next-line no-sequences
+const redirect = (path) => (navigate(path), true);
+
 const useGatekeeper = (props) => {
   const Auth = React.useContext(AuthContext);
 
   if (!Auth.state.init) return true;
 
   if (props.redirectPathOnPublic && !Auth.state.profile) {
-    navigate(props.redirectPathOnPublic);
-    return true;
+    return redirect(props.redirectPathOnPublic);
   }
 
   if (Auth.state.profile && props.redirectPathOnSession) {
-    navigate(props.redirectPathOnSession);
-    return true;
+    return redirect(props.redirectPathOnSession);
   }
 
   const redirectStr = object.invokeSafely(

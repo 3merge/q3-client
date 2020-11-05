@@ -21,7 +21,7 @@ describe('login', () => {
 });
 
 describe('navigate regular user to somewhere', () => {
-  it('should work', () => {
+  it('should redirect regular users', () => {
     cy.authenticate(
       Cypress.env('regularUserEmail'),
       Cypress.env('regularUserPassword'),

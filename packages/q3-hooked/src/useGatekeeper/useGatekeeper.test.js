@@ -52,12 +52,14 @@ describe('useGatekeeper', () => {
     },
   );
 
-  it('should return null for being authenticated', () => {
+  it('should return false for being authenticated', () => {
     stubContext();
-    const res = runGatekeeper(
-      redirectCheck.mockReturnValue(null),
-    );
-    expect(redirectCheck).not.toHaveBeenCalled();
+    redirectCheck.mockReturnValue(null);
+    const res = useGatekeeper({
+      redirectPathOnPublic,
+      redirectPathOnSession: null,
+      redirectCheck,
+    });
     expect(res).toBeFalsy();
   });
 
