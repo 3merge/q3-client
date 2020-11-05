@@ -9,7 +9,7 @@ import { object } from 'q3-ui-helpers';
 const useGatekeeper = (props) => {
   const Auth = React.useContext(AuthContext);
 
-  if (Auth.state.init) return true;
+  if (!Auth.state.init) return true;
 
   if (props.redirectPathOnPublic && !Auth.state.profile) {
     navigate(props.redirectPathOnPublic);

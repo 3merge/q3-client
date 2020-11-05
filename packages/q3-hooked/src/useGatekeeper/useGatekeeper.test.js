@@ -16,7 +16,7 @@ const redirectPathOnSession = '/session';
 const redirectCheck = jest.fn();
 
 const stubContext = (
-  args = { init: false, profile: true },
+  args = { init: true, profile: true },
 ) => Auth.mockReturnValue({ state: { ...args } });
 
 const useGatekeeper = () =>
@@ -33,12 +33,12 @@ beforeEach(() => {
 
 describe('useGatekeeper', () => {
   it('should return true for loading auth', () => {
-    stubContext({ init: true });
+    stubContext({ init: false });
     expect(useGatekeeper()).toBeTruthy();
   });
 
   it.each([
-    [{ init: false, profile: false }, redirectPathOnPublic],
+    [{ init: true, profile: false }, redirectPathOnPublic],
     [undefined, redirectPathOnSession],
   ])(
     'should redirect for not being authenticated',

@@ -10,13 +10,13 @@ export const Gatekeeper = ({
   redirectPathOnPublic,
   children,
 }) => {
-  const isLoading = useGatekeeper({
+  const isAuthorizing = useGatekeeper({
     redirectCheck,
     redirectPathOnSession,
     redirectPathOnPublic,
   });
 
-  if (isLoading)
+  if (isAuthorizing)
     return (
       <Box align="center" p={6}>
         <CircularProgress />
