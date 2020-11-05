@@ -28,7 +28,7 @@ const useGatekeeper = (props) => {
     destroySession(redirectStr);
   }
 
-  return null;
+  return false;
 };
 
 export default useGatekeeper;

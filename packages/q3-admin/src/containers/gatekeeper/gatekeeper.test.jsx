@@ -1,6 +1,6 @@
 import React from 'react';
 import { useGatekeeper } from 'q3-hooked';
-import { Box } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Gatekeeper from '.';
 
 jest.mock('q3-hooked', () => ({
@@ -16,7 +16,7 @@ const renderGatekeeper = () =>
     <Gatekeeper
       redirectPathOnPublic="/login"
       redirectPathOnSession="/app"
-      redirectCheck={() => {}}
+      redirectCheck={() => undefined}
     >
       <div />
     </Gatekeeper>,
@@ -29,10 +29,10 @@ const checkReturnValue = (component, isLoading = true) => {
 
 describe('Gatekeeper', () => {
   it('should return loading component', () => {
-    checkReturnValue(Box);
+    checkReturnValue(CircularProgress);
   });
 
   it('should return children', () => {
-    checkReturnValue('div', undefined);
+    checkReturnValue('div', false);
   });
 });
