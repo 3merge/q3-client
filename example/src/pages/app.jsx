@@ -6,11 +6,17 @@ import { useTimezoneInterceptor } from 'q3-ui-rest';
 import { Gatekeeper } from 'q3-admin/lib/containers';
 import pages from '../views';
 
+const redirectCheck = (profile) =>
+  profile?.role === 'Regular' ? '/regular' : null;
+
 export default () => {
   useTimezoneInterceptor('America/Los_Angeles');
 
   return (
-    <Gatekeeper redirectPathOnPublic="/login">
+    <Gatekeeper
+      redirectPathOnPublic="/login"
+      redirectCheck={redirectCheck}
+    >
       <Router basepath="/app">
         <Admin
           path="*"

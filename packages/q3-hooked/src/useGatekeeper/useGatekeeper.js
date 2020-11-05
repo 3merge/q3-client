@@ -13,10 +13,12 @@ const useGatekeeper = (props) => {
 
   if (props.redirectPathOnPublic && !Auth.state.profile) {
     navigate(props.redirectPathOnPublic);
+    return true;
   }
 
   if (Auth.state.profile && props.redirectPathOnSession) {
     navigate(props.redirectPathOnSession);
+    return true;
   }
 
   const redirectStr = object.invokeSafely(
@@ -26,6 +28,7 @@ const useGatekeeper = (props) => {
 
   if (typeof redirectStr === 'string') {
     destroySession(redirectStr);
+    return true;
   }
 
   return false;
