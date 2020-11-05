@@ -54,7 +54,7 @@ context('Search', () => {
     cy.visit('/app/characters');
   });
 
-  it.only('should suggest documents', () => {
+  it('should suggest documents', () => {
     getSearchAndCountSearchResults('ick', 2);
     clearSearchResults();
     getSearchAndCountSearchResults('Rick', 1);
