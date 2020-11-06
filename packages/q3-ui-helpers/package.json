@@ -11,8 +11,8 @@
     "is-glob": "^4.0.1",
     "lodash": "^4.17.20",
     "minimatch": "^3.0.4",
-    "moment": "2.27.0",
-    "use-debounce": "^4.0.0"
+    "moment": "2.29.1",
+    "use-debounce": "^5.0.2"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

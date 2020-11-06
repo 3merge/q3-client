@@ -6,7 +6,9 @@
   "dependencies": {
     "@reach/router": "^1.3.4",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1"
+    "q3-ui-helpers": "^1.24.13",
+    "q3-ui-permissions": "^1.24.16",
+    "react": "^16.10.2"
   },
   "peerDependencies": {}
 }

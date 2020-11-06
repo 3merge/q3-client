@@ -1,0 +1,58 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+
+<Meta title="Hooked/useGatekeeper" />
+
+# useGatekeeper
+
+Used to protect certain components and routes from
+unauthorized users or redirect users when authorized.
+
+## Props
+
+| Property              | Type       | Description                                                                                                                                                                                                                                          |
+| --------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| redirectPathOnPublic  | `string`   | Redirect path for unauthorized users                                                                                                                                                                                                                 |
+| redirectPathOnSession | `string`   | Redirect path for authorized users                                                                                                                                                                                                                   |
+| redirectCheck         | `function` | If provided, useGateKeeper will invoke the function with the authentication state. This allows developers to add custom authorization logic. If redirectCheck returns a string, then useGateKeeper will execute a redirect. Otherwise, it continues. |
+
+## Return value
+
+`useGatekeeper` returns a `boolean` while authorizing users
+to indicate loading state. It automatically navigates
+unauthorized users respectively.
+
+| Property  | Description |
+| --------- | ----------- |
+| `default` | `boolean`   |
+
+## Example
+
+```javascript
+import { useGatekeeper } from 'q3-hooked';
+import Gatekeeper from 'Gatekeeper';
+import Spiner from './Spiner';
+
+export default ({
+  children,
+  redirectPathOnPublic,
+  redirectPathOnSession,
+  redirectCheck,
+}) => {
+  const isLoading = useGatekeeper({
+    redirectPathOnPublic,
+    redirectPathOnSession,
+    redirectCheck,
+  });
+
+  if (isLoading) {
+    return <Spiner />;
+  }
+
+  return children;
+};
+```

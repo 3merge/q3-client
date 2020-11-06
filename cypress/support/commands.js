@@ -3,10 +3,11 @@ import {
   TOKEN,
 } from '../../packages/q3-ui-permissions/src/utils/constants';
 
-Cypress.Commands.add('authenticate', () => {
+// authenticate with Dev user if not email and password are passed
+Cypress.Commands.add('authenticate', (email, password) => {
   cy.request('POST', 'http://localhost:9000/authenticate', {
-    email: Cypress.env('email'),
-    password: Cypress.env('password'),
+    email: email || Cypress.env('email'),
+    password: password || Cypress.env('password'),
   }).then(({ body: { token, nonce } }) => {
     cy.setCookie(TOKEN, token);
     cy.setCookie(NONCE, nonce);

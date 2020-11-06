@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  AuthContext,
-  destroySession,
-} from 'q3-ui-permissions';
-import { object } from 'q3-ui-helpers';
+import { useGatekeeper } from 'q3-hooked';
 
 export const Gatekeeper = ({
   redirectCheck,
@@ -15,34 +10,18 @@ export const Gatekeeper = ({
   redirectPathOnPublic,
   children,
 }) => {
-  const Auth = React.useContext(AuthContext);
+  const isAuthorizing = useGatekeeper({
+    redirectCheck,
+    redirectPathOnSession,
+    redirectPathOnPublic,
+  });
 
-  if (!Auth.state.init)
+  if (isAuthorizing)
     return (
       <Box align="center" p={6}>
         <CircularProgress />
       </Box>
     );
-
-  const redirectStr = object.invokeSafely(
-    redirectCheck,
-    Auth.state.profile,
-  );
-
-  if (redirectPathOnPublic && !Auth.state.profile) {
-    navigate(redirectPathOnPublic);
-    return null;
-  }
-
-  if (Auth.state.profile && redirectPathOnSession) {
-    navigate(redirectPathOnSession);
-    return null;
-  }
-
-  if (typeof redirectStr === 'string') {
-    destroySession(redirectStr);
-    return null;
-  }
 
   return children;
 };

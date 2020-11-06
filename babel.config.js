@@ -1,10 +1,7 @@
-const os = require('os');
+const path = require('path');
 
 const withPackageOpts = (s) =>
-  os.type() !== 'Darwin'
-    ? `./packages/${s}/src`
-    : `/packages/${s}/src`;
-
+  path.resolve(__dirname, `./packages/${s}/src`);
 const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
