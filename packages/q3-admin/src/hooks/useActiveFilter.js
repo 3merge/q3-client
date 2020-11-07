@@ -71,6 +71,8 @@ export default (search) => {
       : segments),
   });
 
+  console.log(state);
+
   const main = items.default;
 
   const updateFiltersInProfile = (newFilterObj, done) => {

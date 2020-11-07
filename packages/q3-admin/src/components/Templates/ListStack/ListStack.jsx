@@ -1,0 +1,64 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import Dialog from 'q3-ui-dialog';
+import Box from '@material-ui/core/Box';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import IconButton from 'q3-ui/lib/iconButton';
+import { useSegments } from 'q3-hooked';
+import Article from '../../Article';
+import { useAppContext } from '../../../hooks';
+import CollectionDatasource from '../../../containers/CollectionDatasource';
+import CollectionFilter from '../../../containers/CollectionFilter';
+import List from '../../../containers/table';
+
+export default ({
+  filterComponent: Filter,
+  resolvers,
+  ...rest
+}) => {
+  const { can } = useAppContext({
+    filter: Filter ? (
+      <Dialog
+        renderTrigger={(onClick) => (
+          <IconButton
+            label="filter"
+            icon={FilterListIcon}
+            buttonProps={{
+              onClick,
+            }}
+          />
+        )}
+        renderContent={() => (
+          <CollectionFilter {...rest}>
+            <Filter />
+          </CollectionFilter>
+        )}
+        variant="drawer"
+      />
+    ) : null,
+  });
+
+  const { filters } = useSegments();
+
+  return (
+    <Article>
+      <Box
+        component="header"
+        display="flex"
+        justifyContent="space-between"
+      >
+        <h1>HEADER</h1>
+        <Box>
+          {can('filter')}
+          EXPORT/IMPORT ADD
+        </Box>
+      </Box>
+      <Box component="nav">
+        {filters.map((item) => item.label)}
+      </Box>
+      <CollectionDatasource {...rest}>
+        <List {...rest} />
+      </CollectionDatasource>
+    </Article>
+  );
+};

@@ -10,9 +10,14 @@ export default makeStyles((theme) => ({
     },
   },
 
+  side: ({ collapsed }) => ({
+    overflow: 'hidden',
+    transition: 'width 250ms',
+    width: collapsed ? 55 : 255,
+  }),
+
   main: {
     flex: 1,
-    maxWidth: 'calc(100% - 265px)',
 
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',

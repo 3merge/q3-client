@@ -39,7 +39,14 @@ const StoriesApiMockAuthentication = ({ children }) => {
         },
         state: {
           init: true,
-          profile: session,
+          profile: {
+            ...session,
+            filters: {
+              shows: {
+                'Custom Segment': '?there=1',
+              },
+            },
+          },
           permissions: [...characters, ...shows],
           filters,
         },

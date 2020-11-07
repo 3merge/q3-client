@@ -56,13 +56,14 @@ export const getActiveSearchQueryByKey = (search) => (
   }, '');
 };
 
-export default (search) => {
+export default () => {
   const {
     id,
     collectionName,
     segments = {},
     rootPath,
   } = React.useContext(Definitions);
+  const { search } = useLocation();
 
   const [
     hasAppliedFavouriteSegment,
@@ -111,6 +112,7 @@ export default (search) => {
     ...segments,
   }[main];
 
+  // how do we sort this??
   const q = new URLSearchParams(defaultQuery);
 
   return {
@@ -137,6 +139,10 @@ export default (search) => {
     },
 
     filters: [
+      {
+        label: 'All',
+        searchValue: '?active',
+      },
       ...Object.entries(segments).map(([key, value]) => ({
         label: key,
         searchValue: value,

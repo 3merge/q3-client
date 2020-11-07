@@ -8,7 +8,7 @@ import restCollection from 'q3-ui-test-utils/lib/restCollection';
 import Detail from '../detail';
 import SubDetail from '.';
 import Header from '../header';
-import Page from '../page';
+import Page from '../CollectionList';
 import State from '../state';
 
 export default {

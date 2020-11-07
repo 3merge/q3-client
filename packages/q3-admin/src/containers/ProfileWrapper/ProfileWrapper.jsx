@@ -3,7 +3,7 @@ import { Redirect } from '@reach/router';
 import { get } from 'lodash';
 import { AuthContext } from 'q3-ui-permissions';
 import Collection from '../collection';
-import Page from '../page';
+import CollectionList from '../CollectionList';
 
 // eslint-disable-next-line
 export default ({ children }) => {
@@ -18,7 +18,7 @@ export default ({ children }) => {
       id={ref}
       location={{}}
     >
-      <Page location={{}}>{children}</Page>
+      <CollectionList>{children}</CollectionList>
     </Collection>
   ) : (
     <Redirect to="/login" noThrow />

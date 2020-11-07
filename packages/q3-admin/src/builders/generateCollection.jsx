@@ -1,7 +1,7 @@
 import React from 'react';
-import Page from '../containers/page';
+import Page from '../containers/CollectionDetail';
 import Collection from '../containers/collection';
-import CollectionList from '../containers/CollectionList';
+import { Templates } from '../containers/state';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -38,12 +38,14 @@ export default ({
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: (props) => (
-      <Collection index {...props}>
-        <CollectionList index {...props} {...PageListProps}>
-          <PageList />
-        </CollectionList>
-      </Collection>
-    ),
+    component: (props) => {
+      const { List } = React.useContext(Templates);
+
+      return (
+        <Collection index {...props}>
+          <List {...props} {...PageListProps} />
+        </Collection>
+      );
+    },
   },
 ];
