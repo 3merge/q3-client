@@ -22,6 +22,7 @@ const menuItems = [
       {
         label: 'Savings',
         to: '/savings',
+        visible: true,
       },
     ],
   },

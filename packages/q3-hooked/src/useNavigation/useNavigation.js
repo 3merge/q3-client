@@ -1,18 +1,17 @@
 import React from 'react';
-import { curryN } from 'lodash/fp';
 import { array, object } from 'q3-ui-helpers';
 import { QueryStringMatcher } from '../../../q3-admin/src/helpers';
 
-export const isPartialMatch = (a = '', b = '') => {
+export const isPartialMatch = (to = '', location = '') => {
   try {
     // root directory
-    if (a === '/') return a === b;
-
+    if (to === '/') return to === location;
     // relative paths
-    if (!b.startsWith('/') && a && b) return a.includes(b);
+    if (!location.startsWith('/') && to && location)
+      return to.includes(location);
 
-    const x = QueryStringMatcher.clean(a);
-    const y = QueryStringMatcher.clean(b);
+    const x = QueryStringMatcher.clean(to);
+    const y = QueryStringMatcher.clean(location);
     return x === y || y.includes(x);
   } catch (e) {
     return false;
@@ -58,13 +57,13 @@ export const recursivelyRenderMenuItems = (Tree, Link) => (
       })
     : null;
 
-export const getPartialMatch = (location) => (a = []) =>
+export const getPartialMatch = (location, a = []) =>
   a
     .flatMap((item) => {
       const out = [];
       if (item.nestedMenuItems) {
         out.push(
-          getPartialMatch(location)(item.nestedMenuItems),
+          getPartialMatch(location, item.nestedMenuItems),
         );
       }
       return out
@@ -77,27 +76,31 @@ export const getPartialMatch = (location) => (a = []) =>
     })
     .filter(Boolean);
 
-export const getParentMatch = (location) => (a = []) =>
-  a
+export const getParentMatch = (location, a = []) => {
+  return a
     .map((item) => {
       if (!item.nestedMenuItems) return null;
       const matched = item.nestedMenuItems.find((nest) => {
         if (nest.nestedMenuItems) {
-          return getParentMatch(nest.nestedMenuItems);
+          const result = getParentMatch(
+            location,
+            nest.nestedMenuItems,
+          );
+          return result.length ? result : false;
         }
-
-        return isPartialMatch(nest.to, location.pathname);
+        // return isPartialMatch(nest.to, location.pathname);
+        return isPartialMatch(location.pathname, nest.to);
       });
-
       return matched ? item.label : null;
     })
     .filter(Boolean);
+};
 
 const useNavigation = () => ({
   filterByVisibility,
   recursivelyRenderMenuItems,
-  getPartialMatch: curryN(2, getPartialMatch),
-  getParentMatch: curryN(2, getParentMatch),
+  getPartialMatch,
+  getParentMatch,
 });
 
 export default useNavigation;

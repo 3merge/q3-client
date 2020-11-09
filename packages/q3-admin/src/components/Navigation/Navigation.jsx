@@ -39,7 +39,7 @@ const AppNavigation = withLocation(
       recursivelyRenderMenuItems,
       getPartialMatch,
       getParentMatch,
-    } = useNavigation();
+    } = useNavigation(menuItems);
 
     const renderLogoAndDirectoryLink = React.useCallback(
       () => (
@@ -84,10 +84,10 @@ const AppNavigation = withLocation(
                   defaultCollapseIcon={
                     <ArrowDropDownIcon />
                   }
-                  selected={defaultSelected}
+                  selected={defaultSelected[0]}
                   defaultExpanded={defaultExpanded}
                 >
-                  {recursivelyRenderMenuItems(
+                  {(
                     Tree,
                     NavigationLink,
                   )(filterByVisibility(menuItems))}

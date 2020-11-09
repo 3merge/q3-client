@@ -4,6 +4,7 @@ import {
   filterByVisibility,
   recursivelyRenderMenuItems,
   getPartialMatch,
+  getParentMatch,
 } from './useNavigation';
 
 const Tree = (props) => <div {...props} />;
@@ -22,8 +23,8 @@ const items = [
   {
     visible: false,
     nestedMenuItems: [
-      genLinkItem({ to: '/hi/there' }),
-      genLinkItem({ to: '/hi/here' }),
+      genLinkItem({ to: '/hello/there' }),
+      genLinkItem({ to: '/hello/here' }),
     ],
   },
 ];
@@ -48,10 +49,57 @@ describe('useNavigation', () => {
     it('should not match', () =>
       expect(isPartialMatch('/foo', 'bar')).toBeFalsy());
 
-    it.only('should partially match location', () => {
+    it('should partially match location', () => {
       expect(
-        getPartialMatch({ pathname: '/hello' })(lists),
-      ).toEqual(['/hello/there', '/hello/here']);
+        getPartialMatch(
+          { pathname: '/hello/there' },
+          lists,
+        ),
+      ).toEqual(['/hello/there']);
+    });
+
+    const test = [
+      {
+        label: 'Locations',
+        nestedMenuItems: [
+          {
+            label: 'Per Region',
+            nestedMenuItems: [
+              {
+                label: 'Per City',
+                to: '/city',
+                visible: true,
+              },
+              {
+                label: 'Per Municipality',
+                to: '/municipality',
+                visible: true,
+              },
+            ],
+          },
+          {
+            label: 'Per Province',
+            to: '/province',
+          },
+        ],
+      },
+    ];
+
+    it('should get parent matches', () => {
+      expect(
+        getParentMatch(
+          { pathname: '/parent' },
+          // test,
+          lists.concat({
+            label: 'Parent Match',
+            to: '/parent',
+            nestedMenuItems: [
+              genLinkItem({ to: '/parent/1' }),
+              genLinkItem({ to: '/parent/2' }),
+            ],
+          }),
+        ),
+      ).toEqual(['Parent Match']);
     });
   });
 });
