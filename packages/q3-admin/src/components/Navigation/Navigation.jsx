@@ -80,7 +80,7 @@ const AppNavigation = ({
             </>
           )}
         </Box>
-        <Box>{footerComponent}</Box>
+        {footerComponent && <Box>{footerComponent}</Box>}
       </Box>
     );
   };
