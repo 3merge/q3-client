@@ -1,0 +1,50 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+
+<Meta title="Hooked/useNavigation" />
+
+# useNavigation
+
+Takes an array of objects as an argument for menu items. It
+returns a function and two arrays of strings. You can
+recursivly render menu items with the function.
+DefaultExpanded and defaultSelected are ditermined by
+@reach/router location and menu item's "to" property
+
+## Return value
+
+| Property          | type        | description                                                                        |
+| ----------------- | ----------- | ---------------------------------------------------------------------------------- |
+| `renderMenuItems` | (a, a) -> a | The first arg is a component for list of items and the other one is Link component |
+| `defaultExpanded` | [string]    | Indicates which tree should be open                                                |
+| `defaultSelected` | [string]    | Indicates active menu                                                              |
+
+## Example
+
+```javascript
+import { useNavigation } from 'q3-hooked';
+import TreeView from './TreeView';
+import TreeItems from './TreeItems';
+import Link from './Link';
+
+export default (menuItems) => {
+  const {
+    defaultExpanded,
+    defaultSelected,
+    renderMenuItems,
+  } = useNavigation(menuItems);
+
+  return (
+    <TreeView
+      selected={defaultSelected[0]}
+      defaultExpanded={defaultExpanded}
+    >
+      {renderMenuItems(TreeItems, Link)}
+    </TreeView>
+  );
+};
+```
