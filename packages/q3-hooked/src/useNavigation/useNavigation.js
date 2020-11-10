@@ -1,35 +1,75 @@
 import React from 'react';
+import { compose } from 'lodash/fp';
+import { useLocation } from '@reach/router';
 import { array, object } from 'q3-ui-helpers';
 import { QueryStringMatcher } from '../../../q3-admin/src/helpers';
 
-export const isPartialMatch = (to = '', location = '') => {
-  try {
-    // root directory
-    if (to === '/') return to === location;
-    // relative paths
-    if (!location.startsWith('/') && to && location)
-      return to.includes(location);
+const isRoot = (s) => s === '/';
+const isRelativePath = (s) =>
+  s.length && !s.startsWith('/');
 
-    const x = QueryStringMatcher.clean(to);
-    const y = QueryStringMatcher.clean(location);
+export const isPartialMatch = (a = '', b = '') => {
+  try {
+    if (isRoot(a)) return a === b;
+    if (isRelativePath(b) && a) return a.includes(b);
+
+    const x = QueryStringMatcher.clean(a);
+    const y = QueryStringMatcher.clean(b);
+
     return x === y || y.includes(x);
   } catch (e) {
     return false;
   }
 };
 
+export const getPartialMatch = (pathname, a = []) =>
+  a
+    .flatMap((item) => {
+      const out = [];
+      if (item.nestedMenuItems) {
+        out.push(
+          getPartialMatch(pathname, item.nestedMenuItems),
+        );
+      }
+      return out
+        .concat(
+          isPartialMatch(item.to, pathname) ? item.to : [],
+        )
+        .flat();
+    })
+    .filter(Boolean);
+
+export const getParentMatch = (pathname, a = []) =>
+  a
+    .map((item) => {
+      if (!item.nestedMenuItems) return null;
+
+      const matched = item.nestedMenuItems.find((nest) => {
+        if (nest.nestedMenuItems) {
+          const result = getParentMatch(
+            pathname,
+            nest.nestedMenuItems,
+          );
+          return result.length ? result : false;
+        }
+        return isPartialMatch(pathname, nest.to);
+      });
+      return matched ? item.label : null;
+    })
+    .filter(Boolean);
+
 export const filterByVisibility = (a = []) =>
   array.hasLength(a)
-    ? a.filter((item) => {
-        return (
+    ? a.filter(
+        (item) =>
           array.hasLength(item.nestedMenuItems) ||
-          (object.isIn(item, 'visible') && item.visible)
-        );
-      })
+          (object.isIn(item, 'visible') && item.visible),
+      )
     : [];
 
-export const recursivelyRenderMenuItems = (Tree, Link) => (
-  items,
+export const recursivelyRenderMenuItems = (items) => (
+  Tree,
+  Link,
 ) =>
   array.hasLength(items)
     ? items.map((item) => {
@@ -51,56 +91,26 @@ export const recursivelyRenderMenuItems = (Tree, Link) => (
                   ...item,
                 }),
               },
-              recursivelyRenderMenuItems(Tree, Link)(sub),
+              recursivelyRenderMenuItems(sub)(Tree, Link),
             )
           : null;
       })
     : null;
 
-export const getPartialMatch = (location, a = []) =>
-  a
-    .flatMap((item) => {
-      const out = [];
-      if (item.nestedMenuItems) {
-        out.push(
-          getPartialMatch(location, item.nestedMenuItems),
-        );
-      }
-      return out
-        .concat(
-          isPartialMatch(item.to, location.pathname)
-            ? item.to
-            : [],
-        )
-        .flat();
-    })
-    .filter(Boolean);
+const useNavigation = (menuItems) => {
+  const { pathname } = useLocation();
+  const renderMenuItems = compose(
+    recursivelyRenderMenuItems,
+    filterByVisibility,
+  )(menuItems);
 
-export const getParentMatch = (location, a = []) => {
-  return a
-    .map((item) => {
-      if (!item.nestedMenuItems) return null;
-      const matched = item.nestedMenuItems.find((nest) => {
-        if (nest.nestedMenuItems) {
-          const result = getParentMatch(
-            location,
-            nest.nestedMenuItems,
-          );
-          return result.length ? result : false;
-        }
-        // return isPartialMatch(nest.to, location.pathname);
-        return isPartialMatch(location.pathname, nest.to);
-      });
-      return matched ? item.label : null;
-    })
-    .filter(Boolean);
+  return {
+    filterByVisibility,
+    defaultExpanded: getParentMatch(pathname, menuItems),
+    defaultSelected: getPartialMatch(pathname, menuItems),
+    renderMenuItems,
+    recursivelyRenderMenuItems,
+  };
 };
-
-const useNavigation = () => ({
-  filterByVisibility,
-  recursivelyRenderMenuItems,
-  getPartialMatch,
-  getParentMatch,
-});
 
 export default useNavigation;

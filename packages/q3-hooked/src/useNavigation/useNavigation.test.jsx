@@ -31,6 +31,17 @@ const items = [
 
 const lists = items.map(genLinkItem);
 
+const extendedLists = items.concat([
+  {
+    label: 'Parent Match',
+    to: '/parent',
+    nestedMenuItems: [
+      genLinkItem({ to: '/parent/1' }),
+      genLinkItem({ to: '/parent/2' }),
+    ],
+  },
+]);
+
 describe('useNavigation', () => {
   describe('"Admin>isPartialMatch"', () => {
     it('should match without leading', () =>
@@ -51,73 +62,23 @@ describe('useNavigation', () => {
 
     it('should partially match location', () => {
       expect(
-        getPartialMatch(
-          { pathname: '/hello/there' },
-          lists,
-        ),
+        getPartialMatch('/hello/there', lists),
       ).toEqual(['/hello/there']);
     });
 
-    const test = [
-      {
-        label: 'Locations',
-        nestedMenuItems: [
-          {
-            label: 'Per Region',
-            nestedMenuItems: [
-              {
-                label: 'Per City',
-                to: '/city',
-                visible: true,
-              },
-              {
-                label: 'Per Municipality',
-                to: '/municipality',
-                visible: true,
-              },
-            ],
-          },
-          {
-            label: 'Per Province',
-            to: '/province',
-          },
-        ],
-      },
-    ];
-
     it('should get parent matches', () => {
       expect(
-        getParentMatch(
-          { pathname: '/parent' },
-          // test,
-          lists.concat({
-            label: 'Parent Match',
-            to: '/parent',
-            nestedMenuItems: [
-              genLinkItem({ to: '/parent/1' }),
-              genLinkItem({ to: '/parent/2' }),
-            ],
-          }),
-        ),
+        getParentMatch('/parent', extendedLists),
       ).toEqual(['Parent Match']);
+    });
+
+    it('should return empty array when no parent match', () => {
+      expect(
+        getParentMatch('/no-parent', extendedLists),
+      ).toEqual([]);
     });
   });
 });
-
-jest.mock('@material-ui/core/Hidden', () =>
-  // this component blocks mount from finding nested components
-  jest.fn().mockImplementation(({ children }) => children),
-);
-
-// const countLinks = (menuItems, expectedOutput) => {
-//   const el = global.mount(
-//     <Navigation menuItems={menuItems} />,
-//   );
-
-//   return expect(el.find(TreeItem)).toHaveLength(
-//     expectedOutput,
-//   );
-// };
 
 describe('Navigation', () => {
   it('should filter out invisible elements', () => {
@@ -125,12 +86,12 @@ describe('Navigation', () => {
   });
 
   it('should recursively render menu items', () => {
-    const result = recursivelyRenderMenuItems(
+    const result = recursivelyRenderMenuItems(lists)(
       Tree,
       Link,
-    )(lists);
+    );
     expect(result).toHaveLength(3);
-    expect(result[2].props.children).toBeDefined();
+    expect(result[2].props.children).not.toBeNull();
     result
       .slice(0, 2)
       .forEach((x) => expect(x.props.children).toBeNull());
