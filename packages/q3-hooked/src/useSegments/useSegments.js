@@ -1,7 +1,8 @@
 import React from 'react';
 import { get } from 'lodash';
-import { navigate, useLocation } from '@reach/router';
+import { Link, navigate, useLocation } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
+import QueryStringMatcher from 'q3-admin/lib/helpers/QueryStringMatcher';
 import { Definitions } from '../context';
 
 const startsWithQuestionMark = (str) =>
@@ -115,6 +116,37 @@ export default () => {
   // how do we sort this??
   const q = new URLSearchParams(defaultQuery);
 
+  const allFilters = [
+    ...Object.entries({
+      All: '?active',
+      ...segments,
+    }).map(([key, value]) => ({
+      label: key,
+      searchValue: value,
+      value,
+      redirect: navigate(value),
+      renderer: (props) =>
+        React.createElement(Link, {
+          ...props,
+          to: value,
+        }),
+    })),
+    ...Object.entries(items)
+      .map(([key, value]) => ({
+        redirect: navigate(value),
+        renderer: (props) =>
+          React.createElement(Link, {
+            ...props,
+            to: value,
+          }),
+        label: key,
+        fromProfile: true,
+        searchValue: value,
+        value,
+      }))
+      .filter(({ label }) => label !== 'default'),
+  ];
+
   return {
     add: (name) =>
       updateFiltersInProfile(pushInto(name, search)),
@@ -138,25 +170,7 @@ export default () => {
         : goTo();
     },
 
-    filters: [
-      {
-        label: 'All',
-        searchValue: '?active',
-      },
-      ...Object.entries(segments).map(([key, value]) => ({
-        label: key,
-        searchValue: value,
-        value,
-      })),
-      ...Object.entries(items)
-        .map(([key, value]) => ({
-          label: key,
-          fromProfile: true,
-          searchValue: value,
-          value,
-        }))
-        .filter(({ label }) => label !== 'default'),
-    ],
+    filters: allFilters,
 
     numberApplied: getCustomFilters(search).length,
     isActive: main === active,
@@ -182,6 +196,23 @@ export default () => {
       ).then(() => {
         setHasAppliedFavouriteSegment(true);
       }),
+
+    getCurrent: () => {
+      const siblings = allFilters.map(
+        (item) => item.searchValue,
+      );
+
+      const res =
+        allFilters.find((item) =>
+          new QueryStringMatcher(
+            location.search,
+            item.searchValue,
+            siblings,
+          ).isActive(),
+        ) || allFilters[0];
+
+      return res?.searchValue;
+    },
   };
 };
 /**

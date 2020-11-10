@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Article from '../../Article';
 import { useAppContext } from '../../../hooks';
 import CollectionDatasource from '../../../containers/CollectionDatasource';

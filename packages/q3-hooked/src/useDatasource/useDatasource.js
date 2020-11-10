@@ -43,7 +43,11 @@ export default ({ select, onEnter, onExit, onInit }) => {
     : get(state, resourceName, []);
 
   React.useEffect(() => {
-    if (state.fetching && onInit) onInit();
+    if (state.fetching) {
+      setHasEntered(false);
+      if (onInit) onInit();
+    }
+
     if (!state.fetching && onEnter)
       invokeFnWithCallback(onEnter, state, () =>
         setHasEntered(true),

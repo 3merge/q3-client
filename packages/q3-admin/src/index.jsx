@@ -7,13 +7,10 @@ import Dialog from 'q3-ui-dialog';
 import Fab from '@material-ui/core/Fab';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import App from './components/app';
-import { usePages } from './hooks';
-import Notifications from './containers/Notifications';
 import Tours from './containers/tour';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import Socket from './containers/Socket';
-import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import {
