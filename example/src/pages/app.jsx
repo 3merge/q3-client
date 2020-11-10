@@ -5,6 +5,9 @@ import Admin from 'q3-admin';
 import { useTimezoneInterceptor } from 'q3-ui-rest';
 import { Gatekeeper } from 'q3-admin/lib/containers';
 import pages from '../views';
+import logo from '../assets/logo.svg';
+
+console.log(pages);
 
 const redirectCheck = (profile) =>
   profile?.role === 'Regular' ? '/regular' : null;
@@ -20,7 +23,7 @@ export default () => {
       <Router basepath="/app">
         <Admin
           path="*"
-          logoSrc="https://image-placeholder.com/images/image-placeholder.png"
+          logoSrc={logo}
           icons={{
             characters: AccessibilityIcon,
           }}
@@ -30,6 +33,10 @@ export default () => {
             redirectPathForUnauthorizedUsers: '/login',
             pages,
           }}
+          // NavProps={{
+          //   logoSrc: logo,
+          //   title: 'Navigation',
+          // }}
           SocketProps={{
             onDownload: ({ data }) => {
               if (
