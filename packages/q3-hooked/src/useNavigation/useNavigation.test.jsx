@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-  isPartialMatch,
   filterByVisibility,
   recursivelyRenderMenuItems,
+} from './useNavigation';
+import {
+  isPartialMatch,
   getPartialMatch,
   getParentMatch,
-} from './useNavigation';
+} from './helpers';
 
 const Tree = (props) => <div {...props} />;
 const Link = (props) => <div {...props} />;

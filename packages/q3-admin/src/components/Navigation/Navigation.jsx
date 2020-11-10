@@ -19,9 +19,9 @@ import NavigationLink from '../NavigationLink';
 import NavigationSubMenu from '../NavigationSubMenu';
 import useStyle from './useStyle';
 
-const Tree = (props) => {
-  return <TreeItem {...props} />;
-};
+const Tree = (props) => (
+  <TreeItem className="q3-admin-menu-item" {...props} />
+);
 
 const AppNavigation = ({
   logoSrc,
