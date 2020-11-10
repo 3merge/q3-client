@@ -7,8 +7,6 @@ import { Gatekeeper } from 'q3-admin/lib/containers';
 import pages from '../views';
 import logo from '../assets/logo.svg';
 
-console.log(pages);
-
 const redirectCheck = (profile) =>
   profile?.role === 'Regular' ? '/regular' : null;
 
@@ -33,10 +31,10 @@ export default () => {
             redirectPathForUnauthorizedUsers: '/login',
             pages,
           }}
-          // NavProps={{
-          //   logoSrc: logo,
-          //   title: 'Navigation',
-          // }}
+          NavProps={{
+            logoSrc: logo,
+            title: 'Navigation',
+          }}
           SocketProps={{
             onDownload: ({ data }) => {
               if (
