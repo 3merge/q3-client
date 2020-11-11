@@ -1,7 +1,8 @@
 import React from 'react';
 import {
-  filterByVisibility,
-  recursivelyRenderMenuItems,
+  // filterByVisibility,
+  // recursivelyRenderMenuItems,
+  transformer,
 } from './useNavigation';
 import {
   isPartialMatch,
@@ -97,5 +98,60 @@ describe('Navigation', () => {
     result
       .slice(0, 2)
       .forEach((x) => expect(x.props.children).toBeNull());
+  });
+});
+
+const parentWithoutNests = genLinkItem({
+  label: 'Parent Without Nests',
+  to: '/parentWithoutNests',
+  icon: 'icon',
+});
+
+const parentWithNests = genLinkItem({
+  label: 'Parent With Nests',
+  icon: 'icon',
+  nestedMenuItems: [
+    {
+      label: 'Nest 1',
+      icon: 'icon',
+      to: '/nest1',
+    },
+    {
+      label: 'Nest 2',
+      icon: 'icon',
+      to: '/nest2',
+    },
+  ],
+});
+
+describe('New useNavigation', () => {
+  it('should transform data as a parent without nests', () => {
+    expect(transformer(parentWithoutNests)).toEqual({
+      label: 'Parent Without Nests',
+      to: '/parentWithoutNests',
+      icon: 'icon',
+      isActive: false,
+    });
+  });
+
+  it.only('should transform data as a parent with nests', () => {
+    expect(transformer(parentWithNests)).toMatchObject({
+      label: 'Parent With Nests',
+      icon: 'icon',
+      nestedMenuItems: [
+        {
+          label: 'Nest 1',
+          icon: 'icon',
+          to: '/nest1',
+          isActive: false,
+        },
+        {
+          label: 'Nest 2',
+          icon: 'icon',
+          to: '/nest2',
+          isActive: false,
+        },
+      ],
+    });
   });
 });
