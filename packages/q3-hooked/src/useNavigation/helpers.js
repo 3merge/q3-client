@@ -26,8 +26,8 @@ export const isPartialMatch = (a = '', b = '') => {
 const collectPartialMatch = (x, y) =>
   isPartialMatch(x, y) ? x : [];
 
-export const getPartialMatch = (pathname, a = []) =>
-  a
+export const getPartialMatch = (pathname, a = []) => {
+  return a
     .flatMap((item) => {
       const out = [];
       if (item.nestedMenuItems) {
@@ -40,9 +40,10 @@ export const getPartialMatch = (pathname, a = []) =>
         .flat();
     })
     .filter(Boolean);
+};
 
-export const getParentMatch = (pathname, a = []) =>
-  a
+export const getParentMatch = (pathname, a = []) => {
+  return a
     .map((item) => {
       if (!item.nestedMenuItems) return null;
 
@@ -59,3 +60,4 @@ export const getParentMatch = (pathname, a = []) =>
       return matched ? item.label : null;
     })
     .filter(Boolean);
+};
