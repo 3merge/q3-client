@@ -6,20 +6,40 @@ import NavigationLink from '../NavigationLink';
 const Menu = ({ label, to, nestedMenuItems, icon }) => {
   const nests = nestedMenuItems?.length > 0;
 
-  return nests ? (
-    <ul>
-      <li>
-        <NavigationLink label={label} icon={icon} to={to} />
-        {nests &&
-          nestedMenuItems.map((nest) => <Menu {...nest} />)}
-      </li>
-    </ul>
-  ) : (
-    <ul>
-      <li>
-        <NavigationLink label={label} icon={icon} to={to} />
-      </li>
-    </ul>
+  return (
+    <>
+      {nests ? (
+        <li>
+          <NavigationLink
+            label={label}
+            icon={icon}
+            to={to}
+          />
+          {nests && (
+            <ul>
+              {nestedMenuItems.map((nest) => {
+                const more = nest.nestedMenuItems;
+                return more ? (
+                  <Menu {...nest} />
+                ) : (
+                  <li>
+                    <NavigationLink {...nest} />
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </li>
+      ) : (
+        <li>
+          <NavigationLink
+            label={label}
+            icon={icon}
+            to={to}
+          />
+        </li>
+      )}
+    </>
   );
 };
 
@@ -27,9 +47,11 @@ const HorizontalNav = ({ menuItems }) => {
   const { navigationMenus } = useNavigation(menuItems);
   return (
     <div>
-      {navigationMenus.map((menu, i) => {
-        return <Menu {...menu} />;
-      })}
+      <ul>
+        {navigationMenus.map((menu, i) => {
+          return <Menu {...menu} />;
+        })}
+      </ul>
     </div>
   );
 };
