@@ -18,8 +18,7 @@ const Menu = ({ label, to, nestedMenuItems, icon }) => {
           {nests && (
             <ul>
               {nestedMenuItems.map((nest) => {
-                const more = nest.nestedMenuItems;
-                return more ? (
+                return nest.nestedMenuItems ? (
                   <Menu {...nest} />
                 ) : (
                   <li>
