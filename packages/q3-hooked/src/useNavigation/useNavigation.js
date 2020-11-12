@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import React from 'react';
 import { compose } from 'lodash/fp';
 import { useLocation } from '@reach/router';
@@ -46,34 +45,52 @@ import { getParentMatch, getPartialMatch } from './helpers';
 //       : null;
 // }
 
-// const transformWithoutNests = () => {
-//   const [isOpen, setIsOpen] = React.useState(false);
+// export const transformer = (checkSelected) => ({
+//   label,
+//   to,
+//   icon,
+//   nestedMenuItems,
+// }) => {
+//   const rest = nestedMenuItems
+//     ? { nestedMenuItems: nestedMenuItems.map(transformer) }
+//     : { to, isSelected: checkSelected(to) };
+
+//   return {
+//     label,
+//     icon,
+//     ...rest,
+//   };
 // };
 
-// const transformWithNests = (nests) => {
-
-// };
-
-export const transformer = ({
-  label,
-  to,
-  icon,
-  nestedMenuItems,
-}) => {
-  const rest = nestedMenuItems
-    ? { nestedMenuItems: nestedMenuItems.map(transformer) }
-    : { to };
-
-  return {
-    label,
-    icon,
-    isActive: false,
-    ...rest,
-  };
-};
-
-const useNavigation = (menuItems) => {
+const useNavigation = (menuItems = []) => {
   const { pathname } = useLocation();
+
+  const checkSelected = (to) => {
+    const path = pathname.split('/');
+    const target = `/${path[path.length - 1]}`;
+    return target === to;
+  };
+
+  const transformer = ({
+    label,
+    to,
+    icon,
+    nestedMenuItems,
+  }) => {
+    const rest = nestedMenuItems
+      ? {
+          nestedMenuItems: nestedMenuItems.map(transformer),
+          isExpanded: false,
+        }
+      : { to, isSelected: checkSelected(to) };
+
+    return {
+      label,
+      icon,
+      ...rest,
+    };
+  };
+
   const newMenuItems = menuItems.map(transformer);
 
   return {

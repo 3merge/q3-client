@@ -42,7 +42,7 @@ const Menu = ({ label, to, nestedMenuItems, icon }) => {
   );
 };
 
-const HorizontalNav = ({ menuItems }) => {
+const VerticalNav = ({ menuItems }) => {
   const { navigationMenus } = useNavigation(menuItems);
   return (
     <div>
@@ -55,4 +55,4 @@ const HorizontalNav = ({ menuItems }) => {
   );
 };
 
-export default HorizontalNav;
+export default VerticalNav;

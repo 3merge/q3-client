@@ -14,7 +14,7 @@ import menuItems, {
   extendedMenuItems,
 } from '../../__fixtures__/menuItems';
 import logo from '../../__fixtures__/logo';
-import HorizontalNav from './HorizontalNav';
+import VerticalNav from './VerticalNav';
 
 <Meta title="Admin/Navigation" component={Navigation} />
 
@@ -35,14 +35,10 @@ import HorizontalNav from './HorizontalNav';
 </Preview>
 
 <Preview>
-  <Story name="Horizontal navigation">
+  <Story name="Vertical navigation">
     <Location initialPath="/savings">
       <Viewport>
-        <HorizontalNav
-          logoSrc={logo}
-          menuItems={extendedMenuItems}
-          footerComponent={<small>Fine print</small>}
-        />
+        <VerticalNav menuItems={extendedMenuItems} />
       </Viewport>
     </Location>
   </Story>
