@@ -119,12 +119,29 @@ const parentWithNests = [
       {
         label: 'Nest 1',
         icon: 'icon',
-        to: '/nest1',
+        nestedMenuItems: [
+          {
+            label: 'Nest 1',
+            icon: 'icon',
+            to: '/sub-nest1',
+          },
+        ],
       },
       {
         label: 'Nest 2',
         icon: 'icon',
         to: '/nest2',
+      },
+      {
+        label: 'Sub-Nest 2',
+        icon: 'icon',
+        nestedMenuItems: [
+          {
+            label: 'Nest 1',
+            icon: 'icon',
+            to: '/sub-nest1',
+          },
+        ],
       },
     ],
   }),
@@ -171,5 +188,56 @@ describe('New useNavigation', () => {
         },
       ],
     });
+  });
+
+  let spy;
+
+  beforeEach(() => {
+    spy = jest.spyOn(React, 'useState');
+  });
+
+  it('should inherit isExpanded from nested menu items', () => {
+    spy.mockReturnValue(['1-3', jest.fn()]);
+    useLocation.mockReturnValue({
+      pathname: '/',
+    });
+
+    const {
+      navigationMenus: [menuItems],
+    } = useNavigation(parentWithNests);
+
+    const checkNestedMenuItems = (
+      index,
+      expectedExpandedValue,
+    ) =>
+      expect(menuItems).toHaveProperty(
+        index === null
+          ? 'isExpanded'
+          : `nestedMenuItems.${index}.isExpanded`,
+        expectedExpandedValue,
+      );
+
+    checkNestedMenuItems(null, true);
+    checkNestedMenuItems(0, false);
+    checkNestedMenuItems(2, true);
+  });
+
+  it.only('should set the expanded value', () => {
+    const setState = jest.fn();
+    spy.mockReturnValue(['', setState]);
+    useLocation.mockReturnValue({
+      pathname: '/',
+    });
+
+    const {
+      navigationMenus: [
+        {
+          nestedMenuItems: [, , item],
+        },
+      ],
+    } = useNavigation(parentWithNests);
+
+    item.expand();
+    expect(setState).toHaveBeenCalledWith('1-3');
   });
 });

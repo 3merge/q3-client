@@ -19,10 +19,6 @@ import NavigationLink from '../NavigationLink';
 import NavigationSubMenu from '../NavigationSubMenu';
 import useStyle from './useStyle';
 
-const Tree = (props) => (
-  <TreeItem className="q3-admin-menu-item" {...props} />
-);
-
 const AppNavigation = ({
   logoSrc,
   menuItems,
@@ -33,11 +29,7 @@ const AppNavigation = ({
   root = '/',
 }) => {
   const cls = useStyle();
-  const {
-    defaultExpanded,
-    defaultSelected,
-    renderMenuItems,
-  } = useNavigation(menuItems);
+  const { recurse } = useNavigation(menuItems);
 
   const renderLogoAndDirectoryLink = React.useCallback(
     () => (
@@ -67,16 +59,28 @@ const AppNavigation = ({
           )}
           {menuComponent || (
             <>
-              <TreeView
-                component="div"
-                defaultExpandIcon={<ArrowRightIcon />}
-                defaultCollapseIcon={<ArrowDropDownIcon />}
-                selected={defaultSelected[0]}
-                defaultExpanded={defaultExpanded}
-              >
-                {renderMenuItems(Tree, NavigationLink)}
-              </TreeView>
-              <NavigationSubMenu items={subMenuItems} />
+              {recurse(
+                ({ children, nodeId, label, top }) =>
+                  top ? (
+                    <TreeView
+                      defaultExpandIcon={<ArrowRightIcon />}
+                      defaultCollapseIcon={
+                        <ArrowDropDownIcon />
+                      }
+                    >
+                      {children}
+                    </TreeView>
+                  ) : (
+                    <TreeItem nodeId={nodeId} label={label}>
+                      {children}
+                    </TreeItem>
+                  ),
+                ({ label, nodeId, children }) => (
+                  <TreeItem nodeId={nodeId} label={label}>
+                    {children}
+                  </TreeItem>
+                ),
+              )}
             </>
           )}
         </Box>

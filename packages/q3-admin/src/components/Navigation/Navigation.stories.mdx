@@ -36,10 +36,12 @@ import VerticalNav from './VerticalNav';
 
 <Preview>
   <Story name="Vertical navigation">
-    <Location initialPath="/savings">
-      <Viewport>
-        <VerticalNav menuItems={extendedMenuItems} />
-      </Viewport>
+    <Location initialPath="/city">
+      <LocationDebugger>
+        <Viewport>
+          <VerticalNav menuItems={extendedMenuItems} />
+        </Viewport>
+      </LocationDebugger>
     </Location>
   </Story>
 </Preview>
