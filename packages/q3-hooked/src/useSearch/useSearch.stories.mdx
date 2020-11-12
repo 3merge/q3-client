@@ -1,0 +1,54 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Proops,
+} from '@storybook/addon-docs/blocks';
+
+<Meta title="Hooked/useSearch" />
+
+# useSearch
+
+Returns search results in standerlized format.
+
+## Return value
+
+| Property                                                           | Description |
+| ------------------------------------------------------------------ | ----------- |
+| { result: [collections], error: error object , lastSearch: string} |             |
+
+## Arguments
+
+| Type                                                          | Description                                                                                                                                                                      |
+| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `string*`                                                     | Search term                                                                                                                                                                      |
+| `[string]*`                                                   | Endpoints                                                                                                                                                                        |
+| `{ ignoreLocation: boolean, sortBy: [collectionName:string]}` | Disables sorting by the location when ignoreLocation is false. You can specify the order by passing array of collection names. The rest of the results are sorted alphabetically |
+
+## Example
+
+```javascript
+import React from 'react'
+import { useSearch } from 'q3-hooked'
+import Result from './Result'
+
+export default () => {
+  const [input, setInput] = React.useState()
+  const { result, error } = useSearch(input, ['/users', '/blogs'])
+
+  const handleOnChange = (e) => setInput(e.target.value)
+
+  return (
+    <div>
+      <label>
+        <input
+          type="text"
+          value={input}
+          onChange={handleOnChange}
+        />
+      </label>
+      {!error && <Result result={result} /> }
+    <div>
+  )
+}
+```

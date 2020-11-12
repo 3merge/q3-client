@@ -1,15 +1,17 @@
 import React from 'react';
 import axios from 'axios';
 import { get, merge } from 'lodash';
-import { useLocation, navigate } from '@reach/router';
+import { useLocation } from '@reach/router';
 import { useTranslation } from 'react-i18next';
+import { browser } from 'q3-ui-helpers';
 
-const useSearch = (endpoints) => {
+const sortAlphabetically = (a, b) => a.localeCompare(b);
+
+const useSearch = (input, endpoints, sortOption) => {
   const [res, setRes] = React.useState([]);
+  const [error, setError] = React.useState(null);
   const { t } = useTranslation('labels');
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const query = params.get('search');
 
   const inLocation = (key) =>
     get(location, 'pathname', '/')
@@ -19,7 +21,7 @@ const useSearch = (endpoints) => {
   const handleAxiosRequest = (url) =>
     axios.get(url, {
       params: {
-        search: query,
+        search: input,
       },
     });
 
@@ -35,10 +37,36 @@ const useSearch = (endpoints) => {
     description: t(`${collectionName}.description`, data),
   });
 
+  const customSort = (xs) => {
+    const shouldSort =
+      sortOption && Array.isArray(sortOption.sortBy);
+    const order = shouldSort
+      ? sortOption.sortBy.slice()
+      : null;
+
+    return shouldSort
+      ? xs.reduce((acc, x) => {
+          if (order[order.length - 1] === x) {
+            order.pop();
+            acc.unshift(x);
+          } else {
+            acc.push(x);
+          }
+          return acc;
+        }, [])
+      : xs;
+  };
+
   const reorder = () => {
-    const legend = Object.keys(res)
-      .sort((a, b) => a.localeCompare(b))
-      .sort((a) => (inLocation(a) ? -1 : 0));
+    const alphabet = Object.keys(res).sort(
+      sortAlphabetically,
+    );
+
+    const customSorted = customSort(alphabet);
+
+    const legend = sortOption?.ignoreLocation
+      ? customSorted
+      : customSorted.sort((a) => (inLocation(a) ? -1 : 0));
 
     return Object.values(res).reduce((acc, curr, i) => {
       acc[legend[i]] = curr;
@@ -47,26 +75,38 @@ const useSearch = (endpoints) => {
   };
 
   React.useEffect(() => {
-    executeOnAllEndpoints().then((r) => {
-      const target = r.reduce(merge, {});
-      const searchResults = Object.entries(target).reduce(
-        (acc, [collectionName, collectionResults = []]) => {
-          acc[collectionName] = collectionResults.map(
-            assignSearchPropertiesByCollectionName(
-              collectionName,
-            ),
-          );
+    executeOnAllEndpoints()
+      .then((r) => {
+        const target = r.reduce(merge, {});
+        const searchResults = Object.entries(target).reduce(
+          (
+            acc,
+            [collectionName, collectionResults = []],
+          ) => {
+            acc[collectionName] = collectionResults.map(
+              assignSearchPropertiesByCollectionName(
+                collectionName,
+              ),
+            );
 
-          return acc;
-        },
-        {},
-      );
+            return acc;
+          },
+          {},
+        );
+        browser.proxyLocalStorageApi('setItem', input);
+        setRes(searchResults);
+      })
+      .catch(setError);
+  }, [input]);
 
-      setRes(searchResults);
-    });
-  }, [query]);
-
-  return reorder();
+  return {
+    result: reorder(),
+    error,
+    lastSearch: browser.proxyLocalStorageApi(
+      'getItem',
+      input,
+    ),
+  };
 };
 
 export default useSearch;

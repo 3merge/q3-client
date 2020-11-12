@@ -2,6 +2,7 @@ import React from 'react';
 import { t } from 'react-i18next';
 import { get } from 'axios';
 import { useLocation } from '@reach/router';
+import { browser, array } from 'q3-ui-helpers';
 import useSearch from './useSearch';
 
 let setState;
@@ -21,13 +22,21 @@ jest.mock('react-i18next', () => {
   };
 });
 
+jest.mock('q3-ui-helpers', () => ({
+  browser: {
+    proxyLocalStorageApi: jest.fn(),
+  },
+}));
+
 jest.mock('@reach/router', () => ({
   useLocation: jest.fn().mockReturnValue({
     search: '?search=hello-world',
   }),
 }));
+// jest.mock('@reach/router');
 
 beforeEach(() => {
+  browser.proxyLocalStorageApi.mockClear();
   setState = jest.fn();
   jest
     .spyOn(React, 'useEffect')
@@ -41,13 +50,16 @@ beforeEach(() => {
     ]);
 });
 
+it('shoul', () => {
+  useSearch('hi', ['get']);
+});
+
 describe('useSearch', () => {
   it('should call resolver on search query change', () => {
-    get.mockResolvedValue({});
-    useSearch(['/search']);
+    useSearch('weather', ['/search']);
     expect(get).toHaveBeenCalledWith('/search', {
       params: {
-        search: 'hello-world',
+        search: 'weather',
       },
     });
   });
@@ -68,7 +80,7 @@ describe('useSearch', () => {
       ],
     });
 
-    useSearch(['/get']);
+    useSearch('search', ['/get']);
     setTimeout(() => {
       expect(t).toHaveBeenCalledWith('collection1.title', {
         id: 1,
@@ -94,10 +106,36 @@ describe('useSearch', () => {
     }, 0);
   });
 
-  it.only('should move the active collection to top of state', () => {
+  it('should do custom sort', () => {
     useLocation.mockReturnValue({
       pathname: 'foo',
-      search: '?',
+    });
+
+    spy.mockReturnValue([
+      {
+        'quuz': [],
+        foo: [],
+        'foo-bar': [],
+        'zoink': [],
+        'bar': [],
+      },
+      jest.fn(),
+    ]);
+    const { result } = useSearch('search', ['/get'], {
+      sortBy: ['quuz', 'foo-bar'],
+    });
+    expect(Object.keys(result)).toEqual([
+      'foo',
+      'quuz',
+      'foo-bar',
+      'bar',
+      'zoink',
+    ]);
+  });
+
+  it('should do custom sort and ignore location', () => {
+    useLocation.mockReturnValue({
+      pathname: 'foo',
     });
 
     spy.mockReturnValue([
@@ -111,16 +149,27 @@ describe('useSearch', () => {
       jest.fn(),
     ]);
 
-    expect(Object.keys(useSearch(['/get']))).toEqual([
-      'foo',
-      'bar',
-      'foo-bar',
+    const { result } = useSearch('search', ['/get'], {
+      sortBy: ['quuz', 'foo-bar'],
+      ignoreLocation: true,
+    });
+
+    expect(Object.keys(result)).toEqual([
       'quuz',
+      'foo-bar',
+      'bar',
+      'foo',
       'zoink',
     ]);
   });
 
-  it.todo(
-    'should re-order state based on active, priority and then alphabetization',
-  );
+  it('should store search term in localStorage', () => {
+    useSearch('weather', ['/search']);
+
+    setTimeout(() => {
+      expect(
+        browser.proxyLocalStorageApi,
+      ).toHaveBeenCalledWith('setItem', 'weather');
+    }, 0);
+  });
 });
