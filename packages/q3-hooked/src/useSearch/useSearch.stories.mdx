@@ -9,32 +9,48 @@ import {
 
 # useSearch
 
-Returns search results in standerlized format.
+Returns search results in standerizedld format, serch term
+previously used, sorting function and error object.
 
 ## Return value
 
-| Property                                                           | Description |
-| ------------------------------------------------------------------ | ----------- |
-| { result: [collections], error: error object , lastSearch: string} |             |
+| Property    | Description          |
+| ----------- | -------------------- |
+| error       | error object or null |
+| lastSearch  | string value         |
+| Collections | description below    |
+
+The collections is a class holding search result and sort
+functions. You can get the result by calling `extract`
+method on the Collections.
+
+## Methods
+
+| Method           | Argument                      | Description                 |
+| ---------------- | ----------------------------- | --------------------------- |
+| `alphabetSort`   | N/A                           | Sort alphabetically         |
+| `locationSort`   | { pathnaem: 'yourLocation'}\* | Sort based off the location |
+| `collectionSort` | [string]\*                    | Sort by collection names    |
 
 ## Arguments
 
-| Type                                                          | Description                                                                                                                                                                      |
-| ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `string*`                                                     | Search term                                                                                                                                                                      |
-| `[string]*`                                                   | Endpoints                                                                                                                                                                        |
-| `{ ignoreLocation: boolean, sortBy: [collectionName:string]}` | Disables sorting by the location when ignoreLocation is false. You can specify the order by passing array of collection names. The rest of the results are sorted alphabetically |
+| Type        | Description |
+| ----------- | ----------- |
+| `string*`   | Search term |
+| `[string]*` | Endpoints   |
 
 ## Example
 
 ```javascript
 import React from 'react'
+import { useLocation } from '@reach/router'
 import { useSearch } from 'q3-hooked'
 import Result from './Result'
 
 export default () => {
   const [input, setInput] = React.useState()
-  const { result, error } = useSearch(input, ['/users', '/blogs'])
+  const location = useLocation()
+  const { collections, error } = useSearch(input, ['/users', '/blogs'])
 
   const handleOnChange = (e) => setInput(e.target.value)
 
@@ -47,7 +63,7 @@ export default () => {
           onChange={handleOnChange}
         />
       </label>
-      {!error && <Result result={result} /> }
+      {!error && <Result result={Collections.alphabetSort().locationSort(location).extract())} /> }
     <div>
   )
 }

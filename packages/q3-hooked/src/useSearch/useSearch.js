@@ -106,8 +106,7 @@ const useSearch = (input, endpoints) => {
   }, [input]);
 
   return {
-    result: res,
-    customSort: CustomSort.of(res),
+    Collections: CustomSort.of(res),
     error,
     lastSearch: browser.proxyLocalStorageApi(
       'getItem',

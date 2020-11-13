@@ -1,7 +1,6 @@
 import React from 'react';
 import { t } from 'react-i18next';
 import { get } from 'axios';
-import { useLocation } from '@reach/router';
 import { browser } from 'q3-ui-helpers';
 import useSearch, { CustomSort } from './useSearch';
 
@@ -26,12 +25,6 @@ jest.mock('q3-ui-helpers', () => ({
   browser: {
     proxyLocalStorageApi: jest.fn(),
   },
-}));
-
-jest.mock('@reach/router', () => ({
-  useLocation: jest.fn().mockReturnValue({
-    search: '?search=hello-world',
-  }),
 }));
 
 beforeEach(() => {
@@ -134,10 +127,6 @@ describe('useSearch', () => {
   });
 
   it('should do custom sort then sort by location', () => {
-    useLocation.mockReturnValue({
-      pathname: 'foo',
-    });
-
     const result = CustomSort.of({
       'quuz': [],
       foo: [],
