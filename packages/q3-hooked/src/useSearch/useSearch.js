@@ -4,6 +4,8 @@ import { get, merge } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { browser } from 'q3-ui-helpers';
 
+export const USE_SEARCH_INPUT = 'useSearchInput';
+
 const comparesTo = (a, b) => a.localeCompare(b);
 
 const getPathname = (location) =>
@@ -101,7 +103,11 @@ const useSearch = (input, endpoints) => {
           },
           {},
         );
-        browser.proxyLocalStorageApi('setItem', input);
+        browser.proxyLocalStorageApi(
+          'setItem',
+          USE_SEARCH_INPUT,
+          input,
+        );
         setRes(searchResults);
       })
       .catch(setError);
@@ -112,7 +118,7 @@ const useSearch = (input, endpoints) => {
     error,
     lastSearch: browser.proxyLocalStorageApi(
       'getItem',
-      input,
+      USE_SEARCH_INPUT,
     ),
   };
 };

@@ -2,7 +2,10 @@ import React from 'react';
 import { t } from 'react-i18next';
 import { get } from 'axios';
 import { browser } from 'q3-ui-helpers';
-import useSearch, { CustomSort } from './useSearch';
+import useSearch, {
+  CustomSort,
+  USE_SEARCH_INPUT,
+} from './useSearch';
 
 let setState;
 let spy;
@@ -154,7 +157,11 @@ describe('useSearch', () => {
     setTimeout(() => {
       expect(
         browser.proxyLocalStorageApi,
-      ).toHaveBeenCalledWith('setItem', 'weather');
+      ).toHaveBeenCalledWith(
+        'setItem',
+        USE_SEARCH_INPUT,
+        'weather',
+      );
     }, 0);
   });
 });
