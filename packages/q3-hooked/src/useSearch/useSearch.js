@@ -9,6 +9,8 @@ const comparesTo = (a, b) => a.localeCompare(b);
 const getPathname = (location) =>
   get(location, 'pathname', '/').split('/');
 
+const isEqual = (x) => (y) => x === y;
+
 export class CustomSort {
   constructor(x) {
     this._collections = Object.keys(x);
@@ -28,7 +30,7 @@ export class CustomSort {
     const pathname = getPathname(location);
 
     this._collections.sort((a) =>
-      pathname.some((x) => x === a) ? -1 : 0,
+      pathname.some(isEqual(a)) ? -1 : 0,
     );
     return this;
   }
