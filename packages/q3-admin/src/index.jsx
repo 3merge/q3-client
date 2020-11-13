@@ -14,6 +14,8 @@ import Socket from './containers/Socket';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
+import * as Search from './components/Search';
+import Tray from './components/Tray';
 
 export const goTo = (path) => () => navigate(path);
 
@@ -42,27 +44,32 @@ const Admin = ({
           />
           <Socket {...SocketProps}>
             <Box className={cls.main}>
-              <ProfileActions
-                profileItems={[
-                  ...profileItems,
-                  {
-                    onClick: goTo(`${root}account/profile`),
-                    label: 'profile',
-                  },
-                  {
-                    onClick: goTo(
-                      `${root}account/change-password`,
-                    ),
-                    label: 'changePassword',
-                  },
-                  {
-                    onClick: restartTour,
-                    label: 'restartTour',
-                  },
-                ]}
-              >
-                <Notifications socket={socket} />
-              </ProfileActions>
+              <Tray>
+                <Search.Autosuggest />
+                <ProfileActions
+                  profileItems={[
+                    ...profileItems,
+                    {
+                      onClick: goTo(
+                        `${root}account/profile`,
+                      ),
+                      label: 'profile',
+                    },
+                    {
+                      onClick: goTo(
+                        `${root}account/change-password`,
+                      ),
+                      label: 'changePassword',
+                    },
+                    {
+                      onClick: restartTour,
+                      label: 'restartTour',
+                    },
+                  ]}
+                >
+                  <Notifications socket={socket} />
+                </ProfileActions>
+              </Tray>
               <App {...AppProps}>
                 <Profile
                   path="/account/profile"

@@ -150,12 +150,9 @@ const Page = ({
             ]),
           }}
         >
-          {resolvers && (
-            <Tray>
-              <Search resolvers={resolvers} />
-              <UnsavedChanges />
-            </Tray>
-          )}
+          {/*
+          <UnsavedChanges />
+     */}
           {executeOnChildren(children, {
             ...state,
             id,

@@ -60,7 +60,8 @@ export class CustomSort {
   }
 }
 
-const useSearch = (input, endpoints) => {
+const useSearch = (endpoints) => {
+  const [input, setInput] = React.useState('');
   const [res, setRes] = React.useState([]);
   const [error, setError] = React.useState(null);
   const { t } = useTranslation('labels');
