@@ -2,8 +2,8 @@ import React from 'react';
 import { t } from 'react-i18next';
 import { get } from 'axios';
 import { useLocation } from '@reach/router';
-import { browser, array } from 'q3-ui-helpers';
-import useSearch from './useSearch';
+import { browser } from 'q3-ui-helpers';
+import useSearch, { CustomSort } from './useSearch';
 
 let setState;
 let spy;
@@ -33,7 +33,6 @@ jest.mock('@reach/router', () => ({
     search: '?search=hello-world',
   }),
 }));
-// jest.mock('@reach/router');
 
 beforeEach(() => {
   browser.proxyLocalStorageApi.mockClear();
@@ -48,10 +47,6 @@ beforeEach(() => {
       defaultValue,
       setState,
     ]);
-});
-
-it('shoul', () => {
-  useSearch('hi', ['get']);
 });
 
 describe('useSearch', () => {
@@ -106,11 +101,7 @@ describe('useSearch', () => {
     }, 0);
   });
 
-  it('should do custom sort', () => {
-    useLocation.mockReturnValue({
-      pathname: 'foo',
-    });
-
+  it('should sort by alphabetically then do collection sort', () => {
     spy.mockReturnValue([
       {
         'quuz': [],
@@ -121,45 +112,50 @@ describe('useSearch', () => {
       },
       jest.fn(),
     ]);
-    const { result } = useSearch('search', ['/get'], {
-      sortBy: ['quuz', 'foo-bar'],
-    });
+
+    const result = CustomSort.of({
+      'quuz': [],
+      foo: [],
+      'foo-bar': [],
+      'zoink': [],
+      'bar': [],
+    })
+      .alphabetSort()
+      .collectionSort(['bar', 'foo-bar', 'zoink'])
+      .extract();
+
     expect(Object.keys(result)).toEqual([
+      'bar',
+      'foo-bar',
+      'zoink',
       'foo',
       'quuz',
-      'foo-bar',
-      'bar',
-      'zoink',
     ]);
   });
 
-  it('should do custom sort and ignore location', () => {
+  it('should do custom sort then sort by location', () => {
     useLocation.mockReturnValue({
       pathname: 'foo',
     });
 
-    spy.mockReturnValue([
-      {
-        'quuz': [],
-        foo: [],
-        'foo-bar': [],
-        'zoink': [],
-        'bar': [],
-      },
-      jest.fn(),
-    ]);
-
-    const { result } = useSearch('search', ['/get'], {
-      sortBy: ['quuz', 'foo-bar'],
-      ignoreLocation: true,
-    });
+    const result = CustomSort.of({
+      'quuz': [],
+      foo: [],
+      'foo-bar': [],
+      'zoink': [],
+      'bar': [],
+    })
+      .alphabetSort()
+      .collectionSort(['quuz', 'foo-bar', 'zoink'])
+      .locationSort({ pathname: 'foo-bar' })
+      .extract();
 
     expect(Object.keys(result)).toEqual([
-      'quuz',
       'foo-bar',
+      'quuz',
+      'zoink',
       'bar',
       'foo',
-      'zoink',
     ]);
   });
 

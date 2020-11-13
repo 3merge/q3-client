@@ -1,22 +1,65 @@
 import React from 'react';
 import axios from 'axios';
 import { get, merge } from 'lodash';
-import { useLocation } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import { browser } from 'q3-ui-helpers';
 
-const sortAlphabetically = (a, b) => a.localeCompare(b);
+const comparesTo = (a, b) => a.localeCompare(b);
 
-const useSearch = (input, endpoints, sortOption) => {
+const getPathname = (location) =>
+  get(location, 'pathname', '/').split('/');
+
+export class CustomSort {
+  constructor(x) {
+    this._collections = Object.keys(x);
+    this._value = Object.values(x);
+  }
+
+  static of(x) {
+    return new CustomSort(x);
+  }
+
+  alphabetSort() {
+    this._collections.sort(comparesTo);
+    return this;
+  }
+
+  locationSort(location) {
+    const pathname = getPathname(location);
+
+    this._collections.sort((a) =>
+      pathname.some((x) => x === a) ? -1 : 0,
+    );
+    return this;
+  }
+
+  collectionSort(collections) {
+    if (!Array.isArray(collections)) return this;
+
+    const rest = this._collections.reduce((acc, x) => {
+      if (!collections.includes(x)) {
+        acc.push(x);
+      }
+      return acc;
+    }, []);
+
+    this._collections = collections.concat(rest);
+
+    return this;
+  }
+
+  extract() {
+    return this._value.reduce((acc, curr, i) => {
+      acc[this._collections[i]] = curr;
+      return acc;
+    }, {});
+  }
+}
+
+const useSearch = (input, endpoints) => {
   const [res, setRes] = React.useState([]);
   const [error, setError] = React.useState(null);
   const { t } = useTranslation('labels');
-  const location = useLocation();
-
-  const inLocation = (key) =>
-    get(location, 'pathname', '/')
-      .split('/')
-      .some((item) => item === key);
 
   const handleAxiosRequest = (url) =>
     axios.get(url, {
@@ -36,43 +79,6 @@ const useSearch = (input, endpoints, sortOption) => {
     title: t(`${collectionName}.title`, data),
     description: t(`${collectionName}.description`, data),
   });
-
-  const customSort = (xs) => {
-    const shouldSort =
-      sortOption && Array.isArray(sortOption.sortBy);
-    const order = shouldSort
-      ? sortOption.sortBy.slice()
-      : null;
-
-    return shouldSort
-      ? xs.reduce((acc, x) => {
-          if (order[order.length - 1] === x) {
-            order.pop();
-            acc.unshift(x);
-          } else {
-            acc.push(x);
-          }
-          return acc;
-        }, [])
-      : xs;
-  };
-
-  const reorder = () => {
-    const alphabet = Object.keys(res).sort(
-      sortAlphabetically,
-    );
-
-    const customSorted = customSort(alphabet);
-
-    const legend = sortOption?.ignoreLocation
-      ? customSorted
-      : customSorted.sort((a) => (inLocation(a) ? -1 : 0));
-
-    return Object.values(res).reduce((acc, curr, i) => {
-      acc[legend[i]] = curr;
-      return acc;
-    }, {});
-  };
 
   React.useEffect(() => {
     executeOnAllEndpoints()
@@ -100,7 +106,8 @@ const useSearch = (input, endpoints, sortOption) => {
   }, [input]);
 
   return {
-    result: reorder(),
+    result: res,
+    customSort: CustomSort.of(res),
     error,
     lastSearch: browser.proxyLocalStorageApi(
       'getItem',
