@@ -171,9 +171,7 @@ const useNavigation = (menuItems = []) => {
               {...rest}
               onClick={onClick}
               style={{
-                background: isExpanded
-                  ? 'orange'
-                  : undefined,
+                background: isExpanded ? 'orange' : 'blue',
               }}
             >
               {renderer}
@@ -190,8 +188,11 @@ const useNavigation = (menuItems = []) => {
               >
                 {nests && isExpanded && (
                   <List>
-                    {nestedMenuItems.map((it) => (
-                      <Menu {...it} />
+                    {nestedMenuItems.map((it, i) => (
+                      <Menu
+                        {...it}
+                        key={`nestsIsExpanded${it.label}${i}`}
+                      />
                     ))}
                   </List>
                 )}
@@ -205,11 +206,15 @@ const useNavigation = (menuItems = []) => {
           </>
         );
       };
-
       return (
         <List top>
-          {newMenuItems.map((item) => {
-            return <Menu {...item} />;
+          {newMenuItems.map((item, i) => {
+            return (
+              <Menu
+                {...item}
+                key={`top${item.label}${i}`}
+              />
+            );
           })}
         </List>
       );

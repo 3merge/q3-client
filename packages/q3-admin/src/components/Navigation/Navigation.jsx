@@ -60,7 +60,13 @@ const AppNavigation = ({
           {menuComponent || (
             <>
               {recurse(
-                ({ children, nodeId, label, top }) =>
+                ({
+                  children,
+                  nodeId,
+                  label,
+                  top,
+                  withControls,
+                }) =>
                   top ? (
                     <TreeView
                       defaultExpandIcon={<ArrowRightIcon />}
@@ -71,12 +77,25 @@ const AppNavigation = ({
                       {children}
                     </TreeView>
                   ) : (
-                    <TreeItem nodeId={nodeId} label={label}>
+                    <TreeItem
+                      nodeId={nodeId}
+                      label={label}
+                      withControls={withControls}
+                    >
                       {children}
                     </TreeItem>
                   ),
-                ({ label, nodeId, children }) => (
-                  <TreeItem nodeId={nodeId} label={label}>
+                ({
+                  label,
+                  nodeId,
+                  children,
+                  withControls,
+                }) => (
+                  <TreeItem
+                    nodeId={nodeId}
+                    label={label}
+                    withControls={withControls}
+                  >
                     {children}
                   </TreeItem>
                 ),
