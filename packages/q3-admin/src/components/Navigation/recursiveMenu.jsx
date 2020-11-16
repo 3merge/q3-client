@@ -1,68 +1,73 @@
 import React from 'react';
 import { useNavigation } from 'q3-hooked';
-import NavigationLink from '../NavigationLink';
 
 const recursiveMenu = (List, ListItem) => (Component) => {
-  const RecursiveList = ({
+  const Menu = ({
     label,
     to,
     nestedMenuItems,
     icon,
     isExpanded,
+    isSelected,
     onClick,
+    ...rest
   }) => {
     const nests = nestedMenuItems?.length > 0;
 
     return (
       <>
         {nests ? (
-          <ListItem>
-            <span
-              onClick={onClick}
-              style={{
-                background: isExpanded
-                  ? 'orange'
-                  : undefined,
-              }}
-            >
-              {label}
-            </span>
-
+          <ListItem
+            onClick={onClick}
+            label={label}
+            isExpanded={isExpanded}
+            hasNestItems={nests}
+          >
             {nests && isExpanded && (
               <List>
                 {nestedMenuItems.map((nest) => {
                   return nest.nestedMenuItems ? (
-                    <CustomList {...nest} />
+                    <Menu {...nest} />
                   ) : (
-                    <ListItem>
-                      <NavigationLink {...nest} />
-                    </ListItem>
+                    <ListItem {...nest} />
                   );
                 })}
               </List>
             )}
           </ListItem>
         ) : (
-          <ListItem>
-            <NavigationLink
-              label={label}
-              icon={icon}
-              to={to}
-            />
-          </ListItem>
+          <ListItem
+            onClick={onClick}
+            label={label}
+            icon={icon}
+            to={to}
+            hasNestItems={nests}
+            isSelected={isSelected}
+            {...rest}
+          />
         )}
       </>
     );
   };
 
-  return ({ menuItems, children }) => {
-    return (
-      <Component>
+  return ({ menuItems, ...props }) => {
+    const { navigationMenus } = useNavigation(menuItems);
+
+    const renderMenu = () => {
+      return (
         <List>
-          <RecursiveList {...menuItems} />
+          {navigationMenus.map((menu) => {
+            return <Menu {...menu} />;
+          })}
         </List>
-        {children}
-      </Component>
+      );
+    };
+    return (
+      <Component
+        {...props}
+        renderMenu={renderMenu}
+        menuItems={menuItems}
+      />
     );
   };
 };
