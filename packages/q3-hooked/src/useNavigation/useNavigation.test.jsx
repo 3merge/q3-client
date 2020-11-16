@@ -1,18 +1,20 @@
 import React from 'react';
-import { useLocation } from '@reach/router';
+import { useLocation, useNavigate } from '@reach/router';
 import useNavigation from './useNavigation';
-import {
-  isPartialMatch,
-  getPartialMatch,
-  getParentMatch,
-} from './helpers';
 
 jest.mock('@reach/router', () => ({
   useLocation: jest.fn(),
+  useNavigate: jest.fn(),
 }));
 
+let spy;
+let useEffect;
+
 beforeEach(() => {
+  spy = jest.spyOn(React, 'useState');
+  useEffect = jest.spyOn(React, 'useEffect');
   useLocation.mockClear();
+  useNavigate.mockClear();
 });
 
 const genLinkItem = (props) => ({
@@ -21,87 +23,6 @@ const genLinkItem = (props) => ({
   to: '/',
   ...props,
 });
-
-const items = [
-  {},
-  { visible: false, to: '/foo' },
-  {
-    visible: false,
-    nestedMenuItems: [
-      genLinkItem({ to: '/hello/there' }),
-      genLinkItem({ to: '/hello/here' }),
-    ],
-  },
-];
-
-const lists = items.map(genLinkItem);
-
-const extendedLists = items.concat([
-  {
-    label: 'Parent Match',
-    to: '/parent',
-    nestedMenuItems: [
-      genLinkItem({ to: '/parent/1' }),
-      genLinkItem({ to: '/parent/2' }),
-    ],
-  },
-]);
-
-// describe('useNavigation', () => {
-//   describe('"Admin>isPartialMatch"', () => {
-//     it('should match without leading', () =>
-//       expect(isPartialMatch('/foo', 'foo')).toBeTruthy());
-
-//     it('should match parent directory', () =>
-//       expect(
-//         isPartialMatch('/app/foo', 'foo'),
-//       ).toBeTruthy());
-
-//     it('should match subdirectories', () =>
-//       expect(
-//         isPartialMatch('/foo', '/foo/123'),
-//       ).toBeTruthy());
-
-//     it('should not match', () =>
-//       expect(isPartialMatch('/foo', 'bar')).toBeFalsy());
-
-//     it('should partially match location', () => {
-//       expect(
-//         getPartialMatch('/hello/there', lists),
-//       ).toEqual(['/hello/there']);
-//     });
-
-//     it('should get parent matches', () => {
-//       expect(
-//         getParentMatch('/parent', extendedLists),
-//       ).toEqual(['Parent Match']);
-//     });
-
-//     it('should return empty array when no parent match', () => {
-//       expect(
-//         getParentMatch('/no-parent', extendedLists),
-//       ).toEqual([]);
-//     });
-//   });
-// });
-
-// describe('Navigation', () => {
-//   it('should filter out invisible elements', () => {
-//     expect(filterByVisibility(lists)).toHaveLength(2);
-//   });
-
-//   it('should recursively render menu items', () => {
-//     const result = recursivelyRenderMenuItems(lists)(
-//       Tree,
-//       Link,
-//     );
-//     expect(result).toHaveLength(3);
-//     expect(result[2].props.children).not.toBeNull();
-//     result
-//       .slice(0, 2)
-//       .forEach((x) => expect(x.props.children).toBeNull());
-//   });
-// });
 
 const parentWithoutNests = [
   genLinkItem({
@@ -149,17 +70,26 @@ const parentWithNests = [
 
 describe('New useNavigation', () => {
   it('should return transform data as a parent without nests', () => {
+    const setState = jest.fn();
     useLocation.mockReturnValue({
       pathname: '/parentWithoutNests',
     });
+    useEffect.mockImplementation(() => {});
+    spy.mockReturnValue(['', setState]);
+
     expect(
       useNavigation(parentWithoutNests).navigationMenus[0],
-    ).toEqual({
-      label: 'Parent Without Nests',
-      to: '/parentWithoutNests',
-      icon: 'icon',
-      isSelected: true,
-    });
+    ).toEqual(
+      expect.objectContaining({
+        label: 'Parent Without Nests',
+        to: '/parentWithoutNests',
+        icon: 'icon',
+        isSelected: true,
+        nodeId: '1',
+        role: 'link',
+        onClick: expect.any(Function),
+      }),
+    );
   });
 
   it('should transform data as a parent with nests', () => {
@@ -167,33 +97,25 @@ describe('New useNavigation', () => {
       pathname: '/nest1',
     });
 
+    const setState = jest.fn();
+    useLocation.mockReturnValue({
+      pathname: '/parentWithoutNests',
+    });
+    useEffect.mockImplementation(() => {});
+    spy.mockReturnValue(['', setState]);
+
     expect(
       useNavigation(parentWithNests).navigationMenus[0],
-    ).toMatchObject({
-      label: 'Parent With Nests',
-      icon: 'icon',
-      isExpanded: false,
-      nestedMenuItems: [
-        {
-          label: 'Nest 1',
-          icon: 'icon',
-          to: '/nest1',
-          isSelected: true,
-        },
-        {
-          label: 'Nest 2',
-          icon: 'icon',
-          to: '/nest2',
-          isSelected: false,
-        },
-      ],
-    });
-  });
-
-  let spy;
-
-  beforeEach(() => {
-    spy = jest.spyOn(React, 'useState');
+    ).toEqual(
+      expect.objectContaining({
+        label: 'Parent With Nests',
+        icon: 'icon',
+        isExpanded: false,
+        nodeId: '1',
+        nestedMenuItems: expect.any(Array),
+        onClick: expect.any(Function),
+      }),
+    );
   });
 
   it('should inherit isExpanded from nested menu items', () => {
@@ -201,6 +123,7 @@ describe('New useNavigation', () => {
     useLocation.mockReturnValue({
       pathname: '/',
     });
+    useEffect.mockImplementation(() => {});
 
     const {
       navigationMenus: [menuItems],
@@ -222,12 +145,13 @@ describe('New useNavigation', () => {
     checkNestedMenuItems(2, true);
   });
 
-  it.only('should set the expanded value', () => {
+  it('should set the expanded value', () => {
     const setState = jest.fn();
     spy.mockReturnValue(['', setState]);
     useLocation.mockReturnValue({
       pathname: '/',
     });
+    useEffect.mockImplementation(() => {});
 
     const {
       navigationMenus: [
@@ -237,7 +161,6 @@ describe('New useNavigation', () => {
       ],
     } = useNavigation(parentWithNests);
 
-    item.expand();
-    expect(setState).toHaveBeenCalledWith('1-3');
+    expect(item.nodeId).toBe('1-3');
   });
 });

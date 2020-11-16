@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
-import { getParentMatch, getPartialMatch } from './helpers';
 
 export const hyphenateIndexPosition = (
   prevIndex,
@@ -103,8 +102,6 @@ const useNavigation = (menuItems = []) => {
   }, [pathname]);
 
   return {
-    defaultExpanded: getParentMatch(pathname, menuItems),
-    defaultSelected: getPartialMatch(pathname, menuItems),
     navigationMenus: newMenuItems,
   };
 };
