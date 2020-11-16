@@ -46,15 +46,6 @@ beforeEach(() => {
 });
 
 describe('useSearch', () => {
-  it('should call resolver on search query change', () => {
-    useSearch('weather', ['/search']);
-    expect(get).toHaveBeenCalledWith('/search', {
-      params: {
-        search: 'weather',
-      },
-    });
-  });
-
   it('should call translate each result in resolver response', (done) => {
     get.mockResolvedValue({
       collection1: [
@@ -71,7 +62,7 @@ describe('useSearch', () => {
       ],
     });
 
-    useSearch('search', ['/get']);
+    useSearch(['/get']);
     setTimeout(() => {
       expect(t).toHaveBeenCalledWith('collection1.title', {
         id: 1,

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { get, merge } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { browser } from 'q3-ui-helpers';
+import { useValue } from 'useful-state';
+import { debounce } from 'lodash';
 
 export const USE_SEARCH_INPUT = 'useSearchInput';
 
@@ -61,7 +63,7 @@ export class CustomSort {
 }
 
 const useSearch = (endpoints) => {
-  const [input, setInput] = React.useState('');
+  const { value, onChange } = useValue();
   const [res, setRes] = React.useState([]);
   const [error, setError] = React.useState(null);
   const { t } = useTranslation('labels');
@@ -69,7 +71,7 @@ const useSearch = (endpoints) => {
   const handleAxiosRequest = (url) =>
     axios.get(url, {
       params: {
-        search: input,
+        search: value,
       },
     });
 
@@ -107,12 +109,12 @@ const useSearch = (endpoints) => {
         browser.proxyLocalStorageApi(
           'setItem',
           USE_SEARCH_INPUT,
-          input,
+          value,
         );
         setRes(searchResults);
       })
       .catch(setError);
-  }, [input]);
+  }, [value]);
 
   return {
     res,
@@ -122,6 +124,8 @@ const useSearch = (endpoints) => {
       'getItem',
       USE_SEARCH_INPUT,
     ),
+    value,
+    onChange: debounce(onChange, 350),
   };
 };
 
