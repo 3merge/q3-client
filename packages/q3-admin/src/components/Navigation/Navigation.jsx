@@ -5,18 +5,14 @@ import Box from '@material-ui/core/Box';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { Link } from '@reach/router';
-import { useNavigation } from 'q3-hooked';
 import Drawer from 'q3-ui-dialog';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
-import TreeView from '@material-ui/lab/TreeView';
-import TreeItem from '@material-ui/lab/TreeItem';
+import { List } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import NavigationLink from '../NavigationLink';
-import NavigationSubMenu from '../NavigationSubMenu';
+import withNavigation from './withNavigation';
+import NavigationListItem from './NavigationLIstItem';
 import useStyle from './useStyle';
 
 const AppNavigation = ({
@@ -27,9 +23,9 @@ const AppNavigation = ({
   menuComponent,
   title = 'Menu',
   root = '/',
+  renderMenu: renderNavigation,
 }) => {
   const cls = useStyle();
-  const { recurse } = useNavigation(menuItems);
 
   const renderLogoAndDirectoryLink = React.useCallback(
     () => (
@@ -57,51 +53,7 @@ const AppNavigation = ({
               </Box>
             </Hidden>
           )}
-          {menuComponent || (
-            <>
-              {recurse(
-                ({
-                  children,
-                  nodeId,
-                  label,
-                  top,
-                  withControls,
-                }) =>
-                  top ? (
-                    <TreeView
-                      defaultExpandIcon={<ArrowRightIcon />}
-                      defaultCollapseIcon={
-                        <ArrowDropDownIcon />
-                      }
-                    >
-                      {children}
-                    </TreeView>
-                  ) : (
-                    <TreeItem
-                      nodeId={nodeId}
-                      label={label}
-                      withControls={withControls}
-                    >
-                      {children}
-                    </TreeItem>
-                  ),
-                ({
-                  label,
-                  nodeId,
-                  children,
-                  withControls,
-                }) => (
-                  <TreeItem
-                    nodeId={nodeId}
-                    label={label}
-                    withControls={withControls}
-                  >
-                    {children}
-                  </TreeItem>
-                ),
-              )}
-            </>
-          )}
+          {menuComponent || renderNavigation()}
         </Box>
         {footerComponent && <Box>{footerComponent}</Box>}
       </Box>
@@ -179,6 +131,10 @@ AppNavigation.propTypes = {
   menuComponent: PropTypes.node,
   title: PropTypes.string,
   root: PropTypes.string,
+  renderMenu: PropTypes.node,
 };
 
-export default AppNavigation;
+export default withNavigation(
+  List,
+  NavigationListItem,
+)(AppNavigation);

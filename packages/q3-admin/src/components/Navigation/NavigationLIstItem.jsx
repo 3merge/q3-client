@@ -1,29 +1,14 @@
 import React from 'react';
-import {
-  List,
-  ListItem,
-  Button,
-  Box,
-} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { Box, ListItem, Button } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import withNavigation from './withNavigation';
 
-const TestNav = ({ renderMenu }) => {
-  return (
-    <div>
-      <p>My list</p>
-      {renderMenu()}
-    </div>
-  );
-};
-
-const MyListItem = ({
+const NavigationListItem = ({
   label,
   onClick,
   isExpanded,
   isSelected,
   children,
-  to,
   icon: Icon,
   role,
 }) => {
@@ -49,7 +34,10 @@ const MyListItem = ({
           onClick={onClick}
           role={role || 'button'}
           className={isSelected ? 'navIsSelected' : ''}
-          style={{ textTransform: 'none' }}
+          style={{
+            textTransform: 'none',
+            alignItems: 'left',
+          }}
         >
           {label}
         </Button>
@@ -59,4 +47,22 @@ const MyListItem = ({
   );
 };
 
-export default withNavigation(List, MyListItem)(TestNav);
+NavigationListItem.defaultProps = {
+  isSelected: false,
+  role: '',
+};
+
+NavigationListItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isSelected: PropTypes.bool,
+  role: PropTypes.string,
+  // eslint-disable-next-line react/require-default-props
+  isExpanded: PropTypes.bool,
+  // eslint-disable-next-line react/require-default-props
+  icon: PropTypes.node,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.node.isRequired,
+};
+
+export default NavigationListItem;
