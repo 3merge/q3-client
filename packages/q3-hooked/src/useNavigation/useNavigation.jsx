@@ -46,7 +46,17 @@ const useNavigation = (menuItems = []) => {
 
   const handleOnClick = (curr) => (e) => {
     e.preventDefault();
-    setExpanded(curr);
+    if (curr === expanded) {
+      if (expanded.length === 1) {
+        setExpanded('');
+      }
+
+      if (expanded.length > 2) {
+        setExpanded(expanded.slice(0, expanded.length - 2));
+      }
+    } else {
+      setExpanded(curr);
+    }
   };
 
   const transformer = (prevIndex) => (

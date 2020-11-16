@@ -1,79 +1,195 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import IconButton from 'q3-ui/lib/iconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Hidden from '@material-ui/core/Hidden';
 import { Link } from '@reach/router';
-import { useNavigation } from 'q3-hooked';
-import NavigationLink from '../NavigationLink';
+import Drawer from 'q3-ui-dialog';
+import classnames from 'classnames';
+import Grid from '@material-ui/core/Grid';
+import { List, ListItem, Button } from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import Typography from '@material-ui/core/Typography';
+import withNavigation from './withNavigation';
+import useStyle from './useStyle';
 
-const Menu = ({
-  label,
-  to,
-  nestedMenuItems,
-  icon,
-  isExpanded,
-  onClick,
+const AppNavigation = ({
+  logoSrc,
+  menuItems,
+  subMenuItems,
+  footerComponent,
+  menuComponent,
+  title = 'Menu',
+  root = '/',
+  renderMenu: renderNavigation,
 }) => {
-  const nests = nestedMenuItems?.length > 0;
+  const cls = useStyle();
+
+  const renderLogoAndDirectoryLink = React.useCallback(
+    () => (
+      <Link to={root} className={cls.logo}>
+        <img alt="Q3 Client Logo" src={logoSrc} />
+      </Link>
+    ),
+    [],
+  );
+
+  const renderMenu = () => {
+    return (
+      <Box className={cls.nav}>
+        <Box>
+          {title && (
+            <Hidden mdDown>
+              <Box pb={1} px={1}>
+                <Typography
+                  variant="body2"
+                  component="h1"
+                  align="center"
+                >
+                  <strong>{title}</strong>
+                </Typography>
+              </Box>
+            </Hidden>
+          )}
+          {menuComponent || renderNavigation()}
+        </Box>
+        {footerComponent && <Box>{footerComponent}</Box>}
+      </Box>
+    );
+  };
 
   return (
     <>
-      {nests ? (
-        <li>
-          <span
-            onClick={onClick}
-            style={{
-              background: isExpanded ? 'orange' : undefined,
-            }}
-          >
-            {label}
-          </span>
-
-          {nests && isExpanded && (
-            <ul>
-              {nestedMenuItems.map((nest) => {
-                return nest.nestedMenuItems ? (
-                  <Menu {...nest} />
-                ) : (
-                  <li>
-                    <NavigationLink {...nest} />
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </li>
-      ) : (
-        <li>
-          <NavigationLink
-            label={label}
-            icon={icon}
-            to={to}
+      <Hidden mdDown>
+        <Box
+          className={classnames(cls.root, cls.muted)}
+          component="nav"
+        >
+          {renderLogoAndDirectoryLink()}
+          {renderMenu()}
+        </Box>
+      </Hidden>
+      <Hidden lgUp>
+        <Grid
+          alignItems="center"
+          container
+          className={classnames(cls.muted, cls.appbar)}
+          component="nav"
+        >
+          <Drawer
+            variant="drawer"
+            anchor="left"
+            title={title}
+            closeOnRouteChange
+            renderTrigger={(onClick) => (
+              <Grid item>
+                <Box pl={1}>
+                  <IconButton
+                    icon={MenuIcon}
+                    label="menu"
+                    buttonProps={{
+                      id: 'q3-admin-mobile-menu',
+                      onClick,
+                    }}
+                  />
+                </Box>
+              </Grid>
+            )}
+            renderContent={renderMenu}
           />
-        </li>
-      )}
+          <Grid item style={{ height: '100%' }}>
+            {renderLogoAndDirectoryLink()}
+          </Grid>
+        </Grid>
+      </Hidden>
     </>
   );
 };
 
-const List = ({ children }) => <ul>{children}</ul>;
+AppNavigation.defaultProps = {
+  title: 'Menu',
+  root: '/',
+};
 
-const ListItem = ({ label, children, withControls }) => (
-  <li>
-    {withControls(label)}
-    {children}
-  </li>
-);
+AppNavigation.propTypes = {
+  logoSrc: PropTypes.string.isRequired,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      to: PropTypes.string,
+      visible: PropTypes.bool,
+      // eslint-disable-next-line react/forbid-prop-types
+      nestedMenuItems: PropTypes.array,
+      icon: PropTypes.node,
+    }),
+  ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  subMenuItems: PropTypes.array,
+  footerComponent: PropTypes.node,
+  menuComponent: PropTypes.node,
+  title: PropTypes.string,
+  root: PropTypes.string,
+  renderMenu: PropTypes.node,
+};
 
-const VerticalNav = ({ menuItems }) => {
-  const { navigationMenus } = useNavigation(menuItems);
-  // return <div>{recurse(List, ListItem)}</div>;
+const CustomListItem = ({
+  label,
+  onClick,
+  isExpanded,
+  isSelected,
+  children,
+  icon: Icon,
+  role,
+}) => {
+  const renderExpandedIcon = () => {
+    if (typeof isExpanded !== 'boolean') return null;
+    return isExpanded ? <ExpandLess /> : <ExpandMore />;
+  };
+
   return (
-    <div>
-      <ul>
-        {navigationMenus.map((menu, i) => {
-          return <Menu {...menu} />;
-        })}
-      </ul>
-    </div>
+    <ListItem
+      style={{
+        display: 'block',
+      }}
+    >
+      <Box
+        display="flex"
+        alignItems="center"
+        className={isExpanded ? 'natIsExpanded' : ''}
+      >
+        {renderExpandedIcon()}
+        {Icon && <Icon color="inherit" />}
+        <Button
+          onClick={onClick}
+          role={role || 'button'}
+          className={isSelected ? 'navIsSelected' : ''}
+          style={{
+            textTransform: 'none',
+            alignItems: 'left',
+          }}
+        >
+          {label}
+        </Button>
+      </Box>
+      {children}
+    </ListItem>
   );
 };
 
-export default VerticalNav;
+CustomListItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  isExpanded: PropTypes.bool,
+  isSelected: PropTypes.bool,
+  icon: PropTypes.node,
+  role: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.any,
+};
+
+export default withNavigation(
+  List,
+  CustomListItem,
+)(AppNavigation);

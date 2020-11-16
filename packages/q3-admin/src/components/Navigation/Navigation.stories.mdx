@@ -38,11 +38,13 @@ import TestNav from './_Navigation.jsx';
 <Preview>
   <Story name="Vetical navigation">
     <Location initialPath="/city">
-      <LocationDebugger>
-        <Viewport>
-          <VerticalNav menuItems={extendedMenuItems} />
-        </Viewport>
-      </LocationDebugger>
+      <Viewport>
+        <VerticalNav
+          logoSrc={logo}
+          menuItems={extendedMenuItems}
+          footerComponent={<small>Fine print</small>}
+        />
+      </Viewport>
     </Location>
   </Story>
 </Preview>

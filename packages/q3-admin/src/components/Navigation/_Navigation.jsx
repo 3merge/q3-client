@@ -6,7 +6,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import recursiveMenu from './recursiveMenu';
+import withNavigation from './withNavigation';
 
 const TestNav = ({ renderMenu }) => {
   return (
@@ -43,19 +43,20 @@ const MyListItem = ({
         alignItems="center"
         className={isExpanded ? 'natIsExpanded' : ''}
       >
+        {renderExpandedIcon()}
         {Icon && <Icon color="inherit" />}
         <Button
           onClick={onClick}
           role={role || 'button'}
           className={isSelected ? 'navIsSelected' : ''}
+          style={{ textTransform: 'none' }}
         >
           {label}
         </Button>
-        {renderExpandedIcon()}
       </Box>
       {children}
     </ListItem>
   );
 };
 
-export default recursiveMenu(List, MyListItem)(TestNav);
+export default withNavigation(List, MyListItem)(TestNav);

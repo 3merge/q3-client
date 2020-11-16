@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigation } from 'q3-hooked';
+import { array } from 'q3-ui-helpers';
 
-const recursiveMenu = (List, ListItem) => (Component) => {
+const withNavigation = (List, ListItem) => (Component) => {
   const Menu = ({
     label,
     to,
@@ -12,7 +14,7 @@ const recursiveMenu = (List, ListItem) => (Component) => {
     onClick,
     ...rest
   }) => {
-    const nests = nestedMenuItems?.length > 0;
+    const nests = array.hasLength(nestedMenuItems);
 
     return (
       <>
@@ -22,6 +24,7 @@ const recursiveMenu = (List, ListItem) => (Component) => {
             label={label}
             isExpanded={isExpanded}
             hasNestItems={nests}
+            icon={icon}
           >
             {nests && isExpanded && (
               <List>
@@ -72,4 +75,4 @@ const recursiveMenu = (List, ListItem) => (Component) => {
   };
 };
 
-export default recursiveMenu;
+export default withNavigation;
