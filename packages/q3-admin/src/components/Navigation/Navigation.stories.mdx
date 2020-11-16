@@ -15,6 +15,7 @@ import menuItems, {
 } from '../../__fixtures__/menuItems';
 import logo from '../../__fixtures__/logo';
 import VerticalNav from './VerticalNav';
+import TestNav from './TestNav.jsx';
 
 <Meta title="Admin/Navigation" component={Navigation} />
 
@@ -35,11 +36,23 @@ import VerticalNav from './VerticalNav';
 </Preview>
 
 <Preview>
-  <Story name="Vertical navigation">
+  <Story name="Vetical navigation">
     <Location initialPath="/city">
       <LocationDebugger>
         <Viewport>
           <VerticalNav menuItems={extendedMenuItems} />
+        </Viewport>
+      </LocationDebugger>
+    </Location>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Test navigation">
+    <Location initialPath="/city">
+      <LocationDebugger>
+        <Viewport>
+          <TestNav menuItems={extendedMenuItems} />
         </Viewport>
       </LocationDebugger>
     </Location>

@@ -63,12 +63,8 @@ const ListItem = ({ label, children, withControls }) => (
 );
 
 const VerticalNav = ({ menuItems }) => {
-  const { recurse } = useNavigation(menuItems);
-  return <div>{recurse(List, ListItem)}</div>;
-};
-
-/**
-
+  const { navigationMenus } = useNavigation(menuItems);
+  // return <div>{recurse(List, ListItem)}</div>;
   return (
     <div>
       <ul>
@@ -78,6 +74,6 @@ const VerticalNav = ({ menuItems }) => {
       </ul>
     </div>
   );
- */
+};
 
 export default VerticalNav;

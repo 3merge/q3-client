@@ -1,5 +1,4 @@
 import React from 'react';
-import { compose } from 'lodash/fp';
 import { useNavigate, useLocation } from '@reach/router';
 import { array, object } from 'q3-ui-helpers';
 import { getParentMatch, getPartialMatch } from './helpers';
