@@ -5,6 +5,7 @@ import {
   Button,
   Box,
 } from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import recursiveMenu from './recursiveMenu';
 
 const TestNav = ({ renderMenu }) => {
@@ -26,6 +27,11 @@ const MyListItem = ({
   icon: Icon,
   role,
 }) => {
+  const renderExpandedIcon = () => {
+    if (typeof isExpanded !== 'boolean') return null;
+    return isExpanded ? <ExpandLess /> : <ExpandMore />;
+  };
+
   return (
     <ListItem
       style={{
@@ -45,6 +51,7 @@ const MyListItem = ({
         >
           {label}
         </Button>
+        {renderExpandedIcon()}
       </Box>
       {children}
     </ListItem>
