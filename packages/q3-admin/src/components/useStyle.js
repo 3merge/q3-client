@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // re-useable component styles
 export default makeStyles((theme) => ({
   appbar: {
-    height: 75,
+    minHeight: 75,
 
     [theme.breakpoints.down('md')]: {
       height: 65,

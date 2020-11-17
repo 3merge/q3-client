@@ -1,0 +1,22 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Drawer from './Drawer';
+import Datasource from '../../../../__fixtures__/datasource';
+
+<Meta title="Admin/Search/Drawer" component={Drawer} />
+
+# Drawer
+
+<Preview>
+  <Story name="With deeply nested pages">
+    <Location initialPath="/savings">
+      <Datasource>
+        <Drawer />
+      </Datasource>
+    </Location>
+  </Story>
+</Preview>

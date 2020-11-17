@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
       paddingRight: theme.spacing(1),
       position: 'absolute',
       top: 0,
-      width: 'calc(100% - 410px)',
+      width: 'calc(100% - 265px)',
     },
 
     [theme.breakpoints.down('sm')]: {
@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
       paddingLeft: 0,
       paddingRight: 0,
       //  transform: 'translateX(-50%)',
-      width: 'calc(100% - 148px)',
+      width: 'calc(100% - 72px)',
     },
   },
 }));

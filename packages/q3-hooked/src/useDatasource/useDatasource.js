@@ -83,7 +83,12 @@ export default ({ select, onEnter, onExit, onInit }) => {
     ]),
 
     store: {
-      data,
+      data: Array.isArray(data)
+        ? data.map((item) => ({
+            ...item,
+            url: `${resourceName}/${item.id}`,
+          }))
+        : data,
       ...pick(state, [
         'total',
         'hasNextPage',

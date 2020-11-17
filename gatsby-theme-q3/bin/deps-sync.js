@@ -9,6 +9,7 @@ const packages = [
   'q3-admin',
   'q3-blocks',
   'q3-components',
+  'q3-hooked',
   'q3-ui',
   'q3-ui-assets',
   'q3-ui-datatables',

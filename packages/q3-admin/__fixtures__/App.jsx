@@ -5,16 +5,12 @@ import {
   useLoading,
   useTimezoneInterceptor,
 } from 'q3-ui-rest';
-import { Router, Link } from '@reach/router';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import TvIcon from '@material-ui/icons/Tv';
+import { Link } from '@reach/router';
 import { PaginationCard } from 'q3-ui/lib/pagination';
 import Collection from 'q3-admin/lib/containers/collection';
 import CollectionDatasource from 'q3-admin/lib/containers/CollectionDatasource';
 import List from 'q3-admin/lib/containers/table';
-import CollectionFilter from 'q3-admin/lib/containers/CollectionFilter';
 import Container from '@material-ui/core/Container';
-import { Builders } from 'q3-ui-forms';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { useSegments } from 'q3-hooked';
@@ -24,7 +20,7 @@ import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
-import Admin from '../src';
+import { Templates, withAdminProviders } from '../src';
 import pages from './views';
 
 const Loading = ({ children }) => {
@@ -83,54 +79,60 @@ const CustomShows = () => (
   </Collection>
 );
 
-const ExampleApp = ({ initialPath }) => {
-  useTimezoneInterceptor();
+const withConfig = (Component) => {
+  const Wrapper = ({ initialPath }) => {
+    useTimezoneInterceptor();
 
-  return (
-    <Loading>
-      <LocationProvider initialPath={initialPath}>
-        <Authentication>
-          <Datasource>
-            <Admin
-              AppProps={{
-                pages,
-                customRoutes: [
-                  <Dash path="/" />,
-                  <CustomShows path="/custom" />,
-                  <CustomAddSequence path="/custom/add" />,
-                ],
-              }}
-              NavProps={{
-                title: 'Demo app',
-                logoSrc: logo,
-              }}
-              ProfileProps={{
-                fields: <p>Append custom form fields!</p>,
-                items: [
-                  {
-                    label: 'other',
-                    component: Foo,
-                  },
-                ],
-              }}
-              icons={{
-                entertainment: BeachAccessIcon,
-                shows: TvIcon,
-              }}
-            />
-          </Datasource>
-        </Authentication>
-      </LocationProvider>
-    </Loading>
-  );
+    return (
+      <Loading>
+        <LocationProvider initialPath={initialPath}>
+          <Authentication>
+            <Datasource>
+              <Component
+                AppProps={{
+                  pages,
+                  customRoutes: [
+                    <Dash path="/" />,
+                    <CustomShows path="/custom" />,
+                    <CustomAddSequence path="/custom/add" />,
+                  ],
+                }}
+                NavProps={{
+                  title: 'Demo app',
+                  logoSrc: logo,
+                }}
+                ProfileProps={{
+                  fields: <p>Append custom form fields!</p>,
+                  items: [
+                    {
+                      label: 'other',
+                      component: Foo,
+                    },
+                  ],
+                }}
+              />
+            </Datasource>
+          </Authentication>
+        </LocationProvider>
+      </Loading>
+    );
+  };
+
+  Wrapper.propTypes = {
+    initialPath: PropTypes.string,
+  };
+
+  Wrapper.defaultProps = {
+    initialPath: '/',
+  };
+
+  return Wrapper;
 };
 
-ExampleApp.propTypes = {
-  initialPath: PropTypes.string,
-};
+export const Stack = withConfig(
+  withAdminProviders(Templates.App.Stack),
+);
 
-ExampleApp.defaultProps = {
-  initialPath: '/',
-};
-
-export default ExampleApp;
+export const MultiColumn = withConfig(
+  withAdminProviders(Templates.App.MultiColumn),
+);

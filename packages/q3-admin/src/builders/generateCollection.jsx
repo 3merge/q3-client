@@ -1,7 +1,7 @@
 import React from 'react';
 import Page from '../containers/CollectionDetail';
 import Collection from '../containers/collection';
-import { Templates } from '../containers/state';
+import * as Templates from '../templates';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -39,11 +39,13 @@ export default ({
     index: true,
     ...getCollectionInformation(etc),
     component: (props) => {
-      const { List } = React.useContext(Templates);
+      const { templateName } = PageListProps;
+      const El =
+        Templates.List[templateName || 'MultiColumn'];
 
       return (
         <Collection index {...props}>
-          <List {...props} {...PageListProps} />
+          <El {...props} {...PageListProps} />
         </Collection>
       );
     },

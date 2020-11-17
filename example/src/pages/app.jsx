@@ -2,40 +2,45 @@ import React from 'react';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import { Router } from '@reach/router';
 import Admin from 'q3-admin';
-import { AuthContext } from 'q3-ui-permissions';
 import { useTimezoneInterceptor } from 'q3-ui-rest';
+import { Gatekeeper } from 'q3-admin/lib/containers';
 import pages from '../views';
 
+const redirectCheck = (profile) =>
+  profile?.role === 'Regular' ? '/regular' : null;
+
 export default () => {
-  const { state } = React.useContext(AuthContext);
   useTimezoneInterceptor('America/Los_Angeles');
 
-  return state.init ? (
-    <Router basepath="/app">
-      <Admin
-        path="*"
-        logoSrc="https://image-placeholder.com/images/image-placeholder.png"
-        icons={{
-          characters: AccessibilityIcon,
-        }}
-        profileItems={[]}
-        AppProps={{
-          directory: '/app/',
-          redirectPathForUnauthorizedUsers: '/login',
-          pages,
-        }}
-        SocketProps={{
-          onDownload: ({ data }) => {
-            if (
-              data &&
-              data.path.includes('characters.pdf')
-            )
-              window.open(data.url);
-          },
-        }}
-      />
-    </Router>
-  ) : (
-    'Thinking...'
+  return (
+    <Gatekeeper
+      redirectPathOnPublic="/login"
+      redirectCheck={redirectCheck}
+    >
+      <Router basepath="/app">
+        <Admin
+          path="*"
+          logoSrc="https://image-placeholder.com/images/image-placeholder.png"
+          icons={{
+            characters: AccessibilityIcon,
+          }}
+          profileItems={[]}
+          AppProps={{
+            directory: '/app/',
+            redirectPathForUnauthorizedUsers: '/login',
+            pages,
+          }}
+          SocketProps={{
+            onDownload: ({ data }) => {
+              if (
+                data &&
+                data.path.includes('characters.pdf')
+              )
+                window.open(data.url);
+            },
+          }}
+        />
+      </Router>
+    </Gatekeeper>
   );
 };
