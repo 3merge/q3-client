@@ -14,6 +14,7 @@ const makeApiEndpoints = (
   { collectionName, resourceName, resourceNameSingular },
 ) => {
   const [dataSource] = React.useState(seedData);
+
   const ops = new OpsHelper(dataSource, collectionName);
 
   mockInstance
@@ -85,12 +86,12 @@ const makeApiEndpoints = (
   mockInstance
     // collection
     .onGet(new RegExp(collectionName))
-    .reply(({ url }) => {
+    .reply(({ url, params }) => {
       if (url.includes('empty'))
         return [200, { [resourceName]: [] }];
 
       const urlParams = new URLSearchParams(url);
-      const s = urlParams.get('search');
+      const s = urlParams.get('search') || params?.search;
 
       return [
         200,
@@ -129,6 +130,20 @@ export default ({ children }) => {
 
     m.onGet(/reports/).reply(() => {
       return [200, { data: BAR }];
+    });
+
+    m.onGet(/quicksearch/).reply(() => {
+      const select = (a) => {
+        const copy = [...a];
+        return copy.splice(0, 30);
+      };
+      return [
+        200,
+        {
+          shows: select(shows),
+          characters: select(characters),
+        },
+      ];
     });
 
     m.onPost(/profile/).reply(async ({ data }) => {

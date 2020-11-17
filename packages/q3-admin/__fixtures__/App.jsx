@@ -5,14 +5,16 @@ import {
   useLoading,
   useTimezoneInterceptor,
 } from 'q3-ui-rest';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import TvIcon from '@material-ui/icons/Tv';
+
 import { PaginationCard } from 'q3-ui/lib/pagination';
 import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
-import Admin from '../src';
+import Admin, {
+  Templates,
+  withAdminProviders,
+} from '../src';
 import pages from './views';
 
 const Loading = ({ children }) => {
@@ -30,15 +32,13 @@ const Dash = () => (
 
 const Foo = () => <p>Custom profile view</p>;
 
-const ExampleApp = ({ initialPath }) => {
-  useTimezoneInterceptor();
-
-  return (
+const withConfig = (Component) => {
+  const Wrapper = ({ initialPath }) => (
     <Loading>
       <LocationProvider initialPath={initialPath}>
         <Authentication>
           <Datasource>
-            <Admin
+            <Component
               AppProps={{
                 pages,
                 customRoutes: [<Dash path="/" />],
@@ -56,24 +56,28 @@ const ExampleApp = ({ initialPath }) => {
                   },
                 ],
               }}
-              icons={{
-                entertainment: BeachAccessIcon,
-                shows: TvIcon,
-              }}
             />
           </Datasource>
         </Authentication>
       </LocationProvider>
     </Loading>
   );
+
+  Wrapper.propTypes = {
+    initialPath: PropTypes.string,
+  };
+
+  Wrapper.defaultProps = {
+    initialPath: '/',
+  };
+
+  return Wrapper;
 };
 
-ExampleApp.propTypes = {
-  initialPath: PropTypes.string,
-};
+export const Stack = withConfig(
+  withAdminProviders(Templates.App.Stack),
+);
 
-ExampleApp.defaultProps = {
-  initialPath: '/',
-};
-
-export default ExampleApp;
+export const MultiColumn = withConfig(
+  withAdminProviders(Templates.App.MultiColumn),
+);

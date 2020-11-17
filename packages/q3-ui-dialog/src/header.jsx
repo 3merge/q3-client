@@ -12,18 +12,26 @@ const DialogHeader = ({ title, onClose }) => {
   const { t } = useTranslation();
   const { toolbar } = useStyles();
 
+  const renderTitle = () => {
+    if (!title) return null;
+    if (typeof title === 'string')
+      return (
+        <Typography
+          color="inherit"
+          component="h3"
+          variant="h4"
+        >
+          {t(`titles:${title}`)}
+        </Typography>
+      );
+
+    return title;
+  };
+
   return (
     <AppBar color="inherit" elevation={3} position="static">
       <Toolbar className={toolbar}>
-        {title && (
-          <Typography
-            color="inherit"
-            component="h3"
-            variant="h4"
-          >
-            {t(`titles:${title}`)}
-          </Typography>
-        )}
+        {renderTitle()}
         <IconButton
           onClick={onClose}
           aria-label={t('labels:close')}

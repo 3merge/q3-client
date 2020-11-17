@@ -6,16 +6,13 @@ import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
 import Graphic from 'q3-ui-assets';
 import { useFilters } from 'q3-ui-rest';
-import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
-import Tray from '../../components/Tray';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
-import Search from '../search';
 
 const PageChildren = ({
   children,

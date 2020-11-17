@@ -4,38 +4,44 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import App from './App';
+import { MultiColumn, Stack } from './App';
 
-<Meta title="_Q3/Demo" component={App} />
+<Meta title="_Q3/Demo" />
 
 # Q3
 
 <Preview>
-  <Story name="Dashboard">
-    <App initialPath="/" />
+  <Story name="MultiColumnList">
+    <MultiColumn initialPath="/shows" />
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="List">
-    <App initialPath="/shows" />
+  <Story name="StackList">
+    <Stack initialPath="/shows" />
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Detail">
-    <App initialPath="/shows/1" />
+  <Story name="MultiColumnDetail">
+    <MultiColumn initialPath="/shows/1" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="StackDetail">
+    <Stack initialPath="/shows/1" />
   </Story>
 </Preview>
 
 <Preview>
   <Story name="Password">
-    <App initialPath="/account/change-password" />
+    <Stack initialPath="/account/change-password" />
   </Story>
 </Preview>
 
 <Preview>
   <Story name="Profile">
-    <App initialPath="/account/profile" />
+    <Stack initialPath="/account/profile" />
   </Story>
 </Preview>

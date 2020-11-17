@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
+import Hidden from '@material-ui/core/Hidden';
 import App from './components/app';
 import { usePages } from './hooks';
 import Notifications from './containers/Notifications';
@@ -16,8 +17,46 @@ import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import * as Search from './components/Search';
 import Tray from './components/Tray';
+import * as Templates from './templates';
 
 export const goTo = (path) => () => navigate(path);
+
+export { Templates };
+
+export const withAdminProviders = (Template) => ({
+  icons,
+  socket,
+  tours,
+  children,
+  profileItems,
+  AppProps,
+  NavProps,
+  ProfileProps,
+  SocketProps,
+}) => {
+  const menuItems = usePages(AppProps.pages, icons);
+
+  return (
+    <Socket {...SocketProps}>
+      <Template
+        NavProps={{
+          ...NavProps,
+          menuItems,
+        }}
+        socket={socket}
+      >
+        <App {...AppProps}>
+          <Profile
+            path="/account/profile"
+            {...ProfileProps}
+          />
+          <ProfileChangePassword path="/account/change-password" />
+        </App>
+        {children}
+      </Template>
+    </Socket>
+  );
+};
 
 const Admin = ({
   icons,
@@ -30,59 +69,27 @@ const Admin = ({
   ProfileProps,
   SocketProps,
 }) => {
-  const cls = useStyle();
-  const root = get(AppProps, 'directory', '/');
+  const menuItems = usePages(AppProps.pages, icons);
 
   return (
-    <Tours steps={tours}>
-      {(restartTour) => (
-        <Viewport>
-          <Navigation
-            {...NavProps}
-            menuItems={usePages(AppProps.pages, icons)}
-            root={root}
+    <Socket {...SocketProps}>
+      <Templates.App.Stack
+        NavProps={{
+          ...NavProps,
+          menuItems,
+        }}
+        socket={socket}
+      >
+        <App {...AppProps}>
+          <Profile
+            path="/account/profile"
+            {...ProfileProps}
           />
-          <Socket {...SocketProps}>
-            <Box className={cls.main}>
-              <Tray>
-                <Search.Autosuggest />
-                <ProfileActions
-                  profileItems={[
-                    ...profileItems,
-                    {
-                      onClick: goTo(
-                        `${root}account/profile`,
-                      ),
-                      label: 'profile',
-                    },
-                    {
-                      onClick: goTo(
-                        `${root}account/change-password`,
-                      ),
-                      label: 'changePassword',
-                    },
-                    {
-                      onClick: restartTour,
-                      label: 'restartTour',
-                    },
-                  ]}
-                >
-                  <Notifications socket={socket} />
-                </ProfileActions>
-              </Tray>
-              <App {...AppProps}>
-                <Profile
-                  path="/account/profile"
-                  {...ProfileProps}
-                />
-                <ProfileChangePassword path="/account/change-password" />
-              </App>
-              {children}
-            </Box>
-          </Socket>
-        </Viewport>
-      )}
-    </Tours>
+          <ProfileChangePassword path="/account/change-password" />
+        </App>
+        {children}
+      </Templates.App.Stack>
+    </Socket>
   );
 };
 

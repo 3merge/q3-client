@@ -14,12 +14,7 @@ const ProfileActions = ({ children, profileItems }) => {
   const cls = useStyle();
 
   return (
-    <Box
-      position="absolute"
-      top={0}
-      right={1}
-      className={cls.appbar}
-    >
+    <Box className={cls.appbar}>
       <Grid
         container
         alignItems="center"

@@ -4,7 +4,7 @@ import { get, merge } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { browser } from 'q3-ui-helpers';
 import { useValue } from 'useful-state';
-import { debounce } from 'lodash';
+import { useDebounce } from 'use-debounce';
 
 export const USE_SEARCH_INPUT = 'useSearchInput';
 
@@ -79,18 +79,29 @@ export class CustomSort {
   }
 }
 
-const useSearch = (endpoints) => {
+const useSearch = (endpoints, options = {}) => {
+  const debounceMin = get(options, 'debounce.min', 325);
+  const debounceMax = get(options, 'debounce.max', 1150);
+
   const { value, onChange } = useValue();
-  const [res, setRes] = React.useState([]);
+  const [results, setResults] = React.useState([]);
   const [error, setError] = React.useState(null);
   const { t } = useTranslation('labels');
 
+  const [debounced] = useDebounce(value, debounceMin, {
+    maxWait: debounceMax,
+  });
+
   const handleAxiosRequest = (url) =>
-    axios.get(url, {
-      params: {
-        search: value,
-      },
-    });
+    axios
+      .get(url, {
+        params: {
+          search: debounced,
+        },
+      })
+      .then(({ data }) => {
+        return data;
+      });
 
   const executeOnAllEndpoints = () =>
     Array.isArray(endpoints)
@@ -105,40 +116,61 @@ const useSearch = (endpoints) => {
   });
 
   React.useEffect(() => {
-    executeOnAllEndpoints()
-      .then((r) => {
-        const target = r.reduce(merge, {});
-        const searchResults = Object.entries(target).reduce(
-          (
-            acc,
-            [collectionName, collectionResults = []],
-          ) => {
-            acc[collectionName] = collectionResults.map(
-              assignSearchPropertiesByCollectionName(
-                collectionName,
-              ),
-            );
+    if (debounced.length)
+      executeOnAllEndpoints()
+        .then((r) => {
+          const target = r.reduce(merge, {});
+          const searchResults = Object.entries(
+            target,
+          ).reduce(
+            (
+              acc,
+              [collectionName, collectionResults = []],
+            ) => {
+              if (Array.isArray(collectionResults))
+                acc[collectionName] = collectionResults.map(
+                  assignSearchPropertiesByCollectionName(
+                    collectionName,
+                  ),
+                );
 
-            return acc;
-          },
-          {},
-        );
-        storePreviousSearchTerms(value);
-        setRes(searchResults);
-      })
-      .catch(setError);
-  }, [value]);
+              return acc;
+            },
+            {},
+          );
+          storePreviousSearchTerms(debounced);
+          setResults(searchResults);
+        })
+        .catch(setError);
+  }, [debounced]);
 
   return {
-    res,
-    CustomSort: CustomSort.of(res),
     error,
+    onChange,
+    value,
+    // we should apply custom sort to this and use hook options to customize the ordering
+    // no need to expose it to the end developer otherwise
+    results,
+    // we should store multiple searches
+    // might also be worth storing those "clicked" on instead
     lastSearch: browser.proxyLocalStorageApi(
       'getItem',
       USE_SEARCH_INPUT,
     ),
-    value,
-    onChange: debounce(onChange, 350),
+
+    groupBy: () => {
+      return Object.entries(results).reduce(
+        (acc, [key, r]) => {
+          return acc.concat(
+            r.map((item) => ({
+              ...item,
+              label: key,
+            })),
+          );
+        },
+        [],
+      );
+    },
   };
 };
 
