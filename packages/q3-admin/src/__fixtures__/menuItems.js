@@ -10,6 +10,7 @@ const menuItems = [
     label: 'Home',
     icon: DashboardIcon,
     to: '/',
+    visible: true,
   },
   {
     label: 'Accounts',
@@ -50,6 +51,7 @@ export const extendedMenuItems = menuItems.concat([
     label: 'Messages',
     icon: MessageIcon,
     to: '/messages',
+    visible: true,
   },
   {
     label: 'Locations',
@@ -78,6 +80,7 @@ export const extendedMenuItems = menuItems.concat([
     label: 'Misc',
     icon: SurroundSoundIcon,
     to: '/misc',
+    visible: true,
   },
 ]);
 

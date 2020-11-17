@@ -1,11 +1,7 @@
 import React from 'react';
 
 const Regular = () => {
-  return (
-    <div>
-      <p>Welcome Regular user page!</p>
-    </div>
-  );
+  return <p>Welcome Regular user page!</p>;
 };
 
 export default Regular;
