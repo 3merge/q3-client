@@ -8,6 +8,23 @@ import { debounce } from 'lodash';
 
 export const USE_SEARCH_INPUT = 'useSearchInput';
 
+export const storePreviousSearchTerms = (value) => {
+  let prev = browser.proxyLocalStorageApi(
+    'getItem',
+    USE_SEARCH_INPUT,
+  );
+
+  prev = Array.isArray(prev) ? prev.concat(value) : [value];
+
+  const newValue = prev.length <= 5 ? prev : prev.slice(-5);
+
+  browser.proxyLocalStorageApi(
+    'setItem',
+    USE_SEARCH_INPUT,
+    newValue,
+  );
+};
+
 const comparesTo = (a, b) => a.localeCompare(b);
 
 const getPathname = (location) =>
@@ -106,11 +123,7 @@ const useSearch = (endpoints) => {
           },
           {},
         );
-        browser.proxyLocalStorageApi(
-          'setItem',
-          USE_SEARCH_INPUT,
-          value,
-        );
+        storePreviousSearchTerms(value);
         setRes(searchResults);
       })
       .catch(setError);

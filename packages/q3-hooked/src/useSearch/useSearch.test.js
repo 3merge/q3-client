@@ -5,6 +5,7 @@ import { browser } from 'q3-ui-helpers';
 import useSearch, {
   CustomSort,
   USE_SEARCH_INPUT,
+  storePreviousSearchTerms,
 } from './useSearch';
 
 let setState;
@@ -142,17 +143,29 @@ describe('useSearch', () => {
     ]);
   });
 
-  it('should store search term in localStorage', () => {
-    useSearch('weather', ['/search']);
+  it('should store first search term in localStorage', () => {
+    browser.proxyLocalStorageApi.mockReturnValue(null);
+    storePreviousSearchTerms('foo');
+    expect(
+      browser.proxyLocalStorageApi.mock.calls[1][2],
+    ).toEqual(['foo']);
+  });
 
-    setTimeout(() => {
-      expect(
-        browser.proxyLocalStorageApi,
-      ).toHaveBeenCalledWith(
-        'setItem',
-        USE_SEARCH_INPUT,
-        'weather',
-      );
-    }, 0);
+  it('should add a previous search term', () => {
+    browser.proxyLocalStorageApi.mockReturnValue(['john']);
+    storePreviousSearchTerms('doe');
+    expect(
+      browser.proxyLocalStorageApi.mock.calls[1][2],
+    ).toEqual(['john', 'doe']);
+  });
+
+  it('should update previous search term storage correctly', () => {
+    browser.proxyLocalStorageApi.mockReturnValue(
+      Array(5).fill('john'),
+    );
+    storePreviousSearchTerms('doe');
+    expect(
+      browser.proxyLocalStorageApi.mock.calls[1][2],
+    ).toEqual(['john', 'john', 'john', 'john', 'doe']);
   });
 });
