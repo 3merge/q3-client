@@ -14,7 +14,11 @@ const NavigationListItem = ({
 }) => {
   const renderExpandedIcon = () => {
     if (typeof isExpanded !== 'boolean') return null;
-    return isExpanded ? <ExpandLess /> : <ExpandMore />;
+    return isExpanded ? (
+      <ExpandLess style={{}} />
+    ) : (
+      <ExpandMore style={{}} />
+    );
   };
 
   return (
@@ -29,7 +33,18 @@ const NavigationListItem = ({
         className={isExpanded ? 'natIsExpanded' : ''}
       >
         {renderExpandedIcon()}
-        {Icon && <Icon color="inherit" />}
+        {Icon && (
+          <Icon
+            color="inherit"
+            style={{
+              display: 'block',
+              marginLeft:
+                typeof isExpanded === 'boolean'
+                  ? 0
+                  : '16px',
+            }}
+          />
+        )}
         <Button
           onClick={onClick}
           role={role || 'button'}

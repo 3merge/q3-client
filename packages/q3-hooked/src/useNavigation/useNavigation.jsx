@@ -1,5 +1,15 @@
 import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
+import { array, object } from 'q3-ui-helpers';
+
+const filterByVisibility = (a = []) =>
+  array.hasLength(a)
+    ? a.filter(
+        (item) =>
+          array.hasLength(item.nestedMenuItems) ||
+          (object.isIn(item, 'visible') && item.visible),
+      )
+    : [];
 
 export const hyphenateIndexPosition = (
   prevIndex,
@@ -59,13 +69,16 @@ const useNavigation = (menuItems = []) => {
   };
 
   const transformer = (prevIndex) => (
-    { label, to, icon, nestedMenuItems },
+    { label, to, icon, nestedMenuItems, visible },
     currIndex,
   ) => {
     const curr = hyphenateIndexPosition(
       prevIndex,
       currIndex,
     );
+
+    const isVisible =
+      typeof visible === 'boolean' ? { visible } : {};
 
     const rest = nestedMenuItems
       ? {
@@ -75,6 +88,7 @@ const useNavigation = (menuItems = []) => {
           isExpanded: checkExpanded(curr),
           onClick: handleOnClick(curr),
           nodeId: curr,
+          ...isVisible,
         }
       : {
           to,
@@ -82,6 +96,7 @@ const useNavigation = (menuItems = []) => {
           onClick: () => navigate(to),
           isSelected: checkSelected(to),
           nodeId: curr,
+          ...isVisible,
         };
 
     return {
@@ -102,7 +117,7 @@ const useNavigation = (menuItems = []) => {
   }, [pathname]);
 
   return {
-    navigationMenus: newMenuItems,
+    navigationMenus: filterByVisibility(newMenuItems),
   };
 };
 

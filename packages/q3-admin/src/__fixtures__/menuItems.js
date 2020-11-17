@@ -10,6 +10,7 @@ const menuItems = [
     label: 'Home',
     icon: DashboardIcon,
     to: '/',
+    visible: true,
   },
   {
     label: 'Accounts',
@@ -22,7 +23,6 @@ const menuItems = [
       {
         label: 'Savings',
         to: '/savings',
-        visible: true,
       },
     ],
   },
@@ -33,7 +33,6 @@ const menuItems = [
       {
         label: 'Hotels',
         to: '/hotels',
-        visible: true,
       },
       {
         label: 'AirBnB and time-sharing properties',
@@ -52,6 +51,7 @@ export const extendedMenuItems = menuItems.concat([
     label: 'Messages',
     icon: MessageIcon,
     to: '/messages',
+    visible: true,
   },
   {
     label: 'Locations',
@@ -63,12 +63,10 @@ export const extendedMenuItems = menuItems.concat([
           {
             label: 'Per City',
             to: '/city',
-            visible: true,
           },
           {
             label: 'Per Municipality',
             to: '/municipality',
-            visible: true,
           },
         ],
       },
@@ -82,6 +80,7 @@ export const extendedMenuItems = menuItems.concat([
     label: 'Misc',
     icon: SurroundSoundIcon,
     to: '/misc',
+    visible: true,
   },
 ]);
 
