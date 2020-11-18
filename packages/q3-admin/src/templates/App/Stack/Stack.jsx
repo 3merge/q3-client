@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { get } from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,7 +10,7 @@ import ProfileActions from '../../../components/ProfileActions';
 import Viewport from '../../../components/Viewport';
 import useStyle from '../../../components/useStyle';
 import * as Search from '../../../components/Search';
-import Tray from '../../../components/Tray';
+import * as Navigation from '../../../components/Navigation';
 
 export const goTo = (path) => () => navigate(path);
 
@@ -24,7 +23,6 @@ const Admin = ({
   ProfileProps,
   SocketProps,
 }) => {
-  const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
 
   return (
@@ -46,7 +44,10 @@ const Admin = ({
                   <img src={NavProps.logoSrc} height={85} />
                 </Grid>
                 <Grid item>
-                  <Button>Menu Item</Button>
+                  <Navigation.Horizontal
+                    {...NavProps}
+                    root={root}
+                  />
                 </Grid>
               </Grid>
             </Grid>
