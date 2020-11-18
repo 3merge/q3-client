@@ -3,7 +3,15 @@ import React from 'react';
 import { useNavigation } from 'q3-hooked';
 import { array } from 'q3-ui-helpers';
 
-const withNavigation = (List, ListItem) => (Component) => {
+const El = () => {
+  return 'HEY';
+};
+
+const withNavigation = (List, ListItem) => ({
+  menuItems,
+}) => {
+  const { navigationMenus } = useNavigation(menuItems);
+
   const Menu = ({
     label,
     to,
@@ -51,27 +59,13 @@ const withNavigation = (List, ListItem) => (Component) => {
     );
   };
 
-  return ({ menuItems, ...props }) => {
-    const { navigationMenus } = useNavigation(menuItems);
-
-    const renderMenu = () => {
-      return (
-        <List>
-          {navigationMenus.map((menu) => {
-            return <Menu {...menu} />;
-          })}
-        </List>
-      );
-    };
-
-    return (
-      <Component
-        {...props}
-        renderMenu={renderMenu}
-        menuItems={menuItems}
-      />
-    );
-  };
+  return (
+    <List>
+      {navigationMenus.map((menu) => {
+        return <Menu {...menu} />;
+      })}
+    </List>
+  );
 };
 
 export default withNavigation;

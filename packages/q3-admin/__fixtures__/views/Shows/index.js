@@ -57,10 +57,10 @@ export default new AbstractCollectionBuilder({
       return <p>FN</p>;
     },
     defaultColumns: ['random'],
-    templateName: 'Stack',
   })
   .genListSettings({
     defaultSortPreference: 'name',
+    templateName: 'Gallery',
   })
   .genDetail({
     picture: true,

@@ -13,6 +13,8 @@ import Viewport from '../../../components/Viewport';
 import useStyle from '../../../components/useStyle';
 import * as Search from '../../../components/Search';
 import Tray from '../../../components/Tray';
+import Aside from '../../../components/Aside';
+import * as Identity from '../../../components/Identity';
 
 export const goTo = (path) => () => navigate(path);
 
@@ -35,7 +37,13 @@ const Admin = ({
   return (
     <Viewport>
       <Box className={cls.side}>
-        <Navigation {...NavProps} root={root} />
+        <Aside
+          renderHeader={
+            <Identity.Icon src="https://logoipsum.com/logo/logo-14.svg" />
+          }
+        >
+          <Navigation {...NavProps} root={root} />
+        </Aside>
       </Box>
       <Box className={cls.main}>
         <Tray>

@@ -3,7 +3,6 @@ import {
   Box,
   List,
   ListItem,
-  ListItemText,
   Paper,
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
@@ -95,10 +94,6 @@ const useStyle = makeStyles((theme) => ({
   dropdown,
 }));
 
-const HorizontalNavigation = ({ renderMenu }) => {
-  return renderMenu();
-};
-
 const MyList = ({ children }) => {
   const { list } = useStyle();
   return <List className={list}>{children}</List>;
@@ -170,7 +165,4 @@ const MyListItem = (props) => {
   );
 };
 
-export default withNavigation(
-  MyList,
-  MyListItem,
-)(HorizontalNavigation);
+export default withNavigation(MyList, MyListItem);

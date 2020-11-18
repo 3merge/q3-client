@@ -46,6 +46,7 @@ const NavigationListItem = ({
           />
         )}
         <Button
+          color="inherit"
           onClick={onClick}
           role={role || 'button'}
           className={isSelected ? 'navIsSelected' : ''}

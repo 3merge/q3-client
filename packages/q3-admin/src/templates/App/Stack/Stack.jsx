@@ -8,7 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Notifications from '../../../containers/Notifications';
 import ProfileActions from '../../../components/ProfileActions';
 import Viewport from '../../../components/Viewport';
-import useStyle from '../../../components/useStyle';
+import * as Identity from '../../../components/Identity';
 import * as Search from '../../../components/Search';
 import * as Navigation from '../../../components/Navigation';
 
@@ -40,8 +40,11 @@ const Admin = ({
           >
             <Grid item>
               <Grid alignItems="center" container>
-                <Grid item>
-                  <img src={NavProps.logoSrc} height={85} />
+                <Grid
+                  item
+                  style={{ height: 75, width: 195 }}
+                >
+                  <Identity.Block src="https://logoipsum.com/logo/logo-8.svg" />
                 </Grid>
                 <Grid item>
                   <Navigation.Horizontal

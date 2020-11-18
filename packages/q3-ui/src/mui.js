@@ -25,7 +25,7 @@ const generateShadows = () => {
 const theme = createMuiTheme({
   palette: {
     background: {
-      default: grey[100],
+      //  default: grey[100],
     },
     primary: {
       main: '#1e1434',
@@ -34,6 +34,11 @@ const theme = createMuiTheme({
       dark: '#184A42',
       main: '#329686',
       light: '#4BE3CA',
+    },
+    header: {
+      // dark: 'rgb(6, 4 ,9)',
+      // main: '#1e1434',
+      // contrastText: '#FFF',
     },
   },
   status: {

@@ -38,6 +38,7 @@ export default new AbstractCollectionBuilder({
   })
   .genList({
     defaultColumns: ['createdAt', 'updatedAt'],
+    templateName: 'Stack',
   })
   .genListSettings({
     defaultSortPreference: 'name',
