@@ -48,12 +48,6 @@ const menuItems = [
 
 export const extendedMenuItems = menuItems.concat([
   {
-    label: 'Messages',
-    icon: MessageIcon,
-    to: '/messages',
-    visible: true,
-  },
-  {
     label: 'Locations',
     icon: MapIcon,
     nestedMenuItems: [
@@ -77,10 +71,32 @@ export const extendedMenuItems = menuItems.concat([
     ],
   },
   {
+    label: 'Messages',
+    icon: MessageIcon,
+    to: '/messages',
+    visible: true,
+  },
+
+  {
     label: 'Misc',
     icon: SurroundSoundIcon,
     to: '/misc',
     visible: true,
+    nestedMenuItems: [
+      {
+        label: 'Per other',
+        nestedMenuItems: [
+          {
+            label: 'category 1',
+            to: '/misc/other/cat',
+          },
+          {
+            label: 'category 2',
+            to: '/misc/other/cat2',
+          },
+        ],
+      },
+    ],
   },
 ]);
 
