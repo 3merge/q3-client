@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
-import Hidden from '@material-ui/core/Hidden';
+import { IconButton, Hidden } from '@material-ui/core';
+import MenuOpen from '@material-ui/icons/MenuOpen';
+import { useToggle } from 'useful-state';
 import Notifications from '../../../containers/Notifications';
 import Navigation from '../../../components/Navigation';
 import ProfileActions from '../../../components/ProfileActions';
@@ -23,20 +25,25 @@ const Admin = ({
   ProfileProps,
   SocketProps,
 }) => {
-  const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
+  const { state, toggle } = useToggle(true);
+
+  const cls = useStyle({
+    collapsed: !state,
+  });
 
   return (
     <Viewport>
-      <Navigation {...NavProps} root={root} />
-
+      <Box className={cls.side}>
+        <Navigation {...NavProps} root={root} />
+      </Box>
       <Box className={cls.main}>
         <Tray>
+          <IconButton onClick={toggle}>
+            <MenuOpen />
+          </IconButton>
           <Hidden smDown>
             <Search.Autosuggest />
-          </Hidden>
-          <Hidden mdUp>
-            <Search.Fullscreen />
           </Hidden>
           <ProfileActions
             profileItems={[

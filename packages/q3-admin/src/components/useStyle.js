@@ -13,7 +13,7 @@ export default makeStyles((theme) => ({
   side: ({ collapsed }) => ({
     overflow: 'hidden',
     transition: 'width 250ms',
-    width: collapsed ? 55 : 255,
+    width: collapsed ? 0 : 255,
   }),
 
   main: {

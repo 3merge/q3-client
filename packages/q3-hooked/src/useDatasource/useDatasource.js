@@ -87,6 +87,9 @@ export default ({ select, onEnter, onExit, onInit }) => {
         ? data.map((item) => ({
             ...item,
             url: `${resourceName}/${item.id}`,
+            state: {
+              prev: resourceName,
+            },
           }))
         : data,
       ...pick(state, [

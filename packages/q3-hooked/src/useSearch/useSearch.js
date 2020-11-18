@@ -113,6 +113,7 @@ const useSearch = (endpoints, options = {}) => {
   ) => (data) => ({
     title: t(`${collectionName}.title`, data),
     description: t(`${collectionName}.description`, data),
+    to: [collectionName, data.id].filter(Boolean).join('/'),
   });
 
   React.useEffect(() => {

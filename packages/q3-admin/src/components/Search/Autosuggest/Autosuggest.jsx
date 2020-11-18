@@ -6,17 +6,18 @@ import {
   ListItem,
   ListItemText,
   Paper,
+  TextField,
+  InputAdornment,
 } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from 'q3-hooked';
 
-const getOptionLabel = (option) => option.name;
+const getOptionLabel = (option) => {
+  return option.title;
+};
 
 const DesktopSearch = () => {
-  const ref = React.useRef();
   const { t } = useTranslation('labels');
   const { groupBy, onChange, value } = useSearch([
     '/quicksearch',
@@ -28,9 +29,8 @@ const DesktopSearch = () => {
         inputValue={value}
         onInputChange={onChange}
         options={groupBy()}
-        innerRef={ref}
+        getOptionLabel={getOptionLabel}
         freeSolo
-        open
         autoComplete
         ListboxComponent={List}
         PaperComponent={(props) =>
@@ -39,14 +39,19 @@ const DesktopSearch = () => {
             elevation: 2,
           })
         }
-        getOptionLabel={getOptionLabel}
         groupBy={(option) => option.label}
         filterOptions={(options) => options}
         renderOption={({
           title: primary,
           description: secondary,
         }) => (
-          <ListItem dense style={{ padding: 0 }}>
+          <ListItem
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            dense
+            style={{ padding: 0 }}
+          >
             <ListItemText
               primary={primary}
               secondary={secondary}

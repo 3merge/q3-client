@@ -57,7 +57,7 @@ export default new AbstractCollectionBuilder({
       return <p>FN</p>;
     },
     defaultColumns: ['random'],
-    templateName: 'MultiColumn',
+    templateName: 'Stack',
   })
   .genListSettings({
     defaultSortPreference: 'name',
