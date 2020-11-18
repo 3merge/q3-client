@@ -57,7 +57,7 @@ const NavigationListItem = ({
           {label}
         </Button>
       </Box>
-      {children}
+      {isExpanded && children != null && children}
     </ListItem>
   );
 };
@@ -65,6 +65,7 @@ const NavigationListItem = ({
 NavigationListItem.defaultProps = {
   isSelected: false,
   role: '',
+  children: null,
 };
 
 NavigationListItem.propTypes = {
@@ -77,7 +78,7 @@ NavigationListItem.propTypes = {
   // eslint-disable-next-line react/require-default-props
   icon: PropTypes.node,
   // eslint-disable-next-line react/forbid-prop-types
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any,
 };
 
 export default NavigationListItem;
