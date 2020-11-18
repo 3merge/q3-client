@@ -14,7 +14,11 @@ const NavigationLink = ({ label, to, icon: Icon }) => {
           ...props,
           to,
         })
-    : (props) => React.createElement('span', props);
+    : (props) =>
+        React.createElement('span', {
+          tabIndex: 0,
+          ...props,
+        });
 
   return (
     <El className={cls.menuItem}>

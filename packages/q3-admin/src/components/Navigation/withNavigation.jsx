@@ -26,17 +26,15 @@ const withNavigation = (List, ListItem) => (Component) => {
             hasNestItems={nests}
             icon={icon}
           >
-            {nests && isExpanded && (
-              <List>
-                {nestedMenuItems.map((nest) => {
-                  return nest.nestedMenuItems ? (
-                    <Menu {...nest} />
-                  ) : (
-                    <ListItem {...nest} />
-                  );
-                })}
-              </List>
-            )}
+            <List>
+              {nestedMenuItems.map((nest) => {
+                return nest.nestedMenuItems ? (
+                  <Menu {...nest} />
+                ) : (
+                  <ListItem {...nest} />
+                );
+              })}
+            </List>
           </ListItem>
         ) : (
           <ListItem
@@ -65,6 +63,7 @@ const withNavigation = (List, ListItem) => (Component) => {
         </List>
       );
     };
+
     return (
       <Component
         {...props}
