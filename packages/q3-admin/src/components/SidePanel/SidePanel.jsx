@@ -5,7 +5,6 @@ import IconButton from 'q3-ui/lib/iconButton';
 import AppsIcon from '@material-ui/icons/Apps';
 import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
-import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
@@ -18,19 +17,15 @@ const SidePanel = ({ id, children }) => {
     <div id={id}>
       <Hidden smDown>
         <Grid
+          id="q3-sidebar"
+          component="section"
           item
           className={classnames(
             globalStyle.fillViewportHeight,
             cls.root,
           )}
         >
-          <Paper
-            component="aside"
-            className={cls.scroller}
-            elevation={0}
-          >
-            {children}
-          </Paper>
+          <Box className={cls.scroller}>{children}</Box>
         </Grid>
       </Hidden>
       <Hidden mdUp>

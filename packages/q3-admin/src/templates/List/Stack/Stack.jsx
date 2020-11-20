@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import { Tabs, Tab, Typography } from '@material-ui/core';
+import {
+  Input,
+  Tabs,
+  Tab,
+  Typography,
+} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import PublishIcon from '@material-ui/icons/Publish';
 import IconButton from 'q3-ui/lib/iconButton';
 import { useSegments } from 'q3-hooked';
+import { useLocation, useNavigate } from '@reach/router';
 import Article from '../../../components/Article';
 import { useAppContext } from '../../../hooks';
 import CollectionDatasource from '../../../containers/CollectionDatasource';
@@ -40,6 +47,8 @@ export default ({
   });
 
   const { filters, getCurrent } = useSegments();
+  const n = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <Article>
@@ -52,13 +61,20 @@ export default ({
         pt={2}
         pb={1}
       >
-        <Typography component="h1" variant="h5">
-          Collection name here
-        </Typography>
-
+        <div>
+          <Typography component="h1" variant="h5">
+            Collection name here
+          </Typography>
+        </div>
         <Box>
+          <Input
+            placeholder="Search"
+            onChange={(e) =>
+              n(`${pathname}?search=${e.target.value}`)
+            }
+          />
           {can('filter')}
-          EXPORT/IMPORT ADD
+          <IconButton icon={PublishIcon} />
         </Box>
       </Box>
       <Box

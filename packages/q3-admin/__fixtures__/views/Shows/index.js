@@ -60,12 +60,13 @@ export default new AbstractCollectionBuilder({
   })
   .genListSettings({
     defaultSortPreference: 'name',
-    templateName: 'Gallery',
+    // templateName: 'Gallery',
   })
   .genDetail({
     picture: true,
     files: true,
     notes: true,
     documentation: <Docs />,
+    templateName: 'Tabbed',
   })
   .build();

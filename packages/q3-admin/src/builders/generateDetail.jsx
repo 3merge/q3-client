@@ -1,10 +1,17 @@
 import React from 'react';
-import { Detail } from 'q3-admin/lib/components';
+import * as Templates from '../templates';
 
-export default ({ views, HeaderProps, ...rest }) => () => (
-  <Detail {...rest} HeaderProps={HeaderProps}>
-    {Object.entries(views).map(([key, Component]) => (
-      <Component key={key} name={key} />
-    ))}
-  </Detail>
-);
+export default ({ views, HeaderProps, ...rest }) => () => {
+  const El =
+    Templates.Detail[
+      rest.templateName || 'TabbedWithSidePanel'
+    ];
+
+  return (
+    <El {...rest} HeaderProps={HeaderProps}>
+      {Object.entries(views).map(([key, Component]) => (
+        <Component key={key} name={key} />
+      ))}
+    </El>
+  );
+};

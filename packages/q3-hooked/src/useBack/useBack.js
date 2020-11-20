@@ -1,5 +1,10 @@
 import React from 'react';
-import { Link, navigate, useLocation } from '@reach/router';
+import {
+  Link,
+  useNavigate,
+  useLocation,
+} from '@reach/router';
+import { useTranslation } from 'react-i18next';
 import { Definitions } from '../context';
 
 export default () => {
@@ -7,6 +12,8 @@ export default () => {
     directoryPath = '/',
     resourceName,
   } = React.useContext(Definitions);
+  const { t } = useTranslation('labels');
+  const navigate = useNavigate();
   const router = useLocation();
   const state = {};
 
@@ -18,6 +25,7 @@ export default () => {
   to ||= directoryPath;
 
   return {
+    label: t('returnTo', { resourceName }),
     onClick: () =>
       navigate(to, {
         state,

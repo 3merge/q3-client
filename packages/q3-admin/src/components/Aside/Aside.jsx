@@ -4,59 +4,71 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import Image from 'gatsby-image';
 
-const Side = ({ children, renderFooter, renderHeader }) => (
-  <Hidden mdDown>
+const Side = ({
+  children,
+  palette,
+  renderFooter,
+  renderHeader,
+}) => (
+  <Box
+    bgcolor="background.default"
+    component="section"
+    position="relative"
+    height="100%"
+    width="100%"
+  >
     <Box
-      bgcolor="background.default"
-      component="section"
-      position="relative"
+      bgcolor={`${palette}.main`}
+      color={`${palette}.contrastText`}
       height="100%"
-      width="100%"
     >
-      <Box
-        bgcolor="header.main"
-        color="header.contrastText"
-        height="100%"
-      >
-        <Image
-          aria-hidden
-          fluid={{
-            src: 'https://source.unsplash.com/daily?nature',
-          }}
-          style={{
-            height: '100%',
-            opacity: 0.1,
-            position: 'absolute',
-            width: '100%',
-          }}
-        />
-        {renderHeader && (
+      <Image
+        aria-hidden
+        fluid={{
+          src: 'https://source.unsplash.com/daily?nature',
+        }}
+        style={{
+          height: '100%',
+          opacity: 0.1,
+          position: 'absolute',
+          width: '100%',
+        }}
+      />
+      {renderHeader && (
+        <Box
+          component="header"
+          height={75}
+          position="relative"
+          width="100%"
+        >
           <Box
-            component="header"
-            height={75}
-            position="relative"
+            bgcolor={`${palette}.dark`}
+            height="100%"
+            position="absolute"
+            style={{ opacity: 0.65 }}
             width="100%"
-          >
-            <Box
-              bgcolor="header.dark"
-              height="100%"
-              position="absolute"
-              style={{ opacity: 0.65 }}
-              width="100%"
-            />
-            {renderHeader}
-          </Box>
-        )}
-        {<Box component="nav">{children}</Box>}
-        {renderFooter && (
-          <Box component="footer">{renderFooter}</Box>
-        )}
-      </Box>
+          />
+          {renderHeader}
+        </Box>
+      )}
+      {<Box component="nav">{children}</Box>}
+      {renderFooter && (
+        <Box
+          bottom={0}
+          component="footer"
+          p={1}
+          position="absolute"
+          width="100%"
+        >
+          {renderFooter}
+        </Box>
+      )}
     </Box>
-  </Hidden>
+  </Box>
 );
 
 Side.defaultProps = {
+  palette: 'header',
   renderFooter: null,
   renderHeader: null,
 };
@@ -67,6 +79,7 @@ Side.propTypes = {
     PropTypes.node,
     PropTypes.array,
   ]).isRequired,
+  palette: PropTypes.string,
   renderFooter: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.node,

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
-import { IconButton, Hidden } from '@material-ui/core';
-import MenuOpen from '@material-ui/icons/MenuOpen';
+import { Grid } from '@material-ui/core';
 import { useToggle } from 'useful-state';
 import Notifications from '../../../containers/Notifications';
 import Navigation from '../../../components/Navigation';
@@ -38,42 +37,38 @@ const Admin = ({
     <Viewport>
       <Box className={cls.side}>
         <Aside
+          palette="primary"
           renderHeader={
             <Identity.Icon src="https://logoipsum.com/logo/logo-14.svg" />
           }
+          renderFooter={
+            <Grid container alignItems="center">
+              <ProfileActions
+                profileItems={[
+                  ...profileItems,
+                  {
+                    onClick: goTo(`${root}account/profile`),
+                    label: 'profile',
+                  },
+                  {
+                    onClick: goTo(
+                      `${root}account/change-password`,
+                    ),
+                    label: 'changePassword',
+                  },
+                ]}
+              />
+              <Notifications socket={socket} />
+            </Grid>
+          }
         >
+          <Box p={0.75} mt={1} mx={0.75}>
+            <Search.Autosuggest />
+          </Box>
           <Navigation {...NavProps} root={root} />
         </Aside>
       </Box>
-      <Box className={cls.main}>
-        <Tray>
-          <IconButton onClick={toggle}>
-            <MenuOpen />
-          </IconButton>
-          <Hidden smDown>
-            <Search.Autosuggest />
-          </Hidden>
-          <ProfileActions
-            profileItems={[
-              ...profileItems,
-              {
-                onClick: goTo(`${root}account/profile`),
-                label: 'profile',
-              },
-              {
-                onClick: goTo(
-                  `${root}account/change-password`,
-                ),
-                label: 'changePassword',
-              },
-            ]}
-          >
-            <Notifications socket={socket} />
-          </ProfileActions>
-        </Tray>
-
-        {children}
-      </Box>
+      <Box className={cls.main}>{children}</Box>
     </Viewport>
   );
 };

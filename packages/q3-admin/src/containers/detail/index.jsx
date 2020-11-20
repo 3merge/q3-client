@@ -25,7 +25,6 @@ const Detail = ({
   notes,
   picture,
   files,
-
   documentation,
   links,
   views,
@@ -98,7 +97,7 @@ Detail.defaultProps = {
   picture: false,
 };
 
-const withDynamicViews = (Component) => ({
+export const withDynamicViews = (Component) => ({
   children,
   ...props
 }) => {

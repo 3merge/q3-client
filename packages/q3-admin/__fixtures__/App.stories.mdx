@@ -4,11 +4,17 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import { MultiColumn, Stack } from './App';
+import { Collapse, MultiColumn, Stack } from './App';
 
 <Meta title="_Q3/Demo" />
 
 # Q3
+
+<Preview>
+  <Story name="CollapseList">
+    <Collapse initialPath="/shows" />
+  </Story>
+</Preview>
 
 <Preview>
   <Story name="MultiColumnList">

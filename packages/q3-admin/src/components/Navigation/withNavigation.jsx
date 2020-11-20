@@ -3,10 +3,6 @@ import React from 'react';
 import { useNavigation } from 'q3-hooked';
 import { array } from 'q3-ui-helpers';
 
-const El = () => {
-  return 'HEY';
-};
-
 const withNavigation = (List, ListItem) => ({
   menuItems,
 }) => {

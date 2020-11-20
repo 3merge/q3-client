@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from '@reach/router';
+import { useToggle } from 'useful-state';
 import Article from '../../../components/Article';
 import { useAppContext } from '../../../hooks';
 import CollectionDatasource from '../../../containers/CollectionDatasource';
@@ -13,14 +14,16 @@ export default ({
   resolvers,
   ...rest
 }) => {
+  const { toggle, state } = useToggle(true);
   const { can } = useAppContext({
-    filter: Filter ? (
-      <SidePanel>
-        <CollectionFilter {...rest}>
-          <Filter />
-        </CollectionFilter>
-      </SidePanel>
-    ) : null,
+    filter:
+      Filter && state ? (
+        <SidePanel>
+          <CollectionFilter {...rest}>
+            <Filter />
+          </CollectionFilter>
+        </SidePanel>
+      ) : null,
   });
 
   const n = useNavigate();
@@ -28,6 +31,9 @@ export default ({
 
   return (
     <Article asideComponent={can('filter')}>
+      <button type="button" onClick={toggle}>
+        OPEN
+      </button>
       <h1>HEADER</h1>
       <input
         onChange={(e) =>

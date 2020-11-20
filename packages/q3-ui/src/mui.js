@@ -40,6 +40,7 @@ const theme = createMuiTheme({
       // main: '#1e1434',
       // contrastText: '#FFF',
     },
+    identity: 'rgb(6, 4 ,9)',
   },
   status: {
     danger: 'orange',

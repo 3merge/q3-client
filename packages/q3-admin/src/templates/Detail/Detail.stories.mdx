@@ -1,0 +1,30 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { TemplateDetail } from '../../../__fixtures__/datasource/StoryWrapper';
+import { Narrow, Saddled, Split } from '.';
+
+<Meta title="Admin/Templates/Detail" />
+
+# Q3
+
+<Preview>
+  <Story name="Narrow">
+    <TemplateDetail component={Narrow} />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Saddled">
+    <TemplateDetail component={Saddled} />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Split">
+    <TemplateDetail component={Split} />
+  </Story>
+</Preview>

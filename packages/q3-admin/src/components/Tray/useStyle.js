@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     borderLeft: '2px solid #f4f4f5',
     display: 'flex',
     paddingLeft: theme.spacing(1),
-    paddingRight: 150,
+    paddingRight: theme.spacing(1),
     width: '100%',
 
     [theme.breakpoints.down('md')]: {

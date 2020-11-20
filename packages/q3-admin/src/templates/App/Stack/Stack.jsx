@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { get } from 'lodash';
+import Container from '@material-ui/core/Container';
 import AppBar from '@material-ui/core/AppBar';
 import Notifications from '../../../containers/Notifications';
 import ProfileActions from '../../../components/ProfileActions';
@@ -29,9 +30,10 @@ const Admin = ({
     <Viewport>
       <Box height="100%" width="100%">
         <AppBar
-          color="inherit"
+          color="primary"
           elevation={0}
           position="relative"
+          style={{ borderBottom: '2px solid #f4f4f5' }}
         >
           <Grid
             alignItems="center"
@@ -44,7 +46,13 @@ const Admin = ({
                   item
                   style={{ height: 75, width: 195 }}
                 >
-                  <Identity.Block src="https://logoipsum.com/logo/logo-8.svg" />
+                  <Box
+                    bgcolor="identity"
+                    height="100%"
+                    width="100%"
+                  >
+                    <Identity.Block src="https://logoipsum.com/logo/logo-8.svg" />
+                  </Box>
                 </Grid>
                 <Grid item>
                   <Navigation.Horizontal
@@ -56,8 +64,8 @@ const Admin = ({
             </Grid>
             <Grid item>
               <Grid container alignItems="center">
-                <Grid item>
-                  <Search.Drawer />
+                <Grid item style={{ width: 320 }}>
+                  <Search.Autosuggest />
                 </Grid>
                 <Grid item>
                   <ProfileActions
@@ -84,7 +92,7 @@ const Admin = ({
             </Grid>
           </Grid>
         </AppBar>
-        {children}
+        <Container maxWidth="xl">{children}</Container>
       </Box>
     </Viewport>
   );

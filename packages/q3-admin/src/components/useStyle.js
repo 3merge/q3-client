@@ -22,6 +22,16 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
     },
+
+    '& #q3-sidebar': {
+      //  backgroundColor: theme.palette.grey[100],
+      backgroundColor: theme.palette.background.paper,
+    },
+
+    '& section': {
+      borderLeft: `2px solid ${theme.palette.grey[100]}`,
+      //  padding: theme.spacing(0.75),
+    },
   },
 
   fillViewportHeight: {

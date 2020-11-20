@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
+
 import {
   useLoading,
   useTimezoneInterceptor,
@@ -23,7 +24,7 @@ import Datasource from './datasource';
 import { Templates, withAdminProviders } from '../src';
 import pages from './views';
 
-const Loading = ({ children }) => {
+export const Loading = ({ children }) => {
   useLoading();
   return children;
 };
@@ -131,6 +132,10 @@ const withConfig = (Component) => {
 
 export const Stack = withConfig(
   withAdminProviders(Templates.App.Stack),
+);
+
+export const Collapse = withConfig(
+  withAdminProviders(Templates.App.Collapse),
 );
 
 export const MultiColumn = withConfig(

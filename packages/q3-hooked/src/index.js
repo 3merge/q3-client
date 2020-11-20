@@ -1,7 +1,10 @@
 export { default as useBack } from './useBack';
 export { default as useCollection } from './useCollection';
 export { default as useDatasource } from './useDatasource';
+export { default as useViews } from './useViews';
+export { default as useHeader } from './useHeader';
 export { default as useNavigation } from './useNavigation';
 export { default as useSegments } from './useSegments';
 export { default as useGatekeeper } from './useGatekeeper';
+export { default as usePhoto } from './usePhoto';
 export { default as useSearch } from './useSearch';
