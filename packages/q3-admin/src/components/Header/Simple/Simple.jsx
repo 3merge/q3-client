@@ -15,28 +15,26 @@ const Simple = () => {
   const { collectionName, onClick, photo } = useHeader();
 
   return (
-    <Container component="header" maxWidth="xl">
-      <Box mt={2} mb={2}>
-        <Grid
-          alignItems="center"
-          container
-          justify="space-between"
-        >
-          <Grid item>
-            <Typography variant="h1">
-              Name of the resource
-            </Typography>
-            <Typography
-              component="p"
-              gutterBottom={false}
-              variant="body2"
-            >
-              A small identifier
-            </Typography>
-          </Grid>
+    <Box component="header" mt={2}>
+      <Grid
+        alignItems="center"
+        container
+        justify="space-between"
+      >
+        <Grid item>
+          <Typography variant="h1">
+            Name of the resource
+          </Typography>
+          <Typography
+            component="p"
+            gutterBottom={false}
+            variant="body2"
+          >
+            A small identifier
+          </Typography>
         </Grid>
-      </Box>
-    </Container>
+      </Grid>
+    </Box>
   );
 };
 

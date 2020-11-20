@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import * as Photo from '../../Photo';
 
-const Centered = () => {
+const CenteredWithBanner = () => {
   const { title } = useHeader();
 
   return (
@@ -20,4 +20,4 @@ const Centered = () => {
   );
 };
 
-export default Centered;
+export default CenteredWithBanner;

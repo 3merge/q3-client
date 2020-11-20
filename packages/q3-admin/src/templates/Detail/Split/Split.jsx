@@ -10,6 +10,7 @@ import DetailRelatedLinks from '../../../containers/DetailRelatedLinks';
 import { withDynamicViews } from '../../../containers/detail';
 import * as Header from '../../../components/Header';
 import * as Tabs from '../../../components/Tabs';
+import useStyle from '../useStyle';
 
 export default withDynamicViews(
   ({
@@ -25,8 +26,11 @@ export default withDynamicViews(
     views,
     ...rest
   }) => {
+    const cls = useStyle();
+
     return (
       <Article
+        className={cls.border}
         asideComponent={
           <DetailSidePanel
             documentation={documentation}
@@ -42,7 +46,6 @@ export default withDynamicViews(
         </Box>
         <Tabs.Horizontal views={views} />
         <Divider aria-hidden />
-
         <DetailRelatedLinks links={links}>
           <DetailViews views={views} />
         </DetailRelatedLinks>

@@ -41,37 +41,29 @@ const ListItem = ({ children, icon: Icon, label }) => (
 
 const Hero = () => {
   return (
-    <Box mb={2} mt={4}>
-      <Box
-        component="ul"
-        p={0}
-        my={2}
-        style={{ listStyle: 'none' }}
+    <Box
+      component="ul"
+      p={0}
+      my={2}
+      style={{ listStyle: 'none' }}
+    >
+      <ListItem icon={CalendarTodayIcon} label="Belongs to">
+        <ListItemLink>First</ListItemLink>
+      </ListItem>
+      <ListItem
+        icon={DuoIcon}
+        label="Relates to this and this"
       >
-        <ListItem
-          icon={CalendarTodayIcon}
-          label="Belongs to"
-        >
-          <ListItemLink>First</ListItemLink>
-        </ListItem>
-        <ListItem
-          icon={DuoIcon}
-          label="Relates to this and this"
-        >
-          <ListItemChip>Open</ListItemChip>
-          <ListItemChip>Tech</ListItemChip>
-          <ListItemChip>Restricted</ListItemChip>
-        </ListItem>
-        <ListItem
-          icon={ArrowBackIosIcon}
-          label="Relates to this and this"
-        >
-          <ListItemChip>First</ListItemChip>
-        </ListItem>
-      </Box>
-      <Box mt={2}>
-        <Divider />
-      </Box>
+        <ListItemChip>Open</ListItemChip>
+        <ListItemChip>Tech</ListItemChip>
+        <ListItemChip>Restricted</ListItemChip>
+      </ListItem>
+      <ListItem
+        icon={ArrowBackIosIcon}
+        label="Relates to this and this"
+      >
+        <ListItemChip>First</ListItemChip>
+      </ListItem>
     </Box>
   );
 };

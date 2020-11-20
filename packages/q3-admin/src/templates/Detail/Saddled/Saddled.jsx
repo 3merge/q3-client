@@ -2,8 +2,11 @@ import React from 'react';
 import {
   Box,
   Container,
-  Divider,
   Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
 } from '@material-ui/core';
 import Article from '../../../components/Article';
 import DetailViews from '../../../containers/DetailViews';
@@ -15,23 +18,33 @@ import * as Tabs from '../../../components/Tabs';
 export default withDynamicViews(({ views }) => (
   <Article>
     <Grid container>
-      <Grid item style={{ height: '100%', width: 470 }}>
+      <Grid item style={{ height: '100%', width: 210 }}>
         <Box
           bgcolor="background.default"
-          height="100%"
+          height="100vh"
           py={4}
         >
-          <Container style={{ marginBottom: '-1rem' }}>
-            <Back.Button />
-          </Container>
-          <Header.Simple />
+          <Box px={2} mb={6}>
+            <Back.IconButton />
+          </Box>
           <Tabs.Vertical views={views} />
         </Box>
       </Grid>
       <Grid item style={{ flex: 1 }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
+          <Header.Simple />
           <DetailViews views={views} />
         </Container>
+      </Grid>
+      <Grid item style={{ width: 375 }}>
+        <Box p={2}>
+          <Card variant="outlined">
+            <CardContent>ACTION</CardContent>
+            <CardActions>
+              <Button>Here we go</Button>
+            </CardActions>
+          </Card>
+        </Box>
       </Grid>
     </Grid>
   </Article>

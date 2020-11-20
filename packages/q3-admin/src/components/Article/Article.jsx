@@ -7,7 +7,11 @@ import Fade from '@material-ui/core/Fade';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
-const Article = ({ asideComponent, children }) => {
+const Article = ({
+  asideComponent,
+  className,
+  children,
+}) => {
   const { view, articleWrapper, section } = useStyle();
   const globalStyle = useGlobalStyle();
 
@@ -19,7 +23,10 @@ const Article = ({ asideComponent, children }) => {
       id="detail-article"
       component="article"
     >
-      <Grid container className={articleWrapper}>
+      <Grid
+        container
+        className={classnames(articleWrapper, className)}
+      >
         {asideComponent}
         <Grid
           xs

@@ -25,7 +25,6 @@ export default makeStyles((theme) => ({
 
     '& #q3-sidebar': {
       //  backgroundColor: theme.palette.grey[100],
-      backgroundColor: theme.palette.background.paper,
     },
 
     '& section': {

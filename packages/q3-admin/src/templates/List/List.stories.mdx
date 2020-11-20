@@ -6,19 +6,13 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Paper from '@material-ui/core/Paper';
 import {
-  TemplateDetail,
-  TemplateDetailMultiColumn,
-  TemplateDetailStack,
+  TemplateListCollapse,
+  TemplateListMultiColumn,
+  TemplateListStack,
 } from '../../../__fixtures__/datasource/StoryWrapper';
-import {
-  LandingPage,
-  Narrow,
-  Saddled,
-  Split,
-  Wide,
-} from '.';
+import { Gallery, MultiColumn, Stack } from '.';
 
-<Meta title="Admin/Templates/Detail" />
+<Meta title="Admin/Templates/List" />
 
 # Detail
 
@@ -38,17 +32,17 @@ import {
 </p>
 
 <Preview>
-  <Story name="Narrow">
+  <Story name="Gallery">
     <Paper>
-      <TemplateDetail component={Narrow} />
+      <TemplateListStack component={Gallery} />
     </Paper>
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Saddled">
+  <Story name="MultiColumn">
     <Paper>
-      <TemplateDetailMultiColumn component={Saddled} />
+      <TemplateListCollapse component={MultiColumn} />
     </Paper>
   </Story>
 </Preview>
@@ -69,25 +63,14 @@ import {
 </p>
 
 <Preview>
-  <Story name="Split">
+  <Story name="Stack (App Stack)">
     <Paper>
-      <TemplateDetail component={Split} />
+      <TemplateListStack component={Stack} />
     </Paper>
   </Story>
-</Preview>
-
-<Preview>
-  <Story name="LandingPage">
+  <Story name="Stack (App MultiColumn)">
     <Paper>
-      <TemplateDetailStack component={LandingPage} />
-    </Paper>
-  </Story>
-</Preview>
-
-<Preview>
-  <Story name="Wide">
-    <Paper>
-      <TemplateDetailStack component={Wide} />
+      <TemplateListMultiColumn component={Stack} />
     </Paper>
   </Story>
 </Preview>

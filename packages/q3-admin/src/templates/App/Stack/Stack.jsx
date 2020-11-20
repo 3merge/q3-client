@@ -30,7 +30,7 @@ const Admin = ({
     <Viewport>
       <Box height="100%" width="100%">
         <AppBar
-          color="primary"
+          color="inherit"
           elevation={0}
           position="relative"
           style={{ borderBottom: '2px solid #f4f4f5' }}
@@ -46,11 +46,7 @@ const Admin = ({
                   item
                   style={{ height: 75, width: 195 }}
                 >
-                  <Box
-                    bgcolor="identity"
-                    height="100%"
-                    width="100%"
-                  >
+                  <Box height="100%" width="100%">
                     <Identity.Block src="https://logoipsum.com/logo/logo-8.svg" />
                   </Box>
                 </Grid>
@@ -92,7 +88,9 @@ const Admin = ({
             </Grid>
           </Grid>
         </AppBar>
-        <Container maxWidth="xl">{children}</Container>
+        <Container maxWidth="xl" disableGutters>
+          {children}
+        </Container>
       </Box>
     </Viewport>
   );

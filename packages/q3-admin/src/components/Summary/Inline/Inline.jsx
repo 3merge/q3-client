@@ -5,11 +5,12 @@ import {
   ListItemText,
 } from '@material-ui/core';
 
-const Inline = () => {
+const Inline = ({ justify }) => {
   return (
     <List
       style={{
         display: 'flex',
+        justifyContent: justify,
       }}
     >
       <MuiListItem
