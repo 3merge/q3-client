@@ -1,20 +1,11 @@
 import React from 'react';
-import {
-  Box,
-  Container,
-  Divider,
-  Grid,
-  Typography,
-  IconButton,
-} from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AcUnitIcon from '@material-ui/icons/AcUnit';
-import AlarmIcon from '@material-ui/icons/Alarm';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { useHeader } from 'q3-hooked';
 import * as Back from '../../Back';
 
 const StatusWithActions = ({ actions }) => {
-  const { updatedBy, status } = useHeader();
+  const { updatedBy } = useHeader();
+
   return (
     <Box my={1} role="toolbar">
       <Grid
@@ -36,24 +27,11 @@ const StatusWithActions = ({ actions }) => {
           </Typography>
 
           {Array.isArray(actions)
-            ? actions.map((action) => {
-                const El =
-                  typeof action === 'function'
-                    ? action
-                    : null;
-
-                return El ? (
-                  <El />
-                ) : (
-                  <IconButton
-                    aria-label={action.label}
-                    key={action.label}
-                    onClick={action.onClick}
-                  >
-                    <action.Icon />
-                  </IconButton>
-                );
-              })
+            ? actions.map((Action, i) => (
+                <Box display="inline" key={i} px={0.25}>
+                  <Action />
+                </Box>
+              ))
             : null}
         </Grid>
       </Grid>

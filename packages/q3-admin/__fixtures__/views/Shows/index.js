@@ -67,6 +67,6 @@ export default new AbstractCollectionBuilder({
     files: true,
     notes: true,
     documentation: <Docs />,
-    templateName: 'Tabbed',
+    templateName: 'Split',
   })
   .build();

@@ -6,6 +6,7 @@ export { default as useHeader } from './useHeader';
 export { default as useNavigation } from './useNavigation';
 export { default as useSegments } from './useSegments';
 export { default as useGatekeeper } from './useGatekeeper';
+export { default as useFiles } from './useFiles';
 export { default as usePhoto } from './usePhoto';
 export { default as useSearch } from './useSearch';
 export { default as useTrash } from './useTrash';

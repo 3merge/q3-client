@@ -40,17 +40,18 @@ export default withDynamicViews(
         <Grid item style={{ width: 375 }}>
           <Box p={2}>
             <Card variant="outlined">
-              <CardContent>ACTION</CardContent>
+              <CardContent>Panel...</CardContent>
               <CardActions>
                 <Button>Here we go</Button>
               </CardActions>
             </Card>
+            RElated links below
           </Box>
         </Grid>
       </Grid>
     </Article>
   ),
   {
-    includeInViews: ['trash'],
+    includeInViews: ['notes', 'files', 'trash'],
   },
 );

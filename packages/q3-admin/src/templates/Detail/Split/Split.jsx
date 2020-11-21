@@ -32,13 +32,7 @@ export default withDynamicViews(
       <Article
         className={cls.border}
         asideComponent={
-          <DetailSidePanel
-            documentation={documentation}
-            notes={notes && <Notes />}
-            files={files && <Upload />}
-          >
-            <DetailSidePanelContent {...rest} />
-          </DetailSidePanel>
+          <DetailSidePanelContent {...rest} />
         }
       >
         <Box pb={1} pt={2}>

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { useViews } from 'q3-hooked';
-import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
+
 import ActivityLog from '../activityLog';
 import DetailSidePanel from '../DetailSidePanel';
 import DetailSidePanelContent from '../DetailSidePanelContent';
@@ -14,6 +14,8 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import useStyle from './useStyle';
+import * as Files from '../../components/Files';
+import * as Notes from '../../components/Notes';
 import * as Trash from '../../components/Trash';
 
 const Detail = ({
@@ -41,7 +43,7 @@ const Detail = ({
               </Box>
             ) : null
           }
-          notes={notes && <Notes />}
+          // notes={notes && <Notes />}
           files={files && <Upload />}
         >
           <DetailSidePanelContent {...rest} />
@@ -97,6 +99,14 @@ Detail.defaultProps = {
 };
 
 export const Features = {
+  files: {
+    actions: Files.IconButton,
+    views: Files.View,
+  },
+  notes: {
+    actions: Notes.IconButton,
+    views: Notes.View,
+  },
   trash: {
     actions: Trash.IconButton,
     views: Trash.View,

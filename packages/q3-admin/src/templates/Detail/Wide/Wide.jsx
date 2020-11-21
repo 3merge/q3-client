@@ -8,13 +8,13 @@ import * as Toolbar from '../../../components/Toolbar';
 import * as Tabs from '../../../components/Tabs';
 import * as Summary from '../../../components/Summary';
 
-export default withDynamicViews(({ views }) => (
+export default withDynamicViews(({ attributes, views }) => (
   <Article>
     <Container maxWidth="xl">
       <Toolbar.Horizontal />
       <Divider aria-hidden />
       <Header.Simple />
-      <Summary.List />
+      <Summary.List attributes={attributes} />
       <Tabs.Horizontal views={views} />
       <Divider aria-hidden />
       <DetailViews views={views} />
