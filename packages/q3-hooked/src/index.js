@@ -8,3 +8,4 @@ export { default as useSegments } from './useSegments';
 export { default as useGatekeeper } from './useGatekeeper';
 export { default as usePhoto } from './usePhoto';
 export { default as useSearch } from './useSearch';
+export { default as useTrash } from './useTrash';

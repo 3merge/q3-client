@@ -1,52 +1,33 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import Alert from 'q3-ui/lib/alert';
 import Graphic from 'q3-ui-assets';
-import { useAuth } from 'q3-ui-permissions';
-import { browser } from 'q3-ui-helpers';
-import connect from '../connect';
+import { useTrash } from 'q3-hooked';
 
-export const Trash = ({
-  collectionName,
-  onDelete,
-  directoryPath,
-}) => {
-  const [loading, setLoading] = React.useState(false);
-  const [showError, setShowError] = React.useState(false);
-  const [showRedirect, setShowRedirect] = React.useState(
-    false,
-  );
+const View = () => {
+  const {
+    onClick,
+    can,
+    loading,
+    error,
+    redirecting,
+  } = useTrash(2000);
 
   const { t } = useTranslation();
-  const { canDelete } = useAuth(collectionName);
-
-  const navigateOnResolve = () =>
-    onDelete()
-      .then(() => {
-        setShowRedirect(true);
-        browser.redirectIn(directoryPath);
-      })
-      .catch(() => {
-        setShowError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
 
   return (
     <>
-      {showError && (
+      {error && (
         <Alert
           type="error"
           label={t('descriptions:trashFail')}
           dismissable={false}
         />
       )}
-      {showRedirect && (
+      {redirecting && (
         <Alert
           type="success"
           label={t('descriptions:trashSuccess')}
@@ -65,8 +46,8 @@ export const Trash = ({
                 variant="contained"
                 color="primary"
                 size="large"
-                onClick={navigateOnResolve}
-                disabled={!canDelete}
+                onClick={onClick}
+                disabled={!can}
               >
                 {t('labels:addToTrash')}
               </Button>
@@ -78,10 +59,4 @@ export const Trash = ({
   );
 };
 
-Trash.propTypes = {
-  collectionName: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  directoryPath: PropTypes.string.isRequired,
-};
-
-export default connect(Trash);
+export default View;

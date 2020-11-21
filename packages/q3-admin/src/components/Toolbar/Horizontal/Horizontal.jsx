@@ -13,7 +13,7 @@ import AlarmIcon from '@material-ui/icons/Alarm';
 import { useHeader } from 'q3-hooked';
 import * as Back from '../../Back';
 
-const StatusWithActions = () => {
+const StatusWithActions = ({ actions }) => {
   const { updatedBy, status } = useHeader();
   return (
     <Box my={1} role="toolbar">
@@ -34,15 +34,27 @@ const StatusWithActions = () => {
           >
             {updatedBy}
           </Typography>
-          <IconButton>
-            <AcUnitIcon />
-          </IconButton>
-          <IconButton>
-            <AlarmIcon />
-          </IconButton>
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
+
+          {Array.isArray(actions)
+            ? actions.map((action) => {
+                const El =
+                  typeof action === 'function'
+                    ? action
+                    : null;
+
+                return El ? (
+                  <El />
+                ) : (
+                  <IconButton
+                    aria-label={action.label}
+                    key={action.label}
+                    onClick={action.onClick}
+                  >
+                    <action.Icon />
+                  </IconButton>
+                );
+              })
+            : null}
         </Grid>
       </Grid>
     </Box>

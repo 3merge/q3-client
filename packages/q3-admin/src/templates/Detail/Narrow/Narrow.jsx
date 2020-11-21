@@ -7,18 +7,23 @@ import * as Header from '../../../components/Header';
 import * as Toolbar from '../../../components/Toolbar';
 import * as Tabs from '../../../components/Tabs';
 
-export default withDynamicViews(({ views }) => (
-  <Article>
-    <Container maxWidth="xl">
-      <Toolbar.Horizontal />
-      <Container maxWidth="md">
-        <Header.CenteredWithAvatar />
-        <Box mt={2}>
-          <Tabs.Centered views={views} />
-          <Divider aria-hidden />
-          <DetailViews views={views} />
-        </Box>
+export default withDynamicViews(
+  ({ actions, views }) => (
+    <Article>
+      <Container maxWidth="xl">
+        <Toolbar.Horizontal actions={actions} />
+        <Container maxWidth="md">
+          <Header.CenteredWithAvatar />
+          <Box mt={2}>
+            <Tabs.Centered views={views} />
+            <Divider aria-hidden />
+            <DetailViews views={views} />
+          </Box>
+        </Container>
       </Container>
-    </Container>
-  </Article>
-));
+    </Article>
+  ),
+  {
+    includeInActions: ['trash'],
+  },
+);

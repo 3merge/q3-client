@@ -7,7 +7,6 @@ import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
 import ActivityLog from '../activityLog';
-import Trash from '../trash';
 import DetailSidePanel from '../DetailSidePanel';
 import DetailSidePanelContent from '../DetailSidePanelContent';
 import DetailViews from '../DetailViews';
@@ -15,6 +14,7 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import useStyle from './useStyle';
+import * as Trash from '../../components/Trash';
 
 const Detail = ({
   HeaderProps,
@@ -97,38 +97,70 @@ Detail.defaultProps = {
 };
 
 export const Features = {
-  trash: Trash,
-  logs: ActivityLog,
+  trash: {
+    actions: Trash.IconButton,
+    views: Trash.View,
+  },
+  logs: {
+    views: ActivityLog,
+  },
 
-  reduce(properties = []) {
+  toObject(desiredFeatureFormat, properties = []) {
     return Array.isArray(properties)
       ? Object.entries(this).reduce((acc, [key, value]) => {
-          if (properties.includes(key)) acc[key] = value;
+          const format = value[desiredFeatureFormat];
+          if (properties.includes(key) && format)
+            acc[key] = format;
+
           return acc;
         }, {})
       : {};
+  },
+
+  toArray(desiredFeatureFormat, properties = []) {
+    return Array.isArray(properties)
+      ? Object.entries(this).reduce((acc, [key, value]) => {
+          const format = value[desiredFeatureFormat];
+          if (properties.includes(key) && format)
+            acc.push(format);
+
+          return acc;
+        }, [])
+      : [];
   },
 };
 
 export const withDynamicViews = (
   Component,
   options = {},
-) => ({ actions, attributes, children, ...props }) => {
-  const {
-    includeInActions = [],
-    includeInAttributes = [],
-    includeInViews = [],
-  } = options;
-
+) => ({ children, ...props }) => {
+  const { includeInViews = [] } = options;
   const { add, hasRoot, views } = useViews(children);
-  add(Features.reduce(includeInViews));
+
+  const invokeFeatureWith = (feature) => {
+    const opt = options[feature] || [];
+    const propName = feature
+      .replace('includeIn', '')
+      .toLowerCase();
+
+    Object.assign(props, {
+      [propName]: [
+        ...(props[propName] || []),
+        ...Features.toArray(propName, opt),
+      ],
+    });
+  };
+
+  add(Features.toObject('views', includeInViews));
+  invokeFeatureWith('includeInActions');
+  invokeFeatureWith('includeInAttributes');
 
   return React.useMemo(
     () =>
       hasRoot ? (
         <ViewNotAllowed />
       ) : (
-        <Component views={views} {...props} />
+        <Component {...props} views={views} />
       ),
     [JSON.stringify(views)],
   );
