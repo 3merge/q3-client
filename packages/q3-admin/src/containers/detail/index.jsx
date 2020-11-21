@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import { useViews } from 'q3-hooked';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
-import { mapToNestedRoute } from './helpers';
 import ActivityLog from '../activityLog';
 import Trash from '../trash';
 import DetailSidePanel from '../DetailSidePanel';
@@ -14,7 +14,6 @@ import DetailViews from '../DetailViews';
 import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
-import { Store } from '../state';
 import useStyle from './useStyle';
 
 const Detail = ({
@@ -97,37 +96,36 @@ Detail.defaultProps = {
   picture: false,
 };
 
-export const withDynamicViews = (Component) => ({
-  children,
-  ...props
-}) => {
-  const { check } = useAppContext();
-  const { data } = React.useContext(Store);
+export const Features = {
+  trash: Trash,
+  logs: ActivityLog,
 
-  const makeView = React.useCallback(
-    (label, el) => ({
-      to: `/${label}`,
-      component: () =>
-        React.createElement(el, {
-          name: label,
-        }),
-      label,
-    }),
-    [],
-  );
+  reduce(properties = []) {
+    return Array.isArray(properties)
+      ? Object.entries(this).reduce((acc, [key, value]) => {
+          if (properties.includes(key)) acc[key] = value;
+          return acc;
+        }, {})
+      : {};
+  },
+};
 
-  const views = mapToNestedRoute(children)
-    .concat([
-      makeView('trash', Trash),
-      makeView('logs', ActivityLog),
-    ])
-    .filter((el) => {
-      return check(el.label, el, data);
-    });
+export const withDynamicViews = (
+  Component,
+  options = {},
+) => ({ actions, attributes, children, ...props }) => {
+  const {
+    includeInActions = [],
+    includeInAttributes = [],
+    includeInViews = [],
+  } = options;
+
+  const { add, hasRoot, views } = useViews(children);
+  add(Features.reduce(includeInViews));
 
   return React.useMemo(
     () =>
-      views.findIndex((view) => view.to === '/') === -1 ? (
+      hasRoot ? (
         <ViewNotAllowed />
       ) : (
         <Component views={views} {...props} />
