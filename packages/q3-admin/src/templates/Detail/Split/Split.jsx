@@ -1,38 +1,25 @@
 import React from 'react';
 import { Box, Divider } from '@material-ui/core';
-import Notes from '../../../containers/notes';
+import SidePanel from '../../../components/SidePanel';
 import Article from '../../../components/Article';
-import Upload from '../../../containers/upload';
-import DetailSidePanel from '../../../containers/DetailSidePanel';
-import DetailSidePanelContent from '../../../containers/DetailSidePanelContent';
 import DetailViews from '../../../containers/DetailViews';
-import DetailRelatedLinks from '../../../containers/DetailRelatedLinks';
 import { withDynamicViews } from '../../../containers/detail';
+import * as IconTabs from '../../../components/IconTabs';
 import * as Header from '../../../components/Header';
 import * as Tabs from '../../../components/Tabs';
 import useStyle from '../useStyle';
 
 export default withDynamicViews(
-  ({
-    HeaderProps,
-    history,
-    filepath,
-    children,
-    notes,
-    picture,
-    files,
-    documentation,
-    links,
-    views,
-    ...rest
-  }) => {
+  ({ children, icontabs, views }) => {
     const cls = useStyle();
 
     return (
       <Article
         className={cls.border}
         asideComponent={
-          <DetailSidePanelContent {...rest} />
+          <SidePanel>
+            <IconTabs.Horizontal items={icontabs} />
+          </SidePanel>
         }
       >
         <Box pb={1} pt={2}>
@@ -40,10 +27,11 @@ export default withDynamicViews(
         </Box>
         <Tabs.Horizontal views={views} />
         <Divider aria-hidden />
-        <DetailRelatedLinks links={links}>
-          <DetailViews views={views} />
-        </DetailRelatedLinks>
+        <DetailViews views={views} />
       </Article>
     );
+  },
+  {
+    includeInIcontabs: ['summary', 'notes', 'files'],
   },
 );

@@ -24,6 +24,7 @@ export default withDynamicViews(
     </Article>
   ),
   {
-    includeInActions: ['notes', 'files', 'trash'],
+    includeInActions: ['notes', 'trash'],
+    includeInViews: ['files'],
   },
 );

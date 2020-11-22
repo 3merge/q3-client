@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { useViews } from 'q3-hooked';
+import { NoteAdd, SpeakerNotes } from '@material-ui/icons';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import Upload from '../upload';
-
 import ActivityLog from '../activityLog';
 import DetailSidePanel from '../DetailSidePanel';
 import DetailSidePanelContent from '../DetailSidePanelContent';
@@ -98,15 +98,35 @@ Detail.defaultProps = {
   picture: false,
 };
 
+const makeFeature = (component, options) => {
+  const out = {};
+  const { IconButton, View } = component;
+
+  if (IconButton) {
+    out.actions = IconButton;
+  }
+
+  if (View) {
+    out.icontabs = {
+      renderer: View,
+      ...options,
+    };
+
+    out.views = View;
+  }
+
+  return out;
+};
+
 export const Features = {
-  files: {
-    actions: Files.IconButton,
-    views: Files.View,
-  },
-  notes: {
-    actions: Notes.IconButton,
-    views: Notes.View,
-  },
+  files: makeFeature(Files, {
+    icon: SpeakerNotes,
+    label: 'files',
+  }),
+  notes: makeFeature(Notes, {
+    icon: NoteAdd,
+    label: 'notes',
+  }),
   trash: {
     actions: Trash.IconButton,
     views: Trash.View,
@@ -164,6 +184,7 @@ export const withDynamicViews = (
   add(Features.toObject('views', includeInViews));
   invokeFeatureWith('includeInActions');
   invokeFeatureWith('includeInAttributes');
+  invokeFeatureWith('includeInIcontabs');
 
   return React.useMemo(
     () =>
