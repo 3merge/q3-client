@@ -80,14 +80,14 @@ const Header = ({
               {menuItems.length ? (
                 <Hidden mdUp>
                   <Offcanvas
-                    menu={({ close }) => (
+                    menu={({ done }) => (
                       <>
                         {offcanvasRenderTop}
                         <Menu
                           items={
                             mobileMenuItems || menuItems
                           }
-                          done={close}
+                          done={done}
                         />
                         {offcanvasRenderBottom}
                       </>
