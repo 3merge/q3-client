@@ -3,11 +3,9 @@ import React from 'react';
 import { useNavigation } from 'q3-hooked';
 import { array } from 'q3-ui-helpers';
 
-const withNavigation = (List, ListItem) => ({
+export const withoutUseNavigation = (List, ListItem) => ({
   menuItems,
 }) => {
-  const { navigationMenus } = useNavigation(menuItems);
-
   const Menu = ({
     label,
     to,
@@ -19,7 +17,6 @@ const withNavigation = (List, ListItem) => ({
     ...rest
   }) => {
     const nests = array.hasLength(nestedMenuItems);
-
     return (
       <>
         {nests ? (
@@ -57,11 +54,20 @@ const withNavigation = (List, ListItem) => ({
 
   return (
     <List>
-      {navigationMenus.map((menu) => {
+      {menuItems.map((menu) => {
         return <Menu {...menu} />;
       })}
     </List>
   );
+};
+
+const withNavigation = (List, ListItem) => {
+  const Nav = withoutUseNavigation(List, ListItem);
+
+  return ({ menuItems }) => {
+    const { navigationMenus } = useNavigation(menuItems);
+    return <Nav menuItems={navigationMenus} />;
+  };
 };
 
 export default withNavigation;

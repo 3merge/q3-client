@@ -25,6 +25,8 @@ const NavigationListItem = ({
     <ListItem
       style={{
         display: 'block',
+        paddingTop: '4px',
+        paddingBottom: '4px',
       }}
     >
       <Box
