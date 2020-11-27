@@ -3,6 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles(({ palette }) => ({
   iconList: {
     backgroundColor: palette.background.paper,
+    height: '100%',
+  },
+  navigation: {
+    backgroundColor: palette.background.default,
+    height: '100%',
   },
   iconWrapper: {
     width: '40px',

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Box, List } from '@material-ui/core';
+import { Box, Grid, List } from '@material-ui/core';
 import { useNavigation } from 'q3-hooked';
 import NavigationList from '../NavigationList';
 import { withoutUseNavigation } from '../withNavigation';
@@ -31,14 +31,21 @@ const IconNavigation = ({ menuItems }) => {
     .flat();
 
   return (
-    <Box display="flex">
-      <List className={cls.iconList}>
-        {navigationMenus.map((item, i) => (
-          <IconList {...item} key={`iconItem${i}`} />
-        ))}
-      </List>
-      <Navigation menuItems={nests} className={cls.span} />
-    </Box>
+    <Grid container style={{ height: '100%' }}>
+      <Grid item xs="auto">
+        <List className={cls.iconList}>
+          {navigationMenus.map((item, i) => (
+            <IconList {...item} key={`iconItem${i}`} />
+          ))}
+        </List>
+      </Grid>
+      <Grid item xs className={cls.navigation}>
+        <Navigation
+          menuItems={nests}
+          className={cls.span}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
