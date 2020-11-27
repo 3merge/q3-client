@@ -41,3 +41,5 @@ IconList.propTypes = {
   icon: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
 };
+
+export default IconList;

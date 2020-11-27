@@ -1,7 +1,7 @@
 const path = require('path');
 
 const withPackageOpts = (s) =>
-  path.resolve(__dirname, `./packages/${s}/src`);
+  path.resolve(__dirname, `./packages/${s}/lib`);
 const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
