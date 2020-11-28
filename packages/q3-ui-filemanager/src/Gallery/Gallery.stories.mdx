@@ -4,17 +4,17 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import FileList from './FileList';
+import Gallery from './Gallery';
 import files from '../../tests/fixtures/files.json';
 import support from '../../tests/support';
 
-<Meta title="Files/FileList" component={FileList} />
+<Meta title="Files/Gallery" component={Gallery} />
 
-# FileList
+# Gallery
 
 <Preview>
   <Story name="As default">
-    <FileList
+    <Gallery
       files={files}
       onDelete={support.onDrop.succeed}
       onDrop={support.onDrop.succeed}
@@ -24,4 +24,4 @@ import support from '../../tests/support';
 
 ## API
 
-<Props of={FileList} />
+<Props of={Gallery} />

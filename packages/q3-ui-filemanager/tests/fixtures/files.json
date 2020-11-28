@@ -18,5 +18,10 @@
     "relativePath": "archives/2020/sample.doc",
     "name": "sample.doc",
     "url": "http://google.ca"
+  },
+  {
+    "relativePath": "sample.png",
+    "name": "sample.png",
+    "url": "https://images.unsplash.com/photo-1593642532009-6ba71e22f468?ixlib=rb-1.2.1&ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80"
   }
 ]

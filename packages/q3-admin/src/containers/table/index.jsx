@@ -96,9 +96,7 @@ const List = ({
     rootPath,
   } = React.useContext(Definitions);
   const { removeBulk } = React.useContext(Dispatcher);
-  const { Redirect, canDelete, canSeeSub } = useAuth(
-    collectionName,
-  );
+  const { canDelete, canSeeSub } = useAuth(collectionName);
 
   const actions = getActions(
     collectionName,
@@ -134,14 +132,13 @@ const List = ({
       id={collectionName}
       onSort={updateSortPrefence}
     >
-      {/*
       <TableHeader>
         {can('io')}
         {can('add')}
       </TableHeader>
       <Box pb={1}>
         <FilterChip />
-      </Box> */}
+      </Box>
     </Table>
   );
 };

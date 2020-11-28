@@ -7,14 +7,26 @@ import {
 } from '@material-ui/core';
 import * as Photo from '../../Photo';
 
-const CenteredWithBanner = () => {
+const CenteredWithBanner = ({ children }) => {
   const { title } = useHeader();
 
   return (
-    <Container component="header" maxWidth="xl">
+    <Container
+      component="header"
+      maxWidth="xl"
+      style={{ padding: 0 }}
+    >
       <Photo.Banner />
-      <Box textAlign="center" my={2}>
+      <Box
+        bgcolor="background.paper"
+        mt={-5}
+        mx="8.5vw"
+        p={2}
+        position="relative"
+        textAlign="center"
+      >
         <Typography variant="h1">{title}</Typography>
+        {children}
       </Box>
     </Container>
   );

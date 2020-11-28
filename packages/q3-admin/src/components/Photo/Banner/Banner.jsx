@@ -14,7 +14,7 @@ const Hero = () => {
         aria-hidden
         fluid={{ src }}
         style={{
-          height: 300,
+          height: 375,
         }}
       />
       <Box position="absolute" top="1rem" right="1rem">
