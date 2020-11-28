@@ -1,6 +1,7 @@
 export { default as useBack } from './useBack';
 export { default as useCollection } from './useCollection';
 export { default as useDatasource } from './useDatasource';
+export { default as useDetailAttributes } from './useDetailAttributes';
 export { default as useViews } from './useViews';
 export { default as useHeader } from './useHeader';
 export { default as useNavigation } from './useNavigation';

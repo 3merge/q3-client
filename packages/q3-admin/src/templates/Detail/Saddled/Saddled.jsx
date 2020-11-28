@@ -1,18 +1,11 @@
 import React from 'react';
-import {
-  Box,
-  Container,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Button,
-} from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 import Article from '../../../components/Article';
 import DetailViews from '../../../containers/DetailViews';
 import { withDynamicViews } from '../../../containers/detail';
 import * as Header from '../../../components/Header';
 import * as Back from '../../../components/Back';
+import * as Panel from '../../../components/Panel';
 import * as Tabs from '../../../components/Tabs';
 
 export default withDynamicViews(
@@ -37,16 +30,15 @@ export default withDynamicViews(
             <DetailViews views={views} />
           </Container>
         </Grid>
-        <Grid item style={{ width: 375 }}>
-          <Box p={2}>
-            <Card variant="outlined">
-              <CardContent>Panel...</CardContent>
-              <CardActions>
-                <Button>Here we go</Button>
-              </CardActions>
-            </Card>
-            RElated links below
-          </Box>
+        <Grid item style={{ padding: '2rem', width: 375 }}>
+          <Panel.Second
+            data={[
+              {
+                title: 'Sample',
+                description: 'bool',
+              },
+            ]}
+          />
         </Grid>
       </Grid>
     </Article>
