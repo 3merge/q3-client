@@ -19,32 +19,3 @@ export const getSocketInstance = () => {
 
   return socket(url.toString());
 };
-
-export default (collectionName, id) => {
-  const [lastUpdated, setLastUpdated] = React.useState();
-
-  React.useEffect(() => {
-    const io = getSocketInstance();
-    const pollOnChange = (d) => {
-      if (
-        // must match both the collection name and/or document ID
-        d.collectionName === collectionName &&
-        (id === d.id || !id)
-      )
-        setLastUpdated(get(d, 'updatedAt', new Date()));
-    };
-
-    io.on('insert', pollOnChange);
-    io.on('update', pollOnChange);
-
-    io.on('connect_error', () => {
-      io.close();
-    });
-
-    return () => {
-      io.close();
-    };
-  }, []);
-
-  return lastUpdated;
-};

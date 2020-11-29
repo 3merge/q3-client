@@ -28,6 +28,7 @@ export const assignNameToFields = (
   toArray(children).map((item = {}) => {
     const { children: subChildren, props } = item;
     const attribute = get(props, 'name');
+    const conditional = get(props, 'conditional', []);
 
     if (subChildren)
       return assignNameToFields(prefix, index, subChildren);
@@ -40,6 +41,11 @@ export const assignNameToFields = (
       ...props,
       ...rest,
       name: `${prefix}.${index}.${attribute}`,
+      conditional: Array.isArray(conditional)
+        ? conditional.map(
+            (cond) => `${prefix}.${index}.${cond}`,
+          )
+        : [],
       label: t ? t(label) : label,
     });
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import CollectionDatasource from '../CollectionDatasource';
 
-export default ({ resolvers, ...rest }) => {
-  return <CollectionDatasource {...rest} />;
+export default (props) => {
+  return <CollectionDatasource {...props} />;
 };
