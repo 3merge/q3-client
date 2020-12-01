@@ -18,5 +18,14 @@ export default makeStyles((theme) => ({
       backgroundColor: '#f5f7f9',
       marginRight: 0,
     },
+
+    '&:focus-within': {
+      'outline-style': 'auto',
+      'outline-width': 'medium',
+    },
+
+    '& input': {
+      outline: '0 !important',
+    },
   },
 }));

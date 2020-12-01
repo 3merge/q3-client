@@ -6,16 +6,16 @@
     "q3-ui-test-utils": "^1.24.2"
   },
   "dependencies": {
-    "@material-ui/core": "^4.10.0",
+    "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.54",
     "alphabetize-object-keys": "^3.0.0",
-    "exceljs": "^4.1.0",
-    "file-saver": "^2.0.2",
+    "exceljs": "^4.2.0",
+    "file-saver": "^2.0.5",
     "flat": "^5.0.2",
     "lodash": "^4.17.20",
     "micromatch": "^4.0.2",
-    "react-i18next": "11.7.2",
+    "react-i18next": "11.7.3",
     "useful-state": "^1.2.0"
   },
   "peerDependencies": {

@@ -102,6 +102,17 @@ export class Validator {
   }
 
   checkTypes() {
+    const makeSchemaArray = (o) =>
+      this.$base.array().ensure().of(o);
+
+    const makeSchemaArrayOf = (type) =>
+      makeSchemaArray(
+        this.checkTypes.call({
+          $base: yup,
+          type,
+        }),
+      );
+
     switch (this.type) {
       case 'email':
         this.$base = this.$base.string().email();
@@ -146,18 +157,14 @@ export class Validator {
               return yup.mixed();
           }
         });
-
         break;
       case 'scale':
-        this.$base = this.$base
-          .array()
-          .ensure()
-          .of(
-            yup
-              .number()
-              .min(this.min || 0)
-              .max(this.max || 100),
-          );
+        this.$base = makeSchemaArray(
+          yup
+            .number()
+            .min(this.min || 0)
+            .max(this.max || 100),
+        );
         break;
       case 'date':
         this.$base = this.$base
@@ -166,23 +173,16 @@ export class Validator {
           .nullable()
           .default(undefined);
         break;
+      case 'chips':
+        this.$base = makeSchemaArrayOf('autocomplete');
+        break;
       case 'multi':
       case 'multiselect':
       case 'multitext':
       case 'checkset':
-      case 'chips':
       case 'dateRange':
       case 'range':
-        this.$base = this.$base
-          .array()
-          .ensure()
-          .of(
-            this.checkTypes.call({
-              $base: yup,
-              type: this.of,
-            }),
-          );
-
+        this.$base = makeSchemaArrayOf(this.of);
         break;
       case 'autocomplete':
         this.$base = this.$base

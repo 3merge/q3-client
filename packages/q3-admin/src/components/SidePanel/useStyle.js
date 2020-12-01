@@ -7,8 +7,8 @@ export default makeStyles((theme) => ({
     overflow: 'hidden',
     padding: '0',
     position: 'relative',
-    maxWidth: 270,
-    width: 270,
+    maxWidth: 280,
+    width: 280,
 
     [theme.breakpoints.down('md')]: {
       height: 'calc((100 * var(--vh)) - 65px)',
@@ -28,14 +28,12 @@ export default makeStyles((theme) => ({
     maxHeight: '100%',
     overflowY: 'auto !important',
     overflowX: 'hidden !important',
-    width: 270,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    width: '100%',
 
     [theme.breakpoints.down('md')]: {
-      width: 265,
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
+      padding: 0,
     },
   },
 }));
