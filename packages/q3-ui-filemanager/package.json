@@ -22,7 +22,7 @@
     "lodash": "^4.17.20",
     "q3-ui-helpers": "^1.24.13",
     "react-butterfiles": "^1.3.3",
-    "react-dropzone": "^11.0.3",
+    "react-dropzone": "^11.2.4",
     "react-lottie": "^1.2.3"
   }
 }
