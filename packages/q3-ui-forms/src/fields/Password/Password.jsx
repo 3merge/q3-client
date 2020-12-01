@@ -11,10 +11,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PASSWORD = 'password';
-const TEXT = 'text';
+export const PASSWORD = 'password';
+export const TEXT = 'text';
 
-const PasswordInput = withState((deco) => {
+export const Password = (deco) => {
   const [type, setType] = React.useState(PASSWORD);
   const cls = useStyles();
 
@@ -45,6 +45,6 @@ const PasswordInput = withState((deco) => {
       }}
     />
   );
-});
+};
 
-export default PasswordInput;
+export default withState(Password);
