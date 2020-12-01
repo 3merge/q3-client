@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
+  "resolutions": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
   "scripts": {
     "postinstall": "yarnw-sync-deps && yarn-deduplicate",
     "bootstrap": "lerna bootstrap --use-workspaces",
