@@ -25,9 +25,11 @@ export const Validation = () => (
       email: '',
       tel: '',
       date: '',
+      password: '',
     }}
   >
     <Field name="name" type="text" />
+    <Field name="password" type="password" />
     <Field name="date" type="date" />
     <Field name="createdAt" type="dateRange" />
     <Field
