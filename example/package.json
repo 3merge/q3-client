@@ -12,7 +12,7 @@
     "axios": "^0.21.0",
     "file-saver": "^2.0.5",
     "gatsby": "^2.27.5",
-    "gatsby-theme-q3": "^1.24.26",
+    "gatsby-theme-q3": "^1.19.10",
     "i18next": "^19.8.4",
     "prop-types": "^15.7.2",
     "q3-admin": "^1.24.26",
