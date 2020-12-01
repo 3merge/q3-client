@@ -51,6 +51,7 @@ const config = {
   plugins: [
     '@babel/plugin-proposal-export-namespace-from',
     '@babel/plugin-transform-modules-commonjs',
+    '@babel/plugin-proposal-optional-chaining',
   ],
   presets: [
     [
