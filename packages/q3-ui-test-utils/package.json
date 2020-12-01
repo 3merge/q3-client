@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-test-utils",
-  "version": "1.24.2",
+  "version": "1.24.26",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.21.0",

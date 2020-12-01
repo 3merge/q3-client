@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.26](https://github.com/3merge/q/compare/v1.24.25...v1.24.26) (2020-12-01)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+
 ## [1.24.21](https://github.com/3merge/q/compare/v1.24.20...v1.24.21) (2020-10-29)
 
 
