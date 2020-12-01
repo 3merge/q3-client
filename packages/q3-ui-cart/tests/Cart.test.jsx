@@ -118,26 +118,4 @@ describe('Cart', () => {
         .props(),
     ).toHaveProperty('value', 6);
   });
-
-  it('should change the cart name', async () => {
-    const el = global.mount(<Stage />);
-    const newTitle = 'Something brand new';
-
-    await addItemToCart(el);
-    openCartDrawer(el);
-
-    await act(async () => {
-      el.find(Drawer)
-        .find(`.${TYPOGRAPHY_CLASS}`)
-        .first()
-        .simulate('click');
-    });
-
-    el.update();
-    await renameCartDrawer(el, newTitle);
-
-    expect(
-      el.find(`#${DRAWER_TITLE_ID}`).first().text(),
-    ).toMatch(newTitle);
-  });
 });
