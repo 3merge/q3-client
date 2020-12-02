@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.30](https://github.com/3merge/q/compare/v1.24.29...v1.24.30) (2020-12-02)
+
+
+### Bug Fixes
+
+* react resolutions ([a70edae](https://github.com/3merge/q/commit/a70edaee99e056fb1c54c0491bc88f442ec64d16))
+
+
+
+
+
 ## [1.24.29](https://github.com/3merge/q/compare/v1.24.28...v1.24.29) (2020-12-01)
 
 **Note:** Version bump only for package q3-ui-test-utils
