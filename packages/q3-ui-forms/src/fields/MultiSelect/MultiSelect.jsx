@@ -16,6 +16,9 @@ export default withState(
     error,
     value = [],
     required,
+    xl,
+    lg,
+    md,
     ...deco
   }) => {
     const v = array.condense(array.is(value));
@@ -26,6 +29,9 @@ export default withState(
 
     return (
       <SelectBase
+        md={md}
+        lg={lg}
+        xl={xl}
         loading={loading}
         name={name}
         label={label}
