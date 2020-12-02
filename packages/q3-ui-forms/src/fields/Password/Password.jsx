@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import TextBase from '../TextBase';
 import withState from '../withState';
 
@@ -23,6 +24,17 @@ export const Password = (deco) => {
 
   const ref = React.useRef();
 
+  const renderButton = (Icon) => (
+    <InputAdornment
+      position="end"
+      style={{ marginRight: -8 }}
+    >
+      <IconButton onClick={handleType} type="button">
+        <Icon className={cls.icon} />
+      </IconButton>
+    </InputAdornment>
+  );
+
   return (
     <TextBase
       {...deco}
@@ -31,17 +43,9 @@ export const Password = (deco) => {
       type={type}
       InputProps={{
         endAdornment:
-          type === PASSWORD ? (
-            <Visibility
-              onClick={handleType}
-              className={cls.icon}
-            />
-          ) : (
-            <VisibilityOff
-              onClick={handleType}
-              className={cls.icon}
-            />
-          ),
+          type === PASSWORD
+            ? renderButton(Visibility)
+            : renderButton(VisibilityOff),
       }}
     />
   );

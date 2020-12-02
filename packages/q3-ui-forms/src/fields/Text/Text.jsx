@@ -74,7 +74,8 @@ export const Text = (deco) => {
     resizeObserver.observe(ref.current);
 
     return () => {
-      resizeObserver.unobserve(ref.current);
+      if (ref.current)
+        resizeObserver.unobserve(ref.current);
     };
   }, []);
 
