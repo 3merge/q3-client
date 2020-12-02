@@ -79,7 +79,7 @@ const TimelineListItem = ({
               op,
               target,
               t,
-            )} on ${moment.format('LLLL')}`}
+            )} on ${moment(modifiedOn).format('LLLL')}`}
           </Typography>
           <Typography component="ul">
             {Object.entries(modified).map(
