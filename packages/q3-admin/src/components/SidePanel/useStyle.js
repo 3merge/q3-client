@@ -7,8 +7,8 @@ export default makeStyles((theme) => ({
     overflow: 'hidden',
     padding: '0',
     position: 'relative',
-    maxWidth: 280,
-    width: 280,
+    maxWidth: 305,
+    width: 305,
 
     [theme.breakpoints.down('md')]: {
       height: 'calc((100 * var(--vh)) - 65px)',

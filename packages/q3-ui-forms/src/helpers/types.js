@@ -20,6 +20,7 @@ import {
   Chips,
   Range,
   Scale,
+  Password,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -58,6 +59,7 @@ const internalFieldTypes = {
   editor: Editor,
   file: File,
   scale: Scale,
+  password: Password,
 };
 
 export default class FieldBuilder {
