@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.31](https://github.com/3merge/q/compare/v1.24.30...v1.24.31) (2020-12-02)
+
+
+### Bug Fixes
+
+* activity log date ([da8bb58](https://github.com/3merge/q/commit/da8bb58d36f720f0cb00437ca00cc27c73d17e96))
+
+
+
+
+
 ## [1.24.30](https://github.com/3merge/q/compare/v1.24.29...v1.24.30) (2020-12-02)
 
 
