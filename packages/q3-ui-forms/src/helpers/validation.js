@@ -182,6 +182,7 @@ export class Validator {
       case 'checkset':
       case 'dateRange':
       case 'range':
+      case 'transfer':
         this.$base = makeSchemaArrayOf(this.of);
         break;
       case 'autocomplete':
@@ -209,7 +210,6 @@ export class Validator {
       case 'string':
       case 'editor':
       case 'password':
-      case 'transfer':
       case 'file':
       default:
         this.$base = this.$base.string().nullable();
