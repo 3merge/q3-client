@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Hooked/useNavigation" />
+
+# useNavigation
+
+Takes an array of objects as an argument. It returns an
+array of navigation items. Each item has usefull props such
+as onClick, isExpanded and so on.
+
+## Argument
+
+| type     | description                                                       |
+| -------- | ----------------------------------------------------------------- |
+| [object] | { label: string, to: string, icon: node, nestedMenuItems: array } |
+
+## Example
+
+```javascript
+import { useNavigation } from 'q3-hooked';
+import { Component } from 'q3-client';
+
+export default (menuItems) => {
+  const { navigationMenus } = useNavigation(menuItems);
+
+  return (
+    <Component.Navigation.Legacy lists={navigationMenus} />
+  );
+};
+```
