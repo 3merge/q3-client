@@ -1,16 +1,15 @@
-const os = require('os');
+const path = require('path');
 
 const withPackageOpts = (s) =>
-  os.type() !== 'Darwin'
-    ? `./packages/${s}/src`
-    : `/packages/${s}/src`;
-
+  path.resolve(__dirname, `./packages/${s}/lib`);
 const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
   'q3-admin',
   'q3-blocks',
   'q3-components',
+  'q3-hooked',
+  'q3-hoc',
   'q3-ui-assets',
   'q3-ui-locale',
   'q3-ui',
@@ -51,7 +50,6 @@ const config = {
   plugins: [
     '@babel/plugin-proposal-export-namespace-from',
     '@babel/plugin-transform-modules-commonjs',
-    '@babel/plugin-proposal-optional-chaining',
   ],
   presets: [
     [
