@@ -18,13 +18,11 @@ as onClick, isExpanded and so on.
 
 ```javascript
 import { useNavigation } from 'q3-hooked';
-import { Component } from 'q3-client';
+import Navigation from './Navigation';
 
 export default (menuItems) => {
   const { navigationMenus } = useNavigation(menuItems);
 
-  return (
-    <Component.Navigation.Legacy lists={navigationMenus} />
-  );
+  return <Navigation lists={navigationMenus} />;
 };
 ```

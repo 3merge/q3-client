@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="HOC/withNavigation" />
+
+# withNavigation
+
+Takes custom ul component and li component. wtihNavigation
+recursivly renders navigation with the components provided.
+It uses q3 `useNavigation` under the hood. Your ul and li
+components get useful props such as `isSelected`,
+`isExpanded` and such. `withoutUseNavigation` is also
+available for more customize purposes.
+
+## Argument
+
+| type        | description              |
+| ----------- | ------------------------ |
+| component\* | Your custom ul component |
+| component\* | Your custom li component |
+
+## withNavigation
+
+```javascript
+import { withNavigation } from 'q3-hoc';
+import List from './List';
+import ListItem from './ListItem';
+
+export default withNavigation(List, ListItem);
+```
