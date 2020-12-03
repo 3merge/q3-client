@@ -1,0 +1,21 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Legacy from './Legacy';
+import Location from 'q3-ui-test-utils/lib/location';
+import { extendedMenuItems } from '../../__fixtures__/menuItems.js';
+
+<Meta title="Navigation/Legacy" component={Legacy} />
+
+# Legacy Navigation
+
+<Preview>
+  <Story name="Legacy Navigation">
+    <Location initialPath="/savings">
+      <Legacy menuItems={extendedMenuItems} />
+    </Location>
+  </Story>
+</Preview>
