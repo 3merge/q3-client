@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 import { withNavigation } from 'q3-hoc';
+import useStyles from './useStyles';
 
 const NavigationList = ({ children }) => {
   return <List style={{ padding: 0 }}>{children}</List>;
@@ -15,6 +16,20 @@ const NavigationList = ({ children }) => {
 
 NavigationList.propTypes = {
   children: PropTypes.node.isRequired,
+};
+
+const ExpandedIcon = ({ isExpanded }) => {
+  if (typeof isExpanded !== 'boolean') return null;
+  return isExpanded ? <ExpandLess /> : <ExpandMore />;
+};
+
+ExpandedIcon.defaultProps = {
+  isExpanded: null,
+};
+
+ExpandedIcon.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  isExpanded: PropTypes.any,
 };
 
 const NavigationListItem = ({
@@ -26,46 +41,19 @@ const NavigationListItem = ({
   icon: Icon,
   role,
 }) => {
-  const renderExpandedIcon = () => {
-    if (typeof isExpanded !== 'boolean') return null;
-    return isExpanded ? <ExpandLess /> : <ExpandMore />;
-  };
-
+  const cls = useStyles({ isSelected });
   return (
-    <ListItem
-      style={{
-        display: 'block',
-        paddingTop: '4px',
-        paddingBottom: '4px',
-      }}
-    >
-      <Box
-        display="flex"
-        alignItems="center"
-        className={isExpanded ? 'q3NavExpanded' : ''}
-      >
-        {renderExpandedIcon()}
+    <ListItem className={cls.listItem}>
+      <Box display="flex" alignItems="center">
+        <ExpandedIcon isExpanded={isExpanded} />
         {Icon && (
-          <Icon
-            color="inherit"
-            style={{
-              display: 'block',
-              marginLeft:
-                typeof isExpanded === 'boolean'
-                  ? 0
-                  : '18px',
-            }}
-          />
+          <Icon color="inherit" className={cls.icon} />
         )}
         <Button
           color="inherit"
           onClick={onClick}
           role={role || 'button'}
-          className={isSelected ? 'q3NavSelected' : ''}
-          style={{
-            textTransform: 'none',
-            alignItems: 'left',
-          }}
+          className={cls.button}
         >
           {label}
         </Button>
