@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Grid,
   IconButton,
   makeStyles,
 } from '@material-ui/core';
@@ -24,15 +25,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const withAnchor = (Component) => ({ url, ...props }) =>
-  url ? (
-    <a href={url} target="_blank" rel="noreferrer">
-      <Component url={url} {...props} />
-    </a>
-  ) : (
-    <Component {...props} />
-  );
-
 const FolderGrid = ({
   name,
   url,
@@ -43,43 +35,55 @@ const FolderGrid = ({
 }) => {
   const cls = useStyles();
   const [, ext] = name.split('.');
+  const anchorProps = url
+    ? {
+        href: url,
+        target: '_blank',
+        rel: 'noreferrer',
+      }
+    : {};
 
   return (
-    <Card onClick={onClick} style={{ cursor: 'pointer' }}>
-      {url && (
-        <CardHeader
-          action={
-            <IconButton onDelete={onDelete(id)}>
-              <Delete />
-            </IconButton>
-          }
-        />
-      )}
-      <CardContent
-        component={Box}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-      >
-        <Avatar
+    <Grid item xs={6} sm={4} md={3} lg={2} xl={2}>
+      <Card onClick={onClick} style={{ cursor: 'pointer' }}>
+        {url && (
+          <CardHeader
+            action={
+              <IconButton onDelete={onDelete(id)}>
+                <Delete />
+              </IconButton>
+            }
+          />
+        )}
+        <CardContent
+          component={url ? 'a' : Box}
+          {...anchorProps}
           style={{
-            backgroundColor: 'transparent',
-            color: FileExtensions.getColor(ext),
-          }}
-          className={cls.avatar}
-        >
-          {loading && <CircularProgress />}
-          {FileExtensions.getIcon(ext)}
-        </Avatar>
-        <p
-          style={{
-            color: FileExtensions.getColor(ext),
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
-          {name}
-        </p>
-      </CardContent>
-    </Card>
+          <Avatar
+            style={{
+              backgroundColor: 'transparent',
+              color: FileExtensions.getColor(ext),
+            }}
+            className={cls.avatar}
+          >
+            {loading && <CircularProgress />}
+            {FileExtensions.getIcon(ext)}
+          </Avatar>
+          <p
+            style={{
+              color: FileExtensions.getColor(ext),
+            }}
+          >
+            {name}
+          </p>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 };
 
@@ -100,4 +104,4 @@ FolderGrid.defaultProps = {
   id: '',
 };
 
-export default withAnchor(FolderGrid);
+export default FolderGrid;

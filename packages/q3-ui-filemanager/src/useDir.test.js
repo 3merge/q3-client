@@ -1,5 +1,5 @@
-import { makeDirectories } from './FileList';
-import files from '../../tests/fixtures/files';
+import { makeDirectories } from './useDir';
+import files from '../tests/fixtures/files';
 
 describe('FileList', () => {
   it('should group by file directory', () => {
