@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeWith, setWith, get } from 'lodash';
-import { array } from 'q3-ui-helpers';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import FileListBreadcrumbs from '../FileListBreadcrumbs';
 import FileListMake from '../FileListMake';
-import File from '../File';
 import Drop from '../Drop';
-import FileName from '../FileName';
+import FolderGrid from './FolderGrid';
 import useDir from '../useDir';
 
-const FileList = ({ files, ...props }) => {
+const FileGridList = ({ files, ...props }) => {
   const {
     dir,
     setDir,
@@ -21,17 +18,19 @@ const FileList = ({ files, ...props }) => {
   } = useDir(files);
 
   const renderFile = (file, i) => (
-    <File
-      {...props}
-      {...file}
-      key={i}
-      // cannot deconstruct properties of the File Api
-      // so we must explicitly assign here
-      error={file.error}
-      name={file.name}
-      size={file.size}
-      url={file.url}
-    />
+    <Grid item xs={6} sm={4} md={3} lg={2} xl={2}>
+      <FolderGrid
+        {...props}
+        {...file}
+        key={i}
+        // cannot deconstruct properties of the File Api
+        // so we must explicitly assign here
+        error={file.error}
+        name={file.name}
+        size={file.size}
+        url={file.url}
+      />
+    </Grid>
   );
 
   const renderDirectoryUploadSurface = (
@@ -40,10 +39,12 @@ const FileList = ({ files, ...props }) => {
   ) => (
     <Drop {...props} root={dir.path.join('/')}>
       {(pending) => (
-        <>
+        <Grid container spacing={3}>
           {children}
-          {[...pending, ...listItems].map(renderFile)}
-        </>
+          <Grid container item spacing={3}>
+            {[...pending, ...listItems].map(renderFile)}
+          </Grid>
+        </Grid>
       )}
     </Drop>
   );
@@ -71,15 +72,17 @@ const FileList = ({ files, ...props }) => {
         dir.data.default,
         Object.keys(alpha(dir.data)).map((name) =>
           name !== 'default' ? (
-            <FileName
-              name={name}
-              onClick={() => {
-                setDir(({ data, path }) => ({
-                  data: data[name],
-                  path: path.concat(name),
-                }));
-              }}
-            />
+            <Grid item xs={6} sm={4} md={3} lg={2} xl={2}>
+              <FolderGrid
+                name={name}
+                onClick={() => {
+                  setDir(({ data, path }) => ({
+                    data: data[name],
+                    path: path.concat(name),
+                  }));
+                }}
+              />
+            </Grid>
           ) : null,
         ),
       )}
@@ -87,11 +90,11 @@ const FileList = ({ files, ...props }) => {
   );
 };
 
-FileList.defaultProps = {
+FileGridList.defaultProps = {
   files: [],
 };
 
-FileList.propTypes = {
+FileGridList.propTypes = {
   /**
    * Files will sort into directories automatically based on the file name.
    * For instance, "foo/bar.csv" will only be available for download in the child directory.
@@ -104,4 +107,4 @@ FileList.propTypes = {
   ),
 };
 
-export default FileList;
+export default FileGridList;

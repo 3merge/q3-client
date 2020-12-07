@@ -4,17 +4,17 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import FileList from './FileList';
+import FileGridList from './FileGridList';
 import files from '../../tests/fixtures/files.json';
 import support from '../../tests/support';
 
-<Meta title="Files/FileList" component={FileList} />
+<Meta title="Files/FileGridList" component={FileGridList} />
 
-# FileList
+# FileGridList
 
 <Preview>
   <Story name="As default">
-    <FileList
+    <FileGridList
       files={files}
       onDrop={support.onDrop.succeed}
       onDelete={() => {}}
@@ -24,4 +24,4 @@ import support from '../../tests/support';
 
 ## API
 
-<Props of={FileList} />
+<Props of={FileGridList} />

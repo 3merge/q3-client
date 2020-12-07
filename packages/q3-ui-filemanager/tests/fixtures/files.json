@@ -18,5 +18,15 @@
     "relativePath": "archives/2020/sample.doc",
     "name": "sample.doc",
     "url": "http://google.ca"
+  },
+  {
+    "relativePath": "article/2020/sample.doc",
+    "name": "article.doc",
+    "url": "http://google.ca"
+  },
+  {
+    "relativePath": "article/sample.doc",
+    "name": "article-sample.doc",
+    "url": "http://google.ca"
   }
 ]
