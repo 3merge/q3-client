@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
@@ -10,9 +9,9 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import FileExtensions from '../FileExtensions';
 import FileAvatarIcon from '../FileAvatarIcon';
+import { getUrlOrOnClickProps } from '../utils';
 import useStyles from './useStyles';
 
 const FolderGrid = ({
@@ -25,19 +24,6 @@ const FolderGrid = ({
 }) => {
   const cls = useStyles();
   const [, ext] = name.split('.');
-
-  /**
-   * @NOTE
-   * There is a similar object in the FileName renderer.
-   * Maybe there's a way to move this around so our next component doesn't also need to define these props?
-   */
-  const anchorProps = url
-    ? {
-        href: url,
-        target: '_blank',
-        rel: 'noreferrer',
-      }
-    : {};
 
   return (
     <Grid item xs={6} sm={4} md={3} lg={2} xl={2}>
@@ -52,9 +38,8 @@ const FolderGrid = ({
           />
         )}
         <CardContent
-          component={url ? 'a' : Box}
+          {...getUrlOrOnClickProps(url)}
           className={cls.card}
-          {...anchorProps}
         >
           <FileAvatarIcon
             loading={loading}
