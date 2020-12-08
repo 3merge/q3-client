@@ -1,63 +1,82 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import alpha from 'alphabetize-object-keys';
 import { Box, Grid } from '@material-ui/core';
+import { alphatizeKeys } from '../utils';
 import useDir from '../useDir';
 import Drop from '../Drop';
 import FileListBreadcrumbs from '../FileListBreadcrumbs';
 import FileListMake from '../FileListMake';
 
-const withRenderFile = (File, isGrid) => {
+export const renderFilesAlphabetically = (
+  Component,
+  data,
+  handleClick,
+) =>
+  alphatizeKeys(data).map((name, i) => (
+    <Component
+      key={i}
+      name={name}
+      onClick={() =>
+        handleClick((state) => ({
+          data: state.data[name],
+          path: state.path.concat(name),
+        }))
+      }
+    />
+  ));
+
+const withRenderFile = (File, renderer) => {
+  const DropWrapper = ({
+    children,
+    listItems,
+    ...props
+  }) => (
+    <Drop {...props}>
+      {(pending) => {
+        const files = [...pending, ...listItems];
+        const fileNodes = children(
+          files.map((file) => (
+            <File
+              {...props}
+              {...file}
+              key={file.url || file.name}
+              error={file.error}
+              name={file.name}
+              size={file.size}
+              url={file.url}
+            />
+          )),
+        );
+
+        return fileNodes;
+      }}
+    </Drop>
+  );
+
+  DropWrapper.defaultProps = {
+    listItems: [],
+  };
+
+  DropWrapper.propTypes = {
+    children: PropTypes.func.isRequired,
+    listItems: PropTypes.arrayOf(PropTypes.object),
+  };
+
   const FileList = ({ files, ...props }) => {
     const {
       dir,
       setDir,
       getFilesForActivePath,
       makeDirectories,
+      root,
+      listItems,
     } = useDir(files);
 
-    const renderFile = (file, i) => {
-      return (
-        <File
-          {...props}
-          {...file}
-          key={i}
-          // cannot deconstruct properties of the File Api
-          // so we must explicitly assign here
-          error={file.error}
-          name={file.name}
-          size={file.size}
-          url={file.url}
-        />
+    const handleDropChildren = (fileNodes) =>
+      renderer(
+        renderFilesAlphabetically(File, dir.data, setDir),
+        fileNodes,
       );
-    };
-
-    const renderDirectoryUploadSurface = (
-      listItems = [],
-      children,
-    ) => {
-      return isGrid ? (
-        <Drop {...props} root={dir.path.join('/')}>
-          {(pending) => (
-            <Grid container spacing={3}>
-              {children}
-              <Grid container item spacing={3}>
-                {[...pending, ...listItems].map(renderFile)}
-              </Grid>
-            </Grid>
-          )}
-        </Drop>
-      ) : (
-        <Drop {...props} root={dir.path.join('/')}>
-          {(pending) => (
-            <>
-              {children}
-              {[...pending, ...listItems].map(renderFile)}
-            </>
-          )}
-        </Drop>
-      );
-    };
 
     return (
       <Box p={1}>
@@ -78,23 +97,14 @@ const withRenderFile = (File, isGrid) => {
             <FileListMake setState={setDir} state={dir} />
           </Grid>
         </Grid>
-        {renderDirectoryUploadSurface(
-          dir.data.default,
-          Object.keys(alpha(dir.data)).map((name, i) =>
-            name !== 'default' ? (
-              <File
-                key={i}
-                name={name}
-                onClick={() => {
-                  setDir(({ data, path }) => ({
-                    data: data[name],
-                    path: path.concat(name),
-                  }));
-                }}
-              />
-            ) : null,
-          ),
-        )}
+        <DropWrapper
+          {...props}
+          {...dir}
+          root={root}
+          listItems={listItems}
+        >
+          {handleDropChildren}
+        </DropWrapper>
       </Box>
     );
   };
@@ -114,6 +124,10 @@ const withRenderFile = (File, isGrid) => {
         url: PropTypes.string,
       }),
     ),
+  };
+
+  FileList.__$internalComponents = {
+    DropWrapper,
   };
 
   return FileList;

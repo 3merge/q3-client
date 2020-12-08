@@ -67,6 +67,8 @@ const useDir = (files) => {
     setDir,
     getFilesForActivePath,
     makeDirectories,
+    root: dir.path.join('/'),
+    listItems: get(dir, 'data.default', []),
   };
 };
 
