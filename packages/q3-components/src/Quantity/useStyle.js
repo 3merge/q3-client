@@ -7,6 +7,7 @@ export const STACKED = 'stacked';
 export const SPREAD = 'spread';
 
 const withoutOuterSpin = {
+  '-moz-appearance': 'textfield',
   '&::-webkit-inner-spin-button,&::-webkit-outer-spin-button': {
     appearance: 'none',
     margin: 0,
