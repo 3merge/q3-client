@@ -44,16 +44,13 @@ const useDir = (files) => {
     path: [],
   });
 
-  const getFilesForActivePath = React.useCallback(
-    (data) => {
-      const structuredFiles = makeDirectories(data);
-      const { path = [] } = dir;
-      return array.hasLength(path)
-        ? get(structuredFiles, path, {})
-        : structuredFiles;
-    },
-    [dir],
-  );
+  const getFilesForActivePath = (data) => {
+    const structuredFiles = makeDirectories(data);
+    const { path = [] } = dir;
+    return array.hasLength(path)
+      ? get(structuredFiles, path, {})
+      : structuredFiles;
+  };
 
   React.useEffect(() => {
     setDir((prevState) => ({
@@ -67,7 +64,7 @@ const useDir = (files) => {
     setDir,
     getFilesForActivePath,
     makeDirectories,
-    root: dir.path.join('/'),
+    root: get(dir, 'path', []).join('/'),
     listItems: get(dir, 'data.default', []),
   };
 };
