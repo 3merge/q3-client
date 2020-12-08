@@ -5,7 +5,7 @@ import FileGrid from './FileGrid';
 const checkHeaderRendering = (url, result = false) => {
   expect(
     global
-      .shallow(<FileGrid name="foo" url="google.com" />)
+      .shallow(<FileGrid name="foo" url={url} />)
       .find(CardHeader)
       .exists(),
   ).toBe(result);
