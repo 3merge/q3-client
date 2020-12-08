@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { omit } from 'lodash';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { browser, array, object } from 'q3-ui-helpers';
 import { useDropzone } from 'react-dropzone';
@@ -122,7 +123,7 @@ const Drop = ({
     <>
       <div
         style={{ marginBottom: '1rem' }}
-        {...getDropperHandlers()}
+        {...omit(getDropperHandlers(), 'onDrop')}
       >
         <input {...getInputProps()} />
         {previewComponent || (
@@ -146,7 +147,7 @@ Drop.defaultProps = {
 Drop.propTypes = {
   children: PropTypes.func.isRequired,
   customizer: PropTypes.func,
-  onDrop: PropTypes.instanceOf(Promise).isRequired,
+  onDrop: PropTypes.func.isRequired,
   previewComponent: PropTypes.node,
   root: PropTypes.string,
 };
