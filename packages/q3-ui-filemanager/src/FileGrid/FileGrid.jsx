@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Box,
   Card,
   CardContent,
   CardHeader,
@@ -14,7 +13,7 @@ import FileAvatarIcon from '../FileAvatarIcon';
 import { getUrlOrOnClickProps } from '../utils';
 import useStyles from './useStyles';
 
-const FolderGrid = ({
+const FileGrid = ({
   name,
   url,
   onClick,
@@ -59,7 +58,7 @@ const FolderGrid = ({
   );
 };
 
-FolderGrid.propTypes = {
+FileGrid.propTypes = {
   onClick: PropTypes.func,
   name: PropTypes.string.isRequired,
   url: PropTypes.string,
@@ -68,7 +67,7 @@ FolderGrid.propTypes = {
   id: PropTypes.string,
 };
 
-FolderGrid.defaultProps = {
+FileGrid.defaultProps = {
   loading: false,
   onClick: null,
   url: '',
@@ -76,4 +75,4 @@ FolderGrid.defaultProps = {
   id: '',
 };
 
-export default FolderGrid;
+export default FileGrid;

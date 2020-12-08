@@ -2,8 +2,8 @@ import {
   getPath,
   removeFileExtension,
   makeDirectories,
-} from '../src/useDir';
-import files from './fixtures/files';
+} from './useDir';
+import files from '../../tests/fixtures/files';
 
 describe('FileList', () => {
   it('should run prop and append "default"', () => {

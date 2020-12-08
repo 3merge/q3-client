@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import alpha from 'alphabetize-object-keys';
 import { Box, Grid } from '@material-ui/core';
-import useDir from './useDir';
-import Drop from './Drop';
-import FileListBreadcrumbs from './FileListBreadcrumbs';
-import FileListMake from './FileListMake';
+import useDir from '../useDir';
+import Drop from '../Drop';
+import FileListBreadcrumbs from '../FileListBreadcrumbs';
+import FileListMake from '../FileListMake';
 
 const withRenderFile = (File, isGrid) => {
   const FileList = ({ files, ...props }) => {

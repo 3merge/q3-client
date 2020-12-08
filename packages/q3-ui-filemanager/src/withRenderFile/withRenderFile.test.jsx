@@ -1,7 +1,7 @@
 import React from 'react';
-import withRenderFile from '../src/withRenderFile';
-import FileName from '../src/FileName';
-import files from './fixtures/files.json';
+import withRenderFile from './withRenderFile';
+import FileName from '../FileName';
+import files from '../../tests/fixtures/files.json';
 
 const FileList = withRenderFile(FileName);
 

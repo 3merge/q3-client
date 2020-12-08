@@ -1,4 +1,4 @@
-import FolderGrid from './FolderGrid';
+import FolderGrid from '../FileGrid';
 import withRenderFile from '../withRenderFile';
 
 export default withRenderFile(FolderGrid, true);
