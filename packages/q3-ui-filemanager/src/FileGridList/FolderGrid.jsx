@@ -8,22 +8,11 @@ import {
   CardHeader,
   Grid,
   IconButton,
-  makeStyles,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FileExtensions from '../FileExtensions';
-
-const useStyles = makeStyles(() => ({
-  avatar: {
-    width: '65%',
-    height: '65%',
-    '& svg': {
-      width: '100%',
-      height: '100%',
-    },
-  },
-}));
+import useStyles from './useStyles';
 
 const FolderGrid = ({
   name,
@@ -63,12 +52,8 @@ const FolderGrid = ({
         )}
         <CardContent
           component={url ? 'a' : Box}
+          className={cls.card}
           {...anchorProps}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
         >
           <Avatar
             style={{
