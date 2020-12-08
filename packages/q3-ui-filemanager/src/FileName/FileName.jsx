@@ -44,6 +44,11 @@ const FileName = ({ name, url, onClick, loading }) => {
       className={cls.root}
     >
       <Grid item>
+        {/**
+         * @NOTE
+         * We can combine the Avatar here with the one in FolderGrid.
+         * I've added a test file for this new component.
+         */}
         <Avatar
           style={{
             backgroundColor: 'transparent',

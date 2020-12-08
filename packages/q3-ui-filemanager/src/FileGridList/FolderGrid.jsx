@@ -35,6 +35,12 @@ const FolderGrid = ({
 }) => {
   const cls = useStyles();
   const [, ext] = name.split('.');
+
+  /**
+   * @NOTE
+   * There is a similar object in the FileName renderer.
+   * Maybe there's a way to move this around so our next component doesn't also need to define these props?
+   */
   const anchorProps = url
     ? {
         href: url,
