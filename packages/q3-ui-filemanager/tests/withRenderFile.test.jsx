@@ -2,7 +2,6 @@ import React from 'react';
 import withRenderFile from '../src/withRenderFile';
 import FileName from '../src/FileName';
 import files from './fixtures/files.json';
-import support from './support';
 
 const FileList = withRenderFile(FileName);
 
@@ -11,7 +10,6 @@ const renderFileList = (fileProps, result) => {
     <FileList
       files={fileProps}
       onDrop={new Promise((resolve, reject) => resolve(''))}
-      // onDrop={support.onDrop.succeed}
     />,
   );
   expect(wrapper.find(FileName).exists()).toBe(result);
