@@ -12,6 +12,7 @@ import {
 import { Delete } from '@material-ui/icons';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FileExtensions from '../FileExtensions';
+import FileAvatarIcon from '../FileAvatarIcon';
 import useStyles from './useStyles';
 
 const FolderGrid = ({
@@ -55,16 +56,11 @@ const FolderGrid = ({
           className={cls.card}
           {...anchorProps}
         >
-          <Avatar
-            style={{
-              backgroundColor: 'transparent',
-              color: FileExtensions.getColor(ext),
-            }}
+          <FileAvatarIcon
+            loading={loading}
+            ext={ext}
             className={cls.avatar}
-          >
-            {loading && <CircularProgress />}
-            {FileExtensions.getIcon(ext)}
-          </Avatar>
+          />
           <p
             style={{
               color: FileExtensions.getColor(ext),

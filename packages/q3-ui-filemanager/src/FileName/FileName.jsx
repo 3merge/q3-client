@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import useStyle from './useStyle';
 import FileExtensions from '../FileExtensions';
+import FileAvatarIcon from '../FileAvatarIcon';
 
 const FileName = ({ name, url, onClick, loading }) => {
   const [, ext] = name.split('.');
@@ -44,22 +45,7 @@ const FileName = ({ name, url, onClick, loading }) => {
       className={cls.root}
     >
       <Grid item>
-        {/**
-         * @NOTE
-         * We can combine the Avatar here with the one in FolderGrid.
-         * I've added a test file for this new component.
-         */}
-        <Avatar
-          style={{
-            backgroundColor: 'transparent',
-            color: FileExtensions.getColor(ext),
-          }}
-        >
-          {loading && (
-            <CircularProgress className={cls.cover} />
-          )}
-          {FileExtensions.getIcon(ext)}
-        </Avatar>
+        <FileAvatarIcon loading={loading} ext={ext} />
       </Grid>
       <Grid item className={cls.truncate}>
         {renderer()}
