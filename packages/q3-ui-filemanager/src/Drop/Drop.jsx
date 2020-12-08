@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { omit } from 'lodash';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { browser, array, object } from 'q3-ui-helpers';
 import { useDropzone } from 'react-dropzone';
@@ -123,7 +122,7 @@ const Drop = ({
     <>
       <div
         style={{ marginBottom: '1rem' }}
-        {...omit(getDropperHandlers(), 'onDrop')}
+        {...getDropperHandlers()}
       >
         <input {...getInputProps()} />
         {previewComponent || (
