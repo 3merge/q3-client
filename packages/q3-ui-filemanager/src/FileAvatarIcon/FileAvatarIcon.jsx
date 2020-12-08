@@ -22,8 +22,12 @@ const FileAvatarIcon = ({ ext, loading, ...rest }) => {
   );
 };
 
+FileAvatarIcon.defaultProps = {
+  ext: '',
+};
+
 FileAvatarIcon.propTypes = {
-  ext: PropTypes.string.isRequired,
+  ext: PropTypes.string,
   loading: PropTypes.bool.isRequired,
 };
 

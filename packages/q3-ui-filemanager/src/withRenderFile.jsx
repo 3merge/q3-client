@@ -16,19 +16,21 @@ const withRenderFile = (File, isGrid) => {
       makeDirectories,
     } = useDir(files);
 
-    const renderFile = (file, i) => (
-      <File
-        {...props}
-        {...file}
-        key={i}
-        // cannot deconstruct properties of the File Api
-        // so we must explicitly assign here
-        error={file.error}
-        name={file.name}
-        size={file.size}
-        url={file.url}
-      />
-    );
+    const renderFile = (file, i) => {
+      return (
+        <File
+          {...props}
+          {...file}
+          key={i}
+          // cannot deconstruct properties of the File Api
+          // so we must explicitly assign here
+          error={file.error}
+          name={file.name}
+          size={file.size}
+          url={file.url}
+        />
+      );
+    };
 
     const renderDirectoryUploadSurface = (
       listItems = [],
@@ -78,9 +80,10 @@ const withRenderFile = (File, isGrid) => {
         </Grid>
         {renderDirectoryUploadSurface(
           dir.data.default,
-          Object.keys(alpha(dir.data)).map((name) =>
+          Object.keys(alpha(dir.data)).map((name, i) =>
             name !== 'default' ? (
               <File
+                key={i}
                 name={name}
                 onClick={() => {
                   setDir(({ data, path }) => ({

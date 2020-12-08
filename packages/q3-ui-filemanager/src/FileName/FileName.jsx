@@ -6,7 +6,13 @@ import useStyle from './useStyle';
 import FileAvatarIcon from '../FileAvatarIcon';
 import { getUrlOrOnClickProps } from '../utils';
 
-const FileName = ({ name, url, onClick, loading }) => {
+const FileName = ({
+  name,
+  url,
+  onClick,
+  loading,
+  ...rest
+}) => {
   const [, ext] = name.split('.');
   const cls = useStyle();
 
@@ -15,6 +21,7 @@ const FileName = ({ name, url, onClick, loading }) => {
       container
       alignItems="center"
       className={cls.root}
+      {...rest}
     >
       <Grid item>
         <FileAvatarIcon loading={loading} ext={ext} />

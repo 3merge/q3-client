@@ -9,14 +9,14 @@ const customizer = (objValue, srcValue) => {
   return undefined;
 };
 
-const getPath = (filename) => {
+export const getPath = (filename) => {
   const dir = filename.split('/');
   dir.pop();
   dir.push('default');
   return dir.join('.');
 };
 
-const removeFileExtension = (filename) =>
+export const removeFileExtension = (filename) =>
   filename
     ? filename.substring(0, filename.lastIndexOf('.')) ||
       filename
