@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import Table from '@material-ui/core/Table';
@@ -14,7 +15,7 @@ import { DRAWER_LINE_ITEM_CLASS } from '../constants';
 import LineItemRemove from '../LineItemRemove';
 import LineItemToggle from '../LineItemToggle';
 
-export default ({ children }) => {
+const LineItem = ({ children }) => {
   const { items = [] } = React.useContext(CartContext);
   const { t } = useTranslation('labels');
 
@@ -32,6 +33,8 @@ export default ({ children }) => {
           description,
           disabled,
         } = item;
+
+        const renderer = children ? children(item) : null;
 
         return (
           <React.Fragment key={id}>
@@ -76,10 +79,10 @@ export default ({ children }) => {
                 <LineItemRemove id={id} product={product} />
               </TableCell>
             </TableRow>
-            {children && (
+            {renderer && (
               <TableRow>
                 <TableCell colspan={5}>
-                  {children(item)}
+                  {renderer}
                 </TableCell>
               </TableRow>
             )}
@@ -108,3 +111,13 @@ export default ({ children }) => {
     </Table>
   );
 };
+
+LineItem.defaultProps = {
+  children: null,
+};
+
+LineItem.propTypes = {
+  children: PropTypes.func,
+};
+
+export default LineItem;
