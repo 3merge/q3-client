@@ -5,10 +5,12 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { useValue } from 'useful-state';
+import { useTranslation } from 'react-i18next';
 
 const SegmentAdd = ({ onSave, active, items }) => {
   const ref = React.useRef();
   const { value, onChange } = useValue('');
+  const { t } = useTranslation('labels');
 
   const handleClick = () => {
     if (value.length) {
@@ -23,8 +25,8 @@ const SegmentAdd = ({ onSave, active, items }) => {
     <ListItem fullWidth variant="contained">
       <InputBase
         name="Custom"
-        aria-label="New custom segment"
-        placeholder="Save search as segment"
+        aria-label={t('saveAsSegment')}
+        placeholder={t('saveAsSegment')}
         value={value}
         onChange={onChange}
         inputProps={{

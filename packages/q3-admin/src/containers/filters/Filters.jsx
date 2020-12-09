@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import { useTranslation } from 'react-i18next';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
 import FiltersForm from './FiltersForm';
@@ -12,6 +13,8 @@ import Segments from '../segments';
 
 const Groups = ({ children, ...etc }) => {
   const { location } = React.useContext(Definitions);
+  const { t } = useTranslation('labels');
+
   return (
     <Box my={1}>
       <Segments>
@@ -28,14 +31,14 @@ const Groups = ({ children, ...etc }) => {
                 </Grid>
                 {children(...params)}
                 <Grid item xs={12}>
-                  <Button type="submit">Save</Button>
+                  <Button type="submit">{t('save')}</Button>
                 </Grid>
               </>
             )}
           </FiltersForm>
         )}
       </Segments>
-      <SidePanelContent title="Filters">
+      <SidePanelContent title={t('filters')}>
         <Box id="q3-filters">
           <FiltersForm search={location.search} {...etc}>
             {(...params) => (
@@ -50,7 +53,7 @@ const Groups = ({ children, ...etc }) => {
                       style={{ marginBottom: '0.5rem' }}
                       fullWidth
                     >
-                      Apply filters
+                      {t('applyFilters')}
                     </Button>
                     <Grid
                       container

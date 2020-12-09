@@ -22,7 +22,7 @@ export const Range = ({ name, ...props }) => {
           <Field
             {...shared}
             name={from}
-            label="From"
+            label={t('from')}
             type="number"
             helperText={t(props.label)}
             lg={6}
@@ -33,7 +33,7 @@ export const Range = ({ name, ...props }) => {
           <Field
             {...shared}
             name={to}
-            label="to"
+            label={t('to')}
             type="number"
             helperText={t(props.label)}
             icon={LinearScaleIcon}

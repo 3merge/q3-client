@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
 import Hidden from '@material-ui/core/Hidden';
 import { SelectAll } from 'q3-ui-exports';
+import { useTranslation } from 'react-i18next';
 import RepeaterSearch from './state';
 
 export const SearchContext = React.createContext();
@@ -11,6 +12,7 @@ const SearchBar = ({ ids, disableMultiselect }) => {
   const {
     search: { onChange, value },
   } = React.useContext(RepeaterSearch);
+  const { t } = useTranslation('labels');
 
   return (
     <Box px={0.5} py={1} display="flex" alignItems="center">
@@ -25,8 +27,8 @@ const SearchBar = ({ ids, disableMultiselect }) => {
         fullWidth
         name="search"
         onChange={onChange}
-        placeholder="Search the results ..."
-        aria-label="Search results"
+        placeholder={t('searchResults')}
+        aria-label={t('searchResults')}
         type="search"
         value={value}
         disableUnderline

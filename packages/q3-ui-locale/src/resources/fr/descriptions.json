@@ -10,5 +10,7 @@
   "empty": "Looks like there are no results yet. Create a new resource and then come back.",
   "error": "The server responded unexpectedly. Please refresh and report a bug if this issue persists",
   "inclusions": "Move items from this column into the next to activate them. Remember, you can search and select in bulk. Likewise, you can set RegExp rules to future-proof your selection.",
-  "exceptions": "Items in this column are active either by precise selection or RegExp. To remove an automated item (one by rule), please delete the RegExp first or rewrite it to further exclude options."
+  "exceptions": "Items in this column are active either by precise selection or RegExp. To remove an automated item (one by rule), please delete the RegExp first or rewrite it to further exclude options.",
+  "clickOrDrop": "Cliquez ou déposez",
+  "addToList": "Cliquez sur cette case pour ajouter un nouvel élément à cette liste."
 }

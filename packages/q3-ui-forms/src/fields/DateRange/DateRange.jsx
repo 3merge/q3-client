@@ -75,6 +75,7 @@ const DateRange = ({ name, ...rest }) => {
                 <Field
                   {...shared}
                   {...startProps}
+                  label={t('from')}
                   error={get(errors, from)}
                   helperText={get(errors, from) || t(name)}
                   type="date"
@@ -87,6 +88,7 @@ const DateRange = ({ name, ...rest }) => {
                 <Field
                   {...shared}
                   {...endProps}
+                  label={t('to')}
                   error={get(errors, to)}
                   helperText={get(errors, to) || t(name)}
                   icon={DateRangeIcon}

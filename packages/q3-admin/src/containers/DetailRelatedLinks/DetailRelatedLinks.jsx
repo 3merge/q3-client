@@ -9,11 +9,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import { useTranslation } from 'react-i18next';
 import { Store } from '../state';
 import useStyle from './useStyle';
 
 const RelatedLinks = ({ children, links }) => {
   const { data } = React.useContext(Store);
+  const { t } = useTranslation('labels');
   const cls = useStyle();
 
   return (
@@ -39,7 +41,7 @@ const RelatedLinks = ({ children, links }) => {
                     component="div"
                     id="nested-list-subheader"
                   >
-                    Related links
+                    {t('relatedLinks')}
                   </ListSubheader>
                 }
               >
