@@ -39,5 +39,6 @@
   "addToList": "Ajouter à la liste",
   "from": "De",
   "to": "À",
-  "relatedLinks": "Lien connexe"
+  "relatedLinks": "Lien connexe",
+  "lastRefreshed": "À partir de {{time}}"
 }
