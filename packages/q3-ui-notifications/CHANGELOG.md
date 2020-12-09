@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.33](https://github.com/3merge/q/compare/v1.24.32...v1.24.33) (2020-12-09)
+
+
+### Bug Fixes
+
+* timeszone notifications ([f7face7](https://github.com/3merge/q/commit/f7face7841012817edb50338c383eccceb0c4970))
+
+
+
+
+
 ## [1.24.29](https://github.com/3merge/q/compare/v1.24.28...v1.24.29) (2020-12-01)
 
 **Note:** Version bump only for package q3-ui-notifications
