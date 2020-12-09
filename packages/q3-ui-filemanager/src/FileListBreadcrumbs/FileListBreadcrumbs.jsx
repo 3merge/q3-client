@@ -13,7 +13,7 @@ const FilterListBreadcrumbs = ({
   state,
 }) => {
   const cls = useStyle();
-  const { t } = useTranslation('titles');
+  const { t } = useTranslation('labels');
 
   const { path = [] } = state;
 

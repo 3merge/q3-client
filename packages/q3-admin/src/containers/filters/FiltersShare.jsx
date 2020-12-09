@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { browser } from 'q3-ui-helpers';
+import { useTranslation } from 'react-i18next';
 
 const copyToClipboard = () => {
   if (browser.isBrowserReady()) {
@@ -13,16 +14,19 @@ const copyToClipboard = () => {
   }
 };
 
-const FiltersShare = () => (
-  <Button
-    fullWidth
-    size="small"
-    style={{ cursor: 'copy' }}
-    onClick={copyToClipboard}
-  >
-    Copy link
-  </Button>
-);
+const FiltersShare = () => {
+  const { t } = useTranslation('labels');
+  return (
+    <Button
+      fullWidth
+      size="small"
+      style={{ cursor: 'copy' }}
+      onClick={copyToClipboard}
+    >
+      {t('copyLink')}
+    </Button>
+  );
+};
 
 FiltersShare.propTypes = {};
 
