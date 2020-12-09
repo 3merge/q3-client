@@ -5,15 +5,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Link from '@material-ui/core/Link';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useTranslation } from 'react-i18next';
-import { string } from 'q3-ui-helpers';
 import { last } from 'lodash';
+import moment from 'moment';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 export const useCreatedAtTitle = ({ createdAt }) => {
   const { t } = useTranslation('labels');
 
   return createdAt
-    ? string.toDate(createdAt)
+    ? moment(createdAt).utc().local().format('LLL')
     : t('within48');
 };
 
