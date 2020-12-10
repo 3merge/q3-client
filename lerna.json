@@ -5,7 +5,7 @@
     "gatsby-theme-q3",
     "packages/*"
   ],
-  "version": "1.24.34",
+  "version": "1.24.35",
   "command": {
     "publish": {
       "conventionalCommits": true,
