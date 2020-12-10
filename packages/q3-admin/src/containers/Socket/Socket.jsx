@@ -18,6 +18,10 @@ const Socket = ({ children, onDownload }) => {
       console.log(e);
       io.close();
     });
+
+    return () => {
+      io.close();
+    };
   }, []);
 
   return (
