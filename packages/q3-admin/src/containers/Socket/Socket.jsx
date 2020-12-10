@@ -7,8 +7,8 @@ const Socket = ({ children, onDownload }) => {
   const io = getSocketInstance();
 
   React.useEffect(() => {
+    io.connect();
     io.on('download', onDownload);
-
     io.on('connect_error', () => {
       io.close();
     });
@@ -18,7 +18,7 @@ const Socket = ({ children, onDownload }) => {
       console.log(e);
       io.close();
     });
-  });
+  }, []);
 
   return (
     <SocketContext.Provider

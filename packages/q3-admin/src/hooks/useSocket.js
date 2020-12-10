@@ -17,7 +17,11 @@ export const getSocketInstance = () => {
     }, [])
     .join('&');
 
-  return socket(url.toString());
+  return socket(url.toString(), {
+    forceNew: false,
+    autoConnect: false,
+    reconnection: false,
+  });
 };
 
 export default (collectionName, id) => {
