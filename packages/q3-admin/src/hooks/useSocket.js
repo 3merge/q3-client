@@ -21,6 +21,7 @@ export const getSocketInstance = () => {
     forceNew: false,
     autoConnect: false,
     reconnection: false,
+    transports: ['websocket'],
   });
 };
 
