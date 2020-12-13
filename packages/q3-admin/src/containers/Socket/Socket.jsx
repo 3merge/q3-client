@@ -4,10 +4,11 @@ import { getSocketInstance } from '../../hooks/useSocket';
 export const SocketContext = React.createContext();
 
 const Socket = ({ children, onDownload }) => {
-  const io = getSocketInstance();
+  const io = React.useMemo(() => getSocketInstance(), []);
 
   React.useEffect(() => {
-    io.connect();
+    if (!io.connected) io.open();
+
     io.on('download', onDownload);
     io.on('connect_error', () => {
       io.close();
