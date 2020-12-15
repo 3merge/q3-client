@@ -6,6 +6,7 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
 import rows from '../seed/rows';
+import { isEven } from '../../src/group.test.js';
 
 <Meta title="Repeater/Repeater" component={Repeater} />
 
@@ -13,6 +14,7 @@ import rows from '../seed/rows';
 
 <Preview>
   <Story name="Empty">
+    <div>here</div>
     <Repeater data={[]} />
   </Story>
 </Preview>
@@ -24,6 +26,7 @@ import rows from '../seed/rows';
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={3}
+      groupBy={{ label: 'Evens', fn: isEven }}
       sortOptions={['id', 'firstName']}
       cardProps={{
         title: 'firstName',

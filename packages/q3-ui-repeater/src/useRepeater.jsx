@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import Search from './components/Search';
 import { sort } from './sort.test.js';
+import { group } from './group.test.js';
 
 const testSearchTerm = (val) => (item) =>
   !val.length ||
@@ -31,11 +32,15 @@ const useRepeater = (Component) => ({
     ? data.filter(testSearchTerm(search.value))
     : data;
 
-  const sorted = sort({ sortBy }, filtered);
+  const sorted = sortBy
+    ? sort({ sortBy }, filtered)
+    : filtered;
+
+  const grouped = group(groupBy, sorted);
 
   return (
     <>
-      <Box>
+      {/* <Box>
         <Search
           {...search}
           ids={sorted.map((item) => item.id)}
@@ -58,7 +63,15 @@ const useRepeater = (Component) => ({
           ))}
         </NativeSelect>
       </Box>
-      <Component data={sorted} {...rest} search={search} />
+      {Object.entries(grouped).map(([key, xs]) => (
+        <Component
+          key={key}
+          data={xs}
+          tableName={key}
+          {...rest}
+        />
+      ))} */}
+      <Component data={sorted} {...rest} />
     </>
   );
 };
