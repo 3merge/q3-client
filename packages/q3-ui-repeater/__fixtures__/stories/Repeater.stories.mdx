@@ -5,6 +5,7 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
+import rows from '../seed/rows';
 
 <Meta title="Repeater/Repeater" component={Repeater} />
 
@@ -22,9 +23,10 @@ import Repeater from '../support';
       addComponent={<p>Custom renderer</p>}
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
+      perPage={3}
       cardProps={{
         title: 'firstName',
-        attributes: ['position'],
+        attributes: ['position', 'firstName', 'id'],
         editable: {
           position: {
             renderer: () => <div>Something custom!</div>,

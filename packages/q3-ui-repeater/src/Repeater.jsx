@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
-import Table from '@material-ui/core/Table';
+import Pagination from '@material-ui/lab/Pagination';
+import { Box, Table } from '@material-ui/core';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
+import usePagination from './usePagination';
+
+// const slice;
 
 const Repeater = ({
   data,
@@ -29,10 +33,15 @@ const Repeater = ({
   disableEmptyState,
   actions,
   poll,
+  perPage,
   ...rest
 }) => {
   const search = useValue('');
   const multiselect = useChecked();
+  const { totalPage, onChange, list } = usePagination(
+    perPage,
+    data,
+  );
   const auth = useAuth(collectionName);
 
   return (
@@ -71,10 +80,10 @@ const Repeater = ({
           </Auth>
 
           <Table>
-            {data.length > 0 && (
+            {list.length > 0 && (
               <List
                 {...rest}
-                data={data}
+                data={list}
                 disableEditor={disableEditor}
                 disableMultiselect={
                   disableMultiselect ||
@@ -88,6 +97,17 @@ const Repeater = ({
               </List>
             )}
           </Table>
+          <Box
+            display="flex"
+            justifyContent="center"
+            mt={2}
+          >
+            <Pagination
+              color="primary"
+              count={totalPage}
+              onChange={onChange}
+            />
+          </Box>
         </Exports>
       </Auth>
     </Context.Provider>
@@ -123,6 +143,7 @@ Repeater.propTypes = {
   renderNestedTableRow: PropTypes.func,
 
   disableEmptyState: PropTypes.bool,
+  perPage: PropTypes.number,
   ...override.propTypes,
 };
 
@@ -135,6 +156,7 @@ Repeater.defaultProps = {
   renderCustomAddForm: null,
   renderNestedTableRow: null,
   disableEmptyState: false,
+  perPage: 15,
   ...override.defaultProps,
 };
 
