@@ -38,11 +38,11 @@ const Repeater = ({
 }) => {
   const search = useValue('');
   const multiselect = useChecked();
+  const auth = useAuth(collectionName);
   const { totalPage, onChange, list } = usePagination(
     perPage,
     data,
   );
-  const auth = useAuth(collectionName);
 
   return (
     <Context.Provider
