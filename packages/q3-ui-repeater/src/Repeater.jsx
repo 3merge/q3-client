@@ -1,31 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked, useValue } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Pagination from '@material-ui/lab/Pagination';
-import { Box, Table } from '@material-ui/core';
+import {
+  Box,
+  Table,
+  InputLabel,
+  NativeSelect,
+} from '@material-ui/core';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
 import usePagination from './usePagination';
-
-export const customSort = (op, xs) => {
-  const label = op.label;
-  const callback =
-    xs[0][label] === 'string'
-      ? (a, b) =>
-          op.order === 'ASC'
-            ? a[label].localCompare(b[label])
-            : b[label].localCompare(a[label])
-      : (a, b) =>
-          op.order === 'ASC'
-            ? a[label] - b[label]
-            : b[label] - a[label];
-
-  const _xs = xs.slice();
-  return _xs.sort(callback);
-};
+import { sort } from './sort.test';
 
 const Repeater = ({
   data,
@@ -49,16 +39,23 @@ const Repeater = ({
   actions,
   poll,
   perPage,
+  sortOptions = [],
   ...rest
 }) => {
-  const option = { label: 'firstName', order: 'ASC' };
   const search = useValue('');
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
-  const xs = customSort(option, data);
+  const { t } = useTranslation();
+  const [sortBy, setSortBy] = React.useState(
+    () => sortOptions[0] || '',
+  );
+
+  const handleChange = (e) => setSortBy(e.target.value);
+
+  const sorted = sortBy ? sort({ sortBy }, data) : data;
   const { totalPage, onChange, list } = usePagination(
     perPage,
-    xs,
+    sorted,
   );
 
   return (
@@ -95,6 +92,29 @@ const Repeater = ({
               </AddButton>
             )}
           </Auth>
+          <Box>
+            <InputLabel htmlFor="age-native-helper">
+              {t('sortBy')}
+            </InputLabel>
+            <NativeSelect
+              value={sortBy}
+              onChange={handleChange}
+              inputProps={{
+                name: t('sortBy'),
+                id: 'age-native-helper',
+              }}
+            >
+              {sortOptions.map((x, i) => (
+                <option
+                  value={x}
+                  key={x + i}
+                  aria-label={x}
+                >
+                  {t(x)}
+                </option>
+              ))}
+            </NativeSelect>
+          </Box>
 
           <Table>
             {list.length > 0 && (

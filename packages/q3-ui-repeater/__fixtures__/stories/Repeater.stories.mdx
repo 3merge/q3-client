@@ -24,6 +24,7 @@ import rows from '../seed/rows';
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={3}
+      sortOptions={['id', 'firstName']}
       cardProps={{
         title: 'firstName',
         attributes: ['position', 'firstName', 'id'],
