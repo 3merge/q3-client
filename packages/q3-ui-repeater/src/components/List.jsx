@@ -25,9 +25,9 @@ const List = ({
   renderNestedTableRow,
   ...rest
 }) => {
-  const {
-    search: { value },
-  } = React.useContext(RepeaterState);
+  // const {
+  //   search: { value },
+  // } = React.useContext(RepeaterState);
 
   const { t } = useTranslation('labels');
 
@@ -38,17 +38,17 @@ const List = ({
 
   const attributes = get(rest, 'cardProps.attributes', []);
 
-  const testSearchTerm = (item) =>
-    !value.length ||
-    new RegExp(value, 'gi').test(JSON.stringify(item));
+  // const testSearchTerm = (item) =>
+  //   !value.length ||
+  //   new RegExp(value, 'gi').test(JSON.stringify(item));
 
-  const filtered = data.filter(testSearchTerm);
+  // const filtered = data.filter(testSearchTerm);
 
   return (
     <>
       <TableHead>
         <TableRow>
-          <TableCell
+          {/* <TableCell
             style={{
               borderBottom: !showAttributes
                 ? 'none !important'
@@ -59,7 +59,8 @@ const List = ({
               {...rest}
               ids={filtered.map((item) => item.id)}
             />
-          </TableCell>
+          </TableCell> */}
+          <TableCell />
           <ActionBar
             data={data}
             renderSelected={actionComponent}
@@ -79,13 +80,13 @@ const List = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {filtered.map((item, i) => (
+        {data.map((item, i) => (
           <NestedItem
             key={i}
             renderNestedTableRow={renderNestedTableRow}
             attributes={attributes}
             showAttributes={showAttributes}
-            parent={filtered}
+            parent={data}
             item={item}
             index={i}
             {...rest}

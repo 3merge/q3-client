@@ -1,21 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import { useChecked, useValue } from 'useful-state';
+import { useChecked } from 'useful-state';
 import Exports from 'q3-ui-exports';
 import Pagination from '@material-ui/lab/Pagination';
-import {
-  Box,
-  Table,
-  InputLabel,
-  NativeSelect,
-} from '@material-ui/core';
+import { Box, Table } from '@material-ui/core';
 import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
 import usePagination from './usePagination';
-import { sort } from './sort.test';
+import useRepeater from './useRepeater';
 
 const Repeater = ({
   data,
@@ -39,23 +33,13 @@ const Repeater = ({
   actions,
   poll,
   perPage,
-  sortOptions = [],
   ...rest
 }) => {
-  const search = useValue('');
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
-  const { t } = useTranslation();
-  const [sortBy, setSortBy] = React.useState(
-    () => sortOptions[0] || '',
-  );
-
-  const handleChange = (e) => setSortBy(e.target.value);
-
-  const sorted = sortBy ? sort({ sortBy }, data) : data;
   const { totalPage, onChange, list } = usePagination(
     perPage,
-    sorted,
+    data,
   );
 
   return (
@@ -65,7 +49,6 @@ const Repeater = ({
         name,
         collectionName,
         multiselect,
-        search,
         edit,
         editBulk,
         create,
@@ -92,30 +75,6 @@ const Repeater = ({
               </AddButton>
             )}
           </Auth>
-          <Box>
-            <InputLabel htmlFor="age-native-helper">
-              {t('sortBy')}
-            </InputLabel>
-            <NativeSelect
-              value={sortBy}
-              onChange={handleChange}
-              inputProps={{
-                name: t('sortBy'),
-                id: 'age-native-helper',
-              }}
-            >
-              {sortOptions.map((x, i) => (
-                <option
-                  value={x}
-                  key={x + i}
-                  aria-label={x}
-                >
-                  {t(x)}
-                </option>
-              ))}
-            </NativeSelect>
-          </Box>
-
           <Table>
             {list.length > 0 && (
               <List
@@ -197,4 +156,4 @@ Repeater.defaultProps = {
   ...override.defaultProps,
 };
 
-export default Repeater;
+export default useRepeater(Repeater);

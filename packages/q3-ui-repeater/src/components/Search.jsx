@@ -8,10 +8,15 @@ import RepeaterSearch from './state';
 
 export const SearchContext = React.createContext();
 
-const SearchBar = ({ ids, disableMultiselect }) => {
-  const {
-    search: { onChange, value },
-  } = React.useContext(RepeaterSearch);
+const SearchBar = ({
+  ids,
+  disableMultiselect,
+  onChange,
+  value,
+}) => {
+  // const {
+  //   search: { onChange, value },
+  // } = React.useContext(RepeaterSearch);
   const { t } = useTranslation('labels');
 
   return (
