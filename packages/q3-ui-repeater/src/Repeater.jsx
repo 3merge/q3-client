@@ -10,7 +10,22 @@ import Context from './components/state';
 import { override } from './helpers';
 import usePagination from './usePagination';
 
-// const slice;
+export const customSort = (op, xs) => {
+  const label = op.label;
+  const callback =
+    xs[0][label] === 'string'
+      ? (a, b) =>
+          op.order === 'ASC'
+            ? a[label].localCompare(b[label])
+            : b[label].localCompare(a[label])
+      : (a, b) =>
+          op.order === 'ASC'
+            ? a[label] - b[label]
+            : b[label] - a[label];
+
+  const _xs = xs.slice();
+  return _xs.sort(callback);
+};
 
 const Repeater = ({
   data,
@@ -36,12 +51,14 @@ const Repeater = ({
   perPage,
   ...rest
 }) => {
+  const option = { label: 'firstName', order: 'ASC' };
   const search = useValue('');
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
+  const xs = customSort(option, data);
   const { totalPage, onChange, list } = usePagination(
     perPage,
-    data,
+    xs,
   );
 
   return (

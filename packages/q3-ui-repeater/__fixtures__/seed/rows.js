@@ -50,16 +50,10 @@ export default [
     lastName: 'Weasley',
     age: 20,
   },
-  {
-    id: 9,
-    firstName: 'George',
-    lastName: 'Weasley',
-    age: 20,
-  },
-  {
-    id: 10,
-    firstName: 'George',
-    lastName: 'Weasley',
-    age: 20,
-  },
+];
+
+export const list = [
+  { id: 1, name: 'g' },
+  { id: 3, name: 'f' },
+  { id: 2, name: 'e' },
 ];
