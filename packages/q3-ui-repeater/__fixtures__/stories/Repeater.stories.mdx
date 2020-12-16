@@ -6,23 +6,18 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
 import rows from '../seed/rows';
-import { isEven } from '../../src/group.test.js';
+export const isEven = (x) => x.id % 2 === 0;
 
-<Meta title="Repeater/Repeater" component={Repeater} />
+<Meta title="Repeater/Test" component={Repeater} />
 
 # Repeater
 
 <Preview>
   <Story name="Empty">
-    <div>here</div>
     <Repeater data={[]} />
   </Story>
-</Preview>
-
-<Preview>
   <Story name="Custom renderers">
     <Repeater
-      addComponent={<p>Custom renderer</p>}
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={3}

@@ -7,8 +7,7 @@ import {
   NativeSelect,
 } from '@material-ui/core';
 import Search from './components/Search';
-import { sort } from './sort.test.js';
-import { group } from './group.test.js';
+import { sort, group } from './helper';
 
 const testSearchTerm = (val) => (item) =>
   !val.length ||
@@ -40,7 +39,7 @@ const useRepeater = (Component) => ({
 
   return (
     <>
-      {/* <Box>
+      <Box>
         <Search
           {...search}
           ids={sorted.map((item) => item.id)}
@@ -70,8 +69,7 @@ const useRepeater = (Component) => ({
           tableName={key}
           {...rest}
         />
-      ))} */}
-      <Component data={sorted} {...rest} />
+      ))}
     </>
   );
 };

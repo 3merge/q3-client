@@ -9,7 +9,7 @@ import { Auth, AddButton, List } from './components';
 import Context from './components/state';
 import { override } from './helpers';
 import usePagination from './usePagination';
-import useRepeater from './useRepeater';
+import withRepeater from './withRepeater';
 
 const Repeater = ({
   data,
@@ -36,6 +36,7 @@ const Repeater = ({
   tableName,
   ...rest
 }) => {
+  console.log(data);
   const multiselect = useChecked();
   const auth = useAuth(collectionName);
   const { totalPage, onChange, list } = usePagination(
@@ -43,75 +44,73 @@ const Repeater = ({
     data,
   );
 
-  return <div>here</div>;
-
-  // return (
-  //   <Context.Provider
-  //     value={{
-  //       auth,
-  //       name,
-  //       collectionName,
-  //       multiselect,
-  //       edit,
-  //       editBulk,
-  //       create,
-  //       remove,
-  //       removeBulk,
-  //       poll,
-  //     }}
-  //   >
-  //     <Auth op="Read">
-  //       <Exports>
-  //         <Auth op="Create">
-  //           {addComponent ? (
-  //             React.cloneElement(addComponent, {
-  //               initialValues,
-  //               create,
-  //             })
-  //           ) : (
-  //             <AddButton
-  //               create={create}
-  //               initialValues={initialValues}
-  //               {...rest}
-  //             >
-  //               {children}
-  //             </AddButton>
-  //           )}
-  //         </Auth>
-  //         <p>{tableName}</p>
-  //         <Table>
-  //           {list.length > 0 && (
-  //             <List
-  //               {...rest}
-  //               data={list}
-  //               disableEditor={disableEditor}
-  //               disableMultiselect={
-  //                 disableMultiselect ||
-  //                 (!auth.canDelete && !bulkEditorComponent)
-  //               }
-  //               disableRemove={disableRemove}
-  //               renderNestedTableRow={renderNestedTableRow}
-  //               actionComponent={bulkEditorComponent}
-  //             >
-  //               {children}
-  //             </List>
-  //           )}
-  //         </Table>
-  //         <Box
-  //           display="flex"
-  //           justifyContent="center"
-  //           mt={2}
-  //         >
-  //           <Pagination
-  //             color="primary"
-  //             count={totalPage}
-  //             onChange={onChange}
-  //           />
-  //         </Box>
-  //       </Exports>
-  //     </Auth>
-  //   </Context.Provider>
-  // );
+  return (
+    <Context.Provider
+      value={{
+        auth,
+        name,
+        collectionName,
+        multiselect,
+        edit,
+        editBulk,
+        create,
+        remove,
+        removeBulk,
+        poll,
+      }}
+    >
+      <Auth op="Read">
+        <Exports>
+          <Auth op="Create">
+            {addComponent ? (
+              React.cloneElement(addComponent, {
+                initialValues,
+                create,
+              })
+            ) : (
+              <AddButton
+                create={create}
+                initialValues={initialValues}
+                {...rest}
+              >
+                {children}
+              </AddButton>
+            )}
+          </Auth>
+          <p>{tableName}</p>
+          <Table>
+            {list.length > 0 && (
+              <List
+                {...rest}
+                data={list}
+                disableEditor={disableEditor}
+                disableMultiselect={
+                  disableMultiselect ||
+                  (!auth.canDelete && !bulkEditorComponent)
+                }
+                disableRemove={disableRemove}
+                renderNestedTableRow={renderNestedTableRow}
+                actionComponent={bulkEditorComponent}
+              >
+                {children}
+              </List>
+            )}
+          </Table>
+          <Box
+            display="flex"
+            justifyContent="center"
+            mt={2}
+          >
+            <Pagination
+              color="primary"
+              count={totalPage}
+              onChange={onChange}
+            />
+          </Box>
+        </Exports>
+      </Auth>
+    </Context.Provider>
+  );
 };
 
 Repeater.propTypes = {
@@ -160,5 +159,4 @@ Repeater.defaultProps = {
   ...override.defaultProps,
 };
 
-export default Repeater;
-// export default useRepeater(Repeater);
+export default withRepeater(Repeater);

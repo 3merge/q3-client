@@ -1,20 +1,11 @@
 import { list } from '../__fixtures__/seed/rows';
+import { group } from './helper';
 // { id: 1, name: 'g' },
 // { id: 2, name: 'e' },
 // { id: 3, name: 'f' },
 
 // option = { label, key, fn}
 export const isEven = (x) => x.id % 2 === 0;
-
-export const group = ({ label, fn }, xs) =>
-  xs.reduce(
-    (acc, x) => {
-      // eslint-disable-next-line mdx/no-unused-expressions
-      fn(x) ? acc[label].push(x) : acc.rest.push(x);
-      return acc;
-    },
-    { [label]: [], rest: [] },
-  );
 
 test('should group by id', () => {
   expect(

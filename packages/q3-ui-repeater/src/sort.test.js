@@ -1,14 +1,5 @@
 import { list } from '../__fixtures__/seed/rows';
-
-export const sort = ({ sortBy, customFn = null }, xs) => {
-  const callback =
-    typeof xs[0][sortBy] === 'string'
-      ? customFn ||
-        ((a, b) => a[sortBy].localeCompare(b[sortBy]))
-      : customFn || ((a, b) => a[sortBy] - b[sortBy]);
-
-  return xs.slice().sort(callback);
-};
+import { sort } from './helper';
 
 test('should sort by number', () => {
   expect(sort({ sortBy: 'id' }, list)).toEqual([
