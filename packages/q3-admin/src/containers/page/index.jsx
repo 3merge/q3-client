@@ -3,9 +3,9 @@ import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
-import { get } from 'lodash';
+
 import Graphic from 'q3-ui-assets';
-import { useFilters } from 'q3-ui-rest';
+
 import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
 import Tray from '../../components/Tray';
@@ -16,6 +16,7 @@ import { useDataStore } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
 import Search from '../search';
+import ListPolling from '../ListPolling';
 
 const PageChildren = ({
   children,
@@ -70,9 +71,6 @@ const Page = ({
   onExit,
   onInit,
   loadingComponent,
-  lookup,
-  runOnSearch,
-  runWithSearch,
   resolvers,
 }) => {
   const {
@@ -102,19 +100,6 @@ const Page = ({
     id,
   });
 
-  let query;
-
-  if (runOnSearch) query = get(location, 'search', '');
-  if (runWithSearch) query = runWithSearch;
-
-  const filters = useFilters({
-    runOnInit: !id,
-    fields: lookup,
-    coll: collectionName,
-    location,
-    query,
-  });
-
   const hasEntered = useOnRender(
     { onEnter, onExit, onInit },
     { ...state, url },
@@ -123,7 +108,7 @@ const Page = ({
   return (
     <PageChildren
       hasEntered={hasEntered}
-      fetching={fetching || filters.fetching}
+      fetching={fetching}
       fetchingError={fetchingError}
       loadingComponent={loadingComponent}
       id={id}
@@ -141,7 +126,6 @@ const Page = ({
       >
         <Store.Provider
           value={{
-            filters,
             data,
             ...pick(state, [
               'total',
@@ -153,14 +137,19 @@ const Page = ({
           {resolvers && (
             <Tray>
               <Search resolvers={resolvers} />
-              <UnsavedChanges />
+              {id ? (
+                <UnsavedChanges />
+              ) : (
+                <ListPolling
+                  poll={() => state.poll(location?.search)}
+                />
+              )}
             </Tray>
           )}
           {executeOnChildren(children, {
             ...state,
             id,
             data,
-            filters,
           })}
         </Store.Provider>
       </Dispatcher.Provider>
@@ -197,8 +186,6 @@ Page.propTypes = {
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
-
-  lookup: PropTypes.arrayOf(PropTypes.string),
   loadingComponent: PropTypes.node,
 };
 
@@ -207,7 +194,7 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
-  lookup: [],
+
   loadingComponent: null,
 };
 
