@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { useValue } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'lodash/fp';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  NativeSelect,
-} from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
