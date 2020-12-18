@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
+import { Alert } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
-import Alert from 'q3-ui/lib/alert';
-import Container from '@material-ui/core/Container';
 import Graphic from 'q3-ui-assets';
-import { Throw } from 'q3-ui-assets';
 import { useAuth } from 'q3-ui-permissions';
 import { browser } from 'q3-ui-helpers';
 import connect from '../connect';
@@ -43,18 +40,14 @@ export const Trash = ({
   return (
     <>
       {showError && (
-        <Alert
-          type="error"
-          label={t('descriptions:trashFail')}
-          dismissable={false}
-        />
+        <Alert severity="error">
+          {t('descriptions:trashFail')}
+        </Alert>
       )}
       {showRedirect && (
-        <Alert
-          type="success"
-          label={t('descriptions:trashSuccess')}
-          dismissable={false}
-        />
+        <Alert severity="success">
+          {t('descriptions:trashSuccess')}
+        </Alert>
       )}
       <Graphic
         description="trashDescription"
