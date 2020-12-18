@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useValue } from 'useful-state';
 import { useTranslation } from 'react-i18next';
+import { compose } from 'lodash/fp';
 import {
   Box,
+  FormControl,
   InputLabel,
   NativeSelect,
 } from '@material-ui/core';
@@ -13,7 +15,7 @@ import { useChecked } from 'useful-state';
 import Search from './components/Search';
 import { sort, group } from './helper';
 import Context from './components/state';
-import { Auth, AddButton, List } from './components';
+import { Auth, AddButton, SortForm } from './components';
 
 const testSearchTerm = (val) => (item) =>
   !val.length ||
@@ -37,9 +39,7 @@ const useRepeater = (Component) => {
     poll,
     ...rest
   }) => {
-    const [sortBy, setSortBy] = React.useState(
-      () => sortOptions[0] || '',
-    );
+    const [sortBy, setSortBy] = React.useState(0);
     const auth = useAuth(collectionName);
     const multiselect = useChecked();
     const search = useValue('');
@@ -47,15 +47,36 @@ const useRepeater = (Component) => {
 
     const handleChange = (e) => setSortBy(e.target.value);
 
-    const filtered = search.value
-      ? data.filter(testSearchTerm(search.value))
-      : data;
+    const filter = (xs) =>
+      search.value
+        ? xs.filter(testSearchTerm(search.value))
+        : xs;
 
-    const sorted = sortBy
-      ? sort({ sortBy }, filtered)
-      : filtered;
+    const run = compose(
+      group(groupBy),
+      sort(sortOptions[sortBy]),
+      filter,
+    );
 
-    const grouped = group(groupBy, sorted);
+    const newData = run(data);
+
+    const renderRepeater = () => (
+      <Component data={newData} {...rest}>
+        {children}
+      </Component>
+    );
+
+    const mapRepeater = () =>
+      Object.entries(newData).map(([key, xs]) => (
+        <Component
+          key={key}
+          data={xs}
+          tableName={t(key)}
+          {...rest}
+        >
+          {children}
+        </Component>
+      ));
 
     return (
       <>
@@ -73,23 +94,18 @@ const useRepeater = (Component) => {
             poll,
           }}
         >
+          <Search
+            {...search}
+            ids={data.map((item) => item.id)}
+          />
           <Auth op="Read">
             <Exports>
               <Box>
-                <Search
-                  {...search}
-                  ids={sorted.map((item) => item.id)}
-                />
-                <InputLabel htmlFor="age-native-helper">
-                  {t('sortBy')}
-                </InputLabel>
-                <NativeSelect
-                  value={sortBy}
-                  onChange={handleChange}
-                  inputProps={{
-                    name: t('sortBy'),
-                    id: 'age-native-helper',
-                  }}
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  flexWrap="wrap"
                 >
                   <Auth op="Create">
                     {addComponent ? (
@@ -107,27 +123,18 @@ const useRepeater = (Component) => {
                       </AddButton>
                     )}
                   </Auth>
-                  {sortOptions.map((x, i) => (
-                    <option
-                      value={x}
-                      key={x + i}
-                      aria-label={x}
-                    >
-                      {t(x)}
-                    </option>
-                  ))}
-                </NativeSelect>
+                  {sortOptions && (
+                    <SortForm
+                      sortOptions={sortOptions}
+                      sortBy={sortBy}
+                      handleChange={handleChange}
+                    />
+                  )}
+                </Box>
               </Box>
-              {Object.entries(grouped).map(([key, xs]) => (
-                <Component
-                  key={key}
-                  data={xs}
-                  tableName={key}
-                  {...rest}
-                >
-                  {children}
-                </Component>
-              ))}
+              {Array.isArray(newData)
+                ? renderRepeater()
+                : mapRepeater()}
             </Exports>
           </Auth>
         </Context.Provider>
@@ -136,14 +143,21 @@ const useRepeater = (Component) => {
   };
 
   Inner.defaultProps = {
+    addComponent: null,
     edit: null,
     collectionName: null,
     create: null,
     remove: null,
     data: [],
+    editBulk: null,
+    removeBulk: null,
+    poll: null,
+    groupBy: null,
+    sortOptions: null,
   };
 
   Inner.propTypes = {
+    addComponent: PropTypes.node,
     edit: PropTypes.func,
     name: PropTypes.string.isRequired,
     collectionName: PropTypes.string,
@@ -151,6 +165,20 @@ const useRepeater = (Component) => {
     remove: PropTypes.func,
     initialValues: PropTypes.shape({}).isRequired,
     data: PropTypes.arrayOf(PropTypes.object),
+    editBulk: PropTypes.func,
+    removeBulk: PropTypes.func,
+    poll: PropTypes.func,
+    children: PropTypes.node.isRequired,
+    sortOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        sortBy: PropTypes.string.isRequired,
+        fn: PropTypes.func,
+      }),
+    ),
+    groupBy: PropTypes.shape({
+      groupBy: PropTypes.string.isRequired,
+      fn: PropTypes.func,
+    }),
   };
   return Inner;
 };

@@ -1,22 +1,28 @@
-export const sort = ({ sortBy, customFn = null }, xs) => {
-  if (xs.length === 0) return xs;
+import { array } from 'q3-ui-helpers';
+
+export const sort = (obj) => (xs) => {
+  if (!array.hasLength(xs) || !obj) return xs;
+  const { sortBy, fn = null } = obj;
   const callback =
     typeof xs[0][sortBy] === 'string'
-      ? customFn ||
-        ((a, b) => a[sortBy].localeCompare(b[sortBy]))
-      : customFn || ((a, b) => a[sortBy] - b[sortBy]);
+      ? fn || ((a, b) => a[sortBy].localeCompare(b[sortBy]))
+      : fn || ((a, b) => a[sortBy] - b[sortBy]);
 
   return xs.slice().sort(callback);
 };
 
-export const group = ({ label, fn }, xs) => {
-  if (xs.length === 0) return xs;
-  return xs.reduce(
-    (acc, x) => {
-      // eslint-disable-next-line mdx/no-unused-expressions
-      fn(x) ? acc[label].push(x) : acc.rest.push(x);
-      return acc;
-    },
-    { [label]: [], rest: [] },
-  );
-};
+const OTHER = 'other';
+
+export const group = (obj) => (xs) =>
+  !array.hasLength(xs) || !obj
+    ? xs
+    : xs.reduce(
+        (acc, x) => {
+          // eslint-disable-next-line mdx/no-unused-expressions
+          obj.fn(x)
+            ? acc[obj.label].push(x)
+            : acc[OTHER].push(x);
+          return acc;
+        },
+        { [obj.label]: [], [OTHER]: [] },
+      );

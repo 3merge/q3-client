@@ -14,7 +14,9 @@ export const isEven = (x) => x.id % 2 === 0;
 
 <Preview>
   <Story name="Empty">
-    <Repeater data={[]} />
+    <Repeater data={[]}>
+      <p>Editor</p>
+    </Repeater>
   </Story>
   <Story name="Custom renderers">
     <Repeater
@@ -22,7 +24,10 @@ export const isEven = (x) => x.id % 2 === 0;
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={3}
       groupBy={{ label: 'Evens', fn: isEven }}
-      sortOptions={['id', 'firstName']}
+      sortOptions={[
+        { sortBy: 'id' },
+        { sortBy: 'firstName' },
+      ]}
       cardProps={{
         title: 'firstName',
         attributes: ['firstName', 'id', 'age'],

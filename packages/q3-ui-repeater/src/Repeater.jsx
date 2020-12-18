@@ -29,8 +29,8 @@ const Repeater = ({
   );
 
   return (
-    <>
-      <p>{tableName}</p>
+    <Box mt={3}>
+      {tableName && <span>{tableName}</span>}
       <Table>
         {list.length > 0 && (
           <List
@@ -49,14 +49,19 @@ const Repeater = ({
           </List>
         )}
       </Table>
-      <Box display="flex" justifyContent="center" mt={2}>
+      <Box
+        display="flex"
+        justifyContent="center"
+        mt={2}
+        mb={5}
+      >
         <Pagination
           color="primary"
           count={totalPage}
           onChange={onChange}
         />
       </Box>
-    </>
+    </Box>
   );
 };
 
