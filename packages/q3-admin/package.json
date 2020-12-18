@@ -40,6 +40,7 @@
     "q3-ui-helpers": "^1.0.0",
     "q3-ui-permissions": "^0.2.4",
     "q3-ui-rest": "^0.2.4",
+    "q3-ui-trash": "^1.0.0",
     "react": "^16.9.0",
     "react-i18next": "^11.3.1"
   }

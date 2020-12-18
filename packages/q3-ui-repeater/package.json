@@ -17,6 +17,7 @@
     "q3-ui-exports": "^1.24.30",
     "q3-ui-forms": "^1.24.34",
     "q3-ui-permissions": "^1.24.30",
+    "q3-ui-trash": "^1.0.0",
     "react-i18next": "11.7.3",
     "useful-state": "^1.2.0"
   },
