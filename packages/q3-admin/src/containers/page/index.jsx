@@ -3,20 +3,15 @@ import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
-
 import Graphic from 'q3-ui-assets';
-
-import UnsavedChanges from '../UnsavedChanges';
 import Loading from '../../components/loading';
-import Tray from '../../components/Tray';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
-import Search from '../search';
-import ListPolling from '../ListPolling';
+import { useRefresh } from '../../hooks';
 
 const PageChildren = ({
   children,
@@ -42,10 +37,10 @@ const PageChildren = ({
 
 PageChildren.propTypes = {
   children: PropTypes.node.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   hasEntered: PropTypes.bool.isRequired,
-  fetching: PropTypes.bool.isRequired,
-  fetchingError: PropTypes.bool.isRequired,
+  fetching: PropTypes.bool,
+  fetchingError: PropTypes.bool,
   loadingComponent: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.object,
@@ -53,7 +48,10 @@ PageChildren.propTypes = {
 };
 
 PageChildren.defaultProps = {
+  id: undefined,
   loadingComponent: null,
+  fetchingError: false,
+  fetching: true,
 };
 
 export const getDirectoryPath = (root, id) =>
@@ -71,7 +69,6 @@ const Page = ({
   onExit,
   onInit,
   loadingComponent,
-  resolvers,
 }) => {
   const {
     id,
@@ -91,7 +88,7 @@ const Page = ({
     url,
   });
 
-  const { fetching, fetchingError } = state;
+  const { fetching, fetchingError, poll } = state;
 
   const data = useDataStore({
     resourceNameSingular,
@@ -104,6 +101,8 @@ const Page = ({
     { onEnter, onExit, onInit },
     { ...state, url },
   );
+
+  useRefresh(poll);
 
   return (
     <PageChildren
@@ -134,18 +133,6 @@ const Page = ({
             ]),
           }}
         >
-          {resolvers && (
-            <Tray>
-              <Search resolvers={resolvers} />
-              {id ? (
-                <UnsavedChanges />
-              ) : (
-                <ListPolling
-                  poll={() => state.poll(location?.search)}
-                />
-              )}
-            </Tray>
-          )}
           {executeOnChildren(children, {
             ...state,
             id,
@@ -194,7 +181,6 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
-
   loadingComponent: null,
 };
 

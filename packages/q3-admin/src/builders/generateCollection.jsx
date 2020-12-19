@@ -3,8 +3,11 @@ import { useAuth } from 'q3-ui-permissions';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
+import UnsavedChanges from '../containers/UnsavedChanges';
+import Search from '../containers/search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
+import Tray from '../components/Tray';
 import { useAppContext } from '../hooks';
 
 export const getCollectionInformation = ({
@@ -33,6 +36,10 @@ export default ({
     component: (props) => (
       <Collection id {...props}>
         <Page id {...props} {...PageDetailProps}>
+          <Tray>
+            <Search {...PageDetailProps} />
+            <UnsavedChanges />
+          </Tray>
           <PageDetail />
         </Page>
       </Collection>
@@ -62,6 +69,9 @@ export default ({
       return (
         <Collection index {...props}>
           <Redirect op="Read" to="/">
+            <Tray>
+              <Search {...PageDetailProps} />
+            </Tray>
             <Article asideComponent={can('filter')}>
               <Page index {...props} {...PageListProps}>
                 <PageList />

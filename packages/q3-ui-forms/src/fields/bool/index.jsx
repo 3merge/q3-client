@@ -191,7 +191,7 @@ Bool.propTypes = {
   /**
    * Input ID.
    */
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
 };
 
 Bool.defaultProps = {
@@ -200,6 +200,7 @@ Bool.defaultProps = {
   name: null,
   isChecked: false,
   onChange: undefined,
+  id: undefined,
   my: 0,
 };
 

@@ -19,7 +19,6 @@ export const goTo = (path) => () => navigate(path);
 
 const Admin = ({
   icons,
-  socket,
   tours,
   children,
   profileItems,
@@ -61,7 +60,7 @@ const Admin = ({
                   },
                 ]}
               >
-                <Notifications socket={socket} />
+                <Notifications />
               </ProfileActions>
               <App {...AppProps}>
                 <Profile
@@ -80,12 +79,9 @@ const Admin = ({
 };
 
 Admin.propTypes = {
-  logoSrc: PropTypes.string.isRequired,
   AppProps: PropTypes.shape({
     pages: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-
-  socket: PropTypes.string.isRequired,
 
   /**
    * An array of tour steps (label, html ID, etc.).

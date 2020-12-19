@@ -26,7 +26,10 @@ const NavigationLink = ({ label, to, icon: Icon }) => {
 
 NavigationLink.propTypes = {
   label: PropTypes.string.isRequired,
-  icon: PropTypes.node,
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]),
   to: PropTypes.string,
 };
 
