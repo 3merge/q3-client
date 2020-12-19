@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.40](https://github.com/3merge/q/compare/v1.24.39...v1.24.40) (2020-12-19)
+
+
+### Bug Fixes
+
+* refresh without socket context ([60cfc2d](https://github.com/3merge/q/commit/60cfc2dad598c3f6bd38cf89c75be8ad4ea6913d))
+
+
+
+
+
 ## [1.24.39](https://github.com/3merge/q/compare/v1.24.38...v1.24.39) (2020-12-19)
 
 **Note:** Version bump only for package q3-client
