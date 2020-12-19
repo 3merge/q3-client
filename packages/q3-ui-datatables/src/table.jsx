@@ -136,7 +136,10 @@ const TableView = ({
             </TableHead>
             <TableBody className={tableBody}>
               {processed.map((row, ind) => (
-                <TableRow className={flexRow}>
+                <TableRow
+                  key={`row-${ind}`}
+                  className={flexRow}
+                >
                   <RowHeader {...row} />
                   {object.isFn(renderCustomRowActions) ? (
                     <TableCell className={cellWidth}>

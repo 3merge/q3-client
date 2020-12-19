@@ -60,7 +60,11 @@ const DetailSidePanelContent = ({
         <SidePanelContent title="general">
           <List>
             {defaultOptions.map((option, i) => (
-              <ListItem key={i} {...option}>
+              <ListItem
+                key={i}
+                id={option.title}
+                {...option}
+              >
                 <ActionBar actions={option.actions}>
                   {option.action}
                 </ActionBar>

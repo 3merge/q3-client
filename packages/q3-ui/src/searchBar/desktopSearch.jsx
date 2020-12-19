@@ -101,6 +101,7 @@ const DesktopSearch = ({
         filterOptions={(options) => options}
         renderOption={(option) => (
           <SearchResultListItem
+            key={option.value}
             onClick={() =>
               onSearch(getEnterEvent(option.name))
             }
@@ -111,7 +112,6 @@ const DesktopSearch = ({
           <TextField
             {...rest}
             {...params}
-            disableUnderline
             onKeyPress={onSearch}
             inputProps={{
               ...params.inputProps,

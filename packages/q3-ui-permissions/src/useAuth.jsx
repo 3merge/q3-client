@@ -41,7 +41,11 @@ export const asProtectedRoute = (ctx) => {
   };
 
   ProtectedRoute.propTypes = {
-    component: PropTypes.node.isRequired,
+    component: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.array,
+      PropTypes.object,
+    ]).isRequired,
     coll: PropTypes.string.isRequired,
     to: PropTypes.string,
   };

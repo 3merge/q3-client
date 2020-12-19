@@ -32,6 +32,10 @@ export const Dispatcher = React.createContext(
   () => 0,
 );
 
+export const FiltersStore = React.createContext({
+  fetching: false,
+});
+
 export const Store = React.createContext({
   data: {},
 });

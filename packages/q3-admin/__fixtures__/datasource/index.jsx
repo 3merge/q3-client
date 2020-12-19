@@ -169,7 +169,7 @@ export default ({ children }) => {
   };
 
   return (
-    <Rest define={defineMockRoutes} delay={250}>
+    <Rest define={defineMockRoutes} delay={1000}>
       {children}
     </Rest>
   );
