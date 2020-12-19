@@ -1,6 +1,6 @@
 import React from 'react';
 import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import FilterLoading from './FilterLoading';
 import FiltersForm from './FiltersForm';
 
 jest.unmock('useful-state');
@@ -45,7 +45,7 @@ describe('FiltersForm', () => {
       .shallow(
         <FiltersForm search="">{jest.fn()}</FiltersForm>,
       )
-      .find(CircularProgress);
+      .find(FilterLoading);
 
     expect(length).toBe(1);
   });

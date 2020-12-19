@@ -69,4 +69,19 @@ describe('useRefresh', () => {
     watch.mock.calls[0][0]();
     expect(poll).toHaveBeenCalledWith('?sort=name');
   });
+
+  it.only('should debounce', () => {
+    const poll = jest.fn().mockResolvedValue({});
+    useContext.mockReturnValue({
+      join,
+      watch,
+    });
+
+    useRefresh(poll);
+    Array.from({ length: 10 }).forEach((item, i) =>
+      watch.mock.calls[0][0](i),
+    );
+
+    expect(poll).toHaveBeenCalledTimes(1);
+  });
 });

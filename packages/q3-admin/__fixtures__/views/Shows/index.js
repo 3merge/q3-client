@@ -10,6 +10,7 @@ export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
   parent: 'entertainment',
+  lookup: ['name'],
 })
   .genUserOptions('Developer', {
     all: true,

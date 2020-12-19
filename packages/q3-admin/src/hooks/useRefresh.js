@@ -1,4 +1,5 @@
 import React from 'react';
+import { throttle } from 'lodash';
 import { useLocation } from '@reach/router';
 import { Definitions } from '../containers/state';
 import { SocketContext } from '../containers/Socket';
@@ -15,23 +16,29 @@ export default (onChange) => {
   const location = useLocation();
   const args = { collectionName };
 
+  let fn = onChange;
+
   React.useEffect(() => {
     if (id) return undefined;
 
+    const handleWatch = throttle(() => {
+      if (fn)
+        fn(location?.search)
+          .then(() => {
+            // noop
+          })
+          .catch(() => {
+            // noop
+          });
+    }, 1500);
+
     join(args);
-    watch(() =>
-      onChange(location?.search)
-        .then(() => {
-          // noop
-        })
-        .catch(() => {
-          // some sort of notice?
-          // manually refresh?
-        }),
-    );
+    watch(handleWatch);
 
     return () => {
       leave(args);
+      handleWatch.cancel();
+      fn = null;
     };
   }, [collectionName, id]);
 

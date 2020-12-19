@@ -1,5 +1,6 @@
 import React from 'react';
-import { useAuth } from 'q3-ui-permissions';
+import Box from '@material-ui/core/Box';
+import Fade from '@material-ui/core/Fade';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -8,6 +9,7 @@ import Search from '../containers/search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import Tray from '../components/Tray';
+import TableSkeleton from '../components/TableSkeleton';
 import { useAppContext } from '../hooks';
 
 export const getCollectionInformation = ({
@@ -54,12 +56,10 @@ export default ({
         filterComponent: FilterComponent,
       } = PageListProps;
 
-      const { Redirect } = useAuth(props?.collectionName);
-
       const { can } = useAppContext({
         filter: FilterComponent ? (
           <SidePanel>
-            <FilterProvider {...PageListProps}>
+            <FilterProvider {...props} {...PageListProps}>
               <FilterComponent />
             </FilterProvider>
           </SidePanel>
@@ -68,16 +68,23 @@ export default ({
 
       return (
         <Collection index {...props}>
-          <Redirect op="Read" to="/">
-            <Tray>
-              <Search {...PageDetailProps} />
-            </Tray>
-            <Article asideComponent={can('filter')}>
-              <Page index {...props} {...PageListProps}>
-                <PageList />
-              </Page>
-            </Article>
-          </Redirect>
+          <Tray>
+            <Search {...PageDetailProps} />
+          </Tray>
+          <Article asideComponent={can('filter')}>
+            <Page
+              index
+              {...props}
+              {...PageListProps}
+              loadingComponent={<TableSkeleton />}
+            >
+              <Fade in>
+                <Box>
+                  <PageList />
+                </Box>
+              </Fade>
+            </Page>
+          </Article>
         </Collection>
       );
     },
