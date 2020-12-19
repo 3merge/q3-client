@@ -5,10 +5,10 @@ import { Definitions } from '../containers/state';
 import { SocketContext } from '../containers/Socket';
 
 export default (onChange) => {
-  const { join, leave, watch } = React.useContext(
-    SocketContext,
-  );
+  const ctx = React.useContext(SocketContext);
+  if (!ctx || !ctx.join) return;
 
+  const { join, leave, watch } = ctx;
   const { collectionName, id } = React.useContext(
     Definitions,
   );
@@ -41,6 +41,4 @@ export default (onChange) => {
       fn = null;
     };
   }, [collectionName, id]);
-
-  return null;
 };
