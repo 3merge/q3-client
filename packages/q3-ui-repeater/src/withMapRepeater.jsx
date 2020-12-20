@@ -175,6 +175,7 @@ const useRepeater = (Component) => {
       fn: PropTypes.func,
     }),
   };
+
   return Inner;
 };
 

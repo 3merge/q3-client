@@ -6,7 +6,7 @@ import { Box, Table } from '@material-ui/core';
 import { List } from './components';
 import { override } from './helpers';
 import usePagination from './usePagination';
-import withRepeater from './withRepeater';
+import withMapRepeater from './withMapRepeater';
 
 const Repeater = ({
   data,
@@ -95,4 +95,4 @@ Repeater.defaultProps = {
   ...override.defaultProps,
 };
 
-export default withRepeater(Repeater);
+export default withMapRepeater(Repeater);
