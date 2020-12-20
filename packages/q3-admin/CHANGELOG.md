@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.41](https://github.com/3merge/q/compare/v1.24.40...v1.24.41) (2020-12-20)
+
+
+### Bug Fixes
+
+* refresh on id match ([f47b461](https://github.com/3merge/q/commit/f47b4615786981407689e7e4d204ac26a640ace4))
+
+
+
+
+
 ## [1.24.40](https://github.com/3merge/q/compare/v1.24.39...v1.24.40) (2020-12-19)
 
 
