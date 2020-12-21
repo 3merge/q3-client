@@ -21,6 +21,8 @@ export const marshalProps = (v) =>
     'under',
     'onChange',
     'validate',
+    'suppressLabel',
+    'suppressHelper',
   ]);
 
 export const chosenTextFieldDisplayAttributes = {

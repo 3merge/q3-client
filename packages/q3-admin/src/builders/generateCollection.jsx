@@ -1,6 +1,16 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import Fade from '@material-ui/core/Fade';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
+import FilterProvider from '../containers/FilterProvider';
+import UnsavedChanges from '../containers/UnsavedChanges';
+import Search from '../containers/search';
+import Article from '../components/Article';
+import SidePanel from '../components/SidePanel';
+import Tray from '../components/Tray';
+import TableSkeleton from '../components/TableSkeleton';
+import { useAppContext } from '../hooks';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -28,6 +38,10 @@ export default ({
     component: (props) => (
       <Collection id {...props}>
         <Page id {...props} {...PageDetailProps}>
+          <Tray>
+            <Search {...PageDetailProps} />
+            <UnsavedChanges />
+          </Tray>
           <PageDetail />
         </Page>
       </Collection>
@@ -37,12 +51,42 @@ export default ({
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: (props) => (
-      <Collection index {...props}>
-        <Page index {...props} {...PageListProps}>
-          <PageList />
-        </Page>
-      </Collection>
-    ),
+    component: (props) => {
+      const {
+        filterComponent: FilterComponent,
+      } = PageListProps;
+
+      const { can } = useAppContext({
+        filter: FilterComponent ? (
+          <SidePanel>
+            <FilterProvider {...props} {...PageListProps}>
+              <FilterComponent />
+            </FilterProvider>
+          </SidePanel>
+        ) : null,
+      });
+
+      return (
+        <Collection index {...props}>
+          <Tray>
+            <Search {...PageDetailProps} />
+          </Tray>
+          <Article asideComponent={can('filter')}>
+            <Page
+              index
+              {...props}
+              {...PageListProps}
+              loadingComponent={<TableSkeleton />}
+            >
+              <Fade in>
+                <Box>
+                  <PageList />
+                </Box>
+              </Fade>
+            </Page>
+          </Article>
+        </Collection>
+      );
+    },
   },
 ];

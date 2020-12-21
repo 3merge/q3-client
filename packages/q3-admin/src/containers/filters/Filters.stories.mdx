@@ -1,0 +1,33 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { Field } from 'q3-ui-forms/lib/builders';
+import FilterLoading from './FilterLoading';
+import FiltersForm from './FiltersForm';
+import FilterEntry from '../../components/FilterEntry';
+
+<Meta title="Admin/Filters" />
+
+# Filters
+
+<Preview>
+  <Story name="Loading">
+    <FilterLoading />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Form">
+    <FiltersForm name="example" query="?sample=Sample">
+      {() => (
+        <>
+          <FilterEntry name="sample" type="text" />
+          <FilterEntry name="sample1" type="text" />
+        </>
+      )}
+    </FiltersForm>
+  </Story>
+</Preview>

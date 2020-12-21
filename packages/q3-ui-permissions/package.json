@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-permissions",
-  "version": "1.24.30",
+  "version": "1.24.38",
   "main": "lib/index.js",
   "dependencies": {
     "js-cookie": "^2.2.1",

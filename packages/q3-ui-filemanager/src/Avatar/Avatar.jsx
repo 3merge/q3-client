@@ -5,6 +5,7 @@ import MuiAvatar from '@material-ui/core/Avatar';
 import { useTranslation } from 'react-i18next';
 import Tooltip from 'q3-ui/lib/tooltip';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import { omit } from 'lodash';
 import PhotoUpload from '../PhotoUpload';
 
 const Avatar = (props) => {
@@ -20,7 +21,10 @@ const Avatar = (props) => {
             aria-label={t('changeFeaturedPhoto')}
             onClick={open}
           >
-            <MuiAvatar {...props} alt={t('imagePreview')}>
+            <MuiAvatar
+              {...omit(props, ['customizer', 'onDelete'])}
+              alt={t('imagePreview')}
+            >
               <PhotoCameraIcon />
             </MuiAvatar>
           </IconButton>

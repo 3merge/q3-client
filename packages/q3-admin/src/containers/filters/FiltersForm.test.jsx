@@ -1,6 +1,6 @@
 import React from 'react';
 import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import FilterLoading from './FilterLoading';
 import FiltersForm from './FiltersForm';
 
 jest.unmock('useful-state');
@@ -14,11 +14,9 @@ beforeEach(() => {
 describe('FiltersForm', () => {
   it('should not provide save callback', () => {
     spy.mockReturnValue({
-      filters: {
-        fetching: false,
-        fields: {
-          foo: 1,
-        },
+      fetching: false,
+      fields: {
+        foo: 1,
       },
     });
 
@@ -40,16 +38,14 @@ describe('FiltersForm', () => {
 
   it('should return loading indicator', () => {
     spy.mockReturnValue({
-      filters: {
-        fetching: true,
-      },
+      fetching: true,
     });
 
     const { length } = global
       .shallow(
         <FiltersForm search="">{jest.fn()}</FiltersForm>,
       )
-      .find(CircularProgress);
+      .find(FilterLoading);
 
     expect(length).toBe(1);
   });

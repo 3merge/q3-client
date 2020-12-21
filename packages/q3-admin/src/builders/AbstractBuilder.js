@@ -68,7 +68,7 @@ export default class Collection {
   }
 
   genFilter(component) {
-    this.$generateList.filterComponent = component;
+    this.$generateListProps.filterComponent = component;
     return this;
   }
 

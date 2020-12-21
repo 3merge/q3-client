@@ -6,12 +6,7 @@ import Button from '@material-ui/core/Button';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const ButtonWithIcon = ({
-  children,
-  icon: Icon,
-  label,
-  ...rest
-}) => {
+const ButtonWithIcon = ({ icon: Icon, label, ...rest }) => {
   const { t } = useTranslation('labels');
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -20,7 +15,7 @@ const ButtonWithIcon = ({
     <Button
       style={{ margin: '0 .25rem' }}
       aria-label={t(label)}
-      size={matches ? 'regular' : 'small'}
+      size={matches ? 'medium' : 'small'}
       variant="contained"
       elevation={4}
       {...rest}
@@ -37,8 +32,10 @@ const ButtonWithIcon = ({
 };
 
 ButtonWithIcon.propTypes = {
-  children: PropTypes.func.isRequired,
-  icon: PropTypes.node.isRequired,
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]).isRequired,
   label: PropTypes.string.isRequired,
 };
 

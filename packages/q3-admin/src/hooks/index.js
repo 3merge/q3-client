@@ -6,3 +6,4 @@ export { default as useReloadState } from './useReloadState';
 export { default as usePages } from './usePages';
 export { default as useSocket } from './useSocket';
 export { default as useTitle } from './useTitle';
+export { default as useRefresh } from './useRefresh';

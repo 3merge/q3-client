@@ -12,7 +12,7 @@ const WrappedRoute = ({ renderer: Renderer }) => (
 );
 
 const TabsWithRouter = ({ views }) => (
-  <Router primary={false} basePath="*">
+  <Router primary={false}>
     {views.map(({ component: Comp, to }) => (
       <WrappedRoute renderer={Comp} path={to} key={to} />
     ))}

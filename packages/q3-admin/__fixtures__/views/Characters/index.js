@@ -7,7 +7,7 @@ export default new AbstractCollectionBuilder({
   resourceName: 'characters',
   resourceNameSingular: 'character',
   parent: 'entertainment',
-
+  lookup: ['name'],
   resolvers: ({
     id,
     name,

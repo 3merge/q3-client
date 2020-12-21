@@ -20,12 +20,10 @@ import useStyle from './useStyle';
 const Detail = ({
   HeaderProps,
   history,
-  filepath,
   children,
   notes,
   picture,
   files,
-
   documentation,
   links,
   views,
@@ -66,15 +64,7 @@ Detail.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
-  ]).isRequired,
-
-  /**
-   * Will auto-append docmentation to sidebar.
-   */
-  filepath: PropTypes.shape({
-    then: PropTypes.func.isRequired,
-    catch: PropTypes.func.isRequired,
-  }).isRequired,
+  ]),
 
   /**
    * Will auto-append comments to sidebar.
@@ -96,6 +86,7 @@ Detail.defaultProps = {
   notes: false,
   history: false,
   picture: false,
+  children: null,
 };
 
 const withDynamicViews = (Component) => ({
