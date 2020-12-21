@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { array } from 'q3-ui-helpers';
 import { useValue } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'lodash/fp';
@@ -8,13 +9,9 @@ import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
 import Search from './components/Search';
-import { sort, group } from './helper';
+import { sort, group, filter } from './helper';
 import Context from './components/state';
-import { Auth, AddButton, SortForm } from './components';
-
-const testSearchTerm = (val) => (item) =>
-  !val.length ||
-  new RegExp(val, 'gi').test(JSON.stringify(item));
+import { Auth, AddItem, SortForm } from './components';
 
 const useRepeater = (Component) => {
   const Inner = ({
@@ -42,15 +39,10 @@ const useRepeater = (Component) => {
 
     const handleChange = (e) => setSortBy(e.target.value);
 
-    const filter = (xs) =>
-      search.value
-        ? xs.filter(testSearchTerm(search.value))
-        : xs;
-
     const run = compose(
       group(groupBy),
       sort(sortOptions[sortBy]),
-      filter,
+      filter(search.value),
     );
 
     const newData = run(data);
@@ -66,7 +58,7 @@ const useRepeater = (Component) => {
         <Component
           key={key}
           data={xs}
-          tableName={t(key)}
+          groupName={t(key)}
           {...rest}
         >
           {children}
@@ -74,66 +66,56 @@ const useRepeater = (Component) => {
       ));
 
     return (
-      <>
-        <Context.Provider
-          value={{
-            auth,
-            name,
-            collectionName,
-            multiselect,
-            edit,
-            editBulk,
-            create,
-            remove,
-            removeBulk,
-            poll,
-          }}
-        >
-          <Search
-            {...search}
-            ids={data.map((item) => item.id)}
-          />
-          <Auth op="Read">
-            <Exports>
-              <Box>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                  flexWrap="wrap"
+      <Context.Provider
+        value={{
+          auth,
+          name,
+          collectionName,
+          multiselect,
+          edit,
+          editBulk,
+          create,
+          remove,
+          removeBulk,
+          poll,
+        }}
+      >
+        <Search
+          {...search}
+          ids={data.map((item) => item.id)}
+        />
+        <Auth op="Read">
+          <Exports>
+            <Box>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                flexWrap="wrap"
+              >
+                <AddItem
+                  addComponent={addComponent}
+                  initialValues={initialValues}
+                  create={create}
+                  {...rest}
                 >
-                  <Auth op="Create">
-                    {addComponent ? (
-                      React.cloneElement(addComponent, {
-                        initialValues,
-                        create,
-                      })
-                    ) : (
-                      <AddButton
-                        create={create}
-                        initialValues={initialValues}
-                        {...rest}
-                      >
-                        {children}
-                      </AddButton>
-                    )}
-                  </Auth>
-                  {sortOptions && (
-                    <SortForm
-                      sortOptions={sortOptions}
-                      sortBy={sortBy}
-                      handleChange={handleChange}
-                    />
-                  )}
-                </Box>
+                  {children}
+                </AddItem>
+                {sortOptions && array.hasLength(data) ? (
+                  <SortForm
+                    sortOptions={sortOptions}
+                    sortBy={sortBy}
+                    handleChange={handleChange}
+                  />
+                ) : null}
               </Box>
-              {Array.isArray(newData)
-                ? renderRepeater()
-                : mapRepeater()}
-            </Exports>
-          </Auth>
-        </Context.Provider>
-      </>
+            </Box>
+            {Array.isArray(newData)
+              ? renderRepeater()
+              : mapRepeater()}
+          </Exports>
+        </Auth>
+      </Context.Provider>
     );
   };
 
@@ -148,7 +130,7 @@ const useRepeater = (Component) => {
     removeBulk: null,
     poll: null,
     groupBy: null,
-    sortOptions: null,
+    sortOptions: [],
   };
 
   Inner.propTypes = {

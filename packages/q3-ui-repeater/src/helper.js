@@ -1,5 +1,12 @@
 import { array } from 'q3-ui-helpers';
 
+const testSearchTerm = (val) => (item) =>
+  !val.length ||
+  new RegExp(val, 'gi').test(JSON.stringify(item));
+
+export const filter = (searchTerm) => (xs) =>
+  searchTerm ? xs.filter(testSearchTerm(searchTerm)) : xs;
+
 export const sort = (obj) => (xs) => {
   if (!array.hasLength(xs) || !obj) return xs;
   const { sortBy, fn = null } = obj;

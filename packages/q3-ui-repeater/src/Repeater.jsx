@@ -19,7 +19,7 @@ const Repeater = ({
   renderNestedTableRow,
   bulkEditorComponent,
   perPage,
-  tableName,
+  groupName,
   ...rest
 }) => {
   const auth = useAuth(collectionName);
@@ -30,7 +30,7 @@ const Repeater = ({
 
   return (
     <Box mt={3}>
-      {tableName && <span>{tableName}</span>}
+      {groupName && <span>{groupName}</span>}
       <Table>
         {list.length > 0 && (
           <List
