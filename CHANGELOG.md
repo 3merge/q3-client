@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.42](https://github.com/3merge/q/compare/v1.24.41...v1.24.42) (2020-12-21)
+
+
+### Bug Fixes
+
+* debounced request rather than match by ID ([822c285](https://github.com/3merge/q/commit/822c285e1a27ccf73a770d347d4d0888dc488176))
+
+
+
+
+
 ## [1.24.41](https://github.com/3merge/q/compare/v1.24.40...v1.24.41) (2020-12-20)
 
 
