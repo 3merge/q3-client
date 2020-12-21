@@ -111,6 +111,7 @@ const useRepeater = (Component) => {
                       />
                     ) : null}
                   </Grid>
+
                   <Grid item>
                     <AddItem
                       addComponent={addComponent}
