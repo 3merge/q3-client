@@ -23,6 +23,24 @@ export const castToUTC = (v) =>
     ? moment.utc(moment(v).toISOString()).toISOString()
     : v;
 
+export const castToBeginning = (v) =>
+  !isUndefined(v)
+    ? moment(v)
+        .set('hour', 0)
+        .set('minute', 0)
+        .set('second', 0)
+        .format('YY-MM-DD HH:mm:ss')
+    : v;
+
+export const castToEnd = (v) =>
+  !isUndefined(v)
+    ? moment(v)
+        .set('hour', 23)
+        .set('minute', 59)
+        .set('second', 59)
+        .format('YY-MM-DD HH:mm:ss')
+    : v;
+
 export const convertToNullish = (v) =>
   string.hasLength(v) ? v : null;
 
