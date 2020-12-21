@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.42](https://github.com/3merge/q/compare/v1.24.41...v1.24.42) (2020-12-21)
+
+**Note:** Version bump only for package example
+
+
+
+
+
 ## [1.24.41](https://github.com/3merge/q/compare/v1.24.40...v1.24.41) (2020-12-20)
 
 **Note:** Version bump only for package example
