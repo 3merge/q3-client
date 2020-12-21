@@ -4,7 +4,6 @@ import Input from '@material-ui/core/Input';
 import Hidden from '@material-ui/core/Hidden';
 import { SelectAll } from 'q3-ui-exports';
 import { useTranslation } from 'react-i18next';
-import RepeaterSearch from './state';
 
 export const SearchContext = React.createContext();
 
@@ -14,9 +13,6 @@ const SearchBar = ({
   onChange,
   value,
 }) => {
-  // const {
-  //   search: { onChange, value },
-  // } = React.useContext(RepeaterSearch);
   const { t } = useTranslation('labels');
 
   return (
