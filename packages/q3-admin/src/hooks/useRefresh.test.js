@@ -68,30 +68,37 @@ describe('useRefresh', () => {
     shouldHaveBeenCalledWithCollection(leave);
   });
 
-  it('should poll', () => {
+  it('should poll', (done) => {
     const poll = jest.fn().mockResolvedValue({});
     useContext.mockReturnValue({
       join,
       watch,
     });
 
-    useRefresh(poll);
+    useRefresh(poll, 9);
     watch.mock.calls[0][0]('3');
-    expect(poll).toHaveBeenCalledWith('?sort=name');
+
+    setTimeout(() => {
+      expect(poll).toHaveBeenCalledWith('?sort=name');
+      done();
+    }, 10);
   });
 
-  it('should debounce', () => {
+  it('should debounce', (done) => {
     const poll = jest.fn().mockResolvedValue({});
     useContext.mockReturnValue({
       join,
       watch,
     });
 
-    useRefresh(poll, []);
-    Array.from({ length: 10 }).forEach((item, i) =>
-      watch.mock.calls[0][0](i + 1),
+    useRefresh(poll, 9);
+    Array.from({ length: 10 }).forEach(() =>
+      watch.mock.calls[0][0](),
     );
 
-    expect(poll).toHaveBeenCalledTimes(1);
+    setTimeout(() => {
+      expect(poll).toHaveBeenCalledTimes(1);
+      done();
+    }, 10);
   });
 });

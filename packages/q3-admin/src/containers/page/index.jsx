@@ -102,7 +102,7 @@ const Page = ({
     { ...state, url },
   );
 
-  useRefresh(poll, data);
+  useRefresh(poll);
 
   return (
     <PageChildren

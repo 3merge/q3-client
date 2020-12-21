@@ -1,41 +1,12 @@
 import React from 'react';
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 import { browser } from 'q3-ui-helpers';
 import { Definitions } from '../containers/state';
 import { SocketContext } from '../containers/Socket';
 
-const REFRESH_NAME = 'Q3_REFRESH';
-
 const noop = () => null;
-const joinIds = (a = []) => a.map(({ id }) => id).join(',');
 
-const addToStorage = (data) => {
-  if (Array.isArray(data))
-    browser.proxySessionStorageApi(
-      'setItem',
-      REFRESH_NAME,
-      joinIds(data),
-    );
-};
-
-const hasInStorage = (refreshId) => {
-  const s = browser.proxySessionStorageApi(
-    'getItem',
-    REFRESH_NAME,
-  );
-
-  return typeof s === 'string'
-    ? s.includes(refreshId)
-    : false;
-};
-
-const removeFromStorage = () =>
-  browser.proxySessionStorageApi(
-    'removeItem',
-    REFRESH_NAME,
-  );
-
-export default (onChange, data) => {
+export default (onChange, debounceValue = 15000) => {
   const ctx = React.useContext(SocketContext);
   if (!ctx || !ctx.join) return;
 
@@ -48,20 +19,13 @@ export default (onChange, data) => {
 
   let fn = onChange;
 
-  const handleWatch = throttle(
-    (refreshId) =>
-      fn &&
-      browser.isBrowserReady() &&
-      hasInStorage(refreshId)
+  const handleWatch = debounce(
+    () =>
+      fn && browser.isBrowserReady()
         ? fn(window.location.search).then(noop).catch(noop)
         : null,
-    1500,
+    debounceValue,
   );
-
-  React.useEffect(() => {
-    addToStorage(data);
-    return removeFromStorage;
-  }, [data]);
 
   React.useEffect(() => {
     if (id) return undefined;
