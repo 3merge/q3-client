@@ -7,6 +7,10 @@ import {
 import Repeater from '../support';
 import rows from '../../../q3-ui-datatables/__fixtures__/orders';
 export const isEven = (item) => Number(item.seq) % 2 === 0;
+export const isSeq = (item) => {
+  console.log(item);
+  return Number(item.seq) === 211;
+};
 
 <Meta title="Repeater/Repeater" component={Repeater} />
 
@@ -23,7 +27,10 @@ export const isEven = (item) => Number(item.seq) % 2 === 0;
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={15}
-      groupBy={{ label: 'Evens', fn: isEven }}
+      groupBy={[
+        { label: 'Evens', fn: isEven },
+        { label: '211', fn: isSeq },
+      ]}
       sortOptions={[
         { sortBy: 'id' },
         { sortBy: 'firstName' },

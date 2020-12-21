@@ -1,5 +1,22 @@
 import { list } from '../__fixtures__/seed/rows';
-import { group, sort } from './helper';
+import {
+  group,
+  sort,
+  genNewShape,
+  wouldWork,
+} from './helper';
+
+test('should create groups', () => {
+  const groupBy = [
+    { label: 'Left', fn: () => {} },
+    { label: 'Right', fn: () => {} },
+  ];
+  expect(genNewShape(groupBy)).toEqual({
+    other: [],
+    Left: [],
+    Right: [],
+  });
+});
 
 test('should group data', () => {
   const groupBy = { label: 'F', fn: (x) => x.name === 'f' };
@@ -12,7 +29,19 @@ test('should group data', () => {
   });
 });
 
-test.only('should everything is in "other"', () => {
+test('should divide into multiple groups', () => {
+  const groupBy = [
+    { label: 'Left', fn: (x) => x.name === 'e' },
+    { label: 'Right', fn: (x) => x.name === 'g' },
+  ];
+  expect(wouldWork(groupBy, list)).toEqual({
+    Left: [{ id: 2, name: 'e' }],
+    Right: [{ id: 1, name: 'g' }],
+    other: [{ id: 3, name: 'f' }],
+  });
+});
+
+test('should everything is in "other"', () => {
   const groupBy = {
     label: 'F',
     fn: (x) => typeof x.name === 'object',

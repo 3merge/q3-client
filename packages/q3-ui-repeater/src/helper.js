@@ -33,3 +33,33 @@ export const group = (obj) => (xs) =>
         },
         { [obj.label]: [], [OTHER]: [] },
       );
+
+export const genNewShape = (groupBy) => {
+  const base = groupBy.reduce((acc, option) => {
+    acc[option.label] = [];
+    return acc;
+  }, {});
+  return { ...base, [OTHER]: [] };
+};
+
+export const wouldWork = (groupBy) => (xs) => {
+  const empty = genNewShape(groupBy);
+
+  return xs.reduce((acc, x) => {
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < groupBy.length; i++) {
+      const { label, fn } = groupBy[i];
+      if (groupBy.length === i + 1) {
+        // eslint-disable-next-line mdx/no-unused-expressions
+        fn(x) ? acc[label].push(x) : acc[OTHER].push(x);
+        break;
+      }
+      if (fn(x)) {
+        acc[label].push(x);
+        break;
+      }
+    }
+    // eslint-disable-next-line consistent-return
+    return acc;
+  }, empty);
+};
