@@ -21,8 +21,7 @@ export default makeStyles((theme) => ({
 
   titleCls: {
     color: theme.palette.primary.light,
-    fontWeight: '600',
-    fontSize: '0.91rem !important',
+    fontSize: '.911rem !important',
     margin: '0 0 .25rem 0 !important',
   },
 
@@ -68,11 +67,15 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
-    padding: 0,
+    padding: '.25rem',
+    //  width: '15%',
 
     [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      alignItems: 'center',
       display: 'grid',
       gridTemplateColumns: '120px 1fr',
+      lineHeight: 2,
       border: '0 !important',
 
       '& >div': {
@@ -86,19 +89,20 @@ export default makeStyles((theme) => ({
 
   tableCellHeader: {
     display: 'table-cell',
+    padding: '1rem 0',
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       border: 0,
       padding: 0,
+      margin: '1rem 0',
     },
   },
 
-  tableCellActions: {
-    display: 'table-cell',
+  tableActions: {
+    textAlign: 'right',
+    minWidth: 200,
     [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      border: 0,
-      padding: theme.spacing(1),
+      display: 'block !important',
     },
   },
 

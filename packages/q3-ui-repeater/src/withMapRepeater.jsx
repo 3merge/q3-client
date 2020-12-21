@@ -4,7 +4,7 @@ import { array } from 'q3-ui-helpers';
 import { useValue } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'lodash/fp';
-import { Box } from '@material-ui/core';
+import { Box, Paper, Grid } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
@@ -58,6 +58,7 @@ const useRepeater = (Component) => {
         <Component
           key={key}
           data={xs}
+          ids={data.map((item) => item.id)}
           groupName={t(key)}
           {...rest}
         >
@@ -80,36 +81,53 @@ const useRepeater = (Component) => {
           poll,
         }}
       >
-        <Search
-          {...search}
-          ids={data.map((item) => item.id)}
-        />
+        <Paper
+          elevation={0}
+          style={{ top: 0, position: 'sticky', zIndex: 10 }}
+        >
+          <Box px={2}>
+            <Grid
+              alignItems="center"
+              container
+              justify="space-between"
+            >
+              <Grid item xs style={{ flex: 1 }}>
+                <Search {...search} />
+              </Grid>
+              <Grid item>
+                <Grid
+                  alignItems="center"
+                  container
+                  justify="flex-end"
+                  spacing={1}
+                >
+                  <Grid item>
+                    {sortOptions &&
+                    array.hasLength(data) ? (
+                      <SortForm
+                        sortOptions={sortOptions}
+                        sortBy={sortBy}
+                        handleChange={handleChange}
+                      />
+                    ) : null}
+                  </Grid>
+                  <Grid item>
+                    <AddItem
+                      addComponent={addComponent}
+                      initialValues={initialValues}
+                      create={create}
+                      {...rest}
+                    >
+                      {children}
+                    </AddItem>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+        </Paper>
         <Auth op="Read">
           <Exports>
-            <Box>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                flexWrap="wrap"
-              >
-                <AddItem
-                  addComponent={addComponent}
-                  initialValues={initialValues}
-                  create={create}
-                  {...rest}
-                >
-                  {children}
-                </AddItem>
-                {sortOptions && array.hasLength(data) ? (
-                  <SortForm
-                    sortOptions={sortOptions}
-                    sortBy={sortBy}
-                    handleChange={handleChange}
-                  />
-                ) : null}
-              </Box>
-            </Box>
             {Array.isArray(newData)
               ? renderRepeater()
               : mapRepeater()}

@@ -19,19 +19,25 @@ const Attributes = ({
 
   return attributes.map((attribute) => (
     <TableCell className={tableCell} key={attribute}>
-      <Grid container disableGutters>
-        <Hidden mdUp>
-          <Grid item style={{ marginLeft: '0.5rem' }}>
-            <Typography
-              style={{
-                fontWeight: 'bold',
-                fontSize: '0.75rem',
-              }}
-            >
-              {t(attribute)}:
-            </Typography>
-          </Grid>
-        </Hidden>
+      <Grid
+        alignItems="center"
+        container
+        disableGutters
+        justify="center"
+      >
+        <Grid item md={12}>
+          <div
+            style={{
+              fontSize: '.624rem',
+              fontWeight: 'bold',
+              color: '#a8a8a8',
+              textTransform: 'uppercase',
+              textAlign: 'center',
+            }}
+          >
+            {t(attribute)}
+          </div>
+        </Grid>{' '}
         <Grid item>
           <Component
             editable={isIn(attribute)}

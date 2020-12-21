@@ -34,7 +34,7 @@ const List = ({
 
   return (
     <>
-      <TableHead>
+      {/* <TableHead>
         <TableRow>
           <TableCell />
           <ActionBar
@@ -54,7 +54,7 @@ const List = ({
             }
           />
         </TableRow>
-      </TableHead>
+      </TableHead> */}
       <TableBody>
         {data.map((item, i) => (
           <NestedItem

@@ -15,8 +15,8 @@ const SortForm = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <Box p={1.5}>
-      <FormControl>
+    <Box p={1.5} width={165}>
+      <FormControl fullWidth>
         <InputLabel htmlFor="name-native-error">
           {t('sortBy')}
         </InputLabel>

@@ -36,41 +36,39 @@ const ItemHeader = ({
 
   return (
     <TableCell className={tableCellHeader}>
-      <Box my={1.25} px={0.5} maxWidth="375px">
-        <Grid alignItems="center" container spacing={1}>
-          {showMultiselect && (
-            <Hidden smDown>
-              <Grid item>
-                <SelectOne id={id} />
-              </Grid>
-            </Hidden>
-          )}
-          {icon && <Grid item>{icon(item)}</Grid>}
-          {photo && (
+      <Grid alignItems="center" container spacing={1}>
+        {showMultiselect && (
+          <Hidden smDown>
             <Grid item>
-              <Avatar src={photo} alt={title} />
+              <SelectOne id={id} />
             </Grid>
-          )}
-          <Grid item xs zeroMinWidth>
-            <Title
-              component="h4"
-              color="primary"
-              name={title}
-              editable={isIn(title)}
-              className={titleCls}
-            />
-            {description && (
-              <Typography
-                style={{
-                  fontSize: '0.901rem',
-                }}
-              >
-                {description}
-              </Typography>
-            )}
+          </Hidden>
+        )}
+        {icon && <Grid item>{icon(item)}</Grid>}
+        {photo && (
+          <Grid item>
+            <Avatar src={photo} alt={title} />
           </Grid>
+        )}
+        <Grid item xs zeroMinWidth>
+          <Title
+            component="h4"
+            color="primary"
+            name={title}
+            editable={isIn(title)}
+            className={titleCls}
+          />
+          {description && (
+            <Typography
+              style={{
+                fontSize: '0.833rem',
+              }}
+            >
+              {description}
+            </Typography>
+          )}
         </Grid>
-      </Box>
+      </Grid>
     </TableCell>
   );
 };

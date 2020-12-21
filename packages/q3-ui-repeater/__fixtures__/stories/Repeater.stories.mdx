@@ -5,8 +5,8 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
-import rows from '../seed/rows';
-export const isEven = (x) => x.id % 2 === 0;
+import rows from '../../../q3-ui-datatables/__fixtures__/orders';
+export const isEven = (item) => Number(item.seq) % 2 === 0;
 
 <Meta title="Repeater/Repeater" component={Repeater} />
 
@@ -22,15 +22,15 @@ export const isEven = (x) => x.id % 2 === 0;
     <Repeater
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
-      perPage={3}
+      perPage={15}
       groupBy={{ label: 'Evens', fn: isEven }}
       sortOptions={[
         { sortBy: 'id' },
         { sortBy: 'firstName' },
       ]}
       cardProps={{
-        title: 'firstName',
-        attributes: ['firstName', 'id', 'age'],
+        title: 'seq',
+        attributes: ['for.name', 'id', 'age'],
         editable: {
           position: {
             renderer: () => <div>Something custom!</div>,

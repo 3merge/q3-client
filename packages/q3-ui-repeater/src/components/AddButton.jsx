@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from 'q3-ui-dialog';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
-import useStyle from './useStyle';
 
 const ForwardProps = ({ children, ...rest }) =>
   React.cloneElement(children, rest);
@@ -17,36 +15,20 @@ const AddButtonTableRow = (props) => (
   </Box>
 );
 
-export const AddButtonTrigger = ({
-  onClick,
-  title,
-  description,
-}) => {
-  const { addBtn, titleCls } = useStyle();
+export const AddButtonTrigger = ({ onClick, title }) => {
   const { t } = useTranslation();
 
   return (
-    <Box id="q3-repeater-add-button">
-      <Grid
-        container
-        role="button"
-        tabIndex={-1}
-        spacing={1}
+    <Box id="q3-repeater-add-button" width={125}>
+      <Button
+        color="primary"
         onClick={onClick}
-        className={addBtn}
+        variant="contained"
+        fullWidth
       >
-        <Grid item>
-          <Add />
-        </Grid>
-        <Grid item xs zeroMinWidth>
-          <Typography className={titleCls}>
-            {t(`titles:${title}`)}
-          </Typography>
-          <Typography>
-            {t(`descriptions:${description}`)}
-          </Typography>
-        </Grid>
-      </Grid>
+        <Add style={{ marginRight: '.25rem' }} />
+        {t('labels:new')}
+      </Button>
     </Box>
   );
 };

@@ -7,6 +7,7 @@ import Up from '@material-ui/icons/KeyboardArrowUp';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TableCell from '@material-ui/core/TableCell';
 import LaunchIcon from '@material-ui/icons/Launch';
+import classnames from 'classnames';
 import EditorDrawer from './EditorDrawer';
 import DeleteModal from './DeleteModal';
 import RepeaterState from './state';
@@ -116,14 +117,13 @@ const ItemActions = ({
   linkTo,
   linkToLabel,
 }) => {
-  const { tableCellActions } = useStyle();
+  const { tableCell, tableActions } = useStyle();
   const data = parent[currentIndex];
   const { id } = data;
 
   return (
     <TableCell
-      className={tableCellActions}
-      style={{ textAlign: 'right' }}
+      className={classnames(tableCell, tableActions)}
     >
       {renderNestedTableRow && (
         <IconButton

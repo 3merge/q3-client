@@ -33,7 +33,9 @@ export default ({ data, ...sharedProps }) => ({
       fieldProps: {
         name: prefix,
         style: {
-          fontSize: '0.901rem',
+          fontSize: '0.833rem',
+          fontWeight: 'bold',
+          lineHeight: 1,
         },
         ...editable,
       },
