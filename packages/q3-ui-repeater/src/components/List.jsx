@@ -8,8 +8,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
-import RepeaterState from './state';
-import Search from './Search';
 import NestedItem from './NestedItem';
 import ActionBar from './ActionBar';
 
@@ -25,10 +23,6 @@ const List = ({
   renderNestedTableRow,
   ...rest
 }) => {
-  // const {
-  //   search: { value },
-  // } = React.useContext(RepeaterState);
-
   const { t } = useTranslation('labels');
 
   const theme = useTheme();
@@ -38,28 +32,10 @@ const List = ({
 
   const attributes = get(rest, 'cardProps.attributes', []);
 
-  // const testSearchTerm = (item) =>
-  //   !value.length ||
-  //   new RegExp(value, 'gi').test(JSON.stringify(item));
-
-  // const filtered = data.filter(testSearchTerm);
-
   return (
     <>
       <TableHead>
         <TableRow>
-          {/* <TableCell
-            style={{
-              borderBottom: !showAttributes
-                ? 'none !important'
-                : undefined,
-            }}
-          >
-            <Search
-              {...rest}
-              ids={filtered.map((item) => item.id)}
-            />
-          </TableCell> */}
           <TableCell />
           <ActionBar
             data={data}
