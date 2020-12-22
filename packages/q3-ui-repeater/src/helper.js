@@ -8,7 +8,7 @@ export const search = (searchTerm) => (xs) =>
   searchTerm ? xs.filter(testSearchTerm(searchTerm)) : xs;
 
 export const filter = (obj) => (xs) => {
-  if (!array.hasLength(xs) || !obj) return xs;
+  if (!array.hasLength(xs) || !obj || !obj.fn) return xs;
   return xs.filter(obj.fn);
 };
 

@@ -19,14 +19,14 @@ export const AddButtonTrigger = ({ onClick, title }) => {
   const { t } = useTranslation();
 
   return (
-    <Box id="q3-repeater-add-button" width={125}>
+    <Box id="q3-repeater-add-button">
       <Button
         color="primary"
         onClick={onClick}
         variant="contained"
         fullWidth
       >
-        <Add style={{ marginRight: '.25rem' }} />
+        <Add />
         {t('labels:new')}
       </Button>
     </Box>

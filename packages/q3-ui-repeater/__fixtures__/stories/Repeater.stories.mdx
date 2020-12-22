@@ -32,7 +32,8 @@ export const isSeq = (item) => Number(item.seq) === 211;
         { label: 'seq' },
         { label: 'firstName' },
       ]}
-      filters={[
+      filterOptions={[
+        { label: 'All' },
         {
           label: 'SEQ 211',
           fn: (x) => Number(x.seq) === 211,
