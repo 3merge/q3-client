@@ -9,9 +9,9 @@ import {
 } from '@material-ui/core';
 
 const SortForm = ({
-  inputLabel,
   options,
-  by,
+  label,
+  value,
   handleChange,
 }) => {
   const { t } = useTranslation();
@@ -20,25 +20,21 @@ const SortForm = ({
       <FormControl fullWidth>
         <TextField
           select
-          label={inputLabel}
+          label={label}
           size="small"
           margin="none"
           fullWidth
           variant="outlined"
-          value={by}
+          value={value}
           onChange={handleChange}
           inputProps={{
             name: t('by'),
             id: 'sort',
           }}
         >
-          {options.map(({ label }, i) => (
-            <MenuItem
-              value={i}
-              key={label}
-              aria-label={label}
-            >
-              {t(label)}
+          {options.map(({ label: key }, i) => (
+            <MenuItem value={i} key={key} aria-label={key}>
+              {t(key)}
             </MenuItem>
           ))}
         </TextField>
@@ -48,14 +44,12 @@ const SortForm = ({
 };
 
 SortForm.propTypes = {
-  inputLabel: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       fn: PropTypes.func,
     }),
   ).isRequired,
-  by: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

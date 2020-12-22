@@ -12,7 +12,26 @@ import Search from './components/Search';
 import { filter, sort, search, group } from './helper';
 import Context from './components/state';
 import { Auth, AddItem, SelectForm } from './components';
-import useSelect from './useSelect';
+import withReducer from './withReducer';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'filterBy':
+      return {
+        ...state,
+        filterBy: action.index,
+      };
+
+    case 'sortBy':
+      return {
+        ...state,
+        sortBy: action.index,
+      };
+
+    default:
+      return state;
+  }
+};
 
 const useRepeater = (Component) => {
   const Inner = ({
@@ -33,8 +52,11 @@ const useRepeater = (Component) => {
     poll,
     ...rest
   }) => {
-    const [sortBy, handleSort] = useSelect(0);
-    const [filterBy, handleFilter] = useSelect(0);
+    const [state, dispatch] = React.useReducer(reducer, {
+      sortBy: 0,
+      filterBy: 0,
+    });
+
     const auth = useAuth(collectionName);
     const multiselect = useChecked();
     const searchObj = useValue('');
@@ -42,12 +64,14 @@ const useRepeater = (Component) => {
 
     const run = compose(
       group(groupBy),
-      sort(sortOptions[sortBy]),
-      filter(filters[filterBy]),
+      sort(sortOptions[state.sortBy]),
+      filter(filters[state.filterBy]),
       search(searchObj.value),
     );
 
     const newData = run(data);
+
+    const Form = withReducer(SelectForm, [state, dispatch]);
 
     const renderRepeater = () => (
       <Component data={newData} {...rest}>
@@ -103,27 +127,15 @@ const useRepeater = (Component) => {
                   justify="flex-end"
                   spacing={1}
                 >
-                  {filters && (
-                    <Grid item>
-                      <SelectForm
-                        options={filters}
-                        by={filterBy}
-                        handleChange={handleFilter}
-                        inputLabel={t('filterBy')}
-                      />
-                    </Grid>
-                  )}
-                  {sortOptions && array.hasLength(data) ? (
-                    <Grid item>
-                      <SelectForm
-                        options={sortOptions}
-                        by={sortBy}
-                        handleChange={handleSort}
-                        inputLabel={t('sortBy')}
-                      />
-                    </Grid>
-                  ) : null}
-
+                  <Form
+                    options={filters}
+                    label="filterBy"
+                  />
+                  <Form
+                    options={sortOptions}
+                    label="sortBy"
+                    data={data}
+                  />
                   <Grid item>
                     <AddItem
                       addComponent={addComponent}
