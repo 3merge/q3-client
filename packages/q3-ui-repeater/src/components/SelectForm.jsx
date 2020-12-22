@@ -5,38 +5,34 @@ import {
   Box,
   FormControl,
   MenuItem,
-  InputLabel,
-  NativeSelect,
   TextField,
-  Select,
 } from '@material-ui/core';
 
 const SortForm = ({
-  sortOptions,
-  sortBy,
+  inputLabel,
+  options,
+  by,
   handleChange,
 }) => {
   const { t } = useTranslation();
   return (
     <Box p={1.5} width={165}>
       <FormControl fullWidth>
-        {/* <InputLabel htmlFor="name-native-error">
-          {t('sortBy')}
-        </InputLabel> */}
         <TextField
           select
+          label={inputLabel}
           size="small"
           margin="none"
           fullWidth
           variant="outlined"
-          value={sortBy}
+          value={by}
           onChange={handleChange}
           inputProps={{
-            name: t('sortBy'),
+            name: t('by'),
             id: 'sort',
           }}
         >
-          {sortOptions.map(({ sortBy: label }, i) => (
+          {options.map(({ label }, i) => (
             <MenuItem
               value={i}
               key={label}
@@ -52,13 +48,14 @@ const SortForm = ({
 };
 
 SortForm.propTypes = {
-  sortOptions: PropTypes.arrayOf(
+  inputLabel: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
     PropTypes.shape({
-      sortBy: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       fn: PropTypes.func,
     }),
   ).isRequired,
-  sortBy: PropTypes.number.isRequired,
+  by: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

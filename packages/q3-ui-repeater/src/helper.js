@@ -4,17 +4,21 @@ const testSearchTerm = (val) => (item) =>
   !val.length ||
   new RegExp(val, 'gi').test(JSON.stringify(item));
 
-export const filter = (searchTerm) => (xs) =>
+export const search = (searchTerm) => (xs) =>
   searchTerm ? xs.filter(testSearchTerm(searchTerm)) : xs;
+
+export const filter = (obj) => (xs) => {
+  if (!array.hasLength(xs) || !obj) return xs;
+  return xs.filter(obj.fn);
+};
 
 export const sort = (obj) => (xs) => {
   if (!array.hasLength(xs) || !obj) return xs;
-  const { sortBy, fn = null } = obj;
+  const { label, fn = null } = obj;
   const callback =
-    typeof xs[0][sortBy] === 'string'
-      ? fn || ((a, b) => a[sortBy].localeCompare(b[sortBy]))
-      : fn || ((a, b) => a[sortBy] - b[sortBy]);
-
+    typeof xs[0][label] === 'string'
+      ? fn || ((a, b) => a[label].localeCompare(b[label]))
+      : fn || ((a, b) => a[label] - b[label]);
   return xs.slice().sort(callback);
 };
 

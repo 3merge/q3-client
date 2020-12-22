@@ -29,8 +29,18 @@ export const isSeq = (item) => Number(item.seq) === 211;
         { label: '211', fn: isSeq },
       ]}
       sortOptions={[
-        { sortBy: 'seq' },
-        { sortBy: 'firstName' },
+        { label: 'seq' },
+        { label: 'firstName' },
+      ]}
+      filters={[
+        {
+          label: 'SEQ 211',
+          fn: (x) => Number(x.seq) === 211,
+        },
+        {
+          label: 'Not SEQ 211',
+          fn: (x) => Number(x.seq) !== 211,
+        },
       ]}
       cardProps={{
         title: 'seq',

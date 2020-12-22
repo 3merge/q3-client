@@ -9,9 +9,10 @@ import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
 import Search from './components/Search';
-import { sort, filter, group } from './helper';
+import { filter, sort, search, group } from './helper';
 import Context from './components/state';
-import { Auth, AddItem, SortForm } from './components';
+import { Auth, AddItem, SelectForm } from './components';
+import useSelect from './useSelect';
 
 const useRepeater = (Component) => {
   const Inner = ({
@@ -21,6 +22,7 @@ const useRepeater = (Component) => {
     data,
     children,
     groupBy,
+    filters,
     sortOptions,
     collectionName,
     edit,
@@ -31,18 +33,18 @@ const useRepeater = (Component) => {
     poll,
     ...rest
   }) => {
-    const [sortBy, setSortBy] = React.useState(0);
+    const [sortBy, handleSort] = useSelect(0);
+    const [filterBy, handleFilter] = useSelect(0);
     const auth = useAuth(collectionName);
     const multiselect = useChecked();
-    const search = useValue('');
+    const searchObj = useValue('');
     const { t } = useTranslation();
-
-    const handleChange = (e) => setSortBy(e.target.value);
 
     const run = compose(
       group(groupBy),
       sort(sortOptions[sortBy]),
-      filter(search.value),
+      filter(filters[filterBy]),
+      search(searchObj.value),
     );
 
     const newData = run(data);
@@ -92,7 +94,7 @@ const useRepeater = (Component) => {
               justify="space-between"
             >
               <Grid item xs style={{ flex: 1 }}>
-                <Search {...search} />
+                <Search {...searchObj} />
               </Grid>
               <Grid item>
                 <Grid
@@ -101,16 +103,26 @@ const useRepeater = (Component) => {
                   justify="flex-end"
                   spacing={1}
                 >
-                  <Grid item>
-                    {sortOptions &&
-                    array.hasLength(data) ? (
-                      <SortForm
-                        sortOptions={sortOptions}
-                        sortBy={sortBy}
-                        handleChange={handleChange}
+                  {filters && (
+                    <Grid item>
+                      <SelectForm
+                        options={filters}
+                        by={filterBy}
+                        handleChange={handleFilter}
+                        inputLabel={t('filterBy')}
                       />
-                    ) : null}
-                  </Grid>
+                    </Grid>
+                  )}
+                  {sortOptions && array.hasLength(data) ? (
+                    <Grid item>
+                      <SelectForm
+                        options={sortOptions}
+                        by={sortBy}
+                        handleChange={handleSort}
+                        inputLabel={t('sortBy')}
+                      />
+                    </Grid>
+                  ) : null}
 
                   <Grid item>
                     <AddItem
@@ -167,14 +179,16 @@ const useRepeater = (Component) => {
     children: PropTypes.node.isRequired,
     sortOptions: PropTypes.arrayOf(
       PropTypes.shape({
-        sortBy: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
         fn: PropTypes.func,
       }),
     ),
-    groupBy: PropTypes.shape({
-      groupBy: PropTypes.string.isRequired,
-      fn: PropTypes.func,
-    }),
+    groupBy: PropTypes.arrayOf(
+      PropTypes.shape({
+        groupBy: PropTypes.string.isRequired,
+        fn: PropTypes.func,
+      }),
+    ),
   };
 
   return Inner;
