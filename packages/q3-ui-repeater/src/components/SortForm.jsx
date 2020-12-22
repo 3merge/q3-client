@@ -4,8 +4,11 @@ import { useTranslation } from 'react-i18next';
 import {
   Box,
   FormControl,
+  MenuItem,
   InputLabel,
   NativeSelect,
+  TextField,
+  Select,
 } from '@material-ui/core';
 
 const SortForm = ({
@@ -17,11 +20,15 @@ const SortForm = ({
   return (
     <Box p={1.5} width={165}>
       <FormControl fullWidth>
-        <InputLabel htmlFor="name-native-error">
+        {/* <InputLabel htmlFor="name-native-error">
           {t('sortBy')}
-        </InputLabel>
-        <NativeSelect
+        </InputLabel> */}
+        <TextField
+          select
+          size="small"
+          margin="none"
           fullWidth
+          variant="outlined"
           value={sortBy}
           onChange={handleChange}
           inputProps={{
@@ -30,15 +37,15 @@ const SortForm = ({
           }}
         >
           {sortOptions.map(({ sortBy: label }, i) => (
-            <option
+            <MenuItem
               value={i}
               key={label}
               aria-label={label}
             >
               {t(label)}
-            </option>
+            </MenuItem>
           ))}
-        </NativeSelect>
+        </TextField>
       </FormControl>
     </Box>
   );

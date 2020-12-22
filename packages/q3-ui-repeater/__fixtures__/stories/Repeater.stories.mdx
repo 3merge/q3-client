@@ -7,10 +7,7 @@ import {
 import Repeater from '../support';
 import rows from '../../../q3-ui-datatables/__fixtures__/orders';
 export const isEven = (item) => Number(item.seq) % 2 === 0;
-export const isSeq = (item) => {
-  console.log(item);
-  return Number(item.seq) === 211;
-};
+export const isSeq = (item) => Number(item.seq) === 211;
 
 <Meta title="Repeater/Repeater" component={Repeater} />
 
@@ -32,7 +29,7 @@ export const isSeq = (item) => {
         { label: '211', fn: isSeq },
       ]}
       sortOptions={[
-        { sortBy: 'id' },
+        { sortBy: 'seq' },
         { sortBy: 'firstName' },
       ]}
       cardProps={{

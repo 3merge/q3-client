@@ -34,7 +34,6 @@ const Repeater = ({
 
   return (
     <Accordion
-      TransitionProps={{ unmountOnExit: true }}
       defaultExpanded
       style={{
         boxShadow: 'none',

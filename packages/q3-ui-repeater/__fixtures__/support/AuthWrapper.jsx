@@ -19,16 +19,6 @@ export default (Component) => (props) => {
     ...rows,
     ...rows,
     ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
-    ...rows,
   ]);
 
   const nextStateWithNewProp = (nextState) => {

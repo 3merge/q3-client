@@ -20,20 +20,6 @@ export const sort = (obj) => (xs) => {
 
 const OTHER = 'other';
 
-export const group = (obj) => (xs) =>
-  !array.hasLength(xs) || !obj
-    ? xs
-    : xs.reduce(
-        (acc, x) => {
-          // eslint-disable-next-line mdx/no-unused-expressions
-          obj.fn(x)
-            ? acc[obj.label].push(x)
-            : acc[OTHER].push(x);
-          return acc;
-        },
-        { [obj.label]: [], [OTHER]: [] },
-      );
-
 export const genNewShape = (groupBy) => {
   const base = groupBy.reduce((acc, option) => {
     acc[option.label] = [];
@@ -42,24 +28,22 @@ export const genNewShape = (groupBy) => {
   return { ...base, [OTHER]: [] };
 };
 
-export const wouldWork = (groupBy) => (xs) => {
-  const empty = genNewShape(groupBy);
+export const group = (groupBy) => (xs) => {
+  if (!array.hasLength(groupBy) || !array.hasLength(xs))
+    return xs;
 
   return xs.reduce((acc, x) => {
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < groupBy.length; i++) {
-      const { label, fn } = groupBy[i];
-      if (groupBy.length === i + 1) {
-        // eslint-disable-next-line mdx/no-unused-expressions
-        fn(x) ? acc[label].push(x) : acc[OTHER].push(x);
-        break;
-      }
+    // eslint-disable-next-line array-callback-return
+    const wasTrue = groupBy.some(({ label, fn }) => {
       if (fn(x)) {
         acc[label].push(x);
-        break;
+        return true;
       }
+      return false;
+    });
+    if (!wasTrue) {
+      acc[OTHER].push(x);
     }
-    // eslint-disable-next-line consistent-return
     return acc;
-  }, empty);
+  }, genNewShape(groupBy));
 };

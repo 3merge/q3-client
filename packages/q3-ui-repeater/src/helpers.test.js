@@ -1,10 +1,5 @@
 import { list } from '../__fixtures__/seed/rows';
-import {
-  group,
-  sort,
-  genNewShape,
-  wouldWork,
-} from './helper';
+import { group, sort, genNewShape } from './helper';
 
 test('should create groups', () => {
   const groupBy = [
@@ -19,7 +14,9 @@ test('should create groups', () => {
 });
 
 test('should group data', () => {
-  const groupBy = { label: 'F', fn: (x) => x.name === 'f' };
+  const groupBy = [
+    { label: 'F', fn: (x) => x.name === 'f' },
+  ];
   expect(group(groupBy)(list)).toEqual({
     F: [{ id: 3, name: 'f' }],
     other: [
@@ -34,7 +31,7 @@ test('should divide into multiple groups', () => {
     { label: 'Left', fn: (x) => x.name === 'e' },
     { label: 'Right', fn: (x) => x.name === 'g' },
   ];
-  expect(wouldWork(groupBy, list)).toEqual({
+  expect(group(groupBy)(list)).toEqual({
     Left: [{ id: 2, name: 'e' }],
     Right: [{ id: 1, name: 'g' }],
     other: [{ id: 3, name: 'f' }],
@@ -42,10 +39,12 @@ test('should divide into multiple groups', () => {
 });
 
 test('should everything is in "other"', () => {
-  const groupBy = {
-    label: 'F',
-    fn: (x) => typeof x.name === 'object',
-  };
+  const groupBy = [
+    {
+      label: 'F',
+      fn: (x) => typeof x.name === 'object',
+    },
+  ];
   expect(group(groupBy)(list)).toEqual({
     F: [],
     other: [

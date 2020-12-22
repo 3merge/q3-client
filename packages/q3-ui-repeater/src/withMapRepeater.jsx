@@ -9,7 +9,7 @@ import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
 import Search from './components/Search';
-import { sort, group, filter, wouldWork } from './helper';
+import { sort, filter, group } from './helper';
 import Context from './components/state';
 import { Auth, AddItem, SortForm } from './components';
 
@@ -40,7 +40,7 @@ const useRepeater = (Component) => {
     const handleChange = (e) => setSortBy(e.target.value);
 
     const run = compose(
-      wouldWork(groupBy),
+      group(groupBy),
       sort(sortOptions[sortBy]),
       filter(search.value),
     );
@@ -129,7 +129,7 @@ const useRepeater = (Component) => {
         </Paper>
         <Auth op="Read">
           <Exports>
-            {Array.isArray(newData)
+            {Array.isArray(newData) && array.hasLength(data)
               ? renderRepeater()
               : mapRepeater()}
           </Exports>
