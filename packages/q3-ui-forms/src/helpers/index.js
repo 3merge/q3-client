@@ -23,7 +23,7 @@ export const castToUTC = (v) =>
     ? moment.utc(moment(v).toISOString()).toISOString()
     : v;
 
-const addTime = (set) => (v) =>
+export const addTime = (set) => (v) =>
   !isUndefined(v)
     ? moment(v).set(set).format('YY-MM-DD HH:mm:ss')
     : v;
