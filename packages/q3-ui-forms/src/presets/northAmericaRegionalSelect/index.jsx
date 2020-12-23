@@ -92,6 +92,7 @@ const NorthAmericaRegionalSelect = (props) => (
           name="region"
           type="select"
           required
+          runOnChange={['country']}
           override={({ values }) => ({
             options: getRegions(values),
           })}
