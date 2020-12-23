@@ -1,5 +1,8 @@
 import { array } from 'q3-ui-helpers';
 
+export const haveLength = (...args) =>
+  args.every(array.hasLength);
+
 const testSearchTerm = (val) => (item) =>
   !val.length ||
   new RegExp(val, 'gi').test(JSON.stringify(item));

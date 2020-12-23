@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { array } from 'q3-ui-helpers';
-
-const haveLength = (...args) => args.every(array.hasLength);
+import { haveLength } from './helper';
 
 const withReducer = (Component, [state, dispatch]) => {
   const Inner = ({ options, label, data }) => {
