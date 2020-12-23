@@ -1,32 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { array } from 'q3-ui-helpers';
-import { useValue } from 'useful-state';
+import { useValue, useChecked } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'lodash/fp';
-import {
-  Box,
-  Paper,
-  Grid,
-  makeStyles,
-} from '@material-ui/core';
+import { Box, Paper, Grid } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
 import { useAuth } from 'q3-ui-permissions';
-import { useChecked } from 'useful-state';
-import Search from './components/Search';
-import { filter, sort, search, group } from './helper';
-import Context from './components/state';
-import { Auth, AddItem, SelectForm } from './components';
+import { array } from 'q3-ui-helpers';
+import {
+  filter,
+  sort,
+  search,
+  group,
+  reducer,
+} from './helper';
+import {
+  Auth,
+  AddItem,
+  Context,
+  SelectForm,
+  Search,
+} from './components';
 import withReducer from './withReducer';
-
-const useStyles = makeStyles(({ breakpoints }) => ({
-  form: {
-    minWidth: 150,
-    [breakpoints.down('md')]: {
-      order: 1,
-    },
-  },
-}));
+import useStyles from './components/useStyle';
 
 const optionType = PropTypes.arrayOf(
   PropTypes.shape({
@@ -37,25 +33,6 @@ const optionType = PropTypes.arrayOf(
 
 const size = { xl: 'auto', lg: 'auto' };
 const forms = { md: 6, sm: 6, xs: 12 };
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'filterBy':
-      return {
-        ...state,
-        filterBy: action.index,
-      };
-
-    case 'sortBy':
-      return {
-        ...state,
-        sortBy: action.index,
-      };
-
-    default:
-      return state;
-  }
-};
 
 const useRepeater = (Component) => {
   const Inner = ({
@@ -126,7 +103,6 @@ const useRepeater = (Component) => {
           multiselect,
           edit,
           editBulk,
-          create,
           remove,
           removeBulk,
           poll,

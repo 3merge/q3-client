@@ -54,3 +54,22 @@ export const group = (groupBy) => (xs) => {
     return acc;
   }, genNewShape(groupBy));
 };
+
+export const reducer = (state, action) => {
+  switch (action.type) {
+    case 'filterBy':
+      return {
+        ...state,
+        filterBy: action.index,
+      };
+
+    case 'sortBy':
+      return {
+        ...state,
+        sortBy: action.index,
+      };
+
+    default:
+      return state;
+  }
+};

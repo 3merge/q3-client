@@ -139,4 +139,11 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   }),
+
+  form: {
+    minWidth: 150,
+    [theme.breakpoints.down('md')]: {
+      order: 1,
+    },
+  },
 }));
