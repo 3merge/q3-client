@@ -91,7 +91,10 @@ const NorthAmericaRegionalSelect = (props) => (
         <Field
           name="region"
           type="select"
+          listen="country"
           required
+          xl={12}
+          lg={12}
           runOnChange={['country']}
           override={({ values }) => ({
             options: getRegions(values),
@@ -104,6 +107,8 @@ const NorthAmericaRegionalSelect = (props) => (
           name="country"
           type="select"
           required
+          xl={12}
+          lg={12}
           options={[
             { value: CA, label: 'Canada' },
             { value: US, label: 'United States' },
