@@ -14,6 +14,7 @@ import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
 import { countries } from '../src/fields/__fixtures__/options';
+import { castToBeginning, castToEnd } from '../src/helpers';
 import {
   Exists,
   NorthAmericaRegionalSelect,
@@ -44,6 +45,11 @@ import {
               { fruit: 'Apple' },
               { fruit: 'Pear' },
             ],
+          }}
+          marshalSelectively
+          marshal={{
+            'dateRange<': [castToBeginning],
+            'dateRange>': [castToEnd],
           }}
         >
           <Field name="email" type="email" />
@@ -82,12 +88,6 @@ import {
             xl={6}
             lg={6}
             md={6}
-          />
-          <Field
-            name="required"
-            type="text"
-            label="Required"
-            required
           />
           <Field
             name="number"
