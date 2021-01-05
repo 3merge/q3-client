@@ -5,7 +5,7 @@ import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
 import UnsavedChanges from '../containers/UnsavedChanges';
-import Search from '../containers/search';
+import Search from '../components/Search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import Tray from '../components/Tray';
