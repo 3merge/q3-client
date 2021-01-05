@@ -10,6 +10,11 @@ export const Search = () => {
   const { t } = useTranslation('labels');
   const navigate = useNavigate();
   const location = useLocation();
+  const inputRef = React.useRef();
+
+  const defaultValue = new URLSearchParams(
+    location?.search,
+  ).get('search');
 
   const {
     collectionName,
@@ -19,14 +24,17 @@ export const Search = () => {
   const handleKeyCode = (e) => {
     const val = e.target.value;
     if (e?.code !== 'Enter') return;
-    navigate(`${directoryPath}?search=${val}`);
+
+    navigate(
+      val
+        ? `${directoryPath}?search=${val}`
+        : directoryPath,
+    );
   };
 
   const textFieldProps = {
     'aria-label': 'search',
-    defaultValue: new URLSearchParams(location?.search).get(
-      'search',
-    ),
+    defaultValue,
     placeholder: t(
       collectionName
         ? `${collectionName}SearchPlaceholder`
@@ -35,7 +43,13 @@ export const Search = () => {
     fullWidth: true,
     onKeyPress: handleKeyCode,
     type: 'search',
+    inputRef,
   };
+
+  React.useEffect(() => {
+    if (inputRef.current)
+      inputRef.current.value = defaultValue || '';
+  }, [defaultValue]);
 
   return (
     <Box id="q3-searchbar" width="100%">

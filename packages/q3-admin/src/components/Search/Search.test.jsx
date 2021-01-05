@@ -32,7 +32,7 @@ describe('Search', () => {
   it('should set placeholder value by prop', () =>
     expect(
       global
-        .shallow(<Search collectionName="orders" />)
+        .shallow(<Search />)
         .find(SearchFullWidth)
         .props(),
     ).toHaveProperty(
@@ -48,7 +48,7 @@ describe('Search', () => {
     });
 
     global
-      .shallow(<Search collectionName="orders" />)
+      .shallow(<Search />)
       .find(SearchFullWidth)
       .prop('onKeyPress')({
       code: 'Enter',
