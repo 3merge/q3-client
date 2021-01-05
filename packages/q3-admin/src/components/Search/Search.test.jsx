@@ -3,6 +3,13 @@ import { useNavigate, useLocation } from '@reach/router';
 import Search from './Search';
 import SearchFullWidth from '../SearchFullWidth';
 
+beforeAll(() => {
+  jest.spyOn(React, 'useContext').mockReturnValue({
+    collectionName: 'orders',
+    directoryPath: 'app/orders/',
+  });
+});
+
 jest.mock('@reach/router', () => ({
   useNavigate: jest.fn(),
   useLocation: jest.fn(),
@@ -51,7 +58,7 @@ describe('Search', () => {
     });
 
     expect(navigate).toHaveBeenCalledWith(
-      'root/?search=test',
+      'app/orders/?search=test',
     );
   });
 });

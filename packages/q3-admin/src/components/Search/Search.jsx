@@ -1,20 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from '@reach/router';
 import { Box, Hidden } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import SearchFullWidth from '../SearchFullWidth';
 import SearchMobile from '../SearchMobile';
+import { Definitions } from '../../containers/state';
 
-export const Search = ({ collectionName }) => {
+export const Search = () => {
   const { t } = useTranslation('labels');
   const navigate = useNavigate();
   const location = useLocation();
 
+  const {
+    collectionName,
+    directoryPath,
+  } = React.useContext(Definitions);
+
   const handleKeyCode = (e) => {
     const val = e.target.value;
     if (e?.code !== 'Enter') return;
-    navigate(`${location.pathname}/?search=${val}`);
+    navigate(`${directoryPath}?search=${val}`);
   };
 
   const textFieldProps = {
@@ -42,14 +47,6 @@ export const Search = ({ collectionName }) => {
       </Hidden>
     </Box>
   );
-};
-
-Search.propTypes = {
-  collectionName: PropTypes.string,
-};
-
-Search.defaultProps = {
-  collectionName: undefined,
 };
 
 export default Search;
