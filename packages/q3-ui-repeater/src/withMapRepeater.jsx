@@ -157,7 +157,8 @@ const useRepeater = (Component) => {
                   addComponent={addComponent}
                   initialValues={initialValues}
                   create={create}
-                  {...rest}
+                  collectionName={collectionName}
+                  name={name}
                 >
                   {children}
                 </AddItem>
