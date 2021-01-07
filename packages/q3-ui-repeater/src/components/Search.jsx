@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 
 export const SearchContext = React.createContext();
 
-const SearchBar = ({ setInput }) => {
+const SearchBar = ({ handleInput }) => {
   const [state, setState] = React.useState('');
   const { t } = useTranslation('labels');
   const handleChange = (e) => setState(e.target.value);
@@ -13,7 +14,7 @@ const SearchBar = ({ setInput }) => {
   React.useEffect(() => {
     let timer;
     if (ref) {
-      timer = setTimeout(() => setInput(state), 500);
+      timer = setTimeout(() => handleInput(state), 500);
     } else {
       ref = true;
     }
@@ -36,6 +37,10 @@ const SearchBar = ({ setInput }) => {
       margin="dense"
     />
   );
+};
+
+SearchBar.propTypes = {
+  handleInput: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

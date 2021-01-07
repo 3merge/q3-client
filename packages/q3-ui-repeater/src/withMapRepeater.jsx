@@ -33,6 +33,11 @@ const optionType = PropTypes.arrayOf(
 
 const size = { xl: 'auto', lg: 'auto' };
 const forms = { md: 6, sm: 6, xs: 12 };
+const init = {
+  sortBy: 0,
+  filterBy: 0,
+  input: 0,
+};
 
 const useRepeater = (Component) => {
   const Inner = ({
@@ -53,12 +58,15 @@ const useRepeater = (Component) => {
     poll,
     ...rest
   }) => {
-    const [state, dispatch] = React.useReducer(reducer, {
-      sortBy: 0,
-      filterBy: 0,
-    });
-    const [input, setInput] = React.useState('');
+    const [state, dispatch] = React.useReducer(
+      reducer,
+      init,
+    );
 
+    const handleInput = (val) =>
+      dispatch({ type: 'input', payload: val });
+
+    const Form = withReducer(SelectForm, [state, dispatch]);
     const auth = useAuth(collectionName);
     const multiselect = useChecked();
     const { t } = useTranslation();
@@ -68,12 +76,10 @@ const useRepeater = (Component) => {
       group(groupBy),
       sort(sortOptions[state.sortBy]),
       filter(filterOptions[state.filterBy]),
-      search(input),
+      search(state.input),
     );
 
     const newData = run(data);
-
-    const Form = withReducer(SelectForm, [state, dispatch]);
 
     const renderRepeater = () => (
       <Component data={newData} {...rest}>
@@ -120,7 +126,7 @@ const useRepeater = (Component) => {
               justify="space-between"
             >
               <Grid item xl lg md={10} sm={9} xs={9}>
-                <Search setInput={setInput} />
+                <Search handleInput={handleInput} />
               </Grid>
               <Grid
                 item

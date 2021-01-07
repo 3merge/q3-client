@@ -5,7 +5,7 @@ import { haveLength } from './helper';
 const withReducer = (Component, [state, dispatch]) => {
   const Inner = ({ options, label, data }) => {
     const handleChange = (e) =>
-      dispatch({ type: label, index: e.target.value });
+      dispatch({ type: label, payload: e.target.value });
 
     return (
       haveLength(options, data) && (
