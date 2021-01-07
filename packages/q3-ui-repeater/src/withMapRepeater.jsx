@@ -57,10 +57,10 @@ const useRepeater = (Component) => {
       sortBy: 0,
       filterBy: 0,
     });
+    const [input, setInput] = React.useState('');
 
     const auth = useAuth(collectionName);
     const multiselect = useChecked();
-    const searchObj = useValue('');
     const { t } = useTranslation();
     const cls = useStyles();
 
@@ -68,7 +68,7 @@ const useRepeater = (Component) => {
       group(groupBy),
       sort(sortOptions[state.sortBy]),
       filter(filterOptions[state.filterBy]),
-      search(searchObj.value),
+      search(input),
     );
 
     const newData = run(data);
@@ -120,7 +120,7 @@ const useRepeater = (Component) => {
               justify="space-between"
             >
               <Grid item xl lg md={10} sm={9} xs={9}>
-                <Search {...searchObj} />
+                <Search setInput={setInput} />
               </Grid>
               <Grid
                 item

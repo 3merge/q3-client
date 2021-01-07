@@ -4,16 +4,31 @@ import { useTranslation } from 'react-i18next';
 
 export const SearchContext = React.createContext();
 
-const SearchBar = ({ onChange, value }) => {
+const SearchBar = ({ setInput }) => {
+  const [state, setState] = React.useState('');
   const { t } = useTranslation('labels');
+  const handleChange = (e) => setState(e.target.value);
+  let ref = React.useRef(null);
+
+  React.useEffect(() => {
+    let timer;
+    if (ref) {
+      timer = setTimeout(() => setInput(state), 500);
+    } else {
+      ref = true;
+    }
+    return () => {
+      setTimeout(timer);
+    };
+  }, [state]);
 
   return (
     <TextField
       fullWidth
       name="search"
-      onChange={onChange}
+      onChange={handleChange}
       type="search"
-      value={value}
+      value={state}
       autoComplete="off"
       label={t('searchResults')}
       variant="outlined"

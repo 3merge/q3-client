@@ -58,7 +58,7 @@ const List = ({
       <TableBody>
         {data.map((item, i) => (
           <NestedItem
-            key={i}
+            key={`nestedItem${i}`}
             renderNestedTableRow={renderNestedTableRow}
             attributes={attributes}
             showAttributes={showAttributes}
