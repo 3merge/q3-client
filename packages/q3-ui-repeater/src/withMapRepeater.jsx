@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useValue, useChecked } from 'useful-state';
+import { useChecked } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'lodash/fp';
 import { Box, Paper, Grid } from '@material-ui/core';

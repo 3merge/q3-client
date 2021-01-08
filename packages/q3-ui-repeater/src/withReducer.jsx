@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { haveLength } from './helper';
 
 const withReducer = (Component, [state, dispatch]) => {
-  const Inner = ({ options, label, data }) => {
+  const Inner = ({
+    options,
+    label,
+    data,
+    // state,
+    // dispatch,
+  }) => {
     const handleChange = (e) =>
       dispatch({ type: label, payload: e.target.value });
 
@@ -32,6 +38,8 @@ const withReducer = (Component, [state, dispatch]) => {
     ),
     label: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    // state: PropTypes.shape({}).isRequired,
+    // dispatch: PropTypes.func.isRequired,
   };
 
   return Inner;
