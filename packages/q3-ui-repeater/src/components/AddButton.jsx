@@ -15,7 +15,7 @@ const AddButtonTableRow = (props) => (
   </Box>
 );
 
-export const AddButtonTrigger = ({ onClick, title }) => {
+export const AddButtonTrigger = ({ onClick }) => {
   const { t } = useTranslation();
 
   return (
@@ -33,19 +33,11 @@ export const AddButtonTrigger = ({ onClick, title }) => {
   );
 };
 
-AddButtonTrigger.defaultProps = {
-  title: 'addToList',
-  description: 'addToList',
-};
-
 AddButtonTrigger.propTypes = {
   /**
    * Click handler for custom button.
    */
   onClick: PropTypes.func.isRequired,
-
-  title: PropTypes.string,
-  description: PropTypes.string,
 };
 
 const AddButton = ({

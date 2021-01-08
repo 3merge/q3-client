@@ -4,14 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Box, Paper, Grid } from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
 import { compose } from 'lodash/fp';
-import {
-  AddItem,
-  RepeaterTable,
-  Search,
-  SelectForm,
-} from '.';
+import { AddItem, RepeaterTable, RepeaterOptions } from '.';
 import useStyles from './useStyle';
-import withReducer from '../withReducer';
 import {
   filter,
   sort,
@@ -28,7 +22,6 @@ const optionType = PropTypes.arrayOf(
 );
 
 const size = { xl: 'auto', lg: 'auto' };
-const forms = { md: 6, sm: 6, xs: 12 };
 const init = {
   sortBy: 0,
   filterBy: 0,
@@ -47,10 +40,6 @@ const Repeater = ({
 }) => {
   const [state, dispatch] = React.useReducer(reducer, init);
   const { t } = useTranslation();
-  const Form = withReducer(SelectForm, [state, dispatch]);
-
-  const handleInput = (val) =>
-    dispatch({ type: 'input', payload: val });
 
   const cls = useStyles();
 
@@ -69,40 +58,16 @@ const Repeater = ({
       style={{ top: 0, position: 'sticky', zIndex: 10 }}
     >
       <Box px={2}>
-        <Grid
-          spacing={2}
-          alignItems="center"
-          container
-          justify="space-between"
-        >
-          <Grid item xl lg md={10} sm={9} xs={9}>
-            <Search handleInput={handleInput} />
-          </Grid>
-          <Grid
-            item
-            {...size}
-            {...forms}
-            className={cls.form}
-          >
-            <Form
-              options={filterOptions}
-              label="filterBy"
-              data={data}
+        <Grid container>
+          <Grid item xs={12} sm={12} md={9} lg={10} xl={10}>
+            <RepeaterOptions
+              state={state}
+              dispatch={dispatch}
+              filterOptions={filterOptions}
+              sortOptions={sortOptions}
             />
           </Grid>
-          <Grid
-            item
-            {...size}
-            {...forms}
-            className={cls.form}
-          >
-            <Form
-              options={sortOptions}
-              label="sortBy"
-              data={data}
-            />
-          </Grid>
-          <Grid item {...size} md={2} sm={3} xs={3}>
+          <Grid xs={12} sm={12} md={3} lg={2} xl={2}>
             <AddItem
               addComponent={addComponent}
               initialValues={initialValues}
