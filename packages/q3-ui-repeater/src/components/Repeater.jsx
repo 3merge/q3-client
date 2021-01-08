@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Box, Paper, Grid } from '@material-ui/core';
-import { AddItem, Search, SelectForm } from '.';
+import { array } from 'q3-ui-helpers';
+import { compose } from 'lodash/fp';
+import {
+  AddItem,
+  RepeaterTable,
+  Search,
+  SelectForm,
+} from '.';
 import useStyles from './useStyle';
 import withReducer from '../withReducer';
 import {
@@ -29,19 +37,35 @@ const init = {
 
 const Repeater = ({
   addComponent,
-  data,
   children,
+  create,
+  collectionName,
+  data,
   filterOptions,
+  groupBy,
   initialValues,
+  name,
   sortOptions,
+  ...rest
 }) => {
   const [state, dispatch] = React.useReducer(reducer, init);
+  const { t } = useTranslation();
   const Form = withReducer(SelectForm, [state, dispatch]);
 
   const handleInput = (val) =>
     dispatch({ type: 'input', payload: val });
 
   const cls = useStyles();
+
+  const run = compose(
+    // group(groupBy),
+    sort(sortOptions[state.sortBy]),
+    filter(filterOptions[state.filterBy]),
+    search(state.input),
+  );
+
+  const newData = run(data);
+
   return (
     <Paper
       elevation={0}
@@ -81,7 +105,7 @@ const Repeater = ({
               data={data}
             />
           </Grid>
-          {/* <Grid item {...size} md={2} sm={3} xs={3}>
+          <Grid item {...size} md={2} sm={3} xs={3}>
             <AddItem
               addComponent={addComponent}
               initialValues={initialValues}
@@ -91,8 +115,17 @@ const Repeater = ({
             >
               {children}
             </AddItem>
-          </Grid> */}
+          </Grid>
         </Grid>
+        <Box>
+          <RepeaterTable
+            data={newData}
+            collectionName={collectionName}
+            {...rest}
+          >
+            {children}
+          </RepeaterTable>
+        </Box>
       </Box>
     </Paper>
   );

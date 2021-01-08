@@ -14,7 +14,6 @@ const SortForm = ({
   value,
   handleChange,
 }) => {
-  console.log(value);
   const { t } = useTranslation();
   return (
     <TextField

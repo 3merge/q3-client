@@ -34,7 +34,12 @@ const Provider = ({
     <Context.Provider value={value}>
       <Auth op="Read">
         <Exports>
-          <Repeater {...rest} />
+          <Repeater
+            create={create}
+            collectionName={collectionName}
+            name={name}
+            {...rest}
+          />
         </Exports>
       </Auth>
     </Context.Provider>
