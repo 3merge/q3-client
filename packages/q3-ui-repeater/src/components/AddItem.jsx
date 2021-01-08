@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Auth from './Auth';
+import RepeaterContext from './state';
 import AddButton from './AddButton';
 
 const AddItem = ({
   addComponent,
-  create,
   children,
   initialValues,
-  ...rest
 }) => {
+  const { create, collectionName, name } = React.useContext(
+    RepeaterContext,
+  );
   return (
     <Auth op="Create">
       {addComponent ? (
@@ -21,7 +23,8 @@ const AddItem = ({
         <AddButton
           create={create}
           initialValues={initialValues}
-          {...rest}
+          collectionName={collectionName}
+          name={name}
         >
           {children}
         </AddButton>
@@ -37,7 +40,6 @@ AddItem.defaultProps = {
 AddItem.propTypes = {
   addComponent: PropTypes.node,
   children: PropTypes.node.isRequired,
-  create: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({}).isRequired,
 };
 

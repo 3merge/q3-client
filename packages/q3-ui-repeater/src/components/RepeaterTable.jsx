@@ -8,6 +8,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from './List';
+import RepeaterContext from './state';
 import { override } from '../helpers';
 import usePagination from '../usePagination';
 import withMapRepeater from '../withMapRepeater';
@@ -16,7 +17,6 @@ const RepeaterTable = ({
   data,
   children,
   initialValues,
-  collectionName,
   disableEditor,
   disableRemove,
   disableMultiselect,
@@ -26,6 +26,9 @@ const RepeaterTable = ({
   groupName,
   ...rest
 }) => {
+  const { collectionName } = React.useContext(
+    RepeaterContext,
+  );
   const auth = useAuth(collectionName);
   const { totalPage, onChange, list } = usePagination(
     perPage,
@@ -97,7 +100,6 @@ const RepeaterTable = ({
 };
 
 RepeaterTable.propTypes = {
-  collectionName: PropTypes.string,
   primary: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.func,
@@ -119,7 +121,6 @@ RepeaterTable.propTypes = {
 
 RepeaterTable.defaultProps = {
   data: [],
-  collectionName: null,
   edit: null,
   renderNestedTableRow: null,
   perPage: 15,

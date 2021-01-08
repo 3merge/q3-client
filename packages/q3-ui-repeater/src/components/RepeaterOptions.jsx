@@ -9,9 +9,3 @@ const RepeaterOptions = ({
 };
 
 export default RepeaterOptions;
-
-// const SortForm = ({
-//   options,
-//   label,
-//   value,
-//   handleChange,

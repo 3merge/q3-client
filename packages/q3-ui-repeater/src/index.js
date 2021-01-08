@@ -1,1 +1,1 @@
-export { default } from './Repeater';
+export { default } from './components/Provider';

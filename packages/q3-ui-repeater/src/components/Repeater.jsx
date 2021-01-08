@@ -38,13 +38,10 @@ const init = {
 const Repeater = ({
   addComponent,
   children,
-  create,
-  collectionName,
   data,
   filterOptions,
   groupBy,
   initialValues,
-  name,
   sortOptions,
   ...rest
 }) => {
@@ -109,20 +106,13 @@ const Repeater = ({
             <AddItem
               addComponent={addComponent}
               initialValues={initialValues}
-              create={create}
-              collectionName={collectionName}
-              name={name}
             >
               {children}
             </AddItem>
           </Grid>
         </Grid>
         <Box>
-          <RepeaterTable
-            data={newData}
-            collectionName={collectionName}
-            {...rest}
-          >
+          <RepeaterTable data={newData} {...rest}>
             {children}
           </RepeaterTable>
         </Box>
