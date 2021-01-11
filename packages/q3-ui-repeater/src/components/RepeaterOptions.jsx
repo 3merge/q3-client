@@ -13,7 +13,7 @@ const RepeaterOptions = ({
   dispatch,
 }) => {
   const handleChange = (label) => (e) =>
-    dispatch({ action: label, payload: e.target.value });
+    dispatch({ type: label, payload: e.target.value });
 
   const handleInput = (val) =>
     dispatch({ type: 'input', payload: val });
