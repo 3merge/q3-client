@@ -1,11 +1,10 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import SelectForm from './SelectForm';
 import Search from './Search';
 import useStyles from './useStyle';
 
-const size = { xl: 'auto', lg: 'auto' };
-const forms = { md: 6, sm: 6, xs: 12 };
+const size = { xs: 12, sm: 6, md: 6, lg: 6, xl: 6 };
 
 const RepeaterOptions = ({
   filterOptions,
@@ -25,23 +24,27 @@ const RepeaterOptions = ({
   return (
     <Grid container>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        <Search handleInput={handleInput} />
+        <Box mb={2}>
+          <Search handleInput={handleInput} />
+        </Box>
       </Grid>
-      <Grid item {...size} {...forms} className={cls.form}>
-        <SelectForm
-          options={filterOptions}
-          label="filterBy"
-          value={filterBy}
-          handleChange={handleChange('filterBy')}
-        />
-      </Grid>
-      <Grid item {...size} {...forms} className={cls.form}>
-        <SelectForm
-          options={sortOptions}
-          label="sortBy"
-          value={sortBy}
-          handleChange={handleChange('sortBy')}
-        />
+      <Grid item container spacing={1}>
+        <Grid item {...size} className={cls.form}>
+          <SelectForm
+            options={filterOptions}
+            label="filterBy"
+            value={filterBy}
+            handleChange={handleChange('filterBy')}
+          />
+        </Grid>
+        <Grid item {...size} className={cls.form}>
+          <SelectForm
+            options={sortOptions}
+            label="sortBy"
+            value={sortBy}
+            handleChange={handleChange('sortBy')}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

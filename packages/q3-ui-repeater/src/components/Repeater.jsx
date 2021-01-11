@@ -55,10 +55,15 @@ const Repeater = ({
   return (
     <Paper
       elevation={0}
-      style={{ top: 0, position: 'sticky', zIndex: 10 }}
+      style={{
+        top: 0,
+        position: 'sticky',
+        zIndex: 10,
+        padding: '2rem',
+      }}
     >
-      <Box px={2}>
-        <Grid container>
+      <Box mb={2}>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={9} lg={10} xl={10}>
             <RepeaterOptions
               state={state}
@@ -67,20 +72,22 @@ const Repeater = ({
               sortOptions={sortOptions}
             />
           </Grid>
-          <Grid xs={12} sm={12} md={3} lg={2} xl={2}>
-            <AddItem
-              addComponent={addComponent}
-              initialValues={initialValues}
-            >
-              {children}
-            </AddItem>
+          <Grid item xs={12} sm={12} md={3} lg={2} xl={2}>
+            <Box mt={[0, 0, 0.5]}>
+              <AddItem
+                addComponent={addComponent}
+                initialValues={initialValues}
+              >
+                {children}
+              </AddItem>
+            </Box>
           </Grid>
         </Grid>
-        <Box>
-          <RepeaterTable data={newData} {...rest}>
-            {children}
-          </RepeaterTable>
-        </Box>
+      </Box>
+      <Box>
+        <RepeaterTable data={newData} {...rest}>
+          {children}
+        </RepeaterTable>
       </Box>
     </Paper>
   );
