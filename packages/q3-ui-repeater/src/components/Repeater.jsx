@@ -4,6 +4,7 @@ import { Box, Paper, Grid } from '@material-ui/core';
 import { compose } from 'lodash/fp';
 import { AddItem, RepeaterTable, RepeaterOptions } from '.';
 import {
+  checkValues,
   filter,
   sort,
   search,
@@ -77,14 +78,17 @@ const Repeater = ({
           </Grid>
         </Grid>
       </Box>
-      {data.length &&
-      (newData.length || Object.keys(newData).length) ? (
+      {checkValues(data, newData) ? (
         <Box>
           <RepeaterTable data={newData} {...rest}>
             {children}
           </RepeaterTable>
         </Box>
-      ) : null}
+      ) : (
+        <Box>
+          <span>No results</span>
+        </Box>
+      )}
     </Paper>
   );
 };

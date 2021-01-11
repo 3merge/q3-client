@@ -1,5 +1,9 @@
 import { array } from 'q3-ui-helpers';
 
+export const checkValues = (original, transformed) =>
+  original.length &&
+  (transformed.length || Object.keys(transformed).length);
+
 export const haveLength = (...args) =>
   args.every(array.hasLength);
 

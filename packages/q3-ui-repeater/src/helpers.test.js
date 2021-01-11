@@ -1,5 +1,6 @@
 import { list } from '../__fixtures__/seed/rows';
 import {
+  checkValues,
   haveLength,
   group,
   sort,
@@ -19,6 +20,13 @@ test.each([
     expect(haveLength(arg1, arg2)).toBe(result);
   },
 );
+
+test.each([
+  [[], []],
+  [[], {}],
+])('should return false', (xs, ys) => {
+  expect(checkValues(xs, ys)).toBeFalsy();
+});
 
 test('should create groups', () => {
   const groupBy = [
