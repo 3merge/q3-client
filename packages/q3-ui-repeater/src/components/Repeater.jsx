@@ -21,7 +21,6 @@ const optionType = PropTypes.arrayOf(
   }),
 );
 
-const size = { xl: 'auto', lg: 'auto' };
 const init = {
   sortBy: 0,
   filterBy: 0,
@@ -43,14 +42,15 @@ const Repeater = ({
 
   const cls = useStyles();
 
-  const run = compose(
-    // group(groupBy),
-    sort(sortOptions[state.sortBy]),
-    filter(filterOptions[state.filterBy]),
-    search(state.input),
-  );
+  // const run = compose(
+  //   // group(groupBy),
+  //   sort(sortOptions[state.sortBy]),
+  //   filter(filterOptions[state.filterBy]),
+  //   search(state.input),
+  // );
 
-  const newData = run(data);
+  // const newData = run(data);
+  const newData = data;
 
   return (
     <Paper
@@ -84,11 +84,13 @@ const Repeater = ({
           </Grid>
         </Grid>
       </Box>
-      <Box>
-        <RepeaterTable data={newData} {...rest}>
-          {children}
-        </RepeaterTable>
-      </Box>
+      {data.length && newData.length ? (
+        <Box>
+          <RepeaterTable data={newData} {...rest}>
+            {children}
+          </RepeaterTable>
+        </Box>
+      ) : null}
     </Paper>
   );
 };

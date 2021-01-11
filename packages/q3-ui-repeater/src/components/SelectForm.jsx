@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  FormControl,
-  MenuItem,
-  TextField,
-} from '@material-ui/core';
+import { array } from 'q3-ui-helpers';
+import { MenuItem, TextField } from '@material-ui/core';
 
 const SortForm = ({
   options,
@@ -14,6 +10,8 @@ const SortForm = ({
   value,
   handleChange,
 }) => {
+  if (!array.hasLength(options)) return null;
+
   const { t } = useTranslation();
   return (
     <TextField
