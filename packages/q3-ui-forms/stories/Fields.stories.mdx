@@ -14,7 +14,11 @@ import Wrapper, {
   InnerForm,
 } from '../src/builders/Wrapper/Wrapper';
 import { countries } from '../src/fields/__fixtures__/options';
-import { Exists } from '../src/presets';
+import { castToBeginning, castToEnd } from '../src/helpers';
+import {
+  Exists,
+  NorthAmericaRegionalSelect,
+} from '../src/presets';
 
 <Meta title="Forms/Field" component={Field} />
 
@@ -41,6 +45,11 @@ import { Exists } from '../src/presets';
               { fruit: 'Apple' },
               { fruit: 'Pear' },
             ],
+          }}
+          marshalSelectively
+          marshal={{
+            'dateRange<': [castToBeginning],
+            'dateRange>': [castToEnd],
           }}
         >
           <Field name="email" type="email" />
@@ -79,12 +88,6 @@ import { Exists } from '../src/presets';
             xl={6}
             lg={6}
             md={6}
-          />
-          <Field
-            name="required"
-            type="text"
-            label="Required"
-            required
           />
           <Field
             name="number"
@@ -168,6 +171,19 @@ minimum values, maximum values, and required values.
         })}
       />
     </Form>
+  </Story>
+</Preview>
+
+## Presets
+
+<Preview>
+  <Story name="Presets">
+    <Provider>
+      <Form debug>
+        <Field name="postal" type="postal" />
+        <NorthAmericaRegionalSelect />
+      </Form>
+    </Provider>
   </Story>
 </Preview>
 

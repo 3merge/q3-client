@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.24.46](https://github.com/3merge/q/compare/v1.24.45...v1.24.46) (2021-01-05)
+
+
+### Bug Fixes
+
+* search default value ([595befb](https://github.com/3merge/q/commit/595befb6c2194cbcf32b7678e3a2584678326f06))
+
+
+
+
+
+## [1.24.45](https://github.com/3merge/q/compare/v1.24.44...v1.24.45) (2021-01-05)
+
+
+### Bug Fixes
+
+* search path ([67b95db](https://github.com/3merge/q/commit/67b95db647c1f37b3a92f50d22d50947a5b67e15))
+
+
+
+
+
+## [1.24.44](https://github.com/3merge/q/compare/v1.24.43...v1.24.44) (2021-01-05)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
+
 ## [1.24.42](https://github.com/3merge/q/compare/v1.24.41...v1.24.42) (2020-12-21)
 
 

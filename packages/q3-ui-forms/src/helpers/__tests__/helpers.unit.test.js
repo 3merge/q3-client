@@ -1,6 +1,18 @@
 import * as helpers from '..';
 
 describe('Form helpers', () => {
+  describe('addTime', () => {
+    it('should return data as is', () => {
+      expect(helpers.addTime({})(null)).toBeNull();
+    });
+
+    it('should return time when possible', () => {
+      expect(typeof helpers.addTime({})(new Date())).toBe(
+        'string',
+      );
+    });
+  });
+
   describe('asOptions', () => {
     it('should convert simple array into multi-dimensional', () =>
       expect(helpers.asOptions(['foo'])).toEqual([
