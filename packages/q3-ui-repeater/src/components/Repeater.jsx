@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import { Box, Paper, Grid } from '@material-ui/core';
-import { array } from 'q3-ui-helpers';
 import { compose } from 'lodash/fp';
 import { AddItem, RepeaterTable, RepeaterOptions } from '.';
-import useStyles from './useStyle';
 import {
   filter,
   sort,
@@ -38,19 +35,15 @@ const Repeater = ({
   ...rest
 }) => {
   const [state, dispatch] = React.useReducer(reducer, init);
-  const { t } = useTranslation();
 
-  const cls = useStyles();
+  const run = compose(
+    group(groupBy),
+    sort(sortOptions[state.sortBy]),
+    filter(filterOptions[state.filterBy]),
+    search(state.input),
+  );
 
-  // const run = compose(
-  //   // group(groupBy),
-  //   sort(sortOptions[state.sortBy]),
-  //   filter(filterOptions[state.filterBy]),
-  //   search(state.input),
-  // );
-
-  // const newData = run(data);
-  const newData = data;
+  const newData = run(data);
 
   return (
     <Paper
@@ -84,7 +77,8 @@ const Repeater = ({
           </Grid>
         </Grid>
       </Box>
-      {data.length && newData.length ? (
+      {data.length &&
+      (newData.length || Object.keys(newData).length) ? (
         <Box>
           <RepeaterTable data={newData} {...rest}>
             {children}
@@ -93,6 +87,24 @@ const Repeater = ({
       ) : null}
     </Paper>
   );
+};
+
+Repeater.defaultProps = {
+  addComponent: null,
+  data: [],
+  groupBy: null,
+  sortOptions: [],
+  filterOptions: [],
+};
+
+Repeater.propTypes = {
+  addComponent: PropTypes.node,
+  initialValues: PropTypes.shape({}).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.node.isRequired,
+  sortOptions: optionType,
+  filterOptions: optionType,
+  groupBy: optionType,
 };
 
 export default Repeater;

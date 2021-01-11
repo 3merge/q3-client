@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { array } from 'q3-ui-helpers';
 import { useAuth } from 'q3-ui-permissions';
 import Pagination from '@material-ui/lab/Pagination';
 import { Box, Table, Typography } from '@material-ui/core';
@@ -26,6 +27,8 @@ const RepeaterTable = ({
   groupName,
   ...rest
 }) => {
+  if (!array.hasLength(data)) return null;
+
   const { collectionName } = React.useContext(
     RepeaterContext,
   );
@@ -100,14 +103,6 @@ const RepeaterTable = ({
 };
 
 RepeaterTable.propTypes = {
-  primary: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
-  secondary: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node.isRequired,
   initialValues: PropTypes.shape({}).isRequired,
@@ -127,5 +122,4 @@ RepeaterTable.defaultProps = {
   ...override.defaultProps,
 };
 
-export default RepeaterTable;
-// export default withMapRepeater(RepeaterTable);
+export default withMapRepeater(RepeaterTable);
