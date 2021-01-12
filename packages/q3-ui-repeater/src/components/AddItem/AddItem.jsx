@@ -12,6 +12,7 @@ const AddItem = ({
   const { create, collectionName, name } = React.useContext(
     RepeaterContext,
   );
+
   return (
     <Auth op="Create">
       {addComponent ? (

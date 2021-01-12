@@ -73,11 +73,17 @@ const ItemHeader = ({
 };
 
 ItemHeader.propTypes = {
-  title: PropTypes.oneOf([PropTypes.string, PropTypes.func])
-    .isRequired,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]).isRequired,
   description: PropTypes.string,
-  item: PropTypes.shape({ id: PropTypes.string.isRequired })
-    .isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
+  }).isRequired,
   color: PropTypes.string,
   showMultiselect: PropTypes.bool,
   isIn: PropTypes.func.isRequired,

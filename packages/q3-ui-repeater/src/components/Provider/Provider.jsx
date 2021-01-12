@@ -30,6 +30,7 @@ const Provider = ({
     remove,
     removeBulk,
     poll,
+    create,
   };
 
   return (

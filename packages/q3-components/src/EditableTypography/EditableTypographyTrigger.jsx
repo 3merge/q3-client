@@ -74,12 +74,13 @@ EditableTypographyTrigger.propTypes = {
   isEditable: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
   renderer: PropTypes.func,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
 EditableTypographyTrigger.defaultProps = {
   children: '',
   renderer: null,
+  type: 'text',
 };
 
 export default EditableTypographyTrigger;

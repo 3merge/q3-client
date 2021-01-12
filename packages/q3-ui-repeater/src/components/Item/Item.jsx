@@ -161,15 +161,18 @@ Item.propTypes = {
   cardProps: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-  }).isRequired,
+  }),
 
   rowResolver: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-  }).isRequired,
+  }),
 
   item: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     color: PropTypes.string,
   }).isRequired,
   renderMobileColumns: PropTypes.func,

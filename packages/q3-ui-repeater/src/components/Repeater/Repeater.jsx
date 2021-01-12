@@ -82,7 +82,11 @@ const Repeater = ({
       </Box>
       {checkValues(data, newData) ? (
         <Box>
-          <RepeaterTable data={newData} {...rest}>
+          <RepeaterTable
+            data={newData}
+            initialValues={initialValues}
+            {...rest}
+          >
             {children}
           </RepeaterTable>
         </Box>

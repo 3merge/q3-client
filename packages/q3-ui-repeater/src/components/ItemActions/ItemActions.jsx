@@ -50,7 +50,6 @@ const EditorViewer = ({
   id,
   children,
   initialValues,
-  onSubmit,
   ...rest
 }) => {
   const [
@@ -93,10 +92,12 @@ const EditorViewer = ({
 };
 
 EditorViewer.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   children: PropTypes.node.isRequired,
   initialValues: PropTypes.shape({}).isRequired,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 //= ===============================================================================

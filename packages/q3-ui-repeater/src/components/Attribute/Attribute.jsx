@@ -17,12 +17,7 @@ const Attributes = ({
 
   return attributes.map((attribute) => (
     <TableCell className={tableCell} key={attribute}>
-      <Grid
-        alignItems="center"
-        container
-        disableGutters
-        justify="center"
-      >
+      <Grid alignItems="center" container justify="center">
         <Grid item md={12}>
           <div
             style={{

@@ -107,7 +107,10 @@ const DeleteModal = ({ id, ...rest }) => {
 };
 
 DeleteModal.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default DeleteModal;
