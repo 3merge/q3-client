@@ -1,0 +1,32 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import HorizontalNavigation from './Horizontal';
+import Location from 'q3-ui-test-utils/lib/location';
+import menuItems, {
+  extendedMenuItems,
+} from '../../tests/fixtures/menu';
+
+<Meta
+  title="Admin/Navigation/HorizontalNavigation"
+  component={HorizontalNavigation}
+/>
+
+# Horizontal Navigation
+
+<Preview>
+  <Story name="Horizontal Navigation">
+    <Location initialPath="/savings">
+      <Viewport>
+        <HorizontalNavigation
+          logoSrc="https://google.ca"
+          menuItems={extendedMenuItems}
+          footerComponent={<small>Fine print</small>}
+        />
+      </Viewport>
+    </Location>
+  </Story>
+</Preview>

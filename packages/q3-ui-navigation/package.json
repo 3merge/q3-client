@@ -1,0 +1,21 @@
+{
+  "name": "q3-ui-navigation",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^1.24.30"
+  },
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.20",
+    "q3-hooked": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
+    "@material-ui/lab": "^4.0.0-alpha.31",
+    "@reach/router": "^1.2.1",
+    "react": "^16.9.0",
+    "react-i18next": "^11.3.1"
+  }
+}

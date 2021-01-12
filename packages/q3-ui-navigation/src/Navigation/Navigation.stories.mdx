@@ -1,0 +1,24 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { Paper } from '@material-ui/core';
+import Navigation from './Navigation';
+import Location from 'q3-ui-test-utils/lib/location';
+import menuItems from '../../tests/fixtures/menu';
+
+<Meta title="Navigation" component={Navigation} />
+
+# Navigation
+
+<Preview>
+  <Story name="Main">
+    <Location initialPath="/savings">
+      <Paper style={{ height: '100vh', width: '100%' }}>
+        <Navigation />
+      </Paper>
+    </Location>
+  </Story>
+</Preview>
