@@ -52,11 +52,12 @@ Provider.defaultProps = {
   editBulk: null,
   removeBulk: null,
   poll: null,
+  name: null,
 };
 
 Provider.propTypes = {
   edit: PropTypes.func,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   collectionName: PropTypes.string,
   create: PropTypes.func,
   remove: PropTypes.func,

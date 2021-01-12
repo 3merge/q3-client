@@ -54,7 +54,6 @@ const EditableTypographyTrigger = ({
         field,
         rest.className,
       )}
-      aria-haspopup
     >
       <span style={innerStyle}>
         {formatText(children, type, t) || '--'}

@@ -76,10 +76,7 @@ export const DeleteModalInterior = ({
 DeleteModalInterior.propTypes = {
   title: PropTypes.string.isRequired,
   renderTrigger: PropTypes.func.isRequired,
-  service: PropTypes.shape({
-    then: PropTypes.func,
-    catch: PropTypes.func,
-  }).isRequired,
+  service: PropTypes.func.isRequired,
 };
 
 const DeleteModal = ({ id, ...rest }) => {

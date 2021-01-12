@@ -7,7 +7,6 @@ import useStyle from '../useStyle';
 const Attributes = ({
   component: Component,
   attributes,
-
   isIn,
 }) => {
   const { tableCell } = useStyle();
@@ -30,8 +29,8 @@ const Attributes = ({
           >
             {t(attribute)}
           </div>
-        </Grid>{' '}
-        <Grid item>
+        </Grid>
+        <Grid item data-repeater-editable={attribute}>
           <Component
             editable={isIn(attribute)}
             name={attribute}
