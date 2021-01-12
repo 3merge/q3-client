@@ -19,6 +19,27 @@ export const isSeq = (item) => Number(item.seq) === 211;
       <p>Editor</p>
     </Repeater>
   </Story>
+  <Story name="Without options">
+    <Repeater
+      cardProps={{
+        title: 'seq',
+        attributes: ['for.name', 'id', 'age'],
+        editable: {
+          position: {
+            renderer: () => <div>Something custom!</div>,
+          },
+        },
+        onColor: (item) =>
+          item.age < 20 ? 'orange' : 'blue',
+        describe: () =>
+          'This is a dynamic sentence generated from the item template.',
+        makeLink: () => '/to',
+        makeLinkLabel: ({ id }) => id,
+      }}
+    >
+      <p>Editor</p>
+    </Repeater>
+  </Story>
   <Story name="Custom renderers">
     <Repeater
       bulkEditorComponent={<p>Bulk editor</p>}
