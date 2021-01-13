@@ -65,8 +65,8 @@ describe('Helpers', () => {
       { value: 'foo', label: 'foo-label' },
     ];
 
-    it.only('should transform array of values to array of labels', () => {
-      expect(valueToLabel(items, ['2', 'foo'])).toEqual([
+    it('should transform array of values to array of labels', () => {
+      expect(valueToLabel(items)(['2', 'foo'])).toEqual([
         'doe',
         'foo-label',
       ]);
