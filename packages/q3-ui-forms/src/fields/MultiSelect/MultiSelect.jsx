@@ -1,9 +1,11 @@
 import React from 'react';
+import { compose } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
+import { valueToLabel } from '../helpers';
 
 export default withState(
   ({
@@ -19,6 +21,7 @@ export default withState(
     xl,
     lg,
     md,
+    displayLabelAsValue = false,
     ...deco
   }) => {
     const v = array.condense(array.is(value));
@@ -26,6 +29,10 @@ export default withState(
       minimumCharacterCount: 0,
       ...deco,
     });
+
+    const renderValue = displayLabelAsValue
+      ? compose(array.print, valueToLabel(items))
+      : array.print;
 
     return (
       <SelectBase
@@ -43,7 +50,7 @@ export default withState(
         onChange={(e) => onChange(e)}
         SelectProps={{
           value: v,
-          renderValue: array.print,
+          renderValue,
           multiple: true,
           native: false,
           MenuProps: {

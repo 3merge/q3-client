@@ -29,4 +29,17 @@ import { Form, Field } from '../../builders';
       />
     </Form>
   </Story>
+  <Story name="DisplayLabelAsValue">
+    <Form debug initialValues={{ demo: ['CA'] }}>
+      <Field
+        name="demo"
+        type="multiselect"
+        options={countries}
+        label="Custom label"
+        displayLabelAsValue
+        required
+        filter
+      />
+    </Form>
+  </Story>
 </Preview>
