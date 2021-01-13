@@ -1,11 +1,18 @@
 import React from 'react';
 import { compose } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
 import { valueToLabel } from '../helpers';
+
+const useStyles = makeStyles(() => ({
+  paper: {
+    maxHeight: '400px',
+  },
+}));
 
 export default withState(
   ({
@@ -34,6 +41,8 @@ export default withState(
       ? compose(array.print, valueToLabel(items))
       : array.print;
 
+    const cls = useStyles();
+
     return (
       <SelectBase
         md={md}
@@ -55,6 +64,7 @@ export default withState(
           native: false,
           MenuProps: {
             disablePortal: true,
+            classes: cls,
           },
         }}
       >
