@@ -1,21 +1,20 @@
 import React from 'react';
-import { compose } from 'lodash/fp';
+import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
 import { valueToLabel, STATUS } from '../helpers';
 import SelectAll from './SelectAll';
-
-const useStyles = makeStyles(() => ({
-  paper: {
-    maxHeight: '400px',
-  },
-}));
+import useStyles from './useStyles';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
+const genPayload = (name, value = []) => ({
+  target: { name, value },
+});
+
+const extractValues = (xs) => map((x) => x.value, xs);
 
 export default withState(
   ({
@@ -35,8 +34,8 @@ export default withState(
     ...deco
   }) => {
     const [isChecked, setState] = React.useState(UNCHECKED);
-
     const ref = React.useRef(null);
+    const cls = useStyles();
 
     const v = array.condense(array.is(value));
     const { items, loading } = useOptions({
@@ -48,26 +47,13 @@ export default withState(
       ? compose(array.print, valueToLabel(items))
       : array.print;
 
-    const cls = useStyles();
-
     React.useEffect(() => {
       if (ref.current) {
         if (isChecked === CHECKED) {
-          const payload = {
-            target: {
-              value: items.map((x) => x.value),
-              name,
-            },
-          };
-          onChange(payload);
+          onChange(genPayload(name, extractValues(items)));
         }
         if (isChecked === UNCHECKED) {
-          onChange({
-            target: {
-              name,
-              value: [],
-            },
-          });
+          onChange(genPayload(name));
         }
       } else {
         ref.current = true;
