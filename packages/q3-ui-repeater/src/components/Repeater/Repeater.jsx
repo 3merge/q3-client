@@ -29,6 +29,7 @@ const init = {
 
 const Repeater = ({
   addComponent,
+  addDisabled,
   children,
   data,
   filterOptions,
@@ -68,16 +69,18 @@ const Repeater = ({
               sortOptions={sortOptions}
             />
           </Grid>
-          <Grid item xs={12} sm={12} md={3} lg={2} xl={2}>
-            <Box mt={[0, 0, 0.5]}>
-              <AddItem
-                addComponent={addComponent}
-                initialValues={initialValues}
-              >
-                {children}
-              </AddItem>
-            </Box>
-          </Grid>
+          {!addDisabled && (
+            <Grid item xs={12} sm={12} md={3} lg={2} xl={2}>
+              <Box mt={[0, 0, 0.5]}>
+                <AddItem
+                  addComponent={addComponent}
+                  initialValues={initialValues}
+                >
+                  {children}
+                </AddItem>
+              </Box>
+            </Grid>
+          )}
         </Grid>
       </Box>
       {checkValues(data, newData) ? (
@@ -101,6 +104,7 @@ const Repeater = ({
 
 Repeater.defaultProps = {
   addComponent: null,
+  addDisabled: false,
   data: [],
   groupBy: null,
   sortOptions: [],
@@ -109,6 +113,7 @@ Repeater.defaultProps = {
 
 Repeater.propTypes = {
   addComponent: PropTypes.node,
+  addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node.isRequired,
