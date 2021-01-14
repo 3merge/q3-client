@@ -1,15 +1,13 @@
 import React from 'react';
 import { compose } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
-import Box from '@material-ui/core/Box';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
 import { valueToLabel } from '../helpers';
+import SelectAll from './SelectAll';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -56,13 +54,7 @@ export default withState(
       ? compose(array.print, valueToLabel(items))
       : array.print;
 
-    if (loading) {
-      <div>loading...</div>;
-    }
-
     const cls = useStyles();
-
-    console.log(isChecked);
 
     React.useEffect(() => {
       if (ref.current) {
@@ -73,7 +65,6 @@ export default withState(
               name,
             },
           };
-          console.log(payload);
           onChange(payload);
         }
         if (isChecked === status.unchecked) {
@@ -103,7 +94,6 @@ export default withState(
         helperText={helperText}
         required={required}
         onChange={(e) => {
-          console.log('clicked select base');
           if (isChecked === status.checked) {
             setState(status.indeterminate);
           }
@@ -120,32 +110,11 @@ export default withState(
           },
         }}
       >
-        <Box p={1}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                indeterminate={
-                  isChecked === status.indeterminate
-                }
-                checked={isChecked === status.checked}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  if (isChecked === status.checked) {
-                    setState(status.unchecked);
-                  } else {
-                    setState(status.checked);
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                name="selectAll"
-                color="primary"
-              />
-            }
-            label="Select All"
-          />
-        </Box>
+        <SelectAll
+          isChecked={isChecked}
+          setState={setState}
+          onChange={onChange}
+        />
         {items.map((obj) => (
           <MultiSelectMenuItem
             {...obj}
