@@ -6,7 +6,7 @@ import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
-import { valueToLabel } from '../helpers';
+import { valueToLabel, STATUS } from '../helpers';
 import SelectAll from './SelectAll';
 
 const useStyles = makeStyles(() => ({
@@ -15,11 +15,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const status = {
-  checked: 'checked',
-  unchecked: 'unchecked',
-  indeterminate: 'indeterminate',
-};
+const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
 export default withState(
   ({
@@ -38,9 +34,7 @@ export default withState(
     displayLabelAsValue = false,
     ...deco
   }) => {
-    const [isChecked, setState] = React.useState(
-      status.unchecked,
-    );
+    const [isChecked, setState] = React.useState(UNCHECKED);
 
     const ref = React.useRef(null);
 
@@ -58,7 +52,7 @@ export default withState(
 
     React.useEffect(() => {
       if (ref.current) {
-        if (isChecked === status.checked) {
+        if (isChecked === CHECKED) {
           const payload = {
             target: {
               value: items.map((x) => x.value),
@@ -67,7 +61,7 @@ export default withState(
           };
           onChange(payload);
         }
-        if (isChecked === status.unchecked) {
+        if (isChecked === UNCHECKED) {
           onChange({
             target: {
               name,
@@ -94,8 +88,8 @@ export default withState(
         helperText={helperText}
         required={required}
         onChange={(e) => {
-          if (isChecked === status.checked) {
-            setState(status.indeterminate);
+          if (isChecked === CHECKED) {
+            setState(INDETERMINATE);
           }
           onChange(e);
         }}
@@ -111,7 +105,7 @@ export default withState(
         }}
       >
         <SelectAll
-          isChecked={isChecked}
+          status={isChecked}
           setState={setState}
           onChange={onChange}
         />

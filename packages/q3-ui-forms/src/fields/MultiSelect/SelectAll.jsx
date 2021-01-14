@@ -6,32 +6,25 @@ import {
   Checkbox,
   Divider,
 } from '@material-ui/core';
+import { STATUS } from '../helpers';
 
-const status = {
-  checked: 'checked',
-  unchecked: 'unchecked',
-  indeterminate: 'indeterminate',
-};
+const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
-const SelectAll = ({ isChecked, setState }) => {
+const SelectAll = ({ status, setState }) => {
+  const handleChange = () =>
+    status === CHECKED
+      ? setState(UNCHECKED)
+      : setState(CHECKED);
+
   return (
     <>
       <Box p={1}>
         <FormControlLabel
           control={
             <Checkbox
-              indeterminate={
-                isChecked === status.indeterminate
-              }
-              checked={isChecked === status.checked}
-              onChange={(e) => {
-                e.stopPropagation();
-                if (isChecked === status.checked) {
-                  setState(status.unchecked);
-                } else {
-                  setState(status.checked);
-                }
-              }}
+              indeterminate={status === INDETERMINATE}
+              checked={status === CHECKED}
+              onChange={handleChange}
               name="selectAll"
               color="primary"
             />
@@ -45,8 +38,11 @@ const SelectAll = ({ isChecked, setState }) => {
 };
 
 SelectAll.propTypes = {
-  isChecked: PropTypes.oneOf([...Object.values(status)])
-    .isRequired,
+  status: PropTypes.oneOf([
+    CHECKED,
+    UNCHECKED,
+    INDETERMINATE,
+  ]).isRequired,
   setState: PropTypes.func.isRequired,
 };
 
