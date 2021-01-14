@@ -6,11 +6,19 @@ import {
   Checkbox,
   Divider,
 } from '@material-ui/core';
-import { STATUS } from '../helpers';
+import { useTranslation } from 'react-i18next';
+
+export const STATUS = {
+  CHECKED: 'checked',
+  UNCHECKED: 'unchecked',
+  INDETERMINATE: 'indeterminate',
+};
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
 const SelectAll = ({ status, setState }) => {
+  const { t } = useTranslation('labels');
+
   const handleChange = () =>
     status === CHECKED
       ? setState(UNCHECKED)
@@ -18,7 +26,7 @@ const SelectAll = ({ status, setState }) => {
 
   return (
     <>
-      <Box p={1}>
+      <Box pb={0.5} px={1}>
         <FormControlLabel
           control={
             <Checkbox
@@ -29,7 +37,7 @@ const SelectAll = ({ status, setState }) => {
               color="primary"
             />
           }
-          label="Select All"
+          label={t(CHECKED ? 'deselectAll' : 'selectAll')}
         />
       </Box>
       <Divider />

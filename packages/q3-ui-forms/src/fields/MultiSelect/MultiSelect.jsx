@@ -5,16 +5,18 @@ import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
 import SelectBase from '../SelectBase';
-import { valueToLabel, STATUS } from '../helpers';
-import SelectAll from './SelectAll';
+import { valueToLabel } from '../helpers';
+import MultiSelectAll, { STATUS } from '../MultiSelectAll';
 import useStyles from './useStyles';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
-const genPayload = (name, value = []) => ({
+
+export const genPayload = (name, value = []) => ({
   target: { name, value },
 });
 
-const extractValues = (xs) => map((x) => x.value, xs);
+export const extractValues = (xs) =>
+  map((x) => x.value, xs);
 
 export default withState(
   ({
@@ -33,8 +35,7 @@ export default withState(
     displayLabelAsValue = false,
     ...deco
   }) => {
-    const [isChecked, setState] = React.useState(UNCHECKED);
-    const ref = React.useRef(null);
+    const [isChecked, setState] = React.useState();
     const cls = useStyles();
 
     const v = array.condense(array.is(value));
@@ -48,16 +49,11 @@ export default withState(
       : array.print;
 
     React.useEffect(() => {
-      if (ref.current) {
-        if (isChecked === CHECKED) {
-          onChange(genPayload(name, extractValues(items)));
-        }
-        if (isChecked === UNCHECKED) {
-          onChange(genPayload(name));
-        }
-      } else {
-        ref.current = true;
-      }
+      if (isChecked === CHECKED)
+        onChange(genPayload(name, extractValues(items)));
+
+      if (isChecked === UNCHECKED)
+        onChange(genPayload(name));
     }, [isChecked]);
 
     return (
@@ -74,9 +70,9 @@ export default withState(
         helperText={helperText}
         required={required}
         onChange={(e) => {
-          if (isChecked === CHECKED) {
+          if (isChecked === CHECKED)
             setState(INDETERMINATE);
-          }
+
           onChange(e);
         }}
         SelectProps={{
@@ -90,7 +86,7 @@ export default withState(
           },
         }}
       >
-        <SelectAll
+        <MultiSelectAll
           status={isChecked}
           setState={setState}
           onChange={onChange}

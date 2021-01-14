@@ -22,7 +22,7 @@ import { Form, Field } from '../../builders';
       <Field
         name="demo"
         type="multiselect"
-        options={countries}
+        options={[...countries, ...countries, ...countries]}
         label="Custom label"
         required
         filter

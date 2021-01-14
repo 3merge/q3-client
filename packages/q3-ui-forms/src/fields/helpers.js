@@ -1,11 +1,5 @@
 import { get, isPlainObject, omit } from 'lodash';
 
-export const STATUS = {
-  CHECKED: 'checked',
-  UNCHECKED: 'unchecked',
-  INDETERMINATE: 'indeterminate',
-};
-
 const getTargetValue = (event) =>
   get(event, 'target.value', '');
 
