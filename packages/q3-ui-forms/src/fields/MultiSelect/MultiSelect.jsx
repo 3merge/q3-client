@@ -45,6 +45,21 @@ export default withState(
       ...deco,
     });
 
+    const handleOnChange = (e) => {
+      if (status === CHECKED) setStatus(INDETERMINATE);
+
+      const length = get(e, 'target.value.length', 0);
+
+      if (length === 0) {
+        setStatus(UNCHECKED);
+      }
+      if (length === items.length) {
+        setStatus(CHECKED);
+      }
+
+      onChange(e);
+    };
+
     const renderValue = displayLabelAsValue
       ? compose(array.print, valueToLabel(items))
       : array.print;
@@ -69,20 +84,7 @@ export default withState(
         disabled={disabled}
         helperText={helperText}
         required={required}
-        onChange={(e) => {
-          if (status === CHECKED) setStatus(INDETERMINATE);
-
-          const length = get(e, 'target.value.length', 0);
-
-          if (length === 0) {
-            setStatus(UNCHECKED);
-          }
-          if (length === items.length) {
-            setStatus(CHECKED);
-          }
-
-          onChange(e);
-        }}
+        onChange={handleOnChange}
         SelectProps={{
           value: v,
           renderValue,
