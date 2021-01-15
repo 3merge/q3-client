@@ -16,9 +16,18 @@ const items = [
 const status = jest.spyOn(React, 'useState');
 const setState = jest.fn();
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
+const getSelectBase = () =>
+  global
+    .shallow(<MultiSelect onChange={jest.fn()} />)
+    .find(SelectBase);
+
+const simulateOnChange = (arg) =>
+  getSelectBase().simulate('change', {
+    target: arg,
+  });
+
+const getRenderValue = () =>
+  getSelectBase().prop('SelectProps');
 
 jest.mock('../../hooks', () => ({
   useOptions: jest.fn().mockReturnValue({
@@ -29,6 +38,10 @@ jest.mock('../../hooks', () => ({
     ],
   }),
 }));
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('MultiSelect', () => {
   describe('"genPayload"', () => {
@@ -56,40 +69,21 @@ describe('MultiSelect', () => {
   });
 
   it('should render labels as values when displayLabelAsValue is true', () => {
-    const { renderValue } = global
-      .shallow(
-        <MultiSelect
-          onChange={jest.fn()}
-          displayLabelAsValue
-        />,
-      )
-      .find(SelectBase)
-      .prop('SelectProps');
-
+    const { renderValue } = getRenderValue();
     expect(renderValue(['foo-value'])).toMatch('foo');
   });
 
   it('should serialize values with a comma when displayLabelAsValue is false', () => {
-    const { renderValue } = global
-      .shallow(<MultiSelect onChange={jest.fn()} />)
-      .find(SelectBase)
-      .prop('SelectProps');
-
+    const { renderValue } = getRenderValue();
     expect(renderValue(['one', 'two'])).toMatch('one, two');
   });
 
   it(`should set status to "${INDETERMINATE}" when the value contains some of the available items`, () => {
     status.mockImplementation(() => [CHECKED, setState]);
 
-    const wrapper = global
-      .shallow(<MultiSelect onChange={jest.fn()} />)
-      .find(SelectBase);
-
-    wrapper.simulate('change', {
-      target: {
-        name: '3merge',
-        value: ['foo-value', 'bar-value'],
-      },
+    simulateOnChange({
+      name: '3merge',
+      value: ['foo-value', 'bar-value'],
     });
 
     expect(setState).toHaveBeenCalledWith(INDETERMINATE);
@@ -98,15 +92,9 @@ describe('MultiSelect', () => {
   it(`should set checked to "${UNCHECKED}" when the value contains none of the available items`, () => {
     status.mockImplementation(() => [undefined, setState]);
 
-    const wrapper = global
-      .shallow(<MultiSelect onChange={jest.fn()} />)
-      .find(SelectBase);
-
-    wrapper.simulate('change', {
-      target: {
-        name: '3merge',
-        value: [],
-      },
+    simulateOnChange({
+      name: '3merge',
+      value: [],
     });
 
     expect(setState).toHaveBeenCalledWith(UNCHECKED);
@@ -114,16 +102,9 @@ describe('MultiSelect', () => {
 
   it(`should set status to "${CHECKED}" when the value contains all of the available items`, () => {
     status.mockImplementation(() => [undefined, setState]);
-
-    const wrapper = global
-      .shallow(<MultiSelect onChange={jest.fn()} />)
-      .find(SelectBase);
-
-    wrapper.simulate('change', {
-      target: {
-        name: '3merge',
-        value: ['foo-value', 'bar-value'],
-      },
+    simulateOnChange({
+      name: '3merge',
+      value: ['foo-value', 'bar-value'],
     });
 
     expect(setState).toHaveBeenCalledWith(CHECKED);
