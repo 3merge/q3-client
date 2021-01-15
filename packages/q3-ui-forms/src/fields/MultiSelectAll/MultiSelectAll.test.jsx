@@ -10,10 +10,6 @@ const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
 const setStatus = jest.fn();
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
 const render = (status) =>
   global.shallow(
     <MultiSelectAll
@@ -21,6 +17,17 @@ const render = (status) =>
       setStatus={setStatus}
     />,
   );
+
+const expectPropChange = (state) => {
+  const { props } = render(state)
+    .find(FormControlLabel)
+    .prop('control');
+  expect(props[state]).toBeTruthy();
+};
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('MultiSelectAll', () => {
   it.each([
@@ -36,17 +43,11 @@ describe('MultiSelectAll', () => {
   );
 
   it(`should set indeterminate prop true on "${INDETERMINATE}"`, () => {
-    const { props } = render(INDETERMINATE)
-      .find(FormControlLabel)
-      .prop('control');
-    expect(props.indeterminate).toBeTruthy();
+    expectPropChange(INDETERMINATE);
   });
 
   it(`should set checked prop true on "${CHECKED}"`, () => {
-    const { props } = render(CHECKED)
-      .find(FormControlLabel)
-      .prop('control');
-    expect(props.checked).toBeTruthy();
+    expectPropChange(CHECKED);
   });
 
   it.each([
