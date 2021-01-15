@@ -68,7 +68,7 @@ describe('useRefresh', () => {
     shouldHaveBeenCalledWithCollection(leave);
   });
 
-  it.skip('should poll', (done) => {
+  it('should poll', (done) => {
     const poll = jest.fn().mockResolvedValue({});
     useContext.mockReturnValue({
       join,
