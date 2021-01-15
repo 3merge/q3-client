@@ -37,7 +37,11 @@ const SelectAll = ({ status, setState }) => {
               color="primary"
             />
           }
-          label={t(CHECKED ? 'deselectAll' : 'selectAll')}
+          label={t(
+            status === CHECKED
+              ? 'deselectAll'
+              : 'selectAll',
+          )}
         />
       </Box>
       <Divider />
