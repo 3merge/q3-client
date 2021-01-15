@@ -31,8 +31,8 @@ beforeEach(() => {
 
 describe('MultiSelectAll', () => {
   it.each([
-    [UNCHECKED, 'selectAll'],
-    [CHECKED, 'deselectAll'],
+    [UNCHECKED, 'selectAllItems'],
+    [CHECKED, 'deselectAllItem'],
   ])(
     'should pick a correct label based on "status" state',
     (status, label) => {

@@ -39,8 +39,8 @@ const SelectAll = ({ status, setStatus }) => {
           }
           label={t(
             status === CHECKED
-              ? 'deselectAll'
-              : 'selectAll',
+              ? 'deselectAllItem'
+              : 'selectAllItems',
           )}
         />
       </Box>
