@@ -1,4 +1,5 @@
 import React from 'react';
+import { get } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
@@ -43,7 +44,6 @@ export default withState(
       minimumCharacterCount: 0,
       ...deco,
     });
-    console.log(items);
 
     const renderValue = displayLabelAsValue
       ? compose(array.print, valueToLabel(items))
@@ -55,7 +55,6 @@ export default withState(
 
       if (status === UNCHECKED) onChange(genPayload(name));
     }, [status]);
-    console.log(status);
 
     return (
       <SelectBase
@@ -72,6 +71,15 @@ export default withState(
         required={required}
         onChange={(e) => {
           if (status === CHECKED) setStatus(INDETERMINATE);
+
+          const length = get(e, 'target.value.length', 0);
+
+          if (length === 0) {
+            setStatus(UNCHECKED);
+          }
+          if (length === items.length) {
+            setStatus(CHECKED);
+          }
 
           onChange(e);
         }}

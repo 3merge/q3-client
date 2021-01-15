@@ -49,12 +49,16 @@ const SelectAll = ({ status, setStatus }) => {
   );
 };
 
+SelectAll.defaultProps = {
+  status: UNCHECKED,
+};
+
 SelectAll.propTypes = {
   status: PropTypes.oneOf([
     CHECKED,
     UNCHECKED,
     INDETERMINATE,
-  ]).isRequired,
+  ]),
   setStatus: PropTypes.func.isRequired,
 };
 

@@ -3,10 +3,32 @@ import MultiSelect, {
   extractValues,
   genPayload,
 } from './MultiSelect';
+import SelectBase from '../SelectBase';
 import { STATUS } from '../MultiSelectAll';
-import { useOptions } from '../../hooks';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
+
+const items = [
+  { label: 'foo', value: 'foo-value' },
+  { label: 'bar', value: 'bar-value' },
+];
+
+const status = jest.spyOn(React, 'useState');
+const setState = jest.fn();
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
+jest.mock('../../hooks', () => ({
+  useOptions: jest.fn().mockReturnValue({
+    location: false,
+    items: [
+      { label: 'foo', value: 'foo-value' },
+      { label: 'bar', value: 'bar-value' },
+    ],
+  }),
+}));
 
 describe('MultiSelect', () => {
   describe('"genPayload"', () => {
@@ -23,13 +45,9 @@ describe('MultiSelect', () => {
 
   describe('"extractValues"', () => {
     it('should extract value property from all objects in the array', () => {
-      const items = [
-        { label: 'foo', value: 'foo-value' },
-        { label: 'bar', value: 'foo-bar' },
-      ];
       expect(extractValues(items)).toEqual([
         'foo-value',
-        'foo-bar',
+        'bar-value',
       ]);
     });
 
@@ -38,48 +56,63 @@ describe('MultiSelect', () => {
     );
   });
 
-  it('should match item labels with state value when displayLabelAsValue is true', () => {
-    const items = [
-      { label: 'hello', value: 'world' },
-      { label: 'john', value: 'doe' },
-    ];
-
-    const status = UNCHECKED;
-    const setState = jest.fn();
-
-    jest
-      .spyOn(React, 'useState')
-      .mockImplementation(() => [status, setState]);
-
-    jest.mock('../../hooks', () => ({
-      useOptions: jest.fn().mockReturnValue({
-        location: false,
-        items,
-      }),
-    }));
-
-    const wrapper = global.shallow(
-      <MultiSelect
-        displayLabelAsValue
-        name="foo"
-        value={['world', 'doe']}
-      />,
-    );
-  });
+  // TEST NOTE: Not sure how to test this but "renderValue" is tested.
+  it.todo(
+    'should match item labels with state value when displayLabelAsValue is true',
+  );
 
   it.todo(
     'should serialize values with a comma when displayLabelAsValue is false',
   );
 
-  it.todo(
-    `should set checked to "${INDETERMINATE}" when the value contains some of the available items`,
-  );
+  it(`should set status to "${INDETERMINATE}" when the value contains some of the available items`, () => {
+    status.mockImplementation(() => [CHECKED, setState]);
 
-  it.todo(
-    `should set checked to "${CHECKED}" when the value contains all of the available items`,
-  );
+    const wrapper = global
+      .shallow(<MultiSelect onChange={jest.fn()} />)
+      .find(SelectBase);
 
-  it.todo(
-    `should set checked to "${UNCHECKED}" when the value contains none of the available items`,
-  );
+    wrapper.simulate('change', {
+      target: {
+        name: '3merge',
+        value: ['foo-value', 'bar-value'],
+      },
+    });
+
+    expect(setState).toHaveBeenCalledWith(INDETERMINATE);
+  });
+
+  it(`should set checked to "${UNCHECKED}" when the value contains none of the available items`, () => {
+    status.mockImplementation(() => [undefined, setState]);
+
+    const wrapper = global
+      .shallow(<MultiSelect onChange={jest.fn()} />)
+      .find(SelectBase);
+
+    wrapper.simulate('change', {
+      target: {
+        name: '3merge',
+        value: [],
+      },
+    });
+
+    expect(setState).toHaveBeenCalledWith(UNCHECKED);
+  });
+
+  it(`should set status to "${CHECKED}" when the value contains all of the available items`, () => {
+    status.mockImplementation(() => [undefined, setState]);
+
+    const wrapper = global
+      .shallow(<MultiSelect onChange={jest.fn()} />)
+      .find(SelectBase);
+
+    wrapper.simulate('change', {
+      target: {
+        name: '3merge',
+        value: ['foo-value', 'bar-value'],
+      },
+    });
+
+    expect(setState).toHaveBeenCalledWith(CHECKED);
+  });
 });
