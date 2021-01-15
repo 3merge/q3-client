@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+
 ## [1.24.38](https://github.com/3merge/q/compare/v1.24.37...v1.24.38) (2020-12-19)
 
 **Note:** Version bump only for package q3-ui
