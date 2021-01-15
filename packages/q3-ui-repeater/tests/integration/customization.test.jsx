@@ -1,4 +1,5 @@
 import React from 'react';
+import data from '../fixtures/articles';
 import AuthContextProvider from '../fixtures/AuthContextProvider';
 import { genRepeaterProps } from '../helpers';
 import Repeater from '../../src';
@@ -6,6 +7,7 @@ import {
   AddItem,
   Search,
   SelectForm,
+  ItemHeader,
 } from '../../src/components';
 
 const sortOptions = [
@@ -39,12 +41,16 @@ const render = (props = {}) =>
  * Test cases
  */
 
-it.todo('should hide search');
-
-it('should show search', () => {
-  const wrapper = render();
-  expect(wrapper.find(Search).exists()).toBeTruthy();
-});
+it.each([
+  [true, false],
+  [false, true],
+])(
+  'should conditionally render search',
+  (disableSearch, expected) => {
+    const wrapper = render({ disableSearch });
+    expect(wrapper.find(Search).exists()).toBe(expected);
+  },
+);
 
 it.each([
   [{}, true],
@@ -101,5 +107,14 @@ it('should replace create', () => {
   expect(wrapper.find('#customAdd').exists()).toBeTruthy();
 });
 
-it.todo('should show multi-select');
-it.todo('should hide multi-select');
+it.each([[true, false, false, true]])(
+  'should show multi-select',
+  (disableMultiselect, expected) => {
+    const multiSelect = render({ data, disableMultiselect })
+      .find(ItemHeader)
+      .first()
+      .prop('showMultiselect');
+
+    expect(multiSelect).toBe(expected);
+  },
+);

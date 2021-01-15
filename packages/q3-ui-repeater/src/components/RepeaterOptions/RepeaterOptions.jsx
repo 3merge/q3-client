@@ -11,6 +11,7 @@ const RepeaterOptions = ({
   sortOptions,
   state,
   dispatch,
+  disableSearch,
 }) => {
   const handleChange = (label) => (e) =>
     dispatch({ type: label, payload: e.target.value });
@@ -23,11 +24,13 @@ const RepeaterOptions = ({
 
   return (
     <Grid container>
-      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        <Box mb={2}>
-          <Search handleInput={handleInput} />
-        </Box>
-      </Grid>
+      {!disableSearch && (
+        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+          <Box mb={2}>
+            <Search handleInput={handleInput} />
+          </Box>
+        </Grid>
+      )}
       <Grid item container spacing={1}>
         <Grid item {...size} className={cls.form}>
           <SelectForm

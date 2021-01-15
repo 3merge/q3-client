@@ -3,8 +3,15 @@ import Repeater from '../../src';
 import data from '../fixtures/articles';
 import AuthContextProvider from '../fixtures/AuthContextProvider';
 import { genRepeaterProps, perform } from '../helpers';
+import RepeaterTable from '../../src/components/RepeaterTable';
 
 jest.unmock('useful-state');
+
+const reducer = jest.spyOn(React, 'useReducer');
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 const getCellValue = (el) => {
   const cells = el.find('td');
@@ -112,7 +119,29 @@ describe('Display', () => {
   });
 
   describe('searching', () => {
-    it.todo('should narrow results on search');
+    it.only('should narrow results on search', () => {
+      reducer.mockImplementation(() => [
+        { filterBy: 0, sortBy: 0, input: 'One Fine Day' },
+        jest.fn(),
+      ]);
+
+      const searchedData = global
+        .mount(
+          <AuthContextProvider>
+            <Repeater {...genRepeaterProps()} data={data}>
+              <div />
+            </Repeater>
+          </AuthContextProvider>,
+        )
+        .find(RepeaterTable)
+        .prop('data');
+
+      expect(searchedData[0]).toHaveProperty(
+        'title',
+        'One Fine Day',
+      );
+    });
+
     it.todo(
       'should create dynamic title/description props',
     );

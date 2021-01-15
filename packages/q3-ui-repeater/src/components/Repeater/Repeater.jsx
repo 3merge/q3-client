@@ -24,7 +24,7 @@ const optionType = PropTypes.arrayOf(
 const init = {
   sortBy: 0,
   filterBy: 0,
-  input: 0,
+  input: '',
 };
 
 const Repeater = ({
@@ -32,6 +32,7 @@ const Repeater = ({
   addDisabled,
   children,
   data,
+  disableSearch,
   filterOptions,
   groupBy,
   initialValues,
@@ -67,6 +68,7 @@ const Repeater = ({
               dispatch={dispatch}
               filterOptions={filterOptions}
               sortOptions={sortOptions}
+              disableSearch={disableSearch}
             />
           </Grid>
           {!addDisabled && (
@@ -106,6 +108,7 @@ Repeater.defaultProps = {
   addComponent: null,
   addDisabled: false,
   data: [],
+  disableSearch: false,
   groupBy: null,
   sortOptions: [],
   filterOptions: [],
@@ -116,6 +119,7 @@ Repeater.propTypes = {
   addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
+  disableSearch: PropTypes.bool,
   children: PropTypes.node.isRequired,
   sortOptions: optionType,
   filterOptions: optionType,
