@@ -47,9 +47,9 @@ describe('MultiSelect', () => {
     const status = UNCHECKED;
     const setState = jest.fn();
 
-    // jest
-    //   .spyOn(React, 'useState')
-    //   .mockImplementation(() => [status, setState]);
+    jest
+      .spyOn(React, 'useState')
+      .mockImplementation(() => [status, setState]);
 
     jest.mock('../../hooks', () => ({
       useOptions: jest.fn().mockReturnValue({
