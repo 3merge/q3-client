@@ -1,7 +1,6 @@
 module.exports = {
   verbose: false,
   modulePathIgnorePatterns: [
-    '<rootDir>/gatsby-theme-q3/lib/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/cypress/',
   ],
@@ -11,7 +10,6 @@ module.exports = {
     '<rootDir>/packages/q3-blocks/',
     '<rootDir>/packages/q3-ui/',
     '<rootDir>/example',
-    '<rootDir>/gatsby-theme-q3',
   ],
   coveragePathIgnorePatterns: [
     '<rootDir>/.github/',

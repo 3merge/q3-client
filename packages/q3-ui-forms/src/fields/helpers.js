@@ -43,3 +43,19 @@ export const removeDecoratedProps = (props) =>
     'onArrayPush',
     'suppressLabel',
   ]);
+
+// getLabel:: [String] -> [{label, value}]) -> [value]
+/**
+ * Transform array of selected values to array of its label
+ */
+export const valueToLabel = (original) => (selected) => {
+  return Array.isArray(selected)
+    ? selected.map((x) => {
+        const item = original.find(
+          ({ value }) => String(value) === x,
+        );
+
+        return item?.label || x;
+      })
+    : selected;
+};
