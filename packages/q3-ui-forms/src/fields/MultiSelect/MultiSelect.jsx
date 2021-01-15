@@ -35,7 +35,7 @@ export default withState(
     displayLabelAsValue = false,
     ...deco
   }) => {
-    const [isChecked, setState] = React.useState();
+    const [status, setStatus] = React.useState();
     const cls = useStyles();
 
     const v = array.condense(array.is(value));
@@ -43,18 +43,19 @@ export default withState(
       minimumCharacterCount: 0,
       ...deco,
     });
+    console.log(items);
 
     const renderValue = displayLabelAsValue
       ? compose(array.print, valueToLabel(items))
       : array.print;
 
     React.useEffect(() => {
-      if (isChecked === CHECKED)
+      if (status === CHECKED)
         onChange(genPayload(name, extractValues(items)));
 
-      if (isChecked === UNCHECKED)
-        onChange(genPayload(name));
-    }, [isChecked]);
+      if (status === UNCHECKED) onChange(genPayload(name));
+    }, [status]);
+    console.log(status);
 
     return (
       <SelectBase
@@ -70,8 +71,7 @@ export default withState(
         helperText={helperText}
         required={required}
         onChange={(e) => {
-          if (isChecked === CHECKED)
-            setState(INDETERMINATE);
+          if (status === CHECKED) setStatus(INDETERMINATE);
 
           onChange(e);
         }}
@@ -87,8 +87,8 @@ export default withState(
         }}
       >
         <MultiSelectAll
-          status={isChecked}
-          setState={setState}
+          status={status}
+          setStatus={setStatus}
           onChange={onChange}
         />
         {items.map((obj) => (

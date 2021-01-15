@@ -16,13 +16,13 @@ export const STATUS = {
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
-const SelectAll = ({ status, setState }) => {
+const SelectAll = ({ status, setStatus }) => {
   const { t } = useTranslation('labels');
 
   const handleChange = () =>
     status === CHECKED
-      ? setState(UNCHECKED)
-      : setState(CHECKED);
+      ? setStatus(UNCHECKED)
+      : setStatus(CHECKED);
 
   return (
     <>
@@ -55,7 +55,7 @@ SelectAll.propTypes = {
     UNCHECKED,
     INDETERMINATE,
   ]).isRequired,
-  setState: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
 };
 
 export default SelectAll;

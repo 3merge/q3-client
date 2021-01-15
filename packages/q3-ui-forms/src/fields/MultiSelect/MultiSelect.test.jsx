@@ -1,5 +1,10 @@
-import { extractValues, genPayload } from './MultiSelect';
+import React from 'react';
+import MultiSelect, {
+  extractValues,
+  genPayload,
+} from './MultiSelect';
 import { STATUS } from '../MultiSelectAll';
+import { useOptions } from '../../hooks';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
@@ -33,9 +38,34 @@ describe('MultiSelect', () => {
     );
   });
 
-  it.todo(
-    'should match item labels with state value when displayLabelAsValue is true',
-  );
+  it('should match item labels with state value when displayLabelAsValue is true', () => {
+    const items = [
+      { label: 'hello', value: 'world' },
+      { label: 'john', value: 'doe' },
+    ];
+
+    const status = UNCHECKED;
+    const setState = jest.fn();
+
+    // jest
+    //   .spyOn(React, 'useState')
+    //   .mockImplementation(() => [status, setState]);
+
+    jest.mock('../../hooks', () => ({
+      useOptions: jest.fn().mockReturnValue({
+        location: false,
+        items,
+      }),
+    }));
+
+    const wrapper = global.shallow(
+      <MultiSelect
+        displayLabelAsValue
+        name="foo"
+        value={['world', 'doe']}
+      />,
+    );
+  });
 
   it.todo(
     'should serialize values with a comma when displayLabelAsValue is false',

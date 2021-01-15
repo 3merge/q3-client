@@ -7,7 +7,10 @@ const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
 const render = (status) =>
   global.shallow(
-    <MultiSelectAll status={status} setState={jest.fn()} />,
+    <MultiSelectAll
+      status={status}
+      setStatus={jest.fn()}
+    />,
   );
 
 describe('MultiSelectAll', () => {
