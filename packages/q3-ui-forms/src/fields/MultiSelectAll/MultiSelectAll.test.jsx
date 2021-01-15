@@ -40,6 +40,7 @@ describe('MultiSelectAll', () => {
     expect(props.checked).toBeTruthy();
   });
 
+  // NOTE: We're look at testing the handleChange function for both the tests below
   it.todo(`should change status to "${CHECKED}"`);
   it.todo(`should change status to "${UNCHECKED}"`);
 });

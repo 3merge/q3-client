@@ -51,19 +51,32 @@ describe('MultiSelect', () => {
       ]);
     });
 
-    it.todo(
-      'should return each item if the array contains only string value',
-    );
+    it('should return each item if the array contains only string value', () =>
+      expect(extractValues(['foo'])).toEqual(['foo']));
   });
 
-  // TEST NOTE: Not sure how to test this but "renderValue" is tested.
-  it.todo(
-    'should match item labels with state value when displayLabelAsValue is true',
-  );
+  it('should render labels as values when displayLabelAsValue is true', () => {
+    const { renderValue } = global
+      .shallow(
+        <MultiSelect
+          onChange={jest.fn()}
+          displayLabelAsValue
+        />,
+      )
+      .find(SelectBase)
+      .prop('SelectProps');
 
-  it.todo(
-    'should serialize values with a comma when displayLabelAsValue is false',
-  );
+    expect(renderValue(['foo-value'])).toMatch('foo');
+  });
+
+  it('should serialize values with a comma when displayLabelAsValue is false', () => {
+    const { renderValue } = global
+      .shallow(<MultiSelect onChange={jest.fn()} />)
+      .find(SelectBase)
+      .prop('SelectProps');
+
+    expect(renderValue(['one', 'two'])).toMatch('one, two');
+  });
 
   it(`should set status to "${INDETERMINATE}" when the value contains some of the available items`, () => {
     status.mockImplementation(() => [CHECKED, setState]);

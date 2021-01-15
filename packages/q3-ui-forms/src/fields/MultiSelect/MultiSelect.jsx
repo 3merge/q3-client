@@ -1,5 +1,5 @@
 import React from 'react';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
@@ -17,7 +17,7 @@ export const genPayload = (name, value = []) => ({
 });
 
 export const extractValues = (xs) =>
-  map((x) => x.value, xs);
+  map((x) => (isObject(x) ? x.value : x), xs);
 
 export default withState(
   ({
