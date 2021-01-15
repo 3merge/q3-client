@@ -114,12 +114,36 @@ describe('Display', () => {
   });
 
   describe('nesting', () => {
-    it.todo('should render a collapsible row');
-    it.todo('should not render a collapsible row');
+    const Component = () => (
+      <div className="nested">Here</div>
+    );
+
+    it.each([
+      [Component, true],
+      [null, false],
+    ])(
+      'should render a collapsible row',
+      (El, expected) => {
+        const el = global.mount(
+          <AuthContextProvider update="!*author">
+            <Repeater
+              {...genRepeaterProps()}
+              renderNestedTableRow={El}
+            >
+              <div />
+            </Repeater>
+          </AuthContextProvider>,
+        );
+
+        expect(el.find('.nested').first().exists()).toBe(
+          expected,
+        );
+      },
+    );
   });
 
   describe('searching', () => {
-    it.only('should narrow results on search', () => {
+    it('should narrow results on search', () => {
       reducer.mockImplementation(() => [
         { filterBy: 0, sortBy: 0, input: 'One Fine Day' },
         jest.fn(),
@@ -141,9 +165,5 @@ describe('Display', () => {
         'One Fine Day',
       );
     });
-
-    it.todo(
-      'should create dynamic title/description props',
-    );
   });
 });
