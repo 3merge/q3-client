@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isObject } from 'lodash';
+import { get, isObject, uniq } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
@@ -18,6 +18,8 @@ export const genPayload = (name, value = []) => ({
 
 export const extractValues = (xs) =>
   map((x) => (isObject(x) ? x.value : x), xs);
+
+const sort = (a) => array.is(a).sort();
 
 export default withState(
   ({
@@ -60,9 +62,12 @@ export default withState(
       onChange(e);
     };
 
-    const renderValue = displayLabelAsValue
-      ? compose(array.print, valueToLabel(items))
-      : array.print;
+    const composedFns = [array.print, sort, uniq];
+
+    if (displayLabelAsValue)
+      composedFns.push(valueToLabel(items));
+
+    const renderValue = compose(...composedFns);
 
     React.useEffect(() => {
       if (status === CHECKED)
@@ -91,6 +96,7 @@ export default withState(
           multiple: true,
           native: false,
           MenuProps: {
+            getContentAnchorEl: () => null,
             disablePortal: true,
             classes: cls,
           },
