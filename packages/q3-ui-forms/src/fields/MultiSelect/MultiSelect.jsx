@@ -70,6 +70,12 @@ export default withState(
     const renderValue = compose(...composedFns);
 
     React.useEffect(() => {
+      if (value.length === items.length) {
+        setStatus(CHECKED);
+      }
+    }, []);
+
+    React.useEffect(() => {
       if (status === CHECKED)
         onChange(genPayload(name, extractValues(items)));
 

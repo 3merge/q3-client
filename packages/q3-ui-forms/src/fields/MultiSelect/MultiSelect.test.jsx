@@ -16,9 +16,11 @@ const items = [
 const status = jest.spyOn(React, 'useState');
 const setState = jest.fn();
 
-const getSelectBase = () =>
+const getSelectBase = (props = {}) =>
   global
-    .shallow(<MultiSelect onChange={jest.fn()} />)
+    .shallow(
+      <MultiSelect onChange={jest.fn()} {...props} />,
+    )
     .find(SelectBase);
 
 const simulateOnChange = (arg) =>
@@ -106,6 +108,18 @@ describe('MultiSelect', () => {
       name: '3merge',
       value: ['foo-value', 'bar-value'],
     });
+
+    expect(setState).toHaveBeenCalledWith(CHECKED);
+  });
+
+  it('should be checked when all options are selected on initial load', () => {
+    status.mockImplementation(() => [undefined, setState]);
+    global.mount(
+      <MultiSelect
+        onChange={jest.fn()}
+        value={['foo-value', 'bar-value']}
+      />,
+    );
 
     expect(setState).toHaveBeenCalledWith(CHECKED);
   });

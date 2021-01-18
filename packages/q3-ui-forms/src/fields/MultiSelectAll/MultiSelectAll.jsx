@@ -18,7 +18,6 @@ const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
 const SelectAll = ({ status, setStatus }) => {
   const { t } = useTranslation('labels');
-
   const handleChange = () =>
     status === CHECKED
       ? setStatus(UNCHECKED)

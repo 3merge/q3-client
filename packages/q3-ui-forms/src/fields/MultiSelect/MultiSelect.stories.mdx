@@ -30,7 +30,10 @@ import { Form, Field } from '../../builders';
     </Form>
   </Story>
   <Story name="DisplayLabelAsValue">
-    <Form debug initialValues={{ demo: ['CA'] }}>
+    <Form
+      debug
+      initialValues={{ demo: ['CA', 'UK', 'US'] }}
+    >
       <Field
         name="demo"
         type="multiselect"
