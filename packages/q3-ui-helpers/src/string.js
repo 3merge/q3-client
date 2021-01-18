@@ -59,7 +59,7 @@ export const toPrice = (str) => {
   const num = Number(str);
   return num && !Number.isNaN(num)
     ? `$${num.toFixed(2)}`
-    : '$0';
+    : '$0.00';
 };
 
 export const toNumber = (str, fallbackText = '') => {
