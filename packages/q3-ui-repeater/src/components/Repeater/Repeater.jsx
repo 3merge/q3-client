@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Paper, Grid } from '@material-ui/core';
 import { compose } from 'lodash/fp';
+import ActionBar from '../ActionBar';
 import AddItem from '../AddItem';
 import RepeaterTable from '../RepeaterTable';
 import RepeaterOptions from '../RepeaterOptions';
@@ -29,6 +30,7 @@ const init = {
 
 const Repeater = ({
   addComponent,
+  bulkEditorComponent,
   addDisabled,
   children,
   data,
@@ -61,6 +63,10 @@ const Repeater = ({
       }}
     >
       <Box mb={2}>
+        <ActionBar
+          data={data}
+          renderSelected={bulkEditorComponent}
+        />
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={9} lg={10} xl={10}>
             <RepeaterOptions

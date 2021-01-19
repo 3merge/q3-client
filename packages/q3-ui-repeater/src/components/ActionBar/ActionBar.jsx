@@ -17,44 +17,37 @@ const CustomActionBar = ({
 }) => {
   const { checked } = React.useContext(State);
 
-  return checked.length ? (
-    <TableCell
-      component="th"
-      colSpan="100%"
-      style={{ textAlign: 'right' }}
-    >
-      {renderSelected && (
-        <BulkEditorDrawer
+  return (
+    checked.length > 0 && (
+      <>
+        {renderSelected && (
+          <BulkEditorDrawer
+            ids={checked}
+            renderTrigger={(onClick) => (
+              <IconButton
+                icon={Edit}
+                label="bulkUpdate"
+                buttonProps={{ onClick }}
+              />
+            )}
+          >
+            {renderSelected}
+          </BulkEditorDrawer>
+        )}
+        <BulkDeleteModal
           ids={checked}
           renderTrigger={(onClick) => (
             <IconButton
-              icon={Edit}
-              label="bulkUpdate"
-              buttonProps={{ onClick }}
+              icon={DeleteForeverIcon}
+              label="bulkDelete"
+              buttonProps={{
+                onClick,
+              }}
             />
           )}
-        >
-          {renderSelected}
-        </BulkEditorDrawer>
-      )}
-      <BulkDeleteModal
-        ids={checked}
-        renderTrigger={(onClick) => (
-          <IconButton
-            icon={DeleteForeverIcon}
-            label="bulkDelete"
-            buttonProps={{
-              onClick,
-            }}
-          />
-        )}
-      />
-    </TableCell>
-  ) : (
-    <>
-      {renderUnselected}
-      <TableCell component="th" colSpan="100%" />
-    </>
+        />
+      </>
+    )
   );
 };
 

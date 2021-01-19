@@ -17,7 +17,12 @@ const BulkDeleteModal = ({ ids, ...rest }) => {
 };
 
 BulkDeleteModal.propTypes = {
-  ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ids: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  ).isRequired,
 };
 
 export default BulkDeleteModal;

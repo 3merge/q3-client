@@ -29,45 +29,22 @@ const List = ({
   const attributes = get(rest, 'cardProps.attributes', []);
 
   return (
-    <>
-      {/* <TableHead>
-        <TableRow>
-          <TableCell />
-          <ActionBar
-            data={data}
-            renderSelected={actionComponent}
-            renderUnselected={
-              showAttributes
-                ? attributes.map((name) => (
-                    <TableCell
-                      component="th"
-                      style={{ padding: 0 }}
-                    >
-                      {t(name)}
-                    </TableCell>
-                  ))
-                : null
-            }
-          />
-        </TableRow>
-      </TableHead> */}
-      <TableBody>
-        {data.map((item, i) => (
-          <NestedItem
-            key={`nestedItem${i}`}
-            renderNestedTableRow={renderNestedTableRow}
-            attributes={attributes}
-            showAttributes={showAttributes}
-            parent={data}
-            item={item}
-            index={i}
-            {...rest}
-          >
-            {children}
-          </NestedItem>
-        ))}
-      </TableBody>
-    </>
+    <TableBody>
+      {data.map((item, i) => (
+        <NestedItem
+          key={`nestedItem${i}`}
+          renderNestedTableRow={renderNestedTableRow}
+          attributes={attributes}
+          showAttributes={showAttributes}
+          parent={data}
+          item={item}
+          index={i}
+          {...rest}
+        >
+          {children}
+        </NestedItem>
+      ))}
+    </TableBody>
   );
 };
 

@@ -28,8 +28,16 @@ const BulkEditorDrawer = ({ ids, children, ...rest }) => {
 };
 
 BulkEditorDrawer.propTypes = {
-  children: PropTypes.func.isRequired,
-  ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.object,
+  ]).isRequired,
+  ids: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  ).isRequired,
 };
 
 export default BulkEditorDrawer;

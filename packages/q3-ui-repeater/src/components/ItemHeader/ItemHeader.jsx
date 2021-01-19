@@ -37,7 +37,7 @@ const ItemHeader = ({
     <TableCell className={tableCellHeader}>
       <Grid alignItems="center" container spacing={1}>
         {showMultiselect && (
-          <Hidden smDown>
+          <Hidden implementation="css" smDown>
             <Grid item>
               <SelectOne id={id} />
             </Grid>
