@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { array } from 'q3-ui-helpers';
 import { useAuth } from 'q3-ui-permissions';
 import Pagination from '@material-ui/lab/Pagination';
-import { Box, Table, Typography } from '@material-ui/core';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Box, Table } from '@material-ui/core';
 import List from '../List';
 import RepeaterContext from '../state';
 import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
 import usePagination from '../../usePagination';
+import RepeaterCollapse from '../RepeaterCollapse';
 
 const RepeaterTable = ({
   data,
@@ -39,66 +36,33 @@ const RepeaterTable = ({
   );
 
   return (
-    <Accordion
-      defaultExpanded
-      style={{
-        boxShadow: 'none',
-      }}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        style={{
-          borderBottom: '2px solid #F5F7F9',
-          flexDirection: 'row-reverse',
-          margin: 0,
-          padding: '.5rem .25rem',
-          minHeight: 36,
-          height: 36,
-        }}
-      >
-        {groupName && (
-          <Typography
-            variant="overline"
-            style={{ marginLeft: '1rem' }}
+    <RepeaterCollapse label={groupName}>
+      <Table>
+        {list.length > 0 && (
+          <List
+            {...rest}
+            data={list}
+            disableEditor={disableEditor}
+            disableMultiselect={
+              disableMultiselect ||
+              (!auth.canDelete && !bulkEditorComponent)
+            }
+            disableRemove={disableRemove}
+            renderNestedTableRow={renderNestedTableRow}
+            actionComponent={bulkEditorComponent}
           >
-            {groupName}
-          </Typography>
+            {children}
+          </List>
         )}
-      </AccordionSummary>
-      <AccordionDetails style={{ padding: 0 }}>
-        <Box width="100%">
-          <Table>
-            {list.length > 0 && (
-              <List
-                {...rest}
-                data={list}
-                disableEditor={disableEditor}
-                disableMultiselect={
-                  disableMultiselect ||
-                  (!auth.canDelete && !bulkEditorComponent)
-                }
-                disableRemove={disableRemove}
-                renderNestedTableRow={renderNestedTableRow}
-                actionComponent={bulkEditorComponent}
-              >
-                {children}
-              </List>
-            )}
-          </Table>
-          <Box
-            display="flex"
-            justifyContent="center"
-            my={2}
-          >
-            <Pagination
-              color="primary"
-              count={totalPage}
-              onChange={onChange}
-            />
-          </Box>
-        </Box>
-      </AccordionDetails>
-    </Accordion>
+      </Table>
+      <Box display="flex" justifyContent="center" my={2}>
+        <Pagination
+          color="primary"
+          count={totalPage}
+          onChange={onChange}
+        />
+      </Box>
+    </RepeaterCollapse>
   );
 };
 
