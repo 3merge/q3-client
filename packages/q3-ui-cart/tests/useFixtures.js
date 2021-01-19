@@ -29,7 +29,14 @@ export default (items = []) => {
     },
 
     addItemToOrder: (args) => {
-      order.items.push(genProduct(args));
+      const stub = genProduct(args);
+      stub.id = order.items.length + 1;
+      order.items.push(
+        order.items.length > 1
+          ? { ...stub, isDisabled: true }
+          : stub,
+      );
+
       return Promise.resolve(order);
     },
 
