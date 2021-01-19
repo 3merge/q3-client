@@ -40,7 +40,7 @@ const Groups = ({ children, ...etc }) => {
       </Segments>
       <SidePanelContent title={t('filters')}>
         <Box id="q3-filters">
-          <FiltersForm search={location.search} {...etc}>
+          <FiltersForm search={location?.search} {...etc}>
             {(...params) => (
               <>
                 {children(...params)}
