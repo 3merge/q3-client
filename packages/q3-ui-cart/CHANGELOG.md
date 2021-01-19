@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.25.2](https://github.com/3merge/q/compare/v1.25.1...v1.25.2) (2021-01-19)
+
+
+### Bug Fixes
+
+* table scrolling and disabled cart line items ([#283](https://github.com/3merge/q/issues/283)) ([2aec2e3](https://github.com/3merge/q/commit/2aec2e3343d315a7fa011ca68a63237da2bde85a))
+
+
+
+
+
+
 ## [1.25.1](https://github.com/3merge/q/compare/v1.25.0...v1.25.1) (2021-01-15)
 
 **Note:** Version bump only for package q3-ui-cart

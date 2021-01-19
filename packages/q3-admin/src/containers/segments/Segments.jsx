@@ -22,7 +22,7 @@ const Segements = ({ children }) => {
     filters,
     favourite,
     main,
-  } = useActiveFilter(location.search);
+  } = useActiveFilter(location?.search);
 
   const listItems = [
     {
