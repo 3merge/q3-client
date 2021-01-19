@@ -55,13 +55,16 @@ const RepeaterTable = ({
           </List>
         )}
       </Table>
-      <Box display="flex" justifyContent="center" my={2}>
-        <Pagination
-          color="primary"
-          count={totalPage}
-          onChange={onChange}
-        />
-      </Box>
+      {totalPage > 1 && (
+        <Box display="flex" justifyContent="center" my={2}>
+          <Pagination
+            color="primary"
+            count={totalPage}
+            onChange={onChange}
+            size="small"
+          />
+        </Box>
+      )}
     </RepeaterCollapse>
   );
 };

@@ -53,15 +53,7 @@ const Repeater = ({
   const newData = run(data);
 
   return (
-    <Paper
-      elevation={0}
-      style={{
-        top: 0,
-        position: 'sticky',
-        zIndex: 10,
-        padding: '2rem',
-      }}
-    >
+    <>
       <Box mb={2}>
         <ActionBar
           data={data}
@@ -106,7 +98,7 @@ const Repeater = ({
           <span>No results</span>
         </Box>
       )}
-    </Paper>
+    </>
   );
 };
 
