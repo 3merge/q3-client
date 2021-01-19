@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
+
+
+### Features
+
+* enable displaying labels in multiSelect field ([#280](https://github.com/3merge/q/issues/280)) ([dfa160a](https://github.com/3merge/q/commit/dfa160ad8f00729bb6c90ec7611e67c3db111dea))
+
+
+
+
+
+
 ## [1.24.34](https://github.com/3merge/q/compare/v1.24.33...v1.24.34) (2020-12-09)
 
 **Note:** Version bump only for package q3-ui-locale

@@ -1,7 +1,9 @@
+import { get } from 'lodash';
 import config from '../gatsby-config';
 
 const CANONICAL = 'gatsby-plugin-canonical-urls';
 const MANIFEST = 'gatsby-plugin-manifest';
+const ROBOTS = 'gatsby-plugin-robots-txt';
 
 const ENV = {
   contentfulSpaceID: 1,
@@ -27,8 +29,11 @@ const checkPlugins = (args = {}, plugin) => {
 
 describe('gatsby-config', () => {
   describe('plugins', () => {
-    it('should error without contentful props', () =>
-      expect(() => config({})).toThrowError());
+    it('should error without contentful props', () => {
+      process.env.URL =
+        'https://development.netlify.3merge.com';
+      expect(() => config({})).toThrowError();
+    });
 
     it('should include conditional plugins', () =>
       [CANONICAL, MANIFEST].forEach((name) =>
@@ -46,5 +51,19 @@ describe('gatsby-config', () => {
       [CANONICAL, MANIFEST].forEach((name) =>
         checkPlugins({}, name).hasNot(),
       ));
+
+    it.each([
+      ['https://dev.netlify.3merge.com', 'disallow'],
+      ['https://3merge.com', 'allow'],
+    ])('should disable indexing', (url, key) => {
+      process.env.URL = url;
+      const { plugins } = config({ ...ENV });
+      const res = containsResolver(plugins, ROBOTS);
+      const prod = get(
+        res,
+        'options.env.production.policy',
+      )[0];
+      expect(prod).toHaveProperty(key, '/');
+    });
   });
 });
