@@ -8,6 +8,7 @@ import ItemHeader from '../ItemHeader';
 import withEditableTypography from '../withEditableTypography';
 import useStyle from '../useStyle';
 import { override } from '../../helpers';
+import RepeaterContext from '../state';
 
 //= ===============================================================================
 // Helpers
@@ -76,15 +77,14 @@ const Item = ({
   cardProps,
   // aliase for cardProps
   rowResolver,
-  showAttributes,
   renderMobileColumns,
   hasNested,
   toggleNested,
   nestedIsVisible,
   renderNestedTableRow,
   item,
-  ...rest
 }) => {
+  const ctx = React.useContext(RepeaterContext);
   const cls = useStyle({ hasNested });
   const [currentIndex, setCurrentIndex] = React.useState(
     index,
@@ -106,7 +106,7 @@ const Item = ({
   } = interpretCardsProps(
     rowResolver || cardProps,
     item,
-    rest,
+    ctx,
   );
 
   React.useEffect(() => {

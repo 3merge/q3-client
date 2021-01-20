@@ -24,7 +24,6 @@ export const AddButtonTrigger = ({ onClick }) => {
         color="primary"
         onClick={onClick}
         variant="contained"
-        fullWidth
       >
         <Add />
         {t('labels:new')}

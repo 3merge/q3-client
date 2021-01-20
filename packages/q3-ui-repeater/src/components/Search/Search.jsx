@@ -31,10 +31,9 @@ const SearchBar = ({ handleInput }) => {
       type="search"
       value={state}
       autoComplete="off"
-      label={t('searchResults')}
+      label={t('search')}
       variant="outlined"
       size="small"
-      margin="dense"
     />
   );
 };

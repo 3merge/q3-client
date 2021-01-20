@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Exports from 'q3-ui-exports';
-import { useAuth } from 'q3-ui-permissions';
 import { useChecked } from 'useful-state';
-import Auth from '../Auth';
 import Repeater from '../Repeater';
 import Context from '../state';
+import useProviderAuth from '../useProviderAuth';
 
 const Provider = ({
-  name,
-  collectionName,
   edit,
   editBulk,
   create,
@@ -19,29 +16,26 @@ const Provider = ({
   ...rest
 }) => {
   const multiselect = useChecked();
-  const auth = useAuth(collectionName);
-  const value = {
-    auth,
-    name,
-    collectionName,
-    multiselect,
-    edit,
-    editBulk,
-    remove,
-    removeBulk,
-    poll,
-    create,
-  };
+  const auth = useProviderAuth(rest);
 
-  return (
-    <Context.Provider value={value}>
-      <Auth op="Read">
-        <Exports>
-          <Repeater {...rest} />
-        </Exports>
-      </Auth>
+  return !auth.disable ? (
+    <Context.Provider
+      value={{
+        ...auth,
+        multiselect,
+        edit,
+        editBulk,
+        remove,
+        removeBulk,
+        poll,
+        create,
+      }}
+    >
+      <Exports>
+        <Repeater {...rest} />
+      </Exports>
     </Context.Provider>
-  );
+  ) : null;
 };
 
 Provider.defaultProps = {

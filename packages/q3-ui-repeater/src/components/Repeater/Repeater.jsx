@@ -54,13 +54,19 @@ const Repeater = ({
 
   return (
     <>
-      <Box mb={2}>
+      <Box
+        bgcolor="background.paper"
+        position="sticky"
+        top={0}
+        mb={2}
+        zIndex={10}
+      >
         <ActionBar
           data={data}
           renderSelected={bulkEditorComponent}
         />
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={9} lg={10} xl={10}>
+        <Grid alignItems="center" container spacing={2}>
+          <Grid item xs>
             <RepeaterOptions
               state={state}
               dispatch={dispatch}
@@ -70,15 +76,13 @@ const Repeater = ({
             />
           </Grid>
           {!addDisabled && (
-            <Grid item xs={12} sm={12} md={3} lg={2} xl={2}>
-              <Box mt={[0, 0, 0.5]}>
-                <AddItem
-                  addComponent={addComponent}
-                  initialValues={initialValues}
-                >
-                  {children}
-                </AddItem>
-              </Box>
+            <Grid item xs="auto">
+              <AddItem
+                addComponent={addComponent}
+                initialValues={initialValues}
+              >
+                {children}
+              </AddItem>
             </Grid>
           )}
         </Grid>

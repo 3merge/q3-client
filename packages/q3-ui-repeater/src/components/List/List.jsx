@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
 import TableBody from '@material-ui/core/TableBody';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -14,13 +13,10 @@ export const searchObject = (item = {}) => (value = '') =>
 const List = ({
   children,
   data,
-  actionComponent,
   createRenderer,
   renderNestedTableRow,
   ...rest
 }) => {
-  const { t } = useTranslation('labels');
-
   const theme = useTheme();
   const showAttributes = useMediaQuery(
     theme.breakpoints.up('md'),
