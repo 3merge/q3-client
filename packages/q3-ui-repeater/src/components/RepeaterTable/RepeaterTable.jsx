@@ -45,7 +45,7 @@ const RepeaterTable = ({
           <Box
             display="flex"
             justifyContent="center"
-            my={2}
+            mt="20px"
           >
             <Pagination
               color="primary"

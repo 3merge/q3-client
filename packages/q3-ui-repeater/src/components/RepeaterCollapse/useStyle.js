@@ -6,14 +6,14 @@ export default makeStyles(() => ({
     flexDirection: 'row-reverse',
     margin: 0,
     padding: '.5rem .25rem',
-    minHeight: 36,
-    height: 36,
+    height: '64px !important',
   },
   content: {
     padding: 0,
   },
   root: {
     boxShadow: 'none',
+    margin: '0 !important',
   },
   text: {
     marginLeft: '1rem',
