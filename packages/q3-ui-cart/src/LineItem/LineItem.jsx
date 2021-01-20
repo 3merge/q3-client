@@ -63,21 +63,30 @@ const LineItem = ({ children }) => {
                 </Grid>
               </TableCell>
               <TableCell>{string.toPrice(price)}</TableCell>
-              <TableCell>
-                <LineItemToggle
-                  id={id}
-                  product={product}
-                  quantity={quantity}
-                  price={price}
-                  disabled={disabled}
-                  helperText={`Subtotal ${string.toPrice(
-                    subtotal,
-                  )}`}
-                />
-              </TableCell>
-              <TableCell>
-                <LineItemRemove id={id} product={product} />
-              </TableCell>
+              {item.isDisabled ? (
+                <TableCell colSpan="2" />
+              ) : (
+                <>
+                  <TableCell>
+                    <LineItemToggle
+                      id={id}
+                      product={product}
+                      quantity={quantity}
+                      price={price}
+                      disabled={disabled}
+                      helperText={`Subtotal ${string.toPrice(
+                        subtotal,
+                      )}`}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <LineItemRemove
+                      id={id}
+                      product={product}
+                    />
+                  </TableCell>
+                </>
+              )}
             </TableRow>
             {renderer && (
               <TableRow>

@@ -20,20 +20,19 @@ const PageChildren = ({
   fetching,
   fetchingError,
   loadingComponent,
-}) =>
-  !hasEntered || fetching ? (
-    loadingComponent || <Loading id={id} />
-  ) : (
-    <Box>
-      {fetchingError ? (
-        <Box m={4}>
-          <Graphic title="error" icon="Error" />
-        </Box>
-      ) : (
-        children
-      )}
-    </Box>
-  );
+}) => {
+  if (!hasEntered || fetching)
+    return loadingComponent || <Loading id={id} />;
+
+  if (fetchingError)
+    return (
+      <Box m={4}>
+        <Graphic title="error" icon="Error" />
+      </Box>
+    );
+
+  return children;
+};
 
 PageChildren.propTypes = {
   children: PropTypes.node.isRequired,
