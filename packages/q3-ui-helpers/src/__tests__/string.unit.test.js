@@ -59,22 +59,20 @@ describe('string', () => {
     });
   });
 
-  describe('"toPrice"', () => {
-    it('should return fixed price', () => {
-      expect(string.toPrice(12.991)).toMatch('$12.99');
-    });
-
-    it('should convert string', () => {
-      expect(string.toPrice('9.87')).toMatch('$9.87');
-    });
-
-    it.each([['hey'], [0], ['0']])(
-      'should return 0',
-      (arg) => {
-        expect(string.toPrice(arg)).toBe('$0.00');
-      },
-    );
-  });
+  it.each([
+    ['4.1', '$4.10'],
+    ['9.87', '$9.87'],
+    ['12.991', '$12.99'],
+    ['99321.4', '$99,321.40'],
+    ['100001.991', '$100,001.99'],
+    ['hey', '$0.00'],
+    [0, '$0.00'],
+    ['0', '$0.00'],
+  ])(
+    '.toPrice(%s) should format numbers',
+    (input, output) =>
+      expect(string.toPrice(input)).toBe(output),
+  );
 
   describe('"ellipsis"', () => {
     it('should cut off at the 3rd character', () => {

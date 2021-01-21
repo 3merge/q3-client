@@ -57,9 +57,10 @@ export const toYearMonthDay = (str) =>
 
 export const toPrice = (str) => {
   const num = Number(str);
-  return num && !Number.isNaN(num)
+  return (num && !Number.isNaN(num)
     ? `$${num.toFixed(2)}`
-    : '$0.00';
+    : '$0.00'
+  ).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export const toNumber = (str, fallbackText = '') => {
