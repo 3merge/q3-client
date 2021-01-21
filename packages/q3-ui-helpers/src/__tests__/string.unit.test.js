@@ -68,9 +68,12 @@ describe('string', () => {
       expect(string.toPrice('9.87')).toMatch('$9.87');
     });
 
-    it('should return 0', () => {
-      expect(string.toPrice('hey')).toMatch('$0');
-    });
+    it.each([['hey'], [0], ['0']])(
+      'should return 0',
+      (arg) => {
+        expect(string.toPrice(arg)).toBe('$0.00');
+      },
+    );
   });
 
   describe('"ellipsis"', () => {
