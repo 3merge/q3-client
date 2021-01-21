@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.25.5](https://github.com/3merge/q/compare/v1.25.4...v1.25.5) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
 ## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
 
 **Note:** Version bump only for package q3-ui-cart
