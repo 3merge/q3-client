@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-locale",
-  "version": "1.25.0",
+  "version": "1.25.3",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -13,7 +13,7 @@
   "dependencies": {
     "moment-timezone": "^0.5.32",
     "prop-types": "^15.7.2",
-    "q3-ui-helpers": "^1.24.30",
+    "q3-ui-helpers": "^1.25.3",
     "react": "^17.0.1"
   },
   "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
