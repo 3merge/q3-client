@@ -5,8 +5,10 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsPausedIcon from '@material-ui/icons/NotificationsPaused';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { withStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { red } from '@material-ui/core/colors';
 
 export const CustomBadge = withStyles((theme) => ({
   dot: {
@@ -15,12 +17,19 @@ export const CustomBadge = withStyles((theme) => ({
 }))(Badge);
 
 export const Bell = React.forwardRef(
-  ({ active, hasItems, isOpen, ...props }, ref) => {
+  ({ active, error, hasItems, isOpen, ...props }, ref) => {
     const { t } = useTranslation('labels');
 
     const renderIcon = () => {
+      if (error)
+        return (
+          <NotificationsOffIcon
+            style={{ color: red[900] }}
+          />
+        );
       if (active) return <NotificationsActiveIcon />;
       if (hasItems) return <NotificationsIcon />;
+
       return <NotificationsPausedIcon />;
     };
 
@@ -30,6 +39,7 @@ export const Bell = React.forwardRef(
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label={t('notifications')}
+        disabled={error}
         ref={ref}
         {...props}
       >
@@ -47,12 +57,14 @@ export const Bell = React.forwardRef(
 
 Bell.propTypes = {
   active: PropTypes.bool,
+  error: PropTypes.bool,
   isOpen: PropTypes.bool,
   hasItems: PropTypes.bool,
 };
 
 Bell.defaultProps = {
   active: false,
+  error: false,
   isOpen: false,
   hasItems: false,
 };

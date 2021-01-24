@@ -4,7 +4,7 @@ import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
 import App from './components/app';
-import { usePages } from './hooks';
+import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
 import Tours from './containers/tour';
 import Navigation from './components/Navigation';
@@ -29,6 +29,7 @@ const Admin = ({
 }) => {
   const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
+  useServerSideEvents();
 
   return (
     <Tours steps={tours}>
