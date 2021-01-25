@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MaterialPopover from '@material-ui/core/Popover';
+import useStyles from './useStyles';
 
 const Popover = ({
   children,
@@ -7,6 +9,7 @@ const Popover = ({
   PopoverProps = {},
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const cls = useStyles();
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -29,6 +32,10 @@ const Popover = ({
         id="mouse-over-popover"
         open={open}
         anchorEl={anchorEl}
+        className={cls.popover}
+        classes={{
+          paper: cls.paper,
+        }}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
@@ -45,6 +52,17 @@ const Popover = ({
       </MaterialPopover>
     </>
   );
+};
+
+Popover.defaultProps = {
+  PopoverProps: {},
+};
+
+Popover.propTypes = {
+  children: PropTypes.node.isRequired,
+  popoverChildren: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  PopoverProps: PropTypes.object,
 };
 
 export default Popover;

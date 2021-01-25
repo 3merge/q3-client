@@ -4,6 +4,7 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import { Box } from '@material-ui/core';
 import Popover from './index.jsx';
 
 <Meta title="UI/Popover" component={Popover} />
@@ -11,7 +12,7 @@ import Popover from './index.jsx';
 <Preview>
   <Story name="Popover">
     <Popover popoverChildren={<div>popover children</div>}>
-      <div>Popover component</div>
+      <Box m={2}>Popover component</Box>
     </Popover>
   </Story>
 </Preview>
