@@ -1,9 +1,10 @@
 import React from 'react';
 import { debounce } from 'lodash';
-import { browser } from 'q3-ui-helpers';
 import { Definitions } from '../containers/state';
 import { makeEventName } from './useServerSideEvents';
 import { invokeDocumentListener } from './useNotifications';
+
+const noop = () => null;
 
 export default (onChange, debounceValue = 15000) => {
   const { collectionName, id } = React.useContext(
@@ -11,16 +12,9 @@ export default (onChange, debounceValue = 15000) => {
   );
 
   const handleWatch = debounce((e) => {
-    const noop = () => null;
+    if (!onChange) return null;
 
-    if (
-      !onChange ||
-      !browser.isBrowserReady() ||
-      (id && e?.data?.id !== id)
-    )
-      return null;
-
-    return onChange(window.location.search, e?.data)
+    return onChange(window?.location?.search, e?.data)
       .then(noop)
       .catch(noop);
   }, debounceValue);

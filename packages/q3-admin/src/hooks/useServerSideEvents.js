@@ -20,10 +20,7 @@ export const sendChangeStreamEvent = (data) => {
 export default () => {
   React.useEffect(() => {
     const eventSource = new EventSource(
-      [
-        axios?.defaults?.baseURL || '//localhost',
-        'stream',
-      ].join(''),
+      [axios?.defaults?.baseURL, 'stream'].join(''),
     );
 
     eventSource.onmessage = (e) =>

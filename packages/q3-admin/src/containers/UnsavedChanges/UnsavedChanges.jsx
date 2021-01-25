@@ -25,22 +25,22 @@ export const useChangeDetection = () => {
   return hasChange;
 };
 
-export const useTimeTracking = (v) => {
+export const useTimeTracking = (id, lastUpdatedAt) => {
   const [hasPending, setHasPending] = React.useState(false);
   const [hasRefresh, setHasRefresh] = React.useState(false);
 
   useRefresh((search, d) => {
-    setHasPending(d?.updatedAt);
+    if (d?.id === id) setHasPending(d?.updatedAt);
     return Promise.resolve();
   });
 
   React.useEffect(() => {
     if (!hasPending) return;
 
-    if (moment(v).isBefore(toLocal(hasPending)))
+    if (moment(lastUpdatedAt).isBefore(toLocal(hasPending)))
       setHasRefresh(true);
     else setHasPending(null);
-  }, [v, hasPending]);
+  }, [lastUpdatedAt, hasPending]);
 
   return {
     hasPending,
@@ -51,15 +51,14 @@ export const useTimeTracking = (v) => {
 };
 
 export default () => {
+  const { data } = React.useContext(Store);
+  const hasChange = useChangeDetection();
+
   const {
     hasPending,
     hasRefresh,
     setHasRefresh,
-  } = useTimeTracking(
-    React.useContext(Store)?.data?.updatedAt,
-  );
-
-  const hasChange = useChangeDetection();
+  } = useTimeTracking(data?.id, data?.updatedAt);
 
   return (
     <>

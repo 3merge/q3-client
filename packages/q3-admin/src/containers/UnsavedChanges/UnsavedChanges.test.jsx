@@ -9,6 +9,7 @@ jest.mock('../../hooks/useRefresh', () =>
   jest.fn().mockImplementation((f) =>
     f(undefined, {
       updatedAt: 'utc',
+      id: 1,
     }),
   ),
 );
@@ -27,7 +28,7 @@ describe('useTimeTracking', () => {
     effect.mockImplementation((fn) => fn());
     state.mockReturnValue([null, setState]);
 
-    useTimeTracking();
+    useTimeTracking(1);
     expect(setState).toHaveBeenCalledTimes(1);
   });
 
@@ -39,7 +40,7 @@ describe('useTimeTracking', () => {
       setState,
     ]);
 
-    useTimeTracking(moment());
+    useTimeTracking(1, moment());
     expect(setState).toHaveBeenCalledTimes(2);
     expect(setState).toHaveBeenCalledWith('utc');
     expect(setState).toHaveBeenCalledWith(true);
@@ -53,7 +54,7 @@ describe('useTimeTracking', () => {
       setState,
     ]);
 
-    useTimeTracking(moment());
+    useTimeTracking(1, moment());
     expect(setState).toHaveBeenCalledTimes(2);
     expect(setState).toHaveBeenCalledWith('utc');
     expect(setState).toHaveBeenCalledWith(null);
