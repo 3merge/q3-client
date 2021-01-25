@@ -1,132 +1,104 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from '@reach/router';
 import axios from 'axios';
-import { EncodedUrl } from 'q3-ui-forms/lib/adapters';
-import { Next } from 'q3-ui-forms/lib/builders';
-import FilterList from '@material-ui/icons/FilterList';
-import Grid from '@material-ui/core/Grid';
-import IconButton from 'q3-ui/lib/iconButton';
-import Dialog from 'q3-ui-dialog';
-import { browser } from 'q3-ui-helpers';
+import { capitalize } from 'lodash';
+import * as Charts from 'q3-ui-charts';
+import {
+  Collapse,
+  Box,
+  LinearProgress,
+} from '@material-ui/core';
 import moment from 'moment';
-import ChartDownload from '../ChartDownload';
-import Figure from '../../components/Figure';
-
-const getDate = (s, key) => {
-  if (!browser.isBrowserReady()) return 'N/A';
-  return moment(new URLSearchParams(s).get(key)).format(
-    'MMMM DD',
-  );
-};
+import { useTheme } from '@material-ui/core/styles';
+import { EditableTypography } from 'q3-components';
 
 const Chart = ({
-  initialQueryValue,
-  chartComponent,
-  filterComponent,
-  from,
-  to,
-  ...FigureProps
+  component,
+  dateRangeProp,
+  template,
+  ...rest
 }) => {
+  const ChartComponent = Charts[capitalize(component)];
   const [data, setData] = React.useState();
-  const [error, setError] = React.useState();
-  const [loading, setLoading] = React.useState(true);
-  const [query, setQuery] = React.useState(
-    initialQueryValue,
-  );
 
-  const uri = `/reports${query}`;
+  const [error, setError] = React.useState();
+  const location = useLocation();
+  const theme = useTheme();
+
+  const [range, setRange] = React.useState({
+    from: moment().subtract(3, 'month').toDate(),
+    to: moment().toDate(),
+  });
+
+  const formKeyFrom = `${dateRangeProp}>`;
+  const formKeyTo = `${dateRangeProp}<`;
 
   React.useEffect(() => {
-    setLoading(true);
+    const params = new URLSearchParams(location?.search);
+    params.set('template', template);
+    params.set(formKeyFrom, range.from);
+    params.set(formKeyTo, range.from);
+
     axios
-      .get(uri)
-      .then((res) => setData(res.data.data))
+      .get(`/reports?${params.toString()}`)
+      .then((res) => {
+        setData(res.data);
+      })
       .catch(() => {
         setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
       });
-  }, [uri]);
+  }, [location?.search, range]);
 
-  if (error) {
-    // eslint-disable-next-line
-    console.error(error);
-    return null;
-  }
-
-  return (
-    <Figure
-      {...FigureProps}
-      captionComponent={
-        <Dialog
-          variant="drawer"
-          title="filter"
-          renderContent={(close) =>
-            React.cloneElement(filterComponent, {
-              query,
-              onSave: (values) => {
-                close();
-                setQuery(values);
-              },
-              onReset: () => {
-                close();
-                setQuery(initialQueryValue);
-              },
-            })
-          }
-          renderTrigger={(onClick) => (
-            <Grid container alignItems="center">
-              <Grid item>
-                <small style={{ marginRight: '1rem' }}>
-                  {[
-                    getDate(query, from),
-                    getDate(query, to),
-                  ].join(' to ')}
-                </small>
-                <IconButton
-                  label="filter"
-                  icon={FilterList}
-                  buttonProps={{
-                    onClick,
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <ChartDownload uri={uri} />
-              </Grid>
-            </Grid>
-          )}
-        />
-      }
-    >
-      {React.cloneElement(chartComponent, {
-        loading,
-        data,
-      })}
-    </Figure>
-  );
+  return ChartComponent && !error ? (
+    <Box component="figure">
+      <ChartComponent
+        {...rest}
+        {...data}
+        hex={String(theme?.palette?.primary?.main).replace(
+          '#',
+          '',
+        )}
+      >
+        <Box mr={1}>
+          <EditableTypography
+            isEditable
+            fieldProps={{
+              name: dateRangeProp,
+              type: 'dateRange',
+            }}
+            initialValues={{
+              [formKeyFrom]: range.from,
+              [formKeyTo]: range.to,
+            }}
+            onSubmit={(values) =>
+              setRange({
+                from: values[formKeyFrom],
+                to: values[formKeyTo],
+              })
+            }
+          >
+            <small style={{ marginRight: '1rem' }}>
+              {[
+                moment(range.from).format('MMM DD, YYYY'),
+                moment(range.to).format('MMM DD, YYYY'),
+              ].join(' - ')}
+            </small>
+          </EditableTypography>
+        </Box>
+      </ChartComponent>
+    </Box>
+  ) : null;
 };
 
 Chart.propTypes = {
-  /**
-   * Must begin with "?" and should contain at least one parameter for the template name.
-   */
-  initialQueryValue: PropTypes.string.isRequired,
-
-  chartComponent: PropTypes.node.isRequired,
-  filterComponent: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.object,
-  ]).isRequired,
-
-  from: PropTypes.string,
-  to: PropTypes.string,
+  component: PropTypes.string.isRequired,
+  template: PropTypes.string.isRequired,
+  dateRangeProp: PropTypes.string,
 };
 
 Chart.defaultProps = {
-  from: 'createdAt>',
-  to: 'createdAt<',
+  dateRangeProp: 'createdAt',
 };
 
 export default Chart;

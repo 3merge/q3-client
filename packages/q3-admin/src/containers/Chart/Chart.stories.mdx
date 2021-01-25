@@ -5,36 +5,32 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Chart from './Chart';
+import MockRestAdapter from 'q3-ui-test-utils/lib/rest';
+import Location from 'q3-ui-test-utils/lib/location';
 import ChartFixture, {
   FilterComponent,
 } from './Chart.fixture';
+import data from 'q3-ui-charts/tests/fixtures/sample-small';
 
 <Meta title="Admin/Chart" component={Chart} />
 
 # Chart
 
 <Preview>
-  <Story name="With custom chart">
-    <ChartFixture>
-      <Chart
-        title="Example bar graph"
-        chartComponent={<p>Chart component of prefence</p>}
-        filterComponent={<FilterComponent />}
-        initialQueryValue="?template=foo"
-      />
-    </ChartFixture>
-  </Story>
-</Preview>
-
-<Preview>
-  <Story name="With error">
-    <ChartFixture>
-      <Chart
-        title="Example bar graph"
-        chartComponent={<p>Chart component of prefence</p>}
-        filterComponent={<FilterComponent />}
-        initialQueryValue="?s=foo&createdAt<=2012-01-12&createdAt>=2012-09-12"
-      />
-    </ChartFixture>
+  <Story name="Bar">
+    <Location>
+      <MockRestAdapter
+        delay={2500}
+        define={(m) => {
+          m.onGet(/reports\?template=foo/).reply(200, data);
+        }}
+      >
+        <Chart
+          component="Bar"
+          template="foo"
+          title="Example"
+        />
+      </MockRestAdapter>
+    </Location>
   </Story>
 </Preview>
