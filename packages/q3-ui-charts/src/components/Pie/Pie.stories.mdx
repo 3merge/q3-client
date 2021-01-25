@@ -1,0 +1,26 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Pie from './Pie';
+
+<Meta title="Charts/Pie" component={Pie} />
+
+# Pie
+
+<Preview>
+  <Story name="Single bar">
+    <Pie
+      name="name"
+      value="value"
+      data={[
+        { name: 'Jan', value: 10 },
+        { name: 'Feb', value: 22 },
+      ]}
+    />
+  </Story>
+</Preview>
+
+<Props of={Pie} />

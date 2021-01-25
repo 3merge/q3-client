@@ -1,0 +1,36 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Bar from './Bar';
+
+<Meta title="Charts/Bar" component={Bar} />
+
+# Bar
+
+<Preview>
+  <Story name="Single bar">
+    <Bar
+      name="name"
+      value="value"
+      data={[
+        { name: 'Jan', value: 10 },
+        { name: 'Feb', value: 22 },
+      ]}
+    />
+  </Story>
+  <Story name="Double bar">
+    <Bar
+      name="name"
+      value={['value', 'value2']}
+      data={[
+        { name: 'Jan', value: 10, value2: 12 },
+        { name: 'Feb', value: 22, value2: 8 },
+      ]}
+    />
+  </Story>
+</Preview>
+
+<Props of={Bar} />
