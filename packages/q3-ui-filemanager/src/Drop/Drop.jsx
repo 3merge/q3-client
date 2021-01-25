@@ -146,7 +146,7 @@ Drop.defaultProps = {
 Drop.propTypes = {
   children: PropTypes.func.isRequired,
   customizer: PropTypes.func,
-  onDrop: PropTypes.instanceOf(Promise).isRequired,
+  onDrop: PropTypes.func.isRequired,
   previewComponent: PropTypes.node,
   root: PropTypes.string,
 };
