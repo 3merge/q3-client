@@ -1,0 +1,22 @@
+{
+  "name": "q3-ui-charts",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^1.24.30"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.1",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.54",
+    "color-scheme": "^1.0.1",
+    "lodash": "^4.17.20",
+    "q3-exports": "^1.7.14",
+    "react-i18next": "11.7.3",
+    "recharts": "^2.0.3"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2"
+  }
+}

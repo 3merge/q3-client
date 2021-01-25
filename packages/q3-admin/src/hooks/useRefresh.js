@@ -10,13 +10,19 @@ export default (onChange, debounceValue = 15000) => {
     Definitions,
   );
 
-  const handleWatch = debounce(() => {
+  const handleWatch = debounce((data) => {
     const noop = () => null;
-    return onChange && browser.isBrowserReady()
-      ? onChange(window.location.search)
-          .then(noop)
-          .catch(noop)
-      : null;
+
+    if (
+      !onChange ||
+      !browser.isBrowserReady() ||
+      (id && data.id !== id)
+    )
+      return null;
+
+    return onChange(window.location.search)
+      .then(noop)
+      .catch(noop);
   }, debounceValue);
 
   React.useEffect(() => {

@@ -27,11 +27,13 @@ export default (ids, ...rest) => {
       .then(() =>
         enqueueSnackbar(t(onSuccessMsg), {
           variant: 'info',
+          preventDuplicate: false,
         }),
       )
       .catch(() =>
         enqueueSnackbar(t(onFailMsg), {
           variant: 'error',
+          preventDuplicate: false,
         }),
       );
 

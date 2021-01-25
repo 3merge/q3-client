@@ -10,7 +10,6 @@ import Tours from './containers/tour';
 import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
-import Socket from './containers/Socket';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
@@ -25,7 +24,6 @@ const Admin = ({
   AppProps,
   NavProps,
   ProfileProps,
-  SocketProps,
 }) => {
   const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
@@ -40,39 +38,38 @@ const Admin = ({
             menuItems={usePages(AppProps.pages, icons)}
             root={root}
           />
-          <Socket {...SocketProps}>
-            <Box className={cls.main}>
-              <ProfileActions
-                profileItems={[
-                  ...profileItems,
-                  {
-                    onClick: goTo(`${root}account/profile`),
-                    label: 'profile',
-                  },
-                  {
-                    onClick: goTo(
-                      `${root}account/change-password`,
-                    ),
-                    label: 'changePassword',
-                  },
-                  {
-                    onClick: restartTour,
-                    label: 'restartTour',
-                  },
-                ]}
-              >
-                <Notifications />
-              </ProfileActions>
-              <App {...AppProps}>
-                <Profile
-                  path="/account/profile"
-                  {...ProfileProps}
-                />
-                <ProfileChangePassword path="/account/change-password" />
-              </App>
-              {children}
-            </Box>
-          </Socket>
+
+          <Box className={cls.main}>
+            <ProfileActions
+              profileItems={[
+                ...profileItems,
+                {
+                  onClick: goTo(`${root}account/profile`),
+                  label: 'profile',
+                },
+                {
+                  onClick: goTo(
+                    `${root}account/change-password`,
+                  ),
+                  label: 'changePassword',
+                },
+                {
+                  onClick: restartTour,
+                  label: 'restartTour',
+                },
+              ]}
+            >
+              <Notifications />
+            </ProfileActions>
+            <App {...AppProps}>
+              <Profile
+                path="/account/profile"
+                {...ProfileProps}
+              />
+              <ProfileChangePassword path="/account/change-password" />
+            </App>
+            {children}
+          </Box>
         </Viewport>
       )}
     </Tours>

@@ -74,9 +74,11 @@ export default () => {
 
     invokeDocumentListener(general, (event) => {
       const { action } = event.data;
-      if (action === CONNECT) onChange();
+      if (action === CONNECT) setError(false);
       if (action === ERROR) setError(true);
     });
+
+    onChange();
 
     return () => {
       invokeDocumentListener(general);
@@ -86,7 +88,10 @@ export default () => {
 
   return {
     acknowledge,
-    data,
+    data: data.map((item) => ({
+      label: item.path,
+      ...item,
+    })),
     error,
   };
 };

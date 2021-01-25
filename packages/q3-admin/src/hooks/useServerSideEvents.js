@@ -23,7 +23,7 @@ export default () => {
       [
         axios?.defaults?.baseURL || '//localhost',
         'stream',
-      ].join('/'),
+      ].join(''),
     );
 
     eventSource.onmessage = (e) =>

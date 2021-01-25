@@ -39,13 +39,12 @@ export const Bell = React.forwardRef(
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label={t('notifications')}
-        disabled={error}
         ref={ref}
         {...props}
       >
         <CustomBadge
           variant="dot"
-          showZero={active}
+          showZero={active && !error}
           badgeContent={0}
         >
           {renderIcon()}
