@@ -1,0 +1,17 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Popover from './index.jsx';
+
+<Meta title="UI/Popover" component={Popover} />
+
+<Preview>
+  <Story name="Popover">
+    <Popover popoverChildren={<div>popover children</div>}>
+      <div>Popover component</div>
+    </Popover>
+  </Story>
+</Preview>
