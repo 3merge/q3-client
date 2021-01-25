@@ -7,9 +7,6 @@ import {
 import Chart from './Chart';
 import MockRestAdapter from 'q3-ui-test-utils/lib/rest';
 import Location from 'q3-ui-test-utils/lib/location';
-import ChartFixture, {
-  FilterComponent,
-} from './Chart.fixture';
 import data from 'q3-ui-charts/tests/fixtures/sample-small';
 
 <Meta title="Admin/Chart" component={Chart} />
@@ -20,9 +17,11 @@ import data from 'q3-ui-charts/tests/fixtures/sample-small';
   <Story name="Bar">
     <Location>
       <MockRestAdapter
-        delay={2500}
+        delay={5000}
         define={(m) => {
-          m.onGet(/reports\?template=foo/).reply(200, data);
+          m.onGet(/reports/).reply(200, {
+            data,
+          });
         }}
       >
         <Chart

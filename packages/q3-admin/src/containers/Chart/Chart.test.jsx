@@ -1,7 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import Chart from './Chart';
-import ChartFixture from './Chart.fixture.jsx';
 
 jest.unmock('axios');
 
@@ -31,14 +30,12 @@ describe('Chart', () => {
   it('should render loading indicator', async () => {
     const { el: Child, getProps } = genChild();
     const el = global.mount(
-      <ChartFixture>
-        <Chart
-          title="Mock"
-          initialQueryValue="?template=foo"
-          chartComponent={<Child />}
-          filterComponent={<div />}
-        />
-      </ChartFixture>,
+      <Chart
+        title="Mock"
+        initialQueryValue="?template=foo"
+        chartComponent={<Child />}
+        filterComponent={<div />}
+      />,
     );
 
     const getCircularProgress = (expectedResult) =>
@@ -58,14 +55,12 @@ describe('Chart', () => {
   it('should pass data into the chartComponent property', async () => {
     const Child = () => <div />;
     const el = global.mount(
-      <ChartFixture>
-        <Chart
-          title="Mock"
-          initialQueryValue="?template=foo"
-          chartComponent={<Child />}
-          filterComponent={<div />}
-        />
-      </ChartFixture>,
+      <Chart
+        title="Mock"
+        initialQueryValue="?template=foo"
+        chartComponent={<Child />}
+        filterComponent={<div />}
+      />,
     );
 
     return waitForMock(() => {

@@ -1,36 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Card,
-  CardHeader,
-  CardContent,
-} from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
 import Download from '../Download';
 
 export default (Component) => {
   const Header = ({ children, data, title, ...rest }) => {
     const cleaned = array.hasLength(data) ? data : [];
+
     return (
-      <Card>
-        <CardHeader
-          title={title}
-          action={
-            <Box
-              alignItems="center"
-              display="flex"
-              px={0.75}
-            >
-              {children}
-              <Download title={title} data={cleaned} />
-            </Box>
-          }
-        />
-        <CardContent>
+      <Box
+        bgcolor="background.paper"
+        component="figure"
+        p={2}
+        m={0}
+      >
+        <Box mb={1}>
+          <Grid container justify="space-between">
+            <Grid item>
+              <Typography component="h2" variant="h4">
+                {title}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Box alignItems="center" display="flex">
+                {children}
+                <Download title={title} data={cleaned} />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+        <Box height="390px" width="100%">
           <Component data={cleaned} {...rest} />
-        </CardContent>
-      </Card>
+        </Box>
+      </Box>
     );
   };
 

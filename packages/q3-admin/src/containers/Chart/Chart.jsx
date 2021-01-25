@@ -1,107 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from '@reach/router';
-import axios from 'axios';
-import { capitalize } from 'lodash';
 import * as Charts from 'q3-ui-charts';
-import {
-  Collapse,
-  Box,
-  LinearProgress,
-} from '@material-ui/core';
-import moment from 'moment';
-import { useTheme } from '@material-ui/core/styles';
-import { EditableTypography } from 'q3-components';
+import { Fade } from '@material-ui/core';
+import useRest from 'q3-ui-rest';
+import usePrimaryHex from '../../hooks/usePrimaryHex';
+import withDateRange from '../../helpers/withDateRange';
 
 const Chart = ({
   component,
-  dateRangeProp,
+  children,
   template,
+  search,
   ...rest
 }) => {
-  const ChartComponent = Charts[capitalize(component)];
-  const [data, setData] = React.useState();
+  const hex = usePrimaryHex();
+  const ChartComponent = Charts[component];
+  const { data, fetching, fetchingError, ...etc } = useRest(
+    {
+      url: '/reports',
+      key: 'data',
+      runOnInit: true,
+      location: {
+        search: `?${search}&template=${template}`,
+      },
+    },
+  );
 
-  const [error, setError] = React.useState();
-  const location = useLocation();
-  const theme = useTheme();
+  if (!ChartComponent || fetchingError) return null;
 
-  const [range, setRange] = React.useState({
-    from: moment().subtract(3, 'month').toDate(),
-    to: moment().toDate(),
-  });
+  if (fetching)
+    return <Charts.Loading {...rest} hex={hex} />;
 
-  const formKeyFrom = `${dateRangeProp}>`;
-  const formKeyTo = `${dateRangeProp}<`;
-
-  React.useEffect(() => {
-    const params = new URLSearchParams(location?.search);
-    params.set('template', template);
-    params.set(
-      formKeyFrom,
-      moment(range.from).toISOString(),
-    );
-    params.set(formKeyTo, moment(range.to).toISOString());
-
-    axios
-      .get(`/reports?${params.toString()}`)
-      .then((res) => {
-        setData(res?.data?.data);
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, [location?.search, range]);
-
-  return ChartComponent && !error ? (
-    <Box component="figure">
-      <ChartComponent
-        {...rest}
-        {...data}
-        hex={String(theme?.palette?.primary?.main).replace(
-          '#',
-          '',
-        )}
-      >
-        <Box mr={1}>
-          <EditableTypography
-            isEditable
-            fieldProps={{
-              name: dateRangeProp,
-              type: 'dateRange',
-            }}
-            initialValues={{
-              [formKeyFrom]: range.from,
-              [formKeyTo]: range.to,
-            }}
-            onSubmit={(values) =>
-              setRange({
-                from: values[formKeyFrom],
-                to: values[formKeyTo],
-              })
-            }
-          >
-            <small style={{ marginRight: '1rem' }}>
-              {[
-                moment(range.from).format('MMM DD, YYYY'),
-                moment(range.to).format('MMM DD, YYYY'),
-              ].join(' - ')}
-            </small>
-          </EditableTypography>
-        </Box>
+  return (
+    <Fade in>
+      <ChartComponent {...rest} {...data} hex={hex}>
+        {children}
       </ChartComponent>
-    </Box>
-  ) : null;
+    </Fade>
+  );
 };
 
 Chart.propTypes = {
-  component: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.object,
+  ]),
+  component: PropTypes.oneOf(['AreaLine', 'Bar', 'Pie'])
+    .isRequired,
+  search: PropTypes.string.isRequired,
   template: PropTypes.string.isRequired,
-  dateRangeProp: PropTypes.string,
 };
 
 Chart.defaultProps = {
-  dateRangeProp: 'createdAt',
+  children: null,
 };
 
-export default Chart;
+export default withDateRange(Chart);

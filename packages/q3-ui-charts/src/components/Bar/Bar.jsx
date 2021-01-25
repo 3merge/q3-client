@@ -18,18 +18,16 @@ export default withHeader(
   withColours(
     withValues(
       ({ children, data, name }) => (
-        <Box height="450px" width="100%">
-          <ResponsiveContainer>
-            <BarChart data={data}>
-              <Legend />
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={name} />
-              <YAxis />
-              <Tooltip />
-              {children}
-            </BarChart>
-          </ResponsiveContainer>
-        </Box>
+        <ResponsiveContainer>
+          <BarChart data={data}>
+            <Legend />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey={name} />
+            <YAxis />
+            <Tooltip />
+            {children}
+          </BarChart>
+        </ResponsiveContainer>
       ),
       Bar,
     ),
