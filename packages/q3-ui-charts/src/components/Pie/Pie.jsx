@@ -1,15 +1,23 @@
 import React from 'react';
-import { PieChart, Cell, Legend, Pie } from 'recharts';
+import {
+  PieChart,
+  Cell,
+  Legend,
+  Pie,
+  Tooltip,
+} from 'recharts';
 import withColours from '../withColours';
+import withHeader from '../withHeader';
 
-export default withColours(
-  ({ colours, data, name, value }) => (
+export default withHeader(
+  withColours(({ colours, data, name, value }) => (
     <PieChart
       width={400}
       height={400}
       style={{ margin: '0 auto' }}
     >
       <Legend />
+      <Tooltip />
       <Pie
         data={data}
         dataKey={value}
@@ -26,5 +34,5 @@ export default withColours(
         ))}
       </Pie>
     </PieChart>
-  ),
+  )),
 );

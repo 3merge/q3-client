@@ -11,24 +11,27 @@ import {
   Legend,
 } from 'recharts';
 import withColours from '../withColours';
+import withHeader from '../withHeader';
 import withValues from '../withValues';
 
-export default withColours(
-  withValues(
-    ({ children, data, name }) => (
-      <Box height="450px" width="100%">
-        <ResponsiveContainer>
-          <AreaChart data={data}>
-            <Legend />
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey={name} />
-            <YAxis />
-            <Tooltip />
-            {children}
-          </AreaChart>
-        </ResponsiveContainer>
-      </Box>
+export default withHeader(
+  withColours(
+    withValues(
+      ({ children, data, name }) => (
+        <Box height="450px" width="100%">
+          <ResponsiveContainer>
+            <AreaChart data={data}>
+              <Legend />
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey={name} />
+              <YAxis />
+              <Tooltip />
+              {children}
+            </AreaChart>
+          </ResponsiveContainer>
+        </Box>
+      ),
+      Area,
     ),
-    Area,
   ),
 );

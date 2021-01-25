@@ -5,21 +5,19 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import AreaLine from './AreaLine';
+import data from '../../../tests/fixtures/sample-large';
+import data1 from '../../../tests/fixtures/sample-large-double';
 
 <Meta title="Charts/AreaLine" component={AreaLine} />
 
 # AreaLine
 
 <Preview>
-  <Story name="Default">
-    <AreaLine
-      name="name"
-      value={['value', 'value2']}
-      data={[
-        { name: 'Jan', value: 10, value2: 6 },
-        { name: 'Feb', value: 22, value2: 7 },
-      ]}
-    />
+  <Story name="Single">
+    <AreaLine {...data} />
+  </Story>
+  <Story name="Double">
+    <AreaLine {...data1} />
   </Story>
 </Preview>
 
