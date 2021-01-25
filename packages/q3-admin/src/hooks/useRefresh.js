@@ -10,17 +10,17 @@ export default (onChange, debounceValue = 15000) => {
     Definitions,
   );
 
-  const handleWatch = debounce((data) => {
+  const handleWatch = debounce((e) => {
     const noop = () => null;
 
     if (
       !onChange ||
       !browser.isBrowserReady() ||
-      (id && data.id !== id)
+      (id && e?.data?.id !== id)
     )
       return null;
 
-    return onChange(window.location.search)
+    return onChange(window.location.search, e?.data)
       .then(noop)
       .catch(noop);
   }, debounceValue);

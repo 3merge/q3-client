@@ -37,13 +37,16 @@ const Chart = ({
   React.useEffect(() => {
     const params = new URLSearchParams(location?.search);
     params.set('template', template);
-    params.set(formKeyFrom, range.from);
-    params.set(formKeyTo, range.from);
+    params.set(
+      formKeyFrom,
+      moment(range.from).toISOString(),
+    );
+    params.set(formKeyTo, moment(range.to).toISOString());
 
     axios
       .get(`/reports?${params.toString()}`)
       .then((res) => {
-        setData(res.data);
+        setData(res?.data?.data);
       })
       .catch(() => {
         setError(true);
