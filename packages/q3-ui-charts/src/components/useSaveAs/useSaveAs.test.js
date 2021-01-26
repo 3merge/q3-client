@@ -7,7 +7,9 @@ jest.mock('q3-exports', () => {
   return class Exports {
     // eslint-disable-next-line
     toBuffer() {
-      return Promise.resolve();
+      return Promise.resolve({
+        foo: 1,
+      });
     }
   };
 });
@@ -16,7 +18,7 @@ describe('useSaveAs', () => {
   it('should call saveAs with joined title', async () => {
     await useSaveAs('Sample Title').csv();
     expect(saveAs).toHaveBeenCalledWith(
-      expect.anything(),
+      expect.any(Object),
       'sample-title.csv',
     );
   });

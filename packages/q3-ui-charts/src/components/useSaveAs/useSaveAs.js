@@ -5,13 +5,12 @@ export default (name, data) => {
   const toLowerCase = (str) =>
     String(str).toLowerCase().replace(/\s/g, '-');
 
-  const handleExport = (type) => () =>
-    new Exports(type).toBuffer(data).then((buf) => {
-      saveAs(
-        new Blob([buf]),
-        [toLowerCase(name), type].join('.'),
-      );
-    });
+  const handleExport = (type) => () => {
+    const file = [toLowerCase(name), type].join('.');
+    return new Exports(type)
+      .toBuffer(data)
+      .then((buf) => saveAs(buf, file));
+  };
 
   return {
     csv: handleExport('csv'),

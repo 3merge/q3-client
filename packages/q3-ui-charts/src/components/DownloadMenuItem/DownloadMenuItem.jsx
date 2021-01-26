@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { MenuItem } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-const DownloadMenuItem = ({ onClick, label }) => {
-  const { t } = useTranslation('labels');
+const DownloadMenuItem = React.forwardRef(
+  ({ onClick, label }, ref) => {
+    const { t } = useTranslation('labels');
 
-  return (
-    <MenuItem onClick={onClick} style={{ margin: 0 }}>
-      {t(label)}
-    </MenuItem>
-  );
-};
+    return (
+      <MenuItem
+        id={`chart-download-option-${label}`}
+        onClick={onClick}
+        ref={ref}
+        style={{ margin: 0 }}
+      >
+        {t(label)}
+      </MenuItem>
+    );
+  },
+);
 
 DownloadMenuItem.propTypes = {
   label: PropTypes.string.isRequired,

@@ -27,6 +27,7 @@ const Download = ({ data, title }) => {
           anchorEl={anchorEl}
           open={isOpen}
           onClose={close}
+          keepMounted
         >
           <DownloadMenuItem label="csv" onClick={csv} />
           <DownloadMenuItem label="excel" onClick={xlsx} />
