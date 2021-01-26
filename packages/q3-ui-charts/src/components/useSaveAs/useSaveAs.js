@@ -9,7 +9,7 @@ export default (name, data) => {
     new Exports(type).toBuffer(data).then((buf) => {
       saveAs(
         new Blob([buf]),
-        [toLowerCase(name), type].join(''),
+        [toLowerCase(name), type].join('.'),
       );
     });
 

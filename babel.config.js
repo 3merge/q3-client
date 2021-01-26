@@ -6,12 +6,14 @@ const withPackageOpts = (s) =>
     : `/packages/${s}/src`;
 
 const withBundledDir = (s) => `${s}/lib`;
+const withTests = (s) => `${s}/tests`;
 
 const alias = [
   'q3-admin',
   'q3-blocks',
   'q3-components',
   'q3-ui-assets',
+  'q3-ui-charts',
   'q3-ui-locale',
   'q3-ui',
   'q3-ui-datatables',
@@ -29,6 +31,7 @@ const alias = [
   (acc, curr) =>
     Object.assign(acc, {
       [withBundledDir(curr)]: withPackageOpts(curr),
+      [withTests(curr)]: withTests(curr),
       [curr]: withPackageOpts(curr), // default exports
     }),
   {},

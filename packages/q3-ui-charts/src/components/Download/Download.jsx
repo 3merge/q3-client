@@ -8,10 +8,8 @@ import DownloadMenuItem from '../DownloadMenuItem';
 import useSaveAs from '../useSaveAs';
 
 const Download = ({ data, title }) => {
-  const { isOpen, anchorEl, close, open } = useOpen;
+  const { isOpen, anchorEl, close, open } = useOpen();
   const { csv, xlsx } = useSaveAs(title, data);
-
-  console.log(open, isOpen, anchorEl);
 
   return (
     <>

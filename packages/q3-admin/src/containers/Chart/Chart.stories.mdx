@@ -5,9 +5,7 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Chart from './Chart';
-import MockRestAdapter from 'q3-ui-test-utils/lib/rest';
-import Location from 'q3-ui-test-utils/lib/location';
-import data from 'q3-ui-charts/tests/fixtures/sample-small';
+import { TestWrapper } from './Chart.test';
 
 <Meta title="Admin/Chart" component={Chart} />
 
@@ -15,21 +13,12 @@ import data from 'q3-ui-charts/tests/fixtures/sample-small';
 
 <Preview>
   <Story name="Bar">
-    <Location>
-      <MockRestAdapter
-        delay={5000}
-        define={(m) => {
-          m.onGet(/reports/).reply(200, {
-            data,
-          });
-        }}
-      >
-        <Chart
-          component="Bar"
-          template="foo"
-          title="Example"
-        />
-      </MockRestAdapter>
-    </Location>
+    <TestWrapper delay={1000}>
+      <Chart
+        component="Bar"
+        template="foo"
+        title="Example"
+      />
+    </TestWrapper>
   </Story>
 </Preview>

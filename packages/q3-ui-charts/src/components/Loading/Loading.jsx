@@ -124,7 +124,7 @@ const Loading = withColours(({ colours, title }) => {
               </rect>
             </g>
           </svg>
-          <Typography textAlign="center" align="center">
+          <Typography align="center">
             {t('loading')}
           </Typography>
         </Box>

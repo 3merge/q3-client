@@ -21,6 +21,7 @@ const Tooltip = ({ active, payload, label }) => {
             {payload.map((item) => (
               <Typography
                 component="li"
+                key={item.name}
                 style={{ margin: 0, fontSize: '0.933rem' }}
               >
                 <u>{item.name}</u>:{' '}
@@ -38,12 +39,13 @@ const Tooltip = ({ active, payload, label }) => {
 
 Tooltip.defaultProps = {
   active: false,
+  label: undefined,
   payload: [],
 };
 
 Tooltip.propTypes = {
   active: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   payload: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.String,
