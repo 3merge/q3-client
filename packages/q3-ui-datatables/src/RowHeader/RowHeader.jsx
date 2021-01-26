@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import TableCell from '@material-ui/core/TableCell';
-import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Avatar from 'q3-ui/lib/avatar';
@@ -25,7 +23,6 @@ const wrapper = (Component, n) => ({ str }) => {
   );
 };
 const Description = wrapper(({ str }) => {
-  console.log(str);
   return (
     <Box component="small" display="block">
       {str}
