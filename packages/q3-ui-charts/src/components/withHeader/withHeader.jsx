@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid, Typography } from '@material-ui/core';
+import {
+  Divider,
+  Box,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
 import Download from '../Download';
 import useStyle from './useStyle';
@@ -15,10 +20,12 @@ export default (Component) => {
         bgcolor="background.paper"
         className={cls.root}
         component="figure"
-        p={2}
+        px={2}
+        pb={1}
+        pt={2}
         m={0}
       >
-        <Box mb={1}>
+        <Box mb={2}>
           <Grid container justify="space-between">
             <Grid item>
               <Typography component="h2" variant="h4">

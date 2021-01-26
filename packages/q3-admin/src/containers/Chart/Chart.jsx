@@ -23,6 +23,8 @@ const Chart = ({
   const ChartComponent =
     Charts[fetching ? 'Loading' : component];
 
+  console.log(data);
+
   return ChartComponent && !fetchingError ? (
     <ChartComponent {...rest} {...data}>
       {children}

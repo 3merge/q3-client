@@ -5,8 +5,10 @@ const withPackageOpts = (s) =>
     ? `./packages/${s}/src`
     : `/packages/${s}/src`;
 
-const withBundledDir = (s) => `${s}/lib`;
+const withPackageTests = (s) => `./packages/${s}/tests`;
+
 const withTests = (s) => `${s}/tests`;
+const withBundledDir = (s) => `${s}/lib`;
 
 const alias = [
   'q3-admin',
@@ -27,15 +29,13 @@ const alias = [
   'q3-ui-repeater',
   'q3-ui-test-utils',
   'q3-ui-rest',
-].reduce(
-  (acc, curr) =>
-    Object.assign(acc, {
-      [withBundledDir(curr)]: withPackageOpts(curr),
-      [withTests(curr)]: withTests(curr),
-      [curr]: withPackageOpts(curr), // default exports
-    }),
-  {},
-);
+].reduce((acc, curr) => {
+  return Object.assign(acc, {
+    [withBundledDir(curr)]: withPackageOpts(curr),
+    [withTests(curr)]: withPackageTests(curr),
+    [curr]: withPackageOpts(curr), // default exports
+  });
+}, {});
 
 const withAlias = {
   plugins: [

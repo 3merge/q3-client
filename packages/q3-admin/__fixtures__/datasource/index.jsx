@@ -16,6 +16,27 @@ const makeApiEndpoints = (
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
 
+  mockInstance.onGet(/reports/).reply(200, {
+    data: {
+      data: [
+        {
+          Shows: 'Rick and Morty',
+          Streams: 1000000,
+        },
+        {
+          Shows: "Bob's Burgers",
+          Streams: 345000,
+        },
+        {
+          Shows: 'Simpsons',
+          Streams: 9972346,
+        },
+      ],
+      name: 'Shows',
+      value: 'Streams',
+    },
+  });
+
   mockInstance
     .onDelete(
       new RegExp(`${collectionName}\\/\\d+\\/uploads/\\d+`),
@@ -125,10 +146,6 @@ export default ({ children }) => {
       collectionName: 'shows',
       resourceName: 'shows',
       resourceNameSingular: 'show',
-    });
-
-    m.onGet(/reports/).reply(() => {
-      return [200, { data: BAR }];
     });
 
     m.onPost(/profile/).reply(async ({ data }) => {
