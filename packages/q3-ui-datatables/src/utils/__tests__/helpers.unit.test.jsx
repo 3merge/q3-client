@@ -16,12 +16,12 @@ describe('data tables Utils', () => {
       expect(utils.hasKeys({})).toBeFalsy());
   });
 
-  describe('"ellpisis"', () => {
+  describe('"ellipsis"', () => {
     it('return full string', () =>
-      expect(utils.ellpisis('abc', 5)).toMatch('abc'));
+      expect(utils.ellipsis('abc', 5)).toMatch('abc'));
 
     it('return partial string', () =>
-      expect(utils.ellpisis('abcdef', 3)).toMatch(
+      expect(utils.ellipsis('abcdef', 3)).toMatch(
         'abc...',
       ));
   });

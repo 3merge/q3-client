@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
-import Tooltip from '@material-ui/core/Tooltip';
 import { SelectOne } from 'q3-ui-exports';
 import useStyle from './useStyle';
 import RepeaterState from './state';
@@ -61,15 +60,13 @@ const ItemHeader = ({
               className={titleCls}
             />
             {description && (
-              <Tooltip title={description}>
-                <Typography
-                  style={{
-                    fontSize: '0.901rem',
-                  }}
-                >
-                  {description}
-                </Typography>
-              </Tooltip>
+              <Typography
+                style={{
+                  fontSize: '0.901rem',
+                }}
+              >
+                {description}
+              </Typography>
             )}
           </Grid>
         </Grid>
