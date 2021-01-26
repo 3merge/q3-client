@@ -10,25 +10,28 @@ import useSaveAs from '../useSaveAs';
 const Download = ({ data, title }) => {
   const { isOpen, anchorEl, close, open } = useOpen();
   const { csv, xlsx } = useSaveAs(title, data);
+  const disabled = !array.hasLength(data);
 
   return (
     <>
       <IconButton
         color="primary"
-        disabled={!array.hasLength(data)}
+        disabled={disabled}
         onClick={open}
       >
         <CloudDownloadIcon />
       </IconButton>
-      <Menu
-        id="chart-download-options"
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={close}
-      >
-        <DownloadMenuItem label="csv" onClick={csv} />
-        <DownloadMenuItem label="excel" onClick={xlsx} />
-      </Menu>
+      {!disabled && (
+        <Menu
+          id="chart-download-options"
+          anchorEl={anchorEl}
+          open={isOpen}
+          onClose={close}
+        >
+          <DownloadMenuItem label="csv" onClick={csv} />
+          <DownloadMenuItem label="excel" onClick={xlsx} />
+        </Menu>
+      )}
     </>
   );
 };
