@@ -3,14 +3,17 @@ import PropTypes from 'prop-types';
 import { Box, Grid, Typography } from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
 import Download from '../Download';
+import useStyle from './useStyle';
 
 export default (Component) => {
   const Header = ({ children, data, title, ...rest }) => {
     const cleaned = array.hasLength(data) ? data : [];
+    const cls = useStyle();
 
     return (
       <Box
         bgcolor="background.paper"
+        className={cls.root}
         component="figure"
         p={2}
         m={0}

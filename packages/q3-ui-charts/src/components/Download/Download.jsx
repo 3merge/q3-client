@@ -1,61 +1,48 @@
 import React from 'react';
-import {
-  Menu,
-  MenuItem,
-  IconButton,
-} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { Menu, IconButton } from '@material-ui/core';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import saveAs from 'file-saver';
-import Exports from 'q3-exports';
+import { array } from 'q3-ui-helpers';
+import { useOpen } from 'useful-state';
+import DownloadMenuItem from '../DownloadMenuItem';
+import useSaveAs from '../useSaveAs';
 
 const Download = ({ data, title }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const { isOpen, anchorEl, close, open } = useOpen;
+  const { csv, xlsx } = useSaveAs(title, data);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleExport = (type) => () =>
-    new Exports(type).toBuffer(data).then((buf) => {
-      saveAs(
-        new Blob([buf]),
-        `${String(title)
-          .toLowerCase()
-          .replace(/\s/g, '-')}.${type}`,
-      );
-    });
+  console.log(open, isOpen, anchorEl);
 
   return (
     <>
-      <IconButton onClick={handleClick}>
+      <IconButton
+        color="primary"
+        disabled={!array.hasLength(data)}
+        onClick={open}
+      >
         <CloudDownloadIcon />
       </IconButton>
       <Menu
-        id="simple-menu"
+        id="chart-download-options"
         anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={close}
       >
-        <MenuItem
-          onClick={handleExport('csv')}
-          style={{ margin: 0 }}
-        >
-          CSV
-        </MenuItem>
-        <MenuItem
-          onClick={handleExport('xlsx')}
-          style={{ margin: 0 }}
-        >
-          Excel Worksheet
-        </MenuItem>
+        <DownloadMenuItem label="csv" onClick={csv} />
+        <DownloadMenuItem label="excel" onClick={xlsx} />
       </Menu>
     </>
   );
+};
+
+Download.defaultProps = {
+  data: [],
+  title: 'export',
+};
+
+Download.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  title: PropTypes.string,
 };
 
 export default Download;

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  BarChart,
-  Bar,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
-  Legend,
   CartesianGrid,
   ResponsiveContainer,
+  Legend,
   Tooltip,
 } from 'recharts';
 import CustomTooltip from '../Tooltip';
@@ -15,24 +15,24 @@ import withColours from '../withColours';
 import withHeader from '../withHeader';
 import withValues from '../withValues';
 
-const CustomBarChart = ({ children, data, name }) => (
+const CustomLineChart = ({ children, data, name }) => (
   <ResponsiveContainer>
-    <BarChart data={data}>
+    <LineChart data={data}>
       <Legend />
       <CartesianGrid />
       <XAxis dataKey={name} />
       <YAxis />
       <Tooltip content={<CustomTooltip />} />
       {children}
-    </BarChart>
+    </LineChart>
   </ResponsiveContainer>
 );
 
-CustomBarChart.defaultProps = {
+CustomLineChart.defaultProps = {
   children: null,
 };
 
-CustomBarChart.propTypes = {
+CustomLineChart.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -43,5 +43,5 @@ CustomBarChart.propTypes = {
 };
 
 export default withHeader(
-  withColours(withValues(CustomBarChart, Bar)),
+  withColours(withValues(CustomLineChart, Line)),
 );

@@ -4,23 +4,21 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import Bar from './Bar';
+import Line from './Line';
 import data from '../../../tests/fixtures/sample-large';
 import data1 from '../../../tests/fixtures/sample-large-double';
 
-<Meta title="Charts/Bar" component={Bar} />
+<Meta title="Charts/Line" component={Line} />
 
-# Bar
+# Line
 
 <Preview>
   <Story name="Single">
-    <div style={{ width: 550 }}>
-      <Bar {...data} />
-    </div>
+    <Line {...data} />
   </Story>
   <Story name="Double">
-    <Bar {...data1} />
+    <Line {...data1} />
   </Story>
 </Preview>
 
-<Props of={Bar} />
+<Props of={Line} />

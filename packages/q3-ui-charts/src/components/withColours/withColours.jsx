@@ -1,6 +1,7 @@
 import React from 'react';
 import ColorScheme from 'color-scheme';
 import PropTypes from 'prop-types';
+import { useTheme } from '@material-ui/core/styles';
 
 const isNotPureWhite = (colour) =>
   String(colour).toLowerCase() !== 'ffffff';
@@ -8,15 +9,18 @@ const isNotPureWhite = (colour) =>
 const hexify = (colour) => (colour ? `#${colour}` : '#000');
 
 export default (Component) => {
-  const Chart = ({ hex, ...rest }) => (
+  const Chart = (props) => (
     <Component
-      {...rest}
+      {...props}
       colours={new ColorScheme()
-        .from_hex(hex)
-        .scheme('tetrade')
+        .from_hex(
+          String(
+            useTheme()?.palette?.secondary?.main,
+          ).replace('#', ''),
+        )
+        .scheme('triade')
         .distance(0.1)
-        .add_complement(true)
-        .variation('hard')
+        .variation('pastel')
         .web_safe(true)
         .colors()
         .filter(isNotPureWhite)
@@ -24,13 +28,8 @@ export default (Component) => {
     />
   );
 
-  Chart.defaultProps = {
-    hex: '2e2947',
-  };
-
-  Chart.propTypes = {
-    hex: PropTypes.string,
-  };
+  Chart.defaultProps = {};
+  Chart.propTypes = {};
 
   return Chart;
 };
