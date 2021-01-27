@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.26.1](https://github.com/3merge/q/compare/v1.26.0...v1.26.1) (2021-01-27)
+
+
+### Bug Fixes
+
+* gatsby build process due to pdfkit ([9d1c250](https://github.com/3merge/q/commit/9d1c250136587fbcad53258ea68592939505b140))
+
+
+
+
+
 # [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
 
 
