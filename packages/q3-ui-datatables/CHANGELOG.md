@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-ui-datatables
+
+
+
+
+
+
 ## [1.25.2](https://github.com/3merge/q/compare/v1.25.1...v1.25.2) (2021-01-19)
 
 
