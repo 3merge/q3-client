@@ -11,7 +11,7 @@ export default () => (
       <Typography variant="h1">Welcome back</Typography>
     </Box>
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Chart
           component="Bar"
           dateRangeProp="createdAt"
@@ -19,7 +19,7 @@ export default () => (
           title="Newly created characters"
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Chart
           component="AreaLine"
           dateRangeProp="updatedAt"

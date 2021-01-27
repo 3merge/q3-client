@@ -62,8 +62,8 @@ describe('withDateRange', () => {
         'createdAt<': '2020-05-01',
       });
 
-      expect(out).toMatch('createdAt%3E=2020-01-01');
-      expect(out).toMatch('createdAt%3C=2020-05-02');
+      expect(out).toMatch('createdAt%3E=2020-01');
+      expect(out).toMatch('createdAt%3C=2020-05');
     });
   });
 
