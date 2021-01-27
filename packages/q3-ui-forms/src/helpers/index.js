@@ -24,9 +24,7 @@ export const castToUTC = (v) =>
     : v;
 
 export const addTime = (set) => (v) =>
-  !isUndefined(v)
-    ? moment(v).set(set).format('YY-MM-DD HH:mm:ss')
-    : v;
+  !isUndefined(v) ? moment(v).set(set).toISOString() : v;
 
 export const castToBeginning = addTime({
   'hour': 0,

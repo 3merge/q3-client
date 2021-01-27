@@ -1,77 +1,63 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import * as Charts from 'q3-ui-charts';
+import MockRestAdapter from 'q3-ui-test-utils/lib/rest';
+import Location from 'q3-ui-test-utils/lib/location';
+import {
+  asyncMount,
+  containerSpec,
+} from 'q3-ui-test-utils/lib/enzymeUtils';
 import Chart from './Chart';
-import ChartFixture from './Chart.fixture.jsx';
+import data from '../../../../q3-ui-charts/tests/fixtures/sample-small';
 
 jest.unmock('axios');
+jest.unmock('useful-state');
 
-const waitForMock = (next) =>
-  act(async () => {
-    await new Promise((r) =>
-      setTimeout(() => {
-        next();
-
-        // allow mock adapter to complete
-        // it rests for 200 ms
-        r();
-      }, 210),
-    );
-  });
-
-const genChild = () => {
-  const Child = () => <div />;
-
-  return {
-    el: Child,
-    getProps: (el) => el.find(Child).first().props(),
-  };
-};
+// eslint-disable-next-line
+export const TestWrapper = ({ children, delay }) => (
+  <Location>
+    <MockRestAdapter
+      delay={delay}
+      define={(m) => {
+        m.onGet(/reports/).reply(200, {
+          data,
+        });
+      }}
+    >
+      {children}
+    </MockRestAdapter>
+  </Location>
+);
 
 describe('Chart', () => {
-  it('should render loading indicator', async () => {
-    const { el: Child, getProps } = genChild();
+  it('should display loading animation', async () => {
     const el = global.mount(
-      <ChartFixture>
+      <TestWrapper delay={10000}>
         <Chart
           title="Mock"
-          initialQueryValue="?template=foo"
-          chartComponent={<Child />}
-          filterComponent={<div />}
+          template="foo"
+          component="Bar"
         />
-      </ChartFixture>,
+      </TestWrapper>,
     );
 
-    const getCircularProgress = (expectedResult) =>
-      expect(getProps(el)).toHaveProperty(
-        'loading',
-        expectedResult,
-      );
-
-    getCircularProgress(true);
-
-    return waitForMock(() => {
-      el.update();
-      getCircularProgress(false);
-    });
+    expect(el.find(Charts.Loading).exists()).toBeTruthy();
   });
 
-  it('should pass data into the chartComponent property', async () => {
-    const Child = () => <div />;
-    const el = global.mount(
-      <ChartFixture>
+  it('should display Bar chart', async (done) => {
+    // eslint-disable-next-line
+    const el = await asyncMount(
+      <TestWrapper delay={0}>
         <Chart
           title="Mock"
-          initialQueryValue="?template=foo"
-          chartComponent={<Child />}
-          filterComponent={<div />}
+          template="foo"
+          component="Bar"
         />
-      </ChartFixture>,
+      </TestWrapper>,
     );
 
-    return waitForMock(() => {
-      el.update();
-      const { data = [] } = el.find(Child).first().props();
-      expect(data).toHaveLength(2);
-    });
+    setTimeout(() => {
+      containerSpec(el).has(Charts.Bar);
+      done();
+    }, 10);
   });
 });

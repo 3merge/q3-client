@@ -25,6 +25,7 @@ export const hasActiveNotifications = (items) =>
 const Notifications = ({
   data,
   defaultValue,
+  error,
   onView,
   onClick,
 }) => {
@@ -38,6 +39,7 @@ const Notifications = ({
       anchorComponent={
         <Bell
           active={hasActiveNotifications(data)}
+          error={error}
           hasItems={len}
         />
       }
@@ -85,6 +87,7 @@ Notifications.propTypes = {
       hasSeen: PropTypes.bool,
     }),
   ),
+  error: PropTypes.bool,
   onClick: PropTypes.func,
   onView: PropTypes.func,
 };
@@ -92,6 +95,7 @@ Notifications.propTypes = {
 Notifications.defaultProps = {
   data: [],
   defaultValue: false,
+  error: false,
   onClick: undefined,
   onView: undefined,
 };

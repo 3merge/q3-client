@@ -7,8 +7,7 @@
     "axios": "^0.21.0",
     "axios-mock-adapter": "^1.19.0",
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.5",
-    "mock-socket": "^9.0.3"
+    "enzyme-adapter-react-16": "^1.15.5"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.4.3"
