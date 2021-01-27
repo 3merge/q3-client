@@ -7,7 +7,10 @@ const Popover = ({
   children,
   popoverChildren,
   PopoverProps = {},
+  disablePopover,
 }) => {
+  if (disablePopover) return children;
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const cls = useStyles();
   const handlePopoverOpen = (event) => {
@@ -55,11 +58,13 @@ const Popover = ({
 };
 
 Popover.defaultProps = {
+  disablePopover: false,
   PopoverProps: {},
 };
 
 Popover.propTypes = {
   children: PropTypes.node.isRequired,
+  disablePopover: PropTypes.bool,
   popoverChildren: PropTypes.node.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   PopoverProps: PropTypes.object,

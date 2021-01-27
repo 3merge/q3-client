@@ -10,26 +10,6 @@ import { ellipsis } from '../utils/helpers';
 import useStyles from '../utils/useStyles';
 import CellWithCheckbox from '../CellWithCheckbox';
 
-const wrapper = (Component, n) => ({ str }) => {
-  return str.length > n ? (
-    <Component str={str} />
-  ) : (
-    <Popover popoverChildren={<span>{str}</span>}>
-      <Component str={ellipsis(str, n)} />
-      {/* <Box component="small" display="block">
-        {str}
-      </Box> */}
-    </Popover>
-  );
-};
-const Description = wrapper(({ str }) => {
-  return (
-    <Box component="small" display="block">
-      {str}
-    </Box>
-  );
-}, 75);
-
 const CellHeader = ({
   id,
   name,
@@ -52,17 +32,22 @@ const CellHeader = ({
             <Avatar word={name} imgSrc={imgSrc} />
           </Grid>
           <Grid item {...asLink} className={cellHeaderLink}>
-            <strong>{ellipsis(name, 45)}</strong>
-            {/* <Popover
+            <Popover
+              popoverChildren={<span>{name}</span>}
+              disablePopover={String(name).length < 45}
+            >
+              <strong>{ellipsis(name, 45)}</strong>
+            </Popover>
+            <Popover
               popoverChildren={<span>{description}</span>}
+              disablePopover={
+                String(description).length < 75
+              }
             >
               <Box component="small" display="block">
-                {description}
+                {ellipsis(description, 75)}
               </Box>
-            </Popover> */}
-            {description && (
-              <Description str={description} />
-            )}
+            </Popover>
           </Grid>
         </>
       }
@@ -72,6 +57,7 @@ const CellHeader = ({
 
 CellHeader.propTypes = {
   name: PropTypes.string.isRequired,
+  description: PropTypes.string,
   to: PropTypes.string,
   sub: PropTypes.string,
   imgSrc: PropTypes.string,
@@ -79,6 +65,7 @@ CellHeader.propTypes = {
 };
 
 CellHeader.defaultProps = {
+  description: '',
   sub: null,
   imgSrc: null,
   onClick: null,

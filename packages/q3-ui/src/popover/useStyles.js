@@ -5,6 +5,6 @@ export default makeStyles((theme) => ({
     pointerEvents: 'none',
   },
   paper: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(0.5),
   },
 }));
