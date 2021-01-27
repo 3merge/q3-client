@@ -101,7 +101,8 @@ const Page = ({
     { ...state, url },
   );
 
-  useRefresh(poll);
+  // this will prevent it from running on individual docs
+  useRefresh(!id ? poll : undefined);
 
   return (
     <PageChildren

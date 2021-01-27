@@ -1,7 +1,5 @@
-import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import GroupIcon from '@material-ui/icons/Group';
-import { useIo } from 'q3-admin/lib/hooks';
 import Add from './Add';
 import Filter from './Filter';
 import General from './general';
@@ -46,19 +44,6 @@ export default new AbstractCollectionBuilder({
     io: {
       exports: ['characterCollection', 'characterInvoice'],
       imports: ['characterCollection'],
-    },
-    renderCustomRowActions: ({ id }) => {
-      const { exportCollection } = useIo(id);
-
-      return (
-        // eslint-disable-next-line
-        <button
-          type="button"
-          onClick={exportCollection('characterInvoice')}
-        >
-          Export
-        </button>
-      );
     },
   })
   .genDetail({
