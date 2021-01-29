@@ -1,6 +1,4 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -78,11 +76,7 @@ export default ({
               {...PageListProps}
               loadingComponent={<TableSkeleton />}
             >
-              <Fade in>
-                <Box>
-                  <PageList />
-                </Box>
-              </Fade>
+              <PageList />
             </Page>
           </Article>
         </Collection>

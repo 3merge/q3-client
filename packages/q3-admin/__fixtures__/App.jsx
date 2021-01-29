@@ -7,13 +7,13 @@ import {
 } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
-import { PaginationCard } from 'q3-ui/lib/pagination';
 import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
 import Admin from '../src';
 import pages from './views';
+import Chart from '../src/containers/Chart';
 
 const Loading = ({ children }) => {
   useLoading();
@@ -22,9 +22,11 @@ const Loading = ({ children }) => {
 
 const Dash = () => (
   <Template muted>
-    <div>
-      <PaginationCard disabled>Hey</PaginationCard>
-    </div>
+    <Chart
+      component="Bar"
+      title="Sample chart"
+      template="demo"
+    />
   </Template>
 );
 

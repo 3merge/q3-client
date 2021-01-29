@@ -19,7 +19,7 @@ const EditableTypography = ({
   return (
     <InlineEditor
       {...rest}
-      title={fieldProps.name}
+      title={fieldProps.label || fieldProps.name}
       initialValues={initialValues}
       onSubmit={onSubmit}
       buttonComponent={(open, isOpen) => (

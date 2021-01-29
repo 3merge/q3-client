@@ -3,6 +3,99 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.26.1](https://github.com/3merge/q/compare/v1.26.0...v1.26.1) (2021-01-27)
+
+
+### Bug Fixes
+
+* gatsby build process due to pdfkit ([9d1c250](https://github.com/3merge/q/commit/9d1c250136587fbcad53258ea68592939505b140))
+
+
+
+
+
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+
+### Features
+
+* server side events and react charting library ([#285](https://github.com/3merge/q/issues/285)) ([f48225a](https://github.com/3merge/q/commit/f48225adec22bf671cfa2f31f3f14fe99af2d450))
+
+
+
+
+
+## [1.25.6](https://github.com/3merge/q/compare/v1.25.5...v1.25.6) (2021-01-22)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.25.5](https://github.com/3merge/q/compare/v1.25.4...v1.25.5) (2021-01-21)
+
+
+### Bug Fixes
+
+* phone number regex ([8afa6e3](https://github.com/3merge/q/commit/8afa6e3fc780200425ef7213da54a56022771026))
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+
+### Bug Fixes
+
+* price rounding, time-zone display and search typing ([f38ca1c](https://github.com/3merge/q/commit/f38ca1cba0a36c29de458f33d28f599b5331899e))
+
+
+
+
+
+
+## [1.25.2](https://github.com/3merge/q/compare/v1.25.1...v1.25.2) (2021-01-19)
+
+
+### Bug Fixes
+
+* table scrolling and disabled cart line items ([#283](https://github.com/3merge/q/issues/283)) ([2aec2e3](https://github.com/3merge/q/commit/2aec2e3343d315a7fa011ca68a63237da2bde85a))
+
+
+
+
+
+
+## [1.25.1](https://github.com/3merge/q/compare/v1.25.0...v1.25.1) (2021-01-15)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+# [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
+
+
+### Features
+
+* enable displaying labels in multiSelect field ([#280](https://github.com/3merge/q/issues/280)) ([dfa160a](https://github.com/3merge/q/commit/dfa160ad8f00729bb6c90ec7611e67c3db111dea))
+
+
+
+
+
+
 ## [1.24.47](https://github.com/3merge/q/compare/v1.24.46...v1.24.47) (2021-01-06)
 
 **Note:** Version bump only for package q3-client

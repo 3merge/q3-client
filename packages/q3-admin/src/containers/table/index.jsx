@@ -127,6 +127,7 @@ const List = ({
       actions={actions}
       id={collectionName}
       onSort={updateSortPrefence}
+      style={{ height: '100%' }}
     >
       <TableHeader>
         {can('io')}

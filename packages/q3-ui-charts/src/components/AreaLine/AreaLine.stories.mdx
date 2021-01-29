@@ -1,0 +1,24 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import AreaLine from './AreaLine';
+import data from '../../../tests/fixtures/sample-large';
+import data1 from '../../../tests/fixtures/sample-large-double';
+
+<Meta title="Charts/AreaLine" component={AreaLine} />
+
+# AreaLine
+
+<Preview>
+  <Story name="Single">
+    <AreaLine {...data} />
+  </Story>
+  <Story name="Double">
+    <AreaLine {...data1} />
+  </Story>
+</Preview>
+
+<Props of={AreaLine} />

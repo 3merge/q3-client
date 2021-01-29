@@ -32,7 +32,7 @@ describe('useIo', () => {
     }).exportCollection('test')();
 
     expect(moxios.post).toHaveBeenCalledWith(
-      '/exports?foo=1&bar=1',
+      '/io?foo=1&bar=1',
     );
 
     expect(setFn).toHaveBeenCalledWith('ids', 1);
@@ -48,7 +48,7 @@ describe('useIo', () => {
     ]);
 
     expect(moxios.post).toHaveBeenCalledWith(
-      '/imports?template=test',
+      '/io?template=test',
       expect.any(FormData),
       expect.any(Object),
     );

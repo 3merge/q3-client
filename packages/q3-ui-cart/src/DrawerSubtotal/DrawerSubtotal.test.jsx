@@ -14,7 +14,7 @@ const getRenderedText = () =>
 describe('Subtotal', () => {
   it('should default value and currency', () => {
     stubContext({});
-    expect(getRenderedText()).toMatch('$0 CAD');
+    expect(getRenderedText()).toMatch('$0.00 CAD');
   });
 
   it('should render a button given the context context', () => {

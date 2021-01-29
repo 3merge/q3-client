@@ -1,3 +1,6 @@
+const genKey = (url) =>
+  url.includes('netlify') ? 'disallow' : 'allow';
+
 module.exports = ({
   contentfulSpaceID,
   contentfulAccessToken,
@@ -19,7 +22,26 @@ module.exports = ({
     'gatsby-plugin-material-ui',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-robots-txt',
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: process.env.URL,
+        sitemap: `${process.env.URL}/sitemap.xml`,
+        env: {
+          development: {
+            policy: [{ userAgent: '*', disallow: ['/'] }],
+          },
+          production: {
+            policy: [
+              {
+                userAgent: '*',
+                [genKey(process.env.URL)]: '/',
+              },
+            ],
+          },
+        },
+      },
+    },
     {
       resolve: 'gatsby-source-contentful',
       options: {

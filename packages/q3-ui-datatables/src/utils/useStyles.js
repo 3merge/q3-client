@@ -268,7 +268,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'baseline',
-    // height: '100vh',
+
     '& table': {
       userSelect: 'none',
     },
@@ -278,7 +278,6 @@ export default makeStyles((theme) => ({
       zIndex: 2,
     },
     [theme.breakpoints.down('sm')]: {
-      height: 'calc(100vh - 68px)',
       width: '100%',
     },
   }),

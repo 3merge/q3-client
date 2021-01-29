@@ -1,0 +1,66 @@
+{
+  "data": [
+    {
+      "Company": "Wordware",
+      "Revenue": 90
+    },
+    {
+      "Company": "Topicstorm",
+      "Revenue": 37
+    },
+    {
+      "Company": "Livetube",
+      "Revenue": 97
+    },
+    {
+      "Company": "DabZ",
+      "Revenue": 22
+    },
+    {
+      "Company": "Wikivu",
+      "Revenue": 39
+    },
+    {
+      "Company": "Youspan",
+      "Revenue": 63
+    },
+    {
+      "Company": "Mynte",
+      "Revenue": 78
+    },
+    {
+      "Company": "Skilith",
+      "Revenue": 53
+    },
+    {
+      "Company": "Skidoo",
+      "Revenue": 33
+    },
+    {
+      "Company": "Ozu",
+      "Revenue": 91
+    },
+    {
+      "Company": "Yakidoo",
+      "Revenue": 2
+    },
+    {
+      "Company": "Devpulse",
+      "Revenue": 11
+    },
+    {
+      "Company": "Dynabox",
+      "Revenue": 25
+    },
+    {
+      "Company": "Lazzy",
+      "Revenue": 25
+    },
+    {
+      "Company": "Realpoint",
+      "Revenue": 28
+    }
+  ],
+  "name": "Company",
+  "value": "Revenue"
+}

@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.25.6](https://github.com/3merge/q/compare/v1.25.5...v1.25.6) (2021-01-22)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+
+### Bug Fixes
+
+* price rounding, time-zone display and search typing ([f38ca1c](https://github.com/3merge/q/commit/f38ca1cba0a36c29de458f33d28f599b5331899e))
+
+
+
+
+
+
+# [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
+
+
+### Features
+
+* enable displaying labels in multiSelect field ([#280](https://github.com/3merge/q/issues/280)) ([dfa160a](https://github.com/3merge/q/commit/dfa160ad8f00729bb6c90ec7611e67c3db111dea))
+
+
+
+
+
+
 ## [1.24.34](https://github.com/3merge/q/compare/v1.24.33...v1.24.34) (2020-12-09)
 
 **Note:** Version bump only for package q3-ui-locale

@@ -3,6 +3,79 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+## [1.25.6](https://github.com/3merge/q/compare/v1.25.5...v1.25.6) (2021-01-22)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+## [1.25.5](https://github.com/3merge/q/compare/v1.25.4...v1.25.5) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+
+### Bug Fixes
+
+* price rounding, time-zone display and search typing ([f38ca1c](https://github.com/3merge/q/commit/f38ca1cba0a36c29de458f33d28f599b5331899e))
+
+
+
+
+
+
+## [1.25.2](https://github.com/3merge/q/compare/v1.25.1...v1.25.2) (2021-01-19)
+
+
+### Bug Fixes
+
+* table scrolling and disabled cart line items ([#283](https://github.com/3merge/q/issues/283)) ([2aec2e3](https://github.com/3merge/q/commit/2aec2e3343d315a7fa011ca68a63237da2bde85a))
+
+
+
+
+
+
+## [1.25.1](https://github.com/3merge/q/compare/v1.25.0...v1.25.1) (2021-01-15)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+# [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
+
+**Note:** Version bump only for package q3-ui-cart
+
+
+
+
+
+
 ## [1.24.47](https://github.com/3merge/q/compare/v1.24.46...v1.24.47) (2021-01-06)
 
 **Note:** Version bump only for package q3-ui-cart

@@ -23,7 +23,7 @@ export const Search = () => {
 
   const handleKeyCode = (e) => {
     const val = e.target.value;
-    if (e?.code !== 'Enter') return;
+    if (!['Enter', 'NumpadEnter'].includes(e?.code)) return;
 
     navigate(
       val

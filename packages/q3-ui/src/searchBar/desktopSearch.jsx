@@ -63,9 +63,7 @@ const DesktopSearch = ({
     ...rest
   } = useAutocompleteSearch(initialValue);
 
-  const [v] = useDebounce(value, 350, {
-    maxWait: 750,
-  });
+  const [v] = useDebounce(value, 500);
 
   const { loading, results } = useAutocompleteSearchResults(
     getResults,

@@ -261,5 +261,7 @@
   "addToList": "Add to list",
   "from": "From",
   "to": "To",
-  "relatedLinks": "Related link"
+  "relatedLinks": "Related link",
+  "selectAllItems": "Select all",
+  "deselectAllItem": "Deselect all"
 }

@@ -27,19 +27,19 @@ export default (ids, ...rest) => {
       .then(() =>
         enqueueSnackbar(t(onSuccessMsg), {
           variant: 'info',
+          preventDuplicate: false,
         }),
       )
       .catch(() =>
         enqueueSnackbar(t(onFailMsg), {
           variant: 'error',
+          preventDuplicate: false,
         }),
       );
 
   const exportCollection = (template) => () =>
     handleRequest(
-      axios.post(
-        `/exports${getQueryString(template, ...rest)}`,
-      ),
+      axios.post(`/io${getQueryString(template, ...rest)}`),
       'exportStarted',
       'exportFailed',
     );
@@ -54,7 +54,7 @@ export default (ids, ...rest) => {
 
           axios
             .post(
-              `/imports${getQueryString(template)}`,
+              `/io${getQueryString(template)}`,
               formData,
               {
                 headers: {
