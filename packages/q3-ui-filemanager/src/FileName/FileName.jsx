@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Popover from 'q3-ui/lib/popover';
 import useStyle from './useStyle';
@@ -43,7 +45,18 @@ const FileName = ({ name, url, onClick, loading }) => {
 
   const renderTooltip = (predicate) =>
     predicate ? (
-      <Popover popoverChildren={<span>{name}</span>}>
+      <Popover
+        popoverChildren={
+          <Box p={0.5} style={{ maxWidth: '350px' }}>
+            <Typography
+              variant="body2"
+              style={{ fontSize: '.85rem' }}
+            >
+              {name}
+            </Typography>
+          </Box>
+        }
+      >
         {renderer()}
       </Popover>
     ) : (
@@ -52,12 +65,18 @@ const FileName = ({ name, url, onClick, loading }) => {
 
   const ref = React.useRef();
 
+  const checkTruncate = () =>
+    setIsTruncated(
+      ref.current.offsetWidth < ref.current.scrollWidth,
+    );
+
   React.useEffect(() => {
-    if (ref.current) {
-      setIsTruncated(
-        ref.current.offsetWidth < ref.current.scrollWidth,
-      );
-    }
+    checkTruncate();
+    window.addEventListener('resize', checkTruncate);
+
+    return () => {
+      window.removeEventListener('resize', checkTruncate);
+    };
   }, []);
 
   return (
