@@ -8,6 +8,7 @@ import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
+import useStyles from './useStyles';
 
 export const ListItem = ({
   id,
@@ -23,6 +24,7 @@ export const ListItem = ({
   const secondary = formatArrayAsCommaDelineatedString(
     description,
   );
+  const cls = useStyles({ listItemTextColor: color });
 
   return (
     <ListItemMui
@@ -31,7 +33,12 @@ export const ListItem = ({
       component="li"
       dense
     >
-      <Box component={href ? Link : 'span'} to={href}>
+      <Box
+        component={href ? Link : 'span'}
+        to={href}
+        display="flex"
+        alignItems="center"
+      >
         {Icon && (
           <ListItemAvatarMui>
             <Avatar style={{ backgroundColor: color }}>
@@ -44,6 +51,8 @@ export const ListItem = ({
             color,
             textDecoration: href ? 'underline' : 'none',
           }}
+          className={cls.listItemText}
+          primaryTypograph
           primary={primary}
           secondary={secondary}
           {...(renderListItemProps
@@ -98,12 +107,16 @@ ListItem.propTypes = {
     PropTypes.string,
     PropTypes.object,
   ]),
+  color: PropTypes.string,
+  href: PropTypes.string,
 };
 
 ListItem.defaultProps = {
   children: null,
   icon: null,
   renderListItemProps: null,
+  color: '',
+  href: '',
 };
 
 export default ListItem;
