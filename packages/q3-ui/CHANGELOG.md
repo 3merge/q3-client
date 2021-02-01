@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* sidePanel style and default color ([df5723b](https://github.com/3merge/q/commit/df5723b6e0b05de4fcc6e617020987b96a06b8a5))
+
+
+
+
+
 # [1.27.0](https://github.com/3merge/q/compare/v1.26.1...v1.27.0) (2021-02-01)
 
 

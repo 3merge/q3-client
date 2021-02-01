@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
+
 ## [1.26.1](https://github.com/3merge/q/compare/v1.26.0...v1.26.1) (2021-01-27)
 
 
