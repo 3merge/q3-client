@@ -1,7 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, ListItem, Button } from '@material-ui/core';
+import cn from 'classnames';
+import { ListItem, Button } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles(
+  ({
+    palette: {
+      primary: { main },
+    },
+  }) => ({
+    root: {
+      borderColor: 'transparent',
+      borderLeft: '3px solid',
+      justifyContent: 'space-between',
+      paddingLeft: '1.5rem',
+      transition: 'border 250ms',
+    },
+    selected: {
+      borderLeftColor: main,
+      borderRadius: 0,
+    },
+  }),
+);
 
 const VerticalListItem = ({
   label,
@@ -9,9 +31,9 @@ const VerticalListItem = ({
   isExpanded,
   isSelected,
   children,
-  icon: Icon,
   role,
 }) => {
+  const cls = useStyle();
   const renderExpandedIcon = () => {
     if (typeof isExpanded !== 'boolean') return null;
     return isExpanded ? (
@@ -25,42 +47,27 @@ const VerticalListItem = ({
     <ListItem
       style={{
         display: 'block',
-        paddingTop: '4px',
-        paddingBottom: '4px',
+        margin: 0,
+        padding: 0,
       }}
     >
-      <Box
-        display="flex"
-        alignItems="center"
-        className={isExpanded ? 'natIsExpanded' : ''}
+      <Button
+        color="inherit"
+        onClick={onClick}
+        fullWidth
+        role={role || 'button'}
+        className={cn([
+          ...[isSelected ? cls.selected : undefined],
+          cls.root,
+        ])}
+        style={{
+          textTransform: 'none',
+          alignItems: 'left',
+        }}
       >
+        {label}
         {renderExpandedIcon()}
-        {Icon && (
-          <Icon
-            color="inherit"
-            style={{
-              display: 'block',
-              marginLeft:
-                typeof isExpanded === 'boolean'
-                  ? 0
-                  : '16px',
-            }}
-          />
-        )}
-        <Button
-          color="inherit"
-          onClick={onClick}
-          fullWidth
-          role={role || 'button'}
-          className={isSelected ? 'navIsSelected' : ''}
-          style={{
-            textTransform: 'none',
-            alignItems: 'left',
-          }}
-        >
-          {label}
-        </Button>
-      </Box>
+      </Button>
       {isExpanded && children != null && children}
     </ListItem>
   );

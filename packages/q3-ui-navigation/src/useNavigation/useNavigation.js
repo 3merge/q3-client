@@ -49,8 +49,7 @@ const useNavigation = (menuItems = []) => {
 
   const checkSelected = (to) => {
     const path = pathname.split('/');
-    const target = `/${path[path.length - 1]}`;
-    return target === to;
+    return `${path[path.length - 1]}` === to;
   };
 
   const handleOnClick = (curr) => (e) => {

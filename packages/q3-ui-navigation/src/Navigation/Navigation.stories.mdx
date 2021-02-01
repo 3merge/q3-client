@@ -17,7 +17,11 @@ import menuItems from '../../tests/fixtures/menu';
   <Story name="Main">
     <Location initialPath="/savings">
       <Paper style={{ height: '100vh', width: '100%' }}>
-        <Navigation />
+        <Navigation
+          orientation="vertical"
+          menuItems={menuItems}
+          //    initialVerticalWidth={75}
+        />
       </Paper>
     </Location>
   </Story>

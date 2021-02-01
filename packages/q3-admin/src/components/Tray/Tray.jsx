@@ -10,7 +10,10 @@ const Tray = ({ children }) => {
   const gc = globalStyles();
 
   return (
-    <Box className={classnames(cls.root, gc.appbar)}>
+    <Box
+      id="q3-tray"
+      className={classnames(cls.root, gc.appbar)}
+    >
       {children}
     </Box>
   );

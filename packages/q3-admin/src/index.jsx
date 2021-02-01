@@ -35,11 +35,15 @@ const Admin = ({
         <Viewport>
           <Navigation
             {...NavProps}
+            variant="SideRail"
             menuItems={usePages(AppProps.pages, icons)}
             root={root}
           />
 
-          <Box className={cls.main}>
+          <Box
+            className={cls.main}
+            // data-orientation="horizontal"
+          >
             <ProfileActions
               profileItems={[
                 ...profileItems,

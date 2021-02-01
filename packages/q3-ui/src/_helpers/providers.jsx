@@ -23,6 +23,9 @@ const Providers = ({ children, theme }) => (
           href="https://fonts.googleapis.com/css?family=Roboto:600&Source+Sans+Pro:400&display=swap"
           rel="stylesheet"
         />
+        <style>
+          {'.sb-show-main.sb-main-padded {padding: 0 }'}
+        </style>
       </Helmet>
       <LocalizationProvider
         dateLibInstance={moment}
