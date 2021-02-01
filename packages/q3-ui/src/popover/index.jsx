@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import MaterialPopover from '@material-ui/core/Popover';
 import useStyles from './useStyles';
 
@@ -49,9 +50,24 @@ const Popover = ({
         }}
         onClose={handlePopoverClose}
         disableRestoreFocus
+        PaperProps={{
+          elevation: 5,
+        }}
         {...PopoverProps}
       >
-        {popoverChildren}
+        <Box
+          bgcolor="primary.main"
+          color="primary.contrastText"
+          margin={-0.5}
+          p={0.65}
+          style={{
+            opacity: 0.9,
+            maxWidth: '255px',
+            fontSize: '.677rem',
+          }}
+        >
+          {popoverChildren}
+        </Box>
       </MaterialPopover>
     </>
   );

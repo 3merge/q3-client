@@ -1,6 +1,7 @@
 import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import CreditCard from '@material-ui/icons/CreditCard';
+import { green } from '@material-ui/core/colors';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
@@ -67,6 +68,7 @@ export default new AbstractCollectionBuilder({
           href: 'https:google.com',
           title: 'test',
           description: 'test',
+          color: green[900],
         },
       ];
     },
