@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 import { navigate } from '@reach/router';
+import Box from '@material-ui/core/Box';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
@@ -26,37 +28,35 @@ export const ListItem = ({
     <ListItemMui
       id={id}
       disableGutters
-      onClick={() => {
-        if (href) navigate(href);
-      }}
-      button={Boolean(href)}
       component="li"
       dense
     >
-      {Icon && (
-        <ListItemAvatarMui>
-          <Avatar style={{ backgroundColor: color }}>
-            <Icon />
-          </Avatar>
-        </ListItemAvatarMui>
-      )}
-      <ListItemTextMui
-        style={{
-          color,
-          textDecoration: href ? 'underline' : 'none',
-        }}
-        primary={primary}
-        secondary={secondary}
-        {...(renderListItemProps
-          ? renderListItemProps()
-          : {})}
-      />
+      <Box component={href ? Link : 'span'} to={href}>
+        {Icon && (
+          <ListItemAvatarMui>
+            <Avatar style={{ backgroundColor: color }}>
+              <Icon />
+            </Avatar>
+          </ListItemAvatarMui>
+        )}
+        <ListItemTextMui
+          style={{
+            color,
+            textDecoration: href ? 'underline' : 'none',
+          }}
+          primary={primary}
+          secondary={secondary}
+          {...(renderListItemProps
+            ? renderListItemProps()
+            : {})}
+        />
 
-      {children && !Array.isArray(children)
-        ? React.cloneElement(children, {
-            id,
-          })
-        : null}
+        {children && !Array.isArray(children)
+          ? React.cloneElement(children, {
+              id,
+            })
+          : null}
+      </Box>
     </ListItemMui>
   );
 };
