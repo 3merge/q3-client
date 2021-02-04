@@ -15,7 +15,9 @@ export default withState((props) => {
     <SelectBase
       {...options}
       {...props}
-      SelectProps={{ native: true }}
+      SelectProps={{
+        native: true,
+      }}
     >
       <SelectMenuItem {...options} {...props} />
     </SelectBase>

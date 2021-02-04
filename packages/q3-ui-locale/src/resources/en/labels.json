@@ -263,5 +263,15 @@
   "to": "To",
   "relatedLinks": "Related link",
   "selectAllItems": "Select all",
-  "deselectAllItem": "Deselect all"
+  "deselectAllItem": "Deselect all",
+  "exists": "{{key}} exists",
+  "doesNotExist": "{{key}} does not exist",
+  "has": "Has {{key}} set",
+  "hasNot": "Does not have {{key}} set",
+  "equals": "{{key}} equals {{value}}",
+  "doesNotEqual": "{{key}} does not equal {{value}}",
+  "doesNotInclude": "{{key}} does not include {{value}}",
+  "includes": "{{key}} includes {{value}}",
+  "moreThan": "{{key}} more than {{value}}",
+  "lessThan": "{{key}} less than {{value}}"
 }

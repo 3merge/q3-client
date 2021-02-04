@@ -25,6 +25,7 @@ const alias = [
   'q3-ui-forms',
   'q3-ui-helpers',
   'q3-ui-notifications',
+  'q3-ui-queryparams',
   'q3-ui-permissions',
   'q3-ui-repeater',
   'q3-ui-test-utils',

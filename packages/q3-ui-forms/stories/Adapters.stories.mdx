@@ -17,6 +17,11 @@ import Wrapper, {
 import { Exists, Has } from '../src/presets';
 import { countries } from '../src/fields/__fixtures__/options';
 import { asOptions } from '../src/helpers';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
+import PublicIcon from '@material-ui/icons/Public';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 <Meta title="Forms/Adapters" component={EncodedUrl} />
 
@@ -24,9 +29,17 @@ import { asOptions } from '../src/helpers';
 
 <Preview>
   <Story name="Types">
-    <LocationProvider search="?paymentOption=Visa&approved=exists(true)&currency.commons=CAD%2CUSD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
+    <LocationProvider search='?paymentOption=Visa&approved=exists(true)&currency.commons=in(CAD/USD%2C"EUR,GEL,HUF")&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0'>
       <LocationDebugger>
-        <FilterChip />
+        <FilterChip
+          iconMap={{
+            paymentOption: AccountBalanceWalletIcon,
+            email: MailOutlineIcon,
+            'currency~commons': PublicIcon,
+            'total>': AttachMoneyIcon,
+            'total<': AttachMoneyIcon,
+          }}
+        />
         <EncodedUrl debug>
           <Field
             name="paymentOption"
@@ -43,18 +56,18 @@ import { asOptions } from '../src/helpers';
           <Field
             name="currency~commons"
             type="multiselect"
-            options={asOptions(['CAD', 'USD'])}
-          />
-          <Field
-            name="draft"
-            strict
-            type="checkbox"
-            checkedValue="!=isVisble"
+            options={asOptions(['CAD/USD', 'EUR,GEL,HUF'])}
           />
           <Field
             name="email"
             type="chips"
             options={['mibberson+demo@3merge.ca']}
+          />
+          <Field
+            name="draft!"
+            strict
+            type="checkbox"
+            checkedValue="isVisble"
           />
           <Has name="items" />
           <Exists name="approved" />
