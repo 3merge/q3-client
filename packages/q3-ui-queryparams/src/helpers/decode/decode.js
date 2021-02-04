@@ -23,20 +23,16 @@ export default (v) => {
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;
 
-      if (String(value).includes('%2C'))
-        value = decodeURIComponent(value)
-          .match(/(".*?"|[^",]+)/g)
-          .map(unquote);
+      value = decodeURIComponent(String(value));
+
+      if (value.includes(','))
+        value = value.match(/(".*?"|[^",]+)/g).map(unquote);
 
       acc[
         decodeURIComponent(key).replace(/\./g, '~')
       ] = Array.isArray(value)
         ? value.map(ensureBoolean).map(ensureNumber)
-        : ensureNumber(
-            ensureBoolean(
-              decodeURIComponent(String(value)),
-            ),
-          );
+        : ensureNumber(ensureBoolean(value));
 
       return acc;
     }, {});

@@ -1,5 +1,7 @@
-import { timezone } from 'q3-ui-locale';
 import { isObject } from 'lodash';
+
+export const filterBy = (a, value) =>
+  a.filter((item) => item !== value);
 
 export const getValue = (o) =>
   String(isObject(o) ? o.value : o);
@@ -25,19 +27,6 @@ export const wrap = (v, char) => {
   if (!out.endsWith(end) && end) out = out.concat(end);
   return out;
 };
-
-export const formatter = (v = '') => ({
-  get key() {
-    return v.replace(/(>|<)/gi, '').replace(/~/gi, '.');
-  },
-
-  get value() {
-    if (timezone.isUtc(v))
-      return timezone.toLocal(v, timezone.YMD);
-
-    return String(v).replace(/^"(.*)"$/, '$1');
-  },
-});
 
 export const unquote = (v) => {
   let out = String(v);
@@ -78,22 +67,4 @@ export const clean = (v) => {
   else if (v.startsWith('string'))
     out = v.substring(7, v.length - 1);
   return out.replace(/%20/g, ' ');
-};
-
-export const parseOp = (key, value) => {
-  const a = String(key);
-  const b = String(value);
-  if (a.startsWith('!') || b === 'has(false)')
-    return 'hasNot';
-  if (!b || b === 'has(true)') return 'has';
-  if (a.endsWith('!') && b.startsWith('in'))
-    return 'doesNotInclude';
-  if (a.endsWith('!')) return 'doesNotEqual';
-  if (b.startsWith('string')) return 'equals';
-  if (b.startsWith('in')) return 'includes';
-  if (a.endsWith('<')) return 'lessThan';
-  if (a.endsWith('>')) return 'moreThan';
-  if (b === 'exists(true)') return 'exists';
-  if (b === 'exists(false)') return 'doesNotExist';
-  return 'equals';
 };

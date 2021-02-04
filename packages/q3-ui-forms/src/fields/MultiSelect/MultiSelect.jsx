@@ -22,6 +22,19 @@ export const extractValues = (xs) =>
 
 const sort = (a) => array.is(a).sort();
 
+const hasEveryValue = (a, b) => {
+  try {
+    return a.every(
+      (item) =>
+        b.findIndex(
+          (val) => item === val || val === item.value,
+        ) !== -1,
+    );
+  } catch (e) {
+    return false;
+  }
+};
+
 export default withState(
   ({
     name,
@@ -51,7 +64,8 @@ export default withState(
     const handleOnChange = (e) => {
       const length = get(e, 'target.value.length', 0);
       if (length === 0) setStatus(UNCHECKED);
-      else if (length === items.length) setStatus(CHECKED);
+      else if (hasEveryValue(items, e.target.value))
+        setStatus(CHECKED);
       else setStatus(INDETERMINATE);
       onChange(e);
     };
@@ -71,20 +85,8 @@ export default withState(
     }, [status]);
 
     React.useEffect(() => {
-      try {
-        if (
-          status !== CHECKED &&
-          items.every(
-            (item) =>
-              value.findIndex(
-                (val) => item === val || val === item.value,
-              ) !== -1,
-          )
-        )
-          setStatus(CHECKED);
-      } catch (e) {
-        // noop
-      }
+      if (status !== CHECKED && hasEveryValue(items, value))
+        setStatus(CHECKED);
     }, [items.length, value]);
 
     return (

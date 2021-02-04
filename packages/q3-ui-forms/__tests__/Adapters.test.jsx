@@ -100,6 +100,6 @@ describe('Adapters', () => {
 
     await renderer.searchAndSelect('Ca');
     await renderer.searchAndSelect('Unit');
-    return renderer.test('?chips=CA%2CUS');
+    return renderer.test('?chips=in(CA%2CUS)');
   });
 });

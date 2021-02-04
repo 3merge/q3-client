@@ -1,20 +1,20 @@
 import { useLocation, useNavigate } from '@reach/router';
-import { useTranslation } from 'react-i18next';
 import { omit, size, get } from 'lodash';
-import { parseOp, formatter } from '../helpers';
+import useQueryOp from '../useQueryOp';
 import useQueryParams from '../useQueryParams';
+import { filterBy } from '../helpers';
+
+export const getRelevantParams = (queryObject) =>
+  Object.entries(
+    omit(queryObject, ['sort', 'page', 'search', 'limit']),
+  );
 
 export default (iconMap = {}) => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
+  const op = useQueryOp();
   const qp = useQueryParams();
+  const navigate = useNavigate();
   const search = qp.decode(useLocation()?.search);
-
-  const params = Object.entries(
-    omit(search, ['sort', 'page', 'search', 'limit']),
-    '=',
-  );
+  const params = getRelevantParams(search);
 
   const removeFromSearchString = (name) => () =>
     navigate(qp.encode(omit(search, [name])));
@@ -27,39 +27,39 @@ export default (iconMap = {}) => {
     navigate(
       qp.encode({
         ...search,
-        [name]: values.filter((v) => v !== valueToOmit),
+        [name]: filterBy(values, valueToOmit),
       }),
     );
 
-  const getChipLabel = (name, value, isArray = false) =>
-    t(`labels:${parseOp(name, isArray ? 'in' : value)}`, {
-      key: t(`labels:${formatter(name).key}`),
-      value: t(`filters:${formatter(value).value}`),
-    });
-
-  if (!size(params)) return [];
-
-  return params.flatMap(([name, value]) => {
-    const icon = get(iconMap, name);
-
-    const map = (label) => ({
-      key: `${name}-${label}`,
-      icon,
-      name,
-      label: getChipLabel(name, label, true),
-      onDelete: modifyInSearchString(name, label, value),
-      value: label,
-    });
-
-    return Array.isArray(value)
-      ? value.map(map)
-      : {
-          key: name,
-          name,
-          onDelete: removeFromSearchString(name, value),
-          label: getChipLabel(name, value),
+  return size(params)
+    ? params.flatMap(([name, value]) => {
+        const icon = get(iconMap, name);
+        const makeParamShape = (args) => ({
+          ...args,
           icon,
-          value,
-        };
-  });
+          name,
+        });
+
+        const map = (label) =>
+          makeParamShape({
+            key: `${name}-${label}`,
+            label: op(name, label, true),
+            onDelete: modifyInSearchString(
+              name,
+              label,
+              value,
+            ),
+            value: label,
+          });
+
+        return Array.isArray(value)
+          ? value.map(map)
+          : makeParamShape({
+              key: name,
+              onDelete: removeFromSearchString(name, value),
+              label: op(name, value),
+              value,
+            });
+      })
+    : [];
 };

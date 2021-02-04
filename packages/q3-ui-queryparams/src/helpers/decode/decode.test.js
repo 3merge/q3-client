@@ -16,7 +16,7 @@ test.each([
       complexArray: [
         'First Person (Shooter)',
         'First Person (Adventure)',
-        '"Puzzles, Mystery, and more"',
+        'Puzzles, Mystery, and more',
       ],
     },
   ],
