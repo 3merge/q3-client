@@ -24,7 +24,7 @@ import { asOptions } from '../src/helpers';
 
 <Preview>
   <Story name="Types">
-    <LocationProvider search="?paymentOption=Visa&approved=exists(true)&currency.commons=CAD%2CUSD&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0">
+    <LocationProvider search='?paymentOption=Visa&approved=exists(true)&currency.commons=in(CAD/USD%2C"EUR,GEL,HUF")&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0'>
       <LocationDebugger>
         <FilterChip />
         <EncodedUrl debug>

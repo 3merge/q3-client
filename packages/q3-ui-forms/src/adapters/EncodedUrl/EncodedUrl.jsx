@@ -13,7 +13,14 @@ const getParamName = (v) => {
   return name;
 };
 
-const clean = (v) => v.replace(/%20/g, ' ');
+const clean = (v) => {
+  let out = String(v);
+  if (v.startsWith('in'))
+    out = v.substring(3, v.length - 1);
+  if (v.startsWith('string'))
+    out = v.substring(6, v.length - 1);
+  return out.replace(/%20/g, ' ');
+};
 
 const join = (key, value) => {
   if (value.startsWith('=') || value.startsWith('!'))
