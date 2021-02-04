@@ -1,0 +1,43 @@
+import { url } from 'q3-ui-helpers';
+import { timezone } from 'q3-ui-locale';
+import {
+  clean,
+  ensureBoolean,
+  ensureNumber,
+  unquote,
+} from '../utils';
+
+export default (v) => {
+  if (!v) return {};
+
+  return url
+    .removeLeadingQueryCharacter(v)
+    .split('&')
+    .reduce((acc, next) => {
+      // eslint-disable-next-line
+      let [key, value] = next ? next.split('=') : [next];
+
+      if (timezone.isUtc(value))
+        value = timezone.toLocal(value, timezone.YMD);
+
+      if (typeof value === 'string') value = clean(value);
+      if (value === undefined) value = true;
+
+      if (String(value).includes('%2C'))
+        value = decodeURIComponent(value)
+          .match(/(".*?"|[^",]+)/g)
+          .map(unquote);
+
+      acc[
+        decodeURIComponent(key).replace(/\./g, '~')
+      ] = Array.isArray(value)
+        ? value.map(ensureBoolean).map(ensureNumber)
+        : ensureNumber(
+            ensureBoolean(
+              decodeURIComponent(String(value)),
+            ),
+          );
+
+      return acc;
+    }, {});
+};

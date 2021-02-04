@@ -2,6 +2,7 @@ import React from 'react';
 import { get, isObject, uniq } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
+import Chip from '@material-ui/core/Chip';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
@@ -62,7 +63,7 @@ export default withState(
       onChange(e);
     };
 
-    const composedFns = [array.print, sort, uniq];
+    const composedFns = [sort, uniq];
 
     if (displayLabelAsValue)
       composedFns.push(valueToLabel(items));
@@ -92,7 +93,7 @@ export default withState(
         onChange={handleOnChange}
         SelectProps={{
           value: v,
-          renderValue,
+          // renderValue,
           multiple: true,
           native: false,
           MenuProps: {
@@ -100,6 +101,13 @@ export default withState(
             disablePortal: true,
             classes: cls,
           },
+          renderValue: (selected) => (
+            <div style={{ margin: '-2px 0 -2px -6px' }}>
+              {renderValue(selected).map((s) => (
+                <Chip key={s} label={s} size="small" />
+              ))}
+            </div>
+          ),
         }}
       >
         <MultiSelectAll
