@@ -1,4 +1,7 @@
+import { timezone } from 'q3-ui-locale';
 import encode from './encode';
+
+jest.spyOn(timezone, 'toUtc').mockReturnValue('2021-01-01');
 
 test.each([
   [
@@ -13,7 +16,7 @@ test.each([
       'createdAt<': '2020-04-6',
       'tags!': ['a', 'b', 'c'],
     },
-    'createdAt%3E=2020-04-01T04:00:00.000Z&createdAt%3C=2020-04-6&tags!=in(a%2Cb%2Cc)',
+    'createdAt%3E=2021-01-01&createdAt%3C=2020-04-6&tags!=in(a%2Cb%2Cc)',
   ],
   [
     {
