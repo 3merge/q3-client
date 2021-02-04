@@ -9,14 +9,14 @@ import { useTranslation } from 'react-i18next';
 
 const SegmentAdd = ({ onSave, active, items }) => {
   const ref = React.useRef();
-  const { value, onChange } = useValue('');
+  const { value, onChange, setValue } = useValue('');
   const { t } = useTranslation('labels');
 
   const handleClick = () => {
     if (value.length) {
-      return onSave(value);
+      onSave(value);
+      return setValue('');
     }
-
     ref.current.focus();
     return null;
   };
