@@ -25,6 +25,7 @@
     "moment-timezone": "^0.5.32",
     "notistack": "^1.0.2",
     "q3-ui-dialog": "^1.27.1",
+    "q3-ui-queryparams": "^1.27.1",
     "qs": "^6.9.4",
     "react-dropzone": "^11.2.4",
     "react-i18next": "11.7.3",
