@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.2](https://github.com/3merge/q/compare/v1.27.1...v1.27.2) (2021-02-04)
+
+
+### Bug Fixes
+
+* clear segment input ([#289](https://github.com/3merge/q/issues/289)) ([382b410](https://github.com/3merge/q/commit/382b410dbe2bb03d15b6bbcc0ee4ee632ed48b9c))
+* dep resolution ([01eab1c](https://github.com/3merge/q/commit/01eab1c03a6f1ce4c8e7864f11c4d869d6ba8495))
+* filtering query param for arrays ([#290](https://github.com/3merge/q/issues/290)) ([ba98f2e](https://github.com/3merge/q/commit/ba98f2ef646ecfb5c1c0daa5e5dd452c70f44843))
+* handle android enter ([#288](https://github.com/3merge/q/issues/288)) ([3252fd0](https://github.com/3merge/q/commit/3252fd0c7bea17b5fba7c625b83a68baf438afca))
+
+
+
+
+
 ## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
 
 
