@@ -49,17 +49,10 @@ export default withState(
     });
 
     const handleOnChange = (e) => {
-      if (status === CHECKED) setStatus(INDETERMINATE);
-
       const length = get(e, 'target.value.length', 0);
-
-      if (length === 0) {
-        setStatus(UNCHECKED);
-      }
-      if (length === items.length) {
-        setStatus(CHECKED);
-      }
-
+      if (length === 0) setStatus(UNCHECKED);
+      else if (length === items.length) setStatus(CHECKED);
+      else setStatus(INDETERMINATE);
       onChange(e);
     };
 
@@ -76,6 +69,23 @@ export default withState(
 
       if (status === UNCHECKED) onChange(genPayload(name));
     }, [status]);
+
+    React.useEffect(() => {
+      try {
+        if (
+          status !== CHECKED &&
+          items.every(
+            (item) =>
+              value.findIndex(
+                (val) => item === val || val === item.value,
+              ) !== -1,
+          )
+        )
+          setStatus(CHECKED);
+      } catch (e) {
+        // noop
+      }
+    }, [items.length, value]);
 
     return (
       <SelectBase
