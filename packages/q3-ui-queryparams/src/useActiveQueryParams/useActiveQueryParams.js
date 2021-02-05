@@ -6,7 +6,13 @@ import { filterBy } from '../helpers';
 
 export const getRelevantParams = (queryObject) =>
   Object.entries(
-    omit(queryObject, ['sort', 'page', 'search', 'limit']),
+    omit(queryObject, [
+      'sort',
+      'page',
+      'search',
+      'limit',
+      'active',
+    ]),
   );
 
 export default () => {
