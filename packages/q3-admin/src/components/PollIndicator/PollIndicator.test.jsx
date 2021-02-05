@@ -4,17 +4,17 @@ describe('Admin>PollIndicator', () => {
   describe('"getIcon"', () => {
     it('should return Flare icon', () => {
       const el = getIcon({ hasPendingUpdate: true });
-      expect(el.displayName).toMatch('Flare');
+      expect(el.type.render.displayName).toMatch('Flare');
     });
 
     it('should return TrackChanges icon', () => {
       const el = getIcon({ hasChange: true });
-      expect(el.displayName).toMatch('Track');
+      expect(el.type.render.displayName).toMatch('Track');
     });
 
     it('should return Update icon', () => {
       const el = getIcon();
-      expect(el.displayName).toMatch('Update');
+      expect(el.type.render.displayName).toMatch('Update');
     });
   });
 

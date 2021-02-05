@@ -3,7 +3,7 @@
   "version": "1.27.2",
   "main": "lib/index.js",
   "devDependencies": {
-    "jest-localstorage-mock": "^2.4.3",
+    "jest-localstorage-mock": "^2.4.6",
     "q3-ui-test-utils": "^1.27.1"
   },
   "dependencies": {

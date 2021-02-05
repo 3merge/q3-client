@@ -18,7 +18,8 @@ test.each([
 ])(
   '.useQueryOp(%a) should return %s',
   (args, expectedQueryString) =>
-    expect(useQueryOp()(...args)).toMatch(
+    expect(useQueryOp()(...args)).toHaveProperty(
+      'label',
       expectedQueryString,
     ),
 );

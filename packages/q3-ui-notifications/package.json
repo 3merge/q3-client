@@ -5,8 +5,8 @@
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
-    "@material-ui/core": "^4.11.1",
-    "@material-ui/icons": "^4.5.1",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "useful-state": "^1.2.0"

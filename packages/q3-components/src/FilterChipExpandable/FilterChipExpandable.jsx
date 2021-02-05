@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
-import CheckIcon from '@material-ui/icons/Check';
-import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import Avatar from '@material-ui/core/Avatar';
 import useStyle from './useStyle';
 
 export const checkForTruthyValue = (name, value) =>
@@ -19,20 +19,19 @@ export const checkForFalsyValue = (name, value) =>
 const FilterChipExpandable = ({
   onDelete,
   label,
-  icon,
+  symbol,
   name,
   value,
 }) => {
-  let Icon = icon;
   let defaultLabel = value || name;
+  const { t } = useTranslation('labels');
 
-  if (checkForTruthyValue(name, value)) {
-    defaultLabel = name;
-    Icon = CheckIcon;
+  if (
+    checkForTruthyValue(name, value) ||
+    checkForFalsyValue(name, value)
+  ) {
+    defaultLabel = t(name);
   }
-
-  if (checkForFalsyValue(name, value))
-    Icon = NotInterestedIcon;
 
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [width, setWidth] = React.useState();
@@ -67,7 +66,7 @@ const FilterChipExpandable = ({
       </div>
       <Chip
         onClick={toggle}
-        icon={Icon ? <Icon /> : null}
+        avatar={<Avatar>{symbol}</Avatar>}
         size="small"
         label={
           <div
@@ -83,7 +82,6 @@ const FilterChipExpandable = ({
           </div>
         }
         onDelete={onDelete}
-        variant="outlined"
         style={{
           marginRight: '0.25rem',
           marginBottom: '0.25rem',
@@ -93,19 +91,12 @@ const FilterChipExpandable = ({
   ) : null;
 };
 
-FilterChipExpandable.defaultProps = {
-  icon: null,
-};
-
 FilterChipExpandable.propTypes = {
   onDelete: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  icon: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.node,
-  ]),
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  symbol: PropTypes.string.isRequired,
 };
 
 export default FilterChipExpandable;

@@ -22,7 +22,8 @@ export const checkIfEmpty = (v) =>
   (!string.hasLength(v) && !object.hasKeys(v));
 
 export const checkIfRequired = (ctx) =>
-  get(ctx, 'schema._exclusive.required', false);
+  get(ctx, 'schema._exclusive.required', false) ||
+  get(ctx, 'schema.exclusiveTests.required', false);
 
 const isRequired = (re, value, ctx) =>
   checkIfRequired(ctx)

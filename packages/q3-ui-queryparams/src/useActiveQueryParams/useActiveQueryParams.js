@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from '@reach/router';
-import { omit, size, get } from 'lodash';
+import { omit, size } from 'lodash';
 import useQueryOp from '../useQueryOp';
 import useQueryParams from '../useQueryParams';
 import { filterBy } from '../helpers';
@@ -9,7 +9,7 @@ export const getRelevantParams = (queryObject) =>
     omit(queryObject, ['sort', 'page', 'search', 'limit']),
   );
 
-export default (iconMap = {}) => {
+export default () => {
   const op = useQueryOp();
   const qp = useQueryParams();
   const navigate = useNavigate();
@@ -33,17 +33,15 @@ export default (iconMap = {}) => {
 
   return size(params)
     ? params.flatMap(([name, value]) => {
-        const icon = get(iconMap, name);
         const makeParamShape = (args) => ({
           ...args,
-          icon,
           name,
         });
 
         const map = (label) =>
           makeParamShape({
+            ...op(name, label, true),
             key: `${name}-${label}`,
-            label: op(name, label, true),
             onDelete: modifyInSearchString(
               name,
               label,
@@ -56,8 +54,8 @@ export default (iconMap = {}) => {
           ? value.map(map)
           : makeParamShape({
               key: name,
+              ...op(name, value),
               onDelete: removeFromSearchString(name, value),
-              label: op(name, value),
               value,
             });
       })

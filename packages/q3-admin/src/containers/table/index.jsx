@@ -133,7 +133,7 @@ const List = ({
         {can('io')}
         {can('add')}
       </TableHeader>
-      <Box pb={1}>
+      <Box py={0.5}>
         <FilterChip />
       </Box>
     </Table>

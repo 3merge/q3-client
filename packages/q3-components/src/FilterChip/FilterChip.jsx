@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { size } from 'lodash';
 import Box from '@material-ui/core/Box';
 import { useActiveQueryParams } from 'q3-ui-queryparams';
 import FilterChipExpandable from '../FilterChipExpandable';
 
-const FilterChip = ({ iconMap }) => {
-  const chips = useActiveQueryParams(iconMap);
+const FilterChip = () => {
+  const chips = useActiveQueryParams();
 
   return size(chips) ? (
     <Box id="q3-filter-chips" display="inline-block" px={2}>
@@ -15,14 +14,6 @@ const FilterChip = ({ iconMap }) => {
       ))}
     </Box>
   ) : null;
-};
-
-FilterChip.defaultProps = {
-  iconMap: {},
-};
-
-FilterChip.propTypes = {
-  iconMap: PropTypes.shape({}),
 };
 
 export default FilterChip;

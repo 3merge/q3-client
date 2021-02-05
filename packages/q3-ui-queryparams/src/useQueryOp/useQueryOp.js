@@ -36,9 +36,27 @@ export default () => {
         }).find(hasValue),
       ) || 'equals';
 
-    return t(`labels:${op}`, {
-      key: t(`labels:${replaceWorkaroundCharacters(name)}`),
-      value: t(`filters:${replaceTimestamp(value)}`),
-    });
+    const charMap = {
+      hasNot: '⊘',
+      has: '✓',
+      doesNotInclude: '≆',
+      doesNotEqual: '≠',
+      equals: '=',
+      includes: '≌',
+      lessThan: '<',
+      moreThan: '>',
+      exists: '✓',
+      doesNotExist: '⊘',
+    };
+
+    return {
+      label: t(`labels:${op}`, {
+        key: t(
+          `labels:${replaceWorkaroundCharacters(name)}`,
+        ),
+        value: t(`filters:${replaceTimestamp(value)}`),
+      }),
+      symbol: charMap[op],
+    };
   };
 };

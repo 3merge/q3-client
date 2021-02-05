@@ -18,14 +18,8 @@ export const quoteComma = (item) =>
   quoteSpecialChar(item, ',');
 
 export const wrap = (v, char) => {
-  let out = String(v);
   const [start, end] = String(char).split('');
-
-  if (!out.startsWith(start) && start)
-    out = start.concat(out);
-
-  if (!out.endsWith(end) && end) out = out.concat(end);
-  return out;
+  return `${start}${v}${end}`;
 };
 
 export const unquote = (v) => {
