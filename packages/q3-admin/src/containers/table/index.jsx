@@ -1,16 +1,14 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
+import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import TableIo from '../TableIo';
-import Article from '../../components/Article';
-import SidePanel from '../../components/SidePanel';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import TableHeader from '../TableHeader';
@@ -51,7 +49,7 @@ export const TableDecorator = (props) => ({
 
 const executeNavigation = (query) =>
   navigate(
-    `?${query.toString()}`,
+    `?${url.toParamsString(query)}`,
     {
       state: {
         init: true,
