@@ -32,7 +32,7 @@ export default (v) => {
         decodeURIComponent(key).replace(/\./g, '~')
       ] = Array.isArray(value)
         ? value.map(ensureBoolean).map(ensureNumber)
-        : ensureNumber(ensureBoolean(value));
+        : ensureNumber(ensureBoolean(unquote(value)));
 
       return acc;
     }, {});
