@@ -35,8 +35,25 @@ export default ({
   const { value, onChange, setValue } = useValue(
     initialValue,
   );
+  const [timer, setTimer] = React.useState(null);
 
-  const [debounced] = useDebounce(value, 500);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    let test;
+    if (!ref.current) {
+      ref.current = true;
+    } else {
+      test = setTimeout(() => setTimer(true), 350);
+    }
+
+    return () => {
+      clearTimeout(test);
+      setTimer(null);
+    };
+  }, [value]);
+
+  console.log(timer);
 
   const {
     loading,
@@ -46,7 +63,7 @@ export default ({
     setResults: setItems,
   } = useResults(
     loadOptions,
-    debounced,
+    values,
     expandOptions(options),
     minimumCharacterCount,
   );
@@ -68,13 +85,13 @@ export default ({
     if (loadOptions) {
       if (shouldInit() || runOnChange) {
         invokeService(values);
-      } else if (debounced && !preload) {
+      } else if (!timer && !preload) {
         run(values);
       }
     } else if (runOpts) {
       runOpts(options);
     }
-  }, [debounced, JSON.stringify(watchValues)]);
+  }, [timer, JSON.stringify(watchValues)]);
 
   return {
     items: loadOptionsPlainly
