@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.5](https://github.com/3merge/q/compare/v1.27.4...v1.27.5) (2021-02-08)
+
+
+### Bug Fixes
+
+* unquote single query param ([d105b81](https://github.com/3merge/q/commit/d105b8149f2c356f41cb7a01a3f6806ac9b00302))
+
+
+
+
+
 ## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
 
 
