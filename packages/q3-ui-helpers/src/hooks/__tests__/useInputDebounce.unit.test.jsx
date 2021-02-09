@@ -2,6 +2,8 @@ import React from 'react';
 import { asyncMount } from 'q3-ui-test-utils/lib/enzymeUtils';
 import useInputDebounce from '../useInputDebounce';
 
+const ref = jest.spyOn(React, 'useRef');
+
 jest.useFakeTimers();
 
 beforeEach(() => {
@@ -11,8 +13,11 @@ beforeEach(() => {
 
 const Input = () => <div />;
 
-const TestComponent = () => {
-  const shouldRun = useInputDebounce('hi');
+const expectFalse = (res) =>
+  expect(res).toHaveProperty('shouldRun', false);
+
+const TestComponent = (input) => {
+  const shouldRun = useInputDebounce(input);
   jest.clearAllTimers();
 
   return <Input shouldRun={shouldRun} />;
@@ -24,18 +29,16 @@ const setup = async () => {
 };
 
 test('should return false as an initial value', async () => {
-  const res = await setup();
-  expect(res).toHaveProperty('shouldRun', false);
+  const res = await setup('hi');
+  expectFalse(res);
 });
 
 test('should debounce', async () => {
-  jest
-    .spyOn(React, 'useRef')
-    .mockReturnValue({ current: true });
+  ref.mockReturnValue({ current: true });
 
-  const res = await setup();
+  const res = await setup('hi');
 
-  expect(res).toHaveProperty('shouldRun', false);
+  expectFalse(res);
   expect(setTimeout).toHaveBeenCalledTimes(1);
   expect(setTimeout).toHaveBeenLastCalledWith(
     expect.any(Function),
