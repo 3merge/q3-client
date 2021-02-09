@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.7](https://github.com/3merge/q/compare/v1.27.6...v1.27.7) (2021-02-09)
+
+
+### Bug Fixes
+
+* chip label translations ([19491b9](https://github.com/3merge/q/commit/19491b99c8436a517f9a1efe6a43f585940864cd))
+
+
+
+
+
 ## [1.27.6](https://github.com/3merge/q/compare/v1.27.5...v1.27.6) (2021-02-09)
 
 

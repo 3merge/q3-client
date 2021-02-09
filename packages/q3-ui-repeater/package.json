@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.27.6",
+  "version": "1.27.7",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.27.3"
@@ -12,7 +12,7 @@
     "@material-ui/pickers": "4.0.0-alpha.9",
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
-    "q3-components": "^1.27.6",
+    "q3-components": "^1.27.7",
     "q3-ui": "^1.27.4",
     "q3-ui-dialog": "^1.27.3",
     "q3-ui-exports": "^1.27.3",
