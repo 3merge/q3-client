@@ -2,9 +2,11 @@
 import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
-import { useResults } from 'q3-ui-helpers/lib/hooks';
+import {
+  useInputDebounce,
+  useResults,
+} from 'q3-ui-helpers/lib/hooks';
 import { array } from 'q3-ui-helpers';
-import { useDebounce } from 'use-debounce';
 import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
 import { expandOptions } from '../fields/optionsThreshold';
@@ -35,24 +37,7 @@ export default ({
   const { value, onChange, setValue } = useValue(
     initialValue,
   );
-
-  const [shouldRun, setShouldRun] = React.useState(false);
-
-  const ref = React.useRef(null);
-
-  React.useEffect(() => {
-    let timer;
-    if (!ref.current) {
-      ref.current = true;
-    } else {
-      timer = setTimeout(() => setShouldRun(true), 350);
-    }
-
-    return () => {
-      clearTimeout(timer);
-      setShouldRun(false);
-    };
-  }, [value]);
+  const shouldRun = useInputDebounce(value);
 
   const {
     loading,
