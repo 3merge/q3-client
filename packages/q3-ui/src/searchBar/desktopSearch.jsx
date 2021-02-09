@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
-import { useDebounce } from 'use-debounce';
+import { useInputDebounce } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'react-i18next';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
@@ -62,12 +62,12 @@ const DesktopSearch = ({
     onClear,
     ...rest
   } = useAutocompleteSearch(initialValue);
-
-  const [v] = useDebounce(value, 500);
+  const shouldRun = useInputDebounce(value);
+  // console.log(shouldRun);
 
   const { loading, results } = useAutocompleteSearchResults(
     getResults,
-    v,
+    value,
     ref,
   );
 
@@ -94,7 +94,9 @@ const DesktopSearch = ({
         onClose={handleClose(onSearch)}
         onInputChange={handleInputChange((args) => {
           onClear();
-          onSearch(args);
+          if (shouldRun) {
+            onSearch(args);
+          }
         }, value)}
         filterOptions={(options) => options}
         renderOption={(option) => (
