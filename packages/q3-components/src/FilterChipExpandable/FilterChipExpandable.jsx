@@ -30,7 +30,7 @@ const FilterChipExpandable = ({
     checkForTruthyValue(name, value) ||
     checkForFalsyValue(name, value)
   ) {
-    defaultLabel = t(name);
+    defaultLabel = t(t(String(name).replace(/~/g, '.')));
   }
 
   const [isExpanded, setIsExpanded] = React.useState(false);
