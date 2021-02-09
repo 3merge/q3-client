@@ -17,8 +17,15 @@ export default (v) => {
       // eslint-disable-next-line
       let [key, value] = next ? next.split('=') : [next];
 
-      if (timezone.isUtc(value))
-        value = timezone.toLocal(value, timezone.YMD);
+      try {
+        if (timezone.isUtc(decodeURIComponent(value)))
+          value = timezone.toLocal(
+            decodeURIComponent(value),
+            timezone.YMD,
+          );
+      } catch (e) {
+        // noop
+      }
 
       if (typeof value === 'string') value = clean(value);
       if (value === undefined) value = true;
