@@ -1,36 +1,44 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
+import { asyncMount } from 'q3-ui-test-utils/lib/enzymeUtils';
 import useInputDebounce from '../useInputDebounce';
 
-const setup = () => {
-  const returnVal = {};
+jest.useFakeTimers();
 
-  const TestComponent = () => {
-    const shouldRun = useInputDebounce('hi');
-    Object.assign(returnVal, { shouldRun });
-    return null;
-  };
-  act(() => {
-    global.mount(<TestComponent />);
-  });
-
-  return returnVal;
-};
-
-test('should return false as an initial value', () => {
-  expect(setup()).toHaveProperty('shouldRun', false);
+beforeEach(() => {
+  jest.clearAllTimers();
+  jest.clearAllMocks();
 });
 
-test('should debounce', (done) => {
+const Input = () => <div />;
+
+const TestComponent = () => {
+  const shouldRun = useInputDebounce('hi');
+  jest.clearAllTimers();
+
+  return <Input shouldRun={shouldRun} />;
+};
+
+const setup = async () => {
+  const el = await asyncMount(<TestComponent />);
+  return el.find(Input).props();
+};
+
+test('should return false as an initial value', async () => {
+  const res = await setup();
+  expect(res).toHaveProperty('shouldRun', false);
+});
+
+test('should debounce', async () => {
   jest
     .spyOn(React, 'useRef')
     .mockReturnValue({ current: true });
 
-  const test = setup();
-  expect(test).toHaveProperty('shouldRun', false);
+  const res = await setup();
 
-  setTimeout(() => {
-    expect(test).toHaveProperty('shouldRun', true);
-    done();
-  }, 400);
+  expect(res).toHaveProperty('shouldRun', false);
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+  expect(setTimeout).toHaveBeenLastCalledWith(
+    expect.any(Function),
+    350,
+  );
 });
