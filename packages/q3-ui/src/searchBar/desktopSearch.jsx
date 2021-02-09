@@ -62,8 +62,8 @@ const DesktopSearch = ({
     onClear,
     ...rest
   } = useAutocompleteSearch(initialValue);
+
   const shouldRun = useInputDebounce(value);
-  // console.log(shouldRun);
 
   const { loading, results } = useAutocompleteSearchResults(
     getResults,
