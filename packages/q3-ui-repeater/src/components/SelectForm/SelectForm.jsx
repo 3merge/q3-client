@@ -15,13 +15,13 @@ const SortForm = ({
   handleChange,
 }) => {
   if (!array.hasLength(options)) return null;
-  const { t } = useTranslation();
+  const { t } = useTranslation('labels');
 
   return (
     <Grid item xs={12} sm={4} md={3} lg={3} xl={3}>
       <TextField
         select
-        label={label}
+        label={t(label)}
         size="small"
         margin="none"
         fullWidth

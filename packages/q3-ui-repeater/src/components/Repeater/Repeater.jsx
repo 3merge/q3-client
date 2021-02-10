@@ -56,15 +56,9 @@ const Repeater = ({
 
   return (
     <>
-      <Box
-        bgcolor="background.paper"
-        position="sticky"
-        top={0}
-        mb={2}
-        zIndex={10}
-      >
+      <Box bgcolor="background.paper" mb={2}>
         <Grid alignItems="center" container spacing={2}>
-          <Grid item xs>
+          <Grid item xs={12} sm>
             <RepeaterOptions
               state={state}
               dispatch={dispatch}
