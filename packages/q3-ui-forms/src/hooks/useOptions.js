@@ -2,9 +2,11 @@
 import React from 'react';
 import { pick } from 'lodash';
 import { useValue } from 'useful-state';
-import { useResults } from 'q3-ui-helpers/lib/hooks';
+import {
+  useInputDebounce,
+  useResults,
+} from 'q3-ui-helpers/lib/hooks';
 import { array } from 'q3-ui-helpers';
-import { useDebounce } from 'use-debounce';
 import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
 import { expandOptions } from '../fields/optionsThreshold';
@@ -35,8 +37,7 @@ export default ({
   const { value, onChange, setValue } = useValue(
     initialValue,
   );
-
-  const [debounced] = useDebounce(value, 500);
+  const shouldRun = useInputDebounce(value);
 
   const {
     loading,
@@ -46,7 +47,7 @@ export default ({
     setResults: setItems,
   } = useResults(
     loadOptions,
-    debounced,
+    value,
     expandOptions(options),
     minimumCharacterCount,
   );
@@ -68,13 +69,13 @@ export default ({
     if (loadOptions) {
       if (shouldInit() || runOnChange) {
         invokeService(values);
-      } else if (debounced && !preload) {
+      } else if (shouldRun && !preload) {
         run(values);
       }
     } else if (runOpts) {
       runOpts(options);
     }
-  }, [debounced, JSON.stringify(watchValues)]);
+  }, [shouldRun, JSON.stringify(watchValues)]);
 
   return {
     items: loadOptionsPlainly
