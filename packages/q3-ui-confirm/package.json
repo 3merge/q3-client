@@ -1,0 +1,22 @@
+{
+  "name": "q3-ui-confirm",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^1.27.3"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "q3-ui": "1.27.4",
+    "q3-ui-dialog": "1.27.3",
+    "q3-ui-forms": "1.27.6",
+    "q3-ui-helpers": "1.27.4",
+    "react-i18next": "11.7.3",
+    "yup": "0.32.8"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2"
+  }
+}
