@@ -5,7 +5,7 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
-import rows from '../../../q3-ui-datatables/__fixtures__/orders';
+
 export const isEven = (item) => Number(item.seq) % 2 === 0;
 export const isSeq = (item) => Number(item.seq) === 211;
 
@@ -22,7 +22,7 @@ export const isSeq = (item) => Number(item.seq) === 211;
   <Story name="Without options">
     <Repeater
       cardProps={{
-        title: 'seq',
+        title: 'sku',
         attributes: ['for.name', 'id', 'age'],
         editable: {
           position: {
@@ -50,32 +50,36 @@ export const isSeq = (item) => Number(item.seq) === 211;
         { label: '211', fn: isSeq },
       ]}
       sortOptions={[
-        { label: 'seq' },
-        { label: 'firstName' },
+        { label: 'sku' },
+        {
+          label: 'Price (Low to high)',
+          fn: (a, b) => a.price - b.price,
+        },
+        {
+          label: 'Price (High to low)',
+          fn: (a, b) => b.price - a.price,
+        },
       ]}
       filterOptions={[
         { label: 'All' },
         {
-          label: 'SEQ 211',
-          fn: (x) => Number(x.seq) === 211,
+          label: 'Cheap',
+          fn: (x) => Number(x.price) < 50,
         },
         {
-          label: 'Not SEQ 211',
-          fn: (x) => Number(x.seq) !== 211,
+          label: 'Publishing',
+          fn: (x) => x.category === 'Publishing',
         },
       ]}
       cardProps={{
-        title: 'seq',
-        attributes: ['for.name', 'id', 'age'],
+        title: 'sku',
+        describe: 'description',
+        attributes: ['price', 'category'],
         editable: {
-          position: {
-            renderer: () => <div>Something custom!</div>,
+          price: {
+            toPrice: true,
           },
         },
-        onColor: (item) =>
-          item.age < 20 ? 'orange' : 'blue',
-        describe: () =>
-          'This is a dynamic sentence generated from the item template.',
         makeLink: () => '/to',
         makeLinkLabel: ({ id }) => id,
       }}

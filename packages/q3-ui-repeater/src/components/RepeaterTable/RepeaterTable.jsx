@@ -27,6 +27,7 @@ const RepeaterTable = ({
     total,
     onChange,
     list,
+    page,
   } = usePagination(perPage, data);
 
   return (
@@ -48,6 +49,7 @@ const RepeaterTable = ({
             mt="20px"
           >
             <Pagination
+              page={page}
               color="primary"
               count={totalPage}
               onChange={onChange}

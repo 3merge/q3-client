@@ -2,26 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
+import { useInputDebounce } from 'q3-ui-helpers/lib/hooks';
 
 export const SearchContext = React.createContext();
 
 const SearchBar = ({ handleInput }) => {
   const [state, setState] = React.useState('');
   const { t } = useTranslation('labels');
+  const shouldRun = useInputDebounce(state);
   const handleChange = (e) => setState(e.target.value);
-  let ref = React.useRef(null);
 
   React.useEffect(() => {
-    let timer;
-    if (ref) {
-      timer = setTimeout(() => handleInput(state), 500);
-    } else {
-      ref = true;
-    }
-    return () => {
-      setTimeout(timer);
-    };
-  }, [state]);
+    handleInput(state);
+  }, [shouldRun]);
 
   return (
     <TextField

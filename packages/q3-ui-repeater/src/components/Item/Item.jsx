@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, invoke } from 'lodash';
+import { get, invoke, isFunction } from 'lodash';
 import TableRow from '@material-ui/core/TableRow';
 import Attribute from '../Attribute';
 import ItemActions from '../ItemActions';
@@ -26,7 +26,9 @@ export const interpretCardsProps = (
   ...cardProps,
   attributes: get(cardProps, 'attributes', []),
   color: invoke(cardProps, 'onColor', currentData),
-  description: invoke(cardProps, 'describe', currentData),
+  description: isFunction(cardProps.describe)
+    ? invoke(cardProps, 'describe', currentData)
+    : get(currentData, cardProps.describe),
 
   linkTo: invoke(cardProps, 'makeLink', currentData),
   linkToLabel: invoke(

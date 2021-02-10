@@ -2,7 +2,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { navigate } from '@reach/router';
 import Button from '@material-ui/core/Button';
-import Alert from 'q3-ui/lib/alert';
+import Alert from '@material-ui/lab/Alert';
 import { Trash } from '.';
 
 jest.useFakeTimers();
@@ -38,9 +38,7 @@ describe('Trash', () => {
     );
 
     await act(async () => {
-      el.find(Button)
-        .props()
-        .onClick();
+      el.find(Button).props().onClick();
     });
 
     el.update();

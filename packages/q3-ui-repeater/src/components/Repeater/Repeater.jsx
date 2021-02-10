@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Paper, Grid } from '@material-ui/core';
+import Asset from 'q3-ui-assets';
+import { Box, Grid } from '@material-ui/core';
 import { compose } from 'lodash/fp';
 import ActionBar from '../ActionBar';
 import AddItem from '../AddItem';
@@ -61,10 +62,6 @@ const Repeater = ({
         mb={2}
         zIndex={10}
       >
-        <ActionBar
-          data={data}
-          renderSelected={bulkEditorComponent}
-        />
         <Grid alignItems="center" container spacing={2}>
           <Grid item xs>
             <RepeaterOptions
@@ -73,7 +70,12 @@ const Repeater = ({
               filterOptions={filterOptions}
               sortOptions={sortOptions}
               disableSearch={disableSearch}
-            />
+            >
+              <ActionBar
+                data={data}
+                renderSelected={bulkEditorComponent}
+              />
+            </RepeaterOptions>
           </Grid>
           {!addDisabled && (
             <Grid item xs="auto">
@@ -99,7 +101,7 @@ const Repeater = ({
         </Box>
       ) : (
         <Box>
-          <span>No results</span>
+          <Asset icon="Empty" title="empty" />
         </Box>
       )}
     </>

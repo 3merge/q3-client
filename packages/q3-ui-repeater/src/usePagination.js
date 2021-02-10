@@ -11,7 +11,12 @@ const usePagination = (perPage, xs) => {
   const onChange = (_, num) => setPage(num);
   const total = size(xs);
 
+  React.useEffect(() => {
+    setPage(1);
+  }, [xs]);
+
   return {
+    page,
     list: slicer(page, perPage, xs),
     totalPage: Math.ceil(size(xs) / perPage),
     currentPage: page + 1,

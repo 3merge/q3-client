@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import { AuthContext } from 'q3-ui-permissions';
 import { COLLECTION_NAME, permissions } from '../seed';
-import { orders as rows } from '../../../q3-ui-datatables/__fixtures__/orders';
+import rows from '../seed/products';
 
 const genResolver = (fn) =>
   new Promise((resolve) => {
