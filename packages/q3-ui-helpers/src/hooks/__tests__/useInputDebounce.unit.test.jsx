@@ -42,6 +42,6 @@ test('should debounce', async () => {
   expect(setTimeout).toHaveBeenCalledTimes(1);
   expect(setTimeout).toHaveBeenLastCalledWith(
     expect.any(Function),
-    350,
+    550,
   );
 });

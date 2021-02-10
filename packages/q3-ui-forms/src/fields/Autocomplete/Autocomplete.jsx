@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick, merge } from 'lodash';
+import { isString, isObject, pick, merge } from 'lodash';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { object } from 'q3-ui-helpers';
 import { useOptions } from '../../hooks';
-import { getLabelWithFallback } from '../helpers';
+import {
+  getLabelWithFallback,
+  valueToLabel,
+} from '../helpers';
 import withGrid from '../withGrid';
 import withState from '../withState';
 import { chosenTextFieldDisplayAttributes } from '../TextBase/TextBase';
@@ -79,6 +82,24 @@ export const filterOptions = (props = {}) =>
     ? (options) => options
     : undefined;
 
+export const buildAutoComplete = (v, items) => {
+  let out = {};
+
+  if (isObject(v)) out = v;
+  else if (isString(v))
+    out = {
+      value: v,
+    };
+
+  if (!out.label)
+    Object.assign(out, {
+      label: out.value,
+    });
+
+  out.label = valueToLabel(items)(out.label);
+  return out;
+};
+
 const AutoCompleteWrapper = (props) => {
   const {
     label,
@@ -104,7 +125,7 @@ const AutoCompleteWrapper = (props) => {
       {...chosenTextFieldDisplayAttributes}
       {...controlSearchFilter(props)}
       {...pickFromProps(props)}
-      value={value}
+      value={buildAutoComplete(value, items)}
       required={required}
       options={items}
       loading={loading}

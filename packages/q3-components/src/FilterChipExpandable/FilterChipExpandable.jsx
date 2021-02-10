@@ -23,14 +23,14 @@ const FilterChipExpandable = ({
   name,
   value,
 }) => {
-  let defaultLabel = value || name;
   const { t } = useTranslation('labels');
+  let defaultLabel = t(value) || name;
 
   if (
     checkForTruthyValue(name, value) ||
     checkForFalsyValue(name, value)
   ) {
-    defaultLabel = t(name);
+    defaultLabel = t(String(name).replace(/~/g, '.'));
   }
 
   const [isExpanded, setIsExpanded] = React.useState(false);

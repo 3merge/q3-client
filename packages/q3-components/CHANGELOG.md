@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.7](https://github.com/3merge/q/compare/v1.27.6...v1.27.7) (2021-02-09)
+
+
+### Bug Fixes
+
+* chip label translations ([19491b9](https://github.com/3merge/q/commit/19491b99c8436a517f9a1efe6a43f585940864cd))
+
+
+
+
+
+## [1.27.6](https://github.com/3merge/q/compare/v1.27.5...v1.27.6) (2021-02-09)
+
+
+### Bug Fixes
+
+* initial values ([#292](https://github.com/3merge/q/issues/292)) ([13c8b24](https://github.com/3merge/q/commit/13c8b24c9e2af7d48c546e920640d056ecd4c67a))
+
+
+
+
+
+## [1.27.5](https://github.com/3merge/q/compare/v1.27.4...v1.27.5) (2021-02-08)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
 ## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
 
 **Note:** Version bump only for package q3-components

@@ -10,7 +10,7 @@ const useInputDebounce = (input) => {
     if (!ref.current) {
       ref.current = true;
     } else {
-      timer = setTimeout(() => setShouldRun(true), 350);
+      timer = setTimeout(() => setShouldRun(true), 550);
     }
 
     return () => {
