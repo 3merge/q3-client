@@ -22,7 +22,8 @@ export const checkIfEmpty = (v) =>
   (!string.hasLength(v) && !object.hasKeys(v));
 
 export const checkIfRequired = (ctx) =>
-  get(ctx, 'schema._exclusive.required', false);
+  get(ctx, 'schema._exclusive.required', false) ||
+  get(ctx, 'schema.exclusiveTests.required', false);
 
 const isRequired = (re, value, ctx) =>
   checkIfRequired(ctx)
@@ -36,10 +37,9 @@ export function hasMixedValue(v) {
 export function postal(v) {
   return isRequired(
     new RegExp(
-      /^[0-9]{5}$|^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$/,
-      'i',
+      /^[0-9]{5}$|^[A-Z][0-9][A-Z] ?[0-9][A-Z][0-9]$/i,
     ),
-    v,
+    String(v).replace(/\s/g, ''),
     this,
   );
 }
@@ -47,10 +47,9 @@ export function postal(v) {
 export function tel(v) {
   return isRequired(
     new RegExp(
-      /^([+]?\d{1,2}[.\-\s]?)?(\()?(\d{3})(\)|-)?(\d{3})(-)?(\d{4})(((x)(\d)*)?)/,
-      'i',
+      /^([+]?\d{1,2}[.\-\s]?)?(\()?(\d{3})(\)|-)?(\d{3})(-)?(\d{4})([a-zA-Z]{0,10})?(\d{0,6})?$/i,
     ),
-    typeof v === 'string' ? v.replace(/\s/g, '') : '',
+    String(v).replace(/\s/g, ''),
     this,
   );
 }

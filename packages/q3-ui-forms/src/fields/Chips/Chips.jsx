@@ -131,6 +131,8 @@ const AbstractedAutoComplete = ({
         error: Boolean(error),
         variant: 'outlined',
         fullWidth: true,
+        value: inputValue,
+        inputValue,
       })}
       renderTags={(values, getTagProps) =>
         check
@@ -144,8 +146,9 @@ const AbstractedAutoComplete = ({
             />
           ))
       }
+      inputValue={inputValue}
       onInputChange={(event, newInputValue) => {
-        handleChange(newInputValue);
+        if (event) handleChange(newInputValue);
       }}
     />
   );

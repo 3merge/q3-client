@@ -3,6 +3,92 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.27.2](https://github.com/3merge/q/compare/v1.27.1...v1.27.2) (2021-02-04)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* sidePanel style and default color ([df5723b](https://github.com/3merge/q/commit/df5723b6e0b05de4fcc6e617020987b96a06b8a5))
+
+
+
+
+
+# [1.27.0](https://github.com/3merge/q/compare/v1.26.1...v1.27.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* conflicts ([de30b6f](https://github.com/3merge/q/commit/de30b6f63619a56036a96ca27d3d4b2db77dbcb9))
+
+
+### Features
+
+* popover ([b91de97](https://github.com/3merge/q/commit/b91de97de2e997ab6b6f5182104f7bc7011120fe))
+* Popover ([f422283](https://github.com/3merge/q/commit/f4222836a6d49ce8278b2efad407c339453a32d9))
+
+
+
+
+
+
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.25.6](https://github.com/3merge/q/compare/v1.25.5...v1.25.6) (2021-01-22)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui
+
+
+
+
+
+
 # [1.25.0](https://github.com/3merge/q/compare/v1.24.47...v1.25.0) (2021-01-15)
 
 **Note:** Version bump only for package q3-ui

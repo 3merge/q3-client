@@ -9,7 +9,7 @@ import PasswordHelperListItem from '../NewPasswordHelperText';
 export const hasLowercase = /([a-z])+/;
 export const hasUppercase = /([A-Z])+/;
 export const hasNumber = /([0-9])+/;
-export const hasSpecialCharacter = /([!@#$%^&*(),.?":{}|<>])+/;
+export const hasSpecialCharacter = /([-_=+!@#$%^&*(),.?":{}|<>])+/;
 
 export const hasLength = (v) =>
   typeof v === 'string' && v.length < 17 && v.length > 7;

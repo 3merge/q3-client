@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package q3-blocks
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+**Note:** Version bump only for package q3-blocks
+
+
+
+
+
+
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-blocks
+
+
+
+
+
+
 ## [1.24.30](https://github.com/3merge/q/compare/v1.24.29...v1.24.30) (2020-12-02)
 
 **Note:** Version bump only for package q3-blocks

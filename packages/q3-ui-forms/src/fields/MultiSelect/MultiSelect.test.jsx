@@ -1,4 +1,5 @@
 import React from 'react';
+import Chip from '@material-ui/core/Chip';
 import MultiSelect, {
   extractValues,
   genPayload,
@@ -68,22 +69,29 @@ describe('MultiSelect', () => {
       expect(extractValues(['foo'])).toEqual(['foo']));
   });
 
-  it('should render labels as values when displayLabelAsValue is true', () => {
-    const { renderValue } = getRenderValue();
-    expect(renderValue(['foo-value'])).toMatch('foo');
-  });
+  const checkRenderValue = (a, b) => {
+    const El = () => getRenderValue().renderValue(a);
+    expect(
+      global
+        .shallow(<El />)
+        .find(Chip)
+        .first()
+        .prop('label'),
+    ).toMatch(b);
+  };
 
-  it('should serialize values with a comma when displayLabelAsValue is false', () => {
-    const { renderValue } = getRenderValue();
-    expect(renderValue(['one', 'two'])).toMatch('one, two');
-  });
+  it('should render labels as values when displayLabelAsValue is true', () =>
+    checkRenderValue(['foo-value'], 'foo'));
+
+  it('should split by comma', () =>
+    checkRenderValue(['one', 'two'], 'one'));
 
   it(`should set status to "${INDETERMINATE}" when the value contains some of the available items`, () => {
     status.mockImplementation(() => [CHECKED, setState]);
 
     simulateOnChange({
       name: '3merge',
-      value: ['foo-value', 'bar-value'],
+      value: ['foo-value'],
     });
 
     expect(setState).toHaveBeenCalledWith(INDETERMINATE);

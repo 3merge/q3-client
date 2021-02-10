@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import PublishIcon from '@material-ui/icons/Publish';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { useTranslation } from 'react-i18next';
-import { get } from 'lodash';
 import ClearIcon from '@material-ui/icons/Clear';
 import { marshalProps } from '../TextBase/TextBase';
 import useStyle from './useStyle';

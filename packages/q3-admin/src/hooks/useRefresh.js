@@ -1,42 +1,30 @@
 import React from 'react';
 import { debounce } from 'lodash';
-import { browser } from 'q3-ui-helpers';
 import { Definitions } from '../containers/state';
-import { SocketContext } from '../containers/Socket';
+import { makeEventName } from './useServerSideEvents';
+import { invokeDocumentListener } from './useNotifications';
 
 const noop = () => null;
 
 export default (onChange, debounceValue = 15000) => {
-  const ctx = React.useContext(SocketContext);
-  if (!ctx || !ctx.join) return;
-
-  const { join, leave, watch } = ctx;
   const { collectionName, id } = React.useContext(
     Definitions,
   );
 
-  const args = { collectionName };
+  const handleWatch = debounce((e) => {
+    if (!onChange) return null;
 
-  let fn = onChange;
-
-  const handleWatch = debounce(
-    () =>
-      fn && browser.isBrowserReady()
-        ? fn(window.location.search).then(noop).catch(noop)
-        : null,
-    debounceValue,
-  );
+    return onChange(window?.location?.search, e?.data)
+      .then(noop)
+      .catch(noop);
+  }, debounceValue);
 
   React.useEffect(() => {
-    if (id) return undefined;
-
-    join(args);
-    watch(handleWatch);
+    const event = makeEventName(collectionName);
+    invokeDocumentListener(event, handleWatch);
 
     return () => {
-      leave(args);
-      handleWatch.cancel();
-      fn = null;
+      invokeDocumentListener(event);
     };
   }, [collectionName, id]);
 };

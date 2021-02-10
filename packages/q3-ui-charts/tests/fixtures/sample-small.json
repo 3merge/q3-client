@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "Company": "Cogidoo",
+      "Revenue": 51
+    },
+    {
+      "Company": "Youfeed",
+      "Revenue": 73
+    },
+    {
+      "Company": "Skivee",
+      "Revenue": 6
+    },
+    {
+      "Company": "Feedfish",
+      "Revenue": 30
+    },
+    {
+      "Company": "Jabbertype",
+      "Revenue": 50
+    }
+  ],
+  "name": "Company",
+  "value": "Revenue"
+}

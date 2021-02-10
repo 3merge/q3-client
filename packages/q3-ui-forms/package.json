@@ -1,18 +1,18 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.25.1",
+  "version": "1.27.6",
   "main": "lib/index.js",
   "devDependencies": {
-    "jest-localstorage-mock": "^2.4.3",
-    "q3-ui-test-utils": "^1.24.30"
+    "jest-localstorage-mock": "^2.4.6",
+    "q3-ui-test-utils": "^1.27.3"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.1",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.54",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "4.0.0-alpha.9",
-    "@tinymce/tinymce-react": "^3.8.1",
-    "axios": "^0.21.0",
+    "@tinymce/tinymce-react": "^3.10.1",
+    "axios": "^0.21.1",
     "class-names": "^1.0.0",
     "comparisons": "^2.2.10",
     "dot-helpers": "^1.1.5",
@@ -24,16 +24,17 @@
     "moment": "2.29.1",
     "moment-timezone": "^0.5.32",
     "notistack": "^1.0.2",
-    "q3-ui-dialog": "^1.24.30",
-    "qs": "^6.9.4",
-    "react-dropzone": "^11.2.4",
+    "q3-ui-dialog": "^1.27.3",
+    "q3-ui-queryparams": "^1.27.6",
+    "qs": "^6.9.6",
+    "react-dropzone": "^11.3.0",
     "react-i18next": "11.7.3",
     "react-json-pretty": "^2.2.0",
     "react-window": "^1.8.6",
     "scriptjs": "^2.5.9",
     "useful-state": "^1.2.0",
-    "with-location": "^1.3.6",
-    "yup": "^0.31.1"
+    "with-location": "^1.3.8",
+    "yup": "^0.32.8"
   },
   "peerDependencies": {
     "@reach/router": "^1.2.1",

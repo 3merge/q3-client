@@ -3,6 +3,116 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.7](https://github.com/3merge/q/compare/v1.27.6...v1.27.7) (2021-02-09)
+
+
+### Bug Fixes
+
+* chip label translations ([19491b9](https://github.com/3merge/q/commit/19491b99c8436a517f9a1efe6a43f585940864cd))
+
+
+
+
+
+## [1.27.6](https://github.com/3merge/q/compare/v1.27.5...v1.27.6) (2021-02-09)
+
+
+### Bug Fixes
+
+* initial values ([#292](https://github.com/3merge/q/issues/292)) ([13c8b24](https://github.com/3merge/q/commit/13c8b24c9e2af7d48c546e920640d056ecd4c67a))
+
+
+
+
+
+## [1.27.5](https://github.com/3merge/q/compare/v1.27.4...v1.27.5) (2021-02-08)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.27.2](https://github.com/3merge/q/compare/v1.27.1...v1.27.2) (2021-02-04)
+
+
+### Bug Fixes
+
+* filtering query param for arrays ([#290](https://github.com/3merge/q/issues/290)) ([ba98f2e](https://github.com/3merge/q/commit/ba98f2ef646ecfb5c1c0daa5e5dd452c70f44843))
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+
+### Features
+
+* server side events and react charting library ([#285](https://github.com/3merge/q/issues/285)) ([f48225a](https://github.com/3merge/q/commit/f48225adec22bf671cfa2f31f3f14fe99af2d450))
+
+
+
+
+
+## [1.25.6](https://github.com/3merge/q/compare/v1.25.5...v1.25.6) (2021-01-22)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.25.5](https://github.com/3merge/q/compare/v1.25.4...v1.25.5) (2021-01-21)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+
 ## [1.25.1](https://github.com/3merge/q/compare/v1.25.0...v1.25.1) (2021-01-15)
 
 **Note:** Version bump only for package q3-components

@@ -1,0 +1,24 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Line from './Line';
+import data from '../../../tests/fixtures/sample-large';
+import data1 from '../../../tests/fixtures/sample-large-double';
+
+<Meta title="Charts/Line" component={Line} />
+
+# Line
+
+<Preview>
+  <Story name="Single">
+    <Line {...data} />
+  </Story>
+  <Story name="Double">
+    <Line {...data1} />
+  </Story>
+</Preview>
+
+<Props of={Line} />

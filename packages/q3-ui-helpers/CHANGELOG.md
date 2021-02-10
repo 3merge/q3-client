@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
+
+
+### Bug Fixes
+
+* param string replacement helper ([#291](https://github.com/3merge/q/issues/291)) ([bf4caf2](https://github.com/3merge/q/commit/bf4caf27602abcbe9bb6f0bf4a891603065ea621))
+
+
+
+
+
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+
+# [1.26.0](https://github.com/3merge/q/compare/v1.25.6...v1.26.0) (2021-01-27)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.25.4](https://github.com/3merge/q/compare/v1.25.3...v1.25.4) (2021-01-21)
+
+**Note:** Version bump only for package q3-ui-helpers
+
+
+
+
+
+## [1.25.3](https://github.com/3merge/q/compare/v1.25.2...v1.25.3) (2021-01-21)
+
+
+### Bug Fixes
+
+* price rounding, time-zone display and search typing ([f38ca1c](https://github.com/3merge/q/commit/f38ca1cba0a36c29de458f33d28f599b5331899e))
+
+
+
+
+
+
 ## [1.24.30](https://github.com/3merge/q/compare/v1.24.29...v1.24.30) (2020-12-02)
 
 **Note:** Version bump only for package q3-ui-helpers

@@ -1,24 +1,23 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.25.1",
+  "version": "1.27.7",
   "main": "lib/index.js",
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.3",
-    "q3-ui-test-utils": "^1.24.30"
+    "q3-ui-test-utils": "^1.27.3"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.1",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.54",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "4.0.0-alpha.9",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "lodash": "^4.17.20",
-    "q3-components": "^1.25.1",
-    "q3-ui-dialog": "^1.24.30",
-    "q3-ui-exports": "^1.24.30",
-    "q3-ui-forms": "^1.25.1",
-    "q3-ui-permissions": "^1.24.38",
+    "q3-components": "^1.27.7",
+    "q3-ui": "^1.27.4",
+    "q3-ui-dialog": "^1.27.3",
+    "q3-ui-exports": "^1.27.3",
+    "q3-ui-forms": "^1.27.6",
+    "q3-ui-permissions": "^1.27.3",
     "react-i18next": "11.7.3",
     "useful-state": "^1.2.0"
   },
