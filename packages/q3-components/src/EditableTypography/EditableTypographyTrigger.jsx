@@ -54,7 +54,6 @@ const EditableTypographyTrigger = ({
         field,
         rest.className,
       )}
-      aria-haspopup
     >
       <span style={innerStyle}>
         {formatText(children, type, t) || '--'}
@@ -74,12 +73,13 @@ EditableTypographyTrigger.propTypes = {
   isEditable: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
   renderer: PropTypes.func,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
 EditableTypographyTrigger.defaultProps = {
   children: '',
   renderer: null,
+  type: 'text',
 };
 
 export default EditableTypographyTrigger;

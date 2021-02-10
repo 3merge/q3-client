@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "title": "Here on Earth",
+    "description": "Rheumatic aortic stenosis with insufficiency",
+    "author": "Lizzy Gilluley",
+    "publishedDate": "2020-02-18"
+  },
+  {
+    "id": 2,
+    "title": "One Fine Day",
+    "description": "Laceration of blood vessels at ank/ft level, right leg, init",
+    "author": "Emlyn Harrell",
+    "publishedDate": "2020-09-19"
+  },
+  {
+    "id": 3,
+    "title": "Vermin",
+    "description": "Unsp inj msl/tnd lng extn msl toe at ank/ft lev, l ft, subs",
+    "author": "Athena Rudinger",
+    "publishedDate": "2020-05-18"
+  },
+  {
+    "id": 4,
+    "title": "We Are the Best! (Vi är bäst!)",
+    "description": "Puncture wound with foreign body, right hip, init encntr",
+    "author": "Noreen Simanenko",
+    "publishedDate": "2020-02-24"
+  },
+  {
+    "id": 5,
+    "title": "Other End of the Line, The",
+    "description": "Plantar fascial fibromatosis",
+    "author": "Fenelia Whilder",
+    "publishedDate": "2020-04-04"
+  },
+  {
+    "id": 6,
+    "title": "Camp Hell",
+    "description": "Osteitis deformans in neoplastic diseases, multiple sites",
+    "author": "Peyter Canedo",
+    "publishedDate": "2020-06-18"
+  },
+  {
+    "id": 7,
+    "title": "American Hustle",
+    "description": "Contusion of unspecified part of colon, initial encounter",
+    "author": "Arman Grassick",
+    "publishedDate": "2020-03-13"
+  },
+  {
+    "id": 8,
+    "title": "Elvira, Mistress of the Dark",
+    "description": "Lac w/o fb of left great toe w damage to nail, sequela",
+    "author": "Rhoda Kirwin",
+    "publishedDate": "2020-09-05"
+  },
+  {
+    "id": 9,
+    "title": "Story of Seabiscuit, The",
+    "description": "Atherosclerotic heart disease of native coronary artery",
+    "author": "Myrilla Houten",
+    "publishedDate": "2020-10-19"
+  },
+  {
+    "id": 10,
+    "title": "Stage Fright (Deliria)",
+    "description": "Other specified disorders of urinary system",
+    "author": "Kerr Issitt",
+    "publishedDate": "2020-12-05"
+  },
+  {
+    "id": 11,
+    "title": "Substitute, The",
+    "description": "Disp fx of acromial pro, unsp shldr, 7thG",
+    "author": "Maurizia Domke",
+    "publishedDate": "2020-08-19"
+  },
+  {
+    "id": 12,
+    "title": "Flywheel",
+    "description": "Corrosion of first degree of neck, initial encounter",
+    "author": "Charles Lashmore",
+    "publishedDate": "2020-06-14"
+  },
+  {
+    "id": 13,
+    "title": "Hunger",
+    "description": "Bullous keratopathy",
+    "author": "Godart Bartomeu",
+    "publishedDate": "2020-07-03"
+  },
+  {
+    "id": 14,
+    "title": "Doctor at Sea",
+    "description": "Poisoning by rifampicins, intentional self-harm, sequela",
+    "author": "Zulema Verheyden",
+    "publishedDate": "2020-10-14"
+  },
+  {
+    "id": 15,
+    "title": "Freaks",
+    "description": "Aneurysmal bone cyst, right ankle and foot",
+    "author": "Sharon Scaysbrook",
+    "publishedDate": "2020-11-11"
+  },
+  {
+    "id": 16,
+    "title": "Alive and Ticking (Ein Tick anders)",
+    "description": "Gout due to renal impairment, hand",
+    "author": "Bonita Artharg",
+    "publishedDate": "2020-05-13"
+  },
+  {
+    "id": 17,
+    "title": "Do the Right Thing",
+    "description": "Laceration of superficial vein at shldr/up arm, left arm",
+    "author": "Lurline McIlwraith",
+    "publishedDate": "2020-10-13"
+  },
+  {
+    "id": 18,
+    "title": "Cheech and Chong's Animated Movie",
+    "description": "Burn of first degree of right knee, subsequent encounter",
+    "author": "Willy Garvagh",
+    "publishedDate": "2020-03-07"
+  },
+  {
+    "id": 19,
+    "title": "Felony",
+    "description": "Striking against unspecified object with subsequent fall",
+    "author": "Claudell Walthall",
+    "publishedDate": "2020-10-16"
+  },
+  {
+    "id": 20,
+    "title": "For the Moment",
+    "description": "Maternal care for hydrops fetalis, first trimester, fetus 1",
+    "author": "Garret Robins",
+    "publishedDate": "2020-05-02"
+  },
+  {
+    "id": 21,
+    "title": "Lilian's Story",
+    "description": "Aphonia",
+    "author": "Gale Bellworthy",
+    "publishedDate": "2020-11-17"
+  },
+  {
+    "id": 22,
+    "title": "Urban Legends: Bloody Mary",
+    "description": "Nondisp fx of medial condyle of left humerus, sequela",
+    "author": "Joscelin Branney",
+    "publishedDate": "2020-08-23"
+  },
+  {
+    "id": 23,
+    "title": "Year of the Dragon",
+    "description": "Laceration without foreign body of unspecified breast",
+    "author": "Ree Patullo",
+    "publishedDate": "2020-05-05"
+  },
+  {
+    "id": 24,
+    "title": "Hoot",
+    "description": "Underdosing of oth antipsychotics and neuroleptics, sequela",
+    "author": "Hally Gillibrand",
+    "publishedDate": "2020-12-15"
+  },
+  {
+    "id": 25,
+    "title": "Trespass",
+    "description": "Intentional self-harm by steam, hot vapors and hot objects",
+    "author": "Ardelle Bande",
+    "publishedDate": "2020-10-13"
+  },
+  {
+    "id": 26,
+    "title": "Cimarron Kid, The",
+    "description": "Toxoplasma meningoencephalitis",
+    "author": "Betteann Oattes",
+    "publishedDate": "2020-12-28"
+  },
+  {
+    "id": 27,
+    "title": "Amityville Horror, The",
+    "description": "Encounter for surveillance of contraceptives",
+    "author": "Baily Rillatt",
+    "publishedDate": "2020-08-08"
+  },
+  {
+    "id": 28,
+    "title": "Wizard of Oz, The",
+    "description": "Abscess of tendon sheath, right thigh",
+    "author": "Charmain Margetson",
+    "publishedDate": "2020-07-01"
+  },
+  {
+    "id": 29,
+    "title": "Chill",
+    "description": "Infect/inflm reaction due to oth internal prosth dev/grft",
+    "author": "Ransell Meeke",
+    "publishedDate": "2020-11-18"
+  },
+  {
+    "id": 30,
+    "title": "Deliver Us from Eva",
+    "description": "Bedroom of single-family (private) house as place",
+    "author": "Osmund O'Dougherty",
+    "publishedDate": "2020-06-27"
+  },
+  {
+    "id": 31,
+    "title": "Our Mother's House",
+    "description": "Inj muscle, fascia and tendon of oth parts of biceps",
+    "author": "Robinet Hallyburton",
+    "publishedDate": "2020-11-14"
+  },
+  {
+    "id": 32,
+    "title": "American Pop",
+    "description": "Breakdown (mechanical) of other vascular grafts, init encntr",
+    "author": "Shelby Addey",
+    "publishedDate": "2020-03-12"
+  },
+  {
+    "id": 33,
+    "title": "Family Guy Presents Stewie Griffin: The Untold Story",
+    "description": "Enophthalmos due to trauma or surgery, unspecified eye",
+    "author": "Fidelia Castellanos",
+    "publishedDate": "2020-11-21"
+  },
+  {
+    "id": 34,
+    "title": "Poor White Trash",
+    "description": "Unsp inj msl/tnd lng extn msl toe at ank/ft lev, r ft, subs",
+    "author": "Chrysler McKeowon",
+    "publishedDate": "2020-08-09"
+  },
+  {
+    "id": 35,
+    "title": "Trouble Man",
+    "description": "Unspecified injury of esophagus (thoracic part)",
+    "author": "Donny Kornel",
+    "publishedDate": "2020-03-01"
+  },
+  {
+    "id": 36,
+    "title": "Memories of Underdevelopment (Memorias del subdesarrollo)",
+    "description": "Other sprain of right ring finger, initial encounter",
+    "author": "Corliss Barnwill",
+    "publishedDate": "2020-02-16"
+  },
+  {
+    "id": 37,
+    "title": "He Walked by Night",
+    "description": "Miotic pupillary cyst, right eye",
+    "author": "Caddric Chalder",
+    "publishedDate": "2020-10-29"
+  },
+  {
+    "id": 38,
+    "title": "Trinity: Gambling for High Stakes (Odds and Evens) (Pari e dispari)",
+    "description": "Unsp fx low end unsp ulna, 7thJ",
+    "author": "Erena Dunckley",
+    "publishedDate": "2020-06-29"
+  },
+  {
+    "id": 39,
+    "title": "Wrestling with Alligators",
+    "description": "Primary blast injury of lung, unspecified, subs encntr",
+    "author": "Alyda Maric",
+    "publishedDate": "2020-12-24"
+  },
+  {
+    "id": 40,
+    "title": "Achilles and the Tortoise (Akiresu to kame)",
+    "description": "Sprain of ribs and sternum",
+    "author": "Randell Madgwick",
+    "publishedDate": "2020-07-05"
+  },
+  {
+    "id": 41,
+    "title": "Diary of a Chambermaid",
+    "description": "Maternal care for other specified fetal problems",
+    "author": "Che Hurich",
+    "publishedDate": "2020-10-31"
+  },
+  {
+    "id": 42,
+    "title": "Physical Evidence",
+    "description": "Fx unsp part of r clavicle, subs for fx w delay heal",
+    "author": "Tabby Yonnie",
+    "publishedDate": "2020-01-27"
+  },
+  {
+    "id": 43,
+    "title": "White: The Melody of the Curse",
+    "description": "Hyperesthesia",
+    "author": "Cyndia Lucas",
+    "publishedDate": "2020-04-23"
+  },
+  {
+    "id": 44,
+    "title": "Taps",
+    "description": "Injury of unspecified nerve at ankle and foot level",
+    "author": "Elysha De Domenico",
+    "publishedDate": "2020-07-21"
+  },
+  {
+    "id": 45,
+    "title": "Changing Habits",
+    "description": "Injury of nerves at wrs/hnd lv of left arm, sequela",
+    "author": "Fannie Sutherden",
+    "publishedDate": "2020-06-18"
+  },
+  {
+    "id": 46,
+    "title": "That Certain Woman",
+    "description": "Injury of extn/abdr musc/fasc/tend of thumb at forearm level",
+    "author": "Fowler Epine",
+    "publishedDate": "2020-11-14"
+  },
+  {
+    "id": 47,
+    "title": "Bullet Ballet",
+    "description": "Burn of third degree of buttock, subsequent encounter",
+    "author": "Norry Lohering",
+    "publishedDate": "2020-11-23"
+  },
+  {
+    "id": 48,
+    "title": "Uninvited Guest",
+    "description": "Unsp mtrcy rider inj in clsn w rail trn/veh nontraf, subs",
+    "author": "Dicky Russen",
+    "publishedDate": "2020-08-29"
+  },
+  {
+    "id": 49,
+    "title": "Broken City",
+    "description": "Human immunodef virus disease complicating the puerperium",
+    "author": "Dew Giovanazzi",
+    "publishedDate": "2020-10-03"
+  },
+  {
+    "id": 50,
+    "title": "Eden",
+    "description": "Congen absence of left thigh and lower leg w foot present",
+    "author": "Patrica ducarme",
+    "publishedDate": "2020-12-04"
+  },
+  {
+    "id": 51,
+    "title": "Hunger",
+    "description": "Diabetes due to undrl condition w diabetic mononeuropathy",
+    "author": "Eleen Garett",
+    "publishedDate": "2020-11-02"
+  },
+  {
+    "id": 52,
+    "title": "Phone (Pon)",
+    "description": "Nondisp assoc transv/post fx r acetab, 7thG",
+    "author": "Will Drissell",
+    "publishedDate": "2020-06-03"
+  },
+  {
+    "id": 53,
+    "title": "Jet Pilot",
+    "description": "Superficial foreign body of r frnt wl of thorax, sequela",
+    "author": "Rycca Dannatt",
+    "publishedDate": "2020-10-20"
+  },
+  {
+    "id": 54,
+    "title": "Vincent: A Life in Color",
+    "description": "Trichomonal prostatitis",
+    "author": "Jacques Gould",
+    "publishedDate": "2020-02-29"
+  },
+  {
+    "id": 55,
+    "title": "Lincz",
+    "description": "Pressure ulcer of right ankle, unspecified stage",
+    "author": "Renaud Nurdin",
+    "publishedDate": "2020-09-01"
+  },
+  {
+    "id": 56,
+    "title": "K.G. (Karate Girl)",
+    "description": "Other hammer toe(s) (acquired), left foot",
+    "author": "Robinett Passfield",
+    "publishedDate": "2020-05-30"
+  },
+  {
+    "id": 57,
+    "title": "One Night at McCool's",
+    "description": "Supervision of young primigravida, unspecified trimester",
+    "author": "Ingeborg Hulstrom",
+    "publishedDate": "2020-12-09"
+  },
+  {
+    "id": 58,
+    "title": "16 Acres",
+    "description": "Pressure ulcer of right buttock, stage 4",
+    "author": "Fidela Daley",
+    "publishedDate": "2020-05-02"
+  },
+  {
+    "id": 59,
+    "title": "Tall Blond Man with One Black Shoe, The (Le grand blond avec une chaussure noire)",
+    "description": "Lesion of plantar nerve, unspecified lower limb",
+    "author": "Augustin Breawood",
+    "publishedDate": "2020-02-23"
+  },
+  {
+    "id": 60,
+    "title": "Haunted Honeymoon",
+    "description": "Burn of first degree of abdominal wall, subsequent encounter",
+    "author": "Andree Fancy",
+    "publishedDate": "2020-09-19"
+  },
+  {
+    "id": 61,
+    "title": "Count Yorga, Vampire",
+    "description": "Displaced comminuted fracture of shaft of r fibula, sequela",
+    "author": "Rutherford Lembcke",
+    "publishedDate": "2020-05-24"
+  },
+  {
+    "id": 62,
+    "title": "Bridge on the River Kwai, The",
+    "description": "Other specified arthritis, hip",
+    "author": "Elvera Kepe",
+    "publishedDate": "2020-12-30"
+  },
+  {
+    "id": 63,
+    "title": "Diario de un skin",
+    "description": "Other obstructive defects of renal pelvis and ureter",
+    "author": "Ephraim Provost",
+    "publishedDate": "2020-03-08"
+  },
+  {
+    "id": 64,
+    "title": "Caótica Ana",
+    "description": "Preglaucoma, unspecified, right eye",
+    "author": "Frasco Azemar",
+    "publishedDate": "2020-05-14"
+  },
+  {
+    "id": 65,
+    "title": "Endangered Species",
+    "description": "Unspecified disorder of right middle ear and mastoid",
+    "author": "Ruby Sheather",
+    "publishedDate": "2020-06-09"
+  },
+  {
+    "id": 66,
+    "title": "Double Team",
+    "description": "Flail joint, elbow",
+    "author": "Edee Imlacke",
+    "publishedDate": "2020-08-25"
+  },
+  {
+    "id": 67,
+    "title": "Frankenstein Meets the Wolf Man",
+    "description": "Corrosion of unsp degree of unspecified elbow, subs encntr",
+    "author": "Lukas Freckingham",
+    "publishedDate": "2020-09-25"
+  },
+  {
+    "id": 68,
+    "title": "Tell No One (Ne le dis à personne)",
+    "description": "Military op w oth effects of nuclear weapons, milt, sequela",
+    "author": "Weston Evemy",
+    "publishedDate": "2020-09-19"
+  },
+  {
+    "id": 69,
+    "title": "Wonder Woman",
+    "description": "Echinococcosis, unspecified, of liver",
+    "author": "Mariya Plumer",
+    "publishedDate": "2020-11-28"
+  },
+  {
+    "id": 70,
+    "title": "News from Home",
+    "description": "Unsp drugs primarily affecting the autonomic nervous system",
+    "author": "Ethelyn Jeans",
+    "publishedDate": "2020-03-11"
+  },
+  {
+    "id": 71,
+    "title": "Flight from Death: The Quest for Immortality",
+    "description": "Person outside car inj in clsn w ped/anml in traf, sequela",
+    "author": "Emmey Medcraft",
+    "publishedDate": "2020-11-21"
+  },
+  {
+    "id": 72,
+    "title": "Step Brothers",
+    "description": "Disp fx of prox 3rd of navic bone of l wrs, 7thD",
+    "author": "Robinetta Pavlov",
+    "publishedDate": "2020-11-23"
+  },
+  {
+    "id": 73,
+    "title": "Eye 2, The (Gin gwai 2)",
+    "description": "Unspecified fracture of lower end of right ulna",
+    "author": "Loni Tremblett",
+    "publishedDate": "2020-07-15"
+  },
+  {
+    "id": 74,
+    "title": "Unforgettable Summer, An (Un été inoubliable)",
+    "description": "Diffuse TBI w LOC w death due to oth cause bf consc, subs",
+    "author": "Wynn Haggarth",
+    "publishedDate": "2020-04-24"
+  },
+  {
+    "id": 75,
+    "title": "Waterboy, The",
+    "description": "Infect/inflm reaction due to int fix of left radius, sequela",
+    "author": "Cori Barbour",
+    "publishedDate": "2020-01-31"
+  },
+  {
+    "id": 76,
+    "title": "Maniac Cop",
+    "description": "Toxic effect of homologues of benzene, accidental, init",
+    "author": "Ardyth Larderot",
+    "publishedDate": "2020-09-04"
+  },
+  {
+    "id": 77,
+    "title": "La Luna",
+    "description": "Prsn brd/alit from bus inj pick-up truck, pk-up/van, sequela",
+    "author": "Terrence Pagnin",
+    "publishedDate": "2020-08-04"
+  },
+  {
+    "id": 78,
+    "title": "Song to Remember, A",
+    "description": "Type I occipital condyle fracture, unspecified side, 7thD",
+    "author": "Danyette Ong",
+    "publishedDate": "2020-06-23"
+  },
+  {
+    "id": 79,
+    "title": "Oyster Farmer",
+    "description": "Exostosis of external canal",
+    "author": "Shelba Gallichan",
+    "publishedDate": "2020-10-13"
+  },
+  {
+    "id": 80,
+    "title": "Silk Stockings",
+    "description": "Adverse effect of anterior pituitary hormones, subs encntr",
+    "author": "Dominga Yekel",
+    "publishedDate": "2020-05-19"
+  },
+  {
+    "id": 81,
+    "title": "White Sands",
+    "description": "Inj intrinsic msl/tnd at ank/ft level, unsp foot, init",
+    "author": "Sibyl McGerr",
+    "publishedDate": "2020-09-23"
+  },
+  {
+    "id": 82,
+    "title": "Things Are Tough All Over",
+    "description": "Webbed fingers, left hand",
+    "author": "Arline Trowsdall",
+    "publishedDate": "2020-09-13"
+  },
+  {
+    "id": 83,
+    "title": "Bandwagon",
+    "description": "Unspecified open wound of left wrist, initial encounter",
+    "author": "Loralie Simkovich",
+    "publishedDate": "2020-01-20"
+  },
+  {
+    "id": 84,
+    "title": "Resident Evil: Damnation",
+    "description": "Contracture of muscle, left shoulder",
+    "author": "Jo Becerro",
+    "publishedDate": "2020-01-20"
+  },
+  {
+    "id": 85,
+    "title": "Being Human",
+    "description": "Algoneurodystrophy, upper arm",
+    "author": "Peta Rentcome",
+    "publishedDate": "2020-09-13"
+  },
+  {
+    "id": 86,
+    "title": "History of the Eagles",
+    "description": "Minor contusion of left kidney, initial encounter",
+    "author": "Fidelia Kopecka",
+    "publishedDate": "2020-09-06"
+  },
+  {
+    "id": 87,
+    "title": "Batman: The Dark Knight Returns, Part 2",
+    "description": "Maxillary fracture, left side, sequela",
+    "author": "Beck Sheather",
+    "publishedDate": "2021-01-03"
+  },
+  {
+    "id": 88,
+    "title": "Barefoot Contessa, The",
+    "description": "Nondisp fx of distal phalanx of right great toe, sequela",
+    "author": "Elianore Ollier",
+    "publishedDate": "2020-06-01"
+  },
+  {
+    "id": 89,
+    "title": "Whose Life Is It Anyway?",
+    "description": "Toxic effect of unsp inorganic substance, undetermined",
+    "author": "Debbi Postin",
+    "publishedDate": "2020-11-08"
+  },
+  {
+    "id": 90,
+    "title": "Dr. Akagi (Kanzo sensei)",
+    "description": "Corrosion of first degree of right palm, initial encounter",
+    "author": "Lawrence Danson",
+    "publishedDate": "2020-08-07"
+  },
+  {
+    "id": 91,
+    "title": "When Pigs Have Wings",
+    "description": "Corrosion of first degree of unspecified forearm, sequela",
+    "author": "Chane Volet",
+    "publishedDate": "2020-10-03"
+  },
+  {
+    "id": 92,
+    "title": "Clerks",
+    "description": "Malignant neoplasm of external lower lip",
+    "author": "Stafani Dell 'Orto",
+    "publishedDate": "2020-12-13"
+  },
+  {
+    "id": 93,
+    "title": "Bread, My Sweet, The (a.k.a. Wedding for Bella, A)",
+    "description": "Nondisp avuls fx tuberosity of l calcaneus, 7thD",
+    "author": "Chrystel Tallboy",
+    "publishedDate": "2020-09-27"
+  },
+  {
+    "id": 94,
+    "title": "Moonwalker",
+    "description": "Diffuse secondary atrophy of choroid, unspecified eye",
+    "author": "Lila Bompas",
+    "publishedDate": "2020-11-27"
+  },
+  {
+    "id": 95,
+    "title": "Grave, The",
+    "description": "Cysts of eyelid",
+    "author": "Sigrid Casseldine",
+    "publishedDate": "2021-01-10"
+  },
+  {
+    "id": 96,
+    "title": "Gentleman's Game, A",
+    "description": "Congenital absence of unspecified hand and finger",
+    "author": "Lester Hyndes",
+    "publishedDate": "2020-11-29"
+  },
+  {
+    "id": 97,
+    "title": "Running",
+    "description": "War op w dest arcrft due to enmy fire/expls, civilian, init",
+    "author": "Lukas Symcoxe",
+    "publishedDate": "2020-12-10"
+  },
+  {
+    "id": 98,
+    "title": "36 Hours",
+    "description": "Potter's syndrome",
+    "author": "Wilhelm Lawden",
+    "publishedDate": "2020-07-02"
+  },
+  {
+    "id": 99,
+    "title": "Hellboy II: The Golden Army",
+    "description": "Disp fx of l tibial spin, 7thE",
+    "author": "Marie-ann Jaray",
+    "publishedDate": "2020-02-06"
+  },
+  {
+    "id": 100,
+    "title": "Love and Honor",
+    "description": "Disp fx of med condyle of unsp femr, 7thC",
+    "author": "Geoff Lavalle",
+    "publishedDate": "2020-01-16"
+  }
+]

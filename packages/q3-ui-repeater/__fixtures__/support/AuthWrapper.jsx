@@ -1,11 +1,8 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import { AuthContext } from 'q3-ui-permissions';
-import {
-  COLLECTION_NAME,
-  permissions,
-  rows,
-} from '../seed';
+import { COLLECTION_NAME, permissions } from '../seed';
+import rows from '../seed/products';
 
 const genResolver = (fn) =>
   new Promise((resolve) => {
@@ -15,9 +12,11 @@ const genResolver = (fn) =>
   });
 
 export default (Component) => (props) => {
-  const [initialValues, setInitialValues] = React.useState(
-    rows,
-  );
+  const [initialValues, setInitialValues] = React.useState([
+    ...rows,
+    ...rows,
+    ...rows,
+  ]);
 
   const nextStateWithNewProp = (nextState) => {
     setInitialValues(nextState);

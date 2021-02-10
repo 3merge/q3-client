@@ -1,0 +1,702 @@
+[
+  {
+    "id": 1,
+    "sku": "Bananas",
+    "description": "Acute myringitis, left ear",
+    "price": 29,
+    "category": "Auto Parts:O.E.M."
+  },
+  {
+    "id": 2,
+    "sku": "Pepper - Black, Whole",
+    "description": "Toxic effect of taipan venom",
+    "price": 70,
+    "category": "Industrial Machinery/Components"
+  },
+  {
+    "id": 3,
+    "sku": "Glass - Juice Clear 5oz 55005",
+    "description": "Foreign body in genitourinary tract, part unsp, init encntr",
+    "price": 92,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 4,
+    "sku": "Milk - Chocolate 500ml",
+    "description": "Galeazzi's fracture of r radius, subs for clos fx w nonunion",
+    "price": 35,
+    "category": "Major Banks"
+  },
+  {
+    "id": 5,
+    "sku": "Dragon Fruit",
+    "description": "Open bite, unspecified elbow, subsequent encounter",
+    "price": 58,
+    "category": "Computer Software: Prepackaged Software"
+  },
+  {
+    "id": 6,
+    "sku": "Dikon",
+    "description": "Unsp inj extn musc/fasc/tend r idx fngr at wrs/hnd lv, subs",
+    "price": 75,
+    "category": "Finance: Consumer Services"
+  },
+  {
+    "id": 7,
+    "sku": "Carrots - Jumbo",
+    "description": "Minor laceration of left internal jugular vein, subs encntr",
+    "price": 63,
+    "category": "Semiconductors"
+  },
+  {
+    "id": 8,
+    "sku": "Bread - Triangle White",
+    "description": "Unspecified transport accident, initial encounter",
+    "price": 33,
+    "category": "Major Pharmaceuticals"
+  },
+  {
+    "id": 9,
+    "sku": "Oyster - In Shell",
+    "description": "Laceration w foreign body of thmb w/o damage to nail, init",
+    "price": 56,
+    "category": "Major Chemicals"
+  },
+  {
+    "id": 10,
+    "sku": "Mushroom - Morel Frozen",
+    "description": "Idiopathic chronic gout, left shoulder, without tophus",
+    "price": 90,
+    "category": "Clothing/Shoe/Accessory Stores"
+  },
+  {
+    "id": 11,
+    "sku": "Pepsi - 600ml",
+    "description": "Traum rupture of unsp ligmt of r little finger at MCP/IP jt",
+    "price": 58,
+    "category": "Package Goods/Cosmetics"
+  },
+  {
+    "id": 12,
+    "sku": "Pork Ham Prager",
+    "description": "Complete traumatic MCP amputation of r mid finger, subs",
+    "price": 72,
+    "category": "Banks"
+  },
+  {
+    "id": 13,
+    "sku": "Ham - Cooked Bayonne Tinned",
+    "description": "Oth fx third MC bone, right hand, subs for fx w routn heal",
+    "price": 3,
+    "category": "n/a"
+  },
+  {
+    "id": 14,
+    "sku": "Nestea - Ice Tea, Diet",
+    "description": "Carcinoma in situ of skin of lip",
+    "price": 83,
+    "category": "n/a"
+  },
+  {
+    "id": 15,
+    "sku": "Wine - Gewurztraminer Pierre",
+    "description": "Oth osteopor w current path fracture, l low leg, init",
+    "price": 54,
+    "category": "Electric Utilities: Central"
+  },
+  {
+    "id": 16,
+    "sku": "Bread - White, Unsliced",
+    "description": "Disp fx of anterior column of unsp acetabulum, sequela",
+    "price": 70,
+    "category": "Biotechnology: Commercial Physical & Biological Resarch"
+  },
+  {
+    "id": 17,
+    "sku": "Creme De Banane - Marie",
+    "description": "Breakdown of unsp cardiac electronic device, init",
+    "price": 90,
+    "category": "n/a"
+  },
+  {
+    "id": 18,
+    "sku": "Beef Tenderloin Aaa",
+    "description": "Idiopathic aseptic necrosis of right humerus",
+    "price": 92,
+    "category": "Property-Casualty Insurers"
+  },
+  {
+    "id": 19,
+    "sku": "Rice - Basmati",
+    "description": "Acquired absence of right great toe",
+    "price": 89,
+    "category": "Business Services"
+  },
+  {
+    "id": 20,
+    "sku": "Aspic - Clear",
+    "description": "Stress fracture, right tibia, subs for fx w malunion",
+    "price": 50,
+    "category": "Professional Services"
+  },
+  {
+    "id": 21,
+    "sku": "Beer - Heinekin",
+    "description": "Osteitis condensans, left thigh",
+    "price": 69,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 22,
+    "sku": "Carbonated Water - Orange",
+    "description": "Underdosing of unspecified antipsychotics and neuroleptics",
+    "price": 33,
+    "category": "Major Banks"
+  },
+  {
+    "id": 23,
+    "sku": "Capon - Breast, Double, Wing On",
+    "description": "Unspecified injury of ovary, unspecified, subs encntr",
+    "price": 99,
+    "category": "Major Pharmaceuticals"
+  },
+  {
+    "id": 24,
+    "sku": "Cup - 4oz Translucent",
+    "description": "Burn of unsp degree of left scapular region, init encntr",
+    "price": 71,
+    "category": "n/a"
+  },
+  {
+    "id": 25,
+    "sku": "Butter - Salted",
+    "description": "Other disorders of trigeminal nerve",
+    "price": 10,
+    "category": "Real Estate"
+  },
+  {
+    "id": 26,
+    "sku": "Passion Fruit",
+    "description": "Person outside car inj in clsn w rail trn/veh in traf, subs",
+    "price": 99,
+    "category": "n/a"
+  },
+  {
+    "id": 27,
+    "sku": "Wine - Chianti Classico Riserva",
+    "description": "Major lacerat right innominate or subclav vein, sequela",
+    "price": 86,
+    "category": "Homebuilding"
+  },
+  {
+    "id": 28,
+    "sku": "Aspic - Amber",
+    "description": "Sltr-haris Type IV physl fx lower end ulna, unsp arm, init",
+    "price": 76,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 29,
+    "sku": "Truffle Cups - Red",
+    "description": "Respiratory conditions due to oth external agents",
+    "price": 30,
+    "category": "Multi-Sector Companies"
+  },
+  {
+    "id": 30,
+    "sku": "Cocoa Powder - Dutched",
+    "description": "Burn of unsp degree of lower limb, except ankle and foot",
+    "price": 52,
+    "category": "Major Banks"
+  },
+  {
+    "id": 31,
+    "sku": "Wine - Alsace Gewurztraminer",
+    "description": "Unspecified physeal fracture of unspecified metatarsal, 7thB",
+    "price": 93,
+    "category": "n/a"
+  },
+  {
+    "id": 32,
+    "sku": "Lettuce - Arugula",
+    "description": "Sltr-haris Type I physl fx upper end radius, left arm, sqla",
+    "price": 65,
+    "category": "Medical Specialities"
+  },
+  {
+    "id": 33,
+    "sku": "Beer - Upper Canada Lager",
+    "description": "Disp fx of proximal third of navicular bone of left wrist",
+    "price": 76,
+    "category": "Major Banks"
+  },
+  {
+    "id": 34,
+    "sku": "Oven Mitts 17 Inch",
+    "description": "Chronic osteomyelitis with draining sinus, unsp humerus",
+    "price": 58,
+    "category": "Hotels/Resorts"
+  },
+  {
+    "id": 35,
+    "sku": "Ham - Procutinni",
+    "description": "Other schistosomiasis",
+    "price": 73,
+    "category": "n/a"
+  },
+  {
+    "id": 36,
+    "sku": "Water - Spring Water, 355 Ml",
+    "description": "Cholecystitis, unspecified",
+    "price": 85,
+    "category": "n/a"
+  },
+  {
+    "id": 37,
+    "sku": "Water - Green Tea Refresher",
+    "description": "Passenger in hv veh injured in clsn w rail trn/veh in traf",
+    "price": 9,
+    "category": "Miscellaneous manufacturing industries"
+  },
+  {
+    "id": 38,
+    "sku": "Chocolate - Milk",
+    "description": "Trigger finger, right ring finger",
+    "price": 61,
+    "category": "n/a"
+  },
+  {
+    "id": 39,
+    "sku": "Arctic Char - Fillets",
+    "description": "Secondary neuroendocrine tumors",
+    "price": 83,
+    "category": "Publishing"
+  },
+  {
+    "id": 40,
+    "sku": "Wine - Red, Cabernet Sauvignon",
+    "description": "Oth osteopor w crnt path fx, l low leg, 7thK",
+    "price": 55,
+    "category": "n/a"
+  },
+  {
+    "id": 41,
+    "sku": "Crab - Imitation Flakes",
+    "description": "Laceration of intercostal blood vessels, left side",
+    "price": 92,
+    "category": "Power Generation"
+  },
+  {
+    "id": 42,
+    "sku": "Wooden Mop Handle",
+    "description": "Adherent leukoma, unspecified eye",
+    "price": 85,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 43,
+    "sku": "Swordfish Loin Portions",
+    "description": "Nondisp transverse fracture of shaft of unsp femur, sequela",
+    "price": 88,
+    "category": "Real Estate"
+  },
+  {
+    "id": 44,
+    "sku": "Ham - Cooked Italian",
+    "description": "Striking against or struck by football helmet, init encntr",
+    "price": 53,
+    "category": "Major Banks"
+  },
+  {
+    "id": 45,
+    "sku": "Salmon - Atlantic, Skin On",
+    "description": "Hypersecretion glaucoma, unspecified eye",
+    "price": 83,
+    "category": "Shoe Manufacturing"
+  },
+  {
+    "id": 46,
+    "sku": "Puff Pastry - Sheets",
+    "description": "Neuroma of amputation stump, unspecified extremity",
+    "price": 63,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 47,
+    "sku": "Chocolate - Milk Coating",
+    "description": "Strain flexor musc/fasc/tend unsp finger at wrs/hnd lv, init",
+    "price": 69,
+    "category": "EDP Services"
+  },
+  {
+    "id": 48,
+    "sku": "Doilies - 12, Paper",
+    "description": "Contact with paper-cutter, initial encounter",
+    "price": 56,
+    "category": "Computer Software: Prepackaged Software"
+  },
+  {
+    "id": 49,
+    "sku": "Appetizer - Shrimp Puff",
+    "description": "Unspecified nonpowered-aircraft accident injuring occupant",
+    "price": 52,
+    "category": "Major Pharmaceuticals"
+  },
+  {
+    "id": 50,
+    "sku": "Cookie Double Choco",
+    "description": "Encounter for fit/adjst of partial artificial right leg",
+    "price": 21,
+    "category": "Precious Metals"
+  },
+  {
+    "id": 51,
+    "sku": "Shrimp - 100 / 200 Cold Water",
+    "description": "Displ transverse fx shaft of unsp ulna, 7thH",
+    "price": 30,
+    "category": "n/a"
+  },
+  {
+    "id": 52,
+    "sku": "Tofu - Firm",
+    "description": "Balloon explosion injuring occupant",
+    "price": 88,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 53,
+    "sku": "Evaporated Milk - Skim",
+    "description": "Path fx in neopltc dis, r ankle, subs for fx w delay heal",
+    "price": 27,
+    "category": "Other Consumer Services"
+  },
+  {
+    "id": 54,
+    "sku": "Coffee - Espresso",
+    "description": "Unsp car occupant injured in clsn w pedl cyc nontraf, init",
+    "price": 46,
+    "category": "Precious Metals"
+  },
+  {
+    "id": 55,
+    "sku": "Water Chestnut - Canned",
+    "description": "Corrosion of first degree of right scapular region",
+    "price": 21,
+    "category": "Industrial Specialties"
+  },
+  {
+    "id": 56,
+    "sku": "Easy Off Oven Cleaner",
+    "description": "Personal history of malignant carcinoid tumor of thymus",
+    "price": 100,
+    "category": "Meat/Poultry/Fish"
+  },
+  {
+    "id": 57,
+    "sku": "Foil Wrap",
+    "description": "Unsp malignant neoplasm skin/ left lower limb, including hip",
+    "price": 34,
+    "category": "Major Pharmaceuticals"
+  },
+  {
+    "id": 58,
+    "sku": "Cafe Royale",
+    "description": "Recurrent and persistent hematuria w oth morphologic changes",
+    "price": 35,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 59,
+    "sku": "Soup - Campbells, Classic Chix",
+    "description": "Impingement syndrome of right shoulder",
+    "price": 87,
+    "category": "Hospital/Nursing Management"
+  },
+  {
+    "id": 60,
+    "sku": "Soup - Campbells Bean Medley",
+    "description": "Torus fracture of lower end of humerus",
+    "price": 24,
+    "category": "Finance: Consumer Services"
+  },
+  {
+    "id": 61,
+    "sku": "Sproutsmustard Cress",
+    "description": "Displ transverse fx shaft of l femr, 7thR",
+    "price": 93,
+    "category": "Industrial Specialties"
+  },
+  {
+    "id": 62,
+    "sku": "Bread - Sour Sticks With Onion",
+    "description": "Acute and subacute allergic otitis media, recur, unsp ear",
+    "price": 49,
+    "category": "n/a"
+  },
+  {
+    "id": 63,
+    "sku": "Dried Cherries",
+    "description": "Acute suppr otitis media w/o spon rupt ear drum, left ear",
+    "price": 24,
+    "category": "n/a"
+  },
+  {
+    "id": 64,
+    "sku": "Bread - Roll, Italian",
+    "description": "Unsp inj msl/tnd lng flxr msl toe at ank/ft lev, l ft, subs",
+    "price": 27,
+    "category": "Automotive Aftermarket"
+  },
+  {
+    "id": 65,
+    "sku": "Banana - Green",
+    "description": "Fall same lev from slip/trip w strike agnst oth object, init",
+    "price": 19,
+    "category": "Homebuilding"
+  },
+  {
+    "id": 66,
+    "sku": "Wine - Two Oceans Sauvignon",
+    "description": "Toxic effect of pesticides, accidental (unintentional), subs",
+    "price": 29,
+    "category": "Computer Communications Equipment"
+  },
+  {
+    "id": 67,
+    "sku": "Lobster - Live",
+    "description": "Oth fx low end l femr, subs for opn fx type I/2 w delay heal",
+    "price": 13,
+    "category": "Industrial Machinery/Components"
+  },
+  {
+    "id": 68,
+    "sku": "Wine - Fontanafredda Barolo",
+    "description": "Disp fx of olecran pro w/o intartic extn r ulna, 7thJ",
+    "price": 72,
+    "category": "Construction/Ag Equipment/Trucks"
+  },
+  {
+    "id": 69,
+    "sku": "Bagels Poppyseed",
+    "description": "Terrorism involving suicide bomber, civilian injured",
+    "price": 33,
+    "category": "Life Insurance"
+  },
+  {
+    "id": 70,
+    "sku": "Pesto - Primerba, Paste",
+    "description": "Non-prs chr ulc unsp prt of l low leg limited to brkdwn skin",
+    "price": 81,
+    "category": "Computer Software: Prepackaged Software"
+  },
+  {
+    "id": 71,
+    "sku": "Wine - Segura Viudas Aria Brut",
+    "description": "Path fx in oth disease, l fibula, subs for fx w malunion",
+    "price": 100,
+    "category": "Investment Bankers/Brokers/Service"
+  },
+  {
+    "id": 72,
+    "sku": "Cloves - Whole",
+    "description": "Fb in oth and multiple parts of external eye, left eye",
+    "price": 83,
+    "category": "Major Pharmaceuticals"
+  },
+  {
+    "id": 73,
+    "sku": "Bread - Pita, Mini",
+    "description": "Nondisp fx of med condyle of unsp femr, 7thP",
+    "price": 63,
+    "category": "n/a"
+  },
+  {
+    "id": 74,
+    "sku": "Sauce - Rosee",
+    "description": "Atrioventricular block, second degree",
+    "price": 68,
+    "category": "Property-Casualty Insurers"
+  },
+  {
+    "id": 75,
+    "sku": "Muffin Batt - Choc Chk",
+    "description": "Unspecified superficial injury of left great toe, sequela",
+    "price": 6,
+    "category": "Major Banks"
+  },
+  {
+    "id": 76,
+    "sku": "Soup Bowl Clear 8oz92008",
+    "description": "Unsp inj flxr musc/fasc/tend l idx fngr at wrs/hnd lv, subs",
+    "price": 22,
+    "category": "Precious Metals"
+  },
+  {
+    "id": 77,
+    "sku": "Bar Energy Chocchip",
+    "description": "Displ oblique fx shaft of unsp ulna, 7thE",
+    "price": 49,
+    "category": "Industrial Machinery/Components"
+  },
+  {
+    "id": 78,
+    "sku": "Okra",
+    "description": "Advrs eff of crbnc-anhydr inhibtr, benzo/oth diuretc, subs",
+    "price": 29,
+    "category": "Apparel"
+  },
+  {
+    "id": 79,
+    "sku": "Scampi Tail",
+    "description": "Mosaic, 45, X/other cell line(s) w abnormal sex chromosome",
+    "price": 48,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 80,
+    "sku": "Cheese - Grie Des Champ",
+    "description": "Displ oblique fx shaft of unsp rad, 7thH",
+    "price": 81,
+    "category": "Professional Services"
+  },
+  {
+    "id": 81,
+    "sku": "Beer - Steamwhistle",
+    "description": "Alcohol-induced pseudo-Cushing's syndrome",
+    "price": 63,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 82,
+    "sku": "Ice Cream - Strawberry",
+    "description": "Lac w/o fb of unsp front wall of thrx w penet thor cav, subs",
+    "price": 47,
+    "category": "Plastic Products"
+  },
+  {
+    "id": 83,
+    "sku": "Lobster - Base",
+    "description": "Oth osteoporosis w current pathological fracture, r shoulder",
+    "price": 48,
+    "category": "n/a"
+  },
+  {
+    "id": 84,
+    "sku": "Mace",
+    "description": "Fall on or from playground slide, subsequent encounter",
+    "price": 5,
+    "category": "Newspapers/Magazines"
+  },
+  {
+    "id": 85,
+    "sku": "Cheese - Ricotta",
+    "description": "Malignant neoplasm of cheek mucosa",
+    "price": 71,
+    "category": "Real Estate Investment Trusts"
+  },
+  {
+    "id": 86,
+    "sku": "Pasta - Gnocchi, Potato",
+    "description": "Nondisp fx of glenoid cavity of scapula, right shoulder",
+    "price": 86,
+    "category": "Electric Utilities: Central"
+  },
+  {
+    "id": 87,
+    "sku": "Puree - Guava",
+    "description": "Contact with hot food",
+    "price": 20,
+    "category": "n/a"
+  },
+  {
+    "id": 88,
+    "sku": "Water - Evian 355 Ml",
+    "description": "Pasngr in 3-whl mv inj in clsn w ped/anml nontraf, sequela",
+    "price": 34,
+    "category": "EDP Services"
+  },
+  {
+    "id": 89,
+    "sku": "Cheese - Pont Couvert",
+    "description": "Myositis ossificans traumatica, unspecified shoulder",
+    "price": 14,
+    "category": "Computer Manufacturing"
+  },
+  {
+    "id": 90,
+    "sku": "Fish - Bones",
+    "description": "Oth comp specific to multiple gestation, unsp trimester",
+    "price": 81,
+    "category": "Business Services"
+  },
+  {
+    "id": 91,
+    "sku": "Lettuce - Romaine",
+    "description": "Prem separtn of placenta w coag defect, unsp, second tri",
+    "price": 56,
+    "category": "n/a"
+  },
+  {
+    "id": 92,
+    "sku": "Rabbit - Whole",
+    "description": "Traum hemor cereb, w LOC >24 hr w ret consc lev, init",
+    "price": 79,
+    "category": "n/a"
+  },
+  {
+    "id": 93,
+    "sku": "Bread - White Epi Baguette",
+    "description": "Ancylostomiasis",
+    "price": 30,
+    "category": "Investment Managers"
+  },
+  {
+    "id": 94,
+    "sku": "Ice Cream Bar - Rolo Cone",
+    "description": "Injury of oculomotor nerve, right side, initial encounter",
+    "price": 43,
+    "category": "n/a"
+  },
+  {
+    "id": 95,
+    "sku": "Chocolate - Compound Coating",
+    "description": "Ring corneal ulcer, left eye",
+    "price": 73,
+    "category": "Hospital/Nursing Management"
+  },
+  {
+    "id": 96,
+    "sku": "Carrots - Jumbo",
+    "description": "Laceration of radial artery at wrs/hnd lv of left arm, subs",
+    "price": 49,
+    "category": "n/a"
+  },
+  {
+    "id": 97,
+    "sku": "Sausage - Blood Pudding",
+    "description": "Part traum amp at level betw knee and ankle, r low leg, init",
+    "price": 42,
+    "category": "Radio And Television Broadcasting And Communications Equipment"
+  },
+  {
+    "id": 98,
+    "sku": "Juice - Apple 284ml",
+    "description": "Age-related cataract, morgagnian type, bilateral",
+    "price": 45,
+    "category": "n/a"
+  },
+  {
+    "id": 99,
+    "sku": "Wine - Placido Pinot Grigo",
+    "description": "Toxic effect of ingested mushrooms, accidental, sequela",
+    "price": 43,
+    "category": "Homebuilding"
+  },
+  {
+    "id": 100,
+    "sku": "Pepper - Chipotle, Canned",
+    "description": "Sltr-haris Type IV physl fx upr end unsp tibia, 7thK",
+    "price": 48,
+    "category": "Farming/Seeds/Milling"
+  }
+]

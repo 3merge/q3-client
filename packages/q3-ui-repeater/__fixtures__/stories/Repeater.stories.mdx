@@ -6,25 +6,24 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Repeater from '../support';
 
+export const isEven = (item) => Number(item.seq) % 2 === 0;
+export const isSeq = (item) => Number(item.seq) === 211;
+
 <Meta title="Repeater/Repeater" component={Repeater} />
 
 # Repeater
 
 <Preview>
   <Story name="Empty">
-    <Repeater data={[]} />
+    <Repeater data={[]}>
+      <p>Editor</p>
+    </Repeater>
   </Story>
-</Preview>
-
-<Preview>
-  <Story name="Custom renderers">
+  <Story name="Without options">
     <Repeater
-      addComponent={<p>Custom renderer</p>}
-      bulkEditorComponent={<p>Bulk editor</p>}
-      renderNestedTableRow={() => <p>Check me out</p>}
       cardProps={{
-        title: 'firstName',
-        attributes: ['position'],
+        title: 'sku',
+        attributes: ['for.name', 'id', 'age'],
         editable: {
           position: {
             renderer: () => <div>Something custom!</div>,
@@ -34,6 +33,53 @@ import Repeater from '../support';
           item.age < 20 ? 'orange' : 'blue',
         describe: () =>
           'This is a dynamic sentence generated from the item template.',
+        makeLink: () => '/to',
+        makeLinkLabel: ({ id }) => id,
+      }}
+    >
+      <p>Editor</p>
+    </Repeater>
+  </Story>
+  <Story name="Custom renderers">
+    <Repeater
+      bulkEditorComponent={<p>Bulk editor</p>}
+      renderNestedTableRow={() => <p>Check me out</p>}
+      perPage={50}
+      groupBy={[
+        { label: 'Evens', fn: isEven },
+        { label: '211', fn: isSeq },
+      ]}
+      sortOptions={[
+        { label: 'sku' },
+        {
+          label: 'Price (Low to high)',
+          fn: (a, b) => a.price - b.price,
+        },
+        {
+          label: 'Price (High to low)',
+          fn: (a, b) => b.price - a.price,
+        },
+      ]}
+      filterOptions={[
+        { label: 'All' },
+        {
+          label: 'Cheap',
+          fn: (x) => Number(x.price) < 50,
+        },
+        {
+          label: 'Publishing',
+          fn: (x) => x.category === 'Publishing',
+        },
+      ]}
+      cardProps={{
+        title: 'sku',
+        describe: 'description',
+        attributes: ['price', 'category'],
+        editable: {
+          price: {
+            toPrice: true,
+          },
+        },
         makeLink: () => '/to',
         makeLinkLabel: ({ id }) => id,
       }}
