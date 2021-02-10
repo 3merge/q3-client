@@ -69,11 +69,15 @@ const AddButton = ({
   />
 );
 
+AddButton.defaultProps = {
+  name: '',
+};
+
 AddButton.propTypes = {
   /**
    * Used to create a unique Dialog title.
    */
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
 
   /**
    * Used to determine permission level

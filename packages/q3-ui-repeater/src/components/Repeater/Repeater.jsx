@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Asset from 'q3-ui-assets';
 import { Box, Grid } from '@material-ui/core';
 import { compose } from 'lodash/fp';
+import { size } from 'lodash';
 import ActionBar from '../ActionBar';
 import AddItem from '../AddItem';
 import RepeaterTable from '../RepeaterTable';
@@ -72,8 +73,8 @@ const Repeater = ({
               disableSearch={disableSearch}
             >
               <ActionBar
-                data={data}
                 renderSelected={bulkEditorComponent}
+                length={size(data)}
               />
             </RepeaterOptions>
           </Grid>

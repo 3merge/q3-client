@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Exports from 'q3-ui-exports';
-import { useChecked } from 'useful-state';
 import Repeater from '../Repeater';
 import Context from '../state';
 import useProviderAuth from '../useProviderAuth';
@@ -15,14 +14,12 @@ const Provider = ({
   poll,
   ...rest
 }) => {
-  const multiselect = useChecked();
   const auth = useProviderAuth(rest);
 
   return !auth.disable ? (
     <Context.Provider
       value={{
         ...auth,
-        multiselect,
         edit,
         editBulk,
         remove,

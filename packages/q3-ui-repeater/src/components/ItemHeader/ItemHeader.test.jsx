@@ -21,9 +21,7 @@ const getItemHeader = (props) =>
 
 beforeAll(() => {
   jest.spyOn(React, 'useContext').mockReturnValue({
-    multiselect: {
-      isChecked: jest.fn(),
-    },
+    isChecked: jest.fn(),
   });
 });
 

@@ -28,8 +28,7 @@ describe('"handleSubmit"', () => {
 });
 
 test.each([
-  ['PHRASE', true],
-  ['phrase', false],
+  ['phrase', true],
   [1, false],
   [undefined, false],
   [null, false],

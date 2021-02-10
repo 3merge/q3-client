@@ -1,13 +1,14 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { navigate } from '@reach/router';
-import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import Confirm from 'q3-ui-confirm';
 import { Trash } from '.';
 
 jest.useFakeTimers();
 jest.mock('../state');
 
+jest.mock('q3-ui-confirm', () => () => <div />);
 jest.mock('@reach/router', () => ({
   navigate: jest.fn(),
 }));
@@ -38,7 +39,7 @@ describe('Trash', () => {
     );
 
     await act(async () => {
-      el.find(Button).props().onClick();
+      el.find(Confirm).props().service();
     });
 
     el.update();

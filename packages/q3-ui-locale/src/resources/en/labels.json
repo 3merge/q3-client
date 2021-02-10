@@ -275,5 +275,8 @@
   "moreThan": "{{key}} more than {{value}}",
   "lessThan": "{{key}} less than {{value}}",
   "approved": "Approved",
-  "updateBulk": "Update in bulk"
+  "updateBulk": "Update in bulk",
+  "confirmPhrase": "Enter the phrase \"{{phrase}}\":",
+  "sortBy": "Sort by",
+  "filterBy": "Filter by"
 }

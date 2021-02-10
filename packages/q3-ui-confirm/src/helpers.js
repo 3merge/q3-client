@@ -5,5 +5,4 @@ export const handleSubmit = (onSubmit, onSuccess) => () =>
       // noop
     });
 
-export const matchAgainstUppercase = (a) => (b) =>
-  String(a).toUpperCase() === b;
+export const matchAgainstUppercase = (a) => (b) => a === b;

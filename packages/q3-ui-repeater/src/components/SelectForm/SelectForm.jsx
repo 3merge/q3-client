@@ -18,7 +18,7 @@ const SortForm = ({
   const { t } = useTranslation();
 
   return (
-    <Grid item xs={12} sm={6} md={6} lg={3} xl={3}>
+    <Grid item xs={12} sm={4} md={3} lg={3} xl={3}>
       <TextField
         select
         label={label}

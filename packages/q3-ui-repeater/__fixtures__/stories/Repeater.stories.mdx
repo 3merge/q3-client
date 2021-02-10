@@ -44,7 +44,7 @@ export const isSeq = (item) => Number(item.seq) === 211;
     <Repeater
       bulkEditorComponent={<p>Bulk editor</p>}
       renderNestedTableRow={() => <p>Check me out</p>}
-      perPage={15}
+      perPage={50}
       groupBy={[
         { label: 'Evens', fn: isEven },
         { label: '211', fn: isSeq },

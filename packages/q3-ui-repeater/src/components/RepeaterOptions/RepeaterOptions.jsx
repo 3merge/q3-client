@@ -21,7 +21,7 @@ const RepeaterOptions = ({
 
   return (
     <Grid alignItems="center" container spacing={1}>
-      <Grid item>{children}</Grid>
+      {children}
       {!disableSearch && (
         <Grid item xs>
           <Search handleInput={handleInput} />

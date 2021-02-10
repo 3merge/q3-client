@@ -33,7 +33,7 @@ const type = (container, value) =>
 describe('Configuration', () => {
   it('should submit', (done) => {
     const { container, handleSubmit } = setupContainer();
-    type(container, 'DELETE');
+    type(container, 'delete');
 
     waitFor(() => {
       submit(container);
