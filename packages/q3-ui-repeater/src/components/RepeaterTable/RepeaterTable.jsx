@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from '@material-ui/lab/Pagination';
-import { Box, Table } from '@material-ui/core';
+import {
+  Box,
+  Table,
+  Grid,
+  IconButton,
+} from '@material-ui/core';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import List from '../List';
 import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
@@ -32,7 +39,31 @@ const RepeaterTable = ({
 
   return (
     gt(total, 0) && (
-      <RepeaterCollapse label={groupName}>
+      <RepeaterCollapse
+        label={groupName}
+        toggles={
+          gt(totalPage, 1) ? (
+            <Grid container>
+              <Grid item>
+                <IconButton
+                  disabled={page === 1}
+                  onClick={() => onChange({}, page - 1)}
+                >
+                  <NavigateBeforeIcon />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <IconButton
+                  disabled={page === totalPage}
+                  onClick={() => onChange({}, page + 1)}
+                >
+                  <NavigateNextIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          ) : null
+        }
+      >
         <Table>
           <List
             {...rest}

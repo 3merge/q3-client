@@ -33,6 +33,7 @@ const init = {
 const Repeater = ({
   addComponent,
   bulkEditorComponent,
+  emptyComponent,
   addDisabled,
   children,
   data,
@@ -53,6 +54,13 @@ const Repeater = ({
   );
 
   const newData = run(data);
+
+  const renderEmpty = () =>
+    emptyComponent || (
+      <Box>
+        <Asset icon="Empty" title="empty" />
+      </Box>
+    );
 
   return (
     <>
@@ -95,9 +103,7 @@ const Repeater = ({
           </RepeaterTable>
         </Box>
       ) : (
-        <Box>
-          <Asset icon="Empty" title="empty" />
-        </Box>
+        renderEmpty()
       )}
     </>
   );
@@ -111,10 +117,12 @@ Repeater.defaultProps = {
   groupBy: null,
   sortOptions: [],
   filterOptions: [],
+  emptyComponent: null,
 };
 
 Repeater.propTypes = {
   addComponent: PropTypes.node,
+  emptyComponent: PropTypes.node,
   addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),

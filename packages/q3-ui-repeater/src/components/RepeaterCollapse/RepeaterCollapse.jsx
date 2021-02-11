@@ -6,11 +6,12 @@ import {
   AccordionSummary,
   Box,
   Typography,
+  Grid,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyle from './useStyle';
 
-const RepeaterCollapse = ({ children, label }) => {
+const RepeaterCollapse = ({ children, label, toggles }) => {
   const { container, content, root, text } = useStyle();
 
   return label ? (
@@ -19,9 +20,21 @@ const RepeaterCollapse = ({ children, label }) => {
         className={container}
         expandIcon={<ExpandMoreIcon />}
       >
-        <Typography className={text} variant="overline">
-          {label}
-        </Typography>
+        <Grid container justify="space-between">
+          <Grid item>
+            <Typography className={text} variant="overline">
+              {label}
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {toggles}
+          </Grid>
+        </Grid>
       </AccordionSummary>
       <AccordionDetails className={content}>
         <Box width="100%">{children}</Box>

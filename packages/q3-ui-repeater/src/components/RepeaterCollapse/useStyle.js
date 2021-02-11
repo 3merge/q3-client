@@ -7,6 +7,10 @@ export default makeStyles(() => ({
     margin: 0,
     padding: '.5rem .25rem',
     height: '64px !important',
+    background: '#FFF',
+    position: 'sticky',
+    top: 0,
+    zIndex: 10,
   },
   content: {
     padding: 0,
