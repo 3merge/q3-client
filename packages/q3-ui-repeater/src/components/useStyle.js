@@ -102,7 +102,7 @@ export default makeStyles((theme) => ({
 
   tableActions: {
     textAlign: 'right',
-    whiteSpace: 'no-wrap',
+    whiteSpace: 'nowrap',
     [theme.breakpoints.down('sm')]: {
       display: 'block !important',
     },

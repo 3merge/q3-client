@@ -29,7 +29,7 @@ export default (
   const invokeService = React.useCallback(
     (stateValues) => {
       setLoading(true);
-      console.log(term);
+
       return invoke(service, [term, stateValues])
         .then((r) => {
           cache.current[term] = r;
@@ -58,8 +58,6 @@ export default (
     invokeService,
     run: React.useCallback(
       (stateValues) => {
-        if (loading) return null;
-
         if (
           !isOfAdequateLength(term, minimumCharacterCount)
         )
