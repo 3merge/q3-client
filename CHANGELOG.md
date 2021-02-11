@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.10](https://github.com/3merge/q/compare/v1.27.9...v1.27.10) (2021-02-11)
+
+
+### Bug Fixes
+
+* remove option blocking while loading ([2948067](https://github.com/3merge/q/commit/2948067e02561d7543558b510dea8087bfb9ecfd))
+
+
+
+
+
 ## [1.27.9](https://github.com/3merge/q/compare/v1.27.8...v1.27.9) (2021-02-11)
 
 **Note:** Version bump only for package q3-client
