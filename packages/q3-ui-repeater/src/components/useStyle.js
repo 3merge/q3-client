@@ -22,7 +22,8 @@ export default makeStyles((theme) => ({
   titleCls: {
     color: theme.palette.primary.light,
     fontSize: '.911rem !important',
-    margin: '0 0 .25rem 0 !important',
+    margin: '0 !important',
+    fontWeight: 600,
   },
 
   editLauncher: {
@@ -67,12 +68,11 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
-    padding: '.25rem',
-    //  width: '15%',
+    padding: '0 1rem',
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',
-      alignItems: 'center',
+      alignItems: 'flex-start',
       display: 'grid',
       gridTemplateColumns: '120px 1fr',
       lineHeight: 2,
@@ -90,6 +90,8 @@ export default makeStyles((theme) => ({
   tableCellHeader: {
     display: 'table-cell',
     padding: '1rem 0',
+    maxWidth: 575,
+
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       border: 0,
@@ -100,9 +102,24 @@ export default makeStyles((theme) => ({
 
   tableActions: {
     textAlign: 'right',
-    minWidth: 200,
+    whiteSpace: 'no-wrap',
     [theme.breakpoints.down('sm')]: {
       display: 'block !important',
+    },
+  },
+
+  tableCellLabel: {
+    fontSize: '.624rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.light,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      textAlign: 'left',
+      paddingTop: 6,
+      '&::after': {
+        content: '":"',
+      },
     },
   },
 

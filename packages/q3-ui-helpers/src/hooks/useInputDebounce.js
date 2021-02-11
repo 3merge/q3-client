@@ -7,11 +7,13 @@ const useInputDebounce = (input) => {
   React.useEffect(() => {
     let timer;
 
-    if (!ref.current) {
-      ref.current = true;
-    } else {
-      timer = setTimeout(() => setShouldRun(true), 550);
+    if (ref.current) {
+      timer = setTimeout(() => {
+        return setShouldRun(true);
+      }, 550);
     }
+
+    ref.current = input;
 
     return () => {
       clearTimeout(timer);

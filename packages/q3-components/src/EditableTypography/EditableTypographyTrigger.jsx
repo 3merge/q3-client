@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'class-names';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';
 import { string } from 'q3-ui-helpers';
@@ -13,17 +14,23 @@ const defaultPlaceholder = '--';
 export const makeEdittingProps = (isEditable, args) =>
   isEditable ? args : {};
 
-export const formatText = (value, type, trans) => {
-  switch (type) {
-    case 'number':
-      return string.toNumber(value, defaultPlaceholder);
-    case 'checkbox':
-      return string.toTruthy(value, trans);
-    case 'date':
-      return string.toDate(value, defaultPlaceholder);
-    default:
-      return value;
-  }
+export const formatText = (value, args, t) => {
+  let formatted = value;
+
+  if (args.type === 'number')
+    formatted = string.toNumber(value, defaultPlaceholder);
+
+  if (args.type === 'checkbox' || args.toTruthy)
+    formatted = string.toTruthy(value, t);
+
+  if (args.toDate || args.type === 'date')
+    formatted = string.toDate(value, defaultPlaceholder);
+
+  if (args.toPrice) formatted = string.toPrice(value);
+  if (args.trans) formatted = t(value);
+  if (!formatted) formatted = defaultPlaceholder;
+
+  return formatted;
 };
 
 const EditableTypographyTrigger = ({
@@ -41,24 +48,29 @@ const EditableTypographyTrigger = ({
     isEditable,
   });
 
-  return (
-    <Typography
-      {...rest}
-      {...makeEdittingProps(isEditable, {
-        onClick: open,
-        onKeyPress: open,
-        tabIndex: 0,
-      })}
-      className={classnames(
-        TYPOGRAPHY_CLASS,
-        field,
-        rest.className,
-      )}
-    >
-      <span style={innerStyle}>
-        {formatText(children, type, t) || '--'}
-      </span>
+  const text =
+    formatText(
+      children,
+      {
+        ...rest,
+        type,
+      },
+      t,
+    ) || '--';
+  const classes = classnames(
+    TYPOGRAPHY_CLASS,
+    field,
+    rest.className,
+  );
+
+  return isEditable ? (
+    <Button {...rest} className={classes} onClick={open}>
+      {text}
       {isEditable ? <Edit className={fieldIcon} /> : null}
+    </Button>
+  ) : (
+    <Typography {...rest} className={classes}>
+      <span style={innerStyle}>{text}</span>
     </Typography>
   );
 };

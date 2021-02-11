@@ -8,7 +8,7 @@ import { override } from '../../helpers';
 import usePagination from '../../usePagination';
 import RepeaterCollapse from '../RepeaterCollapse';
 
-const gt = (v) => v > 0;
+const gt = (v, num = 0) => v > num;
 
 const RepeaterTable = ({
   data,
@@ -31,7 +31,7 @@ const RepeaterTable = ({
   } = usePagination(perPage, data);
 
   return (
-    gt(total) && (
+    gt(total, 0) && (
       <RepeaterCollapse label={groupName}>
         <Table>
           <List
@@ -42,7 +42,7 @@ const RepeaterTable = ({
             {children}
           </List>
         </Table>
-        {gt(totalPage) && (
+        {gt(totalPage, 1) && (
           <Box
             display="flex"
             justifyContent="center"

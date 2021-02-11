@@ -56,7 +56,7 @@ const Repeater = ({
 
   return (
     <>
-      <Box bgcolor="background.paper" mb={2}>
+      <Box bgcolor="background.paper">
         <Grid alignItems="center" container spacing={2}>
           <Grid item xs={12} sm>
             <RepeaterOptions
@@ -73,7 +73,7 @@ const Repeater = ({
             </RepeaterOptions>
           </Grid>
           {!addDisabled && (
-            <Grid item xs="auto">
+            <Grid item xs={addComponent ? 12 : 'auto'}>
               <AddItem
                 addComponent={addComponent}
                 initialValues={initialValues}

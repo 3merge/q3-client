@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatText } from './EditableTypographyTrigger';
 
 jest.mock('useful-state', () => ({
@@ -12,21 +11,27 @@ jest.mock('useful-state', () => ({
 describe('EditableTypography', () => {
   describe('"formatText"', () => {
     it('should return a number', () => {
-      expect(formatText('12.12', 'number')).toBe(12.12);
-      expect(formatText('string', 'number')).toMatch('--');
+      expect(formatText('12.12', { type: 'number' })).toBe(
+        12.12,
+      );
+      expect(
+        formatText('string', { type: 'number' }),
+      ).toMatch('--');
     });
 
     it('should return a date', () => {
-      expect(formatText('2020-12-12', 'date')).toMatch(
-        'Dec',
-      );
-      expect(formatText('not-a-date', 'date')).toMatch(
-        '--',
-      );
+      expect(
+        formatText('2020-12-12', { type: 'date' }),
+      ).toMatch('Dec');
+      expect(
+        formatText('not-a-date', { type: 'date' }),
+      ).toMatch('--');
     });
 
     it('should return Yes', () => {
-      expect(formatText(true, 'checkbox')).toMatch('yes');
+      expect(
+        formatText(true, { type: 'checkbox' }),
+      ).toMatch('yes');
     });
   });
 });

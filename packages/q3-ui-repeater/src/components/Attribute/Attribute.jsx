@@ -9,7 +9,7 @@ const Attributes = ({
   attributes,
   isIn,
 }) => {
-  const { tableCell } = useStyle();
+  const { tableCell, tableCellLabel } = useStyle();
   const { t } = useTranslation('labels');
 
   if (!Array.isArray(attributes)) return null;
@@ -18,15 +18,7 @@ const Attributes = ({
     <TableCell className={tableCell} key={attribute}>
       <Grid alignItems="center" container justify="center">
         <Grid item md={12}>
-          <div
-            style={{
-              fontSize: '.624rem',
-              fontWeight: 'bold',
-              color: '#a8a8a8',
-              textTransform: 'uppercase',
-              textAlign: 'center',
-            }}
-          >
+          <div className={tableCellLabel}>
             {t(attribute)}
           </div>
         </Grid>

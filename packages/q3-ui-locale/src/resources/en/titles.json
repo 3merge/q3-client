@@ -90,5 +90,6 @@
   "createFolder": "Create folder",
   "featuredPhoto": "Featured photo",
   "missingConfiguration": "This component requires configuration",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "editor": "Edit"
 }

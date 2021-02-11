@@ -20,6 +20,9 @@ const ConfirmForm = ({ phrase, ...props }) => {
           phrase,
         })}
         type="text"
+        xl={12}
+        lg={12}
+        md={12}
       />
     </Form>
   );

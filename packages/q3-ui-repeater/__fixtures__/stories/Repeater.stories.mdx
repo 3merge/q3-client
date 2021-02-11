@@ -77,7 +77,11 @@ export const isSeq = (item) => Number(item.seq) === 211;
         attributes: ['price', 'category'],
         editable: {
           price: {
+            type: 'number',
             toPrice: true,
+          },
+          category: {
+            type: 'text',
           },
         },
         makeLink: () => '/to',

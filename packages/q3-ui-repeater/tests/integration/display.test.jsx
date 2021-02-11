@@ -19,11 +19,11 @@ const getCellValue = (el) => {
     expect(cells.at(pos).text()).toMatch(expectedValue);
 };
 
-const getFirstAuthor = (el) =>
+const getFirstAuthor = (el, selector) =>
   el
     .find('[data-repeater-editable="author"]')
     .first()
-    .find('p');
+    .find(selector);
 
 describe('Display', () => {
   describe('atrributes', () => {
@@ -77,7 +77,7 @@ describe('Display', () => {
 
       await perform(el)([
         async () => {
-          getFirstAuthor(el).simulate('click');
+          getFirstAuthor(el, 'button').simulate('click');
         },
         async () => {
           input = el.find('input[name="author"]');
@@ -107,9 +107,9 @@ describe('Display', () => {
         </AuthContextProvider>,
       );
 
-      expect(getFirstAuthor(el).props()).not.toHaveProperty(
-        'aria-haspopup',
-      );
+      expect(
+        getFirstAuthor(el, 'p').props(),
+      ).not.toHaveProperty('aria-haspopup');
     });
   });
 

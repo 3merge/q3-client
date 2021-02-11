@@ -25,17 +25,6 @@ export default ({ data, ...sharedProps }) => ({
 
   const { edit, isEditable, prefix } = repeater;
 
-  const value = get(data, name);
-  let formatted = value;
-
-  if (editable.toString) formatted = String(value);
-  if (editable.toTruthy)
-    formatted = string.toTruthy(value, t);
-  if (editable.toDate) formatted = string.toDate(value);
-  if (editable.toPrice) formatted = string.toPrice(value);
-  if (editable.trans) formatted = t(value);
-  if (!formatted) formatted = '--';
-
   return React.createElement(
     EditableTypography,
     {
@@ -46,9 +35,10 @@ export default ({ data, ...sharedProps }) => ({
       fieldProps: {
         name: prefix,
         style: {
-          fontSize: '0.833rem',
-          fontWeight: 'bold',
+          // fontSize: '0.833rem',
+          // fontWeight: 'bold',
           lineHeight: 1,
+          display: 'inline-block',
         },
         ...editable,
       },
@@ -56,6 +46,6 @@ export default ({ data, ...sharedProps }) => ({
       ...sharedProps,
       ...rest,
     },
-    formatted,
+    get(data, name),
   );
 };
