@@ -16,7 +16,7 @@ const Attributes = ({
 
   return attributes.map((attribute) => (
     <TableCell className={tableCell} key={attribute}>
-      <Grid alignItems="center" container justify="center">
+      <Grid alignItems="center" container>
         <Grid item md={12}>
           <div className={tableCellLabel}>
             {t(attribute)}

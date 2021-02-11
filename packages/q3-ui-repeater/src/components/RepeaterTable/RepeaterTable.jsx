@@ -6,14 +6,20 @@ import {
   Table,
   Grid,
   IconButton,
+  TableHead,
+  TableRow,
+  TableCell,
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import { map, get } from 'lodash';
+import { useTranslation } from 'react-i18next';
 import List from '../List';
 import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
 import usePagination from '../../usePagination';
 import RepeaterCollapse from '../RepeaterCollapse';
+import useStyle from '../useStyle';
 
 const gt = (v, num = 0) => v > num;
 
@@ -36,6 +42,8 @@ const RepeaterTable = ({
     list,
     page,
   } = usePagination(perPage, data);
+  const cls = useStyle();
+  const { t } = useTranslation('labels');
 
   return (
     gt(total, 0) && (
@@ -65,6 +73,23 @@ const RepeaterTable = ({
         }
       >
         <Table>
+          <TableHead>
+            <TableRow className={cls.tableHeader}>
+              <TableCell component="th">
+                {t('identifier')}
+              </TableCell>
+              {map(
+                get(rest, 'cardProps.attributes', []),
+                (attr) => (
+                  <TableCell key={attr} component="th">
+                    {t(attr)}
+                  </TableCell>
+                ),
+              )}
+
+              <TableCell />
+            </TableRow>
+          </TableHead>
           <List
             {...rest}
             data={list}

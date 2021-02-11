@@ -61,6 +61,10 @@ export default makeStyles((theme) => ({
   },
 
   tableRow: {
+    '&:last-child td': {
+      borderBottom: 'none !important',
+    },
+
     [theme.breakpoints.down('sm')]: {
       border: '0 !important',
     },
@@ -68,7 +72,7 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
-    padding: '0 1rem',
+    padding: '1rem',
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -77,6 +81,7 @@ export default makeStyles((theme) => ({
       gridTemplateColumns: '120px 1fr',
       lineHeight: 2,
       border: '0 !important',
+      padding: '0',
 
       '& >div': {
         display: 'contents !important',
@@ -113,8 +118,10 @@ export default makeStyles((theme) => ({
     fontWeight: 'bold',
     color: theme.palette.primary.light,
     textTransform: 'uppercase',
-    textAlign: 'center',
+    display: 'none',
+
     [theme.breakpoints.down('sm')]: {
+      display: 'inline-block',
       textAlign: 'left',
       paddingTop: 6,
       '&::after': {
@@ -149,6 +156,7 @@ export default makeStyles((theme) => ({
     '& td': {
       borderBottom: hasNested ? 'none' : undefined,
     },
+
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       borderBottom: '0 !important',
@@ -161,6 +169,18 @@ export default makeStyles((theme) => ({
     minWidth: 150,
     [theme.breakpoints.down('md')]: {
       order: 1,
+    },
+  },
+
+  tableHeader: {
+    '& th': {
+      color: theme.palette.primary.light,
+
+      padding: '1rem',
+      fontSize: '.624rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
   },
 }));

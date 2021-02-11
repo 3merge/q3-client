@@ -34,12 +34,7 @@ export default ({ data, ...sharedProps }) => ({
       initialValues: data,
       fieldProps: {
         name: prefix,
-        style: {
-          // fontSize: '0.833rem',
-          // fontWeight: 'bold',
-          lineHeight: 1,
-          display: 'inline-block',
-        },
+        style: {},
         ...editable,
       },
       onSubmit: (...params) => edit(data.id)(...params),
