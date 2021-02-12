@@ -105,3 +105,25 @@ test('should sort by string', () => {
     { id: 1, name: 'g' },
   ]);
 });
+
+test('should falsy values come after truthy values', () => {
+  const nullLists = [
+    { id: 4, name: null },
+    { id: 5 },
+    { id: 8, name: 'zz' },
+    ...list,
+    { id: 6, name: null },
+    { id: 7, name: undefined },
+  ];
+
+  expect(sort({ label: 'name' })(nullLists)).toEqual([
+    { id: 2, name: 'e' },
+    { id: 3, name: 'f' },
+    { id: 1, name: 'g' },
+    { id: 8, name: 'zz' },
+    { id: 4, name: null },
+    { id: 5 },
+    { id: 6, name: null },
+    { id: 7, name: undefined },
+  ]);
+});

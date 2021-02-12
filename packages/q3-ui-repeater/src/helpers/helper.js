@@ -19,14 +19,18 @@ export const filter = (obj) => (xs) => {
   return xs.filter(obj.fn);
 };
 
+const defaultSort = (label) => (a, b) => {
+  if (a[label] === b[label]) return 0;
+  if (a[label] == null) return 1;
+  if (b[label] == null) return -1;
+
+  return a[label] < b[label] ? -1 : 1;
+};
+
 export const sort = (obj) => (xs) => {
   if (!array.hasLength(xs) || !obj) return xs;
   const { label, fn = null } = obj;
-  const callback =
-    typeof xs[0][label] === 'string'
-      ? fn || ((a, b) => a[label].localeCompare(b[label]))
-      : fn || ((a, b) => a[label] - b[label]);
-  return xs.slice().sort(callback);
+  return xs.slice().sort(fn || defaultSort(label));
 };
 
 const OTHER = 'other';
