@@ -174,10 +174,10 @@ export default makeStyles((theme) => ({
 
   tableHeader: {
     '& th': {
-      color: theme.palette.primary.light,
-
       padding: '1rem',
-      fontSize: '.624rem',
+      color: theme.palette.primary.light,
+      fontSize: '.624rem !important',
+      backgroundColor: '#f5f7f9 !important',
     },
     [theme.breakpoints.down('sm')]: {
       display: 'none',

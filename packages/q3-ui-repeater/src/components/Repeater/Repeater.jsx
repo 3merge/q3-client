@@ -64,7 +64,10 @@ const Repeater = ({
 
   return (
     <>
-      <Box bgcolor="background.paper">
+      <Box
+        bgcolor="background.paper"
+        mb={Array.isArray(newData) ? 1 : 0}
+      >
         <Grid alignItems="center" container spacing={2}>
           <Grid item xs={12} sm>
             <RepeaterOptions

@@ -76,7 +76,7 @@ const RepeaterTable = ({
           <TableHead>
             <TableRow className={cls.tableHeader}>
               <TableCell component="th">
-                {t('identifier')}
+                {t(rest?.th || 'identifier')}
               </TableCell>
               {map(
                 get(rest, 'cardProps.attributes', []),
