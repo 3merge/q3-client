@@ -47,18 +47,17 @@ export default () => {
       });
   };
 
-  const onChange = debounce(
-    () =>
-      axios
-        .get('/system-notifications')
-        .then((d) => {
-          setData(d?.data?.notifications || []);
-        })
-        .catch(() => {
-          setError(true);
-        }),
-    5000,
-  );
+  const fetchNotifications = () =>
+    axios
+      .get('/system-notifications')
+      .then((d) => {
+        setData(d?.data?.notifications || []);
+      })
+      .catch(() => {
+        setError(true);
+      });
+
+  const onChange = debounce(fetchNotifications, 5000);
 
   React.useEffect(() => {
     const general = makeEventName();
@@ -78,7 +77,7 @@ export default () => {
       if (action === ERROR) setError(true);
     });
 
-    onChange();
+    fetchNotifications();
 
     return () => {
       invokeDocumentListener(general);

@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import { browser } from 'q3-ui-helpers';
+import { browser, url } from 'q3-ui-helpers';
 import { AuthContext } from 'q3-ui-permissions';
 
 const { isDefined, proxyLocalStorageApi } = browser;
@@ -33,10 +33,9 @@ export default (Component) => (props) => {
 
   React.useEffect(() => {
     if (skip) return;
-
     q.set('sort', sortPreference);
     navigate(
-      `?${q.toString().replace(/\+/g, '%20')}`,
+      `?${url.toParamsString(q)}`,
       {
         state: {
           init: true,

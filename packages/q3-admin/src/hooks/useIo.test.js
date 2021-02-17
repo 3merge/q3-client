@@ -1,6 +1,10 @@
 import moxios from 'jest-mock-axios';
 import useIo from './useIo';
 
+jest.mock('q3-ui-helpers/lib/url', () => ({
+  toParamsString: jest.fn().mockReturnValue('foo=1&bar=1'),
+}));
+
 jest.mock('axios');
 
 jest.fn('react-i18next', () => ({
@@ -28,7 +32,6 @@ describe('useIo', () => {
     useIo(1, {
       delete: deleteFn,
       set: setFn,
-      toString: jest.fn().mockReturnValue('foo=1&bar=1'),
     }).exportCollection('test')();
 
     expect(moxios.post).toHaveBeenCalledWith(

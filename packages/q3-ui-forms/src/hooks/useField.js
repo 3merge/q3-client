@@ -149,7 +149,9 @@ export default (props, readOnly) => {
     initFieldValue,
   );
 
-  return fieldProps && !requiresValue && hasRegistered(name)
+  return fieldProps &&
+    (!requiresValue || type === 'dateRange') &&
+    hasRegistered(name)
     ? {
         ...propper.get(),
         ...omit(dynamicProps, [

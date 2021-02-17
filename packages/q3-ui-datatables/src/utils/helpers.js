@@ -15,7 +15,9 @@ export const extractIds = (c) => {
   }
 };
 
-export const ellpisis = (sub = '', num) =>
+// ellipsis
+
+export const ellipsis = (sub = '', num) =>
   sub && sub.length > num
     ? `${sub.substring(0, num)}...`
     : sub;

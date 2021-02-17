@@ -1,0 +1,26 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { Box } from '@material-ui/core';
+import Popover from '.';
+
+<Meta title="UI/Popover" component={Popover} />
+
+<Preview>
+  <Story name="Popover">
+    <Popover popoverChildren={<div>popover children</div>}>
+      <Box m={2}>Popover component</Box>
+    </Popover>
+  </Story>
+  <Story name="Disabled Popover">
+    <Popover
+      popoverChildren={<div>popover children</div>}
+      disablePopover
+    >
+      <Box m={2}>Popover component</Box>
+    </Popover>
+  </Story>
+</Preview>

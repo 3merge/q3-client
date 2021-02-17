@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
-import { object } from 'q3-ui-helpers';
+import { object, url } from 'q3-ui-helpers';
 
 export default (ids, ...rest) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -19,7 +19,7 @@ export default (ids, ...rest) => {
 
     if (template) urlParams.set('template', template);
     if (ids) urlParams.set('ids', ids);
-    return `?${urlParams.toString()}`;
+    return `?${url.toParamsString(urlParams)}`;
   };
 
   const handleRequest = (req, onSuccessMsg, onFailMsg) =>

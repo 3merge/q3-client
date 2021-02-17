@@ -2,6 +2,7 @@ import React from 'react';
 import { get, isObject, uniq } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
+import Chip from '@material-ui/core/Chip';
 import MultiSelectMenuItem from '../MultiSelectMenuItem';
 import { useOptions } from '../../hooks';
 import withState from '../withState';
@@ -20,6 +21,19 @@ export const extractValues = (xs) =>
   map((x) => (isObject(x) ? x.value : x), xs);
 
 const sort = (a) => array.is(a).sort();
+
+const hasEveryValue = (a, b) => {
+  try {
+    return a.every(
+      (item) =>
+        b.findIndex(
+          (val) => item === val || val === item.value,
+        ) !== -1,
+    );
+  } catch (e) {
+    return false;
+  }
+};
 
 export default withState(
   ({
@@ -48,21 +62,15 @@ export default withState(
     });
 
     const handleOnChange = (e) => {
-      if (status === CHECKED) setStatus(INDETERMINATE);
-
       const length = get(e, 'target.value.length', 0);
-
-      if (length === 0) {
-        setStatus(UNCHECKED);
-      }
-      if (length === items.length) {
+      if (length === 0) setStatus(UNCHECKED);
+      else if (hasEveryValue(items, e.target.value))
         setStatus(CHECKED);
-      }
-
+      else setStatus(INDETERMINATE);
       onChange(e);
     };
 
-    const composedFns = [array.print, sort, uniq];
+    const composedFns = [sort, uniq];
 
     if (displayLabelAsValue)
       composedFns.push(valueToLabel(items));
@@ -75,6 +83,11 @@ export default withState(
 
       if (status === UNCHECKED) onChange(genPayload(name));
     }, [status]);
+
+    React.useEffect(() => {
+      if (status !== CHECKED && hasEveryValue(items, value))
+        setStatus(CHECKED);
+    }, [items.length, value]);
 
     return (
       <SelectBase
@@ -92,7 +105,7 @@ export default withState(
         onChange={handleOnChange}
         SelectProps={{
           value: v,
-          renderValue,
+          // renderValue,
           multiple: true,
           native: false,
           MenuProps: {
@@ -100,6 +113,13 @@ export default withState(
             disablePortal: true,
             classes: cls,
           },
+          renderValue: (selected) => (
+            <div style={{ margin: '-2px 0 -2px -6px' }}>
+              {renderValue(selected).map((s) => (
+                <Chip key={s} label={s} size="small" />
+              ))}
+            </div>
+          ),
         }}
       >
         <MultiSelectAll

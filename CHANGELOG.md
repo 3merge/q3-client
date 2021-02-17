@@ -3,6 +3,173 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.15](https://github.com/3merge/q/compare/v1.27.14...v1.27.15) (2021-02-12)
+
+
+### Bug Fixes
+
+* default sort to handle falsy value ([#294](https://github.com/3merge/q/issues/294)) ([f79d34d](https://github.com/3merge/q/commit/f79d34dae0355fd6792b8f197cb29f05a26e646d))
+
+
+
+
+
+## [1.27.14](https://github.com/3merge/q/compare/v1.27.13...v1.27.14) (2021-02-12)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.13](https://github.com/3merge/q/compare/v1.27.12...v1.27.13) (2021-02-11)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.12](https://github.com/3merge/q/compare/v1.27.11...v1.27.12) (2021-02-11)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.11](https://github.com/3merge/q/compare/v1.27.10...v1.27.11) (2021-02-11)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.10](https://github.com/3merge/q/compare/v1.27.9...v1.27.10) (2021-02-11)
+
+
+### Bug Fixes
+
+* remove option blocking while loading ([2948067](https://github.com/3merge/q/commit/2948067e02561d7543558b510dea8087bfb9ecfd))
+
+
+
+
+
+## [1.27.9](https://github.com/3merge/q/compare/v1.27.8...v1.27.9) (2021-02-11)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.8](https://github.com/3merge/q/compare/v1.27.7...v1.27.8) (2021-02-10)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+
+## [1.27.7](https://github.com/3merge/q/compare/v1.27.6...v1.27.7) (2021-02-09)
+
+
+### Bug Fixes
+
+* chip label translations ([19491b9](https://github.com/3merge/q/commit/19491b99c8436a517f9a1efe6a43f585940864cd))
+
+
+
+
+
+## [1.27.6](https://github.com/3merge/q/compare/v1.27.5...v1.27.6) (2021-02-09)
+
+
+### Bug Fixes
+
+* initial values ([#292](https://github.com/3merge/q/issues/292)) ([13c8b24](https://github.com/3merge/q/commit/13c8b24c9e2af7d48c546e920640d056ecd4c67a))
+
+
+
+
+
+## [1.27.5](https://github.com/3merge/q/compare/v1.27.4...v1.27.5) (2021-02-08)
+
+
+### Bug Fixes
+
+* unquote single query param ([d105b81](https://github.com/3merge/q/commit/d105b8149f2c356f41cb7a01a3f6806ac9b00302))
+
+
+
+
+
+## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
+
+
+### Bug Fixes
+
+* param string replacement helper ([#291](https://github.com/3merge/q/issues/291)) ([bf4caf2](https://github.com/3merge/q/commit/bf4caf27602abcbe9bb6f0bf4a891603065ea621))
+
+
+
+
+
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.2](https://github.com/3merge/q/compare/v1.27.1...v1.27.2) (2021-02-04)
+
+
+### Bug Fixes
+
+* clear segment input ([#289](https://github.com/3merge/q/issues/289)) ([382b410](https://github.com/3merge/q/commit/382b410dbe2bb03d15b6bbcc0ee4ee632ed48b9c))
+* dep resolution ([01eab1c](https://github.com/3merge/q/commit/01eab1c03a6f1ce4c8e7864f11c4d869d6ba8495))
+* filtering query param for arrays ([#290](https://github.com/3merge/q/issues/290)) ([ba98f2e](https://github.com/3merge/q/commit/ba98f2ef646ecfb5c1c0daa5e5dd452c70f44843))
+* handle android enter ([#288](https://github.com/3merge/q/issues/288)) ([3252fd0](https://github.com/3merge/q/commit/3252fd0c7bea17b5fba7c625b83a68baf438afca))
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* revert babel config ([52396f9](https://github.com/3merge/q/commit/52396f9d86371721455613a8de38474dae27331d))
+* sidePanel style and default color ([df5723b](https://github.com/3merge/q/commit/df5723b6e0b05de4fcc6e617020987b96a06b8a5))
+
+
+
+
+
+# [1.27.0](https://github.com/3merge/q/compare/v1.26.1...v1.27.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* reverse babel ([a8f33d4](https://github.com/3merge/q/commit/a8f33d4382b79fef0a90db97116e7dcec5ef70ff))
+
+
+### Features
+
+* popover ([b91de97](https://github.com/3merge/q/commit/b91de97de2e997ab6b6f5182104f7bc7011120fe))
+* Popover ([f422283](https://github.com/3merge/q/commit/f4222836a6d49ce8278b2efad407c339453a32d9))
+
+
+
+
+
+
 ## [1.26.1](https://github.com/3merge/q/compare/v1.26.0...v1.26.1) (2021-01-27)
 
 

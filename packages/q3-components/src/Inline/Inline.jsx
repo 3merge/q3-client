@@ -50,6 +50,7 @@ const Inline = ({
         transitionDuration={250}
         disableRestoreFocus
         className={POPOVER_CLASS}
+        disablePortal
       >
         <Box
           p={2}

@@ -58,8 +58,6 @@ export default (
     invokeService,
     run: React.useCallback(
       (stateValues) => {
-        if (loading) return null;
-
         if (
           !isOfAdequateLength(term, minimumCharacterCount)
         )

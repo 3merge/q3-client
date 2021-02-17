@@ -21,9 +21,9 @@ export default makeStyles((theme) => ({
 
   titleCls: {
     color: theme.palette.primary.light,
-    fontWeight: '600',
-    fontSize: '0.91rem !important',
-    margin: '0 0 .25rem 0 !important',
+    fontSize: '.911rem !important',
+    margin: '0 !important',
+    fontWeight: 600,
   },
 
   editLauncher: {
@@ -61,6 +61,10 @@ export default makeStyles((theme) => ({
   },
 
   tableRow: {
+    '&:last-child td': {
+      borderBottom: 'none !important',
+    },
+
     [theme.breakpoints.down('sm')]: {
       border: '0 !important',
     },
@@ -68,12 +72,16 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
-    padding: 0,
+    padding: '1rem',
 
     [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      alignItems: 'flex-start',
       display: 'grid',
       gridTemplateColumns: '120px 1fr',
+      lineHeight: 2,
       border: '0 !important',
+      padding: '0',
 
       '& >div': {
         display: 'contents !important',
@@ -86,19 +94,39 @@ export default makeStyles((theme) => ({
 
   tableCellHeader: {
     display: 'table-cell',
+    padding: '1rem 0',
+    maxWidth: 575,
+
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       border: 0,
       padding: 0,
+      margin: '1rem 0',
     },
   },
 
-  tableCellActions: {
-    display: 'table-cell',
+  tableActions: {
+    textAlign: 'right',
+    whiteSpace: 'nowrap',
     [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      border: 0,
-      padding: theme.spacing(1),
+      display: 'block !important',
+    },
+  },
+
+  tableCellLabel: {
+    fontSize: '.624rem',
+    fontWeight: 'bold',
+    color: theme.palette.primary.light,
+    textTransform: 'uppercase',
+    display: 'none',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'inline-block',
+      textAlign: 'left',
+      paddingTop: 6,
+      '&::after': {
+        content: '":"',
+      },
     },
   },
 
@@ -128,6 +156,7 @@ export default makeStyles((theme) => ({
     '& td': {
       borderBottom: hasNested ? 'none' : undefined,
     },
+
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       borderBottom: '0 !important',
@@ -135,4 +164,23 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   }),
+
+  form: {
+    minWidth: 150,
+    [theme.breakpoints.down('md')]: {
+      order: 1,
+    },
+  },
+
+  tableHeader: {
+    '& th': {
+      padding: '1rem',
+      color: theme.palette.primary.light,
+      fontSize: '.624rem !important',
+      backgroundColor: '#f5f7f9 !important',
+    },
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
 }));

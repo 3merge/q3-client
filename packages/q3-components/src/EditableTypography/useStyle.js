@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const getIsEditableProps = ({ isEditable }) => ({
   cursor: isEditable ? 'pointer' : 'not-allowed',
   fontSize: '0.833rem',
+  textTransform: 'none',
 });
 
 export default makeStyles((theme) => ({

@@ -80,7 +80,7 @@ export const DropDownMenu = ({
 export const AccountMenu = ({
   isLoggedIn,
   profileImgSrc,
-  name,
+  name = 'here',
   items,
   loginPath,
   signupPath,
@@ -147,7 +147,7 @@ export const AccountMenu = ({
 };
 
 AccountMenu.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.node,
   profileImgSrc: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({

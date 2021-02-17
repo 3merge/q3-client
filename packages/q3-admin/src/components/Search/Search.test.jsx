@@ -40,25 +40,28 @@ describe('Search', () => {
       'ordersSearchPlaceholder',
     ));
 
-  it('should navigate on enter', () => {
-    const navigate = jest.fn();
-    useNavigate.mockReturnValue(navigate);
-    useLocation.mockReturnValue({
-      pathname: 'root',
-    });
+  it.each([['Enter'], ['NumpadEnter'], ['Enter', 'key']])(
+    'should navigate on enter',
+    (value, key = 'code') => {
+      const navigate = jest.fn();
+      useNavigate.mockReturnValue(navigate);
+      useLocation.mockReturnValue({
+        pathname: 'root',
+      });
 
-    global
-      .shallow(<Search />)
-      .find(SearchFullWidth)
-      .prop('onKeyPress')({
-      code: 'Enter',
-      target: {
-        value: 'test',
-      },
-    });
+      global
+        .shallow(<Search />)
+        .find(SearchFullWidth)
+        .prop('onKeyPress')({
+        [key]: value,
+        target: {
+          value: 'test',
+        },
+      });
 
-    expect(navigate).toHaveBeenCalledWith(
-      'app/orders/?search=test',
-    );
-  });
+      expect(navigate).toHaveBeenCalledWith(
+        'app/orders/?search=test',
+      );
+    },
+  );
 });

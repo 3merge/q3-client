@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useLocation } from '@reach/router';
 import { pick } from 'lodash';
 import moment from 'moment';
+import { url } from 'q3-ui-helpers';
 import { EditableTypography } from 'q3-components';
 import { useTranslation } from 'react-i18next';
 import {
@@ -39,7 +40,7 @@ export const addRangeToSearchString = (state, location) => {
       params.set(keys[i], getCaster(i)(value));
     });
 
-  return params.toString();
+  return url.toParamsString(params);
 };
 
 export const printDateRange = (range) =>

@@ -3,6 +3,136 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.15](https://github.com/3merge/q/compare/v1.27.14...v1.27.15) (2021-02-12)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.14](https://github.com/3merge/q/compare/v1.27.13...v1.27.14) (2021-02-12)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.13](https://github.com/3merge/q/compare/v1.27.12...v1.27.13) (2021-02-11)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.12](https://github.com/3merge/q/compare/v1.27.11...v1.27.12) (2021-02-11)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.11](https://github.com/3merge/q/compare/v1.27.10...v1.27.11) (2021-02-11)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.10](https://github.com/3merge/q/compare/v1.27.9...v1.27.10) (2021-02-11)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.9](https://github.com/3merge/q/compare/v1.27.8...v1.27.9) (2021-02-11)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.8](https://github.com/3merge/q/compare/v1.27.7...v1.27.8) (2021-02-10)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+
+## [1.27.7](https://github.com/3merge/q/compare/v1.27.6...v1.27.7) (2021-02-09)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.6](https://github.com/3merge/q/compare/v1.27.5...v1.27.6) (2021-02-09)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.5](https://github.com/3merge/q/compare/v1.27.4...v1.27.5) (2021-02-08)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.4](https://github.com/3merge/q/compare/v1.27.3...v1.27.4) (2021-02-05)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.2](https://github.com/3merge/q/compare/v1.27.1...v1.27.2) (2021-02-04)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+## [1.27.1](https://github.com/3merge/q/compare/v1.27.0...v1.27.1) (2021-02-01)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+# [1.27.0](https://github.com/3merge/q/compare/v1.26.1...v1.27.0) (2021-02-01)
+
+**Note:** Version bump only for package example
+
+
+
+
+
+
 ## [1.26.1](https://github.com/3merge/q/compare/v1.26.0...v1.26.1) (2021-01-27)
 
 **Note:** Version bump only for package example

@@ -58,3 +58,31 @@ export const getYoutube = (url = '') => {
         embed: null,
       };
 };
+
+export const forEachParam = (instance) => {
+  const output = {};
+
+  try {
+    // eslint-disable-next-line
+    for (const pair of instance.entries()) {
+      // eslint-disable-next-line
+      output[pair[0]] = pair[1];
+    }
+  } catch (e) {
+    // noop
+  }
+
+  return output;
+};
+
+export const toParamsString = (paramsInstance) => {
+  const output = forEachParam(paramsInstance);
+  return Object.entries(output)
+    .map(([key, value]) => {
+      const left = encodeURIComponent(key);
+      return value
+        ? `${left}=${encodeURIComponent(value)}`
+        : left;
+    })
+    .join('&');
+};

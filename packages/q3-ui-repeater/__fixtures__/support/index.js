@@ -1,4 +1,4 @@
-import Repeater from '../../src/Repeater';
+import Provider from '../../src/components/Provider';
 import AuthWrapper from './AuthWrapper';
 
-export default AuthWrapper(Repeater);
+export default AuthWrapper(Provider);

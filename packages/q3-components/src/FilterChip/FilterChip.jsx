@@ -1,103 +1,19 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
-import PropTypes from 'prop-types';
+import { size } from 'lodash';
 import Box from '@material-ui/core/Box';
-import Chip from '@material-ui/core/Chip';
-import { withLocation } from 'with-location';
-import { useTranslation } from 'react-i18next';
+import { useActiveQueryParams } from 'q3-ui-queryparams';
+import FilterChipExpandable from '../FilterChipExpandable';
 
-import {
-  unwind,
-  getOp,
-  filterKeysByReservedSearchKeys,
-  decodeEntry,
-  redirectByParams,
-  formatter,
-} from './utils';
+const FilterChip = () => {
+  const chips = useActiveQueryParams();
 
-const DecoratedChip = ({ onDelete, label }) =>
-  label ? (
-    <Chip
-      size="small"
-      label={label}
-      onDelete={onDelete}
-      variant="outlined"
-      style={{
-        marginRight: '0.25rem',
-        marginBottom: '0.25rem',
-      }}
-    />
+  return size(chips) ? (
+    <Box id="q3-filter-chips" display="inline-block" px={2}>
+      {chips.map((chip) => (
+        <FilterChipExpandable key={chip.label} {...chip} />
+      ))}
+    </Box>
   ) : null;
-
-DecoratedChip.propTypes = {
-  onDelete: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired,
 };
 
-export default withLocation(
-  ({ getAll, params, navigate }) => {
-    const { t } = useTranslation();
-    const redirect = redirectByParams(params, navigate);
-
-    const chips = filterKeysByReservedSearchKeys(
-      Object.entries(getAll()),
-    ).map(decodeEntry);
-
-    const removeFromSearchString = (name) => () => {
-      params.delete(name);
-      redirect();
-    };
-
-    const modifyInSearchString = (
-      name,
-      valueToOmit,
-      values,
-    ) => () => {
-      params.set(name, unwind(values, valueToOmit));
-      redirect();
-    };
-
-    const getChipLabel = (chip, name, value) =>
-      getOp(
-        chip,
-        t(`labels:${formatter(name).key}`),
-        t(`filters:${formatter(value).value}`),
-      );
-
-    if (!chips.length) return null;
-
-    return (
-      <Box
-        id="q3-filter-chips"
-        display="inline-block"
-        px={2}
-      >
-        {chips.map((chip) => {
-          // allow it to split only once
-          const [name, value] = chip.split(/=(.+)/);
-          return value && value.includes(',') ? (
-            value
-              .split(',')
-              .map((label) => (
-                <DecoratedChip
-                  key={`${chip}-${label}`}
-                  label={getChipLabel(chip, name, label)}
-                  onDelete={modifyInSearchString(
-                    name,
-                    label,
-                    value,
-                  )}
-                />
-              ))
-          ) : (
-            <DecoratedChip
-              key={chip}
-              onDelete={removeFromSearchString(name, value)}
-              label={getChipLabel(chip, name, value)}
-            />
-          );
-        })}
-      </Box>
-    );
-  },
-);
+export default FilterChip;

@@ -18,12 +18,19 @@ import { Form, Field } from '../../builders';
 
 <Preview>
   <Story name="With disabled options">
-    <Form debug initialValues={{ demo: { value: 'US' } }}>
+    <Form
+      debug
+      initialValues={{
+        demo: { value: 'Canada' },
+      }}
+    >
       <Field
         name="demo"
         type="autocomplete"
-        options={countries.map(({ value }) => value)}
-        getOptionDisabled={({ value }) => value === 'CA'}
+        options={countries.map(({ label }) => label)}
+        getOptionDisabled={({ value }) =>
+          value === 'Canada'
+        }
         label="Custom label"
         required
       />

@@ -17,10 +17,17 @@ export const sendChangeStreamEvent = (data) => {
   document.dispatchEvent(event);
 };
 
+export const addTrailingSlash = (str) => {
+  return String(str).endsWith('/') ? str : `${str}/`;
+};
+
 export default () => {
   React.useEffect(() => {
     const eventSource = new EventSource(
-      [axios?.defaults?.baseURL, 'stream'].join(''),
+      [
+        addTrailingSlash(axios?.defaults?.baseURL),
+        'stream',
+      ].join(''),
     );
 
     eventSource.onmessage = (e) =>

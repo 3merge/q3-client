@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import TableCell from '@material-ui/core/TableCell';
-import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Avatar from 'q3-ui/lib/avatar';
 import { SelectOne } from 'q3-ui-exports';
-import { ellpisis } from '../utils/helpers';
+import Popover from 'q3-ui/lib/popover';
+import { ellipsis } from '../utils/helpers';
 import useStyles from '../utils/useStyles';
 import CellWithCheckbox from '../CellWithCheckbox';
 
@@ -33,12 +33,28 @@ const CellHeader = ({
             <Avatar word={name} imgSrc={imgSrc} />
           </Grid>
           <Grid item {...asLink} className={cellHeaderLink}>
-            <strong>{ellpisis(name, 45)}</strong>
-            {description && (
-              <Box component="small" display="block">
-                {ellpisis(description, 75)}
+            <Popover
+              popoverChildren={
+                <>
+                  <strong>{name}</strong> <br />
+                  {description}
+                </>
+              }
+              disablePopover={
+                String(name).length < 45 &&
+                String(description).length < 75
+              }
+            >
+              <Box
+                style={{
+                  maxWidth: 450,
+                  whiteSpace: 'break-spaces',
+                }}
+              >
+                <strong>{ellipsis(name, 45)}</strong>
+                <Box>{ellipsis(description, 75)}</Box>
               </Box>
-            )}
+            </Popover>
           </Grid>
         </>
       }
@@ -48,6 +64,7 @@ const CellHeader = ({
 
 CellHeader.propTypes = {
   name: PropTypes.string.isRequired,
+  description: PropTypes.string,
   to: PropTypes.string,
   sub: PropTypes.string,
   imgSrc: PropTypes.string,
@@ -55,6 +72,7 @@ CellHeader.propTypes = {
 };
 
 CellHeader.defaultProps = {
+  description: '',
   sub: null,
   imgSrc: null,
   onClick: null,

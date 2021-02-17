@@ -16,6 +16,7 @@ const alias = [
   'q3-components',
   'q3-ui-assets',
   'q3-ui-charts',
+  'q3-ui-confirm',
   'q3-ui-locale',
   'q3-ui',
   'q3-ui-datatables',
@@ -24,8 +25,13 @@ const alias = [
   'q3-ui-filemanager',
   'q3-ui-forms',
   'q3-ui-helpers',
+<<<<<<< HEAD
   'q3-ui-navigation',
   'q3-ui-navigation',
+=======
+  'q3-ui-notifications',
+  'q3-ui-queryparams',
+>>>>>>> 17ffe2362f694dded69a0a36d76852e15ad95637
   'q3-ui-permissions',
   'q3-ui-repeater',
   'q3-ui-test-utils',

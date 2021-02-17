@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Popover from 'q3-ui/lib/popover';
 import useStyle from './useStyle';
 import FileExtensions from '../FileExtensions';
 
 const FileName = ({ name, url, onClick, loading }) => {
+  const [isTruncated, setIsTruncated] = React.useState(
+    false,
+  );
   const [, ext] = name.split('.');
   const cls = useStyle();
 
@@ -37,6 +41,29 @@ const FileName = ({ name, url, onClick, loading }) => {
     return make('span');
   };
 
+  const renderTooltip = (predicate) =>
+    predicate ? (
+      <Popover popoverChildren={name}>{renderer()}</Popover>
+    ) : (
+      renderer()
+    );
+
+  const ref = React.useRef();
+
+  const checkTruncate = () =>
+    setIsTruncated(
+      ref.current.offsetWidth < ref.current.scrollWidth,
+    );
+
+  React.useEffect(() => {
+    checkTruncate();
+    window.addEventListener('resize', checkTruncate);
+
+    return () => {
+      window.removeEventListener('resize', checkTruncate);
+    };
+  }, []);
+
   return (
     <Grid
       container
@@ -56,8 +83,8 @@ const FileName = ({ name, url, onClick, loading }) => {
           {FileExtensions.getIcon(ext)}
         </Avatar>
       </Grid>
-      <Grid item className={cls.truncate}>
-        {renderer()}
+      <Grid item className={cls.truncate} ref={ref}>
+        {renderTooltip(isTruncated)}
       </Grid>
     </Grid>
   );
