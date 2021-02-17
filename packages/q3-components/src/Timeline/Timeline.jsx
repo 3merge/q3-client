@@ -20,17 +20,21 @@ const ops = {
   A: 'Update',
 };
 
+const getName = (name) => {
+  if (!name) {
+    return null;
+  }
+  const ns = name.split(' ');
+
+  return { firstName: ns[0], lastName: ns[1] || '' };
+};
+
 export const transform = (entry) => {
   const { diff, modifiedBy, modifiedOn } = entry;
-  const op = ops[diff.kind];
-  const name = modifiedBy.split(' ');
-  const firstName = name[0];
-  const lastName = name[1];
-  const target = diff.path[0];
 
   return {
-    target,
-    op,
+    target: diff.path[0],
+    op: ops[diff.kind],
     modifiedOn,
     modified: {
       [diff.path.join('.')]: {
@@ -38,7 +42,7 @@ export const transform = (entry) => {
         curr: diff.rhs,
       },
     },
-    modifiedBy: { firstName, lastName },
+    modifiedBy: getName(modifiedBy),
   };
 };
 
@@ -72,13 +76,13 @@ const formatNestedProperty = (target, name) =>
 const Timeline = ({ entries, fetching }) => {
   const { t } = useTranslation('labels');
   const cls = useStyles();
-  const test = entries.map((x) =>
+  const diffs = entries.map((x) =>
     x.ref ? x : transform(x),
   );
 
   return fetching ? null : (
     <MaterialTimeline>
-      {test.map(
+      {diffs.map(
         (
           { op, target, modifiedOn, modifiedBy, modified },
           idx,
