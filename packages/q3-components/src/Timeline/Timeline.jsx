@@ -21,9 +21,8 @@ const ops = {
 };
 
 const getName = (name) => {
-  if (!name) {
-    return null;
-  }
+  if (!name) return null;
+
   const ns = name.split(' ');
 
   return { firstName: ns[0], lastName: ns[1] || '' };
@@ -52,15 +51,15 @@ const getUser = (modifiedBy) => {
 };
 
 const isBase = (target) => target === 'baseSchema';
-// resource = target
-const getDescription = (op, resource, t) => {
-  if (isBase(resource))
+
+const getDescription = (op, target, t) => {
+  if (isBase(target))
     return `${op.toLowerCase()}d the document`;
 
   if (op === 'Delete')
-    return `remove an entry from ${t(resource)}`;
-  if (op === 'Create') return `added to ${t(resource)}`;
-  return `updated entries in ${t(resource)}`;
+    return `remove an entry from ${t(target)}`;
+  if (op === 'Create') return `added to ${t(target)}`;
+  return `updated entries in ${t(target)}`;
 };
 
 const formatPrevCurrDescription = ({ prev, curr }) =>
