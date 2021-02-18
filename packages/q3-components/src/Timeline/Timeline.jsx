@@ -20,30 +20,30 @@ const ops = {
   A: 'Update',
 };
 
-const getName = (name) => {
-  if (!name) return null;
+export const getName = (name) => {
+  if (name == null || typeof name !== 'string') return null;
 
   const ns = name.split(' ');
 
   return { firstName: ns[0], lastName: ns[1] || '' };
 };
 
-export const transform = (entry) => {
-  const { diff, modifiedBy, modifiedOn } = entry;
-
-  return {
-    target: diff.path[0],
-    op: ops[diff.kind],
-    modifiedOn,
-    modified: {
-      [diff.path.join('.')]: {
-        prev: diff.lhs,
-        curr: diff.rhs,
-      },
+export const transform = ({
+  diff,
+  modifiedBy,
+  modifiedOn,
+}) => ({
+  target: diff.path[0],
+  op: ops[diff.kind],
+  modifiedOn,
+  modified: {
+    [diff.path.join('.')]: {
+      prev: diff.lhs,
+      curr: diff.rhs,
     },
-    modifiedBy: getName(modifiedBy),
-  };
-};
+  },
+  modifiedBy: getName(modifiedBy),
+});
 
 const getUser = (modifiedBy) => {
   if (!modifiedBy) return 'Untracked user';
@@ -72,69 +72,82 @@ const formatNestedProperty = (target, name) =>
     ? name.replace(target, '').replace(/(%2E)\d+(%2E)/, '')
     : name;
 
+const runTransform = (x) => (x.ref ? x : transform(x));
+
 const Timeline = ({ entries, fetching }) => {
   const { t } = useTranslation('labels');
   const cls = useStyles();
-  const diffs = entries.map((x) =>
-    x.ref ? x : transform(x),
-  );
 
-  return fetching ? null : (
+  if (fetching) return null;
+  if (!Array.isArray(entries) || entries.length === 0)
+    return null;
+
+  return (
     <MaterialTimeline>
-      {diffs.map(
-        (
-          { op, target, modifiedOn, modifiedBy, modified },
-          idx,
-        ) => (
-          <TimelineItem
-            key={`timelineItem${idx}`}
-            className={cls.wrapper}
-          >
-            <TimelineSeparator>
-              <TimelineDot
-                className={cls[op] || cls.other}
-              />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <Typography style={{ margin: 0 }}>
-                    {`${getUser(
-                      modifiedBy,
-                    )} ${getDescription(
-                      op,
-                      target,
-                      t,
-                    )} on ${moment(modifiedOn).format(
-                      'LLLL',
-                    )}`}
-                  </Typography>
-                  <Typography component="ul">
-                    {Object.entries(modified).map(
-                      ([key, value]) => (
-                        <li key={key}>
-                          <strong>
-                            <u>
-                              {t(
-                                formatNestedProperty(
-                                  target,
-                                  key,
-                                ),
-                              )}
-                            </u>
-                          </strong>{' '}
-                          {formatPrevCurrDescription(value)}
-                        </li>
-                      ),
-                    )}
-                  </Typography>
+      {entries
+        .map(runTransform)
+        .map(
+          (
+            {
+              op,
+              target,
+              modifiedOn,
+              modifiedBy,
+              modified,
+            },
+            idx,
+          ) => (
+            <TimelineItem
+              key={`timelineItem${idx}`}
+              className={cls.wrapper}
+            >
+              <TimelineSeparator>
+                <TimelineDot
+                  className={cls[op] || cls.other}
+                />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent>
+                <Grid container spacing={1}>
+                  <Grid item>
+                    <Typography style={{ margin: 0 }}>
+                      {`${getUser(
+                        modifiedBy,
+                      )} ${getDescription(
+                        op,
+                        target,
+                        t,
+                      )} on ${moment(modifiedOn).format(
+                        'LLLL',
+                      )}`}
+                    </Typography>
+                    <Typography component="ul">
+                      {Object.entries(modified).map(
+                        ([key, value]) => (
+                          <li key={key}>
+                            <strong>
+                              <u>
+                                {t(
+                                  formatNestedProperty(
+                                    target,
+                                    key,
+                                  ),
+                                )}
+                              </u>
+                            </strong>{' '}
+                            {formatPrevCurrDescription(
+                              value,
+                            )}
+                          </li>
+                        ),
+                      )}
+                    </Typography>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </TimelineContent>
-          </TimelineItem>
-        ),
-      )}
+              </TimelineContent>
+            </TimelineItem>
+          ),
+        )}
     </MaterialTimeline>
   );
 };
