@@ -36,10 +36,9 @@ export default ({
     component: (props) => (
       <Collection id {...props}>
         <Page id {...props} {...PageDetailProps}>
-          <Tray>
-            <Search {...PageDetailProps} />
+          {/* <Tray>
             <UnsavedChanges />
-          </Tray>
+          </Tray> */}
           <PageDetail />
         </Page>
       </Collection>
@@ -66,9 +65,9 @@ export default ({
 
       return (
         <Collection index {...props}>
-          <Tray>
+          {/* <Tray>
             <Search {...PageDetailProps} />
-          </Tray>
+          </Tray> */}
           <Article asideComponent={can('filter')}>
             <Page
               index
@@ -76,7 +75,11 @@ export default ({
               {...PageListProps}
               loadingComponent={<TableSkeleton />}
             >
-              <PageList />
+              <PageList
+                searchComponent={
+                  <Search {...PageDetailProps} />
+                }
+              />
             </Page>
           </Article>
         </Collection>

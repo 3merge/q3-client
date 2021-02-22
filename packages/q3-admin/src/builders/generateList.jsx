@@ -10,11 +10,13 @@ export default ({
     {...rest}
     {...props}
     addComponent={
-      AddForm ? (
-        <Add onComplete={onNew}>
-          <AddForm />
-        </Add>
-      ) : null
+      <>
+        {AddForm ? (
+          <Add onComplete={onNew}>
+            <AddForm />
+          </Add>
+        ) : null}
+      </>
     }
   />
 );

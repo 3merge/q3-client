@@ -13,6 +13,8 @@ const MultiText = (props) => {
     ...rest
   } = props;
 
+  console.log(props);
+
   return (
     <Grid item xs={12} style={{ marginBottom: 20 }}>
       <ChipInput

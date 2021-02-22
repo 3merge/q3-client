@@ -10,8 +10,10 @@ const LogoLandscape = () => (
         src="https://logoipsum.com/logo/logo-26.svg"
         style={{
           height: '100%',
+          maxHeight: 75,
           maxWidth: 155,
           width: '100%',
+          marginRight: '3rem',
         }}
       />
     </Fade>

@@ -8,6 +8,7 @@ import { get } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
@@ -128,8 +129,13 @@ const List = ({
       style={{ height: '100%' }}
     >
       <TableHeader>
-        {can('io')}
-        {can('add')}
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>{rest.searchComponent}</Grid>
+          <Grid item>
+            {can('io')}
+            {can('add')}
+          </Grid>
+        </Grid>
       </TableHeader>
       <Box py={0.5}>
         <FilterChip />

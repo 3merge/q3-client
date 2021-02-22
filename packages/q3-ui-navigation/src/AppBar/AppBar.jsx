@@ -11,7 +11,6 @@ const AppBar = ({ children, menuItems }) => {
       height="auto"
       position="relative"
       width="100%"
-      zIndex="10"
     >
       <Box
         height="100%"
