@@ -55,7 +55,7 @@ const MobileSearch = ({
                 className: cls.input,
               }}
               endAdornment={
-                <IconButton onClick={() => setValue('')}>
+                <IconButton onClick={resetInput}>
                   <CloseIcon />
                 </IconButton>
               }
@@ -70,7 +70,16 @@ const MobileSearch = ({
             term={value}
             results={results}
             loading={loading}
-            onClick={resetInput}
+            onClick={(v) => () =>
+              handleSearch(
+                c,
+                redirectPath,
+              )({
+                key: 'Enter',
+                target: {
+                  value: v,
+                },
+              })}
           />
         )}
       />
