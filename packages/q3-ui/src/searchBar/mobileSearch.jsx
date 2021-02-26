@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Hidden from '@material-ui/core/Hidden';
 import Box from '@material-ui/core/Box';
 import Input from '@material-ui/core/Input';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import Drawer from 'q3-ui-dialog';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
 import useAutocompleteSearch from './useAutocompleteSearch';
@@ -50,6 +52,11 @@ const MobileSearch = ({
               inputProps={{
                 className: cls.input,
               }}
+              endAdornment={
+                <IconButton onClick={() => setValue('')}>
+                  <CloseIcon />
+                </IconButton>
+              }
             />
           </Box>
         )}
