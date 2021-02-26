@@ -1,63 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import flat from 'flat';
-import { get, join, compact, isObject } from 'lodash';
+import {
+  get,
+  compact,
+  isObject,
+  first,
+  uniq,
+  map,
+  size,
+  join,
+} from 'lodash';
 import { compose } from 'lodash/fp';
+import { useTranslation } from 'react-i18next';
 import TimelineCode from '../TimelineCode';
 
 const convertNestedPath = (str) =>
   String(str).replace(/(\.\d)/g, '.$');
 
-const makePathArray = (data) =>
-  compact(
-    ['path', 'index'].flatMap((key) => get(data, key)),
-  );
+const safe = (v) => (isObject(v) ? v : {});
 
-const joinPaths = (a) => join(compact(a), '.');
-
-const reassignKeys = (obj, path) =>
-  isObject(obj)
-    ? Object.entries(obj).reduce(
-        (acc, [key, value]) =>
-          Object.assign(acc, {
-            [joinPaths([path, key])]: value,
-          }),
-        {},
-      )
-    : { [path]: obj };
-
-const TimelineEntry = ({ data, prevPath = '' }) => {
+const TimelineEntry = ({ data }) => {
+  const { t } = useTranslation('labels');
   if (!data) return null;
-
-  const path = joinPaths(
-    [prevPath].concat(makePathArray(data)),
-  );
 
   const makeEntryDataIterable = compose(
     Object.entries,
     flat,
-    reassignKeys,
+    safe,
   );
 
-  return (
-    <div>
-      <TimelineEntry entry={data.item} prevPath={path} />
-      {makeEntryDataIterable(data.rhs, path)
-        .map(([f, v]) => [convertNestedPath(f), v])
-        .map(([f, v], idx) => (
-          <TimelineCode
-            key={`${f}${idx}`}
-            label={v ? 'set' : 'unset'}
-            value={compact([f, v]).join('=')}
-          />
-        ))}
-    </div>
-  );
+  const renderFields = (prop, label) => {
+    const formatted = makeEntryDataIterable(
+      get(data, prop),
+    ).map(([f, v]) => [convertNestedPath(f), v]);
+
+    return size(formatted) < 20 ? (
+      formatted.map(([f, v], idx) => (
+        <TimelineCode
+          key={`${f}${idx}`}
+          label={label}
+          value={compact([f, v]).join('=')}
+        />
+      ))
+    ) : (
+      <div>
+        <code>
+          {t('bulkOpOn', {
+            fields: join(uniq(map(formatted, first)), ', '),
+          })}
+        </code>
+      </div>
+    );
+  };
+
+  return [
+    renderFields('updatedFields', 'set'),
+    renderFields('removedFields', 'unset'),
+  ];
 };
 
 TimelineEntry.defaultProps = {
   data: null,
-  prevPath: '',
 };
 
 TimelineEntry.propTypes = {
@@ -71,7 +75,6 @@ TimelineEntry.propTypes = {
     // eslint-disable-next-line
     lhs: PropTypes.anything,
   }),
-  prevPath: PropTypes.string,
 };
 
 export default TimelineEntry;

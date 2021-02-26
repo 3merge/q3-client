@@ -278,5 +278,6 @@
   "updateBulk": "Update in bulk",
   "confirmPhrase": "Enter the phrase \"{{phrase}}\":",
   "sortBy": "Sort by",
-  "filterBy": "Filter by"
+  "filterBy": "Filter by",
+  "bulkOpOn": "Bulk op or array re-indexing on {{fields}}"
 }

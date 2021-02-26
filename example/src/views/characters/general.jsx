@@ -27,7 +27,6 @@ export default connect(({ data, ...rest }) => (
             })),
           )
       }
-      required
     />
     <Field
       name="gender"

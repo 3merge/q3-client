@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Timeline as MaterialTimeline } from '@material-ui/lab';
 import { string } from 'q3-ui-helpers';
-import { map, size } from 'lodash';
+import { size } from 'lodash';
 import {
   TimelineContent,
   TimelineItem,
@@ -15,7 +15,9 @@ import { Typography } from '@material-ui/core';
 import useStyles from './useStyle';
 import TimelineEntry from '../TimelineEntry';
 
-const hasDiff = (a) => size(a.diff) && a.modifiedOn;
+const hasDiff = (a) =>
+  (size(a.updatedFields) || size(a.removedFields)) &&
+  a.modifiedOn;
 
 const Timeline = ({ entries, fetching }) => {
   const cls = useStyles();
@@ -27,30 +29,32 @@ const Timeline = ({ entries, fetching }) => {
 
   return (
     <MaterialTimeline>
-      {data.map(({ modifiedOn, modifiedBy, diff }, idx) => (
-        <TimelineItem
-          key={`timelineItem${idx}`}
-          className={cls.wrapper}
-        >
-          <TimelineOppositeContent className={cls.initial}>
-            <Typography className={cls.date}>
-              <i>{string.toDate(modifiedOn)}</i>
-            </Typography>
-          </TimelineOppositeContent>
-          <TimelineSeparator>
-            <TimelineDot />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>
-            <small>
-              <u>{modifiedBy || 'Sys'}</u>
-            </small>
-            {map(diff, (entry, i) => (
-              <TimelineEntry key={i} data={entry} />
-            ))}
-          </TimelineContent>
-        </TimelineItem>
-      ))}
+      {data.map(
+        ({ modifiedOn, modifiedBy, ...rest }, idx) => (
+          <TimelineItem
+            key={`timelineItem${idx}`}
+            className={cls.wrapper}
+          >
+            <TimelineOppositeContent
+              className={cls.initial}
+            >
+              <Typography className={cls.date}>
+                <i>{string.toDate(modifiedOn)}</i>
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>
+              <small>
+                <u>{modifiedBy || 'Sys'}</u>
+              </small>
+              <TimelineEntry data={rest} />
+            </TimelineContent>
+          </TimelineItem>
+        ),
+      )}
     </MaterialTimeline>
   );
 };
