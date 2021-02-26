@@ -33,6 +33,8 @@ const MobileSearch = ({
     ref,
   );
 
+  const resetInput = () => setValue('');
+
   return (
     <Hidden mdUp>
       <Drawer
@@ -68,16 +70,7 @@ const MobileSearch = ({
             term={value}
             results={results}
             loading={loading}
-            onClick={(v) => () =>
-              handleSearch(
-                c,
-                redirectPath,
-              )({
-                key: 'Enter',
-                target: {
-                  value: v,
-                },
-              })}
+            onClick={resetInput}
           />
         )}
       />
