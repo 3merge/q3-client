@@ -19,11 +19,12 @@ const hasDiff = (a) =>
   (size(a.updatedFields) || size(a.removedFields)) &&
   a.modifiedOn;
 
+export const filterData = (entries) =>
+  Array.isArray(entries) ? entries.filter(hasDiff) : [];
+
 const Timeline = ({ entries, fetching }) => {
   const cls = useStyles();
-  const data = Array.isArray(entries)
-    ? entries.filter(hasDiff)
-    : [];
+  const data = filterData(entries);
 
   if (fetching || data.length === 0) return null;
 
