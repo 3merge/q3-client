@@ -15,7 +15,7 @@ import { compose } from 'lodash/fp';
 import { useTranslation } from 'react-i18next';
 import TimelineCode from '../TimelineCode';
 
-const convertNestedPath = (str) =>
+export const convertNestedPath = (str) =>
   String(str).replace(/(\.\d)/g, '.$');
 
 const safe = (v) => (isObject(v) ? v : {});
