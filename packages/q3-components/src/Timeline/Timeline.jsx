@@ -21,12 +21,39 @@ import {
   isObject,
   join,
   compact,
+  sortBy,
+  first,
 } from 'lodash';
+import flat from 'flat';
+import alpha from 'alphabetize-object-keys';
 import useStyles from './useStyle';
+
+const firstKey = (v) => {
+  if (!isObject(v)) return undefined;
+  try {
+    return first(Object.keys(flat(first(v))).sort());
+  } catch (e) {
+    // otherwise give up
+    return undefined;
+  }
+};
+
+const sortObj = (o) =>
+  isObject(o)
+    ? alpha(
+        Object.entries(o).reduce((acc, [key, value]) => {
+          acc[key] = Array.isArray(value)
+            ? sortBy(value, firstKey(value)).map(sortObj)
+            : sortObj(value);
+
+          return acc;
+        }, {}),
+      )
+    : o;
 
 const removeMeta = (o) =>
   JSON.stringify(
-    omit(o, ['lastModifiedBy', 'updatedAt']),
+    flat(sortObj(omit(o, ['lastModifiedBy', 'updatedAt']))),
     null,
     2,
   );
@@ -47,7 +74,7 @@ const Timeline = ({ entries, fetching }) => {
   if (fetching || data.length === 0) return null;
 
   return (
-    <MaterialTimeline>
+    <MaterialTimeline style={{ padding: 0 }}>
       {data.map((item, i) =>
         i !== 0 ? (
           <TimelineItem
@@ -70,12 +97,14 @@ const Timeline = ({ entries, fetching }) => {
               <TimelineConnector />
             </TimelineSeparator>
             <TimelineContent>
-              <ReactDiffViewer
-                newValue={removeMeta(data[i - 1])}
-                oldValue={removeMeta(item)}
-                compareMethod={DiffMethod.WORDS}
-                splitView
-              />
+              <div style={{ fontSize: '.833rem' }}>
+                <ReactDiffViewer
+                  newValue={removeMeta(data[i - 1])}
+                  oldValue={removeMeta(item)}
+                  compareMethod={DiffMethod.WORDS}
+                  splitView
+                />
+              </div>
             </TimelineContent>
           </TimelineItem>
         ) : null,

@@ -7,8 +7,10 @@
     "q3-ui-test-utils": "^1.27.3"
   },
   "dependencies": {
+    "alphabetize-object-keys": "^3.0.0",
     "axios": "^0.21.1",
     "class-names": "^1.0.0",
+    "flat": "^5.0.2",
     "lodash": "^4.17.20",
     "moment": "2.29.1",
     "q3-ui-forms": "^1.27.17",
