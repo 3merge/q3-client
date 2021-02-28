@@ -1,7 +1,7 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
-import Timeline from 'q3-ui/lib/timeline';
+import Timeline from 'q3-components/lib/Timeline';
 import { Definitions } from '../state';
 import DisplayHistory from '../../components/display';
 

@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.27.19](https://github.com/3merge/q/compare/v1.27.18...v1.27.19) (2021-02-27)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.18](https://github.com/3merge/q/compare/v1.27.17...v1.27.18) (2021-02-26)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.17](https://github.com/3merge/q/compare/v1.27.16...v1.27.17) (2021-02-26)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+## [1.27.16](https://github.com/3merge/q/compare/v1.27.15...v1.27.16) (2021-02-25)
+
+
+### Bug Fixes
+
+* multitext on android devices ([352921d](https://github.com/3merge/q/commit/352921dd192e08765359ea540074a55586985110))
+
+
+
+
+
+
 ## [1.27.15](https://github.com/3merge/q/compare/v1.27.14...v1.27.15) (2021-02-12)
 
 

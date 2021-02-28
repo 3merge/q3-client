@@ -47,7 +47,7 @@ export const toDate = (str, fallbackText = '') =>
   moment(str, moment.ISO_8601).isValid()
     ? moment
         .parseZone(str, moment.HTML5_FMT.DATETIME_LOCAL_MS)
-        .format('MMM DD, Y LT')
+        .format('MMM DD, Y[\r\n]LT')
     : fallbackText;
 
 export const toYearMonthDay = (str) =>
