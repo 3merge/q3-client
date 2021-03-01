@@ -1,16 +1,29 @@
 import React from 'react';
-import { Box, Fade, Grid } from '@material-ui/core';
+import { Box, Fade, Grid, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import LogoLandscape from '../LogoLandscape';
 import Horizontal from '../Horizontal';
 
+const useStyle = makeStyles((theme) => ({
+  root: {
+    background: theme.palette.background.paper,
+    boxShadow: theme.shadows[1],
+  },
+}));
+
 const AppBar = ({ children, menuItems }) => {
+  const cls = useStyle();
   return (
     <Box
+      id="q3-appbar"
+      component="header"
       display="block"
       height="auto"
       position="relative"
       width="100%"
+      zIndex={10}
+      className={cls.root}
     >
       <Box
         height="100%"
@@ -23,8 +36,7 @@ const AppBar = ({ children, menuItems }) => {
         <Box height="100%" width="100%">
           <Box
             alignItems="center"
-            bgcolor="background.default"
-            component="header"
+            bgcolor="background.paper"
             display="flex"
             height="100%"
             flexDirection="row"
@@ -46,10 +58,13 @@ const AppBar = ({ children, menuItems }) => {
                   <LogoLandscape />
                 </Fade>
               </Grid>
-              <Grid item>
-                <Horizontal menuItems={menuItems} />
+              <Grid item component="nav">
+                <Box pl={5}>
+                  <Horizontal menuItems={menuItems} />
+                </Box>
               </Grid>
             </Grid>
+            {children}
           </Box>
         </Box>
       </Box>

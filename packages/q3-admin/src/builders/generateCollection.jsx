@@ -1,4 +1,6 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -6,7 +8,6 @@ import UnsavedChanges from '../containers/UnsavedChanges';
 import Search from '../components/Search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
-import Tray from '../components/Tray';
 import TableSkeleton from '../components/TableSkeleton';
 import { useAppContext } from '../hooks';
 
@@ -35,11 +36,21 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection id {...props}>
-        <Page id {...props} {...PageDetailProps}>
-          {/* <Tray>
+        <Page
+          id
+          {...props}
+          {...PageDetailProps}
+          loadingComponent={
+            <Article asideComponent={<SidePanel />}>
+              <Box p={4}>
+                <CircularProgress />
+              </Box>
+            </Article>
+          }
+        >
+          <PageDetail>
             <UnsavedChanges />
-          </Tray> */}
-          <PageDetail />
+          </PageDetail>
         </Page>
       </Collection>
     ),
@@ -56,6 +67,7 @@ export default ({
       const { can } = useAppContext({
         filter: FilterComponent ? (
           <SidePanel>
+            <h2>Title</h2>
             <FilterProvider {...props} {...PageListProps}>
               <FilterComponent />
             </FilterProvider>
@@ -65,9 +77,6 @@ export default ({
 
       return (
         <Collection index {...props}>
-          {/* <Tray>
-            <Search {...PageDetailProps} />
-          </Tray> */}
           <Article asideComponent={can('filter')}>
             <Page
               index

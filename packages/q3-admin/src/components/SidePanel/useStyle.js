@@ -2,16 +2,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: {
-    borderLeft: '2px solid #f4f4f5',
-    height: 'calc((100 * var(--vh)) - 75px)',
+    height: 'calc(100 * var(--vh))',
     overflow: 'hidden',
     padding: '0',
     position: 'relative',
-    maxWidth: 305,
-    width: 305,
+    maxWidth: 355,
+    width: 355,
 
     [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 65px)',
+      height: 'calc(100 * var(--vh))',
       maxWidth: 265,
       width: 265,
     },
@@ -30,6 +29,7 @@ export default makeStyles((theme) => ({
     overflowX: 'hidden !important',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
+    backgroundColor: theme.palette.background.default,
     width: '100%',
 
     [theme.breakpoints.down('md')]: {

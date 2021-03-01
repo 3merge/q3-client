@@ -18,7 +18,6 @@ const NavigationLink = ({ label, to, icon: Icon }) => {
 
   return (
     <El className={cls.menuItem}>
-      {Icon && <Icon color="inherit" />}
       <span>{t(`labels:${label}`)}</span>
     </El>
   );

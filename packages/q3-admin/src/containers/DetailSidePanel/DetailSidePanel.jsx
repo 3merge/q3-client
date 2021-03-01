@@ -53,55 +53,8 @@ const DetailSidePanel = ({ children, ...props }) => {
     'q3-docs': can('documentation'),
   };
 
-  const outputTabs = {
-    'q3-meta': hasOneTruthyValue(tabs),
-    ...tabs,
-  };
-
-  const handleChange = React.useCallback((e, tabIndex) => {
-    setStep(tabIndex);
-  }, []);
-
-  const renderTabs = React.useCallback(
-    () =>
-      Object.entries(outputTabs)
-        .filter(hasValue)
-        .map(([key], i) => (
-          <Tooltip title={t(key)} key={i}>
-            <BottomNavigationAction
-              icon={icons[key]}
-              aria-label={t(key)}
-              className={classnames(['q3-tabs-item', item])}
-              value={i}
-              id={key}
-            />
-          </Tooltip>
-        )),
-    [outputTabs, icons],
-  );
-
-  const renderSteps = React.useCallback(
-    () =>
-      [children]
-        .concat(Object.values(tabs))
-        .filter(Boolean)[step] || null,
-    [tabs, step],
-  );
-
   return can('aside') ? (
-    <SidePanel id="q3-tabber">
-      {outputTabs['q3-meta'] && (
-        <Paper elevation={0} className={root}>
-          <BottomNavigation
-            value={step}
-            onChange={handleChange}
-          >
-            {renderTabs()}
-          </BottomNavigation>
-        </Paper>
-      )}
-      {renderSteps()}
-    </SidePanel>
+    <SidePanel id="q3-tabber">{children}</SidePanel>
   ) : null;
 };
 

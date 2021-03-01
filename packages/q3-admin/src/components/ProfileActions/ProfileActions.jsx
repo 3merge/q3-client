@@ -11,19 +11,14 @@ import useStyle from '../useStyle';
 const ProfileActions = ({ children, profileItems }) => {
   const items = [...profileItems];
   const { state } = React.useContext(AuthContext);
-  const cls = useStyle();
+  // const cls = useStyle();
 
   return (
-    <Box
-      position="absolute"
-      top={0}
-      right={1}
-      className={cls.appbar}
-    >
+    <Box p={1} minWidth={170}>
       <Grid
         container
         alignItems="center"
-        style={{ height: '100%' }}
+        justify="flex-end"
       >
         <Grid item>{children}</Grid>
         <Grid item>

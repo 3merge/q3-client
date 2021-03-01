@@ -48,7 +48,7 @@ const Section = ({
           item
         >
           <Paper className={view} elevation={0}>
-            <Box style={{ backgroundColor: '#FFF' }}>
+            <Box bg="background.primary">
               {renderInside}
             </Box>
           </Paper>

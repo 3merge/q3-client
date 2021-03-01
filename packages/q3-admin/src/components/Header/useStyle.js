@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   root: ({ navComponent }) => ({
     borderBottom: navComponent
       ? '2px solid #f5f7f9'
@@ -8,7 +8,6 @@ export default makeStyles(() => ({
     position: 'sticky',
     top: 0,
     zIndex: 10,
-    background: 'white',
   }),
   header: {
     padding: '0 1.5rem',
@@ -17,8 +16,5 @@ export default makeStyles(() => ({
     display: 'inline-block',
     paddingLeft: ({ backComponent }) =>
       backComponent ? '1rem' : 0,
-  },
-  white: {
-    backgroundColor: '#FFF',
   },
 }));

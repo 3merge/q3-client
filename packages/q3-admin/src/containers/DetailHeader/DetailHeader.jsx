@@ -1,5 +1,7 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
 import Back from '../back';
 import Header from '../../components/Header';
 import { useAppContext } from '../../hooks';
@@ -16,23 +18,6 @@ export const DetailHeaderBackComponent = (props) => {
   return (
     <>
       <Back />
-      {can('picture') ? (
-        <>
-          <FeaturedPhoto
-            component={Avatar}
-            src={data.photo}
-            update={fn}
-          />
-        </>
-      ) : (
-        // offset missing avatar
-        <div
-          style={{
-            display: 'inline-block',
-            height: 50,
-          }}
-        />
-      )}
     </>
   );
 };
@@ -40,15 +25,7 @@ export const DetailHeaderBackComponent = (props) => {
 const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
 
-  return (
-    <Header
-      {...props}
-      {...useTitle(data, props)}
-      backComponent={
-        <DetailHeaderBackComponent {...props} />
-      }
-    />
-  );
+  return <Header {...props} {...useTitle(data, props)} />;
 };
 
 export default DetailHeader;

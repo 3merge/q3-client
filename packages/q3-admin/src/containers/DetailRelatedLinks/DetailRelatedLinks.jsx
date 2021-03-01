@@ -18,56 +18,37 @@ const RelatedLinks = ({ children, links }) => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
-  return (
-    <Box className={cls.wrapper}>
-      <Container maxWidth="xl" disableGutters>
-        <Grid container>
-          <Grid item className={cls.fill}>
-            <Box pb={4}>
-              <Container disableGutters maxWidth="xl">
-                {children}
-              </Container>
-            </Box>
-          </Grid>
-          {object.isFn(links) ? (
-            <Grid
-              id="q3-related-links"
-              item
-              className={cls.column}
-            >
-              <List
-                subheader={
-                  <ListSubheader
-                    component="div"
-                    id="nested-list-subheader"
-                  >
-                    {t('relatedLinks')}
-                  </ListSubheader>
-                }
-              >
-                {links(data).map((link) => (
-                  <ListItem
-                    button
-                    dense
-                    key={link.to}
-                    to={link.to}
-                    component={Link}
-                  >
-                    <ListItemText
-                      primary={link.label}
-                      primaryTypographyProps={{
-                        className: cls.root,
-                      }}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </Grid>
-          ) : null}
-        </Grid>
-      </Container>
-    </Box>
-  );
+  return object.isFn(links) ? (
+    <Grid id="q3-related-links" item className={cls.column}>
+      <List
+        subheader={
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+          >
+            {t('relatedLinks')}
+          </ListSubheader>
+        }
+      >
+        {links(data).map((link) => (
+          <ListItem
+            button
+            dense
+            key={link.to}
+            to={link.to}
+            component={Link}
+          >
+            <ListItemText
+              primary={link.label}
+              primaryTypographyProps={{
+                className: cls.root,
+              }}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </Grid>
+  ) : null;
 };
 
 RelatedLinks.propTypes = {

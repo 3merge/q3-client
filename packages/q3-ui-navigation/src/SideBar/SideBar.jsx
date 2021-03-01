@@ -11,7 +11,7 @@ import { useToggle } from 'useful-state';
 import Vertical from '../Vertical';
 import useStyle from './useStyle';
 
-const SideBar = ({ menuItems }) => {
+const SideBar = ({ children, menuItems }) => {
   const { state, toggle } = useToggle(true);
 
   const cls = useStyle({
@@ -33,6 +33,7 @@ const SideBar = ({ menuItems }) => {
             />
           </Fade>
           <Vertical menuItems={menuItems} />
+          {children}
         </Box>
       </Box>
       <IconButton className={cls.button} onClick={toggle}>

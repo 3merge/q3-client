@@ -49,15 +49,7 @@ const Header = ({
         </Grid>
       </Container>
       {navComponent && (
-        <Box
-          id="q3-app-subnav"
-          className={cls.white}
-          zIndex={10}
-          position="sticky"
-          top="0"
-        >
-          {navComponent}
-        </Box>
+        <Box id="q3-app-subnav">{navComponent}</Box>
       )}
     </Box>
   );

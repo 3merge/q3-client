@@ -128,15 +128,20 @@ const List = ({
       onSort={updateSortPrefence}
       style={{ height: '100%' }}
     >
-      <TableHeader>
-        <Grid container spacing={2} alignItems="center">
+      <Box p={1} width="100%">
+        <Grid
+          container
+          spacing={2}
+          alignItems="center"
+          justify="space-between"
+        >
           <Grid item>{rest.searchComponent}</Grid>
           <Grid item>
             {can('io')}
             {can('add')}
           </Grid>
         </Grid>
-      </TableHeader>
+      </Box>
       <Box py={0.5}>
         <FilterChip />
       </Box>

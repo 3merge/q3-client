@@ -39,30 +39,25 @@ const TabsWithRouter = ({ views, ...rest }) => {
   return (
     <LocationMatch views={views} defaultIndex={0}>
       {(value) => (
-        <DetailHeader
-          {...rest}
-          navComponent={
-            <Tabs
-              value={value}
-              variant="scrollable"
-              className={cls.root}
-            >
-              {views.map((view) => (
-                <Tab
-                  key={view.to}
-                  to={`.${view.to}`}
-                  label={t(`labels:${view.label}`)}
-                  component={Link}
-                  style={{
-                    minWidth: 'auto',
-                    paddingLeft: '1.5rem',
-                    paddingRight: '1.5rem',
-                  }}
-                />
-              ))}
-            </Tabs>
-          }
-        />
+        <Tabs
+          value={value}
+          variant="scrollable"
+          className={cls.root}
+        >
+          {views.map((view) => (
+            <Tab
+              key={view.to}
+              to={`.${view.to}`}
+              label={t(`labels:${view.label}`)}
+              component={Link}
+              style={{
+                minWidth: 'auto',
+                paddingLeft: '1.5rem',
+                paddingRight: '1.5rem',
+              }}
+            />
+          ))}
+        </Tabs>
       )}
     </LocationMatch>
   );

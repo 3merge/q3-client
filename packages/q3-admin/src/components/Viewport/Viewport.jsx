@@ -3,12 +3,20 @@ import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import { get } from 'lodash';
 
 const setViewportUnit = () => {
-  const vh = window.innerHeight;
+  let vh = window.innerHeight / 100;
+  const menuHeight = get(
+    document.getElementById('q3-appbar'),
+    'offsetHeight',
+  );
+
+  if (menuHeight) vh -= menuHeight / 100;
+
   document
     .querySelector(':root')
-    .style.setProperty('--vh', `${vh / 100}px`);
+    .style.setProperty('--vh', `${vh}px`);
   return vh;
 };
 

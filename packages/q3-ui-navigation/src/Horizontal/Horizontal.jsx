@@ -69,7 +69,9 @@ const useStyle = makeStyles((theme) => ({
 
     '& ul a, &ul li div': {
       borderLeft: '3px solid transparent',
-      padding: '0 1rem !important',
+      padding: '0.5rem 1.15rem !important',
+      minWidth: 195,
+
       '&:hover,&:focus': {
         borderColor: theme.palette.primary.main,
       },

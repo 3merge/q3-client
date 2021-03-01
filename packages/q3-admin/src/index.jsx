@@ -38,9 +38,7 @@ const Admin = ({
             variant="AppBar"
             menuItems={usePages(AppProps.pages, icons)}
             root={root}
-          />
-
-          <Box className={cls.main}>
+          >
             <ProfileActions
               profileItems={[
                 ...profileItems,
@@ -62,6 +60,8 @@ const Admin = ({
             >
               <Notifications />
             </ProfileActions>
+          </Navigation>
+          <Box className={cls.main}>
             <App {...AppProps}>
               <Profile
                 path="/account/profile"

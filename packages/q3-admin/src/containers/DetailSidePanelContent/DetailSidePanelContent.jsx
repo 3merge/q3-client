@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
+import Box from '@material-ui/core/Box';
 import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
+import Grid from '@material-ui/core/Grid';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
+import { omit } from 'lodash';
+import Typography from '@material-ui/core/Typography';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Dispatcher, Store } from '../state';
 import { makeSidePanelContent } from './helpers';
@@ -55,23 +59,44 @@ const DetailSidePanelContent = ({
     });
 
   return (
-    <>
+    <Box p={2} width={295}>
       {defaultOptions.length > 0 && (
-        <SidePanelContent title="general">
-          <List>
-            {defaultOptions.map((option, i) => (
-              <ListItem
-                key={i}
-                id={option.title}
-                {...option}
-              >
-                <ActionBar actions={option.actions}>
-                  {option.action}
-                </ActionBar>
-              </ListItem>
-            ))}
-          </List>
-        </SidePanelContent>
+        <Box component="ul" margin={0} padding={0}>
+          {defaultOptions.map((option, i) => (
+            <Box
+              component="li"
+              mb={0.75}
+              style={{ listStyle: 'none' }}
+            >
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Typography
+                    variant="overline"
+                    style={{
+                      whiteSpace: 'break-spaces',
+                      lineHeight: 1,
+                    }}
+                  >
+                    {option.title}:
+                  </Typography>
+                </Grid>
+                <Grid
+                  item
+                  style={{
+                    whiteSpace: 'break-spaces',
+                  }}
+                >
+                  <Typography
+                    component="small"
+                    style={{ fontSize: '0.911rem' }}
+                  >
+                    {option.description}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Box>
+          ))}
+        </Box>
       )}
       {panels.map((panel, i) => (
         <SidePanelContent
@@ -83,7 +108,7 @@ const DetailSidePanelContent = ({
           {panel.content}
         </SidePanelContent>
       ))}
-    </>
+    </Box>
   );
 };
 
