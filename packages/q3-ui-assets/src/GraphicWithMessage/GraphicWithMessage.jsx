@@ -21,6 +21,7 @@ export const ICON_NAMES = {
   'NoResults': SvgIcon.NoResults,
   'Note': SvgIcon.Note,
   'Photo': SvgIcon.Photo,
+  'Puzzle': SvgIcon.Puzzle,
   'Placeholder': SvgIcon.Placeholder,
   'Search': SvgIcon.Search,
   'Signal': SvgIcon.Signal,

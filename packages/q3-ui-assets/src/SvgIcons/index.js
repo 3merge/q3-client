@@ -11,6 +11,7 @@ export { default as Note } from './Note';
 export { default as NoResults } from './NoResults';
 export { default as Placeholder } from './Placeholder';
 export { default as Photo } from './Photo';
+export { default as Puzzle } from './Puzzle';
 export { default as Signal } from './Signal';
 export { default as Search } from './Search';
 export { default as Throw } from './Throw';
