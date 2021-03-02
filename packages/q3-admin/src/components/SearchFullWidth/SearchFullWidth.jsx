@@ -1,8 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   InputAdornment,
   TextField,
+  IconButton,
 } from '@material-ui/core';
+import Close from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -36,12 +39,17 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export const SearchFullWidth = (props) => {
+export const SearchFullWidth = ({
+  handleReset,
+  value,
+  ...rest
+}) => {
   const { root } = useStyle();
 
   return (
     <TextField
-      {...props}
+      {...rest}
+      value={value}
       className={root}
       fullWidth
       InputProps={{
@@ -51,12 +59,19 @@ export const SearchFullWidth = (props) => {
             <SearchIcon />
           </InputAdornment>
         ),
+        endAdornment: value ? (
+          <IconButton onClick={handleReset}>
+            <Close />
+          </IconButton>
+        ) : undefined,
       }}
     />
   );
 };
 
-SearchFullWidth.propTypes = {};
-SearchFullWidth.defaultProps = {};
+SearchFullWidth.propTypes = {
+  handleReset: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
 
 export default SearchFullWidth;
