@@ -9,6 +9,7 @@ import withState from '../withState';
 const useStyles = makeStyles(() => ({
   icon: {
     cursor: 'pointer',
+    fontSize: '.97rem',
   },
 }));
 
