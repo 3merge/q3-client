@@ -1,11 +1,8 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { Helmet } from 'react-helmet';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import Locale from 'q3-ui-locale';
-import MomentAdapter from '@material-ui/pickers/adapter/moment';
-import { LocalizationProvider } from '@material-ui/pickers';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import baseQ3Theme from '../mui';
@@ -24,12 +21,7 @@ const Providers = ({ children, theme }) => (
           rel="stylesheet"
         />
       </Helmet>
-      <LocalizationProvider
-        dateLibInstance={moment}
-        dateAdapter={MomentAdapter}
-      >
-        {children}
-      </LocalizationProvider>
+      {children}
     </ThemeProvider>
   </Locale>
 );

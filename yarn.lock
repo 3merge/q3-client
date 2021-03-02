@@ -1252,39 +1252,6 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@date-io/core@^2.8.1", "@date-io/core@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@date-io/core/-/core-2.9.0.tgz#5f36e259b6438e456ca0fc177b57f68772b4b7b2"
-  integrity sha512-OhPFn+mnVHzfF/zJNUTV1CeUCL51ngXo9sG458cwwsORTgc1Pw7Dx9dS1wqPsq+CcMQ5Sh1MsUIXi1zclFbHTQ==
-
-"@date-io/date-fns@^2.6.0":
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/@date-io/date-fns/-/date-fns-2.8.1.tgz#38bccab061b8183304679c6fcb5f92fc262280a3"
-  integrity sha512-GZS49pCUeN7ztiXARfthj0/FLjcDKA7wFff8PlaXevngx0akU+Epnv6TGDCflaA2Vbx87gVUkUvpDf3JAI2eDw==
-  dependencies:
-    "@date-io/core" "^2.8.1"
-
-"@date-io/dayjs@^2.6.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@date-io/dayjs/-/dayjs-2.9.0.tgz#974134e59bfdc6e5af66a41c7e9946862da59c89"
-  integrity sha512-0UQ59s2fs324mvLEupDRJgw779mtchVgVtIiZmDOToDyvwHkkwGqZAvE5W/EUvw69/QDwEkeXvyHK3l3OCbdow==
-  dependencies:
-    "@date-io/core" "^2.9.0"
-
-"@date-io/luxon@^2.6.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@date-io/luxon/-/luxon-2.9.0.tgz#3dc3492a781a278ba9fc8b661d04c99a27c7697f"
-  integrity sha512-qZyvaX6yJYn3kn7n83LdSNGhtAOb8rdp97HPoRM0U4MGt4HWiWW2b/lbF3ENtKuUSTq85Np640lXo9wV4qzgGw==
-  dependencies:
-    "@date-io/core" "^2.9.0"
-
-"@date-io/moment@^2.6.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-2.9.0.tgz#d1254489ff919051f40dea01d14d025ca42acd63"
-  integrity sha512-czblvCzxV3vIkVN+JZjtF4GUOL8WGxyiTZETRzt+FQtHHzg+fo0eeQg2X/mDiBqrBnY6CdVNwYSIHPAW4lxOIg==
-  dependencies:
-    "@date-io/core" "^2.9.0"
-
 "@emotion/cache@^10.0.27", "@emotion/cache@^10.0.9":
   version "10.0.29"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.29.tgz#87e7e64f412c060102d589fe7c6dc042e6f9d1e0"
@@ -2898,20 +2865,6 @@
     clsx "^1.0.4"
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
-
-"@material-ui/pickers@4.0.0-alpha.9":
-  version "4.0.0-alpha.9"
-  resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-4.0.0-alpha.9.tgz#a9889f213b7431e25024520ca2e3fd43f11e0c69"
-  integrity sha512-2aY1l3p5ZxJ7QvsfAy0Yfl89GuCdkH+Tp/2wXAvmdCG9an1sjhlxDf8avJj7GraKmH00hlLMRpXEWvTC9bR3FQ==
-  dependencies:
-    "@date-io/date-fns" "^2.6.0"
-    "@date-io/dayjs" "^2.6.0"
-    "@date-io/luxon" "^2.6.0"
-    "@date-io/moment" "^2.6.0"
-    clsx "^1.0.2"
-    prop-types "^15.7.2"
-    react-transition-group "^4.4.1"
-    rifm "^0.12.0"
 
 "@material-ui/styles@^4.11.3":
   version "4.11.3"
@@ -19355,7 +19308,7 @@ react-transition-group@^2.5.0:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
-react-transition-group@^4.3.0, react-transition-group@^4.4.0, react-transition-group@^4.4.1:
+react-transition-group@^4.3.0, react-transition-group@^4.4.0:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
@@ -20180,11 +20133,6 @@ rgba-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rgba-regex/-/rgba-regex-1.0.0.tgz#43374e2e2ca0968b0ef1523460b7d730ff22eeb3"
   integrity sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=
-
-rifm@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/rifm/-/rifm-0.12.0.tgz#8d3a9dc0de9c190e0de9bdc8861a91a221dc1341"
-  integrity sha512-PqOl+Mo2lyqrKiD34FPlnQ+ksD3F+a62TQlphiZshgriyHdfjn6jGyqUZhd+s3nsMYXwXYDdjrrv8wX7QsOG3g==
 
 rimraf@2, rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3, rimraf@^2.7.1:
   version "2.7.1"

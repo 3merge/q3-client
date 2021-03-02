@@ -8,10 +8,5 @@ export default makeStyles(() => ({
         ? 'not-allowed !important'
         : undefined,
     },
-
-    '& input::-webkit-inner-spin-button, & input::-webkit-calendar-picker-indicator': {
-      display: 'none',
-      '-webkit-appearance': 'none',
-    },
   }),
 }));

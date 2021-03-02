@@ -5,7 +5,6 @@
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
-    "@material-ui/pickers": "4.0.0-alpha.9",
     "@tinymce/tinymce-react": "^3.10.1",
     "class-names": "^1.0.0",
     "classnames": "^2.2.6",

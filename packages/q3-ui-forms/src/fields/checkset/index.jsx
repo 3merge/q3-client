@@ -28,9 +28,11 @@ const Checkset = withState(
               variant="checkbox"
               key={option.label}
               onChange={onArrayPush}
-              isChecked={String(value).includes(
-                option.value,
-              )}
+              isChecked={
+                Array.isArray(value)
+                  ? value.includes(option.value)
+                  : value === option.value
+              }
               disabled={disabled}
               readOnly={readOnly}
             />
