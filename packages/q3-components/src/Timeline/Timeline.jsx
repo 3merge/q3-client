@@ -13,7 +13,10 @@ import { string } from 'q3-ui-helpers';
 import ReactDiffViewer, {
   DiffMethod,
 } from 'react-diff-viewer';
-import { Typography } from '@material-ui/core';
+import {
+  Typography,
+  CircularProgress,
+} from '@material-ui/core';
 import {
   omit,
   get,
@@ -26,6 +29,7 @@ import {
 } from 'lodash';
 import flat from 'flat';
 import alpha from 'alphabetize-object-keys';
+import GraphicWithMessage from 'q3-ui-assets';
 import useStyles from './useStyle';
 
 const firstKey = (v) => {
@@ -71,7 +75,16 @@ const getName = (o) =>
 const Timeline = ({ entries, fetching }) => {
   const cls = useStyles();
   const data = Array.isArray(entries) ? entries : [];
-  if (fetching || data.length === 0) return null;
+
+  if (fetching) return <CircularProgress />;
+
+  if (data.length < 2)
+    return (
+      <GraphicWithMessage
+        title="trackChanges"
+        icon="Puzzle"
+      />
+    );
 
   return (
     <MaterialTimeline style={{ padding: 0 }}>

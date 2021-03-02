@@ -16,7 +16,7 @@ jest.mock('@reach/router', () => ({
 }));
 
 describe('Search', () => {
-  it('should set default value by search', () => {
+  it('should set default value b', () => {
     useLocation.mockReturnValue({
       search: '?search=foo',
     });
@@ -26,7 +26,7 @@ describe('Search', () => {
         .shallow(<Search />)
         .find(SearchFullWidth)
         .props(),
-    ).toHaveProperty('defaultValue', 'foo');
+    ).toHaveProperty('value', 'foo');
   });
 
   it('should set placeholder value by prop', () =>

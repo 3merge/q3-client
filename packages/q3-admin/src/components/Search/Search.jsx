@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
 import { Box, Hidden } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useValue } from 'useful-state';
 import SearchFullWidth from '../SearchFullWidth';
 import SearchMobile from '../SearchMobile';
 import { Definitions } from '../../containers/state';
@@ -12,10 +13,17 @@ export const Search = () => {
   const location = useLocation();
   const inputRef = React.useRef();
 
-  const defaultValue = new URLSearchParams(
+  const locationSearch = new URLSearchParams(
     location?.search,
-  ).get('search');
+  );
+  const { value, onChange, setValue } = useValue(
+    locationSearch.get('search'),
+  );
 
+  const handleReset = () => {
+    setValue('');
+    inputRef.current.focus();
+  };
   const {
     collectionName,
     directoryPath,
@@ -38,7 +46,9 @@ export const Search = () => {
 
   const textFieldProps = {
     'aria-label': 'search',
-    defaultValue,
+    value,
+    onChange,
+    handleReset,
     placeholder: t(
       collectionName
         ? `${collectionName}SearchPlaceholder`
@@ -46,14 +56,9 @@ export const Search = () => {
     ),
     fullWidth: true,
     onKeyPress: handleKeyCode,
-    type: 'search',
+    type: 'text',
     inputRef,
   };
-
-  React.useEffect(() => {
-    if (inputRef.current)
-      inputRef.current.value = defaultValue || '';
-  }, [defaultValue]);
 
   return (
     <Box id="q3-searchbar" width="100%">

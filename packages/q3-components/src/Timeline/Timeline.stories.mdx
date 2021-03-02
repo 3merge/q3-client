@@ -15,6 +15,12 @@ import data from './data.json';
   <Story name="default">
     <Timeline entries={data} />
   </Story>
+  <Story name="loading">
+    <Timeline fetching />
+  </Story>
+  <Story name="empty">
+    <Timeline />
+  </Story>
 </Preview>
 
 ## API

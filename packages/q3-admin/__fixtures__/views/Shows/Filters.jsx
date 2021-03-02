@@ -6,6 +6,7 @@ const Add = () => (
   <Filters>
     {() => (
       <>
+        <FilterEntry type="dateRange" name="demo" />
         <FilterEntry
           type="radio"
           name="demo"

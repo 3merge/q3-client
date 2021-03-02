@@ -37,27 +37,31 @@ export default class QueryStringMatcher {
       : [];
   }
 
+  containsInCurrent(item) {
+    const includes = this.current.includes(item);
+    try {
+      return (
+        decodeURIComponent(this.current).includes(
+          decodeURIComponent(item),
+        ) || includes
+      );
+    } catch (e) {
+      return includes;
+    }
+  }
+
   count(queryParts = []) {
     return queryParts.reduce((acc, item) => {
       // eslint-disable-next-line
-      if (this.current.includes(item)) acc += 1;
+      if (this.containsInCurrent(item)) acc += 1;
       return acc;
     }, 0);
   }
 
   compare() {
-    return this.next.every((item) => {
-      const includes = this.current.includes(item);
-      try {
-        return (
-          decodeURIComponent(this.current).includes(
-            decodeURIComponent(item),
-          ) || includes
-        );
-      } catch (e) {
-        return includes;
-      }
-    });
+    return this.next.every((item) =>
+      this.containsInCurrent(item),
+    );
   }
 
   isActive() {

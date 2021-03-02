@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.27.17",
+  "version": "1.27.23",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.6",
@@ -10,7 +10,6 @@
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
-    "@material-ui/pickers": "4.0.0-alpha.9",
     "@tinymce/tinymce-react": "^3.10.1",
     "axios": "^0.21.1",
     "class-names": "^1.0.0",
@@ -25,7 +24,7 @@
     "moment-timezone": "^0.5.32",
     "notistack": "^1.0.2",
     "q3-ui-dialog": "^1.27.3",
-    "q3-ui-queryparams": "^1.27.17",
+    "q3-ui-queryparams": "^1.27.23",
     "qs": "^6.9.6",
     "react-dropzone": "^11.3.0",
     "react-i18next": "11.7.3",

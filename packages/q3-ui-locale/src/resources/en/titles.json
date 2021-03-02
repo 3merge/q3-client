@@ -91,5 +91,6 @@
   "featuredPhoto": "Featured photo",
   "missingConfiguration": "This component requires configuration",
   "confirm": "Confirm",
-  "editor": "Edit"
+  "editor": "Edit",
+  "trackChanges": "Waiting for changes"
 }

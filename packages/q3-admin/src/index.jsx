@@ -30,50 +30,40 @@ const Admin = ({
   useServerSideEvents();
 
   return (
-    <Tours steps={tours}>
-      {(restartTour) => (
-        <Viewport>
-          <Navigation
-            {...NavProps}
-            variant="AppBar"
-            menuItems={usePages(AppProps.pages, icons)}
-            root={root}
-          >
-            <ProfileActions
-              profileItems={[
-                ...profileItems,
-                {
-                  onClick: goTo(`${root}account/profile`),
-                  label: 'profile',
-                },
-                {
-                  onClick: goTo(
-                    `${root}account/change-password`,
-                  ),
-                  label: 'changePassword',
-                },
-                {
-                  onClick: restartTour,
-                  label: 'restartTour',
-                },
-              ]}
-            >
-              <Notifications />
-            </ProfileActions>
-          </Navigation>
-          <Box className={cls.main}>
-            <App {...AppProps}>
-              <Profile
-                path="/account/profile"
-                {...ProfileProps}
-              />
-              <ProfileChangePassword path="/account/change-password" />
-            </App>
-            {children}
-          </Box>
-        </Viewport>
-      )}
-    </Tours>
+    <Viewport>
+      <Navigation
+        {...NavProps}
+        menuItems={usePages(AppProps.pages, icons)}
+        root={root}
+      />
+      <Box className={cls.main}>
+        <ProfileActions
+          profileItems={[
+            ...profileItems,
+            {
+              onClick: goTo(`${root}account/profile`),
+              label: 'profile',
+            },
+            {
+              onClick: goTo(
+                `${root}account/change-password`,
+              ),
+              label: 'changePassword',
+            },
+          ]}
+        >
+          <Notifications />
+        </ProfileActions>
+        <App {...AppProps}>
+          <Profile
+            path="/account/profile"
+            {...ProfileProps}
+          />
+          <ProfileChangePassword path="/account/change-password" />
+        </App>
+        {children}
+      </Box>
+    </Viewport>
   );
 };
 
