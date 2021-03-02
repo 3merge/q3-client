@@ -23,6 +23,7 @@ export default makeStyles(() => ({
   icon: {
     marginRight: '.5rem',
     transform: 'rotate(45deg)',
+    fontSize: '0.911rem',
   },
   root: {
     bottom: 0,

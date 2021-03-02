@@ -129,7 +129,7 @@ const TableView = ({
                       title={column}
                       onSort={sortable ? onSort : null}
                       className={cellWidth}
-                      {...column}
+                      key={column}
                     />
                   );
                 })}
