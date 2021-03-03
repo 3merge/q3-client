@@ -101,20 +101,31 @@ export default (search) => {
     add: (name) =>
       updateFiltersInProfile(pushInto(name, search)),
 
-    favourite: (name) =>
-      updateFiltersInProfile(pushInto('default', name)),
+    favourite: (name) => {
+      return updateFiltersInProfile(
+        pushInto('default', name),
+      );
+    },
 
     remove: (name) =>
       updateFiltersInProfile(pullFrom(name)),
 
     modify: (name, prevName) => (query) => {
       const goTo = () => navigate(`${rootPath}${query}`);
+      const isDefault =
+        filters[collectionName]?.default === prevName;
+      console.log(isDefault);
+      const test = isDefault ? { default: name } : {};
 
       return name
         ? updateFiltersInProfile(
-            Object.assign(pullFrom(prevName), {
-              [name]: query,
-            }),
+            Object.assign(
+              pullFrom(prevName),
+              {
+                [name]: query,
+              },
+              test,
+            ),
             goTo,
           )
         : goTo();
