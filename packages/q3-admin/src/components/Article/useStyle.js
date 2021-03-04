@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   view: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     position: 'relative',
     width: '100%',
     zIndex: 1,

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { get } from 'lodash';
@@ -12,7 +13,7 @@ const setViewportUnit = () => {
     'offsetHeight',
   );
 
-  if (menuHeight) vh -= menuHeight / 100;
+  if (menuHeight) vh -= Math.min(81, menuHeight) / 100;
 
   document
     .querySelector(':root')
@@ -32,20 +33,21 @@ const AppViewport = ({ children }) => {
   }, []);
 
   return (
-    <Container
-      maxWidth="xl"
-      disableGutters
-      component="main"
-      style={{
-        backgroundColor: '#FFF',
-        overflow: 'hidden',
-        flexWrap: 'nowrap',
-        position: 'relative',
-        maxHeight: 'calc(100vh - var(--vh))',
-      }}
-    >
-      <Grid container>{children}</Grid>
-    </Container>
+    <Box bgcolor="background.default">
+      <Container
+        maxWidth="xl"
+        disableGutters
+        component="main"
+        style={{
+          overflow: 'hidden',
+          flexWrap: 'nowrap',
+          position: 'relative',
+          maxHeight: 'calc(100vh - var(--vh))',
+        }}
+      >
+        <Grid container>{children}</Grid>
+      </Container>
+    </Box>
   );
 };
 

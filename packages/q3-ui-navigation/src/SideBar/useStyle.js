@@ -17,7 +17,7 @@ export default makeStyles(({ palette: { primary } }) => ({
   },
   wrap: {
     height: '100%',
-    minWidth: 270,
+    minWidth: 240,
     opacity: ({ isOpen }) => (isOpen ? 1 : 0),
     transition: 'opacity 250ms',
     width: '100%',
@@ -26,12 +26,12 @@ export default makeStyles(({ palette: { primary } }) => ({
     justifyContent: 'space-between',
   },
   root: {
-    backgroundColor: primary.dark,
+    backgroundColor: primary.main,
     color: primary.contrastText,
     display: 'inline-block',
     height: '100vh',
     position: 'relative',
     transition: 'width 230ms ease-in',
-    width: ({ isOpen }) => (isOpen ? 270 : '4rem'),
+    width: ({ isOpen }) => (isOpen ? 240 : '4rem'),
   },
 }));

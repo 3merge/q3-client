@@ -6,10 +6,13 @@ import IconButton from 'q3-ui/lib/iconButton';
 import Dialog from 'q3-ui-dialog';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { Avatar } from 'q3-ui-filemanager';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -41,97 +44,110 @@ const Detail = ({
   ...rest
 }) => {
   const cls = useStyle();
+
   return (
     <Article
       asideComponent={
         <SidePanel>
-          <Box my={2}>
-            <FeaturedPhoto
-              component={(p) =>
-                React.createElement(Avatar, {
-                  ...p,
-                  style: {
-                    height: 125,
-                    width: 125,
-                  },
-                })
-              }
-            />
-          </Box>
-          <DetailHeader {...HeaderProps} />
-          <DetailSidePanelContent {...rest} />
+          <Back />
+          <DetailNavigation
+            {...HeaderProps}
+            views={views}
+            picture={picture}
+          />
         </SidePanel>
       }
     >
-      <Box mt={2}>
-        <Container maxWidth="xl">
-          <Grid container spacing={2}>
-            <Grid item>
-              <Back />
-            </Grid>
-            <Dialog
-              variant="drawer"
-              renderContent={Notes}
-              renderTrigger={(onClick) => (
-                <Grid item>
-                  <IconButton
-                    icon={ForumIcon}
-                    label="notes"
-                    buttonProps={{
-                      onClick,
-                    }}
-                  />
-                </Grid>
-              )}
-            />
-            <Dialog
-              variant="drawer"
-              renderContent={Upload}
-              renderTrigger={(onClick) => (
-                <Grid item>
-                  <Badge badgeContent={2}>
+      <Container maxWidth="xl">
+        <Box my={2}>
+          <DetailHeader
+            {...HeaderProps}
+            subtitleComponent={
+              <Box>
+                <Typography>
+                  <AccountCircleIcon /> Created by Mike
+                  Ibberson{' '}
+                  <Box component="span" mx={1}>
+                    /
+                  </Box>
+                  <AccountCircleIcon /> Created by Mike
+                  Ibberson
+                </Typography>
+              </Box>
+            }
+          >
+            <Grid alignItems="center" container spacing={2}>
+              <Dialog
+                variant="drawer"
+                renderContent={Notes}
+                renderTrigger={(onClick) => (
+                  <Grid item>
                     <IconButton
-                      icon={AttachFileIcon}
+                      icon={ForumIcon}
                       label="notes"
                       buttonProps={{
                         onClick,
                       }}
                     />
-                  </Badge>
-                </Grid>
-              )}
-            />
-            <Dialog
-              variant="drawer"
-              renderContent={() => (
-                <Box className={cls.docs}>
-                  {documentation}
-                </Box>
-              )}
-              renderTrigger={(onClick) => (
-                <Grid item>
-                  <IconButton
-                    icon={ContactSupportIcon}
-                    label="notes"
-                    buttonProps={{
-                      disabled: !documentation,
-                      onClick,
-                    }}
-                  />
-                </Grid>
-              )}
-            />
-          </Grid>
-          <Box mt={0.5} mb={2}>
-            <DetailNavigation
-              {...HeaderProps}
-              views={views}
-              picture={picture}
-            />
-          </Box>
-          <DetailViews views={views} />
-        </Container>
-      </Box>
+                  </Grid>
+                )}
+              />
+              <Dialog
+                variant="drawer"
+                renderContent={Upload}
+                renderTrigger={(onClick) => (
+                  <Grid item>
+                    <Badge badgeContent={2}>
+                      <IconButton
+                        icon={AttachFileIcon}
+                        label="notes"
+                        buttonProps={{
+                          onClick,
+                        }}
+                      />
+                    </Badge>
+                  </Grid>
+                )}
+              />
+              <Dialog
+                variant="drawer"
+                renderContent={() => (
+                  <Box className={cls.docs}>
+                    {documentation}
+                  </Box>
+                )}
+                renderTrigger={(onClick) => (
+                  <Grid item>
+                    <IconButton
+                      icon={ContactSupportIcon}
+                      label="notes"
+                      buttonProps={{
+                        disabled: !documentation,
+                        onClick,
+                      }}
+                    />
+                  </Grid>
+                )}
+              />
+              <Dialog
+                variant="drawer"
+                renderContent={() => (
+                  <DetailSidePanelContent {...rest} />
+                )}
+                renderTrigger={(onClick) => (
+                  <Grid item>
+                    <Button onClick={onClick}>
+                      More actions
+                    </Button>
+                  </Grid>
+                )}
+              />
+            </Grid>
+          </DetailHeader>
+        </Box>
+        <DetailViews views={views} />
+        <DetailSidePanelContent {...rest} />
+      </Container>
     </Article>
   );
 };

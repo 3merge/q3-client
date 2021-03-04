@@ -7,6 +7,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
+import Fade from '@material-ui/core/Fade';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
@@ -15,7 +16,7 @@ const SidePanel = ({ id, children }) => {
   const cls = useStyle();
 
   return (
-    <div id={id}>
+    <>
       <Hidden smDown>
         <Grid
           item
@@ -29,7 +30,9 @@ const SidePanel = ({ id, children }) => {
             className={cls.scroller}
             elevation={0}
           >
-            {children}
+            <Fade in timeout={850}>
+              <Box>{children}</Box>
+            </Fade>
           </Paper>
         </Grid>
       </Hidden>
@@ -55,7 +58,7 @@ const SidePanel = ({ id, children }) => {
           )}
         />
       </Hidden>
-    </div>
+    </>
   );
 };
 

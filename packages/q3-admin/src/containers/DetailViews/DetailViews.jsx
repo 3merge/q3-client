@@ -1,11 +1,11 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
-import { Box, Fade } from '@material-ui/core';
+import { Box, Fade, Paper } from '@material-ui/core';
 
 const WrappedRoute = ({ renderer: Renderer }) => (
   <Fade in>
-    <Box py={2} width="100%">
+    <Box p={2} width="100%">
       <Renderer />
     </Box>
   </Fade>

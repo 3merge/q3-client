@@ -70,6 +70,7 @@ const useStyle = makeStyles(() => ({
 }));
 
 const List = ({
+  children,
   addComponent,
   HeaderProps,
   disableLink,
@@ -135,7 +136,9 @@ const List = ({
           alignItems="center"
           justify="space-between"
         >
-          <Grid item>{rest.searchComponent}</Grid>
+          <Grid item xs>
+            {rest.searchComponent}
+          </Grid>
           <Grid item>
             {can('io')}
             {can('add')}
@@ -145,6 +148,7 @@ const List = ({
       <Box py={0.5}>
         <FilterChip />
       </Box>
+      {children}
     </Table>
   );
 };

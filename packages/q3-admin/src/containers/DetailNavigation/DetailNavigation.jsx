@@ -2,6 +2,7 @@ import React from 'react';
 import { Location, Link } from '@reach/router';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import Fade from '@material-ui/core/Fade';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import DetailHeader from '../DetailHeader';
@@ -42,20 +43,24 @@ const TabsWithRouter = ({ views, ...rest }) => {
         <Tabs
           value={value}
           variant="scrollable"
+          orientation="vertical"
           className={cls.root}
         >
-          {views.map((view) => (
-            <Tab
+          {views.map((view, i) => (
+            <Fade
+              in
               key={view.to}
-              to={`.${view.to}`}
-              label={t(`labels:${view.label}`)}
-              component={Link}
-              style={{
-                minWidth: 'auto',
-                paddingLeft: '1.5rem',
-                paddingRight: '1.5rem',
-              }}
-            />
+              style={{ transitionDelay: 80 * i }}
+            >
+              <Tab
+                to={`.${view.to}`}
+                label={t(`labels:${view.label}`)}
+                component={Link}
+                style={{
+                  textAlign: 'right',
+                }}
+              />
+            </Fade>
           ))}
         </Tabs>
       )}

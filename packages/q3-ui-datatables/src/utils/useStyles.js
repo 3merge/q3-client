@@ -3,7 +3,7 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.primary,
     whiteSpace: 'wrap !important',
 
     '& th': {
@@ -16,29 +16,23 @@ export default makeStyles((theme) => ({
       zIndex: 3,
     },
 
-    '& thead tr': {
-      // boxShadow: theme.shadows[1],
-    },
-
-    '& tbody, & thead, & tfooter': {
-      //   display: 'inline-block',
-      //   minWidth: '100%',
-    },
+    '& thead tr': {},
+    '& tbody, & thead, & tfooter': {},
 
     '& tbody tr': {
-      borderTop: '2px solid #F5F7F9',
+      borderTop: `2px solid ${theme.palette.background.muted}`,
 
       '&:hover': {
-        backgroundColor: '#f9fbfd',
+        backgroundColor: theme.palette.background.default,
         transition: 'background-color 250ms',
         '& td': {
-          backgroundColor: '#f9fbfd !important',
+          backgroundColor: `${theme.palette.background.default} !important`,
         },
       },
     },
 
     '& td': {
-      borderTop: '2px solid #F5F7F9',
+      borderTop: `2px solid ${theme.palette.background.muted}`,
       fontSize: '0.833rem !important',
       borderBottom: 'none !important',
       padding: '0 !important',
@@ -55,17 +49,10 @@ export default makeStyles((theme) => ({
     padding: 0,
   },
 
-  tableBody: {
-    // minWidth: 'max-content',
-    // maxWidth: 'none',
-    //    display: 'block',
-    //  width: 'fit-content',
-  },
+  tableBody: {},
 
   cellWidth: () => ({
-    // alignItems: 'center',
     transition: 'width 250ms',
-
     willChange: 'width',
     boxSizing: 'border-box',
 
@@ -148,7 +135,7 @@ export default makeStyles((theme) => ({
   },
 
   actionbar: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     borderRadius: 50,
     bottom: theme.spacing(2),
     boxShadow: theme.shadows[15],
@@ -212,22 +199,18 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      // boxShadow: 'none !important',
       position: 'static',
       width: 'auto',
     },
   },
 
   flexRow: {
-    //  display: 'flex !important',
-    // justifyContent: 'flex-end',
-    // flexWrap: 'nowrap',
     minWidth: 'max-content',
   },
 
   cellHeader: {
     position: 'var(--cell-position)',
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     left: 0,
     transition: 'box-shadow 250ms',
     margin: 0,
@@ -237,7 +220,6 @@ export default makeStyles((theme) => ({
     zIndex: 1,
 
     [theme.breakpoints.down('sm')]: {
-      // boxShadow: 'none !important',
       position: 'static',
       width: 'auto',
     },
@@ -274,7 +256,6 @@ export default makeStyles((theme) => ({
     },
     '& td.liftup': {
       wordWrap: 'break-word',
-      // boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
       zIndex: 2,
     },
     [theme.breakpoints.down('sm')]: {
@@ -286,7 +267,7 @@ export default makeStyles((theme) => ({
     position: 'sticky',
     top: 0,
     zIndex: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     overflow: 'hidden',
     maxWidth: '100%',
   }),

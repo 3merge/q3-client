@@ -9,72 +9,48 @@ import { Definitions } from '../state';
 import FiltersForm from './FiltersForm';
 import FiltersClear from './FiltersClear';
 import FiltersShare from './FiltersShare';
-import Segments from '../segments';
 
 const Groups = ({ children, ...etc }) => {
   const { location } = React.useContext(Definitions);
   const { t } = useTranslation('labels');
 
   return (
-    <Box my={1}>
-      <Segments>
-        {(renderer, onSave, searchValue) => (
-          <FiltersForm
-            search={searchValue}
-            onSave={onSave}
-            {...etc}
-          >
-            {(...params) => (
-              <>
-                <Grid item xs={12}>
-                  {renderer()}
-                </Grid>
-                {children(...params)}
-                <Grid item xs={12}>
-                  <Button type="submit">{t('save')}</Button>
-                </Grid>
-              </>
-            )}
-          </FiltersForm>
-        )}
-      </Segments>
-      <SidePanelContent title={t('filters')}>
-        <Box id="q3-filters">
-          <FiltersForm search={location?.search} {...etc}>
-            {(...params) => (
-              <>
-                {children(...params)}
-                <Grid item xs={12}>
-                  <Box px={1} position="sticky" bottom="0">
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="secondary"
-                      style={{ marginBottom: '0.5rem' }}
-                      fullWidth
-                    >
-                      {t('applyFilters')}
-                    </Button>
-                    <Grid
-                      container
-                      justify="center"
-                      spacing={2}
-                    >
-                      <Grid item xs={6}>
-                        <FiltersShare />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <FiltersClear />
-                      </Grid>
+    <SidePanelContent title={t('filters')}>
+      <Box id="q3-filters">
+        <FiltersForm search={location?.search} {...etc}>
+          {(...params) => (
+            <>
+              {children(...params)}
+              <Grid item xs={12}>
+                <Box px={1} position="sticky" bottom="0">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    style={{ marginBottom: '0.5rem' }}
+                    fullWidth
+                  >
+                    {t('applyFilters')}
+                  </Button>
+                  <Grid
+                    container
+                    justify="center"
+                    spacing={2}
+                  >
+                    <Grid item xs={6}>
+                      <FiltersShare />
                     </Grid>
-                  </Box>
-                </Grid>
-              </>
-            )}
-          </FiltersForm>
-        </Box>
-      </SidePanelContent>
-    </Box>
+                    <Grid item xs={6}>
+                      <FiltersClear />
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Grid>
+            </>
+          )}
+        </FiltersForm>
+      </Box>
+    </SidePanelContent>
   );
 };
 

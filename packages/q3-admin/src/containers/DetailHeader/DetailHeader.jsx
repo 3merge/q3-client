@@ -25,7 +25,13 @@ export const DetailHeaderBackComponent = (props) => {
 const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
 
-  return <Header {...props} {...useTitle(data, props)} />;
+  return (
+    <Header
+      {...props}
+      {...useTitle(data, props)}
+      backComponent={<FeaturedPhoto component={Avatar} />}
+    />
+  );
 };
 
 export default DetailHeader;

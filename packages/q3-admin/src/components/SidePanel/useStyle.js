@@ -7,19 +7,14 @@ export default makeStyles((theme) => ({
     padding: '0',
     position: 'relative',
     maxWidth: 355,
-    width: 355,
+    minWidth: 310,
+    width: '27.5vw',
 
-    [theme.breakpoints.down('md')]: {
-      height: 'calc(100 * var(--vh))',
-      maxWidth: 265,
-      width: 265,
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      height: 'auto',
-      maxWidth: '100%',
-      width: '100%',
-    },
+    // [theme.breakpoints.down('sm')]: {
+    //   height: 'auto',
+    //   maxWidth: '100%',
+    //   width: '100%',
+    // },
   },
 
   scroller: {

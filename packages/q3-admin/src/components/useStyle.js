@@ -15,15 +15,6 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
     },
-
-    '&[data-orientation="horizontal"] #q3-tray': {
-      position: 'absolute',
-      right: '2rem',
-      top: 0,
-      zIndex: 100,
-      width: 430,
-      padding: '0 !important',
-    },
   },
 
   fillViewportHeight: {

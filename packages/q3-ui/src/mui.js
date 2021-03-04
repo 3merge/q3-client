@@ -26,6 +26,7 @@ const theme = createMuiTheme({
   palette: {
     background: {
       default: grey[100],
+      muted: grey[200],
     },
     primary: {
       main: '#1e1434',
@@ -102,7 +103,6 @@ Object.assign(theme, {
     MuiCssBaseline: {
       '@global': {
         body: {
-          backgroundColor: '#F5F7F9',
           fontSize: 'initial !important',
           color,
         },

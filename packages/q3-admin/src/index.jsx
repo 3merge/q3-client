@@ -2,30 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import { get } from 'lodash';
 import Navigation from 'q3-ui-navigation';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
-import Tours from './containers/tour';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
-import useStyle from './components/useStyle';
 
 export const goTo = (path) => () => navigate(path);
 
 const Admin = ({
   icons,
-  tours,
   children,
   profileItems,
   AppProps,
   NavProps,
   ProfileProps,
 }) => {
-  const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
   useServerSideEvents();
 
@@ -33,10 +30,10 @@ const Admin = ({
     <Viewport>
       <Navigation
         {...NavProps}
+        variant="AppBar"
         menuItems={usePages(AppProps.pages, icons)}
         root={root}
-      />
-      <Box className={cls.main}>
+      >
         <ProfileActions
           profileItems={[
             ...profileItems,
@@ -54,6 +51,8 @@ const Admin = ({
         >
           <Notifications />
         </ProfileActions>
+      </Navigation>
+      <Grid item xs>
         <App {...AppProps}>
           <Profile
             path="/account/profile"
@@ -62,7 +61,7 @@ const Admin = ({
           <ProfileChangePassword path="/account/change-password" />
         </App>
         {children}
-      </Box>
+      </Grid>
     </Viewport>
   );
 };

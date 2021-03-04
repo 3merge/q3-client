@@ -9,6 +9,7 @@ import useStyle from './useStyle';
 const Header = ({
   backComponent,
   navComponent,
+  subtitleComponent,
   children,
   title,
 }) => {
@@ -24,25 +25,20 @@ const Header = ({
         component="header"
         className={cls.header}
       >
-        <Grid
-          container
-          alignItems="center"
-          justify="space-between"
-        >
+        <Grid container justify="space-between">
           <Grid item>
-            <Box
-              display="flex"
-              alignItems="center"
-              id="q3-app-title"
-            >
+            <Box display="flex" id="q3-app-title">
               {backComponent}
-              <Typography
-                className={cls.title}
-                variant="h5"
-                component="h2"
-              >
-                {title}
-              </Typography>
+              <Box ml={2}>
+                <Typography
+                  className={cls.title}
+                  variant="h5"
+                  component="h2"
+                >
+                  {title}
+                </Typography>
+                {subtitleComponent}
+              </Box>
             </Box>
           </Grid>
           <Grid item>{children}</Grid>

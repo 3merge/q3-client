@@ -1,6 +1,14 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Dialog from 'q3-ui-dialog';
+import IconButton from 'q3-ui/lib/iconButton';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import FiltersSavedTabs from '../containers/FiltersSavedTabs';
+import FiltersSaved from '../containers/FiltersSaved';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -67,10 +75,10 @@ export default ({
       const { can } = useAppContext({
         filter: FilterComponent ? (
           <SidePanel>
-            <h2>Title</h2>
-            <FilterProvider {...props} {...PageListProps}>
-              <FilterComponent />
-            </FilterProvider>
+            <Box py={4}>
+              <FiltersSaved {...props} {...PageListProps} />
+            </Box>
+            Page settings / Show Archives
           </SidePanel>
         ) : null,
       });
@@ -86,7 +94,45 @@ export default ({
             >
               <PageList
                 searchComponent={
-                  <Search {...PageDetailProps} />
+                  <Grid
+                    container
+                    alignItems="center"
+                    spacing={1}
+                  >
+                    <Grid item>
+                      <Typography
+                        variant="h3"
+                        component="h2"
+                      >
+                        {etc.collectionName}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Dialog
+                        renderTrigger={(onClick) => (
+                          <IconButton
+                            icon={FilterListIcon}
+                            label="filters"
+                            buttonProps={{
+                              onClick,
+                            }}
+                          />
+                        )}
+                        renderContent={() => (
+                          <FilterProvider
+                            {...props}
+                            {...PageListProps}
+                          >
+                            <FilterComponent />
+                          </FilterProvider>
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs>
+                      <Search {...PageDetailProps} />
+                    </Grid>
+                  </Grid>
                 }
               />
             </Page>
