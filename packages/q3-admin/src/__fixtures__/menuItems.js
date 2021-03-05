@@ -1,45 +1,43 @@
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import AirlineSeatFlatAngledIcon from '@material-ui/icons/AirlineSeatFlatAngled';
-import MapIcon from '@material-ui/icons/Map';
-import MessageIcon from '@material-ui/icons/Message';
-import SurroundSoundIcon from '@material-ui/icons/SurroundSound';
-
 const menuItems = [
   {
     label: 'Home',
-    icon: DashboardIcon,
+    visible: true,
     to: '/',
   },
   {
     label: 'Accounts',
-    icon: AccountTreeIcon,
+    visible: true,
     nestedMenuItems: [
       {
         label: 'Chequing',
         to: '/chequing',
+        visible: true,
       },
       {
         label: 'Savings',
         to: '/savings',
+        visible: true,
       },
     ],
   },
   {
     label: 'Accommodations',
-    icon: AirlineSeatFlatAngledIcon,
+    visible: true,
     nestedMenuItems: [
       {
         label: 'Hotels',
         to: '/hotels',
+        visible: true,
       },
       {
         label: 'AirBnB and time-sharing properties',
         to: '/airbnb',
+        visible: true,
       },
       {
         label: 'Motels and Inns',
         to: '/motels',
+        visible: true,
       },
     ],
   },
@@ -48,35 +46,39 @@ const menuItems = [
 export const extendedMenuItems = menuItems.concat([
   {
     label: 'Messages',
-    icon: MessageIcon,
     to: '/messages',
+    visible: true,
   },
   {
     label: 'Locations',
-    icon: MapIcon,
+    visible: true,
     nestedMenuItems: [
       {
         label: 'Per Region',
+        visible: true,
         nestedMenuItems: [
           {
             label: 'Per City',
             to: '/city',
+            visible: true,
           },
           {
             label: 'Per Municipality',
             to: '/municipality',
+            visible: true,
           },
         ],
       },
       {
         label: 'Per Province',
         to: '/province',
+        visible: true,
       },
     ],
   },
   {
     label: 'Misc',
-    icon: SurroundSoundIcon,
+    visible: true,
     to: '/misc',
   },
 ]);

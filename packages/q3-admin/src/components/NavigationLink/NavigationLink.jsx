@@ -6,6 +6,14 @@ import { invoke } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import useStyle from './useStyle';
 
+export const makeAnchor = (href) => href || '#';
+
+export const toggleSelectedClass = (href) => (e) => {
+  if (href) return;
+  e.preventDefault();
+  invoke(e, 'currentTarget.classList.toggle', 'selected');
+};
+
 const NavigationLink = ({
   children,
   includesPartiallyCurrent,
@@ -19,23 +27,13 @@ const NavigationLink = ({
   return (
     <Link
       ref={ref}
-      to={to || '#'}
-      onClick={(e) => {
-        if (!to) {
-          e.preventDefault();
-          invoke(
-            e,
-            'currentTarget.classList.toggle',
-            'selected',
-          );
-        }
-      }}
+      to={makeAnchor(to)}
+      onClick={toggleSelectedClass(to)}
       className={cls.menuItem}
       getProps={({ isCurrent, isPartiallyCurrent }) => {
         const list = [cls.menuItem];
 
         if (!to) list.push(cls.anchor);
-
         if (includesPartiallyCurrent) list.push(cls.parent);
         else if (isCurrent || isPartiallyCurrent)
           list.push(cls.active);
@@ -52,11 +50,15 @@ const NavigationLink = ({
 };
 
 NavigationLink.propTypes = {
+  children: PropTypes.node,
+  includesPartiallyCurrent: PropTypes.bool,
   label: PropTypes.string.isRequired,
   to: PropTypes.string,
 };
 
 NavigationLink.defaultProps = {
+  children: null,
+  includesPartiallyCurrent: false,
   to: null,
 };
 

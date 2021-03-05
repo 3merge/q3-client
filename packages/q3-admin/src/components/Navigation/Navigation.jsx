@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { useMatch } from '@reach/router';
 import IconButton from 'q3-ui/lib/iconButton';
@@ -18,8 +19,7 @@ const AppNavigation = ({
   children,
   logoSrc,
   menuItems,
-  menuComponent,
-  root = '/',
+  root,
 }) => {
   const cls = useStyle();
 
@@ -46,9 +46,9 @@ const AppNavigation = ({
           return render ? (
             <Box component="li" key={nodeId}>
               <NavigationLink
-                includesPartiallyCurrent={some(sub, (v) => {
-                  return isObject(useMatch(`${v.to}/*`));
-                })}
+                includesPartiallyCurrent={some(sub, (v) =>
+                  isObject(useMatch(`${v.to}/*`)),
+                )}
                 {...item}
               >
                 {sublen && <ExpandMoreIcon />}
@@ -66,10 +66,9 @@ const AppNavigation = ({
   const renderMenuItems = () => {
     return (
       <Box className={cls.nav} component="ul">
-        {menuComponent ||
-          recursivelyRenderMenuItems(
-            filterByVisibility(menuItems),
-          )}
+        {recursivelyRenderMenuItems(
+          filterByVisibility(menuItems),
+        )}
       </Box>
     );
   };
@@ -111,6 +110,24 @@ const AppNavigation = ({
       {children}
     </AppBar>
   );
+};
+
+AppNavigation.defaultProps = {
+  children: null,
+  menuItems: [],
+  root: '/',
+};
+
+AppNavigation.propTypes = {
+  children: PropTypes.element,
+  logoSrc: PropTypes.string.isRequired,
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      to: PropTypes.string,
+      label: PropTypes.string,
+    }),
+  ),
+  root: PropTypes.string,
 };
 
 export default AppNavigation;
