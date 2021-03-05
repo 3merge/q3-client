@@ -1,4 +1,6 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -6,7 +8,6 @@ import UnsavedChanges from '../containers/UnsavedChanges';
 import Search from '../components/Search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
-import Tray from '../components/Tray';
 import TableSkeleton from '../components/TableSkeleton';
 import { useAppContext } from '../hooks';
 
@@ -35,12 +36,35 @@ export default ({
     ...getCollectionInformation(etc),
     component: (props) => (
       <Collection id {...props}>
-        <Page id {...props} {...PageDetailProps}>
-          <Tray>
-            <Search {...PageDetailProps} />
-            <UnsavedChanges />
-          </Tray>
-          <PageDetail />
+        <Page
+          id
+          {...props}
+          {...PageDetailProps}
+          loadingComponent={
+            <Article asideComponent={<SidePanel />}>
+              <Box
+                alignItems="center"
+                justifyContent="center"
+                display="flex"
+                height="100%"
+                width="100%"
+              >
+                <CircularProgress />
+              </Box>
+            </Article>
+          }
+        >
+          <Box position="relative">
+            <Box
+              position="absolute"
+              right="2rem"
+              top="2rem"
+              zIndex={10}
+            >
+              <UnsavedChanges />
+            </Box>
+            <PageDetail />
+          </Box>
         </Page>
       </Collection>
     ),
@@ -66,9 +90,6 @@ export default ({
 
       return (
         <Collection index {...props}>
-          <Tray>
-            <Search {...PageDetailProps} />
-          </Tray>
           <Article asideComponent={can('filter')}>
             <Page
               index
@@ -76,7 +97,11 @@ export default ({
               {...PageListProps}
               loadingComponent={<TableSkeleton />}
             >
-              <PageList />
+              <PageList
+                searchComponent={
+                  <Search {...PageDetailProps} />
+                }
+              />
             </Page>
           </Article>
         </Collection>

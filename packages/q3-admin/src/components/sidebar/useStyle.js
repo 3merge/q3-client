@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   view: {
     backgroundColor: '#F5F7F9',
     padding: '1rem',
-    height: 'calc((100 * var(--vh)) - 65px)',
+    height: 'calc((100 * var(--vh)) - 90px)',
     overflow: 'auto',
     position: 'relative',
     zIndex: 1,
@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
   columnWidth: {
     position: 'sticky',
     top: 0,
-    height: 'calc((100 * var(--vh)) - 65px)',
+    height: 'calc((100 * var(--vh)) - 90px)',
     width: 285,
     overflow: 'auto',
     resize: 'horizontal',
@@ -58,8 +58,6 @@ export default makeStyles((theme) => ({
     },
   },
   root: {
-    // backgroundColor: '#F5F7F9',
-    // height: '100%',
     fontSize: '1rem !important',
     overflowY: 'auto',
     overflowX: 'hidden',

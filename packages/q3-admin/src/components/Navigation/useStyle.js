@@ -1,75 +1,129 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  muted: {
-    backgroundColor: '#f4f4f5',
+  muted: {},
+  bar: {
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'row',
+    height: 90,
+    justifyContent: 'space-between',
+    paddingRight: theme.spacing(2),
   },
   root: {
-    height: '100vh',
-    position: 'sticky',
-    top: 0,
-    width: 255,
-    zIndex: 10,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    height: '100%',
+    position: 'relative',
+    zIndex: 100,
+  },
+  appbar: {},
+  nav: {
+    alignItems: 'center',
+    listStyle: 'none',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    display: 'flex',
+    paddingLeft: theme.spacing(2),
 
-    '& .Mui-selected': {
-      // color: theme.palette.primary.dark,
+    [theme.breakpoints.down('sm')]: {
+      margin: 0,
+      padding: 0,
+    },
+
+    '& li': {
+      margin: 0,
+      padding: 0,
 
       '& svg': {
-        // fill: theme.palette.primary.contrastText,
+        transition: 'transform 150ms ease-in',
+        transform: 'rotate(0)',
+      },
+
+      '& a.selected': {
+        '& svg': {
+          transform: 'rotate(180deg)',
+        },
+        '& ~ ul': {
+          [theme.breakpoints.down('sm')]: {
+            display: 'block !important',
+            opacity: 1,
+            padding: '0 1.5rem',
+            transform: 'translateY(0)',
+            visibility: 'visible',
+          },
+        },
+      },
+    },
+
+    '& li > ul': {
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: theme.shadows[4],
+      listStyle: 'none',
+      margin: 0,
+      opacity: 0,
+      padding: theme.spacing(2),
+      transform: 'translateY(-20px)',
+      transitionDuration: '350ms',
+      transitionProperty: 'opacity,transform,visibility',
+      visibility: 'hidden',
+
+      [theme.breakpoints.down('sm')]: {
+        boxShadow: 'none',
+        display: 'none',
+        position: 'relative',
+        opactity: 1,
+        visibility: 'visible',
+        transform: 'none',
+      },
+    },
+
+    '& li:hover, & li:focus-within': {
+      '& svg': {
+        [theme.breakpoints.up('md')]: {
+          transform: 'rotate(180deg)',
+        },
+      },
+      '& > ul': {
+        [theme.breakpoints.up('md')]: {
+          opacity: 1,
+          transform: 'translateY(0)',
+          visibility: 'visible',
+        },
       },
     },
   },
-  appbar: {
-    height: 65,
-  },
-  nav: {
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    display: 'flex',
-    height: 'calc(100vh - 75px)',
-    padding: theme.spacing(0.75),
-  },
-  actions: {
-    height: 95,
-  },
+  actions: {},
   logo: {
-    backgroundColor: '#f4f4f5',
+    backgroundColor: theme.palette.background.default,
     display: 'block',
     fill: theme.palette.primary.contrastText,
-    marginBottom: theme.spacing(1),
-    padding: '.75rem',
-    height: 75,
-    width: '100%',
+    height: '100%',
+    minWidth: 285,
+    maxWidth: 345,
+    width: '24.5vw',
 
     '& img': {
       mixBlendMode: 'multiply',
       height: '100%',
       objectFit: 'contain',
       width: '100%',
-    },
 
-    [theme.breakpoints.down('md')]: {
-      padding: '.25rem',
-      height: '100%',
-      width: 120,
-
-      '& img': {
+      [theme.breakpoints.down('sm')]: {
         objectPosition: 'left',
       },
     },
 
     [theme.breakpoints.down('sm')]: {
-      left: '50%',
-      position: 'absolute',
-      zIndex: 1,
-      height: 65,
-      padding: 0,
-      transform: 'translateX(-50%)',
-      width: '25vw',
+      backgroundColor: theme.palette.background.paper,
+      minWidth: '100%',
+      width: 195,
+    },
 
-      '& img': {
-        objectPosition: 'center',
-      },
+    [theme.breakpoints.down('xs')]: {
+      backgroundColor: theme.palette.background.paper,
+      width: 145,
     },
   },
   menuItem: {

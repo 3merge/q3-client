@@ -1,40 +1,62 @@
 import React from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
+import { invoke } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import useStyle from './useStyle';
 
-const NavigationLink = ({ label, to, icon: Icon }) => {
+const NavigationLink = ({
+  children,
+  includesPartiallyCurrent,
+  label,
+  to,
+}) => {
+  const ref = React.useRef();
   const { t } = useTranslation();
   const cls = useStyle();
 
-  const El = to
-    ? (props) =>
-        React.createElement(Link, {
-          ...props,
-          to,
-        })
-    : (props) => React.createElement('span', props);
-
   return (
-    <El className={cls.menuItem}>
-      {Icon && <Icon color="inherit" />}
+    <Link
+      ref={ref}
+      to={to || '#'}
+      onClick={(e) => {
+        if (!to) {
+          e.preventDefault();
+          invoke(
+            e,
+            'currentTarget.classList.toggle',
+            'selected',
+          );
+        }
+      }}
+      className={cls.menuItem}
+      getProps={({ isCurrent, isPartiallyCurrent }) => {
+        const list = [cls.menuItem];
+
+        if (!to) list.push(cls.anchor);
+
+        if (includesPartiallyCurrent) list.push(cls.parent);
+        else if (isCurrent || isPartiallyCurrent)
+          list.push(cls.active);
+
+        return {
+          className: classnames(list),
+        };
+      }}
+    >
+      {children}
       <span>{t(`labels:${label}`)}</span>
-    </El>
+    </Link>
   );
 };
 
 NavigationLink.propTypes = {
   label: PropTypes.string.isRequired,
-  icon: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.object,
-  ]),
   to: PropTypes.string,
 };
 
 NavigationLink.defaultProps = {
-  icon: null,
   to: null,
 };
 

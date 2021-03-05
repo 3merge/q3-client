@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
@@ -73,6 +74,7 @@ const List = ({
   HeaderProps,
   disableLink,
   disableSearch,
+  searchComponent,
   io,
   ...rest
 }) => {
@@ -128,8 +130,13 @@ const List = ({
       style={{ height: '100%' }}
     >
       <TableHeader>
-        {can('io')}
-        {can('add')}
+        <Grid alignItems="center" container spacing={3}>
+          <Grid item>{searchComponent}</Grid>
+          <Grid>
+            {can('io')}
+            {can('add')}
+          </Grid>
+        </Grid>
       </TableHeader>
       <Box py={0.5}>
         <FilterChip />

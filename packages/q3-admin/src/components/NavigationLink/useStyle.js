@@ -12,4 +12,15 @@ export default makeStyles((theme) => ({
       marginRight: theme.spacing(0.75),
     },
   },
+  anchor: {
+    cursor: 'initial',
+  },
+  active: {
+    color: theme.palette.secondary.dark,
+    fontWeight: 'bold',
+  },
+  parent: {
+    color: theme.palette.secondary.dark,
+    textDecoration: 'underline !important',
+  },
 }));
