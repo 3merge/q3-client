@@ -108,6 +108,7 @@ export default makeStyles((theme) => ({
       mixBlendMode: 'multiply',
       height: '100%',
       objectFit: 'contain',
+      padding: theme.spacing(2),
       width: '100%',
 
       [theme.breakpoints.down('sm')]: {

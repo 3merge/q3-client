@@ -1,10 +1,5 @@
 const menuItems = [
   {
-    label: 'Home',
-    visible: true,
-    to: '/',
-  },
-  {
     label: 'Accounts',
     visible: true,
     nestedMenuItems: [
