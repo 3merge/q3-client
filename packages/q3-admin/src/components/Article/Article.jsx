@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
 const Article = ({ asideComponent, children }) => {
-  const { view, articleWrapper, section } = useStyle();
   const globalStyle = useGlobalStyle();
+  const { view, articleWrapper, section } = useStyle({
+    hasAside: Boolean(asideComponent),
+  });
 
   return (
     <Grid
@@ -29,15 +31,14 @@ const Article = ({ asideComponent, children }) => {
           item
         >
           <Fade in>
-            <Paper
-              elevation={0}
+            <Box
               className={classnames(
                 globalStyle.fillViewportHeight,
                 view,
               )}
             >
               {children}
-            </Paper>
+            </Box>
           </Fade>
         </Grid>
       </Grid>

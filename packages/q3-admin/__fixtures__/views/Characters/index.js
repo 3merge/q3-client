@@ -32,7 +32,6 @@ export default new AbstractCollectionBuilder({
     titleProp: 'name',
   })
   .genNew(Add)
-  .genFilter(Filters)
   .genViews({
     General,
   })

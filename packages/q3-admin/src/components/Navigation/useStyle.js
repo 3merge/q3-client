@@ -25,7 +25,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexDirection: 'row',
     display: 'flex',
-    paddingLeft: theme.spacing(2),
+    paddingLeft: theme.spacing(1.5),
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',

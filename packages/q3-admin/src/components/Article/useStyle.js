@@ -2,9 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   view: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: ({ hasAside }) =>
+      hasAside
+        ? theme.palette.background.paper
+        : theme.palette.background.default,
     position: 'relative',
-    width: '100%',
+    margin: '0 auto',
+    maxWidth: '100%',
+    width: ({ hasAside }) => (hasAside ? '100%' : 1440),
     zIndex: 1,
 
     [theme.breakpoints.down('sm')]: {
@@ -17,5 +22,10 @@ export default makeStyles((theme) => ({
       display: 'block',
     },
   },
-  section: {},
+  section: {
+    backgroundColor: ({ hasAside }) =>
+      hasAside
+        ? theme.palette.background.paper
+        : theme.palette.background.default,
+  },
 }));
