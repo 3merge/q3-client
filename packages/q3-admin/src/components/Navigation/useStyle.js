@@ -28,6 +28,7 @@ export default makeStyles((theme) => ({
     paddingLeft: theme.spacing(2),
 
     [theme.breakpoints.down('sm')]: {
+      alignItems: 'flex-start',
       margin: 0,
       padding: 0,
     },
