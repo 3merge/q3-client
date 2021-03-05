@@ -10,7 +10,7 @@ import NavigationLink from '../NavigationLink';
 export const isNotEmpty = (xs) => size(xs) > 0;
 
 export const getRelativePath = (xs) =>
-  xs ? `${xs.to}/*` : '/';
+  isObject(xs) && xs.to ? `${xs.to}/*` : '/';
 
 const NavigationLinkWrapper = ({
   children,
@@ -51,13 +51,13 @@ NavigationLinkWrapper.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]),
-  childrenItems: PropTypes.arrayOf([
+  childrenItems: PropTypes.arrayOf(
     PropTypes.shape({
       to: PropTypes.string,
       label: PropTypes.string,
       visible: PropTypes.bool,
     }),
-  ]),
+  ),
 };
 
 export default NavigationLinkWrapper;
