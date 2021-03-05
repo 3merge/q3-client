@@ -15,18 +15,10 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: 2,
     boxSizing: 'border-box',
     marginRight: theme.spacing(1),
+    minWidth: 275,
     maxWidth: '100%',
     padding: theme.spacing(0.5),
     width: '100%',
-
-    [theme.breakpoints.down('md')]: {
-      backgroundColor: 'rgb(231 232 232)',
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      backgroundColor: '#f5f7f9',
-      marginRight: 0,
-    },
 
     '&:focus-within': {
       'outline-style': 'auto',

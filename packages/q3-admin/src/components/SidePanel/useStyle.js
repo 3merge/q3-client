@@ -2,19 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: {
-    borderLeft: '2px solid #f4f4f5',
-    height: 'calc((100 * var(--vh)) - 75px)',
+    backgroundColor: theme.palette.background.default,
+    height: 'calc((100 * var(--vh)) - 90px)',
     overflow: 'hidden',
-    padding: '0',
+    padding: '.5rem 0',
     position: 'relative',
-    maxWidth: 305,
-    width: 305,
-
-    [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 65px)',
-      maxWidth: 265,
-      width: 265,
-    },
+    minWidth: 285,
+    maxWidth: 345,
+    width: '24.5vw',
 
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
@@ -31,9 +26,5 @@ export default makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     width: '100%',
-
-    [theme.breakpoints.down('md')]: {
-      padding: 0,
-    },
   },
 }));

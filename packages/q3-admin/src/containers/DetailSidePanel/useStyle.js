@@ -9,10 +9,11 @@ export default makeStyles((theme) => ({
     padding: '.5rem 0',
     position: 'sticky',
     top: 0,
-    background: 'white',
+    background: theme.palette.background.default,
     zIndex: 1,
   },
   item: {
+    background: theme.palette.background.default,
     minWidth: 'auto',
     maxWidth: 'none',
     paddingLeft: 0,

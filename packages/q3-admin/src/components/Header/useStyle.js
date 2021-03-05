@@ -5,10 +5,9 @@ export default makeStyles(() => ({
     borderBottom: navComponent
       ? '2px solid #f5f7f9'
       : undefined,
-    position: 'sticky',
+    paddingTop: '1.5rem',
     top: 0,
     zIndex: 10,
-    background: 'white',
   }),
   header: {
     padding: '0 1.5rem',

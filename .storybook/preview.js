@@ -11,12 +11,14 @@ import {
   createHistory as createRouterHistory,
 } from '@reach/router';
 
-import path from 'path'; 
+import path from 'path';
 import Providers from 'q3-ui';
 import Snackbar from 'q3-ui-forms';
-import { makeDecorator } from '@storybook/addons'; 
-import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
-
+import { makeDecorator } from '@storybook/addons';
+import {
+  DocsPage,
+  DocsContainer,
+} from '@storybook/addon-docs/blocks';
 
 let firstHistoryObject = null;
 
@@ -38,8 +40,10 @@ export const withRouter = makeDecorator({
   skipIfNoParametersOrOptions: true,
 
   wrapper: (getStory, context, { parameters = '/' }) => {
+    let source = createMemorySource('/foo');
+    let history = createHistory(source);
     return (
-      <LocationProvider history={createHistory(parameters)}>
+      <LocationProvider history={history}>
         {getStory(context)}
       </LocationProvider>
     );
@@ -47,31 +51,30 @@ export const withRouter = makeDecorator({
 });
 
 const req = require.context(
-  '../packages', true, 
-  /^\.\/[^\/]+\/src\/.*stories\.jsx?$/
+  '../packages',
+  true,
+  /^\.\/[^\/]+\/src\/.*stories\.jsx?$/,
 );
 
 addDecorator(withRouter);
 
 addDecorator((story) => (
   <Providers>
-    <Snackbar>
-      {story()}
-    </Snackbar>
+    <Snackbar>{story()}</Snackbar>
   </Providers>
 ));
 
 addParameters({
   options: {
     selectedPanel: 'docs',
-   // showPanel: false,
+    // showPanel: false,
     panelPosition: 'right',
   },
-   docs: {
+  docs: {
     container: DocsContainer,
     page: DocsPage,
   },
-})
+});
 
 /*
 configure(() => 
