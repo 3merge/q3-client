@@ -1,24 +1,67 @@
+import {
+  filterByVisibility,
+  shouldReturnNavigationLink,
+} from './NavigationListItem';
+
 describe('NavigationListItem', () => {
   describe('"filterByVisibility"', () => {
-    it.todo(
-      'should return truthy if there are nested menu items',
-    );
-    it.todo('should return truthy if the item is visible');
+    it('should return truthy if there are nested menu items', () => {
+      const xs = [
+        { label: 'foo', nestedMenuItems: [1, 2, 3] },
+      ];
+      const res = filterByVisibility(xs);
+      expect(res).toHaveLength(1);
+      expect(res[0]).toHaveProperty('label', 'foo');
+    });
 
-    it.todo(
-      'should return falsy if the item is neither visible nor has menu items',
-    );
+    it('should return truthy if the item is visible', () => {
+      const xs = [{ label: 'foo', visible: true }];
+      const res = filterByVisibility(xs);
+      expect(res).toHaveLength(1);
+    });
+
+    it('should return an empty array if the item is neither visible nor has menu items', () => {
+      const xs = [
+        { label: 'foo', visible: false },
+        { label: 'bar', nestedMenuItems: [] },
+      ];
+      const res = filterByVisibility(xs);
+      expect(res).toEqual([]);
+    });
   });
 
   describe('"shouldReturnNavigationLink"', () => {
-    it.todo(
-      'should add shouldReturnNestedItems as truthy if there is a to attribute',
-    );
-    it.todo(
-      'should add shouldReturnNestedItems as truthy if there are nested menu items',
-    );
+    it('should add shouldReturnNestedItems as truthy if there is a to attribute', () => {
+      const items = [{ visible: true, to: '/foo' }];
+      const res = shouldReturnNavigationLink(items);
+      expect(res).toHaveLength(1);
+    });
 
-    it.todo('should add nodeId by to value');
-    it.todo('should add nodeId by label value');
+    it('should add shouldReturnNestedItems as truthy if there are nested menu items', () => {
+      const items = [
+        { nestedMenuItems: [1, 2, 3], to: '/foo' },
+      ];
+      const res = shouldReturnNavigationLink(items);
+      expect(res).toHaveLength(1);
+    });
+
+    it('should add nodeId by to value', () => {
+      const items = [
+        { nestedMenuItems: [1, 2, 3], to: '/foo' },
+      ];
+      const res = shouldReturnNavigationLink(items);
+      expect(res[0]).toHaveProperty('nodeId', '/foo');
+    });
+
+    it('should add nodeId by label value', () => {
+      const items = [
+        {
+          label: 'bar',
+          nestedMenuItems: [{ nestedMenuItems: [1, 2, 3] }],
+        },
+      ];
+      const res = shouldReturnNavigationLink(items);
+      expect(res[0]).toHaveProperty('nodeId', 'bar');
+    });
   });
 });
