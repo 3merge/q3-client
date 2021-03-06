@@ -17,6 +17,7 @@ const CellHeader = ({
   description,
   imgSrc,
   url,
+  disableMultiselect,
 }) => {
   const { cellHeaderLink } = useStyles();
   const asLink = url ? { component: Link, to: url } : {};
@@ -26,7 +27,9 @@ const CellHeader = ({
       id={name}
       component="td"
       style={{ borderTop: '2px solid #F5F7F9' }}
-      renderCheckbox={<SelectOne id={id} />}
+      renderCheckbox={
+        !disableMultiselect ? <SelectOne id={id} /> : null
+      }
       renderContent={
         <>
           <Grid item>

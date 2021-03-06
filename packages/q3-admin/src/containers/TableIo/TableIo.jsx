@@ -72,19 +72,20 @@ const TableIo = ({ io, data, params }) => {
           </Box>
         ) : null
       }
-      renderTrigger={(onClick) => (
-        <ButtonWithIcon
-          variant="contained"
-          disabled={!hasExports && !hasImports}
-          onClick={onClick}
-          icon={ImportExportIcon}
-          label={
-            checked.length > 0
-              ? `i/o  (${checked.length})`
-              : 'i/o'
-          }
-        />
-      )}
+      renderTrigger={(onClick) =>
+        hasExports || hasImports ? (
+          <ButtonWithIcon
+            variant="contained"
+            onClick={onClick}
+            icon={ImportExportIcon}
+            label={
+              checked.length > 0
+                ? `i/o  (${checked.length})`
+                : 'i/o'
+            }
+          />
+        ) : null
+      }
     />
   );
 };

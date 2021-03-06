@@ -14,6 +14,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: 2,
     boxSizing: 'border-box',
     padding: theme.spacing(1),
+    minWidth: 350,
     width: '100%',
 
     '&:focus-within': {

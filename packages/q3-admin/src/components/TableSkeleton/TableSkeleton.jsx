@@ -28,7 +28,7 @@ const TableRow = () => (
 );
 
 const TableSkeleton = () => (
-  <Box>
+  <Box py={3}>
     <Box pt={1} mb={2} width="100%" px={1}>
       <Grid container justify="space-between">
         <Grid item xs={8}>

@@ -5,10 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
-import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
@@ -121,6 +120,7 @@ const List = ({
   return (
     <Table
       {...decorator.build()}
+      disableMultiselect={!isObject(io)}
       blacklistColumns={decorator.makeBlacklist(canSeeSub)}
       className={table}
       actionbarPosition="absolute"

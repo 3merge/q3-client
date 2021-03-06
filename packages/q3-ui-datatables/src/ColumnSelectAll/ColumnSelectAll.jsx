@@ -28,6 +28,7 @@ const Label = withSort((props) => {
 export const ColumnSelectAll = ({
   ids,
   children,
+  disableMultiselect,
   ...rest
 }) => {
   const { root } = useStyle();
@@ -37,9 +38,11 @@ export const ColumnSelectAll = ({
       component="th"
       className={root}
       renderCheckbox={
-        <span style={{ marginLeft: -8 }}>
-          <SelectAll ids={ids} />
-        </span>
+        !disableMultiselect ? (
+          <span style={{ marginLeft: -8 }}>
+            <SelectAll ids={ids} />
+          </span>
+        ) : null
       }
       renderContent={
         <>

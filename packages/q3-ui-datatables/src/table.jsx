@@ -33,6 +33,7 @@ const TableView = ({
   allColumns,
   defaultColumns,
   blacklistColumns,
+  disableMultiselect,
   id,
   aliasForName,
   total,
@@ -105,6 +106,7 @@ const TableView = ({
             <TableHead className={tableBody}>
               <TableRow className={flexRow}>
                 <ColumnSelectAll
+                  disableMultiselect={disableMultiselect}
                   ids={extractIds(data)}
                   title={aliasForName}
                   onSort={onSort}
@@ -141,7 +143,10 @@ const TableView = ({
                   key={`row-${ind}`}
                   className={flexRow}
                 >
-                  <RowHeader {...row} />
+                  <RowHeader
+                    disableMultiselect={disableMultiselect}
+                    {...row}
+                  />
                   {object.isFn(renderCustomRowActions) ? (
                     <TableCell className={cellWidth}>
                       <div>
