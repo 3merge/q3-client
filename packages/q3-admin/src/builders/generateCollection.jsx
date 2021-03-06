@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Hidden from '@material-ui/core/Hidden';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -55,14 +56,19 @@ export default ({
           }
         >
           <Box position="relative">
-            <Box
-              position="absolute"
-              right="2rem"
-              top="2rem"
-              zIndex={10}
-            >
-              <UnsavedChanges />
-            </Box>
+            <Hidden mdDown implementation="css">
+              <Box
+                alignItems="center"
+                display="flex"
+                position="absolute"
+                right="120px"
+                top="-90px"
+                zIndex={1200}
+                height="90px"
+              >
+                <UnsavedChanges />
+              </Box>
+            </Hidden>
             <PageDetail />
           </Box>
         </Page>

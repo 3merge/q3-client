@@ -11,13 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#FFF',
     borderRadius: 2,
     boxSizing: 'border-box',
-    marginRight: theme.spacing(1),
-    minWidth: 275,
-    maxWidth: '100%',
-    padding: theme.spacing(0.5),
+    padding: theme.spacing(1),
     width: '100%',
 
     '&:focus-within': {

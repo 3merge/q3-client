@@ -20,7 +20,7 @@ export const SearchMobile = ({
   React.useEffect(close, [useLocation()]);
 
   return (
-    <Box px={0.5}>
+    <Box>
       <IconButton
         aria-label="toggle search"
         onClick={toggle}

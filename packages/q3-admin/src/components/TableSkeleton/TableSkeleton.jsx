@@ -10,7 +10,7 @@ const TableButton = () => (
         display: 'block',
         height: 36,
         marginBottom: '1rem',
-        width: 65,
+        width: '8vw',
       }}
     />
   </Box>
@@ -31,16 +31,23 @@ const TableSkeleton = () => (
   <Box>
     <Box pt={1} mb={2} width="100%" px={1}>
       <Grid container justify="space-between">
-        <Grid item>
+        <Grid item xs={8}>
           <Skeleton
             height={36}
             style={{
               marginBottom: '1rem',
-              width: 210,
+              width: '25vw',
             }}
           />
         </Grid>
-        <Grid item style={{ display: 'flex' }}>
+        <Grid
+          item
+          xs={4}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
           <TableButton />
           <TableButton />
         </Grid>

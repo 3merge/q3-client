@@ -12,6 +12,13 @@ export default makeStyles((theme) => ({
     width: ({ hasAside }) => (hasAside ? '100%' : 1440),
     zIndex: 1,
 
+    '& > div': {
+      backgroundColor: ({ hasAside }) =>
+        hasAside
+          ? theme.palette.background.paper
+          : theme.palette.background.default,
+    },
+
     [theme.breakpoints.down('sm')]: {
       border: 'none',
     },

@@ -8,6 +8,7 @@ import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { get } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
+import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
 import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
@@ -130,14 +131,17 @@ const List = ({
       style={{ height: '100%' }}
     >
       <TableHeader>
-        <Grid alignItems="center" container spacing={3}>
-          <Grid item>{searchComponent}</Grid>
-          <Grid>
-            {can('io')}
-            {can('add')}
-          </Grid>
+        <Grid
+          alignItems="center"
+          justify="flex-end"
+          container
+        >
+          <Grid item> {searchComponent}</Grid>
+          <Grid item>{can('io')}</Grid>
+          <Grid item>{can('add')}</Grid>
         </Grid>
       </TableHeader>
+
       <Box py={0.5}>
         <FilterChip />
       </Box>

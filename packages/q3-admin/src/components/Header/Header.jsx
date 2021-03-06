@@ -29,7 +29,14 @@ const Header = ({
           alignItems="center"
           justify="space-between"
         >
-          <Grid item>
+          <Grid
+            item
+            style={{
+              maxWidth: children
+                ? 'calc(100% - 115px)'
+                : undefined,
+            }}
+          >
             <Box
               display="flex"
               alignItems="center"
