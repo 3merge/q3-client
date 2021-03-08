@@ -34,18 +34,15 @@ export const addRangeToSearchString = (state, location) => {
   const params = new URLSearchParams(location?.search);
   const keys = Object.keys(state);
 
-  Object.values(state)
-    .sort()
-    .forEach((value, i) => {
-      params.set(keys[i], getCaster(i)(value));
-    });
+  Object.values(state).forEach((value, i) => {
+    params.set(keys[i], getCaster(i)(value));
+  });
 
   return url.toParamsString(params);
 };
 
 export const printDateRange = (range) =>
   Object.values(range)
-    .sort()
     .map(getFriendlyDate)
     .filter(Boolean)
     .join(' - ');
