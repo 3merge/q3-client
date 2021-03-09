@@ -46,7 +46,9 @@ const Segments = ({ children, disableSegments }) => {
               <SegmentListItem
                 key={label}
                 href={searchValue}
-                isStarred={main === label}
+                isStarred={
+                  disableSegments ? false : main === label
+                }
                 siblings={getSearchValues(listItems)}
                 label={label}
               >

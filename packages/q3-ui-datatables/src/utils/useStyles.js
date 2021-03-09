@@ -241,7 +241,7 @@ export default makeStyles((theme) => ({
   },
 
   cellHeaderLink: {
-    borderTop: `1px solid ${theme.palette.background.default}`,
+    //  borderTop: `1px solid ${theme.palette.background.default}`,
     color: 'inherit',
     display: 'block',
     '& small': {

@@ -25,7 +25,7 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     flexDirection: 'row',
     display: 'flex',
-    paddingLeft: theme.spacing(1.5),
+    padding: 0,
     height: '100%',
     margin: 0,
 
@@ -105,10 +105,8 @@ export default makeStyles((theme) => ({
     height: '100%',
     minWidth: 285,
     maxWidth: 345,
-    width: '24.5vw',
 
     '& img': {
-      mixBlendMode: 'multiply',
       height: '100%',
       objectFit: 'contain !important',
       width: '100%',

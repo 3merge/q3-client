@@ -35,7 +35,7 @@ const AppNavigation = ({
       color="primary"
       position="sticky"
       className={cls.bar}
-      elevation={0}
+      elevation={1}
     >
       <Hidden lgUp>
         <Drawer
