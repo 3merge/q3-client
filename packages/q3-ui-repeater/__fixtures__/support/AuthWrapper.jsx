@@ -83,7 +83,7 @@ export default (Component) => (props) => {
 
   return (
     <AuthContext.Provider value={permissions}>
-      <Box p={2} style={{ backgroundColor: '#FFF' }}>
+      <Box p={2} bgcolor="background.paper">
         <Component
           name="people"
           collectionName={COLLECTION_NAME}

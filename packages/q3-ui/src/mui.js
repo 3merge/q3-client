@@ -295,8 +295,8 @@ export default (type) => {
         head: {
           textOverflow: 'ellipsis',
           backgroundColor: `${theme.palette.background.paper} !important`,
-          color: grey[700],
-          fontSize: '0.75rem !important',
+          color: 'inherit',
+          fontSize: '.624rem !important',
           fontWeight: 600,
           textTransform: 'uppercase',
           lineHeight: '1.5',

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: ({ selected = false }) => ({
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     boxShadow: selected
       ? theme.shadows[15]
       : theme.shadows[0],
@@ -20,7 +20,10 @@ export default makeStyles((theme) => ({
   },
 
   titleCls: {
-    color: theme.palette.primary.light,
+    color:
+      theme.palette.type === 'light'
+        ? theme.palette.primary.main
+        : 'inherit',
     fontSize: '.911rem !important',
     margin: '0 !important',
     fontWeight: 600,
@@ -175,9 +178,8 @@ export default makeStyles((theme) => ({
   tableHeader: {
     '& th': {
       padding: '1rem',
-      color: theme.palette.primary.light,
-      fontSize: '.624rem !important',
-      backgroundColor: '#f5f7f9 !important',
+      backgroundColor: `${theme.palette.background.muted} !important`,
+      border: 0,
     },
     [theme.breakpoints.down('sm')]: {
       display: 'none',

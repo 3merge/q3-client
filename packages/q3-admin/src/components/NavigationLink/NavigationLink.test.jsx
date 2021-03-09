@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Button } from '@material-ui/core';
 import NavigationLink, {
   makeAnchor,
   toggleSelectedClass,
@@ -61,7 +61,7 @@ test.each([
     .shallow(
       <NavigationLink {...props} label="test" to={to} />,
     )
-    .find(Link)
+    .find(Button)
     .props()
     .getProps(props);
 

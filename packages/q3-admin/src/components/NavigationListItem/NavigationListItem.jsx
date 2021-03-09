@@ -1,7 +1,9 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
+import Hidden from '@material-ui/core/Hidden';
 import { array } from 'q3-ui-helpers';
-import { compact, filter, map } from 'lodash';
+import { compact, filter, map, size } from 'lodash';
 import NavigationLinkWrapper, {
   isNotEmpty,
 } from '../NavigationLinkWrapper';
@@ -37,27 +39,40 @@ export const shouldReturnNavigationLink = (items) =>
     }),
   );
 
-const NavigationListItem = ({ items }) =>
-  map(
-    shouldReturnNavigationLink(items),
-    ({
-      nodeId,
-      childrenItems,
-      shouldReturnNestedItems,
-      ...item
-    }) => (
-      <NavigationLinkWrapper
-        key={nodeId}
-        childrenItems={childrenItems}
-        {...item}
-      >
-        {shouldReturnNestedItems && (
-          <Box position="absolute" component="ul">
-            <NavigationListItem items={childrenItems} />
-          </Box>
+const NavigationListItem = ({ items }) => {
+  const xs = shouldReturnNavigationLink(items);
+  return map(
+    xs,
+    (
+      {
+        nodeId,
+        childrenItems,
+        shouldReturnNestedItems,
+        ...item
+      },
+      i,
+    ) => (
+      <React.Fragment key={nodeId}>
+        <NavigationLinkWrapper
+          childrenItems={childrenItems}
+          {...item}
+        >
+          {shouldReturnNestedItems && (
+            <Box position="absolute" component="ul">
+              <NavigationListItem items={childrenItems} />
+            </Box>
+          )}
+        </NavigationLinkWrapper>
+        {i !== size(xs) - 1 && (
+          <Hidden mdUp>
+            <Box my={0.5}>
+              <Divider />
+            </Box>
+          </Hidden>
         )}
-      </NavigationLinkWrapper>
+      </React.Fragment>
     ),
   );
+};
 
 export default NavigationListItem;

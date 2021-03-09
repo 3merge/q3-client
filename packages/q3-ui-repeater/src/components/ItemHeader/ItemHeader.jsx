@@ -51,7 +51,6 @@ const ItemHeader = ({
         <Grid item xs zeroMinWidth>
           <Title
             component="h4"
-            color="primary"
             name={title}
             editable={isIn(title)}
             className={titleCls}
