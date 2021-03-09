@@ -34,18 +34,24 @@ const SidePanel = ({ id, children }) => {
           renderContent={() => children}
           renderTrigger={(onClick) => (
             <Box
+              color="secondary.contrastText"
               position="absolute"
-              top="-90px"
+              top="-71px"
               right="105px"
               display="flex"
               alignItems="center"
-              height="90px"
+              height="71px"
               zIndex={1210}
             >
               <IconButton
                 label="options"
                 icon={AppsIcon}
-                buttonProps={{ onClick }}
+                buttonProps={{
+                  onClick,
+                  style: {
+                    color: 'inherit',
+                  },
+                }}
               />
             </Box>
           )}

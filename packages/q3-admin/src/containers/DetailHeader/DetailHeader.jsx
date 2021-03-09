@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
+import Box from '@material-ui/core/Box';
 import Back from '../back';
 import Header from '../../components/Header';
 import { useAppContext } from '../../hooks';
@@ -41,13 +42,15 @@ const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
 
   return (
-    <Header
-      {...props}
-      {...useTitle(data, props)}
-      backComponent={
-        <DetailHeaderBackComponent {...props} />
-      }
-    />
+    <Box my={{ xl: 0.75, lg: 0.75 }}>
+      <Header
+        {...props}
+        {...useTitle(data, props)}
+        backComponent={
+          <DetailHeaderBackComponent {...props} />
+        }
+      />
+    </Box>
   );
 };
 

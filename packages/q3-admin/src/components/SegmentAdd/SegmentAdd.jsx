@@ -34,6 +34,7 @@ const SegmentAdd = ({ onSave, active, items }) => {
         }}
         style={{
           fontSize: '0.933rem',
+          width: '100%',
         }}
       />
       <ListItemSecondaryAction>

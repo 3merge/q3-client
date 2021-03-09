@@ -26,7 +26,6 @@ const CellHeader = ({
     <CellWithCheckbox
       id={name}
       component="td"
-      style={{ borderTop: '2px solid #F5F7F9' }}
       renderCheckbox={
         !disableMultiselect ? <SelectOne id={id} /> : null
       }
