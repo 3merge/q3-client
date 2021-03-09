@@ -15,7 +15,7 @@ const SidePanel = ({ id, children }) => {
 
   return (
     <div id={id}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <Grid
           item
           className={classnames(
@@ -28,7 +28,7 @@ const SidePanel = ({ id, children }) => {
           </Box>
         </Grid>
       </Hidden>
-      <Hidden mdUp>
+      <Hidden lgUp>
         <Dialog
           title="options"
           renderContent={() => children}

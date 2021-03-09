@@ -37,7 +37,7 @@ const AppNavigation = ({
       className={cls.bar}
       elevation={0}
     >
-      <Hidden mdUp>
+      <Hidden lgUp>
         <Drawer
           title="menu"
           closeOnRouteChange
@@ -71,7 +71,7 @@ const AppNavigation = ({
             }}
           />
         </Link>
-        <Hidden smDown>{renderMenuItems()}</Hidden>
+        <Hidden mdDown>{renderMenuItems()}</Hidden>
       </Box>
       {children}
     </AppBar>

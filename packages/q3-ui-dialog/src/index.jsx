@@ -27,7 +27,6 @@ const DialogWrapper = ({
 }) => {
   const { isOpen, open, close } = useOpen(initialValue);
   const { t } = useTranslation();
-
   React.useEffect(() => {
     if (closeOnRouteChange) close();
   }, [get(rest, 'location.pathname')]);
