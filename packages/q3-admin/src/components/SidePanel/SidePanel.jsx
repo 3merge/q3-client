@@ -35,11 +35,11 @@ const SidePanel = ({ id, children }) => {
           renderTrigger={(onClick) => (
             <Box
               position="absolute"
-              top="-90px"
+              top="-81px"
               right="105px"
               display="flex"
               alignItems="center"
-              height="90px"
+              height="81px"
               zIndex={1210}
             >
               <IconButton

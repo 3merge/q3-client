@@ -26,6 +26,8 @@ const theme = createMuiTheme({
   palette: {
     background: {
       default: grey[100],
+      muted: (index) =>
+        [grey[200], grey[300], grey[400], grey[500]][index],
     },
     primary: {
       main: '#1e1434',

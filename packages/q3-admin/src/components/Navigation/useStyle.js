@@ -7,12 +7,15 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
-    height: 90,
+    height: 81,
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
+    backgroundColor: theme.palette.background.paper,
+    borderBottom: `1px solid ${theme.palette.background.muted(
+      1,
+    )}`,
   },
   root: {
-    backgroundColor: theme.palette.background.paper,
     display: 'flex',
     height: '100%',
     position: 'relative',
@@ -97,7 +100,6 @@ export default makeStyles((theme) => ({
   },
   actions: {},
   logo: {
-    backgroundColor: theme.palette.background.default,
     display: 'block',
     fill: theme.palette.primary.contrastText,
     height: '100%',
@@ -109,7 +111,6 @@ export default makeStyles((theme) => ({
       mixBlendMode: 'multiply',
       height: '100%',
       objectFit: 'contain !important',
-      padding: theme.spacing(1),
       width: '100%',
 
       [theme.breakpoints.down('sm')]: {

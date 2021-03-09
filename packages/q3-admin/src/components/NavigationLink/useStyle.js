@@ -22,6 +22,5 @@ export default makeStyles((theme) => ({
   },
   parent: {
     color: theme.palette.secondary.dark,
-    textDecoration: 'underline !important',
   },
 }));

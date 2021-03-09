@@ -23,11 +23,12 @@ export default makeStyles((theme) => {
 
       '& > div': {
         backgroundColor,
-        padding: hasAside(undefined, theme.spacing(1)),
+        padding: hasAside(undefined, theme.spacing(0.5)),
       },
 
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         border: 'none',
+        paddingTop: theme.spacing(1),
       },
     },
     articleWrapper: {

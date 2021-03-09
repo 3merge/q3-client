@@ -5,7 +5,7 @@ export default makeStyles(() => ({
     borderBottom: navComponent
       ? '2px solid #f5f7f9'
       : undefined,
-    paddingTop: '1.5rem',
+    paddingTop: '.25rem',
     top: 0,
     zIndex: 10,
   }),
