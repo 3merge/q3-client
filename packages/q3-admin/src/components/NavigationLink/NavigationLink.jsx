@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import { invoke } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 import useStyle from './useStyle';
 
 export const makeAnchor = (href) => href || '#';
@@ -20,14 +21,15 @@ const NavigationLink = ({
   label,
   to,
 }) => {
-  const ref = React.useRef();
   const { t } = useTranslation();
   const cls = useStyle();
 
   return (
-    <Link
-      ref={ref}
+    <Button
+      fullWidth
+      component={Link}
       to={makeAnchor(to)}
+      tabIndex={to ? undefined : -1}
       onClick={toggleSelectedClass(to)}
       className={cls.menuItem}
       getProps={({ isCurrent, isPartiallyCurrent }) => {
@@ -43,9 +45,9 @@ const NavigationLink = ({
         };
       }}
     >
-      {children}
+      {children || <span />}
       <span>{t(`labels:${label}`)}</span>
-    </Link>
+    </Button>
   );
 };
 

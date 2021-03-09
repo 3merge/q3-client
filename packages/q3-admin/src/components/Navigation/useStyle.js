@@ -29,7 +29,7 @@ export default makeStyles((theme) => ({
     height: '100%',
     margin: 0,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'block',
       margin: 0,
       padding: 0,
@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
           transform: 'rotate(180deg)',
         },
         '& ~ ul': {
-          [theme.breakpoints.down('sm')]: {
+          [theme.breakpoints.down('md')]: {
             display: 'block !important',
             opacity: 1,
             padding: '0 1.5rem',
@@ -75,19 +75,17 @@ export default makeStyles((theme) => ({
 
       [theme.breakpoints.down('md')]: {
         backgroundColor: theme.palette.background.paper,
-      },
-
-      [theme.breakpoints.down('sm')]: {
         boxShadow: 'none',
         display: 'none',
         position: 'relative',
         opactity: 1,
         visibility: 'visible',
         transform: 'none',
+        marginTop: theme.spacing(1),
       },
     },
 
-    '& li:hover, & li:focus-within': {
+    '& li:focus-within': {
       '& svg': {
         [theme.breakpoints.up('md')]: {
           transform: 'rotate(180deg)',
@@ -107,14 +105,18 @@ export default makeStyles((theme) => ({
     display: 'block',
     fill: theme.palette.primary.contrastText,
     height: '100%',
-    minWidth: 285,
+    minWidth: 245,
     maxWidth: 345,
 
     '& img': {
       height: '100%',
-      objectPosition: 'left !important',
+      objectPosition: 'center !important',
       objectFit: 'contain !important',
       width: '100%',
+
+      [theme.breakpoints.down('md')]: {
+        objectPosition: 'left !important',
+      },
     },
 
     [theme.breakpoints.down('sm')]: {

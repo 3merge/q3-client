@@ -46,7 +46,6 @@ const Header = ({
     transparent,
     wide,
   });
-
   return (
     <HideOnScroll color={color}>
       <AppBar

@@ -12,6 +12,16 @@ export default makeStyles((theme) => ({
     borderBottom: '3px solid transparent',
     transitionProperty: 'color,border',
     transitionDuration: '250ms',
+    position: 'relative',
+    overflow: 'hidden',
+    outline: 0,
+
+    [theme.breakpoints.down('md')]: {
+      '& > span': {
+        flexDirection: 'row-reverse',
+        justifyContent: 'space-between',
+      },
+    },
 
     '& svg': {
       marginRight: theme.spacing(0.5),
@@ -21,14 +31,14 @@ export default makeStyles((theme) => ({
     cursor: 'initial',
   },
   active: {
-    color: 'inherit',
-    fontWeight: 'bold',
+    color: theme.palette.secondary.main,
   },
   parent: {
-    color: 'inherit',
+    color: 'inherit !important',
     borderBottom: `2px solid ${theme.palette.secondary.main}`,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
+      color: `${theme.palette.secondary.main} !important`,
       border: 'none !important',
     },
   },
