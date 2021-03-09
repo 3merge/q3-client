@@ -44,6 +44,7 @@ const PollIndicator = ({
       size="small"
       className={cls.label}
       onClick={() => window.location.reload()}
+      color="inherit"
     >
       <IconEl ref={ref} className={cls.dot} />
       <span className={cls.text}>

@@ -46,7 +46,7 @@ const Header = ({
               <Typography
                 className={cls.title}
                 variant="h5"
-                component="h2"
+                component="h1"
               >
                 {title}
               </Typography>

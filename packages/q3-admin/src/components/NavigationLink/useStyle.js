@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(0.5),
     textDecoration: 'none !important',
     color: 'inherit',
+    height: '100%',
+    borderBottom: '3px solid transparent',
+    transitionProperty: 'color,border',
+    transitionDuration: '250ms',
 
     '& svg': {
       marginRight: theme.spacing(0.5),
@@ -17,11 +21,11 @@ export default makeStyles((theme) => ({
     cursor: 'initial',
   },
   active: {
-    color: theme.palette.secondary.dark,
+    color: 'inherit',
     fontWeight: 'bold',
   },
   parent: {
-    color: theme.palette.secondary.dark,
-    textDecoration: 'underline !important',
+    color: 'inherit',
+    borderBottom: `2px solid ${theme.palette.secondary.main}`,
   },
 }));

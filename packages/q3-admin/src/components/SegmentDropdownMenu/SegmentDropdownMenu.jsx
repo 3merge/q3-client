@@ -18,6 +18,7 @@ const SegmentDropdownMenu = ({
   onFavourite,
   onRemove,
   isDefault,
+  disableSegments,
 }) => {
   const { t } = useTranslation();
 
@@ -46,7 +47,7 @@ const SegmentDropdownMenu = ({
     return items;
   };
 
-  return (
+  return disableSegments ? null : (
     <Dialog
       title={t('titles:customSegmentEditor')}
       renderTrigger={(open) => (
@@ -75,6 +76,7 @@ const SegmentDropdownMenu = ({
 
 SegmentDropdownMenu.defaultProps = {
   isDefault: false,
+  disableSegments: false,
 };
 
 SegmentDropdownMenu.propTypes = {
@@ -82,6 +84,7 @@ SegmentDropdownMenu.propTypes = {
   onFavourite: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   isDefault: PropTypes.bool,
+  disableSegments: PropTypes.bool,
 };
 
 export default SegmentDropdownMenu;

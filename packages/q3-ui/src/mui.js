@@ -26,14 +26,7 @@ const theme = createMuiTheme({
   palette: {
     background: {
       default: grey[100],
-    },
-    primary: {
-      main: '#1e1434',
-    },
-    secondary: {
-      dark: '#184A42',
-      main: '#329686',
-      light: '#4BE3CA',
+      muted: 'rgba(30, 20, 52, 0.08)',
     },
   },
   status: {
@@ -101,6 +94,9 @@ Object.assign(theme, {
   overrides: {
     MuiCssBaseline: {
       '@global': {
+        ':root': {
+          '--background-muted': 'rgba(30, 20, 52, 0.08)',
+        },
         body: {
           backgroundColor: '#F5F7F9',
           fontSize: 'initial !important',
@@ -149,6 +145,15 @@ Object.assign(theme, {
     MuiLink: {
       root: {
         textDecoration: 'underline !important',
+      },
+    },
+    MuiTextField: {
+      root: {
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: theme.palette.grey[300],
+          },
+        },
       },
     },
     MuiPaper: {
@@ -266,7 +271,7 @@ Object.assign(theme, {
     MuiTreeItem: {
       root: {
         '&$selected > $content $label': {
-          backgroundColor: 'rgb(231 232 232)',
+          backgroundColor: 'var(--background-muted)',
         },
       },
     },

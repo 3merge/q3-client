@@ -13,7 +13,7 @@ import SegmentListItem from '../../components/SegmentListItem';
 const getSearchValues = (a) =>
   a.map((item) => item.searchValue);
 
-const Segements = ({ children }) => {
+const Segments = ({ children, disableSegments }) => {
   const { location } = React.useContext(Definitions);
   const {
     add,
@@ -54,6 +54,7 @@ const Segements = ({ children }) => {
                   isDefault={!fromProfile}
                   onFavourite={() => favourite(label)}
                   onRemove={() => remove(label)}
+                  disableSegments={disableSegments}
                 >
                   <SegmentName name={label}>
                     {(name, renderInput) =>
@@ -68,15 +69,20 @@ const Segements = ({ children }) => {
               </SegmentListItem>
             ),
           )}
-          <SegmentAdd onSave={add} />
+          {!disableSegments && <SegmentAdd onSave={add} />}
         </List>
       </Box>
     </SidePanelContent>
   );
 };
 
-Segements.propTypes = {
-  children: PropTypes.func.isRequired,
+Segments.defaultProps = {
+  disableSegments: false,
 };
 
-export default Segements;
+Segments.propTypes = {
+  children: PropTypes.func.isRequired,
+  disableSegments: PropTypes.bool,
+};
+
+export default Segments;

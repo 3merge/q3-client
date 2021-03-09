@@ -7,12 +7,12 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
-    height: 90,
+    height: 71,
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
+    color: theme.palette.primary.contrastText,
   },
   root: {
-    backgroundColor: theme.palette.background.paper,
     display: 'flex',
     height: '100%',
     position: 'relative',
@@ -26,6 +26,8 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     display: 'flex',
     paddingLeft: theme.spacing(1.5),
+    height: '100%',
+    margin: 0,
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',
@@ -36,6 +38,7 @@ export default makeStyles((theme) => ({
     '& li': {
       margin: 0,
       padding: 0,
+      height: '100%',
 
       '& svg': {
         transition: 'transform 150ms ease-in',
@@ -59,7 +62,7 @@ export default makeStyles((theme) => ({
     },
 
     '& li > ul': {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.primary.dark,
       boxShadow: theme.shadows[4],
       listStyle: 'none',
       margin: 0,
@@ -97,7 +100,6 @@ export default makeStyles((theme) => ({
   },
   actions: {},
   logo: {
-    backgroundColor: theme.palette.background.default,
     display: 'block',
     fill: theme.palette.primary.contrastText,
     height: '100%',
@@ -109,7 +111,6 @@ export default makeStyles((theme) => ({
       mixBlendMode: 'multiply',
       height: '100%',
       objectFit: 'contain !important',
-      padding: theme.spacing(1),
       width: '100%',
 
       [theme.breakpoints.down('sm')]: {
@@ -118,13 +119,11 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      backgroundColor: theme.palette.background.paper,
       minWidth: '100%',
       width: 195,
     },
 
     [theme.breakpoints.down('xs')]: {
-      backgroundColor: theme.palette.background.paper,
       width: 145,
     },
   },
