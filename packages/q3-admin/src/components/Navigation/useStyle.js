@@ -7,13 +7,10 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
-    height: 81,
+    height: 71,
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
-    backgroundColor: theme.palette.background.paper,
-    borderBottom: `1px solid ${theme.palette.background.muted(
-      1,
-    )}`,
+    color: theme.palette.primary.contrastText,
   },
   root: {
     display: 'flex',
@@ -29,6 +26,8 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     display: 'flex',
     paddingLeft: theme.spacing(1.5),
+    height: '100%',
+    margin: 0,
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',
@@ -39,6 +38,7 @@ export default makeStyles((theme) => ({
     '& li': {
       margin: 0,
       padding: 0,
+      height: '100%',
 
       '& svg': {
         transition: 'transform 150ms ease-in',
@@ -62,7 +62,7 @@ export default makeStyles((theme) => ({
     },
 
     '& li > ul': {
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.primary.dark,
       boxShadow: theme.shadows[4],
       listStyle: 'none',
       margin: 0,
@@ -119,13 +119,11 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      backgroundColor: theme.palette.background.paper,
       minWidth: '100%',
       width: 195,
     },
 
     [theme.breakpoints.down('xs')]: {
-      backgroundColor: theme.palette.background.paper,
       width: 145,
     },
   },

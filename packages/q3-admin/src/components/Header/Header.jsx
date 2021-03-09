@@ -45,7 +45,7 @@ const Header = ({
               {backComponent}
               <Typography
                 className={cls.title}
-                variant={navComponent ? 'h5' : 'h2'}
+                variant="h5"
                 component="h1"
               >
                 {title}

@@ -8,17 +8,17 @@ export const isIdle = (next) => ({
   next(hasChange || hasPendingUpdate ? orange : blueGrey);
 
 export default makeStyles((theme) => ({
-  dot: isIdle((color) => ({
+  dot: isIdle(() => ({
     borderRadius: 500,
-    color: color[900],
+    color: theme.palette.primary.contrastText,
     fontSize: '1.5rem',
     marginRight: theme.spacing(0.5),
     padding: theme.spacing(0.25),
   })),
-  label: isIdle((color) => ({
+  label: isIdle(() => ({
     backgroundColor: 'transparent',
     textTransform: 'initial !important',
-    color: color[900],
+    color: theme.palette.primary.contrastText,
     fontSize: '0.812rem',
     fontWeight: 'strong',
     paddingLeft: '.5rem',

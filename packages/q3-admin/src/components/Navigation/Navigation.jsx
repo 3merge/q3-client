@@ -32,10 +32,10 @@ const AppNavigation = ({
 
   return (
     <AppBar
-      color="inherit"
+      color="primary"
       position="sticky"
       className={cls.bar}
-      elevation={1}
+      elevation={0}
     >
       <Hidden mdUp>
         <Drawer

@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.default,
-    borderRight: `2px solid ${theme.palette.background.muted(
-      0,
-    )}`,
+    borderRight: `1px solid ${theme.palette.background.muted}`,
     height: 'calc((100 * var(--vh)) - 81px)',
     overflow: 'hidden',
     padding: '.5rem 0',

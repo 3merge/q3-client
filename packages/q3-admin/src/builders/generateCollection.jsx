@@ -62,9 +62,9 @@ export default ({
                 display="flex"
                 position="absolute"
                 right="120px"
-                top="-81px"
+                top="-71px"
                 zIndex={1200}
-                height="81px"
+                height="71px"
               >
                 <UnsavedChanges />
               </Box>

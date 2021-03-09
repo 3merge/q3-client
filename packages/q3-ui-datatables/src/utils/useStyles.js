@@ -16,29 +16,24 @@ export default makeStyles((theme) => ({
       zIndex: 3,
     },
 
-    '& thead tr': {
-      // boxShadow: theme.shadows[1],
-    },
+    '& thead tr': {},
 
-    '& tbody, & thead, & tfooter': {
-      //   display: 'inline-block',
-      //   minWidth: '100%',
-    },
+    '& tbody, & thead, & tfooter': {},
 
     '& tbody tr': {
-      borderTop: '2px solid #F5F7F9',
+      borderTop: `1px solid ${theme.palette.background.muted}`,
 
       '&:hover': {
-        backgroundColor: '#f9fbfd',
+        backgroundColor: theme.palette.background.default,
         transition: 'background-color 250ms',
         '& td': {
-          backgroundColor: '#f9fbfd !important',
+          backgroundColor: `${theme.palette.background.default} !important`,
         },
       },
     },
 
     '& td': {
-      borderTop: '2px solid #F5F7F9',
+      borderTop: `1px solid ${theme.palette.background.muted}`,
       fontSize: '0.833rem !important',
       borderBottom: 'none !important',
       padding: '0 !important',
@@ -55,12 +50,7 @@ export default makeStyles((theme) => ({
     padding: 0,
   },
 
-  tableBody: {
-    // minWidth: 'max-content',
-    // maxWidth: 'none',
-    //    display: 'block',
-    //  width: 'fit-content',
-  },
+  tableBody: {},
 
   cellWidth: () => ({
     // alignItems: 'center',
@@ -251,6 +241,7 @@ export default makeStyles((theme) => ({
   },
 
   cellHeaderLink: {
+    borderTop: `1px solid ${theme.palette.background.default}`,
     color: 'inherit',
     display: 'block',
     '& small': {

@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   root: ({ navComponent }) => ({
     borderBottom: navComponent
-      ? '2px solid #f5f7f9'
+      ? `1px solid ${theme.palette.background.muted}`
       : undefined,
     paddingTop: '.25rem',
     top: 0,
