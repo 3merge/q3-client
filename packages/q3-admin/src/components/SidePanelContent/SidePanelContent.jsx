@@ -18,7 +18,7 @@ export const SidebarPanelContent = ({
       <Box
         display="flex"
         justifyContent="space-between"
-        px={1}
+        pl={1}
       >
         <Typography variant="overline" color="primary">
           {t(`titles:${title}`)}
