@@ -4,6 +4,8 @@ import { navigate } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
 import { Definitions } from '../containers/state';
 
+const isMatch = (x, y) => x === y;
+
 const hasReservedWord = (v) =>
   [
     'search',
@@ -101,8 +103,11 @@ export default (search) => {
     add: (name) =>
       updateFiltersInProfile(pushInto(name, search)),
 
-    favourite: (name) =>
-      updateFiltersInProfile(pushInto('default', name)),
+    favourite: (name) => {
+      return updateFiltersInProfile(
+        pushInto('default', name),
+      );
+    },
 
     remove: (name) =>
       updateFiltersInProfile(pullFrom(name)),
@@ -112,9 +117,15 @@ export default (search) => {
 
       return name
         ? updateFiltersInProfile(
-            Object.assign(pullFrom(prevName), {
-              [name]: query,
-            }),
+            Object.assign(
+              pullFrom(prevName),
+              {
+                [name]: query,
+              },
+              isMatch(main, prevName)
+                ? { default: name }
+                : {},
+            ),
             goTo,
           )
         : goTo();

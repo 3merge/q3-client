@@ -11,13 +11,13 @@ import FiltersClear from './FiltersClear';
 import FiltersShare from './FiltersShare';
 import Segments from '../segments';
 
-const Groups = ({ children, ...etc }) => {
+const Groups = ({ children, disableSegments, ...etc }) => {
   const { location } = React.useContext(Definitions);
   const { t } = useTranslation('labels');
 
   return (
     <Box my={1}>
-      <Segments>
+      <Segments disableSegments={disableSegments}>
         {(renderer, onSave, searchValue) => (
           <FiltersForm
             search={searchValue}
@@ -78,8 +78,13 @@ const Groups = ({ children, ...etc }) => {
   );
 };
 
+Groups.defaultProps = {
+  disableSegments: false,
+};
+
 Groups.propTypes = {
   children: PropTypes.node.isRequired,
+  disableSegments: PropTypes.bool,
 };
 
 export default React.memo(Groups);
