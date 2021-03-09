@@ -2,23 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
 
+const DARK = 'dark';
+const LIGHT = 'light';
+const LOCAL_STORAGE_NAME = 'q3-mode';
+
 export const ModeContext = React.createContext({
-  value: 'light',
+  value: LIGHT,
 });
 
 const Mode = ({ children, initialType }) => {
   const [type, setType] = React.useState(
-    browser.proxyLocalStorageApi('getItem', 'q3-mode') ||
-      initialType,
+    browser.proxyLocalStorageApi(
+      'getItem',
+      LOCAL_STORAGE_NAME,
+    ) || initialType,
   );
 
-  const isLight = type === 'light';
-  const toggle = () => setType(isLight ? 'dark' : 'light');
+  const isLight = type === LIGHT;
+  const toggle = () => setType(isLight ? DARK : LIGHT);
 
   React.useEffect(() => {
     browser.proxyLocalStorageApi(
       'setItem',
-      'q3-mode',
+      LOCAL_STORAGE_NAME,
       type,
     );
   }, [type]);
@@ -38,12 +44,12 @@ const Mode = ({ children, initialType }) => {
 };
 
 Mode.defaultProps = {
-  initialType: 'light',
+  initialType: LIGHT,
 };
 
 Mode.propTypes = {
   children: PropTypes.func.isRequired,
-  initialType: PropTypes.oneOf(['light', 'dark']),
+  initialType: PropTypes.oneOf([LIGHT, DARK]),
 };
 
 export default Mode;
