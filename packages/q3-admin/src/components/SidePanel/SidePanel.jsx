@@ -1,5 +1,6 @@
 import React from 'react';
-import { compose, isNil } from 'lodash/fp';
+import PropTypes from 'prop-types';
+import { isNil } from 'lodash/fp';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -8,34 +9,38 @@ import Dialog from 'q3-ui-dialog';
 import { SwapHorizontalCircle } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import { browser } from 'q3-ui-helpers';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
 const SIDE_PANEL_VISIBILITY = 'sidePanelVisibility';
 
-const getItem = () =>
-  JSON.parse(localStorage.getItem(SIDE_PANEL_VISIBILITY));
-
-const setItem = (item) =>
-  localStorage.setItem(SIDE_PANEL_VISIBILITY, item);
-
-export const toState = (x) => (isNil(x) ? true : x);
+export const truthy = (x) =>
+  typeof x === 'string'
+    ? x === 'true'
+    : Boolean(x) && !isNil(x);
 
 const SidePanel = ({ id, children }) => {
   const [state, setState] = React.useState(
-    compose(toState, getItem),
+    truthy(
+      browser.proxyLocalStorageApi(
+        'getItem',
+        SIDE_PANEL_VISIBILITY,
+      ),
+    ),
   );
-  let ref = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!ref) {
-      ref = true;
-    } else {
-      setItem(state);
-    }
-  }, [state]);
+  const toggleSidePanel = () =>
+    setState((cur) => {
+      const newState = !cur;
+      browser.proxyLocalStorageApi(
+        'setItem',
+        SIDE_PANEL_VISIBILITY,
+        newState,
+      );
 
-  const toggleSidePanel = () => setState((cur) => !cur);
+      return newState;
+    });
 
   const globalStyle = useGlobalStyle();
   const cls = useStyle({ state });
@@ -50,21 +55,16 @@ const SidePanel = ({ id, children }) => {
           >
             <SwapHorizontalCircle />
           </IconButton>
-          {state && (
-            <Grid
-              item
-              className={classnames(
-                globalStyle.fillViewportHeight,
-              )}
-            >
-              <Box
-                component="aside"
-                className={cls.scroller}
-              >
-                {children}
-              </Box>
-            </Grid>
-          )}
+          <Grid
+            item
+            className={classnames(
+              globalStyle.fillViewportHeight,
+            )}
+          >
+            <Box component="aside" className={cls.scroller}>
+              {children}
+            </Box>
+          </Grid>
         </Box>
       </Hidden>
       <Hidden lgUp>
@@ -83,21 +83,27 @@ const SidePanel = ({ id, children }) => {
               zIndex={1210}
             >
               <IconButton
-                label="options"
-                icon={AppsIcon}
-                buttonProps={{
-                  onClick,
-                  style: {
-                    color: 'inherit',
-                  },
-                }}
-              />
+                aria-label="options"
+                onClick={onClick}
+                color="inherit"
+              >
+                <AppsIcon />
+              </IconButton>
             </Box>
           )}
         />
       </Hidden>
     </div>
   );
+};
+
+SidePanel.propTypes = {
+  id: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.array,
+    PropTypes.element,
+  ]).isRequired,
 };
 
 export default SidePanel;

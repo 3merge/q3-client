@@ -11,6 +11,7 @@ export default makeStyles((theme) => ({
     minWidth: 35,
     maxWidth: 345,
     width: state ? '24.5vw' : 0,
+    transition: 'width 250ms',
 
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
@@ -21,18 +22,22 @@ export default makeStyles((theme) => ({
 
   drawerBtn: {
     position: 'absolute',
-    top: '20px',
+    bottom: '.75rem',
     right: 0,
     zIndex: 100,
   },
 
-  scroller: {
+  scroller: ({ state }) => ({
     height: '100%',
     maxHeight: '100%',
     overflowY: 'auto !important',
     overflowX: 'hidden !important',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
-    width: '100%',
-  },
+    minWidth: 35,
+    maxWidth: 345,
+    width: '24.5vw',
+    opacity: state ? 1 : 0,
+    transition: 'opacity 150ms',
+  }),
 }));

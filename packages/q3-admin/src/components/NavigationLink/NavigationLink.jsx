@@ -29,6 +29,7 @@ const NavigationLink = ({
       fullWidth
       component={Link}
       to={makeAnchor(to)}
+      tabIndex={to ? undefined : -1}
       onClick={toggleSelectedClass(to)}
       className={cls.menuItem}
       getProps={({ isCurrent, isPartiallyCurrent }) => {

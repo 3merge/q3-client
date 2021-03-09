@@ -64,7 +64,7 @@ const NavigationListItem = ({ items }) => {
           )}
         </NavigationLinkWrapper>
         {i !== size(xs) - 1 && (
-          <Hidden mdUp>
+          <Hidden lgUp>
             <Box my={0.5}>
               <Divider />
             </Box>

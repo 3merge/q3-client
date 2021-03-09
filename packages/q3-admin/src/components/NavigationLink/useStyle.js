@@ -37,7 +37,7 @@ export default makeStyles((theme) => ({
     color: 'inherit !important',
     borderBottom: `2px solid ${theme.palette.secondary.main}`,
 
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       color: `${theme.palette.secondary.main} !important`,
       border: 'none !important',
     },

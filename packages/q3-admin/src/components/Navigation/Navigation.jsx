@@ -41,6 +41,7 @@ const AppNavigation = ({
         <Drawer
           title="menu"
           closeOnRouteChange
+          variant="drawer"
           renderContent={renderMenuItems}
           renderTrigger={(onClick) => (
             <Grid item>
