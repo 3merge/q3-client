@@ -30,6 +30,7 @@ import {
 import flat from 'flat';
 import alpha from 'alphabetize-object-keys';
 import GraphicWithMessage from 'q3-ui-assets';
+import { ModeContext } from 'q3-ui/lib/Mode';
 import useStyles from './useStyle';
 
 const firstKey = (v) => {
@@ -75,6 +76,7 @@ const getName = (o) =>
 const Timeline = ({ entries, fetching }) => {
   const cls = useStyles();
   const data = Array.isArray(entries) ? entries : [];
+  const { isLight } = React.useContext(ModeContext);
 
   if (fetching) return <CircularProgress />;
 
@@ -115,6 +117,7 @@ const Timeline = ({ entries, fetching }) => {
                   newValue={removeMeta(data[i - 1])}
                   oldValue={removeMeta(item)}
                   compareMethod={DiffMethod.WORDS}
+                  useDarkTheme={!isLight}
                   splitView
                 />
               </div>

@@ -73,11 +73,8 @@ export default makeStyles((theme) => ({
       transitionProperty: 'opacity,transform,visibility',
       visibility: 'hidden',
 
-      [theme.breakpoints.down('md')]: {
-        backgroundColor: theme.palette.background.paper,
-      },
-
       [theme.breakpoints.down('sm')]: {
+        backgroundColor: theme.palette.background.paper,
         boxShadow: 'none',
         display: 'none',
         position: 'relative',
@@ -107,12 +104,12 @@ export default makeStyles((theme) => ({
     display: 'block',
     fill: theme.palette.primary.contrastText,
     height: '100%',
-    minWidth: 285,
+    minWidth: 245,
     maxWidth: 345,
 
     '& img': {
       height: '100%',
-      objectPosition: 'left !important',
+      objectPosition: 'center !important',
       objectFit: 'contain !important',
       width: '100%',
     },
