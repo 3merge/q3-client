@@ -73,6 +73,10 @@ export default makeStyles((theme) => ({
       transitionProperty: 'opacity,transform,visibility',
       visibility: 'hidden',
 
+      [theme.breakpoints.down('md')]: {
+        backgroundColor: theme.palette.background.paper,
+      },
+
       [theme.breakpoints.down('sm')]: {
         boxShadow: 'none',
         display: 'none',
@@ -108,12 +112,9 @@ export default makeStyles((theme) => ({
 
     '& img': {
       height: '100%',
+      objectPosition: 'left !important',
       objectFit: 'contain !important',
       width: '100%',
-
-      [theme.breakpoints.down('sm')]: {
-        objectPosition: 'left',
-      },
     },
 
     [theme.breakpoints.down('sm')]: {

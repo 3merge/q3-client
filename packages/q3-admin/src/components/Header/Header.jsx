@@ -58,7 +58,6 @@ const Header = ({
       {navComponent && (
         <Box
           id="q3-app-subnav"
-          className={cls.white}
           zIndex={10}
           position="sticky"
           top="0"

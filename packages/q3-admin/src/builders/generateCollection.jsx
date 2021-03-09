@@ -61,7 +61,7 @@ export default ({
                 alignItems="center"
                 display="flex"
                 position="absolute"
-                right="120px"
+                right="142px"
                 top="-71px"
                 zIndex={1200}
                 height="71px"

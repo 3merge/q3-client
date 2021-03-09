@@ -3,7 +3,7 @@ import { grey, yellow } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     whiteSpace: 'wrap !important',
 
     '& th': {
@@ -138,7 +138,7 @@ export default makeStyles((theme) => ({
   },
 
   actionbar: {
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     borderRadius: 50,
     bottom: theme.spacing(2),
     boxShadow: theme.shadows[15],
@@ -202,22 +202,18 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      // boxShadow: 'none !important',
       position: 'static',
       width: 'auto',
     },
   },
 
   flexRow: {
-    //  display: 'flex !important',
-    // justifyContent: 'flex-end',
-    // flexWrap: 'nowrap',
     minWidth: 'max-content',
   },
 
   cellHeader: {
     position: 'var(--cell-position)',
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     left: 0,
     transition: 'box-shadow 250ms',
     margin: 0,
@@ -241,7 +237,6 @@ export default makeStyles((theme) => ({
   },
 
   cellHeaderLink: {
-    //  borderTop: `1px solid ${theme.palette.background.default}`,
     color: 'inherit',
     display: 'block',
     '& small': {
@@ -265,7 +260,6 @@ export default makeStyles((theme) => ({
     },
     '& td.liftup': {
       wordWrap: 'break-word',
-      // boxShadow: 'rgba(0, 0, 0, 0.05) -2px 16px 20px 0px',
       zIndex: 2,
     },
     [theme.breakpoints.down('sm')]: {
@@ -277,7 +271,7 @@ export default makeStyles((theme) => ({
     position: 'sticky',
     top: 0,
     zIndex: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.palette.background.paper,
     overflow: 'hidden',
     maxWidth: '100%',
   }),

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
@@ -24,20 +25,21 @@ const AppViewport = ({ children }) => {
   }, []);
 
   return (
-    <Container
-      maxWidth="xl"
-      disableGutters
-      component="main"
-      style={{
-        backgroundColor: '#FFF',
-        overflow: 'hidden',
-        flexWrap: 'nowrap',
-        position: 'relative',
-        maxHeight: '100vh',
-      }}
-    >
-      <Grid container>{children}</Grid>
-    </Container>
+    <Box bgcolor="background.default">
+      <Container
+        maxWidth="xl"
+        disableGutters
+        component="main"
+        style={{
+          overflow: 'hidden',
+          flexWrap: 'nowrap',
+          position: 'relative',
+          maxHeight: '100vh',
+        }}
+      >
+        <Grid container>{children}</Grid>
+      </Container>
+    </Box>
   );
 };
 

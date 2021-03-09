@@ -47,7 +47,8 @@ const ExampleApp = ({ initialPath }) => {
               }}
               NavProps={{
                 title: 'Demo app',
-                logoSrc: logo,
+                logoSrc:
+                  'https://logoipsum.com/logo/logo-15.svg',
               }}
               ProfileProps={{
                 fields: <p>Append custom form fields!</p>,
