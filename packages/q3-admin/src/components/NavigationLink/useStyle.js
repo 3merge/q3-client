@@ -27,5 +27,9 @@ export default makeStyles((theme) => ({
   parent: {
     color: 'inherit',
     borderBottom: `2px solid ${theme.palette.secondary.main}`,
+
+    [theme.breakpoints.down('sm')]: {
+      border: 'none !important',
+    },
   },
 }));
