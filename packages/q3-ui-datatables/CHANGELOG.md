@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.28.0](https://github.com/3merge/q/compare/v1.27.30...v1.28.0) (2021-03-09)
+
+
+### Features
+
+* dark mode ([#306](https://github.com/3merge/q/issues/306)) ([c0a7ee2](https://github.com/3merge/q/commit/c0a7ee21cbbac4611697dff553e9ade475546fdb))
+
+
+
+
+
 ## [1.27.30](https://github.com/3merge/q/compare/v1.27.29...v1.27.30) (2021-03-09)
 
 **Note:** Version bump only for package q3-ui-datatables

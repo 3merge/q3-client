@@ -73,10 +73,10 @@ const SidePanel = ({ id, children }) => {
           renderContent={() => children}
           renderTrigger={(onClick) => (
             <Box
-              color="secondary.contrastText"
+              color="primary.contrastText"
               position="absolute"
               top="-71px"
-              right="105px"
+              right="141px"
               display="flex"
               alignItems="center"
               height="71px"

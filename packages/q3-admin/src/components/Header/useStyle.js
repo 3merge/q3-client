@@ -17,7 +17,4 @@ export default makeStyles((theme) => ({
     paddingLeft: ({ backComponent }) =>
       backComponent ? '1rem' : 0,
   },
-  white: {
-    backgroundColor: '#FFF',
-  },
 }));

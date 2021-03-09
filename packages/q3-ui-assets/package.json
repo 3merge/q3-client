@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-assets",
-  "version": "1.27.23",
+  "version": "1.28.0",
   "main": "lib/index.js",
   "peerDependencies": {
     "@material-ui/core": "^4.4.3",
