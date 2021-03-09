@@ -1,4 +1,5 @@
 import React from 'react';
+import { compose, isNil } from 'lodash/fp';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import AppsIcon from '@material-ui/icons/Apps';
@@ -6,16 +7,38 @@ import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
 import { SwapHorizontalCircle } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-import { useToggle } from 'useful-state';
 import Box from '@material-ui/core/Box';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
+const SIDE_PANEL_VISIBILITY = 'sidePanelVisibility';
+
+const getItem = () =>
+  JSON.parse(localStorage.getItem(SIDE_PANEL_VISIBILITY));
+
+const setItem = (item) =>
+  localStorage.setItem(SIDE_PANEL_VISIBILITY, item);
+
+export const toState = (x) => (isNil(x) ? true : x);
+
 const SidePanel = ({ id, children }) => {
-  const { state, toggle } = useToggle(true);
+  const [state, setState] = React.useState(
+    compose(toState, getItem),
+  );
+  let ref = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!ref) {
+      ref = true;
+    } else {
+      setItem(state);
+    }
+  }, [state]);
+
+  const toggleSidePanel = () => setState((cur) => !cur);
+
   const globalStyle = useGlobalStyle();
   const cls = useStyle({ state });
-  const toggleSidePanel = () => toggle();
 
   return (
     <div id={id}>
