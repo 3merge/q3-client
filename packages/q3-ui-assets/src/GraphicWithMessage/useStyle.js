@@ -2,7 +2,9 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   root: ({ transparent }) => ({
-    backgroundColor: transparent ? 'transparent' : '#FFF',
+    backgroundColor: transparent
+      ? 'transparent'
+      : undefined,
   }),
   graphic: {
     '& svg, & img': {

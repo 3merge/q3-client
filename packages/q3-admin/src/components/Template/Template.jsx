@@ -5,11 +5,11 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import useStyle from '../useStyle';
 
-const Template = ({ children, muted }) => {
+const Template = ({ children }) => {
   const cls = useStyle();
 
   return (
-    <Box className={muted ? cls.muted : cls.light}>
+    <Box>
       <Hidden mdDown>
         <Box style={{ height: 65 }} />
       </Hidden>
@@ -29,12 +29,10 @@ Template.propTypes = {
     PropTypes.node,
     PropTypes.array,
   ]),
-  muted: PropTypes.bool,
 };
 
 Template.defaultProps = {
   children: null,
-  muted: false,
 };
 
 export default Template;

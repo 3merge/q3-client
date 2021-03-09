@@ -20,7 +20,7 @@ export const SidebarPanelContent = ({
         justifyContent="space-between"
         px={1}
       >
-        <Typography variant="overline" color="primary">
+        <Typography variant="overline" color="inherit">
           {t(`titles:${title}`)}
         </Typography>
       </Box>

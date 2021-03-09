@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { useTheme } from '@material-ui/core/styles';
 
 const TableButton = () => (
   <Box mr={2}>
@@ -16,16 +17,19 @@ const TableButton = () => (
   </Box>
 );
 
-const TableRow = () => (
-  <Skeleton
-    variant="rect"
-    height={61}
-    style={{
-      background: 'white',
-      borderTop: '2px solid rgb(245, 247, 249)',
-    }}
-  />
-);
+const TableRow = () => {
+  const theme = useTheme();
+  return (
+    <Skeleton
+      variant="rect"
+      height={61}
+      style={{
+        background: theme.palette.background.paper,
+        borderTop: `1px solid ${theme.palette.background.muted}`,
+      }}
+    />
+  );
+};
 
 const TableSkeleton = () => (
   <Box py={1}>

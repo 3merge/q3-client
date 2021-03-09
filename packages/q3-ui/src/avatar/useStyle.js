@@ -102,10 +102,16 @@ export default makeStyles((theme) => ({
     },
   }),
   root: ({ backgroundColor, color, large, onClick }) => ({
-    border: '1px solid #fff',
+    ...(theme.palette.type === 'light'
+      ? {
+          backgroundColor,
+          color,
+        }
+      : {
+          backgroundColor: color,
+          color: backgroundColor,
+        }),
 
-    backgroundColor,
-    color,
     ...(onClick ? { cursor: 'pointer' } : {}),
     ...(large
       ? {
