@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import { navigate } from '@reach/router';
+
 import Box from '@material-ui/core/Box';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
 import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '../../../avatar';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
-import useStyles from './useStyles';
 
 export const ListItem = ({
   id,
@@ -18,13 +17,11 @@ export const ListItem = ({
   icon: Icon,
   renderListItemProps,
   href,
-  color,
 }) => {
   const primary = formatArrayAsCommaDelineatedString(title);
   const secondary = formatArrayAsCommaDelineatedString(
     description,
   );
-  const cls = useStyles({ listItemTextColor: color });
 
   return (
     <ListItemMui
@@ -38,20 +35,18 @@ export const ListItem = ({
         to={href}
         display="flex"
         alignItems="center"
+        style={{ color: 'inherit' }}
       >
         {Icon && (
           <ListItemAvatarMui>
-            <Avatar style={{ backgroundColor: color }}>
-              <Icon />
-            </Avatar>
+            <Avatar icon={Icon} word={primary} />
           </ListItemAvatarMui>
         )}
         <ListItemTextMui
           style={{
-            color,
+            color: 'inherit',
             textDecoration: href ? 'underline' : 'none',
           }}
-          className={cls.listItemText}
           primaryTypograph
           primary={primary}
           secondary={secondary}

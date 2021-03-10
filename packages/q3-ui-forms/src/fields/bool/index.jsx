@@ -9,11 +9,11 @@ import Radio from '@material-ui/core/Radio';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, red } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(() => ({
   control: ({ error }) => ({
-    color: error ? red[900] : grey[900],
+    color: error ? red[900] : 'inherit',
     display: 'block',
     fontSize: '0.911rem',
     lineHeight: 1.2,
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   }),
 
   subtext: {
-    color: grey[700],
+    color: 'inherit',
     fontWeight: 200,
     fontSize: '0.911rem',
   },

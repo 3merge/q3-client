@@ -2,7 +2,6 @@ import {
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey';
 
 const color = 'var(--color-default)';
 
@@ -31,7 +30,7 @@ export default (type) => {
       primary: {
         main: '#232323',
         dark: '#0A0A0A',
-        light: '#0A0A0A',
+        light: 'rgb(155 155 155)',
       },
       secondary: {
         main: '#17cf97',

@@ -48,23 +48,33 @@ const SidePanel = ({ id, children }) => {
   return (
     <div id={id}>
       <Hidden mdDown>
-        <Box className={cls.root}>
-          <IconButton
+        <Box position="relative">
+          <Box
+            aria-label="expand"
+            tabIndex={-1}
+            role="button"
+            id="sidepanel-toggle"
             onClick={toggleSidePanel}
-            className={cls.drawerBtn}
-          >
-            <SwapHorizontalCircle />
-          </IconButton>
-          <Grid
-            item
             className={classnames(
               globalStyle.fillViewportHeight,
+              cls.drawerBtn,
             )}
           >
-            <Box component="aside" className={cls.scroller}>
-              {children}
-            </Box>
-          </Grid>
+            <SwapHorizontalCircle className={cls.icon} />
+          </Box>
+          <Box className={cls.root}>
+            <Grid
+              className={globalStyle.fillViewportHeight}
+              item
+            >
+              <Box
+                component="aside"
+                className={cls.scroller}
+              >
+                {children}
+              </Box>
+            </Grid>
+          </Box>
         </Box>
       </Hidden>
       <Hidden lgUp>

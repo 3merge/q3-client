@@ -2,16 +2,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: ({ state }) => ({
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: state
+      ? theme.palette.background.default
+      : theme.palette.background.muted,
     borderRight: `1px solid ${theme.palette.background.muted}`,
     height: 'calc((100 * var(--vh)) - 81px)',
     overflow: 'hidden',
     padding: '.5rem 0',
     position: 'relative',
-    minWidth: 35,
-    maxWidth: 345,
-    width: state ? '24.5vw' : 0,
-    transition: 'width 250ms',
+    minWidth: '1.5rem',
+    maxWidth: 320,
+    width: state ? '23vw' : 0,
+    transitionProperty: 'background,border-right,width',
+    transitionDuration: 450,
+
+    '&:hover': {
+      borderColor: theme.palette.primary.light,
+    },
 
     [theme.breakpoints.down('sm')]: {
       height: 'auto',
@@ -20,12 +27,36 @@ export default makeStyles((theme) => ({
     },
   }),
 
-  drawerBtn: {
+  icon: {
+    color: theme.palette.primary.main,
+    left: '50%',
     position: 'absolute',
-    bottom: '.75rem',
-    right: 0,
-    zIndex: 100,
+    top: '1.85rem',
+    transform: 'translateX(-50%)',
+    fontSize: '1rem',
   },
+
+  drawerBtn: ({ state }) => ({
+    cursor: 'ew-resize',
+    zIndex: 100,
+    top: 0,
+    bottom: 0,
+    right: '-.75rem',
+    position: 'absolute',
+    width: '1.5rem',
+    opacity: state ? 0 : 1,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    outline: 0,
+    transition: 'opacity 500ms',
+    '&:hover ~ div': {
+      borderColor: theme.palette.primary.main,
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  }),
 
   scroller: ({ state }) => ({
     height: '100%',
@@ -34,9 +65,8 @@ export default makeStyles((theme) => ({
     overflowX: 'hidden !important',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
-    minWidth: 35,
-    maxWidth: 345,
-    width: '24.5vw',
+    maxWidth: 320,
+    width: '23vw',
     opacity: state ? 1 : 0,
     transition: 'opacity 150ms',
   }),
