@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.28.4](https://github.com/3merge/q/compare/v1.28.3...v1.28.4) (2021-03-10)
+
+
+### Bug Fixes
+
+* sidebar incorrect height ([15a4d62](https://github.com/3merge/q/commit/15a4d62c53a15cf658fb74394749bbdff8b388d6))
+
+
+
+
+
 ## [1.28.3](https://github.com/3merge/q/compare/v1.28.2...v1.28.3) (2021-03-10)
 
 **Note:** Version bump only for package q3-client
