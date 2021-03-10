@@ -28,9 +28,9 @@ export default (type) => {
         muted: 'var(--background-muted)',
       },
       primary: {
-        main: '#232323',
-        dark: '#0A0A0A',
-        light: 'rgb(155 155 155)',
+        main: '#333',
+        dark: '#1F1F1F',
+        light: '#C2C2C2',
       },
       secondary: {
         main: '#17cf97',

@@ -28,7 +28,7 @@ export const SidebarPanelContent = ({
         <Box
           mt={0.5}
           mb={gutters ? 2 : 1}
-          px={gutters ? 1 : 0}
+          px={1}
           className={subtext}
         >
           {children}
