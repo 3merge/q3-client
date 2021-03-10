@@ -28,7 +28,7 @@ export default makeStyles((theme) => ({
   }),
 
   icon: {
-    color: theme.palette.primary.main,
+    color: 'inherit',
     left: '50%',
     position: 'absolute',
     top: '1.85rem',

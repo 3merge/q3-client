@@ -1,20 +1,30 @@
 import React from 'react';
-import { Add, Table } from '../containers';
+import { Add, List, Table } from '../containers';
+import CardView from '../components/CardView';
 
 export default ({
   addComponent: AddForm,
   onNew,
   ...rest
-}) => (props) => (
-  <Table
-    {...rest}
-    {...props}
-    addComponent={
-      AddForm ? (
-        <Add onComplete={onNew}>
-          <AddForm />
-        </Add>
-      ) : null
-    }
-  />
-);
+}) => (props) => {
+  return (
+    <List
+      {...rest}
+      {...props}
+      addComponent={
+        AddForm ? (
+          <Add onComplete={onNew}>
+            <AddForm />
+          </Add>
+        ) : null
+      }
+      templateComponent={
+        rest?.grid ? (
+          <Table {...rest} {...props} />
+        ) : (
+          <CardView />
+        )
+      }
+    />
+  );
+};

@@ -13,7 +13,7 @@ import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import TableHeader from '../TableHeader';
-import { useAppContext } from '../../hooks';
+import useSortPreference from '../../hooks/useSortPreference';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -48,19 +48,6 @@ export const TableDecorator = (props) => ({
       .map(removeUrlPath(removeUrl)),
 });
 
-const executeNavigation = (query) =>
-  navigate(
-    `?${url.toParamsString(query)}`,
-    {
-      state: {
-        init: true,
-      },
-    },
-    {
-      replace: true,
-    },
-  );
-
 const useStyle = makeStyles(() => ({
   table: {
     marginTop: 0,
@@ -69,53 +56,18 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const List = ({
-  addComponent,
-  HeaderProps,
-  disableLink,
-  disableSearch,
-  searchComponent,
-  io,
-  ...rest
-}) => {
+const List = ({ disableLink, io, children, ...rest }) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
-
-  const { can } = useAppContext({
-    io: <TableIo io={io} data={tableProps.data} />,
-    add: addComponent,
-  });
-
-  const {
-    collectionName,
-    location,
-    rootPath,
-  } = React.useContext(Definitions);
-  const { removeBulk } = React.useContext(Dispatcher);
-  const { canDelete, canSeeSub } = useAuth(collectionName);
-
-  const actions = getActions(
-    collectionName,
-    canDelete && removeBulk ? removeBulk : null,
+  const { collectionName, rootPath } = React.useContext(
+    Definitions,
   );
 
-  const { state, update } = React.useContext(AuthContext);
+  const { canSeeSub } = useAuth(collectionName);
   const decorator = TableDecorator({
     ...rest,
     ...tableProps,
   });
-
-  const updateSortPrefence = (sort) => {
-    const sorting = get(state, 'profile.sorting', {});
-    sorting[collectionName] = sort;
-
-    const q = new URLSearchParams(
-      get(location, 'search', ''),
-    );
-
-    q.set('sort', sort);
-    return update({ sorting }, () => executeNavigation(q));
-  };
 
   return (
     <Table
@@ -125,32 +77,16 @@ const List = ({
       className={table}
       actionbarPosition="absolute"
       data={decorator.makeLinks(rootPath, disableLink)}
-      actions={actions}
       id={collectionName}
-      onSort={updateSortPrefence}
+      onSort={useSortPreference()}
       style={{ height: '100%' }}
     >
-      <TableHeader>
-        <Grid
-          alignItems="center"
-          justify="flex-end"
-          container
-        >
-          <Grid item> {searchComponent}</Grid>
-          <Grid item>{can('io')}</Grid>
-          <Grid item>{can('add')}</Grid>
-        </Grid>
-      </TableHeader>
-
-      <Box py={0.5}>
-        <FilterChip />
-      </Box>
+      {children}
     </Table>
   );
 };
 
 List.propTypes = {};
-
 List.defaultProps = {};
 
 export default List;

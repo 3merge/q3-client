@@ -3,6 +3,7 @@ export { default as AbsoluteCover } from './AbsoluteCover';
 export { default as Chart } from './Chart';
 export { default as Dot } from './Dot';
 export { default as Helper } from './Helper';
+export { default as Formatter } from './Formatter';
 export { default as IconLabel } from './IconLabel';
 export { default as Inline } from './Inline';
 export { default as FilterChip } from './FilterChip';

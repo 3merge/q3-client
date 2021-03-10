@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import AccountBox from '@material-ui/icons/AccountBox';
-import { teal, orange } from '@material-ui/core/colors';
-import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { getMeta } from 'q3-ui/lib/timeline';
 import SidePanelContent from '../../components/SidePanelContent';
@@ -15,6 +13,8 @@ const getLastModification = getMeta(
   'lastModifiedBy',
   'updatedAt',
 );
+
+const omitLegacyProps = (o) => omit(o, ['icon', 'color']);
 
 const DetailSidePanelContent = ({
   registerOptions,
@@ -40,16 +40,12 @@ const DetailSidePanelContent = ({
 
   if (createdBy)
     defaultOptions.push({
-      color: teal[700],
-      icon: AccountBox,
       title: t('labels:creator'),
       description: createdBy,
     });
 
   if (updatedBy)
     defaultOptions.push({
-      color: orange[700],
-      icon: HistoryIcon,
       title: t('labels:lastUpdated'),
       description: updatedBy,
     });
@@ -59,17 +55,19 @@ const DetailSidePanelContent = ({
       {defaultOptions.length > 0 && (
         <SidePanelContent title="general">
           <List>
-            {defaultOptions.map((option, i) => (
-              <ListItem
-                key={i}
-                id={option.title}
-                {...option}
-              >
-                <ActionBar actions={option.actions}>
-                  {option.action}
-                </ActionBar>
-              </ListItem>
-            ))}
+            {defaultOptions
+              .map(omitLegacyProps)
+              .map((option, i) => (
+                <ListItem
+                  key={i}
+                  id={option.title}
+                  {...option}
+                >
+                  <ActionBar actions={option.actions}>
+                    {option.action}
+                  </ActionBar>
+                </ListItem>
+              ))}
           </List>
         </SidePanelContent>
       )}
