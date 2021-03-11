@@ -8,16 +8,22 @@ jest.mock('../../hooks', () => ({
 
 beforeEach(jest.clearAllMocks);
 
+const checkEmptyRender = (disableSegments = true) =>
+  global
+    .shallow(
+      <Segments disableSegments={disableSegments}>
+        {jest.fn()}
+      </Segments>,
+    )
+    .isEmptyRender();
+
 test('should empty-render when no custom segments exist and disableSegments is true', () => {
   useActiveFilter.mockReturnValue({
     add: jest.fn(),
     filters: [],
   });
 
-  const wrapper = global.shallow(
-    <Segments disableSegments={true}>{jest.fn()}</Segments>,
-  );
-  expect(wrapper.isEmptyRender()).toBeTruthy();
+  expect(checkEmptyRender()).toBeTruthy();
 });
 
 test.each([
@@ -31,11 +37,6 @@ test.each([
       filters,
     });
 
-    const wrapper = global.shallow(
-      <Segments disableSegments={bool}>
-        {jest.fn()}
-      </Segments>,
-    );
-    expect(wrapper.isEmptyRender()).toBeFalsy();
+    expect(checkEmptyRender(bool)).toBeFalsy();
   },
 );
