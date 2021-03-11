@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.29.0](https://github.com/3merge/q/compare/v1.28.4...v1.29.0) (2021-03-11)
+
+
+### Features
+
+* date and time pickers ([7f2a190](https://github.com/3merge/q/commit/7f2a1905a2368fd28f44ca9a7c7469f490c0a1f9))
+
+
+
+
+
 ## [1.28.2](https://github.com/3merge/q/compare/v1.28.1...v1.28.2) (2021-03-10)
 
 **Note:** Version bump only for package q3-ui-forms
