@@ -6,7 +6,6 @@ import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
-import Tours from './containers/tour';
 import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
