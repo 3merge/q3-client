@@ -27,6 +27,7 @@ export const Range = ({ name, ...props }) => {
             helperText={t(props.label)}
             lg={6}
             xl={6}
+            md={6}
           />
         }
         rightRenderer={
@@ -39,6 +40,7 @@ export const Range = ({ name, ...props }) => {
             icon={LinearScaleIcon}
             lg={6}
             xl={6}
+            md={6}
           />
         }
       />

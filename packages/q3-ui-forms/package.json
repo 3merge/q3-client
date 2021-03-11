@@ -7,9 +7,11 @@
     "q3-ui-test-utils": "^1.27.3"
   },
   "dependencies": {
+    "@date-io/moment": "1.x",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/pickers": "^3.2.10",
     "@tinymce/tinymce-react": "^3.10.1",
     "axios": "^0.21.1",
     "class-names": "^1.0.0",

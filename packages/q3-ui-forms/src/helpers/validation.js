@@ -1,5 +1,6 @@
 import * as yup from 'yup';
-import { get } from 'lodash';
+import { get, isNull, isUndefined } from 'lodash';
+import moment from 'moment';
 import { browser, string, object } from 'q3-ui-helpers';
 
 export const VALIDATION_OPTIONS = [
@@ -166,9 +167,9 @@ export class Validator {
         );
         break;
       case 'date':
+      case 'time':
         this.$base = this.$base
           .date()
-          .transform((val) => (val === 'null' ? null : val))
           .nullable()
           .default(undefined);
         break;

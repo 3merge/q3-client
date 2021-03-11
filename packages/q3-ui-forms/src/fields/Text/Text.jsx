@@ -11,7 +11,7 @@ import Lock from '@material-ui/icons/Lock';
 import TextBase from '../TextBase';
 import withState from '../withState';
 
-const renderAdornmentIcon = (
+export const renderAdornmentIcon = (
   type,
   isDisabled,
   hasError,
@@ -40,22 +40,35 @@ const renderAdornmentIcon = (
   ) : null;
 };
 
+export const getEndAdornment = (decoratedProps) => {
+  const {
+    readOnly,
+    disabled,
+    type,
+    icon,
+    hideIcon,
+    error,
+  } = decoratedProps;
+
+  return !hideIcon
+    ? renderAdornmentIcon(
+        type,
+        disabled || readOnly,
+        error,
+        icon,
+      )
+    : undefined;
+};
+
 export const Text = (deco) => {
-  const { readOnly, disabled, type, icon, hideIcon } = deco;
+  const { type } = deco;
 
   return (
     <TextBase
       {...deco}
       type={type}
       InputProps={{
-        endAdornment: !hideIcon
-          ? renderAdornmentIcon(
-              type,
-              disabled || readOnly,
-              deco.error,
-              icon,
-            )
-          : undefined,
+        endAdornment: getEndAdornment(deco),
       }}
     />
   );

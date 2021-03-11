@@ -17,4 +17,5 @@ export { default as Scale } from './Scale';
 export { default as Select } from './Select';
 export { default as Selectable } from './selectable';
 export { default as Text } from './Text';
+export { default as Time } from './Time';
 export { default as Transfer } from './transfer';

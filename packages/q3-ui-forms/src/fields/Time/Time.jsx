@@ -1,12 +1,12 @@
 import React from 'react';
 import { get, merge, isNull } from 'lodash';
-import { DatePicker } from '@material-ui/pickers';
+import { DateTimePicker } from '@material-ui/pickers';
 import { getEndAdornment } from '../Text/Text';
 import withGrid from '../withGrid';
 import withState from '../withState';
 
-const DateBase = (props) => (
-  <DatePicker
+const Time = (props) => (
+  <DateTimePicker
     clearable
     disableToolbar
     value={get(props, 'value')}
@@ -22,19 +22,17 @@ const DateBase = (props) => (
     size="small"
     fullWidth
     inputVariant="outlined"
-    format="YYYY/MM/DD"
-    placeholder="yyyy/mm/dd"
+    format="YYYY/MM/DD hh:mm a"
+    placeholder="yyyy/mm/dd hh:mm a"
     onChange={(date) =>
       // eslint-disable-next-line
       props.onChange({
         target: {
-          value: !isNull(date)
-            ? date.format('YYYY-MM-DD')
-            : null,
+          value: !isNull(date) ? date.toDate() : null,
         },
       })
     }
   />
 );
 
-export default withState(withGrid(DateBase));
+export default withState(withGrid(Time));

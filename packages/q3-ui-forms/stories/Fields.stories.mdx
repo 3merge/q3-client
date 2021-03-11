@@ -98,6 +98,7 @@ import {
             helper="Between 1 and 10"
           />
           <Field name="po" type="file" />
+          <Field name="time" type="time" />
           <Field name="date" type="date" />
           <Field name="dateRange" type="dateRange" />
           <Field name="checkbox" type="checkbox" />
@@ -147,7 +148,9 @@ minimum values, maximum values, and required values.
         type="date"
         min={moment().toDate()}
         helper="Must be future-looking"
+        required
       />
+      <Field name="time" type="time" required />
       <Field
         name="multitext"
         type="multitext"

@@ -21,6 +21,7 @@ import {
   Range,
   Scale,
   Password,
+  Time,
 } from '../fields';
 import { mapToValue } from './validation';
 
@@ -36,6 +37,7 @@ const htmlFieldTypes = [
   'color',
   'date',
   'file',
+  'time',
 ];
 
 const internalFieldTypes = {
@@ -60,6 +62,7 @@ const internalFieldTypes = {
   file: File,
   scale: Scale,
   password: Password,
+  time: Time,
 };
 
 export default class FieldBuilder {
@@ -91,6 +94,7 @@ export default class FieldBuilder {
         file: null,
         range: undefined,
         scale: [],
+        time: null,
       },
       type,
       '',
