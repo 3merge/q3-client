@@ -42,4 +42,28 @@ import { Form, Field } from '../../builders';
       />
     </Form>
   </Story>
+  <Story name="Disabled options">
+    <Form debug initialValues={{ demo: [] }}>
+      <Field
+        name="demo"
+        type="multiselect"
+        options={[
+          {
+            label: 'A',
+            value: 'A',
+            disabled: true,
+          },
+          {
+            label: 'B',
+            value: 'B',
+            disabled: true,
+          },
+        ]}
+        label="Custom label"
+        displayLabelAsValue
+        required
+        filter
+      />
+    </Form>
+  </Story>
 </Preview>

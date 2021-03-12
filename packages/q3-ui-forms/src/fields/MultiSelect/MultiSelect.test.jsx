@@ -3,6 +3,7 @@ import Chip from '@material-ui/core/Chip';
 import MultiSelect, {
   extractValues,
   genPayload,
+  isDisabled,
 } from './MultiSelect';
 import SelectBase from '../SelectBase';
 import { STATUS } from '../MultiSelectAll';
@@ -116,5 +117,27 @@ describe('MultiSelect', () => {
     });
 
     expect(setState).toHaveBeenCalledWith(CHECKED);
+  });
+
+  it('should disable MultiSelectAll', () => {
+    expect(
+      isDisabled([
+        { label: 1, value: 1, disabled: true },
+        { label: 2, value: 2, disabled: true },
+      ]),
+    ).toBeTruthy();
+  });
+
+  it('should not disable MultiSelectAll', () => {
+    expect(
+      isDisabled([
+        { label: 1, value: 1, disabled: true },
+        { label: 2, value: 2 },
+      ]),
+    ).toBeFalsy();
+  });
+
+  it('should not disable MultiSelectAll for simple array', () => {
+    expect(isDisabled([1, 2])).toBeFalsy();
   });
 });

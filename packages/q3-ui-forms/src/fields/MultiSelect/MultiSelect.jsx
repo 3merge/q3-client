@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isObject, uniq } from 'lodash';
+import { get, isObject, uniq, every } from 'lodash';
 import { compose, map } from 'lodash/fp';
 import { array } from 'q3-ui-helpers';
 import Chip from '@material-ui/core/Chip';
@@ -12,6 +12,11 @@ import MultiSelectAll, { STATUS } from '../MultiSelectAll';
 import useStyles from './useStyles';
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
+
+export const isDisabled = (xs) =>
+  every(xs, (x) =>
+    isObject(x) ? get(x, 'disabled', false) : false,
+  );
 
 export const genPayload = (name, value = []) => ({
   target: { name, value },
@@ -126,6 +131,7 @@ export default withState(
           status={status}
           setStatus={setStatus}
           onChange={onChange}
+          disabled={isDisabled(items)}
         />
         {items.map((obj) => (
           <MultiSelectMenuItem

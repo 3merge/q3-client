@@ -16,7 +16,7 @@ export const STATUS = {
 
 const { CHECKED, UNCHECKED, INDETERMINATE } = STATUS;
 
-const SelectAll = ({ status, setStatus }) => {
+const SelectAll = ({ disabled, status, setStatus }) => {
   const { t } = useTranslation('labels');
 
   const handleChange = () =>
@@ -30,6 +30,7 @@ const SelectAll = ({ status, setStatus }) => {
         <FormControlLabel
           control={
             <Checkbox
+              disabled={disabled}
               indeterminate={status === INDETERMINATE}
               checked={status === CHECKED}
               onChange={handleChange}
@@ -50,10 +51,12 @@ const SelectAll = ({ status, setStatus }) => {
 };
 
 SelectAll.defaultProps = {
+  disabled: false,
   status: UNCHECKED,
 };
 
 SelectAll.propTypes = {
+  disabled: PropTypes.bool,
   status: PropTypes.oneOf([
     CHECKED,
     UNCHECKED,
