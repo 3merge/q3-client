@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import AccountBox from '@material-ui/icons/AccountBox';
-import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';
 import List, { ListItem, ActionBar } from 'q3-ui/lib/list';
 import { omit } from 'lodash';
@@ -17,7 +16,7 @@ const getLastModification = getMeta(
   'updatedAt',
 );
 
-const omitLegacyProps = (xs) => omit(xs, ['color', 'icon']);
+const omitLegacyProps = (xs) => omit(xs, ['color']);
 
 const DetailSidePanelContent = ({
   registerOptions,
@@ -45,12 +44,14 @@ const DetailSidePanelContent = ({
     defaultOptions.push({
       title: t('labels:creator'),
       description: createdBy,
+      icon: AccountBox,
     });
 
   if (updatedBy)
     defaultOptions.push({
       title: t('labels:lastUpdated'),
       description: updatedBy,
+      icon: HistoryIcon,
     });
 
   return (

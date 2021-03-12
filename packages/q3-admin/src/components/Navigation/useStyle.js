@@ -35,6 +35,10 @@ export default makeStyles((theme) => ({
       padding: 0,
     },
 
+    '& > li > a[aria-current="page"]': {
+      borderBottom: `2px solid ${theme.palette.secondary.main}`,
+    },
+
     '& li': {
       margin: 0,
       padding: 0,

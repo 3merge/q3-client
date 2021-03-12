@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-
 import Box from '@material-ui/core/Box';
 import ListItemMui from '@material-ui/core/ListItem';
 import ListItemTextMui from '@material-ui/core/ListItemText';
-import ListItemAvatarMui from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Avatar from '../../../avatar';
 import { formatArrayAsCommaDelineatedString } from '../../utils';
 
@@ -38,9 +37,9 @@ export const ListItem = ({
         style={{ color: 'inherit' }}
       >
         {Icon && (
-          <ListItemAvatarMui>
-            <Avatar icon={Icon} word={primary} />
-          </ListItemAvatarMui>
+          <ListItemIcon>
+            <Icon />
+          </ListItemIcon>
         )}
         <ListItemTextMui
           style={{
