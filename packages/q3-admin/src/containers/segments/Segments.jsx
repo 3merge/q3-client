@@ -1,4 +1,5 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
@@ -32,7 +33,7 @@ const Segments = ({ children, disableSegments }) => {
     ...filters,
   ];
 
-  return (
+  return isEmpty(filters) && disableSegments ? null : (
     <SidePanelContent title="Segments">
       <Box id="q3-segments">
         <List style={{ margin: 0, padding: 0 }}>
@@ -51,6 +52,7 @@ const Segments = ({ children, disableSegments }) => {
                 }
                 siblings={getSearchValues(listItems)}
                 label={label}
+                key={searchValue}
               >
                 <SegmentDropdownMenu
                   isDefault={!fromProfile}
