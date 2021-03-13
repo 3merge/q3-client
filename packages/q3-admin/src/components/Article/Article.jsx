@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Fade from '@material-ui/core/Fade';
-import useGlobalStyle from '../useStyle';
+import ArticleContainer from '../ArticleContainer';
 import useStyle from './useStyle';
 
 const Article = ({ asideComponent, children }) => {
-  const globalStyle = useGlobalStyle();
   const { view, articleWrapper, section } = useStyle({
     hasAside: Boolean(asideComponent),
   });
@@ -30,16 +26,9 @@ const Article = ({ asideComponent, children }) => {
           className={section}
           item
         >
-          <Fade in>
-            <Box
-              className={classnames(
-                globalStyle.fillViewportHeight,
-                view,
-              )}
-            >
-              {children}
-            </Box>
-          </Fade>
+          <ArticleContainer className={view}>
+            {children}
+          </ArticleContainer>
         </Grid>
       </Grid>
     </Grid>

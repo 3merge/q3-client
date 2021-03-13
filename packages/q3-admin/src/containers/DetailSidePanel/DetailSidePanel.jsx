@@ -35,8 +35,6 @@ const DetailSidePanel = ({ children, ...props }) => {
   const { t } = useTranslation('labels');
 
   const { can } = useAppContext({
-    // used to hide the sidebar overall
-    aside: true,
     ...props,
   });
 
@@ -88,7 +86,7 @@ const DetailSidePanel = ({ children, ...props }) => {
     [tabs, step],
   );
 
-  return can('aside') ? (
+  return (
     <SidePanel id="q3-tabber">
       {outputTabs['q3-meta'] && (
         <Paper elevation={0} className={root}>
@@ -102,7 +100,7 @@ const DetailSidePanel = ({ children, ...props }) => {
       )}
       {renderSteps()}
     </SidePanel>
-  ) : null;
+  );
 };
 
 DetailSidePanel.propTypes = {

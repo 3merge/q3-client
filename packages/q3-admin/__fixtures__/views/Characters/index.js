@@ -1,6 +1,5 @@
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import Add from './Add';
-import Filters from './Filters';
 import General from './General';
 
 export default new AbstractCollectionBuilder({
@@ -28,6 +27,11 @@ export default new AbstractCollectionBuilder({
     },
   }),
 })
+  .genUserOptions('Developer', {
+    trash: false,
+    logs: false,
+    general: true,
+  })
   .genHeader({
     titleProp: 'name',
   })
@@ -37,11 +41,10 @@ export default new AbstractCollectionBuilder({
   })
   .genList({
     defaultColumns: ['createdAt', 'updatedAt'],
+    grid: true,
   })
   .genListSettings({
     defaultSortPreference: 'name',
   })
-  .genDetail({
-    picture: true,
-  })
+  .genDetail({})
   .build();

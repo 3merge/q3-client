@@ -109,7 +109,6 @@ const Page = ({
       hasEntered={hasEntered}
       fetching={fetching}
       fetchingError={fetchingError}
-      loadingComponent={loadingComponent}
       id={id}
     >
       <Dispatcher.Provider

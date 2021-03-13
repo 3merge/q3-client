@@ -1,5 +1,5 @@
 import React from 'react';
 
-const Add = () => <div />;
+const General = () => 'FULLY CUSTOM';
 
-export default Add;
+export default General;
