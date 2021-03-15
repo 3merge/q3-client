@@ -3,6 +3,7 @@ import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
+import { size, intersection } from 'lodash';
 import { State } from './Context';
 
 export const SelectAll = ({ ids }) => {
@@ -10,14 +11,17 @@ export const SelectAll = ({ ids }) => {
   const ctx = React.useContext(State);
 
   if (!ctx) return null;
-  const { checked, onCheckAll, hasChecked } = ctx;
-  const label = checked.length
+
+  const { onCheckAll, hasChecked } = ctx;
+  const checked = intersection(ctx.checked, ids);
+  const len = size(checked);
+  const label = len
     ? t('labels:clearAll')
     : t('labels:selectAll');
 
   return (
     <Badge
-      badgeContent={checked.length}
+      badgeContent={len}
       color="secondary"
       anchorOrigin={{
         vertical: 'top',
@@ -28,7 +32,7 @@ export const SelectAll = ({ ids }) => {
         style={{ padding: 0 }}
         aria-label={label}
         onClick={onCheckAll(ids)}
-        checked={hasChecked()}
+        checked={hasChecked() && len}
         indeterminate={
           checked.length > 0 &&
           checked.length !== ids.length
