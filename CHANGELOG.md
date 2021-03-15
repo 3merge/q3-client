@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.29.4](https://github.com/3merge/q/compare/v1.29.3...v1.29.4) (2021-03-15)
+
+
+### Bug Fixes
+
+* select all intersection with watched ids ([ec9e884](https://github.com/3merge/q/commit/ec9e884a0a5411c0453eb417584e47ef3298ac3c))
+
+
+
+
+
 ## [1.29.3](https://github.com/3merge/q/compare/v1.29.2...v1.29.3) (2021-03-15)
 
 **Note:** Version bump only for package q3-client
