@@ -34,6 +34,7 @@ const TableView = ({
   defaultColumns,
   blacklistColumns,
   disableMultiselect,
+  disableAvatar,
   id,
   aliasForName,
   total,
@@ -86,6 +87,14 @@ const TableView = ({
     ),
   );
 
+  const isNotVirtual = (column) => {
+    const sortable = Array.isArray(virtuals)
+      ? !virtuals.includes(column)
+      : true;
+
+    return sortable ? onSort : null;
+  };
+
   return (
     <Exports>
       <Paper
@@ -109,7 +118,7 @@ const TableView = ({
                   disableMultiselect={disableMultiselect}
                   ids={extractIds(data)}
                   title={aliasForName}
-                  onSort={onSort}
+                  onSort={isNotVirtual(aliasForName)}
                 >
                   <ColumnReorderDialog
                     onDone={setColumns}
@@ -122,14 +131,10 @@ const TableView = ({
                   <th aria-label="Actions" />
                 ) : undefined}
                 {activeColumns.map((column) => {
-                  const sortable = Array.isArray(virtuals)
-                    ? !virtuals.includes(column)
-                    : true;
-
                   return (
                     <ColumnSort
                       title={column}
-                      onSort={sortable ? onSort : null}
+                      onSort={isNotVirtual(column)}
                       className={cellWidth}
                       key={column}
                     />
@@ -144,6 +149,7 @@ const TableView = ({
                   className={flexRow}
                 >
                   <RowHeader
+                    disableAvatar={disableAvatar}
                     disableMultiselect={disableMultiselect}
                     {...row}
                   />
@@ -157,7 +163,6 @@ const TableView = ({
                       </div>
                     </TableCell>
                   ) : null}
-
                   {activeColumns.map((column) => (
                     <Cell
                       id={column}
@@ -248,6 +253,7 @@ TableView.propTypes = {
   blacklistColumns: PropTypes.arrayOf(PropTypes.string),
 
   onSort: PropTypes.func.isRequired,
+  virtuals: PropTypes.arrayOf(PropTypes.string),
 };
 
 TableView.defaultProps = {
@@ -257,6 +263,7 @@ TableView.defaultProps = {
   defaultColumns: [],
   blacklistColumns: [],
   renderCustomActions: null,
+  virtuals: [],
 };
 
 export default withEmpty(TableView);

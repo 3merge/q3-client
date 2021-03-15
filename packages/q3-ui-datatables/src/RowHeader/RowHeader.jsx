@@ -18,6 +18,7 @@ const CellHeader = ({
   imgSrc,
   url,
   disableMultiselect,
+  disableAvatar,
 }) => {
   const { cellHeaderLink } = useStyles();
   const asLink = url ? { component: Link, to: url } : {};
@@ -31,9 +32,11 @@ const CellHeader = ({
       }
       renderContent={
         <>
-          <Grid item>
-            <Avatar word={name} imgSrc={imgSrc} />
-          </Grid>
+          {!disableAvatar && (
+            <Grid item>
+              <Avatar word={name} imgSrc={imgSrc} />
+            </Grid>
+          )}
           <Grid item {...asLink} className={cellHeaderLink}>
             <Popover
               popoverChildren={
@@ -71,6 +74,8 @@ CellHeader.propTypes = {
   sub: PropTypes.string,
   imgSrc: PropTypes.string,
   onClick: PropTypes.func,
+  disableMultiselect: PropTypes.bool,
+  disableAvatar: PropTypes.bool,
 };
 
 CellHeader.defaultProps = {
@@ -79,6 +84,8 @@ CellHeader.defaultProps = {
   imgSrc: null,
   onClick: null,
   to: '/',
+  disableMultiselect: false,
+  disableAvatar: false,
 };
 
 export default CellHeader;

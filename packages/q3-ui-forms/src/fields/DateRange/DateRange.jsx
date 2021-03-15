@@ -32,6 +32,7 @@ const DateRange = ({ name, ...rest }) => {
             name={from}
             lg={6}
             xl={6}
+            md={6}
           />
         }
         rightRenderer={
@@ -45,6 +46,7 @@ const DateRange = ({ name, ...rest }) => {
             name={to}
             lg={6}
             xl={6}
+            md={6}
           />
         }
       />

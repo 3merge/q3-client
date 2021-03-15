@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     position: 'relative',
     minWidth: '1.5rem',
     maxWidth: 320,
-    width: state ? '23vw' : 0,
+    width: state ? '25vw' : 0,
     transitionProperty: 'background,border-right,width',
     transitionDuration: 450,
 
@@ -66,7 +66,7 @@ export default makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     maxWidth: 320,
-    width: '23vw',
+    width: '25vw',
     opacity: state ? 1 : 0,
     transition: 'opacity 150ms',
   }),

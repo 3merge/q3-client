@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { omit } from 'lodash';
+import { merge, omit } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import {
@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
           borderRightWidth: 1,
           borderTopRightRadius: 'inherit',
           borderBottomRightRadius: 'inherit',
@@ -27,7 +27,7 @@ const useStyle = makeStyles((theme) => ({
       '& svg': {
         marginRight: 6,
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
           marginRight: 0,
         },
       },
@@ -39,7 +39,7 @@ const useStyle = makeStyles((theme) => ({
         borderBottomLeftRadius: 0,
         borderTopLeftRadius: 0,
 
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
           borderLeftWidth: 1,
           borderBottomLeftRadius: 'inherit',
           borderTopLeftRadius: 'inherit',
@@ -64,7 +64,7 @@ const RangeDelimiter = ({
   const cls = useStyle();
   const theme = useTheme();
   const mobile = useMediaQuery(
-    theme.breakpoints.down('md'),
+    theme.breakpoints.down('sm'),
   );
 
   return (
@@ -78,7 +78,17 @@ const RangeDelimiter = ({
     >
       {React.cloneElement(leftRenderer, {
         override: () => ({
-          icon: mobile ? icon : TrendingFlatIcon,
+          icon: mobile
+            ? icon
+            : (props) => (
+                <TrendingFlatIcon
+                  {...merge(props, {
+                    style: {
+                      marginRight: '-1rem',
+                    },
+                  })}
+                />
+              ),
         }),
       })}
       {rightRenderer}

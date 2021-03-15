@@ -14,6 +14,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import { map, get } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import { SelectAll } from 'q3-ui-exports';
 import List from '../List';
 import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
@@ -76,6 +77,16 @@ const RepeaterTable = ({
           <TableHead>
             <TableRow className={cls.tableHeader}>
               <TableCell component="th">
+                {!disableMultiselect && (
+                  <span
+                    style={{
+                      marginLeft: '-5px',
+                      paddingRight: '6px',
+                    }}
+                  >
+                    <SelectAll ids={map(list, 'id')} />
+                  </span>
+                )}
                 {t(rest?.th || 'identifier')}
               </TableCell>
               {map(

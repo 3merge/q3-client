@@ -21,6 +21,7 @@ export const isSeq = (item) => Number(item.seq) === 211;
   </Story>
   <Story name="Without options">
     <Repeater
+      disableMultiselect
       cardProps={{
         title: 'sku',
         attributes: ['for.name', 'id', 'age'],

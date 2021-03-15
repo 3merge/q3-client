@@ -97,7 +97,7 @@ export default makeStyles((theme) => ({
 
   tableCellHeader: {
     display: 'table-cell',
-    padding: '1rem 0',
+    padding: '1rem 0 1rem 1rem',
     maxWidth: 575,
 
     [theme.breakpoints.down('sm')]: {
@@ -181,6 +181,7 @@ export default makeStyles((theme) => ({
       backgroundColor: `${theme.palette.background.muted} !important`,
       border: 0,
     },
+
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

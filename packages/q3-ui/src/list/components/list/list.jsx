@@ -14,6 +14,7 @@ const List = ({ title, children, onCreate }) => {
     <ListMui
       aria-labelledby={title}
       subheader={<ListSubHeader title={title} />}
+      style={{ padding: '0 1rem' }}
     >
       {hasChildren ? (
         children

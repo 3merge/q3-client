@@ -162,15 +162,6 @@ export default (type) => {
           textDecoration: 'underline !important',
         },
       },
-      MuiTextField: {
-        root: {
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: theme.palette.grey[300],
-            },
-          },
-        },
-      },
       MuiPaper: {
         root: {
           color,
