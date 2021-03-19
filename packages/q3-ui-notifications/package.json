@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-notifications",
-  "version": "1.27.3",
+  "version": "1.30.0",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
