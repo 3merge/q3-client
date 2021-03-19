@@ -16,6 +16,7 @@ export * as Context from './FormsContext';
 export default ({ children, ...rest }) => (
   <SnackbarProvider
     preventDuplicate
+    autoHideDuration={3000}
     anchorOrigin={{
       vertical: 'bottom',
       horizontal: 'right',
