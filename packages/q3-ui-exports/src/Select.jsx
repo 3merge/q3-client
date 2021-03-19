@@ -12,7 +12,8 @@ export const SelectAll = ({ ids }) => {
 
   if (!ctx) return null;
 
-  const { onCheckAll, hasChecked } = ctx;
+  const { onCheckSome, hasChecked } = ctx;
+
   const checked = intersection(ctx.checked, ids);
   const len = size(checked);
   const label = len
@@ -31,7 +32,7 @@ export const SelectAll = ({ ids }) => {
       <Checkbox
         style={{ padding: 0 }}
         aria-label={label}
-        onClick={onCheckAll(ids)}
+        onClick={onCheckSome(ids)}
         checked={hasChecked() && len}
         indeterminate={
           checked.length > 0 &&

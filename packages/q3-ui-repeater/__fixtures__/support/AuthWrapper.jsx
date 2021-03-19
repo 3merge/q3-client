@@ -12,11 +12,9 @@ const genResolver = (fn) =>
   });
 
 export default (Component) => (props) => {
-  const [initialValues, setInitialValues] = React.useState([
-    ...rows,
-    ...rows,
-    ...rows,
-  ]);
+  const [initialValues, setInitialValues] = React.useState(
+    rows,
+  );
 
   const nextStateWithNewProp = (nextState) => {
     setInitialValues(nextState);

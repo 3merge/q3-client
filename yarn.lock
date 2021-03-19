@@ -22875,10 +22875,10 @@ use@^3.1.0:
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==
 
-useful-state@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/useful-state/-/useful-state-1.2.1.tgz#719cdc14928e0fff8bf483cf121339acce6334e2"
-  integrity sha512-4EwPdEhkVtLlLdQLBkIaea6Wp3EBcSnhHuLqdDJDSpqTujDFqBna5WVZFlZQprcT962l4BX9oWS0xr2C21joHw==
+useful-state@^1.2.3:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/useful-state/-/useful-state-1.2.4.tgz#b7bf6b90a3a1f752d885de9662ea07e0e96571de"
+  integrity sha512-qyk+glMK5HAMRHkEHlyn3MBKesvf1M6Vkwhu9hr3mcuXgwADn9U64lshdyLndqDwOOnHB2jokLcdtvAPGrnWog==
   dependencies:
     "@reach/router" "^1.2.1"
     prop-types "^15.7.2"

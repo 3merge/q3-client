@@ -47,7 +47,7 @@ export const isSeq = (item) => Number(item.seq) === 211;
       renderNestedTableRow={() => <p>Check me out</p>}
       perPage={50}
       groupBy={[
-        { label: 'Evens', fn: isEven },
+        { label: 'Expensive', fn: (v) => v.price > 50 },
         { label: '211', fn: isSeq },
       ]}
       sortOptions={[

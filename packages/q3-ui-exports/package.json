@@ -16,7 +16,7 @@
     "lodash": "^4.17.20",
     "micromatch": "^4.0.2",
     "react-i18next": "11.7.3",
-    "useful-state": "^1.2.0"
+    "useful-state": "^1.2.3"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

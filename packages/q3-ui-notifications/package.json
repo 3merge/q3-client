@@ -9,6 +9,6 @@
     "@material-ui/icons": "^4.11.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
-    "useful-state": "^1.2.0"
+    "useful-state": "^1.2.3"
   }
 }

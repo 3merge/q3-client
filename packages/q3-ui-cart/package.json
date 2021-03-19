@@ -14,7 +14,7 @@
     "q3-components": "^1.29.3",
     "q3-ui-permissions": "^1.27.3",
     "react-i18next": "11.7.3",
-    "useful-state": "^1.2.0"
+    "useful-state": "^1.2.3"
   },
   "peerDependencies": {
     "@reach/router": "^1.2.1",
