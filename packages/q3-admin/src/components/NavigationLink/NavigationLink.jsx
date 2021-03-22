@@ -20,6 +20,7 @@ const NavigationLink = ({
   includesPartiallyCurrent,
   label,
   to,
+  isTopLevelItem,
 }) => {
   const { t } = useTranslation();
   const cls = useStyle();
@@ -36,7 +37,11 @@ const NavigationLink = ({
         const list = [cls.menuItem];
 
         if (!to) list.push(cls.anchor);
-        if (includesPartiallyCurrent) list.push(cls.parent);
+        if (
+          includesPartiallyCurrent ||
+          (isTopLevelItem && isPartiallyCurrent)
+        )
+          list.push(cls.parent);
         else if (isCurrent || isPartiallyCurrent)
           list.push(cls.active);
 
@@ -56,12 +61,14 @@ NavigationLink.propTypes = {
   includesPartiallyCurrent: PropTypes.bool,
   label: PropTypes.string.isRequired,
   to: PropTypes.string,
+  isTopLevelItem: PropTypes.bool,
 };
 
 NavigationLink.defaultProps = {
   children: null,
   includesPartiallyCurrent: false,
   to: null,
+  isTopLevelItem: false,
 };
 
 export default NavigationLink;

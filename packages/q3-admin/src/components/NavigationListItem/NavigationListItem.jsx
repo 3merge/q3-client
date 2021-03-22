@@ -39,7 +39,7 @@ export const shouldReturnNavigationLink = (items) =>
     }),
   );
 
-const NavigationListItem = ({ items }) => {
+const NavigationListItem = ({ items, isTopLevelItem }) => {
   const xs = shouldReturnNavigationLink(items);
   return map(
     xs,
@@ -55,6 +55,7 @@ const NavigationListItem = ({ items }) => {
       <React.Fragment key={nodeId}>
         <NavigationLinkWrapper
           childrenItems={childrenItems}
+          isTopLevelItem={isTopLevelItem}
           {...item}
         >
           {shouldReturnNestedItems && (

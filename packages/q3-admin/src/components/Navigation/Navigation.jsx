@@ -25,6 +25,7 @@ const AppNavigation = ({
   const renderMenuItems = () => (
     <Box className={cls.nav} component="ul">
       <NavigationListItem
+        isTopLevelItem
         items={filterByVisibility(menuItems)}
       />
     </Box>
