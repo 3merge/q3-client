@@ -10,7 +10,11 @@ import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import IconButton from '@material-ui/core/IconButton';
 import AppHeaderDropdown from '../AppHeaderDropdown';
 
-const ProfileActions = ({ children, profileItems }) => {
+const ProfileActions = ({
+  children,
+  enableThemeTypeToggle,
+  profileItems,
+}) => {
   const items = [...profileItems];
   const { state } = React.useContext(AuthContext);
   const { isLight, toggle } = React.useContext(ModeContext);
@@ -24,17 +28,19 @@ const ProfileActions = ({ children, profileItems }) => {
     >
       <Grid item>{children}</Grid>
       <Grid item>
-        <IconButton
-          color="inherit"
-          onClick={toggle}
-          label="color mode"
-        >
-          {isLight ? (
-            <Brightness4Icon />
-          ) : (
-            <BrightnessHighIcon />
-          )}
-        </IconButton>
+        {enableThemeTypeToggle && (
+          <IconButton
+            color="inherit"
+            onClick={toggle}
+            label="color mode"
+          >
+            {isLight ? (
+              <Brightness4Icon />
+            ) : (
+              <BrightnessHighIcon />
+            )}
+          </IconButton>
+        )}
         <AppHeaderDropdown
           src={get(state, 'profile.photo')}
           items={items.concat({
@@ -50,9 +56,11 @@ const ProfileActions = ({ children, profileItems }) => {
 ProfileActions.propTypes = {
   children: PropTypes.node.isRequired,
   profileItems: PropTypes.arrayOf(PropTypes.object),
+  enableThemeTypeToggle: PropTypes.bool,
 };
 
 ProfileActions.defaultProps = {
+  enableThemeTypeToggle: true,
   profileItems: [],
 };
 

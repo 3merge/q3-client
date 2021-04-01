@@ -35,8 +35,8 @@ export default makeStyles((theme) => ({
       padding: 0,
     },
 
-    '& > li > a[aria-current="page"]': {
-      borderBottom: `2px solid ${theme.palette.secondary.main}`,
+    '& > li > a.current': {
+      borderBottom: `4px solid ${theme.palette.secondary.main}`,
     },
 
     '& li': {
@@ -57,7 +57,7 @@ export default makeStyles((theme) => ({
           [theme.breakpoints.down('md')]: {
             display: 'block !important',
             opacity: 1,
-            padding: '0 1.5rem',
+            padding: '0 1rem',
             transform: 'translateY(0)',
             visibility: 'visible',
           },

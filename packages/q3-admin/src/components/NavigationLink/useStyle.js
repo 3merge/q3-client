@@ -9,12 +9,14 @@ export default makeStyles((theme) => ({
     textDecoration: 'none !important',
     color: 'inherit',
     height: '100%',
-    borderBottom: '3px solid transparent',
+    borderBottom: '4px solid transparent',
     transitionProperty: 'color,border',
     transitionDuration: '250ms',
     position: 'relative',
     overflow: 'hidden',
     outline: 0,
+    minWidth: 95,
+    justifyContent: 'center',
 
     [theme.breakpoints.down('md')]: {
       '& > span': {
@@ -31,15 +33,22 @@ export default makeStyles((theme) => ({
     cursor: 'initial',
   },
   active: {
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.contrastText,
   },
   parent: {
     color: 'inherit !important',
-    borderBottom: `2px solid ${theme.palette.secondary.main}`,
+    borderBottom: `4px solid ${theme.palette.secondary.main}`,
 
     [theme.breakpoints.down('md')]: {
       color: `${theme.palette.secondary.main} !important`,
       border: 'none !important',
+    },
+
+    '& ~ ul a.current': {
+      backgroundColor: theme.palette.secondary.main,
+      width: '100%',
+      borderRadius: 4,
+      borderBottom: 0,
     },
   },
 }));

@@ -36,6 +36,7 @@ const Admin = ({
         root={root}
       >
         <ProfileActions
+          {...ProfileProps}
           profileItems={[
             ...profileItems,
             {

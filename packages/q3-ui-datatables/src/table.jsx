@@ -33,6 +33,7 @@ const TableView = ({
   allColumns,
   defaultColumns,
   blacklistColumns,
+  disableColumnReorder,
   disableMultiselect,
   disableAvatar,
   id,
@@ -120,12 +121,14 @@ const TableView = ({
                   title={aliasForName}
                   onSort={isNotVirtual(aliasForName)}
                 >
-                  <ColumnReorderDialog
-                    onDone={setColumns}
-                    defaultColumns={activeColumns}
-                    disabled={!columns.length}
-                    columns={columns}
-                  />
+                  {!disableColumnReorder && (
+                    <ColumnReorderDialog
+                      onDone={setColumns}
+                      defaultColumns={activeColumns}
+                      disabled={!columns.length}
+                      columns={columns}
+                    />
+                  )}
                 </ColumnSelectAll>
                 {object.isFn(renderCustomRowActions) ? (
                   <th aria-label="Actions" />
@@ -254,6 +257,7 @@ TableView.propTypes = {
 
   onSort: PropTypes.func.isRequired,
   virtuals: PropTypes.arrayOf(PropTypes.string),
+  disableColumnReorder: PropTypes.bool,
 };
 
 TableView.defaultProps = {
@@ -263,6 +267,7 @@ TableView.defaultProps = {
   defaultColumns: [],
   blacklistColumns: [],
   renderCustomActions: null,
+  disableColumnReorder: false,
   virtuals: [],
 };
 

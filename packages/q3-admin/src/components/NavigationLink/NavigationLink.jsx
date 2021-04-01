@@ -38,7 +38,9 @@ const NavigationLink = ({
         if (!to) list.push(cls.anchor);
         if (includesPartiallyCurrent) list.push(cls.parent);
         else if (isCurrent || isPartiallyCurrent)
-          list.push(cls.active);
+          [cls.active, 'current'].forEach((c) =>
+            list.push(c),
+          );
 
         return {
           className: classnames(list),

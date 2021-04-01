@@ -46,7 +46,7 @@ export const ColumnSelectAll = ({
       }
       renderContent={
         <>
-          <Grid item>{children}</Grid>
+          {children && <Grid item>{children}</Grid>}
           <Grid item>
             <Label {...rest} />
           </Grid>
