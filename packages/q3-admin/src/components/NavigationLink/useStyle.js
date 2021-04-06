@@ -8,21 +8,24 @@ export default makeStyles((theme) => ({
     textDecoration: 'none !important',
     color: 'inherit',
     height: '100%',
-    borderBottom: '4px solid transparent',
+    borderBottom: '2px solid transparent',
     transitionProperty: 'color,border',
     transitionDuration: '250ms',
     position: 'relative',
     overflow: 'hidden',
     outline: 0,
-    minWidth: 95,
     whiteSpace: 'nowrap',
+    fontSize: '0.933rem',
+    fontWeight: 'bold',
 
     '&:hover': {
       color: theme.palette.secondary.light,
     },
 
     [theme.breakpoints.down('md')]: {
+      fontSize: '1rem',
       whiteSpace: 'inherit',
+      fontWeight: 'inherit',
 
       '& > span': {
         flexDirection: 'row-reverse',
@@ -31,7 +34,7 @@ export default makeStyles((theme) => ({
     },
 
     '& svg': {
-      marginRight: theme.spacing(0.5),
+      margin: `0 ${theme.spacing(0.5)}`,
     },
   },
   anchor: {
@@ -46,7 +49,7 @@ export default makeStyles((theme) => ({
   },
   parent: {
     color: 'inherit !important',
-    borderBottom: `4px solid ${theme.palette.secondary.main}`,
+    borderBottom: `2px solid ${theme.palette.secondary.main}`,
 
     [theme.breakpoints.down('md')]: {
       color: `${theme.palette.secondary.main} !important`,

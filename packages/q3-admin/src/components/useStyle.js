@@ -8,7 +8,7 @@ export default makeStyles(() => ({
   },
 
   fillViewportHeight: {
-    height: 'calc((100 * var(--vh)) - 71px)',
+    height: 'calc((100 * var(--vh)) - 65px)',
     overflow: 'auto',
   },
 }));

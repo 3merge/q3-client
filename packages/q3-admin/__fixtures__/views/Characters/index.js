@@ -6,7 +6,7 @@ import General from './General';
 export default new AbstractCollectionBuilder({
   resourceName: 'characters',
   resourceNameSingular: 'character',
-  parent: 'entertainment',
+  // parent: 'entertainment',
   lookup: ['name'],
   resolvers: ({
     id,

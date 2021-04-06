@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'row',
-    height: 71,
+    height: 65,
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
     color: theme.palette.primary.contrastText,
@@ -36,7 +36,7 @@ export default makeStyles((theme) => ({
     },
 
     '& > li > a.current': {
-      borderBottom: `4px solid ${theme.palette.secondary.main}`,
+      borderBottom: `2px solid ${theme.palette.secondary.main}`,
     },
 
     '& li': {

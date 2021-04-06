@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
       ? theme.palette.background.default
       : theme.palette.background.muted,
     borderRight: `1px solid ${theme.palette.background.muted}`,
-    height: 'calc((100 * var(--vh)) - 71px)',
+    height: 'calc((100 * var(--vh)) - 65px)',
     overflow: 'hidden',
     padding: '.5rem 0',
     position: 'relative',

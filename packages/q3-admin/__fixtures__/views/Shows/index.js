@@ -11,7 +11,7 @@ import useIo from '../../../src/hooks/useIo';
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
-  parent: 'entertainment',
+  // parent: 'entertainment',
   lookup: ['name'],
 })
   .genUserOptions('Developer', {
