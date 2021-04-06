@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
     whiteSpace: 'wrap !important',
 
     '& th': {
+      backgroundColor: theme.palette.background.paper,
       border: '0 !important',
       left: 'auto',
       borderBottom: 0,
