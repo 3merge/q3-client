@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.2](https://github.com/3merge/q/compare/v1.30.1...v1.30.2) (2021-04-06)
+
+
+### Bug Fixes
+
+* include url params in export ([#312](https://github.com/3merge/q/issues/312)) ([fcea6c4](https://github.com/3merge/q/commit/fcea6c4b73c26c4ebb5f3a0ca6fa4afcd6712dd6))
+
+
+
+
+
 ## [1.30.1](https://github.com/3merge/q/compare/v1.30.0...v1.30.1) (2021-04-01)
 
 **Note:** Version bump only for package q3-client
