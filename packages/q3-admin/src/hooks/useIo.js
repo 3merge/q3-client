@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
+import { isFunction } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { object, url } from 'q3-ui-helpers';
 
@@ -8,7 +9,10 @@ export default (ids, ...rest) => {
   const { t } = useTranslation('descriptions');
 
   const getQueryString = (template, urlParams) => {
-    if (!object.hasKeys(urlParams))
+    if (
+      !object.hasKeys(urlParams) ||
+      !isFunction(urlParams.delete)
+    )
       return ids
         ? `?template=${template}&ids=${ids}`
         : `?template=${template}`;
