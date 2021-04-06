@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import useStyle from '../useStyle';
 
@@ -11,7 +12,7 @@ const Template = ({ children }) => {
       maxWidth="xl"
       className={cls.fillViewportHeight}
     >
-      {children}
+      <Box my={2}>{children}</Box>
     </Container>
   );
 };

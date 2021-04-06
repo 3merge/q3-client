@@ -32,6 +32,7 @@ const init = {
 
 const Repeater = ({
   addComponent,
+  addComponentPosition,
   bulkEditorComponent,
   emptyComponent,
   addDisabled,
@@ -55,6 +56,22 @@ const Repeater = ({
 
   const newData = run(data);
 
+  const renderAddComponent = (pos) => {
+    if (addDisabled || addComponentPosition !== pos)
+      return null;
+
+    return (
+      <Grid item xs={addComponent ? 12 : 'auto'}>
+        <AddItem
+          addComponent={addComponent}
+          initialValues={initialValues}
+        >
+          {children}
+        </AddItem>
+      </Grid>
+    );
+  };
+
   const renderEmpty = () =>
     emptyComponent || (
       <Box>
@@ -69,6 +86,7 @@ const Repeater = ({
         mb={Array.isArray(newData) ? 1 : 0}
       >
         <Grid alignItems="center" container spacing={2}>
+          {renderAddComponent('top')}
           <Grid item xs={12} sm>
             <RepeaterOptions
               state={state}
@@ -83,16 +101,7 @@ const Repeater = ({
               />
             </RepeaterOptions>
           </Grid>
-          {!addDisabled && (
-            <Grid item xs={addComponent ? 12 : 'auto'}>
-              <AddItem
-                addComponent={addComponent}
-                initialValues={initialValues}
-              >
-                {children}
-              </AddItem>
-            </Grid>
-          )}
+          {renderAddComponent('bottom')}
         </Grid>
       </Box>
       {checkValues(data, newData) ? (
@@ -114,6 +123,7 @@ const Repeater = ({
 
 Repeater.defaultProps = {
   addComponent: null,
+  addComponentPosition: 'bottom',
   addDisabled: false,
   data: [],
   disableSearch: false,
@@ -125,6 +135,7 @@ Repeater.defaultProps = {
 
 Repeater.propTypes = {
   addComponent: PropTypes.node,
+  addComponentPosition: PropTypes.oneOf(['top', 'bottom']),
   emptyComponent: PropTypes.node,
   addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,

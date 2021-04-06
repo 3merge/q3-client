@@ -20,7 +20,12 @@ const RepeaterOptions = ({
   const { sortBy, filterBy } = state;
 
   return (
-    <Grid alignItems="center" container spacing={1}>
+    <Grid
+      alignItems="center"
+      container
+      spacing={1}
+      justify="flex-end"
+    >
       {children}
       {!disableSearch && (
         <Grid item xs>

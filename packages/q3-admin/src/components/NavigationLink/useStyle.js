@@ -4,8 +4,7 @@ export default makeStyles((theme) => ({
   menuItem: {
     alignItems: 'center',
     display: 'flex',
-    marginRight: theme.spacing(1),
-    padding: theme.spacing(0.5),
+    padding: `${theme.spacing(0.5)} ${theme.spacing(1.5)}`,
     textDecoration: 'none !important',
     color: 'inherit',
     height: '100%',
@@ -16,9 +15,15 @@ export default makeStyles((theme) => ({
     overflow: 'hidden',
     outline: 0,
     minWidth: 95,
-    justifyContent: 'center',
+    whiteSpace: 'nowrap',
+
+    '&:hover': {
+      color: theme.palette.secondary.light,
+    },
 
     [theme.breakpoints.down('md')]: {
+      whiteSpace: 'inherit',
+
       '& > span': {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',
@@ -34,6 +39,10 @@ export default makeStyles((theme) => ({
   },
   active: {
     color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down('md')]: {
+      color: `${theme.palette.secondary.main} !important`,
+      border: 'none !important',
+    },
   },
   parent: {
     color: 'inherit !important',
@@ -45,9 +54,9 @@ export default makeStyles((theme) => ({
     },
 
     '& ~ ul a.current': {
-      backgroundColor: theme.palette.secondary.main,
+      fontStyle: 'bold',
+      color: theme.palette.secondary.light,
       width: '100%',
-      borderRadius: 4,
       borderBottom: 0,
     },
   },

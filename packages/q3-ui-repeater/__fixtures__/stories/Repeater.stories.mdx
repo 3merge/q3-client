@@ -19,6 +19,20 @@ export const isSeq = (item) => Number(item.seq) === 211;
       <p>Editor</p>
     </Repeater>
   </Story>
+  <Story name="With custom add">
+    <Repeater
+      addComponent={<p>Custom form</p>}
+      addComponentPosition="top"
+      bulkEditorComponent={<p>Bulk</p>}
+      disableSearch
+      cardProps={{
+        title: 'sku',
+        attributes: ['for.name', 'id', 'age'],
+      }}
+    >
+      <p>Editor</p>
+    </Repeater>
+  </Story>
   <Story name="Without options">
     <Repeater
       disableMultiselect

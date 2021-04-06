@@ -22,7 +22,10 @@ const CustomActionBar = ({ renderSelected, length }) => {
   return (
     checked.length > 0 && (
       <Hidden implementation="css" smDown>
-        <Grid item>
+        <Grid
+          item
+          style={{ minHeight: 40, padding: '0 1rem' }}
+        >
           {renderSelected && (
             <BulkEditorDrawer
               ids={checked}
