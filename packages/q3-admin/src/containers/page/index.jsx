@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import Graphic from 'q3-ui-assets';
+import { browser } from 'q3-ui-helpers';
 import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
@@ -61,6 +62,23 @@ export const executeOnChildren = (children, args = {}) =>
     ? children(args)
     : children;
 
+export const usePrevLocation = (id, location) =>
+  React.useEffect(() => {
+    return () => {
+      if (id)
+        browser.proxySessionStorageApi(
+          'removeItem',
+          'prevState',
+        );
+      else
+        browser.proxySessionStorageApi(
+          'setItem',
+          'prevState',
+          location?.pathname + location?.search,
+        );
+    };
+  }, []);
+
 const Page = ({
   children,
   select,
@@ -103,6 +121,7 @@ const Page = ({
 
   // this will prevent it from running on individual docs
   useRefresh(!id ? poll : undefined);
+  usePrevLocation(id, location);
 
   return (
     <PageChildren
