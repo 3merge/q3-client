@@ -64,20 +64,13 @@ export const executeOnChildren = (children, args = {}) =>
 
 export const usePrevLocation = (id, location) =>
   React.useEffect(() => {
-    return () => {
-      if (id)
-        browser.proxySessionStorageApi(
-          'removeItem',
-          'prevState',
-        );
-      else
-        browser.proxySessionStorageApi(
-          'setItem',
-          'prevState',
-          location?.pathname + location?.search,
-        );
-    };
-  }, []);
+    if (!id)
+      browser.proxySessionStorageApi(
+        'setItem',
+        'prevState',
+        location?.pathname + location?.search,
+      );
+  }, [location]);
 
 const Page = ({
   children,

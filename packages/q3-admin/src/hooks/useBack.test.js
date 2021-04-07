@@ -4,7 +4,7 @@ import { browser } from 'q3-ui-helpers';
 import useBack from './useBack';
 
 jest.mock('@reach/router', () => {
-  const navigate = jest.fn();
+  const navigate = jest.fn().mockResolvedValue(undefined);
   return {
     useNavigate: jest.fn().mockReturnValue(navigate),
     navigate,
@@ -12,13 +12,13 @@ jest.mock('@reach/router', () => {
 });
 
 jest.spyOn(React, 'useContext').mockReturnValue({
-  directoryPath: '/app',
+  directoryPath: '/app/',
 });
 
 describe('useBack', () => {
   it('should call directory', () => {
     useBack()();
-    expect(nav).toHaveBeenCalledWith('/app');
+    expect(nav).toHaveBeenCalledWith('/app/');
   });
 
   it('should call history', () => {
@@ -34,6 +34,6 @@ describe('useBack', () => {
       .spyOn(browser, 'proxySessionStorageApi')
       .mockReturnValue('/otherapp?sort=123');
     useBack()();
-    expect(nav).toHaveBeenCalledWith('/app');
+    expect(nav).toHaveBeenCalledWith('/app/');
   });
 });
