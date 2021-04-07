@@ -38,6 +38,7 @@ export default makeStyles((theme) => ({
       fontSize: '0.833rem !important',
       borderBottom: 'none !important',
       padding: '0 !important',
+      minWidth: 110,
     },
 
     '& td, & th': {
