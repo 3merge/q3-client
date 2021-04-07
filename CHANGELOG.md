@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.7](https://github.com/3merge/q/compare/v1.30.6...v1.30.7) (2021-04-07)
+
+
+### Bug Fixes
+
+* matching relative paths ([000e0e7](https://github.com/3merge/q/commit/000e0e7e4919fae6e6a5ef682acb0ee1ab3ac3e4))
+
+
+
+
+
 ## [1.30.6](https://github.com/3merge/q/compare/v1.30.5...v1.30.6) (2021-04-07)
 
 
