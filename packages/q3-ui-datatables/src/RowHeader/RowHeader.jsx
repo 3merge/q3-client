@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Avatar from 'q3-ui/lib/avatar';
 import { SelectOne } from 'q3-ui-exports';
 import Popover from 'q3-ui/lib/popover';

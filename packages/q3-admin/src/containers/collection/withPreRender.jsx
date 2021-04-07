@@ -1,6 +1,6 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { object } from 'q3-ui-helpers';
+import { browser, object } from 'q3-ui-helpers';
 
 export default (Component) => (props) => {
   const { onMount } = props;
@@ -14,6 +14,21 @@ export default (Component) => (props) => {
       onMount();
       setHasFinished(true);
     }
+
+    return () => {
+      if (props?.id)
+        browser.proxySessionStorageApi(
+          'removeItem',
+          'prevState',
+        );
+      else
+        browser.proxySessionStorageApi(
+          'setItem',
+          'prevState',
+          props?.location?.pathname +
+            props?.location?.search,
+        );
+    };
   }, [hasFinished, onMount]);
 
   return hasFinished ? (

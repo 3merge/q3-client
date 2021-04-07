@@ -1,10 +1,6 @@
 import moxios from 'jest-mock-axios';
 import useIo from './useIo';
 
-jest.mock('q3-ui-helpers/lib/url', () => ({
-  toParamsString: jest.fn().mockReturnValue('foo=1&bar=1'),
-}));
-
 jest.mock('axios');
 
 jest.fn('react-i18next', () => ({
@@ -26,21 +22,14 @@ jest.mock('notistack', () => {
 
 describe('useIo', () => {
   it('should handle resolve', () => {
-    const deleteFn = jest.fn();
-    const setFn = jest.fn();
-
-    useIo(1, {
-      delete: deleteFn,
-      set: setFn,
-    }).exportCollection('test')();
-
-    expect(moxios.post).toHaveBeenCalledWith(
-      '/io?foo=1&bar=1',
+    const stub = new URLSearchParams(
+      '?page=1&limit=20&foo=1&bar=1',
     );
 
-    expect(setFn).toHaveBeenCalledWith('ids', 1);
-    expect(setFn).toHaveBeenCalledWith('template', 'test');
-    expect(deleteFn).toHaveBeenCalled();
+    useIo(1, stub).exportCollection('test')();
+    expect(moxios.post).toHaveBeenCalledWith(
+      '/io?foo=1&bar=1&template=test&ids=1',
+    );
   });
 
   it('should handle reject', () => {
