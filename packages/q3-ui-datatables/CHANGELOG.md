@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.5](https://github.com/3merge/q/compare/v1.30.4...v1.30.5) (2021-04-07)
+
+
+### Bug Fixes
+
+* io filter and back ([#313](https://github.com/3merge/q/issues/313)) ([e1d71f4](https://github.com/3merge/q/commit/e1d71f40d6cae3c87f317d374d1427b921bf14b0))
+
+
+
+
+
 ## [1.30.2](https://github.com/3merge/q/compare/v1.30.1...v1.30.2) (2021-04-06)
 
 
