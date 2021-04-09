@@ -13,7 +13,6 @@ export const addDocumentListener = (eventName, fn) => {
   if (!browser.isBrowserReady()) return;
 
   invoke(document, 'addEventListener', eventName, fn, {
-    once: true,
     passive: true,
   });
 };

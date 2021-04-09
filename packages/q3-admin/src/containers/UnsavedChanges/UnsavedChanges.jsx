@@ -6,6 +6,10 @@ import { Store } from '../state';
 import PollIndicator from '../../components/PollIndicator';
 import PendingChangesModal from '../../components/PendingChangesModal';
 import { useRefresh } from '../../hooks';
+import {
+  addDocumentListener,
+  removeDocumentListener,
+} from '../../hooks/useNotifications';
 
 const refresh = () => {
   if (browser.isBrowserReady()) window.location.reload();
@@ -17,19 +21,11 @@ export const useChangeDetection = () => {
   const handleEvent = (e) => setHasChange(!e?.data);
 
   React.useEffect(() => {
-    if (!browser.isBrowserReady()) return undefined;
-
-    document.addEventListener(
-      'q3-change-detection',
-      handleEvent,
-      { passive: true },
-    );
+    const ev = 'q3-change-detection';
+    addDocumentListener(ev, handleEvent);
 
     return () => {
-      document.removeEventListener(
-        'q3-change-detection',
-        handleEvent,
-      );
+      removeDocumentListener(ev, handleEvent);
     };
   }, []);
 
