@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.10](https://github.com/3merge/q/compare/v1.30.9...v1.30.10) (2021-04-09)
+
+
+### Bug Fixes
+
+* event listeners dropping off ([0342c9b](https://github.com/3merge/q/commit/0342c9ba9bf78d026f025e5052dccc6d9eb6b376))
+
+
+
+
+
 ## [1.30.9](https://github.com/3merge/q/compare/v1.30.8...v1.30.9) (2021-04-09)
 
 
