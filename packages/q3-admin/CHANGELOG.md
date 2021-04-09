@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.8](https://github.com/3merge/q/compare/v1.30.7...v1.30.8) (2021-04-09)
+
+
+### Bug Fixes
+
+* initial sidepanel state ([e26081a](https://github.com/3merge/q/commit/e26081ab3555702cd4879fb8da74682e5b90330b))
+
+
+
+
+
 ## [1.30.7](https://github.com/3merge/q/compare/v1.30.6...v1.30.7) (2021-04-07)
 
 
