@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.9](https://github.com/3merge/q/compare/v1.30.8...v1.30.9) (2021-04-09)
+
+
+### Bug Fixes
+
+* event listeners once passive ([70b05e7](https://github.com/3merge/q/commit/70b05e72f8f20dc9769b7a2ad97f5e6845a8cc11))
+
+
+
+
+
 ## [1.30.8](https://github.com/3merge/q/compare/v1.30.7...v1.30.8) (2021-04-09)
 
 
