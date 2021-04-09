@@ -2,7 +2,10 @@ import React from 'react';
 import { debounce } from 'lodash';
 import { Definitions } from '../containers/state';
 import { makeEventName } from './useServerSideEvents';
-import { invokeDocumentListener } from './useNotifications';
+import {
+  addDocumentListener,
+  removeDocumentListener,
+} from './useNotifications';
 
 const noop = () => null;
 
@@ -21,10 +24,10 @@ export default (onChange, debounceValue = 15000) => {
 
   React.useEffect(() => {
     const event = makeEventName(collectionName);
-    invokeDocumentListener(event, handleWatch);
+    addDocumentListener(event, handleWatch);
 
     return () => {
-      invokeDocumentListener(event);
+      removeDocumentListener(event, handleWatch);
     };
   }, [collectionName, id]);
 };

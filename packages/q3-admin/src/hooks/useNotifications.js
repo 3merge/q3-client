@@ -9,15 +9,18 @@ import {
   makeEventName,
 } from './useServerSideEvents';
 
-export const invokeDocumentListener = (eventName, fn) => {
+export const addDocumentListener = (eventName, fn) => {
   if (!browser.isBrowserReady()) return;
 
-  invoke(
-    document,
-    fn ? 'addEventListener' : 'removeEventListener',
-    eventName,
-    fn,
-  );
+  invoke(document, 'addEventListener', eventName, fn, {
+    once: true,
+    passive: true,
+  });
+};
+
+export const removeDocumentListener = (eventName, fn) => {
+  if (!browser.isBrowserReady()) return;
+  invoke(document, 'removeEventListener', eventName, fn);
 };
 
 export default () => {
@@ -63,25 +66,27 @@ export default () => {
     const general = makeEventName();
     const noti = makeEventName('q3-api-notifications');
 
-    invokeDocumentListener(noti, (event) => {
+    const handleGeneral = (event) => {
+      const { action } = event.data;
+      if (action === CONNECT) setError(false);
+      if (action === ERROR) setError(true);
+    };
+
+    const handleNoti = (event) => {
       const { action } = event.data;
       if (action === CHANGE) {
         setError(false);
         onChange();
       }
-    });
+    };
 
-    invokeDocumentListener(general, (event) => {
-      const { action } = event.data;
-      if (action === CONNECT) setError(false);
-      if (action === ERROR) setError(true);
-    });
-
+    addDocumentListener(noti, handleNoti);
+    addDocumentListener(general, handleGeneral);
     fetchNotifications();
 
     return () => {
-      invokeDocumentListener(general);
-      invokeDocumentListener(noti);
+      removeDocumentListener(general, handleGeneral);
+      removeDocumentListener(noti, handleNoti);
     };
   }, []);
 

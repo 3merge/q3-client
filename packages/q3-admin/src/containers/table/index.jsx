@@ -13,7 +13,7 @@ import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import TableHeader from '../TableHeader';
-import { useAppContext } from '../../hooks';
+import { useAppContext, useRefresh } from '../../hooks';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -91,8 +91,9 @@ const List = ({
     location,
     rootPath,
   } = React.useContext(Definitions);
-  const { removeBulk } = React.useContext(Dispatcher);
+  const { removeBulk, poll } = React.useContext(Dispatcher);
   const { canDelete, canSeeSub } = useAuth(collectionName);
+  useRefresh(poll);
 
   const actions = getActions(
     collectionName,

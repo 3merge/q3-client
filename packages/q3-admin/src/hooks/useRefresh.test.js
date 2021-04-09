@@ -1,9 +1,13 @@
 import React from 'react';
 import useRefresh from './useRefresh';
-import { invokeDocumentListener } from './useNotifications';
+import {
+  addDocumentListener,
+  removeDocumentListener,
+} from './useNotifications';
 
 jest.mock('./useNotifications', () => ({
-  invokeDocumentListener: jest.fn(),
+  addDocumentListener: jest.fn(),
+  removeDocumentListener: jest.fn(),
 }));
 
 jest.mock('q3-ui-helpers', () => ({
@@ -34,7 +38,7 @@ describe('useRefresh', () => {
 
     const poll = jest.fn().mockResolvedValue({});
 
-    invokeDocumentListener.mockImplementation(
+    addDocumentListener.mockImplementation(
       (eventName, fn) => {
         Array.from({ length: 10 }).forEach(() => fn());
       },
@@ -42,7 +46,7 @@ describe('useRefresh', () => {
 
     useRefresh(poll, 8);
 
-    expect(invokeDocumentListener).toHaveBeenCalledWith(
+    expect(addDocumentListener).toHaveBeenCalledWith(
       'q3-change-stream-test',
       expect.any(Function),
     );

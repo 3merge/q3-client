@@ -98,7 +98,7 @@ const Page = ({
     url,
   });
 
-  const { fetching, fetchingError, poll } = state;
+  const { fetching, fetchingError } = state;
 
   const data = useDataStore({
     resourceNameSingular,
@@ -112,8 +112,6 @@ const Page = ({
     { ...state, url },
   );
 
-  // this will prevent it from running on individual docs
-  useRefresh(!id ? poll : undefined);
   usePrevLocation(id, location);
 
   return (

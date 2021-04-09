@@ -14,12 +14,23 @@ const refresh = () => {
 export const useChangeDetection = () => {
   const [hasChange, setHasChange] = React.useState(false);
 
+  const handleEvent = (e) => setHasChange(!e?.data);
+
   React.useEffect(() => {
-    if (browser.isBrowserReady())
-      document.addEventListener(
+    if (!browser.isBrowserReady()) return undefined;
+
+    document.addEventListener(
+      'q3-change-detection',
+      handleEvent,
+      { passive: true },
+    );
+
+    return () => {
+      document.removeEventListener(
         'q3-change-detection',
-        (e) => setHasChange(!e?.data),
+        handleEvent,
       );
+    };
   }, []);
 
   return hasChange;
