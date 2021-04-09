@@ -21,13 +21,13 @@ export const truthy = (x) =>
     : Boolean(x) && !isNil(x);
 
 const SidePanel = ({ id, children }) => {
+  const prevState = browser.proxyLocalStorageApi(
+    'getItem',
+    SIDE_PANEL_VISIBILITY,
+  );
+
   const [state, setState] = React.useState(
-    truthy(
-      browser.proxyLocalStorageApi(
-        'getItem',
-        SIDE_PANEL_VISIBILITY,
-      ),
-    ),
+    !isNil(prevState) ? truthy(prevState) : true,
   );
 
   const toggleSidePanel = () =>
