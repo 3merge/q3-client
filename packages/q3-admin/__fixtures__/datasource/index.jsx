@@ -6,7 +6,6 @@ import characters from './characters';
 import shows from './shows';
 import users from './users';
 import uploads from './files';
-import { BAR } from '../../src/__fixtures__/visualization';
 
 const makeApiEndpoints = (
   mockInstance,
@@ -15,6 +14,15 @@ const makeApiEndpoints = (
 ) => {
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
+
+  mockInstance.onGet(/system-notifications/).reply(200, {
+    notifications: [
+      {
+        label: 'bucket/file',
+        url: 'https://google.caca',
+      },
+    ],
+  });
 
   mockInstance.onGet(/reports/).reply(200, {
     data: {

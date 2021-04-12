@@ -12,9 +12,17 @@ import 'moment/locale/fr';
 import 'moment/locale/en-ca';
 import 'swiper/swiper-bundle.css';
 
-const Providers = ({ children, initialType, theme }) => (
+const Providers = ({
+  children,
+  initialType,
+  enableToggle,
+  theme,
+}) => (
   <Locale>
-    <Mode initialType={initialType}>
+    <Mode
+      enableToggle={enableToggle}
+      initialType={initialType}
+    >
       {(type) => (
         <ThemeProvider
           theme={merge(baseQ3Theme(type), theme)}
@@ -36,6 +44,7 @@ const Providers = ({ children, initialType, theme }) => (
 Providers.propTypes = {
   children: PropTypes.node.isRequired,
   initialType: PropTypes.oneOf(['light', 'dark']),
+  enableToggle: PropTypes.bool,
   theme: PropTypes.shape({
     // eslint-disable-next-line
     palette: PropTypes.object,
@@ -45,6 +54,7 @@ Providers.propTypes = {
 Providers.defaultProps = {
   theme: {},
   initialType: 'light',
+  enableToggle: true,
 };
 
 export default Providers;

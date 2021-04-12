@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { array } from 'q3-ui-helpers';
@@ -17,8 +18,13 @@ const ListImport = ({ actions, actionTitle, children }) => {
     array.hasLength(actions) > 0 && (
       <Box mb={1}>
         <List>
-          <ListSubheader disableSticky color="primary">
-            {t(`titles:${actionTitle}`)}
+          <ListSubheader
+            disableSticky
+            style={{ lineHeight: 'initial' }}
+          >
+            <Typography variant="overline">
+              {t(`titles:${actionTitle}`)}
+            </Typography>
           </ListSubheader>
           {actions.map((i, index) => (
             <React.Fragment key={i}>

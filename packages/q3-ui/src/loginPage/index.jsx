@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { get } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -37,7 +36,10 @@ const useStyles = makeStyles((theme) => ({
   mobileWrapper: {
     [theme.breakpoints.down('sm')]: {
       display: 'block',
-      backgroundColor: '#FFF',
+      backgroundColor: get(
+        theme,
+        'palette.background.paper',
+      ),
       minHeight: '100vh',
     },
   },
