@@ -10,16 +10,20 @@ export const ModeContext = React.createContext({
   value: LIGHT,
 });
 
-const Mode = ({ children, initialType }) => {
-  const [type, setType] = React.useState(
+const Mode = ({ children, initialType, enableToggle }) => {
+  let prev =
     browser.proxyLocalStorageApi(
       'getItem',
       LOCAL_STORAGE_NAME,
-    ) || initialType,
-  );
+    ) || initialType;
 
+  if (!enableToggle) prev = initialType;
+
+  const [type, setType] = React.useState(prev);
   const isLight = type === LIGHT;
-  const toggle = () => setType(isLight ? DARK : LIGHT);
+
+  const toggle = () =>
+    enableToggle ? setType(isLight ? DARK : LIGHT) : null;
 
   React.useEffect(() => {
     browser.proxyLocalStorageApi(
@@ -44,12 +48,14 @@ const Mode = ({ children, initialType }) => {
 };
 
 Mode.defaultProps = {
+  enableToggle: true,
   initialType: LIGHT,
 };
 
 Mode.propTypes = {
   children: PropTypes.func.isRequired,
   initialType: PropTypes.oneOf([LIGHT, DARK]),
+  enableToggle: PropTypes.bool,
 };
 
 export default Mode;

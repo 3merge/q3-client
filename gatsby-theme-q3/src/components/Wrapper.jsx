@@ -29,12 +29,17 @@ const setBaseUrlForRest = (
   return axios.defaults;
 };
 
-const Wrapper = ({ children, baseURL, locale, theme }) => {
+const Wrapper = ({
+  children,
+  baseURL,
+  locale,
+  ...providerProps
+}) => {
   setBaseUrlForRest(baseURL);
   registeri18ResourceBundles(locale);
 
   return (
-    <Provider theme={theme}>
+    <Provider {...providerProps}>
       <AuthProvider>
         <FormProviders preventDuplicate>
           {children}

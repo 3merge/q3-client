@@ -34,6 +34,7 @@ const NotificationLink = ({
       secondary={
         <Link
           href={url}
+          style={{ color: 'inherit' }}
           download
           onClick={
             !hasDownloaded
