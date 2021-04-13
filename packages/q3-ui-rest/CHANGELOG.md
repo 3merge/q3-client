@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.30.12](https://github.com/3merge/q/compare/v1.30.11...v1.30.12) (2021-04-13)
+
+**Note:** Version bump only for package q3-ui-rest
+
+
+
+
+
+
 ## [1.27.3](https://github.com/3merge/q/compare/v1.27.2...v1.27.3) (2021-02-05)
 
 **Note:** Version bump only for package q3-ui-rest
