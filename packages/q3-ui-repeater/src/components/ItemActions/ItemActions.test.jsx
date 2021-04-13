@@ -48,7 +48,7 @@ describe('ItemActions', () => {
         )
         .find(IconButton);
       expect(el).toHaveLength(1);
-      expect(el.props()).toHaveProperty('icon', Up);
+      expect(el.find(Up).exists()).toBeTruthy();
     });
 
     it('should render DeleteModal and EditorDrawer', () => {
