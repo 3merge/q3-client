@@ -85,12 +85,7 @@ export default (Component) => (props) => {
         <Component
           name="people"
           collectionName={COLLECTION_NAME}
-          data={[
-            ...initialValues,
-            ...initialValues,
-            ...initialValues,
-            ...initialValues,
-          ]}
+          data={initialValues}
           create={onCreate}
           edit={onUpdate}
           editBulk={onUpdateBulk}

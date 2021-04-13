@@ -11,11 +11,21 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyle from './useStyle';
 
+const TransitionOverride = ({ in: show, children }) => (
+  <div style={{ display: show ? 'block' : 'none' }}>
+    {children}
+  </div>
+);
+
 const RepeaterCollapse = ({ children, label, toggles }) => {
   const { container, content, root, text } = useStyle();
 
   return label ? (
-    <Accordion defaultExpanded className={root}>
+    <Accordion
+      defaultExpanded
+      className={root}
+      TransitionComponent={TransitionOverride}
+    >
       <AccordionSummary
         className={container}
         expandIcon={<ExpandMoreIcon />}

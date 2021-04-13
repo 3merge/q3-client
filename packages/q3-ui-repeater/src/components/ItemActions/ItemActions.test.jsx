@@ -1,6 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from 'q3-ui/lib/iconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Up from '@material-ui/icons/KeyboardArrowUp';
 import ItemActions, { paginate } from './ItemActions';
 import { EditorDrawer, DeleteModal } from '..';

@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, invoke, isFunction } from 'lodash';
+import {
+  pick,
+  get,
+  invoke,
+  isFunction,
+  isEqual,
+} from 'lodash';
 import TableRow from '@material-ui/core/TableRow';
 import Attribute from '../Attribute';
 import ItemActions from '../ItemActions';
@@ -77,7 +83,7 @@ const Item = ({
   index,
   children,
   cardProps,
-  // aliase for cardProps
+  // alias for cardProps
   rowResolver,
   renderMobileColumns,
   hasNested,
@@ -85,8 +91,8 @@ const Item = ({
   nestedIsVisible,
   renderNestedTableRow,
   item,
+  ctx,
 }) => {
-  const ctx = React.useContext(RepeaterContext);
   const cls = useStyle({ hasNested });
   const [currentIndex, setCurrentIndex] = React.useState(
     index,
@@ -186,4 +192,21 @@ Item.defaultProps = {
   ...override.defaultProps,
 };
 
-export default Item;
+const BlockWastedRenders = React.memo(
+  Item,
+  (prev, curr) =>
+    isEqual(prev?.item, curr?.item) &&
+    isEqual(prev?.ctx, curr?.ctx) &&
+    prev?.nestedIsVisible === curr?.nestedIsVisible,
+);
+
+export default (props) => (
+  <BlockWastedRenders
+    {...props}
+    ctx={pick(React.useContext(RepeaterContext), [
+      'disableEditor',
+      'disableMultiselect',
+      'disableRemove',
+    ])}
+  />
+);
