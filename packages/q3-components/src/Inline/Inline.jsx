@@ -47,7 +47,6 @@ const Inline = ({
           horizontal: 'center',
         }}
         elevation={15}
-        transitionDuration={250}
         disableRestoreFocus
         className={POPOVER_CLASS}
         disablePortal

@@ -178,7 +178,10 @@ ItemActions.propTypes = {
   nestedIsVisible: PropTypes.bool,
   renderNestedTableRow: PropTypes.func,
   linkTo: PropTypes.string,
-  linkToLabel: PropTypes.string,
+  linkToLabel: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 ItemActions.defaultProps = {

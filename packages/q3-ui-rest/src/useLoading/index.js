@@ -91,38 +91,25 @@ export default () => {
   const [loading, setLoading] = React.useState(false);
   const noti = useNotification();
 
-  const onRequest = React.useCallback(
-    (request) => {
-      setLoading(true);
-      // handleRequest(request);
-      return request;
-    },
-    [loading],
-  );
+  const onRequest = (request) => {
+    setLoading(true);
+    return request;
+  };
 
-  const onResponse = React.useCallback(
-    (response) => {
-      setLoading(false);
-      handleResponse(response).notify(noti).set();
+  const onResponse = (response) => {
+    setLoading(false);
+    handleResponse(response).notify(noti).set();
+    return response;
+  };
 
-      return response;
-    },
-    [loading],
-  );
-
-  const onResponseError = React.useCallback(
-    (error) => {
-      setLoading(false);
-      try {
-        return handleError(error)
-          .notify(noti)
-          .refresh(error);
-      } catch (e) {
-        return Promise.reject(error);
-      }
-    },
-    [loading],
-  );
+  const onResponseError = (error) => {
+    setLoading(false);
+    try {
+      return handleError(error).notify(noti).refresh(error);
+    } catch (e) {
+      return Promise.reject(error);
+    }
+  };
 
   React.useEffect(() => {
     axios.interceptors.request.use(onRequest, (error) => {

@@ -4,7 +4,6 @@ import React from 'react';
 import MomentUtils from '@date-io/moment';
 import { SnackbarProvider } from 'notistack';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import moment from 'moment';
 
 export { default as useNotification } from './providers/notistack';
 

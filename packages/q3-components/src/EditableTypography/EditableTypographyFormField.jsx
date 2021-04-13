@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'q3-ui-forms/lib/builders';
+import { removeFormatters } from './EditableTypographyTrigger';
 
 export const isCheckbox = (type) => type === 'checkbox';
 
@@ -13,7 +14,7 @@ const EditableTypographyFormField = ({
 
   return (
     <Field
-      {...rest}
+      {...removeFormatters(rest)}
       autoFocus
       name={name}
       type={type}

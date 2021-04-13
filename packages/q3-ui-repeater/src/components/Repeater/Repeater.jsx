@@ -39,6 +39,7 @@ const Repeater = ({
   children,
   data,
   disableSearch,
+  disableSearchWhenEmpty,
   filterOptions,
   groupBy,
   initialValues,
@@ -93,7 +94,10 @@ const Repeater = ({
               dispatch={dispatch}
               filterOptions={filterOptions}
               sortOptions={sortOptions}
-              disableSearch={disableSearch}
+              disableSearch={
+                disableSearch ||
+                (disableSearchWhenEmpty && !size(data))
+              }
             >
               <ActionBar
                 renderSelected={bulkEditorComponent}
@@ -123,10 +127,12 @@ const Repeater = ({
 
 Repeater.defaultProps = {
   addComponent: null,
+  bulkEditorComponent: null,
   addComponentPosition: 'bottom',
   addDisabled: false,
   data: [],
   disableSearch: false,
+  disableSearchWhenEmpty: false,
   groupBy: null,
   sortOptions: [],
   filterOptions: [],
@@ -135,12 +141,14 @@ Repeater.defaultProps = {
 
 Repeater.propTypes = {
   addComponent: PropTypes.node,
+  bulkEditorComponent: PropTypes.node,
   addComponentPosition: PropTypes.oneOf(['top', 'bottom']),
   emptyComponent: PropTypes.node,
   addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   disableSearch: PropTypes.bool,
+  disableSearchWhenEmpty: PropTypes.bool,
   children: PropTypes.node.isRequired,
   sortOptions: optionType,
   filterOptions: optionType,

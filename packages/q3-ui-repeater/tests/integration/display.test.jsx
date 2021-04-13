@@ -1,9 +1,11 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import Repeater from '../../src';
 import data from '../fixtures/articles';
 import AuthContextProvider from '../fixtures/AuthContextProvider';
 import { genRepeaterProps, perform } from '../helpers';
 import RepeaterTable from '../../src/components/RepeaterTable';
+import Item from '../../src/components/Item';
 
 jest.unmock('useful-state');
 
@@ -123,7 +125,7 @@ describe('Display', () => {
       [null, false],
     ])(
       'should render a collapsible row',
-      (El, expected) => {
+      async (El, expected) => {
         const el = global.mount(
           <AuthContextProvider update="!*author">
             <Repeater
@@ -135,6 +137,11 @@ describe('Display', () => {
           </AuthContextProvider>,
         );
 
+        await act(async () => {
+          el.find(Item).first().props().toggleNested();
+        });
+
+        el.update();
         expect(el.find('.nested').first().exists()).toBe(
           expected,
         );

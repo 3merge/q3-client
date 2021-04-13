@@ -69,7 +69,10 @@ export const IconButtonWithLoading = ({
 };
 
 AccessibleIconButton.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   icon: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.object,

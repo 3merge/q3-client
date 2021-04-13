@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-
+import { isEqual } from 'lodash';
 import Collapse from '@material-ui/core/Collapse';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -47,7 +47,11 @@ const NestedItem = ({
       {renderNestedTableRow && (
         <FullSpanTableRow attributes={attributes}>
           <Collapse in={!state}>
-            <Box>{renderNestedTableRow(item, rest)}</Box>
+            <Box>
+              {!state
+                ? renderNestedTableRow(item, rest)
+                : null}
+            </Box>
           </Collapse>
         </FullSpanTableRow>
       )}
@@ -69,4 +73,6 @@ NestedItem.defaultProps = {
   renderNestedTableRow: null,
 };
 
-export default NestedItem;
+export default React.memo(NestedItem, (prev, curr) =>
+  isEqual(prev?.item, curr?.item),
+);

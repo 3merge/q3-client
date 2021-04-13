@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { map, isEqual, get } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import NestedItem from '../NestedItem';
+
+export const stringifyIds = (xs) =>
+  map(xs?.data, (item) => item?.id).join(',');
 
 export const searchObject = (item = {}) => (value = '') =>
   !value.length ||
@@ -56,4 +59,9 @@ List.defaultProps = {
   renderNestedTableRow: null,
 };
 
-export default List;
+export default React.memo(
+  List,
+  (prev, curr) =>
+    isEqual(prev?.data, curr?.data) &&
+    stringifyIds(prev) === stringifyIds(curr),
+);

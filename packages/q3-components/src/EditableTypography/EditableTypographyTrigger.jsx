@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'class-names';
 import PropTypes from 'prop-types';
+import { omit } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +14,9 @@ const defaultPlaceholder = '--';
 
 export const makeEdittingProps = (isEditable, args) =>
   isEditable ? args : {};
+
+export const removeFormatters = (args) =>
+  omit(args, ['toDate', 'toPrice', 'trans', 'toTruthy']);
 
 export const formatText = (value, args, t) => {
   let formatted = value;
@@ -64,12 +68,19 @@ const EditableTypographyTrigger = ({
   );
 
   return isEditable ? (
-    <Button {...rest} className={classes} onClick={open}>
+    <Button
+      {...removeFormatters(rest)}
+      className={classes}
+      onClick={open}
+    >
       {text}
       {isEditable ? <Edit className={fieldIcon} /> : null}
     </Button>
   ) : (
-    <Typography {...rest} className={classes}>
+    <Typography
+      {...removeFormatters(rest)}
+      className={classes}
+    >
       <span style={innerStyle}>{text}</span>
     </Typography>
   );

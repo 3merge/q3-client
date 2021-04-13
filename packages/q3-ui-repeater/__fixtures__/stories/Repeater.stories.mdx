@@ -58,7 +58,9 @@ export const isSeq = (item) => Number(item.seq) === 211;
   <Story name="Custom renderers">
     <Repeater
       bulkEditorComponent={<p>Bulk editor</p>}
-      renderNestedTableRow={() => <p>Check me out</p>}
+      renderNestedTableRow={() => (
+        <p>{console.log('MOUNTED')} Check me out</p>
+      )}
       perPage={50}
       groupBy={[
         { label: 'Expensive', fn: (v) => v.price > 50 },
