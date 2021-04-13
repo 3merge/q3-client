@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-charts",
-  "version": "1.27.3",
+  "version": "1.30.13",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.27.3"

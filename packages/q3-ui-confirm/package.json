@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-confirm",
-  "version": "1.30.12",
+  "version": "1.30.13",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.27.3"
