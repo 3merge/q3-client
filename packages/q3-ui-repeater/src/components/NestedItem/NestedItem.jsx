@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import { isEqual } from 'lodash';
-import Collapse from '@material-ui/core/Collapse';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { useToggle } from 'useful-state';
@@ -46,13 +44,7 @@ const NestedItem = ({
       </Item>
       {renderNestedTableRow && (
         <FullSpanTableRow attributes={attributes}>
-          <Collapse in={!state}>
-            <Box>
-              {!state
-                ? renderNestedTableRow(item, rest)
-                : null}
-            </Box>
-          </Collapse>
+          {!state ? renderNestedTableRow(item, rest) : null}
         </FullSpanTableRow>
       )}
     </>

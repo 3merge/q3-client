@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import { map, get } from 'lodash';
+import { map, get, isEqual } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { SelectAll } from 'q3-ui-exports';
 import List from '../List';
@@ -22,7 +22,14 @@ import usePagination from '../../usePagination';
 import RepeaterCollapse from '../RepeaterCollapse';
 import useStyle from '../useStyle';
 
-const gt = (v, num = 0) => v > num;
+export const gt = (v, num = 0) => v > num;
+
+export const stringifyIds = (xs) =>
+  map(xs?.data, (item) => item?.id).join(',');
+
+export const hasDataPropChangedShape = (prev, curr) =>
+  isEqual(prev?.data, curr?.data) &&
+  stringifyIds(prev) === stringifyIds(curr);
 
 const RepeaterTable = ({
   data,
@@ -146,4 +153,11 @@ RepeaterTable.defaultProps = {
   ...override.defaultProps,
 };
 
-export default withMapRepeater(RepeaterTable);
+export default withMapRepeater(
+  React.memo(
+    RepeaterTable,
+    (prev, curr) =>
+      hasDataPropChangedShape(prev, curr) &&
+      prev.perPage === curr.perPage,
+  ),
+);

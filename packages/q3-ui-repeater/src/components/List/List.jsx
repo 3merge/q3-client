@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, isEqual, get } from 'lodash';
+import { get } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import NestedItem from '../NestedItem';
-
-export const stringifyIds = (xs) =>
-  map(xs?.data, (item) => item?.id).join(',');
+import { hasDataPropChangedShape } from '../../helpers';
 
 export const searchObject = (item = {}) => (value = '') =>
   !value.length ||
@@ -26,6 +24,7 @@ const List = ({
   );
 
   const attributes = get(rest, 'cardProps.attributes', []);
+  console.log('ONLY ONE');
 
   return (
     <TableBody>
@@ -59,9 +58,4 @@ List.defaultProps = {
   renderNestedTableRow: null,
 };
 
-export default React.memo(
-  List,
-  (prev, curr) =>
-    isEqual(prev?.data, curr?.data) &&
-    stringifyIds(prev) === stringifyIds(curr),
-);
+export default List;

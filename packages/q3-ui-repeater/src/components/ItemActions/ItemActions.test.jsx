@@ -1,6 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
-import IconButton from 'q3-ui/lib/iconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Up from '@material-ui/icons/KeyboardArrowUp';
 import ItemActions, { paginate } from './ItemActions';
 import { EditorDrawer, DeleteModal } from '..';
@@ -48,7 +48,7 @@ describe('ItemActions', () => {
         )
         .find(IconButton);
       expect(el).toHaveLength(1);
-      expect(el.props()).toHaveProperty('icon', Up);
+      expect(el.find(Up).exists()).toBeTruthy();
     });
 
     it('should render DeleteModal and EditorDrawer', () => {

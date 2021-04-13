@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LaunchIcon from '@material-ui/icons/Launch';
-import IconButton from 'q3-ui/lib/iconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from 'q3-ui-dialog';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +9,8 @@ import ConfirmForm from '../ConfirmForm';
 import { handleSubmit } from '../helpers';
 
 const Confirm = ({
+  icon: Icon,
   disabled,
-  icon,
   label,
   service,
   phrase,
@@ -40,10 +40,11 @@ const Confirm = ({
           </Button>
         ) : (
           <IconButton
-            icon={icon}
-            label={t(title)}
-            buttonProps={buttonProps}
-          />
+            aria-label={t(title)}
+            {...buttonProps}
+          >
+            <Icon />
+          </IconButton>
         );
       }}
       renderContent={(close) => (

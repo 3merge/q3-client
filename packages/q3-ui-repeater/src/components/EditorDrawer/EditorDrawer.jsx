@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from 'q3-ui/lib/iconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from 'q3-ui-dialog';
 import Pageview from '@material-ui/icons/Pageview';
 
@@ -13,12 +13,9 @@ const EditorDrawer = ({ children, ...rest }) =>
       renderContent={children}
       renderTrigger={(onClick) => (
         <IconButton
-          icon={Pageview}
-          label="edit"
-          buttonProps={{
-            className: 'q3-repeater-editor-button',
-            onClick,
-          }}
+          aria-label="edit"
+          className="q3-repeater-editor-button"
+          onClick={onClick}
         >
           <Pageview />
         </IconButton>

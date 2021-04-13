@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import PropTypes from 'prop-types';
-import IconButton from 'q3-ui/lib/iconButton';
+import IconButton from '@material-ui/core/IconButton';
 import Down from '@material-ui/icons/KeyboardArrowDown';
 import Up from '@material-ui/icons/KeyboardArrowUp';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -128,12 +128,11 @@ const ItemActions = ({
     >
       {renderNestedTableRow && (
         <IconButton
-          label="toggleInfo"
-          icon={nestedIsVisible ? Up : Down}
-          buttonProps={{
-            onClick: toggleNested,
-          }}
-        />
+          aria-label="toggle-info"
+          onClick={toggleNested}
+        >
+          {nestedIsVisible ? <Up /> : <Down />}
+        </IconButton>
       )}
       {showEditor && (
         <EditorDrawer
@@ -154,13 +153,12 @@ const ItemActions = ({
       {showRemove && <DeleteModal id={id} />}
       {linkTo && (
         <IconButton
-          label={linkToLabel}
-          icon={LaunchIcon}
-          buttonProps={{
-            component: Link,
-            to: linkTo,
-          }}
-        />
+          aria-label={linkToLabel}
+          component={Link}
+          to={linkTo}
+        >
+          <LaunchIcon />
+        </IconButton>
       )}
     </TableCell>
   );
