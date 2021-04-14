@@ -22,6 +22,7 @@ beforeAll(() => {
 
 beforeEach(() => {
   dispatch.mockReset();
+  spy.mockClear();
 });
 
 describe('useRest', () => {
@@ -41,10 +42,6 @@ describe('useRest', () => {
           }),
       },
     }));
-  });
-
-  beforeEach(() => {
-    spy.mockClear();
   });
 
   it('should fetch into state', () => {
@@ -212,5 +209,21 @@ describe('useRest configurations', () => {
       url: '/',
     });
     expect(push).toHaveBeenCalledWith('/foo?search=bar');
+  });
+
+  it('should append query string to PATCH', () => {
+    const { patch } = useRest({
+      url: '/foo/12/items',
+      acknowledgeUpdateOps: true,
+    });
+
+    patch(1)({
+      foo: 1,
+    });
+
+    expect(mockAxios.patch).toHaveBeenLastCalledWith(
+      '/foo/12/items/1?acknowledge=true',
+      expect.any(Object),
+    );
   });
 });

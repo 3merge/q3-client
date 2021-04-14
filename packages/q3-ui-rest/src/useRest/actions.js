@@ -24,6 +24,7 @@ const useRest = ({
   key,
   pluralized,
   select,
+  acknowledgeUpdateOps = false,
   runOnInit = false,
   decorators = {},
   location = {},
@@ -65,12 +66,21 @@ const useRest = ({
 
   const wrapUpdateFn = (id, verb) => (values, actions) => {
     invoke(decorators, verb, values);
+    const path = makePath([url, id]);
 
-    return handleRequest(
-      invoke(Axios, verb, makePath([url, id]), values),
-      actions,
-      UPDATED,
-    );
+    const invokeAxios = (dynamicPath) =>
+      invoke(Axios, verb, dynamicPath, values);
+
+    const makeService = () =>
+      acknowledgeUpdateOps
+        ? invokeAxios(`${path}?acknowledge=true`).then(
+            () => ({
+              data: values,
+            }),
+          )
+        : invokeAxios(path);
+
+    return handleRequest(makeService(), actions, UPDATED);
   };
 
   const invokeFetchingWithQueryString = (
