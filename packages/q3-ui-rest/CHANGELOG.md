@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.31.0](https://github.com/3merge/q/compare/v1.30.13...v1.31.0) (2021-04-14)
+
+
+### Features
+
+* pass acknowledge flag to update fn ([52a8c09](https://github.com/3merge/q/commit/52a8c092a60ed118f700d75ce97cb72a8868c501))
+
+
+
+
+
 ## [1.30.12](https://github.com/3merge/q/compare/v1.30.11...v1.30.12) (2021-04-13)
 
 **Note:** Version bump only for package q3-ui-rest

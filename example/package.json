@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "1.30.13",
+  "version": "1.31.0",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -29,7 +29,7 @@
     "q3-ui-locale": "^1.27.23",
     "q3-ui-permissions": "^1.27.3",
     "q3-ui-repeater": "^1.30.13",
-    "q3-ui-rest": "^1.30.12",
+    "q3-ui-rest": "^1.31.0",
     "q3-ui-test-utils": "^1.27.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
