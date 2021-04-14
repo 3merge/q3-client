@@ -48,12 +48,11 @@ export const handleResponse = (d) => {
 
   return {
     notify(noti) {
-      if (
-        method !== 'get' &&
-        startsWith(2) &&
-        data.message
-      ) {
-        noti.onSuccess(data.message);
+      if (method !== 'get' && startsWith(2)) {
+        noti.onSuccess(
+          data.message ||
+            'Successfully updated in the database',
+        );
       } else if (startsWith(4) || startsWith(5)) {
         noti.onFail(data.message);
       }
