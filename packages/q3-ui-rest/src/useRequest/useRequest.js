@@ -109,7 +109,9 @@ const useRequest = ({
     if (!isGet) invoke(decorators, method, data);
 
     const params = [method, path];
-    if (hasKeys(data)) params.push(data);
+    if (hasKeys(data) || data instanceof FormData)
+      params.push(data);
+
     if (hasKeys(headers)) params.push(headers);
 
     return invoke(Axios, ...params)

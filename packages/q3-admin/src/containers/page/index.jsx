@@ -131,6 +131,7 @@ const Page = ({
           'patch',
           'put',
           'post',
+          'replace',
         ])}
       >
         <Store.Provider
