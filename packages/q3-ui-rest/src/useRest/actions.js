@@ -1,12 +1,6 @@
 import React from 'react';
-import Axios from 'axios';
-import { navigate } from '@reach/router';
-import { get, invoke } from 'lodash';
-import {
-  makePath,
-  makeQueryPath,
-  formatUrlPath,
-} from '../helpers';
+import { isString } from 'lodash';
+import { formatUrlPath } from '../helpers';
 import reducer from './reducer';
 import {
   FETCHING,
@@ -16,185 +10,163 @@ import {
   DELETED,
   DELETED_MANY,
 } from './constants';
+import useRequest from '../useRequest';
+import useRestEffect from '../useRestEffect';
+
+export const decorateDispatchReducerFn = (
+  [state, dispatch],
+  options = {},
+) => ({
+  state,
+
+  call: (type, data = {}, err = {}) =>
+    dispatch({
+      ...options,
+      data,
+      err,
+      type,
+    }),
+
+  // mainly the same as above just curried
+  passthrough: (type, values) => (payload) => {
+    dispatch({
+      ...options,
+      data: values || payload,
+      type,
+    });
+
+    return payload;
+  },
+});
 
 const useRest = ({
   url,
   poll,
-  redirectOnSearch,
   key,
   pluralized,
   select,
-  acknowledgeUpdateOps = false,
   runOnInit = false,
   decorators = {},
-  location = {},
-  history = {},
-  headers = {},
+  ...options
 }) => {
   if (!url) throw new Error('Requires a valid URL');
-  const { search } = location;
-  const [state, dispatch] = React.useReducer(reducer, {
-    fetching: runOnInit,
-    progress: 0,
+
+  const {
+    state,
+    call,
+    passthrough,
+  } = decorateDispatchReducerFn(
+    React.useReducer(reducer, {
+      fetching: runOnInit,
+      progress: 0,
+    }),
+    {
+      key,
+      pluralized,
+    },
+  );
+
+  const { assembleUrl, curry, exec } = useRequest({
+    namespace: pluralized,
+    actions: {
+      decorators,
+      next: poll,
+      store: call,
+    },
+    options,
   });
 
-  const call = (type, data = {}, err = {}) =>
-    dispatch({
-      key,
-      data,
-      pluralized,
-      err,
-      type,
-    });
-
-  const handleRequest = (promise, actions, verb) =>
-    promise
-      .then(({ data }) => {
-        invoke(decorators, 'get', data);
-
-        const resolver = () =>
-          new Promise((res) => {
-            call(verb, data);
-            res(data);
-          });
-
-        return poll ? poll().then(resolver) : resolver();
-      })
-      .catch((err) =>
-        Promise.reject(get(err, 'response.data')),
-      );
-
-  const wrapUpdateFn = (id, verb) => (values, actions) => {
-    invoke(decorators, verb, values);
-    const path = makePath([url, id]);
-
-    const invokeAxios = (dynamicPath) =>
-      invoke(Axios, verb, dynamicPath, values);
-
-    const makeService = () =>
-      acknowledgeUpdateOps
-        ? invokeAxios(`${path}?acknowledge=true`).then(
-            () => ({
-              data: values,
-            }),
-          )
-        : invokeAxios(path);
-
-    return handleRequest(makeService(), actions, UPDATED);
+  const handleFetchingError = (err, data) => {
+    if (!err) return data;
+    call(FETCHED, null, err);
+    return err;
   };
 
-  const invokeFetchingWithQueryString = (
-    callWithLoading,
-  ) => (query = '') => {
-    if (callWithLoading) call(FETCHING);
-    return Axios.get(formatUrlPath(url, query, select))
-      .then(({ data }) => {
-        invoke(decorators, 'get', data);
-        call(FETCHED, data);
-        return Promise.resolve(data);
-      })
-      .catch((err) => {
-        call(FETCHED, null, err);
-        return Promise.reject(err);
-      });
+  const handleGetRequest = (query = '') =>
+    exec({
+      callback: handleFetchingError,
+      method: 'get',
+      path: formatUrlPath(
+        url,
+        // to prevent malformed requests in client apps
+        // sometimes the poll method from one useRest is passed directly into another
+        isString(query) ? query : '',
+        select,
+      ),
+      resolver: FETCHED,
+    });
+
+  const handleGetRequestWithLoading = (query) => {
+    call(FETCHING);
+    return handleGetRequest(query);
   };
 
   const methods = {
-    get: invokeFetchingWithQueryString(true),
-    poll: invokeFetchingWithQueryString(false),
+    get: handleGetRequestWithLoading,
+    poll: handleGetRequest,
+    replace: passthrough(UPDATED),
 
-    remove(id) {
-      return () =>
-        Axios.delete(makePath([url, id]))
-          .then(() => {
-            call(DELETED, { id });
-            return poll ? poll() : null;
-          })
-          .catch((err) => {
-            return Promise.reject(err);
-          });
-    },
+    remove: (id) =>
+      curry({
+        method: 'delete',
+        path: assembleUrl([url, id]),
+        resolver: passthrough(DELETED, {
+          id,
+        }),
+      }),
 
-    removeBulk(ids = []) {
-      return () =>
-        Axios.delete(makeQueryPath(url, ids))
-          .then(() => {
-            call(DELETED_MANY, { ids });
-            return poll ? poll() : null;
-          })
-          .catch((err) => {
-            return err;
-          });
-    },
+    removeBulk: (ids = [], done) =>
+      curry({
+        method: 'delete',
+        path: assembleUrl(url, ids),
+        resolver: passthrough(DELETED_MANY, {
+          ids,
+        }),
+        done,
+      }),
 
-    patch(id) {
-      const { name } = methods.patch;
-      return wrapUpdateFn(id, name);
-    },
+    patch: (id) =>
+      curry({
+        method: 'patch',
+        path: assembleUrl([url, id]),
+        resolver: UPDATED,
+      }),
 
-    patchBulk(ids, done) {
-      return (values, actions) => {
-        invoke(decorators, 'patch', values);
+    patchBulk: (ids, done) =>
+      curry({
+        method: 'patch',
+        path: assembleUrl(url, ids),
+        resolver: UPDATED,
+        callback: done,
+      }),
 
-        return handleRequest(
-          invoke(
-            Axios,
-            'patch',
-            makeQueryPath(url, ids),
-            values,
-          ),
-          actions,
-          UPDATED,
-        ).then((r) => {
-          if (done) done();
-          return r;
-        });
-      };
-    },
+    put: (id) =>
+      curry({
+        method: 'put',
+        path: assembleUrl([url, id]),
+        resolver: UPDATED,
+      }),
 
-    put(id) {
-      const { name } = methods.put;
-      return wrapUpdateFn(id, name);
-    },
-
-    post(values, actions) {
-      const { name } = methods.post;
-      invoke(decorators, name, values);
-      return handleRequest(
-        Axios.post(url, values, { headers }),
-        actions,
-        CREATED,
-      );
-    },
+    post: (values) =>
+      exec({
+        method: 'post',
+        path: url,
+        data: values,
+        resolver: CREATED,
+      }),
   };
 
-  React.useEffect(() => {
-    Axios.interceptors.request.use(function (config) {
-      if (config.data instanceof FormData)
-        // eslint-disable-next-line
-        config.headers['Content-Type'] =
-          'multipart/form-data';
+  useRestEffect({
+    ...options,
+    run: handleGetRequestWithLoading,
+    runOnInit,
+    url,
+  });
 
-      return config;
-    });
-
-    const saved = null; // localStorage.getItem(url);
-    if (
-      !location.search &&
-      saved &&
-      saved !== 'null' &&
-      saved !== 'undefined'
-    ) {
-      navigate(`?${saved}`);
-    } else if (runOnInit && !redirectOnSearch) {
-      methods.get(search);
-    } else if (redirectOnSearch && search) {
-      const { push } = history;
-      push(`${redirectOnSearch}${search}`);
-    }
-  }, [search, url]);
-
-  return { ...state, ...methods };
+  return {
+    ...state,
+    ...methods,
+  };
 };
 
 export default useRest;

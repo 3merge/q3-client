@@ -17,9 +17,20 @@ import { Form, Field } from '../../builders';
 <Preview>
   <Story name="Types">
     <LocationDebugger />
-    <Form>
+    <Form debug>
       <FieldGroup label="Custom label">
-        <Field name="test" xl={12} lg={12} />
+        <Field
+          name="field"
+          helper="Type 'appear' to make the next fieldgroup show"
+          xl={12}
+          lg={12}
+        />
+      </FieldGroup>
+      <FieldGroup
+        conditional={['field=appear']}
+        label="Hidden"
+      >
+        <Field name="hidden" xl={12} lg={12} />
       </FieldGroup>
     </Form>
   </Story>
