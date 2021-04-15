@@ -180,37 +180,6 @@ describe('useRest configurations', () => {
     expect(() => useRest({})).toThrowError();
   });
 
-  it('should call get automatically', () => {
-    const resp = {
-      data: {
-        resources: [],
-      },
-    };
-    useRest({
-      runOnInit: true,
-      url: '/',
-    });
-    expect(mockAxios.get).toHaveBeenCalledWith('/');
-    mockAxios.mockResponse(resp);
-    expect(dispatch).toHaveBeenCalledWith(
-      expect.objectContaining({
-        type: FETCHED,
-        ...resp,
-      }),
-    );
-  });
-
-  it('should push into the history state', () => {
-    const push = jest.fn();
-    useRest({
-      redirectOnSearch: '/foo',
-      location: { search: '?search=bar' },
-      history: { push },
-      url: '/',
-    });
-    expect(push).toHaveBeenCalledWith('/foo?search=bar');
-  });
-
   it('should append query string to PATCH', () => {
     const { patch } = useRest({
       url: '/foo/12/items',

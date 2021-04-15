@@ -1,6 +1,18 @@
 import React from 'react';
 import Axios from 'axios';
-import { isFunction, invoke, get } from 'lodash';
+import {
+  compact,
+  isFunction,
+  invoke,
+  get,
+  join,
+} from 'lodash';
+import { compose } from 'lodash/fp';
+
+export const squeeze = compose(
+  (xs) => join(xs, ''),
+  (...xs) => compact(xs),
+);
 
 export const changeContentType = (config) => {
   if (config.data instanceof FormData)
@@ -18,7 +30,7 @@ const useRest = ({
   history = {},
   location = {},
 }) => {
-  const search = get(location, 'search');
+  const search = get(location, 'search', '?');
 
   React.useEffect(() => {
     Axios.interceptors.request.use(changeContentType);
@@ -29,7 +41,7 @@ const useRest = ({
       invoke(
         history,
         'push',
-        `${redirectOnSearch}${search}`,
+        squeeze(redirectOnSearch, search),
       );
   }, [search, url]);
 };
