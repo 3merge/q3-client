@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-cart",
-  "version": "1.30.12",
+  "version": "1.31.2",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.27.3"
@@ -11,7 +11,7 @@
     "@material-ui/lab": "^4.0.0-alpha.57",
     "class-names": "^1.0.0",
     "lodash": "^4.17.20",
-    "q3-components": "^1.30.12",
+    "q3-components": "^1.31.2",
     "q3-ui-permissions": "^1.27.3",
     "react-i18next": "11.7.3",
     "useful-state": "^1.2.3"
