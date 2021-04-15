@@ -214,7 +214,7 @@ describe('useRest configurations', () => {
   it('should append query string to PATCH', () => {
     const { patch } = useRest({
       url: '/foo/12/items',
-      acknowledgeUpdateOps: true,
+      sendUpdateAsAcknowledgement: true,
     });
 
     patch(1)({
@@ -223,6 +223,22 @@ describe('useRest configurations', () => {
 
     expect(mockAxios.patch).toHaveBeenLastCalledWith(
       '/foo/12/items/1?acknowledge=true',
+      expect.any(Object),
+    );
+  });
+
+  it('should append query string to PATCH', () => {
+    const { patch } = useRest({
+      url: '/foo/12/items',
+      sendUpdateAsFullReceipt: true,
+    });
+
+    patch(1)({
+      foo: 1,
+    });
+
+    expect(mockAxios.patch).toHaveBeenLastCalledWith(
+      '/foo/12/items/1?fullReceipt=true',
       expect.any(Object),
     );
   });

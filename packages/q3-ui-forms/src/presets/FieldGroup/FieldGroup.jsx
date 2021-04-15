@@ -6,33 +6,48 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
+import Comparision from 'comparisons';
+import { size } from 'lodash';
 import useStyle from './useStyle';
+import { BuilderState } from '../../FormsContext';
 
-const FieldGroup = ({ children, label }) => {
+const FieldGroup = ({ children, conditional, label }) => {
+  const { values } = React.useContext(BuilderState);
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
+  const show =
+    size(conditional) > 0
+      ? new Comparision(conditional).eval(values)
+      : true;
+
   return (
-    <Container>
-      <Box my={2}>
-        <Grid container>
-          <Grid item className={cls.root}>
-            <Typography variant="body2">
-              <strong>{t(label)}</strong>
-            </Typography>
-          </Grid>
-          <Grid item xs>
-            <Grid container spacing={1}>
-              {children}
+    show && (
+      <Container>
+        <Box my={2}>
+          <Grid container>
+            <Grid item className={cls.root}>
+              <Typography variant="body2">
+                <strong>{t(label)}</strong>
+              </Typography>
+            </Grid>
+            <Grid item xs>
+              <Grid container spacing={1}>
+                {children}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Box py={2}>
-          <Divider />
+          <Box py={2}>
+            <Divider />
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    )
   );
+};
+
+FieldGroup.defaultProps = {
+  conditional: [],
 };
 
 FieldGroup.propTypes = {
@@ -41,6 +56,7 @@ FieldGroup.propTypes = {
     PropTypes.node,
   ]).isRequired,
   label: PropTypes.string.isRequired,
+  conditional: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FieldGroup;

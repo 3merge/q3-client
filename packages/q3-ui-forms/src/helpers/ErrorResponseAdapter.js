@@ -1,4 +1,4 @@
-import { setWith } from 'lodash';
+import { setWith, get, isObject, compact } from 'lodash';
 import { browser, object } from 'q3-ui-helpers';
 import flat from 'flat';
 
@@ -19,11 +19,10 @@ const getFieldMessage = (v) => {
 };
 
 const mapErrors = (errors) =>
-  Object.entries(errors).reduce(
-    (acc, [key, value]) =>
-      setWith(acc, key, getFieldMessage(value)),
-    {},
-  );
+  Object.entries(errors).reduce((acc, [key, value]) => {
+    if (isObject(get(value, 'errors'))) return acc;
+    return setWith(acc, key, getFieldMessage(value));
+  }, {});
 
 export default (errorInstance) => {
   let payload = errorInstance;
@@ -35,5 +34,5 @@ export default (errorInstance) => {
   if ('errors' in payload && object.hasKeys(payload.errors))
     errors = mapErrors(payload.errors);
 
-  return [flat(errors), payload.message];
+  return compact([flat(errors), payload.message]);
 };

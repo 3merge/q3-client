@@ -45,6 +45,31 @@ describe('ErrorResponse', () => {
     );
   });
 
+  it('should ignore parent messages', () => {
+    expect(
+      ErrorResponseAdapter({
+        data: {
+          errors: {
+            account: {
+              errors: {
+                name: {
+                  msg: ERROR_MSG,
+                },
+              },
+            },
+            'account.name': {
+              msg: ERROR_MSG,
+            },
+          },
+        },
+      }),
+    ).toEqual([
+      {
+        'account.name': ERROR_MSG,
+      },
+    ]);
+  });
+
   it('should return nested response errors and message', () => {
     expectStructuredOutput(
       ErrorResponseAdapter({
