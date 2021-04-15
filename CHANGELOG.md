@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.31.3](https://github.com/3merge/q/compare/v1.31.2...v1.31.3) (2021-04-15)
+
+
+### Bug Fixes
+
+* include replace method in datastore ([56a2b74](https://github.com/3merge/q/commit/56a2b7490b7fe646f4a22e8a425d0643f8e98015))
+
+
+
+
+
 ## [1.31.2](https://github.com/3merge/q/compare/v1.31.1...v1.31.2) (2021-04-15)
 
 **Note:** Version bump only for package q3-client
