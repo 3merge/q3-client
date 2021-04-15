@@ -1,6 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
-import { invoke } from 'lodash';
+import { isString } from 'lodash';
 import { formatUrlPath } from '../helpers';
 import reducer from './reducer';
 import {
@@ -67,32 +66,35 @@ const useRest = ({
     },
   );
 
-  const {
-    decoratePathWithFlags,
-    decorateQueryPathWithFlags,
-    curry: curryRequest,
-    exec: handleRequest,
-  } = useRequest({
+  const { assembleUrl, curry, exec } = useRequest({
     namespace: pluralized,
     actions: {
       decorators,
-      done: poll,
+      next: poll,
       store: call,
     },
     options,
   });
 
+  const handleFetchingError = (err, data) => {
+    if (!err) return data;
+    call(FETCHED, null, err);
+    return err;
+  };
+
   const handleGetRequest = (query = '') =>
-    Axios.get(formatUrlPath(url, query, select))
-      .then(({ data }) => {
-        invoke(decorators, 'get', data);
-        call(FETCHED, data);
-        return Promise.resolve(data);
-      })
-      .catch((err) => {
-        call(FETCHED, null, err);
-        return Promise.reject(err);
-      });
+    exec({
+      callback: handleFetchingError,
+      method: 'get',
+      path: formatUrlPath(
+        url,
+        // to prevent malformed requests in client apps
+        // sometimes the poll method from one useRest is passed directly into another
+        isString(query) ? query : '',
+        select,
+      ),
+      resolver: FETCHED,
+    });
 
   const handleGetRequestWithLoading = (query) => {
     call(FETCHING);
@@ -105,44 +107,48 @@ const useRest = ({
     replace: passthrough(UPDATED),
 
     remove: (id) =>
-      curryRequest({
+      curry({
         method: 'delete',
-        path: decoratePathWithFlags([url, id]),
-        resolver: passthrough(DELETED, { id }),
+        path: assembleUrl([url, id]),
+        resolver: passthrough(DELETED, {
+          id,
+        }),
       }),
 
     removeBulk: (ids = [], done) =>
-      curryRequest({
+      curry({
         method: 'delete',
-        path: decorateQueryPathWithFlags(url, ids),
-        resolver: passthrough(DELETED_MANY, { ids }),
+        path: assembleUrl(url, ids),
+        resolver: passthrough(DELETED_MANY, {
+          ids,
+        }),
         done,
       }),
 
     patch: (id) =>
-      curryRequest({
+      curry({
         method: 'patch',
-        path: decoratePathWithFlags([url, id]),
+        path: assembleUrl([url, id]),
         resolver: UPDATED,
       }),
 
     patchBulk: (ids, done) =>
-      curryRequest({
+      curry({
         method: 'patch',
-        path: decorateQueryPathWithFlags(url, ids),
+        path: assembleUrl(url, ids),
         resolver: UPDATED,
         callback: done,
       }),
 
     put: (id) =>
-      curryRequest({
+      curry({
         method: 'put',
-        path: decoratePathWithFlags([url, id]),
+        path: assembleUrl([url, id]),
         resolver: UPDATED,
       }),
 
     post: (values) =>
-      handleRequest({
+      exec({
         method: 'post',
         path: url,
         data: values,

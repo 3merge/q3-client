@@ -1,7 +1,6 @@
 import {
   getFn,
   isEmpty,
-  makePath,
   acceptCsvFiletype,
   formatUrlPath,
 } from '../helpers';
@@ -46,23 +45,6 @@ describe('q3-ui-rest helpers', () => {
 
     it('should return falsy', () =>
       expect(isEmpty({ foo: 'bar' })).toBeFalsy());
-  });
-
-  describe('makePath', () => {
-    it('should return nested url', () =>
-      expect(makePath(['foo', 'bar/'])).toMatch(
-        '/foo/bar',
-      ));
-
-    it('should strip leading slashes', () =>
-      expect(makePath(['/foo', '/bar'])).toMatch(
-        '/foo/bar',
-      ));
-
-    it('should preserve internal slashes', () =>
-      expect(makePath(['/foo/bar', '/quux'])).toMatch(
-        '/foo/bar/quux',
-      ));
   });
 
   describe('acceptCsvFiletype', () => {

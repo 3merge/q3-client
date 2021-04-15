@@ -5,13 +5,20 @@ import {
   isFunction,
   get,
   invoke,
+  size,
 } from 'lodash';
 import { compose } from 'lodash/fp';
-import { makePath, makeQueryPath } from '../helpers';
+import {
+  isNotForwardSlash,
+  prependForwardSlash,
+} from '../helpers';
+
+const hasKeys = (xs) =>
+  isObject(xs) && size(Object.keys(xs));
 
 const useRequest = ({
   namespace,
-  actions: { decorators = {}, done, store },
+  actions: { decorators = {}, next, store },
   options: {
     headers = {},
     sendUpdateAsAcknowledgement = false,
@@ -30,6 +37,20 @@ const useRequest = ({
     return str;
   };
 
+  const makeUrlPath = (a, b) => {
+    let url = Array.isArray(a)
+      ? a
+          .filter(isNotForwardSlash)
+          .map(prependForwardSlash)
+          .join('')
+      : a;
+
+    if (Array.isArray(b))
+      url += `?ids[]=${b.join('&ids[]=')}`;
+
+    return url;
+  };
+
   const exec = ({
     callback,
     path,
@@ -37,9 +58,34 @@ const useRequest = ({
     data,
     resolver,
   }) => {
-    invoke(decorators, method, data);
+    const isGet = method === 'get';
 
+    const handleError = (err) =>
+      Promise.reject(
+        isFunction(callback)
+          ? callback(err)
+          : get(err, 'response.data'),
+      );
+
+    const handleNext = (xs) =>
+      isFunction(next)
+        ? next(xs).then(() => xs)
+        : Promise.resolve(xs);
+
+    const handleSuccess = (response) =>
+      isFunction(callback)
+        ? callback(null, response)
+        : response;
+
+    const invokeGetDecorator = ({ data: response }) => {
+      invoke(decorators, 'get', response);
+      return response;
+    };
+
+    // these options are specific to Q3 subdocument routes
     const interceptResponse = (response) => {
+      if (isGet) return response;
+
       if (sendUpdateAsAcknowledgement)
         return {
           data,
@@ -59,43 +105,35 @@ const useRequest = ({
       return response;
     };
 
-    const next = isString(resolver)
-      ? (payload) => {
-          store(resolver, payload);
-          return payload;
-        }
-      : resolver;
+    // mutate the data through decorators before our rest call
+    if (!isGet) invoke(decorators, method, data);
 
-    return invoke(Axios, method, path, data, { headers })
+    const params = [method, path];
+    if (hasKeys(data)) params.push(data);
+    if (hasKeys(headers)) params.push(headers);
+
+    return invoke(Axios, ...params)
       .then(interceptResponse)
-      .then(({ data: response }) => {
-        invoke(decorators, 'get', response);
-        return Promise.resolve(
-          done
-            ? done().then(() => next(response))
-            : next(response),
-        ).then(() =>
-          isFunction(callback)
-            ? callback(response)
-            : undefined,
-        );
-      })
-      .catch((err) =>
-        Promise.reject(get(err, 'response.data')),
-      );
+      .then(invokeGetDecorator)
+      .then(handleNext)
+      .then(
+        isString(resolver)
+          ? (payload) => {
+              store(resolver, payload);
+              return payload;
+            }
+          : resolver,
+      )
+      .then(handleSuccess)
+      .catch(handleError);
   };
 
   return {
     exec,
 
-    decoratePathWithFlags: compose(
+    assembleUrl: compose(
       applyOptionsToUrlString,
-      makePath,
-    ),
-
-    decorateQueryPathWithFlags: compose(
-      applyOptionsToUrlString,
-      makeQueryPath,
+      makeUrlPath,
     ),
 
     curry: (args) => (data) => {

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import FileDownload from 'js-file-download';
 
-const isNotForwardSlash = (v) => v && v !== '/';
+export const isNotForwardSlash = (v) => v && v !== '/';
 
-const prependForwardSlash = (v) => {
+export const prependForwardSlash = (v) => {
   let output = String(v);
   if (output.startsWith('/')) output = output.substr(1);
 
@@ -26,14 +26,19 @@ export const isEmpty = (obj) =>
     !Object.keys(obj).length &&
     !(obj instanceof Error));
 
-export const makePath = (a = []) =>
-  a
-    .filter(isNotForwardSlash)
-    .map(prependForwardSlash)
-    .join('');
+export const makeUrlPath = (a, b) => {
+  let url = Array.isArray(a)
+    ? a
+        .filter(isNotForwardSlash)
+        .map(prependForwardSlash)
+        .join('')
+    : a;
 
-export const makeQueryPath = (url, ids) =>
-  `${url}?ids[]=${ids.join('&ids[]=')}`;
+  if (Array.isArray(b))
+    url += `?ids[]=${b.join('&ids[]=')}`;
+
+  return url;
+};
 
 export const addSearchQuery = (v, term) =>
   v.includes('?')

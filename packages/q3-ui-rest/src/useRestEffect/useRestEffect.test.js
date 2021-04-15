@@ -20,7 +20,7 @@ describe('useRestEffect', () => {
       run,
     });
 
-    expect(run).toHaveBeenCalledWith('?');
+    expect(run).toHaveBeenCalledWith('');
   });
 
   it('should invoke run with search value', () => {

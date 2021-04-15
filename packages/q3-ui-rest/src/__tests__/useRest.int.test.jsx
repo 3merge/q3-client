@@ -70,7 +70,6 @@ describe('useRest integration', () => {
       expect(moxios.post).toHaveBeenCalledWith(
         '/foo',
         expect.any(Object),
-        expect.any(Object),
       );
       moxios.mockResponse({
         data: {

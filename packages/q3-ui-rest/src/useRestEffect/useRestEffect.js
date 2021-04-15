@@ -30,7 +30,7 @@ const useRest = ({
   history = {},
   location = {},
 }) => {
-  const search = get(location, 'search', '?');
+  const search = get(location, 'search', '');
 
   React.useEffect(() => {
     Axios.interceptors.request.use(changeContentType);
