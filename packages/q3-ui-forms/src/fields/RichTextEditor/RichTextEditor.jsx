@@ -4,10 +4,7 @@ import { Alert } from '@material-ui/lab';
 import { invoke } from 'lodash';
 import { Typography, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
-import { browser } from 'q3-ui-helpers';
-import { useToggle } from 'useful-state';
+import { useTranslation } from 'react-i18next';
 import withState from '../withState';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,35 +13,43 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '-12px',
     },
     '& #mui-rte-editor, #mui-rte-editor-container': {
-      height: 350,
+      maxHeight: 550,
       display: 'block',
+      transition: 'min-height 150ms',
     },
     '& #mui-rte-container div:not(:first-child)': {
       padding: '0 8px !important',
     },
     '& #mui-rte-editor [role="textbox"]': {
-      height: 350,
-      maxHeight: 350,
-      overflow: 'scroll',
+      maxHeight: 550,
+      overflow: 'auto',
+      transition: 'min-height 150ms',
     },
   },
   paper: {
+    backgroundColor: 'inherit',
     padding: theme.spacing(0.5),
+    boxShadow: 'none',
+    '&:focus-within, &:hover': {
+      boxShadow: theme.shadows[1],
+      background: theme.palette.background.paper,
+    },
+    '&:focus-within': {
+      '& #mui-rte-editor, #mui-rte-editor-container, & #mui-rte-editor [role="textbox"]': {
+        minHeight: 175,
+      },
+    },
+    transition: 'background,box-shadow 350ms',
   },
   offset: {
     paddingLeft: 8,
   },
 }));
 
-const isFullScreen = () =>
-  browser.isBrowserReady()
-    ? !window.screenTop && !window.screenY
-    : false;
-
 const RichTextEditor = withState(
   ({ value, error, onChange, disabled, label }) => {
-    const cls = useStyles();
-    const { state, toggle } = useToggle(isFullScreen());
+    const cls = useStyles({});
+    const { t } = useTranslation('helpers');
 
     const editorRef = React.useRef();
     const wrapperRef = React.useRef();
@@ -64,15 +69,6 @@ const RichTextEditor = withState(
       invoke(editorRef, 'current.save');
     };
 
-    const onClick = () => {
-      if (!browser.isBrowserReady()) return;
-
-      if (state)
-        invoke(wrapperRef, 'current.requestFullscreen');
-      else invoke(document, 'exitFullscreen');
-      toggle();
-    };
-
     return (
       <Grid item xs={12} className={cls.root}>
         <Paper className={cls.paper} ref={wrapperRef}>
@@ -84,7 +80,7 @@ const RichTextEditor = withState(
           </Typography>
           <MUIRichTextEditor
             readOnly={disabled}
-            label={label}
+            label={t('startTyping')}
             ref={editorRef}
             onSave={onChange}
             onBlur={getUnsavedChanges}
@@ -99,19 +95,6 @@ const RichTextEditor = withState(
               'numberList',
               'bulletList',
               'quote',
-              'fullscreen',
-            ]}
-            customControls={[
-              {
-                name: 'fullscreen',
-                icon: state ? (
-                  <FullscreenIcon />
-                ) : (
-                  <FullscreenExitIcon />
-                ),
-                onClick,
-                type: 'callback',
-              },
             ]}
           />
           {error && <Alert severity="error">{error}</Alert>}
