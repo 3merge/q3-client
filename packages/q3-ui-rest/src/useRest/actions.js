@@ -150,7 +150,7 @@ const useRest = ({
     post: (values) =>
       exec({
         method: 'post',
-        path: url,
+        path: assembleUrl(url),
         data: values,
         resolver: CREATED,
       }),

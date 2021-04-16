@@ -24,7 +24,6 @@ const List = ({
   );
 
   const attributes = get(rest, 'cardProps.attributes', []);
-  console.log('ONLY ONE');
 
   return (
     <TableBody>
