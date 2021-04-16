@@ -1,0 +1,42 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Container from '@material-ui/core/Container';
+import RichTextEditor from './RichTextEditor';
+import { Form, Field } from '../../builders';
+
+<Meta
+  title="Forms/Fields/RichTextEditor"
+  component={RichTextEditor}
+/>
+
+<Preview>
+  <Story name="Default">
+    <Container>
+      <Form
+        debug
+        initialValues={{
+          rte: JSON.stringify({
+            'blocks': [
+              {
+                'key': '81k57',
+                'text': 'Testing',
+                'type': 'unstyled',
+                'depth': 0,
+                'inlineStyleRanges': [],
+                'entityRanges': [],
+                'data': {},
+              },
+            ],
+            'entityMap': {},
+          }),
+        }}
+      >
+        <Field name="rte" type="editor" />
+      </Form>
+    </Container>
+  </Story>
+</Preview>
