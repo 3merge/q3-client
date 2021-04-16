@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.32.0](https://github.com/3merge/q/compare/v1.31.3...v1.32.0) (2021-04-16)
+
+
+### Features
+
+* rich text editor ([#317](https://github.com/3merge/q/issues/317)) ([f0157e2](https://github.com/3merge/q/commit/f0157e2fd1497a6b8c8a3d13cbd262780723cdd2))
+
+
+
+
+
+
 ## [1.27.23](https://github.com/3merge/q/compare/v1.27.22...v1.27.23) (2021-03-02)
 
 **Note:** Version bump only for package q3-ui-locale
