@@ -120,6 +120,19 @@ const AutoCompleteWrapper = (props) => {
     ...props,
   });
 
+  React.useEffect(() => {
+    if (freeSolo && inputValue) props.onChange(inputValue);
+  }, [inputValue]);
+
+  React.useEffect(() => {
+    if (freeSolo && isString(value) && value !== inputValue)
+      onChange({
+        target: {
+          value,
+        },
+      });
+  }, [value]);
+
   return (
     <Autocomplete
       {...chosenTextFieldDisplayAttributes}
@@ -139,14 +152,6 @@ const AutoCompleteWrapper = (props) => {
         label,
         onChange,
         helperText,
-        ...(freeSolo
-          ? {
-              onBlur: () => {
-                // force update of main value if free-form text
-                if (freeSolo) props.onChange(inputValue);
-              },
-            }
-          : {}),
       })}
     />
   );
