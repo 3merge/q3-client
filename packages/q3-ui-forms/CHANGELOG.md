@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.32.1](https://github.com/3merge/q/compare/v1.32.0...v1.32.1) (2021-04-19)
+
+
+### Bug Fixes
+
+* freesolo mode autocomplete ([a442fa9](https://github.com/3merge/q/commit/a442fa92906a872ab8ca5846e35901723d98ae83))
+
+
+
+
+
 # [1.32.0](https://github.com/3merge/q/compare/v1.31.3...v1.32.0) (2021-04-16)
 
 
