@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
+import { Hidden } from '@material-ui/core';
 
 const SIZE = 12;
 
@@ -62,6 +63,8 @@ const MediaResizeHandler = React.forwardRef(
       };
 
       const handleDrag = (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
         if (!ref) return;
 
         const deltaX = ev.clientX - state.dragStartX;
@@ -86,20 +89,25 @@ const MediaResizeHandler = React.forwardRef(
             'mousemove',
             handleDrag,
           );
-          innerRef.current.removeEventListener(
-            'mousedown',
-            handleMouseDown,
-          );
         },
         false,
       );
     };
 
     React.useEffect(() => {
+      if (!innerRef.current) return;
+
       innerRef.current.addEventListener(
         'mousedown',
         handleMouseDown,
       );
+
+      return () => {
+        innerRef.current.removeEventListener(
+          'mousedown',
+          handleMouseDown,
+        );
+      };
     }, []);
 
     return <span ref={innerRef} className={cls.root} />;

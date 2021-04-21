@@ -64,17 +64,6 @@ export default class ImageResize {
     this.quill.setSelection(null);
     this.setUserSelect('none');
 
-    document.addEventListener(
-      'keyup',
-      this.checkImage,
-      true,
-    );
-    this.quill.root.addEventListener(
-      'input',
-      this.checkImage,
-      true,
-    );
-
     this.overlay = document.createElement('div');
     Object.assign(this.overlay.style, {
       position: 'absolute',
@@ -96,16 +85,17 @@ export default class ImageResize {
       return;
     }
 
-    // Remove the overlay
-    this.quill.root.parentNode.removeChild(this.overlay);
-    this.overlay = undefined;
+    try {
+      // Remove the overlay
+      if (this.quill.root.parentNode)
+        this.quill.root.parentNode.removeChild(
+          this.overlay,
+        );
+    } catch (e) {
+      // null
+    }
 
-    // stop listening for image deletion or movement
-    document.removeEventListener('keyup', this.checkImage);
-    this.quill.root.removeEventListener(
-      'input',
-      this.checkImage,
-    );
+    this.overlay = undefined;
 
     // reset user-select
     this.setUserSelect('');
@@ -153,14 +143,5 @@ export default class ImageResize {
       this.quill.root.style[prop] = value;
       document.documentElement.style[prop] = value;
     });
-  };
-
-  checkImage = (evt) => {
-    if (this.img) {
-      if (evt.keyCode == 46 || evt.keyCode == 8) {
-        window.Quill.find(this.img).deleteAt(0);
-      }
-      this.hide();
-    }
   };
 }
