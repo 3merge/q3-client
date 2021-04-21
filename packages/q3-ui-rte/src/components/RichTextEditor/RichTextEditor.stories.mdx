@@ -1,0 +1,37 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Container from '@material-ui/core/Container';
+import RichTextEditor from './RichTextEditor';
+
+<Meta title="RichTextEditor" component={RichTextEditor} />
+
+<Preview>
+  <Story name="Default">
+    <Container>
+      <RichTextEditor
+        onChange={console.log}
+        upload={(files) =>
+          Promise.resolve(
+            'https://images.unsplash.com/photo-1618799805265-4f27cb61ede9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80',
+          )
+        }
+      />
+    </Container>
+  </Story>
+  <Story name="Default value">
+    <Container>
+      <RichTextEditor
+        defaultValue="<h2><strong>Hello world</strong></h2><img src='https://images.unsplash.com/photo-1618799805265-4f27cb61ede9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'/><p>This is a new sentence.</p>"
+        upload={(files) =>
+          Promise.resolve(
+            'https://images.unsplash.com/photo-1618799805265-4f27cb61ede9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80',
+          )
+        }
+      />
+    </Container>
+  </Story>
+</Preview>

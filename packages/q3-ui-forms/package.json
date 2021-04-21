@@ -28,6 +28,7 @@
     "q3-ui-dialog": "^1.30.0",
     "q3-ui-queryparams": "^1.32.0",
     "qs": "^6.9.6",
+    "re-resizable": "^6.9.0",
     "react-dropzone": "^11.3.0",
     "react-i18next": "11.7.3",
     "react-json-pretty": "^2.2.0",
