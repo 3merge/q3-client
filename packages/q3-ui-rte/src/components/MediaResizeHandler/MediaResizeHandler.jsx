@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MediaResizeHandler = React.forwardRef(
-  ({ coordinate, offset, next }, ref) => {
+  ({ coordinate, offset }, ref) => {
     const match = get(LEGEND, coordinate, {});
     const cls = useStyles(
       get(match, 'directions', []).reduce(
@@ -54,26 +54,27 @@ const MediaResizeHandler = React.forwardRef(
     const innerRef = React.useRef();
 
     const handleMouseDown = (evt) => {
-      if (!ref) return;
+      if (!ref.current) return;
 
       const state = {
         dragBox: evt.target,
         dragStartX: evt.clientX,
-        preDragWidth: ref.width || ref.naturalWidth,
+        preDragWidth:
+          ref.current.width || ref.current.naturalWidth,
       };
 
       const handleDrag = (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
-        if (!ref) return;
+        if (!ref.current) return;
 
         const deltaX = ev.clientX - state.dragStartX;
 
-        ref.width = ['nw', 'sw'].includes(coordinate)
+        ref.current.width = ['nw', 'sw'].includes(
+          coordinate,
+        )
           ? Math.round(state.preDragWidth - deltaX)
           : Math.round(state.preDragWidth + deltaX);
-
-        next();
       };
 
       document.addEventListener(
@@ -103,10 +104,11 @@ const MediaResizeHandler = React.forwardRef(
       );
 
       return () => {
-        innerRef.current.removeEventListener(
-          'mousedown',
-          handleMouseDown,
-        );
+        if (innerRef.current)
+          innerRef.current.removeEventListener(
+            'mousedown',
+            handleMouseDown,
+          );
       };
     }, []);
 

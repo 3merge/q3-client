@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import Files from 'react-butterfiles';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 
@@ -23,9 +23,9 @@ const MediaUpload = React.forwardRef((props, ref) => {
       }}
     >
       {({ browseFiles }) => (
-        <Button onClick={browseFiles}>
+        <IconButton onClick={browseFiles}>
           <PermMediaIcon />
-        </Button>
+        </IconButton>
       )}
     </Files>
   );

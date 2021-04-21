@@ -28,7 +28,6 @@ const MediaAttributes = ({
   deleteMedia,
   imageEl,
   editorEl,
-  next,
 }) => {
   const [anchor, setAnchor] = React.useState();
   const [state, setState] = React.useState({
@@ -44,7 +43,6 @@ const MediaAttributes = ({
     });
 
     editorEl.update();
-    next();
     setAnchor(null);
   };
 

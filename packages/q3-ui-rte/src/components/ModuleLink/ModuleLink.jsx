@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Popover,
   IconButton,
   TextField,
@@ -44,10 +43,11 @@ const ModuleLink = React.forwardRef((props, ref) => {
 
   return (
     <Box ref={containerRef}>
-      <Button type="button" onClick={handleClick}>
+      <IconButton type="button" onClick={handleClick}>
         <LinkIcon />
-      </Button>
+      </IconButton>
       <Popover
+        disablePortal
         anchorEl={anchor}
         open={Boolean(anchor)}
         onClose={handleClose}
@@ -77,9 +77,10 @@ const ModuleLink = React.forwardRef((props, ref) => {
               <TextField
                 label="LINK"
                 name="href"
-                autoFocus
                 value={state}
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e) => {
+                  setState(e.target.value);
+                }}
                 size="small"
                 fullWidth
               />

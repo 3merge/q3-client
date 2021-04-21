@@ -11,7 +11,7 @@ import RichTextEditor from './RichTextEditor';
 
 <Preview>
   <Story name="Default">
-    <Container>
+    <Container maxWidth="md">
       <RichTextEditor
         onChange={console.log}
         upload={(files) =>
@@ -23,7 +23,7 @@ import RichTextEditor from './RichTextEditor';
     </Container>
   </Story>
   <Story name="Default value">
-    <Container>
+    <Container maxWidth="md">
       <RichTextEditor
         defaultValue="<h2><strong>Hello world</strong></h2><img src='https://images.unsplash.com/photo-1618799805265-4f27cb61ede9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'/><p>This is a new sentence.</p>"
         upload={(files) =>
