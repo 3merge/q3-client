@@ -21,7 +21,10 @@ const ModuleLink = React.forwardRef((props, ref) => {
     <Popover
       button={({ onClick }) =>
         Component ? (
-          <Component onClick={handleClick(onClick)} />
+          <Component
+            icon={LinkIcon}
+            onClick={handleClick(onClick)}
+          />
         ) : (
           <IconButton
             type="button"

@@ -24,7 +24,10 @@ const MediaUpload = React.forwardRef((props, ref) => {
     >
       {({ browseFiles }) =>
         Component ? (
-          <Component onClick={browseFiles} />
+          <Component
+            icon={PermMediaIcon}
+            onClick={browseFiles}
+          />
         ) : (
           <IconButton onClick={browseFiles}>
             <PermMediaIcon />
