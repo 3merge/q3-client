@@ -1,5 +1,11 @@
 import React from 'react';
-import { AppBar, Box, Grid } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import {
+  AppBar,
+  Box,
+  Container,
+  Grid,
+} from '@material-ui/core';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import ModuleLink from '../ModuleLink';
@@ -9,11 +15,12 @@ import Toolbar from '../Toolbar';
 import ToolbarMobileDrawer from '../ToolbarMobileDrawer';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
+import { toDataUri } from '../../adapters';
 
 const RichTextEditor = ({
   children,
   defaultValue,
-  onChange,
+  // onChange,
   upload,
 }) => {
   const { container, ID, TOOLBAR_ID, ref } = useQuill();
@@ -63,20 +70,36 @@ const RichTextEditor = ({
           </Grid>
           <Grid item>{children}</Grid>
         </Grid>
-      </AppBar>
-      <Box className={cls.root}>
-        <Box id={ID}>
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{
-              __html: defaultValue,
-            }}
-          />
+      </AppBar>{' '}
+      <Container>
+        <Box className={cls.root}>
+          <Box id={ID}>
+            <div
+              // eslint-disable-next-line
+              dangerouslySetInnerHTML={{
+                __html: defaultValue,
+              }}
+            />
+          </Box>
+          <ImageOverlay ref={ref} />
         </Box>
-        <ImageOverlay ref={ref} />
-      </Box>
+      </Container>
     </Box>
   );
+};
+
+RichTextEditor.propTypes = {
+  children: PropTypes.node,
+  defaultValue: PropTypes.string,
+  onChange: PropTypes.func,
+  upload: PropTypes.func,
+};
+
+RichTextEditor.defaultProps = {
+  children: null,
+  defaultValue: '',
+  onChange: undefined,
+  upload: toDataUri,
 };
 
 export default RichTextEditor;
