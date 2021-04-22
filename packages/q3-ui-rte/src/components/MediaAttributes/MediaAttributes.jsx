@@ -1,170 +1,96 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-  Paper,
-  Popover,
-  TextField,
-  Button,
-  ButtonGroup,
-  IconButton,
-  NativeSelect,
-} from '@material-ui/core';
-import { invoke, get } from 'lodash';
-import {
-  Close,
-  DeleteForever,
-  EditAttributes,
-  Check,
-} from '@material-ui/icons';
-import ModuleLink from '../ModuleLink';
+import { Box, Grid, IconButton } from '@material-ui/core';
+import { invoke, set, isObject } from 'lodash';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import ViewDayIcon from '@material-ui/icons/ViewDay';
+import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
+import { FloatIcon } from '../../assets';
+import MediaAltTag from '../MediaAltTag';
 
-const useStyles = makeStyles(() => ({
-  root: {},
-}));
-
-const MediaAttributes = ({
-  deleteMedia,
-  imageEl,
-  editorEl,
-}) => {
-  const [anchor, setAnchor] = React.useState();
-  const [state, setState] = React.useState({
-    alt: invoke(imageEl, 'getAttribute', 'alt'),
-    width: get(imageEl, 'width', ''),
-  });
-
-  const setAltAttribute = () => {
-    Object.entries(state).forEach(([key, value]) => {
-      if (['float', 'margin'].includes(key)) {
-        imageEl.style[key] = value;
-      } else imageEl.setAttribute(key, value);
-    });
-
-    editorEl.update();
-    setAnchor(null);
+const MediaAttributes = ({ imageEl }) => {
+  const handleReset = () => {
+    set(imageEl, 'style', {});
+    invoke(imageEl, 'setAttribute', 'alt', '');
   };
 
-  const handleOnClick = (e) => setAnchor(e.target);
-  const ref = React.useRef();
-
-  const updateState = (e) =>
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
+  const handleStyleChange = (styles) => () => {
+    if (!isObject(styles)) return;
+    Object.entries(styles).forEach(([key, value]) => {
+      set(imageEl, `style.${key}`, value);
     });
+  };
+
+  const makeFullWidth = handleStyleChange({
+    float: 'none',
+    margin: '1rem auto',
+    width: '100%',
+  });
+
+  const makeHalfWidth = handleStyleChange({
+    float: 'none',
+    margin: '1rem auto',
+    width: '50%',
+  });
+
+  const makeFloat = handleStyleChange({
+    float: 'left',
+    margin: '0',
+    width: '33%',
+  });
 
   return (
-    <Box
-      position="absolute"
-      p={0.5}
-      top="1rem"
-      left="1rem"
-      ref={ref}
-    >
-      <Popover
-        anchorEl={anchor}
-        containerEl={ref.current}
-        open={Boolean(anchor)}
-        onClose={() => setAnchor(null)}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
+    <>
+      <Box
+        bgcolor="primary.main"
+        color="primary.contrastText"
+        position="absolute"
+        p={0.5}
+        m={0.5}
       >
-        <Box p={2} width={310} position="relative">
-          <Box
-            position="absolute"
-            top={0}
-            right={0}
-            p={0.5}
-            zIndex={1}
-          >
+        <Grid container spacing={1}>
+          <Grid item>
             <IconButton
-              size="small"
-              onClick={() => setAnchor(null)}
+              color="inherit"
+              type="button"
+              onClick={makeFloat}
             >
-              <Close />
+              <FloatIcon />
             </IconButton>
-          </Box>
-
-          <TextField
-            label="Alt"
-            name="alt"
-            autoFocus
-            value={state.alt}
-            onChange={updateState}
-            size="small"
-            fullWidth
-          />
-          <NativeSelect
-            label="Float"
-            name="float"
-            component="selection"
-            autoFocus
-            value={state.margin}
-            onChange={updateState}
-            size="small"
-            fullWidth
-          >
-            <option />
-            <option value="none">None</option>
-            <option value="left">Left</option>
-            <option value="right">Right</option>
-          </NativeSelect>
-          <NativeSelect
-            label="Margin"
-            name="margin"
-            component="selection"
-            autoFocus
-            value={state.margin}
-            onChange={updateState}
-            size="small"
-            fullWidth
-          >
-            <option />
-            <option value="0 auto">Center</option>
-            <option value="auto">Left</option>
-            <option value="0 0 auto">Right</option>
-          </NativeSelect>
-          <TextField
-            label="Width"
-            name="width"
-            value={state.width}
-            onChange={updateState}
-            size="small"
-            type="number"
-            fullWidth
-          />
-          <IconButton
-            size="small"
-            type="button"
-            onClick={setAltAttribute}
-          >
-            <Check />
-          </IconButton>
-        </Box>
-      </Popover>
-      <Paper className={useStyles()?.root} elevation={3}>
-        <ButtonGroup variant="text" size="large">
-          <Button type="button" onClick={deleteMedia}>
-            <DeleteForever />
-          </Button>
-          <ModuleLink
-            targetEl={imageEl}
-            ref={{ current: editorEl }}
-          />
-          <Button type="button" onClick={handleOnClick}>
-            <EditAttributes />
-          </Button>
-        </ButtonGroup>
-      </Paper>
-    </Box>
+          </Grid>
+          <Grid item>
+            <IconButton
+              type="button"
+              color="inherit"
+              onClick={makeHalfWidth}
+            >
+              <CalendarViewDayIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton
+              type="button"
+              color="inherit"
+              onClick={makeFullWidth}
+            >
+              <ViewDayIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <MediaAltTag ref={{ current: imageEl }} />
+          </Grid>
+          <Grid item>
+            <IconButton
+              type="button"
+              color="inherit"
+              onClick={handleReset}
+            >
+              <RotateLeftIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </Box>
+    </>
   );
 };
 

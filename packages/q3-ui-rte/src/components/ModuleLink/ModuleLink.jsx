@@ -1,104 +1,66 @@
 import React from 'react';
-import {
-  Box,
-  Popover,
-  IconButton,
-  TextField,
-} from '@material-ui/core';
-import {
-  Link as LinkIcon,
-  Close,
-  Check,
-} from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
+import { Link as LinkIcon } from '@material-ui/icons';
 import { invoke, isObject, size } from 'lodash';
 import Quill from 'quill';
+import Popover from '../Popover';
+import PopoverTextField from '../PopoverTextField';
+import PopoverSave from '../PopoverSave';
 
 const ModuleLink = React.forwardRef((props, ref) => {
-  const containerRef = React.useRef();
-  const [anchor, setAnchor] = React.useState();
-
-  const [state, setState] = React.useState();
+  const { component: Component } = props;
   const [selection, setSelection] = React.useState();
 
-  const handleClick = (e) => {
+  const handleClick = (next) => (e) => {
     const quill = ref?.current;
     setSelection(invoke(quill, 'getSelection'));
-    setAnchor(e?.target);
-  };
-
-  const handleSubmit = () => {
-    const quill = ref?.current;
-    if (!isObject(selection) || !size(state)) return;
-    quill.format('link', state, Quill.sources.USER);
-    setAnchor(null);
-
-    quill.update();
-    quill.focus();
-    quill.setSelection(selection);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
+    next(e);
   };
 
   return (
-    <Box ref={containerRef}>
-      <IconButton type="button" onClick={handleClick}>
-        <LinkIcon />
-      </IconButton>
-      <Popover
-        disablePortal
-        anchorEl={anchor}
-        open={Boolean(anchor)}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <Box p={2} width={310} position="relative">
-          <Box
-            position="absolute"
-            top={0}
-            right={0}
-            p={0.5}
-            zIndex={1}
+    <Popover
+      button={({ onClick }) =>
+        Component ? (
+          <Component onClick={handleClick(onClick)} />
+        ) : (
+          <IconButton
+            type="button"
+            onClick={handleClick(onClick)}
           >
-            <IconButton size="small" onClick={handleClose}>
-              <Close />
-            </IconButton>
-          </Box>
-          {isObject(selection) ? (
-            <>
-              <TextField
-                label="LINK"
-                name="href"
-                value={state}
-                onChange={(e) => {
-                  setState(e.target.value);
-                }}
-                size="small"
-                fullWidth
-              />
+            <LinkIcon />
+          </IconButton>
+        )
+      }
+    >
+      {(close) =>
+        isObject(selection) ? (
+          <PopoverTextField>
+            {(state) => (
+              <PopoverSave
+                onClick={(e) => {
+                  e.preventDefault();
+                  const quill = ref?.current;
+                  if (!isObject(selection) || !size(state))
+                    return;
+                  quill.format(
+                    'link',
+                    state,
+                    Quill.sources.USER,
+                  );
 
-              <IconButton
-                size="small"
-                type="button"
-                onClick={handleSubmit}
-              >
-                <Check />
-              </IconButton>
-            </>
-          ) : (
-            'No selection'
-          )}
-        </Box>
-      </Popover>
-    </Box>
+                  quill.update();
+                  quill.focus();
+                  quill.setSelection(selection);
+                  close();
+                }}
+              />
+            )}
+          </PopoverTextField>
+        ) : (
+          'No selection'
+        )
+      }
+    </Popover>
   );
 });
 

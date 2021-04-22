@@ -60,7 +60,8 @@ const MediaResizeHandler = React.forwardRef(
         dragBox: evt.target,
         dragStartX: evt.clientX,
         preDragWidth:
-          ref.current.width || ref.current.naturalWidth,
+          ref.current.clientWidth ||
+          ref.current.naturalWidth,
       };
 
       const handleDrag = (ev) => {
@@ -70,11 +71,11 @@ const MediaResizeHandler = React.forwardRef(
 
         const deltaX = ev.clientX - state.dragStartX;
 
-        ref.current.width = ['nw', 'sw'].includes(
-          coordinate,
-        )
-          ? Math.round(state.preDragWidth - deltaX)
-          : Math.round(state.preDragWidth + deltaX);
+        ref.current.style.width = `${
+          ['nw', 'sw'].includes(coordinate)
+            ? Math.round(state.preDragWidth - deltaX)
+            : Math.round(state.preDragWidth + deltaX)
+        }px`;
       };
 
       document.addEventListener(

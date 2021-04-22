@@ -4,7 +4,7 @@ import Files from 'react-butterfiles';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 
 const MediaUpload = React.forwardRef((props, ref) => {
-  const { upload } = props;
+  const { component: Component, upload } = props;
 
   return (
     <Files
@@ -22,11 +22,15 @@ const MediaUpload = React.forwardRef((props, ref) => {
         alert('uploadFailed.');
       }}
     >
-      {({ browseFiles }) => (
-        <IconButton onClick={browseFiles}>
-          <PermMediaIcon />
-        </IconButton>
-      )}
+      {({ browseFiles }) =>
+        Component ? (
+          <Component onClick={browseFiles} />
+        ) : (
+          <IconButton onClick={browseFiles}>
+            <PermMediaIcon />
+          </IconButton>
+        )
+      }
     </Files>
   );
 });
