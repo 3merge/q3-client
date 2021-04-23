@@ -10,48 +10,41 @@ import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import TitleIcon from '@material-ui/icons/Title';
+import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ToolbarButton from '../ToolbarButton';
-import withActiveFormatting from '../withActiveFormatting';
 
 const RichTextEditor = React.forwardRef(
   ({ children, options }, ref) => {
-    const ToolbarButtonWithRef = withActiveFormatting(
-      ToolbarButton,
-    );
-
     return (
       <Grid container>
         <Grid item>
           <ButtonGroup>
-            <ToolbarButtonWithRef
+            <ToolbarButton
               ref={ref}
               quillKey="header"
               value="2"
             >
               <TitleIcon />
-            </ToolbarButtonWithRef>
-            <ToolbarButtonWithRef ref={ref} quillKey="bold">
+            </ToolbarButton>
+            <ToolbarButton ref={ref} quillKey="bold">
               <FormatBoldIcon />
-            </ToolbarButtonWithRef>
-            <ToolbarButtonWithRef
-              ref={ref}
-              quillKey="italic"
-            >
+            </ToolbarButton>
+            <ToolbarButton ref={ref} quillKey="italic">
               <FormatItalicIcon />
-            </ToolbarButtonWithRef>
-            <ToolbarButtonWithRef
-              ref={ref}
-              quillKey="underline"
-            >
+            </ToolbarButton>
+            <ToolbarButton ref={ref} quillKey="underline">
               <FormatUnderlinedIcon />
-            </ToolbarButtonWithRef>
+            </ToolbarButton>
+            <ToolbarButton ref={ref} quillKey="blockquote">
+              <FormatQuoteIcon />
+            </ToolbarButton>
           </ButtonGroup>
         </Grid>
         {Object.values(groupBy(options, 'group')).map(
           (buttons) => {
             return (
               <>
-                <Hidden mdDown>
+                <Hidden xsDown>
                   <Divider
                     orientation="vertical"
                     style={{ margin: '0 1rem' }}
@@ -59,7 +52,7 @@ const RichTextEditor = React.forwardRef(
                   />
                 </Hidden>
                 <Grid item>
-                  <Hidden mdDown implementation="css">
+                  <Hidden xsDown implementation="css">
                     <ButtonGroup>
                       {map(
                         buttons,
@@ -71,12 +64,12 @@ const RichTextEditor = React.forwardRef(
                           Component ? (
                             <Component {...button} />
                           ) : (
-                            <ToolbarButtonWithRef
+                            <ToolbarButton
                               ref={ref}
                               {...button}
                             >
                               <Icon />
-                            </ToolbarButtonWithRef>
+                            </ToolbarButton>
                           ),
                       )}
                     </ButtonGroup>

@@ -1,97 +1,83 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Box, Grid, IconButton } from '@material-ui/core';
-import { invoke, set, isObject } from 'lodash';
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import { Box } from '@material-ui/core';
+import { invoke, filter } from 'lodash';
 import ViewDayIcon from '@material-ui/icons/ViewDay';
 import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay';
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import SpeedDial from '@material-ui/lab/SpeedDial';
+import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
+import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import { FloatIcon } from '../../assets';
 import MediaAltTag from '../MediaAltTag';
 
-const MediaAttributes = ({ imageEl }) => {
-  const handleReset = () => {
-    set(imageEl, 'style', {});
-    invoke(imageEl, 'setAttribute', 'alt', '');
+const FULL = 'ql-full';
+const HALF = 'ql-half';
+const FLOAT = 'ql-float';
+
+const filterByEquals = (a, b) =>
+  filter(a, (xs) => xs !== b);
+
+const MediaAttributes = React.forwardRef((props, ref) => {
+  const resetClassList = (keep) => {
+    invoke(ref, 'current.style.removeProperty', 'width');
+    invoke(
+      ref,
+      'current.classList.remove',
+      ...filterByEquals([FULL, HALF, FLOAT], keep),
+    );
   };
 
-  const handleStyleChange = (styles) => () => {
-    if (!isObject(styles)) return;
-    Object.entries(styles).forEach(([key, value]) => {
-      set(imageEl, `style.${key}`, value);
-    });
+  const handleStyleChange = (cls) => () => {
+    resetClassList(cls);
+    invoke(ref, 'current.classList.toggle', cls);
   };
 
-  const makeFullWidth = handleStyleChange({
-    float: 'none',
-    margin: '1rem auto',
-    width: '100%',
-  });
-
-  const makeHalfWidth = handleStyleChange({
-    float: 'none',
-    margin: '1rem auto',
-    width: '50%',
-  });
-
-  const makeFloat = handleStyleChange({
-    float: 'left',
-    margin: '0',
-    width: '33%',
-  });
+  const makeFullWidth = handleStyleChange(FULL);
+  const makeHalfWidth = handleStyleChange(HALF);
+  const makeFloat = handleStyleChange(FLOAT);
 
   return (
-    <>
-      <Box
-        bgcolor="primary.main"
-        color="primary.contrastText"
-        position="absolute"
-        p={0.5}
-        m={0.5}
-      >
-        <Grid container spacing={1}>
-          <Grid item>
-            <IconButton
-              color="inherit"
-              type="button"
-              onClick={makeFloat}
-            >
-              <FloatIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton
-              type="button"
-              color="inherit"
-              onClick={makeHalfWidth}
-            >
-              <CalendarViewDayIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <IconButton
-              type="button"
-              color="inherit"
+    <Box
+      color="primary.contrastText"
+      position="absolute"
+      left="100%"
+      top={0}
+      p={1}
+    >
+      <MediaAltTag ref={ref}>
+        {({ onClick: openPopover }) => (
+          <SpeedDial
+            direction="down"
+            ariaLabel="SpeedDial tooltip example"
+            icon={<SpeedDialIcon />}
+            open
+            hidden
+          >
+            <SpeedDialAction
+              icon={<ViewDayIcon />}
+              tooltipTitle="full"
               onClick={makeFullWidth}
-            >
-              <ViewDayIcon />
-            </IconButton>
-          </Grid>
-          <Grid item>
-            <MediaAltTag ref={{ current: imageEl }} />
-          </Grid>
-          <Grid item>
-            <IconButton
-              type="button"
-              color="inherit"
-              onClick={handleReset}
-            >
-              <RotateLeftIcon />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Box>
-    </>
+            />
+            <SpeedDialAction
+              icon={<CalendarViewDayIcon />}
+              tooltipTitle="standard"
+              onClick={makeHalfWidth}
+            />
+            <SpeedDialAction
+              icon={<FloatIcon />}
+              tooltipTitle="float"
+              onClick={makeFloat}
+            />
+            <SpeedDialAction
+              icon={<ChromeReaderModeIcon />}
+              tooltipTitle="alt"
+              onClick={openPopover}
+            />
+          </SpeedDial>
+        )}
+      </MediaAltTag>
+    </Box>
   );
-};
+});
 
 export default MediaAttributes;

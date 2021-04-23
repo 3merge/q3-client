@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { get } from 'lodash';
-import { Hidden } from '@material-ui/core';
 
-const SIZE = 12;
+const SIZE = 8;
 
 const LEGEND = {
   ne: {
@@ -28,11 +27,12 @@ const LEGEND = {
 const useStyles = makeStyles((theme) => ({
   root: (coordinates = {}) => ({
     ...coordinates,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
     boxSizing: 'border-box',
     height: SIZE,
     position: 'absolute',
     width: SIZE,
+    borderRadius: 500,
   }),
 }));
 

@@ -18,12 +18,12 @@ const AccessibleIconButton = ({
   const { t } = useTranslation('labels');
 
   return (
-    <IconButton
-      {...buttonProps}
-      aria-label={t(label)}
-      color="inherit"
-    >
-      <Tooltip title={t(label)} arrow>
+    <Tooltip title={t(label)} arrow>
+      <IconButton
+        {...buttonProps}
+        aria-label={t(label)}
+        color="inherit"
+      >
         {badgeContent ? (
           <Badge
             color="secondary"
@@ -35,8 +35,8 @@ const AccessibleIconButton = ({
         ) : (
           <Icon {...iconProps} />
         )}
-      </Tooltip>
-    </IconButton>
+      </IconButton>
+    </Tooltip>
   );
 };
 

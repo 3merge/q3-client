@@ -1,6 +1,6 @@
 import React from 'react';
 import Quill from 'quill';
-import { Box } from '@material-ui/core';
+import { Box, Hidden } from '@material-ui/core';
 import { get, isFunction } from 'lodash';
 import useStyle from '../useStyle';
 import MediaAttributes from '../MediaAttributes';
@@ -19,16 +19,23 @@ const ImageOverlay = React.forwardRef((props, ref) => {
     const parentRect = parent.getBoundingClientRect();
     const imgRect = img.current.getBoundingClientRect();
 
-    setStyles({
-      left:
-        imgRect.left -
-        parentRect.left -
-        1 +
-        parent.scrollLeft,
-      top: imgRect.top - parentRect.top + parent.scrollTop,
-      width: imgRect.width,
-      height: imgRect.height,
-    });
+    if (imgRect.width === 0 && imgRect.height === 0) {
+      setStyles({
+        display: 'none',
+      });
+    } else {
+      setStyles({
+        left:
+          imgRect.left -
+          parentRect.left -
+          1 +
+          parent.scrollLeft,
+        top:
+          imgRect.top - parentRect.top + parent.scrollTop,
+        width: imgRect.width,
+        height: imgRect.height,
+      });
+    }
   };
 
   const handleClick = (e) => {
@@ -44,6 +51,26 @@ const ImageOverlay = React.forwardRef((props, ref) => {
       );
 
       img.current = el.domNode;
+
+      const observer = new MutationObserver(
+        calculateStyles,
+      );
+      const resizeObserver = new ResizeObserver(
+        calculateStyles,
+      );
+
+      if (img.current) {
+        resizeObserver.observe(img.current);
+        observer.observe(img.current, {
+          attributes: true,
+        });
+
+        observer.observe(img.current.parentNode, {
+          childList: true,
+          subtree: true,
+        });
+      }
+
       calculateStyles();
     } else {
       setStyles({
@@ -63,12 +90,28 @@ const ImageOverlay = React.forwardRef((props, ref) => {
       handleClick,
       true,
     );
+  }, []);
 
-    const resizeObserver = new ResizeObserver(
-      calculateStyles,
-    );
+  return (
+    <Hidden smDown>
+      <Box className={classes.overlay} style={styles}>
+        <MediaAttributes ref={img} />
+        {['ne', 'se', 'sw', 'nw'].map((coordinate) => (
+          <MediaResizeHandler
+            key={coordinate}
+            coordinate={coordinate}
+            ref={img}
+          />
+        ))}
+      </Box>
+    </Hidden>
+  );
+});
 
-    if (img.current) resizeObserver.observe(img.current);
+export default ImageOverlay;
+
+/** *
+
 
     return () => {
       if (ref?.current?.root)
@@ -77,36 +120,9 @@ const ImageOverlay = React.forwardRef((props, ref) => {
           handleClick,
         );
 
-      if (img.current)
+      if (img.current) {
+        observer.disconnect();
         resizeObserver.unobserve(img.current);
+      }
     };
-  }, [ref.current]);
-
-  return (
-    <Box className={classes.overlay} style={styles}>
-      <MediaAttributes
-        editorEl={ref.current}
-        imageEl={img.current}
-        deleteMedia={() => {
-          const el = ref.current.getSelection();
-          img.current.remove();
-          ref.current.update();
-          ref.current.focus();
-          ref.current.setSelection(el - 1, el);
-
-          img.current = null;
-          calculateStyles();
-        }}
-      />
-      {['ne', 'se', 'sw', 'nw'].map((coordinate) => (
-        <MediaResizeHandler
-          key={coordinate}
-          coordinate={coordinate}
-          ref={img}
-        />
-      ))}
-    </Box>
-  );
-});
-
-export default ImageOverlay;
+ */

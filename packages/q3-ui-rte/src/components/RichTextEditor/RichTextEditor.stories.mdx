@@ -4,14 +4,33 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import { Button, Container } from '@material-ui/core';
+import {
+  Button,
+  Container,
+  Paper,
+  Box,
+} from '@material-ui/core';
 import RichTextEditor from './RichTextEditor';
 
 <Meta title="RichTextEditor" component={RichTextEditor} />
 
 <Preview>
   <Story name="Default">
-    <RichTextEditor onChange={console.log} />
+    <RichTextEditor />
+  </Story>
+  <Story name="Container">
+    <Box my={4}>
+      <Container>
+        <Paper>
+          <RichTextEditor />
+        </Paper>
+      </Container>
+    </Box>
+  </Story>
+  <Story name="fixedOnMobile">
+    <Paper style={{ height: '100vh', width: '100%' }}>
+      <RichTextEditor fixedOnMobile />
+    </Paper>
   </Story>
   <Story name="Default value">
     <RichTextEditor defaultValue="<h2><strong>Hello world</strong></h2><img src='https://images.unsplash.com/photo-1618799805265-4f27cb61ede9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'/><p>This is a new sentence.</p>">

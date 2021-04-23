@@ -21,7 +21,7 @@ const ToolbarMobileDrawer = ({ options }) => {
 
   return (
     <Grid item>
-      <Hidden mdUp implementation="css">
+      <Hidden smUp implementation="css">
         <IconButton
           aria-label={t('formatters')}
           onClick={toggle}

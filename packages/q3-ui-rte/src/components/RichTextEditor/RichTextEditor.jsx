@@ -1,30 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Box,
-  Container,
-  Grid,
-} from '@material-ui/core';
+import { AppBar, Box, Grid } from '@material-ui/core';
+
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import ModuleLink from '../ModuleLink';
 import MediaUpload from '../MediaUpload';
 import ImageOverlay from '../ImageOverlay';
+import VideoIframe from '../VideoIframe';
 import Toolbar from '../Toolbar';
 import ToolbarMobileDrawer from '../ToolbarMobileDrawer';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
 import { toDataUri } from '../../adapters';
+import ModuleDivider from '../ModuleDivider';
 
 const RichTextEditor = ({
   children,
   defaultValue,
-  // onChange,
+  onChange,
   upload,
+  fixedOnMobile,
 }) => {
   const { container, ID, TOOLBAR_ID, ref } = useQuill();
-  const cls = useStyle();
+  const cls = useStyle({
+    fixedOnMobile,
+  });
 
   const mobileOptions = [
     {
@@ -39,6 +40,7 @@ const RichTextEditor = ({
       icon: FormatListNumberedIcon,
       group: 'middle',
     },
+    { ref, component: ModuleDivider, group: 'middle' },
     {
       ref,
       component: ModuleLink,
@@ -52,10 +54,16 @@ const RichTextEditor = ({
       group: 'end',
       upload,
     },
+    {
+      ref,
+      component: VideoIframe,
+      label: 'video',
+      group: 'end',
+    },
   ];
 
   return (
-    <Box ref={container}>
+    <Box height="100%" width="100%" ref={container}>
       <AppBar className={cls.toolbar} id={TOOLBAR_ID}>
         <Grid container justify="space-between">
           <Grid item>
@@ -70,20 +78,18 @@ const RichTextEditor = ({
           </Grid>
           <Grid item>{children}</Grid>
         </Grid>
-      </AppBar>{' '}
-      <Container>
-        <Box className={cls.root}>
-          <Box id={ID}>
-            <div
-              // eslint-disable-next-line
-              dangerouslySetInnerHTML={{
-                __html: defaultValue,
-              }}
-            />
-          </Box>
-          <ImageOverlay ref={ref} />
+      </AppBar>
+      <Box className={cls.root}>
+        <Box id={ID} height="100%" width="100%">
+          <div
+            // eslint-disable-next-line
+            dangerouslySetInnerHTML={{
+              __html: defaultValue,
+            }}
+          />
         </Box>
-      </Container>
+        <ImageOverlay ref={ref} />
+      </Box>
     </Box>
   );
 };

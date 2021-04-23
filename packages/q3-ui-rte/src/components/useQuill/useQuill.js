@@ -16,17 +16,6 @@ export default () => {
         toolbar: hash(TOOLBAR_ID),
       },
     });
-
-    function handleSelectionChange() {
-      const event = new CustomEvent('cat', {
-        detail: ref.current.getFormat(),
-      });
-
-      if (container.current)
-        container.current.dispatchEvent(event);
-    }
-
-    ref.current.on('text-change', handleSelectionChange);
   }, []);
 
   return {

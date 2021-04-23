@@ -1,32 +1,39 @@
 import React from 'react';
 import IconButton from 'q3-ui/lib/iconButton';
-import { Link as LinkIcon } from '@material-ui/icons';
-import { isObject, size } from 'lodash';
+import { VideoLibrary } from '@material-ui/icons';
 import Quill from 'quill';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import Popover from '../Popover';
 import PopoverTextField from '../PopoverTextField';
 import PopoverSave from '../PopoverSave';
+import VideoBlot from '../VideoBlot';
 import withCurrentSelection, {
   propTypes,
 } from '../withCurrentSelection';
 
-const ModuleLink = React.forwardRef(
+const VideoIframe = React.forwardRef(
   (
-    { component: Component, selection, captureSelection },
+    { component: Component, captureSelection, selection },
     ref,
   ) => {
-    const matches = useMediaQuery('(min-width:600px)');
+    React.useLayoutEffect(() => {
+      Quill.register(VideoBlot, true);
+    }, []);
 
-    const hyperlink = (state, forwardedSelection) => {
-      const quill = ref?.current;
-      const s = forwardedSelection || selection;
+    const theme = useTheme();
+    const matches = useMediaQuery(
+      theme.breakpoints.down('sm'),
+    );
 
-      if (!isObject(s) || !size(state)) return;
-      quill.format('link', state, Quill.sources.USER);
-      quill.update();
-      quill.focus();
-      quill.setSelection(s);
+    const embed = (state, nextSelection) => {
+      ref.current.insertEmbed(
+        nextSelection
+          ? nextSelection?.index
+          : selection?.index,
+        'iframe',
+        state,
+      );
     };
 
     return (
@@ -35,19 +42,18 @@ const ModuleLink = React.forwardRef(
           const fn = matches
             ? onClick
             : (s) => {
-                // eslint-disable-next-line
-                hyperlink(prompt(), s);
+                embed(prompt(), s);
               };
 
           return Component ? (
             <Component
-              icon={LinkIcon}
+              icon={VideoLibrary}
               onClick={captureSelection(fn)}
             />
           ) : (
             <IconButton
-              label="hyperlink"
-              icon={LinkIcon}
+              icon={VideoLibrary}
+              label="video"
               buttonProps={{
                 type: 'button',
                 onClick: captureSelection(fn),
@@ -62,7 +68,7 @@ const ModuleLink = React.forwardRef(
               <PopoverSave
                 onClick={(e) => {
                   e.preventDefault();
-                  hyperlink(state);
+                  embed(state, selection);
                   close();
                 }}
               />
@@ -74,6 +80,6 @@ const ModuleLink = React.forwardRef(
   },
 );
 
-ModuleLink.propTypes = propTypes;
+VideoIframe.propTypes = propTypes;
 
-export default withCurrentSelection(ModuleLink);
+export default withCurrentSelection(VideoIframe);

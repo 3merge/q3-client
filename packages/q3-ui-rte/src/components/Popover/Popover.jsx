@@ -6,25 +6,30 @@ import {
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import { isFunction } from 'lodash';
+import { useToggle } from 'useful-state';
+import useStyle from '../useStyle';
 
 const Popover = ({ button: Button, children }) => {
-  const [anchor, setAnchor] = React.useState();
-
-  const handleOpen = (e) => {
-    setAnchor(e?.currentTarget || e?.target);
-  };
-
-  const handleClose = () => {
-    setAnchor(null);
-  };
+  const ref = React.useRef();
+  const { popover: classes } = useStyle();
+  const { state, open, close } = useToggle();
 
   return (
-    <Box>
-      <Button onClick={handleOpen} />
+    <Box ref={ref}>
+      <Button onClick={open} />
       <MuiPopover
-        anchorEl={anchor}
-        open={Boolean(anchor)}
-        onClose={handleClose}
+        anchorEl={ref.current}
+        open={state}
+        onClose={close}
+        classes={{ paper: classes }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
       >
         <Box p={2} width={310} position="relative">
           <Box
@@ -34,12 +39,12 @@ const Popover = ({ button: Button, children }) => {
             p={0.5}
             zIndex={1}
           >
-            <IconButton size="small" onClick={handleClose}>
+            <IconButton size="small" onClick={close}>
               <Close />
             </IconButton>
           </Box>
           {isFunction(children)
-            ? children(handleClose)
+            ? children(close)
             : children}
         </Box>
       </MuiPopover>
