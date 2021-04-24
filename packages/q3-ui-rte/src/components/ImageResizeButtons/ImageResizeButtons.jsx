@@ -41,7 +41,7 @@ const ImageResizeButtons = React.forwardRef(
       <Box
         color="primary.contrastText"
         position="absolute"
-        left="100%"
+        right={0}
         top={0}
         p={1}
       >
