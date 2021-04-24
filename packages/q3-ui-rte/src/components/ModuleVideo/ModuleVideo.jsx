@@ -7,23 +7,24 @@ import { useTheme } from '@material-ui/core/styles';
 import Popover from '../Popover';
 import PopoverTextField from '../PopoverTextField';
 import PopoverSave from '../PopoverSave';
-import VideoBlot from '../VideoBlot';
+import BlotVideo from '../BlotVideo';
 import withCurrentSelection, {
   propTypes,
 } from '../withCurrentSelection';
+import { toEmbed } from '../../adapters';
 
-const VideoIframe = React.forwardRef(
+export const ModuleVideo = React.forwardRef(
   (
     { component: Component, captureSelection, selection },
     ref,
   ) => {
     React.useLayoutEffect(() => {
-      Quill.register(VideoBlot, true);
+      Quill.register(BlotVideo, true);
     }, []);
 
     const theme = useTheme();
     const matches = useMediaQuery(
-      theme.breakpoints.down('sm'),
+      theme.breakpoints.up('sm'),
     );
 
     const embed = (state, nextSelection) => {
@@ -32,7 +33,7 @@ const VideoIframe = React.forwardRef(
           ? nextSelection?.index
           : selection?.index,
         'iframe',
-        state,
+        toEmbed(state),
       );
     };
 
@@ -80,6 +81,6 @@ const VideoIframe = React.forwardRef(
   },
 );
 
-VideoIframe.propTypes = propTypes;
+ModuleVideo.propTypes = propTypes;
 
-export default withCurrentSelection(VideoIframe);
+export default withCurrentSelection(ModuleVideo);

@@ -2,9 +2,9 @@ import React from 'react';
 import Quill from 'quill';
 import { Box, Hidden } from '@material-ui/core';
 import { get, isFunction } from 'lodash';
+import ImageResizeButtons from '../ImageResizeButtons';
+import ImageResizeHandlers from '../ImageResizeHandlers';
 import useStyle from '../useStyle';
-import MediaAttributes from '../MediaAttributes';
-import MediaResizeHandler from '../MediaResizeHandler';
 
 const ImageOverlay = React.forwardRef((props, ref) => {
   const classes = useStyle();
@@ -95,9 +95,9 @@ const ImageOverlay = React.forwardRef((props, ref) => {
   return (
     <Hidden smDown>
       <Box className={classes.overlay} style={styles}>
-        <MediaAttributes ref={img} />
+        <ImageResizeButtons ref={img} />
         {['ne', 'se', 'sw', 'nw'].map((coordinate) => (
-          <MediaResizeHandler
+          <ImageResizeHandlers
             key={coordinate}
             coordinate={coordinate}
             ref={img}

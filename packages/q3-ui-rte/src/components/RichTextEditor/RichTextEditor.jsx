@@ -1,98 +1,102 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, Grid } from '@material-ui/core';
-
-import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
-import ModuleLink from '../ModuleLink';
-import MediaUpload from '../MediaUpload';
+import { AppBar, Box } from '@material-ui/core';
+import {
+  FormatListNumbered,
+  FormatListBulleted,
+} from '@material-ui/icons';
+import { set } from 'lodash';
 import ImageOverlay from '../ImageOverlay';
-import VideoIframe from '../VideoIframe';
+import ModuleDivider from '../ModuleDivider';
+import ModuleImage from '../ModuleImage';
+import ModuleLink from '../ModuleLink';
+import ModuleVideo from '../ModuleVideo';
 import Toolbar from '../Toolbar';
 import ToolbarMobileDrawer from '../ToolbarMobileDrawer';
+import { toDataUri } from '../../adapters';
+import useLocalValue from '../useLocalValue';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
-import { toDataUri } from '../../adapters';
-import ModuleDivider from '../ModuleDivider';
 
-const RichTextEditor = ({
-  children,
-  defaultValue,
-  onChange,
-  upload,
-  fixedOnMobile,
-}) => {
-  const { container, ID, TOOLBAR_ID, ref } = useQuill();
-  const cls = useStyle({
-    fixedOnMobile,
-  });
+const RichTextEditor = React.forwardRef(
+  (
+    { id, children, defaultValue, upload, ...rest },
+    externalRef,
+  ) => {
+    const cls = useStyle();
 
-  const mobileOptions = [
-    {
-      quillKey: 'list',
-      value: 'unordered',
-      icon: FormatListBulletedIcon,
-      group: 'middle',
-    },
-    {
-      quillKey: 'list',
-      value: 'ordered',
-      icon: FormatListNumberedIcon,
-      group: 'middle',
-    },
-    { ref, component: ModuleDivider, group: 'middle' },
-    {
-      ref,
-      component: ModuleLink,
-      label: 'link',
-      group: 'end',
-    },
-    {
-      ref,
-      component: MediaUpload,
-      label: 'media',
-      group: 'end',
-      upload,
-    },
-    {
-      ref,
-      component: VideoIframe,
-      label: 'video',
-      group: 'end',
-    },
-  ];
+    const { ids, ref } = useQuill(rest);
+    const v = useLocalValue(ref, {
+      defaultValue,
+      id,
+    });
 
-  return (
-    <Box height="100%" width="100%" ref={container}>
-      <AppBar className={cls.toolbar} id={TOOLBAR_ID}>
-        <Grid container justify="space-between">
-          <Grid item>
-            <Toolbar
-              ref={container}
-              options={mobileOptions}
-            >
-              <ToolbarMobileDrawer
-                options={mobileOptions}
-              />
-            </Toolbar>
-          </Grid>
-          <Grid item>{children}</Grid>
-        </Grid>
-      </AppBar>
-      <Box className={cls.root}>
-        <Box id={ID} height="100%" width="100%">
-          <div
-            // eslint-disable-next-line
-            dangerouslySetInnerHTML={{
-              __html: defaultValue,
-            }}
-          />
+    // ensure that external APIs can clear and get state
+    set(externalRef, 'current', v);
+
+    const mobileOptions = [
+      {
+        quillKey: 'list',
+        value: 'unordered',
+        icon: FormatListBulleted,
+        group: 'middle',
+      },
+      {
+        quillKey: 'list',
+        value: 'ordered',
+        icon: FormatListNumbered,
+        group: 'middle',
+      },
+      { ref, component: ModuleDivider, group: 'middle' },
+      {
+        ref,
+        component: ModuleLink,
+        label: 'link',
+        group: 'end',
+      },
+      {
+        ref,
+        component: ModuleImage,
+        label: 'media',
+        group: 'end',
+        upload,
+      },
+      {
+        ref,
+        component: ModuleVideo,
+        label: 'video',
+        group: 'end',
+      },
+    ];
+
+    return (
+      <Box overflow="initial" height="100%" width="100%">
+        <AppBar
+          position="sticky"
+          className={cls.toolbar}
+          id={ids.toolbar}
+          component="div"
+        >
+          {children}
+          <Toolbar options={mobileOptions}>
+            <ToolbarMobileDrawer options={mobileOptions} />
+          </Toolbar>
+        </AppBar>
+        <Box className={cls.root}>
+          <Box id={ids.root} height="100%" width="100%">
+            <div
+              // eslint-disable-next-line
+              dangerouslySetInnerHTML={{
+                __html: v?.value,
+              }}
+            />
+          </Box>
+          <ImageOverlay ref={ref} />
         </Box>
-        <ImageOverlay ref={ref} />
       </Box>
-    </Box>
-  );
-};
+    );
+  },
+);
 
 RichTextEditor.propTypes = {
   children: PropTypes.node,

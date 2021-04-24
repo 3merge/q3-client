@@ -1,12 +1,12 @@
 import React from 'react';
 import Quill from 'quill';
-import DividerBlot from '../DividerBlot';
-import VideoBlot from '../VideoBlot';
+import BlotDivider from '../BlotDivider';
+import BlotVideo from '../BlotVideo';
 
 export default (blot) => {
   const blots = {
-    [DividerBlot.blotName]: DividerBlot,
-    [VideoBlot.blotName]: VideoBlot,
+    [BlotDivider.blotName]: BlotDivider,
+    [BlotVideo.blotName]: BlotVideo,
   };
 
   React.useLayoutEffect(() => {

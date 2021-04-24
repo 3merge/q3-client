@@ -8,7 +8,7 @@ import withCurrentSelection, {
   propTypes,
 } from '../withCurrentSelection';
 
-const MediaUpload = React.forwardRef(
+const ModuleImage = React.forwardRef(
   (
     {
       component: Component,
@@ -65,6 +65,6 @@ const MediaUpload = React.forwardRef(
   },
 );
 
-MediaUpload.propTypes = propTypes;
+ModuleImage.propTypes = propTypes;
 
-export default withCurrentSelection(MediaUpload);
+export default withCurrentSelection(ModuleImage);

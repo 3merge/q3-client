@@ -2,7 +2,7 @@ import Quill from 'quill';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 
-class VideoBlot extends BlockEmbed {
+class BlotVideo extends BlockEmbed {
   static create(value) {
     const node = super.create(value);
     node.setAttribute('src', value);
@@ -18,8 +18,8 @@ class VideoBlot extends BlockEmbed {
   }
 }
 
-VideoBlot.blotName = 'iframe';
-VideoBlot.className = 'ql-iframe';
-VideoBlot.tagName = 'iframe';
+BlotVideo.blotName = 'iframe';
+BlotVideo.className = 'ql-iframe';
+BlotVideo.tagName = 'iframe';
 
-export default VideoBlot;
+export default BlotVideo;

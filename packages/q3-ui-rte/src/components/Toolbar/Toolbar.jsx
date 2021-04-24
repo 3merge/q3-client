@@ -13,77 +13,68 @@ import TitleIcon from '@material-ui/icons/Title';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ToolbarButton from '../ToolbarButton';
 
-const RichTextEditor = React.forwardRef(
-  ({ children, options }, ref) => {
-    return (
-      <Grid container>
-        <Grid item>
-          <ButtonGroup>
-            <ToolbarButton
-              ref={ref}
-              quillKey="header"
-              value="2"
-            >
-              <TitleIcon />
-            </ToolbarButton>
-            <ToolbarButton ref={ref} quillKey="bold">
-              <FormatBoldIcon />
-            </ToolbarButton>
-            <ToolbarButton ref={ref} quillKey="italic">
-              <FormatItalicIcon />
-            </ToolbarButton>
-            <ToolbarButton ref={ref} quillKey="underline">
-              <FormatUnderlinedIcon />
-            </ToolbarButton>
-            <ToolbarButton ref={ref} quillKey="blockquote">
-              <FormatQuoteIcon />
-            </ToolbarButton>
-          </ButtonGroup>
-        </Grid>
-        {Object.values(groupBy(options, 'group')).map(
-          (buttons) => {
-            return (
-              <>
-                <Hidden xsDown>
-                  <Divider
-                    orientation="vertical"
-                    style={{ margin: '0 1rem' }}
-                    flexItem
-                  />
-                </Hidden>
-                <Grid item>
-                  <Hidden xsDown implementation="css">
-                    <ButtonGroup>
-                      {map(
-                        buttons,
-                        ({
-                          component: Component,
-                          icon: Icon,
-                          ...button
-                        }) =>
-                          Component ? (
-                            <Component {...button} />
-                          ) : (
-                            <ToolbarButton
-                              ref={ref}
-                              {...button}
-                            >
-                              <Icon />
-                            </ToolbarButton>
-                          ),
-                      )}
-                    </ButtonGroup>
-                  </Hidden>
-                </Grid>
-              </>
-            );
-          },
-        )}
-
-        {children}
+const RichTextEditor = ({ children, options }) => {
+  return (
+    <Grid container>
+      <Grid item>
+        <ButtonGroup>
+          <ToolbarButton quillKey="header" value="2">
+            <TitleIcon />
+          </ToolbarButton>
+          <ToolbarButton quillKey="bold">
+            <FormatBoldIcon />
+          </ToolbarButton>
+          <ToolbarButton quillKey="italic">
+            <FormatItalicIcon />
+          </ToolbarButton>
+          <ToolbarButton quillKey="underline">
+            <FormatUnderlinedIcon />
+          </ToolbarButton>
+          <ToolbarButton quillKey="blockquote">
+            <FormatQuoteIcon />
+          </ToolbarButton>
+        </ButtonGroup>
       </Grid>
-    );
-  },
-);
+      {Object.values(groupBy(options, 'group')).map(
+        (buttons) => {
+          return (
+            <>
+              <Hidden xsDown>
+                <Divider
+                  orientation="vertical"
+                  style={{ margin: '0 1rem' }}
+                  flexItem
+                />
+              </Hidden>
+              <Grid item>
+                <Hidden xsDown implementation="css">
+                  <ButtonGroup>
+                    {map(
+                      buttons,
+                      ({
+                        component: Component,
+                        icon: Icon,
+                        ...button
+                      }) =>
+                        Component ? (
+                          <Component {...button} />
+                        ) : (
+                          <ToolbarButton {...button}>
+                            <Icon />
+                          </ToolbarButton>
+                        ),
+                    )}
+                  </ButtonGroup>
+                </Hidden>
+              </Grid>
+            </>
+          );
+        },
+      )}
+
+      {children}
+    </Grid>
+  );
+};
 
 export default RichTextEditor;

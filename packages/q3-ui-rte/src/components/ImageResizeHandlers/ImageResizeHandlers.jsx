@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-const MediaResizeHandler = React.forwardRef(
+const ImageResizeHandlers = React.forwardRef(
   ({ coordinate, offset }, ref) => {
     const match = get(LEGEND, coordinate, {});
     const cls = useStyles(
@@ -104,27 +104,27 @@ const MediaResizeHandler = React.forwardRef(
         handleMouseDown,
       );
 
-      return () => {
-        if (innerRef.current)
-          innerRef.current.removeEventListener(
-            'mousedown',
-            handleMouseDown,
-          );
-      };
+      // return () => {
+      //   if (innerRef.current)
+      //     innerRef.current.removeEventListener(
+      //       'mousedown',
+      //       handleMouseDown,
+      //     );
+      // };
     }, []);
 
     return <span ref={innerRef} className={cls.root} />;
   },
 );
 
-MediaResizeHandler.defaultProps = {
+ImageResizeHandlers.defaultProps = {
   offset: -(SIZE / 2),
 };
 
-MediaResizeHandler.propTypes = {
+ImageResizeHandlers.propTypes = {
   coordinate: PropTypes.oneOf(Object.keys(LEGEND))
     .isRequired,
   offset: PropTypes.number,
 };
 
-export default MediaResizeHandler;
+export default ImageResizeHandlers;

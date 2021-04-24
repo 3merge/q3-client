@@ -9,6 +9,8 @@ import {
   Container,
   Paper,
   Box,
+  Grid,
+  Typography,
 } from '@material-ui/core';
 import RichTextEditor from './RichTextEditor';
 
@@ -27,9 +29,31 @@ import RichTextEditor from './RichTextEditor';
       </Container>
     </Box>
   </Story>
-  <Story name="fixedOnMobile">
-    <Paper style={{ height: '100vh', width: '100%' }}>
-      <RichTextEditor fixedOnMobile />
+  <Story name="autosave">
+    <Paper
+      style={{
+        height: '100vh',
+        width: '100%',
+        overflow: 'hidden',
+      }}
+    >
+      <RichTextEditor id="testing" autofocus>
+        <Container maxWidth="xl">
+          <Grid container justify="space-between">
+            <Grid item>
+              <Typography variant="h6">
+                Document title
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button>Discard</Button>
+              <Button variant="contained" color="primary">
+                Publish
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </RichTextEditor>
     </Paper>
   </Story>
   <Story name="Default value">
