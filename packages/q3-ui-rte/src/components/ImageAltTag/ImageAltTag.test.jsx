@@ -15,21 +15,11 @@ test('getAltAttribute should call DOM attribute method', () => {
 });
 
 test('setAltAttribute should curry DOM attribute method', () => {
-  const next = jest.fn();
   const setAttribute = jest.fn();
-
-  setAltAttribute(
-    { setAttribute },
-    'testing',
-    next,
-  )({
-    preventDefault: jest.fn(),
-  });
+  setAltAttribute({ setAttribute }, 'testing');
 
   expect(setAttribute).toHaveBeenCalledWith(
     'alt',
     'testing',
   );
-
-  expect(next).toHaveBeenCalled();
 });

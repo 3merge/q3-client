@@ -5,6 +5,19 @@ import TextBase from 'q3-ui-forms/lib/fields/TextBase';
 import { act } from 'react-dom/test-utils';
 import FileListMake from './FileListMake';
 
+const clickIconButton = (el) => {
+  act(() => {
+    el.find(IconButton)
+      .prop('buttonProps')
+      .onClick({
+        preventDefault: jest.fn(),
+        target: {
+          name: 'Test',
+        },
+      });
+  });
+};
+
 describe('FileListBreadcrumbs', () => {
   it('should add new default path to state', async () => {
     const setState = jest.fn();
@@ -16,9 +29,7 @@ describe('FileListBreadcrumbs', () => {
       />,
     );
 
-    act(() => {
-      el.find(IconButton).simulate('click');
-    });
+    clickIconButton(el);
 
     await act(async () => {
       el.update();
@@ -44,9 +55,7 @@ describe('FileListBreadcrumbs', () => {
       />,
     );
 
-    act(() => {
-      el.find(IconButton).simulate('click');
-    });
+    clickIconButton(el);
 
     await act(async () => {
       el.update();
