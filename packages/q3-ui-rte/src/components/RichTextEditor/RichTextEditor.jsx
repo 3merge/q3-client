@@ -20,13 +20,21 @@ import useStyle from '../useStyle';
 
 const RichTextEditor = React.forwardRef(
   (
-    { id, children, defaultValue, upload, ...rest },
+    {
+      id,
+      children,
+      defaultValue,
+      upload,
+      onChange,
+      ...rest
+    },
     externalRef,
   ) => {
     const cls = useStyle();
 
     const { ids, ref } = useQuill(rest);
     const v = useLocalValue(ref, {
+      onChange,
       defaultValue,
       id,
     });

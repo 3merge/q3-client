@@ -18,7 +18,6 @@
 <li>
 <a href="./packages/q3-admin">🧰 Admin Docs</a></li>
 <li>
-<li>
 <a href="./packages/q3-ui-charts">📊 Charts Docs</a></li>
 <li>
 <a href="./packages/q3-ui-filemanager">🗃️ File Manager Docs</a></li>
@@ -27,4 +26,6 @@
 <li>
 <a href="./packages/q3-ui-helpers">🆘 Helpers Docs</a>
 </li>
+<li><a href="./packages/q3-ui-rte">
+📝 Rich Text</a></li>
 </ul>

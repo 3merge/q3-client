@@ -10,10 +10,6 @@ export default (options = {}) => {
   const TOOLBAR_ID = `${ID}-toolbar`;
   const ref = React.useRef();
 
-  const handleBlur = () => {
-    invoke(options, 'onBlur', ref.current.root.innerHTML);
-  };
-
   React.useLayoutEffect(() => {
     ref.current = new Quill(hash(ID), {
       modules: {
@@ -22,16 +18,6 @@ export default (options = {}) => {
     });
 
     if (options?.autofocus) invoke(ref, 'current.focus');
-
-    if (options?.onBlur)
-      ref.current.root.addEventListener('blur', handleBlur);
-
-    return () => {
-      // ref.current.root.removeEventListener(
-      //   'blur',
-      //   handleBlur,
-      // );
-    };
   }, []);
 
   return {

@@ -5,19 +5,30 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import { isFunction } from 'lodash';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import { useToggle } from 'useful-state';
+import PopoverSave from '../PopoverSave';
+import PopoverTextField from '../PopoverTextField';
 import useStyle from '../useStyle';
 
-const Popover = ({ button: Button, children }) => {
+const Popover = ({ button: Button, onSave, ...rest }) => {
   const ref = React.useRef();
   const { popover: classes } = useStyle();
   const { state, open, close } = useToggle();
 
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+
+  const handleOpen = () =>
+    // eslint-disable-next-line
+    matches ? open() : onSave(prompt());
+
   return (
     <Box ref={ref}>
-      <Button onClick={open} />
+      <Button onClick={handleOpen} />
       <MuiPopover
+        disablePortal
         anchorEl={ref.current}
         open={state}
         onClose={close}
@@ -43,9 +54,17 @@ const Popover = ({ button: Button, children }) => {
               <Close />
             </IconButton>
           </Box>
-          {isFunction(children)
-            ? children(close)
-            : children}
+          <PopoverTextField {...rest}>
+            {(textFieldState) => (
+              <PopoverSave
+                onClick={(e) => {
+                  e.preventDefault();
+                  onSave(textFieldState);
+                  close();
+                }}
+              />
+            )}
+          </PopoverTextField>
         </Box>
       </MuiPopover>
     </Box>

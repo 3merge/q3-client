@@ -2,27 +2,18 @@ import React from 'react';
 import Files from 'react-butterfiles';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import { first } from 'lodash';
-import IconButton from 'q3-ui/lib/iconButton';
 import Quill from 'quill';
 import withCurrentSelection, {
   propTypes,
 } from '../withCurrentSelection';
 
 const ModuleImage = React.forwardRef(
-  (
-    {
-      component: Component,
-      captureSelection,
-      selection,
-      upload,
-    },
-    ref,
-  ) => {
+  ({ buttonComponent, selection, upload }, ref) => {
     return (
       <Files
         maxSize="10mb"
-        onSuccess={(data) =>
-          upload(first(data))
+        onSuccess={(data) => {
+          return upload(first(data))
             .then((url) => {
               ref.current.insertEmbed(
                 selection?.index,
@@ -37,29 +28,16 @@ const ModuleImage = React.forwardRef(
             })
             .catch(() => {
               alert('uploadFailed.');
-            })
-        }
+            });
+        }}
         onError={() => {
           alert('uploadFailed.');
         }}
       >
-        {({ browseFiles }) =>
-          Component ? (
-            <Component
-              icon={PermMediaIcon}
-              onClick={captureSelection(browseFiles)}
-            />
-          ) : (
-            <IconButton
-              icon={PermMediaIcon}
-              label="image"
-              buttonProps={{
-                onClick: captureSelection(browseFiles),
-                type: 'button',
-              }}
-            />
-          )
-        }
+        {({ browseFiles }) => {
+          const Button = buttonComponent;
+          return <Button onClick={browseFiles} />;
+        }}
       </Files>
     );
   },
@@ -67,4 +45,7 @@ const ModuleImage = React.forwardRef(
 
 ModuleImage.propTypes = propTypes;
 
-export default withCurrentSelection(ModuleImage);
+export default withCurrentSelection(ModuleImage, {
+  icon: PermMediaIcon,
+  label: 'image',
+});
