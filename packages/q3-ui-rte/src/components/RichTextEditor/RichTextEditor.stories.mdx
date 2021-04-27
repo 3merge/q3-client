@@ -11,6 +11,7 @@ import {
   Box,
   Grid,
   Typography,
+  Dialog,
 } from '@material-ui/core';
 import RichTextEditor from './RichTextEditor';
 import { toQ3Api } from '../../adapters';
@@ -38,23 +39,25 @@ import { toQ3Api } from '../../adapters';
         overflow: 'hidden',
       }}
     >
-      <RichTextEditor id="testing" autofocus>
-        <Container maxWidth="xl">
-          <Grid container justify="space-between">
-            <Grid item>
-              <Typography variant="h6">
-                Document title
-              </Typography>
+      <Dialog fullScreen open>
+        <RichTextEditor id="testing" autofocus>
+          <Container maxWidth="xl">
+            <Grid container justify="space-between">
+              <Grid item>
+                <Typography variant="h6">
+                  Document title
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Button>Discard</Button>
+                <Button variant="contained" color="primary">
+                  Publish
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Button>Discard</Button>
-              <Button variant="contained" color="primary">
-                Publish
-              </Button>
-            </Grid>
-          </Grid>
-        </Container>
-      </RichTextEditor>
+          </Container>
+        </RichTextEditor>
+      </Dialog>
     </Paper>
   </Story>
   <Story name="Default value">

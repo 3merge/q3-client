@@ -78,7 +78,12 @@ const RichTextEditor = React.forwardRef(
     ];
 
     return (
-      <Box overflow="initial" height="100%" width="100%">
+      <Box
+        overflow="inherit"
+        height="100%"
+        width="100%"
+        position="relative"
+      >
         <AppBar
           position="sticky"
           className={cls.toolbar}
