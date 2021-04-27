@@ -1,0 +1,11 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.33.0](https://github.com/3merge/q/compare/v1.32.1...v1.33.0) (2021-04-27)
+
+
+### Features
+
+* **wip:** first iteration rich text editor ([#318](https://github.com/3merge/q/issues/318)) ([20be140](https://github.com/3merge/q/commit/20be140be24d964a0df4c8066e428967ed0d6ecb))
