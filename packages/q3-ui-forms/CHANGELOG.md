@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.33.1](https://github.com/3merge/q/compare/v1.33.0...v1.33.1) (2021-04-27)
+
+**Note:** Version bump only for package q3-ui-forms
+
+
+
+
+
 # [1.33.0](https://github.com/3merge/q/compare/v1.32.1...v1.33.0) (2021-04-27)
 
 
