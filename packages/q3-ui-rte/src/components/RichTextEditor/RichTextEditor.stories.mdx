@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import RichTextEditor from './RichTextEditor';
+import { toQ3Api } from '../../adapters';
 
 <Meta title="RichTextEditor" component={RichTextEditor} />
 
@@ -24,7 +25,7 @@ import RichTextEditor from './RichTextEditor';
     <Box my={4}>
       <Container>
         <Paper>
-          <RichTextEditor />
+          <RichTextEditor upload={toQ3Api('/foo')} />
         </Paper>
       </Container>
     </Box>

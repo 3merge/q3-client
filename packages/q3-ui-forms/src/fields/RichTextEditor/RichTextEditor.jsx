@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RichTextEditor = withState(
-  ({ label, onChange, name, error, value }) => {
+  ({ label, onChange, name, error, value, ...rest }) => {
     const cls = useStyles();
     const editorRef = React.useRef();
 
@@ -43,6 +43,7 @@ const RichTextEditor = withState(
                       },
                     })
                   }
+                  {...rest}
                 />
               </Box>
             )}
