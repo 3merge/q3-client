@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from 'q3-ui/lib/iconButton';
-import { isFunction } from 'lodash';
+import { isEqual, invoke } from 'lodash';
 
 export const propTypes = {
   buttonComponent: PropTypes.element,
@@ -14,24 +14,34 @@ export const propTypes = {
 
 const withCurrentSelection = (Component, { icon, label }) =>
   React.forwardRef((props, ref) => {
+    const cb = React.useRef();
     const CustomButtonComponent = props.component;
     const [selection, setSelection] = React.useState();
 
-    const captureSelection = (e) => {
-      e.preventDefault();
-      const nextSelection = ref.current.getSelection();
-      setSelection(nextSelection);
-    };
+    React.useEffect(() => {
+      // otherwise our decorated components
+      // won't yet have selection defined
+      if (selection) invoke(cb, 'current');
+    }, [selection?.index]);
 
     return (
       <Component
         ref={ref}
         buttonComponent={({ onClick }) => {
-          React.useEffect(() => {
-            // otherwise our decorated components
-            // won't yet have selection defined
-            if (selection) onClick();
-          }, [selection]);
+          cb.current = onClick;
+
+          const captureSelection = () => {
+            const nextSelection = ref.current.getSelection();
+
+            if (!nextSelection) {
+              ref.current.focus();
+              return;
+            }
+
+            if (isEqual(nextSelection, selection))
+              onClick();
+            else setSelection(nextSelection);
+          };
 
           return CustomButtonComponent ? (
             <CustomButtonComponent
@@ -49,7 +59,6 @@ const withCurrentSelection = (Component, { icon, label }) =>
             />
           );
         }}
-        captureSelection={captureSelection}
         selection={selection}
         {...props}
       />

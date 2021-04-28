@@ -55,17 +55,22 @@ const RichTextEditor = React.forwardRef(
         icon: FormatListNumbered,
         group: 'middle',
       },
-      { ref, component: ModuleDivider, group: 'middle' },
+      {
+        ref,
+        component: ModuleDivider,
+        label: 'divider',
+        group: 'middle',
+      },
       {
         ref,
         component: ModuleLink,
-        label: 'link',
+        label: 'hyperlink',
         group: 'end',
       },
       {
         ref,
         component: ModuleImage,
-        label: 'media',
+        label: 'image',
         group: 'end',
         upload,
       },
@@ -78,7 +83,12 @@ const RichTextEditor = React.forwardRef(
     ];
 
     return (
-      <Box overflow="initial" height="100%" width="100%">
+      <Box
+        overflow="inherit"
+        height="100%"
+        width="100%"
+        position="relative"
+      >
         <AppBar
           position="sticky"
           className={cls.toolbar}

@@ -279,5 +279,16 @@
   "confirmPhrase": "Enter the phrase \"{{phrase}}\":",
   "sortBy": "Sort by",
   "filterBy": "Filter by",
-  "bulkOpOn": "Bulk op or array re-indexing on {{fields}}"
+  "bulkOpOn": "Bulk op or array re-indexing on {{fields}}",
+  "header-2": "Title",
+  "bold": "Bold",
+  "underline": "Underline",
+  "divider": "Divider",
+  "italic": "Italic",
+  "blockquote": "Quote",
+  "list-unordered": "Unordered list",
+  "list-ordered": "Ordered list",
+  "hyperlink": "Link",
+  "image": "Image",
+  "video": "Embedded video"
 }
