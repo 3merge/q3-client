@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.33.2](https://github.com/3merge/q/compare/v1.33.1...v1.33.2) (2021-04-28)
+
+
+### Bug Fixes
+
+* mobile rich text ([#319](https://github.com/3merge/q/issues/319)) ([99b54ab](https://github.com/3merge/q/commit/99b54ab5a3afd6b086120040f1775032485728c3))
+
+
+
+
+
 # [1.32.0](https://github.com/3merge/q/compare/v1.31.3...v1.32.0) (2021-04-16)
 
 
