@@ -14,10 +14,12 @@ import { useToggle } from 'useful-state';
 import { MoreVert } from '@material-ui/icons';
 import { map, compact } from 'lodash';
 import { useTranslation } from 'react-i18next';
+import useToolbarLabel from '../useToolbarLabel';
 
 const ToolbarMobileDrawer = ({ options }) => {
   const { t } = useTranslation('labels');
   const { state, toggle, close } = useToggle();
+  const utl = useToolbarLabel();
 
   return (
     <Grid item>
@@ -46,9 +48,9 @@ const ToolbarMobileDrawer = ({ options }) => {
                 value,
                 ...rest
               }) => {
-                const key =
-                  label ||
-                  t(compact([quillKey, value]).join('-'));
+                const key = label
+                  ? t(label)
+                  : utl(quillKey, value);
 
                 const renderListIcon = (Icon) =>
                   Icon ? (
