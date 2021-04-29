@@ -76,6 +76,7 @@ const getName = (o) =>
 const Timeline = ({ entries, fetching }) => {
   const cls = useStyles();
   const data = Array.isArray(entries) ? entries : [];
+
   const { isLight } = React.useContext(ModeContext);
 
   if (fetching) return <CircularProgress />;
@@ -90,8 +91,10 @@ const Timeline = ({ entries, fetching }) => {
 
   return (
     <MaterialTimeline style={{ padding: 0 }}>
-      {data.map((item, i) =>
-        i !== 0 ? (
+      {data.map((item, i) => {
+        const curr = data[i - 1];
+
+        return i !== 0 ? (
           <TimelineItem
             key={`timelineItem${i}`}
             className={cls.wrapper}
@@ -101,10 +104,10 @@ const Timeline = ({ entries, fetching }) => {
             >
               <Typography className={cls.date}>
                 <strong>
-                  {getName(item.lastModifiedBy)}
+                  {getName(curr?.lastModifiedBy)}
                 </strong>
                 <br />
-                {string.toDate(item.updatedAt)}
+                {string.toDate(curr?.updatedAt)}
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator>
@@ -114,7 +117,7 @@ const Timeline = ({ entries, fetching }) => {
             <TimelineContent>
               <div style={{ fontSize: '.833rem' }}>
                 <ReactDiffViewer
-                  newValue={removeMeta(data[i - 1])}
+                  newValue={removeMeta(curr)}
                   oldValue={removeMeta(item)}
                   compareMethod={DiffMethod.WORDS}
                   useDarkTheme={!isLight}
@@ -123,8 +126,8 @@ const Timeline = ({ entries, fetching }) => {
               </div>
             </TimelineContent>
           </TimelineItem>
-        ) : null,
-      )}
+        ) : null;
+      })}
     </MaterialTimeline>
   );
 };
