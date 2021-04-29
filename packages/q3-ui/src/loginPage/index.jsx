@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   img: {
     backgroundImage:
-      'url(https://source.unsplash.com/daily?nature)',
+      'url(https://source.unsplash.com/collection/15938558/daily)',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundBlendMode: 'multiply',
