@@ -61,12 +61,17 @@ const ToolbarMobileDrawer = ({ options }) => {
 
                 const render = (props = {}) => (
                   <ListItem
+                    {...props}
                     button
                     component="button"
                     className={`ql-${quillKey}`}
                     key={key}
                     value={value}
-                    {...props}
+                    close={close}
+                    onClick={(e) => {
+                      if (props.onClick) props.onClick(e);
+                      close();
+                    }}
                   >
                     {renderListIcon(icon)}
                     {renderListIcon(props?.icon)}

@@ -71,7 +71,12 @@ const Popover = ({ button: Button, onSave, ...rest }) => {
           </Box>
         </MuiPopover>
       ) : (
-        <Dialog open={state} onClose={close}>
+        <Dialog
+          fullWidth
+          maxWidth="lg"
+          open={state}
+          onClose={close}
+        >
           <DialogContent>
             {renderInnerModal()}
           </DialogContent>

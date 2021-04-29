@@ -10,6 +10,7 @@ import withCurrentSelection, {
 const ModuleLink = React.forwardRef(
   ({ buttonComponent: Component, selection }, ref) => (
     <Popover
+      label="url"
       button={Component}
       onSave={(state) => {
         const quill = ref?.current;

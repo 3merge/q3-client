@@ -16,6 +16,7 @@ export const ModuleVideo = React.forwardRef(
 
     return (
       <Popover
+        label="videoUrl"
         button={buttonComponent}
         onSave={(state) => {
           ref.current.insertEmbed(

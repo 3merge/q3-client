@@ -290,5 +290,7 @@
   "list-ordered": "Ordered list",
   "hyperlink": "Link",
   "image": "Image",
-  "video": "Embedded video"
+  "video": "Embedded video",
+  "url": "Website",
+  "videoUrl": "Video URL"
 }

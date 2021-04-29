@@ -118,7 +118,7 @@ const Timeline = ({ entries, fetching }) => {
                   oldValue={removeMeta(item)}
                   compareMethod={DiffMethod.WORDS}
                   useDarkTheme={!isLight}
-                  splitView
+                  splitView={false}
                 />
               </div>
             </TimelineContent>
