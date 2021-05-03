@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.33.6](https://github.com/3merge/q/compare/v1.33.5...v1.33.6) (2021-05-03)
+
+
+### Bug Fixes
+
+* misc issues with rich text editing image and video ([#320](https://github.com/3merge/q/issues/320)) ([856142c](https://github.com/3merge/q/commit/856142c6d08a297cad2365708e9730ccfd45600c))
+
+
+
+
+
 ## [1.33.3](https://github.com/3merge/q/compare/v1.33.2...v1.33.3) (2021-04-29)
 
 
