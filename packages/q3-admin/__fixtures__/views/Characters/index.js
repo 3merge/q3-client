@@ -43,5 +43,6 @@ export default new AbstractCollectionBuilder({
   })
   .genDetail({
     picture: true,
+    disableUnsavedChanges: true,
   })
   .build();

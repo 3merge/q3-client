@@ -1,6 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { get } from 'lodash';
 import Hidden from '@material-ui/core/Hidden';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
@@ -56,19 +57,25 @@ export default ({
           }
         >
           <Box position="relative">
-            <Hidden mdDown implementation="css">
-              <Box
-                alignItems="center"
-                display="flex"
-                position="absolute"
-                right="142px"
-                top="-65px"
-                zIndex={1200}
-                height="65px"
-              >
-                <UnsavedChanges />
-              </Box>
-            </Hidden>
+            {!get(
+              PageDetailProps,
+              'disableUnsavedChanges',
+              false,
+            ) && (
+              <Hidden mdDown implementation="css">
+                <Box
+                  alignItems="center"
+                  display="flex"
+                  position="absolute"
+                  right="142px"
+                  top="-65px"
+                  zIndex={1200}
+                  height="65px"
+                >
+                  <UnsavedChanges />
+                </Box>
+              </Hidden>
+            )}
             <PageDetail />
           </Box>
         </Page>
