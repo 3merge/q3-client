@@ -3,7 +3,6 @@ import Quill from 'quill';
 import { invoke } from 'lodash';
 
 import 'quill-paste-smart';
-import '../ImageBlot';
 
 const hash = (xs) => `#${xs}`;
 

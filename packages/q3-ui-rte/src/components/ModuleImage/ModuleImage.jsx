@@ -9,6 +9,7 @@ import Dialog from 'q3-ui-dialog';
 import withCurrentSelection, {
   propTypes,
 } from '../withCurrentSelection';
+import useBlot from '../useBlot';
 
 const ServerError = () => {
   const { t } = useTranslation();
@@ -21,48 +22,52 @@ const ServerError = () => {
 };
 
 const ModuleImage = React.forwardRef(
-  ({ buttonComponent, selection, upload }, ref) => (
-    <Dialog
-      title="error"
-      renderContent={ServerError}
-      renderTrigger={(open) => {
-        const handleError = () =>
-          open({
-            target: {
-              name: '',
-            },
-          });
+  ({ buttonComponent, selection, upload }, ref) => {
+    useBlot('image');
 
-        return (
-          <Files
-            maxSize="5mb"
-            onError={handleError}
-            onSuccess={(data) =>
-              upload(first(data))
-                .then((url) => {
-                  ref.current.insertEmbed(
-                    selection?.index,
-                    'image',
-                    url,
-                  );
+    return (
+      <Dialog
+        title="error"
+        renderContent={ServerError}
+        renderTrigger={(open) => {
+          const handleError = () =>
+            open({
+              target: {
+                name: '',
+              },
+            });
 
-                  ref.current.setSelection(
-                    selection?.index + 1,
-                    Quill.sources.SILENT,
-                  );
-                })
-                .catch(handleError)
-            }
-          >
-            {({ browseFiles }) => {
-              const Button = buttonComponent;
-              return <Button onClick={browseFiles} />;
-            }}
-          </Files>
-        );
-      }}
-    />
-  ),
+          return (
+            <Files
+              maxSize="5mb"
+              onError={handleError}
+              onSuccess={(data) =>
+                upload(first(data))
+                  .then((url) => {
+                    ref.current.insertEmbed(
+                      selection?.index,
+                      'image',
+                      url,
+                    );
+
+                    ref.current.setSelection(
+                      selection?.index + 1,
+                      Quill.sources.SILENT,
+                    );
+                  })
+                  .catch(handleError)
+              }
+            >
+              {({ browseFiles }) => {
+                const Button = buttonComponent;
+                return <Button onClick={browseFiles} />;
+              }}
+            </Files>
+          );
+        }}
+      />
+    );
+  },
 );
 
 ModuleImage.propTypes = propTypes;

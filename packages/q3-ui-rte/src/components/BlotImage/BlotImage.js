@@ -12,5 +12,4 @@ class ImageBlot extends Quill.import('formats/image') {
   }
 }
 
-Quill.register(ImageBlot);
 export default ImageBlot;

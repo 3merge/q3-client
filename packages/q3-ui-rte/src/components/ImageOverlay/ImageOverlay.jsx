@@ -90,6 +90,13 @@ const ImageOverlay = React.forwardRef((props, ref) => {
       handleClick,
       true,
     );
+
+    return () => {
+      ref.current.root.removeEventListener(
+        'click',
+        handleClick,
+      );
+    };
   }, []);
 
   return (
@@ -109,20 +116,3 @@ const ImageOverlay = React.forwardRef((props, ref) => {
 });
 
 export default ImageOverlay;
-
-/** *
-
-
-    return () => {
-      if (ref?.current?.root)
-        ref.current.root.removeEventListener(
-          'click',
-          handleClick,
-        );
-
-      if (img.current) {
-        observer.disconnect();
-        resizeObserver.unobserve(img.current);
-      }
-    };
- */
