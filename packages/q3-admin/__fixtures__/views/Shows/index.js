@@ -73,4 +73,7 @@ export default new AbstractCollectionBuilder({
       ];
     },
   })
+  .genDetailSettings({
+    // disableUnsavedChanges: true,
+  })
   .build();
