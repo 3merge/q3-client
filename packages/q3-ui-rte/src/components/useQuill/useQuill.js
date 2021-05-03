@@ -1,6 +1,7 @@
 import React from 'react';
 import Quill from 'quill';
 import { invoke } from 'lodash';
+
 import 'quill-paste-smart';
 
 const hash = (xs) => `#${xs}`;
@@ -17,7 +18,9 @@ export default (options = {}) => {
       },
     });
 
-    if (options?.autofocus) invoke(ref, 'current.focus');
+    if (options?.autofocus) {
+      invoke(ref, 'current.focus');
+    }
   }, []);
 
   return {
