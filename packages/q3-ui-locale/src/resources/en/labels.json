@@ -292,5 +292,9 @@
   "image": "Image",
   "video": "Embedded video",
   "url": "Website",
-  "videoUrl": "Video URL"
+  "videoUrl": "Video URL",
+  "error": "Error",
+  "newestToOldest": "Newest to oldest",
+  "oldestToNewest": "Oldest to newest",
+  "leaveAComment": "Leave a comment"
 }

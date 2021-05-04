@@ -92,5 +92,8 @@
   "missingConfiguration": "This component requires configuration",
   "confirm": "Confirm",
   "editor": "Edit",
-  "trackChanges": "Waiting for changes"
+  "trackChanges": "Waiting for changes",
+  "comment": "Comment",
+  "edit": "Edit",
+  "reply": "Reply"
 }

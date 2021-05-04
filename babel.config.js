@@ -16,6 +16,7 @@ const alias = [
   'q3-components',
   'q3-ui-assets',
   'q3-ui-charts',
+  'q3-ui-comments',
   'q3-ui-confirm',
   'q3-ui-locale',
   'q3-ui',
