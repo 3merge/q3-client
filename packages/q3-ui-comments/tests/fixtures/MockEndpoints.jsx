@@ -1,5 +1,7 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
+import comments from './data.json';
+import MockUserState from './MockUserState';
 
 // eslint-disable-next-line
 export default ({ children, delay, error }) => {
@@ -10,7 +12,7 @@ export default ({ children, delay, error }) => {
       return [
         200,
         {
-          comments: [],
+          comments,
         },
       ];
     });
@@ -24,8 +26,10 @@ export default ({ children, delay, error }) => {
     });
 
   return (
-    <Rest define={defineMockRoutes} delay={delay}>
-      <Clone />
-    </Rest>
+    <MockUserState>
+      <Rest define={defineMockRoutes} delay={delay}>
+        <Clone />
+      </Rest>
+    </MockUserState>
   );
 };

@@ -15,7 +15,7 @@ const TimelineDialog = ({
     title={label}
     renderTrigger={(onClick) => (
       <IconButton aria-label={label} onClick={onClick}>
-        {Icon && <Icon />}
+        <Icon />
       </IconButton>
     )}
     renderContent={(close) => (

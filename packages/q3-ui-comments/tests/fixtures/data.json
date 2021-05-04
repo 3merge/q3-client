@@ -1,0 +1,70 @@
+[
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000a",
+      "firstName": "Rodi",
+      "lastName": "Moulding",
+      "photo": "https://robohash.org/quoquiquo.png?size=50x50&set=set1"
+    },
+    "message": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam magna tortor, venenatis id faucibus quis, semper ut odio. Vivamus vitae fermentum magna. Vivamus in venenatis eros. Duis id dui dapibus, lobortis dui a, imperdiet mauris. Suspendisse potenti. Integer viverra luctus mollis</p>",
+    "createdAt": "2020-09-26T05:17:43Z",
+    "id": "6091996efc13ae0355000016"
+  },
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000b",
+      "firstName": "Anya",
+      "lastName": "Jonah",
+      "photo": "https://robohash.org/etetquidem.png?size=50x50&set=set1"
+    },
+    "createdAt": "2021-05-01T12:45:09Z",
+    "id": "6091996efc13ae0355000017",
+    "message": "<p>Pellentesque viverra elit non neque ullamcorper iaculis. Aliquam pharetra diam ac gravida congue.</p>"
+  },
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000c",
+      "firstName": "Angie",
+      "lastName": "McFadyen",
+      "photo": "https://robohash.org/nemonisidolore.png?size=50x50&set=set1"
+    },
+    "createdAt": "2021-01-14T06:31:15Z",
+    "id": "6091996efc13ae0355000018",
+    "message": "<p>Aliquam faucibus</p>",
+    "replies": "6091996efc13ae0355000017"
+  },
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000e",
+      "firstName": "Christine",
+      "lastName": "Allom",
+      "photo": "https://robohash.org/itaqueomnisexplicabo.png?size=50x50&set=set1"
+    },
+    "createdAt": "2020-09-14T10:34:30Z",
+    "id": "6091996efc13ae0355000019",
+    "message": "<p> Curabitur dictum scelerisque felis at tincidunt</p>",
+    "replies": "6091996efc13ae0355000017"
+  },
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000e",
+      "firstName": "Christine",
+      "lastName": "Allom",
+      "photo": "https://robohash.org/itaqueomnisexplicabo.png?size=50x50&set=set1"
+    },
+    "createdAt": "2021-01-14T12:11:20Z",
+    "id": "6091996efc13ae035500001a",
+    "message": "<p><img src=\"https://images.unsplash.com/photo-1620125257048-8ae51f23a3f8?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60\" /></p>"
+  },
+  {
+    "createdBy": {
+      "id": "6091989dfc13ae035500000f",
+      "firstName": "Ivett",
+      "lastName": "Sleet",
+      "photo": "https://robohash.org/namdoloremsit.png?size=50x50&set=set1"
+    },
+    "createdAt": "2021-01-27T06:48:44Z",
+    "id": "6091996efc13ae035500001b",
+    "message": "<p>Testing</p>"
+  }
+]

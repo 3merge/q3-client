@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { map, filter, size } from 'lodash';
+import { map, filter, size, sortBy } from 'lodash';
 import Timeline from '@material-ui/lab/Timeline';
 import Confirm from 'q3-ui-confirm';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -13,9 +13,12 @@ import TimelineEntry from '../TimelineEntry';
 const doesNotHaveReplies = (xs) => !xs?.replies;
 const hasReplies = (id) => (xs) => xs?.replies === id;
 
+const descending = (xs) => sortBy(xs, 'createdAt');
+const ascending = (xs) => descending(xs).reverse();
+
 const sortData = (xs, asc) => {
   const data = filter(xs, doesNotHaveReplies);
-  return asc ? data.reverse() : data;
+  return asc ? ascending(data) : descending(data);
 };
 
 export default ({
@@ -73,7 +76,7 @@ export default ({
             {size(replies) > 0 && (
               <Box mt={1}>
                 <Timeline style={{ marginLeft: '-.4rem' }}>
-                  {map(replies.reverse(), (item) => (
+                  {map(ascending(replies), (item) => (
                     <TimelineEntry connector {...item}>
                       {renderDialogControls(item)}
                     </TimelineEntry>
