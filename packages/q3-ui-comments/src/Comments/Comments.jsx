@@ -67,7 +67,7 @@ const Comments = ({ collectionName, id }) => {
             >
               {ToggleRenderer}
             </Create>
-            ,{renderTimeline()}
+            {renderTimeline()}
           </>
         );
       }}

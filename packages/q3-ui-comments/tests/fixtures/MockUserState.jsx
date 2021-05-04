@@ -14,6 +14,23 @@ export default ({ children }) => (
           'photo':
             'https://robohash.org/itaqueomnisexplicabo.png?size=50x50&set=set1',
         },
+        permissions: [
+          {
+            coll: 'test',
+            op: 'Update',
+            fields: '*',
+          },
+          {
+            coll: 'test',
+            op: 'Delete',
+            fields: '*',
+          },
+          {
+            coll: 'test',
+            op: 'Read',
+            fields: '*',
+          },
+        ],
       },
     }}
   >

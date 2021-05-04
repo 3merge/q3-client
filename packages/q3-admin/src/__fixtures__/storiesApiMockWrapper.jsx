@@ -59,7 +59,6 @@ const StoriesApiMockWrapper = ({ children }) => {
     });
 
     m.onPost(/\/api-investors\/\d+\/uploads/).reply((v) => {
-      console.log(v);
       return [200, { uploads: [] }];
     });
 

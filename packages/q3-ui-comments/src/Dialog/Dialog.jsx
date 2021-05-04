@@ -34,7 +34,8 @@ const TimelineDialog = ({
 );
 
 TimelineDialog.propTypes = {
-  icon: PropTypes.element.isRequired,
+  // eslint-disable-next-line
+  icon: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { map, filter, size, sortBy } from 'lodash';
-import Timeline from '@material-ui/lab/Timeline';
+import MuiTimeline from '@material-ui/lab/Timeline';
 import Confirm from 'q3-ui-confirm';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
@@ -21,7 +22,16 @@ const sortData = (xs, asc) => {
   return asc ? ascending(data) : descending(data);
 };
 
-export default ({
+// eslint-disable-next-line
+export const NestedTimeline = ({ children }) => (
+  <Box mt={1}>
+    <MuiTimeline style={{ marginLeft: '-.4rem' }}>
+      {children}
+    </MuiTimeline>
+  </Box>
+);
+
+const Timeline = ({
   asc,
   data,
   remove,
@@ -31,62 +41,86 @@ export default ({
 }) => {
   const auth = React.useContext(AuthContext);
 
-  const renderDialogControls = (comment) => [
-    ...(comment?.createdBy?.id === auth?.state?.profile?.id
-      ? [
+  const renderDialogControls = (comment) => (
+    <>
+      {comment?.createdBy?.id ===
+        auth?.state?.profile?.id && (
+        <>
           <Confirm
             phrase="DELETE"
             service={remove(comment.id)}
             icon={DeleteOutlineIcon}
-          />,
+          />
           <Dialog
             label="edit"
             icon={EditIcon}
             initialValues={comment}
             onSubmit={patch(comment.id)}
             {...rest}
-          />,
-        ]
-      : []),
-    ...(!comment.replies
-      ? [
-          <Dialog
-            label="reply"
-            icon={ReplyIcon}
-            onSubmit={(args) =>
-              post({
-                ...args,
-                replies: comment.id,
-              })
-            }
-            {...rest}
-          />,
-        ]
-      : []),
-  ];
+          />
+        </>
+      )}
+      {!comment.replies && (
+        <Dialog
+          label="reply"
+          icon={ReplyIcon}
+          onSubmit={(args) =>
+            post({
+              ...args,
+              replies: comment.id,
+            })
+          }
+          {...rest}
+        />
+      )}
+    </>
+  );
 
   return (
-    <Timeline>
+    <MuiTimeline>
       {map(sortData(data, asc), (t) => {
         const replies = filter(data, hasReplies(t.id));
 
         return (
-          <TimelineEntry {...t}>
+          <TimelineEntry key={t.id} {...t}>
             {renderDialogControls(t)}
             {size(replies) > 0 && (
-              <Box mt={1}>
-                <Timeline style={{ marginLeft: '-.4rem' }}>
-                  {map(ascending(replies), (item) => (
-                    <TimelineEntry connector {...item}>
-                      {renderDialogControls(item)}
-                    </TimelineEntry>
-                  ))}
-                </Timeline>
-              </Box>
+              <NestedTimeline>
+                {map(ascending(replies), (item) => (
+                  <TimelineEntry
+                    key={item.id}
+                    connector
+                    {...item}
+                  >
+                    {renderDialogControls(item)}
+                  </TimelineEntry>
+                ))}
+              </NestedTimeline>
             )}
           </TimelineEntry>
         );
       })}
-    </Timeline>
+    </MuiTimeline>
   );
 };
+
+Timeline.defaultProps = {
+  asc: true,
+};
+
+Timeline.propTypes = {
+  asc: PropTypes.bool,
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      // eslint-disable-next-line
+      createdBy: PropTypes.object,
+      message: PropTypes.string,
+      id: PropTypes.string,
+    }),
+  ).isRequired,
+  remove: PropTypes.func.isRequired,
+  patch: PropTypes.func.isRequired,
+  post: PropTypes.func.isRequired,
+};
+
+export default Timeline;
