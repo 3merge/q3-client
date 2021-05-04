@@ -10,10 +10,12 @@ const Sort = ({ children }) => {
   const { state, toggle } = useToggle(true);
   const { t } = useTranslation('labels');
 
-  const renderLabel = (key, iconEl) => [
-    t('newestToOldest'),
-    iconEl,
-  ];
+  const renderLabel = (key, iconEl) => (
+    <>
+      {t(key)}
+      {iconEl}
+    </>
+  );
 
   return children(
     state,

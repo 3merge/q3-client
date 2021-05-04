@@ -97,5 +97,6 @@
   "clickOrDrop": "Click here or drop a file(s) to upload",
   "confirm": "To continue with this action, please type the phrase below. It must match exactly as displayed, including any use of capitalization.",
   "trackChanges": "To begin tracking changes, the system needs at least two versions of this document. Check back once more activity has been collected.",
-  "mediaUploadFailed": "Media failed to upload to the server. Please ensure that the file size is under 5mb and that it's a picture and not a document."
+  "mediaUploadFailed": "Media failed to upload to the server. Please ensure that the file size is under 5mb and that it's a picture and not a document.",
+  "loadingCommentsFailed": "Comments for this module failed to load."
 }

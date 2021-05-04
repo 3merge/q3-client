@@ -11,6 +11,7 @@ export default ({ children, onSubmit, ...rest }) => {
 
   return (
     <Dialog
+      title="comment"
       renderTrigger={(onClick) => (
         <Grid container spacing={1}>
           <Grid item xs={12}>

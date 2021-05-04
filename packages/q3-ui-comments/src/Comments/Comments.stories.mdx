@@ -1,0 +1,31 @@
+import {
+  Meta,
+  Story,
+  Preview,
+} from '@storybook/addon-docs/blocks';
+import {
+  Button,
+  Container,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Dialog,
+} from '@material-ui/core';
+import Comments from './Comments';
+import Fixture from '../../tests/fixtures';
+
+<Meta title="Comments" component={Comments} />
+
+<Preview>
+  <Story name="Loading">
+    <Fixture delay={10000}>
+      <Comments />
+    </Fixture>
+  </Story>
+  <Story name="Error">
+    <Fixture error>
+      <Comments />
+    </Fixture>
+  </Story>
+</Preview>
