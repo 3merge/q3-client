@@ -20,6 +20,8 @@
 <li>
 <a href="./packages/q3-ui-charts">📊 Charts Docs</a></li>
 <li>
+<a href="./packages/q3-ui-comments">🙊 Comments Docs</a></li>
+<li>
 <a href="./packages/q3-ui-filemanager">🗃️ File Manager Docs</a></li>
 <li>
 <a href="./packages/q3-ui-filemanager">⌨️ Form Docs</a></li>
