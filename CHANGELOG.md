@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.34.3](https://github.com/3merge/q/compare/v1.34.2...v1.34.3) (2021-05-05)
+
+
+### Bug Fixes
+
+* table headers ([a3130a2](https://github.com/3merge/q/commit/a3130a23c8086b3e41b5c1f7d851e285fd48df45))
+
+
+
+
+
 ## [1.34.2](https://github.com/3merge/q/compare/v1.34.1...v1.34.2) (2021-05-05)
 
 
