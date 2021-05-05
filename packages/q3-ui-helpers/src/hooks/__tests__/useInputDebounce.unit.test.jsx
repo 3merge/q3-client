@@ -28,11 +28,6 @@ const setup = async () => {
   return el.find(Input).props();
 };
 
-test('should return false as an initial value', async () => {
-  const res = await setup('hi');
-  expectFalse(res);
-});
-
 test('should debounce', async () => {
   ref.mockReturnValue({ current: true });
 
