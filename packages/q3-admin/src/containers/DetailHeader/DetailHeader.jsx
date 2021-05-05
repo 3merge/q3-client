@@ -38,6 +38,8 @@ export const DetailHeaderBackComponent = (props) => {
 
 const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
+  // eslint-disable-next-line
+  if (props.disable) return null;
 
   return (
     <Box my={{ xl: 0.75, lg: 0.75 }}>

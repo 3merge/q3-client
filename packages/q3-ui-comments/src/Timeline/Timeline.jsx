@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { map, filter, size, sortBy } from 'lodash';
+import {
+  isFunction,
+  map,
+  filter,
+  size,
+  sortBy,
+} from 'lodash';
 import MuiTimeline from '@material-ui/lab/Timeline';
 import Confirm from 'q3-ui-confirm';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
@@ -35,9 +41,13 @@ const Timeline = ({
   remove,
   patch,
   post,
+  insertNode,
   ...rest
 }) => {
   const auth = React.useContext(AuthContext);
+
+  const renderDynamic = (args) =>
+    isFunction(insertNode) ? insertNode(args) : null;
 
   const renderDialogControls = (comment) => (
     <>
@@ -85,6 +95,7 @@ const Timeline = ({
             {...t}
             actions={renderDialogControls(t)}
           >
+            {renderDynamic(t)}
             {size(replies) > 0 && (
               <NestedTimeline>
                 {map(ascending(replies), (item) => (
@@ -93,7 +104,9 @@ const Timeline = ({
                     key={item.id}
                     connector
                     {...item}
-                  />
+                  >
+                    {renderDynamic(item)}
+                  </TimelineEntry>
                 ))}
               </NestedTimeline>
             )}
@@ -106,6 +119,7 @@ const Timeline = ({
 
 Timeline.defaultProps = {
   asc: true,
+  insertNode: null,
 };
 
 Timeline.propTypes = {
@@ -121,6 +135,7 @@ Timeline.propTypes = {
   remove: PropTypes.func.isRequired,
   patch: PropTypes.func.isRequired,
   post: PropTypes.func.isRequired,
+  insertNode: PropTypes.func,
 };
 
 export default Timeline;

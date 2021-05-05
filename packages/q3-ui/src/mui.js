@@ -25,7 +25,6 @@ export default (type) => {
     palette: {
       type,
       background: {
-        default: 'var(--background-default)',
         muted: 'var(--background-muted)',
       },
       primary: {
@@ -105,12 +104,10 @@ export default (type) => {
           ':root':
             theme.palette.type === 'dark'
               ? {
-                  '--background-default': '#303030',
                   '--background-muted': '#232323',
                   '--color-default': '#fff',
                 }
               : {
-                  '--background-default': '#f3f3f3',
                   '--background-muted':
                     'rgba(30, 20, 52, 0.08)',
                   '--color-default': 'rgba(0, 0, 0, 0.87)',

@@ -72,12 +72,14 @@ const Comments = (props) => {
 
 Comments.defaultProps = {
   additionalFields: null,
+  insertNode: null,
 };
 
 Comments.propTypes = {
   additionalFields: PropTypes.node,
   collectionName: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  insertNode: PropTypes.func,
 };
 
 export default Comments;

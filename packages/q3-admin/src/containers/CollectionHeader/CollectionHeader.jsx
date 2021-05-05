@@ -14,7 +14,7 @@ const CollectionHeader = ({
   ...rest
 }) => {
   const cls = useStyles();
-  const { t } = useTranslation('titles');
+  const { t } = useTranslation('labels');
 
   return (
     <Paper elevation={2} className={cls.root}>

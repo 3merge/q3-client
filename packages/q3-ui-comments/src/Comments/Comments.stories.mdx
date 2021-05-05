@@ -29,7 +29,10 @@ import Fixture from '../../tests/fixtures';
   </Story>
   <Story name="Additional fields">
     <Fixture>
-      <Comments additionalFields={<div>Fields</div>} />
+      <Comments
+        additionalFields={<div>Fields</div>}
+        insertNode={() => 'ADD STUFF'}
+      />
     </Fixture>
   </Story>
 </Preview>

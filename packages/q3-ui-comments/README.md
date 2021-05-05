@@ -12,3 +12,4 @@ collection and ID!
 | `collectionName`   | The API collection (URL root).                                                         | `string*` |
 | `id`               | The parent ID, used with the collection name to fetch initial comments and post photos | `string*` |
 | `additionalFields` | React nodes forwarded into the Dialog forms                                            | `node`    |
+| `insertNode`       | Rendering function for dynamic content in each entry                                   | `func`    |
