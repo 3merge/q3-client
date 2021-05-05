@@ -9,7 +9,7 @@ import CollectionHeader from '../CollectionHeader';
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
 
-const Collection = ({
+export const Collection = ({
   children,
   collectionName,
   resourceName,
