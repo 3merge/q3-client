@@ -12,7 +12,7 @@ export default makeStyles(() => ({
   title: {
     whiteSpace: 'nowrap',
     fontWeight: 'bold',
-    margin: '0 3rem 0 0',
+    margin: '0 3rem 0 0 !important',
     fontSize: '1.33rem',
     lineHeight: 1,
     minWidth: 'calc(320px - 4.5rem)',
