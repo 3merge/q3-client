@@ -16,6 +16,7 @@ const Collection = ({
   resourceNameSingular,
   id,
   location,
+  disableHeader,
   segments,
   options,
   ...rest
@@ -37,11 +38,13 @@ const Collection = ({
       }}
     >
       <CollectionConfig options={options}>
-        <CollectionHeader
-          {...rest}
-          collectionName={collectionName}
-          id={id}
-        />
+        {!disableHeader && (
+          <CollectionHeader
+            {...rest}
+            collectionName={collectionName}
+            id={id}
+          />
+        )}
         {children}
       </CollectionConfig>
     </Definitions.Provider>
@@ -49,6 +52,8 @@ const Collection = ({
 };
 
 Collection.propTypes = {
+  disableHeader: PropTypes.bool,
+
   /**
    * The page internals.
    */
@@ -86,6 +91,7 @@ Collection.propTypes = {
 };
 
 Collection.defaultProps = {
+  disableHeader: false,
   id: null,
 };
 

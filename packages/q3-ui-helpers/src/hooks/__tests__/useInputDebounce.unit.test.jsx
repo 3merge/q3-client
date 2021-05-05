@@ -1,42 +1,19 @@
 import React from 'react';
-import { asyncMount } from 'q3-ui-test-utils/lib/enzymeUtils';
 import useInputDebounce from '../useInputDebounce';
 
-const ref = jest.spyOn(React, 'useRef');
-
-jest.useFakeTimers();
-
-beforeEach(() => {
-  jest.clearAllTimers();
-  jest.clearAllMocks();
-});
-
-const Input = () => <div />;
-
-const expectFalse = (res) =>
-  expect(res).toHaveProperty('shouldRun', false);
-
-const TestComponent = (input) => {
-  const shouldRun = useInputDebounce(input);
-  jest.clearAllTimers();
-
-  return <Input shouldRun={shouldRun} />;
-};
-
-const setup = async () => {
-  const el = await asyncMount(<TestComponent />);
-  return el.find(Input).props();
-};
-
 test('should debounce', async () => {
-  ref.mockReturnValue({ current: true });
+  const setState = jest.fn();
 
-  const res = await setup('hi');
+  jest
+    .spyOn(React, 'useEffect')
+    .mockImplementation((fn) => fn());
 
-  expectFalse(res);
-  expect(setTimeout).toHaveBeenCalledTimes(1);
-  expect(setTimeout).toHaveBeenLastCalledWith(
-    expect.any(Function),
-    550,
-  );
+  jest
+    .spyOn(React, 'useState')
+    .mockReturnValue([false, setState]);
+
+  useInputDebounce('hi');
+  setTimeout(() => {
+    expect(setState).toHaveBeenCalledTimes(1);
+  }, 750);
 });
