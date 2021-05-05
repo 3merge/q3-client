@@ -18,17 +18,22 @@ export default ({ children }) => (
           {
             coll: 'test',
             op: 'Update',
-            fields: '*',
+            fields: ['comments*'],
+          },
+          {
+            coll: 'test',
+            op: 'Create',
+            fields: ['comments*'],
           },
           {
             coll: 'test',
             op: 'Delete',
-            fields: '*',
+            fields: ['comments*'],
           },
           {
             coll: 'test',
             op: 'Read',
-            fields: '*',
+            fields: ['*'],
           },
         ],
       },

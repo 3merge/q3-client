@@ -13,7 +13,7 @@ import Confirm from 'q3-ui-confirm';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import ReplyIcon from '@material-ui/icons/Reply';
-import { AuthContext } from 'q3-ui-permissions';
+import { useAuth } from 'q3-ui-permissions';
 import Dialog from '../Dialog';
 import TimelineEntry from '../TimelineEntry';
 
@@ -44,28 +44,34 @@ const Timeline = ({
   insertNode,
   ...rest
 }) => {
-  const auth = React.useContext(AuthContext);
+  const { collectionName } = rest;
+  const auth = useAuth(collectionName);
+  const { HideByField } = auth;
 
   const renderDynamic = (args) =>
-    isFunction(insertNode) ? insertNode(args) : null;
+    isFunction(insertNode) ? insertNode(args, data) : null;
 
   const renderDialogControls = (comment) => (
     <>
       {comment?.createdBy?.id ===
         auth?.state?.profile?.id && (
         <>
-          <Confirm
-            phrase="DELETE"
-            service={remove(comment.id)}
-            icon={DeleteOutlineIcon}
-          />
-          <Dialog
-            label="edit"
-            icon={EditIcon}
-            initialValues={comment}
-            onSubmit={patch(comment.id)}
-            {...rest}
-          />
+          <HideByField path="comments" op="Delete">
+            <Confirm
+              phrase="DELETE"
+              service={remove(comment.id)}
+              icon={DeleteOutlineIcon}
+            />
+          </HideByField>
+          <HideByField path="comments" op="Update">
+            <Dialog
+              label="edit"
+              icon={EditIcon}
+              initialValues={comment}
+              onSubmit={patch(comment.id)}
+              {...rest}
+            />
+          </HideByField>
         </>
       )}
       {!comment.replies && (

@@ -106,6 +106,7 @@ export default (ctx) => (coll) => {
   const create = getOp('Create');
 
   return {
+    ...a,
     canSee: isDefined(read),
     canDelete: isDefined(del),
     canCreate: isDefined(create),

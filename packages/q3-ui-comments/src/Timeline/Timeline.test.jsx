@@ -62,6 +62,13 @@ describe('Timeline', () => {
             value={{
               state: {
                 profile: createdBy,
+                permissions: [
+                  {
+                    coll: 'test',
+                    fields: ['comments*'],
+                    op: 'Delete',
+                  },
+                ],
               },
             }}
           >

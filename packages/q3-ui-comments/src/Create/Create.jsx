@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Grid } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
 import Dialog from 'q3-ui-dialog';
-import { AuthContext } from 'q3-ui-permissions';
+import { useAuth } from 'q3-ui-permissions';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../Avatar';
 import FieldMessage from '../FieldMessage';
@@ -18,13 +18,16 @@ export const clearHtml = () => {
   }
 };
 
+// AUTH HERE
 const Create = ({
   additionalFields,
   children,
   onSubmit,
   ...rest
 }) => {
-  const auth = React.useContext(AuthContext);
+  const { collectionName } = rest;
+  const auth = useAuth(collectionName);
+  const { HideByField } = auth;
   const { t } = useTranslation('labels');
 
   return (
@@ -35,23 +38,25 @@ const Create = ({
           <Grid item xs={12}>
             {children}
           </Grid>
-          <Grid item>
-            <Avatar {...auth?.state?.profile} />
-          </Grid>
-          <Grid item xs>
-            <Button
-              disableRipple
-              onClick={onClick}
-              variant="outlined"
-              fullWidth
-              style={{
-                justifyContent: 'flex-start',
-                paddingBottom: '2rem',
-              }}
-            >
-              {t('leaveAComment')}
-            </Button>
-          </Grid>
+          <HideByField op="Create" path="comments">
+            <Grid item>
+              <Avatar {...auth?.state?.profile} />
+            </Grid>
+            <Grid item xs>
+              <Button
+                disableRipple
+                onClick={onClick}
+                variant="outlined"
+                fullWidth
+                style={{
+                  justifyContent: 'flex-start',
+                  paddingBottom: '2rem',
+                }}
+              >
+                {t('leaveAComment')}
+              </Button>
+            </Grid>
+          </HideByField>
         </Grid>
       )}
       renderContent={(close) => (

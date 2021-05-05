@@ -31,7 +31,10 @@ import Fixture from '../../tests/fixtures';
     <Fixture>
       <Comments
         additionalFields={<div>Fields</div>}
-        insertNode={() => 'ADD STUFF'}
+        insertNode={(a, b) => {
+          console.log(a, b);
+          return 'ADD STUFF';
+        }}
       />
     </Fixture>
   </Story>
