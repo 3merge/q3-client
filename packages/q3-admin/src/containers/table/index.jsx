@@ -66,15 +66,7 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const List = ({
-  addComponent,
-  HeaderProps,
-  disableLink,
-  disableSearch,
-  searchComponent,
-  io,
-  ...rest
-}) => {
+const List = ({ disableLink, io, ...rest }) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
 

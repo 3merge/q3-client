@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Typography, Paper } from '@material-ui/core';
-import AppsIcon from '@material-ui/icons/Apps';
 import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
 import CollectionConfig from '../CollectionConfig';
-import Search from '../../components/Search';
-import CollectionActions from '../CollectionActions';
-import Back from '../back';
+import CollectionHeader from '../CollectionHeader';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -41,43 +37,11 @@ const Collection = ({
       }}
     >
       <CollectionConfig options={options}>
-        <Paper
-          elevation={2}
-          style={{
-            zIndex: 2,
-            position: 'relative',
-            border: '1px solid var(--background-muted)',
-            backgroundColor: 'var(--background-default)',
-            boxSizing: 'border-box',
-            height: 65,
-          }}
-        >
-          <Box
-            display="flex"
-            alignItems="center"
-            px={2}
-            style={{ height: '100%' }}
-            py={0.5}
-          >
-            <Typography
-              color="inherit"
-              component="h1"
-              style={{
-                whiteSpace: 'nowrap',
-                fontWeight: 'bold',
-                margin: '0 3rem 0 0',
-                fontSize: '1.33rem',
-                lineHeight: 1,
-                minWidth: 'calc(320px - 4.5rem)',
-              }}
-            >
-              {id && <Back />}
-              {collectionName}
-            </Typography>
-            <Search />
-            <CollectionActions {...rest} />
-          </Box>
-        </Paper>
+        <CollectionHeader
+          {...rest}
+          collectionName={collectionName}
+          id={id}
+        />
         {children}
       </CollectionConfig>
     </Definitions.Provider>

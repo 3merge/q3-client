@@ -61,10 +61,8 @@ export default class Collection {
     return this;
   }
 
-  genNew(component, onNew) {
-    this.$generateList.addComponent = component;
+  genNew(component) {
     this.$generateListProps.addComponent = component;
-    this.$generateList.onNew = onNew;
     return this;
   }
 

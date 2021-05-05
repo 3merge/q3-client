@@ -1,15 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Fade, Box } from '@material-ui/core';
 import TableIo from '../TableIo';
 import { Store } from '../state';
 import Add from '../add';
 import { useAppContext } from '../../hooks';
 
-const List = ({ addComponent: AddForm, io }) => {
-  const tableProps = React.useContext(Store);
-
+const CollectionActions = ({
+  addComponent: AddForm,
+  io,
+}) => {
   const { can } = useAppContext({
-    io: <TableIo io={io} data={tableProps.data} />,
+    io: (
+      <TableIo
+        data={React.useContext(Store).data}
+        io={io}
+      />
+    ),
     add: AddForm ? (
       <Add>
         <AddForm />
@@ -27,8 +34,17 @@ const List = ({ addComponent: AddForm, io }) => {
   );
 };
 
-List.propTypes = {};
+CollectionActions.defaultProps = {
+  addComponent: null,
+  io: null,
+};
 
-List.defaultProps = {};
+CollectionActions.propTypes = {
+  addComponent: PropTypes.node,
+  io: PropTypes.shape({
+    exports: PropTypes.arrayOf(PropTypes.string),
+    imports: PropTypes.arrayOf(PropTypes.string),
+  }),
+};
 
-export default List;
+export default CollectionActions;

@@ -16,9 +16,9 @@ export const getTime = (xs) => {
   if (!d.isValid()) return '';
 
   const diff = moment().diff(d, 'minutes');
-  if (diff < 60) return `+${diff}min.`;
-  if (diff < 1440) return `+${Math.floor(diff / 60)}hr.`;
-  if (diff < 4320) return `+${Math.floor(diff / 1440)}d.`;
+  if (diff < 60) return `${diff}min`;
+  if (diff < 1440) return `${Math.floor(diff / 60)}hr`;
+  if (diff < 4320) return `${Math.floor(diff / 1440)}d`;
   return string.toDate(d);
 };
 
