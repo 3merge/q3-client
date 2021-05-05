@@ -85,7 +85,7 @@ const SidePanel = ({ id, children }) => {
             <Box
               color="primary.contrastText"
               position="absolute"
-              top="-65px"
+              top="-130px"
               right="141px"
               display="flex"
               alignItems="center"

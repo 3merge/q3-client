@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
@@ -9,11 +8,9 @@ import { get, isObject } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
-import TableIo from '../TableIo';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
-import TableHeader from '../TableHeader';
-import { useAppContext, useRefresh } from '../../hooks';
+import { useRefresh } from '../../hooks';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -81,11 +78,6 @@ const List = ({
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
 
-  const { can } = useAppContext({
-    io: <TableIo io={io} data={tableProps.data} />,
-    add: addComponent,
-  });
-
   const {
     collectionName,
     location,
@@ -131,18 +123,6 @@ const List = ({
       onSort={updateSortPrefence}
       style={{ height: '100%' }}
     >
-      <TableHeader>
-        <Grid
-          alignItems="center"
-          justify="flex-end"
-          container
-        >
-          <Grid item> {searchComponent}</Grid>
-          <Grid item>{can('io')}</Grid>
-          <Grid item>{can('add')}</Grid>
-        </Grid>
-      </TableHeader>
-
       <Box py={0.5}>
         <FilterChip />
       </Box>

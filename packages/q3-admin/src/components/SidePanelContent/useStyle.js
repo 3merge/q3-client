@@ -5,6 +5,7 @@ export default makeStyles(() => ({
     borderRadius: 5,
     textOverflow: 'ellipsis',
     position: 'relative',
+    color: 'var(--color-default)',
   },
   subtext: {
     fontSize: '1rem',

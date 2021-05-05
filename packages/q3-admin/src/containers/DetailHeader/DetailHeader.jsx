@@ -1,7 +1,6 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
 import Box from '@material-ui/core/Box';
-import Back from '../back';
 import Header from '../../components/Header';
 import { useAppContext } from '../../hooks';
 import { useTitle } from '../../hooks';
@@ -16,7 +15,6 @@ export const DetailHeaderBackComponent = (props) => {
 
   return (
     <>
-      <Back />
       {can('picture') ? (
         <>
           <FeaturedPhoto

@@ -23,6 +23,7 @@ export const getTime = (xs) => {
 };
 
 const TimelineEntry = ({
+  actions,
   connector,
   createdAt,
   createdBy,
@@ -49,10 +50,17 @@ const TimelineEntry = ({
       </TimelineSeparator>
       <TimelineContent>
         <Box mb={1}>
-          <Typography className={cls.title}>
-            <strong>{makeName(createdBy)}</strong>
-            <small>{getTime(createdAt)}</small>
-          </Typography>
+          <Box
+            alignItems="center"
+            display="flex"
+            className={cls.wrap}
+          >
+            <Typography className={cls.title}>
+              <strong>{makeName(createdBy)}</strong>
+              <small>{getTime(createdAt)}</small>
+            </Typography>
+            <Box>{actions}</Box>
+          </Box>
           {message && (
             <div
               className={cls.rich}
@@ -70,6 +78,7 @@ const TimelineEntry = ({
 };
 
 TimelineEntry.defaultProps = {
+  actions: null,
   connector: false,
   createdAt: undefined,
   createdBy: null,
@@ -78,6 +87,7 @@ TimelineEntry.defaultProps = {
 };
 
 TimelineEntry.propTypes = {
+  actions: PropTypes.node,
   connector: PropTypes.bool,
   createdAt: PropTypes.string,
   createdBy: PropTypes.shape({

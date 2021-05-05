@@ -6,6 +6,7 @@ import Dialog from 'q3-ui-dialog';
 import FieldMessage from '../FieldMessage';
 
 const TimelineDialog = ({
+  additionalFields,
   icon: Icon,
   label,
   onSubmit,
@@ -28,12 +29,18 @@ const TimelineDialog = ({
         }
       >
         <FieldMessage {...rest} />
+        {additionalFields}
       </Builders.Form>
     )}
   />
 );
 
+TimelineDialog.defaultProps = {
+  additionalFields: null,
+};
+
 TimelineDialog.propTypes = {
+  additionalFields: PropTypes.node,
   // eslint-disable-next-line
   icon: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,

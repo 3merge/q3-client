@@ -8,7 +8,8 @@ import Create from '../Create';
 import Sort from '../Sort';
 import Timeline from '../Timeline';
 
-const Comments = ({ collectionName, id }) => {
+const Comments = (props) => {
+  const { collectionName, id } = props;
   const { t } = useTranslation();
 
   const {
@@ -47,24 +48,18 @@ const Comments = ({ collectionName, id }) => {
 
           return (
             <Timeline
+              {...props}
               {...rest}
               post={post}
               data={comments}
               asc={state}
-              collectionName={collectionName}
-              id={id}
             />
           );
         };
 
         return (
           <>
-            <Create
-              key="create"
-              onSubmit={post}
-              collectionName={collectionName}
-              id={id}
-            >
+            <Create key="create" onSubmit={post} {...props}>
               {ToggleRenderer}
             </Create>
             {renderTimeline()}
@@ -75,7 +70,12 @@ const Comments = ({ collectionName, id }) => {
   );
 };
 
+Comments.defaultProps = {
+  additionalFields: null,
+};
+
 Comments.propTypes = {
+  additionalFields: PropTypes.node,
   collectionName: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };

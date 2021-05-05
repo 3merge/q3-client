@@ -25,9 +25,7 @@ const sortData = (xs, asc) => {
 // eslint-disable-next-line
 export const NestedTimeline = ({ children }) => (
   <Box mt={1}>
-    <MuiTimeline style={{ marginLeft: '-.4rem' }}>
-      {children}
-    </MuiTimeline>
+    <MuiTimeline>{children}</MuiTimeline>
   </Box>
 );
 
@@ -82,18 +80,20 @@ const Timeline = ({
         const replies = filter(data, hasReplies(t.id));
 
         return (
-          <TimelineEntry key={t.id} {...t}>
-            {renderDialogControls(t)}
+          <TimelineEntry
+            key={t.id}
+            {...t}
+            actions={renderDialogControls(t)}
+          >
             {size(replies) > 0 && (
               <NestedTimeline>
                 {map(ascending(replies), (item) => (
                   <TimelineEntry
+                    actions={renderDialogControls(item)}
                     key={item.id}
                     connector
                     {...item}
-                  >
-                    {renderDialogControls(item)}
-                  </TimelineEntry>
+                  />
                 ))}
               </NestedTimeline>
             )}

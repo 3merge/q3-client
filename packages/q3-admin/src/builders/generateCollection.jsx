@@ -7,7 +7,6 @@ import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
 import UnsavedChanges from '../containers/UnsavedChanges';
-import Search from '../components/Search';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import TableSkeleton from '../components/TableSkeleton';
@@ -68,7 +67,7 @@ export default ({
                   display="flex"
                   position="absolute"
                   right="142px"
-                  top="-65px"
+                  top="-130px"
                   zIndex={1200}
                   height="65px"
                 >
@@ -102,7 +101,7 @@ export default ({
       });
 
       return (
-        <Collection index {...props}>
+        <Collection index {...PageListProps} {...props}>
           <Article asideComponent={can('filter')}>
             <Page
               index
@@ -110,11 +109,7 @@ export default ({
               {...PageListProps}
               loadingComponent={<TableSkeleton />}
             >
-              <PageList
-                searchComponent={
-                  <Search {...PageDetailProps} />
-                }
-              />
+              <PageList />
             </Page>
           </Article>
         </Collection>
