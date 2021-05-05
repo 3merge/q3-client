@@ -15,7 +15,7 @@ export default makeStyles((theme) => {
   return {
     view: {
       backgroundColor,
-      position: 'relative',
+      // position: 'relative',
       margin: '0 auto',
       maxWidth: '100%',
       width: hasAside('100%', 1440),

@@ -25,6 +25,7 @@ export default (type) => {
     palette: {
       type,
       background: {
+        default: type === 'light' ? '#f4f4f4' : '#303030',
         muted: 'var(--background-muted)',
       },
       primary: {

@@ -5,11 +5,13 @@ import TableIo from '../TableIo';
 import { Store } from '../state';
 import Add from '../add';
 import { useAppContext } from '../../hooks';
+import useStyles from './styles';
 
 const CollectionActions = ({
   addComponent: AddForm,
   io,
 }) => {
+  const cls = useStyles();
   const { can } = useAppContext({
     io: (
       <TableIo
@@ -26,7 +28,16 @@ const CollectionActions = ({
 
   return (
     <Fade in timeout={750}>
-      <Box display="flex" whiteSpace="nowrap">
+      <Box
+        className={cls.root}
+        alignItems="center"
+        display="flex"
+        whiteSpace="nowrap"
+        position="absolute"
+        top={-65}
+        height={65}
+        zIndex={2}
+      >
         {can('io')}
         {can('add')}
       </Box>

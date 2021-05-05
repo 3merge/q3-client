@@ -62,10 +62,10 @@ export const Search = () => {
 
   return (
     <Box id="q3-searchbar" width="100%">
-      <Hidden mdDown>
+      <Hidden smDown>
         <SearchFullWidth {...textFieldProps} />
       </Hidden>
-      <Hidden lgUp>
+      <Hidden mdUp>
         <SearchMobile {...textFieldProps} />
       </Hidden>
     </Box>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box, Typography, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Search from '../../components/Search';
-import CollectionActions from '../CollectionActions';
 import Back from '../back';
 import useStyles from './styles';
 
@@ -11,13 +10,12 @@ const CollectionHeader = ({
   collectionName,
   disableSearch,
   id,
-  ...rest
 }) => {
   const cls = useStyles();
   const { t } = useTranslation('labels');
 
   return (
-    <Paper elevation={2} className={cls.root}>
+    <Paper className={cls.root}>
       <Box
         display="flex"
         alignItems="center"
@@ -34,7 +32,6 @@ const CollectionHeader = ({
           {t(collectionName)}
         </Typography>
         {!disableSearch && <Search />}
-        <CollectionActions {...rest} />
       </Box>
     </Paper>
   );

@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { getActions } from './utils';
 import { useRefresh } from '../../hooks';
+import TableActions from '../TableActions';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -115,6 +116,7 @@ const List = ({ disableLink, io, ...rest }) => {
       onSort={updateSortPrefence}
       style={{ height: '100%' }}
     >
+      <TableActions io={io} {...rest} />
       <Box py={0.5}>
         <FilterChip />
       </Box>

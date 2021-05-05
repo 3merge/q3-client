@@ -12,7 +12,6 @@ import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
 import withSorting from './withSorting';
 import withActiveFilter from './withActiveFilter';
-import { useRefresh } from '../../hooks';
 
 const PageChildren = ({
   children,

@@ -2,18 +2,13 @@ import React from 'react';
 
 const useInputDebounce = (input) => {
   const [shouldRun, setShouldRun] = React.useState(false);
-  const ref = React.useRef(false);
 
   React.useEffect(() => {
-    let timer;
+    if (!input) return undefined;
 
-    if (ref.current) {
-      timer = setTimeout(() => {
-        return setShouldRun(true);
-      }, 550);
-    }
-
-    ref.current = input;
+    const timer = setTimeout(() => {
+      return setShouldRun(true);
+    }, 550);
 
     return () => {
       clearTimeout(timer);

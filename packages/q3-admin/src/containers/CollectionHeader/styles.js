@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
     boxSizing: 'border-box',
     height: 65,
+    borderRadius: 0,
   },
   title: {
     whiteSpace: 'nowrap',
