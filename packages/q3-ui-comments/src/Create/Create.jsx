@@ -18,7 +18,12 @@ export const clearHtml = () => {
   }
 };
 
-const Create = ({ children, onSubmit, ...rest }) => {
+const Create = ({
+  additionalFields,
+  children,
+  onSubmit,
+  ...rest
+}) => {
   const auth = React.useContext(AuthContext);
   const { t } = useTranslation('labels');
 
@@ -61,6 +66,7 @@ const Create = ({ children, onSubmit, ...rest }) => {
           }
         >
           <FieldMessage {...rest} />
+          {additionalFields}
         </Builders.Form>
       )}
     />
@@ -68,10 +74,12 @@ const Create = ({ children, onSubmit, ...rest }) => {
 };
 
 Create.defaultProps = {
+  additionalFields: null,
   children: null,
 };
 
 Create.propTypes = {
+  additionalFields: PropTypes.node,
   children: PropTypes.node,
   onSubmit: PropTypes.func.isRequired,
 };

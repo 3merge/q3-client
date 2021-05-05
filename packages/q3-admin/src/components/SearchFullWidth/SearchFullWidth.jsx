@@ -11,15 +11,23 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    borderRadius: 2,
+    borderRadius: 4,
     boxSizing: 'border-box',
-    padding: theme.spacing(1),
-    minWidth: 550,
-    width: '100%',
+    padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
+    width: 550,
+    maxWidth: '100%',
+    transition: 'box-shadow 250ms',
 
     '&:focus-within': {
       'outline-style': 'auto',
       'outline-width': 'medium',
+      boxShadow: theme.shadows[1],
+      backgroundColor: theme.palette.background.paper,
+    },
+
+    '&:hover': {
+      boxShadow: theme.shadows[1],
+      backgroundColor: theme.palette.background.paper,
     },
 
     '& input': {

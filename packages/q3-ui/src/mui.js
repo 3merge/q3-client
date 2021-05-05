@@ -25,10 +25,11 @@ export default (type) => {
     palette: {
       type,
       background: {
+        default: 'var(--background-default)',
         muted: 'var(--background-muted)',
       },
       primary: {
-        main: '#333',
+        main: '#2b2b2b',
         dark: '#1F1F1F',
         light: '#C2C2C2',
       },
@@ -104,13 +105,15 @@ export default (type) => {
           ':root':
             theme.palette.type === 'dark'
               ? {
+                  '--background-default': '#303030',
                   '--background-muted': '#232323',
                   '--color-default': '#fff',
                 }
               : {
+                  '--background-default': '#f3f3f3',
                   '--background-muted':
                     'rgba(30, 20, 52, 0.08)',
-                  '--color-default': '#4f5868',
+                  '--color-default': 'rgba(0, 0, 0, 0.87)',
                 },
           body: {
             backgroundColor:

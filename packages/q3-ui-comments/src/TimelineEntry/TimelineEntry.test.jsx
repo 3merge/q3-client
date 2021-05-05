@@ -4,9 +4,9 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineEntry, { getTime } from './TimelineEntry';
 
 test.each([
-  [moment().subtract(2, 'minute'), '+2min.'],
-  [moment().subtract(1, 'hour'), '+1hr.'],
-  [moment().subtract(49, 'hour'), '+2d.'],
+  [moment().subtract(2, 'minute'), '2min'],
+  [moment().subtract(1, 'hour'), '1hr'],
+  [moment().subtract(49, 'hour'), '2d'],
 ])('.getTime(%s)', (a, expected) => {
   expect(getTime(a)).toMatch(expected);
 });
