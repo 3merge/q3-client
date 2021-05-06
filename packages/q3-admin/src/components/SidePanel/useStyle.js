@@ -41,7 +41,7 @@ export default makeStyles((theme) => ({
     zIndex: 100,
     top: 0,
     bottom: 0,
-    right: '-.75rem',
+    right: '-1.25rem',
     position: 'absolute',
     width: '1.5rem',
     opacity: state ? 0 : 1,

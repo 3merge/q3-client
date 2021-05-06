@@ -123,17 +123,17 @@ export default (type) => {
             color,
 
             '& *::-webkit-scrollbar': {
-              height: 8,
-              width: 8,
+              height: 11,
+              width: 11,
             },
 
             '& *::-webkit-scrollbar-track': {
-              background: theme.palette.background.paper,
+              background: 'transparent',
             },
 
             '& *::-webkit-scrollbar-thumb': {
               background: 'rgba(0,0,0,0.1)',
-              borderRadius: 15,
+              // borderRadius: 15,
             },
 
             '& *::-webkit-scrollbar-thumb:hover': {

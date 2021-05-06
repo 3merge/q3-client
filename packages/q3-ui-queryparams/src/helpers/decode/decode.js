@@ -27,19 +27,26 @@ export default (v) => {
         // noop
       }
 
-      if (typeof value === 'string') value = clean(value);
-      if (value === undefined) value = true;
+      try {
+        if (typeof value === 'string') value = clean(value);
+        if (value === undefined) value = true;
 
-      value = decodeURIComponent(String(value));
+        value = decodeURIComponent(String(value));
 
-      if (value.includes(','))
-        value = value.match(/(".*?"|[^",]+)/g).map(unquote);
+        if (value.includes(','))
+          value = value
+            .match(/(".*?"|[^",]+)/g)
+            .map(unquote);
 
-      acc[
-        decodeURIComponent(key).replace(/\./g, '~')
-      ] = Array.isArray(value)
-        ? value.map(ensureBoolean).map(ensureNumber)
-        : ensureNumber(ensureBoolean(unquote(value)));
+        acc[
+          decodeURIComponent(key).replace(/\./g, '~')
+        ] = Array.isArray(value)
+          ? value.map(ensureBoolean).map(ensureNumber)
+          : ensureNumber(ensureBoolean(unquote(value)));
+      } catch (e) {
+        // noop
+        // protect against malformed URI errors
+      }
 
       return acc;
     }, {});

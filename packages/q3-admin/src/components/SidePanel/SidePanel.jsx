@@ -64,6 +64,7 @@ const SidePanel = ({ id, children }) => {
           </Box>
           <Box className={cls.root}>
             <Grid
+              style={{ overflowX: 'hidden' }}
               className={globalStyle.fillViewportHeight}
               item
             >
