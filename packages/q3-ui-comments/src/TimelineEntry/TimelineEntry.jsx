@@ -19,7 +19,7 @@ export const getTime = (xs) => {
   if (diff < 60) return `${diff}min`;
   if (diff < 1440) return `${Math.floor(diff / 60)}hr`;
   if (diff < 4320) return `${Math.floor(diff / 1440)}d`;
-  return string.toDate(d);
+  return '';
 };
 
 const TimelineEntry = ({
@@ -57,7 +57,7 @@ const TimelineEntry = ({
           >
             <Typography className={cls.title}>
               <strong>{makeName(createdBy)}</strong>
-              <small>{getTime(createdAt)}</small>
+              <small>{string.toDate(createdAt)}</small>
             </Typography>
             <Box>{actions}</Box>
           </Box>
