@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.34.7](https://github.com/3merge/q/compare/v1.34.6...v1.34.7) (2021-05-07)
+
+
+### Bug Fixes
+
+* search and debounce ([05a71fe](https://github.com/3merge/q/commit/05a71fed15573e771a601a3d0bff05fed81515a6))
+
+
+
+
+
 ## [1.34.4](https://github.com/3merge/q/compare/v1.34.3...v1.34.4) (2021-05-05)
 
 
