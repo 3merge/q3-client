@@ -40,6 +40,11 @@ const ModuleImage = React.forwardRef(
           return (
             <Files
               maxSize="5mb"
+              accept={[
+                'image/png',
+                'image/jpg',
+                'image/jpeg',
+              ]}
               onError={handleError}
               onSuccess={(data) =>
                 upload(first(data))

@@ -1,3 +1,4 @@
+import { string } from 'q3-ui-helpers';
 import getOptions from './getOptions';
 
 export default getOptions;
@@ -5,7 +6,7 @@ export default getOptions;
 const wrapAutoComplete = (char) => (...args) => (e) => {
   const [url, ...rest] = args;
   return getOptions(
-    `${url}${e ? `${char}search=${e}` : ''}`,
+    `${url}${e ? `${char}search=${string.encode(e)}` : ''}`,
     ...rest,
   );
 };

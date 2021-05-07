@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from '@reach/router';
 import { Box, Hidden } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useValue } from 'useful-state';
+import { string } from 'q3-ui-helpers';
 import SearchFullWidth from '../SearchFullWidth';
 import SearchMobile from '../SearchMobile';
 import { Definitions } from '../../containers/state';
@@ -39,7 +40,7 @@ export const Search = () => {
 
     navigate(
       val
-        ? `${directoryPath}?search=${val}`
+        ? `${directoryPath}?search=${string.encode(val)}`
         : directoryPath,
     );
   };

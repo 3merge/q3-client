@@ -75,3 +75,11 @@ export const ellipsis = (str = '', len = 35) =>
 
 export const toUpper = (v) =>
   typeof v === 'string' ? v.toUpperCase() : '';
+
+export const encode = (xs) => {
+  try {
+    return encodeURIComponent(xs);
+  } catch (e) {
+    return xs;
+  }
+};

@@ -9,10 +9,21 @@ test('should debounce', async () => {
     .mockImplementation((fn) => fn());
 
   jest
+    .spyOn(React, 'useRef')
+    .mockReturnValueOnce({
+      current: false,
+    })
+    .mockReturnValueOnce({
+      current: true,
+    });
+
+  jest
     .spyOn(React, 'useState')
     .mockReturnValue([false, setState]);
 
-  useInputDebounce('hi');
+  useInputDebounce('foo');
+  useInputDebounce('bar');
+
   setTimeout(() => {
     expect(setState).toHaveBeenCalledTimes(1);
   }, 750);
