@@ -2,15 +2,30 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   muted: {},
-  bar: {
-    alignItems: 'center',
-    boxSizing: 'border-box',
-    display: 'flex',
-    flexDirection: 'row',
-    height: 65,
-    justifyContent: 'space-between',
-    paddingRight: theme.spacing(2),
-    color: theme.palette.primary.contrastText,
+  bar: (props) => {
+    const dynamic = {};
+
+    if (props.isDocs)
+      Object.assign(dynamic, {
+        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.background.paper,
+      });
+    else
+      Object.assign(dynamic, {
+        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.primary.main,
+      });
+
+    return {
+      alignItems: 'center',
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'row',
+      height: 65,
+      justifyContent: 'space-between',
+      paddingRight: theme.spacing(2),
+      ...dynamic,
+    };
   },
   root: {
     display: 'flex',
@@ -105,32 +120,62 @@ export default makeStyles((theme) => ({
     },
   },
   actions: {},
-  logo: {
-    display: 'block',
-    fill: theme.palette.primary.contrastText,
-    height: '100%',
-    minWidth: 245,
-    maxWidth: 345,
+  logoAvatar: {
+    height: 45,
+    width: 45,
+    margin: '0 1rem',
+  },
+  logo: (props) => {
+    const dynamic = {};
 
-    '& img': {
+    if (props.isDocs)
+      Object.assign(dynamic, {
+        fill: theme.palette.primary.main,
+        backgroundColor: theme.palette.background.paper,
+      });
+    else
+      Object.assign(dynamic, {
+        backgroundColor: theme.palette.primary.dark,
+        fill: theme.palette.primary.contrastText,
+      });
+
+    return {
+      display: 'flex',
       height: '100%',
-      objectPosition: 'center !important',
-      objectFit: 'contain !important',
-      width: '100%',
+      marginRight: 32.5,
 
-      [theme.breakpoints.down('md')]: {
-        objectPosition: 'left !important',
+      '& img': {
+        height: '100%',
+        objectPosition: 'center !important',
+        objectFit: 'contain !important',
+        width: '100%',
+
+        [theme.breakpoints.down('md')]: {
+          objectPosition: 'left !important',
+        },
       },
-    },
 
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '100%',
-      width: 195,
-    },
+      '& a': {
+        display: 'flex',
+        alignItems: 'center',
+        color: dynamic.fill,
+        textDecoration: 'none',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        paddingRight: 65,
+        flexWrap: 'nowrap',
+        whiteSpace: 'nowrap',
+      },
 
-    [theme.breakpoints.down('xs')]: {
-      width: 145,
-    },
+      [theme.breakpoints.down('sm')]: {
+        minWidth: '100%',
+        width: 195,
+      },
+
+      [theme.breakpoints.down('xs')]: {
+        width: 145,
+      },
+    };
   },
   menuItem: {
     alignItems: 'center',

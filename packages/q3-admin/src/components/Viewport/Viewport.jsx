@@ -7,9 +7,25 @@ import Grid from '@material-ui/core/Grid';
 
 const setViewportUnit = () => {
   const vh = window.innerHeight;
+  const cal = vh / 100;
+
   document
     .querySelector(':root')
-    .style.setProperty('--vh', `${vh / 100}px`);
+    .style.setProperty('--vh', `${cal}px`);
+
+  document
+    .querySelector(':root')
+    .style.setProperty(
+      '--vh-offset-appbar',
+      'calc((100 * var(--vh)) - 65px)',
+    );
+
+  document
+    .querySelector(':root')
+    .style.setProperty(
+      '--vh-offset',
+      'calc((100 * var(--vh)) - 130px)',
+    );
   return vh;
 };
 

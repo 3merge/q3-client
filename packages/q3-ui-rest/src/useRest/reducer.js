@@ -39,9 +39,9 @@ export default (
       const next = get(data, resource, {});
       const prev = { ...state };
 
-      if (resource in prev) {
-        prev[resource] = next;
-      } else if (resources in prev) {
+      if (resource in prev) prev[resource] = next;
+
+      if (resources in prev)
         prev[resources] = get(
           prev,
           resources,
@@ -49,7 +49,6 @@ export default (
         ).map((item) =>
           next.id === item.id ? next : item,
         );
-      }
 
       return merge({}, prev, data);
     },

@@ -2,6 +2,7 @@ import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
 import { browser, object } from 'q3-ui-helpers';
 import OpsHelper from './OpsHelper';
+import docs from './documentation';
 import characters from './characters';
 import shows from './shows';
 import users from './users';
@@ -154,6 +155,11 @@ export default ({ children }) => {
       collectionName: 'shows',
       resourceName: 'shows',
       resourceNameSingular: 'show',
+    });
+    makeApiEndpoints(m, docs, {
+      collectionName: 'documentation',
+      resourceName: 'documents',
+      resourceNameSingular: 'document',
     });
 
     m.onPost(/profile/).reply(async ({ data }) => {

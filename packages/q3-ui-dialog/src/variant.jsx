@@ -38,6 +38,7 @@ const DialogVariant = ({
     isDrawer
       ? getPaperProps({
           width: getPaperWidth(isLaptop),
+          ...rest.style,
         })
       : getModalProps({
           fullScreen: !isLaptop,
@@ -69,7 +70,7 @@ const DialogVariant = ({
         ...getMobileProps(),
         ...asModal(),
         // there might be others
-        ...pick(rest, ['className']),
+        ...pick(rest, ['anchor', 'className']),
       }}
     >
       <div>{children}</div>

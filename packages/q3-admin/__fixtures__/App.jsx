@@ -9,7 +9,6 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
 import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
-import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
 import Admin from '../src';
 import pages from './views';
@@ -48,7 +47,7 @@ const ExampleApp = ({ initialPath }) => {
               NavProps={{
                 title: 'Demo app',
                 logoSrc:
-                  'https://logoipsum.com/logo/logo-15.svg',
+                  'https://avatars.githubusercontent.com/u/12897090?s=200&v=4',
               }}
               ProfileProps={{
                 fields: <p>Append custom form fields!</p>,
