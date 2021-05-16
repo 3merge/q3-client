@@ -136,6 +136,14 @@ const makeApiEndpoints = (
         },
       ];
     });
+
+  mockInstance
+    // single resource
+    .onPost(new RegExp(collectionName))
+    .reply((params) => {
+      const output = ops.addDataMeta(params);
+      return [201, { [resourceNameSingular]: output }];
+    });
 };
 
 // eslint-disable-next-line

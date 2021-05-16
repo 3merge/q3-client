@@ -6,7 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import AppsIcon from '@material-ui/icons/Apps';
 import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
-import { SwapHorizontalCircle } from '@material-ui/icons';
+import {
+  SwapHorizontalCircle,
+  MoreVert,
+} from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { browser } from 'q3-ui-helpers';
@@ -84,10 +87,9 @@ const SidePanel = ({ id, children }) => {
           renderContent={() => children}
           renderTrigger={(onClick) => (
             <Box
-              color="primary.contrastText"
               position="absolute"
-              top="-130px"
-              right="141px"
+              top="-65px"
+              right="2rem"
               display="flex"
               alignItems="center"
               height="65px"
@@ -98,7 +100,7 @@ const SidePanel = ({ id, children }) => {
                 onClick={onClick}
                 color="inherit"
               >
-                <AppsIcon />
+                <MoreVert />
               </IconButton>
             </Box>
           )}

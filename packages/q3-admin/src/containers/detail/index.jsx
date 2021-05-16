@@ -24,7 +24,6 @@ const Detail = ({
   notes,
   picture,
   files,
-  documentation,
   links,
   views,
   ...rest
@@ -34,13 +33,6 @@ const Detail = ({
     <Article
       asideComponent={
         <DetailSidePanel
-          documentation={
-            documentation ? (
-              <Box className={cls.docs}>
-                {documentation}
-              </Box>
-            ) : null
-          }
           notes={notes && <Notes />}
           files={files && <Upload />}
         >

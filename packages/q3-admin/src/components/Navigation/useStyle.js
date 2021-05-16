@@ -143,6 +143,7 @@ export default makeStyles((theme) => ({
       display: 'flex',
       height: '100%',
       marginRight: 32.5,
+      ...dynamic,
 
       '& img': {
         height: '100%',

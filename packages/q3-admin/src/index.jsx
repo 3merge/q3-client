@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
-import Docs from 'q3-admin-docs';
+import { Docs } from 'q3-admin-docs';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
@@ -15,6 +15,8 @@ import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 
 export const goTo = (path) => () => navigate(path);
+
+// EXPANDABLE WAY TO ADD APPS...
 
 const Admin = ({
   icons,

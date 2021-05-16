@@ -9,6 +9,9 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     height: 65,
     borderRadius: 0,
+    [theme.breakpoints.down('md')]: {
+      paddingRight: '3rem',
+    },
   },
   title: {
     whiteSpace: 'nowrap',

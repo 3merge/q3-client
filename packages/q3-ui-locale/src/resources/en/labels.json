@@ -296,5 +296,6 @@
   "error": "Error",
   "newestToOldest": "Newest to oldest",
   "oldestToNewest": "Oldest to newest",
-  "leaveAComment": "Leave a comment"
+  "leaveAComment": "Leave a comment",
+  "searchByPhrase": "Search by phrase"
 }

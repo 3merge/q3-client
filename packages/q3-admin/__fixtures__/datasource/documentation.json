@@ -3,7 +3,7 @@
     "id": 1,
     "title": "U2 3D",
     "updatedAt": "2021-03-14T01:09:13Z",
-    "location": "shows",
+    "location": "shows\\/\\d+",
     "lastModifiedBy": {
       "firstName": "Kelby",
       "lastName": "Ecclestone",
@@ -37,7 +37,7 @@
   },
   {
     "id": 4,
-    "location": "shows",
+    "location": "shows/\\/\\d+",
     "title": "Outer Space",
     "updatedAt": "2020-10-03T04:25:16Z",
     "lastModifiedBy": {

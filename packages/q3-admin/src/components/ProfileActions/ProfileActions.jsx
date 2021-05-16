@@ -8,6 +8,7 @@ import { ModeContext } from 'q3-ui/lib/Mode';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
 import IconButton from '@material-ui/core/IconButton';
+import { Drawer as DocsDrawer } from 'q3-admin-docs';
 import AppHeaderDropdown from '../AppHeaderDropdown';
 
 const ProfileActions = ({
@@ -41,6 +42,7 @@ const ProfileActions = ({
             )}
           </IconButton>
         )}
+        <DocsDrawer />
         <AppHeaderDropdown
           src={get(state, 'profile.photo')}
           items={items.concat({

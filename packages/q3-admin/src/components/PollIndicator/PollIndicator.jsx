@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
+import Grow from '@material-ui/core/Grow';
 import { useTranslation } from 'react-i18next';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -19,7 +20,7 @@ export const getText = (args = {}) => {
   const { hasChange, hasPendingUpdate } = args;
   if (hasChange) return 'unsavedChanges';
   if (hasPendingUpdate) return 'pendingUpdate';
-  return 'lastRefreshed';
+  return undefined;
 };
 
 const PollIndicator = ({
@@ -39,29 +40,30 @@ const PollIndicator = ({
     hasChange,
   });
 
-  return (
-    <Button
-      size="small"
-      className={cls.label}
-      onClick={() => window.location.reload()}
-      color="inherit"
-    >
-      <IconEl ref={ref} className={cls.dot} />
-      <span className={cls.text}>
-        {t(
-          getText({
-            hasPendingUpdate,
-            hasChange,
-          }),
-          {
+  const text = getText({
+    hasPendingUpdate,
+    hasChange,
+  });
+
+  return text ? (
+    <Grow in>
+      <Button
+        size="small"
+        className={cls.label}
+        onClick={() => window.location.reload()}
+        color="inherit"
+      >
+        <IconEl ref={ref} className={cls.dot} />
+        <span className={cls.text}>
+          {t(text, {
             time: moment
               .parseZone(lastUpdated)
               .format('LT'),
-          },
-        )}
-      </span>
-    </Button>
-  );
+          })}
+        </span>
+      </Button>
+    </Grow>
+  ) : null;
 };
 
 PollIndicator.defaultProps = {

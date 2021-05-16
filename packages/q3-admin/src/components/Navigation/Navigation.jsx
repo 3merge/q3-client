@@ -16,6 +16,8 @@ import { Link, useLocation } from '@reach/router';
 import Drawer from 'q3-ui-dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
+import DocsIcon from 'q3-ui-assets/lib/SvgIcons/DocsIcon';
+import WhatsNew from 'q3-ui-assets/lib/SvgIcons/WhatsNew';
 import NavigationListItem, {
   filterByVisibility,
 } from '../NavigationListItem';
@@ -36,15 +38,28 @@ const AppNavigation = ({
   const appProps = getAppProps(useLocation().pathname);
   const cls = useStyle(appProps);
 
-  const getLogo = () => {
+  const renderLogo = () => {
     if (appProps.isDocs)
-      return 'https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png';
-    return logoSrc;
+      return (
+        <Avatar
+          className={cls.logoAvatar}
+          style={{
+            backgroundColor: 'transparent',
+            overflow: 'visible',
+          }}
+        >
+          <DocsIcon />
+        </Avatar>
+      );
+
+    return (
+      <Avatar className={cls.logoAvatar} src={logoSrc} />
+    );
   };
 
   const renderTitle = () => {
     const title = '3merge';
-    if (appProps.isDocs) return 'Docs';
+    if (appProps.isDocs) return 'Knowledgebase';
     return title;
   };
 
@@ -105,7 +120,14 @@ const AppNavigation = ({
                 </ListItem>
                 <ListItem button component={Link} to="docs">
                   <ListItemAvatar>
-                    <Avatar src="https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png" />
+                    <Avatar
+                      style={{
+                        backgroundColor: 'transparent',
+                        overflow: 'visible',
+                      }}
+                    >
+                      <DocsIcon />
+                    </Avatar>
                   </ListItemAvatar>
                   <ListItemText
                     primary="Documentation"
@@ -124,7 +146,14 @@ const AppNavigation = ({
                   renderTrigger={(onClick) => (
                     <ListItem button onClick={onClick}>
                       <ListItemAvatar>
-                        <Avatar src="https://www.gstatic.com/images/branding/product/1x/docs_2020q4_48dp.png" />
+                        <Avatar
+                          style={{
+                            backgroundColor: 'transparent',
+                            overflow: 'visible',
+                          }}
+                        >
+                          <WhatsNew />
+                        </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary="What's New?"
@@ -136,23 +165,22 @@ const AppNavigation = ({
               </List>
             )}
             renderTrigger={(onClick) => (
-              <IconButton
-                icon={AppsIcon}
-                label="apps"
-                buttonProps={{
-                  id: 'q3-admin-mobile-menu',
-                  style: { marginLeft: '1rem' },
-                  onClick,
-                }}
-              />
+              <Box display="flex" alignItems="center">
+                <IconButton
+                  icon={AppsIcon}
+                  label="apps"
+                  buttonProps={{
+                    id: 'q3-admin-mobile-menu',
+                    style: { marginLeft: '1rem' },
+                    onClick,
+                  }}
+                />
+              </Box>
             )}
           />
 
           <Link to={root}>
-            <Avatar
-              className={cls.logoAvatar}
-              src={getLogo()}
-            />
+            {renderLogo()}
             {renderTitle()}
           </Link>
         </Box>

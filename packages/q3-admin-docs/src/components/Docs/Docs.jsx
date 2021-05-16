@@ -2,12 +2,14 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import { find } from 'lodash';
 import {
+  Fab,
   Button,
   IconButton,
   Box,
   CircularProgress,
 } from '@material-ui/core';
 import {
+  Add as AddIcon,
   Close as CloseIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
@@ -36,48 +38,58 @@ const Docs = () => {
   if (r.fetchingError) return 'Document ISSUE';
 
   return (
-    <DocsSelect {...r}>
-      {(id) => {
-        const { state, toggle } = useToggle();
-        const d = find(
-          r.documents,
-          (doc) => String(doc.id) === String(id),
-        );
+    <>
+      <DocsSelect {...r}>
+        {(id) => {
+          const d = find(
+            r.documents,
+            (doc) => String(doc.id) === String(id),
+          );
 
-        if (!d && id) return '404';
-        if (!id) return <Welcome />;
+          const { state, toggle, close, open } = useToggle(
+            d && !d.title,
+          );
 
-        return !state ? (
-          <View {...d}>
-            <Box align="right" textAlign="right">
-              <IconButton onClick={toggle}>
-                <EditIcon />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          </View>
-        ) : (
-          <>
-            <Box align="right" textAlign="right" mb={2}>
-              <Button onClick={toggle}>
-                Close editor{' '}
-                <CloseIcon
-                  style={{ marginLeft: '.5rem' }}
-                />
-              </Button>
-            </Box>
-            <Editor
-              {...d}
-              onSubmit={(args) =>
-                r.patch(id)(args).then(toggle)
-              }
-            />
-          </>
-        );
-      }}
-    </DocsSelect>
+          React.useEffect(() => {
+            if (d && !d.title) open();
+            else close();
+          }, [id]);
+
+          if (!d && id) return '404';
+          if (!id) return <Welcome />;
+
+          return !state ? (
+            <View {...d}>
+              <Box align="right" textAlign="right">
+                <IconButton onClick={toggle}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            </View>
+          ) : (
+            <>
+              <Box align="right" textAlign="right" mb={2}>
+                <Button onClick={toggle}>
+                  Close editor{' '}
+                  <CloseIcon
+                    style={{ marginLeft: '.5rem' }}
+                  />
+                </Button>
+              </Box>
+              <Editor
+                {...d}
+                onSubmit={(args) =>
+                  r.patch(id)(args).then(toggle)
+                }
+              />
+            </>
+          );
+        }}
+      </DocsSelect>
+    </>
   );
 };
 

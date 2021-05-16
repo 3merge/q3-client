@@ -11,10 +11,15 @@ export default class OpsHelper {
   addDataMeta(obj = {}) {
     const { id } = last(this.$__store);
     const newId = Number(id) + 1;
-    return Object.assign(obj, {
+    const newObj = Object.assign(obj, {
       id: newId,
       photo: 'https://source.unsplash.com/random',
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
+
+    this.$__store.push(newObj);
+    return newObj;
   }
 
   getIdFromUrl(url) {
