@@ -5,6 +5,7 @@ import TrashIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import WarningIcon from '@material-ui/icons/Warning';
 import { red } from '@material-ui/core/colors';
+import { useAuth } from 'q3-ui-permissions';
 import FileName from '../FileName';
 
 const getApproximateSize = (num) => {
@@ -22,8 +23,11 @@ const FilePending = ({
   url,
   error,
   onDelete,
+  collectionName,
   ...etc
 }) => {
+  const { HideByField } = useAuth(collectionName);
+
   const renderAction = () => {
     if (error)
       return (
@@ -51,9 +55,11 @@ const FilePending = ({
       );
 
     return (
-      <IconButton onClick={onDelete(id)}>
-        <TrashIcon />
-      </IconButton>
+      <HideByField path="uploads" op="Delete">
+        <IconButton onClick={onDelete(id)}>
+          <TrashIcon />
+        </IconButton>
+      </HideByField>
     );
   };
 
