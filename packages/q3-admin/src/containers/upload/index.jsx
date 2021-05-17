@@ -20,6 +20,7 @@ const Upload = () => {
 
   return !fetching ? (
     <FileList
+      collectionName={collectionName}
       files={uploads}
       onDelete={remove}
       onDrop={post}
