@@ -43,13 +43,7 @@ const DetailHeader = (props) => {
 
   return (
     <Box my={{ xl: 0.75, lg: 0.75 }}>
-      <Header
-        {...props}
-        {...useTitle(data, props)}
-        backComponent={
-          <DetailHeaderBackComponent {...props} />
-        }
-      />
+      <Header {...props} {...useTitle(data, props)} />
     </Box>
   );
 };

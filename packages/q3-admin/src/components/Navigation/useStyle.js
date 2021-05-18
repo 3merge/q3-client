@@ -11,6 +11,9 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
     color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down('md')]: {
+      padding: `0 ${theme.spacing(2)}`,
+    },
   },
   root: {
     display: 'flex',

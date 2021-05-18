@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import ForumIcon from '@material-ui/icons/Forum';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -16,6 +19,7 @@ import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
 import useStyle from './useStyle';
+import { Context as ActionBarContext } from '../../components/ActionBar';
 
 const Detail = ({
   HeaderProps,
@@ -30,6 +34,31 @@ const Detail = ({
   ...rest
 }) => {
   const cls = useStyle();
+
+  const ctx = React.useContext(ActionBarContext);
+
+  React.useEffect(() => {
+    const actions = [];
+
+    if (notes)
+      actions.push({
+        label: 'notes',
+        icon: ForumIcon,
+      });
+
+    if (files)
+      actions.push({
+        label: 'files',
+        icon: ContactSupportIcon,
+      });
+
+    ctx.add(actions);
+
+    return () => {
+      ctx.remove(actions);
+    };
+  }, []);
+
   return (
     <Article
       asideComponent={

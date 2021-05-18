@@ -3,6 +3,8 @@ import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { get } from 'lodash';
 import Hidden from '@material-ui/core/Hidden';
+import Dialog from 'q3-ui-dialog';
+import FilterIcon from '@material-ui/icons/Filter';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -11,6 +13,7 @@ import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import TableSkeleton from '../components/TableSkeleton';
 import { useAppContext } from '../hooks';
+import { Context as ActionBarContext } from '../components/ActionBar';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -67,7 +70,7 @@ export default ({
                   display="flex"
                   position="absolute"
                   right="142px"
-                  top="-130px"
+                  top="-65px"
                   zIndex={1200}
                   height="65px"
                 >
@@ -90,13 +93,58 @@ export default ({
         filterComponent: FilterComponent,
       } = PageListProps;
 
+      const renderFilter = () => (
+        <FilterProvider {...props} {...PageListProps}>
+          <FilterComponent />
+        </FilterProvider>
+      );
+
+      const FilterWrapper = ({ children }) => {
+        return (
+          <>
+            {children}
+            <Dialog
+              variant="drawer"
+              renderContent={renderFilter}
+              renderTrigger={(onClick) => {
+                const ctx = React.useContext(
+                  ActionBarContext,
+                );
+
+                React.useEffect(() => {
+                  const action = [
+                    {
+                      label: 'filter',
+                      icon: FilterIcon,
+                      sort: 2,
+                      onClick: () =>
+                        onClick({
+                          target: {
+                            name: 'filter',
+                          },
+                        }),
+                    },
+                  ];
+
+                  ctx.add(action);
+
+                  return () => {
+                    ctx.remove(action);
+                  };
+                }, []);
+
+                return null;
+              }}
+            />
+          </>
+        );
+      };
+
       const { can } = useAppContext({
         filter: FilterComponent ? (
-          <SidePanel>
-            <FilterProvider {...props} {...PageListProps}>
-              <FilterComponent />
-            </FilterProvider>
-          </SidePanel>
+          <FilterWrapper>
+            <SidePanel>{renderFilter()}</SidePanel>
+          </FilterWrapper>
         ) : null,
       });
 

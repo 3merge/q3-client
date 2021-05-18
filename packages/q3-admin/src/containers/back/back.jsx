@@ -4,7 +4,7 @@ import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
 import { useTranslation } from 'react-i18next';
 import { useBack } from '../../hooks';
 
-const Back = () => {
+const Back = ({ defaultPath }) => {
   const { t } = useTranslation('labels');
 
   return (
@@ -12,7 +12,7 @@ const Back = () => {
       label={t('previous')}
       icon={KeyboardBackspace}
       buttonProps={{
-        onClick: useBack(),
+        onClick: useBack(defaultPath),
       }}
     />
   );

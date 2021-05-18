@@ -1,24 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'gatsby-image';
 import Box from '@material-ui/core/Box';
-import IconButton from 'q3-ui/lib/iconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
-import { Link } from '@reach/router';
 import Drawer from 'q3-ui-dialog';
 import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
+import {
+  Avatar,
+  IconButton,
+  Grid,
+} from '@material-ui/core';
 import NavigationListItem, {
   filterByVisibility,
 } from '../NavigationListItem';
 import useStyle from './useStyle';
+import DirectoryLink from '../DirectoryLink';
+import Logo from '../Logo';
+import Title from '../Title';
 
 const AppNavigation = ({
   children,
   logoSrc,
   menuItems,
-  root,
 }) => {
   const cls = useStyle();
 
@@ -37,43 +39,32 @@ const AppNavigation = ({
       className={cls.bar}
       elevation={0}
     >
-      <Hidden lgUp>
-        <Drawer
-          title="menu"
-          closeOnRouteChange
-          variant="drawer"
-          renderContent={renderMenuItems}
-          renderTrigger={(onClick) => (
-            <Grid item>
-              <Box pl={1}>
-                <IconButton
-                  icon={MenuIcon}
-                  label="menu"
-                  buttonProps={{
-                    id: 'q3-admin-mobile-menu',
-                    onClick,
-                  }}
-                />
-              </Box>
-            </Grid>
-          )}
-        />
-      </Hidden>
       <Box className={cls.root} component="nav">
-        <Link to={root} className={cls.logo}>
-          <Image
-            alt="Logo"
-            fluid={{
-              src: logoSrc,
-            }}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-          />
-        </Link>
+        <DirectoryLink src={logoSrc}>
+          <Hidden lgUp>
+            <Drawer
+              title="menu"
+              closeOnRouteChange
+              variant="drawer"
+              renderContent={renderMenuItems}
+              renderTrigger={(onClick) => (
+                <Grid item>
+                  <Box pl={1}>
+                    <IconButton onClick={onClick}>
+                      <Avatar src={logoSrc} />
+                    </IconButton>
+                  </Box>
+                </Grid>
+              )}
+            />
+          </Hidden>
+          <Logo src={logoSrc} />
+        </DirectoryLink>
         <Hidden mdDown>{renderMenuItems()}</Hidden>
       </Box>
+      <Hidden smUp>
+        <Title />
+      </Hidden>
       {children}
     </AppBar>
   );
