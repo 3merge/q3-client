@@ -23,6 +23,7 @@ import NavigationListItem, {
 import useStyle from './useStyle';
 import DirectoryLink from '../DirectoryLink';
 import Title from '../Title';
+import MobileMenu from '../MobileMenu';
 
 const getAppProps = (v) => {
   const out = {};
@@ -55,11 +56,11 @@ const AppNavigation = ({
     return <Avatar src={logoSrc} />;
   };
 
+  const filteredMenuItems = filterByVisibility(menuItems);
+
   const renderMenuItems = () => (
     <Box className={cls.nav} component="ul">
-      <NavigationListItem
-        items={filterByVisibility(menuItems)}
-      />
+      <NavigationListItem items={filteredMenuItems} />
     </Box>
   );
 
@@ -170,7 +171,11 @@ const AppNavigation = ({
               title="menu"
               closeOnRouteChange
               variant="drawer"
-              renderContent={renderMenuItems}
+              anchor="left"
+              style={{ width: 325 }}
+              renderContent={() => (
+                <MobileMenu menuItems={filteredMenuItems} />
+              )}
               renderTrigger={(onClick) => (
                 <Box
                   alignItems="center"

@@ -5,6 +5,7 @@ import { get } from 'lodash';
 import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
 import FilterIcon from '@material-ui/icons/FilterList';
+import Button from '@material-ui/core/Button';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -138,6 +139,21 @@ export default ({
       return (
         <Collection index {...PageListProps} {...props}>
           <Article asideComponent={can('filter')}>
+            <Dialog
+              variant="drawer"
+              anchor="bottom"
+              style={{
+                height: '450px',
+              }}
+              renderContent={renderFilter}
+              renderTrigger={(onClick) => {
+                return (
+                  <Button fullWidth onClick={onClick}>
+                    All +
+                  </Button>
+                );
+              }}
+            />
             <Page
               index
               {...props}
