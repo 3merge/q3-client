@@ -43,6 +43,8 @@ History.propTypes = {};
 
 export default () => (
   <Dialog
+    title="logs"
+    variant="drawer"
     renderContent={() => <History />}
     renderTrigger={(onClick) =>
       useActionBar({

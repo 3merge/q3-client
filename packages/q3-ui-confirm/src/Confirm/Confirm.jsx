@@ -21,7 +21,6 @@ const Confirm = ({
 
   return (
     <Dialog
-      {...props}
       title={title}
       renderTrigger={(onClick) => {
         const buttonProps = {
@@ -47,6 +46,9 @@ const Confirm = ({
           </IconButton>
         );
       }}
+      // keep this positioned after renderTrigger
+      // so that we may overwrite it
+      {...props}
       renderContent={(close) => (
         <ConfirmForm
           onSubmit={handleSubmit(service, close)}
