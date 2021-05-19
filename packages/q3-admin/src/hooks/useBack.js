@@ -6,16 +6,17 @@ import { Definitions } from '../containers/state';
 const removeTrailingSlash = (site) =>
   String(site).replace(/\/$/, '');
 
-export default () => {
+export default (defaultPath) => {
   const navigate = useNavigate();
   const { directoryPath = '/' } = React.useContext(
     Definitions,
   );
 
-  const path = browser.proxySessionStorageApi(
-    'getItem',
-    'prevState',
-  );
+  const path =
+    browser.proxySessionStorageApi(
+      'getItem',
+      'prevState',
+    ) || defaultPath;
 
   return () =>
     navigate(

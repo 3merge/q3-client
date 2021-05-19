@@ -23,6 +23,7 @@ export const Collection = ({
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
+ 
 
   return (
     <Definitions.Provider

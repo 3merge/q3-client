@@ -3,7 +3,10 @@ import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
 import { Timeline } from 'q3-components';
 import Typography from '@material-ui/core/Typography';
+import Dialog from 'q3-ui-dialog';
+import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import { Definitions } from '../state';
+import useActionBar from '../../hooks/useActionBar';
 
 export const getAuthor = (v) => {
   if (!v.createdBy) return null;
@@ -38,4 +41,17 @@ const History = () => {
 
 History.propTypes = {};
 
-export default History;
+export default () => (
+  <Dialog
+    title="logs"
+    variant="drawer"
+    renderContent={() => <History />}
+    renderTrigger={(onClick) =>
+      useActionBar({
+        label: 'logs',
+        icon: TrackChangesIcon,
+        onClick,
+      })
+    }
+  />
+);

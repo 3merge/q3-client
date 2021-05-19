@@ -7,6 +7,7 @@ import {
 import FileList from './FileList';
 import files from '../../tests/fixtures/files.json';
 import support from '../../tests/support';
+import { AuthContext } from 'q3-ui-permissions';
 
 <Meta title="Files/FileList" component={FileList} />
 
@@ -14,11 +15,26 @@ import support from '../../tests/support';
 
 <Preview>
   <Story name="As default">
-    <FileList
-      onDelete={() => {}}
-      files={files}
-      onDrop={support.onDrop.succeed}
-    />
+    <AuthContext.Provider
+      value={{
+        state: {
+          permissions: [
+            {
+              coll: 'test',
+              op: 'Delete',
+              fields: ['uploads*'],
+            },
+          ],
+        },
+      }}
+    >
+      <FileList
+        collectionName="test"
+        onDelete={() => {}}
+        files={files}
+        onDrop={support.onDrop.succeed}
+      />
+    </AuthContext.Provider>
   </Story>
 </Preview>
 

@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fade, Box } from '@material-ui/core';
 import TableIo from '../TableIo';
 import { Store } from '../state';
 import Add from '../add';
 import { useAppContext } from '../../hooks';
-import useStyles from './styles';
 
 const CollectionActions = ({
   addComponent: AddForm,
   io,
 }) => {
-  const cls = useStyles();
-  const { can } = useAppContext({
+  const actions = {
     io: (
       <TableIo
         data={React.useContext(Store).data}
@@ -24,25 +21,10 @@ const CollectionActions = ({
         <AddForm />
       </Add>
     ) : null,
-  });
+  };
 
-  return (
-    <Fade in timeout={750}>
-      <Box
-        className={cls.root}
-        alignItems="center"
-        display="flex"
-        whiteSpace="nowrap"
-        position="absolute"
-        top={-65}
-        height={65}
-        zIndex={2}
-      >
-        {can('io')}
-        {can('add')}
-      </Box>
-    </Fade>
-  );
+  const { can } = useAppContext(actions);
+  return Object.keys(actions).map(can);
 };
 
 CollectionActions.defaultProps = {

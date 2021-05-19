@@ -3,21 +3,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import AddIcon from '@material-ui/icons/Add';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
+import useActionBar from '../../hooks/useActionBar';
 
 const CreateDialog = ({ children, ...props }) => (
   <Dialog
     {...props}
     variant="drawer"
     renderContent={children}
-    renderTrigger={(onClick) => (
-      <ButtonWithIcon
-        label="new"
-        icon={AddIcon}
-        color="secondary"
-        onClick={onClick}
-      />
-    )}
+    renderTrigger={(onClick) => {
+      useActionBar({
+        color: 'secondary',
+        icon: AddIcon,
+        label: 'add',
+        sort: 4,
+        onClick,
+      });
+
+      return null;
+    }}
   />
 );
 

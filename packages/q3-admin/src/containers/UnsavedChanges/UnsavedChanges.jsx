@@ -67,19 +67,21 @@ export default () => {
     setHasRefresh,
   } = useTimeTracking(data?.id, data?.updatedAt);
 
-  return (
-    <>
-      <PollIndicator
-        hasPendingUpdate={Boolean(hasPending)}
-        hasChange={hasChange}
-        lastUpdated={new Date()}
-      />
-      {hasRefresh && (
-        <PendingChangesModal
-          onDecline={() => setHasRefresh(false)}
-          onReload={refresh}
-        />
-      )}
-    </>
-  );
+  return null;
+
+  // return (
+  //   <>
+  //     <PollIndicator
+  //       hasPendingUpdate={Boolean(hasPending)}
+  //       hasChange={hasChange}
+  //       lastUpdated={new Date()}
+  //     />
+  //     {hasRefresh && (
+  //       <PendingChangesModal
+  //         onDecline={() => setHasRefresh(false)}
+  //         onReload={refresh}
+  //       />
+  //     )}
+  //   </>
+  // );
 };

@@ -8,6 +8,7 @@ import {
 import Close from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
+import withSearch from '../Search';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -71,4 +72,4 @@ SearchFullWidth.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default SearchFullWidth;
+export default withSearch(SearchFullWidth);

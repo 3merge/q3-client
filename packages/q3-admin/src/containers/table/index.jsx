@@ -117,9 +117,7 @@ const List = ({ disableLink, io, ...rest }) => {
       style={{ height: '100%' }}
     >
       <TableActions io={io} {...rest} />
-      <Box py={0.5}>
-        <FilterChip />
-      </Box>
+      <FilterChip />
     </Table>
   );
 };

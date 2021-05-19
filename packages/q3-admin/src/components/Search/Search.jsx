@@ -1,14 +1,11 @@
 import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
-import { Box, Hidden } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useValue } from 'useful-state';
 import { string } from 'q3-ui-helpers';
-import SearchFullWidth from '../SearchFullWidth';
-import SearchMobile from '../SearchMobile';
 import { Definitions } from '../../containers/state';
 
-export const Search = () => {
+export default (SearchComponent) => () => {
   const { t } = useTranslation('labels');
   const navigate = useNavigate();
   const location = useLocation();
@@ -61,16 +58,5 @@ export const Search = () => {
     inputRef,
   };
 
-  return (
-    <Box id="q3-searchbar" width="100%">
-      <Hidden smDown>
-        <SearchFullWidth {...textFieldProps} />
-      </Hidden>
-      <Hidden mdUp>
-        <SearchMobile {...textFieldProps} />
-      </Hidden>
-    </Box>
-  );
+  return <SearchComponent {...textFieldProps} />;
 };
-
-export default Search;

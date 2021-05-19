@@ -2,6 +2,22 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   muted: {},
+
+  // bar: {
+  //   alignItems: 'center',
+  //   boxSizing: 'border-box',
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   height: 65,
+  //   justifyContent: 'space-between',
+  //   paddingRight: theme.spacing(2),
+  //   color: theme.palette.primary.contrastText,
+
+  //   [theme.breakpoints.down('md')]: {
+  //     padding: `0 ${theme.spacing(1)}`,
+  //   },
+  // },
+
   bar: (props) => {
     const dynamic = {};
 
@@ -27,11 +43,39 @@ export default makeStyles((theme) => ({
       ...dynamic,
     };
   },
+  avatar: (props) => {
+    const dynamic = {};
+
+    if (props.isDocs)
+      Object.assign(dynamic, {
+        color: theme.palette.primary.main,
+        backgroundColor: theme.palette.background.paper,
+      });
+    else
+      Object.assign(dynamic, {
+        color: theme.palette.primary.contrastText,
+        backgroundColor: theme.palette.primary.dark,
+      });
+
+    return dynamic;
+  },
+  avatarIcon: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    borderRadius: 8,
+    padding: '.25rem',
+    transform: 'scale(0.85)',
+    bottom: '-.65rem',
+    right: '-.65rem',
+    position: 'absolute',
+  },
+
   root: {
     display: 'flex',
     height: '100%',
     position: 'relative',
     zIndex: 100,
+    flex: 1,
   },
   appbar: {},
   nav: {

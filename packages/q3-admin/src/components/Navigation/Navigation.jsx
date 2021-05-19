@@ -6,22 +6,23 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
+  IconButton,
 } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from 'q3-ui/lib/iconButton';
 import AppsIcon from '@material-ui/icons/Apps';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
 import { Link, useLocation } from '@reach/router';
 import Drawer from 'q3-ui-dialog';
 import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
 import DocsIcon from 'q3-ui-assets/lib/SvgIcons/DocsIcon';
 import WhatsNew from 'q3-ui-assets/lib/SvgIcons/WhatsNew';
 import NavigationListItem, {
   filterByVisibility,
 } from '../NavigationListItem';
 import useStyle from './useStyle';
+import DirectoryLink from '../DirectoryLink';
+import Title from '../Title';
 
 const getAppProps = (v) => {
   const out = {};
@@ -33,7 +34,6 @@ const AppNavigation = ({
   children,
   logoSrc,
   menuItems,
-  root,
 }) => {
   const appProps = getAppProps(useLocation().pathname);
   const cls = useStyle(appProps);
@@ -42,7 +42,7 @@ const AppNavigation = ({
     if (appProps.isDocs)
       return (
         <Avatar
-          className={cls.logoAvatar}
+          className={cls.logoSrc}
           style={{
             backgroundColor: 'transparent',
             overflow: 'visible',
@@ -52,15 +52,7 @@ const AppNavigation = ({
         </Avatar>
       );
 
-    return (
-      <Avatar className={cls.logoAvatar} src={logoSrc} />
-    );
-  };
-
-  const renderTitle = () => {
-    const title = '3merge';
-    if (appProps.isDocs) return 'Knowledgebase';
-    return title;
+    return <Avatar src={logoSrc} />;
   };
 
   const renderMenuItems = () => (
@@ -77,30 +69,8 @@ const AppNavigation = ({
       className={cls.bar}
       elevation={2}
     >
-      <Hidden lgUp>
-        <Drawer
-          title="menu"
-          closeOnRouteChange
-          variant="drawer"
-          renderContent={renderMenuItems}
-          renderTrigger={(onClick) => (
-            <Grid item>
-              <Box pl={1}>
-                <IconButton
-                  icon={MenuIcon}
-                  label="menu"
-                  buttonProps={{
-                    id: 'q3-admin-mobile-menu',
-                    onClick,
-                  }}
-                />
-              </Box>
-            </Grid>
-          )}
-        />
-      </Hidden>
       <Box className={cls.root} component="nav">
-        <Box className={cls.logo}>
+        <Hidden mdDown>
           <Drawer
             title="Gentek"
             closeOnRouteChange
@@ -165,29 +135,73 @@ const AppNavigation = ({
               </List>
             )}
             renderTrigger={(onClick) => (
-              <Box display="flex" alignItems="center">
+              <Box
+                display="flex"
+                alignItems="center"
+                className={cls.avatar}
+                px={2}
+              >
                 <IconButton
-                  icon={AppsIcon}
-                  label="apps"
-                  buttonProps={{
-                    id: 'q3-admin-mobile-menu',
-                    style: { marginLeft: '1rem' },
-                    onClick,
+                  onClick={onClick}
+                  color="inherit"
+                >
+                  <AppsIcon />
+                </IconButton>
+                <Link
+                  to="."
+                  style={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    marginLeft: '1rem',
+                    color: 'inherit',
+                    fontWeight: 'bold',
+                    textDecoration: 'none',
                   }}
-                />
+                >
+                  {renderLogo()}
+                </Link>
               </Box>
             )}
           />
-
-          <Link to={root}>
-            {renderLogo()}
-            {renderTitle()}
-          </Link>
-        </Box>
+        </Hidden>
+        <Hidden lgUp>
+          <DirectoryLink src={logoSrc}>
+            <Drawer
+              title="menu"
+              closeOnRouteChange
+              variant="drawer"
+              renderContent={renderMenuItems}
+              renderTrigger={(onClick) => (
+                <Box
+                  alignItems="center"
+                  display="flex"
+                  role="button"
+                  onClick={onClick}
+                  overflow="hidden"
+                  pr={1}
+                >
+                  <IconButton
+                    className={cls.avatar}
+                    component="span"
+                    color="inherit"
+                  >
+                    {renderLogo()}
+                    <Box className={cls.avatarIcon}>
+                      <MenuIcon />
+                    </Box>
+                  </IconButton>
+                </Box>
+              )}
+            />
+          </DirectoryLink>
+        </Hidden>
         {!appProps.isDocs && (
           <Hidden mdDown>{renderMenuItems()}</Hidden>
         )}
       </Box>
+      <Hidden lgUp>
+        <Title />
+      </Hidden>
       {children}
     </AppBar>
   );
@@ -196,7 +210,6 @@ const AppNavigation = ({
 AppNavigation.defaultProps = {
   children: null,
   menuItems: [],
-  root: '/',
 };
 
 AppNavigation.propTypes = {
@@ -208,7 +221,6 @@ AppNavigation.propTypes = {
       label: PropTypes.string,
     }),
   ),
-  root: PropTypes.string,
 };
 
 export default AppNavigation;

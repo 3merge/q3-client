@@ -14,6 +14,7 @@ import ButtonWithIcon from '../../components/ButtonWithIcon';
 import FileUpload from '../../components/FileUpload';
 import ActionList from '../../components/ActionList';
 import useIo from '../../hooks/useIo';
+import useActionBar from '../../hooks/useActionBar';
 
 const TableIo = ({ io, data, params }) => {
   const exportState = React.useContext(State);
@@ -72,20 +73,25 @@ const TableIo = ({ io, data, params }) => {
           </Box>
         ) : null
       }
-      renderTrigger={(onClick) =>
-        hasExports || hasImports ? (
-          <ButtonWithIcon
-            variant="contained"
-            onClick={onClick}
-            icon={ImportExportIcon}
-            label={
-              checked.length > 0
-                ? `i/o  (${checked.length})`
-                : 'i/o'
-            }
-          />
-        ) : null
-      }
+      renderTrigger={(onClick) => {
+        const include = hasExports || hasImports;
+
+        useActionBar(
+          include
+            ? {
+                icon: ImportExportIcon,
+                onClick,
+                label:
+                  checked.length > 0
+                    ? `i/o  (${checked.length})`
+                    : 'i/o',
+                sort: 3,
+              }
+            : [],
+        );
+
+        return null;
+      }}
     />
   );
 };

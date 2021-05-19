@@ -15,7 +15,7 @@ const Groups = ({ children, disableSegments, ...etc }) => {
   const { location } = React.useContext(Definitions);
   const { t } = useTranslation('labels');
   return (
-    <Box my={1}>
+    <Box>
       <Segments disableSegments={disableSegments}>
         {(renderer, onSave, searchValue) => (
           <FiltersForm

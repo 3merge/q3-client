@@ -1,75 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 import Confirm from 'q3-ui-confirm';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Alert } from '@material-ui/lab';
-import Box from '@material-ui/core/Box';
-import Graphic from 'q3-ui-assets';
 import { useAuth } from 'q3-ui-permissions';
-import { browser } from 'q3-ui-helpers';
+import { useNavigate } from '@reach/router';
+import TrashIcon from '@material-ui/icons/DeleteForever';
 import connect from '../connect';
+import useActionBar from '../../hooks/useActionBar';
 
 export const Trash = ({
   collectionName,
   onDelete,
   directoryPath,
 }) => {
-  const [loading, setLoading] = React.useState(false);
-  const [showError, setShowError] = React.useState(false);
-  const [showRedirect, setShowRedirect] = React.useState(
-    false,
-  );
-
-  const { t } = useTranslation();
-  const { canDelete } = useAuth(collectionName);
+  const { Hide } = useAuth(collectionName);
+  const navigate = useNavigate();
 
   const navigateOnResolve = () =>
     onDelete()
       .then(() => {
-        setShowRedirect(true);
-        browser.redirectIn(directoryPath);
+        navigate(directoryPath);
       })
-      .catch(() => {
-        setShowError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch(() =>
+        // eslint-disable-next-line
+        Promise.reject({
+          message: 'trashFail',
+        }),
+      );
 
   return (
-    <>
-      {showError && (
-        <Alert severity="error">
-          {t('descriptions:trashFail')}
-        </Alert>
-      )}
-      {showRedirect && (
-        <Alert severity="success">
-          {t('descriptions:trashSuccess')}
-        </Alert>
-      )}
-      <Graphic
-        description="trashDescription"
-        icon="Throw"
-        renderBottom={() => (
-          <Box mt={2}>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <Confirm
-                title="confirm"
-                description="confirm"
-                service={navigateOnResolve}
-                disabled={!canDelete}
-                label="addToTrash"
-                phrase="DELETE"
-              />
-            )}
-          </Box>
-        )}
+    <Hide op="Delete">
+      <Confirm
+        variant="drawer"
+        title="trash"
+        description="trash"
+        service={navigateOnResolve}
+        phrase="DELETE"
+        renderTrigger={(onClick) =>
+          useActionBar({
+            label: 'trash',
+            icon: TrashIcon,
+            onClick,
+          })
+        }
       />
-    </>
+    </Hide>
   );
 };
 

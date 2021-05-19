@@ -8,7 +8,12 @@ const FilterChip = () => {
   const chips = useActiveQueryParams();
 
   return size(chips) ? (
-    <Box id="q3-filter-chips" display="inline-block" px={2}>
+    <Box
+      id="q3-filter-chips"
+      display="inline-block"
+      py={0.5}
+      px={2}
+    >
       {chips.map((chip) => (
         <FilterChipExpandable key={chip.label} {...chip} />
       ))}

@@ -4,6 +4,7 @@ import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
 import { Docs } from 'q3-admin-docs';
+import Hidden from '@material-ui/core/Hidden';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
@@ -11,6 +12,8 @@ import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
+import ActionBar from './components/ActionBar';
+import ActionBarMobile from './components/ActionBarMobile';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 
@@ -37,35 +40,46 @@ const Admin = ({
         menuItems={usePages(AppProps.pages, icons)}
         root={root}
       >
-        <ProfileActions
-          {...ProfileProps}
-          profileItems={[
-            ...profileItems,
-            {
-              onClick: goTo(`${root}account/profile`),
-              label: 'profile',
-            },
-            {
-              onClick: goTo(
-                `${root}account/change-password`,
-              ),
-              label: 'changePassword',
-            },
-          ]}
+        <Box
+          display="flex"
+          alignItems="center"
+          flex="1"
+          justifyContent="flex-end"
         >
           <Notifications />
-        </ProfileActions>
+          <Hidden mdDown>
+            <ProfileActions
+              {...ProfileProps}
+              profileItems={[
+                ...profileItems,
+                {
+                  onClick: goTo(`${root}account/profile`),
+                  label: 'profile',
+                },
+                {
+                  onClick: goTo(
+                    `${root}account/change-password`,
+                  ),
+                  label: 'changePassword',
+                },
+              ]}
+            />
+          </Hidden>
+        </Box>
       </Navigation>
       <Box className={cls.main}>
-        <App {...AppProps}>
-          <Docs path="/docs" />
-          <Profile
-            path="/account/profile"
-            {...ProfileProps}
-          />
-          <ProfileChangePassword path="/account/change-password" />
-        </App>
-        {children}
+        <ActionBar>
+          <App {...AppProps}>
+            <Docs path="/docs" />
+            <Profile
+              path="/account/profile"
+              {...ProfileProps}
+            />
+            <ProfileChangePassword path="/account/change-password" />
+          </App>
+          {children}
+          <ActionBarMobile />
+        </ActionBar>
       </Box>
     </Viewport>
   );
