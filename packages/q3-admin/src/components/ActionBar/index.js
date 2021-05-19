@@ -1,1 +1,5 @@
-export { default, Context } from './ActionBar';
+export {
+  default,
+  Context,
+  ActionsContext,
+} from './ActionBar';

@@ -15,5 +15,7 @@ export default (action) => {
     return () => {
       ctx.remove(registry);
     };
-  }, []);
+  }, [action]);
+
+  return null;
 };

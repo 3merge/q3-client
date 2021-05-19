@@ -11,6 +11,7 @@ import { useLocation } from '@reach/router';
 import SearchIcon from '@material-ui/icons/Search';
 import { useToggle } from 'useful-state';
 import useActionBar from '../../hooks/useActionBar';
+import withSearch from '../Search';
 
 export const SearchMobile = ({
   handleReset,
@@ -18,6 +19,7 @@ export const SearchMobile = ({
   ...rest
 }) => {
   const { close, toggle, state } = useToggle();
+
   useActionBar({
     label: 'search',
     icon: SearchIcon,
@@ -54,4 +56,4 @@ SearchMobile.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default SearchMobile;
+export default withSearch(SearchMobile);

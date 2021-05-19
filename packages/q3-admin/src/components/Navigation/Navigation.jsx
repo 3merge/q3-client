@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from 'q3-ui-dialog';
 import AppBar from '@material-ui/core/AppBar';
-import {
-  Avatar,
-  IconButton,
-  Grid,
-} from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import NavigationListItem, {
   filterByVisibility,
 } from '../NavigationListItem';
@@ -40,29 +39,45 @@ const AppNavigation = ({
       elevation={0}
     >
       <Box className={cls.root} component="nav">
-        <DirectoryLink src={logoSrc}>
-          <Hidden lgUp>
+        <Hidden lgUp>
+          <DirectoryLink src={logoSrc}>
             <Drawer
               title="menu"
               closeOnRouteChange
               variant="drawer"
               renderContent={renderMenuItems}
               renderTrigger={(onClick) => (
-                <Grid item>
-                  <Box pl={1}>
-                    <IconButton onClick={onClick}>
-                      <Avatar src={logoSrc} />
-                    </IconButton>
-                  </Box>
-                </Grid>
+                <Box
+                  alignItems="center"
+                  display="flex"
+                  role="button"
+                  onClick={onClick}
+                  overflow="hidden"
+                  pr={1}
+                >
+                  <IconButton
+                    className={cls.avatar}
+                    component="span"
+                    color="inherit"
+                  >
+                    <Avatar src={logoSrc} />
+                    <Box className={cls.avatarIcon}>
+                      <MenuIcon />
+                    </Box>
+                  </IconButton>
+                </Box>
               )}
             />
-          </Hidden>
-          <Logo src={logoSrc} />
-        </DirectoryLink>
+          </DirectoryLink>
+        </Hidden>
+        <Hidden mdDown>
+          <Link to=".">
+            <Logo src={logoSrc} />
+          </Link>
+        </Hidden>
         <Hidden mdDown>{renderMenuItems()}</Hidden>
       </Box>
-      <Hidden smUp>
+      <Hidden lgUp>
         <Title />
       </Hidden>
       {children}

@@ -75,29 +75,22 @@ const TableIo = ({ io, data, params }) => {
       }
       renderTrigger={(onClick) => {
         const include = hasExports || hasImports;
+
         useActionBar(
           include
             ? {
                 icon: ImportExportIcon,
                 onClick,
-                label: 'io',
+                label:
+                  checked.length > 0
+                    ? `i/o  (${checked.length})`
+                    : 'i/o',
                 sort: 3,
               }
             : [],
         );
 
-        return include ? (
-          <ButtonWithIcon
-            variant="contained"
-            onClick={onClick}
-            icon={ImportExportIcon}
-            label={
-              checked.length > 0
-                ? `i/o  (${checked.length})`
-                : 'i/o'
-            }
-          />
-        ) : null;
+        return null;
       }}
     />
   );

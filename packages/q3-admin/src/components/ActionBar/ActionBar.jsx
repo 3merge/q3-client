@@ -1,11 +1,19 @@
 import React from 'react';
 import {
-  BottomNavigation,
-  BottomNavigationAction,
-} from '@material-ui/core';
-import { map, filter, sortBy, uniqBy } from 'lodash';
+  map,
+  filter,
+  sortBy,
+  uniqBy,
+  isEqual,
+} from 'lodash';
 
 export const Context = React.createContext({}, () => false);
+
+export const ActionsContext = React.createContext(
+  [],
+  (a = [], b = []) =>
+    !isEqual(map(a, 'label'), map(b, 'label')),
+);
 
 const ActionBar = ({ children }) => {
   const [items, setItems] = React.useState([]);
@@ -27,26 +35,16 @@ const ActionBar = ({ children }) => {
   };
 
   return (
-    <Context.Provider
-      value={{
-        add,
-        remove,
-      }}
-    >
-      {children}
-      <BottomNavigation style={{ height: 65 }}>
-        {map(
-          sortBy(items, 'sort'),
-          ({ icon: Icon, label, ...rest }) => (
-            <BottomNavigationAction
-              label={label}
-              icon={<Icon />}
-              {...rest}
-            />
-          ),
-        )}
-      </BottomNavigation>
-    </Context.Provider>
+    <ActionsContext.Provider value={sortBy(items, 'sort')}>
+      <Context.Provider
+        value={{
+          add,
+          remove,
+        }}
+      >
+        {children}
+      </Context.Provider>
+    </ActionsContext.Provider>
   );
 };
 

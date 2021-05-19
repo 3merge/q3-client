@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import ForumIcon from '@material-ui/icons/Forum';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import Dialog from 'q3-ui-dialog';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -18,8 +18,6 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
-import useStyle from './useStyle';
-import { Context as ActionBarContext } from '../../components/ActionBar';
 
 const Detail = ({
   HeaderProps,
@@ -33,46 +31,19 @@ const Detail = ({
   views,
   ...rest
 }) => {
-  const cls = useStyle();
+  const actions = {
+    files: <Upload />,
+    logs: <ActivityLog />,
+    notes: <Notes />,
+    trash: <Trash />,
+  };
 
-  const ctx = React.useContext(ActionBarContext);
-
-  React.useEffect(() => {
-    const actions = [];
-
-    if (notes)
-      actions.push({
-        label: 'notes',
-        icon: ForumIcon,
-      });
-
-    if (files)
-      actions.push({
-        label: 'files',
-        icon: ContactSupportIcon,
-      });
-
-    ctx.add(actions);
-
-    return () => {
-      ctx.remove(actions);
-    };
-  }, []);
+  const { can } = useAppContext(actions);
 
   return (
     <Article
       asideComponent={
-        <DetailSidePanel
-          documentation={
-            documentation ? (
-              <Box className={cls.docs}>
-                {documentation}
-              </Box>
-            ) : null
-          }
-          notes={notes && <Notes />}
-          files={files && <Upload />}
-        >
+        <DetailSidePanel>
           <DetailSidePanelContent {...rest} />
         </DetailSidePanel>
       }
@@ -81,9 +52,23 @@ const Detail = ({
         {...HeaderProps}
         views={views}
         picture={picture}
-      />
+      >
+        <Hidden lgUp>
+          <Dialog
+            renderContent={() => (
+              <DetailSidePanelContent {...rest} />
+            )}
+            renderTrigger={(onClick) => (
+              <IconButton onClick={onClick}>
+                <InfoIcon />
+              </IconButton>
+            )}
+          />
+        </Hidden>
+      </DetailNavigation>
       <DetailRelatedLinks links={links}>
         <DetailViews views={views} />
+        {Object.keys(actions).map(can)}
       </DetailRelatedLinks>
     </Article>
   );
@@ -125,26 +110,9 @@ const withDynamicViews = (Component) => ({
   const { check } = useAppContext();
   const { data } = React.useContext(Store);
 
-  const makeView = React.useCallback(
-    (label, el) => ({
-      to: `/${label}`,
-      component: () =>
-        React.createElement(el, {
-          name: label,
-        }),
-      label,
-    }),
-    [],
+  const views = mapToNestedRoute(children).filter((el) =>
+    check(el.label, el, data),
   );
-
-  const views = mapToNestedRoute(children)
-    .concat([
-      makeView('trash', Trash),
-      makeView('logs', ActivityLog),
-    ])
-    .filter((el) => {
-      return check(el.label, el, data);
-    });
 
   return React.useMemo(
     () =>

@@ -3,6 +3,7 @@ import { useLocation } from '@reach/router';
 import { compact, first, filter } from 'lodash';
 import { Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import useStyle from './styles';
 
 const notKnownRoot = (xs) => !['admin', 'app'].includes(xs);
 
@@ -17,10 +18,7 @@ const Title = () => {
   );
 
   return (
-    <Typography
-      color="inherit"
-      style={{ margin: 0, fontWeight: 'bold' }}
-    >
+    <Typography color="inherit" classes={useStyle()}>
       {t(collection)}
     </Typography>
   );

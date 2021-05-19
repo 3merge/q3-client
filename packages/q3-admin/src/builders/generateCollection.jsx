@@ -4,7 +4,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { get } from 'lodash';
 import Hidden from '@material-ui/core/Hidden';
 import Dialog from 'q3-ui-dialog';
-import FilterIcon from '@material-ui/icons/Filter';
+import FilterIcon from '@material-ui/icons/FilterList';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -14,6 +14,7 @@ import SidePanel from '../components/SidePanel';
 import TableSkeleton from '../components/TableSkeleton';
 import { useAppContext } from '../hooks';
 import { Context as ActionBarContext } from '../components/ActionBar';
+import useActionBar from '../hooks/useActionBar';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -99,46 +100,32 @@ export default ({
         </FilterProvider>
       );
 
-      const FilterWrapper = ({ children }) => {
-        return (
-          <>
-            {children}
+      const FilterWrapper = ({ children }) => (
+        <>
+          {children}
+          <Hidden lgUp>
             <Dialog
               variant="drawer"
               renderContent={renderFilter}
               renderTrigger={(onClick) => {
-                const ctx = React.useContext(
-                  ActionBarContext,
-                );
-
-                React.useEffect(() => {
-                  const action = [
-                    {
-                      label: 'filter',
-                      icon: FilterIcon,
-                      sort: 2,
-                      onClick: () =>
-                        onClick({
-                          target: {
-                            name: 'filter',
-                          },
-                        }),
-                    },
-                  ];
-
-                  ctx.add(action);
-
-                  return () => {
-                    ctx.remove(action);
-                  };
-                }, []);
+                useActionBar({
+                  label: 'filter',
+                  icon: FilterIcon,
+                  sort: 2,
+                  onClick: () =>
+                    onClick({
+                      target: {
+                        name: 'filter',
+                      },
+                    }),
+                });
 
                 return null;
               }}
             />
-          </>
-        );
-      };
+          </Hidden>
+        </>
+      );
 
       const { can } = useAppContext({
         filter: FilterComponent ? (

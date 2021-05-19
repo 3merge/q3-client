@@ -21,13 +21,7 @@ const DirectoryLink = ({ children }) => {
     .join('/');
 
   return size(explodedPath) > 1 ? (
-    <Box
-      alignItems="center"
-      justifyContent="flex-start"
-      display="flex"
-    >
-      <Back defaultPath={defaultPath} />
-    </Box>
+    <Back defaultPath={defaultPath} />
   ) : (
     children
   );

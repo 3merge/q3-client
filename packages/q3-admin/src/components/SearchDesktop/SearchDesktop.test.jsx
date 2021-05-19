@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchIcon from '@material-ui/icons/Search';
-import SearchFullWidth from './SearchFullWidth';
+import SearchFullWidth from './SearchDesktop';
 
 test('should not render close button', () => {
   const el = global

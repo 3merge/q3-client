@@ -2,11 +2,13 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import SidePanelContent from '../../components/SidePanelContent';
+import Dialog from 'q3-ui-dialog';
+import ForumIcon from '@material-ui/icons/Forum';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
 import Note from './note';
+import useActionBar from '../../hooks/useActionBar';
 
 export const getAuthor = (v) => {
   if (!v || !v.createdBy) return null;
@@ -42,22 +44,34 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <SidePanelContent title={t('thread')} gutters>
-      <DisplayNotes
-        loading={fetching}
-        error={fetchingError}
-        errorLabel={t('notesError')}
-      >
-        <AddNote
-          show={auth.canCreateSub(key)}
-          onSubmit={post}
-        />
+    <Dialog
+      title="notes"
+      variant="drawer"
+      renderContent={() => (
+        <DisplayNotes
+          loading={fetching}
+          error={fetchingError}
+          errorLabel={t('notesError')}
+        >
+          <AddNote
+            show={auth.canCreateSub(key)}
+            onSubmit={post}
+          />
 
-        {thread.map((v) => (
-          <Note key={v.id} {...args} {...v} />
-        ))}
-      </DisplayNotes>
-    </SidePanelContent>
+          {thread.map((v) => (
+            <Note key={v.id} {...args} {...v} />
+          ))}
+        </DisplayNotes>
+      )}
+      renderTrigger={(onClick) =>
+        useActionBar({
+          sort: 2,
+          label: 'notes',
+          icon: ForumIcon,
+          onClick,
+        })
+      }
+    />
   );
 };
 

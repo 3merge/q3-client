@@ -1,26 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'gatsby-image';
-import { Link } from '@reach/router';
-import Hidden from '@material-ui/core/Hidden';
+import { Avatar } from '@material-ui/core';
 import useStyle from './styles';
 
-const Logo = ({ src }) => {
-  const cls = useStyle();
-
-  return (
-    <Hidden mdDown>
-      <Link to="." className={cls.logo}>
-        <Image
-          alt="Logo"
-          fluid={{
-            src,
-          }}
-        />
-      </Link>
-    </Hidden>
-  );
-};
+const Logo = ({ src }) => (
+  <Avatar
+    variant="square"
+    alt="Logo"
+    src={src}
+    classes={useStyle()}
+  />
+);
 
 Logo.defaultProps = {
   src: '',

@@ -2,6 +2,19 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   muted: {},
+  avatar: {
+    backgroundColor: theme.palette.primary.dark,
+  },
+  avatarIcon: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    borderRadius: 8,
+    padding: '.25rem',
+    transform: 'scale(0.85)',
+    bottom: '-.65rem',
+    right: '-.65rem',
+    position: 'absolute',
+  },
   bar: {
     alignItems: 'center',
     boxSizing: 'border-box',
@@ -11,8 +24,9 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     paddingRight: theme.spacing(2),
     color: theme.palette.primary.contrastText,
+
     [theme.breakpoints.down('md')]: {
-      padding: `0 ${theme.spacing(2)}`,
+      padding: `0 ${theme.spacing(1)}`,
     },
   },
   root: {
@@ -20,6 +34,7 @@ export default makeStyles((theme) => ({
     height: '100%',
     position: 'relative',
     zIndex: 100,
+    flex: 1,
   },
   appbar: {},
   nav: {

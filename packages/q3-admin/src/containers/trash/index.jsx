@@ -8,7 +8,10 @@ import Box from '@material-ui/core/Box';
 import Graphic from 'q3-ui-assets';
 import { useAuth } from 'q3-ui-permissions';
 import { browser } from 'q3-ui-helpers';
+import TrashIcon from '@material-ui/icons/DeleteForever';
+import Dialog from 'q3-ui-dialog';
 import connect from '../connect';
+import useActionBar from '../../hooks/useActionBar';
 
 export const Trash = ({
   collectionName,
@@ -79,4 +82,19 @@ Trash.propTypes = {
   directoryPath: PropTypes.string.isRequired,
 };
 
-export default connect(Trash);
+export default (props) => {
+  const El = connect(Trash);
+
+  return (
+    <Dialog
+      renderContent={() => <El {...props} />}
+      renderTrigger={(onClick) =>
+        useActionBar({
+          label: 'trash',
+          icon: TrashIcon,
+          onClick,
+        })
+      }
+    />
+  );
+};

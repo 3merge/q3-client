@@ -6,24 +6,27 @@ import {
   Typography,
   Paper,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
-import Search from '../../components/Search';
-import Back from '../back';
+import SearchDesktop from '../../components/SearchDesktop';
+import SearchMobile from '../../components/SearchMobile';
+import Title from '../../components/Title';
+import DirectoryLink from '../../components/DirectoryLink';
 import useStyles from './styles';
+import ActionBarDesktop from '../../components/ActionBarDesktop';
 
-const CollectionHeader = ({
-  collectionName,
-  disableSearch,
-  id,
-}) => {
+const CollectionHeader = ({ disableSearch }) => {
   const cls = useStyles();
-  const { t } = useTranslation('labels');
-  const searchComponent = !disableSearch ? (
-    <Search />
-  ) : null;
+
+  // eslint-disable-next-line
+  const SearchComponentRenderer = ({ children }) =>
+    !disableSearch ? children : null;
 
   return (
     <>
+      <SearchComponentRenderer>
+        <Hidden lgUp>
+          <SearchMobile />
+        </Hidden>
+      </SearchComponentRenderer>
       <Hidden mdDown>
         <Paper className={cls.root}>
           <Box
@@ -33,31 +36,33 @@ const CollectionHeader = ({
             style={{ height: '100%' }}
             py={0.5}
           >
+            <DirectoryLink />
             <Typography
               color="inherit"
               component="h1"
               className={cls.title}
             >
-              {t(collectionName)}
+              <Title />
             </Typography>
-            {searchComponent}
+            <SearchComponentRenderer>
+              <Box width="100%">
+                <SearchDesktop />
+              </Box>
+            </SearchComponentRenderer>
+            <ActionBarDesktop />
           </Box>
         </Paper>
       </Hidden>
-      <Hidden smUp>{searchComponent}</Hidden>
     </>
   );
 };
 
 CollectionHeader.propTypes = {
-  collectionName: PropTypes.string.isRequired,
   disableSearch: PropTypes.bool,
-  id: PropTypes.string,
 };
 
 CollectionHeader.defaultProps = {
   disableSearch: false,
-  id: undefined,
 };
 
 export default CollectionHeader;

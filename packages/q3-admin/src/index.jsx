@@ -12,6 +12,7 @@ import Profile from './containers/Profile';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
 import ActionBar from './components/ActionBar';
+import ActionBarMobile from './components/ActionBarMobile';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 
@@ -37,25 +38,32 @@ const Admin = ({
         menuItems={usePages(AppProps.pages, icons)}
         root={root}
       >
-        <Notifications />
-        <Hidden mdDown>
-          <ProfileActions
-            {...ProfileProps}
-            profileItems={[
-              ...profileItems,
-              {
-                onClick: goTo(`${root}account/profile`),
-                label: 'profile',
-              },
-              {
-                onClick: goTo(
-                  `${root}account/change-password`,
-                ),
-                label: 'changePassword',
-              },
-            ]}
-          />
-        </Hidden>
+        <Box
+          display="flex"
+          alignItems="center"
+          flex="1"
+          justifyContent="flex-end"
+        >
+          <Notifications />
+          <Hidden mdDown>
+            <ProfileActions
+              {...ProfileProps}
+              profileItems={[
+                ...profileItems,
+                {
+                  onClick: goTo(`${root}account/profile`),
+                  label: 'profile',
+                },
+                {
+                  onClick: goTo(
+                    `${root}account/change-password`,
+                  ),
+                  label: 'changePassword',
+                },
+              ]}
+            />
+          </Hidden>
+        </Box>
       </Navigation>
       <Box className={cls.main}>
         <ActionBar>
@@ -67,6 +75,7 @@ const Admin = ({
             <ProfileChangePassword path="/account/change-password" />
           </App>
           {children}
+          <ActionBarMobile />
         </ActionBar>
       </Box>
     </Viewport>

@@ -27,7 +27,7 @@ const Header = ({
         <Grid
           container
           alignItems="center"
-          justify="space-between"
+          //  justify="space-between"
         >
           <Grid
             item
