@@ -38,7 +38,8 @@ const TableIo = ({ io, data, params }) => {
 
   return (
     <Dialog
-      title="settings"
+      title="io"
+      description="io"
       variant="drawer"
       renderContent={() =>
         io ? (
