@@ -59,7 +59,7 @@ export const useTimeTracking = (id, lastUpdatedAt) => {
   };
 };
 
-const UnsavedChanges = () => {
+export const UnsavedChanges = () => {
   const { data } = React.useContext(Store);
   const hasChange = useChangeDetection();
 
