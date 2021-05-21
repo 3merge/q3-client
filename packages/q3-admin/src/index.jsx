@@ -53,7 +53,9 @@ const Admin = ({
           ]}
         >
           <Notifications />
-          <Documentation />
+          <Documentation
+            id={get(AppProps, 'documentationWidgetId')}
+          />
         </ProfileActions>
       </Navigation>
       <Box className={cls.main}>

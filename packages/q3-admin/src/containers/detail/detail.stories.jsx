@@ -5,7 +5,6 @@ import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Detail from '.';
 import Main from '../../components/main';
-import fixture from '../documentation/__fixtures__/markdown.md';
 import Header from '../header';
 import State from '../state';
 
@@ -76,7 +75,7 @@ const DetailInstance = () => (
           notes
           delete
           picture
-          filepath={{ content: { data: fixture } }}
+          filepath={{ content: { data: '' } }}
           persistenceIds={['first', 'second']}
         >
           <First name="first" />

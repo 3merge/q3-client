@@ -1,4 +1,5 @@
 import React from 'react';
+import { isFunction } from 'lodash';
 import { IconButton } from '@material-ui/core';
 import { ContactSupport as ContactSupportIcon } from '@material-ui/icons';
 import axios from 'axios';
@@ -8,14 +9,18 @@ const Documentation = (props) => {
   const [jwt, setJwt] = React.useState();
   const [init, setInit] = React.useState();
 
+  const hasFreshbooks = () =>
+    isFunction(window?.FreshworksWidget);
+
   const getToken = () =>
-    axios.get('/freshbooks').then(({ data }) => {
+    axios.get('/documentation').then(({ data }) => {
       return data.token;
     });
 
   const invokeFreshworksWidget = (...params) => {
-    if (window?.FreshworksWidget)
+    if (hasFreshbooks()) {
       window.FreshworksWidget(...params);
+    }
   };
 
   const callback = () =>
@@ -26,21 +31,28 @@ const Documentation = (props) => {
       }),
     );
 
-  const open = () => invokeFreshworksWidget('open');
+  const open = () => {
+    invokeFreshworksWidget('open');
+  };
 
   React.useEffect(() => {
-    const checkForFreshworksWidget = () =>
-      setTimeout(() => {
-        setInit(true);
+    let timer;
+
+    const endTimer = () => {
+      if (timer) clearInterval(timer);
+    };
+
+    timer = setInterval(() => {
+      if (jwt && hasFreshbooks()) {
         invokeFreshworksWidget('authenticate', {
           token: jwt,
           callback,
         });
 
-        if (!init) {
-          checkForFreshworksWidget();
-        }
-      }, 1500);
+        endTimer();
+        setInit(true);
+      }
+    }, 1500);
 
     if (!jwt)
       getToken()
@@ -48,8 +60,9 @@ const Documentation = (props) => {
         .catch(() => {
           setInit(true);
         });
-    else checkForFreshworksWidget();
-  }, [jwt]);
+
+    return endTimer;
+  }, [jwt, init]);
 
   return (
     <>

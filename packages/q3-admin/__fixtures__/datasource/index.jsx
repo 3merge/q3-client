@@ -24,6 +24,12 @@ const makeApiEndpoints = (
     ],
   });
 
+  // this will expire
+  mockInstance.onGet(/documentation/).reply(200, {
+    'token':
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjE2MTUwMTMsImVtYWlsIjoiZ2VudGVrQDNtZXJnZS5jYSIsIm5hbWUiOiJHZW50ZWsgQmFjayBPZmZpY2UiLCJpYXQiOjE2MjE2MDc4MTJ9.RZ_rBEwarGwspZ1qya68ShKVhpDxlM6QHX1A_OAgCX0',
+  });
+
   mockInstance.onGet(/reports/).reply(200, {
     data: {
       data: [

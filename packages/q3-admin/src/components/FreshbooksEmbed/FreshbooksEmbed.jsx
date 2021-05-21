@@ -5,14 +5,14 @@ import { Helmet } from 'react-helmet';
 const FreshbooksEmbed = ({ id }) => (
   <Helmet>
     <script>
-      {`
-            window.fwSettings={'widget_id':${id}};
-            !function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}() 
-          `}
+      {`window.fwSettings={
+'widget_id':${id}
+};
+!function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()`}
     </script>
     <script
       type="text/javascript"
-      src="https://widget.freshworks.com/widgets/69000001892.js"
+      src="https://widget.freshworks.com/widgets/70000001065.js"
       async
       defer
     />
@@ -23,7 +23,7 @@ const FreshbooksEmbed = ({ id }) => (
 );
 
 FreshbooksEmbed.defaultProps = {
-  id: 69000001892,
+  id: 70000001065,
 };
 
 FreshbooksEmbed.propTypes = {
