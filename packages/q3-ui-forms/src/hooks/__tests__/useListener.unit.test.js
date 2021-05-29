@@ -3,17 +3,6 @@ import useListener, {
   selectFromObject,
 } from '../useListener';
 
-jest.mock('formik', () => ({
-  useFormikContext: jest.fn().mockReturnValue({
-    setFieldValue: jest.fn(),
-    setFieldError: jest.fn(),
-    values: {
-      foo: 1,
-      bar: 1,
-    },
-  }),
-}));
-
 let useEffect;
 let useState;
 

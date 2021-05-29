@@ -24,7 +24,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "lodash": "^4.17.20",
-    "moment": "^2.29.1",
-    "useful-state": "1.2.4"
+    "moment": "2.29.1",
+    "useful-state": "^1.2.3"
   }
 }

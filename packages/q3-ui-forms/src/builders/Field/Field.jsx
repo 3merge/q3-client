@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import FieldDetector from '../../helpers/types';
 import { AuthorizationState } from '../../FormsContext';
 import { useField, useListener } from '../../hooks';
@@ -30,19 +31,50 @@ FieldBridge.defaultProps = {
 };
 
 const Field = (props) => {
+  const overrideRef = React.useRef(props?.override);
   const { name, type, under, disabled } = props;
   const path = under ? `${under}.${name}` : name;
 
-  const { canSee, canEdit } = React.useContext(
+  const { canSee, canEdit, isDynamic } = React.useContext(
     AuthorizationState,
   );
 
-  const readOnly = !canEdit(path) || Boolean(disabled);
-  const visible = canSee(path);
+  const isDisabled = () =>
+    !canEdit(path) || Boolean(disabled);
 
-  return visible
+  const [readOnly, setReadOnly] = React.useState(
+    isDisabled(),
+  );
+
+  if (isDynamic(path))
+    overrideRef.current = (...params) => {
+      const applicationSettings = isFunction(
+        props?.override,
+      )
+        ? props?.override(...params)
+        : {};
+
+      const newDisabledState = isDisabled();
+      const shouldUpdate = readOnly !== newDisabledState;
+      const [, ctx] = params;
+
+      if (
+        shouldUpdate &&
+        newDisabledState &&
+        isFunction(ctx.resetFieldValue)
+      )
+        setImmediate(() => {
+          ctx.resetFieldValue(name);
+        });
+
+      if (shouldUpdate) setReadOnly(newDisabledState);
+      return applicationSettings;
+    };
+
+  return canSee(path)
     ? React.createElement(FieldBridge, {
         ...props,
+        override: overrideRef.current,
         disabled: readOnly,
         readOnly,
         type,

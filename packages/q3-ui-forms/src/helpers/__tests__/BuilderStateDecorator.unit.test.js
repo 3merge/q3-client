@@ -1,6 +1,5 @@
 import BuilderStateDecorator from '../BuilderStateDecorator';
 
-jest.unmock('formik');
 jest.mock('react-i18next', () => ({
   useTranslation: jest.fn().mockReturnValue({
     t: jest.fn().mockImplementation((v) => v.split(':')[1]),

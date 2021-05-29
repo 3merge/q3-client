@@ -4,11 +4,13 @@ import {
   navigate,
 } from '@reach/router';
 import PropTypes from 'prop-types';
+import { isEqual, uniq } from 'lodash';
 import Comparison from 'comparisons';
 import {
   filterbyColl,
   findByOp,
   isDefined,
+  isDynamicField,
   hasField,
 } from './utils/helpers';
 
@@ -57,7 +59,11 @@ export const asProtectedRoute = (ctx) => {
   return ProtectedRoute;
 };
 
-export default (ctx) => (coll) => {
+export default (ctx) => (
+  coll,
+  sampleCollectionDocument = {},
+) => {
+  const doc = React.useRef(sampleCollectionDocument);
   const a = React.useContext(ctx);
   const permissions = getPermissions(a);
 
@@ -76,6 +82,7 @@ export default (ctx) => (coll) => {
     hasField(
       getOp(op),
       subfield ? `${subfield}.${path}` : path,
+      doc.current,
     )
       ? children
       : null;
@@ -113,6 +120,25 @@ export default (ctx) => (coll) => {
     canEdit: isDefined(read) && isDefined(update),
     inClient: isDefined(read) && read.inClient,
 
+    isDynamic: (name) => {
+      const tempGrant = {
+        fields: uniq(
+          [
+            read?.fields,
+            create?.fields,
+            update?.fields,
+          ].flat(),
+        ),
+      };
+
+      return isDynamicField(tempGrant, name);
+    },
+
+    updateAuthRef: (incomingChangesToDoc) =>
+      !isEqual(doc.current, incomingChangesToDoc)
+        ? Object.assign(doc.current, incomingChangesToDoc)
+        : null,
+
     canEditConditionally(d) {
       const documentConditions = update?.documentConditions
         ? new Comparison(update.documentConditions).eval(d)
@@ -121,10 +147,11 @@ export default (ctx) => (coll) => {
       return this.canEdit && documentConditions;
     },
 
-    canCreateSub: (sub) => hasField(create, sub),
-    canEditSub: (sub) => hasField(update, sub),
-    canDeleteSub: (sub) => hasField(del, sub),
-    canSeeSub: (sub) => hasField(read, sub),
+    canCreateSub: (sub) =>
+      hasField(create, sub, doc.current),
+    canEditSub: (sub) => hasField(update, sub, doc.current),
+    canDeleteSub: (sub) => hasField(del, sub, doc.current),
+    canSeeSub: (sub) => hasField(read, sub, doc.current),
 
     HideByField,
     Redirect,

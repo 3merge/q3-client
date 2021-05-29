@@ -40,12 +40,6 @@ export const InnerForm = ({
   const [attachments, setAttachments] = React.useState([]);
 
   const {
-    isDisabled,
-    checkReadAuthorizationContext,
-    checkEditAuthorizationContext,
-  } = useAuthorization(collectionName, isNew, etc);
-
-  const {
     setField,
     validationSchema,
     removeField,
@@ -76,6 +70,7 @@ export const InnerForm = ({
     setFieldError,
     removeFieldValue,
     removeFieldError,
+    resetFieldValue,
     initFieldValue,
     values,
     errors,
@@ -83,6 +78,17 @@ export const InnerForm = ({
     previousValues,
     isModified,
   } = useDispatcher(initialValues, initialErrors);
+
+  const {
+    isDisabled,
+    checkReadAuthorizationContext,
+    checkEditAuthorizationContext,
+    ...authFieldOptions
+  } = useAuthorization(collectionName, isNew, {
+    ...etc,
+    initialValues: seed,
+    currentValues: values,
+  });
 
   const {
     message,
@@ -134,6 +140,7 @@ export const InnerForm = ({
   return (
     <AuthorizationState.Provider
       value={{
+        ...authFieldOptions,
         canEdit: checkEditAuthorizationContext,
         canSee: checkReadAuthorizationContext,
         collectionName,
@@ -158,6 +165,7 @@ export const InnerForm = ({
             setErrors,
             removeFieldValue,
             removeFieldError,
+            resetFieldValue,
             initFieldValue,
             setFieldError,
             setFieldValue,

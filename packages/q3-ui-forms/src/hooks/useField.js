@@ -98,11 +98,12 @@ export default (props, readOnly) => {
   )
     propper.helperText = '';
 
-  const dynamicProps = usePropOverride(
-    name,
-    override,
-    fieldProps,
-  );
+  const dynamicProps = usePropOverride(name, override, {
+    resetFieldValue: dispatcher.resetFieldValue.bind(
+      dispatcher,
+    ),
+    ...fieldProps,
+  });
 
   const validationOptions = pick(
     dynamicProps,

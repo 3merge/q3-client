@@ -19,6 +19,7 @@ import {
   Exists,
   NorthAmericaRegionalSelect,
 } from '../src/presets';
+import { Authorization } from '../__fixtures__';
 
 <Meta title="Forms/Field" component={Field} />
 
@@ -188,6 +189,25 @@ minimum values, maximum values, and required values.
         <NorthAmericaRegionalSelect />
       </Form>
     </Provider>
+  </Story>
+</Preview>
+
+## Authorization
+
+<Preview>
+  <Story name="Authorization">
+    <Authorization>
+      <Provider>
+        <Form collectionName="test">
+          <Field name="streetNumber" type="number" />
+          <Field
+            name="postal"
+            type="postal"
+            listen={['streetNumber']}
+          />
+        </Form>
+      </Provider>
+    </Authorization>
   </Story>
 </Preview>
 
