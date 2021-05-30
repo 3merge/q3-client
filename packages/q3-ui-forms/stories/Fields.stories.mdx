@@ -198,12 +198,26 @@ minimum values, maximum values, and required values.
   <Story name="Authorization">
     <Authorization>
       <Provider>
-        <Form collectionName="test">
-          <Field name="streetNumber" type="number" />
+        <Form
+          collectionName="test"
+          initialValues={{
+            licenses: 1,
+            plan: 'Basic',
+          }}
+        >
+          <Field name="company" type="string" />
           <Field
-            name="postal"
-            type="postal"
-            listen={['streetNumber']}
+            helperText="The basic plan comes with only one license"
+            name="plan"
+            type="select"
+            options={['Basic', 'Professional']}
+          />
+          <Field name="licenses" type="number" />
+          <Field
+            name="instructions"
+            multiline
+            rows={6}
+            type="text"
           />
         </Form>
       </Provider>

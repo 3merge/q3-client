@@ -1,15 +1,9 @@
-import React from 'react';
 import { useAuth } from 'q3-ui-permissions';
-import { isEqual } from 'lodash';
 
 export const orTruthy = (v, next) => (v ? next : true);
 
 export default (collectionName, isNew, options = {}) => {
-  const {
-    currentValues,
-    initialValues,
-    disabled,
-  } = options;
+  const { currentValues, disabled } = options;
 
   const {
     canEdit,
@@ -17,13 +11,8 @@ export default (collectionName, isNew, options = {}) => {
     canSeeSub,
     canCreateSub,
     canEditSub,
-    updateAuthRef,
     isDynamic,
-  } = useAuth(collectionName, initialValues);
-
-  React.useEffect(() => {
-    updateAuthRef(currentValues);
-  }, [!isEqual(currentValues, initialValues)]);
+  } = useAuth(collectionName, currentValues);
 
   return {
     isDisabled: () => {
@@ -42,7 +31,6 @@ export default (collectionName, isNew, options = {}) => {
         isNew ? canCreateSub(name) : canEditSub(name),
       ) && !disabled,
 
-    updateAuthRef,
     isDynamic,
   };
 };

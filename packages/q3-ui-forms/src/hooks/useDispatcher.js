@@ -8,7 +8,6 @@ export const CLEAN = 'clean-state';
 export const INIT_VALUE = 'init-value';
 export const REPLACE_ERRORS = 'value-errors';
 export const REPLACE_VALUES = 'replace-values';
-export const RESET_FIELD = 'reset-field';
 export const SET_ERROR = 'set-error';
 export const SET_VALUE = 'set-value';
 export const UNSET_ERROR = 'unset-error';
@@ -16,12 +15,7 @@ export const UNSET_VALUE = 'unset-value';
 export const INIT_PREVIOUS_VALUE = 'init-previous';
 
 export const reducerDispatcher = (state, context) => {
-  let {
-    initialValues,
-    previousValues,
-    errors = {},
-    values = {},
-  } = state;
+  let { previousValues, errors = {}, values = {} } = state;
 
   const {
     action,
@@ -68,10 +62,6 @@ export const reducerDispatcher = (state, context) => {
       errors = nextErrors;
       break;
 
-    case RESET_FIELD:
-      set(values, name, get(initialValues, name));
-      break;
-
     case UNSET_VALUE:
       unset(values, name);
       break;
@@ -105,7 +95,6 @@ export const reducerDispatcher = (state, context) => {
   }
 
   if (done) done(values, errors);
-  if (!initialValues) initialValues = values;
 
   return {
     values,
@@ -115,7 +104,6 @@ export const reducerDispatcher = (state, context) => {
       ? JSON.stringify(previousValues) !==
         JSON.stringify(values)
       : false,
-    initialValues,
   };
 };
 
@@ -196,11 +184,6 @@ export default (initialValues = {}, initialErrors = {}) => {
     setErrors: setIn(REPLACE_ERRORS, 'errors'),
     setFieldValue: setField(SET_VALUE),
     setFieldError: setField(SET_ERROR),
-    resetFieldValue: (name) =>
-      reduce({
-        action: RESET_FIELD,
-        name,
-      }),
 
     removeFieldValue: removeField(UNSET_VALUE),
     removeFieldError: removeField(UNSET_ERROR),

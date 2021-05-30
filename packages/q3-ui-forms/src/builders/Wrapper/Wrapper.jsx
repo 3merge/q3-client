@@ -181,6 +181,7 @@ export const InnerForm = ({
               errors,
               values,
               attachments,
+              initialValues,
             }}
           >
             {children({

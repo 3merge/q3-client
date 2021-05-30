@@ -9,16 +9,26 @@ export default ({ children }) => (
           {
             'coll': 'test',
             'op': 'Read',
-            'fields': ['streetNumber', 'postal'],
+            'fields': [
+              '{company,licenses,plan}',
+              {
+                glob: 'instructions',
+                test: ['plan!=Basic'],
+              },
+            ],
           },
           {
             'coll': 'test',
             'op': 'Update',
             'fields': [
-              'streetNumber',
+              '{company,plan}',
               {
-                glob: 'postal',
-                test: ['streetNumber>10'],
+                glob: 'licenses',
+                test: ['plan!=Basic'],
+              },
+              {
+                glob: 'instructions',
+                test: ['plan!=Basic'],
               },
             ],
           },
