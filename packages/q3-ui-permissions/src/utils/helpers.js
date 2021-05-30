@@ -39,8 +39,8 @@ const formatGlobRule = (xs = {}) => {
 };
 
 // directly from the server
-const cleanFields = (xs, target) =>
-  compact(
+const cleanFields = (xs, target) => {
+  const out = compact(
     array.is(xs).map((item) => {
       if (!item) return null;
       if (!isPlainObject(item)) return item;
@@ -54,6 +54,9 @@ const cleanFields = (xs, target) =>
     if (b.startsWith('!')) return -1;
     return 0;
   });
+
+  return out.length ? out : '*';
+};
 
 const hasTest = (xs) => size(xs?.test) > 0;
 
@@ -69,13 +72,19 @@ export const isDynamicField = (grant, name) =>
       )
     : false;
 
-export const hasField = (grant, name, doc) =>
-  grant?.fields
-    ? micromatch.isMatch(
-        name,
-        cleanFields(grant.fields, doc),
-      )
-    : false;
+export const hasField = (grant, name, doc) => {
+  if (!name) return true;
+  if (!grant?.fields) return false;
+
+  return (
+    size(
+      // @note
+      // cannot use .isMatch as it does not yield the same
+      // results as over the api
+      micromatch([name], cleanFields(grant.fields, doc)),
+    ) > 0
+  );
+};
 
 export const invoke = (fn, args) =>
   typeof fn === 'function' ? fn(args) : null;

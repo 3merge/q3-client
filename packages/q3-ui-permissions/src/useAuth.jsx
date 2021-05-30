@@ -4,7 +4,7 @@ import {
   navigate,
 } from '@reach/router';
 import PropTypes from 'prop-types';
-import { isEqual, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import Comparison from 'comparisons';
 import {
   filterbyColl,

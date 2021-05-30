@@ -58,8 +58,12 @@ const CustomActionBar = ({ renderSelected, length }) => {
   );
 };
 
+CustomActionBar.defaultProps = {
+  renderSelected: null,
+};
+
 CustomActionBar.propTypes = {
-  renderSelected: PropTypes.element.isRequired,
+  renderSelected: PropTypes.node,
   length: PropTypes.number.isRequired,
 };
 

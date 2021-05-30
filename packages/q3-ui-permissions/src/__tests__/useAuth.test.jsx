@@ -69,7 +69,7 @@ describe('useAuth', () => {
     it('canSeeSub should be truthy', () =>
       expect(hook('foo').canSeeSub('bar')).toBeTruthy());
 
-    it('canDeleteSub should be truthy', () =>
+    it('canDeleteSub should be falsy', () =>
       expect(hook('foo').canDeleteSub('bar')).toBeFalsy());
 
     it('canEditConditionally should be truthy', () => {
