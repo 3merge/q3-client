@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
+import { isFunction, map } from 'lodash';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +10,7 @@ import Sort from '../Sort';
 import Timeline from '../Timeline';
 
 const Comments = (props) => {
-  const { collectionName, id } = props;
+  const { map: customMap, collectionName, id } = props;
   const { t } = useTranslation();
 
   const {
@@ -51,7 +52,11 @@ const Comments = (props) => {
               {...props}
               {...rest}
               post={post}
-              data={comments}
+              data={
+                isFunction(customMap)
+                  ? map(comments, customMap)
+                  : comments
+              }
               asc={state}
             />
           );
@@ -73,6 +78,7 @@ const Comments = (props) => {
 Comments.defaultProps = {
   additionalFields: null,
   insertNode: null,
+  map: null,
 };
 
 Comments.propTypes = {
@@ -80,6 +86,7 @@ Comments.propTypes = {
   collectionName: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   insertNode: PropTypes.func,
+  map: PropTypes.func,
 };
 
 export default Comments;
