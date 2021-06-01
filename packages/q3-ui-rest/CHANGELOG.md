@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.34.10](https://github.com/3merge/q/compare/v1.34.9...v1.34.10) (2021-06-01)
+
+
+### Bug Fixes
+
+* request caching data ([c6e7e71](https://github.com/3merge/q/commit/c6e7e71357bd427396390a68c4bf7778ff6eeafe))
+
+
+
+
+
 ## [1.34.7](https://github.com/3merge/q/compare/v1.34.6...v1.34.7) (2021-05-07)
 
 
