@@ -2,6 +2,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: {
+    '& .recharts-legend-wrapper': {
+      position: 'relative !important',
+      bottom: 'calc(100% + 24px) !important',
+      left: 'auto !important',
+      right: '0 !important',
+      fontSize: 12,
+    },
     '& .recharts-cartesian-axis-tick, & .recharts-legend-item': {
       color: theme?.palette?.primary?.dark,
       fontSize: 12,
@@ -9,15 +16,28 @@ export default makeStyles((theme) => ({
     '& .recharts-cartesian-axis-tick-line[orientation="left"]': {
       display: 'none',
     },
-    '& .recharts-cartesian-axis-line': {
-      stroke: theme?.palette?.primary?.dark,
+
+    '& .recharts-tooltip-cursor': {
+      opacity: 0.2,
+      stroke: theme.palette.primary.dark,
+      strokeWidth: 2,
     },
+
     '& .recharts-cartesian-grid': {
-      opacity: '0',
-      transition: 'opacity 250ms',
+      opacity: 0.3,
+
+      '& line': {
+        stroke: theme.palette.secondary.dark,
+      },
     },
-    '&:hover .recharts-cartesian-grid': {
-      opacity: '1',
+  },
+  right: {
+    textAlign: 'right',
+  },
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: theme.spacing(1),
+      textAlign: 'center',
     },
   },
 }));

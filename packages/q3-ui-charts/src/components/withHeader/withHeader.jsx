@@ -1,11 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Divider,
-  Box,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
 import Download from '../Download';
 import useStyle from './useStyle';
@@ -26,17 +21,23 @@ export default (Component) => {
         m={0}
       >
         <Box mb={2}>
-          <Grid container justify="space-between">
-            <Grid item>
-              <Typography component="h2" variant="h4">
+          <Grid
+            alignItems="center"
+            container
+            justify="space-between"
+          >
+            <Grid item md xs={12}>
+              <Typography
+                component="h2"
+                variant="h4"
+                className={cls.title}
+              >
                 {title}
               </Typography>
             </Grid>
-            <Grid item>
-              <Box alignItems="center" display="flex">
-                {children}
-                <Download title={title} data={cleaned} />
-              </Box>
+            <Grid item>{children}</Grid>
+            <Grid item xs className={cls.right}>
+              <Download title={title} data={cleaned} />
             </Grid>
           </Grid>
         </Box>

@@ -7,6 +7,7 @@ import {
 } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
+import { Tabs, Tab } from '@material-ui/core';
 import Template from '../src/components/Template';
 import Authentication from './datasource/Authentication';
 import logo from '../src/__fixtures__/logo';
@@ -20,15 +21,21 @@ const Loading = ({ children }) => {
   return children;
 };
 
-const Dash = () => (
-  <Template muted>
-    <Chart
-      component="Bar"
-      title="Sample chart"
-      template="demo"
-    />
-  </Template>
-);
+const Dash = () => {
+  const [state, setState] = React.useState();
+
+  return (
+    <Template muted>
+      <Tabs value={0} aria-label="simple tabs example">
+        <Tab value={0} label="Item One" />
+        <Tab label="Item Two" />
+        <Tab label="Item Three" />
+      </Tabs>
+
+      <Chart title="Sample chart" template="demo" />
+    </Template>
+  );
+};
 
 const Foo = () => <p>Custom profile view</p>;
 

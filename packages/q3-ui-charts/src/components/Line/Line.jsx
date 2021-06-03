@@ -1,32 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  LineChart,
+  ComposedChart,
   Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Area,
   ResponsiveContainer,
-  Legend,
-  Tooltip,
 } from 'recharts';
-import CustomTooltip from '../Tooltip';
+import { useTheme } from '@material-ui/core/styles';
+import withChartUtils from '../withChartUtils';
 import withColours from '../withColours';
 import withHeader from '../withHeader';
 import withValues from '../withValues';
 
-const CustomLineChart = ({ children, data, name }) => (
-  <ResponsiveContainer>
-    <LineChart data={data}>
-      <Legend />
-      <CartesianGrid />
-      <XAxis dataKey={name} />
-      <YAxis />
-      <Tooltip content={<CustomTooltip />} />
-      {children}
-    </LineChart>
-  </ResponsiveContainer>
+const CustomLineChartWrapper = withChartUtils(
+  ComposedChart,
 );
+
+const CustomLineChart = ({ children, ...rest }) => {
+  const t = useTheme();
+
+  return (
+    <ResponsiveContainer>
+      <CustomLineChartWrapper {...rest}>
+        <defs>
+          <linearGradient
+            id="colorUv"
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="1"
+          >
+            <stop
+              offset="5%"
+              stopColor={t.palette.secondary.light}
+              stopOpacity={0.1}
+            />
+            <stop
+              offset="95%"
+              stopColor={t.palette.background.paper}
+              stopOpacity={0}
+            />
+          </linearGradient>
+        </defs>
+        {children}
+        {React.Children.map(children, (item) => (
+          <Area
+            {...item.props}
+            stroke={false}
+            strokeWidth={2}
+            fillOpacity={1}
+            fill="url(#colorUv)"
+          />
+        ))}
+      </CustomLineChartWrapper>
+    </ResponsiveContainer>
+  );
+};
 
 CustomLineChart.defaultProps = {
   children: null,
@@ -39,7 +68,6 @@ CustomLineChart.propTypes = {
     PropTypes.object,
   ]),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default withHeader(

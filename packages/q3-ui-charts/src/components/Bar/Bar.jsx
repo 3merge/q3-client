@@ -11,20 +11,18 @@ import {
   Tooltip,
 } from 'recharts';
 import CustomTooltip from '../Tooltip';
+import withChartUtils from '../withChartUtils';
 import withColours from '../withColours';
 import withHeader from '../withHeader';
 import withValues from '../withValues';
 
-const CustomBarChart = ({ children, data, name }) => (
+const CustomBarChartWrapper = withChartUtils(BarChart);
+
+const CustomBarChart = ({ children, ...rest }) => (
   <ResponsiveContainer>
-    <BarChart data={data}>
-      <Legend />
-      <CartesianGrid />
-      <XAxis dataKey={name} />
-      <YAxis />
-      <Tooltip content={<CustomTooltip />} />
+    <CustomBarChartWrapper {...rest}>
       {children}
-    </BarChart>
+    </CustomBarChartWrapper>
   </ResponsiveContainer>
 );
 
@@ -39,7 +37,6 @@ CustomBarChart.propTypes = {
     PropTypes.object,
   ]),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export default withHeader(

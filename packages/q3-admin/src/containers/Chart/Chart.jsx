@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Charts from 'q3-ui-charts';
+import Charts from 'q3-ui-charts';
+import { Box } from '@material-ui/core';
 import useRest from 'q3-ui-rest';
 import withDateRange from '../../helpers/withDateRange';
 
-const Chart = ({
-  component,
-  children,
-  template,
-  search,
-  ...rest
-}) => {
-  const { data, fetching, fetchingError } = useRest({
+const Chart = ({ children, template, search, ...rest }) => {
+  const { data } = useRest({
     url: '/reports',
     key: 'data',
     runOnInit: true,
@@ -20,14 +15,13 @@ const Chart = ({
     },
   });
 
-  const ChartComponent =
-    Charts[fetching ? 'Loading' : component];
-
-  return ChartComponent && !fetchingError ? (
-    <ChartComponent {...rest} {...data}>
-      {children}
-    </ChartComponent>
-  ) : null;
+  return (
+    <Box mb={2}>
+      <Charts {...rest} {...data}>
+        {children}
+      </Charts>
+    </Box>
+  );
 };
 
 Chart.propTypes = {
@@ -35,12 +29,7 @@ Chart.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]),
-  component: PropTypes.oneOf([
-    'AreaLine',
-    'Bar',
-    'Pie',
-    'Line',
-  ]).isRequired,
+
   search: PropTypes.string.isRequired,
   template: PropTypes.string.isRequired,
 };
