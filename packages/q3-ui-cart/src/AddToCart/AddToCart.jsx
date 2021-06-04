@@ -9,13 +9,15 @@ const AddToCart = ({
   AddToCartButtonProps,
   product,
   size,
+  disabled,
   ...rest
 }) => (
   <Box display="flex" alignItems="stretch">
-    <Quantity {...rest} size={size}>
+    <Quantity {...rest} disabled={disabled} size={size}>
       {(quantity) => (
         <AddToCartButton
           {...AddToCartButtonProps}
+          disabled={disabled}
           quantity={quantity}
           product={product}
         />
@@ -29,11 +31,13 @@ AddToCart.propTypes = {
   AddToCartButtonProps: PropTypes.object,
   product: PropTypes.string.isRequired,
   size: PropTypes.oneOf(['large', 'regular', 'small']),
+  disabled: PropTypes.bool,
 };
 
 AddToCart.defaultProps = {
   AddToCartButtonProps: {},
   size: 'large',
+  disabled: false,
 };
 
 export default AddToCart;
