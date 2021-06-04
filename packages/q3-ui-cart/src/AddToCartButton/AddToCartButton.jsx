@@ -12,7 +12,12 @@ import { ADD_TO_CART_CLASS } from '../constants';
 import useStyle, { getFromProps } from './useStyle';
 import useReset from './useReset';
 
-const AddToCart = ({ quantity = 1, product }) => {
+const AddToCart = ({
+  quantity = 1,
+  product,
+  disabled: isDisabled,
+  ...rest
+}) => {
   const { add } = React.useContext(CartContext);
   const { t } = useTranslation('labels');
   const [loading, setLoading] = React.useState(false);
@@ -32,6 +37,7 @@ const AddToCart = ({ quantity = 1, product }) => {
   const onClick = React.useCallback(() => {
     setLoading(true);
     return add({
+      ...rest,
       product,
       quantity,
     })
@@ -47,7 +53,7 @@ const AddToCart = ({ quantity = 1, product }) => {
       fullWidth
       className={classnames(ADD_TO_CART_CLASS, btn)}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isDisabled}
       variant="contained"
       size="large"
       color="primary"
@@ -64,9 +70,14 @@ const AddToCart = ({ quantity = 1, product }) => {
   );
 };
 
+AddToCart.defaultProps = {
+  disabled: false,
+};
+
 AddToCart.propTypes = {
   quantity: PropTypes.number.isRequired,
   product: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default AddToCart;
