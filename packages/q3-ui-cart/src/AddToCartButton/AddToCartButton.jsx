@@ -12,7 +12,7 @@ import { ADD_TO_CART_CLASS } from '../constants';
 import useStyle, { getFromProps } from './useStyle';
 import useReset from './useReset';
 
-const AddToCart = ({ quantity = 1, product }) => {
+const AddToCart = ({ quantity = 1, product, ...rest }) => {
   const { add } = React.useContext(CartContext);
   const { t } = useTranslation('labels');
   const [loading, setLoading] = React.useState(false);
@@ -32,6 +32,7 @@ const AddToCart = ({ quantity = 1, product }) => {
   const onClick = React.useCallback(() => {
     setLoading(true);
     return add({
+      ...rest,
       product,
       quantity,
     })

@@ -1,0 +1,27 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Transfer from './transfer';
+import { Form, Field } from '../builders';
+
+<Meta title="Forms/Fields/Transfer" component={Transfer} />
+
+<Preview>
+  <Story name="Preloaded">
+    <Form>
+      <Field
+        name="transfer"
+        type="transfer"
+        options={[
+          'Australia',
+          'Canada',
+          'United States',
+          'United Kingdom',
+        ]}
+      />
+    </Form>
+  </Story>
+</Preview>
