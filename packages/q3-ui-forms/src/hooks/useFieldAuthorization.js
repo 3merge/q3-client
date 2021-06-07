@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isFunction } from 'lodash';
+import { get } from 'lodash';
 import {
   AuthorizationState,
   BuilderState,
@@ -18,6 +18,7 @@ const useFieldAuthorization = ({
   const { initialValues, values } = React.useContext(
     BuilderState,
   );
+
   const { setFieldValue } = React.useContext(
     DispatcherState,
   );
@@ -30,17 +31,18 @@ const useFieldAuthorization = ({
     visible: canSee(path),
   };
 
+  const prev = get(initialValues, name);
+  const curr = get(values, name);
+
   React.useEffect(() => {
     if (
       shouldUpdateAfterChange &&
       authState.readOnly &&
-      get(initialValues, name) !== get(values, name)
+      prev !== curr
     )
-      setFieldValue(name, get(initialValues, name));
-  }, [authState.readOnly, initialValues, values]);
+      setFieldValue(name, prev);
+  }, [authState.readOnly, prev, curr]);
 
-  // need to rollback value when permission changes back??
-  // or do we?
   return authState;
 };
 

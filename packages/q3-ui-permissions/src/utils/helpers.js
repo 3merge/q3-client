@@ -60,17 +60,22 @@ const cleanFields = (xs, target) => {
 
 const hasTest = (xs) => size(xs?.test) > 0;
 
-export const isDynamicField = (grant, name) =>
-  grant?.fields
+const removeNegations = (xs) =>
+  String(xs).replace(/!/g, '');
+
+export const isDynamicField = (grant, name) => {
+  return grant?.fields
     ? micromatch.isMatch(
         name,
         array
           .is(grant?.fields)
           .filter(isObject)
           .filter(hasTest)
-          .map(formatGlobRule),
+          .map(formatGlobRule)
+          .map(removeNegations),
       )
     : false;
+};
 
 export const hasField = (grant, name, doc) => {
   if (!name) return true;

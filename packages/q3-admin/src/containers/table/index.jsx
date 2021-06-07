@@ -9,7 +9,6 @@ import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
-import { getActions } from './utils';
 import { useRefresh } from '../../hooks';
 import TableActions from '../TableActions';
 
@@ -76,14 +75,9 @@ const List = ({ disableLink, io, ...rest }) => {
     location,
     rootPath,
   } = React.useContext(Definitions);
-  const { removeBulk, poll } = React.useContext(Dispatcher);
-  const { canDelete, canSeeSub } = useAuth(collectionName);
+  const { poll } = React.useContext(Dispatcher);
+  const { canSeeSub } = useAuth(collectionName);
   useRefresh(poll);
-
-  const actions = getActions(
-    collectionName,
-    canDelete && removeBulk ? removeBulk : null,
-  );
 
   const { state, update } = React.useContext(AuthContext);
   const decorator = TableDecorator({
@@ -111,7 +105,6 @@ const List = ({ disableLink, io, ...rest }) => {
       className={table}
       actionbarPosition="absolute"
       data={decorator.makeLinks(rootPath, disableLink)}
-      actions={actions}
       id={collectionName}
       onSort={updateSortPrefence}
       style={{ height: '100%' }}

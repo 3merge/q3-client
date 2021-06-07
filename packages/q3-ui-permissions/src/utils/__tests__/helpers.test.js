@@ -136,5 +136,25 @@ describe('Authentication helpers', () => {
           'bar',
         ),
       ).toBeFalsy());
+
+    it('should run conditional rules', () =>
+      expect(
+        hasField(
+          {
+            fields: [
+              'bar',
+              {
+                glob: 'bar',
+                negate: true,
+                test: ['foo=1'],
+              },
+            ],
+          },
+          'bar',
+          {
+            foo: 1,
+          },
+        ),
+      ).toBeFalsy());
   });
 });

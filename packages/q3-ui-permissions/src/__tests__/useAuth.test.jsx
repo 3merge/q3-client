@@ -17,7 +17,14 @@ beforeAll(async () => {
           {
             coll: 'foo',
             op: 'Create',
-            fields: '*',
+            fields: [
+              '*',
+              {
+                glob: 'bar',
+                negate: true,
+                test: ['something=true'],
+              },
+            ],
           },
           {
             coll: 'foo',
@@ -77,6 +84,11 @@ describe('useAuth', () => {
         approved: false,
       });
       expect(test).toBeTruthy();
+    });
+
+    it('should detect conditional fields', () => {
+      expect(hook('foo').isDynamic('foo')).toBeFalsy();
+      expect(hook('foo').isDynamic('bar')).toBeTruthy();
     });
   });
 
