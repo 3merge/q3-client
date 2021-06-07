@@ -107,6 +107,7 @@ function Search({
   term,
   toggle,
   addRule,
+  disableRule,
   ...rest
 }) {
   const classes = useStyles();
@@ -141,7 +142,7 @@ function Search({
                   ...rest,
                 }}
               />
-              {addRule && (
+              {addRule && !disableRule && (
                 <IconButton
                   label="createRule"
                   icon={FlashOn}
