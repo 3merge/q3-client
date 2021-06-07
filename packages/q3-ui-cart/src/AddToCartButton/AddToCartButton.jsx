@@ -46,7 +46,7 @@ const AddToCart = ({
       .finally(() => {
         setLoading(false);
       });
-  }, [quantity]);
+  }, [quantity, rest]);
 
   return (
     <Button
