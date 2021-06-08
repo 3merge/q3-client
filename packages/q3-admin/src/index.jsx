@@ -8,6 +8,7 @@ import { usePages, useServerSideEvents } from './hooks';
 import Notifications from './containers/Notifications';
 import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
+import Documentation from './components/Documentation';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
@@ -52,6 +53,9 @@ const Admin = ({
           ]}
         >
           <Notifications />
+          <Documentation
+            id={get(AppProps, 'documentationWidgetId')}
+          />
         </ProfileActions>
       </Navigation>
       <Box className={cls.main}>

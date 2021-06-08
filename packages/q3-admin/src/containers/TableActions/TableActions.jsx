@@ -6,6 +6,7 @@ import { Store } from '../state';
 import Add from '../add';
 import { useAppContext } from '../../hooks';
 import useStyles from './styles';
+import withActionPortal from '../../components/withActionPortal';
 
 const CollectionActions = ({
   addComponent: AddForm,
@@ -27,21 +28,10 @@ const CollectionActions = ({
   });
 
   return (
-    <Fade in timeout={750}>
-      <Box
-        className={cls.root}
-        alignItems="center"
-        display="flex"
-        whiteSpace="nowrap"
-        position="absolute"
-        top={-65}
-        height={65}
-        zIndex={2}
-      >
-        {can('io')}
-        {can('add')}
-      </Box>
-    </Fade>
+    <>
+      {can('io')}
+      {can('add')}
+    </>
   );
 };
 
@@ -58,4 +48,6 @@ CollectionActions.propTypes = {
   }),
 };
 
-export default CollectionActions;
+export default withActionPortal(CollectionActions, {
+  elementId: 'q3-collection-actions-top',
+});

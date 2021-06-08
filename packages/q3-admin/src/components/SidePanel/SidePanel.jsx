@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { isNil } from 'lodash/fp';
 import classnames from 'classnames';
 import Grid from '@material-ui/core/Grid';
-import AppsIcon from '@material-ui/icons/Apps';
 import Hidden from '@material-ui/core/Hidden';
-import Dialog from 'q3-ui-dialog';
 import { SwapHorizontalCircle } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { browser } from 'q3-ui-helpers';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
+import SidePanelMobile from '../SidePanelMobile';
 
 const SIDE_PANEL_VISIBILITY = 'sidePanelVisibility';
 
@@ -78,32 +76,7 @@ const SidePanel = ({ id, children }) => {
           </Box>
         </Box>
       </Hidden>
-      <Hidden lgUp>
-        <Dialog
-          title="options"
-          renderContent={() => children}
-          renderTrigger={(onClick) => (
-            <Box
-              color="primary.contrastText"
-              position="absolute"
-              top="-130px"
-              right="141px"
-              display="flex"
-              alignItems="center"
-              height="65px"
-              zIndex={1210}
-            >
-              <IconButton
-                aria-label="options"
-                onClick={onClick}
-                color="inherit"
-              >
-                <AppsIcon />
-              </IconButton>
-            </Box>
-          )}
-        />
-      </Hidden>
+      <SidePanelMobile>{children}</SidePanelMobile>
     </div>
   );
 };

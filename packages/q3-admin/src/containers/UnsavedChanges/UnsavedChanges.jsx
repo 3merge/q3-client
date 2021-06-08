@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
 import { toLocal } from 'q3-ui-locale/lib/timezone';
+import Hidden from '@material-ui/core/Hidden';
 import { Store } from '../state';
 import PollIndicator from '../../components/PollIndicator';
 import PendingChangesModal from '../../components/PendingChangesModal';
@@ -10,6 +11,7 @@ import {
   addDocumentListener,
   removeDocumentListener,
 } from '../../hooks/useNotifications';
+import withActionPortal from '../../components/withActionPortal';
 
 const refresh = () => {
   if (browser.isBrowserReady()) window.location.reload();
@@ -57,7 +59,7 @@ export const useTimeTracking = (id, lastUpdatedAt) => {
   };
 };
 
-export default () => {
+export const UnsavedChanges = () => {
   const { data } = React.useContext(Store);
   const hasChange = useChangeDetection();
 
@@ -68,7 +70,7 @@ export default () => {
   } = useTimeTracking(data?.id, data?.updatedAt);
 
   return (
-    <>
+    <Hidden mdDown implementation="css">
       <PollIndicator
         hasPendingUpdate={Boolean(hasPending)}
         hasChange={hasChange}
@@ -80,6 +82,10 @@ export default () => {
           onReload={refresh}
         />
       )}
-    </>
+    </Hidden>
   );
 };
+
+export default withActionPortal(UnsavedChanges, {
+  elementId: 'q3-collection-actions-top',
+});

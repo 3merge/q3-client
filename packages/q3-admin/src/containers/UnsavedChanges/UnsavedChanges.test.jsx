@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
-import UnsavedChanges, {
+import {
+  UnsavedChanges,
   useTimeTracking,
 } from './UnsavedChanges';
 import PendingChangesModal from '../../components/PendingChangesModal';
