@@ -8,20 +8,27 @@ export default () => (
     cardProps={{
       title: 'title',
       attributes: ['year'],
-    }}
-    initialValues={{
-      title: '',
-      year: '',
+      editable: {
+        year: {
+          type: 'date',
+          under: 'movies',
+        },
+      },
     }}
     bulkEditorComponent={(props) => (
       <Form {...props}>
-        <Field name="year" type="date" />
+        <Field name="movies.year" type="date" />
       </Form>
     )}
   >
-    <Form debug>
-      <Field name="title" type="text" required />
-      <Field name="year" type="date" />
+    <Form under="movies">
+      <Field
+        name="title"
+        under="movies"
+        type="text"
+        required
+      />
+      <Field name="year" under="movies" type="date" />
     </Form>
   </SubDetail>
 );

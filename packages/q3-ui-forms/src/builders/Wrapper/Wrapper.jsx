@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import {
   useAuthorization,
   useDispatcher,
@@ -22,6 +23,7 @@ export const InnerForm = ({
   children,
   keep,
   marshalSelectively,
+  marshalAuthorizationContext,
   marshal,
   modify,
   translate,
@@ -35,6 +37,7 @@ export const InnerForm = ({
   restart,
   showSuccessMessage,
   showPersistenceSnack,
+  under,
   ...etc
 }) => {
   const [attachments, setAttachments] = React.useState([]);
@@ -79,6 +82,8 @@ export const InnerForm = ({
     isModified,
   } = useDispatcher(initialValues, initialErrors);
 
+  const castUnder = (xs) => (under ? { [under]: xs } : xs);
+
   const {
     isDisabled,
     checkReadAuthorizationContext,
@@ -86,8 +91,12 @@ export const InnerForm = ({
     ...authFieldOptions
   } = useAuthorization(collectionName, isNew, {
     ...etc,
-    initialValues: seed,
-    currentValues: values,
+    currentValues: isFunction(marshalAuthorizationContext)
+      ? marshalAuthorizationContext(
+          castUnder(values),
+          castUnder(seed),
+        )
+      : castUnder(values),
   });
 
   const {
@@ -278,6 +287,16 @@ InnerForm.propTypes = {
    * It will run flat on specified keys in the initial state.
    */
   unwind: PropTypes.arrayOf(PropTypes.array),
+
+  /**
+   * Use to insert top-level data into the form.
+   */
+  marshalAuthorizationContext: PropTypes.func,
+
+  /**
+   * Use to treat data as sub-document for permissions
+   */
+  under: PropTypes.string,
 };
 
 InnerForm.defaultProps = {
@@ -298,6 +317,8 @@ InnerForm.defaultProps = {
   // eslint-disable-next-line
   onSubmit: console.log,
   initialErrors: {},
+  marshalAuthorizationContext: undefined,
+  under: undefined,
 };
 
 export default (Component) => (props) => (
