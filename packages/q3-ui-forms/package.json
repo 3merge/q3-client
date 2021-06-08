@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.34.9",
+  "version": "1.34.12",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.6",
@@ -20,7 +20,6 @@
     "is-glob": "^4.0.1",
     "lodash": "^4.17.20",
     "material-ui-chip-input": "^1.1.0",
-    "minimatch": "^3.0.4",
     "moment": "2.29.1",
     "moment-timezone": "^0.5.32",
     "notistack": "^1.0.2",
@@ -38,7 +37,6 @@
   },
   "peerDependencies": {
     "@reach/router": "^1.2.1",
-    "formik": "^2.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2"
   },

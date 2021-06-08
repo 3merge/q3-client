@@ -126,12 +126,35 @@ describe('Authentication helpers', () => {
 
     it('should return truthy on multi-matching', () =>
       expect(
-        hasField({ fields: '*, !foo, !bar' }, 'quuz'),
+        hasField({ fields: ['*', '!foo', '!bar'] }, 'quuz'),
       ).toBeTruthy());
 
     it('should return falsy on multi-matching', () =>
       expect(
-        hasField({ fields: 'foo, !bar, quuz' }, 'bar'),
+        hasField(
+          { fields: ['{foo,quuz,bar}', '!bar'] },
+          'bar',
+        ),
+      ).toBeFalsy());
+
+    it('should run conditional rules', () =>
+      expect(
+        hasField(
+          {
+            fields: [
+              'bar',
+              {
+                glob: 'bar',
+                negate: true,
+                test: ['foo=1'],
+              },
+            ],
+          },
+          'bar',
+          {
+            foo: 1,
+          },
+        ),
       ).toBeFalsy());
   });
 });

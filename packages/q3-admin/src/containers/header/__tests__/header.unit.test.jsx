@@ -14,12 +14,6 @@ jest.mock('q3-ui/lib/header', () => ({
   default: () => null,
 }));
 
-jest.mock('formik', () => ({
-  Formik: jest.fn(),
-  Form: jest.fn(),
-  connect: (v) => v,
-}));
-
 beforeAll(() => {
   jest.spyOn(React, 'useContext').mockReturnValue({
     collectionName: 'component-parent',

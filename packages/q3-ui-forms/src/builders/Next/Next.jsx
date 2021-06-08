@@ -45,9 +45,6 @@ Next.propTypes = {
    */
   submit: PropTypes.bool,
 
-  /**
-   * Custom click handler that overrides formik's submitForm action
-   */
   onClick: PropTypes.func,
 
   /**

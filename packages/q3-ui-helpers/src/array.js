@@ -1,4 +1,4 @@
-import { difference, uniq } from 'lodash';
+import { difference, uniq, compact } from 'lodash';
 
 import * as string from './string';
 
@@ -10,7 +10,8 @@ export const hasIndex = (v) => v !== -1;
 /**
  * Forces element into an array shape.
  */
-export const is = (a) => (Array.isArray(a) ? a : [a]);
+export const is = (a) =>
+  compact(Array.isArray(a) ? a : [a]);
 
 /**
  * Remove empty values.

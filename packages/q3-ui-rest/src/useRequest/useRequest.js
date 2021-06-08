@@ -139,7 +139,7 @@ const useRequest = ({
     ),
 
     curry: (args) => (data) => {
-      if (!args.data && isObject(data))
+      if (isObject(data))
         Object.assign(args, {
           data,
         });

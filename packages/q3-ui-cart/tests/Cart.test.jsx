@@ -21,7 +21,6 @@ import { withFixtures as Fixtures } from './Cart.stories.jsx';
 
 let Stage;
 
-jest.unmock('formik');
 jest.unmock('useful-state');
 jest.useFakeTimers();
 

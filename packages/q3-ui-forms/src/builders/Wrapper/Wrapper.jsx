@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isFunction } from 'lodash';
 import {
   useAuthorization,
   useDispatcher,
@@ -22,6 +23,7 @@ export const InnerForm = ({
   children,
   keep,
   marshalSelectively,
+  marshalAuthorizationContext,
   marshal,
   modify,
   translate,
@@ -35,15 +37,10 @@ export const InnerForm = ({
   restart,
   showSuccessMessage,
   showPersistenceSnack,
+  under,
   ...etc
 }) => {
   const [attachments, setAttachments] = React.useState([]);
-
-  const {
-    isDisabled,
-    checkReadAuthorizationContext,
-    checkEditAuthorizationContext,
-  } = useAuthorization(collectionName, isNew, etc);
 
   const {
     setField,
@@ -76,6 +73,7 @@ export const InnerForm = ({
     setFieldError,
     removeFieldValue,
     removeFieldError,
+    resetFieldValue,
     initFieldValue,
     values,
     errors,
@@ -83,6 +81,23 @@ export const InnerForm = ({
     previousValues,
     isModified,
   } = useDispatcher(initialValues, initialErrors);
+
+  const castUnder = (xs) => (under ? { [under]: xs } : xs);
+
+  const {
+    isDisabled,
+    checkReadAuthorizationContext,
+    checkEditAuthorizationContext,
+    ...authFieldOptions
+  } = useAuthorization(collectionName, isNew, {
+    ...etc,
+    currentValues: isFunction(marshalAuthorizationContext)
+      ? marshalAuthorizationContext(
+          castUnder(values),
+          castUnder(seed),
+        )
+      : castUnder(values),
+  });
 
   const {
     message,
@@ -134,6 +149,7 @@ export const InnerForm = ({
   return (
     <AuthorizationState.Provider
       value={{
+        ...authFieldOptions,
         canEdit: checkEditAuthorizationContext,
         canSee: checkReadAuthorizationContext,
         collectionName,
@@ -158,6 +174,7 @@ export const InnerForm = ({
             setErrors,
             removeFieldValue,
             removeFieldError,
+            resetFieldValue,
             initFieldValue,
             setFieldError,
             setFieldValue,
@@ -173,6 +190,7 @@ export const InnerForm = ({
               errors,
               values,
               attachments,
+              initialValues,
             }}
           >
             {children({
@@ -269,6 +287,16 @@ InnerForm.propTypes = {
    * It will run flat on specified keys in the initial state.
    */
   unwind: PropTypes.arrayOf(PropTypes.array),
+
+  /**
+   * Use to insert top-level data into the form.
+   */
+  marshalAuthorizationContext: PropTypes.func,
+
+  /**
+   * Use to treat data as sub-document for permissions
+   */
+  under: PropTypes.string,
 };
 
 InnerForm.defaultProps = {
@@ -289,6 +317,8 @@ InnerForm.defaultProps = {
   // eslint-disable-next-line
   onSubmit: console.log,
   initialErrors: {},
+  marshalAuthorizationContext: undefined,
+  under: undefined,
 };
 
 export default (Component) => (props) => (

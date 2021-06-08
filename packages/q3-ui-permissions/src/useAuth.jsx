@@ -4,11 +4,13 @@ import {
   navigate,
 } from '@reach/router';
 import PropTypes from 'prop-types';
+import { uniq } from 'lodash';
 import Comparison from 'comparisons';
 import {
   filterbyColl,
   findByOp,
   isDefined,
+  isDynamicField,
   hasField,
 } from './utils/helpers';
 
@@ -57,7 +59,7 @@ export const asProtectedRoute = (ctx) => {
   return ProtectedRoute;
 };
 
-export default (ctx) => (coll) => {
+export default (ctx) => (coll, doc = {}) => {
   const a = React.useContext(ctx);
   const permissions = getPermissions(a);
 
@@ -76,6 +78,7 @@ export default (ctx) => (coll) => {
     hasField(
       getOp(op),
       subfield ? `${subfield}.${path}` : path,
+      doc,
     )
       ? children
       : null;
@@ -105,6 +108,8 @@ export default (ctx) => (coll) => {
   const update = getOp('Update');
   const create = getOp('Create');
 
+  const canSub = (op) => (sub) => hasField(op, sub, doc);
+
   return {
     ...a,
     canSee: isDefined(read),
@@ -112,6 +117,20 @@ export default (ctx) => (coll) => {
     canCreate: isDefined(create),
     canEdit: isDefined(read) && isDefined(update),
     inClient: isDefined(read) && read.inClient,
+
+    isDynamic: (name) => {
+      const tempGrant = {
+        fields: uniq(
+          [
+            read?.fields,
+            create?.fields,
+            update?.fields,
+          ].flat(),
+        ),
+      };
+
+      return isDynamicField(tempGrant, name);
+    },
 
     canEditConditionally(d) {
       const documentConditions = update?.documentConditions
@@ -121,10 +140,10 @@ export default (ctx) => (coll) => {
       return this.canEdit && documentConditions;
     },
 
-    canCreateSub: (sub) => hasField(create, sub),
-    canEditSub: (sub) => hasField(update, sub),
-    canDeleteSub: (sub) => hasField(del, sub),
-    canSeeSub: (sub) => hasField(read, sub),
+    canCreateSub: canSub(create),
+    canEditSub: canSub(update),
+    canDeleteSub: canSub(del),
+    canSeeSub: canSub(read),
 
     HideByField,
     Redirect,

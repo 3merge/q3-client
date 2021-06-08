@@ -20,13 +20,12 @@ export const renderAdornmentIcon = (
   let El;
 
   if (isDisabled) El = Lock;
-  if (type === 'email') El = AlternateEmailIcon;
-  if (type === 'tel') El = PhoneIcon;
-  if (type === 'postal') El = MarkunreadMailboxIcon;
-  if (type === 'date') El = CalendarTodayIcon;
-  if (icon) El = icon;
-
-  if (hasError) El = ErrorOutlineIcon;
+  else if (hasError) El = ErrorOutlineIcon;
+  else if (icon) El = icon;
+  else if (type === 'email') El = AlternateEmailIcon;
+  else if (type === 'tel') El = PhoneIcon;
+  else if (type === 'postal') El = MarkunreadMailboxIcon;
+  else if (type === 'date') El = CalendarTodayIcon;
 
   return El ? (
     <InputAdornment position="end">

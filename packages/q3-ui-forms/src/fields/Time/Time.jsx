@@ -8,7 +8,6 @@ import withState from '../withState';
 const Time = (props) => (
   <DateTimePicker
     clearable
-    disableToolbar
     value={get(props, 'value')}
     {...merge({}, props, {
       InputLabelProps: {
