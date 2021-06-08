@@ -92,6 +92,8 @@ const Item = ({
   renderNestedTableRow,
   item,
   ctx,
+  under,
+  collectionName,
 }) => {
   const cls = useStyle({ hasNested });
   const [currentIndex, setCurrentIndex] = React.useState(
@@ -139,6 +141,8 @@ const Item = ({
         isIn={isIn}
         component={withEditableTypography({
           data: item,
+          collectionName,
+          under,
         })}
       />
       <ItemActions
