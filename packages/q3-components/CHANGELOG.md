@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.35.0](https://github.com/3merge/q/compare/v1.34.13...v1.35.0) (2021-06-09)
+
+
+### Features
+
+* dynamic authorization ([#326](https://github.com/3merge/q/issues/326)) ([4caf375](https://github.com/3merge/q/commit/4caf3750f17090cc22b0f523497eb071e9ed1ced))
+
+
+
+
+
+
 ## [1.34.12](https://github.com/3merge/q/compare/v1.34.11...v1.34.12) (2021-06-04)
 
 **Note:** Version bump only for package q3-components
