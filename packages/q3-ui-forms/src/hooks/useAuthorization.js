@@ -3,14 +3,16 @@ import { useAuth } from 'q3-ui-permissions';
 export const orTruthy = (v, next) => (v ? next : true);
 
 export default (collectionName, isNew, options = {}) => {
+  const { currentValues, disabled } = options;
+
   const {
     canEdit,
     canCreate,
     canSeeSub,
     canCreateSub,
     canEditSub,
-  } = useAuth(collectionName);
-  const { disabled } = options;
+    isDynamic,
+  } = useAuth(collectionName, currentValues);
 
   return {
     isDisabled: () => {
@@ -28,5 +30,7 @@ export default (collectionName, isNew, options = {}) => {
         collectionName,
         isNew ? canCreateSub(name) : canEditSub(name),
       ) && !disabled,
+
+    isDynamic,
   };
 };

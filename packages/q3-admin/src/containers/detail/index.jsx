@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -15,7 +14,6 @@ import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
-import useStyle from './useStyle';
 
 const Detail = ({
   HeaderProps,
@@ -24,23 +22,14 @@ const Detail = ({
   notes,
   picture,
   files,
-  documentation,
   links,
   views,
   ...rest
 }) => {
-  const cls = useStyle();
   return (
     <Article
       asideComponent={
         <DetailSidePanel
-          documentation={
-            documentation ? (
-              <Box className={cls.docs}>
-                {documentation}
-              </Box>
-            ) : null
-          }
           notes={notes && <Notes />}
           files={files && <Upload />}
         >

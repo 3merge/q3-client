@@ -6,6 +6,8 @@ import {
 import SidePanel, { truthy } from './SidePanel';
 import useStyle from './useStyle';
 
+jest.mock('../SidePanelMobile', () => () => <div />);
+
 jest.mock('./useStyle', () =>
   jest.fn().mockReturnValue({}),
 );

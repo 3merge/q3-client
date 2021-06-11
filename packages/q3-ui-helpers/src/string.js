@@ -1,4 +1,4 @@
-import minimatch from 'minimatch';
+import micromatch from 'micromatch';
 import moment from 'moment';
 
 export const is = (v) => typeof v === 'string';
@@ -26,7 +26,7 @@ export const transformArrayIntoDelineatedString = (
 
 export const hasMatch = (target, pattern) =>
   is(target) && is(pattern)
-    ? minimatch(
+    ? micromatch.isMatch(
         castToLowercase(target),
         castToLowercase(pattern),
       )

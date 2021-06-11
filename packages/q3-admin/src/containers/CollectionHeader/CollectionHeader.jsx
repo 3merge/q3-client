@@ -32,6 +32,17 @@ const CollectionHeader = ({
           {t(collectionName)}
         </Typography>
         {!disableSearch && <Search />}
+        <Box
+          whiteSpace="nowrap"
+          display="flex"
+          id="q3-collection-actions"
+        >
+          <Box
+            whiteSpace="nowrap"
+            display="flex"
+            id="q3-collection-actions-top"
+          />
+        </Box>
       </Box>
     </Paper>
   );

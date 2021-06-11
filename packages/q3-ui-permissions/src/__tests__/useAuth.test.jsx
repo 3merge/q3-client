@@ -17,7 +17,14 @@ beforeAll(async () => {
           {
             coll: 'foo',
             op: 'Create',
-            fields: '*',
+            fields: [
+              '*',
+              {
+                glob: 'bar',
+                negate: true,
+                test: ['something=true'],
+              },
+            ],
           },
           {
             coll: 'foo',
@@ -69,7 +76,7 @@ describe('useAuth', () => {
     it('canSeeSub should be truthy', () =>
       expect(hook('foo').canSeeSub('bar')).toBeTruthy());
 
-    it('canDeleteSub should be truthy', () =>
+    it('canDeleteSub should be falsy', () =>
       expect(hook('foo').canDeleteSub('bar')).toBeFalsy());
 
     it('canEditConditionally should be truthy', () => {
@@ -77,6 +84,11 @@ describe('useAuth', () => {
         approved: false,
       });
       expect(test).toBeTruthy();
+    });
+
+    it('should detect conditional fields', () => {
+      expect(hook('foo').isDynamic('foo')).toBeFalsy();
+      expect(hook('foo').isDynamic('bar')).toBeTruthy();
     });
   });
 

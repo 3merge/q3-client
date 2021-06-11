@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FieldDetector from '../../helpers/types';
-import { AuthorizationState } from '../../FormsContext';
-import { useField, useListener } from '../../hooks';
+import {
+  useField,
+  useFieldAuthorization,
+  useListener,
+} from '../../hooks';
 
 const FieldBridge = (props) => {
   const { readOnly, type } = props;
@@ -30,22 +33,14 @@ FieldBridge.defaultProps = {
 };
 
 const Field = (props) => {
-  const { name, type, under, disabled } = props;
-  const path = under ? `${under}.${name}` : name;
-
-  const { canSee, canEdit } = React.useContext(
-    AuthorizationState,
-  );
-
-  const readOnly = !canEdit(path) || Boolean(disabled);
-  const visible = canSee(path);
+  const fieldAuthState = useFieldAuthorization(props);
+  const { readOnly, visible } = fieldAuthState;
 
   return visible
     ? React.createElement(FieldBridge, {
         ...props,
         disabled: readOnly,
         readOnly,
-        type,
       })
     : null;
 };

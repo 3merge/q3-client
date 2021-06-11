@@ -1,7 +1,5 @@
 import FieldBuilder from '../types';
 
-jest.unmock('formik');
-
 jest.mock('q3-ui-rest', () => ({
   getForTransfer: jest.fn().mockReturnValue(jest.fn()),
 }));

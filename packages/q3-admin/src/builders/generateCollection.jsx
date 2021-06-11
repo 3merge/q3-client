@@ -60,21 +60,7 @@ export default ({
               PageDetailProps,
               'disableUnsavedChanges',
               false,
-            ) && (
-              <Hidden mdDown implementation="css">
-                <Box
-                  alignItems="center"
-                  display="flex"
-                  position="absolute"
-                  right="142px"
-                  top="-130px"
-                  zIndex={1200}
-                  height="65px"
-                >
-                  <UnsavedChanges />
-                </Box>
-              </Hidden>
-            )}
+            ) && <UnsavedChanges />}
             <PageDetail />
           </Box>
         </Page>

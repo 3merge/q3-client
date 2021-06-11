@@ -184,6 +184,7 @@ export default (initialValues = {}, initialErrors = {}) => {
     setErrors: setIn(REPLACE_ERRORS, 'errors'),
     setFieldValue: setField(SET_VALUE),
     setFieldError: setField(SET_ERROR),
+
     removeFieldValue: removeField(UNSET_VALUE),
     removeFieldError: removeField(UNSET_ERROR),
     clearPreviousState: () =>

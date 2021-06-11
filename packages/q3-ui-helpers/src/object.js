@@ -91,3 +91,11 @@ export const removeUndefinedValuesFromAllArrays = (
   }, {});
 
 export const getBottomKey = (v) => last(Object.keys(v));
+
+export const toJSON = (xs) => {
+  try {
+    return JSON.stringify(xs);
+  } catch (e) {
+    return xs;
+  }
+};

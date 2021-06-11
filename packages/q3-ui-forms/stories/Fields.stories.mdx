@@ -19,6 +19,7 @@ import {
   Exists,
   NorthAmericaRegionalSelect,
 } from '../src/presets';
+import { Authorization } from '../__fixtures__';
 
 <Meta title="Forms/Field" component={Field} />
 
@@ -188,6 +189,39 @@ minimum values, maximum values, and required values.
         <NorthAmericaRegionalSelect />
       </Form>
     </Provider>
+  </Story>
+</Preview>
+
+## Authorization
+
+<Preview>
+  <Story name="Authorization">
+    <Authorization>
+      <Provider>
+        <Form
+          collectionName="test"
+          initialValues={{
+            licenses: 1,
+            plan: 'Basic',
+          }}
+        >
+          <Field name="company" type="string" />
+          <Field
+            helperText="The basic plan comes with only one license"
+            name="plan"
+            type="select"
+            options={['Basic', 'Professional']}
+          />
+          <Field name="licenses" type="number" />
+          <Field
+            name="instructions"
+            multiline
+            rows={6}
+            type="text"
+          />
+        </Form>
+      </Provider>
+    </Authorization>
   </Story>
 </Preview>
 
