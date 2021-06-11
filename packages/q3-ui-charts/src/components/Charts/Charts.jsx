@@ -18,7 +18,11 @@ const BAR = 'Bar';
 const LINE = 'Line';
 const TABLE = 'Table';
 
-const Charts = ({ initialChartType, ...rest }) => {
+const Charts = ({
+  initialChartType,
+  disableChartTypes,
+  ...rest
+}) => {
   const { t } = useTranslation('labels');
   const [state, setState] = React.useState(
     initialChartType,
@@ -35,6 +39,12 @@ const Charts = ({ initialChartType, ...rest }) => {
     const changeChartType = () => {
       setState(type);
     };
+
+    if (
+      Array.isArray(disableChartTypes) &&
+      disableChartTypes.includes(type)
+    )
+      return null;
 
     return (
       <Button
@@ -73,10 +83,12 @@ const Charts = ({ initialChartType, ...rest }) => {
 
 Charts.defaultProps = {
   initialChartType: LINE,
+  disableChartTypes: [],
 };
 
 Charts.propTypes = {
   initialChartType: PropTypes.oneOf([BAR, LINE, TABLE]),
+  disableChartTypes: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Charts;

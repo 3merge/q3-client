@@ -10,7 +10,7 @@ import {
 import { Box } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { uniqBy, first, size } from 'lodash';
+import { uniqBy, first, size, map, omit } from 'lodash';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CustomTooltip from '../Tooltip';
 
@@ -50,6 +50,17 @@ const shouldShowLegend = (xs) => {
   }
 };
 
+const getMaxWidth = (xs, xAxisKey) =>
+  (Math.max(
+    ...map(xs, (item) =>
+      Object.values(omit(item, [xAxisKey])).map(
+        (v) => String(v).length,
+      ),
+    ).flat(),
+  ) +
+    1) *
+  8;
+
 export default (Component) => {
   const ChartUtils = (props) => {
     const {
@@ -66,6 +77,8 @@ export default (Component) => {
     const matches = useMediaQuery(
       theme.breakpoints.down('sm'),
     );
+
+    const w = getMaxWidth(rest?.data, name);
 
     return (
       <Component name={name} {...rest}>
@@ -85,9 +98,10 @@ export default (Component) => {
         )}
         {enableYAxis && !matches && (
           <YAxis
-            interval="preserveEnd"
+            interval="preserveStartEnd"
             stroke={theme.palette.primary.dark}
             axisLine={false}
+            width={w}
           />
         )}
         {enableTooltip && (

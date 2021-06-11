@@ -1,6 +1,5 @@
 import React from 'react';
 import saveAs from 'file-saver';
-import ColorScheme from 'color-scheme';
 import * as Charts from '../../src';
 import sampleSmall from '../fixtures/sample-small';
 
@@ -19,24 +18,6 @@ jest.mock(
   }),
 );
 
-jest.mock('recharts/lib/chart/PieChart', () => ({
-  __esModule: true,
-  PieChart: jest
-    .fn()
-    .mockImplementation(({ children }) => (
-      <div id="pie-chart">{children}</div>
-    )),
-}));
-
-jest.mock('recharts/lib/polar/Pie', () => ({
-  __esModule: true,
-  Pie: jest
-    .fn()
-    .mockImplementation(({ children }) => (
-      <div id="pie">{children}</div>
-    )),
-}));
-
 jest.mock('recharts/lib/component/Cell', () => ({
   __esModule: true,
   Cell: jest
@@ -48,16 +29,10 @@ jest.mock('recharts/lib/component/Cell', () => ({
     )),
 }));
 
-beforeAll(() => {
-  jest
-    .spyOn(ColorScheme.prototype, 'colors')
-    .mockReturnValue(['000000']);
-});
-
 describe('Charts', () => {
   it('should download CSV', (done) => {
     const el = global.mount(
-      <Charts.AreaLine title="samples" {...sampleSmall} />,
+      <Charts.Line title="samples" {...sampleSmall} />,
     );
 
     el.find('#chart-download-option-csv')
@@ -66,22 +41,10 @@ describe('Charts', () => {
 
     setTimeout(() => {
       expect(saveAs).toHaveBeenCalledWith(
-        expect.any(Buffer),
+        expect.any(Blob),
         'samples.csv',
       );
       done();
     }, 0);
-  });
-
-  it('should generate colours', () => {
-    const el = global.mount(
-      <Charts.Pie {...sampleSmall} />,
-    );
-
-    el.update();
-    expect(el.find('.cell').first().props()).toHaveProperty(
-      'fill',
-      '#000000',
-    );
   });
 });
