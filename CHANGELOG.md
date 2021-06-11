@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.35.1](https://github.com/3merge/q/compare/v1.35.0...v1.35.1) (2021-06-11)
+
+
+### Bug Fixes
+
+* sub-field auth types ([4e1abc1](https://github.com/3merge/q/commit/4e1abc1216569d0accc99c11d42ab04981529832))
+
+
+
+
+
+
 # [1.35.0](https://github.com/3merge/q/compare/v1.34.13...v1.35.0) (2021-06-09)
 
 
