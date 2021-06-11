@@ -4,7 +4,7 @@ import {
   navigate,
 } from '@reach/router';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
+import { uniq, isString } from 'lodash';
 import Comparison from 'comparisons';
 import {
   filterbyColl,
@@ -108,7 +108,8 @@ export default (ctx) => (coll, doc = {}) => {
   const update = getOp('Update');
   const create = getOp('Create');
 
-  const canSub = (op) => (sub) => hasField(op, sub, doc);
+  const canSub = (op) => (sub) =>
+    isString(sub) ? hasField(op, sub, doc) : true;
 
   return {
     ...a,
