@@ -11,6 +11,8 @@ export default (Component, SubComponent) => {
             fill={colours[i]}
             key={v}
             stroke={colours[i]}
+            type="monotone"
+            radius={[4, 4, 0, 0]}
           />
         ))
       ) : (
@@ -18,6 +20,8 @@ export default (Component, SubComponent) => {
           dataKey={value}
           stroke={colours[0]}
           fill={colours[0]}
+          type="monotone"
+          radius={[4, 4, 0, 0]}
         />
       )}
     </Component>

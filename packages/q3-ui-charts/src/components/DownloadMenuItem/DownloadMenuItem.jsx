@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem } from '@material-ui/core';
+import { capitalize } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 const DownloadMenuItem = React.forwardRef(
@@ -14,7 +15,7 @@ const DownloadMenuItem = React.forwardRef(
         ref={ref}
         style={{ margin: 0 }}
       >
-        {t(label)}
+        {t(`downloadAs${capitalize(label)}`)}
       </MenuItem>
     );
   },

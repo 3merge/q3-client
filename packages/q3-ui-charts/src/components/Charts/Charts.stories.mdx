@@ -4,21 +4,27 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import AreaLine from './AreaLine';
+import Charts from './Charts';
 import data from '../../../tests/fixtures/sample-large';
 import data1 from '../../../tests/fixtures/sample-large-double';
 
-<Meta title="Charts/AreaLine" component={AreaLine} />
+<Meta title="Charts" component={Charts} />
 
-# AreaLine
+# Charts
 
 <Preview>
   <Story name="Single">
-    <AreaLine {...data} />
+    <Charts {...data} />
   </Story>
   <Story name="Double">
-    <AreaLine {...data1} />
+    <Charts {...data1} />
+  </Story>
+  <Story name="Disable">
+    <Charts
+      disableChartTypes={['Table', 'Bar', 'Line']}
+      {...data1}
+    />
   </Story>
 </Preview>
 
-<Props of={AreaLine} />
+<Props of={Charts} />

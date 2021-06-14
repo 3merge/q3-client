@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, map } from 'lodash';
+import { get, map, uniqBy } from 'lodash';
 import { Box, Typography } from '@material-ui/core';
 import useStyle from './useStyle';
 
@@ -13,7 +13,7 @@ const TooltipList = ({ data }) => {
       margin={0}
       padding={0}
     >
-      {map(data, ({ name, payload }, i) => (
+      {map(uniqBy(data, 'name'), ({ name, payload }, i) => (
         <Typography
           className={cls.item}
           component="li"

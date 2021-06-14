@@ -5,7 +5,8 @@ export default makeStyles(() => ({
     listStyle: 'none',
   },
   item: {
-    margin: 0,
+    margin: '0 !important',
     fontSize: '0.933rem',
+    lineHeight: 1.3,
   },
 }));

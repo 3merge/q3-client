@@ -7,28 +7,20 @@ import {
 } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
-import Template from '../src/components/Template';
+
 import Authentication from './datasource/Authentication';
-import logo from '../src/__fixtures__/logo';
 import Datasource from './datasource';
 import Admin from '../src';
 import pages from './views';
-import Chart from '../src/containers/Chart';
 
 const Loading = ({ children }) => {
   useLoading();
   return children;
 };
 
-const Dash = () => (
-  <Template muted>
-    <Chart
-      component="Bar"
-      title="Sample chart"
-      template="demo"
-    />
-  </Template>
-);
+const Dash = () => {
+  return null;
+};
 
 const Foo = () => <p>Custom profile view</p>;
 
