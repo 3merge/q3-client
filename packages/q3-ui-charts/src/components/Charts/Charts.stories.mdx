@@ -17,13 +17,7 @@ import data1 from '../../../tests/fixtures/sample-large-double';
     <Charts {...data} />
   </Story>
   <Story name="Double">
-    <Charts {...data1} />
-  </Story>
-  <Story name="Disable">
-    <Charts
-      disableChartTypes={['Table', 'Bar', 'Line']}
-      {...data1}
-    />
+    <Charts variant="Bar" {...data1} />
   </Story>
 </Preview>
 

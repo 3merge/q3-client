@@ -26,16 +26,11 @@ export default (Component) => {
             container
             justify="space-between"
           >
-            <Grid item md xs={12}>
-              <Typography
-                component="h2"
-                variant="h4"
-                className={cls.title}
-              >
+            <Grid item xs>
+              <Typography component="h2" variant="h4">
                 {title}
               </Typography>
             </Grid>
-            <Grid item>{children}</Grid>
             <Grid item xs className={cls.right}>
               <Download title={title} data={cleaned} />
             </Grid>

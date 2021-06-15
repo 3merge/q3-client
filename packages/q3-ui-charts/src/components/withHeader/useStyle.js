@@ -34,10 +34,4 @@ export default makeStyles((theme) => ({
   right: {
     textAlign: 'right',
   },
-  title: {
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: theme.spacing(1),
-      textAlign: 'center',
-    },
-  },
 }));
