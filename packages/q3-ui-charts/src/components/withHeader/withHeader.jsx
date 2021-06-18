@@ -1,42 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { array } from 'q3-ui-helpers';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Download from '../Download';
 import useStyle from './useStyle';
+import { getDataLength } from '../withChartUtils/withChartUtils';
+
+// eslint-disable-next-line
+const HeaderTitle = ({ children }) => (
+  <ListSubheader
+    disableGutters
+    disableSticky
+    color="primary"
+    component="figcaption"
+    style={{
+      fontWeight: 'bold',
+      lineHeight: 'initial',
+      margin: 0,
+      textTransform: 'none',
+    }}
+  >
+    {children}
+  </ListSubheader>
+);
 
 export default (Component) => {
-  const Header = ({ children, data, title, ...rest }) => {
+  const Header = ({
+    children,
+    data,
+    enableDownload,
+    style,
+    title,
+    ...rest
+  }) => {
     const cleaned = array.hasLength(data) ? data : [];
-    const cls = useStyle();
+    const cls = useStyle({
+      legendSize: getDataLength(data),
+    });
 
     return (
       <Box
         bgcolor="background.paper"
         className={cls.root}
         component="figure"
-        px={2}
-        pb={1}
-        pt={2}
+        p={0.75}
         m={0}
       >
-        <Box mb={2}>
-          <Grid
-            alignItems="center"
-            container
-            justify="space-between"
-          >
-            <Grid item xs>
-              <Typography component="h2" variant="h4">
-                {title}
-              </Typography>
-            </Grid>
-            <Grid item xs className={cls.right}>
-              <Download title={title} data={cleaned} />
-            </Grid>
-          </Grid>
-        </Box>
-        <Box height="390px" width="100%">
+        {enableDownload ? (
+          <Download title={title} data={cleaned}>
+            <HeaderTitle>{title}</HeaderTitle>
+          </Download>
+        ) : (
+          <HeaderTitle>{title}</HeaderTitle>
+        )}
+        <Box
+          mt={0.5}
+          height="390px"
+          width="100%"
+          style={style}
+        >
           <Component data={cleaned} {...rest} />
         </Box>
       </Box>
@@ -46,7 +69,9 @@ export default (Component) => {
   Header.defaultProps = {
     data: [],
     children: null,
+    enableDownload: true,
     title: 'Report',
+    style: {},
   };
 
   Header.propTypes = {
@@ -55,7 +80,12 @@ export default (Component) => {
       PropTypes.object,
     ]),
     data: PropTypes.arrayOf(PropTypes.shape({})),
+    enableDownload: PropTypes.bool,
     title: PropTypes.string,
+    style: PropTypes.shape({
+      height: PropTypes.number,
+      width: PropTypes.number,
+    }),
   };
 
   return Header;

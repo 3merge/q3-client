@@ -2,17 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default (Component, SubComponent) => {
+  const sharedSubComponentProps = {
+    dot: false,
+    radius: [4, 4, 0, 0],
+    type: 'monotone',
+  };
+
   const ChartValue = ({ colours, value, ...rest }) => (
     <Component {...rest}>
       {Array.isArray(value) ? (
         value.map((v, i) => (
           <SubComponent
+            key={v}
             dataKey={v}
             fill={colours[i]}
-            key={v}
             stroke={colours[i]}
-            type="monotone"
-            radius={[4, 4, 0, 0]}
+            syncId={v}
+            {...sharedSubComponentProps}
           />
         ))
       ) : (
@@ -20,8 +26,7 @@ export default (Component, SubComponent) => {
           dataKey={value}
           stroke={colours[0]}
           fill={colours[0]}
-          type="monotone"
-          radius={[4, 4, 0, 0]}
+          {...sharedSubComponentProps}
         />
       )}
     </Component>

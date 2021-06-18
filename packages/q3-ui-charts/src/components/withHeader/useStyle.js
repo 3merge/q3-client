@@ -1,13 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  root: {
-    '& .recharts-legend-wrapper': {
-      position: 'relative !important',
-      bottom: 'calc(100% + 24px) !important',
-      left: 'auto !important',
-      right: '0 !important',
-      fontSize: 12,
+  root: ({ legendSize = 0 }) => ({
+    [`& .recharts-legend-wrapper li:nth-child(n+${legendSize})`]: {
+      display: 'none !important',
     },
     '& .recharts-cartesian-axis-tick, & .recharts-legend-item': {
       color: theme?.palette?.primary?.dark,
@@ -30,7 +26,7 @@ export default makeStyles((theme) => ({
         stroke: theme.palette.secondary.dark,
       },
     },
-  },
+  }),
   right: {
     textAlign: 'right',
   },

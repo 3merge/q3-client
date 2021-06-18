@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton, Menu } from '@material-ui/core';
+import { Button, Menu } from '@material-ui/core';
 import { open } from 'useful-state';
 import Download from './Download';
 
@@ -20,7 +20,7 @@ jest.mock('useful-state', () => {
 describe('Download', () => {
   it('should disable IconButton on empty data', () => {
     const el = global.shallow(<Download />);
-    expect(el.find(IconButton).props()).toHaveProperty(
+    expect(el.find(Button).props()).toHaveProperty(
       'disabled',
       true,
     );
@@ -30,7 +30,7 @@ describe('Download', () => {
     const el = global.shallow(
       <Download data={[{ value: 1 }]} />,
     );
-    el.find(IconButton).simulate('click');
+    el.find(Button).simulate('click');
     expect(el.find(Menu).props()).toHaveProperty(
       'open',
       true,
