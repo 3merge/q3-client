@@ -36,7 +36,7 @@ const CustomLineChart = ({ children, ...rest }) => {
               stopOpacity={0.1}
             />
             <stop
-              offset="95%"
+              offset="99%"
               stopColor={t.palette.background.paper}
               stopOpacity={0}
             />

@@ -7,44 +7,22 @@ import {
   Legend,
   Tooltip,
 } from 'recharts';
-import { Box } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { uniqBy, first, size, map, omit } from 'lodash';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { first, size, map, omit } from 'lodash';
 import CustomTooltip from '../Tooltip';
 
-const renderLegend = (props) => {
-  const { payload } = props;
-
-  return (
-    <Box
-      display="flex"
-      justifyContent="flex-end"
-      component="ul"
-      m={0}
-      p={0}
-    >
-      {uniqBy(payload, 'dataKey').map((entry, index) => (
-        <Box
-          alignItems="center"
-          component="li"
-          display="flex"
-          key={`item-${index}`}
-          color={entry.color}
-          ml={1}
-        >
-          <FiberManualRecordIcon />
-          {entry.value}
-        </Box>
-      ))}
-    </Box>
-  );
+export const getDataLength = (data) => {
+  try {
+    return size(Object.keys(first(data || {})));
+  } catch (e) {
+    return 0;
+  }
 };
 
 const shouldShowLegend = (xs) => {
   try {
-    return size(Object.keys(first(xs.data))) > 2;
+    return getDataLength(xs.data) > 2;
   } catch {
     return false;
   }
@@ -82,9 +60,7 @@ export default (Component) => {
 
     return (
       <Component name={name} {...rest}>
-        {shouldShowLegend(rest) && (
-          <Legend content={renderLegend} />
-        )}
+        {shouldShowLegend(rest) && <Legend />}
         {enableGrid && (
           <CartesianGrid strokeDasharray="3 3" />
         )}

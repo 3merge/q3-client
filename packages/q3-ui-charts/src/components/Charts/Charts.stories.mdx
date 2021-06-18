@@ -13,11 +13,23 @@ import data1 from '../../../tests/fixtures/sample-large-double';
 # Charts
 
 <Preview>
-  <Story name="Single">
-    <Charts {...data} />
+  <Story name="Single Bar">
+    <Charts variant="Bar" {...data} />
   </Story>
-  <Story name="Double">
+  <Story name="Single Line">
+    <Charts
+      variant="Line"
+      style={{
+        height: 155,
+      }}
+      {...data}
+    />
+  </Story>
+  <Story name="Double Bar">
     <Charts variant="Bar" {...data1} />
+  </Story>
+  <Story name="Double Line">
+    <Charts variant="Line" {...data1} />
   </Story>
 </Preview>
 
