@@ -77,6 +77,7 @@ export default (Component) => {
             interval="preserveStartEnd"
             stroke={theme.palette.primary.dark}
             axisLine={false}
+            allowDecimals={false}
             width={w}
           />
         )}

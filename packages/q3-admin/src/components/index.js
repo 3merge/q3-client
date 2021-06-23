@@ -16,7 +16,6 @@ export {
   Detail,
   Table,
   Page,
-  Search,
   SubDetail,
 } from '../containers';
 
