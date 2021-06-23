@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.36.0](https://github.com/3merge/q/compare/v1.35.3...v1.36.0) (2021-06-23)
+
+
+### Features
+
+* statistic component ([#331](https://github.com/3merge/q/issues/331)) ([442eff0](https://github.com/3merge/q/commit/442eff0116d7805375797e1d75e2be5c630f65f5))
+
+
+
+
+
 ## [1.35.3](https://github.com/3merge/q/compare/v1.35.2...v1.35.3) (2021-06-18)
 
 **Note:** Version bump only for package q3-client
