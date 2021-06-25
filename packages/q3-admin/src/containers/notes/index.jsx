@@ -2,6 +2,7 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
+import { orderBy } from 'lodash';
 import SidePanelContent from '../../components/SidePanelContent';
 import AddNote from './add';
 import { Definitions } from '../state';
@@ -9,8 +10,11 @@ import DisplayNotes from '../../components/display';
 import Note from './note';
 
 export const getAuthor = (v) => {
-  if (!v || !v.createdBy) return null;
-  return `${v.createdBy.firstName} ${v.createdBy.lastName}`;
+  if (!v) return null;
+  if (v.author) return v.author;
+  return v.createdBy
+    ? `${v.createdBy.firstName} ${v.createdBy.lastName}`
+    : null;
 };
 
 const Notes = () => {
@@ -53,9 +57,11 @@ const Notes = () => {
           onSubmit={post}
         />
 
-        {thread.map((v) => (
-          <Note key={v.id} {...args} {...v} />
-        ))}
+        {orderBy(thread, ['createdAt'], ['desc']).map(
+          (v, idx) => (
+            <Note key={`${v.id}${idx}`} {...args} {...v} />
+          ),
+        )}
       </DisplayNotes>
     </SidePanelContent>
   );

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { useToggle } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
-import Authorship from 'q3-ui/lib/authorship';
+import { string } from 'q3-ui-helpers';
 
 const useStyles = makeStyles(() => ({
   blockquote: {
@@ -21,13 +21,25 @@ const Note = ({
   onUpdate,
   onDelete,
   message,
-  date,
+  createdAt,
+  updatedAt,
   author,
   id,
 }) => {
   const { t } = useTranslation('labels');
   const { toggle, state } = useToggle(false);
   const { blockquote } = useStyles();
+
+  const created = string.toDate(createdAt);
+  const updated = string.toDate(updatedAt);
+
+  const getDateString = () =>
+    created !== updated && updated
+      ? `${created} (revised ${updated})`
+      : created;
+
+  const getAuthor = () =>
+    author ? `${author} posted on` : 'Posted on';
 
   return !state ? (
     <Box my={1}>
@@ -41,7 +53,15 @@ const Note = ({
         {message}
       </Button>
 
-      <Authorship author={author} date={date} />
+      <cite
+        style={{
+          display: 'block',
+          fontStyle: 'italic',
+          fontSize: '0.833rem',
+        }}
+      >
+        &mdash; {getAuthor()} {getDateString()}
+      </cite>
     </Box>
   ) : (
     <Form
@@ -59,7 +79,7 @@ const Note = ({
         name="message"
         xl={12}
         lg={12}
-        rows={5}
+        rows={15}
       />
       <Button type="submit">{t('save')}</Button>
       <Button type="button" onClick={toggle}>
@@ -77,7 +97,8 @@ const Note = ({
 Note.propTypes = {
   message: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onUpdate: PropTypes.func,
   onDelete: PropTypes.func,

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Mock from 'q3-ui-test-utils/lib/rest';
+import moment from 'moment';
 import { genThread } from '../../__fixtures__/thread';
 
 const MockThreadEndpoint = ({ children }) => {
@@ -15,7 +16,13 @@ const MockThreadEndpoint = ({ children }) => {
     });
 
     r.onPost('/storybook/1/thread').reply(({ data }) => {
-      const newThread = thread.concat(JSON.parse(data));
+      const newThread = thread.concat({
+        ...JSON.parse(data),
+        author: 'Jon Doe',
+        createdAt: moment().toDate(),
+        updatedAt: moment().add(1, 'hour').toDate(),
+      });
+
       setThread(newThread);
 
       return [

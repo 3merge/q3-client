@@ -73,7 +73,7 @@ const Repeater = ({
     );
 
     deconstructEntriesIntoFieldState(newState);
-    autofocusNewField(object.getBottomKey(newState));
+    autofocusNewField(object.getTopKey(newState));
   };
 
   const removeFromSet = (index) => () => {

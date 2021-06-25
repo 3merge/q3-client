@@ -6,4 +6,5 @@ export const genThread = () => ({
     firstName: 'Jon',
     lastName: 'Doe',
   },
+  createdAt: new Date(),
 });

@@ -4,10 +4,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 
 const AddNote = ({ onSubmit, show }) =>
   show ? (
-    <Form
-      initialValues={{ message: '' }}
-      onSubmit={onSubmit}
-    >
+    <Form onSubmit={onSubmit} restart>
       <Field
         name="message"
         type="text"

@@ -12,4 +12,12 @@ describe('"getAuthor"', () => {
       }),
     ).toMatch('Joe Doe');
   });
+
+  it('should return author prop', () => {
+    expect(
+      getAuthor({
+        author: 'Sys',
+      }),
+    ).toMatch('Sys');
+  });
 });
