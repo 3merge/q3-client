@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.36.1](https://github.com/3merge/q/compare/v1.36.0...v1.36.1) (2021-06-25)
+
+
+### Bug Fixes
+
+* repeater focus and notes order ([3c42f49](https://github.com/3merge/q/commit/3c42f49d61b5a723baff992933e471d3b17cea12))
+
+
+
+
+
+
 # [1.35.0](https://github.com/3merge/q/compare/v1.34.13...v1.35.0) (2021-06-09)
 
 
