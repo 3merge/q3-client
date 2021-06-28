@@ -72,6 +72,7 @@ const Documentation = (props) => {
           aria-label="documentation"
           color="inherit"
           onClick={open}
+          disabled={!init}
         >
           <ContactSupportIcon />
         </IconButton>

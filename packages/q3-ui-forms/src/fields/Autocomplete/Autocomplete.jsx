@@ -138,6 +138,8 @@ const AutoCompleteWrapper = (props) => {
       {...chosenTextFieldDisplayAttributes}
       {...controlSearchFilter(props)}
       {...pickFromProps(props)}
+      // eslint-disable-next-line
+      id={props.id}
       value={value ? buildAutoComplete(value, items) : ''}
       required={required}
       options={items}

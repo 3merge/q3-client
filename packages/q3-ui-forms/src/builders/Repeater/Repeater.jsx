@@ -27,6 +27,7 @@ const Repeater = ({
   children,
   min,
   max,
+  focusNextRow,
 }) => {
   const { t } = useTranslation('labels');
 
@@ -73,7 +74,9 @@ const Repeater = ({
     );
 
     deconstructEntriesIntoFieldState(newState);
-    autofocusNewField(object.getTopKey(newState));
+
+    if (focusNextRow)
+      autofocusNewField(object.getTopKey(newState));
   };
 
   const removeFromSet = (index) => () => {
@@ -152,12 +155,14 @@ Repeater.propTypes = {
     PropTypes.object,
   ]).isRequired,
   required: PropTypes.bool,
+  focusNextRow: PropTypes.bool,
 };
 
 Repeater.defaultProps = {
   required: false,
   max: Infinity,
   min: 1,
+  focusNextRow: true,
 };
 
 export default Repeater;
