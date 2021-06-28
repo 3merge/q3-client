@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.36.2](https://github.com/3merge/q/compare/v1.36.1...v1.36.2) (2021-06-28)
+
+
+### Bug Fixes
+
+* focus on autocomplete ([47172ed](https://github.com/3merge/q/commit/47172ed1653df8a5c72ca115796405ae12c616ac))
+
+
+
+
+
 ## [1.36.1](https://github.com/3merge/q/compare/v1.36.0...v1.36.1) (2021-06-25)
 
 
