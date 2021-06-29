@@ -298,5 +298,6 @@
   "oldestToNewest": "Oldest to newest",
   "leaveAComment": "Leave a comment",
   "downloadAsCsv": "Download CSV",
-  "downloadAsExcel": "Download Excel"
+  "downloadAsExcel": "Download Excel",
+  "insufficentData": "Insufficient data"
 }

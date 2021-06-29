@@ -13,12 +13,13 @@ import {
   TrendingUp as TrendingUpIcon,
   AllInclusive as AllInclusiveIcon,
 } from '@material-ui/icons';
-import { red, green, blue } from '@material-ui/core/colors';
+import { useTranslation } from 'react-i18next';
 import { compare, getFirstFromSpec } from './utils';
 import useStyle from './styles';
 
 const Statistic = ({ title, previous, current, unit }) => {
   const value = compare(current, previous);
+  const { t } = useTranslation('labels');
 
   const Icon = getFirstFromSpec(
     {
@@ -31,10 +32,10 @@ const Statistic = ({ title, previous, current, unit }) => {
 
   const color = getFirstFromSpec(
     {
-      '+': green[900],
-      '-': red[900],
+      '+': 'green',
+      '-': 'red',
     },
-    blue[900],
+    'blue',
   )(value);
 
   const cls = useStyle({
@@ -45,7 +46,7 @@ const Statistic = ({ title, previous, current, unit }) => {
     <Grid item xs>
       <Paper variant="rounded">
         <Box px={2} py={1}>
-          <Box color={color} whiteSpace="nowrap">
+          <Box className={cls.box} whiteSpace="nowrap">
             <ListSubheader
               component="span"
               disableSticky
@@ -70,7 +71,15 @@ const Statistic = ({ title, previous, current, unit }) => {
                 <Box className={cls.iconBg} />
                 {Icon}
               </Box>
-              <small className={cls.small}>{value}</small>
+              <small className={cls.small}>
+                {value === 'n/a' ? (
+                  <span style={{ fontSize: '0.677rem' }}>
+                    {t('insufficentData')}
+                  </span>
+                ) : (
+                  value
+                )}
+              </small>
             </Box>
           </Box>
         </Box>

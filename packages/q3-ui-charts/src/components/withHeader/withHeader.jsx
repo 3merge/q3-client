@@ -8,22 +8,20 @@ import useStyle from './useStyle';
 import { getDataLength } from '../withChartUtils/withChartUtils';
 
 // eslint-disable-next-line
-const HeaderTitle = ({ children }) => (
-  <ListSubheader
-    disableGutters
-    disableSticky
-    color="primary"
-    component="figcaption"
-    style={{
-      fontWeight: 'bold',
-      lineHeight: 'initial',
-      margin: 0,
-      textTransform: 'none',
-    }}
-  >
-    {children}
-  </ListSubheader>
-);
+const HeaderTitle = ({ children }) => {
+  const cls = useStyle();
+
+  return (
+    <ListSubheader
+      disableGutters
+      disableSticky
+      component="figcaption"
+      className={cls.title}
+    >
+      {children}
+    </ListSubheader>
+  );
+};
 
 export default (Component) => {
   const Header = ({

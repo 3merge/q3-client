@@ -15,7 +15,7 @@ const Download = ({ children, data, title }) => {
   return (
     <>
       <Button
-        color="primary"
+        color="inherit"
         disabled={disabled}
         onClick={open}
         size="large"
