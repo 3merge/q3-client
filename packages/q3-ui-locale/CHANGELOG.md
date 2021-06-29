@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.36.3](https://github.com/3merge/q/compare/v1.36.2...v1.36.3) (2021-06-29)
+
+**Note:** Version bump only for package q3-ui-locale
+
+
+
+
+
 ## [1.36.1](https://github.com/3merge/q/compare/v1.36.0...v1.36.1) (2021-06-25)
 
 **Note:** Version bump only for package q3-ui-locale
