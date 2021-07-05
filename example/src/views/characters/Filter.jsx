@@ -8,18 +8,18 @@ export default () => {
       debug
       initialValues={{ role: [], gender: [], flag: '' }}
     >
-      {(fields) => (
+      {(fields, getFilters) => (
         <>
           <FilterEntry
             name="role"
             type="chips"
-            options={fields.role}
+            options={getFilters('role')}
             freeSolo
           />
           <FilterEntry
             name="gender"
             type="checkset"
-            options={fields.gender}
+            options={getFilters('gender')}
           />
           <FilterEntry name="createdAt" type="dateRange" />
         </>
