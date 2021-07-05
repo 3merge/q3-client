@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.36.4](https://github.com/3merge/q/compare/v1.36.3...v1.36.4) (2021-07-05)
+
+
+### Bug Fixes
+
+* remove header from profile ([1a10bab](https://github.com/3merge/q/commit/1a10bab5bfee8f95092e885211ded9072f530a86))
+
+
+
+
+
 ## [1.36.3](https://github.com/3merge/q/compare/v1.36.2...v1.36.3) (2021-06-29)
 
 **Note:** Version bump only for package q3-client
