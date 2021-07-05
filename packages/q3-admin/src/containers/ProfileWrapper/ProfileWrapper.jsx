@@ -12,6 +12,7 @@ export default ({ children }) => {
 
   return ref ? (
     <Collection
+      disableHeader
       collectionName="q3-api-users"
       resourceNameSingular="user"
       resourceName="users"
