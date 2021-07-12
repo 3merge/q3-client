@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.36.5](https://github.com/3merge/q/compare/v1.36.4...v1.36.5) (2021-07-12)
+
+
+### Bug Fixes
+
+* equality check conditional permission ([38683d4](https://github.com/3merge/q/commit/38683d440143daaac414369f35821cbb85f1bbc9))
+
+
+
+
+
 ## [1.36.3](https://github.com/3merge/q/compare/v1.36.2...v1.36.3) (2021-06-29)
 
 **Note:** Version bump only for package q3-ui-forms
