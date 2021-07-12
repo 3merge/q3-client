@@ -1,5 +1,5 @@
 import React from 'react';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import {
   AuthorizationState,
   BuilderState,
@@ -38,7 +38,7 @@ const useFieldAuthorization = ({
     if (
       shouldUpdateAfterChange &&
       authState.readOnly &&
-      prev !== curr
+      !isEqual(prev, curr)
     )
       setFieldValue(name, prev);
   }, [authState.readOnly, prev, curr]);
