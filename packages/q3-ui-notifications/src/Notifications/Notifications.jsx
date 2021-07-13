@@ -3,24 +3,17 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { array, object } from 'q3-ui-helpers';
+import { object } from 'q3-ui-helpers';
 import { useTranslation } from 'react-i18next';
 import Bell from '../Bell';
 import Popover from '../Popover';
 import NotificationLink from '../NotificationLink';
 import NotificationReadOnly from '../NotificationReadOnly';
+import useCount from '../useCount';
 import useStyle from './useStyle';
 
 export const isLink = (target) =>
   object.isIn(target, 'url');
-
-export const hasActiveNotifications = (items) =>
-  array.hasLength(items)
-    ? items.some(
-        // neither of message nor download that has been reached
-        (item) => !item.hasDownloaded && !item.hasSeen,
-      )
-    : false;
 
 const Notifications = ({
   data,
@@ -31,21 +24,15 @@ const Notifications = ({
 }) => {
   const cls = useStyle();
   const { t } = useTranslation();
-  const len = array.hasLength(data) > 0;
+  const count = useCount(data);
 
   return (
     <Popover
       defaultValue={defaultValue}
-      anchorComponent={
-        <Bell
-          active={hasActiveNotifications(data)}
-          error={error}
-          hasItems={len}
-        />
-      }
+      anchorComponent={<Bell {...count} error={error} />}
     >
       <List className={cls.root}>
-        {len ? (
+        {count.hasItems ? (
           data.map((item) => {
             const key = item.id || item.label;
 

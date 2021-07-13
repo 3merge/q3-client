@@ -29,13 +29,17 @@ const TimelineEntry = ({
   createdBy,
   message,
   children,
+  id,
 }) => {
   const cls = useStyles({
     connector,
   });
 
   return (
-    <TimelineItem className={cls.root}>
+    <TimelineItem
+      id={id ? `comment-${id}` : undefined}
+      className={cls.root}
+    >
       <TimelineSeparator>
         {connector ? (
           <>
@@ -84,6 +88,7 @@ TimelineEntry.defaultProps = {
   createdBy: null,
   message: '',
   children: null,
+  id: undefined,
 };
 
 TimelineEntry.propTypes = {
@@ -96,6 +101,10 @@ TimelineEntry.propTypes = {
   }),
   message: PropTypes.string,
   children: PropTypes.node,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 export default TimelineEntry;

@@ -1,97 +1,42 @@
 import React from 'react';
-import { debounce, invoke } from 'lodash';
-import axios from 'axios';
-import { browser } from 'q3-ui-helpers';
-import {
-  CHANGE,
-  CONNECT,
-  ERROR,
-  makeEventName,
-} from './useServerSideEvents';
+import { size } from 'lodash';
+import useNotificationsService from './useNotificationsService';
 
-export const addDocumentListener = (eventName, fn) => {
-  if (!browser.isBrowserReady()) return;
-
-  invoke(document, 'addEventListener', eventName, fn, {
-    passive: true,
-  });
-};
-
-export const removeDocumentListener = (eventName, fn) => {
-  if (!browser.isBrowserReady()) return;
-  invoke(document, 'removeEventListener', eventName, fn);
-};
-
-export default () => {
-  const [data, setData] = React.useState([]);
-  const [error, setError] = React.useState(false);
+export default (options) => {
+  const {
+    data,
+    error,
+    markAsSeen,
+    post,
+  } = useNotificationsService(options);
+  const ref = React.useRef();
 
   const acknowledge = (eventInstance, id) => {
-    setData((prev) =>
-      prev.map((item) => ({
-        ...item,
-        ...(item.id === id
-          ? {
-              'hasDownloaded': true,
-              'hasSeen': true,
-            }
-          : {}),
-      })),
+    // eslint-disable-next-line
+    console.warn(
+      'Soon to be deprecated. Please use "acknowledge" at the item level instead.',
     );
 
-    return axios
-      .post(`/system-notifications/${id}`)
-      .then(() => {
-        // noop
-      })
-      .catch(() => {
-        // noop
-      });
+    markAsSeen(id);
+    ref.current = true;
   };
 
-  const fetchNotifications = () =>
-    axios
-      .get('/system-notifications')
-      .then((d) => {
-        setData(d?.data?.notifications || []);
-      })
-      .catch(() => {
-        setError(true);
-      });
-
-  const onChange = debounce(fetchNotifications, 5000);
-
   React.useEffect(() => {
-    const general = makeEventName();
-    const noti = makeEventName('q3-api-notifications');
-
-    const handleGeneral = (event) => {
-      const { action } = event.data;
-      if (action === CONNECT) setError(false);
-      if (action === ERROR) setError(true);
-    };
-
-    const handleNoti = (event) => {
-      const { action } = event.data;
-      if (action === CHANGE) {
-        setError(false);
-        onChange();
-      }
-    };
-
-    addDocumentListener(noti, handleNoti);
-    addDocumentListener(general, handleGeneral);
-    fetchNotifications();
-
-    return () => {
-      removeDocumentListener(general, handleGeneral);
-      removeDocumentListener(noti, handleNoti);
-    };
-  }, []);
+    /**
+     * @note
+     * Here to support the legacy acknowledge method.
+     */
+    if (ref.current && size(data))
+      post().then(() => {
+        ref.current = false;
+      });
+  }, [data]);
 
   return {
     acknowledge,
+    syncSeen: post,
     data: data.map((item) => ({
+      acknowledge: () => markAsSeen(item.id),
       label: item.path,
       ...item,
     })),

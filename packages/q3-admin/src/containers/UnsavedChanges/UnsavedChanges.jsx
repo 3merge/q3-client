@@ -10,7 +10,7 @@ import { useRefresh } from '../../hooks';
 import {
   addDocumentListener,
   removeDocumentListener,
-} from '../../hooks/useNotifications';
+} from '../../hooks/useNotificationsEvent';
 import withActionPortal from '../../components/withActionPortal';
 
 const refresh = () => {

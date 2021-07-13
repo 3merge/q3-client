@@ -23,7 +23,7 @@ const mockObserver = (stub) => {
 };
 
 describe('NotificationLink', () => {
-  it('should call view handler', () => {
+  it('should call view handler', (done) => {
     const onView = jest.fn();
     const observer = mockObserver([
       {
@@ -41,9 +41,13 @@ describe('NotificationLink', () => {
     );
 
     expect(observer).toHaveBeenCalled();
-    expect(onView).toHaveBeenCalledWith(
-      expect.any(Object),
-      '1',
-    );
+    setTimeout(() => {
+      expect(onView).toHaveBeenCalledWith(
+        expect.any(Object),
+        '1',
+      );
+
+      done();
+    }, 2500);
   });
 });

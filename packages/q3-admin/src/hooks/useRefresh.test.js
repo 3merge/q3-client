@@ -1,11 +1,8 @@
 import React from 'react';
 import useRefresh from './useRefresh';
-import {
-  addDocumentListener,
-  removeDocumentListener,
-} from './useNotifications';
+import { addDocumentListener } from './useNotificationsEvent';
 
-jest.mock('./useNotifications', () => ({
+jest.mock('./useNotificationsEvent', () => ({
   addDocumentListener: jest.fn(),
   removeDocumentListener: jest.fn(),
 }));
@@ -19,6 +16,9 @@ jest.mock('q3-ui-helpers', () => ({
         if (method === 'getItem') return '1,2,3';
         return undefined;
       }),
+  },
+  object: {
+    noop: (fn) => fn,
   },
 }));
 

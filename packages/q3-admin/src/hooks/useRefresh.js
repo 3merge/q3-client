@@ -1,13 +1,12 @@
 import React from 'react';
 import { debounce } from 'lodash';
+import { object } from 'q3-ui-helpers';
 import { Definitions } from '../containers/state';
 import { makeEventName } from './useServerSideEvents';
 import {
   addDocumentListener,
   removeDocumentListener,
-} from './useNotifications';
-
-const noop = () => null;
+} from './useNotificationsEvent';
 
 export default (onChange, debounceValue = 15000) => {
   const { collectionName, id } = React.useContext(
@@ -17,9 +16,9 @@ export default (onChange, debounceValue = 15000) => {
   const handleWatch = debounce((e) => {
     if (!onChange) return null;
 
-    return onChange(window?.location?.search, e?.data)
-      .then(noop)
-      .catch(noop);
+    return object.noop(
+      onChange(window?.location?.search, e?.data),
+    );
   }, debounceValue);
 
   React.useEffect(() => {
