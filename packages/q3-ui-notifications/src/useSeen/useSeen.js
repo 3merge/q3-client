@@ -15,6 +15,8 @@ export default (notification = {}, callback) => {
   };
 
   React.useEffect(() => {
+    let timer;
+
     if (
       !object.isFn(callback) ||
       !browser.isBrowserReady() ||
@@ -30,8 +32,10 @@ export default (notification = {}, callback) => {
           !hasSeen
         ) {
           try {
-            callback(entry, id);
-            detach(observer);
+            timer = setTimeout(() => {
+              callback(entry, id);
+              detach(observer);
+            }, 1500);
           } catch (e) {
             // noop
           }
@@ -41,7 +45,10 @@ export default (notification = {}, callback) => {
     );
 
     observer.observe(ref.current);
-    return () => detach(observer);
+    return () => {
+      detach(observer);
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   return ref;

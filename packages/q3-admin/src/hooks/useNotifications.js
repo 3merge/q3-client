@@ -25,6 +25,7 @@ export const removeDocumentListener = (eventName, fn) => {
 export default () => {
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const ref = React.useRef();
 
   const markNotificationAsSeen = (id) => {
     const equals = (xs) =>
@@ -47,7 +48,10 @@ export default () => {
     axios
       .post('/system-notifications', {
         ids: map(
-          filter(data, ['hasSeen', 'hasDownloaded']),
+          filter(data, {
+            hasSeen: true,
+            hasDownloaded: true,
+          }),
           'id',
         ),
       })
@@ -60,8 +64,7 @@ export default () => {
 
   const acknowledge = (eventInstance, id) => {
     markNotificationAsSeen(id);
-    // API now only supports bulk ID
-    return syncSeen();
+    ref.current = true;
   };
 
   const fetchNotifications = () =>
@@ -103,6 +106,13 @@ export default () => {
       removeDocumentListener(noti, handleNoti);
     };
   }, []);
+
+  React.useEffect(() => {
+    if (ref.current && data)
+      syncSeen().then(() => {
+        ref.current = false;
+      });
+  }, [data]);
 
   return {
     // @note to be deprecated
