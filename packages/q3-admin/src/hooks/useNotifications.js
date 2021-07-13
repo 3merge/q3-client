@@ -2,13 +2,13 @@ import React from 'react';
 import { size } from 'lodash';
 import useNotificationsService from './useNotificationsService';
 
-export default () => {
+export default (options) => {
   const {
     data,
     error,
     markAsSeen,
     post,
-  } = useNotificationsService();
+  } = useNotificationsService(options);
   const ref = React.useRef();
 
   const acknowledge = (eventInstance, id) => {

@@ -75,6 +75,12 @@ describe('useNotificationsService', () => {
       {
         id: '2',
       },
+      {
+        id: '3',
+        hasSeen: true,
+        hasDownloaded: true,
+        dismissedOn: new Date(),
+      },
     ]);
 
     expect(useNotificationsService().getSeen()).toEqual([

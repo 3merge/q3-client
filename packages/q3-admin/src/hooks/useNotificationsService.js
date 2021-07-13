@@ -4,16 +4,17 @@ import axios from 'axios';
 import { object } from 'q3-ui-helpers';
 import useNotificationsEvent from './useNotificationsEvent';
 
-export default () => {
+export default (options = {}) => {
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
 
   const getSeen = () =>
     map(
-      filter(data, {
-        hasSeen: true,
-        hasDownloaded: true,
-      }),
+      filter(
+        data,
+        (xs) =>
+          xs.hasSeen && xs.hasDownloaded && !xs.dismissedOn,
+      ),
       'id',
     );
 
@@ -37,7 +38,11 @@ export default () => {
   const services = {
     get: () =>
       axios
-        .get('/system-notifications')
+        .get('/system-notifications', {
+          params: {
+            numberOfDays: get(options, 'numberOfDays', 1),
+          },
+        })
         .then((d) =>
           setData(get(d, 'data.notifications', [])),
         )
