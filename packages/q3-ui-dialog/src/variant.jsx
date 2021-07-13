@@ -69,7 +69,13 @@ const DialogVariant = ({
         ...getMobileProps(),
         ...asModal(),
         // there might be others
-        ...pick(rest, ['className']),
+        ...pick(rest, [
+          'className',
+          'keepMounted',
+          'SlideProps',
+          'TransitionProps',
+          'ModalProps',
+        ]),
       }}
     >
       <div>{children}</div>

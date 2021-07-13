@@ -2,10 +2,7 @@ import React from 'react';
 import Popover from '../Popover';
 import NotificationLink from '../NotificationLink';
 import NotificationReadOnly from '../NotificationReadOnly';
-import Notifications, {
-  isLink,
-  hasActiveNotifications,
-} from './Notifications';
+import Notifications, { isLink } from './Notifications';
 
 jest.unmock('useful-state');
 
@@ -15,27 +12,6 @@ describe('Notifications', () => {
       expect(
         isLink({ url: 'https://google.ca' }),
       ).toBeTruthy());
-  });
-
-  describe('"hasActiveNotifications"', () => {
-    const checkActive = (stub) =>
-      expect(hasActiveNotifications([stub]));
-
-    it('should return truthy when seen but not downloaded', () =>
-      checkActive({
-        hasDownloaded: false,
-      }).toBeTruthy());
-
-    it('should return truthy when unseen', () =>
-      checkActive({
-        hasSeen: false,
-      }).toBeTruthy());
-
-    it('should return falsy when seen or downloaded is true', () =>
-      checkActive({
-        hasSeen: true,
-        hasDownloaded: true,
-      }).toBeFalsy());
   });
 
   describe('Notifications', () => {
