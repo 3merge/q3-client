@@ -100,3 +100,12 @@ export const toJSON = (xs) => {
     return xs;
   }
 };
+
+export const noop = (promise) =>
+  promise
+    .then(() => {
+      // noop
+    })
+    .catch(() => {
+      // noop
+    });
