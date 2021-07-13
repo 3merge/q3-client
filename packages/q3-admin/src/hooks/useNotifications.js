@@ -1,5 +1,5 @@
 import React from 'react';
-import { debounce, invoke } from 'lodash';
+import { debounce, invoke, map, filter } from 'lodash';
 import axios from 'axios';
 import { browser } from 'q3-ui-helpers';
 import {
@@ -26,11 +26,14 @@ export default () => {
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
 
-  const acknowledge = (eventInstance, id) => {
+  const markNotificationAsSeen = (id) => {
+    const equals = (xs) =>
+      Array.isArray(id) ? id.includes(xs.id) : xs.id === id;
+
     setData((prev) =>
       prev.map((item) => ({
         ...item,
-        ...(item.id === id
+        ...(equals(item)
           ? {
               'hasDownloaded': true,
               'hasSeen': true,
@@ -38,15 +41,27 @@ export default () => {
           : {}),
       })),
     );
+  };
 
-    return axios
-      .post(`/system-notifications/${id}`)
+  const syncSeen = () =>
+    axios
+      .post('/system-notifications', {
+        ids: map(
+          filter(data, ['hasSeen', 'hasDownloaded']),
+          'id',
+        ),
+      })
       .then(() => {
         // noop
       })
       .catch(() => {
         // noop
       });
+
+  const acknowledge = (eventInstance, id) => {
+    markNotificationAsSeen(id);
+    // API now only supports bulk ID
+    return syncSeen();
   };
 
   const fetchNotifications = () =>
@@ -90,8 +105,12 @@ export default () => {
   }, []);
 
   return {
+    // @note to be deprecated
     acknowledge,
+    syncSeen,
     data: data.map((item) => ({
+      // @note will replace top-level acknowledge method
+      acknowledge: () => markNotificationAsSeen(item.id),
       label: item.path,
       ...item,
     })),
