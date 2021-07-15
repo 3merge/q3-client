@@ -58,7 +58,7 @@ export default (ref, { id, defaultValue, onChange }) => {
     const observer = new MutationObserver(
       debounce(() => {
         onChange(getCurrentState());
-      }, 450),
+      }, 150),
     );
 
     observer.observe(ref.current.root, {
