@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { get } from 'lodash';
-import { navigate } from '@reach/router';
 import axios from 'axios';
 import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBox from '../components/FormBox';
+import withSuccessOp from '../components/withSuccessOp';
 
-export default (props) => {
+const PasswordChange = ({ onSuccess, location }) => {
   const { passwordResetToken, email } = queryString.parse(
-    get(props, 'location.search', ''),
+    get(location, 'search', ''),
     {
       decode: false,
     },
@@ -23,9 +24,7 @@ export default (props) => {
           onSubmit={(passwords) =>
             axios
               .post('/password-change', passwords)
-              .then(() => {
-                navigate('/login');
-              })
+              .then(onSuccess)
           }
           initialValues={{
             passwordResetToken,
@@ -57,3 +56,15 @@ export default (props) => {
     />
   );
 };
+
+PasswordChange.propTypes = {
+  onSuccess: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+};
+
+export default withSuccessOp(
+  PasswordChange,
+  'passwordChangeNotice',
+);

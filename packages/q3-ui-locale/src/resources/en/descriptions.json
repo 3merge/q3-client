@@ -99,5 +99,6 @@
   "trackChanges": "To begin tracking changes, the system needs at least two versions of this document. Check back once more activity has been collected.",
   "mediaUploadFailed": "Media failed to upload to the server. Please ensure that the file size is under 5mb and that it's a picture and not a document.",
   "loadingCommentsFailed": "Comments for this module failed to load.",
-  "io": "Exports in the I/O module integrate with all filters (and saved filters, known as segments). If you trigger an export without first selecting rows in the data-table, then it will include all records matching the given filter. Otherwise, it will target only the selected records. Please note that an export can contain up to 5,000 records."
+  "io": "Exports in the I/O module integrate with all filters (and saved filters, known as segments). If you trigger an export without first selecting rows in the data-table, then it will include all records matching the given filter. Otherwise, it will target only the selected records. Please note that an export can contain up to 5,000 records.",
+  "passwordChangeNotice": "Your password has been successfully changed. Click below to login into your account."
 }
