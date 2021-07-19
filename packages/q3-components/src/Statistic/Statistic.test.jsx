@@ -1,3 +1,5 @@
+import React from 'react';
+import Statistic from './Statistic';
 import { compare, getFirstFromSpec } from './utils';
 
 test.each([
@@ -28,3 +30,35 @@ test.each([
     )(value),
   ).toBe(expected),
 );
+
+describe('Statistic', () => {
+  it('should show insufficient data label', () => {
+    expect(
+      global
+        .shallow(
+          <Statistic
+            current={22}
+            title="Unavailable"
+            unit="pcs"
+            hideInsufficentData={false}
+          />,
+        )
+        .text(),
+    ).toMatch('Unavailable22pcsinsufficentData');
+  });
+
+  it('should hide insufficient data label', () => {
+    expect(
+      global
+        .shallow(
+          <Statistic
+            current={22}
+            title="Unavailable"
+            unit="pcs"
+            hideInsufficentData
+          />,
+        )
+        .text(),
+    ).toMatch('Unavailable22pcs');
+  });
+});

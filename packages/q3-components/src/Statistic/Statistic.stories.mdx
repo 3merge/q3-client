@@ -50,4 +50,29 @@ import Statistic from './Statistic';
       />
     </Box>
   </Story>
+  <Story name="Unavailable (Hidden)">
+    <Box display="inline-block" p={3}>
+      <Statistic
+        current={22}
+        title="Unavailable"
+        unit="pcs"
+        hideInsufficentData
+      />
+    </Box>
+  </Story>
+  <Story name="Custom colours">
+    <Box display="inline-block" p={3}>
+      <Statistic
+        current={22}
+        previous={10}
+        title="Custom positive"
+        unit="pcs"
+        colorMap={{
+          '+': 'purple',
+          '-': 'orange',
+          'n/a': 'brown',
+        }}
+      />
+    </Box>
+  </Story>
 </Preview>
