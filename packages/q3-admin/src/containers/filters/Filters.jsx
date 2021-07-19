@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { Builders } from 'q3-ui-forms';
 import { useTranslation } from 'react-i18next';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
@@ -14,6 +16,7 @@ import Segments from '../segments';
 const Groups = ({ children, disableSegments, ...etc }) => {
   const { location } = React.useContext(Definitions);
   const { t } = useTranslation('labels');
+
   return (
     <Box my={1}>
       <Segments disableSegments={disableSegments}>
@@ -26,11 +29,37 @@ const Groups = ({ children, disableSegments, ...etc }) => {
             {(...params) => (
               <>
                 <Grid item xs={12}>
+                  <Typography variant="overline">
+                    {t('display')}
+                  </Typography>
                   {renderer()}
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="overline">
+                    {t('searchInputLabel')}
+                  </Typography>
+                </Grid>
+                <Builders.Field
+                  type="text"
+                  name="search"
+                  label={t('searchTerm')}
+                  xl={12}
+                  lg={12}
+                />
+                <Grid item xs={12}>
+                  <Typography variant="overline">
+                    {t('filterDefinitions')}
+                  </Typography>
                 </Grid>
                 {children(...params)}
                 <Grid item xs={12}>
-                  <Button type="submit">{t('save')}</Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                  >
+                    {t('save')}
+                  </Button>
                 </Grid>
               </>
             )}

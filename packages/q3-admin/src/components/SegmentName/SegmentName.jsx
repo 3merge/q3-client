@@ -11,12 +11,11 @@ const SegmentName = ({ children, name }) => {
   const { value, onChange } = useValue(name);
 
   return children(value, () => (
-    <Box mt={2}>
+    <Box mt={1}>
       <TextField
         name="Filter name"
-        label={t('labels:filterName')}
+        label={t('labels:name')}
         value={value}
-        helperText={t('helpers:filterName')}
         onChange={onChange}
         {...chosenTextFieldDisplayAttributes}
       />

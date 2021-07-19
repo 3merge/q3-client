@@ -31,11 +31,16 @@ const StoriesApiMockAuthentication = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        update: (data) => {
+        update: (data, done) => {
           setFilters(data.filters);
-          return axios.post('/profile', data).then((r) => {
-            setSession(r.data.profile);
-          });
+          return axios
+            .post('/profile', data)
+            .then((r) => {
+              setSession(r.data.profile);
+            })
+            .then(() => {
+              return done();
+            });
         },
         state: {
           init: true,

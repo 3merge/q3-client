@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import { navigate } from '@reach/router';
+import { useNavigate } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
 import { Definitions } from '../containers/state';
 
@@ -8,7 +8,7 @@ const isMatch = (x, y) => x === y;
 
 const hasReservedWord = (v) =>
   [
-    'search',
+    // 'search',
     'sort',
     'page',
     'limit',
@@ -62,6 +62,7 @@ export default (search) => {
     rootPath,
   } = React.useContext(Definitions);
 
+  const navigate = useNavigate();
   const { state, update } = React.useContext(AuthContext);
   const filters = get(state, 'profile.filters', {});
   const items = get(filters, collectionName, {});
@@ -113,7 +114,10 @@ export default (search) => {
       updateFiltersInProfile(pullFrom(name)),
 
     modify: (name, prevName) => (query) => {
-      const goTo = () => navigate(`${rootPath}${query}`);
+      const goTo = () => {
+        console.log('here>>>', query);
+        return navigate(`${rootPath}${query}`);
+      };
 
       return name
         ? updateFiltersInProfile(

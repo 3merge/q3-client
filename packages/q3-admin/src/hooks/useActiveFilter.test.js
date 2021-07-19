@@ -10,7 +10,11 @@ describe('useActiveFilter', () => {
         getCustomFilters(
           '?search=foo&status=Quote&sort-createdAt&payment=None+Yet',
         ),
-      ).toEqual(['status=Quote', 'payment=None+Yet']);
+      ).toEqual([
+        'search=foo',
+        'status=Quote',
+        'payment=None+Yet',
+      ]);
     });
   });
 

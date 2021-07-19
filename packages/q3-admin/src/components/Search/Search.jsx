@@ -17,8 +17,11 @@ export const Search = () => {
   const locationSearch = new URLSearchParams(
     location?.search,
   );
+
+  const currentSearchValue = locationSearch.get('search');
+
   const { value, onChange, setValue } = useValue(
-    locationSearch.get('search'),
+    currentSearchValue,
   );
 
   const handleReset = () => {
@@ -60,6 +63,11 @@ export const Search = () => {
     type: 'text',
     inputRef,
   };
+
+  React.useEffect(() => {
+    if (currentSearchValue !== value)
+      setValue(currentSearchValue);
+  }, [currentSearchValue]);
 
   return (
     <Box id="q3-searchbar" width="100%">

@@ -97,5 +97,6 @@
   "comment": "Comment",
   "edit": "Edit",
   "reply": "Reply",
-  "io": "I/O"
+  "io": "I/O",
+  "customSegmentEditor": "Segment editor"
 }

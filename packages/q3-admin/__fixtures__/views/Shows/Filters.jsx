@@ -3,7 +3,7 @@ import Filters from '../../../src/containers/filters';
 import FilterEntry from '../../../src/components/FilterEntry';
 
 const Add = () => (
-  <Filters disableSegments>
+  <Filters>
     {() => (
       <>
         <FilterEntry type="dateRange" name="demo" />
