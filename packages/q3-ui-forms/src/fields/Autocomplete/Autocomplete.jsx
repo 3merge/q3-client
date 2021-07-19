@@ -54,9 +54,9 @@ export const getCustomInput = (customProps) => (params) =>
     merge(params, customProps, {
       variant: 'outlined',
       fullWidth: true,
-      autoComplete: 'Noop',
+      autoComplete: 'off',
       inputProps: {
-        autoComplete: 'NOOP',
+        autoComplete: 'off',
       },
     }),
   );

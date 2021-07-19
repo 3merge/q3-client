@@ -46,7 +46,8 @@ const Timeline = ({
 }) => {
   const { collectionName } = rest;
   const auth = useAuth(collectionName);
-  const { HideByField } = auth;
+  const { canCreateSub, HideByField } = auth;
+  const path = 'comments';
 
   const renderDynamic = (args) =>
     isFunction(insertNode) ? insertNode(args, data) : null;
@@ -56,14 +57,14 @@ const Timeline = ({
       {comment?.createdBy?.id ===
         auth?.state?.profile?.id && (
         <>
-          <HideByField path="comments" op="Delete">
+          <HideByField path={path} op="Delete">
             <Confirm
               phrase="DELETE"
               service={remove(comment.id)}
               icon={DeleteOutlineIcon}
             />
           </HideByField>
-          <HideByField path="comments" op="Update">
+          <HideByField path={path} op="Update">
             <Dialog
               label="edit"
               icon={EditIcon}
@@ -74,7 +75,7 @@ const Timeline = ({
           </HideByField>
         </>
       )}
-      {!comment.replies && (
+      {!comment.replies && canCreateSub(path) && (
         <Dialog
           label="reply"
           icon={ReplyIcon}

@@ -1,5 +1,5 @@
 const RESERVED_QUERIES = [
-  'search',
+  //'search',
   'sort',
   'page',
   'limit',

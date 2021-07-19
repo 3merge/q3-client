@@ -5,6 +5,7 @@ module.exports = {
     '<rootDir>/cypress/',
   ],
   testPathIgnorePatterns: [
+    '<rootDir>/gatsby-theme-q3/lib/',
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/packages/(?:.+?)/node_modules/',
     '<rootDir>/packages/q3-blocks/',

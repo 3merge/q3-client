@@ -299,5 +299,6 @@
   "leaveAComment": "Leave a comment",
   "downloadAsCsv": "Download CSV",
   "downloadAsExcel": "Download Excel",
-  "insufficentData": "Insufficient data"
+  "insufficentData": "Insufficient data",
+  "modify": "Edit"
 }
