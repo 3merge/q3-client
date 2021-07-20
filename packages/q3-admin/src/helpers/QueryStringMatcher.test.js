@@ -52,4 +52,14 @@ describe('QueryString', () => {
 
     expect(q.isActive()).toBeFalsy();
   });
+
+  it('should match default', () => {
+    const q = new QueryString(
+      'paymentOption=Something',
+      'active=true',
+      ['paymentOption=Banking'],
+    );
+
+    expect(q.isActive()).toBeTruthy();
+  });
 });

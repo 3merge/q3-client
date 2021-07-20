@@ -13,29 +13,43 @@ import {
   TrendingUp as TrendingUpIcon,
   AllInclusive as AllInclusiveIcon,
 } from '@material-ui/icons';
+import { get } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import { compare, getFirstFromSpec } from './utils';
 import useStyle from './styles';
 
-const Statistic = ({ title, previous, current, unit }) => {
+const POSITIVE = '+';
+const NEGATIVE = '-';
+const INSUFFICENT = 'n/a';
+
+const Statistic = ({
+  title,
+  previous,
+  current,
+  unit,
+  hideInsufficentData,
+  colorMap,
+}) => {
   const value = compare(current, previous);
   const { t } = useTranslation('labels');
 
+  const renderInsufficentData = (renderer) =>
+    hideInsufficentData ? <Box /> : renderer;
+
   const Icon = getFirstFromSpec(
     {
-      '+': <TrendingUpIcon />,
-      '-': <TrendingDownIcon />,
-      'n/a': <AllInclusiveIcon />,
+      [POSITIVE]: <TrendingUpIcon />,
+      [NEGATIVE]: <TrendingDownIcon />,
+      [INSUFFICENT]: renderInsufficentData(
+        <AllInclusiveIcon />,
+      ),
     },
     <TrendingFlatIcon />,
   )(value);
 
   const color = getFirstFromSpec(
-    {
-      '+': 'green',
-      '-': 'red',
-    },
-    'blue',
+    colorMap,
+    get(colorMap, 'n/a'),
   )(value);
 
   const cls = useStyle({
@@ -72,13 +86,15 @@ const Statistic = ({ title, previous, current, unit }) => {
                 {Icon}
               </Box>
               <small className={cls.small}>
-                {value === 'n/a' ? (
-                  <span style={{ fontSize: '0.677rem' }}>
-                    {t('insufficentData')}
-                  </span>
-                ) : (
-                  value
-                )}
+                {value === 'n/a'
+                  ? renderInsufficentData(
+                      <span
+                        style={{ fontSize: '0.677rem' }}
+                      >
+                        {t('insufficentData')}
+                      </span>,
+                    )
+                  : value}
               </small>
             </Box>
           </Box>
@@ -92,6 +108,12 @@ Statistic.defaultProps = {
   unit: '',
   previous: 0,
   current: 0,
+  hideInsufficentData: false,
+  colorMap: {
+    [POSITIVE]: 'green',
+    [NEGATIVE]: 'red',
+    [INSUFFICENT]: 'blue',
+  },
 };
 
 Statistic.propTypes = {
@@ -99,6 +121,12 @@ Statistic.propTypes = {
   title: PropTypes.string.isRequired,
   previous: PropTypes.number,
   unit: PropTypes.string,
+  hideInsufficentData: PropTypes.bool,
+  colorMap: PropTypes.shape({
+    [POSITIVE]: PropTypes.string,
+    [NEGATIVE]: PropTypes.string,
+    [INSUFFICENT]: PropTypes.string,
+  }),
 };
 
 export default Statistic;
