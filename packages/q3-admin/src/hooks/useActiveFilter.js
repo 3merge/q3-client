@@ -115,7 +115,6 @@ export default (search) => {
 
     modify: (name, prevName) => (query) => {
       const goTo = () => {
-        console.log('here>>>', query);
         return navigate(`${rootPath}${query}`);
       };
 

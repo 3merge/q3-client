@@ -6,18 +6,43 @@ import { compact } from 'lodash';
 import { useQueryParams } from 'q3-ui-queryparams';
 import { Definitions } from '../containers/state';
 
+export const handleEnter = (fn) => (e) => {
+  const val = e.target.value;
+
+  if (
+    !['Enter', 'NumpadEnter'].includes(e?.code) &&
+    e?.key !== 'Enter'
+  )
+    return;
+
+  fn(val);
+};
+
+export const useLocationSearchValue = () => {
+  const qp = useQueryParams();
+  const { page, search = '', ...etc } = qp.decode(
+    useLocation()?.search,
+  );
+
+  return {
+    value: search,
+
+    set(val) {
+      if (val) etc.search = val;
+      return qp.encode(etc);
+    },
+  };
+};
+
 export default () => {
   const inputRef = React.useRef();
-
-  const { t } = useTranslation('labels');
   const navigate = useNavigate();
-  const qp = useQueryParams();
+  const { t } = useTranslation('labels');
 
   const {
-    page,
-    search: currentSearchValue = '',
-    ...etc
-  } = qp.decode(useLocation()?.search);
+    value: currentSearchValue,
+    set: setSearchValue,
+  } = useLocationSearchValue();
 
   const { value, onChange, setValue } = useValue(
     currentSearchValue,
@@ -33,23 +58,8 @@ export default () => {
     directoryPath,
   } = React.useContext(Definitions);
 
-  const handleKeyCode = (e) => {
-    const val = e.target.value;
-
-    if (
-      !['Enter', 'NumpadEnter'].includes(e?.code) &&
-      e?.key !== 'Enter'
-    )
-      return;
-
-    if (val) {
-      etc.search = val;
-    }
-
-    navigate(
-      compact([directoryPath, qp.encode(etc)]).join(''),
-    );
-  };
+  const combineWithDirectoryPath = (xs) =>
+    compact([directoryPath, xs]).join('');
 
   React.useEffect(() => {
     if (currentSearchValue !== value)
@@ -67,7 +77,11 @@ export default () => {
         : 'searchPlaceholder',
     ),
     fullWidth: true,
-    onKeyPress: handleKeyCode,
+    onKeyPress: handleEnter((xs) =>
+      navigate(
+        combineWithDirectoryPath(setSearchValue(xs)),
+      ),
+    ),
     type: 'text',
     inputRef,
   };

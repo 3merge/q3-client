@@ -1,5 +1,7 @@
+import { size } from 'lodash';
+
 const RESERVED_QUERIES = [
-  //'search',
+  // 'search',
   'sort',
   'page',
   'limit',
@@ -66,14 +68,20 @@ export default class QueryStringMatcher {
 
   isActive() {
     if (!this.compare()) return false;
+
+    const len = size(this.next);
     const numberOfActiveQueries = this.count(this.next);
 
-    return this.benchmarks.reduce((acc, next) => {
+    const result = this.benchmarks.reduce((acc, next) => {
       if (!acc) return acc;
 
       // will award "active" if it all query parameters are in the current search string
       // AND it has more instances of query than its siblings
       return this.count(next) <= numberOfActiveQueries;
     }, true);
+
+    return result && len !== 0
+      ? len === numberOfActiveQueries
+      : result;
   }
 }
