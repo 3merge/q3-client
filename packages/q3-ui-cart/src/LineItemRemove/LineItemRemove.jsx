@@ -10,7 +10,7 @@ import {
 } from '../context';
 import { DRAWER_LINE_ITEM_REMOVE_CLASS } from '../constants';
 
-const LineItemRemove = ({ id }) => {
+const LineItemRemove = ({ id, disabled }) => {
   const { t } = useTranslation();
   const { remove } = React.useContext(CartContext);
   const loading = React.useContext(CartLoadingContext);
@@ -22,14 +22,19 @@ const LineItemRemove = ({ id }) => {
       buttonProps={{
         onClick: () => remove(id),
         className: DRAWER_LINE_ITEM_REMOVE_CLASS,
-        disabled: loading,
+        disabled: disabled || loading,
       }}
     />
   );
 };
 
+LineItemRemove.defaultProps = {
+  disabled: false,
+};
+
 LineItemRemove.propTypes = {
   id: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default LineItemRemove;
