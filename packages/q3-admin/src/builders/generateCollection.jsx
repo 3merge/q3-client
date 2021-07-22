@@ -1,8 +1,6 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { get } from 'lodash';
-import Hidden from '@material-ui/core/Hidden';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
@@ -56,11 +54,7 @@ export default ({
           }
         >
           <Box position="relative">
-            {!get(
-              PageDetailProps,
-              'disableUnsavedChanges',
-              false,
-            ) && <UnsavedChanges />}
+            <UnsavedChanges />
             <PageDetail />
           </Box>
         </Page>

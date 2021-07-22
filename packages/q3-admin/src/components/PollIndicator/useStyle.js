@@ -1,21 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { orange, blueGrey } from '@material-ui/core/colors';
-
-export const isIdle = (next) => ({
-  hasChange,
-  hasPendingUpdate,
-}) =>
-  next(hasChange || hasPendingUpdate ? orange : blueGrey);
 
 export default makeStyles((theme) => ({
-  dot: isIdle(() => ({
+  dot: {
     borderRadius: 500,
     // color: theme.palette.primary.contrastText,
     fontSize: '1.5rem',
     marginRight: theme.spacing(0.5),
     padding: theme.spacing(0.25),
-  })),
-  label: isIdle(() => ({
+  },
+  label: {
     backgroundColor: 'transparent',
     textTransform: 'initial !important',
     // color: theme.palette.primary.contrastText,
@@ -27,7 +20,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       minWidth: 'auto !important',
     },
-  })),
+  },
   root: {
     overflow: 'visible',
     marginTop: '1rem',
