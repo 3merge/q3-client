@@ -7,10 +7,7 @@ import FilterProvider from '../containers/FilterProvider';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import TableSkeleton from '../components/TableSkeleton';
-import {
-  useAppContext,
-  useUnsavedChangesConfirmation,
-} from '../hooks';
+import { useAppContext, useUnsavedChanges } from '../hooks';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -36,7 +33,8 @@ export default ({
     id: true,
     ...getCollectionInformation(etc),
     component: (props) => {
-      useUnsavedChangesConfirmation();
+      // integrated with q3-ui-forms
+      useUnsavedChanges();
 
       return (
         <Collection id {...props}>

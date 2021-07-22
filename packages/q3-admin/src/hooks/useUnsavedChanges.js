@@ -2,12 +2,22 @@ import React from 'react';
 import { browser } from 'q3-ui-helpers';
 import { get, invoke } from 'lodash';
 import { useTranslation } from 'react-i18next';
-import { getAttribute } from './useUnsavedChangesBodyAttribute';
 
-const hasTarget = (e) =>
-  e.target && getAttribute() && Array.isArray(e.path);
+const getAttribute = () =>
+  browser.proxySessionStorageApi(
+    'getItem',
+    'q3-change-detection',
+  ) === 'true';
 
-const eventHandlerAdapter = (
+export const hasTarget = (e) =>
+  Boolean(
+    e?.target &&
+      Array.isArray(e.path) &&
+      e.path.length &&
+      getAttribute(),
+  );
+
+export const eventHandlerAdapter = (
   element,
   eventName,
   eventHandler,
@@ -28,7 +38,7 @@ const eventHandlerAdapter = (
   };
 };
 
-const includesNavigationElement = (xs) => {
+export const includesNavigationElement = (xs) => {
   const role = invoke(xs, 'getAttribute', 'role');
   const tag = get(xs, 'tagName');
 
@@ -38,7 +48,7 @@ const includesNavigationElement = (xs) => {
   );
 };
 
-const useUnsavedChangesConfirmation = () => {
+const useUnsavedChanges = () => {
   const { t } = useTranslation('descriptions');
 
   React.useEffect(() => {
@@ -91,4 +101,4 @@ const useUnsavedChangesConfirmation = () => {
   }, []);
 };
 
-export default useUnsavedChangesConfirmation;
+export default useUnsavedChanges;
