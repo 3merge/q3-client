@@ -13,6 +13,7 @@ const Back = () => {
       icon={KeyboardBackspace}
       buttonProps={{
         onClick: useBack(),
+        role: 'link',
       }}
     />
   );

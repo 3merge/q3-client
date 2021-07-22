@@ -4,11 +4,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
-import UnsavedChanges from '../containers/UnsavedChanges';
 import Article from '../components/Article';
 import SidePanel from '../components/SidePanel';
 import TableSkeleton from '../components/TableSkeleton';
-import { useAppContext } from '../hooks';
+import {
+  useAppContext,
+  useUnsavedChangesConfirmation,
+} from '../hooks';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -33,33 +35,36 @@ export default ({
   {
     id: true,
     ...getCollectionInformation(etc),
-    component: (props) => (
-      <Collection id {...props}>
-        <Page
-          id
-          {...props}
-          {...PageDetailProps}
-          loadingComponent={
-            <Article asideComponent={<SidePanel />}>
-              <Box
-                alignItems="center"
-                justifyContent="center"
-                display="flex"
-                height="100%"
-                width="100%"
-              >
-                <CircularProgress />
-              </Box>
-            </Article>
-          }
-        >
-          <Box position="relative">
-            <UnsavedChanges />
-            <PageDetail />
-          </Box>
-        </Page>
-      </Collection>
-    ),
+    component: (props) => {
+      useUnsavedChangesConfirmation();
+
+      return (
+        <Collection id {...props}>
+          <Page
+            id
+            {...props}
+            {...PageDetailProps}
+            loadingComponent={
+              <Article asideComponent={<SidePanel />}>
+                <Box
+                  alignItems="center"
+                  justifyContent="center"
+                  display="flex"
+                  height="100%"
+                  width="100%"
+                >
+                  <CircularProgress />
+                </Box>
+              </Article>
+            }
+          >
+            <Box position="relative">
+              <PageDetail />
+            </Box>
+          </Page>
+        </Collection>
+      );
+    },
   },
   {
     icon,

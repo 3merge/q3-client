@@ -2,14 +2,19 @@ import React from 'react';
 import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
 import Fade from '@material-ui/core/Fade';
+import useUnsavedChangesBodyAttribute from '../../hooks/useUnsavedChangesBodyAttribute';
 
-const WrappedRoute = ({ renderer: Renderer }) => (
-  <Fade in>
-    <div style={{ width: '100%' }}>
-      <Renderer />
-    </div>
-  </Fade>
-);
+const WrappedRoute = ({ renderer: Renderer }) => {
+  useUnsavedChangesBodyAttribute();
+
+  return (
+    <Fade in>
+      <div style={{ width: '100%' }}>
+        <Renderer />
+      </div>
+    </Fade>
+  );
+};
 
 const TabsWithRouter = ({ views }) => (
   <Router primary={false}>
