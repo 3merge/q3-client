@@ -1,17 +1,23 @@
 import React from 'react';
+import { browser } from 'q3-ui-helpers';
 
-export default (isModified, show) => {
+export default (isModified) => {
   React.useLayoutEffect(() => {
     const timer = setTimeout(() => {
-      if (show) {
-        const event = new Event('q3-change-detection');
-        event.data = !isModified;
-        document.dispatchEvent(event);
-      }
+      browser.proxySessionStorageApi(
+        'setItem',
+        'q3-change-detection',
+        String(isModified),
+      );
     }, [250]);
 
     return () => {
       clearTimeout(timer);
+
+      browser.proxySessionStorageApi(
+        'removeItem',
+        'q3-change-detection',
+      );
     };
-  }, [isModified, show]);
+  }, [isModified]);
 };

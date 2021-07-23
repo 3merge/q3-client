@@ -7,3 +7,4 @@ export { default as usePages } from './usePages';
 export { default as useTitle } from './useTitle';
 export { default as useRefresh } from './useRefresh';
 export { default as useServerSideEvents } from './useServerSideEvents';
+export { default as useUnsavedChanges } from './useUnsavedChanges';

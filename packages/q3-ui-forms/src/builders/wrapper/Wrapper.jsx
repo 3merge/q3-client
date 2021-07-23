@@ -36,7 +36,6 @@ export const InnerForm = ({
   debug,
   restart,
   showSuccessMessage,
-  showPersistenceSnack,
   under,
   ...etc
 }) => {
@@ -121,8 +120,7 @@ export const InnerForm = ({
     errors,
   });
 
-  // simply listens for changes and alerts the user
-  useModified(isModified, showPersistenceSnack);
+  useModified(isModified);
 
   const onReset = () => {
     setValues(seed);
@@ -279,11 +277,6 @@ InnerForm.propTypes = {
   showSuccessMessage: PropTypes.bool,
 
   /**
-   * It will show a notification every time the state changes.
-   */
-  showPersistenceSnack: PropTypes.bool,
-
-  /**
    * It will run flat on specified keys in the initial state.
    */
   unwind: PropTypes.arrayOf(PropTypes.array),
@@ -312,7 +305,6 @@ InnerForm.defaultProps = {
   translate: {},
   onReset: null,
   showSuccessMessage: false,
-  showPersistenceSnack: false,
   unwind: [],
   // eslint-disable-next-line
   onSubmit: console.log,

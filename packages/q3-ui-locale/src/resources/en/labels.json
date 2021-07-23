@@ -304,5 +304,8 @@
   "searchTerm": "Search term",
   "display": "Display",
   "searchInputLabel": "Search",
-  "filterDefinitions": "Other filters"
+  "filterDefinitions": "Other filters",
+  "refresh": "Refresh",
+  "outdated": "Outdated",
+  "mostRecent": "Most recent"
 }
