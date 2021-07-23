@@ -3,6 +3,12 @@ import HeaderUI from 'q3-ui/lib/header';
 import Header from '..';
 import Title from '../title';
 
+jest.mock('i18next', () => ({
+  use: jest.fn(),
+  init: jest.fn(),
+  on: jest.fn(),
+}));
+
 jest.mock('react-i18next', () => ({
   useTranslation: jest.fn().mockReturnValue({
     t: (v) => v,

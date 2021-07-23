@@ -5,12 +5,11 @@ import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
-import { useActiveFilter } from '../../hooks';
+import { useActiveFilter, useSegments } from '../../hooks';
 import SegmentName from '../../components/SegmentName';
 import SegmentAdd from '../../components/SegmentAdd';
 import SegmentDropdownMenu from '../../components/SegmentDropdownMenu';
 import SegmentListItem from '../../components/SegmentListItem';
-import useSegments from '../../hooks/useSegments';
 
 const Segments = ({ children, disableSegments }) => {
   const { location } = React.useContext(Definitions);
@@ -20,7 +19,6 @@ const Segments = ({ children, disableSegments }) => {
     remove,
     filters,
     favourite,
-    main,
   } = useActiveFilter(location?.search);
 
   const { segments } = useSegments(filters);
@@ -36,11 +34,12 @@ const Segments = ({ children, disableSegments }) => {
               label,
               fromProfile,
               isActive,
+              isStarred,
             }) => (
               <SegmentListItem
                 href={searchValue}
                 isStarred={
-                  disableSegments ? false : main === label
+                  disableSegments ? false : isStarred
                 }
                 isActive={isActive}
                 label={label}

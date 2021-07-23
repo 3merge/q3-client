@@ -1,17 +1,46 @@
-import { getCustomFilters } from './useActiveFilter';
+import React from 'react';
+import useActiveFilter from './useActiveFilter';
+
+jest.mock('./useSegmentsFromProfile', () =>
+  jest.fn().mockReturnValue({
+    asArray: [
+      {
+        label: 'Quotes',
+        searchValue: '?status=Quote',
+        value: '?status=Quote',
+        fromProfile: true,
+      },
+    ],
+    asObject: {
+      Quotes: '?status=Quote',
+    },
+    main: 'Quotes',
+  }),
+);
+
+jest.spyOn(React, 'useContext').mockReturnValue({
+  segments: {},
+});
 
 describe('useActiveFilter', () => {
-  describe('"getCustomFilters"', () => {
-    it('should ignore global query words', () => {
-      expect(
-        getCustomFilters(
-          '?search=foo&status=Quote&sort-createdAt&payment=None+Yet',
-        ),
-      ).toEqual([
-        'search=foo',
-        'status=Quote',
-        'payment=None+Yet',
-      ]);
-    });
+  it('should combine filters from application and profile', () => {
+    const { defaultQuery, filters } = useActiveFilter();
+
+    expect(defaultQuery).toMatch('?status=Quote');
+    expect(filters).toEqual([
+      {
+        label: 'All',
+        searchValue: '?active',
+        value: '?active',
+        isStarred: false,
+      },
+      {
+        label: 'Quotes',
+        searchValue: '?status=Quote',
+        value: '?status=Quote',
+        fromProfile: true,
+        isStarred: true,
+      },
+    ]);
   });
 });

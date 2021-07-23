@@ -43,6 +43,13 @@ const hasMax = (maxValue) => (xs) =>
 const omitReservedWords = (xs) =>
   omit(xs, ['sort', 'page', 'limit', 'active']);
 
+export const mapSegmentsToListData = (xs) =>
+  Object.entries(xs).map(([key, value]) => ({
+    label: key,
+    searchValue: value,
+    value,
+  }));
+
 export default (segments = []) => {
   const qp = useQueryParams();
   const decodedSearchParams = qp.decode(
