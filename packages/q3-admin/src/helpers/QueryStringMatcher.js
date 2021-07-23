@@ -1,5 +1,3 @@
-import { size } from 'lodash';
-
 const RESERVED_QUERIES = [
   // 'search',
   'sort',
@@ -7,6 +5,15 @@ const RESERVED_QUERIES = [
   'limit',
   'active',
 ];
+
+const count = (xs = [], assertion) =>
+  xs.reduce((acc, item) => {
+    // eslint-disable-next-line
+    if (assertion(item)) acc += 1;
+    return acc;
+  }, 0);
+
+const negate = (fn) => (xs) => !fn(xs);
 
 export default class QueryStringMatcher {
   static clean(v) {
@@ -41,6 +48,7 @@ export default class QueryStringMatcher {
 
   containsInCurrent(item) {
     const includes = this.current.includes(item);
+
     try {
       return (
         decodeURIComponent(this.current).includes(
@@ -52,36 +60,29 @@ export default class QueryStringMatcher {
     }
   }
 
-  count(queryParts = []) {
-    return queryParts.reduce((acc, item) => {
-      // eslint-disable-next-line
-      if (this.containsInCurrent(item)) acc += 1;
-      return acc;
-    }, 0);
+  countIn(xs = []) {
+    return count(xs, this.containsInCurrent.bind(this));
   }
 
-  compare() {
-    return this.next.every((item) =>
-      this.containsInCurrent(item),
+  countNin(xs = []) {
+    return count(
+      xs,
+      negate(this.containsInCurrent.bind(this)),
     );
   }
 
   isActive() {
-    if (!this.compare()) return false;
+    const active = this.countIn(this.next);
+    const inactive = this.countNin(this.next);
 
-    const len = size(this.next);
-    const numberOfActiveQueries = this.count(this.next);
+    return this.benchmarks.reduce((acc, next) => {
+      const nextActive = this.countIn(next);
+      const nextInactive = this.countNin(next);
 
-    const result = this.benchmarks.reduce((acc, next) => {
-      if (!acc) return acc;
-
-      // will award "active" if it all query parameters are in the current search string
-      // AND it has more instances of query than its siblings
-      return this.count(next) <= numberOfActiveQueries;
+      if (nextInactive && inactive)
+        return nextInactive < inactive;
+      if (acc) return nextActive <= active;
+      return acc;
     }, true);
-
-    return result && len !== 0
-      ? len === numberOfActiveQueries
-      : result;
   }
 }
