@@ -10,9 +10,7 @@ import SegmentName from '../../components/SegmentName';
 import SegmentAdd from '../../components/SegmentAdd';
 import SegmentDropdownMenu from '../../components/SegmentDropdownMenu';
 import SegmentListItem from '../../components/SegmentListItem';
-
-const getSearchValues = (a) =>
-  a.map((item) => item.searchValue);
+import useSegments from '../../hooks/useSegments';
 
 const Segments = ({ children, disableSegments }) => {
   const { location } = React.useContext(Definitions);
@@ -25,32 +23,26 @@ const Segments = ({ children, disableSegments }) => {
     main,
   } = useActiveFilter(location?.search);
 
-  const listItems = [
-    {
-      label: 'All',
-      searchValue: '?active',
-    },
-    ...filters,
-  ];
+  const { segments } = useSegments(filters);
 
   return isEmpty(filters) && disableSegments ? null : (
     <SidePanelContent title="Segments">
       <Box id="q3-segments">
         <List style={{ margin: 0, padding: 0 }}>
-          {listItems.map(
+          {segments.map(
             ({
               searchValue,
               value,
               label,
               fromProfile,
+              isActive,
             }) => (
               <SegmentListItem
-                key={label}
                 href={searchValue}
                 isStarred={
                   disableSegments ? false : main === label
                 }
-                siblings={getSearchValues(listItems)}
+                isActive={isActive}
                 label={label}
                 key={searchValue}
               >

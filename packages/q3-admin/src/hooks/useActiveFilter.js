@@ -1,59 +1,8 @@
 import React from 'react';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import { useNavigate } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
 import { Definitions } from '../containers/state';
-
-const isMatch = (x, y) => x === y;
-
-const hasReservedWord = (v) =>
-  [
-    // 'search',
-    'sort',
-    'page',
-    'limit',
-    'active',
-  ].some((term) => v.startsWith(term));
-
-const removeQueryCharacter = (v) =>
-  String(v).charAt(0) === '?'
-    ? String(v).substring(1)
-    : String(v);
-
-export const getCustomFilters = (search) =>
-  search
-    ? removeQueryCharacter(search)
-        .split('&')
-        .filter((v) => !hasReservedWord(v))
-    : [];
-
-export const getActiveSearchQueryByKey = (search) => (
-  items,
-) => {
-  const split = getCustomFilters(search);
-
-  const matches = Object.entries(items).reduce(
-    (acc, [label, query]) =>
-      removeQueryCharacter(query)
-        .split('&')
-        .every(
-          (filter) =>
-            hasReservedWord(filter) ||
-            split.find((term) => {
-              return term === filter;
-            }),
-        )
-        ? acc.concat(label)
-        : acc,
-    [],
-  );
-
-  return matches.reduce((acc, next) => {
-    const previousLength = getCustomFilters(items[acc]);
-    const nextLength = getCustomFilters(items[next]);
-    return nextLength > previousLength ? next : acc;
-  }, '');
-};
 
 export default (search) => {
   const {
@@ -66,13 +15,6 @@ export default (search) => {
   const { state, update } = React.useContext(AuthContext);
   const filters = get(state, 'profile.filters', {});
   const items = get(filters, collectionName, {});
-
-  const active = getActiveSearchQueryByKey(search)({
-    ...items,
-    ...(typeof segments === 'function'
-      ? segments()
-      : segments),
-  });
 
   const main = items.default;
 
@@ -125,7 +67,7 @@ export default (search) => {
               {
                 [name]: query,
               },
-              isMatch(main, prevName)
+              isEqual(main, prevName)
                 ? { default: name }
                 : {},
             ),
@@ -135,6 +77,11 @@ export default (search) => {
     },
 
     filters: [
+      {
+        label: 'All',
+        searchValue: '?active',
+        value: '?active',
+      },
       ...Object.entries(segments).map(([key, value]) => ({
         label: key,
         searchValue: value,
@@ -150,13 +97,11 @@ export default (search) => {
         .filter(({ label }) => label !== 'default'),
     ],
 
-    numberApplied: getCustomFilters(search).length,
-    isActive: main === active,
     defaultQuery: {
       ...items,
       ...segments,
     }[main],
-    active,
+
     main,
   };
 };

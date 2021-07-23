@@ -57,8 +57,15 @@ export default (o) =>
     .reduce((acc, [key, value]) => {
       if (value === null) return acc;
 
-      const normalized =
-        key !== 'search' ? extractValue(value) : value;
+      const normalized = ![
+        'active',
+        'limit',
+        'page',
+        'search',
+        'sort',
+      ].includes(key)
+        ? extractValue(value)
+        : value;
 
       const hasAsterisk = key.includes('*');
       const name = getParamName(key);
