@@ -38,7 +38,15 @@ const wrapSingularValue = (xs) => {
   if (
     !xs ||
     isNumeric(xs) ||
-    ['true', 'false'].includes(String(xs))
+    ['true', 'false'].includes(String(xs)) ||
+    [
+      'string',
+      'in',
+      'exists',
+      'has',
+      '{',
+      '/',
+    ].some((item) => String(xs).startsWith(item))
   )
     return xs;
 
@@ -63,6 +71,9 @@ export default (o) =>
         'page',
         'search',
         'sort',
+        'fields',
+        'filter',
+        'populate',
       ].includes(key)
         ? extractValue(value)
         : value;

@@ -15,9 +15,13 @@ test.each([
   [
     {
       foo: 'bar',
+      quuz: 'exists(true)',
       thunk: d,
     },
-    `foo=string(bar)&thunk=${d.replace(/:/g, '%3A')}`,
+    `foo=string(bar)&quuz=exists(true)&thunk=${d.replace(
+      /:/g,
+      '%3A',
+    )}`,
   ],
   [
     {
