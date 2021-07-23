@@ -4,6 +4,9 @@ import { useActiveFilter } from '../../hooks';
 
 jest.mock('../../hooks', () => ({
   useActiveFilter: jest.fn(),
+  useSegments: jest.fn().mockImplementation((v) => ({
+    segments: v,
+  })),
 }));
 
 beforeEach(jest.clearAllMocks);

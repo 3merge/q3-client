@@ -12,6 +12,15 @@ export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
   // parent: 'entertainment',
+  segments: {
+    'Date Range': '?demo<=2021-08-01&demo>=2021-01-01',
+    'Testing 1':
+      '?demo<=2021-08-01&demo>=2021-01-01&search=Test',
+    'Testing 2':
+      '?demo<=2021-08-01&demo>=2021-01-01&search=Testing',
+    'Testing 3':
+      '?demo<=2021-08-01&demo>=2021-01-01&search=Testing3',
+  },
   lookup: ['name'],
 })
   .genUserOptions('Developer', {

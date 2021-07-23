@@ -1,6 +1,8 @@
 import { timezone } from 'q3-ui-locale';
 import encode from './encode';
 
+const d = new Date().toISOString();
+
 jest.spyOn(timezone, 'toUtc').mockReturnValue('2021-01-01');
 
 test.each([
@@ -9,6 +11,13 @@ test.each([
       foo: 1,
     },
     'foo=1',
+  ],
+  [
+    {
+      foo: 'bar',
+      thunk: d,
+    },
+    `foo=string(bar)&thunk=${d.replace(/:/g, '%3A')}`,
   ],
   [
     {

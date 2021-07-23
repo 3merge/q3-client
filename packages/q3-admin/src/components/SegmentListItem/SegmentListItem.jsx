@@ -6,19 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { QueryStringMatcher } from '../../helpers';
 
-export const getActiveLink = (href, siblings) => ({
-  location,
-}) => ({
+const getActiveLink = ({ isActive }) => () => ({
   style: {
-    backgroundColor: new QueryStringMatcher(
-      location.search,
-      href,
-      siblings,
-    ).isActive()
-      ? // same colour as Mui-selected
-        // only this passes the props back to the anchor element
+    backgroundColor: isActive // same colour as Mui-selected
+      ? // only this passes the props back to the anchor element
         'var(--background-muted)'
       : undefined,
   },
@@ -29,17 +21,14 @@ const SegmentListItem = ({
   href,
   label,
   isStarred,
-  siblings,
+  ...rest
 }) => (
   <ListItem
     button
     fullWidth
     dense
     variant="contained"
-    // will href is a parameter of getProps
-    // it processes it into a relative path
-    // must use raw search query for out active matching util
-    getProps={getActiveLink(href, siblings)}
+    getProps={getActiveLink(rest)}
     component={Link}
     to={href}
   >

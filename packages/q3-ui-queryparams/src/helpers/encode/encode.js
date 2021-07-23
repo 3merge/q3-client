@@ -1,11 +1,11 @@
 import flat from 'flat';
 import { timezone } from 'q3-ui-locale';
-import { size } from 'lodash';
 import {
   getValue,
   quoteComma,
   wrap,
   prepend,
+  isNumeric,
 } from '../utils';
 
 const getParamName = (v) => {
@@ -34,9 +34,22 @@ const getValueArray = (a) => {
     : '';
 };
 
+const wrapSingularValue = (xs) => {
+  if (
+    !xs ||
+    isNumeric(xs) ||
+    ['true', 'false'].includes(String(xs))
+  )
+    return xs;
+
+  return prepend(wrap(getValue(xs), '()'), 'string');
+};
+
 export const extractValue = (val) =>
   encodeURIComponent(
-    Array.isArray(val) ? getValueArray(val) : getValue(val),
+    Array.isArray(val)
+      ? getValueArray(val)
+      : wrapSingularValue(val),
   );
 
 export default (o) =>
@@ -44,7 +57,16 @@ export default (o) =>
     .reduce((acc, [key, value]) => {
       if (value === null) return acc;
 
-      const normalized = extractValue(value);
+      const normalized = ![
+        'active',
+        'limit',
+        'page',
+        'search',
+        'sort',
+      ].includes(key)
+        ? extractValue(value)
+        : value;
+
       const hasAsterisk = key.includes('*');
       const name = getParamName(key);
 

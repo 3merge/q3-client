@@ -62,3 +62,11 @@ export const clean = (v) => {
     out = v.substring(7, v.length - 1);
   return out.replace(/%20/g, ' ');
 };
+
+export const isNumeric = (str) => {
+  if (typeof str === 'number') return true;
+  if (typeof str !== 'string') return false;
+  return (
+    !Number.isNaN(str) && !Number.isNaN(parseFloat(str))
+  );
+};
