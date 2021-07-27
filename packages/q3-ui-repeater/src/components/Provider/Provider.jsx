@@ -20,6 +20,7 @@ const Provider = ({
     <Context.Provider
       value={{
         ...auth,
+        name: rest.name,
         edit,
         editBulk,
         remove,

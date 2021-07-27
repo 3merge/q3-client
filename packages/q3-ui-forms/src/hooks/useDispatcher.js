@@ -63,6 +63,8 @@ export const reducerDispatcher = (state, context) => {
       break;
 
     case UNSET_VALUE:
+      // otherwise dropped fields detect as changes
+      unset(previousValues, name);
       unset(values, name);
       break;
 

@@ -8,11 +8,15 @@ import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import BulkEditorDrawer from '../BulkEditorDrawer';
 import BulkDeleteModal from '../BulkDeleteModal';
+import RepeaterContext from '../state';
 
 export const findByLabel = (a, b) =>
   a.find(({ label }) => label === b.label);
 
 const CustomActionBar = ({ renderSelected, length }) => {
+  const { disableRemove, disableEditor } = React.useContext(
+    RepeaterContext,
+  );
   const { checked, setChecked } = React.useContext(State);
 
   React.useEffect(() => {
@@ -33,7 +37,10 @@ const CustomActionBar = ({ renderSelected, length }) => {
                 <IconButton
                   icon={Edit}
                   label="bulkUpdate"
-                  buttonProps={{ onClick }}
+                  buttonProps={{
+                    disabled: disableEditor,
+                    onClick,
+                  }}
                 />
               )}
             >
@@ -42,6 +49,7 @@ const CustomActionBar = ({ renderSelected, length }) => {
           )}
           <BulkDeleteModal
             ids={checked}
+            disabled={disableRemove}
             renderTrigger={(onClick) => (
               <IconButton
                 icon={DeleteForeverIcon}

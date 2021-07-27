@@ -5,6 +5,11 @@ let spy;
 
 beforeAll(() => {
   spy = jest.spyOn(React, 'useContext');
+
+  jest.spyOn(React, 'useRef').mockReturnValue({
+    current: true,
+  });
+
   jest
     .spyOn(React, 'useEffect')
     .mockImplementation((fn) => fn());
@@ -56,6 +61,28 @@ describe('useFieldAuthorization', () => {
     });
 
     expect(setFieldValue).toHaveBeenCalledWith('foo', 1);
+  });
+
+  it('should skip empty values', () => {
+    const setFieldValue = jest.fn();
+    spy.mockReturnValue({
+      setFieldValue,
+      canSee: jest.fn().mockReturnValue(true),
+      canEdit: jest.fn().mockReturnValue(false),
+      isDynamic: jest.fn().mockReturnValue(true),
+      initialValues: {
+        foo: undefined,
+      },
+      values: {
+        foo: null,
+      },
+    });
+
+    useFieldAuthorization({
+      name: 'foo',
+    });
+
+    expect(setFieldValue).not.toHaveBeenCalled();
   });
 
   it('should assemble path', () => {

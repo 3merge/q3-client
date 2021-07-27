@@ -1,16 +1,26 @@
 import React from 'react';
-import { get, isEqual } from 'lodash';
+import { get, isEqual, size } from 'lodash';
 import {
   AuthorizationState,
   BuilderState,
   DispatcherState,
 } from '../FormsContext';
 
+const isEmpty = (v) =>
+  v === null ||
+  v === undefined ||
+  v === '' ||
+  (Array.isArray(v) && !size(v));
+
 const useFieldAuthorization = ({
   name,
   under,
   disabled,
 }) => {
+  const ref = React.useRef({
+    current: true,
+  });
+
   const { canSee, canEdit, isDynamic } = React.useContext(
     AuthorizationState,
   );
@@ -36,11 +46,17 @@ const useFieldAuthorization = ({
 
   React.useEffect(() => {
     if (
+      ref.current &&
       shouldUpdateAfterChange &&
       authState.readOnly &&
-      !isEqual(prev, curr)
+      !isEqual(prev, curr) &&
+      !(isEmpty(prev) && isEmpty(curr))
     )
       setFieldValue(name, prev);
+
+    return () => {
+      ref.current = false;
+    };
   }, [authState.readOnly, prev, curr]);
 
   return authState;
