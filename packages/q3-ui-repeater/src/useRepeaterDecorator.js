@@ -1,5 +1,5 @@
 import React from 'react';
-import { invoke, hasIn } from 'lodash';
+import { invoke, hasIn, isFunction } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import RepeaterState from './components/state';
 
@@ -31,11 +31,8 @@ export default (name, editable) => {
     name,
   });
 
-  return invoke(
-    repeater,
-    'auth.canSeeSub',
-    decorators.prefix,
-  )
+  return isFunction(name) ||
+    invoke(repeater, 'auth.canSeeSub', decorators.prefix)
     ? {
         ...repeater,
         ...decorators,

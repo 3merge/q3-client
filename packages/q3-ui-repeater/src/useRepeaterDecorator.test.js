@@ -39,6 +39,20 @@ describe('useRepeaterDecorator', () => {
         'prefix',
       );
     });
+
+    it('should return decorators on dynamic name (fn)', () => {
+      const canSeeSub = jest.fn();
+      context.mockReturnValue({
+        auth: {
+          canSeeSub,
+        },
+      });
+
+      expect(canSeeSub).not.toHaveBeenCalled();
+      expect(
+        useRepeaterDecorator(jest.fn()),
+      ).toHaveProperty('prefix');
+    });
   });
 
   describe('RepeaterDecorator', () => {
