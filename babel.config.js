@@ -20,6 +20,7 @@ const alias = [
   'q3-ui-confirm',
   'q3-ui-locale',
   'q3-ui',
+  'q3-ui-audit',
   'q3-ui-datatables',
   'q3-ui-dialog',
   'q3-ui-exports',

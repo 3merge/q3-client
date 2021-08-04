@@ -1,0 +1,28 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Audit from './Audit';
+import { Box } from '@material-ui/core';
+import fixtures from '../../tests/fixtures/data';
+
+<Meta title="Audit" component={Audit} />
+
+<Preview>
+  <Story name="Default">
+    <Audit
+      current={{
+        'name': 'Pear',
+        'related': [
+          {
+            'id': '123',
+            'name': 'Blue',
+          },
+        ],
+      }}
+      data={fixtures}
+    />
+  </Story>
+</Preview>

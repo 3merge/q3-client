@@ -1,0 +1,40 @@
+[
+  {
+    "added": {
+      "name": "Apple"
+    },
+    "user": {
+      "_id": "1",
+      "firstName": "Jon",
+      "lastName": "Snow"
+    },
+    "date": "2021-02-02"
+  },
+  {
+    "updated": {
+      "name": "Banana",
+      "colour": "Yellow",
+      "richIn": "Potassium"
+    },
+    "user": {
+      "_id": "1",
+      "firstName": "Jon",
+      "lastName": "Snow"
+    },
+    "date": "2021-02-02"
+  },
+  {
+    "updated": {
+      "related": {
+        "_id": "123",
+        "name": "Orange"
+      }
+    },
+    "user": {
+      "_id": "1",
+      "firstName": "Arya",
+      "lastName": "Stark"
+    },
+    "date": "2021-02-02"
+  }
+]

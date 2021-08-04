@@ -1,8 +1,11 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'react-i18next';
-import { Timeline } from 'q3-components';
-import Typography from '@material-ui/core/Typography';
+import {
+  CircularProgress,
+  Typography,
+} from '@material-ui/core';
+import Audit from 'q3-ui-audit';
 import { Definitions } from '../state';
 
 export const getAuthor = (v) => {
@@ -19,20 +22,23 @@ const History = () => {
   const {
     fetching,
     fetchingError,
-    versions = [],
+    current = {},
+    changes = [],
   } = useRest({
-    url: `history/?collectionName=${collectionName}&documentId=${id}`,
-    key: 'versions',
-    pluralized: 'versions',
+    url: `/audit?collectionName=${collectionName}&id=${id}`,
+    key: 'changes',
+    pluralized: 'changes',
     runOnInit: true,
   });
+
+  if (fetching) return <CircularProgress />;
 
   return fetchingError ? (
     <Typography>
       {t('failedToLoadVersionHistory')}
     </Typography>
   ) : (
-    <Timeline fetching={fetching} entries={versions} />
+    <Audit current={current} data={changes} />
   );
 };
 

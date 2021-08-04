@@ -51,6 +51,73 @@ const makeApiEndpoints = (
     },
   });
 
+  mockInstance.onGet(/audit/).reply(200, {
+    current: {
+      'id': '1',
+      'name': 'Rick and Morty',
+      'photo':
+        'https://cdn.vox-cdn.com/thumbor/G8A4RF-QWQl7jItQw93r402os_0=/1400x1050/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/10816041/rick_and_morty_s02_still.jpg',
+      'description': '',
+      'createdBy': {
+        'firstName': 'Dan',
+      },
+      'createdAt': '2017-11-04T18:48:46.250Z',
+      'updatedAt': '2018-01-10T18:20:41.703Z',
+      'movies': [
+        {
+          'id': '1',
+          'title': 'Completed Season 1',
+        },
+        {
+          'id': '2',
+          'title': 'Completed Season 2',
+        },
+        {
+          'id': '3',
+          'title': 'Completed Season 3',
+        },
+      ],
+    },
+    changes: [
+      {
+        added: {
+          name: 'Rick Sanchez Show',
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+      {
+        deleted: {
+          movies: {
+            _id: '1',
+            title: 'Adventures in space',
+          },
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+      {
+        updated: {
+          movies: {
+            'id': '2',
+            'title': 'Complete Season 2',
+          },
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+    ],
+  });
+
   mockInstance
     .onDelete(
       new RegExp(`${collectionName}\\/\\d+\\/uploads/\\d+`),
