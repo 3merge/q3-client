@@ -5,43 +5,40 @@ import {
   CircularProgress,
   Typography,
 } from '@material-ui/core';
+import { size } from 'lodash';
 import Audit from 'q3-ui-audit';
+import GraphicWithMessage from 'q3-ui-assets';
 import { Definitions } from '../state';
 
-export const getAuthor = (v) => {
-  if (!v.createdBy) return null;
-  return `${v.createdBy.firstName} ${v.createdBy.lastName}`;
-};
-
-const History = () => {
+const ActivityLog = () => {
   const { t } = useTranslation('descriptions');
   const { collectionName, id } = React.useContext(
     Definitions,
   );
 
-  const {
-    fetching,
-    fetchingError,
-    current = {},
-    changes = [],
-  } = useRest({
-    url: `/audit?collectionName=${collectionName}&id=${id}`,
-    key: 'changes',
-    pluralized: 'changes',
-    runOnInit: true,
-  });
+  const { fetching, fetchingError, changes = [] } = useRest(
+    {
+      url: `/audit?collectionName=${collectionName}&id=${id}`,
+      key: 'changes',
+      pluralized: 'changes',
+      runOnInit: true,
+    },
+  );
 
   if (fetching) return <CircularProgress />;
 
-  return fetchingError ? (
-    <Typography>
-      {t('failedToLoadVersionHistory')}
-    </Typography>
-  ) : (
-    <Audit current={current} data={changes} />
-  );
+  if (fetchingError)
+    return <Typography>{t('failedToLoadLogs')}</Typography>;
+
+  if (!size(changes))
+    return (
+      <GraphicWithMessage
+        title="trackChanges"
+        icon="Puzzle"
+      />
+    );
+
+  return <Audit data={changes} />;
 };
 
-History.propTypes = {};
-
-export default History;
+export default ActivityLog;

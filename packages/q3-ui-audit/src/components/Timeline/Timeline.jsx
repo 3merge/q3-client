@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import TimelineEntry from '../TimelineEntry';
 
-export default ({ compareChangeLogWithCurrent, data }) => (
+export default ({ data }) => (
   <Table>
     <TableHead>
       <TableRow>
@@ -27,9 +27,6 @@ export default ({ compareChangeLogWithCurrent, data }) => (
         orderBy(data, ['date'], ['desc']),
         (item, idx) => (
           <TimelineEntry
-            compareChangeLogWithCurrent={
-              compareChangeLogWithCurrent
-            }
             key={`${item.date}-${idx}`}
             {...item}
           />

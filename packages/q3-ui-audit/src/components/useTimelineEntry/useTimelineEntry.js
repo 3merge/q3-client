@@ -38,19 +38,43 @@ export default () => {
       ...get(entryMap, text),
 
       getEntity() {
-        const target = get(props, text);
+        let output = '--';
 
-        return isObject(target) &&
-          Object.keys(target).length === 1 &&
-          isObject(target[Object.keys(target)[0]])
-          ? capitalize(Object.keys(target)[0])
-          : '--';
+        const recurse = (target) => {
+          if (object.countKeys(target) === 1) {
+            const key = Object.keys(target)[0];
+            if (isObject(target[key])) {
+              output = capitalize(key);
+              recurse(target[key]);
+            }
+          }
+        };
+
+        recurse(get(props, text));
+        return output;
       },
 
       getValue() {
         const v = get(props, text);
         if (!isObject(v)) return {};
         return v;
+      },
+
+      getPreviousValue() {
+        if (text === 'deleted') return get(props, text);
+        if (text === 'added') return {};
+        return get(props, 'previous', {});
+      },
+
+      getCurrentValue() {
+        if (text === 'deleted') return {};
+        return get(props, text);
+      },
+
+      format(xs) {
+        return object.hasKeys(xs)
+          ? JSON.stringify(xs, null, 2)
+          : undefined;
       },
     };
   };

@@ -14,13 +14,10 @@ import ReactDiffViewer, {
 import TimelineIcon from '../TimelineIcon';
 import useTimelineEntry from '../useTimelineEntry';
 
-export default ({
-  compareChangeLogWithCurrent,
-  ...props
-}) => {
+export default ({ ...props }) => {
   const { state, toggle } = useToggle();
-  const checkout = useTimelineEntry()(props);
-  const data = checkout.getValue();
+  const te = useTimelineEntry();
+  const checkout = te(props);
 
   return (
     <>
@@ -55,14 +52,14 @@ export default ({
             <Box p={1}>
               <div style={{ fontSize: '.833rem' }}>
                 <ReactDiffViewer
-                  rightTitle="Current VALUE (Used to help contextualize the snapshot)"
-                  leftTitle="Transcript from change"
-                  oldValue={JSON.stringify(data, null, 2)}
-                  newValue={compareChangeLogWithCurrent(
-                    data,
+                  oldValue={checkout.format(
+                    checkout.getPreviousValue(),
+                  )}
+                  newValue={checkout.format(
+                    checkout.getCurrentValue(),
                   )}
                   compareMethod={DiffMethod.WORDS}
-                  splitView
+                  splitView={false}
                 />
               </div>
             </Box>

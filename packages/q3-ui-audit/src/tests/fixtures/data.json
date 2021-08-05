@@ -1,40 +1,74 @@
 [
   {
-    "added": {
-      "name": "Apple"
-    },
-    "user": {
-      "_id": "1",
-      "firstName": "Jon",
-      "lastName": "Snow"
-    },
-    "date": "2021-02-02"
-  },
-  {
-    "updated": {
-      "name": "Banana",
-      "colour": "Yellow",
-      "richIn": "Potassium"
-    },
-    "user": {
-      "_id": "1",
-      "firstName": "Jon",
-      "lastName": "Snow"
-    },
-    "date": "2021-02-02"
-  },
-  {
-    "updated": {
-      "related": {
-        "_id": "123",
-        "name": "Orange"
+    "deleted": {
+      "topics": {
+        "_id": "610bece75e5c4e23c0ba4099",
+        "name": "Entertainment"
       }
     },
-    "user": {
-      "_id": "1",
-      "firstName": "Arya",
-      "lastName": "Stark"
+    "date": "2021-08-05T13:51:36.023Z",
+    "user": {}
+  },
+  {
+    "added": {
+      "topics": {
+        "_id": "610bece75e5c4e23c0ba4099",
+        "name": "Entertainment"
+      }
     },
-    "date": "2021-02-02"
+    "date": "2021-08-05T13:51:35.822Z",
+    "user": {}
+  },
+  {
+    "added": {
+      "topics": {
+        "_id": "610bece75e5c4e23c0ba409a",
+        "name": "Cars"
+      }
+    },
+    "date": "2021-08-05T13:51:35.822Z",
+    "user": {}
+  },
+  {
+    "added": {
+      "topics": {
+        "publications": {
+          "_id": "610bece75e5c4e23c0ba409c",
+          "name": "this"
+        }
+      }
+    },
+    "date": "2021-08-05T13:51:35.822Z",
+    "user": {}
+  },
+  {
+    "added": {
+      "topics": {
+        "_id": "610bece75e5c4e23c0ba409b",
+        "name": "Politics"
+      }
+    },
+    "date": "2021-08-05T13:51:35.822Z",
+    "user": {}
+  },
+  {
+    "updated": {
+      "_id": "610bece75e5c4e23c0ba4094",
+      "title": "New Tesla announced"
+    },
+    "previous": {
+      "_id": "610bece75e5c4e23c0ba4094",
+      "title": "New"
+    },
+    "date": "2021-08-05T13:51:35.520Z",
+    "user": {}
+  },
+  {
+    "added": {
+      "_id": "610bece75e5c4e23c0ba4094",
+      "title": "New"
+    },
+    "date": "2021-08-05T13:51:35.260Z",
+    "user": {}
   }
 ]
