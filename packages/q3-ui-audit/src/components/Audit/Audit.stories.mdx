@@ -6,12 +6,14 @@ import {
 } from '@storybook/addon-docs/blocks';
 import Audit from './Audit';
 import { Box } from '@material-ui/core';
-import fixtures from '../../tests/fixtures/data';
+import Fixtures from '../../tests/fixtures';
 
 <Meta title="Audit" component={Audit} />
 
 <Preview>
   <Story name="Default">
-    <Audit data={fixtures} />
+    <Fixtures>
+      <Audit />
+    </Fixtures>
   </Story>
 </Preview>
