@@ -25,7 +25,7 @@ export default ({ children }) => {
       const { date, skip, user, operation } = qs.decode(
         getQueryString(data),
       );
-
+      console.log(data);
       return [
         200,
         {
@@ -73,7 +73,6 @@ export default ({ children }) => {
                   : operation in item) &&
                 moment(date).isSameOrAfter(item.date);
 
-              console.log(user);
               if (user)
                 return (
                   String(item.user.id) === String(user) &&

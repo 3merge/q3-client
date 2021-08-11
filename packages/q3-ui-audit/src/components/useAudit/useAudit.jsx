@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { compact, size } from 'lodash';
+import { compact, size, isObject } from 'lodash';
 import { useQueryParams } from 'q3-ui-queryparams';
 import { castToEnd } from 'q3-ui-forms/lib/helpers';
 
@@ -9,6 +9,9 @@ const INCREMENT_SKIP = 'increment-skip';
 const INIT_FETCHING = 'init-fetching';
 const UPDATE_DATA = 'update-data';
 const RESET_SKIP = 'reset-skip';
+
+const stringify = (xs) =>
+  isObject(xs) ? JSON.stringify(xs) : null;
 
 export const reducerDispatcher = (state, context) => {
   const newState = { ...state };
@@ -74,7 +77,7 @@ export default (filters = {}) => {
     reduce({
       action: RESET_SKIP,
     });
-  }, [filters]);
+  }, [stringify(filters)]);
 
   React.useEffect(() => {
     reduce({

@@ -6,8 +6,7 @@ import useTimelineEntry from '../useTimelineEntry';
 
 const TimelineIcon = (props) => {
   const { t } = useTranslation('labels');
-  const checkout = useTimelineEntry();
-  const { Icon, text, color } = checkout(props);
+  const { Icon, text, color } = useTimelineEntry(props);
 
   return (
     <Chip
