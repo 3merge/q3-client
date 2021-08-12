@@ -307,5 +307,18 @@
   "filterDefinitions": "Other filters",
   "refresh": "Refresh",
   "outdated": "Outdated",
-  "mostRecent": "Most recent"
+  "mostRecent": "Most recent",
+  "operation": "Operation",
+  "user": "User",
+  "entity": "Entity",
+  "date": "Date",
+  "filterByUser": "User",
+  "filterByDate": "Date",
+  "filterByOperation": "Operation",
+  "compareChanges": "Compare changes",
+  "loadMore": "Load more",
+  "isLoading": "Is loading ...",
+  "added": "Added",
+  "updated": "Updated",
+  "deleted": "Deleted"
 }

@@ -24,5 +24,8 @@
   "matches": "Must match the new password set above",
   "filterName": "When provided, applying changes to this form will modify/save the active filter",
   "fileUpload": "Click the input above to set a file",
-  "startTyping": "Start typing ..."
+  "startTyping": "Start typing ...",
+  "filterByUser": "Currently, you cannot filter by system automation (i.e. no user)",
+  "filterByDate": "Will include records up to and on the selected date",
+  "filterByOperation": "The operation describes the type of change that occurred"
 }

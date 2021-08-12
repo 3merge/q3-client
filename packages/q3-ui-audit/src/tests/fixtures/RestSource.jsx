@@ -17,7 +17,7 @@ const getQueryString = (xs) =>
   last(String(xs.url).split('?'));
 
 // eslint-disable-next-line
-export default ({ children }) => {
+export default ({ children, causeError, returnEmpty }) => {
   const qs = useQueryParams();
 
   const defineMockRoutes = (m) => {
@@ -25,7 +25,10 @@ export default ({ children }) => {
       const { date, skip, user, operation } = qs.decode(
         getQueryString(data),
       );
-      console.log(data);
+
+      if (causeError) return [500];
+      if (returnEmpty) return [200, { changes: [] }];
+
       return [
         200,
         {
