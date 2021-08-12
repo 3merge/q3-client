@@ -18,6 +18,8 @@
 <li>
 <a href="./packages/q3-admin">🧰 Admin Docs</a></li>
 <li>
+<a href="./packages/q3-ui-audit">🔒 Audit Docs</a></li>
+<li>
 <a href="./packages/q3-ui-charts">📊 Charts Docs</a></li>
 <li>
 <a href="./packages/q3-ui-comments">🙊 Comments Docs</a></li>
