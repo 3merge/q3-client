@@ -114,7 +114,7 @@
   "addedAuditLogExpanded": "Added to sub-module {{entity}}",
   "updatedAuditLogExpanded": "Updated properties inside sub-module {{entity}}",
   "deletedAuditLogExpanded": "Removed properties from sub-module {{entity}}",
-  "addedAuditLog": "Add new properties to main document",
+  "addedAuditLog": "Added new properties to main document",
   "updatedAuditLog": "Updated properties inside main document",
   "deletedAuditLog": "Removed properties from main document"
 }

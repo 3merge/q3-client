@@ -4,6 +4,18 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Timeline from './Timeline';
 import TimelineEntry from '../TimelineEntry';
 
+const data = [
+  {
+    updated: { foo: 1 },
+    added: { foo: 1 },
+    date: new Date().toISOString(),
+  },
+  {
+    deleted: { foo: 1 },
+    date: new Date().toISOString(),
+  },
+];
+
 describe('Timeline', () => {
   it('should render error', () => {
     expect(
@@ -35,22 +47,38 @@ describe('Timeline', () => {
   it('should render data', () => {
     expect(
       global
+        .shallow(<Timeline data={data} />)
+        .find(TimelineEntry),
+    ).toHaveLength(3);
+  });
+
+  it('should filter by operation', () => {
+    expect(
+      global
         .shallow(
           <Timeline
-            data={[
-              {
-                updated: { foo: 1 },
-                added: { foo: 1 },
-                date: new Date().toISOString(),
-              },
-              {
-                deleted: { foo: 1 },
-                date: new Date().toISOString(),
-              },
-            ]}
+            filterState={{
+              operation: 'deleted',
+            }}
+            data={data}
           />,
         )
         .find(TimelineEntry),
-    ).toHaveLength(3);
+    ).toHaveLength(1);
+  });
+
+  it('should filter by operation array', () => {
+    expect(
+      global
+        .shallow(
+          <Timeline
+            filterState={{
+              operation: ['updated', 'added'],
+            }}
+            data={data}
+          />,
+        )
+        .find(TimelineEntry),
+    ).toHaveLength(2);
   });
 });

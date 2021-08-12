@@ -27,7 +27,7 @@ const Audit = ({ collectionName, id }) => {
         initialValues={filterState}
         onSubmit={setFilterState}
       />
-      <Timeline {...state} />
+      <Timeline {...state} filterState={filterState} />
       <Box align="center" my={2}>
         <LoadMore {...state} />
       </Box>

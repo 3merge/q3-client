@@ -66,11 +66,11 @@ const TimelineDiff = ({ prev, next, children }) => {
                       removedColor: red[900],
                       wordAddedBackground: fade(
                         green[300],
-                        0.8,
+                        0.5,
                       ),
                       wordRemovedBackground: fade(
                         red[300],
-                        0.8,
+                        0.5,
                       ),
                       addedGutterBackground:
                         theme.palette.background.default,

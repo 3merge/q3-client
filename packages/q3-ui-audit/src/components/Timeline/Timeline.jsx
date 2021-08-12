@@ -1,5 +1,5 @@
 import React from 'react';
-import { map, size } from 'lodash';
+import { map, size, isString } from 'lodash';
 import GraphicWithMessage from 'q3-ui-assets';
 import PropTypes from 'prop-types';
 import {
@@ -16,7 +16,17 @@ import { useTranslation } from 'react-i18next';
 import TimelineEntry from '../TimelineEntry';
 import useStyle from '../TimelineEntry/styles';
 
-const Timeline = ({ loading, error, data }) => {
+const includes = (a, b) =>
+  Array.isArray(a) ? !a.length || a.includes(b) : false;
+
+const matches = (a, b) => (isString(a) ? a === b : false);
+
+const Timeline = ({
+  loading,
+  error,
+  data,
+  filterState,
+}) => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
@@ -65,18 +75,30 @@ const Timeline = ({ loading, error, data }) => {
               ...rest
             } = item;
 
+            const isInItem = (key) => {
+              const d = item[key];
+              const op = filterState?.operation;
+
+              return (
+                object.hasKeys(d) &&
+                (!op ||
+                  includes(op, key) ||
+                  matches(op, key))
+              );
+            };
+
             return (
               <React.Fragment key={`${item.date}-${idx}`}>
-                {object.hasKeys(added) && (
+                {isInItem('added') && (
                   <TimelineEntry added={added} {...rest} />
                 )}
-                {object.hasKeys(updated) && (
+                {isInItem('updated') && (
                   <TimelineEntry
                     updated={updated}
                     {...rest}
                   />
                 )}
-                {object.hasKeys(deleted) && (
+                {isInItem('deleted') && (
                   <TimelineEntry
                     deleted={deleted}
                     {...rest}
@@ -105,6 +127,7 @@ Timeline.defaultProps = {
   data: [],
   error: false,
   loading: false,
+  filterState: {},
 };
 
 Timeline.propTypes = {
@@ -115,6 +138,12 @@ Timeline.propTypes = {
       date: PropTypes.string,
     }),
   ),
+  filterState: PropTypes.shape({
+    operation: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string,
+    ]),
+  }),
 };
 
 export default Timeline;
