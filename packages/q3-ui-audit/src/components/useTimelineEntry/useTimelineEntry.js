@@ -1,10 +1,16 @@
 /* eslint-disable prefer-destructuring  */
 import { object } from 'q3-ui-helpers';
-import { get, isObject, capitalize } from 'lodash';
+import {
+  get,
+  isObject,
+  capitalize,
+  merge,
+  omit,
+} from 'lodash';
 import {
   green,
   red,
-  purple,
+  orange,
 } from '@material-ui/core/colors';
 import PolicyIcon from '@material-ui/icons/Policy';
 import EjectIcon from '@material-ui/icons/Eject';
@@ -14,15 +20,15 @@ export default (props) => {
   const entryMap = {
     added: {
       Icon: AddBoxIcon,
-      color: green[900],
+      color: green,
     },
     deleted: {
       Icon: EjectIcon,
-      color: red[900],
+      color: red,
     },
     updated: {
       Icon: PolicyIcon,
-      color: purple[900],
+      color: orange,
     },
   };
 
@@ -39,7 +45,9 @@ export default (props) => {
     getEntity() {
       let output = '--';
 
-      const recurse = (target) => {
+      const recurse = (xs) => {
+        const target = omit(xs, ['_id', 'id']);
+
         if (object.countKeys(target) === 1) {
           const key = Object.keys(target)[0];
           if (isObject(target[key])) {
@@ -66,8 +74,17 @@ export default (props) => {
     },
 
     getCurrentValue() {
+      const current = get(props, text);
+
       if (text === 'deleted') return {};
-      return get(props, text);
+      if (text === 'updated')
+        return merge(
+          {},
+          get(props, 'previous', {}),
+          current,
+        );
+
+      return current;
     },
 
     format(xs) {

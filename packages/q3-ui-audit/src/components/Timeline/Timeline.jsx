@@ -11,6 +11,7 @@ import {
   CircularProgress,
   Box,
 } from '@material-ui/core';
+import { object } from 'q3-ui-helpers';
 import { useTranslation } from 'react-i18next';
 import TimelineEntry from '../TimelineEntry';
 import useStyle from '../TimelineEntry/styles';
@@ -50,28 +51,46 @@ const Timeline = ({ loading, error, data }) => {
           <TableCell component="th" className={cls.padding}>
             {t('operation')}
           </TableCell>
-          <TableCell component="th">{t('user')}</TableCell>
-          <TableCell component="th">
-            {t('entity')}
-          </TableCell>
           <TableCell component="th">{t('date')}</TableCell>
           <TableCell />
         </TableRow>
       </TableHead>
-      <TableBody>
+      <TableBody className={cls.body}>
         {size(data) ? (
-          map(data, (item, idx) => (
-            <TimelineEntry
-              key={`${item.date}-${idx}`}
-              {...item}
-            />
-          ))
+          map(data, (item, idx) => {
+            const {
+              added,
+              updated,
+              deleted,
+              ...rest
+            } = item;
+
+            return (
+              <React.Fragment key={`${item.date}-${idx}`}>
+                {object.hasKeys(added) && (
+                  <TimelineEntry added={added} {...rest} />
+                )}
+                {object.hasKeys(updated) && (
+                  <TimelineEntry
+                    updated={updated}
+                    {...rest}
+                  />
+                )}
+                {object.hasKeys(deleted) && (
+                  <TimelineEntry
+                    deleted={deleted}
+                    {...rest}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })
         ) : (
           <TableRow>
             <TableCell
               className={cls.padding}
               component="td"
-              colSpan="5"
+              colSpan="3"
             >
               {renderGraphicMessage()}
             </TableCell>

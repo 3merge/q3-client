@@ -38,12 +38,19 @@ describe('Timeline', () => {
         .shallow(
           <Timeline
             data={[
-              { date: new Date().toISOString() },
-              { date: new Date().toISOString() },
+              {
+                updated: { foo: 1 },
+                added: { foo: 1 },
+                date: new Date().toISOString(),
+              },
+              {
+                deleted: { foo: 1 },
+                date: new Date().toISOString(),
+              },
             ]}
           />,
         )
         .find(TimelineEntry),
-    ).toHaveLength(2);
+    ).toHaveLength(3);
   });
 });

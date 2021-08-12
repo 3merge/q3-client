@@ -110,5 +110,11 @@
   "changelogUpdatedPlural": "Updated {{count}} properties",
   "changelogDeletedPlural": "Deleted {{count}} properties",
   "cannotAudit": "We could not fetch an audit trail for this record. Please verify that you have access to this feature and that it is turned on.",
-  "nothingToAudit": "Looks like there aren't any tracked changes for this record. Please come back later once users have made modifications."
+  "nothingToAudit": "Looks like there aren't any tracked changes for this record. Please come back later once users have made modifications.",
+  "addedAuditLogExpanded": "Added to sub-module {{entity}}",
+  "updatedAuditLogExpanded": "Updated properties inside sub-module {{entity}}",
+  "deletedAuditLogExpanded": "Removed properties from sub-module {{entity}}",
+  "addedAuditLog": "Add new properties to main document",
+  "updatedAuditLog": "Updated properties inside main document",
+  "deletedAuditLog": "Removed properties from main document"
 }

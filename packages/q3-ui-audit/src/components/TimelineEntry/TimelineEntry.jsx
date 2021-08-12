@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow, TableCell } from '@material-ui/core';
+import {
+  TableRow,
+  TableCell,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Hidden,
+} from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import { compact, get } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +21,15 @@ const TimelineEntry = ({ ...props }) => {
   const checkout = useTimelineEntry(props);
   const cls = useStyle();
 
+  const makeDescription = () => {
+    const entity = checkout.getEntity();
+    return entity === '--'
+      ? t(`descriptions:${checkout.text}AuditLog`)
+      : t(`descriptions:${checkout.text}AuditLogExpanded`, {
+          entity,
+        });
+  };
+
   return (
     <TimelineDiff
       prev={checkout.format(checkout.getPreviousValue())}
@@ -23,19 +39,35 @@ const TimelineEntry = ({ ...props }) => {
         <>
           <TableRow>
             <TableCell className={cls.padding}>
-              <TimelineIcon {...props} />
+              <ListItem
+                component="div"
+                dense
+                className={cls.listItem}
+              >
+                <Hidden smDown>
+                  <ListItemAvatar>
+                    <TimelineIcon {...props} />
+                  </ListItemAvatar>
+                </Hidden>
+                <ListItemText
+                  primary={
+                    compact([
+                      get(props.user, 'firstName'),
+                      get(props.user, 'lastName'),
+                    ]).join(' ') || t('systemAutomated')
+                  }
+                  secondary={makeDescription()}
+                />
+              </ListItem>
             </TableCell>
-            <TableCell>
-              {compact([
-                get(props.user, 'firstName'),
-                get(props.user, 'lastName'),
-              ]).join(' ') || t('systemAutomated')}
+            <TableCell style={{ width: 135 }}>
+              <small style={{ whiteSpace: 'break-spaces' }}>
+                {string.toDate(props.date)}
+              </small>
             </TableCell>
-            <TableCell>{checkout.getEntity()}</TableCell>
-            <TableCell className={cls.nowrap}>
-              {string.toDate(props.date)}
+            <TableCell style={{ width: 41 }}>
+              {renderLink()}
             </TableCell>
-            <TableCell>{renderLink()}</TableCell>
           </TableRow>
           {renderDiff()}
         </>

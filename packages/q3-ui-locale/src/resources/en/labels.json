@@ -315,10 +315,12 @@
   "filterByUser": "User",
   "filterByDate": "Date",
   "filterByOperation": "Operation",
-  "compareChanges": "Compare changes",
+  "compareChanges": "Audit",
   "loadMore": "Load more",
   "isLoading": "Is loading ...",
   "added": "Added",
   "updated": "Updated",
-  "deleted": "Deleted"
+  "deleted": "Deleted",
+  "before": "Before",
+  "after": "After"
 }
