@@ -7,7 +7,7 @@ import Timeline from '../Timeline';
 import withAuditAuth from '../withAuditAuth';
 import useAudit from '../useAudit';
 
-export const Audit = ({ collectionName, id }) => {
+const Audit = ({ collectionName, id }) => {
   const [filterState, setFilterState] = React.useState({
     date: new Date(),
     operation: ['added', 'deleted', 'updated'],
