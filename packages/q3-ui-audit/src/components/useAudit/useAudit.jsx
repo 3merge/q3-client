@@ -1,14 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { compact, size, isObject } from 'lodash';
+import { compact, size, isObject, isNumber } from 'lodash';
 import { useQueryParams } from 'q3-ui-queryparams';
 import { castToEnd } from 'q3-ui-forms/lib/helpers';
 
-const HANDLE_ERROR = 'handle-error';
-const INCREMENT_SKIP = 'increment-skip';
-const INIT_FETCHING = 'init-fetching';
-const UPDATE_DATA = 'update-data';
-const RESET_SKIP = 'reset-skip';
+export const HANDLE_ERROR = 'handle-error';
+export const INCREMENT_SKIP = 'increment-skip';
+export const INIT_FETCHING = 'init-fetching';
+export const UPDATE_DATA = 'update-data';
+export const RESET_SKIP = 'reset-skip';
 
 const stringify = (xs) =>
   isObject(xs) ? JSON.stringify(xs) : null;
@@ -19,7 +19,9 @@ export const reducerDispatcher = (state, context) => {
 
   switch (action) {
     case INCREMENT_SKIP:
-      newState.skip += 1;
+      newState.skip = isNumber(newState.skip)
+        ? newState.skip + 1
+        : 1;
       break;
 
     case INIT_FETCHING:
@@ -34,7 +36,7 @@ export const reducerDispatcher = (state, context) => {
     case UPDATE_DATA:
       newState.error = false;
       newState.data =
-        newState.skip === 0
+        !newState.skip || !Array.isArray(newState.data)
           ? data
           : compact(newState.data.concat(data));
       newState.hasMore = size(data) === 150;

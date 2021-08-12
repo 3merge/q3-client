@@ -15,7 +15,10 @@ const LoadMore = ({
 
   return !error && size(data) ? (
     <Box align="center" my={2}>
-      <Button disabled={!hasMore} onClick={getMore}>
+      <Button
+        disabled={!hasMore || loading}
+        onClick={getMore}
+      >
         {t(loading ? 'isLoading' : 'loadMore')}
       </Button>
     </Box>

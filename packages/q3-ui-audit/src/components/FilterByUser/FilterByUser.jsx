@@ -17,7 +17,7 @@ export const mapToName = (users) =>
     value: user.id,
   }));
 
-export const getUsersFromQ3ApiEndpoint = (e) =>
+const getUsersFromQ3ApiEndpoint = (e) =>
   getSafelyForAutoCompleteWithProjection(
     `/${Q3_USER_COLLECTION_NAME}?sort=firstName&limit=8`,
     'users',

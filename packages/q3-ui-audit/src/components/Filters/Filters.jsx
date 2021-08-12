@@ -12,7 +12,7 @@ const Filters = ({ loading, initialValues, onSubmit }) => {
   });
 
   if (
-    String(initialValues.user) ===
+    String(initialValues?.user) ===
       String(ref?.current?.value) &&
     ref?.current?.value
   ) {
@@ -95,7 +95,10 @@ Filters.propTypes = {
   initialValues: PropTypes.shape({
     date: PropTypes.string,
     operation: PropTypes.arrayOf(PropTypes.string),
-    user: PropTypes.string,
+    user: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
   }),
   onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool,
