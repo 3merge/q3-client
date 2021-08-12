@@ -41,7 +41,7 @@ const Filters = ({ loading, initialValues, onSubmit }) => {
           container
           spacing={1}
           align="center"
-          justifyContent="space-between"
+          justify="space-between"
           style={{
             textAlign: 'left',
           }}
@@ -93,7 +93,10 @@ Filters.defaultProps = {
 
 Filters.propTypes = {
   initialValues: PropTypes.shape({
-    date: PropTypes.string,
+    date: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object,
+    ]),
     operation: PropTypes.arrayOf(PropTypes.string),
     user: PropTypes.oneOfType([
       PropTypes.string,

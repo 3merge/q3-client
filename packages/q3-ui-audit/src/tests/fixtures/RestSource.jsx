@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
 import { last, sortBy, orderBy } from 'lodash';
@@ -16,8 +17,12 @@ function isPrime(num) {
 const getQueryString = (xs) =>
   last(String(xs.url).split('?'));
 
-// eslint-disable-next-line
-export default ({ children, causeError, returnEmpty }) => {
+export default ({
+  delay = 1000,
+  children,
+  causeError,
+  returnEmpty,
+}) => {
   const qs = useQueryParams();
 
   const defineMockRoutes = (m) => {
@@ -114,7 +119,7 @@ export default ({ children, causeError, returnEmpty }) => {
   };
 
   return (
-    <Rest define={defineMockRoutes} delay={1000}>
+    <Rest define={defineMockRoutes} delay={delay}>
       {children}
     </Rest>
   );

@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies, no-console */
 const enzyme = require('enzyme');
 const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 const {
@@ -23,3 +23,11 @@ enzyme.configure({
 global.mount = createMount();
 global.render = createRender();
 global.shallow = createShallow();
+
+global.console = {
+  warn: jest.fn(), // console.warn are ignored in tests
+  error: console.error,
+  log: console.log,
+  info: console.info,
+  debug: console.debug,
+};

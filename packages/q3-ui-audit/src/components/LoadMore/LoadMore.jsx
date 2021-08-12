@@ -16,6 +16,7 @@ const LoadMore = ({
   return !error && size(data) ? (
     <Box align="center" my={2}>
       <Button
+        id="q3-audit-load-more"
         disabled={!hasMore || loading}
         onClick={getMore}
       >
