@@ -27,7 +27,6 @@ const Filters = ({ loading, initialValues, onSubmit }) => {
 
   return (
     <Builders.Form
-      debug
       disabled={loading}
       enableSubmit={false}
       initialValues={getInitialValues()}
