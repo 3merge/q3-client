@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.37.2](https://github.com/3merge/q/compare/v1.37.1...v1.37.2) (2021-08-16)
+
+
+### Bug Fixes
+
+* remove debugging ([06b6c50](https://github.com/3merge/q/commit/06b6c5017a52de3c32ffbe28e1b2ce19542e6369))
+
+
+
+
+
 ## [1.37.1](https://github.com/3merge/q/compare/v1.37.0...v1.37.1) (2021-08-16)
 
 

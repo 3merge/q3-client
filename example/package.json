@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "1.37.1",
+  "version": "1.37.2",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -20,7 +20,7 @@
     "q3-components": "^1.37.1",
     "q3-ui": "^1.37.1",
     "q3-ui-assets": "^1.28.0",
-    "q3-ui-audit": "^1.37.1",
+    "q3-ui-audit": "^1.37.2",
     "q3-ui-confirm": "^1.37.1",
     "q3-ui-datatables": "^1.37.1",
     "q3-ui-dialog": "^1.37.0",
