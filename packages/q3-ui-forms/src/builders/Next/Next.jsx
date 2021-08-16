@@ -13,6 +13,7 @@ const Next = ({
   label,
   onClick,
   disabled,
+  disableGutters,
   ...rest
 }) => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const Next = ({
   return object.isFn(children) ? (
     children(buttonProps)
   ) : (
-    <Box display="inline-block" mt={1}>
+    <Box display="inline-block" mt={disableGutters ? 0 : 1}>
       <Button {...buttonProps}>
         {t(`labels:${label}`)}
       </Button>
@@ -44,6 +45,11 @@ Next.propTypes = {
    * Determines what kind of button this is
    */
   submit: PropTypes.bool,
+
+  /**
+   * Removes top margin
+   */
+  disableGutters: PropTypes.bool,
 
   onClick: PropTypes.func,
 
@@ -78,6 +84,7 @@ Next.defaultProps = {
   disabled: false,
   children: null,
   label: 'submit',
+  disableGutters: false,
 };
 
 export default Next;

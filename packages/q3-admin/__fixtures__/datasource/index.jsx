@@ -51,6 +51,53 @@ const makeApiEndpoints = (
     },
   });
 
+  mockInstance.onGet(/audit/).reply(200, {
+    changes: [
+      {
+        added: {
+          name: 'Rick Sanchez Show',
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+      {
+        deleted: {
+          movies: {
+            _id: '1',
+            title: 'Adventures in space',
+          },
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+      {
+        updated: {
+          movies: {
+            'id': '2',
+            'title': 'Complete Season 2',
+          },
+        },
+        previous: {
+          movies: {
+            'id': '2',
+            'title': 'Completed Season 2',
+          },
+        },
+        date: new Date(),
+        user: {
+          firstName: 'Jon',
+          lastName: 'Snow',
+        },
+      },
+    ],
+  });
+
   mockInstance
     .onDelete(
       new RegExp(`${collectionName}\\/\\d+\\/uploads/\\d+`),

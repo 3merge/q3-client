@@ -5,7 +5,6 @@ import { green } from '@material-ui/core/colors';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
-import Docs from './Docs';
 import useIo from '../../../src/hooks/useIo';
 
 export default new AbstractCollectionBuilder({
@@ -68,7 +67,7 @@ export default new AbstractCollectionBuilder({
     picture: true,
     files: true,
     notes: true,
-    documentation: <Docs />,
+    audit: true,
     registerOptions: () => {
       return [
         {

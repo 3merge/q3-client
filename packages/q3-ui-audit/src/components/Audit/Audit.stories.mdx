@@ -1,0 +1,39 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Audit from './Audit';
+import { Box } from '@material-ui/core';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="Audit" component={Audit} />
+
+<Preview>
+  <Story name="Default">
+    <Fixtures>
+      <Audit collectionName="testing" />
+    </Fixtures>
+  </Story>
+  <Story name="Empty">
+    <Fixtures returnEmpty>
+      <Audit collectionName="testing" />
+    </Fixtures>
+  </Story>
+  <Story name="Error">
+    <Fixtures causeError>
+      <Audit collectionName="testing" />
+    </Fixtures>
+  </Story>
+  <Story name="Unauthorized">
+    <Fixtures revokeAccessToAudit>
+      <Audit collectionName="testing" />
+    </Fixtures>
+  </Story>
+  <Story name="Unauthorized (Just user dropdown)">
+    <Fixtures revokeAccessToUsers>
+      <Audit collectionName="testing" />
+    </Fixtures>
+  </Story>
+</Preview>

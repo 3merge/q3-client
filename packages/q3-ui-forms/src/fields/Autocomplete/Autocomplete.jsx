@@ -22,11 +22,11 @@ export const controlSearchFilter = (args = {}) =>
   shouldDisableFilter(args)
     ? {
         filterSelectedOptions: true,
-        disableFilter: true,
+        // disableFilter: true,
       }
     : {
         filterSelectedOptions: true,
-        disableFilter: false,
+        // disableFilter: false,
       };
 
 export const pickFromProps = (props) => ({

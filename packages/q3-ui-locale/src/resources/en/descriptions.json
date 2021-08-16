@@ -102,5 +102,19 @@
   "io": "Exports in the I/O module integrate with all filters (and saved filters, known as segments). If you trigger an export without first selecting rows in the data-table, then it will include all records matching the given filter. Otherwise, it will target only the selected records. Please note that an export can contain up to 5,000 records.",
   "passwordChangeNotice": "Your password has been successfully changed. Click below to login into your account.",
   "unsavedChangesView": "Changes you made may not be saved. Press OK to continue.",
-  "unsavedChangesPage": "Changes you made may not be saved."
+  "unsavedChangesPage": "Changes you made may not be saved.",
+  "changelogAddedSingular": "Added {{name}}",
+  "changelogUpdatedSingular": "Updated {{name}}",
+  "changelogDeletedSingular": "Deleted {{name}}",
+  "changelogAddedPlural": "Added {{count}} properties",
+  "changelogUpdatedPlural": "Updated {{count}} properties",
+  "changelogDeletedPlural": "Deleted {{count}} properties",
+  "cannotAudit": "We could not fetch an audit trail for this record. Please verify that you have access to this feature and that it is turned on.",
+  "nothingToAudit": "Looks like there aren't any tracked changes for this record. Please come back later once users have made modifications.",
+  "addedAuditLogExpanded": "Added to sub-module {{entity}}",
+  "updatedAuditLogExpanded": "Updated properties inside sub-module {{entity}}",
+  "deletedAuditLogExpanded": "Removed properties from sub-module {{entity}}",
+  "addedAuditLog": "Added new properties to main document",
+  "updatedAuditLog": "Updated properties inside main document",
+  "deletedAuditLog": "Removed properties from main document"
 }

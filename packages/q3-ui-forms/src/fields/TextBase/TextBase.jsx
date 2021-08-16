@@ -23,6 +23,9 @@ export const marshalProps = (v) =>
     'validate',
     'suppressLabel',
     'suppressHelper',
+    'disableFilter',
+    'onArrayPush',
+    'onArrayPull',
   ]);
 
 export const chosenTextFieldDisplayAttributes = {
