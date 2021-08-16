@@ -5,13 +5,10 @@ const getLastAfter = (str, char) =>
 
 const strategies = {
   youtube: (url) =>
-    `http://www.youtube.com/embed/${getLastAfter(
-      url,
-      '?v=',
-    )}`,
+    `//www.youtube.com/embed/${getLastAfter(url, '?v=')}`,
 
   wistia: (url) =>
-    `http://fast.wistia.net/embed/iframe/${getLastAfter(
+    `//fast.wistia.net/embed/iframe/${getLastAfter(
       url,
       '/medias/',
     )}?version=v1`,

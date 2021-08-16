@@ -322,5 +322,6 @@
   "updated": "Updated",
   "deleted": "Deleted",
   "before": "Before",
-  "after": "After"
+  "after": "After",
+  "systemAutomated": "System"
 }

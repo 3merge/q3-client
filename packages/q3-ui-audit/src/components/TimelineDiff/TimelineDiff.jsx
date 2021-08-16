@@ -167,8 +167,8 @@ const TimelineDiff = ({ prev, next, children }) => {
                     }
                   : {
                       splitView: true,
-                      rightTitle: t('before'),
-                      leftTitle: t('after'),
+                      leftTitle: t('before'),
+                      rightTitle: t('after'),
                     })}
               />
             </div>

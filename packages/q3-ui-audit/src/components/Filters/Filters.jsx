@@ -11,27 +11,33 @@ const Filters = ({ loading, initialValues, onSubmit }) => {
     current: null,
   });
 
-  if (
-    String(initialValues?.user) ===
-      String(ref?.current?.value) &&
-    ref?.current?.value
-  ) {
-    // eslint-disable-next-line
-    initialValues.user = ref.current;
-  }
+  const getInitialValues = () => {
+    if (
+      String(initialValues?.user) ===
+        String(ref?.current?.value) &&
+      ref?.current?.value
+    ) {
+      const output = { ...initialValues };
+      output.user = ref.current;
+      return output;
+    }
+
+    return initialValues;
+  };
 
   return (
     <Builders.Form
+      debug
       disabled={loading}
       enableSubmit={false}
-      initialValues={initialValues}
+      initialValues={getInitialValues()}
       onSubmit={onSubmit}
       marshalSelectively
       marshal={{
         user: [
           (xs) => {
             ref.current = xs;
-            return xs?.value;
+            return xs?.value || '';
           },
         ],
       }}
