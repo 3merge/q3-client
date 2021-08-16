@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-permissions",
-  "version": "1.35.1",
+  "version": "1.37.0",
   "main": "lib/index.js",
   "dependencies": {
     "comparisons": "^2.2.10",
@@ -17,6 +17,6 @@
   "devDependencies": {
     "jest-mock-axios": "^4.2.0",
     "prop-types": "^15.7.2",
-    "q3-ui-test-utils": "^1.27.3"
+    "q3-ui-test-utils": "^1.37.0"
   }
 }

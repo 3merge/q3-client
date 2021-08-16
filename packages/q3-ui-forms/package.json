@@ -1,10 +1,10 @@
 {
   "name": "q3-ui-forms",
-  "version": "1.36.14",
+  "version": "1.37.0",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.6",
-    "q3-ui-test-utils": "^1.27.3"
+    "q3-ui-test-utils": "^1.37.0"
   },
   "dependencies": {
     "@date-io/moment": "1.x",
@@ -23,9 +23,9 @@
     "moment": "2.29.1",
     "moment-timezone": "^0.5.32",
     "notistack": "^1.0.2",
-    "q3-ui-dialog": "^1.36.6",
-    "q3-ui-queryparams": "^1.36.13",
-    "q3-ui-rte": "^1.36.7",
+    "q3-ui-dialog": "^1.37.0",
+    "q3-ui-queryparams": "^1.37.0",
+    "q3-ui-rte": "^1.37.0",
     "qs": "^6.9.6",
     "react-dropzone": "^11.3.0",
     "react-i18next": "11.7.3",

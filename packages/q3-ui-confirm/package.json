@@ -1,17 +1,17 @@
 {
   "name": "q3-ui-confirm",
-  "version": "1.36.14",
+  "version": "1.37.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.27.3"
+    "q3-ui-test-utils": "^1.37.0"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
-    "q3-ui": "^1.36.12",
-    "q3-ui-dialog": "^1.36.6",
-    "q3-ui-forms": "^1.36.14",
-    "q3-ui-helpers": "^1.36.6",
+    "q3-ui": "^1.37.0",
+    "q3-ui-dialog": "^1.37.0",
+    "q3-ui-forms": "^1.37.0",
+    "q3-ui-helpers": "^1.37.0",
     "react-i18next": "11.7.3",
     "yup": "^0.32.8"
   },

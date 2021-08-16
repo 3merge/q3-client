@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.37.0](https://github.com/3merge/q/compare/v1.36.15...v1.37.0) (2021-08-16)
+
+**Note:** Version bump only for package q3-ui-dialog
+
+
+
+
+
 ## [1.36.6](https://github.com/3merge/q/compare/v1.36.5...v1.36.6) (2021-07-13)
 
 **Note:** Version bump only for package q3-ui-dialog
