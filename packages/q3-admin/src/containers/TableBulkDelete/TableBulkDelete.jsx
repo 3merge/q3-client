@@ -6,16 +6,15 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import { useAuth } from 'q3-ui-permissions';
 import { Definitions, Dispatcher } from '../state';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
-import useStyle from './styles';
 
 const TableBulkDelete = () => {
   const { collectionName } = React.useContext(Definitions);
   const { removeBulk } = React.useContext(Dispatcher);
   const exportState = React.useContext(State);
   const { Hide } = useAuth(collectionName);
-  const cls = useStyle();
+  const len = size(get(exportState, 'checked'));
 
-  return size(get(exportState, 'checked')) ? (
+  return len ? (
     <Hide op="Delete">
       <Confirm
         phrase="DELETE"
@@ -26,9 +25,7 @@ const TableBulkDelete = () => {
             {...props}
             label="deleteMany"
             icon={DeleteSweepIcon}
-            variant="contained"
-            color="primary"
-            className={cls.button}
+            count={len}
           />
         )}
       />
