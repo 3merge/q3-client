@@ -1,20 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import { Store } from '../state';
 import { useAppContext } from '../../hooks';
 import withActionPortal from '../../components/withActionPortal';
 
 /** @NOTE eventually bulk editting */
-const TableActions = ({ io }) =>
-  useAppContext({
-    io: (
-      <TableIo
-        data={React.useContext(Store).data}
-        io={io}
-      />
-    ),
-  }).can('io');
+const TableActions = ({ io }) => {
+  const { data } = React.useContext(Store);
+
+  const ac = useAppContext({
+    io: <TableIo data={data} io={io} />,
+    bulkDelete: <TableBulkDelete />,
+  });
+
+  return (
+    <>
+      {ac.can('bulkDelete')}
+      {ac.can('io')}
+    </>
+  );
+};
 
 TableActions.defaultProps = {
   io: null,

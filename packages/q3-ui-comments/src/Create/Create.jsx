@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Grid } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
-import Dialog from 'q3-ui-dialog';
 import { useAuth } from 'q3-ui-permissions';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../Avatar';
 import FieldMessage from '../FieldMessage';
+import StyledDialog from '../StyledDialog';
 
 export const clearHtml = () => {
   try {
@@ -18,7 +18,6 @@ export const clearHtml = () => {
   }
 };
 
-// AUTH HERE
 const Create = ({
   additionalFields,
   children,
@@ -31,7 +30,7 @@ const Create = ({
   const { t } = useTranslation('labels');
 
   return (
-    <Dialog
+    <StyledDialog
       title="comment"
       renderTrigger={(onClick) => (
         <Grid container spacing={1}>

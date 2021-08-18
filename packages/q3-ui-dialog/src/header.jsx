@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
@@ -8,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from './useStyle';
 
-const DialogHeader = ({ title, onClose }) => {
+const DialogHeader = ({ children, title, onClose }) => {
   const { t } = useTranslation();
   const { toolbar } = useStyles();
 
@@ -24,23 +25,28 @@ const DialogHeader = ({ title, onClose }) => {
             {t(`titles:${title}`)}
           </Typography>
         )}
-        <IconButton
-          onClick={onClose}
-          aria-label={t('labels:close')}
-        >
-          <CloseIcon />
-        </IconButton>
+        <Box display="flex" alignItems="center">
+          {children}
+          <IconButton
+            onClick={onClose}
+            aria-label={t('labels:close')}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );
 };
 
 DialogHeader.propTypes = {
+  children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
 
 DialogHeader.defaultProps = {
+  children: null,
   title: null,
 };
 

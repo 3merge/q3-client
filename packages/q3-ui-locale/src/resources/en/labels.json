@@ -59,7 +59,8 @@
   "streetLine1": "Street line 1",
   "streetLine2": "Street line 2",
   "postal": "Postal",
-  "edit": "View/edit",
+  "edit": "Edit",
+  "reply": "Reply",
   "branch": "Company branch",
   "primary": "Primary address?",
   "quantity": "Quantity",
@@ -296,7 +297,7 @@
   "error": "Error",
   "newestToOldest": "Newest to oldest",
   "oldestToNewest": "Oldest to newest",
-  "leaveAComment": "Leave a comment",
+  "leaveAComment": "Leave a new comment",
   "downloadAsCsv": "Download CSV",
   "downloadAsExcel": "Download Excel",
   "insufficentData": "Insufficient data",
@@ -323,5 +324,6 @@
   "deleted": "Deleted",
   "before": "Before",
   "after": "After",
-  "systemAutomated": "System"
+  "systemAutomated": "System",
+  "deleteMany": "Delete"
 }

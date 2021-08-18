@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { pick } from 'lodash';
+import { get, merge, pick } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import Drawer from '@material-ui/core/Drawer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -57,6 +57,7 @@ const DialogVariant = ({
           },
         }
       : {
+          ...get(rest, 'ModalProps', {}),
           onClose,
           open: isOpen,
           onExited: onExit,
@@ -65,18 +66,22 @@ const DialogVariant = ({
 
   return (
     <El
-      {...{
-        ...getMobileProps(),
-        ...asModal(),
-        // there might be others
-        ...pick(rest, [
+      {...merge(
+        {},
+        getMobileProps(),
+        asModal(),
+        pick(rest, [
+          'anchor',
+          'classes',
           'className',
           'keepMounted',
+          'ModalProps',
+          'PaperComponent',
+          'PaperProps',
           'SlideProps',
           'TransitionProps',
-          'ModalProps',
         ]),
-      }}
+      )}
     >
       <div>{children}</div>
     </El>

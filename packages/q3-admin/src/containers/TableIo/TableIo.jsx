@@ -79,11 +79,8 @@ const TableIo = ({ io, data, params }) => {
             variant="contained"
             onClick={onClick}
             icon={ImportExportIcon}
-            label={
-              checked.length > 0
-                ? `i/o  (${checked.length})`
-                : 'i/o'
-            }
+            label="i/o"
+            count={checked.length}
           />
         ) : null
       }
