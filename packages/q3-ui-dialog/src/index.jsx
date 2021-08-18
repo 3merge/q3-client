@@ -13,7 +13,7 @@ import DialogHeader from './header';
 import DialogFooter from './footer';
 import DialogVariant from './variant';
 
-const DialogWrapper = ({
+export const DialogWrapper = ({
   draggable,
   title,
   description,

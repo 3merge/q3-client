@@ -40,11 +40,13 @@ const DialogHeader = ({ children, title, onClose }) => {
 };
 
 DialogHeader.propTypes = {
+  children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
 
 DialogHeader.defaultProps = {
+  children: null,
   title: null,
 };
 
