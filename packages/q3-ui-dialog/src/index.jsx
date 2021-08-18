@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import Box from '@material-ui/core/Box';
+import { IconButton, Box, Paper } from '@material-ui/core';
 import { get } from 'lodash';
 import useOpen from 'useful-state/lib/useOpen';
 import { withLocation } from 'with-location';
+import DragIndicatorIcon from '@material-ui/icons/Games';
+import DialogDraggable from './draggable';
 import DialogHeader from './header';
 import DialogFooter from './footer';
 import DialogVariant from './variant';
 
 const DialogWrapper = ({
+  draggable,
   title,
   description,
   renderTrigger,
@@ -27,6 +30,7 @@ const DialogWrapper = ({
 }) => {
   const { isOpen, open, close } = useOpen(initialValue);
   const { t } = useTranslation();
+
   React.useEffect(() => {
     if (closeOnRouteChange) close();
   }, [get(rest, 'location.pathname')]);
@@ -38,13 +42,24 @@ const DialogWrapper = ({
         onOpen={open}
         onClose={close}
         isOpen={isOpen}
+        PaperComponent={draggable ? DialogDraggable : Paper}
         {...rest}
       >
         {renderHeader ? (
           renderHeader({ open, close })
         ) : (
-          <DialogHeader onClose={close} title={title} />
+          <DialogHeader onClose={close} title={title}>
+            {draggable && (
+              <IconButton
+                style={{ cursor: 'move' }}
+                id="draggable-dialog-title"
+              >
+                <DragIndicatorIcon />
+              </IconButton>
+            )}
+          </DialogHeader>
         )}
+
         {renderPreContent}
         <DialogContent
           className={contentClassName}
@@ -134,6 +149,11 @@ DialogWrapper.propTypes = {
    * Close the drawer if the page route changes.
    */
   closeOnRouteChange: PropTypes.bool,
+
+  /**
+   * Will enable react-draggable.
+   */
+  draggable: PropTypes.bool,
 };
 
 DialogWrapper.defaultProps = {
@@ -146,6 +166,7 @@ DialogWrapper.defaultProps = {
   onPrev: null,
   initialValue: false,
   closeOnRouteChange: false,
+  draggable: false,
 };
 
 export default withLocation(DialogWrapper);

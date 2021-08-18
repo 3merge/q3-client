@@ -63,7 +63,6 @@ const TimelineEntry = ({
               <strong>{makeName(createdBy)}</strong>
               <small>{string.toDate(createdAt)}</small>
             </Typography>
-            <Box>{actions}</Box>
           </Box>
           {message && (
             <div
@@ -74,6 +73,7 @@ const TimelineEntry = ({
               }}
             />
           )}
+          <Box>{actions}</Box>
           {children}
         </Box>
       </TimelineContent>

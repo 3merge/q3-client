@@ -10,11 +10,10 @@ import {
 } from 'lodash';
 import MuiTimeline from '@material-ui/lab/Timeline';
 import Confirm from 'q3-ui-confirm';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import EditIcon from '@material-ui/icons/Edit';
 import ReplyIcon from '@material-ui/icons/Reply';
 import { useAuth } from 'q3-ui-permissions';
-import Dialog from '../Dialog';
+import Dialog, { inlineButtonStyles } from '../Dialog';
 import TimelineEntry from '../TimelineEntry';
 
 const doesNotHaveReplies = (xs) => !xs?.replies;
@@ -57,13 +56,6 @@ const Timeline = ({
       {comment?.createdBy?.id ===
         auth?.state?.profile?.id && (
         <>
-          <HideByField path={path} op="Delete">
-            <Confirm
-              phrase="DELETE"
-              service={remove(comment.id)}
-              icon={DeleteOutlineIcon}
-            />
-          </HideByField>
           <HideByField path={path} op="Update">
             <Dialog
               label="edit"
@@ -71,6 +63,18 @@ const Timeline = ({
               initialValues={comment}
               onSubmit={patch(comment.id)}
               {...rest}
+            />
+          </HideByField>
+          <HideByField path={path} op="Delete">
+            <Confirm
+              phrase="DELETE"
+              service={remove(comment.id)}
+              label="delete"
+              ButtonProps={{
+                size: 'small',
+                style: inlineButtonStyles,
+                variant: undefined,
+              }}
             />
           </HideByField>
         </>

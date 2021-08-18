@@ -33,6 +33,10 @@ export default makeStyles((theme) => ({
     },
     '& img': {
       maxWidth: 550,
+
+      [theme.breakpoints.down('md')]: {
+        maxWidth: '100%',
+      },
     },
   },
 }));

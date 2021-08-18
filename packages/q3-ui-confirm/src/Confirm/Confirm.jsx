@@ -15,6 +15,8 @@ const Confirm = ({
   service,
   phrase,
   title,
+  ButtonProps,
+  IconButtonProps,
   ...props
 }) => {
   const { t } = useTranslation('labels');
@@ -24,7 +26,7 @@ const Confirm = ({
       {...props}
       title={title}
       renderTrigger={(onClick) => {
-        const buttonProps = {
+        const sharedButtonProps = {
           className: 'q3-confirm',
           disabled,
           onClick,
@@ -32,16 +34,18 @@ const Confirm = ({
 
         return label ? (
           <Button
-            {...buttonProps}
             color="primary"
             variant="contained"
+            {...sharedButtonProps}
+            {...ButtonProps}
           >
             {t(label)}
           </Button>
         ) : (
           <IconButton
             aria-label={t(title)}
-            {...buttonProps}
+            {...sharedButtonProps}
+            {...IconButtonProps}
           >
             <Icon />
           </IconButton>
@@ -64,6 +68,8 @@ Confirm.defaultProps = {
   disabled: false,
   label: undefined,
   phrase: 'confirm',
+  ButtonProps: {},
+  IconButtonProps: {},
 };
 
 Confirm.propTypes = {
@@ -77,6 +83,10 @@ Confirm.propTypes = {
   disabled: PropTypes.bool,
   label: PropTypes.string,
   phrase: PropTypes.string,
+  // eslint-disable-next-line
+  ButtonProps: PropTypes.object,
+  // eslint-disable-next-line
+  IconButtonProps: PropTypes.object,
 };
 
 export default Confirm;
