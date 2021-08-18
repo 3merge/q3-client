@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.38.0](https://github.com/3merge/q/compare/v1.37.2...v1.38.0) (2021-08-18)
+
+
+### Features
+
+* bulk remove and draggable dialog ([#340](https://github.com/3merge/q/issues/340)) ([703ed09](https://github.com/3merge/q/commit/703ed0959becac23d56514a49aa99ff4dc6aa802))
+
+
+
+
+
 ## [1.37.1](https://github.com/3merge/q/compare/v1.37.0...v1.37.1) (2021-08-16)
 
 **Note:** Version bump only for package q3-ui-confirm
