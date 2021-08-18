@@ -9,12 +9,6 @@ jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn(),
 }));
 
-jest.mock('./styles', () => () =>
-  jest.fn().mockReturnValue({
-    button: undefined,
-  }),
-);
-
 beforeEach(() => {
   spy = jest.spyOn(React, 'useContext');
 });
