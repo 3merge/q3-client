@@ -4,6 +4,7 @@ import LaunchIcon from '@material-ui/icons/Launch';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from 'q3-ui-dialog';
+import { isFunction } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import ConfirmForm from '../ConfirmForm';
 import { handleSubmit } from '../helpers';
@@ -15,6 +16,7 @@ const Confirm = ({
   service,
   phrase,
   title,
+  ButtonComponent,
   ButtonProps,
   IconButtonProps,
   ...props
@@ -31,6 +33,9 @@ const Confirm = ({
           disabled,
           onClick,
         };
+
+        if (isFunction(ButtonComponent))
+          return <ButtonComponent {...sharedButtonProps} />;
 
         return label ? (
           <Button
@@ -70,6 +75,7 @@ Confirm.defaultProps = {
   phrase: 'confirm',
   ButtonProps: {},
   IconButtonProps: {},
+  ButtonComponent: null,
 };
 
 Confirm.propTypes = {
@@ -87,6 +93,7 @@ Confirm.propTypes = {
   ButtonProps: PropTypes.object,
   // eslint-disable-next-line
   IconButtonProps: PropTypes.object,
+  ButtonComponent: PropTypes.func,
 };
 
 export default Confirm;

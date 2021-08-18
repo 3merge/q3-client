@@ -324,5 +324,6 @@
   "deleted": "Deleted",
   "before": "Before",
   "after": "After",
-  "systemAutomated": "System"
+  "systemAutomated": "System",
+  "deleteMany": "Delete"
 }
