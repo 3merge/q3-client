@@ -5,5 +5,9 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     padding: theme.spacing(2),
     userSelect: 'none',
+
+    [theme.breakpoints.down('md')]: {
+      padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    },
   },
 }));

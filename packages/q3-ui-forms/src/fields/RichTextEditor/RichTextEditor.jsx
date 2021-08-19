@@ -27,6 +27,7 @@ const RichTextEditor = withState(
             error={error}
             inputComponent={() => (
               <Box
+                className="q3-forms-rte-wrapper"
                 bgcolor="background.paper"
                 overflow="hidden"
                 p={0.15}

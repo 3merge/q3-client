@@ -15,7 +15,9 @@ beforeEach(() => {
 
 describe('TableBulkDelete', () => {
   it('should not render without selection', () => {
-    spy.mockReturnValue({});
+    spy.mockReturnValue({
+      removeBulk: jest.fn(),
+    });
 
     useAuth.mockReturnValue({
       Hide: jest.fn(),
@@ -32,6 +34,7 @@ describe('TableBulkDelete', () => {
   it('should not render without permission', () => {
     spy.mockReturnValue({
       checked: [],
+      removeBulk: jest.fn(),
     });
 
     useAuth.mockReturnValue({
@@ -49,6 +52,7 @@ describe('TableBulkDelete', () => {
   it('should not render without permission', () => {
     spy.mockReturnValue({
       checked: [1, 2, 3],
+      removeBulk: jest.fn(),
     });
 
     useAuth.mockReturnValue({

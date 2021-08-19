@@ -13,9 +13,6 @@ const StyledDialog = (props) => (
     }}
     PaperProps={{
       elevation: 5,
-      style: {
-        width: 'auto',
-      },
     }}
     {...props}
   />

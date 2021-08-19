@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { IconButton, Box, Paper } from '@material-ui/core';
+import {
+  IconButton,
+  Box,
+  Paper,
+  Hidden,
+} from '@material-ui/core';
 import { get } from 'lodash';
 import useOpen from 'useful-state/lib/useOpen';
 import { withLocation } from 'with-location';
@@ -50,12 +55,14 @@ export const DialogWrapper = ({
         ) : (
           <DialogHeader onClose={close} title={title}>
             {draggable && (
-              <IconButton
-                style={{ cursor: 'move' }}
-                id="draggable-dialog-title"
-              >
-                <DragIndicatorIcon />
-              </IconButton>
+              <Hidden mdDown>
+                <IconButton
+                  style={{ cursor: 'move' }}
+                  id="draggable-dialog-title"
+                >
+                  <DragIndicatorIcon />
+                </IconButton>
+              </Hidden>
             )}
           </DialogHeader>
         )}

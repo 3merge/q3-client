@@ -12,25 +12,31 @@ const TableBulkDelete = () => {
   const { removeBulk } = React.useContext(Dispatcher);
   const exportState = React.useContext(State);
   const { Hide } = useAuth(collectionName);
-  const len = size(get(exportState, 'checked'));
 
-  return len ? (
-    <Hide op="Delete">
-      <Confirm
-        phrase="DELETE"
-        title="deleteMany"
-        service={removeBulk}
-        ButtonComponent={(props) => (
-          <ButtonWithIcon
-            {...props}
-            label="deleteMany"
-            icon={DeleteSweepIcon}
-            count={len}
+  const checked = get(exportState, 'checked');
+  const len = size(checked);
+
+  return React.useMemo(
+    () =>
+      len ? (
+        <Hide op="Delete">
+          <Confirm
+            phrase="DELETE"
+            title="deleteMany"
+            service={removeBulk(checked)}
+            ButtonComponent={(props) => (
+              <ButtonWithIcon
+                {...props}
+                label="deleteMany"
+                icon={DeleteSweepIcon}
+                count={len}
+              />
+            )}
           />
-        )}
-      />
-    </Hide>
-  ) : null;
+        </Hide>
+      ) : null,
+    [len],
+  );
 };
 
 TableBulkDelete.defaultProps = {};
