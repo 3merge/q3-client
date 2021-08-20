@@ -9,15 +9,9 @@ export default makeStyles((theme) => ({
     maxHeight: 450,
     width: 'auto',
 
-    [theme.breakpoints.down('md')]: {
-      maxHeight: 'none',
+    [theme.breakpoints.down('lg')]: {
+      maxHeight: '100%',
       width: '100%',
-      margin: 0,
-
-      '& .q3-forms-rte-wrapper': {
-        maxHeight: '45vh',
-        overflow: 'auto',
-      },
     },
   },
 }));

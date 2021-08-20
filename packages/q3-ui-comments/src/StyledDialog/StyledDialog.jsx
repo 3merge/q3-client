@@ -9,7 +9,7 @@ const StyledDialog = (props) => (
     ModalProps={{
       hideBackdrop: true,
       disableScrollLock: true,
-      fullScreen: false,
+      fullScreen: true,
     }}
     PaperProps={{
       elevation: 5,
