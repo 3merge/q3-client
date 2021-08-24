@@ -46,6 +46,7 @@ export default (Component) => {
       enableTooltip,
       enableXAxis,
       enableYAxis,
+      enableYAxisMobile,
       children,
       name,
       ...rest
@@ -60,7 +61,6 @@ export default (Component) => {
 
     return (
       <Component name={name} {...rest}>
-        {shouldShowLegend(rest) && <Legend />}
         {enableGrid && (
           <CartesianGrid strokeDasharray="3 3" />
         )}
@@ -72,7 +72,7 @@ export default (Component) => {
             tickLine={false}
           />
         )}
-        {enableYAxis && !matches && (
+        {enableYAxis && (!matches || enableYAxisMobile) && (
           <YAxis
             interval="preserveStartEnd"
             stroke={theme.palette.primary.dark}
@@ -84,6 +84,15 @@ export default (Component) => {
         {enableTooltip && (
           <Tooltip content={<CustomTooltip />} />
         )}
+        {shouldShowLegend(rest) && (
+          <Legend
+            verticalAlign="bottom"
+            height={22}
+            wrapperStyle={{
+              bottom: -11,
+            }}
+          />
+        )}
         {children}
       </Component>
     );
@@ -94,6 +103,7 @@ export default (Component) => {
     enableTooltip: true,
     enableXAxis: true,
     enableYAxis: true,
+    enableYAxisMobile: false,
   };
 
   ChartUtils.propTypes = {
@@ -101,6 +111,7 @@ export default (Component) => {
     enableTooltip: PropTypes.bool,
     enableXAxis: PropTypes.bool,
     enableYAxis: PropTypes.bool,
+    enableYAxisMobile: PropTypes.bool,
     children: PropTypes.node.isRequired,
     name: PropTypes.string.isRequired,
   };

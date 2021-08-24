@@ -47,5 +47,14 @@ export default makeStyles((theme) => {
       margin: 0,
       textTransform: 'none',
     },
+    yTitle: {
+      transform: 'translateY(-50%) rotate(180deg)',
+      writingMode: 'vertical-lr',
+      fontWeight: 'bold',
+    },
+    xTitle: {
+      transform: 'translateX(-50%)',
+      fontWeight: 'bold',
+    },
   };
 });
