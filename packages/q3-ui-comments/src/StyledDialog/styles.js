@@ -6,11 +6,13 @@ export default makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   paper: {
-    maxHeight: 450,
+    maxHeight: '80vh',
+    maxWidth: 550,
     width: 'auto',
 
-    [theme.breakpoints.down('lg')]: {
-      maxHeight: '100%',
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: '85vh',
+      maxWidth: '100%',
       width: '100%',
     },
   },

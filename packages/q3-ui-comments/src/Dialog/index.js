@@ -1,1 +1,1 @@
-export { default, inlineButtonStyles } from './Dialog';
+export { default } from './Dialog';

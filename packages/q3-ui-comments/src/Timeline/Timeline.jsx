@@ -9,12 +9,13 @@ import {
   sortBy,
 } from 'lodash';
 import MuiTimeline from '@material-ui/lab/Timeline';
-import Confirm from 'q3-ui-confirm';
-import EditIcon from '@material-ui/icons/Edit';
-import ReplyIcon from '@material-ui/icons/Reply';
 import { useAuth } from 'q3-ui-permissions';
-import Dialog, { inlineButtonStyles } from '../Dialog';
+import ForumIcon from '@material-ui/icons/Forum';
+import Dialog from '../Dialog';
 import TimelineEntry from '../TimelineEntry';
+import TimelineActions from '../TimelineActions';
+import InlineButton from '../InlineButton/InlineButton';
+import useStyle from './styles';
 
 const doesNotHaveReplies = (xs) => !xs?.replies;
 const hasReplies = (id) => (xs) => xs?.replies === id;
@@ -28,75 +29,25 @@ const sortData = (xs, asc) => {
 };
 
 // eslint-disable-next-line
-export const NestedTimeline = ({ children }) => (
+export const NestedTimeline = ({ children, ...props }) => (
   <Box mt={1}>
-    <MuiTimeline>{children}</MuiTimeline>
+    <MuiTimeline {...props}>{children}</MuiTimeline>
   </Box>
 );
 
-const Timeline = ({
-  asc,
-  data,
-  remove,
-  patch,
-  post,
-  insertNode,
-  ...rest
-}) => {
+const Timeline = ({ asc, data, insertNode, ...rest }) => {
   const { collectionName } = rest;
   const auth = useAuth(collectionName);
-  const { canCreateSub, HideByField } = auth;
+  const cls = useStyle();
+
+  const { canCreateSub } = auth;
   const path = 'comments';
 
   const renderDynamic = (args) =>
     isFunction(insertNode) ? insertNode(args, data) : null;
 
-  const renderDialogControls = (comment) => (
-    <>
-      {comment?.createdBy?.id ===
-        auth?.state?.profile?.id && (
-        <>
-          <HideByField path={path} op="Update">
-            <Dialog
-              label="edit"
-              icon={EditIcon}
-              initialValues={comment}
-              onSubmit={patch(comment.id)}
-              {...rest}
-            />
-          </HideByField>
-          <HideByField path={path} op="Delete">
-            <Confirm
-              phrase="DELETE"
-              service={remove(comment.id)}
-              label="delete"
-              ButtonProps={{
-                size: 'small',
-                style: inlineButtonStyles,
-                variant: undefined,
-              }}
-            />
-          </HideByField>
-        </>
-      )}
-      {!comment.replies && canCreateSub(path) && (
-        <Dialog
-          label="reply"
-          icon={ReplyIcon}
-          onSubmit={(args) =>
-            post({
-              ...args,
-              replies: comment.id,
-            })
-          }
-          {...rest}
-        />
-      )}
-    </>
-  );
-
   return (
-    <MuiTimeline>
+    <MuiTimeline className={cls.container}>
       {map(sortData(data, asc), (t) => {
         const replies = filter(data, hasReplies(t.id));
 
@@ -104,14 +55,26 @@ const Timeline = ({
           <TimelineEntry
             key={t.id}
             {...t}
-            actions={renderDialogControls(t)}
+            actions={
+              <TimelineActions
+                comment={t}
+                field={path}
+                {...rest}
+              />
+            }
           >
             {renderDynamic(t)}
             {size(replies) > 0 && (
-              <NestedTimeline>
+              <NestedTimeline className={cls.root}>
                 {map(ascending(replies), (item) => (
                   <TimelineEntry
-                    actions={renderDialogControls(item)}
+                    actions={
+                      <TimelineActions
+                        comment={item}
+                        field={path}
+                        {...rest}
+                      />
+                    }
                     key={item.id}
                     connector
                     {...item}
@@ -120,6 +83,25 @@ const Timeline = ({
                   </TimelineEntry>
                 ))}
               </NestedTimeline>
+            )}
+            {canCreateSub(path) && (
+              <Dialog
+                renderTrigger={(onClick) => (
+                  <InlineButton
+                    icon={ForumIcon}
+                    onClick={onClick}
+                    label="reply"
+                  />
+                )}
+                label="reply"
+                onSubmit={(args) =>
+                  rest.post({
+                    ...args,
+                    replies: t?.id,
+                  })
+                }
+                {...rest}
+              />
             )}
           </TimelineEntry>
         );
@@ -143,9 +125,6 @@ Timeline.propTypes = {
       id: PropTypes.string,
     }),
   ).isRequired,
-  remove: PropTypes.func.isRequired,
-  patch: PropTypes.func.isRequired,
-  post: PropTypes.func.isRequired,
   insertNode: PropTypes.func,
 };
 

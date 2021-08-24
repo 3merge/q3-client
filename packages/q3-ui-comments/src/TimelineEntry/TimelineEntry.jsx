@@ -62,6 +62,7 @@ const TimelineEntry = ({
             <Typography className={cls.title}>
               <strong>{makeName(createdBy)}</strong>
               <small>{string.toDate(createdAt)}</small>
+              {actions}
             </Typography>
           </Box>
           {message && (
@@ -73,7 +74,6 @@ const TimelineEntry = ({
               }}
             />
           )}
-          <Box>{actions}</Box>
           {children}
         </Box>
       </TimelineContent>

@@ -1,4 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console */
+jest.mock('@material-ui/core/useMediaQuery');
+
 const enzyme = require('enzyme');
 const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 const {

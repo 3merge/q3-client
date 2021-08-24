@@ -325,5 +325,7 @@
   "before": "Before",
   "after": "After",
   "systemAutomated": "System",
-  "deleteMany": "Delete"
+  "deleteMany": "Delete",
+  "replyToThread": "Add reply",
+  "startThread": "Reply"
 }
