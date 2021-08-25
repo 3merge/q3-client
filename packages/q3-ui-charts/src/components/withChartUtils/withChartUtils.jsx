@@ -49,6 +49,10 @@ export default (Component) => {
       enableYAxisMobile,
       children,
       name,
+      // eslint-disable-next-line
+      xAxisProps = {},
+      // eslint-disable-next-line
+      yAxisProps = {},
       ...rest
     } = props;
 
@@ -70,6 +74,7 @@ export default (Component) => {
             dataKey={name}
             axisLine={false}
             tickLine={false}
+            {...xAxisProps}
           />
         )}
         {enableYAxis && (!matches || enableYAxisMobile) && (
@@ -79,6 +84,7 @@ export default (Component) => {
             axisLine={false}
             allowDecimals={false}
             width={w}
+            {...yAxisProps}
           />
         )}
         {enableTooltip && (
