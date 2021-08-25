@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
     '& > *': {
       marginRight: '.75rem',
 
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         display: 'block',
         marginRight: 0,
 
@@ -35,7 +35,7 @@ export default makeStyles((theme) => ({
           paddingRight: 32,
         },
 
-        '&:last-child': {
+        '& .menu-trigger': {
           position: 'absolute',
           top: 0,
           right: 0,

@@ -12,7 +12,6 @@ const EDIT_LABEL = 'edit';
 const TimelineActions = ({
   remove,
   patch,
-  post,
   field,
   comment,
   ...rest
@@ -92,7 +91,6 @@ TimelineActions.propTypes = {
   field: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
   patch: PropTypes.func.isRequired,
-  post: PropTypes.func.isRequired,
   comment: PropTypes.shape({
     // eslint-disable-next-line
     createdBy: PropTypes.object,

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { string } from 'q3-ui-helpers';
 import { Box, Typography } from '@material-ui/core';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -10,17 +9,6 @@ import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import useStyles from './styles';
 import Avatar, { makeName } from '../Avatar';
-
-export const getTime = (xs) => {
-  const d = moment(xs);
-  if (!d.isValid()) return '';
-
-  const diff = moment().diff(d, 'minutes');
-  if (diff < 60) return `${diff}min`;
-  if (diff < 1440) return `${Math.floor(diff / 60)}hr`;
-  if (diff < 4320) return `${Math.floor(diff / 1440)}d`;
-  return '';
-};
 
 const TimelineEntry = ({
   actions,

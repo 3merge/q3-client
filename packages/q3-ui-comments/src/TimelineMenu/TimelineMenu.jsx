@@ -8,15 +8,14 @@ import {
 } from '@material-ui/core';
 import { map } from 'lodash';
 import VertIcon from '@material-ui/icons/MoreHoriz';
-import { useToggle } from 'useful-state';
+import { useOpen } from 'useful-state';
 import { useTranslation } from 'react-i18next';
 import useStyle from '../Timeline/styles';
 
 const TimelineMenu = ({ options }) => {
+  const { open, close, isOpen, anchorEl } = useOpen();
   const { t } = useTranslation('labels');
-  const { toggle, state, close } = useToggle();
   const cls = useStyle();
-  const ref = React.useRef();
 
   return (
     <Box className={cls.menu}>
@@ -24,8 +23,8 @@ const TimelineMenu = ({ options }) => {
         <Menu
           keepMounted
           disablePortal
-          anchorEl={ref.current}
-          open={state}
+          anchorEl={anchorEl}
+          open={isOpen}
           onClose={close}
           onClick={close}
         >
@@ -41,8 +40,8 @@ const TimelineMenu = ({ options }) => {
           ))}
         </Menu>
       </Box>
-      <Box>
-        <IconButton ref={ref} onClick={toggle}>
+      <Box className="menu-trigger">
+        <IconButton onClick={open}>
           <VertIcon />
         </IconButton>
       </Box>

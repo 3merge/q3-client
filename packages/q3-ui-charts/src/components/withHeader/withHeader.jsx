@@ -60,6 +60,7 @@ export default (Component) => {
           <HeaderTitle>{title}</HeaderTitle>
         )}
         <Box
+          className="q3-charts-axis-container"
           position="relative"
           ml={getMarginValue(yAxisTitle)}
           mb={getMarginValue(xAxisTitle)}
@@ -75,6 +76,7 @@ export default (Component) => {
           </Box>
           {yAxisTitle && (
             <Box
+              data-role="axis"
               component={Typography}
               variant="caption"
               position="absolute"
@@ -87,6 +89,7 @@ export default (Component) => {
           )}
           {xAxisTitle && (
             <Box
+              data-role="axis"
               component={Typography}
               variant="caption"
               position="absolute"
