@@ -22,8 +22,25 @@ export default makeStyles((theme) => ({
   }),
   title: {
     margin: '0 !important',
-    '& *': {
+    position: 'relative',
+
+    '& > *': {
       marginRight: '.75rem',
+
+      [theme.breakpoints.down('xs')]: {
+        display: 'block',
+        marginRight: 0,
+
+        '&:not(:last-child)': {
+          paddingRight: 32,
+        },
+
+        '& .menu-trigger': {
+          position: 'absolute',
+          top: 0,
+          right: 0,
+        },
+      },
     },
   },
   rich: {

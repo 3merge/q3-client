@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
+import { isUndefined } from 'lodash';
 import { array } from 'q3-ui-helpers';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Download from '../Download';
@@ -30,12 +31,18 @@ export default (Component) => {
     enableDownload,
     style,
     title,
+    xAxisTitle,
+    yAxisTitle,
+    disableGutters,
     ...rest
   }) => {
     const cleaned = array.hasLength(data) ? data : [];
     const cls = useStyle({
       legendSize: getDataLength(data),
     });
+
+    const getMarginValue = (xs) =>
+      isUndefined(xs) ? 0 : 2;
 
     return (
       <Box
@@ -53,12 +60,46 @@ export default (Component) => {
           <HeaderTitle>{title}</HeaderTitle>
         )}
         <Box
-          mt={0.5}
-          height="390px"
-          width="100%"
-          style={style}
+          className="q3-charts-axis-container"
+          position="relative"
+          ml={getMarginValue(yAxisTitle)}
+          mb={getMarginValue(xAxisTitle)}
+          pb={disableGutters ? 0 : 1}
         >
-          <Component data={cleaned} {...rest} />
+          <Box
+            mt={0.5}
+            height="390px"
+            width="100%"
+            style={style}
+          >
+            <Component data={cleaned} {...rest} />
+          </Box>
+          {yAxisTitle && (
+            <Box
+              data-role="axis"
+              component={Typography}
+              variant="caption"
+              position="absolute"
+              top="50%"
+              right="100%"
+              className={cls.yTitle}
+            >
+              {yAxisTitle}
+            </Box>
+          )}
+          {xAxisTitle && (
+            <Box
+              data-role="axis"
+              component={Typography}
+              variant="caption"
+              position="absolute"
+              top="100%"
+              left="50%"
+              className={cls.xTitle}
+            >
+              {xAxisTitle}
+            </Box>
+          )}
         </Box>
       </Box>
     );
@@ -70,6 +111,9 @@ export default (Component) => {
     enableDownload: true,
     title: 'Report',
     style: {},
+    xAxisTitle: undefined,
+    yAxisTitle: undefined,
+    disableGutters: true,
   };
 
   Header.propTypes = {
@@ -84,6 +128,9 @@ export default (Component) => {
       height: PropTypes.number,
       width: PropTypes.number,
     }),
+    xAxisTitle: PropTypes.string,
+    yAxisTitle: PropTypes.string,
+    disableGutters: PropTypes.bool,
   };
 
   return Header;

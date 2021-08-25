@@ -18,6 +18,7 @@ import data1 from '../../../tests/fixtures/sample-large-double';
   </Story>
   <Story name="Single Line">
     <Charts
+      enableYAxisMobile
       variant="Line"
       style={{
         height: 155,
@@ -26,10 +27,21 @@ import data1 from '../../../tests/fixtures/sample-large-double';
     />
   </Story>
   <Story name="Double Bar">
-    <Charts variant="Bar" {...data1} />
+    <Charts
+      variant="Bar"
+      enableYAxisMobile
+      yAxisTitle="Testing (%)"
+      xAxisTitle="Companies"
+      disableGutters={false}
+      {...data1}
+    />
   </Story>
   <Story name="Double Line">
-    <Charts variant="Line" {...data1} />
+    <Charts
+      variant="Line"
+      disableGutters={false}
+      {...data1}
+    />
   </Story>
 </Preview>
 

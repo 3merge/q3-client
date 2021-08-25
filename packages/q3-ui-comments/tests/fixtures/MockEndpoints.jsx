@@ -13,6 +13,7 @@ export default ({ children, delay, error }) => {
 
   const defineMockRoutes = (m) => {
     if (error) return;
+
     m.onGet(/\/test\/\d+\/comments/).reply(() => {
       return [200, { comments: dataSource }];
     });
@@ -51,6 +52,10 @@ export default ({ children, delay, error }) => {
         ];
       },
     );
+
+    m.onDelete(/\/test\/\d+\/comments\/\d+/).reply(() => {
+      return [204];
+    });
   };
 
   const Clone = (p) =>

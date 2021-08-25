@@ -4,6 +4,7 @@ import {
   Preview,
 } from '@storybook/addon-docs/blocks';
 import { Container } from '@material-ui/core';
+import { Field } from 'q3-ui-forms/lib/builders';
 import Comments from './Comments';
 import Fixture from '../../tests/fixtures';
 
@@ -30,7 +31,7 @@ import Fixture from '../../tests/fixtures';
   <Story name="Additional fields">
     <Fixture>
       <Comments
-        additionalFields={<div>Fields</div>}
+        additionalFields={<Field name="testin" />}
         insertNode={(a, b) => {
           console.log(a, b);
           return 'ADD STUFF';
