@@ -1,0 +1,24 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Group from '.';
+import { Form, Field } from '../../builders';
+
+<Meta title="Forms/Fields/Group" component={Group} />
+
+<Preview>
+  <Story name="Default">
+    <Form debug>
+      <Field
+        name="demo"
+        type="group"
+        options={['One', 'Two', 'Three']}
+        helper="This is some helper text"
+        required
+      />
+    </Form>
+  </Story>
+</Preview>

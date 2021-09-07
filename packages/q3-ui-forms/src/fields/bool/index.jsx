@@ -114,7 +114,7 @@ const Bool = ({
     ],
   );
 
-  if (variant === 'checkbox' && !rest.error)
+  if (rest.error)
     // eslint-disable-next-line
     delete rest.helperText;
 

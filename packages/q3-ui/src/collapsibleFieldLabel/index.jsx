@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Collapse from '@material-ui/core/Collapse';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import KeyboardDown from '@material-ui/icons/KeyboardArrowDown';
@@ -31,10 +30,23 @@ export const CollapsibleFieldLabel = ({
   helperText,
   children,
   collapse,
+  required,
 }) => {
   const [show, setShow] = React.useState(true);
   const toggle = () => setShow(!show);
   const id = makeId(label);
+
+  const buttonStyle = {
+    justifyContent: 'left',
+    marginBottom: '0.5rem',
+  };
+
+  if (!collapse)
+    Object.assign(buttonStyle, {
+      marginBottom: 0,
+      padding: 0,
+      textTransform: 'none',
+    });
 
   return (
     <FormControl
@@ -48,14 +60,11 @@ export const CollapsibleFieldLabel = ({
           role="button"
           onClick={toggle}
           disabled={!collapse}
-          style={{
-            justifyContent: 'left',
-            marginBottom: '0.5rem',
-          }}
+          style={buttonStyle}
         >
           {renderKeyboardIcon(collapse, show)}
           <Typography component="legend">
-            {label}
+            {label} {required && '*'}
           </Typography>
         </Button>
       )}
@@ -77,12 +86,14 @@ CollapsibleFieldLabel.propTypes = {
   helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
   collapse: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 CollapsibleFieldLabel.defaultProps = {
   collapse: true,
   error: false,
   helperText: null,
+  required: false,
 };
 
 export default CollapsibleFieldLabel;

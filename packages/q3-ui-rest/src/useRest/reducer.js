@@ -41,7 +41,9 @@ export default (
 
       if (resource in prev) {
         prev[resource] = next;
-      } else if (resources in prev) {
+      }
+
+      if (resources in prev) {
         prev[resources] = get(
           prev,
           resources,
