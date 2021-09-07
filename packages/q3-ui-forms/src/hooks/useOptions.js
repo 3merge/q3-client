@@ -11,7 +11,7 @@ import { asOptions } from '../helpers';
 import { BuilderState } from '../FormsContext';
 import { expandOptions } from '../fields/optionsThreshold';
 
-const formatFieldOptions = (items = []) =>
+export const formatFieldOptions = (items = []) =>
   array.hasLength(items)
     ? items.map((item) =>
         typeof item === 'string'

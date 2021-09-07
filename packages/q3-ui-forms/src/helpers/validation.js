@@ -179,7 +179,6 @@ export class Validator {
       case 'multi':
       case 'multiselect':
       case 'multitext':
-      case 'checkset':
       case 'dateRange':
       case 'range':
       case 'transfer':
@@ -197,6 +196,7 @@ export class Validator {
       case 'radio':
       case 'select':
       case 'selectable':
+      case 'checkset':
       case 'group':
         this.$base = this.$base
           .mixed()

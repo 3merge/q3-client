@@ -33,3 +33,24 @@ import { Form, Field } from '../../builders';
     </Form>
   </Story>
 </Preview>
+
+<Preview>
+  <Story name="Helper">
+    <Form debug>
+      <Field
+        name="demo"
+        type="checkset"
+        options={[
+          {
+            value: 'One',
+            label: 'One',
+            helperText: 'This is some text',
+          },
+        ]}
+        collapse={false}
+        required
+        helper="Should be replaced with error"
+      />
+    </Form>
+  </Story>
+</Preview>
