@@ -24,9 +24,9 @@ export default makeStyles((theme) => ({
       theme.palette.type === 'light'
         ? theme.palette.primary.main
         : 'inherit',
-    fontSize: '.911rem !important',
+    fontSize: '0.911rem !important',
     margin: '0 !important',
-    fontWeight: 600,
+    fontWeight: 'bolder',
   },
 
   editLauncher: {
@@ -75,7 +75,11 @@ export default makeStyles((theme) => ({
 
   tableCell: {
     display: 'table-cell',
-    padding: '1rem',
+    padding: '.5rem',
+
+    '& [data-repeater-editable] button': {
+      padding: 0,
+    },
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',
@@ -97,7 +101,7 @@ export default makeStyles((theme) => ({
 
   tableCellHeader: {
     display: 'table-cell',
-    padding: '1rem 0 1rem 1rem',
+    padding: '.5rem 0 .5rem .5rem',
     maxWidth: 575,
 
     [theme.breakpoints.down('sm')]: {
@@ -177,8 +181,8 @@ export default makeStyles((theme) => ({
 
   tableHeader: {
     '& th': {
-      padding: '1rem',
-      backgroundColor: `${theme.palette.background.muted} !important`,
+      padding: '.5rem',
+      backgroundColor: `${theme.palette.background.default} !important`,
       border: 0,
     },
 

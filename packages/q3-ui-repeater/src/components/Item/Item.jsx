@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import {
   pick,
   get,
-  invoke,
   isFunction,
   isEqual,
+  isString,
+  isNil,
 } from 'lodash';
 import TableRow from '@material-ui/core/TableRow';
 import Attribute from '../Attribute';
@@ -28,51 +29,50 @@ export const interpretCardsProps = (
     disableMultiselect = false,
     disableRemove = false,
   },
-) => ({
-  ...cardProps,
-  attributes: get(cardProps, 'attributes', []),
-  color: invoke(cardProps, 'onColor', currentData),
-  description: isFunction(cardProps.describe)
-    ? invoke(cardProps, 'describe', currentData)
-    : get(currentData, cardProps.describe),
+) => {
+  const getValue = (xs, defaultValue) => {
+    const v = get(cardProps, xs);
 
-  linkTo: invoke(cardProps, 'makeLink', currentData),
-  linkToLabel: invoke(
-    cardProps,
-    'makeLinkLabel',
-    currentData,
-  ),
+    if (isFunction(v)) return v(currentData);
+    if (isString(v)) return get(currentData, v);
+    return !isNil(v) ? v : defaultValue;
+  };
 
-  showEditor: !get(
-    cardProps,
-    'disableEditor',
-    disableEditor,
-  ),
+  const negate = (xs) => !xs;
 
-  showMultiselect: !get(
-    cardProps,
-    'disableMultiselect',
-    disableMultiselect,
-  ),
+  return {
+    ...cardProps,
+    attributes: get(cardProps, 'attributes', []),
+    color: getValue('onColor', currentData),
+    description: getValue('describe'),
+    linkTo: getValue('makeLink'),
+    linkToLabel: getValue('makeLinkLabel'),
 
-  showRemove: !get(
-    cardProps,
-    'disableRemove',
-    disableRemove,
-  ),
+    showEditor: negate(
+      getValue('disableEditor', disableEditor),
+    ),
 
-  isIn: (v) =>
-    Object.entries(get(cardProps, 'editable', {}))
-      .filter(([key]) => key === v)
-      .reduce(
-        (obj, [key, value]) =>
-          Object.assign(obj, {
-            name: key,
-            ...value,
-          }),
-        {},
-      ),
-});
+    showMultiselect: negate(
+      getValue('disableMultiselect', disableMultiselect),
+    ),
+
+    showRemove: negate(
+      getValue('disableRemove', disableRemove),
+    ),
+
+    isIn: (v) =>
+      Object.entries(get(cardProps, 'editable', {}))
+        .filter(([key]) => key === v)
+        .reduce(
+          (obj, [key, value]) =>
+            Object.assign(obj, {
+              name: key,
+              ...value,
+            }),
+          {},
+        ),
+  };
+};
 
 //= ===============================================================================
 // Component

@@ -42,7 +42,7 @@ const ButtonWithIcon = React.forwardRef(
                 mr={0.15}
               >
                 <MuiIconButton
-                  color="primary"
+                  color="inherit"
                   size="small"
                   component={Box}
                 >

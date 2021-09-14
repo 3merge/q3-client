@@ -14,7 +14,7 @@ export default makeStyles((theme) => ({
   wrap: ({ connector }) => ({
     margin: connector
       ? '-.25rem 0 0 !important'
-      : '.75rem 0  !important',
+      : '.75rem 0 0 !important',
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',
