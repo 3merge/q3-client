@@ -23,11 +23,11 @@ export const SelectAll = ({ ids }) => {
   return (
     <Badge
       badgeContent={len}
-      color="secondary"
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'left',
       }}
+      overlap="circle"
     >
       <Checkbox
         style={{ padding: 0 }}

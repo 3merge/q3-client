@@ -80,47 +80,50 @@ const RepeaterTable = ({
           ) : null
         }
       >
-        <Table>
-          <TableHead>
-            <TableRow className={cls.tableHeader}>
-              <TableCell component="th">
-                {!disableMultiselect && (
-                  <span
-                    style={{
-                      marginLeft: '-5px',
-                      paddingRight: '6px',
-                    }}
-                  >
-                    <SelectAll ids={map(list, 'id')} />
-                  </span>
+        <Box pb={1}>
+          {groupName && <Box className={cls.divide} />}
+          <Table>
+            <TableHead>
+              <TableRow className={cls.tableHeader}>
+                <TableCell component="th">
+                  {!disableMultiselect && (
+                    <span
+                      style={{
+                        marginLeft: '-5px',
+                        paddingRight: '6px',
+                      }}
+                    >
+                      <SelectAll ids={map(list, 'id')} />
+                    </span>
+                  )}
+                  {t(rest?.th || 'identifier')}
+                </TableCell>
+                {map(
+                  get(rest, 'cardProps.attributes', []),
+                  (attr) => (
+                    <TableCell key={attr} component="th">
+                      {t(attr)}
+                    </TableCell>
+                  ),
                 )}
-                {t(rest?.th || 'identifier')}
-              </TableCell>
-              {map(
-                get(rest, 'cardProps.attributes', []),
-                (attr) => (
-                  <TableCell key={attr} component="th">
-                    {t(attr)}
-                  </TableCell>
-                ),
-              )}
 
-              <TableCell />
-            </TableRow>
-          </TableHead>
-          <List
-            {...rest}
-            data={list}
-            renderNestedTableRow={renderNestedTableRow}
-          >
-            {children}
-          </List>
-        </Table>
+                <TableCell />
+              </TableRow>
+            </TableHead>
+            <List
+              {...rest}
+              data={list}
+              renderNestedTableRow={renderNestedTableRow}
+            >
+              {children}
+            </List>
+          </Table>
+        </Box>
         {gt(totalPage, 1) && (
           <Box
             display="flex"
             justifyContent="center"
-            mt="20px"
+            pb={1}
           >
             <Pagination
               page={page}

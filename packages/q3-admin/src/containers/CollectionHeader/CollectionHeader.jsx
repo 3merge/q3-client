@@ -15,7 +15,7 @@ const CollectionHeader = ({
   const { t } = useTranslation('labels');
 
   return (
-    <Paper className={cls.root}>
+    <Paper elevation={0} className={cls.root}>
       <Box
         display="flex"
         alignItems="center"

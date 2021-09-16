@@ -109,7 +109,7 @@ const Repeater = ({
         </Grid>
       </Box>
       {checkValues(data, newData) ? (
-        <Box>
+        <Box my={1}>
           <RepeaterTable
             data={newData}
             initialValues={initialValues}

@@ -74,11 +74,13 @@ export default makeStyles((theme) => ({
   },
 
   tableCell: {
+    backgroundColor: theme.palette.background.paper,
     display: 'table-cell',
-    padding: '.5rem',
+    padding: '.75rem',
 
-    '& [data-repeater-editable] button': {
+    '& [data-repeater-editable] > span > button': {
       padding: 0,
+      textAlign: 'left',
     },
 
     [theme.breakpoints.down('sm')]: {
@@ -91,7 +93,7 @@ export default makeStyles((theme) => ({
       padding: '0',
 
       '& >div': {
-        display: 'contents !important',
+        justifyContent: 'space-between !important',
         '& > div': {
           padding: '0 !important',
         },
@@ -101,8 +103,9 @@ export default makeStyles((theme) => ({
 
   tableCellHeader: {
     display: 'table-cell',
-    padding: '.5rem 0 .5rem .5rem',
+    padding: '.75rem',
     maxWidth: 575,
+    backgroundColor: theme.palette.background.paper,
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',
@@ -123,7 +126,8 @@ export default makeStyles((theme) => ({
   tableCellLabel: {
     fontSize: '.624rem',
     fontWeight: 'bold',
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
+    opacity: 0.83,
     textTransform: 'uppercase',
     display: 'none',
 
@@ -159,16 +163,46 @@ export default makeStyles((theme) => ({
     display: 'block',
   },
 
-  row: ({ hasNested }) => ({
+  row: () => ({
     '& td': {
-      borderBottom: hasNested ? 'none' : undefined,
+      borderBottom: `1px solid ${theme.palette.background.muted}`,
+    },
+
+    '&:first-of-type': {
+      '& td': {
+        '&:first-of-type': {
+          borderTopLeftRadius: 16,
+        },
+        '&:last-of-type': {
+          borderTopRightRadius: 16,
+        },
+      },
     },
 
     [theme.breakpoints.down('sm')]: {
       display: 'block',
       borderBottom: '0 !important',
-      marginBottom: '0.25rem',
+      margin: '0.5rem 0',
       width: '100%',
+      padding: theme.spacing(1),
+      backgroundColor: theme.palette.background.paper,
+      borderRadius: 8,
+
+      '& td': {
+        display: 'block',
+        borderRadius: '0 !important',
+        borderBottom: 'none !important',
+        margin: 0,
+
+        '&:first-of-type': {
+          marginBottom: theme.spacing(1),
+        },
+
+        '&:last-of-type': {
+          marginTop: theme.spacing(1),
+          borderTop: `1px solid ${theme.palette.background.muted} !important`,
+        },
+      },
     },
   }),
 
@@ -179,11 +213,15 @@ export default makeStyles((theme) => ({
     },
   },
 
+  divide: {
+    borderTop: `1px solid ${theme.palette.background.muted}`,
+  },
+
   tableHeader: {
     '& th': {
-      padding: '.5rem',
-      backgroundColor: `${theme.palette.background.default} !important`,
+      padding: '.75rem',
       border: 0,
+      backgroundColor: `${theme.palette.background.default} !important`,
     },
 
     [theme.breakpoints.down('sm')]: {

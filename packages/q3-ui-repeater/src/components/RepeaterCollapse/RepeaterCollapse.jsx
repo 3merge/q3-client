@@ -51,7 +51,7 @@ const RepeaterCollapse = ({ children, label, toggles }) => {
       </AccordionDetails>
     </Accordion>
   ) : (
-    children
+    <Box className={root}>{children}</Box>
   );
 };
 
