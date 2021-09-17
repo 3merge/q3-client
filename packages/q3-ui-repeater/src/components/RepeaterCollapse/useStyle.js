@@ -21,6 +21,18 @@ export default makeStyles((theme) => ({
     padding: '0 .5rem',
   },
   text: {
+    maxHeight: '3rem',
     marginLeft: '1rem',
+    // display: 'inline-block',
+    lineHeight: 1.3,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical',
+  },
+  pagination: {
+    textAlign: 'right',
+    width: 'auto',
   },
 }));

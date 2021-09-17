@@ -102,7 +102,12 @@ const RepeaterTable = ({
                   get(rest, 'cardProps.attributes', []),
                   (attr) => (
                     <TableCell key={attr} component="th">
-                      {t(attr)}
+                      <span
+                        className={cls.tableHeaderSpan}
+                        title={t(attr)}
+                      >
+                        {t(attr)}
+                      </span>
                     </TableCell>
                   ),
                 )}

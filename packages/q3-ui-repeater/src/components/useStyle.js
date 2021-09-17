@@ -96,6 +96,9 @@ export default makeStyles((theme) => ({
         justifyContent: 'space-between !important',
         '& > div': {
           padding: '0 !important',
+          '&:last-of-type': {
+            textAlign: 'right',
+          },
         },
       },
     },
@@ -104,7 +107,8 @@ export default makeStyles((theme) => ({
   tableCellHeader: {
     display: 'table-cell',
     padding: '.75rem',
-    maxWidth: 575,
+    maxWidth: 230,
+    minWidth: 180,
     backgroundColor: theme.palette.background.paper,
 
     [theme.breakpoints.down('sm')]: {
@@ -165,17 +169,14 @@ export default makeStyles((theme) => ({
 
   row: () => ({
     '& td': {
-      borderBottom: `1px solid ${theme.palette.background.muted}`,
-    },
-
-    '&:first-of-type': {
-      '& td': {
-        '&:first-of-type': {
-          borderTopLeftRadius: 16,
-        },
-        '&:last-of-type': {
-          borderTopRightRadius: 16,
-        },
+      borderBottom: `3px solid ${theme.palette.background.default}`,
+      '&:first-of-type': {
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
+      },
+      '&:last-of-type': {
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
       },
     },
 
@@ -184,7 +185,7 @@ export default makeStyles((theme) => ({
       borderBottom: '0 !important',
       margin: '0.5rem 0',
       width: '100%',
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
       backgroundColor: theme.palette.background.paper,
       borderRadius: 8,
 
@@ -218,14 +219,32 @@ export default makeStyles((theme) => ({
   },
 
   tableHeader: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
     '& th': {
+      position: 'relative',
       padding: '.75rem',
       border: 0,
       backgroundColor: `${theme.palette.background.default} !important`,
+      minWidth: 60,
     },
 
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
+  },
+
+  tableHeaderSpan: {
+    cursor: 'help',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    left: 0,
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    padding: '.75rem',
+    textOverflow: 'ellipsis',
   },
 }));

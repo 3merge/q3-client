@@ -18,7 +18,13 @@ const TransitionOverride = ({ in: show, children }) => (
 );
 
 const RepeaterCollapse = ({ children, label, toggles }) => {
-  const { container, content, root, text } = useStyle();
+  const {
+    container,
+    content,
+    root,
+    pagination,
+    text,
+  } = useStyle();
 
   return label ? (
     <Accordion
@@ -30,14 +36,19 @@ const RepeaterCollapse = ({ children, label, toggles }) => {
         className={container}
         expandIcon={<ExpandMoreIcon />}
       >
-        <Grid container justify="space-between">
-          <Grid item>
+        <Grid
+          alignItems="center"
+          container
+          justify="space-between"
+        >
+          <Grid item xs>
             <Typography className={text} variant="overline">
               {label}
             </Typography>
           </Grid>
           <Grid
             item
+            className={pagination}
             onClick={(e) => {
               e.stopPropagation();
             }}
