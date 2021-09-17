@@ -17,6 +17,7 @@ export default makeStyles((theme) => ({
     margin: '0 !important',
     marginBottom: `${theme.spacing(1)} !important`,
     backgroundColor: theme.palette.background.default,
+    border: `1px solid ${theme.palette.background.muted}`,
     borderRadius: 8,
     padding: '0 .5rem',
   },

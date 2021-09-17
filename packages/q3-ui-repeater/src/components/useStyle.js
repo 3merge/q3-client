@@ -64,6 +64,10 @@ export default makeStyles((theme) => ({
   },
 
   tableRow: {
+    '& td': {
+      border: 0,
+    },
+
     '&:last-child td': {
       borderBottom: 'none !important',
     },
@@ -130,7 +134,7 @@ export default makeStyles((theme) => ({
   tableCellLabel: {
     fontSize: '.624rem',
     fontWeight: 'bold',
-    color: theme.palette.primary.main,
+    color: 'inherit',
     opacity: 0.83,
     textTransform: 'uppercase',
     display: 'none',
@@ -170,6 +174,8 @@ export default makeStyles((theme) => ({
   row: () => ({
     '& td': {
       borderBottom: `3px solid ${theme.palette.background.default}`,
+      whiteSpace: 'break-spaces',
+
       '&:first-of-type': {
         borderTopLeftRadius: 8,
         borderBottomLeftRadius: 8,
