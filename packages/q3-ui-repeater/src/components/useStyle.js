@@ -201,7 +201,6 @@ export default makeStyles((theme) => ({
 
         '&:last-of-type': {
           marginTop: theme.spacing(1),
-          borderTop: `1px solid ${theme.palette.background.muted} !important`,
         },
       },
     },
