@@ -49,6 +49,7 @@ const useEmailTemplates = () => {
     vars: get(current, 'variables', {}),
     onSave: handleSave,
     setById: setActive,
+    id: active,
   };
 };
 
