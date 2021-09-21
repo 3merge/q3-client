@@ -4,11 +4,15 @@ export default makeStyles(() => ({
   textarea: {
     display: 'none',
   },
-  root: () => ({
-    flexWrap: 'nowrap',
+  root: {
     height: '100%',
-  }),
-  column: ({ background }) => ({
-    borderRight: `2px solid ${background}`,
-  }),
+    width: '100%',
+
+    '& .CodeMirror': {
+      height: '100% !important',
+    },
+  },
+  column: {
+    flex: 1,
+  },
 }));

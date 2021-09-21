@@ -8,8 +8,8 @@ const useCodeMirror = () => {
     EmailEditorContext,
   );
 
-  const render = (mjml) =>
-    mjml || disablePreview
+  const render = (mjml) => {
+    return mjml && !disablePreview
       ? axios
           .post('emails-preview', {
             mjml,
@@ -22,6 +22,7 @@ const useCodeMirror = () => {
             // noop
           })
       : Promise.resolve();
+  };
 
   return {
     html,

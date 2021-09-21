@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
-
 import EmailEditorContext from '../EmailEditorContext';
 import { isPartial } from '../useEmailTemplates/useEmailTemplates';
 import useStyle from './styles';
@@ -36,7 +34,7 @@ const EmailsTemplateSelect = () => {
     hasTemplateId(value) ? setById(value) : null;
 
   return (
-    <>
+    <Box component="nav" p={1}>
       <Box mt={2} p={2} mb={-1}>
         <Typography
           component="h1"
@@ -53,7 +51,7 @@ const EmailsTemplateSelect = () => {
         selected={id}
         onNodeSelect={handleNodeSelect}
       >
-        <TreeItem label="Partials" nodeId={0}>
+        <TreeItem classes={cls} label="Partials" nodeId={0}>
           {partial.map((t) => (
             <TreeItem
               classes={cls}
@@ -63,7 +61,11 @@ const EmailsTemplateSelect = () => {
             />
           ))}
         </TreeItem>
-        <TreeItem label="Templates" nodeId={1}>
+        <TreeItem
+          classes={cls}
+          label="Templates"
+          nodeId={1}
+        >
           {full.map((t) => (
             <TreeItem
               classes={cls}
@@ -73,18 +75,10 @@ const EmailsTemplateSelect = () => {
           ))}
         </TreeItem>
       </TreeView>
-    </>
+    </Box>
   );
 };
 
-EmailsTemplateSelect.propTypes = {
-  id: PropTypes.string.isRequired,
-  setById: PropTypes.func.isRequired,
-  templates: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  ).isRequired,
-};
+EmailsTemplateSelect.propTypes = {};
 
 export default EmailsTemplateSelect;

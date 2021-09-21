@@ -2,7 +2,7 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/base16-dark.css';
 import 'codemirror/theme/base16-light.css';
 import React from 'react';
-import { Grid, useTheme } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/matchtags';
@@ -27,18 +27,11 @@ import useStyle from './styles';
 // eslint-disable-next-line
 const Emails = ({ children }) => {
   const { loading, html, ref } = useCodeMirror();
-
-  const mode = useTheme()?.palette?.type;
-  const cls = useStyle({
-    background:
-      mode === 'light'
-        ? 'rgba(2,2,2,0.1)'
-        : 'rgba(255,255,255,0.1)',
-  });
+  const cls = useStyle();
 
   return (
-    <Grid container>
-      <Grid item className={cls.column} xs>
+    <Grid className={cls.root} container wrap="nowrap">
+      <Grid item zeroMinWidth className={cls.column}>
         <textarea className={cls.textarea} ref={ref} />
         <CodeEditorSave />
       </Grid>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
 import CodeEditor from '../CodeEditor';
 import EmailEditorContext from '../EmailEditorContext';
 import TreeView from '../TreeView';
@@ -8,21 +8,38 @@ import useStyle from './styles';
 
 const EmailEditor = () => {
   const cls = useStyle();
-  const value = useEmailTemplates();
+  const { error, ready, ...rest } = useEmailTemplates();
+
+  if (!ready) return 'NOT READY';
+  if (error) return 'ERROR';
 
   return (
-    <EmailEditorContext.Provider value={value}>
-      <Container>
-        <Grid container className={cls.root}>
-          <Grid item>
-            <TreeView />
+    <Box
+      bgcolor="background.paper"
+      height="100%"
+      width="100%"
+    >
+      <EmailEditorContext.Provider value={rest}>
+        <Container
+          maxWidth="xl"
+          disableGutters
+          className={cls.wrapper}
+        >
+          <Grid
+            className={cls.root}
+            container
+            disableGutters
+          >
+            <Grid item>
+              <TreeView />
+            </Grid>
+            <Grid item xs>
+              <CodeEditor />
+            </Grid>
           </Grid>
-          <Grid item>
-            <CodeEditor />
-          </Grid>
-        </Grid>
-      </Container>
-    </EmailEditorContext.Provider>
+        </Container>
+      </EmailEditorContext.Provider>
+    </Box>
   );
 };
 

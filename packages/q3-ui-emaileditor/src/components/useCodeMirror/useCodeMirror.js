@@ -71,11 +71,6 @@ const useCodeMirror = () => {
         theme: `base16-${mode}`,
       });
 
-      cm.current.setSize(
-        '100%',
-        'calc((100 * var(--vh)) - 65px)',
-      );
-
       if (!disablePreview)
         cm.current.on('change', () => {
           setLoading(true);
