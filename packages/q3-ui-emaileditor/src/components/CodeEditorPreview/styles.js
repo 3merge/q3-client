@@ -4,6 +4,12 @@ export default makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
     height: '100%',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      height: 550,
+      width: '100%',
+    },
   },
   iframe: ({ loading }) => ({
     border: 0,

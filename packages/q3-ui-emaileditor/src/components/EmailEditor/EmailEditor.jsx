@@ -62,7 +62,7 @@ const EmailEditor = () => {
             container
             disableGutters
           >
-            <Grid item>
+            <Grid item className={cls.sidebar}>
               <TreeView />
             </Grid>
             <Grid item xs>

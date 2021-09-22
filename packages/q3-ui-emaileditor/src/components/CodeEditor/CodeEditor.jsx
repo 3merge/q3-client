@@ -7,14 +7,14 @@ import useStyle from './styles';
 
 // eslint-disable-next-line
 const Emails = ({ children }) => {
-  const { loading, html, ref } = useCodeMirror();
+  const { loading, html, ref, save } = useCodeMirror();
   const cls = useStyle();
 
   return (
-    <Grid className={cls.root} container wrap="nowrap">
+    <Grid className={cls.root} container>
       <Grid item zeroMinWidth className={cls.column}>
         <textarea className={cls.textarea} ref={ref} />
-        <CodeEditorSave />
+        <CodeEditorSave onClick={save} />
       </Grid>
       <CodeEditorPreview html={html} loading={loading} />
     </Grid>

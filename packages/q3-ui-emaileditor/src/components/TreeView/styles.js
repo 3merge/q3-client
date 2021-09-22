@@ -6,4 +6,9 @@ export default makeStyles(() => ({
     padding: '.25rem',
     fontSize: '0.833rem',
   },
+  wrapper: {
+    maxWidth: 280,
+    maxHeight: '100%',
+    overflow: 'auto',
+  },
 }));

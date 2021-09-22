@@ -10,6 +10,15 @@ export default makeStyles((theme) => ({
     height: '100%',
     position: 'relative',
     margin: 0,
+
+    [theme.breakpoints.down('sm')]: {
+      height: 'auto',
+    },
+  },
+  sidebar: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   wrapper: {
     backgroundColor:

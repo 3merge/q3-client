@@ -46,8 +46,13 @@ const CustomTreeView = () => {
     ));
 
   return (
-    <Box component="nav" p={1}>
-      <Box mt={2} p={2} mb={-1}>
+    <Box
+      component="nav"
+      p={2}
+      pr={6}
+      className={cls.wrapper}
+    >
+      <Box mb={1}>
         <Typography
           component="h1"
           variant="h6"

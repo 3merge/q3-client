@@ -45,7 +45,7 @@ const useEmailTemplates = () => {
     error: Boolean(fetchingError && !size(emails)),
     ready: Boolean(!fetching && current) || fetchingError,
     disablePreview: isPartial(current),
-    value: get(current, 'mjml', '<mjml />'),
+    value: current?.mjml || '<mjml />',
     vars: get(current, 'variables', {}),
     onSave: handleSave,
     setById: setActive,

@@ -56,6 +56,7 @@ const useCodeMirror = () => {
     if (ref.current) {
       cm.current = CodeMirror.fromTextArea(ref.current, {
         autoCloseTags: true,
+        lineNumbers: true,
         mode: 'xml',
         theme: `base16-${mode}`,
       });
