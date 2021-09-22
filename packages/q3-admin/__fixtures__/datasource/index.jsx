@@ -1,6 +1,7 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
 import { browser, object } from 'q3-ui-helpers';
+import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
@@ -244,6 +245,8 @@ export default ({ children }) => {
         },
       ];
     });
+
+    defineMockRoutesForEmailEditorAddOn({})(m);
   };
 
   return (

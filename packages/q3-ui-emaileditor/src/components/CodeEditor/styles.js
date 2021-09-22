@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
     },
 
     '& .CodeMirror': {
+      padding: '1rem 0',
       height: '100% !important',
       width: '100% !important',
     },

@@ -23,7 +23,7 @@ export default makeStyles((theme) => ({
   wrapper: {
     backgroundColor:
       theme.palette.type === 'light'
-        ? darken(grey[200], 0.02)
+        ? darken(grey[300], 0.02)
         : lighten(grey[900], 0.02),
     height: '100%',
     width: '100%',
@@ -44,7 +44,9 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  transform: {
-    transform: 'translate(-50%,-50%)',
+  center: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));

@@ -117,5 +117,6 @@
   "addedAuditLog": "Added new properties to main document",
   "updatedAuditLog": "Updated properties inside main document",
   "deletedAuditLog": "Removed properties from main document",
-  "emailEditorFailed": "Servers encountered an error or there aren't any email templates configured"
+  "emailEditorFailed": "Servers encountered an error or there aren't any email templates configured",
+  "emailTemplateLanguage": "All partials and templates must be written in valid MJML syntax"
 }

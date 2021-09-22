@@ -6,9 +6,7 @@ export default makeStyles((theme) => ({
     height: '100%',
 
     [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      height: 550,
-      width: '100%',
+      display: 'none',
     },
   },
   iframe: ({ loading }) => ({

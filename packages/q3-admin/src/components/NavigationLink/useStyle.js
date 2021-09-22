@@ -8,7 +8,7 @@ export default makeStyles((theme) => ({
     textDecoration: 'none !important',
     color: 'inherit',
     height: '100%',
-    borderBottom: '2px solid transparent',
+    borderBottom: '4px solid transparent',
     transitionProperty: 'color,border',
     transitionDuration: '250ms',
     position: 'relative',
@@ -26,16 +26,15 @@ export default makeStyles((theme) => ({
       fontSize: '1rem',
       whiteSpace: 'inherit',
       fontWeight: 'inherit',
-
-      '& > span': {
-        flexDirection: 'row-reverse',
-        justifyContent: 'space-between',
-      },
     },
-
-    '& svg': {
-      margin: `0 ${theme.spacing(0.5)}`,
+  },
+  menuItemLabel: {
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'space-between',
     },
+  },
+  icon: {
+    margin: '0 -4px 0 2px !Important',
   },
   anchor: {
     cursor: 'initial',
@@ -49,7 +48,7 @@ export default makeStyles((theme) => ({
   },
   parent: {
     color: 'inherit !important',
-    borderBottom: `2px solid ${theme.palette.secondary.main}`,
+    borderBottom: `4px solid ${theme.palette.secondary.main}`,
 
     [theme.breakpoints.down('md')]: {
       color: `${theme.palette.secondary.main} !important`,

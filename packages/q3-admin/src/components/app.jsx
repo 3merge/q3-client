@@ -32,7 +32,9 @@ const App = ({
       {pages.map(
         ({ collectionName, component, ...etc }) => {
           const el = React.createElement(
-            etc.home ? component : Protected,
+            etc.home || !collectionName
+              ? component
+              : Protected,
             {
               ...etc,
               component,

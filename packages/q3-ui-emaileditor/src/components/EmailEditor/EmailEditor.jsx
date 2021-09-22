@@ -4,17 +4,35 @@ import {
   CircularProgress,
   Container,
   Grid,
+  Hidden,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import Graphic from 'q3-ui-assets';
+import { useTranslation } from 'react-i18next';
 import CodeEditor from '../CodeEditor';
 import EmailEditorContext from '../EmailEditorContext';
 import TreeView from '../TreeView';
 import useEmailTemplates from '../useEmailTemplates';
 import useStyle from './styles';
 
+const MobileAlert = () => {
+  const { t } = useTranslation('descriptions');
+
+  return (
+    <Hidden mdUp>
+      <Box p={1}>
+        <Alert severity="warning">
+          {t('emailPreviewDisabledMobile')}
+        </Alert>
+      </Box>
+    </Hidden>
+  );
+};
+
 // eslint-disable-next-line
-const Wrapper = ({ children }) => (
+const Wrapper = ({ children, ...rest }) => (
   <Box
+    {...rest}
     bgcolor="background.paper"
     height="100%"
     position="relative"
@@ -30,21 +48,14 @@ const EmailEditor = () => {
 
   if (!ready)
     return (
-      <Wrapper>
-        <Box
-          position="absolute"
-          top="50%"
-          left="50%"
-          className={cls.transform}
-        >
-          <CircularProgress />
-        </Box>
+      <Wrapper className={cls.center}>
+        <CircularProgress />
       </Wrapper>
     );
 
   if (error)
     return (
-      <Wrapper>
+      <Wrapper className={cls.center}>
         <Graphic icon="Code" title="emailEditorFailed" />
       </Wrapper>
     );
@@ -57,6 +68,7 @@ const EmailEditor = () => {
           disableGutters
           className={cls.wrapper}
         >
+          <MobileAlert />
           <Grid
             className={cls.root}
             container

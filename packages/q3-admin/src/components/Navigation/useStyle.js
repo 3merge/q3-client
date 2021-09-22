@@ -36,7 +36,7 @@ export default makeStyles((theme) => ({
     },
 
     '& > li > a.current': {
-      borderBottom: `2px solid ${theme.palette.secondary.main}`,
+      borderBottom: `4px solid ${theme.palette.secondary.main}`,
     },
 
     '& li': {
@@ -106,30 +106,23 @@ export default makeStyles((theme) => ({
   },
   actions: {},
   logo: {
-    display: 'block',
+    alignItems: 'center',
+    display: 'flex',
     fill: theme.palette.primary.contrastText,
     height: '100%',
-    minWidth: 245,
-    maxWidth: 345,
+    width: 'calc(58px + 2rem)',
+    justifyContent: 'center',
+
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'flex-start',
+    },
+  },
+  avatar: {
+    height: 58,
+    width: 58,
 
     '& img': {
-      height: '100%',
-      objectPosition: 'center !important',
-      objectFit: 'contain !important',
-      width: '100%',
-
-      [theme.breakpoints.down('md')]: {
-        objectPosition: 'left !important',
-      },
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      minWidth: '100%',
-      width: 195,
-    },
-
-    [theme.breakpoints.down('xs')]: {
-      width: 145,
+      objectFit: 'contain',
     },
   },
   menuItem: {

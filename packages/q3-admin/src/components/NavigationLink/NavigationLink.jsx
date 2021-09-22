@@ -27,11 +27,16 @@ const NavigationLink = ({
   return (
     <Button
       fullWidth
+      size="small"
       component={Link}
       to={makeAnchor(to)}
       tabIndex={to ? undefined : -1}
       onClick={toggleSelectedClass(to)}
-      className={cls.menuItem}
+      classes={{
+        root: cls.menuItem,
+        endIcon: cls.icon,
+        label: cls.menuItemLabel,
+      }}
       getProps={({ isCurrent, isPartiallyCurrent }) => {
         const list = [cls.menuItem];
 
@@ -46,8 +51,8 @@ const NavigationLink = ({
           className: classnames(list),
         };
       }}
+      endIcon={children}
     >
-      {children || <span />}
       <span>{t(`labels:${label}`)}</span>
     </Button>
   );

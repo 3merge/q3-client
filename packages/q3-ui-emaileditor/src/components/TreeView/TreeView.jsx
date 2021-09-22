@@ -60,6 +60,11 @@ const CustomTreeView = () => {
         >
           {t('titles:emailEditor')}
         </Typography>
+        <Box mt={0.5}>
+          <Typography color="inherit">
+            {t('descriptions:emailTemplateLanguage')}
+          </Typography>
+        </Box>
       </Box>
       <TreeView
         defaultExpanded={[0, 1]}

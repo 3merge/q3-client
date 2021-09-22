@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Image from 'gatsby-image';
-import Box from '@material-ui/core/Box';
+import { Avatar, Box } from '@material-ui/core';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Hidden from '@material-ui/core/Hidden';
@@ -61,16 +61,7 @@ const AppNavigation = ({
       </Hidden>
       <Box className={cls.root} component="nav">
         <Link to={root} className={cls.logo}>
-          <Image
-            alt="Logo"
-            fluid={{
-              src: logoSrc,
-            }}
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-          />
+          <Avatar className={cls.avatar} src={logoSrc} />
         </Link>
         <Hidden mdDown>{renderMenuItems()}</Hidden>
       </Box>
