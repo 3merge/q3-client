@@ -100,5 +100,6 @@
   "io": "I/O",
   "customSegmentEditor": "Segment editor",
   "cannotAudit": "Cannot perform audit",
-  "nothingToAudit": "Nothing yet"
+  "nothingToAudit": "Nothing yet",
+  "emailEditorFailed": "Email editor unavailable"
 }

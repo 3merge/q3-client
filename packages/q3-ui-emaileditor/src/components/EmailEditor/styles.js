@@ -35,4 +35,7 @@ export default makeStyles((theme) => ({
       },
     },
   },
+  transform: {
+    transform: 'translate(-50%,-50%)',
+  },
 }));

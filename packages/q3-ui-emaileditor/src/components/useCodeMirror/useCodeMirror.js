@@ -25,15 +25,6 @@ import 'codemirror/addon/lint/lint';
 import EmailEditorContext from '../EmailEditorContext';
 import usePreview from '../usePreview';
 
-function beautify(content) {
-  return beautifyJS.html(content, {
-    indent_size: 2, // eslint-disable-line camelcase
-    wrap_attributes_indent_size: 2, // eslint-disable-line camelcase
-    max_preserve_newline: 0, // eslint-disable-line camelcase
-    preserve_newlines: false, // eslint-disable-line camelcase
-  });
-}
-
 const useCodeMirror = () => {
   const {
     disablePreview,
@@ -65,9 +56,7 @@ const useCodeMirror = () => {
     if (ref.current) {
       cm.current = CodeMirror.fromTextArea(ref.current, {
         autoCloseTags: true,
-        foldGutter: true,
         mode: 'xml',
-        lineNumbers: true,
         theme: `base16-${mode}`,
       });
 
@@ -90,7 +79,14 @@ const useCodeMirror = () => {
 
   React.useEffect(() => {
     if (cm.current && value) {
-      cm.current.setValue(beautify(value));
+      cm.current.setValue(
+        beautifyJS.html(value, {
+          indent_size: 2,
+          wrap_attributes_indent_size: 2,
+          max_preserve_newline: 0,
+          preserve_newlines: false,
+        }),
+      );
     }
   }, [value]);
 

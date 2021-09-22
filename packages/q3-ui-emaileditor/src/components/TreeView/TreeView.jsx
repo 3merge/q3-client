@@ -5,13 +5,15 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
+import { useTranslation } from 'react-i18next';
 import EmailEditorContext from '../EmailEditorContext';
 import { isPartial } from '../useEmailTemplates/useEmailTemplates';
 import useStyle from './styles';
 
-const EmailsTemplateSelect = () => {
+const CustomTreeView = () => {
   const cls = useStyle();
-  const { id, setById, templates } = React.useContext(
+  const { t } = useTranslation();
+  const { id, setById, templates = [] } = React.useContext(
     EmailEditorContext,
   );
 
@@ -33,6 +35,16 @@ const EmailsTemplateSelect = () => {
   const handleNodeSelect = (e, value) =>
     hasTemplateId(value) ? setById(value) : null;
 
+  const renderTree = (xs) =>
+    xs.map((temp) => (
+      <TreeItem
+        classes={cls}
+        nodeId={temp.id}
+        label={temp.name}
+        key={temp.id}
+      />
+    ));
+
   return (
     <Box component="nav" p={1}>
       <Box mt={2} p={2} mb={-1}>
@@ -41,7 +53,7 @@ const EmailsTemplateSelect = () => {
           variant="h6"
           color="inherit"
         >
-          Email editor
+          {t('titles:emailEditor')}
         </Typography>
       </Box>
       <TreeView
@@ -51,34 +63,23 @@ const EmailsTemplateSelect = () => {
         selected={id}
         onNodeSelect={handleNodeSelect}
       >
-        <TreeItem classes={cls} label="Partials" nodeId={0}>
-          {partial.map((t) => (
-            <TreeItem
-              classes={cls}
-              nodeId={t.id}
-              label={t.name}
-              key={t.id}
-            />
-          ))}
+        <TreeItem
+          classes={cls}
+          label={t('labels:partials')}
+          nodeId={0}
+        >
+          {renderTree(partial)}
         </TreeItem>
         <TreeItem
           classes={cls}
-          label="Templates"
+          label={t('labels:templates')}
           nodeId={1}
         >
-          {full.map((t) => (
-            <TreeItem
-              classes={cls}
-              nodeId={t.id}
-              label={t.name}
-            />
-          ))}
+          {renderTree(full)}
         </TreeItem>
       </TreeView>
     </Box>
   );
 };
 
-EmailsTemplateSelect.propTypes = {};
-
-export default EmailsTemplateSelect;
+export default CustomTreeView;

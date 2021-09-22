@@ -11,6 +11,7 @@ import useStyles from './useStyle';
 export const ICON_NAMES = {
   'Add': SvgIcon.Add,
   'Build': SvgIcon.Build,
+  'Code': SvgIcon.Code,
   'Connect': SvgIcon.Connect,
   'Done': SvgIcon.Done,
   'Empty': SvgIcon.Empty,

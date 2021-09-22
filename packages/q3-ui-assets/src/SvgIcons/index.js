@@ -1,5 +1,6 @@
 export { default as Add } from './Add';
 export { default as Build } from './Build';
+export { default as Code } from './Code';
 export { default as Connect } from './Connect';
 export { default as Done } from './Done';
 export { default as Empty } from './Empty';

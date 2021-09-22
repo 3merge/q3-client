@@ -3,7 +3,7 @@ import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
 import mjml1 from './data/template1';
 
-export default ({ delay = 1000, children }) => {
+export default ({ delay = 1000, causeError, children }) => {
   const defineMockRoutes = (m) => {
     m.onPost(/emails-preview/).reply(async () => {
       return [
@@ -15,6 +15,7 @@ export default ({ delay = 1000, children }) => {
     });
 
     m.onGet(/emails/).reply(async () => {
+      if (causeError) return [500];
       return [
         200,
         {

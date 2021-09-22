@@ -42,8 +42,8 @@ const useEmailTemplates = () => {
 
   return {
     templates: emails,
-    error: Boolean(fetchingError || !size(emails)),
-    ready: Boolean(!fetching && current),
+    error: Boolean(fetchingError && !size(emails)),
+    ready: Boolean(!fetching && current) || fetchingError,
     disablePreview: isPartial(current),
     value: get(current, 'mjml', '<mjml />'),
     vars: get(current, 'variables', {}),
