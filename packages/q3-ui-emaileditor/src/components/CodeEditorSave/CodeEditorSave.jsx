@@ -10,7 +10,11 @@ const CodeEditorSave = ({ onClick }) => (
     right="1rem"
     zIndex="100"
   >
-    <Fab color="primary" onClick={onClick}>
+    <Fab
+      id="save-email-template"
+      color="primary"
+      onClick={onClick}
+    >
       <SaveIcon />
     </Fab>
   </Box>

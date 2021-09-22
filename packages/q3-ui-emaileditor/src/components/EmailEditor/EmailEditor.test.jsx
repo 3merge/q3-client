@@ -1,8 +1,8 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Graphic from 'q3-ui-assets';
 import CodeEditor from '../CodeEditor';
 import EmailEditor from './EmailEditor';
+import EmailEditorErrorGraphic from '../EmailEditorErrorGraphic';
 import useEmailTemplates from '../useEmailTemplates';
 
 jest.mock('../useEmailTemplates');
@@ -30,7 +30,7 @@ describe('EmailEditor', () => {
       error: true,
     });
 
-    expectElement(Graphic);
+    expectElement(EmailEditorErrorGraphic);
   });
 
   it('should display code preview', () => {

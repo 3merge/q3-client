@@ -26,6 +26,7 @@ const CodeEditorPreview = ({ disable, loading, html }) => {
         ref={ref}
         title="preview"
         className={cls.iframe}
+        data-test={html}
       />
     </Grid>
   );

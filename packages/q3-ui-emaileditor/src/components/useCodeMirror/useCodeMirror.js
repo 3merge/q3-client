@@ -69,7 +69,7 @@ const useCodeMirror = () => {
 
       return () => {
         if (cm.current) {
-          cm.current.toTextArea();
+          // cm.current.toTextArea();
           cm.current = null;
         }
       };
@@ -79,7 +79,7 @@ const useCodeMirror = () => {
   }, [disablePreview, mode, variables]);
 
   React.useEffect(() => {
-    if (cm.current && value) {
+    if (cm.current && value)
       cm.current.setValue(
         beautifyJS.html(value, {
           indent_size: 2,
@@ -88,15 +88,16 @@ const useCodeMirror = () => {
           preserve_newlines: false,
         }),
       );
-    }
   }, [value]);
 
   return {
+    codeMirrorRef: cm,
     disablePreview,
     save,
     loading,
     html,
     ref,
+    value,
   };
 };
 

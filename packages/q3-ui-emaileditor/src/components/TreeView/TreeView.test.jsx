@@ -18,23 +18,23 @@ describe('TreeView', () => {
     jest.spyOn(React, 'useContext').mockReturnValue({
       templates: [
         {
-          id: '1',
+          id: 'T1',
           name: '__A',
         },
         {
-          id: '2',
+          id: 'T2',
           name: 'A',
         },
         {
-          id: '3',
+          id: 'T3',
           name: 'B',
         },
       ],
     });
 
     // inclusive of self
-    expect(getTreeItemLengthByNodeId(0)).toBe(2);
-    expect(getTreeItemLengthByNodeId(1)).toBe(3);
+    expect(getTreeItemLengthByNodeId('0')).toBe(2);
+    expect(getTreeItemLengthByNodeId('1')).toBe(3);
   });
 
   it('should update', () => {
@@ -43,7 +43,7 @@ describe('TreeView', () => {
       setById,
       templates: [
         {
-          id: '1',
+          id: 'T1',
           name: '__A',
         },
       ],
@@ -52,8 +52,8 @@ describe('TreeView', () => {
     global
       .shallow(<TreeView />)
       .find(MuiTreeView)
-      .prop('onNodeSelect')(null, '1');
+      .prop('onNodeSelect')(null, 'T1');
 
-    expect(setById).toHaveBeenCalledWith('1');
+    expect(setById).toHaveBeenCalledWith('T1');
   });
 });

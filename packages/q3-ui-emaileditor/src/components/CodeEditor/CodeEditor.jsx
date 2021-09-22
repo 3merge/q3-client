@@ -7,16 +7,34 @@ import useStyle from './styles';
 
 // eslint-disable-next-line
 const Emails = ({ children }) => {
-  const { loading, html, ref, save } = useCodeMirror();
+  const {
+    codeMirrorRef,
+    disablePreview,
+    loading,
+    html,
+    ref,
+    save,
+    value,
+  } = useCodeMirror();
   const cls = useStyle();
 
   return (
     <Grid className={cls.root} container>
       <Grid item zeroMinWidth className={cls.column}>
-        <textarea className={cls.textarea} ref={ref} />
+        <textarea
+          className={cls.textarea}
+          // allows us to manipulate text editor in tests
+          data-test={codeMirrorRef.current}
+          data-value={value}
+          ref={ref}
+        />
         <CodeEditorSave onClick={save} />
       </Grid>
-      <CodeEditorPreview html={html} loading={loading} />
+      <CodeEditorPreview
+        disable={disablePreview}
+        html={html}
+        loading={loading}
+      />
     </Grid>
   );
 };

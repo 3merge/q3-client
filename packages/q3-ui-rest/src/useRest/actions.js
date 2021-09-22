@@ -98,7 +98,9 @@ const useRest = ({
 
   const handleGetRequestWithLoading = (query) => {
     call(FETCHING);
-    return handleGetRequest(query);
+    return handleGetRequest(query).catch(() => {
+      // noop
+    });
   };
 
   const methods = {

@@ -7,17 +7,17 @@ import mjml2 from './data/template2';
 
 const emails = [
   {
-    'id': '1',
+    'id': 't1',
     'name': '__header',
     'mjml': mjml2,
   },
   {
-    'id': '2',
+    'id': 't2',
     'name': '__footer',
     'mjml': '',
   },
   {
-    'id': '3',
+    'id': 't3',
     'name': 'welcome',
     'mjml': mjml1,
   },
@@ -26,7 +26,7 @@ const emails = [
 export const defineMockRoutes = (options = {}) => (m) => {
   const { causeError = false } = options;
 
-  m.onPost(/emails-preview/).reply(async () => {
+  m.onPost(/emails-preview/).reply(async (e) => {
     return [
       200,
       {
@@ -35,17 +35,12 @@ export const defineMockRoutes = (options = {}) => (m) => {
     ];
   });
 
-  m.onGet(/emails/).reply(async () => {
+  m.onGet(/emails/).reply(() => {
     if (causeError) return [500];
-    return [
-      200,
-      {
-        emails,
-      },
-    ];
+    return [200, { emails }];
   });
 
-  m.onPatch(/emails/).reply(async (data) => {
+  m.onPatch(/emails/).reply((data) => {
     const id = last(data.url.split('/'));
     const { mjml } = JSON.parse(data.data);
 

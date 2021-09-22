@@ -11,7 +11,7 @@ import { isPartial } from '../useEmailTemplates/useEmailTemplates';
 import useStyle from './styles';
 
 const CustomTreeView = () => {
-  const cls = useStyle();
+  const { wrapper: wrapperCls, ...cls } = useStyle();
   const { t } = useTranslation();
   const { id, setById, templates = [] } = React.useContext(
     EmailEditorContext,
@@ -47,10 +47,10 @@ const CustomTreeView = () => {
 
   return (
     <Box
+      className={wrapperCls}
       component="nav"
       p={2}
       pr={6}
-      className={cls.wrapper}
     >
       <Box mb={1}>
         <Typography
@@ -67,7 +67,7 @@ const CustomTreeView = () => {
         </Box>
       </Box>
       <TreeView
-        defaultExpanded={[0, 1]}
+        defaultExpanded={['0', '1']}
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
         selected={id}
@@ -76,14 +76,14 @@ const CustomTreeView = () => {
         <TreeItem
           classes={cls}
           label={t('labels:partials')}
-          nodeId={0}
+          nodeId="0"
         >
           {renderTree(partial)}
         </TreeItem>
         <TreeItem
           classes={cls}
           label={t('labels:templates')}
-          nodeId={1}
+          nodeId="1"
         >
           {renderTree(full)}
         </TreeItem>

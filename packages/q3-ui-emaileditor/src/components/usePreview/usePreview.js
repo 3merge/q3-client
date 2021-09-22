@@ -4,9 +4,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import EmailEditorContext from '../EmailEditorContext';
 
 const usePreview = () => {
-  const isMobile = useMediaQuery((theme) =>
-    theme.breakpoints.down('sm'),
-  );
+  const isMobile =
+    useMediaQuery((theme) =>
+      theme.breakpoints.down('sm'),
+    ) || false;
 
   const [html, setHtml] = React.useState();
   const { disablePreview, variables } = React.useContext(
