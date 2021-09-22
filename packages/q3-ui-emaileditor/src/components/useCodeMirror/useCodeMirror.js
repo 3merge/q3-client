@@ -61,15 +61,14 @@ const useCodeMirror = () => {
         theme: `base16-${mode}`,
       });
 
-      if (!disablePreview)
-        cm.current.on('change', () => {
-          setLoading(true);
-          change();
-        });
+      cm.current.on('change', () => {
+        setLoading(true);
+        change();
+      });
 
       return () => {
         if (cm.current) {
-          // cm.current.toTextArea();
+          cm.current.toTextArea();
           cm.current = null;
         }
       };

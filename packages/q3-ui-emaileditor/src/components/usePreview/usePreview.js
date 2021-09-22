@@ -14,6 +14,12 @@ const usePreview = () => {
     EmailEditorContext,
   );
 
+  const clear = () => setHtml(null);
+
+  const getData = ({ data }) => {
+    setHtml(data?.html);
+  };
+
   return {
     render: (mjml) =>
       mjml && !disablePreview && !isMobile
@@ -22,13 +28,9 @@ const usePreview = () => {
               mjml,
               variables,
             })
-            .then(({ data }) => {
-              setHtml(data?.html);
-            })
-            .catch(() => {
-              // noop
-            })
-        : Promise.resolve(),
+            .then(getData)
+            .catch(clear)
+        : Promise.resolve(clear()),
 
     html,
   };

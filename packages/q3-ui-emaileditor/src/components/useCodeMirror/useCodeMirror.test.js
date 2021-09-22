@@ -70,7 +70,6 @@ describe('useCodeMirror', () => {
     });
 
     useCodeMirror();
-    expect(on).not.toHaveBeenCalled();
     expect(setValue).toHaveBeenCalled();
   });
 });
