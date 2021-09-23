@@ -1,0 +1,28 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import EmailEditor from './EmailEditor';
+import { Box } from '@material-ui/core';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="EmailEditor" component={EmailEditor} />
+
+<Preview>
+  <Story name="Default">
+    <Fixtures>
+      <div style={{ height: '100vh' }}>
+        <EmailEditor />
+      </div>
+    </Fixtures>
+  </Story>
+  <Story name="Error">
+    <Fixtures causeError>
+      <div style={{ height: '100vh' }}>
+        <EmailEditor />
+      </div>
+    </Fixtures>
+  </Story>
+</Preview>

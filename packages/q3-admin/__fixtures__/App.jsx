@@ -7,7 +7,7 @@ import {
 } from 'q3-ui-rest';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
-
+import EmailEditor from 'q3-ui-emaileditor';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
@@ -34,13 +34,14 @@ const ExampleApp = ({ initialPath }) => {
           <Datasource>
             <Admin
               AppProps={{
-                pages,
+                addons: [EmailEditor],
                 customRoutes: [<Dash path="/" />],
+                pages,
               }}
               NavProps={{
                 title: 'Demo app',
                 logoSrc:
-                  'https://logoipsum.com/logo/logo-15.svg',
+                  'https://uilogos.co/img/logomark/cod-lab.png',
               }}
               ProfileProps={{
                 fields: <p>Append custom form fields!</p>,

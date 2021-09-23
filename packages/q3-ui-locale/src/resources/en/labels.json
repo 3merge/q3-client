@@ -327,5 +327,9 @@
   "systemAutomated": "System",
   "deleteMany": "Delete",
   "replyToThread": "Add reply",
-  "startThread": "Reply"
+  "startThread": "Reply",
+  "emaileditor": "Email editor",
+  "addons": "Add-ons",
+  "partials": "Partials",
+  "templates": "Templates"
 }

@@ -13,27 +13,36 @@ import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
+import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 
 export const goTo = (path) => () => navigate(path);
 
 const Admin = ({
-  icons,
-  tours,
+  // eslint-disable-next-line
   children,
   profileItems,
   AppProps,
+  // eslint-disable-next-line
   NavProps,
+  // eslint-disable-next-line
   ProfileProps,
 }) => {
   const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
   useServerSideEvents();
 
+  Object.assign(AppProps, {
+    pages: mergeAddonsWithPages(
+      AppProps.pages,
+      AppProps.addons,
+    ),
+  });
+
   return (
     <Viewport>
       <Navigation
         {...NavProps}
-        menuItems={usePages(AppProps.pages, icons)}
+        menuItems={usePages(AppProps.pages)}
         root={root}
       >
         <ProfileActions
@@ -74,18 +83,9 @@ const Admin = ({
 
 Admin.propTypes = {
   AppProps: PropTypes.shape({
+    addons: PropTypes.arrayOf(PropTypes.object),
     pages: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
-
-  /**
-   * An array of tour steps (label, html ID, etc.).
-   */
-  tours: PropTypes.arrayOf(PropTypes.object),
-
-  /**
-   * Each key-value pair corresponds with a collection name and its menu icon.
-   */
-  icons: PropTypes.shape({}),
 
   /**
    * An array of actions to populate the profile dropdown menu.
@@ -99,8 +99,6 @@ Admin.propTypes = {
 };
 
 Admin.defaultProps = {
-  icons: {},
-  tours: [],
   profileItems: [],
 };
 

@@ -31,3 +31,8 @@ export const containerSpec = (container) => ({
   toBeEmpty: () =>
     expect(container.isEmptyRender()).toBeTruthy(),
 });
+
+export const wait = (interval = 0) =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve(), interval);
+  });

@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import { useMatch } from '@reach/router';
-import {
-  debounce,
-  isObject,
-  size,
-  some,
-  invoke,
-} from 'lodash';
+import { isObject, size, some, invoke } from 'lodash';
 import { compose } from 'lodash/fp';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import NavigationLink from '../NavigationLink';
