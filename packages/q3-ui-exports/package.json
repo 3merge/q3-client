@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-exports",
-  "version": "1.38.7",
+  "version": "1.39.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.38.3"
+    "q3-ui-test-utils": "^1.39.0"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

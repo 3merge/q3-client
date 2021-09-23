@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-comments",
-  "version": "1.38.6",
+  "version": "1.39.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.38.3"
+    "q3-ui-test-utils": "^1.39.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.10.0",
