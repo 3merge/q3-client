@@ -1,7 +1,7 @@
 <p align="right">
   <img src="https://github.com/3merge/q3-client/workflows/Node%20CI/badge.svg" alt="Current CI build status." />
 </p>
-<p>
+<p>&nbsp;&nbsp;
   <img alt="3merge" src="https://github.com/3merge/q3-client/blob/master/logo.png" width="22" />
 </p>
 <ul>
