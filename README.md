@@ -1,11 +1,10 @@
 <p align="right">
   <img src="https://github.com/3merge/q3-client/workflows/Node%20CI/badge.svg" alt="Current CI build status." />
 </p>
-<p align="center">
+<p>
   <img alt="3merge" src="https://github.com/3merge/q3-client/blob/master/logo.png" width="22" />
 </p>
-<h1 align="center"> Q3 Client </h1>
-<p>Material UI framework for building Q3 API-based portals.</p> ## Packages <ul>
+<ul>
   <li>
     <a href="./packages/q3-admin">🧰 Admin Docs</a>
   </li>
