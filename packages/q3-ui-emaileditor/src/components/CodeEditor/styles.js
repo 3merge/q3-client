@@ -17,6 +17,11 @@ export default makeStyles((theme) => ({
       padding: '1rem 0',
       height: '100% !important',
       width: '100% !important',
+      maxHeight: '100vh',
+
+      [theme.breakpoints.down('sm')]: {
+        maxHeight: 'none !important',
+      },
     },
   },
   column: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { map } from 'lodash';
 
 const mergeAddonsWithPages = (a = [], b = []) => {
@@ -8,18 +9,28 @@ const mergeAddonsWithPages = (a = [], b = []) => {
         index: true,
         parent: 'addons',
         resourceName: String(AddOn?.name).toLowerCase(),
-        component: () => (
-          <main
-            style={{
-              overflow: 'auto',
-              position: 'relative',
-              height: 'calc((100 * var(--vh)) - 65px)',
-              width: '100%',
-            }}
-          >
-            <AddOn />
-          </main>
-        ),
+        component: () => {
+          const height = 'calc((100 * var(--vh)) - 65px)';
+
+          return (
+            <main
+              style={{
+                overflow: 'auto',
+                position: 'relative',
+
+                width: '100%',
+                height,
+              }}
+            >
+              <Helmet>
+                <style>
+                  {`.CodeMirror { max-height: ${height} !important }`}
+                </style>
+              </Helmet>
+              <AddOn />
+            </main>
+          );
+        },
       })),
     );
 
