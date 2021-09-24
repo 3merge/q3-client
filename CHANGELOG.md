@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.39.3](https://github.com/3merge/q/compare/v1.39.2...v1.39.3) (2021-09-24)
+
+
+### Bug Fixes
+
+* ssr email coder ([49da37e](https://github.com/3merge/q/commit/49da37e7826da2abd4a64e9e3e905f8d3c7060f4))
+
+
+
+
+
 ## [1.39.2](https://github.com/3merge/q/compare/v1.39.1...v1.39.2) (2021-09-24)
 
 **Note:** Version bump only for package q3-client
