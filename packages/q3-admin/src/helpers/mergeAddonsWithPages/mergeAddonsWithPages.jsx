@@ -8,7 +8,9 @@ const mergeAddonsWithPages = (a = [], b = []) => {
       map(b, (AddOn) => ({
         index: true,
         parent: 'addons',
-        resourceName: String(AddOn?.name).toLowerCase(),
+        resourceName: String(
+          AddOn?.displayName,
+        ).toLowerCase(),
         component: () => {
           const height = 'calc((100 * var(--vh)) - 65px)';
 

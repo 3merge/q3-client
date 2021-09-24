@@ -8,7 +8,6 @@ import {
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
-import CodeEditor from '../CodeEditor';
 import EmailEditorContext from '../EmailEditorContext';
 import TreeView from '../TreeView';
 import useEmailTemplates from '../useEmailTemplates';
@@ -16,6 +15,11 @@ import useStyle from './styles';
 import EmailEditorWrapper from '../EmailEditorWrapper';
 import EmailEditorErrorBoundary from '../EmailEditorErrorBoundary';
 import EmailEditorErrorGraphic from '../EmailEditorErrorGraphic';
+
+const CodeEditor = React.lazy(() =>
+  // issues with codemirror package
+  import('../CodeEditor'),
+);
 
 const MobileAlert = () => {
   const { t } = useTranslation('descriptions');
@@ -59,7 +63,9 @@ const EmailEditor = () => {
                 <TreeView />
               </Grid>
               <Grid item className={cls.editor}>
-                <CodeEditor />
+                <React.Suspense fallback={<div />}>
+                  <CodeEditor />
+                </React.Suspense>
               </Grid>
             </Grid>
           </Container>
@@ -68,5 +74,7 @@ const EmailEditor = () => {
     </EmailEditorErrorBoundary>
   );
 };
+
+EmailEditor.displayName = 'EmailEditor';
 
 export default EmailEditor;

@@ -1,9 +1,9 @@
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import CodeEditor from '../CodeEditor';
 import EmailEditor from './EmailEditor';
 import EmailEditorErrorGraphic from '../EmailEditorErrorGraphic';
 import useEmailTemplates from '../useEmailTemplates';
+import TreeView from '../TreeView';
 
 jest.mock('../useEmailTemplates');
 
@@ -39,6 +39,6 @@ describe('EmailEditor', () => {
       error: false,
     });
 
-    expectElement(CodeEditor);
+    expectElement(TreeView);
   });
 });
