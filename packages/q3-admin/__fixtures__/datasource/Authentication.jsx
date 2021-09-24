@@ -27,6 +27,7 @@ const StoriesApiMockAuthentication = ({ children }) => {
   const [session, setSession] = React.useState(profile);
   const characters = setupProfilePermissions('characters');
   const shows = setupProfilePermissions('shows');
+  const emails = setupProfilePermissions('emails');
 
   return (
     <AuthContext.Provider
@@ -45,7 +46,7 @@ const StoriesApiMockAuthentication = ({ children }) => {
         state: {
           init: true,
           profile: session,
-          permissions: [...characters, ...shows],
+          permissions: [...characters, ...shows, ...emails],
           filters,
         },
       }}
