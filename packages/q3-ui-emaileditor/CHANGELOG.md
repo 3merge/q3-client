@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.39.2](https://github.com/3merge/q/compare/v1.39.1...v1.39.2) (2021-09-24)
+
+**Note:** Version bump only for package q3-ui-emaileditor
+
+
+
+
+
 ## [1.39.1](https://github.com/3merge/q/compare/v1.39.0...v1.39.1) (2021-09-24)
 
 **Note:** Version bump only for package q3-ui-emaileditor
