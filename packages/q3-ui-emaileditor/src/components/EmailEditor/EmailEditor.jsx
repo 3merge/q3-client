@@ -58,7 +58,7 @@ const EmailEditor = () => {
               <Grid item className={cls.sidebar}>
                 <TreeView />
               </Grid>
-              <Grid item xs>
+              <Grid item className={cls.editor}>
                 <CodeEditor />
               </Grid>
             </Grid>

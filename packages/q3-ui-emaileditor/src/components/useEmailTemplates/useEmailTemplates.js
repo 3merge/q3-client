@@ -1,6 +1,9 @@
 import React from 'react';
 import { get, find, size } from 'lodash';
 import useRest from 'q3-ui-rest';
+import { useAuth } from 'q3-ui-permissions';
+
+export const URL_NAME = 'emails';
 
 export const isPartial = (xs) =>
   !xs?.name || String(xs.name).startsWith('__');
@@ -19,14 +22,15 @@ const useEmailTemplates = () => {
     patch,
   } = useRest({
     key: 'email',
-    pluralized: 'emails',
-    url: '/emails',
+    pluralized: URL_NAME,
+    url: `/${URL_NAME}`,
     runOnInit: true,
     location: {
       search: '?sort=name',
     },
   });
 
+  const { canSee } = useAuth(URL_NAME);
   const [active, setActive] = React.useState();
   const current = findById(emails, active);
 
@@ -42,11 +46,13 @@ const useEmailTemplates = () => {
 
   return {
     templates: emails,
-    error: Boolean(fetchingError || !size(emails)),
+    error: Boolean(
+      fetchingError || !size(emails) || !canSee,
+    ),
     ready: Boolean(!fetching && current) || fetchingError,
     disablePreview: isPartial(current),
     value: current?.mjml || '<mjml />',
-    vars: get(current, 'variables', {}),
+    variables: get(current, 'variables', {}),
     onSave: handleSave,
     setById: setActive,
     id: active,

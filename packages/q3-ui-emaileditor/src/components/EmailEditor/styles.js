@@ -15,7 +15,16 @@ export default makeStyles((theme) => ({
       height: 'auto',
     },
   },
+  editor: {
+    width: 'calc(100% - 280px)',
+
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+  },
   sidebar: {
+    width: 280,
+
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     },

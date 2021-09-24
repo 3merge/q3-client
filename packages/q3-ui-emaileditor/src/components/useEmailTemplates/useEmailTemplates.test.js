@@ -9,6 +9,11 @@ import useEmailTemplates, {
 let state;
 
 jest.mock('q3-ui-rest');
+jest.mock('q3-ui-permissions', () => ({
+  useAuth: jest.fn().mockReturnValue({
+    canSee: true,
+  }),
+}));
 
 beforeEach(() => {
   state = jest

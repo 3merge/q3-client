@@ -9,12 +9,19 @@ const StoriesApiMockAuthentication = ({
 }) => {
   const permissions = [];
 
-  if (!revokeAccessToEmails)
+  if (!revokeAccessToEmails) {
     permissions.push({
       coll: 'emails',
       fields: ['*'],
       op: 'Read',
     });
+
+    permissions.push({
+      coll: 'emails',
+      fields: ['*'],
+      op: 'Update',
+    });
+  }
 
   return (
     <AuthContext.Provider
