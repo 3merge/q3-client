@@ -27,13 +27,15 @@ const Admin = ({
   // eslint-disable-next-line
   ProfileProps,
 }) => {
+  const pages = React.useRef(AppProps.pages);
   const cls = useStyle();
   const root = get(AppProps, 'directory', '/');
+
   useServerSideEvents();
 
   Object.assign(AppProps, {
     pages: mergeAddonsWithPages(
-      AppProps.pages,
+      pages.current,
       AppProps.addons,
     ),
   });
