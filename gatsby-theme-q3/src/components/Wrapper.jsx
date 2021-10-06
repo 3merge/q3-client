@@ -23,7 +23,8 @@ const registeri18ResourceBundles = (contentData) => {
 };
 
 const setBaseUrlForRest = (
-  baseURL = 'http://localhost:9000',
+  baseURL = process.env.GATSBY_APP_BASE_URL ||
+    'http://localhost:9000',
 ) => {
   axios.defaults.baseURL = baseURL;
   return axios.defaults;

@@ -40,6 +40,25 @@ const Admin = ({
     ),
   });
 
+  const goToWithRoot = (xs) =>
+    goTo(
+      [root, xs].join('/').replace(/([^:]\/)\/+/g, '$1'),
+    );
+
+  const standardProfileMenuItems = [
+    {
+      component: Profile,
+      label: 'profile',
+      path: '/account/profile',
+      ...ProfileProps,
+    },
+    {
+      component: ProfileChangePassword,
+      label: 'changePassword',
+      path: '/account/change-password',
+    },
+  ];
+
   return (
     <Viewport>
       <Navigation
@@ -49,19 +68,12 @@ const Admin = ({
       >
         <ProfileActions
           {...ProfileProps}
-          profileItems={[
-            ...profileItems,
-            {
-              onClick: goTo(`${root}account/profile`),
-              label: 'profile',
-            },
-            {
-              onClick: goTo(
-                `${root}account/change-password`,
-              ),
-              label: 'changePassword',
-            },
-          ]}
+          profileItems={[...profileItems].concat(
+            standardProfileMenuItems.map((item) => ({
+              onClick: goToWithRoot(item.path),
+              label: item.label,
+            })),
+          )}
         >
           <Notifications />
           <Documentation
@@ -71,11 +83,11 @@ const Admin = ({
       </Navigation>
       <Box className={cls.main}>
         <App {...AppProps}>
-          <Profile
-            path="/account/profile"
-            {...ProfileProps}
-          />
-          <ProfileChangePassword path="/account/change-password" />
+          {standardProfileMenuItems.map(
+            ({ component: Component, path }) => (
+              <Component key={path} path={path} />
+            ),
+          )}
         </App>
         {children}
       </Box>

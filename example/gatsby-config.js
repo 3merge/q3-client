@@ -1,14 +1,6 @@
-require('dotenv').config();
-
 const { loadContent } = require('gatsby-theme-q3/helpers');
 const path = require('path');
 const theme = require('./gatsby-theme');
-// const logo = require('./src/assets/logo.svg');
-
-const {
-  CONTENTFUL_ACCESS_TOKEN,
-  CONTENTFUL_SPACE_ID,
-} = process.env;
 
 module.exports = {
   siteMetadata: {
@@ -25,10 +17,6 @@ module.exports = {
     {
       resolve: 'gatsby-theme-q3',
       options: {
-        contentfulSpaceID: CONTENTFUL_SPACE_ID,
-        contentfulAccessToken: CONTENTFUL_ACCESS_TOKEN,
-        baseURL: 'http://localhost:9000/',
-
         locale: loadContent(
           path.resolve(__dirname, './locale'),
         ),

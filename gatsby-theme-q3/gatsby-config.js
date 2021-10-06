@@ -1,5 +1,8 @@
+// eslint-disable-next-line
+require('dotenv').config();
+
 const genKey = (url) =>
-  url.includes('netlify') ? 'disallow' : 'allow';
+  String(url).includes('netlify') ? 'disallow' : 'allow';
 
 module.exports = ({
   contentfulSpaceID,
@@ -10,11 +13,6 @@ module.exports = ({
   icon,
   netlify,
 }) => {
-  if (!contentfulSpaceID || !contentfulAccessToken)
-    throw new Error(
-      'Contentful SpaceId and AccessToken required to configure filesystem',
-    );
-
   const plugins = [
     'gatsby-plugin-force-trailing-slashes',
     'gatsby-plugin-sitemap',
@@ -42,14 +40,20 @@ module.exports = ({
         },
       },
     },
-    {
+  ];
+
+  if (contentfulSpaceID) {
+    if (!contentfulAccessToken)
+      throw new Error('Contentful access token missing');
+
+    plugins.push({
       resolve: 'gatsby-source-contentful',
       options: {
         spaceId: contentfulSpaceID,
         accessToken: contentfulAccessToken,
       },
-    },
-  ];
+    });
+  }
 
   if (netlify)
     plugins.push({
