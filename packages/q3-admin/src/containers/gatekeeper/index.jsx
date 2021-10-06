@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
+import {
+  navigate as globalReachNavigate,
+  useLocation,
+} from '@reach/router';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
@@ -10,12 +13,14 @@ import {
 import { object } from 'q3-ui-helpers';
 
 export const Gatekeeper = ({
+  navigate,
   redirectCheck,
   redirectPathOnSession,
   redirectPathOnPublic,
   children,
 }) => {
   const Auth = React.useContext(AuthContext);
+  const l = useLocation();
 
   if (!Auth.state.init)
     return (
@@ -30,7 +35,12 @@ export const Gatekeeper = ({
   );
 
   if (redirectPathOnPublic && !Auth.state.profile) {
-    navigate(redirectPathOnPublic);
+    navigate(redirectPathOnPublic, {
+      state: {
+        gatekeeper: l.pathname,
+      },
+    });
+
     return null;
   }
 
@@ -48,12 +58,14 @@ export const Gatekeeper = ({
 };
 
 Gatekeeper.propTypes = {
+  navigate: PropTypes.func,
   redirectPathOnSession: PropTypes.string,
   redirectPathOnPublic: PropTypes.string,
   children: PropTypes.node,
 };
 
 Gatekeeper.defaultProps = {
+  navigate: globalReachNavigate,
   children: null,
 };
 

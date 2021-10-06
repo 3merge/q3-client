@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'gatsby';
 import MuiLink from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';

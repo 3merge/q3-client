@@ -1,27 +1,19 @@
 import React from 'react';
-import { get } from 'lodash';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useLocation } from '@reach/router';
+import useAppDirectory from './useAppDirectory';
 import { authenticate } from './utils';
 
 export default (Component) => (props) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          appDirectory
-        }
-      }
-    }
-  `);
+  const dir = useAppDirectory();
+
+  const redirectionPath =
+    useLocation()?.state?.gatekeeper || dir;
 
   return (
     <Component
       {...props}
       authenticate={(formValues) =>
-        authenticate(
-          formValues,
-          get(data, 'site.siteMetadata.appDirectory', '/'),
-        )
+        authenticate(formValues, redirectionPath)
       }
     />
   );

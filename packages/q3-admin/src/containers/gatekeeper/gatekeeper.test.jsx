@@ -7,6 +7,9 @@ let spy;
 
 jest.mock('@reach/router', () => ({
   navigate: jest.fn(),
+  useLocation: jest.fn().mockReturnValue({
+    pathname: '/app/users',
+  }),
 }));
 
 jest.mock('q3-ui-permissions', () => ({
@@ -28,7 +31,11 @@ describe('Gatekeeper', () => {
       <Gatekeeper redirectPathOnPublic="/login" />,
     );
 
-    expect(navigate).toHaveBeenCalledWith('/login');
+    expect(navigate).toHaveBeenCalledWith('/login', {
+      state: {
+        gatekeeper: '/app/users',
+      },
+    });
   });
 
   it('should fail authentication check', () => {

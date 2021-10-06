@@ -19,6 +19,7 @@ module.exports = {
     siteUrl: 'https://google.ca',
     brand: '3merge',
     appDirectory: '/app',
+    logo: '/logo.svg',
   },
   plugins: [
     {

@@ -1,7 +1,6 @@
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import GroupIcon from '@material-ui/icons/Group';
 import Add from './Add';
-import Filter from './Filter';
 import General from './general';
 import Movies from './movies';
 
@@ -15,7 +14,6 @@ export default new AbstractCollectionBuilder({
     titleProp: 'name',
   })
   .genNew(Add)
-  .genFilter(Filter)
   .genViews({
     General,
     Movies,
