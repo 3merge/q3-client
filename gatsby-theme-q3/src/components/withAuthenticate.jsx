@@ -1,13 +1,13 @@
 import React from 'react';
 import { useLocation } from '@reach/router';
-import useAppDirectory from './useAppDirectory';
+import useSiteMetaData from './useSiteMetaData';
 import { authenticate } from './utils';
 
 export default (Component) => (props) => {
-  const dir = useAppDirectory();
+  const { appDirectory } = useSiteMetaData();
 
   const redirectionPath =
-    useLocation()?.state?.gatekeeper || dir;
+    useLocation()?.state?.gatekeeper || appDirectory;
 
   return (
     <Component

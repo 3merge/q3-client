@@ -1,14 +1,34 @@
 import React from 'react';
-import { Public } from 'q3-admin/lib/components';
+import PropTypes from 'prop-types';
+import { navigate } from 'gatsby';
 import { Gatekeeper } from 'q3-admin/lib/containers';
 import IsBrowserReady from './IsBrowserReady';
 
-const AdminPublicGateway = ({ children, ...rest }) => (
+const AdminPublicGateway = ({
+  children,
+  GatekeepProps,
+}) => (
   <IsBrowserReady>
-    <Gatekeeper redirectPathOnSession="/app">
-      <Public {...rest}>{children}</Public>
+    <Gatekeeper
+      navigate={navigate}
+      redirectPathOnSession="/app"
+      {...GatekeepProps}
+    >
+      {children}
     </Gatekeeper>
   </IsBrowserReady>
 );
+
+AdminPublicGateway.defaultProps = {
+  GatekeepProps: {},
+  children: null,
+};
+
+AdminPublicGateway.propTypes = {
+  GatekeepProps: PropTypes.shape({
+    redirectCheck: PropTypes.func,
+  }),
+  children: PropTypes.node,
+};
 
 export default AdminPublicGateway;

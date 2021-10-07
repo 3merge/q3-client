@@ -7,10 +7,16 @@ export default () =>
       query {
         site {
           siteMetadata {
+            appDirectory
+            brand
+            description
+            favicon
             logo
+            title
           }
         }
       }
     `),
-    'site.siteMetadata.logo',
+    'site.siteMetadata',
+    {},
   );

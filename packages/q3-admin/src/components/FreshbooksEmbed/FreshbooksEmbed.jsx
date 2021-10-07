@@ -12,7 +12,7 @@ const FreshbooksEmbed = ({ id }) => (
     </script>
     <script
       type="text/javascript"
-      src="https://widget.freshworks.com/widgets/70000001065.js"
+      src={`https://widget.freshworks.com/widgets/${id}.js`}
       async
       defer
     />

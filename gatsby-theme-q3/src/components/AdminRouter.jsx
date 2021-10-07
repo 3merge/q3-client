@@ -1,48 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Gatekeeper } from 'q3-admin/lib/containers';
 import { Router } from '@reach/router';
 import AdminApp from 'q3-admin';
-import { navigate } from 'gatsby';
-import IsBrowserReady from './IsBrowserReady';
-import useAppDirectory from './useAppDirectory';
-import useAppLogo from './useAppLogo';
-import SearchEngine from './SearchEngine';
+import AdminPrivateGateway from './AdminPrivateGateway';
+import useSiteMetaData from './useSiteMetaData';
 
 const AdminRouter = ({
   children,
   AdminProps,
   GatekeepProps,
 }) => {
-  const basepath = useAppDirectory();
-  const logoSrc = useAppLogo();
+  const {
+    appDirectory: basepath,
+    favicon: logoSrc,
+  } = useSiteMetaData();
 
   return (
-    <IsBrowserReady>
-      <SearchEngine />
-      <Gatekeeper
-        navigate={navigate}
-        redirectPathOnPublic="/login"
-        {...GatekeepProps}
-      >
-        <Router basepath={basepath}>
-          <AdminApp
-            {...AdminProps}
-            path="*"
-            AppProps={{
-              directory: basepath,
-              ...AdminProps?.AppProps,
-            }}
-            NavProps={{
-              logoSrc,
-              ...AdminProps?.NavProps,
-            }}
-          >
-            {children}
-          </AdminApp>
-        </Router>
-      </Gatekeeper>
-    </IsBrowserReady>
+    <AdminPrivateGateway GatekeepProps={GatekeepProps}>
+      <Router basepath={basepath}>
+        <AdminApp
+          {...AdminProps}
+          path="*"
+          AppProps={{
+            directory: basepath,
+            ...AdminProps?.AppProps,
+          }}
+          NavProps={{
+            logoSrc,
+            ...AdminProps?.NavProps,
+          }}
+        >
+          {children}
+        </AdminApp>
+      </Router>
+    </AdminPrivateGateway>
   );
 };
 

@@ -2,13 +2,13 @@ import React from 'react';
 import { useLocation } from '@reach/router';
 import withAuthenticate from '../withAuthenticate';
 import { authenticate } from '../utils';
-import useAppDirectory from '../useAppDirectory';
+import useSiteMetaData from '../useSiteMetaData';
 
 jest.mock('@reach/router', () => ({
   useLocation: jest.fn(),
 }));
 
-jest.mock('../useAppDirectory');
+jest.mock('../useSiteMetaData');
 jest.mock('../utils', () => ({
   authenticate: jest.fn(),
 }));
@@ -25,7 +25,9 @@ const runAuthenticate = () => {
 
 describe('withAuthenticate', () => {
   it('should redirect to default directory', () => {
-    useAppDirectory.mockReturnValue('/app');
+    useSiteMetaData.mockReturnValue({
+      appDirectory: '/app',
+    });
 
     runAuthenticate();
     expect(authenticate).toHaveBeenCalledWith(

@@ -1,18 +1,14 @@
 import React from 'react';
 import { AdminRouter } from 'gatsby-theme-q3/src/components';
-import { useTimezoneInterceptor } from 'q3-ui-rest';
-import pages from '../views';
+import { Dashboard, Companies } from '../components';
 
-export default () => {
-  useTimezoneInterceptor('America/Los_Angeles');
-
-  return (
-    <AdminRouter
-      AdminProps={{
-        AppProps: {
-          pages,
-        },
-      }}
-    />
-  );
-};
+export default () => (
+  <AdminRouter
+    AdminProps={{
+      AppProps: {
+        customRoutes: [<Dashboard path="/" />],
+        pages: [Companies].flat(),
+      },
+    }}
+  />
+);

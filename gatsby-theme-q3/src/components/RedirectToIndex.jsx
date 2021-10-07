@@ -1,10 +1,10 @@
 // eslint-disable-next-line
 import React from 'react';
 import { navigate } from 'gatsby';
-import useAppDirectory from './useAppDirectory';
+import useSiteMetaData from './useSiteMetaData';
 
 const IndexPage = () => {
-  navigate(useAppDirectory());
+  navigate(useSiteMetaData().appDirectory);
   return null;
 };
 
