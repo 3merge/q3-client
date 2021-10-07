@@ -13,10 +13,8 @@ describe('generateInitialValues', () => {
     expect(
       generateInitialValues(
         {
-          profile: {
-            email: 'foo@bar.com',
-            age: 21,
-          },
+          email: 'foo@bar.com',
+          age: 21,
         },
         ['age'],
       ),

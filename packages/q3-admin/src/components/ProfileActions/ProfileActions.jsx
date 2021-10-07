@@ -1,67 +1,49 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { destroySession } from 'q3-ui-permissions';
-import { get } from 'lodash';
-import { AuthContext } from 'q3-ui-permissions';
-import { ModeContext } from 'q3-ui/lib/Mode';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
-import IconButton from '@material-ui/core/IconButton';
-import AppHeaderDropdown from '../AppHeaderDropdown';
+import Notifications from '../../containers/Notifications';
+import Documentation from '../Documentation';
+import ProfileActionsDropdown from '../ProfileActionsDropdown';
+import ThemeMode from '../ThemeMode';
 
 const ProfileActions = ({
-  children,
-  enableThemeTypeToggle,
-  profileItems,
-}) => {
-  const items = [...profileItems];
-  const { state } = React.useContext(AuthContext);
-  const { isLight, toggle } = React.useContext(ModeContext);
+  DocumentationProps,
+  includeDocumentation,
+  includeNotifications,
+  includeThemeMode,
+  includeActionsDropdown,
+}) => (
+  <Box
+    alignItems="center"
+    display="flex"
+    justifyContent="flex-end"
+    minWidth={127}
+  >
+    {includeNotifications && <Notifications />}
+    {includeDocumentation && (
+      <Documentation {...DocumentationProps} />
+    )}
+    {includeThemeMode && <ThemeMode />}
+    {includeActionsDropdown && <ProfileActionsDropdown />}
+  </Box>
+);
 
-  return (
-    <Grid
-      container
-      alignItems="center"
-      justify="flex-end"
-      style={{ minWidth: 127 }}
-    >
-      <Grid item>{children}</Grid>
-      <Grid item>
-        {enableThemeTypeToggle && (
-          <IconButton
-            color="inherit"
-            onClick={toggle}
-            label="color mode"
-          >
-            {isLight ? (
-              <Brightness4Icon />
-            ) : (
-              <BrightnessHighIcon />
-            )}
-          </IconButton>
-        )}
-        <AppHeaderDropdown
-          src={get(state, 'profile.photo')}
-          items={items.concat({
-            label: 'logout',
-            onClick: () => destroySession(),
-          })}
-        />
-      </Grid>
-    </Grid>
-  );
+ProfileActions.defaultProps = {
+  DocumentationProps: {},
+  includeDocumentation: true,
+  includeNotifications: true,
+  includeThemeMode: true,
+  includeActionsDropdown: true,
 };
 
 ProfileActions.propTypes = {
-  children: PropTypes.node.isRequired,
-  profileItems: PropTypes.arrayOf(PropTypes.object),
-  enableThemeTypeToggle: PropTypes.bool,
-};
-
-ProfileActions.defaultProps = {
-  enableThemeTypeToggle: true,
-  profileItems: [],
+  DocumentationProps: PropTypes.shape({
+    id: PropTypes.number,
+  }),
+  includeDocumentation: PropTypes.bool,
+  includeNotifications: PropTypes.bool,
+  includeThemeMode: PropTypes.bool,
+  includeActionsDropdown: PropTypes.bool,
 };
 
 export default ProfileActions;

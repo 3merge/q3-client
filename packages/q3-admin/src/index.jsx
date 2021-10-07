@@ -1,31 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { navigate } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
-import Notifications from './containers/Notifications';
 import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
-import Documentation from './components/Documentation';
+import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
+import {
+  NOTIFICATIONS_PATH,
+  PASSWORD_PATH,
+  PROFILE_PATH,
+} from './components/ProfileActionsDropdown/ProfileActionsDropdown';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 
-export const goTo = (path) => () => navigate(path);
-
 const Admin = ({
-  // eslint-disable-next-line
-  children,
-  profileItems,
   AppProps,
-  // eslint-disable-next-line
   NavProps,
-  // eslint-disable-next-line
-  ProfileProps,
+  ProfileActionsProps,
+  ProfileChangePasswordComponent,
+  ProfileNotificationsComponent,
+  ProfileComponent,
+  children,
 }) => {
   const pages = React.useRef(AppProps.pages);
   const cls = useStyle();
@@ -40,25 +40,6 @@ const Admin = ({
     ),
   });
 
-  const goToWithRoot = (xs) =>
-    goTo(
-      [root, xs].join('/').replace(/([^:]\/)\/+/g, '$1'),
-    );
-
-  const standardProfileMenuItems = [
-    {
-      component: Profile,
-      label: 'profile',
-      path: '/account/profile',
-      ...ProfileProps,
-    },
-    {
-      component: ProfileChangePassword,
-      label: 'changePassword',
-      path: '/account/change-password',
-    },
-  ];
-
   return (
     <Viewport>
       <Navigation
@@ -66,30 +47,19 @@ const Admin = ({
         menuItems={usePages(AppProps.pages)}
         root={root}
       >
-        <ProfileActions
-          {...ProfileProps}
-          profileItems={[...profileItems].concat(
-            standardProfileMenuItems.map((item) => ({
-              onClick: goToWithRoot(item.path),
-              label: item.label,
-            })),
-          )}
-        >
-          <Notifications />
-          <Documentation
-            id={get(AppProps, 'documentationWidgetId')}
-          />
-        </ProfileActions>
+        <ProfileActions {...ProfileActionsProps} />
       </Navigation>
       <Box className={cls.main}>
         <App {...AppProps}>
-          {standardProfileMenuItems.map(
-            ({ component: Component, path }) => (
-              <Component key={path} path={path} />
-            ),
-          )}
+          <ProfileComponent path={PROFILE_PATH} />
+          <ProfileChangePasswordComponent
+            path={PASSWORD_PATH}
+          />
+          <ProfileNotificationsComponent
+            path={NOTIFICATIONS_PATH}
+          />
+          {children}
         </App>
-        {children}
       </Box>
     </Viewport>
   );
@@ -101,19 +71,32 @@ Admin.propTypes = {
     pages: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 
-  /**
-   * An array of actions to populate the profile dropdown menu.
-   */
-  profileItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      onClick: PropTypes.func,
-      label: PropTypes.string,
-    }),
-  ),
+  NavProps: PropTypes.shape({
+    logoSrc: PropTypes.string,
+  }),
+
+  ProfileActionsProps: PropTypes.shape({
+    // eslint-disable-next-line
+    DocumentationProps: PropTypes.object,
+    includeDocumentation: PropTypes.bool,
+    includeNotifications: PropTypes.bool,
+    includeThemeMode: PropTypes.bool,
+    includeActionsDropdown: PropTypes.bool,
+  }),
+
+  children: PropTypes.arrayOf(PropTypes.node),
+  ProfileComponent: PropTypes.func,
+  ProfileChangePasswordComponent: PropTypes.func,
+  ProfileNotificationsComponent: PropTypes.func,
 };
 
 Admin.defaultProps = {
-  profileItems: [],
+  NavProps: {},
+  ProfileActionsProps: {},
+  children: [],
+  ProfileComponent: Profile,
+  ProfileChangePasswordComponent: ProfileChangePassword,
+  ProfileNotificationsComponent: ProfileNotifications,
 };
 
 export default Admin;

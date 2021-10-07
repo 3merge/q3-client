@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
 import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useTranslation } from 'react-i18next';
+import { isFunction, map } from 'lodash';
 
 export const useOpen = () => {
   const [open, setOpen] = React.useState();
@@ -48,19 +51,40 @@ export const DropDownMenu = ({
         elevation={5}
         {...etc}
       >
-        {items.map((item) => (
-          <MenuItem
-            style={{ margin: 0 }}
-            key={item.label}
-            onClick={(e) => {
-              item.onClick(e);
-              closeMenu();
-            }}
-          >
-            {item.element}
-            {t(item.label)}
-          </MenuItem>
-        ))}
+        {map(items, (item, i) =>
+          item.divider ? (
+            <Divider
+              style={{ margin: '.5rem 0' }}
+              component="li"
+              key={i}
+            />
+          ) : (
+            <li key={item.label}>
+              <MenuItem
+                {...(isFunction(item.onClick)
+                  ? {
+                      component: 'button',
+                      onClick: (e) => {
+                        item.onClick(e);
+                        closeMenu();
+                      },
+                    }
+                  : {
+                      component: Link,
+                      onClick: closeMenu,
+                      to: item.to || '/',
+                    })}
+                style={{
+                  margin: 0,
+                  width: '100%',
+                }}
+              >
+                {item.element}
+                {t(item.label)}
+              </MenuItem>
+            </li>
+          ),
+        )}
       </Menu>
     </>
   );

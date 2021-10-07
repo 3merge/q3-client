@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, pick } from 'lodash';
-import { AuthContext } from 'q3-ui-permissions';
+import { pick } from 'lodash';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import { useTranslation } from 'react-i18next';
 import { handleFormData } from 'q3-ui-forms/lib/helpers';
+import useProfileForm from '../../hooks/useProfileForm';
 
 export const generateInitialValues = (
   state,
@@ -19,14 +18,13 @@ export const generateInitialValues = (
   ];
 
   return pick(
-    get(
-      state,
-      'profile',
+    Object.assign(
       keys.reduce((acc, next) =>
         Object.assign(acc, {
           [next]: '',
         }),
       ),
+      state,
     ),
     keys,
   );
@@ -37,24 +35,17 @@ const ProfileGeneral = ({
   fieldKeys,
   formProps,
 }) => {
-  const { t } = useTranslation();
-  const { state, update } = React.useContext(AuthContext);
-
-  const initialValues = generateInitialValues(
-    state,
-    fieldKeys,
-  );
+  const { initialValues, onSubmit } = useProfileForm();
 
   return (
     <Form
       {...formProps}
       showSuccessMessage
-      initialValues={initialValues}
-      onSubmit={handleFormData((formData) =>
-        update(formData).then(() => ({
-          message: t('descriptions:profileUpdated'),
-        })),
+      initialValues={generateInitialValues(
+        initialValues,
+        fieldKeys,
       )}
+      onSubmit={handleFormData(onSubmit)}
     >
       <Field name="firstName" type="text" required xl={6} />
       <Field name="lastName" type="text" required xl={6} />

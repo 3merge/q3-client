@@ -87,17 +87,6 @@ module.exports = ({
     });
 
   return {
-    siteMetadata: {
-      appDirectory: '/app',
-      author: '3merge',
-      brand: '3merge',
-      description:
-        'Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.',
-      favicon: '/logo.svg',
-      logo: '/logo.svg',
-      title: 'Q3',
-      siteUrl: 'https://google.ca',
-    },
     plugins,
   };
 };

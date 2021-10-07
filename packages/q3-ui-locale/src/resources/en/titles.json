@@ -102,5 +102,6 @@
   "cannotAudit": "Cannot perform audit",
   "nothingToAudit": "Nothing yet",
   "emailEditorFailed": "Email editor unavailable",
-  "emailEditor": "Email editor"
+  "emailEditor": "Email editor",
+  "profileNotifications": "Notifications"
 }

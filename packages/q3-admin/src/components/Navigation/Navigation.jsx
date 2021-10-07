@@ -71,13 +71,16 @@ const AppNavigation = ({
 
 AppNavigation.defaultProps = {
   children: null,
+  // our github favicon
+  logoSrc:
+    'https://github.com/3merge/3merge-2019/blob/master/src/images/fav.png?raw=true',
   menuItems: [],
   root: '/',
 };
 
 AppNavigation.propTypes = {
   children: PropTypes.element,
-  logoSrc: PropTypes.string.isRequired,
+  logoSrc: PropTypes.string,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       to: PropTypes.string,
