@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.40.0](https://github.com/3merge/q/compare/v1.39.3...v1.40.0) (2021-10-07)
+
+
+### Features
+
+* remember redirect to login ([#348](https://github.com/3merge/q/issues/348)) ([ce98193](https://github.com/3merge/q/commit/ce9819377be5acbd7c5624b30efa9ea31264aef5))
+
+
+
+
+
 ## [1.39.3](https://github.com/3merge/q/compare/v1.39.2...v1.39.3) (2021-09-24)
 
 
