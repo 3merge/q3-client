@@ -28,13 +28,12 @@ const ProfileNotifications = ({ children }) => {
         }
         onSubmit={(values) =>
           onSubmit({
-            listens: Object.entries(values).reduce(
-              (acc, [key, value]) => {
+            listens: Object.entries(values)
+              .reduce((acc, [key, value]) => {
                 if (value) acc.push(key);
                 return acc;
-              },
-              [],
-            ),
+              }, [])
+              .sort(),
           })
         }
       >
