@@ -119,5 +119,7 @@
   "deletedAuditLog": "Removed properties from main document",
   "emailEditorFailed": "Servers encountered an error. You either do not have permission to view this add-on or there are no email templates configured.",
   "emailTemplateLanguage": "All partials and templates must be written in valid MJML syntax",
-  "emailPreviewDisabledMobile": "Email previews are only available on desktop devices. Please load this module on a larger screen."
+  "emailPreviewDisabledMobile": "Email previews are only available on desktop devices. Please load this module on a larger screen.",
+  "noNotificationsToSubscribeTo": "There aren't any notifications at this time",
+  "profileNotifications": "Set which notifications you'd like to receive from the system"
 }

@@ -5,6 +5,9 @@ import { i18n } from 'q3-ui-locale';
 import PropTypes from 'prop-types';
 import FormProviders from 'q3-ui-forms';
 import AuthProvider from 'q3-ui-permissions';
+import { Loader } from 'q3-admin/lib/components';
+import SearchEngine from './SearchEngine';
+import useLocale from './useLocale';
 
 const registeri18ResourceBundles = (contentData) => {
   if (!contentData || !('en' in contentData)) return;
@@ -23,59 +26,63 @@ const registeri18ResourceBundles = (contentData) => {
 };
 
 const setBaseUrlForRest = (
-  baseURL = 'http://localhost:9000',
+  baseURL = process.env.GATSBY_APP_BASE_URL ||
+    'http://localhost:9000',
 ) => {
   axios.defaults.baseURL = baseURL;
   return axios.defaults;
+};
+
+// cannot conditionally call hooks otherwise
+const Locale = () => {
+  useLocale();
+  return null;
 };
 
 const Wrapper = ({
   children,
   baseURL,
   locale,
+  includeLoader,
+  includeLocale,
   ...providerProps
 }) => {
   setBaseUrlForRest(baseURL);
   registeri18ResourceBundles(locale);
 
   return (
-    <Provider {...providerProps}>
-      <AuthProvider>
-        <FormProviders preventDuplicate>
-          {children}
-        </FormProviders>
-      </AuthProvider>
-    </Provider>
+    <>
+      <SearchEngine />
+      <Provider {...providerProps}>
+        <AuthProvider>
+          <FormProviders preventDuplicate>
+            {includeLoader && <Loader />}
+            {includeLocale && <Locale />}
+            {children}
+          </FormProviders>
+        </AuthProvider>
+      </Provider>
+    </>
   );
 };
 
+Wrapper.defaultProps = {
+  baseURL: undefined,
+  includeLoader: true,
+  includeLocale: true,
+};
+
 Wrapper.propTypes = {
-  /**
-   * The URL to set Axios calls.
-   */
-  baseURL: PropTypes.string.isRequired,
-
-  /**
-   * Object containing locale and namespaces to register with react-i18next.
-   */
-  locale: PropTypes.shape({
-    en: PropTypes.object,
-    fr: PropTypes.object,
-  }).isRequired,
-
-  /**
-   * The entire application. This should be a top-level wrapper.
-   */
+  baseURL: PropTypes.string,
   children: PropTypes.node.isRequired,
+  includeLoader: PropTypes.bool,
+  includeLocale: PropTypes.bool,
 
-  /**
-   * See Material UI's documentation for what props go into the theme obj.
-   */
-  theme: PropTypes.shape({
-    palette: PropTypes.object,
-    typography: PropTypes.object,
-    overrides: PropTypes.object,
-  }).isRequired,
+  // eslint-disable-next-line
+  locale: PropTypes.object.isRequired,
+
+  // eslint-disable-next-line
+  theme: PropTypes.object.isRequired,
 };
 
 export default Wrapper;

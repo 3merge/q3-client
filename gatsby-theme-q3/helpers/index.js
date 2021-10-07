@@ -6,12 +6,14 @@ const {
 } = require('./pagination');
 const slug = require('./slug');
 const slugType = require('./slugType');
+const setup = require('./setup');
 
 module.exports = {
   ArchiveBuilder,
   loadContent,
   appendSiblingsToContext,
   paginateArchiveContext,
+  setup,
   slug,
   slugType,
 };

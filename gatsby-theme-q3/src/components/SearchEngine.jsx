@@ -1,33 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import useSiteMetaData from './useSiteMetaData';
 
 function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            brand
-            description
-          }
-        }
-      }
-    `,
-  );
+  const site = useSiteMetaData();
 
-  const metaDescription =
-    description || site.siteMetadata.description;
+  const metaDescription = description || site.description;
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.brand}`}
+      title={title || site.title}
+      titleTemplate={`%s | ${site.brand}`}
       meta={[
         {
           name: 'description',

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Image from 'gatsby-image';
 import { Avatar, Box } from '@material-ui/core';
 import IconButton from 'q3-ui/lib/iconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -72,13 +71,16 @@ const AppNavigation = ({
 
 AppNavigation.defaultProps = {
   children: null,
+  // our github favicon
+  logoSrc:
+    'https://github.com/3merge/3merge-2019/blob/master/src/images/fav.png?raw=true',
   menuItems: [],
   root: '/',
 };
 
 AppNavigation.propTypes = {
   children: PropTypes.element,
-  logoSrc: PropTypes.string.isRequired,
+  logoSrc: PropTypes.string,
   menuItems: PropTypes.arrayOf(
     PropTypes.shape({
       to: PropTypes.string,

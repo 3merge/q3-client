@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { navigate } from '@reach/router';
+import { navigate } from 'gatsby';
 import { setSession } from 'q3-ui-permissions';
 
 export const OP = '?op=success';

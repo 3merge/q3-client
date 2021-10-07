@@ -1,9 +1,9 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+import { navigate } from 'gatsby';
 import FormBoxNotice from '../FormBoxNotice';
 import withSuccessOp from '../withSuccessOp';
 
-jest.mock('@reach/router', () => ({
+jest.mock('gatsby', () => ({
   navigate: jest.fn(),
   Link: () => <div />,
 }));

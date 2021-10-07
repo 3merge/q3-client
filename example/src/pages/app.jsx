@@ -1,41 +1,14 @@
 import React from 'react';
-import AccessibilityIcon from '@material-ui/icons/Accessibility';
-import { Router } from '@reach/router';
-import Admin from 'q3-admin';
-import { AuthContext } from 'q3-ui-permissions';
-import { useTimezoneInterceptor } from 'q3-ui-rest';
-import pages from '../views';
+import { AdminRouter } from 'gatsby-theme-q3/src/components';
+import { Dashboard, Companies } from '../components';
 
-export default () => {
-  const { state } = React.useContext(AuthContext);
-  useTimezoneInterceptor('America/Los_Angeles');
-
-  return state.init ? (
-    <Router basepath="/app">
-      <Admin
-        path="*"
-        logoSrc="https://image-placeholder.com/images/image-placeholder.png"
-        icons={{
-          characters: AccessibilityIcon,
-        }}
-        profileItems={[]}
-        AppProps={{
-          directory: '/app/',
-          redirectPathForUnauthorizedUsers: '/login',
-          pages,
-        }}
-        SocketProps={{
-          onDownload: ({ data }) => {
-            if (
-              data &&
-              data.path.includes('characters.pdf')
-            )
-              window.open(data.url);
-          },
-        }}
-      />
-    </Router>
-  ) : (
-    'Thinking...'
-  );
-};
+export default () => (
+  <AdminRouter
+    AdminProps={{
+      AppProps: {
+        customRoutes: [<Dashboard path="/" />],
+        pages: [Companies].flat(),
+      },
+    }}
+  />
+);
