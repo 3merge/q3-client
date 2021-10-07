@@ -6,28 +6,27 @@
 
 Most Q3 projects will use
 [Gatsby JS](https://www.gatsbyjs.com/) for building and
-serving its production files. That’s why we’ve created the
-gatsby-theme-q3 project, which pre-configures lots of the
-packages in this workspace so that you can begin building
-your app quickly.
+serving its production files. That's why we've created the
+[`gatsby-theme-q3`](https://github.com/3merge/q3-client/tree/master/gatsby-theme-q3)
+project, which configures most packages in this workspace so
+that you can begin building your app quickly.
 
-If you’re already up-and-running, scroll to the bottom of
-this how-to for more in-depth documentation per package.
+If you're already up-and-running, scroll to the end for more
+in-depth documentation per package.
 
 ## Getting started
 
-This guide is going to show you how to setup a Q3 admin
-portal. Since this is a headless workspace, you’ll need the
-API, which you must build and deploy separately. For more
-information,
+This guide shows you how to setup a Q3 admin portal with a
+single collection. Since this is a headless workspace,
+you'll need an API, which you must build and deploy
+separately. For more information,
 [visit the Q3 API repository](https://github.com/3merge/q3-api).
 
 ### Dependencies
 
-Q3 has a lot of dependencies. The biggest ones include
-Material UI, Reach Router and I18Next. Visit our example
-app’s package.json file for a full
-[list with recommended versions](https://github.com/3merge/q3-client/blob/master/example/package.json).
+Q3 has a lot of dependencies. Check our example app's
+package.json file for a full list
+[with recommended versions](https://github.com/3merge/q3-client/blob/master/example/package.json).
 
 ### Configurations
 
@@ -36,23 +35,18 @@ app’s package.json file for a full
 There's only a few environment variables that you need to
 define.
 
-| Name                      | Description                                                                                                            |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `GATSBY_APP_BASE_URL*`    | The URL of your Q3 API. This will most definitely change between local development, hosted development and production. |
-| `URL*`                    | The production URL for this app. It's referenced in the manifest file, but has very little impact on development.      |
-| `CONTENTFUL_SPACE_ID`     | When used Contentful as a data source, you'll need to provide a space ID.                                              |
-| `CONTENTFUL_ACCESS_TOKEN` | Contentful requires an access token to connect to a space.                                                             |
+| Name                      | Description                                                               |
+| ------------------------- | ------------------------------------------------------------------------- |
+| `GATSBY_APP_BASE_URL*`    | The URL of your Q3 API                                                    |
+| `URL*`                    | The production URL for this app                                           |
+| `CONTENTFUL_SPACE_ID`     | When using Contentful as a data source, you'll need to provide a space ID |
+| `CONTENTFUL_ACCESS_TOKEN` | Contentful requires an access token too                                   |
 
 #### Folder structure
 
-The tree below will represent the end state for this
-tutorial. Note that certain decisions outlined below, such
-as a folder per component, is a matter of preference. That
-said, the placement of `locale`, `static` and `theme.js` is
-critical for Q3's scripts to autoload certain
-configurations. As well, you'll note the presence of Gatsby
-component shadows, which we leverage for customize public
-pages like login.
+The tree below represents the end-state for this tutorial.
+Note that the location of directories `locale` and `static`
+and the `theme.js` file is critical for Q3's scripts to run.
 
 ```
 📦 server
@@ -96,15 +90,14 @@ pages like login.
 
 #### Gatsby files
 
-We're not going to cover why the `gatsby-*` files exist. In
+We're not going to cover why `gatsby-*` files exist. In
 fact, the browser, node and SSR variants are sometimes not
-even used and just kept blank. That said, the
-`gatsby-config.js` file is very important, but it's also
-minimal.
+even used. That said, the `gatsby-config.js` file is very
+important to Q3.
 
-Using our setup helper, you can get the build process
-wrapped up in just a few lines. Essentially, you just need
-to populate some meta data
+Using our setup helper function, you can get the build
+process wrapped up in just a few lines. Essentially, you
+just need to populate the meta data.
 
 ```javascript
 // gatsby-config.js
@@ -112,7 +105,7 @@ to populate some meta data
 const config = require('gatsby-theme-q3/helpers').setup(
   {
     appDirectory: '/app',
-    author: '3merge',
+    author: 'MikeIbberson',
     brand: '3merge',
     description: '',
     favicon: '/favicon.jpg',
@@ -126,17 +119,18 @@ const config = require('gatsby-theme-q3/helpers').setup(
 module.exports = config;
 ```
 
-Some of Q3 admin's props will pick up on these settings --
-namely, the title, logo and directory. **_In most cases, the
-directory will remain `/app`, as that's the file under
-`pages` where we'll insert the magic._**
+Some of Q3 admin's props will pick up on these settings.
+**_In most cases, the directory will remain `/app`, as
+that's the file under `pages` where we'll insert the
+magic._**
 
-The code below is deceivingly simple; it delegates ton of
-responsible to Q3 for setting up profiles, routes,
-permissions, notifications and more. It does this so that
-you can focus on what matters: the individual collections
-that you'd like to interact with. Since all Q3 API's come
-out-of-the-box with users, we're starting there.
+Looking at `app.jsx`, you'll find the code deceivingly
+simple; it delegates a ton of responsible to Q3. Most
+features like state management, notifications,
+authorization, etc. come out-of-the-box. While you can pass
+props to alter the admin experience, you'll mainly interact
+with `AppProps.pages`, as that's how you register new
+collections in the UI.
 
 ```javascript
 // app.jsx
@@ -148,7 +142,9 @@ export default () => (
   <AdminRouter
     AdminProps={{
       AppProps: {
+        // will create custom components that inherit Q3 state and utilities
         customRoutes: [<Dashboard path="/" />],
+        // will create templates that are highly dependent on Q3 builder functions
         pages: [Users].flat(),
       },
     }}
@@ -156,7 +152,9 @@ export default () => (
 );
 ```
 
-## Packages
+More coming soon.
+
+## Packages API
 
 <ul>
   <li>
