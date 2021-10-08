@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.41.0](https://github.com/3merge/q/compare/v1.40.1...v1.41.0) (2021-10-08)
+
+
+### Features
+
+* autocomplete audit lookup ([e876404](https://github.com/3merge/q/commit/e87640401912f30456523216c7c9236c86ec92ef))
+
+
+
+
+
 # [1.40.0](https://github.com/3merge/q/compare/v1.39.3...v1.40.0) (2021-10-07)
 
 
