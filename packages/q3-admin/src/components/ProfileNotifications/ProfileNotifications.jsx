@@ -17,6 +17,7 @@ const ProfileNotifications = ({ children }) => {
       subtitle={t('descriptions:profileNotifications')}
     >
       <Builders.Form
+        showSuccessMessage
         disabled={!children}
         initialValues={
           Array.isArray(listens)
