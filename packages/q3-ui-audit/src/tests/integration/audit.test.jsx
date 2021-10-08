@@ -3,9 +3,8 @@ import {
   asyncAct,
   asyncMount,
 } from 'q3-ui-test-utils/lib/enzymeUtils';
-import FormsProvider from 'q3-ui-forms';
+import FormsProvider, { Builders } from 'q3-ui-forms';
 import Providers from 'q3-ui/lib/_helpers/providers';
-import MultiSelectMenuItem from 'q3-ui-forms/lib/fields/MultiSelectMenuItem';
 import Fixtures from '../fixtures';
 import Audit from '../..';
 
@@ -17,7 +16,7 @@ const mount = (props) => (
   <Providers>
     <FormsProvider>
       <Fixtures delay={0} {...props}>
-        <Audit collectionName="test" />
+        <Audit collectionName="test" id="1" />
       </Fixtures>
     </FormsProvider>
   </Providers>
@@ -57,26 +56,13 @@ describe('Audit', () => {
     const el = await asyncMount(mount());
 
     await asyncAct(() => {
-      el.find('.MuiSelect-select').props().onKeyDown({
-        preventDefault: jest.fn(),
-        key: 'Enter',
-      });
+      el.find(Builders.Form)
+        .first()
+        .props()
+        .onSubmit({
+          operation: ['added'],
+        });
 
-      return el;
-    });
-
-    await asyncAct(() => {
-      el.find(MultiSelectMenuItem).at(1).simulate('click');
-      return el;
-    });
-
-    await asyncAct(() => {
-      el.find(MultiSelectMenuItem).at(2).simulate('click');
-      return el;
-    });
-
-    await asyncAct(() => {
-      el.find('form').first().simulate('submit');
       return el;
     });
 

@@ -2,9 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Grid } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
+import { get, isObject, uniq } from 'lodash';
+import flat from 'flat';
+import { useTranslation } from 'react-i18next';
 import FilterByDate from '../FilterByDate';
 import FilterByOperation from '../FilterByOperation';
 import FilterByUser from '../FilterByUser';
+
+export const generateSuggestions = (xs = []) => {
+  if (!Array.isArray(xs)) return [];
+  const ops = ['added', 'deleted', 'updated'];
+
+  return uniq(
+    xs
+      .reduce((acc, curr) => {
+        ops.forEach((op) => {
+          if (isObject(get(curr, op))) {
+            acc.push(
+              Object.keys(
+                flat(curr[op], {
+                  safe: true,
+                }),
+              ),
+            );
+          }
+        });
+
+        return acc;
+      }, [])
+      .flat(3)
+      .sort(),
+  );
+};
 
 const Filters = ({
   loading,
@@ -12,6 +41,7 @@ const Filters = ({
   onSubmit,
   ...rest
 }) => {
+  const { t } = useTranslation('descriptions');
   const ref = React.useRef({
     current: null,
   });
@@ -34,7 +64,7 @@ const Filters = ({
     <Builders.Form
       disabled={loading}
       enableSubmit={false}
-      initialValues={getInitialValues()}
+      initialValues={getInitialValues(rest?.data)}
       onSubmit={onSubmit}
       marshalSelectively
       marshal={{
@@ -60,8 +90,11 @@ const Filters = ({
             <Grid container spacing={1}>
               <Grid item xs={12}>
                 <Builders.Field
-                  type="text"
+                  type="autocomplete"
                   name="search"
+                  helperText={t('auditSearch')}
+                  freeSolo
+                  options={generateSuggestions(rest?.data)}
                   xl={12}
                   lg={12}
                 />

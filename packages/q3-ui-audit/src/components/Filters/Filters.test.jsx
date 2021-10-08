@@ -1,6 +1,6 @@
 import React from 'react';
 import { Builders } from 'q3-ui-forms';
-import Filters from './Filters';
+import Filters, { generateSuggestions } from './Filters';
 
 let spy;
 
@@ -53,5 +53,40 @@ describe('Filters', () => {
     ).toMatchObject({
       user: 1,
     });
+  });
+});
+
+describe('generateSuggestions', () => {
+  it('should return empty array', () => {
+    expect(generateSuggestions({})).toEqual([]);
+  });
+
+  it('should extract all paths', () => {
+    expect(
+      generateSuggestions([
+        {
+          updated: {
+            item: {
+              price: {
+                trail: {
+                  original: 10,
+                },
+              },
+            },
+          },
+        },
+        {
+          deleted: null,
+          added: {
+            ids: [1, 2],
+          },
+        },
+        {
+          updated: {
+            ids: [3, 2],
+          },
+        },
+      ]),
+    ).toEqual(['ids', 'item.price.trail.original']);
   });
 });
