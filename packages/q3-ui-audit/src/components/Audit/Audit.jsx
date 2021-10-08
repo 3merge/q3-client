@@ -26,6 +26,8 @@ const Audit = ({ collectionName, id }) => {
         {...state}
         initialValues={filterState}
         onSubmit={setFilterState}
+        collectionName={collectionName}
+        id={id}
       />
       <Timeline {...state} filterState={filterState} />
       <Box align="center" my={2}>

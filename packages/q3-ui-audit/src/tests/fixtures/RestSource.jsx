@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { last, sortBy, orderBy } from 'lodash';
+import flat from 'flat';
+import { last, sortBy, orderBy, lowerCase } from 'lodash';
 import moment from 'moment';
 import { useQueryParams } from 'q3-ui-queryparams';
 import changes from './data';
@@ -26,10 +27,29 @@ export default ({
   const qs = useQueryParams();
 
   const defineMockRoutes = (m) => {
+    m.onGet(/audit-users/).reply(async () => {
+      return [
+        200,
+        {
+          users: sortBy(
+            users.map((item) => ({
+              name: `${item.firstName} ${item.lastName}`,
+              id: item.id,
+            })),
+            'firstName',
+          ),
+        },
+      ];
+    });
+
     m.onGet(/audit/).reply(async (data) => {
-      const { date, skip, user, operation } = qs.decode(
-        getQueryString(data),
-      );
+      const {
+        date,
+        skip,
+        user,
+        operation,
+        search,
+      } = qs.decode(getQueryString(data));
 
       if (causeError) return [500];
       if (returnEmpty) return [200, { changes: [] }];
@@ -87,32 +107,15 @@ export default ({
                   shouldShow
                 );
 
+              if (search) {
+                return lowerCase(
+                  JSON.stringify(flat(item)),
+                ).includes(lowerCase(search));
+              }
+
               return shouldShow;
             })
             .slice(skip * 150, 150 * (skip + 1)),
-        },
-      ];
-    });
-
-    m.onGet(/q3-api-users/).reply(async (data) => {
-      const q = qs
-        .decode(getQueryString(data))
-        .search.toLowerCase();
-
-      const includes = (xs) =>
-        String(xs).toLowerCase().includes(q);
-
-      return [
-        200,
-        {
-          users: sortBy(
-            users.filter(
-              (item) =>
-                includes(item.firstName) ||
-                includes(item.lastName),
-            ),
-            'firstName',
-          ).slice(0, 8),
         },
       ];
     });

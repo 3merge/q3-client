@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from '@reach/router';
+import { first } from 'lodash';
+import { Router, Redirect } from '@reach/router';
 import { Protected } from 'q3-ui-permissions';
 import Graphic from 'q3-ui-assets';
 
@@ -21,10 +22,24 @@ export const makePath = ({
   throw new Error('Path type not defined');
 };
 
+export const addRedirectWhenMissingHome = (xs) => {
+  if (xs.findIndex((f) => f.home) === -1)
+    return [
+      {
+        home: true,
+        component: () => (
+          <Redirect noThrow to={makePath(first(xs))} />
+        ),
+      },
+    ].concat(xs);
+
+  return xs;
+};
+
 const App = ({ pages, children }) =>
   Array.isArray(pages) ? (
     <Router>
-      {pages.map(
+      {addRedirectWhenMissingHome(pages).map(
         ({ collectionName, component, ...etc }) => {
           const el = React.createElement(
             etc.home || !collectionName

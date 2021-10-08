@@ -11,18 +11,20 @@ and used in more advanced cases.
 
 #### API
 
-| Prop                                        | Description                                                                                                                                                                                  | Type      |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `AppProps`                                  | A prop object for setting up views and custom routes.                                                                                                                                        | `object*` |
-| `AppProps.addons`                           | An array of components that register as new pages under the "Add-ons" dropdown. This is very similar to the `customRoutes` prop, except the path is generated based on the component's name. | `array*`  |
-| `AppProps.customRoutes`                     | An array of components (with path props) to render inside the app's primary `Router` component                                                                                               | `array*`  |
-| `AppProps.pages`                            | An array of collection objects for mounting all associated list and detail views. When using `AbstractBuilder`, key assignment for each object is automated.                                 | `array`   |
-| `AppProps.redirectPathForUnauthorizedUsers` | A path for redirecting non-authorized route requests. It defaults to login.                                                                                                                  | `string`  |
-| `ProfileProps`                              | A prop object for customizing the profile route.                                                                                                                                             | `object`  |
-| `ProfileProps.items`                        | An array of objects (`{ label: String, component: Node }`) for creating profile tabs and views.                                                                                              | `object`  |
-| `ProfileProps.fields`                       | A component that renders directly inside the `ProfileGeneral` container. Used for adding fields or content to the default form.                                                              | `node`    |
-| `ProfileProps.fieldKeys`                    | An array of profile attributes to add into the `ProfileGeneral` `initialValues` prop state. Otherwise, it defaults to `firstName`, `lastName` and `email`.                                   | `array`   |
-| `ProfileProps.formProps`                    | An object forwarded into the `ProfileGeneral` inner `Form` component.                                                                                                                        | `object`  |
+| Prop                                         | Description                                                                                                                                                                 | Type         |
+| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| `AppProps.addons`                            | Components that register as new pages under the "Add-ons" (**display name required**).                                                                                      | `array*`     |
+| `AppProps.directory`                         | The relative path where Q3 will render (i.e. /app/)                                                                                                                         | `string`     |
+| `AppProps.pages`                             | Collections to render in the UI. See the `AbstractBuilder` for data structure. If a home component is not provided, it will redirect to the first collection in this array. | `array`      |
+| `NavProps.logoSrc`                           | The logo for inside the appbar                                                                                                                                              | `string`     |
+| `ProfileActionsProps.includeDocumentation`   | Load the documentation widget                                                                                                                                               | `boolean`    |
+| `ProfileActionsProps.includeNotifications`   | Load the notifications bell                                                                                                                                                 | `boolean`    |
+| `ProfileActionsProps.includeThemeMode`       | Load dark-mode                                                                                                                                                              | `boolean`    |
+| `ProfileActionsProps.includeActionsDropdown` | Load profile avatar and menu                                                                                                                                                | `boolean`    |
+| `children`                                   | Custom routes (**requires path prop on each**)                                                                                                                              | `array/node` |
+| `ProfileComponent`                           | Override the default profile form                                                                                                                                           | `func`       |
+| `ProfileChangePasswordComponent`             | Override the default change password form                                                                                                                                   | `func`       |
+| `ProfileNotificationsComponent`              | Override the default notifications form                                                                                                                                     | `func`       |
 
 #### Example
 
@@ -30,36 +32,15 @@ and used in more advanced cases.
 import React from 'react';
 import Admin from 'q3-admin';
 import { Builders } from 'q3-ui-forms';
-import Dashboard from './components/Dashboard';
-import Changelog from './components/Changelog';
-import { addCountryCode } from './helpers';
+import Tests from './components/Tests';
 
 export default () => (
   <Admin
-    AppProps={{
-      pages,
-      customRoutes: [
-        <Dashboard path="/" />,
-        <Changelog path="/changelog" />,
-      ],
-      redirectPathForUnauthorizedUsers: 'login',
-    }}
-    ProfileProps={{
-      fields: <Builders type="tel" name="tel" />,
-      fieldKeys: ['tel'],
-      fieldProps: {
-        marshal: {
-          tel: [addCountryCode],
-        },
-      },
-      items: [
-        {
-          label: 'other',
-          component: Foo,
-        },
-      ],
-    }}
-  />
+    AppProps={{ pages }}
+    NavProps={{ logoSrc: '/logo.png' }}
+  >
+    <Tests path="/tests" />
+  </Admin>
 );
 ```
 
