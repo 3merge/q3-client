@@ -6,7 +6,12 @@ import FilterByDate from '../FilterByDate';
 import FilterByOperation from '../FilterByOperation';
 import FilterByUser from '../FilterByUser';
 
-const Filters = ({ loading, initialValues, onSubmit }) => {
+const Filters = ({
+  loading,
+  initialValues,
+  onSubmit,
+  ...rest
+}) => {
   const ref = React.useRef({
     current: null,
   });
@@ -53,8 +58,16 @@ const Filters = ({ loading, initialValues, onSubmit }) => {
         >
           <Grid item xs>
             <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Builders.Field
+                  type="text"
+                  name="search"
+                  xl={12}
+                  lg={12}
+                />
+              </Grid>
               <Grid item md={6} xs={12}>
-                <FilterByUser />
+                <FilterByUser {...rest} />
               </Grid>
               <Grid item md={3} xs={12}>
                 <FilterByDate />
