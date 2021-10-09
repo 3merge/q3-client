@@ -1,6 +1,6 @@
 /* eslint-disable no-return-assign */
 import React from 'react';
-import { pick } from 'lodash';
+import { isString, pick } from 'lodash';
 import { useValue } from 'useful-state';
 import {
   useInputDebounce,
@@ -24,6 +24,7 @@ export const formatFieldOptions = (items = []) =>
     : items;
 
 export default ({
+  freeSolo = false,
   runOnChange = false,
   transformOptions = false,
   loadOptionsPlainly = false,
@@ -57,6 +58,23 @@ export default ({
   if (Array.isArray(runOnChange))
     watchValues = pick(values, runOnChange);
 
+  const filterByFreeSolo = (xs) => {
+    const toLower = (str) => String(str).toLowerCase();
+    const compare = (str) =>
+      toLower(str).includes(toLower(value));
+
+    if (freeSolo && !loadOptions)
+      return xs.filter((item) => {
+        if (isString(item)) {
+          return compare(item);
+        }
+
+        return compare(item?.label);
+      });
+
+    return xs;
+  };
+
   const runOpts = React.useCallback(
     (v) => setItems(transformOptions ? asOptions(v) : v),
     [transformOptions],
@@ -78,9 +96,11 @@ export default ({
   }, [shouldRun, JSON.stringify(watchValues)]);
 
   return {
-    items: loadOptionsPlainly
-      ? items
-      : formatFieldOptions(items),
+    items: filterByFreeSolo(
+      loadOptionsPlainly
+        ? items
+        : formatFieldOptions(items),
+    ),
     loading,
     value,
     onChange,

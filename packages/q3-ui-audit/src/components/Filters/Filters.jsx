@@ -60,6 +60,14 @@ const Filters = ({
     return initialValues;
   };
 
+  const handleSearchMarshal = (xs) =>
+    isObject(xs) ? xs?.value : xs;
+
+  const handleUserMarshal = (xs) => {
+    ref.current = xs;
+    return xs?.value || '';
+  };
+
   return (
     <Builders.Form
       disabled={loading}
@@ -68,12 +76,8 @@ const Filters = ({
       onSubmit={onSubmit}
       marshalSelectively
       marshal={{
-        user: [
-          (xs) => {
-            ref.current = xs;
-            return xs?.value || '';
-          },
-        ],
+        search: [handleSearchMarshal],
+        user: [handleUserMarshal],
       }}
     >
       <Grid item xs={12}>
