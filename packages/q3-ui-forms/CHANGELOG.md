@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.1](https://github.com/3merge/q/compare/v1.41.0...v1.41.1) (2021-10-09)
+
+
+### Bug Fixes
+
+* freesolo autocomplete ([0e7f845](https://github.com/3merge/q/commit/0e7f845954f7a6b9ae9c1c711882bfe8d2195e83))
+
+
+
+
+
 # [1.41.0](https://github.com/3merge/q/compare/v1.40.1...v1.41.0) (2021-10-08)
 
 **Note:** Version bump only for package q3-ui-forms
