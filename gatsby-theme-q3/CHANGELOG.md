@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.2](https://github.com/3merge/q/compare/v1.41.1...v1.41.2) (2021-10-11)
+
+
+### Bug Fixes
+
+* ssr ([3748086](https://github.com/3merge/q/commit/3748086da42bd1f1ecebad74608c3a785bab38d7))
+
+
+
+
+
 # [1.40.0](https://github.com/3merge/q/compare/v1.39.3...v1.40.0) (2021-10-07)
 
 
