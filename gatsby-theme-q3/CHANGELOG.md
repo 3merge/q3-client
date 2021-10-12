@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.3](https://github.com/3merge/q/compare/v1.41.2...v1.41.3) (2021-10-12)
+
+
+### Bug Fixes
+
+* react dep ([4488a6e](https://github.com/3merge/q/commit/4488a6e2e039eabb34bb072219404cee4cc95e88))
+
+
+
+
+
 ## [1.41.2](https://github.com/3merge/q/compare/v1.41.1...v1.41.2) (2021-10-11)
 
 
