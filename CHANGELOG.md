@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.4](https://github.com/3merge/q/compare/v1.41.3...v1.41.4) (2021-10-12)
+
+
+### Bug Fixes
+
+* invalid hook ([79641d2](https://github.com/3merge/q/commit/79641d263282868ff7d344dcd74eb340313a5e14))
+
+
+
+
+
 ## [1.41.3](https://github.com/3merge/q/compare/v1.41.2...v1.41.3) (2021-10-12)
 
 
