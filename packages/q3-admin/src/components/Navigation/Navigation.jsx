@@ -36,33 +36,46 @@ const AppNavigation = ({
       className={cls.bar}
       elevation={0}
     >
-      <Hidden lgUp>
-        <Drawer
-          title="menu"
-          closeOnRouteChange
-          variant="drawer"
-          renderContent={renderMenuItems}
-          renderTrigger={(onClick) => (
-            <Grid item>
-              <Box pl={1}>
-                <IconButton
-                  icon={MenuIcon}
-                  label="menu"
-                  buttonProps={{
-                    id: 'q3-admin-mobile-menu',
-                    onClick,
-                  }}
-                />
-              </Box>
-            </Grid>
-          )}
-        />
-      </Hidden>
-      <Box className={cls.root} component="nav">
-        <Link to={root} className={cls.logo}>
-          <Avatar className={cls.avatar} src={logoSrc} />
-        </Link>
-        <Hidden mdDown>{renderMenuItems()}</Hidden>
+      <Box
+        alignItems="center"
+        display="flex"
+        height="100%"
+        width="auto"
+      >
+        <Hidden lgUp>
+          <Drawer
+            PaperProps={{
+              style: {
+                maxWidth: '80vw',
+              },
+            }}
+            title="menu"
+            closeOnRouteChange
+            variant="drawer"
+            anchor="left"
+            renderContent={renderMenuItems}
+            renderTrigger={(onClick) => (
+              <Grid item>
+                <Box pl={1}>
+                  <IconButton
+                    icon={MenuIcon}
+                    label="menu"
+                    buttonProps={{
+                      id: 'q3-admin-mobile-menu',
+                      onClick,
+                    }}
+                  />
+                </Box>
+              </Grid>
+            )}
+          />
+        </Hidden>
+        <Box className={cls.root} component="nav">
+          <Link to={root} className={cls.logo}>
+            <Avatar className={cls.avatar} src={logoSrc} />
+          </Link>
+          <Hidden mdDown>{renderMenuItems()}</Hidden>
+        </Box>
       </Box>
       {children}
     </AppBar>

@@ -43,7 +43,7 @@ export default makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
     [theme.breakpoints.down('md')]: {
       color: `${theme.palette.secondary.main} !important`,
-      border: 'none !important',
+      borderColor: 'transparent !important',
     },
   },
   parent: {
