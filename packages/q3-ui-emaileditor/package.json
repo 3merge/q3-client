@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-emaileditor",
-  "version": "1.41.6",
+  "version": "1.41.7",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.39.0"
@@ -14,8 +14,8 @@
     "js-beautify": "^1.14.0",
     "lodash": "^4.17.20",
     "q3-ui-assets": "^1.39.0",
-    "q3-ui-helpers": "^1.39.0",
-    "q3-ui-rest": "^1.41.6"
+    "q3-ui-helpers": "^1.41.7",
+    "q3-ui-rest": "^1.41.7"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
