@@ -7,12 +7,13 @@ const useLocale = () => {
   const profile = React.useContext(AuthContext)?.state
     ?.profile;
 
+  const lng = profile?.lang;
+
   useTimezoneInterceptor(profile?.timezone);
 
   React.useEffect(() => {
-    const lng = profile?.lang;
     if (lng) i18n.changeLanguage(lng);
-  }, []);
+  }, [lng]);
 };
 
 export default useLocale;

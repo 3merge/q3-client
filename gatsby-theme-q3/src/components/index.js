@@ -4,6 +4,7 @@ export { default as AdminPublicGateway } from './AdminPublicGateway';
 export { default as AdminRouter } from './AdminRouter';
 export { default as BlogTemplate } from './BlogTemplate';
 export { default as FormBox } from './FormBox';
+export { default as PageWrapper } from './PageWrapper';
 export { default as PublicTemplate } from './PublicTemplate';
 export { default as RedirectToIndex } from './RedirectToIndex';
 export {

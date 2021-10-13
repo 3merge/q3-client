@@ -112,6 +112,7 @@ export default () => {
   };
 
   React.useEffect(() => {
+    console.log('here...');
     axios.interceptors.request.use(onRequest, (error) => {
       setLoading(false);
       return error;
