@@ -33,7 +33,9 @@ const useRest = ({
   const search = get(location, 'search', '');
 
   React.useEffect(() => {
-    Axios.interceptors.request.use(changeContentType);
+    const req = Axios.interceptors.request.use(
+      changeContentType,
+    );
 
     if (runOnInit && !redirectOnSearch && isFunction(run))
       run(search);
@@ -43,6 +45,10 @@ const useRest = ({
         'push',
         squeeze(redirectOnSearch, search),
       );
+
+    return () => {
+      Axios.interceptors.request.eject(req);
+    };
   }, [search, url]);
 };
 

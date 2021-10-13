@@ -21,25 +21,6 @@ const extractResponseMeta = (payload) => {
   return output;
 };
 
-const queryStorage = (key) => {
-  try {
-    return JSON.parse(localStorage.getItem(key));
-  } catch (e) {
-    return null;
-  }
-};
-
-export const handleRequest = (request) => {
-  const cache = queryStorage(request.baseURL + request.url);
-
-  return cache
-    ? Object.assign(request.headers.common, {
-        'If-Match': cache.ETag,
-        'If-Unmodified-Since': cache['Last-Modified'],
-      })
-    : null;
-};
-
 export const handleResponse = (d) => {
   const { method, status, data } = extractResponseMeta(d);
 
@@ -96,6 +77,11 @@ export default () => {
     return request;
   };
 
+  const onRequestError = (error) => {
+    setLoading(false);
+    return error;
+  };
+
   const onResponse = (response) => {
     setLoading(false);
     handleResponse(response).notify(noti).set();
@@ -112,16 +98,20 @@ export default () => {
   };
 
   React.useEffect(() => {
-    console.log('here...');
-    axios.interceptors.request.use(onRequest, (error) => {
-      setLoading(false);
-      return error;
-    });
+    const req = axios.interceptors.request.use(
+      onRequest,
+      onRequestError,
+    );
 
-    axios.interceptors.response.use(
+    const res = axios.interceptors.response.use(
       onResponse,
       onResponseError,
     );
+
+    return () => {
+      axios.interceptors.request.eject(req);
+      axios.interceptors.response.eject(res);
+    };
   }, [loading]);
 
   return loading;

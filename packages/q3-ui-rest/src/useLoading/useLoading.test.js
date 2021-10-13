@@ -1,10 +1,7 @@
 import 'jest-localstorage-mock';
 import React from 'react';
-import useLoading, {
-  handleRequest,
-  handleResponse,
-  handleError,
-} from '.';
+import axios from 'axios';
+import useLoading, { handleResponse, handleError } from '.';
 
 jest.useFakeTimers();
 
@@ -12,9 +9,10 @@ jest
   .spyOn(React, 'useState')
   .mockImplementation((v) => [v, jest.fn()]);
 
-jest
-  .spyOn(React, 'useEffect')
-  .mockImplementation((v) => v());
+jest.spyOn(React, 'useEffect').mockImplementation((v) => {
+  const r = v();
+  if (r) r();
+});
 
 jest
   .spyOn(React, 'useCallback')
@@ -29,56 +27,7 @@ beforeAll(() => {
 });
 
 describe('useLoading axios hook', () => {
-  describe('requestHandler', () => {
-    const req = {
-      headers: { common: {} },
-      baseURL: 'localhost',
-      url: '/foo',
-    };
-
-    it('should query localStorage API', () => {
-      handleRequest(req);
-      expect(localStorage.getItem).toHaveBeenCalledWith(
-        'localhost/foo',
-      );
-    });
-
-    it('should attach etag headers', () => {
-      localStorage.getItem.mockReturnValue(
-        JSON.stringify({
-          'Last-Modified': 2,
-          ETag: 1,
-          data: {},
-        }),
-      );
-
-      handleRequest(req);
-      expect(req.headers.common).toMatchObject({
-        'If-Match': 1,
-        'If-Unmodified-Since': 2,
-      });
-    });
-  });
-
   describe('handleResponse', () => {
-    const res = {
-      data: { foo: 'bar' },
-      headers: { ETag: 1, 'Last-Modified': 2 },
-      config: { url: '/path' },
-    };
-
-    it.skip('should set localStorage', () => {
-      handleResponse(res).set();
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        '/path',
-        JSON.stringify({
-          data: { foo: 'bar' },
-          ETag: 1,
-          'Last-Modified': 2,
-        }),
-      );
-    });
-
     it('should call onSuccess', () => {
       const stub = { onSuccess: jest.fn() };
       const message = 'Yup!';
@@ -104,7 +53,7 @@ describe('useLoading axios hook', () => {
       expect(stub.onSuccess).not.toHaveBeenCalledWith();
     });
 
-    it.skip('should call onFail', () => {
+    it('should call onFail', () => {
       const stub = { onFail: jest.fn() };
       const message = 'Nope!';
 
@@ -119,7 +68,7 @@ describe('useLoading axios hook', () => {
   });
 
   describe('handleError', () => {
-    it.skip('should call onFail on 412', () => {
+    it('should call onFail on 412', () => {
       const stub = { onFail: jest.fn() };
 
       handleError({
@@ -135,40 +84,27 @@ describe('useLoading axios hook', () => {
     });
   });
 
-  it.skip('should resolve from cache', () => {
-    const stub = { stuff: true };
-    localStorage.getItem.mockReturnValue(
-      JSON.stringify(stub),
-    );
-
-    return expect(
-      handleError({
-        response: {
-          config: { method: 'get' },
-          status: 304,
-        },
-      }).refresh(),
-    ).resolves.toMatchObject(stub);
-  });
-
-  it.skip('should call refresh', async () => {
-    const stub = {
-      response: {
-        config: {},
-        status: 304,
-      },
-    };
-
-    localStorage.getItem.mockReturnValue(null);
-
-    await expect(
-      handleError(stub).refresh(),
-    ).rejects.toMatchObject(stub);
-    expect(setTimeout).toHaveBeenCalledTimes(1);
-  });
-
   describe('useLoading default export', () => {
-    it.skip('should default to false', () =>
+    it('should default to false', () =>
       expect(useLoading()).toBeFalsy());
+
+    it('should register/unregister intercepts', () => {
+      useLoading();
+      expect(
+        axios.interceptors.request.use,
+      ).toHaveBeenCalled();
+
+      expect(
+        axios.interceptors.response.use,
+      ).toHaveBeenCalled();
+
+      expect(
+        axios.interceptors.request.eject,
+      ).toHaveBeenCalled();
+
+      expect(
+        axios.interceptors.response.eject,
+      ).toHaveBeenCalled();
+    });
   });
 });

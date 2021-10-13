@@ -10,8 +10,7 @@
     "debounce-promise": "^3.1.2",
     "is-glob": "^4.0.1",
     "lodash": "^4.17.20",
-    "moment": "2.29.1",
-    "use-debounce": "^5.2.0"
+    "moment": "2.29.1"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",

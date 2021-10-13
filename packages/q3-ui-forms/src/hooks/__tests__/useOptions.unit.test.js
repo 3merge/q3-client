@@ -3,9 +3,6 @@ import { useValue } from 'useful-state';
 import cancelLoadOption from '../useOptions';
 
 jest.mock('useful-state');
-jest.mock('use-debounce', () => ({
-  useDebounce: jest.fn().mockImplementation((v) => [v]),
-}));
 
 const stateFn = jest.fn();
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import qs from 'qs';
 import flat from 'flat';
 import { timezone } from 'q3-ui-locale';
+import React from 'react';
 
 export const serializeDateFromUtcToLocalTime = (
   config = {},
@@ -41,13 +42,20 @@ export function convertUtcDateStringsToLocalTime(
 const useUTCToLocalInterceptors = (preferredTimezone) => {
   timezone.setTimezone(preferredTimezone);
 
-  axios.interceptors.request.use(
-    serializeDateFromUtcToLocalTime,
-  );
+  React.useLayoutEffect(() => {
+    const req = axios.interceptors.request.use(
+      serializeDateFromUtcToLocalTime,
+    );
 
-  axios.interceptors.response.use(
-    convertUtcDateStringsToLocalTime,
-  );
+    const res = axios.interceptors.response.use(
+      convertUtcDateStringsToLocalTime,
+    );
+
+    return () => {
+      axios.interceptors.request.eject(req);
+      axios.interceptors.response.eject(res);
+    };
+  }, []);
 };
 
 export default useUTCToLocalInterceptors;
