@@ -18,6 +18,9 @@ import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 
+export * from './containers';
+export * from './hooks';
+
 const Admin = ({
   AppProps,
   NavProps,
@@ -25,7 +28,6 @@ const Admin = ({
   ProfileChangePasswordComponent,
   ProfileNotificationsComponent,
   ProfileComponent,
-  children,
 }) => {
   const pages = React.useRef(AppProps.pages);
   const cls = useStyle();

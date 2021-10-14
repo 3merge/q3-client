@@ -6,6 +6,7 @@ export { default as BlogTemplate } from './BlogTemplate';
 export { default as FormBox } from './FormBox';
 export { default as PageWrapper } from './PageWrapper';
 export { default as PublicTemplate } from './PublicTemplate';
+export { default as Redirect } from './Redirect';
 export { default as RedirectToIndex } from './RedirectToIndex';
 export {
   default as RichText,

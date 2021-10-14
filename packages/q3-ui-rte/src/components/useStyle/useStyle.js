@@ -15,6 +15,7 @@ const useStyle = makeStyles((theme) => {
         padding: theme.spacing(1),
         paddingBottom: theme.spacing(2),
         position: 'relative',
+        whiteSpace: 'pre-wrap',
 
         margin: 'auto',
         '& > *': {
