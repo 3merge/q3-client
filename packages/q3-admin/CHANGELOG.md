@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.41.8](https://github.com/3merge/q/compare/v1.41.7...v1.41.8) (2021-10-14)
+
+
+### Bug Fixes
+
+* child props ([331bee7](https://github.com/3merge/q/commit/331bee7e62862d0ce91408883c4b5a0c250199d5))
+
+
+
+
+
 ## [1.41.5](https://github.com/3merge/q/compare/v1.41.4...v1.41.5) (2021-10-12)
 
 **Note:** Version bump only for package q3-admin
