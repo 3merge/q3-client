@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.42.0](https://github.com/3merge/q/compare/v1.41.8...v1.42.0) (2021-10-14)
+
+
+### Features
+
+* hook for looking up records by ID ([#350](https://github.com/3merge/q/issues/350)) ([3a73f61](https://github.com/3merge/q/commit/3a73f617a5d9747bd6435b68a238d78de1a4c125))
+
+
+
+
+
 ## [1.41.8](https://github.com/3merge/q/compare/v1.41.7...v1.41.8) (2021-10-14)
 
 
