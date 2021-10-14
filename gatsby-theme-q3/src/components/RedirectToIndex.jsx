@@ -1,15 +1,9 @@
 import React from 'react';
-import { navigate } from 'gatsby';
+import Redirect from './Redirect';
 import useSiteMetaData from './useSiteMetaData';
 
-const IndexPage = () => {
-  const d = useSiteMetaData().appDirectory;
-
-  React.useEffect(() => {
-    navigate(d);
-  }, []);
-
-  return null;
-};
+const IndexPage = () => (
+  <Redirect to={useSiteMetaData().appDirectory} />
+);
 
 export default IndexPage;

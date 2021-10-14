@@ -3,6 +3,7 @@ export { default as useAppContext } from './useAppContext';
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
 export { default as useNotifications } from './useNotifications';
+export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';
 export { default as useTitle } from './useTitle';
 export { default as useRefresh } from './useRefresh';
