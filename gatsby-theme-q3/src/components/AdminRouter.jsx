@@ -5,11 +5,7 @@ import AdminApp from 'q3-admin';
 import AdminPrivateGateway from './AdminPrivateGateway';
 import useSiteMetaData from './useSiteMetaData';
 
-const AdminRouter = ({
-  children,
-  AdminProps,
-  GatekeepProps,
-}) => {
+const AdminRouter = ({ AdminProps, GatekeepProps }) => {
   const {
     appDirectory: basepath,
     favicon: logoSrc,
@@ -29,9 +25,7 @@ const AdminRouter = ({
             logoSrc,
             ...AdminProps?.NavProps,
           }}
-        >
-          {children}
-        </AdminApp>
+        />
       </Router>
     </AdminPrivateGateway>
   );
@@ -40,7 +34,6 @@ const AdminRouter = ({
 AdminRouter.defaultProps = {
   AdminProps: {},
   GatekeepProps: {},
-  children: null,
 };
 
 AdminRouter.propTypes = {
@@ -48,7 +41,6 @@ AdminRouter.propTypes = {
   AdminProps: PropTypes.object,
   // eslint-disable-next-line
   GatekeepProps: PropTypes.object,
-  children: PropTypes.node,
 };
 
 export default AdminRouter;

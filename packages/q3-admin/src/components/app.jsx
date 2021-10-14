@@ -36,10 +36,10 @@ export const addRedirectWhenMissingHome = (xs) => {
   return xs;
 };
 
-const App = ({ pages, children }) =>
+const App = ({ pages, paths, children }) =>
   Array.isArray(pages) ? (
     <Router>
-      {addRedirectWhenMissingHome(pages).map(
+      {addRedirectWhenMissingHome(pages.flat()).map(
         ({ collectionName, component, ...etc }) => {
           const el = React.createElement(
             etc.home || !collectionName
@@ -59,6 +59,7 @@ const App = ({ pages, children }) =>
           return el;
         },
       )}
+      {paths}
       {children}
       <NotFound noThrow default />
     </Router>
@@ -67,7 +68,11 @@ const App = ({ pages, children }) =>
   );
 
 App.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  paths: PropTypes.arrayOf(PropTypes.node),
   pages: PropTypes.arrayOf(
     PropTypes.shape({
       index: PropTypes.bool,
@@ -80,6 +85,7 @@ App.propTypes = {
 };
 
 App.defaultProps = {
+  paths: undefined,
   children: null,
 };
 

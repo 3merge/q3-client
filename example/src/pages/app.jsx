@@ -6,8 +6,8 @@ export default () => (
   <AdminRouter
     AdminProps={{
       AppProps: {
-        customRoutes: [<Dashboard path="/" />],
-        pages: [Companies].flat(),
+        pages: [Companies],
+        paths: [<Dashboard path="foo" />],
       },
     }}
   />

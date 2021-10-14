@@ -1,8 +1,5 @@
-import React from 'react';
-import { Redirect } from '@reach/router';
-
-const Dashboard = () => (
-  <Redirect noThrow to="/app/characters " />
-);
+const Dashboard = () => {
+  return 'Custom dash.';
+};
 
 export default Dashboard;

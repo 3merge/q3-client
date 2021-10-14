@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'q3-ui-permissions';
-import { groupBy } from 'lodash';
+import { flatten, groupBy } from 'lodash';
 import { makePath } from '../components/app';
 
 export default (pages = []) => {
   const { t } = useTranslation();
-  const grouped = groupBy(pages, (v) => v.parent);
+  const grouped = groupBy(flatten(pages), (v) => v.parent);
 
   const makePage = (page) => ({
     ...page,

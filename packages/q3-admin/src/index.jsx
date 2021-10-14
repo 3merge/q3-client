@@ -58,7 +58,6 @@ const Admin = ({
           <ProfileNotificationsComponent
             path={NOTIFICATIONS_PATH}
           />
-          {children}
         </App>
       </Box>
     </Viewport>
@@ -85,7 +84,6 @@ Admin.propTypes = {
     includeActionsDropdown: PropTypes.bool,
   }),
 
-  children: PropTypes.arrayOf(PropTypes.node),
   ProfileComponent: PropTypes.func,
   ProfileChangePasswordComponent: PropTypes.func,
   ProfileNotificationsComponent: PropTypes.func,
@@ -94,7 +92,6 @@ Admin.propTypes = {
 Admin.defaultProps = {
   NavProps: {},
   ProfileActionsProps: {},
-  children: [],
   ProfileComponent: Profile,
   ProfileChangePasswordComponent: ProfileChangePassword,
   ProfileNotificationsComponent: ProfileNotifications,
