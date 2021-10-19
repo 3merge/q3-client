@@ -1,0 +1,90 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Filters from './Filters';
+import { Box } from '@material-ui/core';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+
+<Meta title="Filters" component={Filters} />
+
+<Preview>
+  <Story name="Default">
+    <LocationProvider>
+      <Filters
+        fields={[
+          {
+            name: 'status',
+            type: 'checkset',
+            options: [
+              'Open',
+              'Cancelled',
+              'Done',
+              'Pending',
+            ],
+          },
+          {
+            name: 'isSpecial',
+            type: 'radio',
+            options: [
+              {
+                value: 'exists(false)',
+                label: 'No',
+              },
+              {
+                value: 'exists(true)',
+                label: 'Yes',
+              },
+              {
+                label: 'Either',
+                value: '',
+              },
+            ],
+          },
+        ]}
+      />
+      <LocationDebugger />
+    </LocationProvider>
+  </Story>
+  <Story name="Stacked">
+    <LocationProvider>
+      <Filters
+        variant="stacked"
+        fields={[
+          {
+            name: 'status',
+            type: 'checkset',
+            options: [
+              'Open',
+              'Cancelled',
+              'Done',
+              'Pending',
+            ],
+          },
+          {
+            name: 'isSpecial',
+            type: 'radio',
+            options: [
+              {
+                value: 'exists(false)',
+                label: 'No',
+              },
+              {
+                value: 'exists(true)',
+                label: 'Yes',
+              },
+              {
+                label: 'Either',
+                value: '',
+              },
+            ],
+          },
+        ]}
+      />
+      <LocationDebugger />
+    </LocationProvider>
+  </Story>
+</Preview>

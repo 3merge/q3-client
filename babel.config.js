@@ -26,6 +26,7 @@ const alias = [
   'q3-ui-emaileditor',
   'q3-ui-exports',
   'q3-ui-filemanager',
+  'q3-ui-filters',
   'q3-ui-forms',
   'q3-ui-helpers',
   'q3-ui-notifications',
