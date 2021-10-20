@@ -171,10 +171,14 @@ export default makeStyles((theme) => ({
     display: 'block',
   },
 
-  row: () => ({
+  row: ({ id }) => ({
+    [`&[data-active-id="${id}"] td`]: {
+      backgroundColor: theme.palette.background.default,
+    },
     '& td': {
       borderBottom: `3px solid ${theme.palette.background.default}`,
       whiteSpace: 'break-spaces',
+      transition: 'background 150ms',
 
       '&:first-of-type': {
         borderTopLeftRadius: 8,

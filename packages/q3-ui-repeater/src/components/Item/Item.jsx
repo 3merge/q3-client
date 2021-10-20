@@ -42,11 +42,10 @@ export const interpretCardsProps = (
 
   return {
     ...cardProps,
+    actions: get(cardProps, 'actions', []),
     attributes: get(cardProps, 'attributes', []),
     color: getValue('onColor', currentData),
     description: getValue('describe'),
-    linkTo: getValue('makeLink'),
-    linkToLabel: getValue('makeLinkLabel'),
 
     showEditor: negate(
       getValue('disableEditor', disableEditor),
@@ -79,8 +78,6 @@ export const interpretCardsProps = (
 //= ===============================================================================
 
 const Item = ({
-  parent,
-  index,
   children,
   cardProps,
   // alias for cardProps
@@ -95,12 +92,13 @@ const Item = ({
   under,
   collectionName,
 }) => {
-  const cls = useStyle({ hasNested });
-  const [currentIndex, setCurrentIndex] = React.useState(
-    index,
-  );
+  const cls = useStyle({
+    id: item?.id,
+    hasNested,
+  });
 
   const {
+    actions,
     attributes,
     color,
     description,
@@ -111,17 +109,11 @@ const Item = ({
     title,
     icon,
     photo,
-    linkTo,
-    linkToLabel,
   } = interpretCardsProps(
     rowResolver || cardProps,
     item,
     ctx,
   );
-
-  React.useEffect(() => {
-    setCurrentIndex(index);
-  }, [parent.length]);
 
   return (
     <TableRow className={cls.row}>
@@ -146,15 +138,10 @@ const Item = ({
         })}
       />
       <ItemActions
-        parent={parent}
-        index={index}
+        actions={actions}
         showEditor={showEditor}
         showRemove={showRemove}
         toggleNested={toggleNested}
-        setCurrentIndex={setCurrentIndex}
-        currentIndex={currentIndex}
-        linkTo={linkTo}
-        linkToLabel={linkToLabel}
         nestedIsVisible={nestedIsVisible}
         renderNestedTableRow={renderNestedTableRow}
         {...item}
@@ -167,8 +154,6 @@ const Item = ({
 
 Item.propTypes = {
   children: PropTypes.node.isRequired,
-  parent: PropTypes.arrayOf(PropTypes.object).isRequired,
-  index: PropTypes.number.isRequired,
 
   cardProps: PropTypes.shape({
     title: PropTypes.string,

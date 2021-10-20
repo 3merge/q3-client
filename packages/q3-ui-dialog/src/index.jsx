@@ -42,7 +42,7 @@ export const DialogWrapper = ({
 
   return (
     <>
-      {renderTrigger(open, isOpen)}
+      {renderTrigger(isOpen ? close : open, isOpen)}
       <DialogVariant
         onOpen={open}
         onClose={close}
@@ -83,7 +83,7 @@ export const DialogWrapper = ({
                 {t(`descriptions:${description}`)}
               </DialogContentText>
             )}
-            {renderContent(close)}
+            {renderContent(close, isOpen)}
           </Box>
         </DialogContent>
         <DialogFooter

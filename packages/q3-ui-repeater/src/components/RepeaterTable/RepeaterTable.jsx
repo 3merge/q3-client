@@ -20,6 +20,7 @@ import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
 import usePagination from '../../usePagination';
 import RepeaterCollapse from '../RepeaterCollapse';
+import RepeaterTableContext from '../RepeaterTableContext';
 import useStyle from '../useStyle';
 
 export const gt = (v, num = 0) => v > num;
@@ -55,91 +56,96 @@ const RepeaterTable = ({
 
   return (
     gt(total, 0) && (
-      <RepeaterCollapse
-        label={groupName}
-        toggles={
-          gt(totalPage, 1) ? (
-            <Grid container>
-              <Grid item>
-                <IconButton
-                  disabled={page === 1}
-                  onClick={() => onChange({}, page - 1)}
-                >
-                  <NavigateBeforeIcon />
-                </IconButton>
-              </Grid>
-              <Grid item>
-                <IconButton
-                  disabled={page === totalPage}
-                  onClick={() => onChange({}, page + 1)}
-                >
-                  <NavigateNextIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          ) : null
-        }
+      <RepeaterTableContext.Provider
+        value={{
+          data: list,
+        }}
       >
-        <Box pb={1}>
-          {groupName && <Box className={cls.divide} />}
-          <Table>
-            <TableHead>
-              <TableRow className={cls.tableHeader}>
-                <TableCell component="th">
-                  {!disableMultiselect && (
-                    <span
-                      style={{
-                        marginLeft: '-5px',
-                        paddingRight: '6px',
-                      }}
-                    >
-                      <SelectAll ids={map(list, 'id')} />
-                    </span>
-                  )}
-                  {t(rest?.th || 'identifier')}
-                </TableCell>
-                {map(
-                  get(rest, 'cardProps.attributes', []),
-                  (attr) => (
-                    <TableCell key={attr} component="th">
+        <RepeaterCollapse
+          label={groupName}
+          toggles={
+            gt(totalPage, 1) ? (
+              <Grid container>
+                <Grid item>
+                  <IconButton
+                    disabled={page === 1}
+                    onClick={() => onChange({}, page - 1)}
+                  >
+                    <NavigateBeforeIcon />
+                  </IconButton>
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    disabled={page === totalPage}
+                    onClick={() => onChange({}, page + 1)}
+                  >
+                    <NavigateNextIcon />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            ) : null
+          }
+        >
+          <Box pb={1}>
+            {groupName && <Box className={cls.divide} />}
+            <Table>
+              <TableHead>
+                <TableRow className={cls.tableHeader}>
+                  <TableCell component="th">
+                    {!disableMultiselect && (
                       <span
-                        className={cls.tableHeaderSpan}
-                        title={t(attr)}
+                        style={{
+                          marginLeft: '-5px',
+                          paddingRight: '6px',
+                        }}
                       >
-                        {t(attr)}
+                        <SelectAll ids={map(list, 'id')} />
                       </span>
-                    </TableCell>
-                  ),
-                )}
+                    )}
+                    {t(rest?.th || 'identifier')}
+                  </TableCell>
+                  {map(
+                    get(rest, 'cardProps.attributes', []),
+                    (attr) => (
+                      <TableCell key={attr} component="th">
+                        <span
+                          className={cls.tableHeaderSpan}
+                          title={t(attr)}
+                        >
+                          {t(attr)}
+                        </span>
+                      </TableCell>
+                    ),
+                  )}
 
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <List
-              {...rest}
-              data={list}
-              renderNestedTableRow={renderNestedTableRow}
-            >
-              {children}
-            </List>
-          </Table>
-        </Box>
-        {gt(totalPage, 1) && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            pb={1}
-          >
-            <Pagination
-              page={page}
-              color="primary"
-              count={totalPage}
-              onChange={onChange}
-              size="small"
-            />
+                  <TableCell />
+                </TableRow>
+              </TableHead>
+              <List
+                {...rest}
+                renderNestedTableRow={renderNestedTableRow}
+              >
+                {children}
+              </List>
+            </Table>
           </Box>
-        )}
-      </RepeaterCollapse>
+          {gt(totalPage, 1) && (
+            <Box
+              display="flex"
+              justifyContent="center"
+              pb={1}
+            >
+              <Pagination
+                page={page}
+                color="primary"
+                count={totalPage}
+                onChange={onChange}
+                size="small"
+              />
+            </Box>
+          )}
+        </RepeaterCollapse>
+      </RepeaterTableContext.Provider>
     )
   );
 };
