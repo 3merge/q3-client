@@ -12,9 +12,7 @@ jest.mock('@reach/router', () => {
 
   return {
     navigate,
-    useLocation: jest.fn().mockReturnValue({
-      search: '?',
-    }),
+    useLocation: jest.fn().mockReturnValue({}),
     useNavigate: jest.fn().mockReturnValue(navigate),
   };
 });
@@ -51,9 +49,11 @@ describe('ItemActionsWrapper', () => {
         .props()
         .onNext();
 
-      expect(navigate).toHaveBeenCalledWith(
-        '?selectedSubDocument=2&selectedSubDocumentDialog=test',
-      );
+      expect(navigate).toHaveBeenCalledWith('', {
+        state: {
+          selectedSubDocument: 2,
+        },
+      });
     });
   });
 
@@ -96,53 +96,5 @@ describe('ItemActionsWrapper', () => {
       .renderContent(close, true);
 
     expect(close).toHaveBeenCalled();
-  });
-
-  it('should auto-open dialog', () => {
-    useNextPrev.mockReturnValue({
-      data: {
-        id: '1',
-      },
-    });
-
-    useLocation.mockReturnValue({
-      search:
-        '?selectedSubDocument=1&selectedSubDocumentDialog=test',
-    });
-
-    expect(
-      global
-        .shallow(
-          <ItemActionsWrapper id="1" label="test">
-            <div />
-          </ItemActionsWrapper>,
-        )
-        .find(Dialog)
-        .prop('initialValue'),
-    ).toBeTruthy();
-  });
-
-  it('should not auto-open dialog', () => {
-    useNextPrev.mockReturnValue({
-      data: {
-        id: '2',
-      },
-    });
-
-    useLocation.mockReturnValue({
-      search:
-        '?selectedSubDocument=1&selectedSubDocumentDialog=test',
-    });
-
-    expect(
-      global
-        .shallow(
-          <ItemActionsWrapper id="2" label="test">
-            <div />
-          </ItemActionsWrapper>,
-        )
-        .find(Dialog)
-        .prop('initialValue'),
-    ).toBeFalsy();
   });
 });

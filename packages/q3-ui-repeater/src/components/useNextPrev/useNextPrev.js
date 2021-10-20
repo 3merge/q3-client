@@ -26,7 +26,7 @@ const useNextPrev = (id) => {
 
   const count = size(state);
   const index = findIndexById(state, id);
-  const data = findByIndex(index);
+  const data = findByIndex(state, index);
 
   const getIdOf = (v) => findByIndex(state, v)?.id;
 

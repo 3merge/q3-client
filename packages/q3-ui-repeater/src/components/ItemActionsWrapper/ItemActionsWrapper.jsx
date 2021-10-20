@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Pageview from '@material-ui/icons/Pageview';
 import Dialog from 'q3-ui-dialog';
 import { object } from 'q3-ui-helpers';
+import { get } from 'lodash';
 import Context from '../state';
 import useNextPrev from '../useNextPrev';
 
@@ -15,27 +16,23 @@ const ItemActionsWrapper = ({
   id,
 }) => {
   const DOC_PARAM = 'selectedSubDocument';
-  const DOC_PARAM_LABEL = 'selectedSubDocumentDialog';
   const ref = React.useRef();
 
-  const params = new URLSearchParams(useLocation()?.search);
+  const { state } = useLocation();
   const { collectionName, edit } = React.useContext(
     Context,
   );
 
   const navigate = useNavigate();
-  const activeId = params.get(DOC_PARAM);
-  const { data, next, prev } = useNextPrev(activeId || id);
-
-  const isActive =
-    String(activeId) === String(id) &&
-    params.get(DOC_PARAM_LABEL) === label &&
-    data;
+  const activeId = get(state, DOC_PARAM, id);
+  const { data, next, prev } = useNextPrev(activeId);
 
   const callNavigateWithId = (newId) =>
-    navigate(
-      `?${DOC_PARAM}=${newId}&${DOC_PARAM_LABEL}=${label}`,
-    );
+    navigate('', {
+      state: {
+        [DOC_PARAM]: newId,
+      },
+    });
 
   const renderContent = (close, isOpen) => {
     React.useEffect(() => {
@@ -44,8 +41,8 @@ const ItemActionsWrapper = ({
 
     return children && isOpen
       ? React.cloneElement(children, {
-          onSubmit: edit(id),
-          initialValues: data,
+          onSubmit: edit(activeId),
+          initialValues: data || {},
           collectionName,
           close,
           id,
@@ -77,7 +74,6 @@ const ItemActionsWrapper = ({
   return (
     <Dialog
       key={label}
-      initialValue={isActive}
       ModalProps={{
         disablePortal: true,
       }}
