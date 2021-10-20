@@ -7,27 +7,14 @@ import { useToggle } from 'useful-state';
 import useStyle from '../useStyle';
 import Item from '../Item';
 
-export const FullSpanTableRow = ({ children }) => {
-  const { tableRow } = useStyle();
-  return (
-    <TableRow className={tableRow}>
-      <TableCell colSpan="100%">{children}</TableCell>
-    </TableRow>
-  );
-};
-
-FullSpanTableRow.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
 const NestedItem = ({
-  attributes,
   children,
   item,
   renderNestedTableRow,
   ...rest
 }) => {
   const { state, toggle } = useToggle(true);
+  const { tableRow } = useStyle();
 
   return (
     <>
@@ -36,23 +23,25 @@ const NestedItem = ({
         toggleNested={toggle}
         nestedIsVisible={!state}
         renderNestedTableRow={renderNestedTableRow}
-        attributes={attributes}
         item={item}
         {...rest}
       >
         {children}
       </Item>
       {renderNestedTableRow && (
-        <FullSpanTableRow attributes={attributes}>
-          {!state ? renderNestedTableRow(item, rest) : null}
-        </FullSpanTableRow>
+        <TableRow className={tableRow}>
+          <TableCell colSpan="100%">
+            {!state
+              ? renderNestedTableRow(item, rest)
+              : null}
+          </TableCell>
+        </TableRow>
       )}
     </>
   );
 };
 
 NestedItem.propTypes = {
-  attributes: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node.isRequired,
   item: PropTypes.shape({
     item: PropTypes.string,
@@ -61,7 +50,6 @@ NestedItem.propTypes = {
 };
 
 NestedItem.defaultProps = {
-  attributes: [],
   renderNestedTableRow: null,
 };
 

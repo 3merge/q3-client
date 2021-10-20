@@ -1,38 +1,46 @@
 import React from 'react';
+import { size } from 'lodash';
 import RepeaterTableContext from '../RepeaterTableContext';
+
+export const findIndexById = (a, id) =>
+  Array.isArray(a) && id
+    ? a.findIndex((item) => String(item.id) === String(id))
+    : -1;
+
+export const findByIndex = (a, index) => {
+  try {
+    const out = a[index];
+    if (!out)
+      throw new Error('ID does not exists in this array');
+
+    return out;
+  } catch (e) {
+    return null;
+  }
+};
 
 const useNextPrev = (id) => {
   const { data: state } = React.useContext(
     RepeaterTableContext,
   );
 
-  const data =
-    state[
-      state.findIndex(
-        (item) => String(item.id) === String(id),
-      ) || 0
-    ];
+  const count = size(state);
+  const index = findIndexById(state, id);
+  const data = findByIndex(index);
 
-  const count = Array.isArray(state) ? state.length : 0;
-  const getRemainderOf = (v) => v % count;
+  const getIdOf = (v) => findByIndex(state, v)?.id;
 
   return {
     data,
 
     next() {
-      const i = state.findIndex((p) => {
-        return String(p.id) === String(id);
-      });
-
-      return state[getRemainderOf(i + 1)]?.id;
+      const newIndex = index + 1;
+      return getIdOf(newIndex > count - 1 ? 0 : newIndex);
     },
 
     prev() {
-      const i = state.findIndex((p) => {
-        return String(p.id) === String(id);
-      });
-
-      return state[getRemainderOf(i - 1)]?.id;
+      const newIndex = index - 1;
+      return getIdOf(newIndex < 0 ? count - 1 : newIndex);
     },
   };
 };

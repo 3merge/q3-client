@@ -12,7 +12,6 @@ import withEditableTypography from '../withEditableTypography';
 const ItemHeader = ({
   showMultiselect,
   item,
-  color,
   description,
   icon,
   photo,
@@ -29,7 +28,6 @@ const ItemHeader = ({
 
   const { titleCls, tableCellHeader } = useStyle({
     selected,
-    color,
   });
 
   return (
@@ -82,7 +80,6 @@ ItemHeader.propTypes = {
       PropTypes.number,
     ]).isRequired,
   }).isRequired,
-  color: PropTypes.string,
   showMultiselect: PropTypes.bool,
   isIn: PropTypes.func.isRequired,
   icon: PropTypes.func,
@@ -92,7 +89,6 @@ ItemHeader.propTypes = {
 ItemHeader.defaultProps = {
   description: null,
   showMultiselect: true,
-  color: null,
   icon: null,
   photo: null,
 };

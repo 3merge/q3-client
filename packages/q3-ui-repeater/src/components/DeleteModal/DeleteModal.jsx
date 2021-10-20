@@ -22,11 +22,15 @@ const DeleteModal = ({ id, ...rest }) => {
   ) : null;
 };
 
+DeleteModal.defaultProps = {
+  id: undefined,
+};
+
 DeleteModal.propTypes = {
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-  ]).isRequired,
+  ]),
 };
 
 export default DeleteModal;

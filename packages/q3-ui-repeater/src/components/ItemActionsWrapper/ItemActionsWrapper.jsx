@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from '@reach/router';
 import IconButton from '@material-ui/core/IconButton';
 import Pageview from '@material-ui/icons/Pageview';
 import Dialog from 'q3-ui-dialog';
+import { object } from 'q3-ui-helpers';
 import Context from '../state';
 import useNextPrev from '../useNextPrev';
 
@@ -24,7 +25,6 @@ const ItemActionsWrapper = ({
 
   const navigate = useNavigate();
   const activeId = params.get(DOC_PARAM);
-
   const { data, next, prev } = useNextPrev(activeId || id);
 
   const isActive =
@@ -39,7 +39,7 @@ const ItemActionsWrapper = ({
 
   const renderContent = (close, isOpen) => {
     React.useEffect(() => {
-      if (isOpen && !data) close();
+      if (isOpen && !object.hasKeys(data)) close();
     }, [isOpen, data]);
 
     return children && isOpen
@@ -100,6 +100,7 @@ ItemActionsWrapper.propTypes = {
   icon: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node,
+    PropTypes.object,
   ]),
   id: PropTypes.oneOfType([
     PropTypes.string,
