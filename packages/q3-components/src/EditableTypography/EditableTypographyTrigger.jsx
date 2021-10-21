@@ -16,7 +16,13 @@ export const makeEdittingProps = (isEditable, args) =>
   isEditable ? args : {};
 
 export const removeFormatters = (args) =>
-  omit(args, ['toDate', 'toPrice', 'trans', 'toTruthy']);
+  omit(args, [
+    'toDate',
+    'toPrice',
+    'trans',
+    'toTruthy',
+    'collectionName',
+  ]);
 
 export const formatText = (value, args, t) => {
   let formatted = value;

@@ -1,39 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import NestedItem from '../NestedItem';
-import { hasDataPropChangedShape } from '../../helpers';
-
-export const searchObject = (item = {}) => (value = '') =>
-  !value.length ||
-  new RegExp(value, 'gi').test(JSON.stringify(item));
+import RepeaterTableContext from '../RepeaterTableContext';
 
 const List = ({
   children,
-  data,
   createRenderer,
   renderNestedTableRow,
   ...rest
 }) => {
-  const theme = useTheme();
-  const showAttributes = useMediaQuery(
+  const { data } = React.useContext(RepeaterTableContext);
+  const showAttributes = useMediaQuery((theme) =>
     theme.breakpoints.up('md'),
   );
-
-  const attributes = get(rest, 'cardProps.attributes', []);
 
   return (
     <TableBody>
       {data.map((item, i) => (
         <NestedItem
-          key={`nestedItem${i}`}
+          key={`nestedItem${i}${i?.id}`}
           renderNestedTableRow={renderNestedTableRow}
-          attributes={attributes}
           showAttributes={showAttributes}
-          parent={data}
           item={item}
           index={i}
           {...rest}
@@ -47,7 +36,6 @@ const List = ({
 
 List.propTypes = {
   children: PropTypes.node.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   renderNestedTableRow: PropTypes.func,
   createRenderer: PropTypes.node,
 };

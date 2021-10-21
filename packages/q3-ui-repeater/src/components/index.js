@@ -10,7 +10,6 @@ export { default as BulkDeleteModal } from './BulkDeleteModal';
 export { default as BulkEditorDrawer } from './BulkEditorDrawer';
 export { default as Context } from './state';
 export { default as DeleteModal } from './DeleteModal';
-export { default as EditorDrawer } from './EditorDrawer';
 export { default as Item } from './Item';
 export { default as ItemActions } from './ItemActions';
 export { default as ItemHeader } from './ItemHeader';

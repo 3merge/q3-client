@@ -2,10 +2,10 @@ import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import Up from '@material-ui/icons/KeyboardArrowUp';
-import ItemActions, { paginate } from './ItemActions';
-import { EditorDrawer, DeleteModal } from '..';
+import ItemActions from './ItemActions';
+import { DeleteModal } from '..';
+import ItemActionsWrapper from '../ItemActionsWrapper';
 
-const stub = [1, 2, 3];
 const baseProps = {
   parent: [{ id: '1' }],
   index: 0,
@@ -58,39 +58,7 @@ describe('ItemActions', () => {
         </ItemActions>,
       );
       expect(el.find(DeleteModal).length).toBe(1);
-      expect(el.find(EditorDrawer).length).toBe(1);
-    });
-  });
-
-  describe('"paginate"', () => {
-    it('should start over', () => {
-      const fn = jest.fn();
-      paginate(stub, 3, 1, fn).onNext();
-      expect(fn).toHaveBeenCalledWith(1);
-    });
-
-    it('should increment', () => {
-      const fn = jest.fn();
-      paginate(stub, 1, 1, fn).onNext();
-      expect(fn).toHaveBeenCalledWith(2);
-    });
-
-    it('should jump to end of the list', () => {
-      const fn = jest.fn();
-      paginate(stub, 0, 1, fn).onPrev();
-      expect(fn).toHaveBeenCalledWith(2);
-    });
-
-    it('should decrease', () => {
-      const fn = jest.fn();
-      paginate(stub, 2, 1, fn).onPrev();
-      expect(fn).toHaveBeenCalledWith(1);
-    });
-
-    it('should reset', () => {
-      const fn = jest.fn();
-      paginate(stub, 3, 1, fn).onExit();
-      expect(fn).toHaveBeenCalledWith(1);
+      expect(el.find(ItemActionsWrapper).length).toBe(1);
     });
   });
 });

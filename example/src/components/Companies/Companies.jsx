@@ -1,4 +1,5 @@
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
+import CharactersMovies from '../CharactersMovies';
 
 export default new AbstractCollectionBuilder({
   collectionName: 'characters',
@@ -10,6 +11,7 @@ export default new AbstractCollectionBuilder({
   })
   .genViews({
     General: () => null,
+    movies: CharactersMovies,
   })
   .genResolver(({ id, name, updatedAt }) => ({
     id,

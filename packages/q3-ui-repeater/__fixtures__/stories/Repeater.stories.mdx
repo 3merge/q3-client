@@ -4,6 +4,10 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import { Builders } from 'q3-ui-forms';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+import LaunchIcon from '@material-ui/icons/Launch';
 import Repeater from '../support';
 
 export const isEven = (item) => Number(item.seq) % 2 === 0;
@@ -15,98 +19,136 @@ export const isSeq = (item) => Number(item.seq) === 211;
 
 <Preview>
   <Story name="Empty">
-    <Repeater data={[]}>
-      <p>Editor</p>
-    </Repeater>
+    <LocationProvider>
+      <Repeater data={[]}>
+        <p>Editor</p>
+      </Repeater>
+    </LocationProvider>
   </Story>
   <Story name="With custom add">
-    <Repeater
-      addComponent={<p>Custom form</p>}
-      addComponentPosition="top"
-      bulkEditorComponent={<p>Bulk</p>}
-      disableSearch
-      cardProps={{
-        title: 'sku',
-        attributes: ['for.name', 'id', 'age'],
-      }}
-    >
-      <p>Editor</p>
-    </Repeater>
+    <LocationProvider>
+      <Repeater
+        addComponent={<p>Custom form</p>}
+        addComponentPosition="top"
+        bulkEditorComponent={<p>Bulk</p>}
+        disableSearch
+        cardProps={{
+          title: 'sku',
+          attributes: ['for.name', 'id', 'age'],
+        }}
+      >
+        <p>Editor</p>
+      </Repeater>{' '}
+    </LocationProvider>
+  </Story>
+  <Story name="With auto-open">
+    <LocationProvider initialPath="?selectedSubDocument=3&selectedSubDocumentDialog=editor">
+      <Repeater
+        addComponent={<p>Custom form</p>}
+        addComponentPosition="top"
+        bulkEditorComponent={<p>Bulk</p>}
+        disableSearch
+        cardProps={{
+          title: 'sku',
+          attributes: ['for.name', 'id', 'age'],
+        }}
+      >
+        <p>Editor</p>
+      </Repeater>{' '}
+    </LocationProvider>
   </Story>
   <Story name="Without options">
-    <Repeater
-      disableMultiselect
-      cardProps={{
-        title: 'sku',
-        attributes: ['for.name', 'id', 'age'],
-        editable: {
-          position: {
-            renderer: () => <div>Something custom!</div>,
+    <LocationProvider>
+      <Repeater
+        disableMultiselect
+        cardProps={{
+          title: 'sku',
+          attributes: ['for.name', 'id', 'age'],
+          editable: {
+            position: {
+              renderer: () => <div>Something custom!</div>,
+            },
           },
-        },
-        onColor: (item) =>
-          item.age < 20 ? 'orange' : 'blue',
-        describe: () =>
-          'This is a dynamic sentence generated from the item template.',
-        makeLink: () => '/to',
-        makeLinkLabel: ({ id }) => id,
-      }}
-    >
-      <p>Editor</p>
-    </Repeater>
+          onColor: (item) =>
+            item.age < 20 ? 'orange' : 'blue',
+          describe: () =>
+            'This is a dynamic sentence generated from the item template.',
+          makeLink: () => '/to',
+          makeLinkLabel: ({ id }) => id,
+        }}
+      >
+        <p>Editor</p>
+      </Repeater>
+    </LocationProvider>
   </Story>
   <Story name="Custom renderers">
-    <Repeater
-      bulkEditorComponent={<p>Bulk editor</p>}
-      renderNestedTableRow={() => (
-        <p>{console.log('MOUNTED')} Check me out</p>
-      )}
-      perPage={50}
-      groupBy={[
-        { label: 'Expensive', fn: (v) => v.price > 50 },
-        { label: '211', fn: isSeq },
-      ]}
-      sortOptions={[
-        { label: 'sku' },
-        {
-          label: 'Price (Low to high)',
-          fn: (a, b) => a.price - b.price,
-        },
-        {
-          label: 'Price (High to low)',
-          fn: (a, b) => b.price - a.price,
-        },
-      ]}
-      filterOptions={[
-        { label: 'All' },
-        {
-          label: 'Cheap',
-          fn: (x) => Number(x.price) < 50,
-        },
-        {
-          label: 'Publishing',
-          fn: (x) => x.category === 'Publishing',
-        },
-      ]}
-      th="product"
-      cardProps={{
-        title: 'sku',
-        describe: 'description',
-        attributes: ['price', 'category'],
-        editable: {
-          price: {
-            type: 'number',
-            toPrice: true,
+    <LocationProvider>
+      <Repeater
+        bulkEditorComponent={<p>Bulk editor</p>}
+        renderNestedTableRow={() => <p>d</p>}
+        perPage={50}
+        groupBy={[
+          { label: 'Expensive', fn: (v) => v.price > 50 },
+          { label: '211', fn: isSeq },
+        ]}
+        sortOptions={[
+          { label: 'sku' },
+          {
+            label: 'Price (Low to high)',
+            fn: (a, b) => a.price - b.price,
           },
-          category: {
-            type: 'text',
+          {
+            label: 'Price (High to low)',
+            fn: (a, b) => b.price - a.price,
           },
-        },
-        makeLink: () => '/to',
-        makeLinkLabel: ({ id }) => id,
-      }}
-    >
-      <p>Editor</p>
-    </Repeater>
+        ]}
+        filterOptions={[
+          { label: 'All' },
+          {
+            label: 'Cheap',
+            fn: (x) => Number(x.price) < 50,
+          },
+          {
+            label: 'Publishing',
+            fn: (x) => x.category === 'Publishing',
+          },
+        ]}
+        th="product"
+        cardProps={{
+          title: 'sku',
+          describe: 'description',
+          actions: [
+            {
+              component: (props) => (
+                <Builders.Form {...props}>
+                  <Builders.Field name="sku" type="text" />
+                  <Builders.Field
+                    name="price"
+                    type="number"
+                  />
+                </Builders.Form>
+              ),
+              icon: LaunchIcon,
+              label: 'to',
+            },
+          ],
+          attributes: ['price', 'category'],
+          editable: {
+            price: {
+              type: 'number',
+              toPrice: true,
+            },
+            category: {
+              type: 'text',
+            },
+          },
+        }}
+      >
+        <Builders.Form>
+          <Builders.Field name="sku" type="text" />
+          <Builders.Field name="price" type="number" />
+        </Builders.Form>
+      </Repeater>
+    </LocationProvider>
   </Story>
 </Preview>

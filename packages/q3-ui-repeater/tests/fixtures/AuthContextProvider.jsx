@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from 'q3-ui-permissions';
+import LocationProvider from 'q3-ui-test-utils/lib/location';
 
 const COLLECTON_NAME = 'testing-repeater';
 
@@ -11,47 +12,49 @@ const AuthContextProvider = ({
   update,
   remove,
 }) => (
-  <AuthContext.Provider
-    value={{
-      state: {
-        init: true,
-        profile: {
-          role: 'Developer',
+  <LocationProvider>
+    <AuthContext.Provider
+      value={{
+        state: {
+          init: true,
+          profile: {
+            role: 'Developer',
+          },
+          permissions: [
+            {
+              role: 'Developer',
+              coll: COLLECTON_NAME,
+              fields: read,
+              op: 'Read',
+            },
+            {
+              role: 'Developer',
+              coll: COLLECTON_NAME,
+              fields: update,
+              op: 'Update',
+            },
+            {
+              role: 'Developer',
+              coll: COLLECTON_NAME,
+              fields: remove,
+              op: 'Delete',
+            },
+            {
+              role: 'Developer',
+              coll: COLLECTON_NAME,
+              fields: create,
+              op: 'Create',
+            },
+          ],
         },
-        permissions: [
-          {
-            role: 'Developer',
-            coll: COLLECTON_NAME,
-            fields: read,
-            op: 'Read',
-          },
-          {
-            role: 'Developer',
-            coll: COLLECTON_NAME,
-            fields: update,
-            op: 'Update',
-          },
-          {
-            role: 'Developer',
-            coll: COLLECTON_NAME,
-            fields: remove,
-            op: 'Delete',
-          },
-          {
-            role: 'Developer',
-            coll: COLLECTON_NAME,
-            fields: create,
-            op: 'Create',
-          },
-        ],
-      },
-    }}
-  >
-    {React.cloneElement(children, {
-      collectionName: COLLECTON_NAME,
-      name: 'test',
-    })}
-  </AuthContext.Provider>
+      }}
+    >
+      {React.cloneElement(children, {
+        collectionName: COLLECTON_NAME,
+        name: 'test',
+      })}
+    </AuthContext.Provider>
+  </LocationProvider>
 );
 
 AuthContextProvider.defaultProps = {
