@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.43.0](https://github.com/3merge/q/compare/v1.42.0...v1.43.0) (2021-10-21)
+
+
+### Features
+
+* custom repeater editor ([#351](https://github.com/3merge/q/issues/351)) ([dff5b5a](https://github.com/3merge/q/commit/dff5b5ac00562977c2d9aca085829265f34e600b))
+
+
+
+
+
 # [1.42.0](https://github.com/3merge/q/compare/v1.41.8...v1.42.0) (2021-10-14)
 
 
