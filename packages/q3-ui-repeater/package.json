@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.43.0",
+  "version": "1.43.1",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^1.39.0"
@@ -13,12 +13,12 @@
     "@testing-library/react": "^11.2.5",
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
-    "q3-components": "^1.43.0",
+    "q3-components": "^1.43.1",
     "q3-ui": "^1.41.7",
-    "q3-ui-confirm": "^1.43.0",
+    "q3-ui-confirm": "^1.43.1",
     "q3-ui-dialog": "^1.43.0",
     "q3-ui-exports": "^1.39.0",
-    "q3-ui-forms": "^1.43.0",
+    "q3-ui-forms": "^1.43.1",
     "q3-ui-permissions": "^1.39.0",
     "react-i18next": "11.7.3",
     "useful-state": "^1.2.3"
