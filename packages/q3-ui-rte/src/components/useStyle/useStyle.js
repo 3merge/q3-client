@@ -16,8 +16,12 @@ const useStyle = makeStyles((theme) => {
         paddingBottom: theme.spacing(2),
         position: 'relative',
         whiteSpace: 'pre-wrap',
-
         margin: 'auto',
+
+        [theme.breakpoints.down('sm')]: {
+          padding: theme.spacing(0.25),
+        },
+
         '& > *': {
           margin: '.75rem !important',
         },
@@ -81,6 +85,10 @@ const useStyle = makeStyles((theme) => {
       zIndex: 1,
       padding: theme.spacing(1),
       width: '100%',
+
+      [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(0.25),
+      },
 
       '& .ql-active': {
         backgroundColor: 'var(--background-muted)',

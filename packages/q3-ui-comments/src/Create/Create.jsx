@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Grid } from '@material-ui/core';
-import { Builders } from 'q3-ui-forms';
 import { useAuth } from 'q3-ui-permissions';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../Avatar';
-import FieldMessage from '../FieldMessage';
-import StyledDialog from '../StyledDialog';
+import Dialog from '../Dialog';
 
+// why is this here?
 export const clearHtml = () => {
   try {
     if (typeof window !== 'undefined')
@@ -18,30 +17,28 @@ export const clearHtml = () => {
   }
 };
 
-const Create = ({
-  additionalFields,
-  children,
-  onSubmit,
-  ...rest
-}) => {
+const Create = ({ children, onSubmit, ...rest }) => {
   const { collectionName } = rest;
   const auth = useAuth(collectionName);
   const { HideByField } = auth;
   const { t } = useTranslation('labels');
 
   return (
-    <StyledDialog
-      title="comment"
-      renderTrigger={(onClick) => (
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            {children}
-          </Grid>
-          <HideByField op="Create" path="comments">
-            <Grid item>
-              <Avatar {...auth?.state?.profile} />
-            </Grid>
-            <Grid item xs>
+    <Grid container spacing={1}>
+      <Grid item xs={12}>
+        {children}
+      </Grid>
+      <HideByField op="Create" path="comments">
+        <Grid item>
+          <Avatar {...auth?.state?.profile} />
+        </Grid>
+        <Grid item xs>
+          <Dialog
+            {...rest}
+            isNew
+            restart
+            onSubmit={onSubmit}
+            renderTrigger={(onClick) => (
               <Button
                 disableRipple
                 onClick={onClick}
@@ -54,26 +51,11 @@ const Create = ({
               >
                 {t('leaveAComment')}
               </Button>
-            </Grid>
-          </HideByField>
+            )}
+          />
         </Grid>
-      )}
-      renderContent={(close) => (
-        <Builders.Form
-          restart
-          isNew
-          onSubmit={(args) =>
-            onSubmit(args).then(() => {
-              clearHtml();
-              close();
-            })
-          }
-        >
-          <FieldMessage {...rest} />
-          {additionalFields}
-        </Builders.Form>
-      )}
-    />
+      </HideByField>
+    </Grid>
   );
 };
 
