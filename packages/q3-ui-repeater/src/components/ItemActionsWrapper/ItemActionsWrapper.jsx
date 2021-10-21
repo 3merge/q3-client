@@ -24,7 +24,8 @@ const ItemActionsWrapper = ({
   );
 
   const navigate = useNavigate();
-  const activeId = get(state, DOC_PARAM, id);
+  const stateId = get(state, DOC_PARAM);
+  const activeId = stateId || id;
   const { data, next, prev } = useNextPrev(activeId);
 
   const callNavigateWithId = (newId) =>
@@ -65,11 +66,11 @@ const ItemActionsWrapper = ({
     try {
       ref.current
         .closest('tr')
-        .setAttribute('data-active-id', activeId);
+        .setAttribute('data-active-id', stateId);
     } catch (e) {
       // noop
     }
-  }, [activeId]);
+  }, [stateId]);
 
   return (
     <Dialog
