@@ -11,6 +11,7 @@ import useNextPrev from '../useNextPrev';
 
 const ItemActionsWrapper = ({
   children,
+  disableDialog,
   icon: Icon,
   label,
   id,
@@ -35,20 +36,28 @@ const ItemActionsWrapper = ({
       },
     });
 
+  const renderChildren = (args = {}) =>
+    children
+      ? React.cloneElement(children, {
+          ...args,
+          onSubmit: edit(activeId),
+          initialValues: data || {},
+          collectionName,
+          id,
+        })
+      : null;
+
   const renderContent = (close, isOpen) => {
     React.useEffect(() => {
       if (isOpen && !object.hasKeys(data)) close();
     }, [isOpen, data]);
 
-    return children && isOpen
-      ? React.cloneElement(children, {
-          onSubmit: edit(activeId),
-          initialValues: data || {},
-          collectionName,
-          close,
-          id,
-        })
-      : null;
+    return (
+      isOpen &&
+      renderChildren({
+        close,
+      })
+    );
   };
 
   const renderTrigger = (toggle) => (
@@ -72,7 +81,9 @@ const ItemActionsWrapper = ({
     }
   }, [stateId]);
 
-  return (
+  return disableDialog ? (
+    renderChildren()
+  ) : (
     <Dialog
       key={label}
       ModalProps={{
@@ -94,6 +105,7 @@ const ItemActionsWrapper = ({
 
 ItemActionsWrapper.propTypes = {
   children: PropTypes.node.isRequired,
+  disableDialog: PropTypes.bool,
   icon: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.node,
@@ -107,6 +119,7 @@ ItemActionsWrapper.propTypes = {
 };
 
 ItemActionsWrapper.defaultProps = {
+  disableDialog: false,
   icon: Pageview,
   label: 'editor',
 };

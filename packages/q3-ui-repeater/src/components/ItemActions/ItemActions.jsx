@@ -41,12 +41,12 @@ const ItemActions = ({
       )}
       {map(
         actions,
-        ({ component: Component, icon, label }) => (
+        ({ component: Component, label, ...rest }, idx) => (
           <ItemActionsWrapper
+            {...rest}
             id={id}
-            key={label}
+            key={label || idx}
             label={label}
-            icon={icon}
           >
             <Component />
           </ItemActionsWrapper>

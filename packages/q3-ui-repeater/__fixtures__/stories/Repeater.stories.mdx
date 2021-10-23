@@ -131,6 +131,10 @@ export const isSeq = (item) => Number(item.seq) === 211;
               icon: LaunchIcon,
               label: 'to',
             },
+            {
+              disableDialog: true,
+              component: (props) => <button>Custom</button>,
+            },
           ],
           attributes: ['price', 'category'],
           editable: {
