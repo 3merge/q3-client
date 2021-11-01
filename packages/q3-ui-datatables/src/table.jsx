@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
-import TableCell from '@material-ui/core/TableCell';
-import { get, pick } from 'lodash';
+import { get, pick, map, compact } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
@@ -17,6 +16,7 @@ import { extractIds } from './utils/helpers';
 import ColumnReorderDialog from './ColumnReorderDialog';
 import ColumnSort from './ColumnSort';
 import Cell from './Cell';
+import CellAction from './CellAction';
 import RowHeader from './RowHeader';
 import Pagination from './Pagination';
 import useColumns from './useColumns';
@@ -33,6 +33,7 @@ const TableView = ({
   allColumns,
   defaultColumns,
   blacklistColumns,
+  customRowActionsAnchor,
   disableColumnReorder,
   disableMultiselect,
   disableAvatar,
@@ -96,6 +97,13 @@ const TableView = ({
     return sortable ? onSort : null;
   };
 
+  const renderCustomRowActionsAnchor = (...parts) => {
+    const el = map(compact(parts));
+    return customRowActionsAnchor === 'end'
+      ? el.reverse()
+      : el;
+  };
+
   return (
     <Exports>
       <Paper
@@ -130,19 +138,19 @@ const TableView = ({
                     />
                   )}
                 </ColumnSelectAll>
-                {object.isFn(renderCustomRowActions) ? (
-                  <th aria-label="Actions" />
-                ) : undefined}
-                {activeColumns.map((column) => {
-                  return (
+                {renderCustomRowActionsAnchor(
+                  object.isFn(renderCustomRowActions) && (
+                    <CellAction component="th" />
+                  ),
+                  activeColumns.map((column) => (
                     <ColumnSort
                       title={column}
                       onSort={isNotVirtual(column)}
                       className={cellWidth}
                       key={column}
                     />
-                  );
-                })}
+                  )),
+                )}
               </TableRow>
             </TableHead>
             <TableBody className={tableBody}>
@@ -156,26 +164,26 @@ const TableView = ({
                     disableMultiselect={disableMultiselect}
                     {...row}
                   />
-                  {object.isFn(renderCustomRowActions) ? (
-                    <TableCell className={cellWidth}>
-                      <div>
+                  {renderCustomRowActionsAnchor(
+                    object.isFn(renderCustomRowActions) && (
+                      <CellAction>
                         {renderCustomRowActions(
                           row,
                           data[ind],
                         )}
-                      </div>
-                    </TableCell>
-                  ) : null}
-                  {activeColumns.map((column) => (
-                    <Cell
-                      id={column}
-                      component="td"
-                      className={cellWidth}
-                      headers={`${column} ${row.name}`}
-                      key={`${row.id}-${column}`}
-                      value={get(row, column)}
-                    />
-                  ))}
+                      </CellAction>
+                    ),
+                    activeColumns.map((column) => (
+                      <Cell
+                        id={column}
+                        component="td"
+                        className={cellWidth}
+                        headers={`${column} ${row.name}`}
+                        key={`${row.id}-${column}`}
+                        value={get(row, column)}
+                      />
+                    )),
+                  )}
                 </TableRow>
               ))}
             </TableBody>
@@ -258,10 +266,12 @@ TableView.propTypes = {
   onSort: PropTypes.func.isRequired,
   virtuals: PropTypes.arrayOf(PropTypes.string),
   disableColumnReorder: PropTypes.bool,
+  customRowActionsAnchor: PropTypes.oneOf(['start', 'end']),
 };
 
 TableView.defaultProps = {
   aliasForName: 'name',
+  customRowActionsAnchor: 'end',
   total: 0,
   allColumns: [],
   defaultColumns: [],

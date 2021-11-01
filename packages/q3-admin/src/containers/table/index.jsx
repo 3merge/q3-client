@@ -4,13 +4,15 @@ import Box from '@material-ui/core/Box';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
-import { get, isObject } from 'lodash';
+import { get, invoke } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh } from '../../hooks';
 import TableActions from '../TableActions';
+import TableLink from '../TableLink';
+import TableTrash from '../TableTrash';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -23,13 +25,24 @@ const assignUrlPath = (base) => (item) => {
   };
 };
 
-const removeUrlPath = (filterUrl) => (item) => {
-  if (filterUrl) delete item.url;
-  return item;
-};
-
 export const TableDecorator = (props) => ({
-  build: () => props,
+  build: () => ({
+    ...props,
+    renderCustomRowActions: (args) => {
+      const renderWhenTruthy = (el, prop) =>
+        get(props, prop, true)
+          ? React.createElement(el, args)
+          : null;
+
+      return [
+        invoke(props, 'renderCustomRowActions', args),
+        renderWhenTruthy(TableLink, 'includeLink'),
+        renderWhenTruthy(TableTrash, 'includeTrash'),
+      ];
+    },
+  }),
+
+  // getMultiselect?
 
   makeBlacklist: (fn) =>
     [
@@ -37,12 +50,8 @@ export const TableDecorator = (props) => ({
       ...get(props, 'defaultColumns', []),
     ].filter((v) => !fn(v)),
 
-  makeLinks: (root, removeUrl) =>
-    get(props, 'data', [])
-      .map(assignUrlPath(root))
-      // sometimes, the URL is assigned from another module
-      // even if we skipped the map above, it wouldn't ensure the URL prop removal
-      .map(removeUrlPath(removeUrl)),
+  makeLinks: (root) =>
+    get(props, 'data', []).map(assignUrlPath(root)),
 });
 
 const executeNavigation = (query) =>
@@ -66,7 +75,7 @@ const useStyle = makeStyles(() => ({
   },
 }));
 
-const List = ({ disableLink, io, ...rest }) => {
+const List = (props) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
 
@@ -81,7 +90,7 @@ const List = ({ disableLink, io, ...rest }) => {
 
   const { state, update } = React.useContext(AuthContext);
   const decorator = TableDecorator({
-    ...rest,
+    ...props,
     ...tableProps,
   });
 
@@ -100,16 +109,17 @@ const List = ({ disableLink, io, ...rest }) => {
   return (
     <Table
       {...decorator.build()}
-      disableMultiselect={!isObject(io)}
       blacklistColumns={decorator.makeBlacklist(canSeeSub)}
       className={table}
       actionbarPosition="absolute"
-      data={decorator.makeLinks(rootPath, disableLink)}
+      data={decorator.makeLinks(rootPath)}
       id={collectionName}
       onSort={updateSortPrefence}
-      style={{ height: '100%' }}
+      style={{
+        height: '100%',
+      }}
     >
-      <TableActions io={io} {...rest} />
+      <TableActions {...props} />
       <Box py={0.5}>
         <FilterChip />
       </Box>
@@ -118,7 +128,13 @@ const List = ({ disableLink, io, ...rest }) => {
 };
 
 List.propTypes = {};
-
 List.defaultProps = {};
 
 export default List;
+
+/**
+if NO IO && NO DELETE 
+bulkDelete
+
+disableMultiselect
+ */

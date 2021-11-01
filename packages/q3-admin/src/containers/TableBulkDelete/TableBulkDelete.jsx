@@ -30,6 +30,7 @@ const TableBulkDelete = () => {
                 label="deleteMany"
                 icon={DeleteSweepIcon}
                 count={len}
+                color="inherit"
               />
             )}
           />

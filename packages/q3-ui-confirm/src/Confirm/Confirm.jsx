@@ -49,6 +49,7 @@ const Confirm = ({
         ) : (
           <IconButton
             aria-label={t(title)}
+            color="inherit"
             {...sharedButtonProps}
             {...IconButtonProps}
           >

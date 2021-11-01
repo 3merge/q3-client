@@ -2,6 +2,8 @@ import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import CreditCard from '@material-ui/icons/CreditCard';
 import { green } from '@material-ui/core/colors';
+import { IconButton } from '@material-ui/core';
+import Group from '@material-ui/icons/Group';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
@@ -49,16 +51,20 @@ export default new AbstractCollectionBuilder({
     General,
   })
   .genList({
+    customRowActionsAnchor: 'start',
+    defaultColumns: ['createdAt', 'updatedAt'],
     io: {
       exports: ['orders'],
       imports: [],
       // eslint-disable-next-line
       renderer: () => <p>Look at me!</p>,
     },
-    renderCustomRowActions: (row) => {
-      const { exportCollection } = useIo(row.id);
-      return <p>FN</p>;
-    },
+
+    renderCustomRowActions: () => (
+      <IconButton>
+        <Group />
+      </IconButton>
+    ),
   })
   .genListSettings({
     defaultSortPreference: 'name',
