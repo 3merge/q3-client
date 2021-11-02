@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.43.3](https://github.com/3merge/q/compare/v1.43.2...v1.43.3) (2021-11-02)
+
+**Note:** Version bump only for package q3-ui-exports
+
+
+
+
+
 # [1.39.0](https://github.com/3merge/q/compare/v1.38.9...v1.39.0) (2021-09-23)
 
 **Note:** Version bump only for package q3-ui-exports
