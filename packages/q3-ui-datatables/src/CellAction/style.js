@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-  root: ({ anchor = 'end' }) => ({
+  root: {
     background: theme.palette.background.paper,
     boxSizing: 'border-box',
     minWidth: '0 !important',
@@ -10,15 +10,10 @@ export default makeStyles((theme) => ({
     width: 'min-content',
     willChange: 'width',
 
-    // ...(anchor === 'end' ? {
-    //   position: 'var(--cell-position)',
-    // right: 0,
-    // } : {}),
-
     '& > div': {
       display: 'inline-flex',
       padding: '0 12px',
       wrap: 'nowrap',
     },
-  }),
+  },
 }));

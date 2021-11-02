@@ -40,7 +40,6 @@ const TableView = ({
   id,
   aliasForName,
   total,
-  renderCustomActions,
   renderCustomRowActions,
   resolvers,
   data = [],
@@ -48,7 +47,6 @@ const TableView = ({
   virtuals,
   className,
   children,
-  actionbarPosition,
   style,
 }) => {
   const filterer = filterByPossibleKeys(
@@ -78,7 +76,6 @@ const TableView = ({
         ? { ...row, ...resolvers(row) }
         : row,
       [
-        // append required HEADER props
         ...activeColumns,
         'name',
         'description',
@@ -193,91 +190,51 @@ const TableView = ({
           <Pagination id={id} total={total} />
         </Box>
       </Paper>
-      <Actionbar
-        position={actionbarPosition}
-        columns={allColumns}
-        data={data}
-        actions={
-          object.isFn(renderCustomActions)
-            ? renderCustomActions(data)
-            : []
-        }
-      />
+      <Actionbar data={data} />
     </Exports>
   );
 };
 
 TableView.propTypes = {
-  /**
-   * Unique identifier for list cache.
-   */
-  id: PropTypes.string.isRequired,
-
-  /**
-   * Total number of potential documents.
-   * In many cases, this number is larger than the pagination size.
-   */
-  total: PropTypes.number,
-
-  /**
-   * Unlike other columns, the leader is titled "name" but could represent lots of different things.
-   * For sorting purposes, we can expose the true data key with this prop.
-   */
   aliasForName: PropTypes.string,
-
-  /**
-   * Typically, you'd nest an array of Row components within the Table.
-   * This component reads the "id" prop of each to configure mobile headers.
-   */
+  allColumns: PropTypes.arrayOf(PropTypes.string),
+  blacklistColumns: PropTypes.arrayOf(PropTypes.string),
+  children: PropTypes.node,
+  className: PropTypes.string,
+  customRowActionsAnchor: PropTypes.oneOf(['start', 'end']),
   data: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,
     }),
   ).isRequired,
-
-  /**
-   * On row selection, the user can click from a toolbar of pre-determined actions.
-   * Use this array to populate said toolbar with icons and handlers.
-   */
-  renderCustomActions: PropTypes.func,
-
-  /**
-   * Func for resolving TableCells with custom components/text.
-   */
-  resolvers: PropTypes.func.isRequired,
-
-  /**
-   * If provided, the table will allow custom column making.
-   */
-  allColumns: PropTypes.arrayOf(PropTypes.string),
-
-  /**
-   * If provided, the table will pre-configure these columns.
-   * Otherwise, it will just look for the name and description fields.
-   */
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
-
-  /**
-   * If provided, the table will redact columns that match.
-   * Perfect for dynamic access control settings.
-   */
-  blacklistColumns: PropTypes.arrayOf(PropTypes.string),
-
-  onSort: PropTypes.func.isRequired,
-  virtuals: PropTypes.arrayOf(PropTypes.string),
+  disableAvatar: PropTypes.bool,
   disableColumnReorder: PropTypes.bool,
-  customRowActionsAnchor: PropTypes.oneOf(['start', 'end']),
+  disableMultiselect: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  onSort: PropTypes.func.isRequired,
+  renderCustomRowActions: PropTypes.func,
+  resolvers: PropTypes.func.isRequired,
+  // eslint-disable-next-line
+  style: PropTypes.object,
+  total: PropTypes.number,
+  virtuals: PropTypes.arrayOf(PropTypes.string),
 };
 
 TableView.defaultProps = {
   aliasForName: 'name',
-  customRowActionsAnchor: 'end',
-  total: 0,
   allColumns: [],
-  defaultColumns: [],
   blacklistColumns: [],
-  renderCustomActions: null,
+  children: null,
+  className: undefined,
+  customRowActionsAnchor: 'end',
+  defaultColumns: [],
+  disableAvatar: false,
   disableColumnReorder: false,
+  disableMultiselect: false,
+  renderCustomRowActions: null,
+  style: {},
+  total: 0,
   virtuals: [],
 };
 

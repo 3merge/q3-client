@@ -1,30 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Confirm from 'q3-ui-confirm';
-import { useAuth } from 'q3-ui-permissions';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import { Dispatcher, Definitions } from '../state';
+import { Dispatcher } from '../state';
+import AuthDelete from '../AuthDelete';
 
-export const TableTrash = ({ id }) => {
+const TableTrash = ({ id }) => {
   const { remove } = React.useContext(Dispatcher);
-  const { collectionName } = React.useContext(Definitions);
-  const { canDelete } = useAuth(collectionName);
 
   return (
-    canDelete && (
+    <AuthDelete>
       <Confirm
-        title="confirm"
-        description="confirm"
-        service={remove(id)}
-        phrase="DELETE"
         icon={DeleteForever}
+        phrase="TRASH"
+        service={remove(id)}
       />
-    )
+    </AuthDelete>
   );
 };
 
 TableTrash.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default TableTrash;
