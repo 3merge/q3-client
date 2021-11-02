@@ -42,7 +42,7 @@ const TableView = ({
   total,
   renderCustomRowActions,
   resolvers,
-  data = [],
+  data,
   onSort,
   virtuals,
   className,

@@ -29,5 +29,51 @@ describe('Table', () => {
 
       expect(out[0]).toHaveProperty('url');
     });
+
+    it('should include TableLink and TableDelete by default', () => {
+      const [a, b] = TableDecorator({})
+        .build()
+        .renderCustomRowActions({
+          id: '1',
+        });
+
+      expect(a.type.name).toMatch('TableLink');
+      expect(b.type.name).toMatch('TableTrash');
+    });
+
+    it('should exclude TableDelete', () => {
+      const el = TableDecorator({
+        includeTrash: false,
+      })
+        .build()
+        .renderCustomRowActions({
+          id: '1',
+        });
+
+      expect(el).toHaveLength(1);
+      expect(el[0].type.name).toMatch('TableLink');
+    });
+
+    it('should combine row actions', () => {
+      const el = TableDecorator({
+        includeLink: false,
+        includeTrash: false,
+
+        renderCustomRowActions: (props) => {
+          expect(props).toMatchObject({
+            id: '1',
+          });
+
+          return 'CUSTOM';
+        },
+      })
+        .build()
+        .renderCustomRowActions({
+          id: '1',
+        });
+
+      expect(el).toHaveLength(1);
+      expect(el[0]).toMatch('CUSTOM');
+    });
   });
 });

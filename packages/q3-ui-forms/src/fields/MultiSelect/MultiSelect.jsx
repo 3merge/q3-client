@@ -23,7 +23,7 @@ export const genPayload = (name, value = []) => ({
 });
 
 export const extractValues = (xs) =>
-  map((x) => (isObject(x) ? x.value : x), xs);
+  uniq(map((x) => (isObject(x) ? x.value : x), xs));
 
 const sort = (a) => array.is(a).sort();
 
@@ -83,11 +83,14 @@ export default withState(
     const renderValue = compose(...composedFns);
 
     React.useEffect(() => {
-      if (status === CHECKED)
-        onChange(genPayload(name, extractValues(items)));
+      if (!loading) {
+        if (status === CHECKED)
+          onChange(genPayload(name, extractValues(items)));
 
-      if (status === UNCHECKED) onChange(genPayload(name));
-    }, [status]);
+        if (status === UNCHECKED)
+          onChange(genPayload(name));
+      }
+    }, [loading, status]);
 
     React.useEffect(() => {
       if (status !== CHECKED && hasEveryValue(items, value))

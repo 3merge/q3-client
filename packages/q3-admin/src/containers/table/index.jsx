@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
-import { get, invoke } from 'lodash';
+import { compact, get, invoke } from 'lodash';
 import { url } from 'q3-ui-helpers';
 import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,15 +34,13 @@ export const TableDecorator = (props) => ({
           ? React.createElement(el, args)
           : null;
 
-      return [
+      return compact([
         invoke(props, 'renderCustomRowActions', args),
         renderWhenTruthy(TableLink, 'includeLink'),
         renderWhenTruthy(TableTrash, 'includeTrash'),
-      ];
+      ]);
     },
   }),
-
-  // getMultiselect?
 
   makeBlacklist: (fn) =>
     [
@@ -111,7 +109,6 @@ const List = (props) => {
       {...decorator.build()}
       blacklistColumns={decorator.makeBlacklist(canSeeSub)}
       className={table}
-      actionbarPosition="absolute"
       data={decorator.makeLinks(rootPath)}
       id={collectionName}
       onSort={updateSortPrefence}
@@ -131,10 +128,3 @@ List.propTypes = {};
 List.defaultProps = {};
 
 export default List;
-
-/**
-if NO IO && NO DELETE 
-bulkDelete
-
-disableMultiselect
- */
