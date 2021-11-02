@@ -1,14 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';
-import DataToCsv from './DataToCsv';
-import DataToExcel from './DataToExcel';
-import Unselect from './Unselect';
-import useStyle from './useStyle';
 
 const assignId = (o = {}, index = 0) => {
   const item = { ...o };
@@ -43,8 +36,7 @@ export const intersects = (data = [], ids = []) =>
     ? data.map(assignId).filter((v) => matches(ids, v.id))
     : [];
 
-const ActionBar = ({ actions, data, position }) => {
-  const { t } = useTranslation('labels');
+const ActionBar = ({ data }) => {
   const { hasChecked, setChecked } = React.useContext(
     State,
   );
@@ -55,49 +47,15 @@ const ActionBar = ({ actions, data, position }) => {
     if (len) setChecked([]);
   }, [data.length]);
 
-  // if (!len) return null;
-
   return null;
-  /*
-   // const picked = intersects(data, checked);
-  const { actionBar } = useStyle({
-    position,
-  });
-  return (
-    <BottomNavigation className={actionBar}>
-      <DataToCsv data={picked} />
-      {renderActions(actions, t, picked)}
-    </BottomNavigation>
-  ); */
 };
 
 ActionBar.propTypes = {
-  /**
-   * Custom action handlers
-   */
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      onClick: PropTypes.func,
-      label: PropTypes.string,
-      icon: PropTypes.node,
-    }),
-  ),
-
-  /**
-   * Active data for manipulating and/or export
-   */
   data: PropTypes.arrayOf(PropTypes.object),
-
-  /**
-   * CSS attribute of the actionbar.
-   */
-  position: PropTypes.string,
 };
 
 ActionBar.defaultProps = {
-  actions: [],
   data: [],
-  position: 'sticky',
 };
 
 export default ActionBar;
