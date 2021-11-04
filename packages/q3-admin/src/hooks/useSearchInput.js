@@ -64,7 +64,11 @@ export default () => {
   React.useEffect(() => {
     if (currentSearchValue !== value)
       setValue(currentSearchValue);
-  }, [currentSearchValue]);
+  }, [
+    Array.isArray(currentSearchValue)
+      ? currentSearchValue.join('')
+      : currentSearchValue,
+  ]);
 
   return {
     'aria-label': 'search',
