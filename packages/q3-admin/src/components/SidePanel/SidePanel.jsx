@@ -81,8 +81,12 @@ const SidePanel = ({ id, children }) => {
   );
 };
 
+SidePanel.defaultProps = {
+  id: undefined,
+};
+
 SidePanel.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.array,

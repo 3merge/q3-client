@@ -68,7 +68,12 @@ const Admin = ({
 
 Admin.propTypes = {
   AppProps: PropTypes.shape({
-    addons: PropTypes.arrayOf(PropTypes.object),
+    addons: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.func,
+      ]),
+    ),
     directory: PropTypes.string,
     pages: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,

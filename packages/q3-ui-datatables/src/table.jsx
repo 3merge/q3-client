@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import Box from '@material-ui/core/Box';
-import { get, pick, map, compact } from 'lodash';
+import { get, pick, compact } from 'lodash';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
@@ -95,7 +95,8 @@ const TableView = ({
   };
 
   const renderCustomRowActionsAnchor = (...parts) => {
-    const el = map(compact(parts));
+    const el = compact(parts);
+
     return customRowActionsAnchor === 'end'
       ? el.reverse()
       : el;
@@ -137,14 +138,17 @@ const TableView = ({
                 </ColumnSelectAll>
                 {renderCustomRowActionsAnchor(
                   object.isFn(renderCustomRowActions) && (
-                    <CellAction component="th" />
+                    <CellAction
+                      key="custom-actions-header"
+                      component="th"
+                    />
                   ),
-                  activeColumns.map((column) => (
+                  activeColumns.map((column, idx) => (
                     <ColumnSort
                       title={column}
                       onSort={isNotVirtual(column)}
                       className={cellWidth}
-                      key={column}
+                      key={`${column}-${idx}`}
                     />
                   )),
                 )}
@@ -153,7 +157,7 @@ const TableView = ({
             <TableBody className={tableBody}>
               {processed.map((row, ind) => (
                 <TableRow
-                  key={`row-${ind}`}
+                  key={`row-${row.id}-${ind}`}
                   className={flexRow}
                 >
                   <RowHeader
@@ -163,20 +167,22 @@ const TableView = ({
                   />
                   {renderCustomRowActionsAnchor(
                     object.isFn(renderCustomRowActions) && (
-                      <CellAction>
+                      <CellAction
+                        key={`custom-actions-${ind}`}
+                      >
                         {renderCustomRowActions(
                           row,
                           data[ind],
                         )}
                       </CellAction>
                     ),
-                    activeColumns.map((column) => (
+                    activeColumns.map((column, idx) => (
                       <Cell
                         id={column}
                         component="td"
                         className={cellWidth}
                         headers={`${column} ${row.name}`}
-                        key={`${row.id}-${column}`}
+                        key={`${row.id}-${column}-${idx}`}
                         value={get(row, column)}
                       />
                     )),

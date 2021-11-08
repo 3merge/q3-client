@@ -28,14 +28,30 @@ const assignUrlPath = (base) => (item) => {
 export const TableDecorator = (props) => ({
   build: () => ({
     ...props,
-    renderCustomRowActions: (args) => {
+    renderCustomRowActions: (args, context) => {
+      const subkey = context?.id;
+      const customEl = invoke(
+        props,
+        'renderCustomRowActions',
+        args,
+      );
+
       const renderWhenTruthy = (el, prop) =>
         get(props, prop, true)
-          ? React.createElement(el, args)
+          ? React.createElement(el, {
+              key: `${el.displayName}-${subkey}`,
+              ...args,
+            })
           : null;
 
       return compact([
-        invoke(props, 'renderCustomRowActions', args),
+        customEl ? (
+          <React.Fragment
+            key={`custom-actions-wrapper-${subkey}`}
+          >
+            {customEl}
+          </React.Fragment>
+        ) : null,
         renderWhenTruthy(TableLink, 'includeLink'),
         renderWhenTruthy(TableTrash, 'includeTrash'),
       ]);

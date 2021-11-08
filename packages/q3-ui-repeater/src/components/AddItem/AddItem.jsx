@@ -39,7 +39,7 @@ AddItem.defaultProps = {
 };
 
 AddItem.propTypes = {
-  addComponent: PropTypes.node,
+  addComponent: PropTypes.elementType,
   children: PropTypes.node.isRequired,
   initialValues: PropTypes.shape({}).isRequired,
 };

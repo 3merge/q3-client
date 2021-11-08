@@ -73,7 +73,7 @@ describe('Table', () => {
         });
 
       expect(el).toHaveLength(1);
-      expect(el[0]).toMatch('CUSTOM');
+      expect(el[0].props.children).toMatch('CUSTOM');
     });
   });
 });

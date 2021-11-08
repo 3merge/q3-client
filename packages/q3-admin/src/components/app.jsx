@@ -40,7 +40,8 @@ const App = ({ pages, paths, children }) =>
   Array.isArray(pages) ? (
     <Router>
       {addRedirectWhenMissingHome(pages.flat()).map(
-        ({ collectionName, component, ...etc }) => {
+        ({ collectionName, component, ...etc }, idx) => {
+          const path = makePath(etc);
           const el = React.createElement(
             etc.home || !collectionName
               ? component
@@ -50,7 +51,8 @@ const App = ({ pages, paths, children }) =>
               component,
               collectionName,
               coll: collectionName,
-              path: makePath(etc),
+              path,
+              key: `path-${idx}`,
               // back to index
               to: '/',
             },

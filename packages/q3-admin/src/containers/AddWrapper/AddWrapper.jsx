@@ -18,7 +18,7 @@ CollectionActions.defaultProps = {
 };
 
 CollectionActions.propTypes = {
-  addComponent: PropTypes.node,
+  addComponent: PropTypes.elementType,
 };
 
 export default withActionPortal(CollectionActions, {

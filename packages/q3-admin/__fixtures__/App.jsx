@@ -35,7 +35,9 @@ const ExampleApp = ({ initialPath }) => {
             <Admin
               AppProps={{
                 addons: [EmailEditor],
-                customRoutes: [<Dash path="/" />],
+                customRoutes: [
+                  <Dash key="dash" path="/" />,
+                ],
                 pages,
               }}
               NavProps={{
