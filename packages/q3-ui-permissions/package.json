@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-permissions",
-  "version": "1.39.0",
+  "version": "1.43.5",
   "main": "lib/index.js",
   "dependencies": {
     "comparisons": "^2.2.10",
