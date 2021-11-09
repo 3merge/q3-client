@@ -29,11 +29,14 @@ const sort = (a) => array.is(a).sort();
 
 const hasEveryValue = (a, b) => {
   try {
-    return a.every(
-      (item) =>
-        b.findIndex(
-          (val) => item === val || val === item.value,
-        ) !== -1,
+    return (
+      a.length &&
+      a.every(
+        (item) =>
+          b.findIndex(
+            (val) => item === val || val === item.value,
+          ) !== -1,
+      )
     );
   } catch (e) {
     return false;
@@ -124,7 +127,17 @@ export default withState(
           renderValue: (selected) => (
             <div style={{ margin: '-2px 0 -2px -6px' }}>
               {renderValue(selected).map((s) => (
-                <Chip key={s} label={s} size="small" />
+                <Chip
+                  key={s}
+                  label={
+                    loading &&
+                    deco.preload &&
+                    displayLabelAsValue
+                      ? '--'
+                      : s
+                  }
+                  size="small"
+                />
               ))}
             </div>
           ),
