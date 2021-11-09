@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.43.7](https://github.com/3merge/q/compare/v1.43.6...v1.43.7) (2021-11-09)
+
+
+### Bug Fixes
+
+* preload multiselect ([3bfdf8b](https://github.com/3merge/q/commit/3bfdf8bf8dabb7789ff86315bb1133d4a8bd0de0))
+
+
+
+
+
 ## [1.43.6](https://github.com/3merge/q/compare/v1.43.5...v1.43.6) (2021-11-09)
 
 **Note:** Version bump only for package q3-client
