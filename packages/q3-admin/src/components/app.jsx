@@ -76,13 +76,16 @@ App.propTypes = {
   ]),
   paths: PropTypes.arrayOf(PropTypes.node),
   pages: PropTypes.arrayOf(
-    PropTypes.shape({
-      index: PropTypes.bool,
-      id: PropTypes.bool,
-      home: PropTypes.bool,
-      collectionName: PropTypes.string,
-      resourceName: PropTypes.string,
-    }),
+    PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.shape({
+        index: PropTypes.bool,
+        id: PropTypes.bool,
+        home: PropTypes.bool,
+        collectionName: PropTypes.string,
+        resourceName: PropTypes.string,
+      }),
+    ]),
   ).isRequired,
 };
 

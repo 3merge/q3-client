@@ -106,11 +106,14 @@ const Bool = ({
       size: getSize(variant),
     }),
     [
+      'collapse',
       'strict',
       'onArrayPull',
       'onArrayPush',
       'error',
       'helperText',
+      'suppressLabel',
+      'suppressHelper',
     ],
   );
 

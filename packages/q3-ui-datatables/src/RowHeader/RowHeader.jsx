@@ -67,11 +67,17 @@ const CellHeader = ({
 };
 
 CellHeader.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   description: PropTypes.string,
   to: PropTypes.string,
   sub: PropTypes.string,
-  imgSrc: PropTypes.string,
+  imgSrc: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.func,
+  ]),
   onClick: PropTypes.func,
   disableMultiselect: PropTypes.bool,
   disableAvatar: PropTypes.bool,

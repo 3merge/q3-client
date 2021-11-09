@@ -89,7 +89,7 @@ const ColoredAvatar = ({
     const commons = {
       imgProps: { onError },
       className: cls.root,
-      alt: word,
+      alt: String(word),
       src,
     };
 
@@ -118,7 +118,10 @@ const ColoredAvatar = ({
 };
 
 ColoredAvatar.propTypes = {
-  word: PropTypes.string,
+  word: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   imgSrc: PropTypes.string,
   superscript: PropTypes.number,
   icon: PropTypes.oneOfType([

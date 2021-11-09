@@ -75,7 +75,12 @@ Admin.propTypes = {
       ]),
     ),
     directory: PropTypes.string,
-    pages: PropTypes.arrayOf(PropTypes.object),
+    pages: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.array,
+        PropTypes.object,
+      ]),
+    ),
   }).isRequired,
 
   NavProps: PropTypes.shape({

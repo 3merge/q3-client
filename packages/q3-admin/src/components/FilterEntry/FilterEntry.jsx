@@ -7,7 +7,7 @@ import { FilterGroup } from 'q3-components';
 const FilterEntry = (rest) => (
   <FilterGroup title={rest.name}>
     <Box width="100%">
-      <Grid container disableGutters>
+      <Grid container>
         <Field
           collapse={false}
           suppressHelper

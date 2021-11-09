@@ -26,4 +26,6 @@ TableTrash.propTypes = {
   ]).isRequired,
 };
 
+TableTrash.displayName = 'TableTrash';
+
 export default TableTrash;

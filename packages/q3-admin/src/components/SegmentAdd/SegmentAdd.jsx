@@ -22,7 +22,7 @@ const SegmentAdd = ({ onSave, active, items }) => {
   };
 
   return (
-    <ListItem fullWidth variant="contained">
+    <ListItem variant="contained">
       <InputBase
         name="Custom"
         aria-label={t('saveAsSegment')}

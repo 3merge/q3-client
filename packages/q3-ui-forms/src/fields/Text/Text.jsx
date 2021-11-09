@@ -80,6 +80,7 @@ Text.propTypes = {
   icon: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.object,
+    PropTypes.elementType,
   ]),
 };
 

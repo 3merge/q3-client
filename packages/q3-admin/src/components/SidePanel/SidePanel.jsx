@@ -83,6 +83,7 @@ const SidePanel = ({ id, children }) => {
 
 SidePanel.defaultProps = {
   id: undefined,
+  children: null,
 };
 
 SidePanel.propTypes = {
@@ -91,7 +92,7 @@ SidePanel.propTypes = {
     PropTypes.node,
     PropTypes.array,
     PropTypes.element,
-  ]).isRequired,
+  ]),
 };
 
 export default SidePanel;

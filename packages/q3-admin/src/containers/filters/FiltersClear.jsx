@@ -1,6 +1,5 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
@@ -18,8 +17,6 @@ const FiltersClear = (props) => {
   );
 };
 
-FiltersClear.propTypes = {
-  numberOfFiltersApplied: PropTypes.number.isRequired,
-};
+FiltersClear.propTypes = {};
 
 export default FiltersClear;

@@ -30,7 +30,7 @@ const Providers = ({
           <CssBaseline />
           <Helmet>
             <link
-              href="https://fonts.googleapis.com/css?family=Roboto&Source+Sans+Pro:400&display=swap"
+              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&Source+Sans+Pro:400&display=swap"
               rel="stylesheet"
             />
           </Helmet>

@@ -40,10 +40,14 @@ const ColumnSort = ({
   );
 };
 
+ColumnSort.defaultProps = {
+  onSort: undefined,
+};
+
 ColumnSort.propTypes = {
   title: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
-  onSort: PropTypes.func.isRequired,
+  onSort: PropTypes.func,
 };
 
 export default ColumnSort;

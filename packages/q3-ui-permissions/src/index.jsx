@@ -11,7 +11,6 @@ import reducer, {
   setSession,
 } from './reducer';
 import { RESET, UPDATE } from './utils/constants';
-import { invoke } from './utils/helpers';
 
 export const AuthContext = React.createContext({
   state: { init: false },
@@ -26,22 +25,11 @@ export const isLoggedIn = () => {
   return a && a.state && a.state.profile;
 };
 
-export const Provider = ({
-  renderPublic,
-  renderPrivate,
-  children,
-}) => {
+export const Provider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, {
     profile: {},
     permissions: [],
   });
-
-  const invokeRendererFns = () => {
-    if (!state || !state.init) return null;
-    return state.profile
-      ? invoke(renderPrivate, state.profile)
-      : invoke(renderPublic);
-  };
 
   const refresh = () => {
     dispatch({ type: RESET });
@@ -80,27 +68,12 @@ export const Provider = ({
         update,
       }}
     >
-      {invokeRendererFns()}
       {children}
     </AuthContext.Provider>
   );
 };
 
 Provider.propTypes = {
-  /**
-   * Render-blocking public components.
-   */
-
-  renderPublic: PropTypes.func.isRequired,
-  /**
-   * Render-blocking private (session-required) components.
-   * This component renderer recieves the profile state as props.
-   */
-  renderPrivate: PropTypes.func.isRequired,
-
-  /**
-   * Will render regardless of authentication state.
-   */
   children: PropTypes.node,
 };
 

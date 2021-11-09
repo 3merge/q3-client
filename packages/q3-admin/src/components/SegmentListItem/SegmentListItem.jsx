@@ -25,7 +25,6 @@ const SegmentListItem = ({
 }) => (
   <ListItem
     button
-    fullWidth
     dense
     variant="contained"
     getProps={getActiveLink(rest)}

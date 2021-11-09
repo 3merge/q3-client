@@ -64,7 +64,13 @@ export const OptionsThreshold = ({
 
 OptionsThreshold.propTypes = {
   maxVisible: PropTypes.number,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.string,
+    ]),
+  ).isRequired,
   children: PropTypes.func.isRequired,
 };
 

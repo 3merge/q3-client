@@ -47,12 +47,13 @@ Display.propTypes = {
   /**
    * I18n label for empty state.
    */
-  emptyLabel: PropTypes.string.isRequired,
+  emptyLabel: PropTypes.string,
 };
 
 Display.defaultProps = {
   loading: false,
   error: false,
+  emptyLabel: undefined,
 };
 
 export default Display;

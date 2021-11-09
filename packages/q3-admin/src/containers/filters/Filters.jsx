@@ -111,7 +111,7 @@ Groups.defaultProps = {
 };
 
 Groups.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.func.isRequired,
   disableSegments: PropTypes.bool,
 };
 

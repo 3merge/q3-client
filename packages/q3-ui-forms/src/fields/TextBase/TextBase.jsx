@@ -26,6 +26,8 @@ export const marshalProps = (v) =>
     'disableFilter',
     'onArrayPush',
     'onArrayPull',
+    'collapse',
+    'icon',
   ]);
 
 export const chosenTextFieldDisplayAttributes = {

@@ -25,13 +25,17 @@ const SidePanelMobile = ({ children }) => (
   </Hidden>
 );
 
+SidePanelMobile.defaultProps = {
+  children: null,
+};
+
 SidePanelMobile.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.array,
     PropTypes.element,
     PropTypes.object,
-  ]).isRequired,
+  ]),
 };
 
 export default withActionPortal(SidePanelMobile);

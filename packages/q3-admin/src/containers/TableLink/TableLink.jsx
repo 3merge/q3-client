@@ -26,4 +26,6 @@ TableLink.propTypes = {
   ]).isRequired,
 };
 
+TableLink.displayName = 'TableLink';
+
 export default TableLink;

@@ -46,7 +46,6 @@ export const ListItem = ({
             color: 'inherit',
             textDecoration: href ? 'underline' : 'none',
           }}
-          primaryTypograph
           primary={primary}
           secondary={secondary}
           {...(renderListItemProps
