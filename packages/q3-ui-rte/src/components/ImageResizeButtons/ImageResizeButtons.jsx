@@ -7,6 +7,8 @@ import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+// eslint-disable-next-line
+import { useTranslation } from 'react-i18next';
 import { FloatIcon } from '../../assets';
 import ImageAltTag from '../ImageAltTag';
 
@@ -19,6 +21,8 @@ const filterByEquals = (a, b) =>
 
 const ImageResizeButtons = React.forwardRef(
   (props, ref) => {
+    const { t } = useTranslation('labels');
+
     const resetClassList = (keep) => {
       invoke(ref, 'current.style.removeProperty', 'width');
       invoke(
@@ -56,22 +60,22 @@ const ImageResizeButtons = React.forwardRef(
             >
               <SpeedDialAction
                 icon={<ViewDayIcon />}
-                tooltipTitle="full"
+                tooltipTitle={t('full')}
                 onClick={makeFullWidth}
               />
               <SpeedDialAction
                 icon={<CalendarViewDayIcon />}
-                tooltipTitle="standard"
+                tooltipTitle={t('standard')}
                 onClick={makeHalfWidth}
               />
               <SpeedDialAction
                 icon={<FloatIcon />}
-                tooltipTitle="float"
+                tooltipTitle={t('float')}
                 onClick={makeFloat}
               />
               <SpeedDialAction
                 icon={<ChromeReaderModeIcon />}
-                tooltipTitle="alt"
+                tooltipTitle={t('alt')}
                 onClick={openPopover}
               />
             </SpeedDial>

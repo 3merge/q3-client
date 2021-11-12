@@ -5,7 +5,7 @@ import { connect } from '../../../src/containers';
 export default connect(({ data, ...rest }) => {
   return (
     <Form {...rest} initialValues={data}>
-      <Field name="name" type="text" />
+      <Field name="name" type="editor" />
     </Form>
   );
 });

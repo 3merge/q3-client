@@ -332,5 +332,10 @@
   "addons": "Add-ons",
   "partials": "Partials",
   "templates": "Templates",
-  "notifications": "Notifications"
+  "notifications": "Notifications",
+  "altAttribute": "Alt attribute",
+  "alt": "Alt attribute",
+  "float": "Float",
+  "standard": "Standard",
+  "full": "Full"
 }

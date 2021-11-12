@@ -41,10 +41,16 @@ export const eventHandlerAdapter = (
 export const includesNavigationElement = (xs) => {
   const role = invoke(xs, 'getAttribute', 'role');
   const tag = get(xs, 'tagName');
+  const insideRte = invoke(
+    xs,
+    'closest',
+    '.q3-forms-rte-wrapper',
+  );
 
   return (
-    ['tab', 'link', 'menuitem'].includes(role) ||
-    ['A'].includes(tag)
+    (['tab', 'link', 'menuitem'].includes(role) ||
+      ['A'].includes(tag)) &&
+    !insideRte
   );
 };
 
