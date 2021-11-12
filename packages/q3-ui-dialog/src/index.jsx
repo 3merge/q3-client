@@ -77,7 +77,7 @@ export const DialogWrapper = ({
                 : undefined,
           }}
         >
-          <Box py={2}>
+          <Box py={2} textAlign="left">
             {description && (
               <DialogContentText>
                 {t(`descriptions:${description}`)}

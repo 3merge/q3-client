@@ -65,6 +65,7 @@ const ItemActionsWrapper = ({
       ref={ref}
       aria-label={label}
       className="q3-repeater-editor-button"
+      color="inherit"
       onClick={toggle}
     >
       <Icon />
