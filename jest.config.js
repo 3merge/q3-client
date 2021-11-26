@@ -39,4 +39,5 @@ module.exports = {
     '<rootDir>/packages/q3-ui-test-utils',
     'jest-localstorage-mock',
   ],
+  testEnvironment: 'jsdom',
 };

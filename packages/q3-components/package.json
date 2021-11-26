@@ -3,12 +3,12 @@
   "version": "1.43.9",
   "main": "lib/index.js",
   "devDependencies": {
-    "jest-localstorage-mock": "^2.4.6",
+    "jest-localstorage-mock": "^2.4.18",
     "q3-ui-test-utils": "^1.39.0"
   },
   "dependencies": {
     "alphabetize-object-keys": "^3.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.24.0",
     "class-names": "^1.0.0",
     "flat": "^5.0.2",
     "lodash": "^4.17.20",
@@ -19,7 +19,7 @@
     "react-i18next": "11.7.3",
     "useful-state": "^1.2.3",
     "with-location": "^1.3.8",
-    "yup": "^0.32.8"
+    "yup": "^0.32.11"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.5.1",

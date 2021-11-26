@@ -3,7 +3,7 @@
   "version": "1.43.9",
   "main": "lib/index.js",
   "devDependencies": {
-    "jest-localstorage-mock": "^2.4.6",
+    "jest-localstorage-mock": "^2.4.18",
     "q3-ui-test-utils": "^1.39.0"
   },
   "dependencies": {
@@ -12,10 +12,10 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@material-ui/pickers": "^3.2.10",
-    "draft-js": "^0.11.7",
+    "browser-image-compression": "^1.0.17",
     "lodash": "^4.17.20",
     "quill": "^1.3.7",
-    "quill-paste-smart": "^1.4.5",
+    "quill-paste-smart": "^1.4.9",
     "react-butterfiles": "^1.3.3"
   },
   "peerDependencies": {

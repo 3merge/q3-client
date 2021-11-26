@@ -1,10 +1,9 @@
-const path = require('path');
-
 module.exports = {
   extends: [
     'react-3merge',
     'plugin:mdx/recommended',
     'plugin:cypress/recommended',
+    'plugin:import/recommended',
   ],
   plugins: ['module-resolver', 'cypress'],
   rules: {

@@ -10,7 +10,6 @@ import baseQ3Theme from '../mui';
 
 import 'moment/locale/fr';
 import 'moment/locale/en-ca';
-import 'swiper/swiper-bundle.css';
 
 const Providers = ({
   children,

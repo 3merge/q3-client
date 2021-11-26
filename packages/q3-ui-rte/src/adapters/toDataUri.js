@@ -12,7 +12,10 @@ export default (file) => {
 
     const blob = file?.src?.file;
 
-    if (blob && /\.(jpe?g|png|gif)$/i.test(blob?.name)) {
+    if (
+      blob &&
+      /\.(jpe?g|png|gif|svg|webp)$/i.test(blob?.name)
+    ) {
       reader.readAsDataURL(blob);
     } else {
       reject(file);

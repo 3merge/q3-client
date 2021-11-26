@@ -3,8 +3,8 @@
   "version": "1.39.0",
   "main": "index.js",
   "dependencies": {
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
-    "axios": "^0.21.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
+    "axios": "^0.24.0",
     "axios-mock-adapter": "^1.19.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.5"
