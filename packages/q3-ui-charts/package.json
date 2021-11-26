@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-charts",
-  "version": "1.39.0",
+  "version": "1.43.10",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.39.0"
+    "q3-ui-test-utils": "^1.43.10"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",

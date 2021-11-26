@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.43.10](https://github.com/3merge/q/compare/v1.43.9...v1.43.10) (2021-11-26)
+
+**Note:** Version bump only for package q3-ui-notifications
+
+
+
+
+
 ## [1.41.7](https://github.com/3merge/q/compare/v1.41.6...v1.41.7) (2021-10-13)
 
 **Note:** Version bump only for package q3-ui-notifications
