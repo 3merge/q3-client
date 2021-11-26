@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-eslint",
-  "version": "1.0.0",
+  "version": "1.43.11",
   "main": "index.js",
   "dependencies": {
     "eslint": "^8.3.0",
