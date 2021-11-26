@@ -41,9 +41,11 @@ const ModuleImage = React.forwardRef(
             <Files
               maxSize="5mb"
               accept={[
-                'image/png',
                 'image/jpg',
                 'image/jpeg',
+                'image/png',
+                'image/svg+xml',
+                'image/webp',
               ]}
               onError={handleError}
               onSuccess={(data) =>

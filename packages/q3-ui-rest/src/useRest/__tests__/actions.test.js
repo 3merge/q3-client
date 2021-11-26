@@ -56,7 +56,7 @@ describe('useRest', () => {
     );
     mockAxios.mockResponse(resp);
 
-    setImmediate(() => {
+    setTimeout(() => {
       expect(dispatch.mock.calls).toHaveLength(2);
       expect(dispatch.mock.calls[1]).toEqual([
         expect.objectContaining({
@@ -96,7 +96,7 @@ describe('useRest', () => {
 
     mockAxios.mockResponse();
 
-    setImmediate(() => {
+    setTimeout(() => {
       expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: DELETED,
@@ -119,7 +119,7 @@ describe('useRest', () => {
       },
     });
 
-    setImmediate(() => {
+    setTimeout(() => {
       expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: UPDATED,
@@ -155,7 +155,7 @@ describe('useRest', () => {
       },
     });
 
-    setImmediate(() => {
+    setTimeout(() => {
       expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: UPDATED,
@@ -177,7 +177,7 @@ describe('useRest', () => {
     );
 
     mockAxios.mockResponse();
-    setImmediate(() => {
+    setTimeout(() => {
       expect(dispatch).toHaveBeenCalledWith(
         expect.objectContaining({
           type: CREATED,

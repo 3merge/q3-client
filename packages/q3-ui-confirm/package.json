@@ -13,7 +13,7 @@
     "q3-ui-forms": "^1.43.9",
     "q3-ui-helpers": "^1.41.7",
     "react-i18next": "11.7.3",
-    "yup": "^0.32.8"
+    "yup": "^0.32.11"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
