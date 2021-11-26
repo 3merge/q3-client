@@ -16,10 +16,9 @@ module.exports = ({
   const plugins = [
     'gatsby-plugin-force-trailing-slashes',
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-polyfill-io',
     'gatsby-plugin-material-ui',
-    'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {

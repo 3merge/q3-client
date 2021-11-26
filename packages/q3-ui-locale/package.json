@@ -11,7 +11,7 @@
     "yup": "^0.27.0"
   },
   "dependencies": {
-    "moment-timezone": "^0.5.32",
+    "moment-timezone": "^0.5.34",
     "prop-types": "^15.7.2",
     "q3-ui-helpers": "^1.43.10",
     "react": "^17.0.1"
