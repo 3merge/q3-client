@@ -1,0 +1,3 @@
+{
+  "extends": ["./packages/q3-ui-eslint"]
+}
