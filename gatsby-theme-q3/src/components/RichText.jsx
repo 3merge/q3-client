@@ -119,9 +119,7 @@ export const renderRichText = (
       ),
       [BLOCKS.EMBEDDED_ASSET]: (node) =>
         imageRender(node, locale),
-      [BLOCKS.EMBEDDED_ENTRY]: () => {
-        return null;
-      },
+      [BLOCKS.EMBEDDED_ENTRY]: () => null,
       [INLINES.EMBEDDED_ENTRY]: (node) => {
         const path = getFromSitemap(node);
 
@@ -186,6 +184,7 @@ const RichText = ({ json, locale }) => {
     </div>
   );
 };
+
 RichText.propTypes = {
   // eslint-disable-next-line
   json: PropTypes.object,

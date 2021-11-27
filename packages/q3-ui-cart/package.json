@@ -13,7 +13,7 @@
     "lodash": "^4.17.20",
     "q3-components": "^1.43.10",
     "q3-ui-permissions": "^1.43.10",
-    "react-i18next": "11.7.3",
+    "react-i18next": "11.14.3",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {

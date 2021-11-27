@@ -28,7 +28,7 @@
     "q3-ui-rte": "^1.43.10",
     "qs": "^6.9.6",
     "react-dropzone": "^11.4.2",
-    "react-i18next": "11.7.3",
+    "react-i18next": "11.14.3",
     "react-json-pretty": "^2.2.0",
     "react-window": "^1.8.6",
     "useful-state": "^1.2.3",

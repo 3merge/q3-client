@@ -14,9 +14,9 @@ module.exports = ({
   netlify,
 }) => {
   const plugins = [
+    'gatsby-plugin-material-ui',
     'gatsby-plugin-force-trailing-slashes',
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-material-ui',
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     {

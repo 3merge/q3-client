@@ -1,5 +1,9 @@
+const c = require('./packages/q3-ui-test-utils')(
+  '<rootDir>/packages',
+);
+
 module.exports = {
-  verbose: false,
+  ...c,
   modulePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
     '<rootDir>/cypress/',
@@ -27,17 +31,4 @@ module.exports = {
     '.stories.',
     '.json',
   ],
-  transform: {
-    '^.+\\.jsx?$': 'babel-jest',
-  },
-  moduleNameMapper: {
-    '\\.(jpg|jpeg|png|git f|webp|svg)$':
-      '<rootDir>/packages/q3-ui/__mocks__/fileMock.js',
-    '\\.(css|less)$': 'identity-obj-proxy',
-  },
-  setupFilesAfterEnv: [
-    '<rootDir>/packages/q3-ui-test-utils',
-    'jest-localstorage-mock',
-  ],
-  testEnvironment: 'jsdom',
 };

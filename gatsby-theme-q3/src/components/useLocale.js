@@ -4,8 +4,8 @@ import { AuthContext } from 'q3-ui-permissions';
 import { useTimezoneInterceptor } from 'q3-ui-rest';
 
 const useLocale = () => {
-  const profile = React.useContext(AuthContext)?.state
-    ?.profile;
+  const profile =
+    React.useContext(AuthContext)?.state?.profile;
 
   const lng = profile?.lang;
 

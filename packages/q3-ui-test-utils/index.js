@@ -1,35 +1,33 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console */
-jest.mock('@material-ui/core/useMediaQuery');
+module.exports = (prefix) => {
+  const makeFilePathForActiveProjectDir = (filename) =>
+    // usually will just load from node_modules
+    [prefix, 'q3-ui-test-utils', filename]
+      .filter(Boolean)
+      .join('/');
 
-const enzyme = require('enzyme');
-const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
-const {
-  createMount,
-  createShallow,
-  createRender,
-} = require('@material-ui/core/test-utils');
-
-const oldLocation = global.window.location;
-delete global.window.location;
-
-global.window.ResizeObserver = require('./src/resizeObserverMock');
-
-global.window.location = {
-  ...oldLocation,
-};
-
-enzyme.configure({
-  adapter: new Adapter(),
-});
-
-global.mount = createMount();
-global.render = createRender();
-global.shallow = createShallow();
-
-global.console = {
-  warn: jest.fn(), // console.warn are ignored in tests
-  error: console.error,
-  log: console.log,
-  info: console.info,
-  debug: console.debug,
+  return {
+    globals: {
+      __PATH_PREFIX__: '',
+    },
+    moduleNameMapper: {
+      '.+\\.(css|styl|less|sass|scss|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+        makeFilePathForActiveProjectDir(
+          'fixtures/mockFile.js',
+        ),
+    },
+    setupFilesAfterEnv: [
+      makeFilePathForActiveProjectDir('setup.js'),
+      'jest-localstorage-mock',
+    ],
+    testEnvironment: 'jsdom',
+    testPathIgnorePatterns: [
+      'node_modules',
+      '\\.cache',
+      'public',
+    ],
+    transform: {
+      '^.+\\.jsx?$':
+        makeFilePathForActiveProjectDir('preprocess.js'),
+    },
+  };
 };
