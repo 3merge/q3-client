@@ -162,9 +162,7 @@ const RichText = ({ json, locale }) => {
       allSitePage {
         nodes {
           path
-          context {
-            contentful_id
-          }
+          pageContext
         }
       }
     }
@@ -176,7 +174,7 @@ const RichText = ({ json, locale }) => {
         json,
         locale,
         data.allSitePage.nodes.reduce((acc, next, i) => {
-          acc[get(next, 'context.contentful_id', i)] =
+          acc[get(next, 'pageContext.contentful_id', i)] =
             next.path;
           return acc;
         }, {}),

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import i18n from 'i18next';
+import i18next from 'i18next';
 import {
   initReactI18next,
   I18nextProvider,
@@ -9,7 +9,8 @@ import resources from './resources';
 import setDeps from './deps';
 import * as timezone from './timezone';
 
-i18n.use(initReactI18next);
+const i18n = i18next.use(initReactI18next);
+
 i18n.init(resources, setDeps);
 i18n.on('languageChanged', setDeps);
 
