@@ -4,17 +4,18 @@
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
-  "peerDependencies": {
-    "moment": "2.24.0",
-    "yup": "^0.27.0"
-  },
   "dependencies": {
     "i18next": "^21.5.4",
+    "moment": "2.29.1",
     "moment-timezone": "^0.5.34",
     "prop-types": "^15.7.2",
     "q3-ui-helpers": "^1.43.10",
+    "react-i18next": "11.14.3",
+    "yup": "^0.32.11"
+  },
+  "peerDependencies": {
     "react": "^17.0.1",
-    "react-i18next": "11.14.3"
+    "react-dom": "^17.0.1"
   },
   "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }
