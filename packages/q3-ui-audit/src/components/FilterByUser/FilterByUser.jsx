@@ -4,7 +4,7 @@ import { Builders } from 'q3-ui-forms';
 import { getSafelyForAutoCompleteWithProjection } from 'q3-ui-rest';
 import { map } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const Q3_USER_COLLECTION_NAME = 'q3-api-users';
 

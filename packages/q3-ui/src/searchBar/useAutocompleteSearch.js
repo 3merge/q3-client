@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useValue } from 'useful-state';
 import useStyles from './useStyles';
 
@@ -7,13 +7,8 @@ export default (initialValue) => {
   const { t } = useTranslation('labels');
   const cls = useStyles();
 
-  const {
-    value,
-    onChange,
-    onClear,
-    setValue,
-    ref,
-  } = useValue(initialValue);
+  const { value, onChange, onClear, setValue, ref } =
+    useValue(initialValue);
 
   React.useEffect(() => {
     setValue(initialValue);

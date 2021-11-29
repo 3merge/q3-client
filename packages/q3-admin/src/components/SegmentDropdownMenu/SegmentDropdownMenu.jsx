@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Dialog from 'q3-ui-dialog';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const renderIconButon = (onClick) => (
   <IconButton onClick={onClick}>

@@ -13,7 +13,7 @@ import {
 import { useToggle } from 'useful-state';
 import { MoreVert } from '@material-ui/icons';
 import { map, compact } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import useToolbarLabel from '../useToolbarLabel';
 
 const ToolbarMobileDrawer = ({ options }) => {

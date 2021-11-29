@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Typography from '@material-ui/core/Typography';
 import ProfileGeneral from '../ProfileGeneral';
 import ProfileWrapper from '../ProfileWrapper';

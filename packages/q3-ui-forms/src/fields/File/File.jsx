@@ -5,7 +5,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import PublishIcon from '@material-ui/icons/Publish';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import ClearIcon from '@material-ui/icons/Clear';
 import { marshalProps } from '../TextBase/TextBase';
 import useStyle from './useStyle';
@@ -40,12 +40,8 @@ export const FileInput = ({ name, value, ...props }) => {
   const cls = useStyle();
   const { t } = useTranslation();
 
-  const {
-    rootProps,
-    inputProps,
-    inputRef,
-    onClear,
-  } = useAttachments(name, props);
+  const { rootProps, inputProps, inputRef, onClear } =
+    useAttachments(name, props);
 
   return (
     <TextField

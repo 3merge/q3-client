@@ -1,6 +1,6 @@
 /* eslint-disable prefer-destructuring  */
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { Avatar } from '@material-ui/core';
 import { get } from 'lodash';
 import { useTheme } from '@material-ui/core/styles';

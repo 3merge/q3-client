@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography, Paper } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Search from '../../components/Search';
 import Back from '../back';
 import useStyles from './styles';

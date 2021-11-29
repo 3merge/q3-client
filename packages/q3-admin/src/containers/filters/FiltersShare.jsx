@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { browser } from 'q3-ui-helpers';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const copyToClipboard = () => {
   if (browser.isBrowserReady()) {

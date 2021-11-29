@@ -9,7 +9,7 @@ import {
   Container,
 } from '@material-ui/core';
 import { first } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import withHeader from '../withHeader';
 import useStyle from './styles';
 

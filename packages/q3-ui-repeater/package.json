@@ -1,31 +1,33 @@
 {
   "name": "q3-ui-repeater",
-  "version": "1.43.10",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^1.43.10"
+    "q3-ui-test-utils": "^2.0.0"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^12.1.2",
     "axios": "^0.24.0",
     "lodash": "^4.17.20",
-    "q3-components": "^1.43.10",
-    "q3-ui": "^1.43.10",
-    "q3-ui-confirm": "^1.43.10",
-    "q3-ui-dialog": "^1.43.10",
-    "q3-ui-exports": "^1.43.10",
-    "q3-ui-forms": "^1.43.10",
-    "q3-ui-permissions": "^1.43.10",
-    "react-i18next": "11.7.3",
+    "prop-types": "^15.7.2",
+    "q3-components": "^2.0.0",
+    "q3-ui": "^2.0.0",
+    "q3-ui-confirm": "^2.0.0",
+    "q3-ui-dialog": "^2.0.0",
+    "q3-ui-exports": "^2.0.0",
+    "q3-ui-forms": "^2.0.0",
+    "q3-ui-locale": "^2.0.0",
+    "q3-ui-permissions": "^2.0.0",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.10.2"
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/styles": "^4.11.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

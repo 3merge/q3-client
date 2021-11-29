@@ -1,1 +1,1 @@
-module.exports = require('./packages/q3-ui-eslint/prettier.json');
+module.exports = require('eslint-config-react-3merge/prettier.json');

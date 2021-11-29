@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'class-names';
 import PropTypes from 'prop-types';
 import { omit } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Edit from '@material-ui/icons/Edit';

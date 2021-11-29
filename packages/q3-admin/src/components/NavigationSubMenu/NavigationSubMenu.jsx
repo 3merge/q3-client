@@ -5,14 +5,16 @@ import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import { Link } from '@reach/router';
 import MuiLink from '@material-ui/core/Link';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { array, object } from 'q3-ui-helpers';
 import useStyle from './useStyle';
 
-const getProps = (className) => ({ isCurrent }) =>
-  isCurrent
-    ? { className: classnames([className, 'active']) }
-    : { className };
+const getProps =
+  (className) =>
+  ({ isCurrent }) =>
+    isCurrent
+      ? { className: classnames([className, 'active']) }
+      : { className };
 
 const NavigationSubMenu = ({ items }) => {
   const { t } = useTranslation('labels');

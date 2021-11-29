@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import { compact, get } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import TimelineIcon from '../TimelineIcon';
 import useTimelineEntry from '../useTimelineEntry';
 import TimelineDiff from '../TimelineDiff';

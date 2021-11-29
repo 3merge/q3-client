@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -32,10 +32,8 @@ export const OptionsThreshold = ({
 }) => {
   const { t } = useTranslation('labels');
 
-  const [
-    visibleResults,
-    setVisibleResults,
-  ] = React.useState(maxVisible);
+  const [visibleResults, setVisibleResults] =
+    React.useState(maxVisible);
 
   const showAll = isSet(visibleResults);
 

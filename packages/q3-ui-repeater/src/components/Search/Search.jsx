@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useInputDebounce } from 'q3-ui-helpers/lib/hooks';
 
 export const SearchContext = React.createContext();

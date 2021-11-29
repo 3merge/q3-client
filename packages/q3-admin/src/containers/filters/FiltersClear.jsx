@@ -1,7 +1,7 @@
 import React from 'react';
 import { navigate } from '@reach/router';
 import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const FiltersClear = (props) => {
   const { t } = useTranslation('labels');

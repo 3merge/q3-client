@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { Builders } from 'q3-ui-forms';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import SidePanelContent from '../../components/SidePanelContent';
 import { Definitions } from '../state';
 import FiltersForm from './FiltersForm';

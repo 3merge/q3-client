@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const PopoverSave = (props) => {
   const { t } = useTranslation('labels');

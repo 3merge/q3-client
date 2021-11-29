@@ -185,3 +185,24 @@ More coming soon.
     <a href="./packages/q3-ui-rte"> 📝 Rich Text</a>
   </li>
 </ul>
+
+## Upgrade guides
+
+### V1. to V2.
+
+Q3 V2. requires fewer configurations and supports newer
+versions of its peer dependencies. Note that MUI continues
+to remain in v4. and we plan to upgrade that in sometime
+in 2022.
+
+#### Breaking changes
+
+[Click here for v1. code branch](https://github.com/3merge/q3-client/tree/v1.x)
+
+<ul>
+  <li>Single <code>gatsby-config.js</code> file using theme’s setup helper</li>
+  <li><code>AdminRouter</code> component for handling all q3-admin configurations</li>
+  <li><code>Notifications</code> component inside profile</li>
+  <li>ESlint, Prettier and Jest configurations now out-of-the-box </li>
+  <li>Replacement package for react-i18next due to API changes</li>
+</ul>

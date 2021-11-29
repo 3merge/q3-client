@@ -5,7 +5,7 @@ import { pick } from 'lodash';
 import moment from 'moment';
 import { url } from 'q3-ui-helpers';
 import { EditableTypography } from 'q3-components';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import {
   castToBeginning,
   castToEnd,
@@ -34,18 +34,20 @@ export const addRangeToSearchString = (state, location) => {
   const params = new URLSearchParams(location?.search);
   const keys = Object.keys(state);
 
-  Object.values(state).sort((a, b) => a - b).forEach((value, i) => {
-    params.set(keys[i], getCaster(i)(value));
-  });
+  Object.values(state)
+    .sort((a, b) => a - b)
+    .forEach((value, i) => {
+      params.set(keys[i], getCaster(i)(value));
+    });
   return url.toParamsString(params);
 };
 
-export const printDateRange = (range) => 
+export const printDateRange = (range) =>
   Object.values(range)
-  .map(getFriendlyDate)
-  .sort()
-  .filter(Boolean)
-  .join(' - ');
+    .map(getFriendlyDate)
+    .sort()
+    .filter(Boolean)
+    .join(' - ');
 
 export default (Component) => {
   const DateRange = ({ dateRangeProp, ...rest }) => {

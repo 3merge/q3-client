@@ -6,24 +6,26 @@ import IconButton from 'q3-ui/lib/iconButton';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const FileListMake = ({ state, setState }) => {
   const { t } = useTranslation('descriptions');
 
-  const handleSubmit = (done) => ({ name }) => {
-    const data = { ...state.data };
-    set(data, name.toLowerCase(), {
-      default: [],
-    });
+  const handleSubmit =
+    (done) =>
+    ({ name }) => {
+      const data = { ...state.data };
+      set(data, name.toLowerCase(), {
+        default: [],
+      });
 
-    setState({
-      ...state,
-      data,
-    });
+      setState({
+        ...state,
+        data,
+      });
 
-    done();
-  };
+      done();
+    };
 
   return (
     <Dialog

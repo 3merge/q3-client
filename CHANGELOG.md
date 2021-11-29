@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/3merge/q/compare/v1.43.11...v2.0.0) (2021-11-29)
+
+
+### Bug Fixes
+
+* translation ([d0cd92c](https://github.com/3merge/q/commit/d0cd92cc39287a1fc7851b0110f365a7fd54271b))
+
+
+
+
+
 ## [1.43.11](https://github.com/3merge/q/compare/v1.43.10...v1.43.11) (2021-11-26)
 
 **Note:** Version bump only for package q3-client

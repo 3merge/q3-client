@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { object } from 'q3-ui-helpers';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Bell from '../Bell';
 import Popover from '../Popover';
 import NotificationLink from '../NotificationLink';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Confirm from 'q3-ui-confirm';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
@@ -17,9 +17,8 @@ export const Trash = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
   const [showError, setShowError] = React.useState(false);
-  const [showRedirect, setShowRedirect] = React.useState(
-    false,
-  );
+  const [showRedirect, setShowRedirect] =
+    React.useState(false);
 
   const { t } = useTranslation();
   const { canDelete } = useAuth(collectionName);

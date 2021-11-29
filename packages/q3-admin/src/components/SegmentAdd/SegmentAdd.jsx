@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { useValue } from 'useful-state';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const SegmentAdd = ({ onSave, active, items }) => {
   const ref = React.useRef();

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Typography from '@material-ui/core/Typography';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import { string } from 'q3-ui-helpers';

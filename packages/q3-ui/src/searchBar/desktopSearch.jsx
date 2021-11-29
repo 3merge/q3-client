@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
 import { useInputDebounce } from 'q3-ui-helpers/lib/hooks';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import SearchResultListItem from './searchResultListItem';
 import useAutocompleteSearch from './useAutocompleteSearch';
 import useAutocompleteSearchResults from './useAutocompleteSearchResults';
@@ -37,14 +37,11 @@ const handleChange = (next) => (event, newValue) => {
   return next(newValue.name);
 };
 
-const handleInputChange = (done, prevValue) => (
-  e,
-  v,
-  action,
-) => {
-  if (action === 'clear' && prevValue)
-    done(getEnterEvent(null));
-};
+const handleInputChange =
+  (done, prevValue) => (e, v, action) => {
+    if (action === 'clear' && prevValue)
+      done(getEnterEvent(null));
+  };
 
 const DesktopSearch = ({
   getResults,
@@ -56,12 +53,8 @@ const DesktopSearch = ({
   const { t } = useTranslation('labels');
   const cls = useStyles();
 
-  const {
-    value,
-    setValue,
-    onClear,
-    ...rest
-  } = useAutocompleteSearch(initialValue);
+  const { value, setValue, onClear, ...rest } =
+    useAutocompleteSearch(initialValue);
 
   const shouldRun = useInputDebounce(value);
 

@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box';
 import Skeleton from '@material-ui/lab/Skeleton';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import HeaderQ3 from 'q3-ui/lib/header';
 import { curryIf, ellipsis } from '../../components/utils';
 import { Definitions, Store } from '../state';

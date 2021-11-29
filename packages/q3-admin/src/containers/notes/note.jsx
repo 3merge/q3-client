@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useToggle } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
 import { string } from 'q3-ui-helpers';

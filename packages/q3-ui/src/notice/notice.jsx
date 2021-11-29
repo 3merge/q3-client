@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { Link as ReachLink } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Grid from '@material-ui/core/Grid';
 import TableCell from '@material-ui/core/TableCell';
 import useStyle from '../useStyle';

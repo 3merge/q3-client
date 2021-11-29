@@ -3,7 +3,7 @@ import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { string } from 'q3-ui-helpers';
 import { Dot, Helper, Status } from 'q3-components';
 import { green, red } from '@material-ui/core/colors';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { matchAgainstUppercase } from '../helpers';
 
 const ConfirmForm = ({ phrase, ...props }) => {

@@ -119,9 +119,7 @@ export const renderRichText = (
       ),
       [BLOCKS.EMBEDDED_ASSET]: (node) =>
         imageRender(node, locale),
-      [BLOCKS.EMBEDDED_ENTRY]: () => {
-        return null;
-      },
+      [BLOCKS.EMBEDDED_ENTRY]: () => null,
       [INLINES.EMBEDDED_ENTRY]: (node) => {
         const path = getFromSitemap(node);
 
@@ -164,9 +162,7 @@ const RichText = ({ json, locale }) => {
       allSitePage {
         nodes {
           path
-          context {
-            contentful_id
-          }
+          pageContext
         }
       }
     }
@@ -178,7 +174,7 @@ const RichText = ({ json, locale }) => {
         json,
         locale,
         data.allSitePage.nodes.reduce((acc, next, i) => {
-          acc[get(next, 'context.contentful_id', i)] =
+          acc[get(next, 'pageContext.contentful_id', i)] =
             next.path;
           return acc;
         }, {}),
@@ -186,6 +182,7 @@ const RichText = ({ json, locale }) => {
     </div>
   );
 };
+
 RichText.propTypes = {
   // eslint-disable-next-line
   json: PropTypes.object,

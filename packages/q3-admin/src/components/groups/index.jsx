@@ -1,6 +1,6 @@
 import React from 'react';
 import { Location, navigate } from '@reach/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
@@ -40,13 +40,14 @@ const clean = (a) => (b) =>
 export const findIndexByStartsWith = (queries, term) =>
   clamp(Object.values(queries).findIndex(clean(term)));
 
-export const withSearchQuery = (Component) => (props) => (
-  <Location>
-    {({ location: { search } }) => (
-      <Component {...props} search={search} />
-    )}
-  </Location>
-);
+export const withSearchQuery = (Component) => (props) =>
+  (
+    <Location>
+      {({ location: { search } }) => (
+        <Component {...props} search={search} />
+      )}
+    </Location>
+  );
 
 export const Groups = ({ queries, search, filterMenu }) => {
   const active = findIndexByStartsWith(queries, search);

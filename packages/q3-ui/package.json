@@ -1,22 +1,23 @@
 {
   "name": "q3-ui",
-  "version": "1.43.10",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
   "dependencies": {
     "class-names": "^1.0.0",
     "classnames": "^2.2.6",
-    "gatsby-image": "^2.11.0",
+    "gatsby-image": "^3.11.0",
+    "i18next": "^21.5.4",
     "is-glob": "^4.0.3",
     "lodash": "^4.17.20",
     "material-ui-chip-input": "^1.1.0",
     "material-ui-dropzone": "^3.5.0",
     "moment": "2.29.1",
     "prop-types": "^15.7.2",
-    "q3-ui-assets": "^1.39.0",
-    "q3-ui-helpers": "^1.43.10",
-    "q3-ui-locale": "^1.43.10",
+    "q3-ui-assets": "^2.0.0",
+    "q3-ui-helpers": "^2.0.0",
+    "q3-ui-locale": "^2.0.0",
     "react-credit-cards": "^0.8.3",
     "react-dropzone": "^11.4.2",
     "react-google-maps": "^9.4.5",
@@ -31,14 +32,13 @@
     "yup": "^0.32.11"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.4.3",
-    "@material-ui/icons": "^4.4.3",
-    "@material-ui/lab": "^4.0.0-alpha.31",
-    "@reach/router": "^1.2.1",
-    "i18next": "^17.0.12",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-i18next": "^11.3.1"
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/styles": "^4.11.4",
+    "@reach/router": "^1.3.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import List from '@material-ui/core/List';
 import Grid from '@material-ui/core/Grid';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -9,7 +9,8 @@ import PasswordHelperListItem from '../NewPasswordHelperText';
 export const hasLowercase = /([a-z])+/;
 export const hasUppercase = /([A-Z])+/;
 export const hasNumber = /([0-9])+/;
-export const hasSpecialCharacter = /([-_=+!@#$%^&*(),.?":{}|<>])+/;
+export const hasSpecialCharacter =
+  /([-_=+!@#$%^&*(),.?":{}|<>])+/;
 
 export const hasLength = (v) =>
   typeof v === 'string' && v.length < 17 && v.length > 7;

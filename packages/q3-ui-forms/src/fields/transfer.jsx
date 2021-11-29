@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 import { FixedSizeList } from 'react-window';
 import isGlob from 'is-glob';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -303,9 +303,8 @@ export function TransferList(props) {
   const { open, close, isOpen } = useOpen();
   const cls = useStyles();
 
-  const initAsArray = string.transformDelineatedStringIntoArray(
-    init,
-  );
+  const initAsArray =
+    string.transformDelineatedStringIntoArray(init);
 
   const isSelected = (item) => selected.includes(item);
   const transformedItems = items.map(

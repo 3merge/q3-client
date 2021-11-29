@@ -1,7 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { DropDownMenu } from '../toolbar';
 
 export default (props) => {

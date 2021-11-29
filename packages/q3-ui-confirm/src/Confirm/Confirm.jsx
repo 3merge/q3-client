@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Dialog from 'q3-ui-dialog';
 import { isFunction } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import ConfirmForm from '../ConfirmForm';
 import { handleSubmit } from '../helpers';
 

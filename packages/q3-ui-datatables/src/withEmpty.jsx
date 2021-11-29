@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import { get } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Graphic from 'q3-ui-assets';

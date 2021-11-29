@@ -3,7 +3,7 @@ import useIo from './useIo';
 
 jest.mock('axios');
 
-jest.fn('react-i18next', () => ({
+jest.fn('q3-ui-locale', () => ({
   useTranslation: jest.fn().mockReturnValue({
     t: jest.fn(),
   }),

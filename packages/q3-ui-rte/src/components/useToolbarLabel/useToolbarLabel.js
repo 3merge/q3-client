@@ -1,5 +1,5 @@
 import { compact } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 export default () => (key, value) =>
   useTranslation('labels').t(

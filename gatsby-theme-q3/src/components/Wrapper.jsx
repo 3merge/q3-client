@@ -31,6 +31,23 @@ const setBaseUrlForRest = (
   return axios.defaults;
 };
 
+const LocaleBundles = ({ children, locale }) => {
+  registeri18ResourceBundles(locale);
+  return children;
+};
+
+LocaleBundles.defaultProps = {
+  children: null,
+  locale: {},
+};
+
+LocaleBundles.propTypes = {
+  // eslint-disable-next-line
+  children: PropTypes.any,
+  // eslint-disable-next-line
+  locale: PropTypes.object,
+};
+
 const Wrapper = ({
   children,
   baseURL,
@@ -38,15 +55,16 @@ const Wrapper = ({
   ...providerProps
 }) => {
   setBaseUrlForRest(baseURL);
-  registeri18ResourceBundles(locale);
 
   return (
     <Provider {...providerProps}>
-      <AuthProvider>
-        <FormProviders preventDuplicate>
-          {children}
-        </FormProviders>
-      </AuthProvider>
+      <LocaleBundles locale={locale}>
+        <AuthProvider>
+          <FormProviders preventDuplicate>
+            {children}
+          </FormProviders>
+        </AuthProvider>
+      </LocaleBundles>
     </Provider>
   );
 };

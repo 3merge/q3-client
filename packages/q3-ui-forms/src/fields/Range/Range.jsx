@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import RangeDelimiter, {
   generateSharedProps,
 } from '../RangeDelimiter';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Edit from '@material-ui/icons/Edit';
 import IconButton from 'q3-ui/lib/iconButton';
 import Box from '@material-ui/core/Box';
@@ -9,21 +9,19 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Inline from '../Inline';
 
-export const executeCallbackAfterPromise = (
-  onSave,
-  done,
-) => (values, actions) => {
-  const fn = onSave(values, actions);
+export const executeCallbackAfterPromise =
+  (onSave, done) => (values, actions) => {
+    const fn = onSave(values, actions);
 
-  if (fn && 'then' in fn)
-    return fn.then((r) => {
-      done();
-      return r;
-    });
+    if (fn && 'then' in fn)
+      return fn.then((r) => {
+        done();
+        return r;
+      });
 
-  done();
-  return fn;
-};
+    done();
+    return fn;
+  };
 
 export const InlineEditorFormContent = ({
   children,

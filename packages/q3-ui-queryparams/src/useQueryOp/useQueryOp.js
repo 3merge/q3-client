@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { first } from 'lodash';
 import { timezone } from 'q3-ui-locale';
 

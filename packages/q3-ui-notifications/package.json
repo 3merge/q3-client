@@ -1,16 +1,22 @@
 {
   "name": "q3-ui-notifications",
-  "version": "1.43.10",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
-  "dependencies": {
-    "@material-ui/core": "^4.11.3",
+  "peerDependencies": {
+    "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/styles": "^4.11.4",
+    "@reach/router": "^1.3.4",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-helpers": "^1.43.10",
-    "react": "^17.0.1",
+    "q3-ui-helpers": "^2.0.0",
     "useful-state": "^1.2.3"
   }
 }

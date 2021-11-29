@@ -12,7 +12,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { object } from 'q3-ui-helpers';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import TimelineEntry from '../TimelineEntry';
 import useStyle from '../TimelineEntry/styles';
 
@@ -68,12 +68,8 @@ const Timeline = ({
       <TableBody className={cls.body}>
         {size(data) ? (
           map(data, (item, idx) => {
-            const {
-              added,
-              updated,
-              deleted,
-              ...rest
-            } = item;
+            const { added, updated, deleted, ...rest } =
+              item;
 
             const isInItem = (key) => {
               const d = item[key];

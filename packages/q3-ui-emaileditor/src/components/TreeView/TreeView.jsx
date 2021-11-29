@@ -5,7 +5,7 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import EmailEditorContext from '../EmailEditorContext';
 import { isPartial } from '../useEmailTemplates/useEmailTemplates';
 import useStyle from './styles';
@@ -13,9 +13,11 @@ import useStyle from './styles';
 const CustomTreeView = () => {
   const { wrapper: wrapperCls, ...cls } = useStyle();
   const { t } = useTranslation();
-  const { id, setById, templates = [] } = React.useContext(
-    EmailEditorContext,
-  );
+  const {
+    id,
+    setById,
+    templates = [],
+  } = React.useContext(EmailEditorContext);
 
   const { partial, full } = templates.reduce(
     (acc, curr) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const SelectMenuItem = ({ loading, items, required }) => {
   const { t } = useTranslation('labels');

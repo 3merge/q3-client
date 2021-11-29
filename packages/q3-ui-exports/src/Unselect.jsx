@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import LayersClear from '@material-ui/icons/LayersClear';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { State } from './Context';

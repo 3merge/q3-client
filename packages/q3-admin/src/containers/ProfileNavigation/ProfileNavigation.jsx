@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { AuthContext } from 'q3-ui-permissions';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { PhotoUpload } from 'q3-ui-filemanager';
 import TemplateFullWidth from '../../components/TemplateFullWidth';
 import FeaturedPhoto from '../FeaturedPhoto';

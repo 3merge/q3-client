@@ -27,4 +27,5 @@ export default {
   interpolation: {
     escapeValue: false,
   },
+  compatibilityJSON: 'v3',
 };

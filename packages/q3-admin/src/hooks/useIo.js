@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { url } from 'q3-ui-helpers';
 
 export default (ids, ...rest) => {

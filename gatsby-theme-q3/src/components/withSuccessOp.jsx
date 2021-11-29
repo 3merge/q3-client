@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import Button from '@material-ui/core/Button';

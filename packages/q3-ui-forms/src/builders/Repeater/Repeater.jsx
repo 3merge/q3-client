@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import flat from 'flat';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
@@ -31,11 +31,8 @@ const Repeater = ({
 }) => {
   const { t } = useTranslation('labels');
 
-  const {
-    setFieldValue,
-    setValues,
-    setErrors,
-  } = React.useContext(DispatcherState);
+  const { setFieldValue, setValues, setErrors } =
+    React.useContext(DispatcherState);
 
   const proxy = makeStateProxy(
     React.useContext(BuilderState),

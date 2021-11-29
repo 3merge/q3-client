@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { SelectAll } from 'q3-ui-exports';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import CellStickyControl from '../CellStickyControl';
 import CellWithCheckbox from '../CellWithCheckbox';
 import withSort from '../withSort';

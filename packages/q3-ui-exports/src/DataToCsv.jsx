@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { Csv } from './icons';
 import useRow from './useRow';

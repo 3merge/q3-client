@@ -4,7 +4,7 @@ import { Box, Grid } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
 import { get, isObject, uniq } from 'lodash';
 import flat from 'flat';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import FilterByDate from '../FilterByDate';
 import FilterByOperation from '../FilterByOperation';
 import FilterByUser from '../FilterByUser';

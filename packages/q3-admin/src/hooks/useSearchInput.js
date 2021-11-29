@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useValue } from 'useful-state';
 import { compact } from 'lodash';
 import { useQueryParams } from 'q3-ui-queryparams';
@@ -20,9 +20,11 @@ export const handleEnter = (fn) => (e) => {
 
 export const useLocationSearchValue = () => {
   const qp = useQueryParams();
-  const { page, search = '', ...etc } = qp.decode(
-    useLocation()?.search,
-  );
+  const {
+    page,
+    search = '',
+    ...etc
+  } = qp.decode(useLocation()?.search);
 
   return {
     value: search,
@@ -39,10 +41,8 @@ export default () => {
   const navigate = useNavigate();
   const { t } = useTranslation('labels');
 
-  const {
-    value: currentSearchValue,
-    set: setSearchValue,
-  } = useLocationSearchValue();
+  const { value: currentSearchValue, set: setSearchValue } =
+    useLocationSearchValue();
 
   const { value, onChange, setValue } = useValue(
     currentSearchValue,
@@ -53,10 +53,8 @@ export default () => {
     inputRef.current.focus();
   };
 
-  const {
-    collectionName,
-    directoryPath,
-  } = React.useContext(Definitions);
+  const { collectionName, directoryPath } =
+    React.useContext(Definitions);
 
   const combineWithDirectoryPath = (xs) =>
     compact([directoryPath, xs]).join('');

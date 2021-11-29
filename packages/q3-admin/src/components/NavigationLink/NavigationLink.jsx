@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import { invoke } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Button from '@material-ui/core/Button';
 import useStyle from './useStyle';
 
