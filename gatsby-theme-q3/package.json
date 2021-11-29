@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "1.43.10",
+  "version": "2.0.0",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {

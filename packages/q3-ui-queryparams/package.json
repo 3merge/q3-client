@@ -1,17 +1,17 @@
 {
   "name": "q3-ui-queryparams",
-  "version": "1.43.10",
+  "version": "2.0.0",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
-    "q3-ui-test-utils": "^1.43.10"
+    "q3-ui-test-utils": "^2.0.0"
   },
   "dependencies": {
     "flat": "^5.0.2",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-helpers": "^1.43.10",
-    "q3-ui-locale": "^1.43.10"
+    "q3-ui-helpers": "^2.0.0",
+    "q3-ui-locale": "^2.0.0"
   },
   "peerDependencies": {
     "@reach/router": "^1.3.4",
