@@ -6,6 +6,7 @@ exports.onCreateWebpackConfig = ({
   const config = {
     resolve: {
       fallback: {
+        util: false,
         fs: false,
         path: false,
       },
