@@ -201,6 +201,8 @@ in 2022.
 
 <ul>
   <li>Single <code>gatsby-config.js</code> file using theme’s setup helper</li>
+  <li><code>AdminRouter</code> component for handling all q3-admin configurations</li>
+  <li><code>Notifications</code> component inside profile</li>
   <li>ESlint, Prettier and Jest configurations now out-of-the-box </li>
   <li>Replacement package for react-i18next due to API changes</li>
 </ul>
