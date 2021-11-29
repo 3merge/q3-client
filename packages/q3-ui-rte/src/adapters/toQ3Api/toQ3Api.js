@@ -11,8 +11,9 @@ const makeFormData = async (f) => {
   const formData = new FormData();
   try {
     data = await compress(data, {
-      maxSizeMB: 3,
+      maxSizeMB: 4.5,
       useWebWorker: true,
+      maxWidthOrHeight: 1920,
     });
   } catch (e) {
     // noop
