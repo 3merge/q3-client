@@ -10,9 +10,8 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "lodash": "^4.17.20",
-    "q3-exports": "^1.23.1",
+    "q3-exports": "^1.24.0",
     "q3-ui-locale": "^1.43.10",
-    "q3-schema-utils": "^1.23.1",
     "recharts": "^2.1.6"
   },
   "peerDependencies": {
