@@ -17,7 +17,7 @@
     "js-file-download": "^0.4.12",
     "lodash": "^4.17.20",
     "moment-timezone": "^0.5.34",
-    "q3-ui-forms": "^0.2.4",
+    "q3-ui-forms": "^1.2.4",
     "qs": "^6.9.6"
   }
 }

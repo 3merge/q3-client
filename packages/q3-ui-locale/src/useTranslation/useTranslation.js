@@ -5,14 +5,14 @@ const useTranslationPatch = (namespace) => {
 
   return {
     t(key) {
-      const localKeyPrefix = String(key).split(':')[0];
-      const keyPrefix =
-        localKeyPrefix !== 'undefined'
-          ? localKeyPrefix
-          : namespace;
+      const parts =
+        typeof key === 'string' ? key.split(':') : [];
 
-      return t(key, {
-        keyPrefix,
+      const lrhSingualr = (l, r) =>
+        parts.length === 1 ? l : r;
+
+      return t(lrhSingualr(parts[0], parts[1]), {
+        ns: lrhSingualr(undefined, parts[0]) || namespace,
       });
     },
   };
