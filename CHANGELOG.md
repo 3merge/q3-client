@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/3merge/q/compare/v2.1.0...v2.1.1) (2021-11-29)
+
+
+### Bug Fixes
+
+* webpack util resolve ([60b3713](https://github.com/3merge/q/commit/60b37132309dc0b6167b469ee9849a9585b2466b))
+
+
+
+
+
 # [2.1.0](https://github.com/3merge/q/compare/v1.43.11...v2.1.0) (2021-11-29)
 
 
