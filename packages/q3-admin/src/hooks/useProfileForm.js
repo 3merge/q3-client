@@ -1,6 +1,6 @@
 import React from 'react';
 import { AuthContext } from 'q3-ui-permissions';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const useProfileForm = () => {
   const { t } = useTranslation('descriptions');

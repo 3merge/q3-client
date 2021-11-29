@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import IconButton from '@material-ui/core/IconButton';
 import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';

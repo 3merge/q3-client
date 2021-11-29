@@ -15,11 +15,11 @@
     "lodash": "^4.17.20",
     "q3-ui-assets": "^1.39.0",
     "q3-ui-helpers": "^1.43.10",
+    "q3-ui-locale": "^1.43.10",
     "q3-ui-rest": "^1.43.10"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-i18next": "11.7.3"
+    "react": "^16.10.2"
   }
 }

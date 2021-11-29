@@ -9,7 +9,7 @@ import {
 } from 'lodash';
 import { array } from 'q3-ui-helpers';
 import { getSafelyForAutoCompleteWithProjection } from 'q3-ui-rest';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 export const combine = (a, b) =>
   uniqWith(a.concat(b), isEqual);

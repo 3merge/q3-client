@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import { array } from 'q3-ui-helpers';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 const ListImport = ({ actions, actionTitle, children }) => {

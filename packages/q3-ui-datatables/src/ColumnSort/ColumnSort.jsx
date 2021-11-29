@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import TableCell from '@material-ui/core/TableCell';
 import withSort from '../withSort';
 import useStyles from '../utils/useStyles';

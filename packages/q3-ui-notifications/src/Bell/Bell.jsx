@@ -7,7 +7,7 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { withStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { red } from '@material-ui/core/colors';
 
 export const CustomBadge = withStyles((theme) => ({

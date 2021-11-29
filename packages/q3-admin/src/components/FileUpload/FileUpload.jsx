@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Box from '@material-ui/core/Box';
 import IconButton from 'q3-ui/lib/iconButton';
 import Files from 'react-butterfiles';

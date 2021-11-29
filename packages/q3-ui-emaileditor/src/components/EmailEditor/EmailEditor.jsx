@@ -7,7 +7,7 @@ import {
   Hidden,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import EmailEditorContext from '../EmailEditorContext';
 import TreeView from '../TreeView';
 import useEmailTemplates from '../useEmailTemplates';

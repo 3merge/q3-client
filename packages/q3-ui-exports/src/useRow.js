@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { isNull, isPlainObject } from 'lodash';
 import save from 'file-saver';
 import { object } from 'q3-ui-helpers';

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { Field } from '../../builders';
 import RangeDelimiter, {
   generateSharedProps,

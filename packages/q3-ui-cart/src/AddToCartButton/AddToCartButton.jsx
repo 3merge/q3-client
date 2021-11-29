@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'class-names';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';

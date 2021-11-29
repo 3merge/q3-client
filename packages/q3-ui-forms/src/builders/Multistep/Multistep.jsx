@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Box from '@material-ui/core/Box';
 import Back from '../Back';
 import Next from '../Next';
@@ -11,9 +11,8 @@ export default withWrapper(({ children, onSubmit }) => {
   const { t } = useTranslation('labels');
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const childrenArray = getAllMultistepFieldsetComponents(
-    children,
-  );
+  const childrenArray =
+    getAllMultistepFieldsetComponents(children);
 
   const isFirst = (v) => v === 0;
   const isLast = (v) => v >= childrenArray.length - 1;

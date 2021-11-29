@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get, uniqBy } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import { array, object } from 'q3-ui-helpers';
@@ -71,26 +71,25 @@ export const checkCurrentState = (currentState = []) => ({
   },
 });
 
-export const matchFreeSoloWithOptions = (
-  items = [],
-  next,
-) => (v, newValue) => {
-  const formatted = newValue.map((val) => {
-    if (typeof val === 'string')
-      return (
-        items.find((item) =>
-          compareOptionValueToState(item, val),
-        ) || {
-          label: val,
-          value: val,
-        }
-      );
+export const matchFreeSoloWithOptions =
+  (items = [], next) =>
+  (v, newValue) => {
+    const formatted = newValue.map((val) => {
+      if (typeof val === 'string')
+        return (
+          items.find((item) =>
+            compareOptionValueToState(item, val),
+          ) || {
+            label: val,
+            value: val,
+          }
+        );
 
-    return val;
-  });
+      return val;
+    });
 
-  return next(v, uniqBy(formatted, 'value'));
-};
+    return next(v, uniqBy(formatted, 'value'));
+  };
 
 const AbstractedAutoComplete = ({
   items,

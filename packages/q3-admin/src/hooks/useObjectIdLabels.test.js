@@ -14,7 +14,7 @@ jest.mock('q3-ui-rest', () => ({
     })),
 }));
 
-jest.mock('react-i18next', () => ({
+jest.mock('q3-ui-locale', () => ({
   useTranslation: jest.fn().mockReturnValue({
     t: jest.fn().mockImplementation((v) => v),
   }),

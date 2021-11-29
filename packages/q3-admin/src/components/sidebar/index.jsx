@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import AccountBox from '@material-ui/icons/AccountBox';
 import { teal, orange } from '@material-ui/core/colors';
 import HistoryIcon from '@material-ui/icons/History';

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const ContentMediaIframeFab = ({
   embed,

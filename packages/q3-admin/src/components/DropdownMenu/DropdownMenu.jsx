@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { isFunction, map } from 'lodash';
 import { useOpen } from 'useful-state';
 import useStyle from './styles';

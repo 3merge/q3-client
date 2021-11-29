@@ -1,7 +1,7 @@
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Checkbox from '@material-ui/core/Checkbox';
 import { size, intersection } from 'lodash';
 import { State } from './Context';

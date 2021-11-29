@@ -11,7 +11,7 @@ import { useToggle } from 'useful-state';
 import ReactDiffViewer, {
   DiffMethod,
 } from 'react-diff-viewer';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { green, red } from '@material-ui/core/colors';

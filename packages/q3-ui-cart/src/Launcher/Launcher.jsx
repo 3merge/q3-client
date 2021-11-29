@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { IconButtonWithLoading } from 'q3-ui/lib/iconButton';
 import { useOpen } from 'useful-state';
 import {
@@ -11,9 +11,8 @@ import {
 import { DRAWER_LAUNCHER } from '../constants';
 
 const CartLauncher = ({ children }) => {
-  const { hasError, items = [] } = React.useContext(
-    CartContext,
-  );
+  const { hasError, items = [] } =
+    React.useContext(CartContext);
   const loading = React.useContext(CartLoadingContext);
   const { t } = useTranslation('labels');
   const { isOpen, close, open } = useOpen();

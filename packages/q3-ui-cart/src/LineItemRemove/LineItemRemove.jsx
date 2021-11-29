@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import IconButton from 'q3-ui/lib/iconButton';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import {

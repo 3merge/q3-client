@@ -16,7 +16,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import { useChecked } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { array } from 'q3-ui-helpers';
 
 const useStyle = makeStyles(() => ({

@@ -4,7 +4,7 @@ import useRest from 'q3-ui-rest';
 import { isFunction, map } from 'lodash';
 import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Create from '../Create';
 import Sort from '../Sort';
 import Timeline from '../Timeline';

@@ -1,6 +1,6 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useAuth } from 'q3-ui-permissions';
 import { orderBy } from 'lodash';
 import SidePanelContent from '../../components/SidePanelContent';
@@ -18,9 +18,8 @@ export const getAuthor = (v) => {
 };
 
 const Notes = () => {
-  const { collectionName, id } = React.useContext(
-    Definitions,
-  );
+  const { collectionName, id } =
+    React.useContext(Definitions);
 
   const {
     post,

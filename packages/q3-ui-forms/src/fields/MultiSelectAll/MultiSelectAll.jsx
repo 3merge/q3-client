@@ -6,7 +6,7 @@ import {
   Checkbox,
   Divider,
 } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 export const STATUS = {
   CHECKED: 'checked',

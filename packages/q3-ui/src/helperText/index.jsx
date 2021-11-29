@@ -4,7 +4,7 @@ import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import LiveHelp from '@material-ui/icons/LiveHelp';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import useOpen from 'useful-state/lib/useOpen';
 
 const HelperText = ({ text }) => {

@@ -15,7 +15,7 @@
     "flat": "^5.0.2",
     "lodash": "^4.17.20",
     "micromatch": "^4.0.2",
-    "react-i18next": "11.14.3",
+    "q3-ui-locale": "^1.43.10",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {

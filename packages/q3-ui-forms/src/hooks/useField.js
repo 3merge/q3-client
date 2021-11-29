@@ -1,6 +1,6 @@
 import React from 'react';
 import { get, omit, pick, uniq } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { object } from 'q3-ui-helpers';
 import {
   BuilderState,

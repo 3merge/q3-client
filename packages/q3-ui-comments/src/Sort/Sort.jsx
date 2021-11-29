@@ -4,7 +4,7 @@ import { Box, Button } from '@material-ui/core';
 import { useToggle } from 'useful-state';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const Sort = ({ children }) => {
   const { state, toggle } = useToggle(true);

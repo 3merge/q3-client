@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import { browser, array, object } from 'q3-ui-helpers';
 import { useDropzone } from 'react-dropzone';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import useStyles from './useStyle';
 
 const DROPPER_ID = 'dropper';
@@ -99,14 +99,11 @@ const Drop = ({
     [root],
   );
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-  } = useDropzone({
-    onDrop: onDropHandler,
-    ...rest,
-  });
+  const { getRootProps, getInputProps, isDragActive } =
+    useDropzone({
+      onDrop: onDropHandler,
+      ...rest,
+    });
 
   const getDropperHandlers = () => ({
     id: DROPPER_ID,

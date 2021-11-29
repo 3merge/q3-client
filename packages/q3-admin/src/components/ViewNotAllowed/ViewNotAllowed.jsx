@@ -3,7 +3,7 @@ import { Link } from '@reach/router';
 import Graphic from 'q3-ui-assets';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Article from '../Article';
 
 const ViewNotAllowed = () => {

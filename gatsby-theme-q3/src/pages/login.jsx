@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import MuiLink from '@material-ui/core/Button';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';

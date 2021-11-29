@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { size } from 'lodash';
 import { Button, Box } from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const LoadMore = ({
   data,

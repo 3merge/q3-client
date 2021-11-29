@@ -36,9 +36,9 @@
     "@material-ui/lab": "^4.0.0-alpha.31",
     "@reach/router": "^1.2.1",
     "i18next": "^17.0.12",
+    "q3-ui-locale": "^1.43.10",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-i18next": "^11.3.1"
+    "react-dom": "^16.9.0"
   },
   "gitHead": "34a1cd0b4afe9e624a9d4fcef60490187d8cfbe7"
 }

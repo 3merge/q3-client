@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { useAuth } from 'q3-ui-permissions';
 import { makePath } from '../app';
 

@@ -13,7 +13,7 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import { map, get, isEqual } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { SelectAll } from 'q3-ui-exports';
 import List from '../List';
 import withMapRepeater from '../withMapRepeater';
@@ -44,13 +44,8 @@ const RepeaterTable = ({
   groupName,
   ...rest
 }) => {
-  const {
-    totalPage,
-    total,
-    onChange,
-    list,
-    page,
-  } = usePagination(perPage, data);
+  const { totalPage, total, onChange, list, page } =
+    usePagination(perPage, data);
   const cls = useStyle();
   const { t } = useTranslation('labels');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { navigate } from '@reach/router';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { array } from 'q3-ui-helpers';

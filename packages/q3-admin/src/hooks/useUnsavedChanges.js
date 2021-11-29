@@ -1,7 +1,7 @@
 import React from 'react';
 import { browser } from 'q3-ui-helpers';
 import { get, invoke } from 'lodash';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 
 const getAttribute = () =>
   browser.proxySessionStorageApi(

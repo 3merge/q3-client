@@ -11,8 +11,8 @@
     "@material-ui/lab": "^4.0.0-alpha.60",
     "lodash": "^4.17.20",
     "q3-exports": "^1.23.1",
+    "q3-ui-locale": "^1.43.10",
     "q3-schema-utils": "^1.23.1",
-    "react-i18next": "11.14.3",
     "recharts": "^2.1.6"
   },
   "peerDependencies": {

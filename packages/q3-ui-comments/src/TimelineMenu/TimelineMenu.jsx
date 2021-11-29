@@ -9,7 +9,7 @@ import {
 import { map } from 'lodash';
 import VertIcon from '@material-ui/icons/MoreHoriz';
 import { useOpen } from 'useful-state';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import useStyle from '../Timeline/styles';
 
 const TimelineMenu = ({ options }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import { object } from 'q3-ui-helpers';
 
 export const addBy = (qty) => Number(qty) + 1;

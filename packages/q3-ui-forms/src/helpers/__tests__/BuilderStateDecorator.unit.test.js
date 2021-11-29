@@ -1,6 +1,6 @@
 import BuilderStateDecorator from '../BuilderStateDecorator';
 
-jest.mock('react-i18next', () => ({
+jest.mock('q3-ui-locale', () => ({
   useTranslation: jest.fn().mockReturnValue({
     t: jest.fn().mockImplementation((v) => v.split(':')[1]),
   }),

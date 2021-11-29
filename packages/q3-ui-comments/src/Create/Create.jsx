@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Grid } from '@material-ui/core';
 import { useAuth } from 'q3-ui-permissions';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import Avatar from '../Avatar';
 import Dialog from '../Dialog';
 

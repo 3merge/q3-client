@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'q3-ui-locale';
 import TemplateFullWidth from '../../components/TemplateFullWidth';
 
 export default () => {
