@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/3merge/q/compare/v1.43.11...v2.1.0) (2021-11-29)
+
+
+### Features
+
+* v2 ([#358](https://github.com/3merge/q/issues/358)) ([8e4a15a](https://github.com/3merge/q/commit/8e4a15a99f1f433b4f5770497e8af971d7663c23))
+
+
+
+
+
+
 # [2.0.0](https://github.com/3merge/q/compare/v1.43.11...v2.0.0) (2021-11-29)
 
 **Note:** Version bump only for package q3-ui-repeater

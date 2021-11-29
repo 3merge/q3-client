@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-test-utils",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "dependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.16.0",
