@@ -122,5 +122,7 @@
   "emailPreviewDisabledMobile": "Email previews are only available on desktop devices. Please load this module on a larger screen.",
   "noNotificationsToSubscribeTo": "There aren't any notifications at this time",
   "profileNotifications": "Set which notifications you'd like to receive from the system",
-  "auditSearch": "This is a case-sensitive search for a particular data key. The dropdown offers suggestions based on recently changed keys, but you can type anything into this field."
+  "auditSearch": "This is a case-sensitive search for a particular data key. The dropdown offers suggestions based on recently changed keys, but you can type anything into this field.",
+  "queueLogsFailed": "Servers encountered an error. You either do not have permission to view this add-on or there are no queues configured.",
+  "queues": "Background server activity (AKA Queue or Task Manager)"
 }

@@ -5,7 +5,6 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import QueueLogs from './QueueLogs';
-import { Box } from '@material-ui/core';
 import Fixtures from '../../tests/fixtures';
 
 <Meta title="QueueLogs" component={QueueLogs} />
@@ -18,7 +17,7 @@ import Fixtures from '../../tests/fixtures';
   </Story>
   <Story name="Error">
     <Fixtures causeError>
-      <EmailEditor />
+      <QueueLogs />
     </Fixtures>
   </Story>
 </Preview>

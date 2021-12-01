@@ -8,6 +8,7 @@ import {
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import TvIcon from '@material-ui/icons/Tv';
 import EmailEditor from 'q3-ui-emaileditor';
+import QueueLogs from 'q3-ui-queuelogs';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
@@ -16,10 +17,6 @@ import pages from './views';
 const Loading = ({ children }) => {
   useLoading();
   return children;
-};
-
-const Dash = () => {
-  return null;
 };
 
 const Foo = () => <p>Custom profile view</p>;
@@ -34,10 +31,7 @@ const ExampleApp = ({ initialPath }) => {
           <Datasource>
             <Admin
               AppProps={{
-                addons: [EmailEditor],
-                customRoutes: [
-                  <Dash key="dash" path="/" />,
-                ],
+                addons: [EmailEditor, QueueLogs],
                 pages,
               }}
               NavProps={{

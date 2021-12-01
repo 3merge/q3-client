@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types,import/no-extraneous-dependencies */
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
+import queues from './data';
 
 export const defineMockRoutes =
   (options = {}) =>
@@ -10,7 +11,12 @@ export const defineMockRoutes =
 
     m.onGet(/queues/).reply(() => {
       if (causeError) return [500];
-      return [200, { queues: [] }];
+      return [
+        200,
+        {
+          queues,
+        },
+      ];
     });
   };
 

@@ -31,7 +31,7 @@ const alias = [
   'q3-ui-notifications',
   'q3-ui-queryparams',
   'q3-ui-permissions',
-  'q3-ui-queue-logs',
+  'q3-ui-queuelogs',
   'q3-ui-repeater',
   'q3-ui-rte',
   'q3-ui-test-utils',

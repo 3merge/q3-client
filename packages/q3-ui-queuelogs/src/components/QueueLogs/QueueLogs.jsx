@@ -1,7 +1,6 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import {
-  Accordion,
   Tooltip,
   IconButton,
   Container,
@@ -9,9 +8,11 @@ import {
   Box,
   Typography,
 } from '@material-ui/core';
+import Graphic from 'q3-ui-assets';
 import { orderBy } from 'lodash';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { useTranslation } from 'q3-ui-locale';
+import Accordion from '../Accordion';
 import Search from '../Search';
 import useCells from '../useCells';
 import useQueues from '../useQueues';
@@ -64,15 +65,17 @@ const QueueLogs = () => {
         },
       ]);
 
-  return (
-    <Box my={4}>
+  return q.fetchingError ? (
+    <Graphic icon="Code" title="queueLogsFailed" />
+  ) : (
+    <Box my={2}>
       <Container>
         <Typography variant="h2" component="h1">
           {t('titles:queues')}
         </Typography>
         <Typography>{t('descriptions:queues')}</Typography>
         <Grid
-          spacing={3}
+          spacing={1}
           alignItems="center"
           container
           justifyContent="space-between"
@@ -146,7 +149,7 @@ const QueueLogs = () => {
   );
 };
 
-QueueLogs.displayName = 'queuelogs';
+QueueLogs.displayName = 'queues';
 QueueLogs.defaultProps = {};
 QueueLogs.propTypes = {};
 

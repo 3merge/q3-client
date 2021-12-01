@@ -3,6 +3,7 @@ import {
   Accordion as MuiAccordion,
   AccordionSummary,
   AccordionDetails,
+  Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -20,7 +21,7 @@ const Accordion = ({
     (size(data) > 0 || showEmpty) && (
       <MuiAccordion variant="outlined" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          {t('title')}
+          <Typography>{t(title)}</Typography>
         </AccordionSummary>
         <AccordionDetails>{children}</AccordionDetails>
       </MuiAccordion>

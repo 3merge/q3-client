@@ -5,7 +5,7 @@ import { get } from 'lodash';
 const renderCellPriority = (args) => (
   <Rating
     defaultValue={Number(
-      String(get(args, 'row.queue', 0))[0],
+      String(get(args, 'row.priority', 0))[0],
     )}
     max={3}
     name="priority"

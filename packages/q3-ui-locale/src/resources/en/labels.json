@@ -337,5 +337,13 @@
   "alt": "Alt attribute",
   "float": "Float",
   "standard": "Standard",
-  "full": "Full"
+  "full": "Full",
+  "type": "Type",
+  "status": "Status",
+  "priority": "Priority",
+  "expectedCompletionDate": "Should finish by",
+  "completionDate": "Finished on",
+  "download": "Download",
+  "run": "Run",
+  "queues": "Queues"
 }

@@ -103,5 +103,9 @@
   "nothingToAudit": "Nothing yet",
   "emailEditorFailed": "Email editor unavailable",
   "emailEditor": "Email editor",
-  "profileNotifications": "Notifications"
+  "profileNotifications": "Notifications",
+  "queues": "Queues",
+  "past": "Past",
+  "upcoming": "Upcoming",
+  "queueLogsFailed": "Queues unavailable"
 }

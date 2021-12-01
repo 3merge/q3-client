@@ -15,7 +15,7 @@ const useQueues = (args = {}) => {
     runOnInit: true,
   });
 
-  const matchesFilter = React.useMemo(
+  const matchesFilter = React.useCallback(
     (str) =>
       !size(filter) ||
       includes(
