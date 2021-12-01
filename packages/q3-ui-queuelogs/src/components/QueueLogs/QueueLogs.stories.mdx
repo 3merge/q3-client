@@ -1,0 +1,24 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import QueueLogs from './QueueLogs';
+import { Box } from '@material-ui/core';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="QueueLogs" component={QueueLogs} />
+
+<Preview>
+  <Story name="Default">
+    <Fixtures>
+      <QueueLogs />
+    </Fixtures>
+  </Story>
+  <Story name="Error">
+    <Fixtures causeError>
+      <EmailEditor />
+    </Fixtures>
+  </Story>
+</Preview>
