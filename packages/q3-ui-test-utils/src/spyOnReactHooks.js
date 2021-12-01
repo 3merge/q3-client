@@ -1,9 +1,9 @@
 import React from 'react';
 
 const spyOnReactHooks = () => ({
-  useMemo: () => {
+  useCallback: () => {
     const spy = jest
-      .spyOn(React, 'useMemo')
+      .spyOn(React, 'useCallback')
       .mockImplementation((fn) => fn);
 
     return {

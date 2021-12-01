@@ -6,6 +6,7 @@ import { AuthContext } from 'q3-ui-permissions';
 const StoriesApiMockAuthentication = ({
   children,
   revokeAccessToQueues,
+  revokeAccessToQueuesEditing,
 }) => {
   const permissions = [];
 
@@ -16,11 +17,12 @@ const StoriesApiMockAuthentication = ({
       op: 'Read',
     });
 
-    permissions.push({
-      coll: 'queues',
-      fields: ['*'],
-      op: 'Update',
-    });
+    if (!revokeAccessToQueuesEditing)
+      permissions.push({
+        coll: 'queues',
+        fields: ['*'],
+        op: 'Update',
+      });
   }
 
   return (

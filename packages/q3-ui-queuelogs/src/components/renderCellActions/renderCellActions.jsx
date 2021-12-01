@@ -25,15 +25,18 @@ const renderCellActions = ({
       });
 
   // eslint-disable-next-line
-  const DecoratedIconButton = ({ title, ...props }) => (
-    <Tooltip title={t(title)}>
-      <IconButton
-        disabled={disabled}
-        color="primary"
-        {...props}
-      />
-    </Tooltip>
-  );
+  const DecoratedIconButton = ({ title, ...props }) =>
+    disabled ? (
+      <IconButton color="primary" disabled {...props} />
+    ) : (
+      <Tooltip title={t(title)}>
+        <IconButton
+          color="primary"
+          disabled={false}
+          {...props}
+        />
+      </Tooltip>
+    );
 
   if (size(row.imports))
     forEach(row.imports, (imp, idx) =>

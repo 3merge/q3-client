@@ -34,7 +34,7 @@ jest.mock('q3-ui-rest', () => {
 });
 
 beforeAll(() => {
-  srh.useMemo();
+  srh.useCallback();
 });
 
 describe('useQueues', () => {
