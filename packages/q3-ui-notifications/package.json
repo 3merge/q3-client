@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-notifications",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-helpers": "^2.1.0",
+    "q3-ui-helpers": "^2.2.0",
     "useful-state": "^1.2.3"
   }
 }

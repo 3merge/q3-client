@@ -1,15 +1,15 @@
 {
   "name": "q3-ui-charts",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^2.1.0"
+    "q3-ui-test-utils": "^2.2.0"
   },
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "q3-exports": "^1.24.0",
-    "q3-ui-locale": "^2.1.0",
+    "q3-ui-locale": "^2.2.0",
     "recharts": "^2.1.6"
   },
   "peerDependencies": {
