@@ -31,17 +31,20 @@ const alias = [
   'q3-ui-notifications',
   'q3-ui-queryparams',
   'q3-ui-permissions',
+  'q3-ui-queuelogs',
   'q3-ui-repeater',
   'q3-ui-rte',
   'q3-ui-test-utils',
   'q3-ui-rest',
-].reduce((acc, curr) => {
-  return Object.assign(acc, {
-    [withBundledDir(curr)]: withPackageOpts(curr),
-    [withTests(curr)]: withPackageTests(curr),
-    [curr]: withPackageOpts(curr), // default exports
-  });
-}, {});
+].reduce(
+  (acc, curr) =>
+    Object.assign(acc, {
+      [withBundledDir(curr)]: withPackageOpts(curr),
+      [withTests(curr)]: withPackageTests(curr),
+      [curr]: withPackageOpts(curr), // default exports
+    }),
+  {},
+);
 
 const withAlias = {
   plugins: [

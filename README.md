@@ -182,7 +182,10 @@ More coming soon.
     <a href="./packages/q3-ui-helpers">🆘 Helpers Docs</a>
   </li>
   <li>
-    <a href="./packages/q3-ui-rte"> 📝 Rich Text</a>
+     <a href="./packages/q3-ui-queuelogs">📤 Queue Logs</a>
+  </li>
+  <li>
+    <a href="./packages/q3-ui-rte">📝 Rich Text</a>
   </li>
 </ul>
 

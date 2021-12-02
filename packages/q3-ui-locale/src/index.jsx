@@ -6,7 +6,9 @@ import useTranslation from './useTranslation';
 import i18n from './config';
 
 const Provider = ({ children }) => (
-  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+  <I18nextProvider i18n={i18n} defaultNS="en">
+    {children}
+  </I18nextProvider>
 );
 
 Provider.propTypes = {

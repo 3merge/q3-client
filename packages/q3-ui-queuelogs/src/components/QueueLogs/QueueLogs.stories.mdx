@@ -1,0 +1,23 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import QueueLogs from './QueueLogs';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="QueueLogs" component={QueueLogs} />
+
+<Preview>
+  <Story name="Default">
+    <Fixtures>
+      <QueueLogs />
+    </Fixtures>
+  </Story>
+  <Story name="Error">
+    <Fixtures causeError>
+      <QueueLogs />
+    </Fixtures>
+  </Story>
+</Preview>
