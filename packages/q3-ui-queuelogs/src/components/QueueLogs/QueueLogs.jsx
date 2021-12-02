@@ -48,6 +48,11 @@ const QueueLogs = () => {
         flex: 1,
         minWidth: 250,
       },
+      {
+        field: 'type',
+        headerName: t('type'),
+        widith: 95,
+      },
     ]
       .concat(xs)
       .concat([
@@ -108,11 +113,6 @@ const QueueLogs = () => {
             )}
             columns={withGlobalColumns([
               {
-                field: 'type',
-                headerName: t('type'),
-                widith: 95,
-              },
-              {
                 field: 'priority',
                 headerName: t('priority'),
                 renderCell: renderers.renderCellPriority,
@@ -121,6 +121,7 @@ const QueueLogs = () => {
               {
                 field: 'expectedCompletionDate',
                 headerName: t('expectedCompletionDate'),
+                renderCell: renderers.renderDate,
                 width: 215,
               },
             ])}
@@ -132,14 +133,16 @@ const QueueLogs = () => {
             rows={q.past}
             columns={withGlobalColumns([
               {
-                field: 'completionDate',
-                headerName: t('completionDate'),
-                width: 185,
-              },
-              {
                 field: 'duration',
                 headerName: t('Time'),
-                width: 85,
+                renderCell: renderers.renderDuration,
+                width: 95,
+              },
+              {
+                field: 'completionDate',
+                headerName: t('completionDate'),
+                renderCell: renderers.renderDate,
+                width: 215,
               },
             ])}
           />

@@ -72,7 +72,7 @@
   },
   {
     "id": 8,
-    "name": "Ligula.gif",
+    "name": "Ligula@daily.js",
     "priority": 2,
     "completionDate": "2021-07-08T14:44:29Z",
     "expectedCompletionDate": "2021-04-01T09:13:27Z",
@@ -312,7 +312,8 @@
   },
   {
     "id": 32,
-    "name": "LobortisSapien.xls",
+    "type": "Recurring",
+    "name": "LobortisSapien@minutely.js",
     "priority": 1,
     "completionDate": "2021-04-22T13:10:17Z",
     "expectedCompletionDate": "2021-05-15T10:49:04Z",
@@ -428,7 +429,8 @@
     "expectedCompletionDate": "2021-05-06T12:07:38Z",
     "message": "Nondisp fx of greater trochanter of unsp femr, 7thQ",
     "status": "Stalled",
-    "duration": 239
+    "duration": 239,
+    "type": "Recurring"
   },
   {
     "id": 44,
@@ -518,7 +520,8 @@
     "expectedCompletionDate": "2021-02-21T23:22:51Z",
     "message": null,
     "status": "Failed",
-    "duration": 120
+    "duration": 120,
+    "type": "Recurring"
   },
   {
     "id": 53,
@@ -628,7 +631,8 @@
     "expectedCompletionDate": "2021-03-30T10:57:00Z",
     "message": null,
     "status": "Done",
-    "duration": 4
+    "duration": 4,
+    "type": "Recurring"
   },
   {
     "id": 64,

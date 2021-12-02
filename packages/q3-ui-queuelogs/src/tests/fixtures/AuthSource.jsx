@@ -17,12 +17,19 @@ const StoriesApiMockAuthentication = ({
       op: 'Read',
     });
 
-    if (!revokeAccessToQueuesEditing)
+    if (!revokeAccessToQueuesEditing) {
       permissions.push({
         coll: 'queues',
         fields: ['*'],
         op: 'Update',
       });
+
+      permissions.push({
+        coll: 'queues',
+        fields: ['*'],
+        op: 'Delete',
+      });
+    }
   }
 
   return (

@@ -18,7 +18,7 @@ const checkDisabledState = (el, expectedValue) =>
           {el
             .find(DataGrid)
             .last()
-            .prop('columns')[3]
+            .prop('columns')[4]
             .renderCell({
               row: {
                 status: 'Done',

@@ -6,7 +6,7 @@ export const hasPassed = ({ status }) =>
   ['Done', 'Failed'].includes(status);
 
 export const isRecurring = ({ type }) =>
-  type !== 'Recurring';
+  type === 'Recurring';
 
 export const toSeconds = (xs) =>
   isNumber(xs) ? [xs, 's'].join('') : undefined;

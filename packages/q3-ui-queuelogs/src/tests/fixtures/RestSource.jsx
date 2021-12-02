@@ -1,20 +1,42 @@
 /* eslint-disable react/prop-types,import/no-extraneous-dependencies */
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
+import { last, find, map } from 'lodash';
 import queues from './data';
 
 export const defineMockRoutes =
   (options = {}) =>
   (m) => {
     const { causeError = false } = options;
-    m.onPost(/queues/).reply(async () => [204, {}]);
+    m.onPatch(/queue-logs/).reply(async ({ url }) => {
+      const id = last(url.split('/'));
+      const queue = find(
+        queues,
+        (q) => String(q.id) === id,
+      );
 
-    m.onGet(/queues/).reply(() => {
+      queue.status = 'Scheduled';
+      queue.type = 'Once';
+
+      return [
+        204,
+        {
+          queue,
+        },
+      ];
+    });
+
+    m.onDelete(/queue-logs/).reply(async () => [204]);
+
+    m.onGet(/queue-logs/).reply(() => {
       if (causeError) return [500];
       return [
         200,
         {
-          queues,
+          queues: map(queues, (q) => ({
+            ...q,
+            type: q.type || 'Once',
+          })),
         },
       ];
     });

@@ -1,19 +1,29 @@
 import React from 'react';
 import useRest from 'q3-ui-rest';
-import { string } from 'q3-ui-helpers';
-import { includes, map, size } from 'lodash';
-import { concat, hasPassed, toSeconds } from '../utils';
+import {
+  filter as filterBy,
+  includes,
+  map,
+  size,
+  sumBy,
+} from 'lodash';
+import { concat, hasPassed } from '../utils';
 
-const { toDate } = string;
+export const getAverageDuration = (xs = []) => {
+  const a = filterBy(xs, ({ status }) => status === 'Done');
+  return sumBy(a, 'duration') / size(a);
+};
 
 const useQueues = (args = {}) => {
   const [filter, setFilter] = React.useState('');
   const { queues, ...rest } = useRest({
-    url: 'queues',
+    url: '/queue-logs',
     key: 'queue',
     pluralized: 'queues',
     runOnInit: true,
   });
+
+  const average = getAverageDuration(queues);
 
   const matchesFilter = React.useCallback(
     (str) =>
@@ -28,13 +38,9 @@ const useQueues = (args = {}) => {
   const rows = map(queues, (qu) => ({
     ...args,
     ...qu,
-    completionDate: toDate(qu.completionDate),
-    duration: toSeconds(qu.duration),
-    expectedCompletionDate: toDate(
-      qu.expectedCompletionDate,
-    ),
+    ...rest,
     name: concat(qu.name, qu.message),
-    refresh: rest.poll,
+    average,
   })).reduce(
     (acc, curr) => {
       if (matchesFilter(curr.name)) {

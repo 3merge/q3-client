@@ -1,40 +1,46 @@
 import React from 'react';
 import { Tooltip, IconButton } from '@material-ui/core';
 import { forEach, size } from 'lodash';
-import axios from 'axios';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import RedoIcon from '@material-ui/icons/Redo';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { hasPassed } from '../utils';
+import { isRecurring, hasPassed } from '../utils';
 
 const renderCellActions = ({
   row = {},
   injectedState = {},
 }) => {
-  const { disabled, t } = injectedState;
+  const { canDelete, canEdit, t } = injectedState;
   const output = [];
 
-  const handleClick = (op) => () =>
-    axios
-      .post('/queues', {
-        queue: row.id,
-        op,
+  const handleClickRun = () =>
+    row
+      .patch(row.id)({
+        status: 'Queued',
       })
-      .then(() => {
-        row.refresh();
+      .catch(() => {
+        // noop
       });
 
-  // eslint-disable-next-line
-  const DecoratedIconButton = ({ title, ...props }) =>
+  const handleClickRemove = () =>
+    row
+      .remove(row.id)()
+      .catch(() => {
+        // noop
+      });
+
+  const DecoratedIconButton = ({
+    // eslint-disable-next-line
+    disabled,
+    // eslint-disable-next-line
+    title,
+    ...props
+  }) =>
     disabled ? (
       <IconButton color="primary" disabled {...props} />
     ) : (
       <Tooltip title={t(title)}>
-        <IconButton
-          color="primary"
-          disabled={false}
-          {...props}
-        />
+        <IconButton color="primary" {...props} />
       </Tooltip>
     );
 
@@ -52,27 +58,31 @@ const renderCellActions = ({
       ),
     );
 
-  if (hasPassed(row))
-    output.push(
-      <DecoratedIconButton
-        key="action"
-        onClick={handleClick('Reschedule')}
-        title="run"
-      >
-        <RedoIcon />
-      </DecoratedIconButton>,
-    );
+  if (!isRecurring(row)) {
+    if (hasPassed(row))
+      output.push(
+        <DecoratedIconButton
+          disabled={!canEdit}
+          key="action"
+          onClick={handleClickRun}
+          title="run"
+        >
+          <RedoIcon />
+        </DecoratedIconButton>,
+      );
 
-  if (row.type !== 'Recurring')
-    output.push(
-      <DecoratedIconButton
-        key="delete"
-        onClick={handleClick('Delete')}
-        title="delete"
-      >
-        <DeleteForeverIcon />
-      </DecoratedIconButton>,
-    );
+    if (row.status !== 'Done')
+      output.push(
+        <DecoratedIconButton
+          disabled={!canDelete}
+          key="delete"
+          onClick={handleClickRemove}
+          title="delete"
+        >
+          <DeleteForeverIcon />
+        </DecoratedIconButton>,
+      );
+  }
 
   return output;
 };
