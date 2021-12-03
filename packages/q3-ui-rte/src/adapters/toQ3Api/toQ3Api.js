@@ -15,11 +15,13 @@ const makeFormData = async (f) => {
       useWebWorker: true,
       maxWidthOrHeight: 1920,
     });
+
+    // renames the blob
+    formData.append(`media/${f.name}`, data, f.name);
   } catch (e) {
-    // noop
+    formData.append(`media/${f.name}`, data);
   }
 
-  formData.append(`media/${f.name}`, data);
   return formData;
 };
 
