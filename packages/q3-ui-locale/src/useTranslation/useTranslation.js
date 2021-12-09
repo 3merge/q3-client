@@ -4,7 +4,7 @@ const useTranslationPatch = (namespace) => {
   const [t] = useTranslation();
 
   return {
-    t(key) {
+    t(key, args = {}) {
       const parts =
         typeof key === 'string' ? key.split(':') : [];
 
@@ -13,6 +13,7 @@ const useTranslationPatch = (namespace) => {
 
       return t(lrhSingualr(parts[0], parts[1]), {
         ns: lrhSingualr(undefined, parts[0]) || namespace,
+        ...args,
       });
     },
   };
