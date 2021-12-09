@@ -12,12 +12,14 @@ module.exports = ({
   brandingColor,
   icon,
   netlify,
+  theme,
 }) => {
   const plugins = [
     {
-      resolve: require.resolve(
-        './src/plugins/gatsby-local-top-layout',
-      ),
+      resolve: 'gatsby-theme-q3-mui',
+      options: {
+        theme,
+      },
     },
     'gatsby-plugin-material-ui',
     'gatsby-plugin-force-trailing-slashes',
