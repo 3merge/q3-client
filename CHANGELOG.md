@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.2](https://github.com/3merge/q/compare/v2.3.1...v2.3.2) (2021-12-09)
+
+
+### Bug Fixes
+
+* repeater field focus ([975f1c6](https://github.com/3merge/q/commit/975f1c6b8a075429fbbae735d8943615e774e36a))
+
+
+
+
+
 ## [2.3.1](https://github.com/3merge/q/compare/v2.3.0...v2.3.1) (2021-12-09)
 
 
