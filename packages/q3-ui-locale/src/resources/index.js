@@ -26,6 +26,7 @@ export default {
   keySeparator: false,
   interpolation: {
     escapeValue: false,
+    skipOnVariables: false,
   },
   compatibilityJSON: 'v3',
 };

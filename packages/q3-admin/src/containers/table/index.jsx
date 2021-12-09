@@ -93,11 +93,8 @@ const List = (props) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
 
-  const {
-    collectionName,
-    location,
-    rootPath,
-  } = React.useContext(Definitions);
+  const { collectionName, location, rootPath } =
+    React.useContext(Definitions);
   const { poll } = React.useContext(Dispatcher);
   const { canSeeSub } = useAuth(collectionName);
   useRefresh(poll);
