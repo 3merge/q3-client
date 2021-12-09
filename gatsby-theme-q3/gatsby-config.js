@@ -14,10 +14,21 @@ module.exports = ({
   netlify,
 }) => {
   const plugins = [
+    {
+      resolve: require.resolve(
+        './src/plugins/gatsby-local-top-layout',
+      ),
+    },
     'gatsby-plugin-material-ui',
     'gatsby-plugin-force-trailing-slashes',
     'gatsby-plugin-sitemap',
-    'gatsby-transformer-sharp',
+    {
+      resolve: 'gatsby-transformer-sharp',
+      options: {
+        // The option defaults to true
+        checkSupportedExtensions: true,
+      },
+    },
     'gatsby-plugin-sharp',
     {
       resolve: 'gatsby-plugin-robots-txt',
