@@ -24,7 +24,7 @@ import {
 
 <Preview>
   <Story name="FormSetup">
-    <Container>
+    <Container style={{ backgroundColor: '#fff' }}>
       <Form
         debug
         unwind={[['repeats', 3]]}
@@ -40,6 +40,13 @@ import {
         }}
       >
         <Repeater group="repeats">
+          <Field
+            name="value"
+            type="select"
+            options={['Apple', 'Pear', 'Orange']}
+            xl={12}
+            lg={12}
+          />
           <Field name="value" type="text" xl={12} lg={12} />
         </Repeater>
       </Form>

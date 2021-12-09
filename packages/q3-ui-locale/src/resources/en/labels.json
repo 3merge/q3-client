@@ -345,5 +345,6 @@
   "completionDate": "Finished on",
   "download": "Download",
   "run": "Run",
-  "queues": "Queues"
+  "queues": "Queues",
+  "addRow": "Add row"
 }

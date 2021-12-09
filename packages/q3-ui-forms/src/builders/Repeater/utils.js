@@ -21,12 +21,12 @@ export const getEmptyEntry = (prefix, index, children) =>
   }, {});
 
 export const assignNameToFields = (
-  { prefix, index, ...rest },
+  { index, newState, prefix, ...rest },
   children,
   t,
 ) =>
-  toArray(children).map((item = {}) => {
-    const { children: subChildren, props } = item;
+  toArray(children).map((item, i) => {
+    const { children: subChildren, props } = item || {};
     const attribute = get(props, 'name');
 
     if (subChildren)
@@ -35,22 +35,16 @@ export const assignNameToFields = (
     if (!attribute) return item;
 
     const label = `${prefix}.${attribute}`;
+    const name = `${prefix}.${index}.${attribute}`;
+    const autoFocus = i === 0 && get(newState, name) === '';
 
     return React.cloneElement(item, {
       ...props,
       ...rest,
-      name: `${prefix}.${index}.${attribute}`,
+      name,
       label: t ? t(label) : label,
+      autoFocus,
     });
-  });
-
-export const autofocusNewField = (key) =>
-  setTimeout(() => {
-    try {
-      document.getElementById(key).focus();
-    } catch (e) {
-      // null
-    }
   });
 
 export const getNumberFromRepeaterFieldName = (
