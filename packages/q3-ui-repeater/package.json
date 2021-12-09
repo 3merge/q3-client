@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
@@ -11,14 +11,14 @@
     "axios": "^0.24.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-components": "^2.2.1",
-    "q3-ui": "^2.2.0",
-    "q3-ui-confirm": "^2.2.1",
-    "q3-ui-dialog": "^2.2.0",
-    "q3-ui-exports": "^2.2.0",
-    "q3-ui-forms": "^2.2.1",
-    "q3-ui-locale": "^2.2.0",
-    "q3-ui-permissions": "^2.2.1",
+    "q3-components": "^2.2.2",
+    "q3-ui": "^2.2.2",
+    "q3-ui-confirm": "^2.2.2",
+    "q3-ui-dialog": "^2.2.2",
+    "q3-ui-exports": "^2.2.2",
+    "q3-ui-forms": "^2.2.2",
+    "q3-ui-locale": "^2.2.2",
+    "q3-ui-permissions": "^2.2.2",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {
