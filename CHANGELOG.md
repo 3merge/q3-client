@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/3merge/q/compare/v2.3.0...v2.3.1) (2021-12-09)
+
+
+### Bug Fixes
+
+* forward all config ([c4c512d](https://github.com/3merge/q/commit/c4c512da530866327940d56dba3976764cf53293))
+
+
+
+
+
 # [2.3.0](https://github.com/3merge/q/compare/v2.2.2...v2.3.0) (2021-12-09)
 
 
