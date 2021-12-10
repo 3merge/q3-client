@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { useTranslation } from 'q3-ui-locale';
-import { last } from 'lodash';
+import { invoke, last } from 'lodash';
 import moment from 'moment';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
@@ -25,25 +25,33 @@ const NotificationLink = ({
   url,
   ...rest
 }) => (
-  <ListItem dense selected={!hasDownloaded}>
+  <ListItem
+    button
+    component="li"
+    dense
+    selected={!hasDownloaded}
+    onClick={(e) =>
+      Promise.resolve(
+        !hasDownloaded ? onClick(e, id) : null,
+      ).then(() => {
+        invoke(window, 'open', url, '_blank');
+      })
+    }
+  >
     <ListItemIcon>
       <GetAppIcon />
     </ListItemIcon>
     <ListItemText
       primary={useCreatedAtTitle(rest)}
       secondary={
-        <Link
-          href={url}
-          style={{ color: 'inherit' }}
-          download
-          onClick={
-            !hasDownloaded
-              ? (e) => onClick(e, id)
-              : undefined
-          }
+        <span
+          style={{
+            color: 'inherit',
+            textDecoration: 'underline',
+          }}
         >
           {last(label.split('/'))}
-        </Link>
+        </span>
       }
     />
   </ListItem>

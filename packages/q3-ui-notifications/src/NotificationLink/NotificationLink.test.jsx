@@ -1,6 +1,6 @@
 import React from 'react';
+import { invoke } from 'lodash';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import NotificationLink from './NotificationLink';
 
 function check(el) {
@@ -14,45 +14,50 @@ function check(el) {
       return this;
     },
 
-    clickValue(expectedValue) {
-      const { onClick } = el
-        .find(ListItemText)
-        .props().secondary.props;
-
-      expect(onClick).toEqual(expectedValue);
-      return this;
+    clickValue(fn, method) {
+      window.open = jest.fn();
+      const { onClick } = el.find(ListItem).props();
+      return onClick().then(() => {
+        expect(window.open).toHaveBeenCalled();
+        // eslint-disable-next-line
+        invoke(expect(fn), method);
+      });
     },
   };
 }
 
 describe('NotificationLink', () => {
   it('should register click hanlder', () => {
+    const onClick = jest.fn();
     const el = global.shallow(
       <NotificationLink
         id="link"
         url="https://google.ca"
         label="File"
-        onClick={jest.fn()}
+        onClick={onClick}
         hasDownloaded={false}
       />,
     );
 
-    check(el)
+    return check(el)
       .selectedValue(true)
-      .clickValue(expect.any(Function));
+      .clickValue(onClick, 'toHaveBeenCalled');
   });
 
   it('should remove click hanlder', () => {
+    const onClick = jest.fn();
     const el = global.shallow(
       <NotificationLink
         id="link"
         url="https://google.ca"
         label="File"
-        onClick={jest.fn()}
+        onClick={onClick}
         hasDownloaded
       />,
     );
 
-    check(el).selectedValue(false).clickValue(undefined);
+    return check(el)
+      .selectedValue(false)
+      .clickValue(onClick, 'not.toHaveBeenCalled');
   });
 });
