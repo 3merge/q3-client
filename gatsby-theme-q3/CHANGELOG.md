@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.4](https://github.com/3merge/q/compare/v2.3.3...v2.3.4) (2021-12-10)
+
+
+### Bug Fixes
+
+* notistack ([4e40fa1](https://github.com/3merge/q/commit/4e40fa10a8c05ad07978b0f9dfcdb9317f67e712))
+
+
+
+
+
 ## [2.3.2](https://github.com/3merge/q/compare/v2.3.1...v2.3.2) (2021-12-09)
 
 **Note:** Version bump only for package gatsby-theme-q3
