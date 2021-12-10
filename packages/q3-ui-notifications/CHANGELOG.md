@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/3merge/q/compare/v2.3.2...v2.3.3) (2021-12-10)
+
+
+### Bug Fixes
+
+* mobile notification link ([1dd5481](https://github.com/3merge/q/commit/1dd54812a2a4979eb7d1492ddd31b2871dd36e90))
+
+
+
+
+
 # [2.2.0](https://github.com/3merge/q/compare/v2.1.2...v2.2.0) (2021-12-02)
 
 **Note:** Version bump only for package q3-ui-notifications
