@@ -12,6 +12,7 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "q3-ui": "^2.3.2",
-    "q3-ui-locale": "^2.3.2"
+    "q3-ui-locale": "^2.3.2",
+    "q3-ui-forms": "^2.3.2"
   }
 }

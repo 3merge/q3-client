@@ -2,7 +2,6 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import FormProviders from 'q3-ui-forms';
 import AuthProvider from 'q3-ui-permissions';
 import LocaleBundles from './LocaleBundles';
 
@@ -19,11 +18,7 @@ const Wrapper = ({ baseURL, children, locale }) => {
 
   return (
     <LocaleBundles locale={locale}>
-      <AuthProvider>
-        <FormProviders preventDuplicate>
-          {children}
-        </FormProviders>
-      </AuthProvider>
+      <AuthProvider>{children}</AuthProvider>
     </LocaleBundles>
   );
 };
