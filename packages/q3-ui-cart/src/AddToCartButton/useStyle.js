@@ -29,6 +29,7 @@ export default makeStyles(() => ({
   btn: (props) => {
     const { backgroundColor } = getFromProps(props);
     return {
+      alignItems: 'center',
       alignSelf: 'stretch',
       display: 'flex',
       margin: '0 0 0 0.25rem',

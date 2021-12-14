@@ -7,8 +7,7 @@ export const genProduct = ({ product, quantity }) => ({
   price: 12.11,
   description:
     'This is a small blurb about the product. It will be truncated if it goes on longer than it should.',
-  img:
-    'https://images.unsplash.com/photo-1580793210854-d22f57782c62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+  img: 'https://images.unsplash.com/photo-1580793210854-d22f57782c62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
 });
 
 export default (items = []) => {
@@ -50,7 +49,11 @@ export default (items = []) => {
         0,
       );
       Object.assign(order.items[0], args);
-      return Promise.resolve(order);
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(order);
+        }, 500);
+      });
     },
 
     removeItemInOrder: () => {
@@ -58,8 +61,6 @@ export default (items = []) => {
       return Promise.resolve(order);
     },
 
-    pollOrder: () => {
-      return Promise.resolve(order);
-    },
+    pollOrder: () => Promise.resolve(order),
   };
 };

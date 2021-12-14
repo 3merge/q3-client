@@ -13,6 +13,25 @@ import { DRAWER_LINE_ITEM_UPDATE_CLASS } from '../constants';
 export const getValueFromParam = (e) =>
   get(e, 'target.value', e);
 
+function focusNextElement() {
+  try {
+    const focussableElements =
+      'a:not([disabled]), button:not([disabled]), input[type=text]:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+
+    if (document.activeElement) {
+      const el = document.activeElement
+        .closest('td')
+        .nextElementSibling.querySelector(
+          focussableElements,
+        );
+
+      el.focus();
+    }
+  } catch (e) {
+    // noop
+  }
+}
+
 export const LineItemToggle = ({
   id,
   product,
@@ -37,7 +56,10 @@ export const LineItemToggle = ({
             product,
             quantity: newQuantity,
           }).then(() => {
-            el.focus();
+            if (el) {
+              el.focus();
+              focusNextElement();
+            }
           })
         : remove(id);
     },

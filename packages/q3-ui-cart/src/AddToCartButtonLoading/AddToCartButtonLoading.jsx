@@ -13,7 +13,9 @@ const AddToCartButtonLoading = ({ children, loading }) =>
     />
   ) : (
     <Fade in>
-      <Box display="flex">{children}</Box>
+      <Box display="flex" alignItems="center">
+        {children}
+      </Box>
     </Fade>
   );
 
