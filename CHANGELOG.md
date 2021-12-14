@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.5](https://github.com/3merge/q/compare/v2.3.4...v2.3.5) (2021-12-14)
+
+
+### Bug Fixes
+
+* cart focus restore ([599d3d3](https://github.com/3merge/q/commit/599d3d3ba2ab3b4bbbd3f35b4fbd170597869c7f))
+
+
+
+
+
 ## [2.3.4](https://github.com/3merge/q/compare/v2.3.3...v2.3.4) (2021-12-10)
 
 
