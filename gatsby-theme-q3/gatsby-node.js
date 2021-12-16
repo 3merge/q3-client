@@ -14,7 +14,36 @@ exports.onCreateWebpackConfig = ({
     });
 
   actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          use: ['ts-loader'],
+        },
+        {
+          test: /unicode-properties[/\\]unicode-properties/,
+          use: ['transform-loader?brfs'],
+        },
+        {
+          test: /pdfkit[/\\]js[/\\]/,
+          use: ['transform-loader?brfs'],
+        },
+        {
+          test: /fontkit[/\\]index.js$/,
+          use: ['transform-loader?brfs'],
+        },
+        {
+          test: /linebreak[/\\]src[/\\]linebreaker.js/,
+          use: ['transform-loader?brfs'],
+        },
+      ],
+    },
     resolve: {
+      alias: {
+        'unicode-properties':
+          'unicode-properties/unicode-properties.cjs.js',
+        pdfkit: 'pdfkit/js/pdfkit.js',
+      },
       fallback: {
         util: false,
         fs: false,
