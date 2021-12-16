@@ -14,11 +14,14 @@ exports.onCreateWebpackConfig = ({
   };
 
   if (stage === 'build-javascript' || stage === 'develop')
-    config.plugins = [
-      plugins.provide({
-        process: 'process/browser',
-      }),
-    ];
+    actions.setWebpackConfig({
+      plugins: [
+        plugins.provide({
+          Buffer: ['buffer/', 'Buffer'],
+          process: 'process/browser',
+        }),
+      ],
+    });
 
   actions.setWebpackConfig(config);
 };

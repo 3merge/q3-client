@@ -107,25 +107,24 @@ const Repeater = ({
           key={`${group}-${i}`}
           className={cls.root}
         >
-          {assignNameToFields(
-            {
-              newState: ref.current,
-              validate: required
-                ? checkValueIfWithinMinimumThreshold(min)
-                : undefined,
-              prefix: group,
-              index: i,
-            },
-            children,
-            t,
-          )}
+          <Grid container spacing={1}>
+            {assignNameToFields(
+              {
+                newState: ref.current,
+                validate: required
+                  ? checkValueIfWithinMinimumThreshold(min)
+                  : undefined,
+                prefix: group,
+                index: i,
+              },
+              children,
+              t,
+            )}
+          </Grid>
           <Box
             position="absolute"
-            top="50%"
+            top="1.25rem"
             right="-1rem"
-            style={{
-              transform: 'translateY(-50%)',
-            }}
           >
             <IconButton
               label="remove"
