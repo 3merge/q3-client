@@ -13,12 +13,24 @@ exports.onCreateWebpackConfig = ({
     },
   };
 
-  if (stage === 'build-javascript' || stage === 'develop')
+  if (stage === 'build-javascript' || stage === 'develop') {
+    // @note
+    // could likely combine this with the process/browser
+    // not sure if they're equal tho
+    actions.setWebpackConfig({
+      plugins: [
+        plugins.provide({
+          Buffer: ['buffer/', 'Buffer'],
+        }),
+      ],
+    });
+
     config.plugins = [
       plugins.provide({
         process: 'process/browser',
       }),
     ];
+  }
 
   actions.setWebpackConfig(config);
 };
