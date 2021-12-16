@@ -1,3 +1,8 @@
-import { RedirectToIndex } from 'gatsby-theme-q3/src/components';
+import React from 'react';
+import Charts from 'q3-ui-charts';
 
-export default RedirectToIndex;
+export default () => {
+  return (
+    <Charts data={[]} name="company" value="revenue" />
+  );
+};
