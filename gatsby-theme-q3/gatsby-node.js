@@ -3,16 +3,6 @@ exports.onCreateWebpackConfig = ({
   stage,
   plugins,
 }) => {
-  const config = {
-    resolve: {
-      fallback: {
-        util: false,
-        fs: false,
-        path: false,
-      },
-    },
-  };
-
   if (stage === 'build-javascript' || stage === 'develop')
     actions.setWebpackConfig({
       plugins: [
@@ -23,7 +13,15 @@ exports.onCreateWebpackConfig = ({
       ],
     });
 
-  actions.setWebpackConfig(config);
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: {
+        util: false,
+        fs: false,
+        path: false,
+      },
+    },
+  });
 };
 
 exports.onCreateBabelConfig = function onCreateBabelConfig({
