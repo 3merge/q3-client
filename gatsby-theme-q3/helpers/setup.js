@@ -4,17 +4,25 @@ const { compact, get } = require('lodash');
 const loadContent = require('./loadContent');
 const loadTheme = require('./loadTheme');
 
-const getFile = (possibleFileNames = []) =>
-  possibleFileNames.reduce((acc, curr) => {
-    if (acc) return acc;
-    const filename = path.resolve(process.cwd(), curr);
-    return fs.existsSync(filename) ? filename : undefined;
-  }, undefined);
+const getFile =
+  (directory) =>
+  (possibleFileNames = []) =>
+    possibleFileNames.reduce((acc, curr) => {
+      if (acc) return acc;
+      const filename = path.resolve(directory, curr);
+      return fs.existsSync(filename) ? filename : undefined;
+    }, undefined);
 
-module.exports = (siteMetadata, plugins = []) => {
-  const locale = loadContent(getFile(['locale', 'lang']));
+module.exports = (
+  siteMetadata,
+  plugins = [],
+  workingDirection = process.cwd(),
+) => {
+  const f = getFile(workingDirection);
+
+  const locale = loadContent(f(['locale', 'lang']));
   const theme = loadTheme(
-    getFile(['theme.js', 'gatsby-theme.js', 'mui.js']),
+    f(['theme.js', 'gatsby-theme.js', 'mui.js']),
   );
 
   return {
@@ -30,7 +38,7 @@ module.exports = (siteMetadata, plugins = []) => {
         {
           resolve: 'gatsby-theme-q3',
           options: {
-            icon: getFile([
+            icon: f([
               'static/favicon.png',
               'static/favicon.jpg',
             ]),
