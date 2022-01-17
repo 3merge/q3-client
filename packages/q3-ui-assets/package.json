@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-assets",
-  "version": "2.3.2",
+  "version": "2.3.9",
   "main": "lib/index.js",
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",
@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
-    "q3-ui-locale": "^2.3.2"
+    "q3-ui-locale": "^2.3.9"
   }
 }

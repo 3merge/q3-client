@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.9](https://github.com/3merge/q/compare/v2.3.8...v2.3.9) (2022-01-17)
+
+**Note:** Version bump only for package q3-ui-assets
+
+
+
+
+
 ## [2.3.2](https://github.com/3merge/q/compare/v2.3.1...v2.3.2) (2021-12-09)
 
 **Note:** Version bump only for package q3-ui-assets
