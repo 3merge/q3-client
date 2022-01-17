@@ -56,46 +56,37 @@ const makeApiEndpoints = (
   mockInstance.onGet(/audit/).reply(200, {
     changes: [
       {
-        added: {
-          name: 'Rick Sanchez Show',
-        },
+        additions: [
+          {
+            name: 'Rick Sanchez Show',
+          },
+        ],
         date: new Date(),
-        user: {
-          firstName: 'Jon',
-          lastName: 'Snow',
-        },
+        user: 'Jon Snow',
       },
       {
-        deleted: {
-          movies: {
-            _id: '1',
-            title: 'Adventures in space',
+        deletions: [
+          {
+            movies: {
+              _id: '1',
+              title: 'Adventures in space',
+            },
           },
-        },
+        ],
         date: new Date(),
-        user: {
-          firstName: 'Jon',
-          lastName: 'Snow',
-        },
+        user: 'Jon Snow',
       },
       {
-        updated: {
-          movies: {
-            'id': '2',
-            'title': 'Complete Season 2',
+        updates: [
+          {
+            movies: {
+              'id': '2',
+              'title': 'Complete Season 2',
+            },
           },
-        },
-        previous: {
-          movies: {
-            'id': '2',
-            'title': 'Completed Season 2',
-          },
-        },
+        ],
         date: new Date(),
-        user: {
-          firstName: 'Jon',
-          lastName: 'Snow',
-        },
+        user: 'Arya Stark',
       },
     ],
   });

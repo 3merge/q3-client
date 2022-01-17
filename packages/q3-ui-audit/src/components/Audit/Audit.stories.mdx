@@ -13,27 +13,27 @@ import Fixtures from '../../tests/fixtures';
 <Preview>
   <Story name="Default">
     <Fixtures>
-      <Audit collectionName="testing" />
+      <Audit />
     </Fixtures>
   </Story>
   <Story name="Empty">
     <Fixtures returnEmpty>
-      <Audit collectionName="testing" />
+      <Audit />
     </Fixtures>
   </Story>
   <Story name="Error">
     <Fixtures causeError>
-      <Audit collectionName="testing" />
+      <Audit />
     </Fixtures>
   </Story>
   <Story name="Unauthorized">
     <Fixtures revokeAccessToAudit>
-      <Audit collectionName="testing" />
+      <Audit />
     </Fixtures>
   </Story>
   <Story name="Unauthorized (Just user dropdown)">
     <Fixtures revokeAccessToUsers>
-      <Audit collectionName="testing" />
+      <Audit />
     </Fixtures>
   </Story>
 </Preview>

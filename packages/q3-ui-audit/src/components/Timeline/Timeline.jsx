@@ -1,145 +1,127 @@
 import React from 'react';
-import { map, size, isString } from 'lodash';
-import GraphicWithMessage from 'q3-ui-assets';
+import Alert from '@material-ui/lab/Alert';
+import { map, join, size } from 'lodash';
 import PropTypes from 'prop-types';
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-  CircularProgress,
-  Box,
-} from '@material-ui/core';
-import { object } from 'q3-ui-helpers';
+import { Box, CircularProgress } from '@material-ui/core';
+import Timeline from '@material-ui/lab/Timeline';
+import TimelineItem from '@material-ui/lab/TimelineItem';
+import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
+import TimelineConnector from '@material-ui/lab/TimelineConnector';
+import TimelineContent from '@material-ui/lab/TimelineContent';
+import TimelineDot from '@material-ui/lab/TimelineDot';
 import { useTranslation } from 'q3-ui-locale';
 import TimelineEntry from '../TimelineEntry';
-import useStyle from '../TimelineEntry/styles';
+import TimelineEntryMeta from '../TimelineEntryMeta';
+import { getColor, getIcon } from '../utils';
+import useStyle from './styles';
 
-const includes = (a, b) =>
-  Array.isArray(a) ? !a.length || a.includes(b) : false;
+const makeEntries = (xs) => {
+  const out = [];
 
-const matches = (a, b) => (isString(a) ? a === b : false);
-
-const Timeline = ({
-  loading,
-  error,
-  data,
-  filterState,
-}) => {
-  const { t } = useTranslation('labels');
-  const cls = useStyle();
-
-  const renderGraphicMessage = () => {
-    if (loading)
-      return (
-        <Box align="center" p={1}>
-          <CircularProgress />
-        </Box>
+  const push = (key) => {
+    if (size(xs[key]))
+      xs[key].forEach((entry, idx) =>
+        out.push({
+          ...xs,
+          action: key,
+          data: entry,
+          key: join([xs.date, key, idx], '-'),
+        }),
       );
-
-    if (error)
-      return (
-        <GraphicWithMessage
-          icon="Error"
-          title="cannotAudit"
-        />
-      );
-
-    return (
-      <GraphicWithMessage
-        icon="Puzzle"
-        title="nothingToAudit"
-      />
-    );
   };
 
+  push('updates');
+  push('additions');
+  push('deletions');
+  return out;
+};
+
+const TimelineCustom = ({
+  fetching,
+  fetchingError,
+  changes,
+}) => {
+  const cls = useStyle();
+  const { t } = useTranslation('descriptions');
+
+  if (fetching) return <CircularProgress />;
+
+  if (fetchingError)
+    return (
+      <Box my={1}>
+        <Alert severity="error">{t('cannotAudit')}</Alert>
+      </Box>
+    );
+
+  if (!size(changes))
+    return (
+      <Box my={1}>
+        <Alert severity="warning">
+          {t('auditLogsEmpty')}
+        </Alert>
+      </Box>
+    );
+
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell component="th" className={cls.padding}>
-            {t('operation')}
-          </TableCell>
-          <TableCell component="th">{t('date')}</TableCell>
-          <TableCell />
-        </TableRow>
-      </TableHead>
-      <TableBody className={cls.body}>
-        {size(data) ? (
-          map(data, (item, idx) => {
-            const { added, updated, deleted, ...rest } =
-              item;
-
-            const isInItem = (key) => {
-              const d = item[key];
-              const op = filterState?.operation;
-
-              return (
-                object.hasKeys(d) &&
-                (!op ||
-                  includes(op, key) ||
-                  matches(op, key))
-              );
-            };
+    <Timeline align="left">
+      {map(changes, (record) =>
+        makeEntries(record).map(
+          ({ action, data: entry, key }) => {
+            const color = getColor(action);
+            const Icon = getIcon(action);
 
             return (
-              <React.Fragment key={`${item.date}-${idx}`}>
-                {isInItem('added') && (
-                  <TimelineEntry added={added} {...rest} />
-                )}
-                {isInItem('updated') && (
-                  <TimelineEntry
-                    updated={updated}
-                    {...rest}
+              <TimelineItem className={cls.entry} key={key}>
+                <TimelineSeparator>
+                  <TimelineDot
+                    title={action}
+                    style={{
+                      backgroundColor: color,
+                      cursor: 'help',
+                    }}
+                  >
+                    <Icon style={{ color: '#FFF' }} />
+                  </TimelineDot>
+                  <TimelineConnector
+                    style={{ backgroundColor: color }}
                   />
-                )}
-                {isInItem('deleted') && (
-                  <TimelineEntry
-                    deleted={deleted}
-                    {...rest}
+                </TimelineSeparator>
+                <TimelineContent
+                  style={{
+                    color,
+                  }}
+                >
+                  <TimelineEntryMeta
+                    action={action}
+                    {...record}
                   />
-                )}
-              </React.Fragment>
+                  <TimelineEntry {...entry} />
+                </TimelineContent>
+              </TimelineItem>
             );
-          })
-        ) : (
-          <TableRow>
-            <TableCell
-              className={cls.padding}
-              component="td"
-              colSpan="3"
-            >
-              {renderGraphicMessage()}
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+          },
+        ),
+      )}
+    </Timeline>
   );
 };
 
-Timeline.defaultProps = {
-  data: [],
-  error: false,
-  loading: false,
-  filterState: {},
+TimelineCustom.defaultProps = {
+  changes: [],
+  fetchingError: false,
+  fetching: false,
 };
 
-Timeline.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
-  data: PropTypes.arrayOf(
+TimelineCustom.propTypes = {
+  fetching: PropTypes.bool,
+  fetchingError: PropTypes.bool,
+  changes: PropTypes.arrayOf(
     PropTypes.shape({
+      action: PropTypes.string,
       date: PropTypes.string,
+      user: PropTypes.string,
     }),
   ),
-  filterState: PropTypes.shape({
-    operation: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.string,
-    ]),
-  }),
 };
 
-export default Timeline;
+export default TimelineCustom;

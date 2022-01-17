@@ -16,7 +16,7 @@ const mount = (props) => (
   <Providers>
     <FormsProvider>
       <Fixtures delay={0} {...props}>
-        <Audit collectionName="test" id="1" />
+        <Audit />
       </Fixtures>
     </FormsProvider>
   </Providers>
@@ -25,56 +25,57 @@ const mount = (props) => (
 describe('Audit', () => {
   it('should fetch data', async () => {
     const el = await asyncMount(mount());
-    expect(el.find('tbody').find('tr')).toHaveLength(150);
-  });
 
-  it('should catch errors data', async () => {
-    const el = await asyncMount(
-      mount({
-        causeError: true,
-      }),
-    );
-
-    expect(el.find('tbody').find('tr')).toHaveLength(1);
-  });
-
-  it('should merge data', async () => {
-    const el = await asyncMount(mount());
-
-    await asyncAct(async () => {
-      el.find('#q3-audit-load-more')
-        .first()
-        .simulate('click');
+    await asyncAct(() => {
+      el.find(Builders.Form).first().props().onSubmit({
+        targets: 'one,two',
+      });
 
       return el;
     });
 
-    expect(el.find('tbody').find('tr')).toHaveLength(300);
+    expect(el.find('.q3-ui-audit-entry')).toHaveLength(15);
   });
 
-  it('should filter the results', async () => {
+  it('should not fetch data', async () => {
+    const el = await asyncMount(mount());
+
+    expect(el.find('.q3-ui-audit-entry')).toHaveLength(0);
+  });
+
+  it('should apply filters', async () => {
     const el = await asyncMount(mount());
 
     await asyncAct(() => {
-      el.find(Builders.Form)
-        .first()
-        .props()
-        .onSubmit({
-          operation: ['added'],
-        });
+      el.find(Builders.Form).first().props().onSubmit({
+        targets: 'one,two',
+        user: 'Kevin R.',
+      });
 
       return el;
     });
 
-    expect(el.find('tbody').find('tr').length).toBeLessThan(
-      150,
-    );
+    expect(el.find('.q3-ui-audit-entry')).toHaveLength(6);
+  });
 
-    expect(
-      el
-        .find('#q3-audit-load-more')
+  it('should hide timeline', async () => {
+    const el = await asyncMount(mount());
+
+    await asyncAct(() => {
+      el.find(Builders.Form).first().props().onSubmit({
+        targets: 'one,two',
+      });
+
+      return el;
+    });
+
+    await asyncAct(() => {
+      el.find('.q3-ui-audit-back')
         .first()
-        .prop('disabled'),
-    ).toBeTruthy();
+        .simulate('click');
+      return el;
+    });
+
+    expect(el.find('.q3-ui-audit-entry')).toHaveLength(0);
   });
 });

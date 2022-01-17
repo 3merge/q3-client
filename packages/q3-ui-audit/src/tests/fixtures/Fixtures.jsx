@@ -9,7 +9,19 @@ export default ({ children, ...props }) => (
     <Box py={4}>
       <Container>
         <RestSource {...props}>
-          <AuthSource {...props}>{children}</AuthSource>
+          <AuthSource {...props}>
+            {React.cloneElement(children, {
+              collectionName: 'testing',
+              data: {
+                id: '1',
+                foo: '1',
+                bar: '1',
+              },
+              templates: {
+                foo: 'foo,bar',
+              },
+            })}
+          </AuthSource>
         </RestSource>
       </Container>
     </Box>

@@ -27,5 +27,7 @@
   "startTyping": "Start typing ...",
   "filterByUser": "Currently, you cannot filter by system automation (i.e. no user)",
   "filterByDate": "Will include records up to and on the selected date",
-  "filterByOperation": "The operation describes the type of change that occurred"
+  "filterByOperation": "The operation describes the type of change that occurred",
+  "auditTargets": "Select fields to query for changes. Not all fields will have human-friendly translations; however, those in raw form should still be distinguishable. This field will auto-populate if a template has been applied.",
+  "auditUser": "Although this field displays only user who've modified this resource, not all users have modified all fields. Therefore, this might commonly lead to no results."
 }

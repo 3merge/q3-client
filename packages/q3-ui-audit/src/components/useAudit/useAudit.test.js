@@ -1,55 +1,40 @@
-import {
-  INCREMENT_SKIP,
-  UPDATE_DATA,
-  reducerDispatcher,
-} from './useAudit';
+import React from 'react';
+import useRest from 'q3-ui-rest';
+import useAudit from './useAudit';
+
+const genMockFn = () => {
+  const fn = jest.fn();
+  useRest.mockReturnValue({
+    get: fn,
+  });
+
+  return fn;
+};
+
+jest.mock('q3-ui-rest');
+
+beforeAll(() => {
+  jest
+    .spyOn(React, 'useEffect')
+    .mockImplementation((fn) => fn());
+});
 
 describe('useAudit', () => {
-  describe('reducerDispatcher', () => {
-    it('should increase skip', () => {
-      const { skip } = reducerDispatcher(
-        { skip: 1 },
-        { action: INCREMENT_SKIP },
-      );
-
-      expect(skip).toBe(2);
+  it('should call get', () => {
+    const mock = genMockFn();
+    useAudit('testing', 1, {
+      targets: 'foo,bar',
     });
 
-    it('should set skip', () => {
-      const { skip } = reducerDispatcher(
-        { skip: undefined },
-        { action: INCREMENT_SKIP },
-      );
+    expect(mock).toHaveBeenCalled();
+  });
 
-      expect(skip).toBe(1);
+  it('should not call get', () => {
+    const mock = genMockFn();
+    useAudit('testing', 1, {
+      noop: true,
     });
 
-    it('should replace data', () => {
-      const state = reducerDispatcher(
-        {},
-        { action: UPDATE_DATA, data: [1, 2] },
-      );
-
-      expect(state).toMatchObject({
-        loading: false,
-        error: false,
-        hasMore: false,
-        data: [1, 2],
-      });
-    });
-
-    it('should add to data', () => {
-      const state = reducerDispatcher(
-        { data: [1, 2], skip: 1 },
-        { action: UPDATE_DATA, data: [3, 4] },
-      );
-
-      expect(state).toMatchObject({
-        loading: false,
-        error: false,
-        hasMore: false,
-        data: [1, 2, 3, 4],
-      });
-    });
+    expect(mock).not.toHaveBeenCalled();
   });
 });

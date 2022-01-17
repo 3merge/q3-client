@@ -1,165 +1,84 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Grid } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
-import { get, isObject, uniq } from 'lodash';
-import flat from 'flat';
+import {
+  castToBeginning,
+  castToEnd,
+} from 'q3-ui-forms/lib/helpers';
+import { isString } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
-import FilterByDate from '../FilterByDate';
-import FilterByOperation from '../FilterByOperation';
-import FilterByUser from '../FilterByUser';
+import withUsers from '../withUsers';
 
-export const generateSuggestions = (xs = []) => {
-  if (!Array.isArray(xs)) return [];
-  const ops = ['added', 'deleted', 'updated'];
+export const toTargets = (xs) =>
+  isString(xs) ? String(xs).split(',') : xs;
 
-  return uniq(
-    xs
-      .reduce((acc, curr) => {
-        ops.forEach((op) => {
-          if (isObject(get(curr, op))) {
-            acc.push(
-              Object.keys(
-                flat(curr[op], {
-                  safe: true,
-                }),
-              ),
-            );
-          }
-        });
-
-        return acc;
-      }, [])
-      .flat(3)
-      .sort(),
-  );
-};
-
-const Filters = ({
-  loading,
-  initialValues,
-  onSubmit,
-  ...rest
-}) => {
-  const { t } = useTranslation('descriptions');
-  const ref = React.useRef({
-    current: null,
-  });
-
-  const getInitialValues = () => {
-    if (
-      String(initialValues?.user) ===
-        String(ref?.current?.value) &&
-      ref?.current?.value
-    ) {
-      const output = { ...initialValues };
-      output.user = ref.current;
-      return output;
-    }
-
-    return initialValues;
-  };
-
-  const handleSearchMarshal = (xs) =>
-    isObject(xs) ? xs?.value : xs;
-
-  const handleUserMarshal = (xs) => {
-    ref.current = xs;
-    return xs?.value || '';
-  };
+const Filters = ({ onSubmit, fields, users, ...rest }) => {
+  const { t } = useTranslation();
 
   return (
     <Builders.Form
-      disabled={loading}
-      enableSubmit={false}
-      initialValues={getInitialValues(rest?.data)}
+      {...rest}
+      keep={['date>', 'date<', 'targets', 'user']}
+      modify={{
+        targets: [toTargets],
+      }}
+      submitLabel="getLogs"
       onSubmit={onSubmit}
-      marshalSelectively
       marshal={{
-        search: [handleSearchMarshal],
-        user: [handleUserMarshal],
+        'date>': [castToBeginning],
+        'date<': [castToEnd],
+        targets: 'targets',
+        user: 'user.value',
       }}
     >
-      <Grid item xs={12}>
-        <Grid
-          container
-          spacing={1}
-          align="center"
-          justify="space-between"
-          style={{
-            textAlign: 'left',
-          }}
-        >
-          <Grid item xs>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <Builders.Field
-                  type="autocomplete"
-                  name="search"
-                  helperText={t('auditSearch')}
-                  freeSolo
-                  options={generateSuggestions(rest?.data)}
-                  xl={12}
-                  lg={12}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <FilterByUser {...rest} />
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <FilterByDate />
-              </Grid>
-              <Grid item md={3} xs={12}>
-                <FilterByOperation />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid
-            item
-            md={1}
-            xs={12}
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-            }}
-          >
-            <Box mt={0.5}>
-              <Builders.Next
-                disableGutters
-                submit
-                label="apply"
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Grid>
+      <Builders.Field
+        xl={12}
+        lg={12}
+        name="targets"
+        type="chips"
+        label={t('labels:auditTargets')}
+        helperText={t('helpers:auditTargets')}
+        options={fields}
+        required
+      />
+      <Builders.Field
+        xl={12}
+        lg={12}
+        type="dateRange"
+        name="date"
+      />
+      <Builders.Field
+        xl={12}
+        lg={12}
+        type="autocomplete"
+        name="user"
+        options={users}
+        label={t('labels:auditUser')}
+        helperText={t('helpers:auditUser')}
+      />
     </Builders.Form>
   );
 };
 
 Filters.defaultProps = {
-  loading: false,
-  initialValues: {
-    date: new Date(),
-    operation: [],
-    user: '',
-  },
+  fields: [],
+  users: [],
 };
 
 Filters.propTypes = {
-  initialValues: PropTypes.shape({
-    date: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-    ]),
-    operation: PropTypes.arrayOf(PropTypes.string),
-    user: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-  }),
   onSubmit: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
+  fields: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
 };
 
-export default Filters;
+export default withUsers(Filters);

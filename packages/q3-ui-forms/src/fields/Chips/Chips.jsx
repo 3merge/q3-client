@@ -106,6 +106,7 @@ const AbstractedAutoComplete = ({
     error,
     name,
     value,
+    required,
   } = props;
 
   const currentState = array.is(value);
@@ -131,6 +132,7 @@ const AbstractedAutoComplete = ({
         variant: 'outlined',
         fullWidth: true,
         value: inputValue,
+        required,
         inputValue,
       })}
       renderTags={(values, getTagProps) =>

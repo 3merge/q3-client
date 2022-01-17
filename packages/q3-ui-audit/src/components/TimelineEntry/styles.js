@@ -1,22 +1,25 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles((theme) => ({
-  nowrap: {
-    whiteSpace: 'nowrap',
-  },
-  padding: {
-    padding: 4,
-  },
-  listItem: {
-    padding: 0,
+export default makeStyles(() => ({
+  table: {
+    fontSize: '0.833rem',
     margin: 0,
+    tableLayout: 'fixed',
+    width: 'auto !important',
   },
-  body: {
-    '& tr:nth-child(even)': {
-      backgroundColor: theme.palette.background.default,
-    },
-    '& tr:nth-child(odd)': {
-      backgroundColor: theme.palette.background.paper,
+  cellHead: {
+    border: 0,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    verticalAlign: 'text-top',
+    paddingLeft: 0,
+  },
+  cell: {
+    border: 0,
+    paddingLeft: 0,
+
+    '&:first-of-type': {
+      paddingRight: '2rem',
     },
   },
 }));
