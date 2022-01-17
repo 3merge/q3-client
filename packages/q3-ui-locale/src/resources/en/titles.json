@@ -107,5 +107,6 @@
   "queues": "Queues",
   "past": "Past",
   "upcoming": "Upcoming",
-  "queueLogsFailed": "Queues unavailable"
+  "queueLogsFailed": "Queues unavailable",
+  "audit": "Audit logs"
 }

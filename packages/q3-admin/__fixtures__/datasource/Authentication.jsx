@@ -28,6 +28,7 @@ const StoriesApiMockAuthentication = ({ children }) => {
   const characters = setupProfilePermissions('characters');
   const shows = setupProfilePermissions('shows');
   const emails = setupProfilePermissions('emails');
+  const audit = setupProfilePermissions('audit');
 
   return (
     <AuthContext.Provider
@@ -39,14 +40,17 @@ const StoriesApiMockAuthentication = ({ children }) => {
             .then((r) => {
               setSession(r.data.profile);
             })
-            .then(() => {
-              return done();
-            });
+            .then(() => done());
         },
         state: {
           init: true,
           profile: session,
-          permissions: [...characters, ...shows, ...emails],
+          permissions: [
+            ...characters,
+            ...shows,
+            ...emails,
+            ...audit,
+          ],
           filters,
         },
       }}

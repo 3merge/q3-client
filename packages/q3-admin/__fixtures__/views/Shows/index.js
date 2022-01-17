@@ -73,19 +73,19 @@ export default new AbstractCollectionBuilder({
     picture: true,
     files: true,
     notes: true,
-    audit: true,
-    registerOptions: () => {
-      return [
-        {
-          id: 'id123',
-          icon: CreditCard,
-          href: 'https:google.com',
-          title: 'test',
-          description: 'test',
-          color: green[900],
-        },
-      ];
+    audit: {
+      foo: 'foo,bar,quuz',
     },
+    registerOptions: () => [
+      {
+        id: 'id123',
+        icon: CreditCard,
+        href: 'https:google.com',
+        title: 'test',
+        description: 'test',
+        color: green[900],
+      },
+    ],
   })
   .genDetailSettings({
     // disableUnsavedChanges: true,

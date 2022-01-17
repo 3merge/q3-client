@@ -27,29 +27,22 @@ export default ({
   const qs = useQueryParams();
 
   const defineMockRoutes = (m) => {
-    m.onGet(/audit-users/).reply(async () => {
-      return [
-        200,
-        {
-          users: sortBy(
-            users.map((item) => ({
-              name: `${item.firstName} ${item.lastName}`,
-              id: item.id,
-            })),
-            'firstName',
-          ),
-        },
-      ];
-    });
+    m.onGet(/audit-users/).reply(async () => [
+      200,
+      {
+        users: sortBy(
+          users.map((item) => ({
+            name: `${item.firstName} ${item.lastName}`,
+            id: item.id,
+          })),
+          'firstName',
+        ),
+      },
+    ]);
 
     m.onGet(/audit/).reply(async (data) => {
-      const {
-        date,
-        skip,
-        user,
-        operation,
-        search,
-      } = qs.decode(getQueryString(data));
+      const { date, skip, user, operation, search } =
+        qs.decode(getQueryString(data));
 
       if (causeError) return [500];
       if (returnEmpty) return [200, { changes: [] }];
@@ -58,64 +51,41 @@ export default ({
         200,
         {
           // we're just going to add some random data here for testing
-          changes: orderBy(changes, ['date'], ['desc'])
-            .map((item, i) => {
-              if (i % 8 === 0)
-                return {
-                  ...item,
-                  added: {
-                    price: {
-                      foo: 1,
-                      bar: 1,
-                    },
-                  },
-                };
-
-              if (isPrime(i))
-                return {
-                  ...item,
-                  deleted: {
-                    price: {
-                      foo: 1,
-                      bar: 1,
-                    },
-                  },
-                };
-
-              return {
-                ...item,
-                updated: {
-                  foo: 2,
-                  quuz: 1,
+          changes: [
+            {
+              updates: [
+                {
+                  total: 12,
                 },
-                previous: {
-                  foo: 1,
-                  bar: 1,
+                {
+                  rebatesRedeemed: 2,
                 },
-              };
-            })
-            .filter((item) => {
-              const shouldShow =
-                (Array.isArray(operation)
-                  ? operation.some((xs) => xs in item)
-                  : operation in item) &&
-                moment(date).isSameOrAfter(item.date);
-
-              if (user)
-                return (
-                  String(item.user.id) === String(user) &&
-                  shouldShow
-                );
-
-              if (search) {
-                return lowerCase(
-                  JSON.stringify(flat(item)),
-                ).includes(lowerCase(search));
-              }
-
-              return shouldShow;
-            })
-            .slice(skip * 150, 150 * (skip + 1)),
+              ],
+              additions: [
+                {
+                  item: 'Dumbell',
+                  price: 123,
+                },
+              ],
+              user: 'Mike',
+              date: new Date(),
+            },
+            {
+              updates: [
+                {
+                  total: 231,
+                },
+              ],
+              deletions: [
+                {
+                  item: 'Gloves',
+                  price: 19,
+                },
+              ],
+              user: 'Mike',
+              date: new Date(),
+            },
+          ],
         },
       ];
     });

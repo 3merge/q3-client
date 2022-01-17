@@ -124,5 +124,7 @@
   "profileNotifications": "Set which notifications you'd like to receive from the system",
   "auditSearch": "This is a case-sensitive search for a particular data key. The dropdown offers suggestions based on recently changed keys, but you can type anything into this field.",
   "queueLogsFailed": "Servers encountered an error. You either do not have permission to view this add-on or there are no queues configured.",
-  "queues": "Background server activity (AKA Queue or Task Manager)"
+  "queues": "Background server activity (AKA Queue or Task Manager)",
+  "auditLogs": "This module tracks both user and system changes. Use a template to audit common changes or use the advanced filter to hone in on a property, user and/or date.",
+  "auditLogsEmpty": "No results to show. Please try a different template or advanced query."
 }

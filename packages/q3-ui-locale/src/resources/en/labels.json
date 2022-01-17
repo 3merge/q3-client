@@ -346,5 +346,13 @@
   "download": "Download",
   "run": "Run",
   "queues": "Queues",
-  "addRow": "Add row"
+  "addRow": "Add row",
+  "auditTemplate": "Template",
+  "auditTargets": "Fields",
+  "auditUser": "User",
+  "getLogs": "Get logs",
+  "updates": "Updates",
+  "additions": "Additions",
+  "deletions": "Deletions",
+  "advanced": "Advanced"
 }

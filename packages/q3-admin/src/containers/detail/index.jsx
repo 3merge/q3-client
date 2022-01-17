@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isObject } from 'lodash';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -25,29 +26,27 @@ const Detail = ({
   links,
   views,
   ...rest
-}) => {
-  return (
-    <Article
-      asideComponent={
-        <DetailSidePanel
-          notes={notes && <Notes />}
-          files={files && <Upload />}
-        >
-          <DetailSidePanelContent {...rest} />
-        </DetailSidePanel>
-      }
-    >
-      <DetailNavigation
-        {...HeaderProps}
-        views={views}
-        picture={picture}
-      />
-      <DetailRelatedLinks links={links}>
-        <DetailViews views={views} />
-      </DetailRelatedLinks>
-    </Article>
-  );
-};
+}) => (
+  <Article
+    asideComponent={
+      <DetailSidePanel
+        notes={notes && <Notes />}
+        files={files && <Upload />}
+      >
+        <DetailSidePanelContent {...rest} />
+      </DetailSidePanel>
+    }
+  >
+    <DetailNavigation
+      {...HeaderProps}
+      views={views}
+      picture={picture}
+    />
+    <DetailRelatedLinks links={links}>
+      <DetailViews views={views} />
+    </DetailRelatedLinks>
+  </Article>
+);
 
 Detail.propTypes = {
   children: PropTypes.oneOfType([
@@ -78,43 +77,47 @@ Detail.defaultProps = {
   children: null,
 };
 
-const withDynamicViews = (Component) => ({
-  children,
-  ...props
-}) => {
-  const { check } = useAppContext();
-  const { data } = React.useContext(Store);
-
-  const makeView = React.useCallback(
-    (label, el) => ({
-      to: `/${label}`,
-      component: () =>
-        React.createElement(el, {
-          name: label,
-        }),
-      label,
-    }),
-    [],
-  );
-
-  const views = mapToNestedRoute(children)
-    .concat([
-      makeView('trash', Trash),
-      makeView('logs', ActivityLog),
-    ])
-    .filter((el) => {
-      return check(el.label, el, data);
+const withDynamicViews =
+  (Component) =>
+  ({ audit, children, ...props }) => {
+    const { can, check } = useAppContext({
+      audit:
+        audit && isObject(audit) ? (
+          <ActivityLog templates={audit} />
+        ) : null,
     });
 
-  return React.useMemo(
-    () =>
-      views.findIndex((view) => view.to === '/') === -1 ? (
-        <ViewNotAllowed />
-      ) : (
-        <Component views={views} {...props} />
-      ),
-    [JSON.stringify(views)],
-  );
-};
+    const { data } = React.useContext(Store);
+
+    const makeView = React.useCallback(
+      (label, el) => ({
+        to: `/${label}`,
+        component: () =>
+          React.createElement(el, {
+            name: label,
+          }),
+        label,
+      }),
+      [],
+    );
+
+    const views = mapToNestedRoute(children)
+      .concat([makeView('trash', Trash)])
+      .filter((el) => check(el.label, el, data));
+
+    return React.useMemo(
+      () =>
+        views.findIndex((view) => view.to === '/') ===
+        -1 ? (
+          <ViewNotAllowed />
+        ) : (
+          <>
+            {can('audit')}
+            <Component views={views} {...props} />
+          </>
+        ),
+      [JSON.stringify(views)],
+    );
+  };
 
 export default withDynamicViews(Detail);
