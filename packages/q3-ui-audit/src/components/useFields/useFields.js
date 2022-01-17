@@ -7,14 +7,12 @@ export default (xs) => {
 
   return isObject(xs)
     ? uniq(
-        Object.keys(flat(xs)).map((item) => {
-          const k = String(item).replace(/\.(\d+)/g, '');
-
-          return {
-            label: t(k),
-            value: k,
-          };
-        }),
-      )
+        Object.keys(flat(xs)).map((item) =>
+          String(item).replace(/\.(\d+)/g, ''),
+        ),
+      ).map((k) => ({
+        label: t(k),
+        value: k,
+      }))
     : [];
 };

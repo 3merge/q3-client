@@ -48,8 +48,9 @@ const Audit = ({ data, collectionName, templates }) => {
         <Box>
           <Box>
             <Button
-              startIcon={<ArrowBackIosIcon />}
+              className="q3-ui-audit-back"
               onClick={handleBack}
+              startIcon={<ArrowBackIosIcon />}
             >
               {t('labels:back')}
             </Button>

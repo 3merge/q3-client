@@ -9,21 +9,11 @@ import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import BlurCircularIcon from '@material-ui/icons/BlurCircular';
 import { useTranslation } from 'q3-ui-locale';
 import TimelineEntry from '../TimelineEntry';
 import TimelineEntryMeta from '../TimelineEntryMeta';
-import { getColor } from '../TimelineEntryMeta/TimelineEntryMeta';
+import { getColor, getIcon } from '../utils';
 import useStyle from './styles';
-
-const getIcon = (key) => {
-  if (key === 'additions') return AddCircleOutlineIcon;
-  if (key === 'updates') return BlurCircularIcon;
-  if (key === 'deletions') return RemoveCircleOutlineIcon;
-  return () => null;
-};
 
 const makeEntries = (xs) => {
   const out = [];

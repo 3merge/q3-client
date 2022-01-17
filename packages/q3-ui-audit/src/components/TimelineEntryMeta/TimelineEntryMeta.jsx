@@ -2,19 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
-import {
-  blue,
-  purple,
-  red,
-} from '@material-ui/core/colors';
 import useStyle from './styles';
-
-export const getColor = (key) =>
-  ({
-    additions: blue[900],
-    deletions: red[900],
-    updates: purple[900],
-  }[key]);
 
 const TimelineEntryMeta = ({ date, user }) => {
   const cls = useStyle();

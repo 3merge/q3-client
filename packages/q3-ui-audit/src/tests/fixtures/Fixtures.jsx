@@ -13,9 +13,9 @@ export default ({ children, ...props }) => (
             {React.cloneElement(children, {
               collectionName: 'testing',
               data: {
-                id: '1234',
-                foo: '123',
-                bar: '324324',
+                id: '1',
+                foo: '1',
+                bar: '1',
               },
               templates: {
                 foo: 'foo,bar',

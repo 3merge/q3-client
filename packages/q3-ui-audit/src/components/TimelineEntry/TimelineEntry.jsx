@@ -15,21 +15,25 @@ const TimelineEntry = (props) => {
   const cls = useStyle();
 
   return object.hasKeys(props) ? (
-    <Table className={cls.table}>
-      <TableBody>
-        {Object.entries(flat(props)).map(([k, v]) => (
-          <TableRow key={k}>
-            <TableCell
-              component="th"
-              className={cls.cellHead}
-            >
-              {t(k)}:
-            </TableCell>
-            <TableCell className={cls.cell}>{v}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <div className="q3-ui-audit-entry">
+      <Table className={cls.table}>
+        <TableBody>
+          {Object.entries(flat(props)).map(([k, v]) => (
+            <TableRow key={k}>
+              <TableCell
+                component="th"
+                className={cls.cellHead}
+              >
+                {t(k)}:
+              </TableCell>
+              <TableCell className={cls.cell}>
+                {v}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   ) : null;
 };
 

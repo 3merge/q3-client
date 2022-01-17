@@ -9,6 +9,9 @@ import { isString } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import withUsers from '../withUsers';
 
+export const toTargets = (xs) =>
+  isString(xs) ? String(xs).split(',') : xs;
+
 const Filters = ({ onSubmit, fields, users, ...rest }) => {
   const { t } = useTranslation();
 
@@ -17,10 +20,7 @@ const Filters = ({ onSubmit, fields, users, ...rest }) => {
       {...rest}
       keep={['date>', 'date<', 'targets', 'user']}
       modify={{
-        targets: [
-          (xs) =>
-            isString(xs) ? String(xs).split(',') : xs,
-        ],
+        targets: [toTargets],
       }}
       submitLabel="getLogs"
       onSubmit={onSubmit}

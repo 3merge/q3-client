@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { isString } from 'lodash';
 
+export const fromTargets = (xs) =>
+  !isString(xs) ? '' : xs;
+
 const AuditTemplateSelect = ({
   templates,
   onSubmit,
@@ -10,12 +13,12 @@ const AuditTemplateSelect = ({
 }) => (
   <Builders.Form
     {...rest}
-    keep="targets"
+    keep={['targets']}
     translate={{
       auditTemplate: 'targets',
     }}
     modify={{
-      auditTemplate: [(xs) => (!isString(xs) ? '' : xs)],
+      auditTemplate: [fromTargets],
     }}
     submitLabel="getLogs"
     onSubmit={onSubmit}
