@@ -7,7 +7,6 @@ import {
   castToBeginning,
   castToEnd,
 } from 'q3-ui-forms/lib/helpers';
-import withUsers from '../withUsers';
 
 const AuditTemplateSelect = ({
   templates,
@@ -46,6 +45,7 @@ const AuditTemplateSelect = ({
           label: capitalize(value),
           value,
         }))}
+        suppressHelper
       />
       <Builders.Field
         xl={12}
@@ -60,6 +60,7 @@ const AuditTemplateSelect = ({
         type="autocomplete"
         name="user"
         options={users}
+        suppressHelper
       />
     </Builders.Form>
   );
@@ -81,4 +82,4 @@ AuditTemplateSelect.propTypes = {
   ),
 };
 
-export default withUsers(AuditTemplateSelect);
+export default AuditTemplateSelect;

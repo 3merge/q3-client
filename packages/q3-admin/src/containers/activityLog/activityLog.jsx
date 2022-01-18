@@ -13,7 +13,7 @@ const ActivityLog = (props) => (
         collectionName={
           React.useContext(Definitions)?.collectionName
         }
-        data={React.useContext(Store)?.data}
+        id={React.useContext(Store)?.data?.id}
         {...props}
       />
     )}

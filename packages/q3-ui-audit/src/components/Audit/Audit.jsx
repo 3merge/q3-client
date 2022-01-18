@@ -6,18 +6,23 @@ import { useTranslation } from 'q3-ui-locale';
 import AuditTemplateSelect from '../AuditTemplateSelect';
 import Timeline from '../Timeline';
 import withAuditAuth from '../withAuditAuth';
+import withUsers from '../withUsers';
 import useAudit from '../useAudit';
 
-const Audit = ({ data, collectionName, templates }) => {
+const Audit = ({
+  id,
+  collectionName,
+  templates,
+  users,
+}) => {
   const [filterState, setFilterState] = React.useState({});
   const [showResults, setShowResults] =
     React.useState(false);
 
   const { t } = useTranslation();
-
   const timeline = useAudit(
     collectionName,
-    data.id,
+    id,
     filterState,
   );
 
@@ -54,6 +59,7 @@ const Audit = ({ data, collectionName, templates }) => {
             initialValues={filterState}
             templates={templates}
             onSubmit={handleSubmit}
+            users={users}
           />
         </Box>
       )}
@@ -61,18 +67,26 @@ const Audit = ({ data, collectionName, templates }) => {
   );
 };
 
-Audit.defaultProps = {};
+Audit.defaultProps = {
+  users: [],
+};
 
 Audit.propTypes = {
   collectionName: PropTypes.string.isRequired,
-  data: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-  }).isRequired,
+
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+
   // eslint-disable-next-line
   templates: PropTypes.object.isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    }),
+  ),
 };
 
-export default withAuditAuth(Audit);
+export default withAuditAuth(withUsers(Audit));

@@ -12,11 +12,7 @@ export default ({ children, ...props }) => (
           <AuthSource {...props}>
             {React.cloneElement(children, {
               collectionName: 'testing',
-              data: {
-                id: '1',
-                foo: '1',
-                bar: '1',
-              },
+              id: '1',
               templates: [
                 'testing template',
                 'testing template 1',

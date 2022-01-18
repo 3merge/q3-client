@@ -26,7 +26,7 @@ const TimelineEntry = (props) => {
                 {k}
               </TableCell>
               <TableCell className={cls.cell}>
-                {String(v)}
+                {String(v || '--')}
               </TableCell>
             </TableRow>
           ))}
