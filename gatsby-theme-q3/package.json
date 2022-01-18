@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "2.3.10",
+  "version": "2.3.11",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -30,12 +30,12 @@
     "gatsby-plugin-sharp": "^4.2.0",
     "gatsby-plugin-sitemap": "^5.2.0",
     "gatsby-source-contentful": "^7.0.0",
-    "gatsby-theme-q3-mui": "^2.3.10",
+    "gatsby-theme-q3-mui": "^2.3.11",
     "gatsby-transformer-sharp": "^4.2.0",
     "lodash": "^4.17.20",
     "process": "^0.11.10",
     "prop-types": "^15.7.2",
-    "q3-ui-locale": "^2.3.9",
+    "q3-ui-locale": "^2.3.11",
     "query-string": "^7.0.1",
     "react-share": "^4.3.1",
     "slugify": "^1.6.3",

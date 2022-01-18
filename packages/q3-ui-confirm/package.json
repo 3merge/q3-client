@@ -1,17 +1,17 @@
 {
   "name": "q3-ui-confirm",
-  "version": "2.3.10",
+  "version": "2.3.11",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "q3-ui": "^2.3.9",
-    "q3-ui-dialog": "^2.3.9",
-    "q3-ui-forms": "^2.3.10",
+    "q3-ui": "^2.3.11",
+    "q3-ui-dialog": "^2.3.11",
+    "q3-ui-forms": "^2.3.11",
     "q3-ui-helpers": "^2.2.0",
-    "q3-ui-locale": "^2.3.9",
+    "q3-ui-locale": "^2.3.11",
     "yup": "^0.32.11"
   },
   "peerDependencies": {

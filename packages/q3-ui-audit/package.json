@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-audit",
-  "version": "2.3.10",
+  "version": "2.3.11",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
@@ -9,13 +9,13 @@
     "axios": "^0.24.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-assets": "^2.3.9",
-    "q3-ui-forms": "^2.3.10",
+    "q3-ui-assets": "^2.3.11",
+    "q3-ui-forms": "^2.3.11",
     "q3-ui-helpers": "^2.2.0",
-    "q3-ui-locale": "^2.3.9",
-    "q3-ui-permissions": "^2.3.10",
-    "q3-ui-queryparams": "^2.3.9",
-    "q3-ui-rest": "^2.3.10",
+    "q3-ui-locale": "^2.3.11",
+    "q3-ui-permissions": "^2.3.11",
+    "q3-ui-queryparams": "^2.3.11",
+    "q3-ui-rest": "^2.3.11",
     "react-diff-viewer": "^3.1.1",
     "useful-state": "^1.2.3"
   },
