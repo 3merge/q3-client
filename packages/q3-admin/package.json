@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "2.3.11",
+  "version": "2.3.12",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
@@ -17,7 +17,7 @@
     "notistack": "1.0.10",
     "prop-types": "^15.7.2",
     "q3-ui": "^2.3.11",
-    "q3-ui-audit": "^2.3.11",
+    "q3-ui-audit": "^2.3.12",
     "q3-ui-charts": "^2.3.11",
     "q3-ui-confirm": "^2.3.11",
     "q3-ui-datatables": "^2.3.11",

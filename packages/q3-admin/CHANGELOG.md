@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.12](https://github.com/3merge/q/compare/v2.3.11...v2.3.12) (2022-01-18)
+
+
+### Bug Fixes
+
+* user auditing dropdown ([f1f4163](https://github.com/3merge/q/commit/f1f4163a8408aa852f4d879d7942184cd391fb50))
+
+
+
+
+
 ## [2.3.11](https://github.com/3merge/q/compare/v2.3.10...v2.3.11) (2022-01-18)
 
 **Note:** Version bump only for package q3-admin
