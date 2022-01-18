@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.10](https://github.com/3merge/q/compare/v2.3.9...v2.3.10) (2022-01-18)
+
+
+### Bug Fixes
+
+* audit user request ([a6ef5f5](https://github.com/3merge/q/commit/a6ef5f57af37035863f92b4438c5349f4c6b8110))
+
+
+
+
+
 ## [2.3.9](https://github.com/3merge/q/compare/v2.3.8...v2.3.9) (2022-01-17)
 
 **Note:** Version bump only for package q3-ui-audit
