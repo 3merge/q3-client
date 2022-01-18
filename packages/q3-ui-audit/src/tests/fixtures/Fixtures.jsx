@@ -17,9 +17,10 @@ export default ({ children, ...props }) => (
                 foo: '1',
                 bar: '1',
               },
-              templates: {
-                foo: 'foo,bar',
-              },
+              templates: [
+                'testing template',
+                'testing template 1',
+              ],
             })}
           </AuthSource>
         </RestSource>

@@ -23,7 +23,7 @@ describe('useAudit', () => {
   it('should call get', () => {
     const mock = genMockFn();
     useAudit('testing', 1, {
-      targets: 'foo,bar',
+      template: 'foo',
     });
 
     expect(mock).toHaveBeenCalled();

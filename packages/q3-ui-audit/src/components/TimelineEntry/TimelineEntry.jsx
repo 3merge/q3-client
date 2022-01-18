@@ -6,12 +6,11 @@ import {
   TableCell,
 } from '@material-ui/core';
 import { object } from 'q3-ui-helpers';
-import { useTranslation } from 'q3-ui-locale';
+// eslint-disable-next-line
 import flat from 'flat';
 import useStyle from './styles';
 
 const TimelineEntry = (props) => {
-  const { t } = useTranslation('labels');
   const cls = useStyle();
 
   return object.hasKeys(props) ? (
@@ -24,10 +23,10 @@ const TimelineEntry = (props) => {
                 component="th"
                 className={cls.cellHead}
               >
-                {t(k)}:
+                {k}
               </TableCell>
               <TableCell className={cls.cell}>
-                {v}
+                {String(v)}
               </TableCell>
             </TableRow>
           ))}

@@ -28,7 +28,7 @@ describe('Audit', () => {
 
     await asyncAct(() => {
       el.find(Builders.Form).first().props().onSubmit({
-        targets: 'one,two',
+        template: 'one,two',
       });
 
       return el;
@@ -48,7 +48,7 @@ describe('Audit', () => {
 
     await asyncAct(() => {
       el.find(Builders.Form).first().props().onSubmit({
-        targets: 'one,two',
+        template: 'one',
         user: 'Kevin R.',
       });
 
@@ -63,7 +63,7 @@ describe('Audit', () => {
 
     await asyncAct(() => {
       el.find(Builders.Form).first().props().onSubmit({
-        targets: 'one,two',
+        template: 'one',
       });
 
       return el;

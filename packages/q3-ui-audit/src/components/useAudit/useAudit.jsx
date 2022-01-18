@@ -20,7 +20,7 @@ export default (collectionName, id, filters = {}) => {
   });
 
   React.useEffect(() => {
-    if (search && search.includes('targets'))
+    if (search && search.includes('template'))
       state.get(search);
   }, [search]);
 
