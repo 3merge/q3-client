@@ -1,10 +1,14 @@
 import React from 'react';
 import { browser } from 'q3-ui-helpers';
 
-export default (isModified) => {
+export default (isModified, disable = false) => {
+  const execProxySessionStorageApi = (...params) => {
+    if (!disable) browser.proxySessionStorageApi(...params);
+  };
+
   React.useLayoutEffect(() => {
     const timer = setTimeout(() => {
-      browser.proxySessionStorageApi(
+      execProxySessionStorageApi(
         'setItem',
         'q3-change-detection',
         String(isModified),
@@ -14,7 +18,7 @@ export default (isModified) => {
     return () => {
       clearTimeout(timer);
 
-      browser.proxySessionStorageApi(
+      execProxySessionStorageApi(
         'removeItem',
         'q3-change-detection',
       );

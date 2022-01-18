@@ -79,6 +79,8 @@ const Audit = ({ data, collectionName, templates }) => {
             />
           ) : (
             <Filters
+              id={data?.id}
+              collectionName={collectionName}
               initialValues={filterState}
               fields={fields}
               onSubmit={handleSubmit}

@@ -5,14 +5,18 @@ import useRest from 'q3-ui-rest';
 import { map } from 'lodash';
 
 const withUsers = (Component) => {
-  const InternalComponent = ({ id, ...rest }) => {
+  const InternalComponent = ({
+    collectionName,
+    id,
+    ...rest
+  }) => {
     const { fetching, users } = useRest({
       runOnInit: true,
       url: '/audit-users',
       key: 'data',
       pluralized: 'data',
       location: {
-        search: `?id=${id}&collectionName=orders`,
+        search: `?id=${id}&collectionName=${collectionName}`,
       },
     });
 
@@ -30,6 +34,7 @@ const withUsers = (Component) => {
 
   InternalComponent.propTypes = {
     id: PropTypes.string.isRequired,
+    collectionName: PropTypes.string.isRequired,
   };
 
   return InternalComponent;

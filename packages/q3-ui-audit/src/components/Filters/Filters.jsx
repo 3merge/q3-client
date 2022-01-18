@@ -18,6 +18,7 @@ const Filters = ({ onSubmit, fields, users, ...rest }) => {
   return (
     <Builders.Form
       {...rest}
+      disableChangeDetection
       keep={['date>', 'date<', 'targets', 'user']}
       modify={{
         targets: [toTargets],

@@ -37,6 +37,7 @@ export const InnerForm = ({
   restart,
   showSuccessMessage,
   under,
+  disableChangeDetection,
   ...etc
 }) => {
   const [attachments, setAttachments] = React.useState([]);
@@ -120,15 +121,15 @@ export const InnerForm = ({
     errors,
   });
 
-  useModified(isModified);
+  useModified(isModified, disableChangeDetection);
 
   const onReset = () => {
     setValues(seed);
     setErrors(initialErrors);
   };
 
-  const execAllSubmitHandlers = onSubmit(() => {
-    return forwardProcessStateValuesIntoOnSubmitHandler(
+  const execAllSubmitHandlers = onSubmit(() =>
+    forwardProcessStateValuesIntoOnSubmitHandler(
       values,
       attachments,
     )
@@ -141,8 +142,8 @@ export const InnerForm = ({
       })
       .catch((e) => {
         onError(e);
-      });
-  });
+      }),
+  );
 
   return (
     <AuthorizationState.Provider
@@ -290,6 +291,7 @@ InnerForm.propTypes = {
    * Use to treat data as sub-document for permissions
    */
   under: PropTypes.string,
+  disableChangeDetection: PropTypes.bool,
 };
 
 InnerForm.defaultProps = {
@@ -311,16 +313,18 @@ InnerForm.defaultProps = {
   initialErrors: {},
   marshalAuthorizationContext: undefined,
   under: undefined,
+  disableChangeDetection: false,
 };
 
-export default (Component) => (props) => (
-  <InnerForm {...props}>
-    {({ values, errors, ...rest }) => (
-      <Component {...rest}>
-        {typeof props.children === 'function'
-          ? props.children(values, errors)
-          : props.children}
-      </Component>
-    )}
-  </InnerForm>
-);
+export default (Component) => (props) =>
+  (
+    <InnerForm {...props}>
+      {({ values, errors, ...rest }) => (
+        <Component {...rest}>
+          {typeof props.children === 'function'
+            ? props.children(values, errors)
+            : props.children}
+        </Component>
+      )}
+    </InnerForm>
+  );

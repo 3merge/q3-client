@@ -13,7 +13,8 @@ const AuditTemplateSelect = ({
 }) => (
   <Builders.Form
     {...rest}
-    keep={['targets']}
+    disableChangeDetection
+    keep={['auditTemplate', 'targets']}
     translate={{
       auditTemplate: 'targets',
     }}

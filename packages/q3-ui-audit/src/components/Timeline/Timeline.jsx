@@ -2,6 +2,7 @@ import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import { map, join, size } from 'lodash';
 import PropTypes from 'prop-types';
+import { lighten } from '@material-ui/core/styles';
 import { Box, CircularProgress } from '@material-ui/core';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -74,28 +75,34 @@ const TimelineCustom = ({
               <TimelineItem className={cls.entry} key={key}>
                 <TimelineSeparator>
                   <TimelineDot
-                    title={action}
                     style={{
                       backgroundColor: color,
-                      cursor: 'help',
                     }}
-                  >
-                    <Icon style={{ color: '#FFF' }} />
-                  </TimelineDot>
+                  />
                   <TimelineConnector
                     style={{ backgroundColor: color }}
                   />
                 </TimelineSeparator>
-                <TimelineContent
-                  style={{
-                    color,
-                  }}
-                >
-                  <TimelineEntryMeta
-                    action={action}
-                    {...record}
-                  />
-                  <TimelineEntry {...entry} />
+                <TimelineContent>
+                  <Box
+                    bgcolor={lighten(color, 0.95)}
+                    p={1}
+                    position="relative"
+                  >
+                    <Box
+                      color={color}
+                      display="flex"
+                      mb={0.5}
+                      justifyContent="space-between"
+                    >
+                      <TimelineEntryMeta
+                        action={action}
+                        {...record}
+                      />
+                      <small>{t(`labels:${action}`)}</small>
+                    </Box>
+                    <TimelineEntry {...entry} />
+                  </Box>
                 </TimelineContent>
               </TimelineItem>
             );
