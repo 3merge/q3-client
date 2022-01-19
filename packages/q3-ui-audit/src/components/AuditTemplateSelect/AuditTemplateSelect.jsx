@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { useTranslation } from 'q3-ui-locale';
-import { capitalize, map } from 'lodash';
+import { capitalize, map, get, find } from 'lodash';
 import {
   castToBeginning,
   castToEnd,
@@ -21,9 +21,16 @@ const AuditTemplateSelect = ({
       {...rest}
       disableChangeDetection
       keep={['date', 'date>', 'date<', 'template', 'user']}
-      translate={{
-        template: 'targets',
-        'user.value': 'user',
+      modify={{
+        user: [
+          (value) => ({
+            label: get(
+              find(users, (item) => item.value === value),
+              'label',
+            ),
+            value,
+          }),
+        ],
       }}
       submitLabel="getLogs"
       onSubmit={onSubmit}

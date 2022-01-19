@@ -5,11 +5,8 @@ import useRest from 'q3-ui-rest';
 import { map } from 'lodash';
 
 const withUsers = (Component) => {
-  const InternalComponent = ({
-    collectionName,
-    id,
-    ...rest
-  }) => {
+  const InternalComponent = (props) => {
+    const { collectionName, id } = props;
     const { fetching, users } = useRest({
       runOnInit: true,
       url: '/audit-users',
@@ -28,7 +25,7 @@ const withUsers = (Component) => {
     return fetching ? (
       <CircularProgress />
     ) : (
-      <Component {...rest} users={data} />
+      <Component {...props} users={data} />
     );
   };
 

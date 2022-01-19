@@ -34,7 +34,6 @@ export default ({
 
     m.onGet(/audit/).reply(async (data) => {
       const { user } = qs.decode(getQueryString(data));
-
       if (causeError) return [500];
       if (returnEmpty) return [200, { changes: [] }];
 
