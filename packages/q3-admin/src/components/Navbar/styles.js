@@ -8,8 +8,9 @@ export default makeStyles((theme) => ({
     width: 290,
     zIndex: 10,
 
-    '& a': {
+    '& > div > a': {
       maxHeight: 80,
+      marginBottom: theme.spacing(3),
     },
   },
   appbar: {
@@ -30,7 +31,8 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   footer: {
-    backgroundColor: theme.palette.background.muted,
+    backgroundColor: theme.palette.background.paper,
+    borderTop: `1px solid ${theme.palette.background.muted}`,
     bottom: 0,
     left: 0,
     position: 'absolute',

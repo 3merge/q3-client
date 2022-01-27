@@ -24,13 +24,6 @@ const useStyle = makeStyles((theme) => ({
     '&:focus-within': {
       'outline-style': 'auto',
       'outline-width': 'medium',
-      boxShadow: theme.shadows[1],
-      backgroundColor: theme.palette.background.paper,
-    },
-
-    '&:hover': {
-      boxShadow: theme.shadows[1],
-      backgroundColor: theme.palette.background.paper,
     },
 
     '& > *': {

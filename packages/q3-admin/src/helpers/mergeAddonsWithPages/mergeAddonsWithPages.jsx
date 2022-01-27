@@ -12,7 +12,7 @@ const mergeAddonsWithPages = (a = [], b = []) => {
           AddOn?.displayName,
         ).toLowerCase(),
         component: () => {
-          const height = 'calc((100 * var(--vh)) - 65px)';
+          const height = 'calc(100 * var(--vh))';
 
           return (
             <main

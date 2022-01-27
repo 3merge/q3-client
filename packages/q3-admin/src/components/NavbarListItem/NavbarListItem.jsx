@@ -7,14 +7,13 @@ import {
   Collapse,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import { object } from 'q3-ui-helpers';
 import { useToggle } from 'useful-state';
 import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
 import NavbarListItemSegments from '../NavbarListItemSegments';
 
-const NavbarList = ({ ...listItem }) => {
+const NavbarList = ({ segments, to, label }) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
   const [current, setCurrent] = React.useState(false);
@@ -22,6 +21,11 @@ const NavbarList = ({ ...listItem }) => {
 
   const handleGetProps = ({ isPartiallyCurrent }) =>
     setCurrent(isPartiallyCurrent);
+
+  React.useEffect(() => {
+    if (current) open();
+    else close();
+  }, [current]);
 
   const ListItemProps = {
     classes: {
@@ -31,21 +35,16 @@ const NavbarList = ({ ...listItem }) => {
     selected: current,
   };
 
-  React.useEffect(() => {
-    if (current) open();
-    else close();
-  }, [current]);
-
-  return !object.hasKeys(listItem.segments) ? (
+  return !object.hasKeys(segments) ? (
     <ListItem {...ListItemProps}>
       <Button
         color="inherit"
         component={Link}
         fullWidth
-        to={listItem.to}
+        to={to}
         getProps={handleGetProps}
       >
-        {listItem.label}
+        {label}
       </Button>
     </ListItem>
   ) : (
@@ -58,24 +57,35 @@ const NavbarList = ({ ...listItem }) => {
           fullWidth
           onClick={toggle}
         >
-          {t(listItem.label)}
+          {t(label)}
         </Button>
         <Link
           aria-label="all"
           className={cls.hidden}
-          to={listItem.to}
+          to={to}
           getProps={handleGetProps}
         />
       </ListItem>
       <Collapse in={state}>
         <NavbarListItemSegments
           isActive={current}
-          segments={listItem.segments}
-          to={listItem.to}
+          segments={segments}
+          to={to}
         />
       </Collapse>
     </>
   );
+};
+
+NavbarList.defaultProps = {
+  segments: {},
+};
+
+NavbarList.propTypes = {
+  label: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  // eslint-disable-next-line
+  segments: PropTypes.object,
 };
 
 export default NavbarList;

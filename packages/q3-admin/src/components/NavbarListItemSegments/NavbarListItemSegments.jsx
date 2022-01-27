@@ -66,4 +66,15 @@ const NavbarListItemSegments = ({
   );
 };
 
+NavbarListItemSegments.defaultProps = {
+  isActive: false,
+};
+
+NavbarListItemSegments.propTypes = {
+  isActive: PropTypes.bool,
+  to: PropTypes.string.isRequired,
+  // eslint-disable-next-line
+  segments: PropTypes.object.isRequired,
+};
+
 export default NavbarListItemSegments;

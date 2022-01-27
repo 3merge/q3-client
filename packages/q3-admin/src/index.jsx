@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Hidden } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
@@ -58,7 +58,6 @@ const Admin = ({
       >
         <NavbarList items={menuItems} />
       </Navbar>
-
       <Box className={cls.main}>
         <App {...AppProps}>
           <ProfileComponent path={PROFILE_PATH} />

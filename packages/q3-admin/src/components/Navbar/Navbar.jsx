@@ -6,7 +6,6 @@ import {
   Box,
   Paper,
   Hidden,
-  Toolbar,
   IconButton,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';

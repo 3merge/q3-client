@@ -29,7 +29,7 @@ const CollectionName = () => {
 export default (forwardedProps) => (props) =>
   (
     <Fade in>
-      <Box>
+      <Box height="100%">
         <Exports>
           <AppBar color="inherit" position="static">
             <Toolbar>

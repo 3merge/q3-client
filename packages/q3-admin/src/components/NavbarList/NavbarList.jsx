@@ -5,8 +5,6 @@ import { isObject, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import NavbarListItem from '../NavbarListItem';
 
-// useSegments to determine if active?
-
 const NavbarList = ({ items }) => {
   const { t } = useTranslation('labels');
 
@@ -36,6 +34,11 @@ const NavbarList = ({ items }) => {
         </List>
       ))
     : null;
+};
+
+NavbarList.propTypes = {
+  // eslint-disable-next-line
+  items: PropTypes.object.isRequired,
 };
 
 export default NavbarList;

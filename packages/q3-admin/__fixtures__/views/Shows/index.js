@@ -52,7 +52,7 @@ export default new AbstractCollectionBuilder({
     General2: General,
   })
   .genList({
-    customRowActionsAnchor: 'start',
+    //  customRowActionsAnchor: 'start',
     defaultColumns: ['createdAt', 'updatedAt'],
     io: {
       exports: ['orders'],

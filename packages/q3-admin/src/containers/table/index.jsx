@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { Box, useMediaQuery } from '@material-ui/core';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
@@ -92,6 +92,9 @@ const useStyle = makeStyles(() => ({
 const List = (props) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
+  const isMobile = useMediaQuery((theme) =>
+    theme.breakpoints.down('md'),
+  );
 
   const { collectionName, location, rootPath } =
     React.useContext(Definitions);
@@ -117,8 +120,6 @@ const List = (props) => {
     return update({ sorting }, () => executeNavigation(q));
   };
 
-  // if loading
-
   return (
     <Box p={2}>
       <Table
@@ -131,6 +132,9 @@ const List = (props) => {
         id={collectionName}
         onSort={updateSortPrefence}
         disableExportsProvider
+        style={{
+          height: isMobile ? 'auto' : '85vh',
+        }}
       >
         <Box py={0.5}>
           <FilterChip />

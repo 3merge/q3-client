@@ -15,7 +15,6 @@ export const Collection = ({
   resourceNameSingular,
   id,
   location,
-  disableHeader,
   segments,
   options,
   ...rest
@@ -44,8 +43,6 @@ export const Collection = ({
 };
 
 Collection.propTypes = {
-  disableHeader: PropTypes.bool,
-
   /**
    * The page internals.
    */
@@ -83,7 +80,6 @@ Collection.propTypes = {
 };
 
 Collection.defaultProps = {
-  disableHeader: false,
   id: null,
 };
 
