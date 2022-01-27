@@ -7,9 +7,10 @@ import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import { Store } from '../state';
 import { useAppContext } from '../../hooks';
-import withActionPortal from '../../components/withActionPortal';
+import ActionBar from '../../components/ActionBar';
 import Search from '../../components/Search';
 import Add from '../add';
+import Segments from '../../components/Segments';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 
 /** @NOTE eventually bulk editting */
@@ -44,15 +45,17 @@ const TableActions = ({
     ) : null,
   });
 
+  // float bottom on mobile.
   return (
     <Fade in>
-      <Box display="flex" p={1}>
+      <ActionBar>
         <Search />
+        <Segments />
         {ac.can('filter')}
         {ac.can('bulkDelete')}
         {ac.can('io')}
         {ac.can('add')}
-      </Box>
+      </ActionBar>
     </Fade>
   );
 };

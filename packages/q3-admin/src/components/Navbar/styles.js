@@ -12,8 +12,19 @@ export default makeStyles((theme) => ({
       maxHeight: 80,
     },
   },
+  appbar: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    height: 65,
+    justifyContent: 'space-between',
+    padding: `0 ${theme.spacing(1.5)}`,
+    width: '100%',
+  },
   paper: {
     // backgroundColor: theme.palette.background.muted,
+
     borderRadius: 0,
     overflowX: 'auto',
     padding: theme.spacing(1),

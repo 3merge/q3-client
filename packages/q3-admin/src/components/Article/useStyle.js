@@ -9,8 +9,15 @@ export default makeStyles((theme) => ({
   },
   articleWrapper: {
     position: 'relative',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('md')]: {
       display: 'block',
+    },
+  },
+  section: {
+    [theme.breakpoints.down('md')]: {
+      '& > div': {
+        height: 'calc((100 * var(--vh)) - 130px)',
+      },
     },
   },
 }));

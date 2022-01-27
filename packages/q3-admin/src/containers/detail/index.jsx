@@ -19,6 +19,7 @@ import DetailHeader from '../DetailHeader';
 import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
 import DetailRelatedLinks from '../DetailRelatedLinks';
+import ActionBar from '../../components/ActionBar';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
@@ -38,7 +39,9 @@ const Detail = ({
           <Back />
           Bread, Actions.
         </Box>
-        <DetailActions {...rest} />
+        <ActionBar>
+          <DetailActions {...rest} />
+        </ActionBar>
       </Toolbar>
       <Toolbar>
         <DetailFeaturedPhoto />

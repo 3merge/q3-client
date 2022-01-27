@@ -1,24 +1,4 @@
-import React from 'react';
-import { Collection, getDirectoryPath } from './Collection';
-import CollectionHeader from '../CollectionHeader';
-
-const doesHeaderExist = (props) =>
-  global
-    .shallow(<Collection {...props} collectionName="foo" />)
-    .find(CollectionHeader)
-    .exists();
-
-describe('Collection', () => {
-  it('should render header', () => {
-    expect(doesHeaderExist()).toBeTruthy();
-  });
-
-  it('should render header', () => {
-    expect(
-      doesHeaderExist({ disableHeader: true }),
-    ).toBeFalsy();
-  });
-});
+import { getDirectoryPath } from './Collection';
 
 describe('getDirectoryPath', () => {
   it('should return collection name', () => {
