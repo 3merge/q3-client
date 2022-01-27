@@ -50,6 +50,11 @@ const StoriesApiMockAuthentication = ({ children }) => {
             ...shows,
             ...emails,
             ...audit,
+            {
+              op: 'Create',
+              coll: 'profile',
+              fields: ['filters*'],
+            },
           ],
           filters,
         },

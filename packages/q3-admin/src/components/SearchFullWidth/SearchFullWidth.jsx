@@ -13,10 +13,13 @@ const useStyle = makeStyles((theme) => ({
   root: {
     borderRadius: 4,
     boxSizing: 'border-box',
-    padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
-    width: 550,
-    maxWidth: '100%',
+    padding: `0 ${theme.spacing(1)}`,
+    width: 475,
+    maxWidth: '40vw',
     transition: 'box-shadow 250ms',
+    backgroundColor: theme.palette.background.muted,
+    height: 40,
+    margin: 0,
 
     '&:focus-within': {
       'outline-style': 'auto',
@@ -28,6 +31,10 @@ const useStyle = makeStyles((theme) => ({
     '&:hover': {
       boxShadow: theme.shadows[1],
       backgroundColor: theme.palette.background.paper,
+    },
+
+    '& > *': {
+      height: '100%',
     },
 
     '& input': {

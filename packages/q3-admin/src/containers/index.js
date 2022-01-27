@@ -5,6 +5,7 @@ export { default as Filters } from './filters';
 export { default as Gatekeeper } from './gatekeeper';
 export { default as Header } from './header';
 export { default as Table } from './table';
+export { default as TableActions } from './TableActions';
 export { default as Page } from './page';
 export { default as SubDetail } from './subDetail';
 

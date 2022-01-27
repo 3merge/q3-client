@@ -8,7 +8,7 @@ export const Search = () => {
   const textFieldProps = useSearchInput();
 
   return (
-    <Box id="q3-searchbar" width="100%">
+    <Box id="q3-searchbar">
       <Hidden smDown>
         <SearchFullWidth {...textFieldProps} />
       </Hidden>

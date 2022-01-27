@@ -7,7 +7,8 @@ import Fade from '@material-ui/core/Fade';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
-const Article = ({ asideComponent, children }) => {
+const Article = ({ children }) => {
+  const asideComponent = null;
   const globalStyle = useGlobalStyle();
   const { view, articleWrapper, section } = useStyle({
     hasAside: Boolean(asideComponent),

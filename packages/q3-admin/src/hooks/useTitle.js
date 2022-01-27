@@ -10,7 +10,6 @@ export default (
   {
     parenthesesProp,
     resourceName,
-    subtitleProp,
     titleProp,
     titleRenderer,
   },
@@ -26,10 +25,6 @@ export default (
   if (parenthesesProp)
     title += ` (${get(state, parenthesesProp)})`;
 
-  return isFn(titleRenderer)
-    ? titleRenderer(state)
-    : {
-        title: title.length ? title : t(resourceName),
-        subtitle: String(get(state, subtitleProp, '')),
-      };
+  if (!title.length) title = t(resourceName);
+  return isFn(titleRenderer) ? titleRenderer(state) : title;
 };

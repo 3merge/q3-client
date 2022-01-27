@@ -4,7 +4,6 @@ import { useTranslation } from 'q3-ui-locale';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import DetailHeader from '../DetailHeader';
 import useStyle from './useStyle';
 
 export const LocationMatch = ({
@@ -29,40 +28,34 @@ export const LocationMatch = ({
   );
 };
 
-const TabsWithRouter = ({ views, ...rest }) => {
+const TabsWithRouter = ({ views }) => {
   const { t } = useTranslation();
   const cls = useStyle();
 
-  if (!views || views.length < 2)
-    return <DetailHeader {...rest} />;
+  if (!views || views.length < 2) return null;
 
   return (
     <LocationMatch views={views} defaultIndex={0}>
       {(value) => (
-        <DetailHeader
-          {...rest}
-          navComponent={
-            <Tabs
-              value={value}
-              variant="scrollable"
-              className={cls.root}
-            >
-              {views.map((view) => (
-                <Tab
-                  key={view.to}
-                  to={`.${view.to}`}
-                  label={t(`labels:${view.label}`)}
-                  component={Link}
-                  style={{
-                    minWidth: 'auto',
-                    paddingLeft: '1.5rem',
-                    paddingRight: '1.5rem',
-                  }}
-                />
-              ))}
-            </Tabs>
-          }
-        />
+        <Tabs
+          value={value}
+          variant="scrollable"
+          className={cls.root}
+        >
+          {views.map((view) => (
+            <Tab
+              key={view.to}
+              to={`.${view.to}`}
+              label={t(`labels:${view.label}`)}
+              component={Link}
+              style={{
+                minWidth: 'auto',
+                paddingLeft: '1.5rem',
+                paddingRight: '1.5rem',
+              }}
+            />
+          ))}
+        </Tabs>
       )}
     </LocationMatch>
   );

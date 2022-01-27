@@ -38,24 +38,7 @@ export default ({
 
       return (
         <Collection id {...props}>
-          <Page
-            id
-            {...props}
-            {...PageDetailProps}
-            loadingComponent={
-              <Article asideComponent={<SidePanel />}>
-                <Box
-                  alignItems="center"
-                  justifyContent="center"
-                  display="flex"
-                  height="100%"
-                  width="100%"
-                >
-                  <CircularProgress />
-                </Box>
-              </Article>
-            }
-          >
+          <Page id {...props} {...PageDetailProps}>
             <Box position="relative">
               <PageDetail />
             </Box>
@@ -68,35 +51,16 @@ export default ({
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: (props) => {
-      const {
-        filterComponent: FilterComponent,
-      } = PageListProps;
-
-      const { can } = useAppContext({
-        filter: FilterComponent ? (
-          <SidePanel>
-            <FilterProvider {...props} {...PageListProps}>
-              <FilterComponent />
-            </FilterProvider>
-          </SidePanel>
-        ) : null,
-      });
-
-      return (
+    component: (props) => (
+      <FilterProvider {...props} {...PageListProps}>
         <Collection index {...PageListProps} {...props}>
-          <Article asideComponent={can('filter')}>
-            <Page
-              index
-              {...props}
-              {...PageListProps}
-              loadingComponent={<TableSkeleton />}
-            >
+          <Article>
+            <Page index {...props} {...PageListProps}>
               <PageList />
             </Page>
           </Article>
         </Collection>
-      );
-    },
+      </FilterProvider>
+    ),
   },
 ];

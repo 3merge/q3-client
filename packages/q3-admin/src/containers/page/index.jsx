@@ -11,7 +11,6 @@ import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
 import withSorting from './withSorting';
-import withActiveFilter from './withActiveFilter';
 
 const PageChildren = ({
   children,
@@ -113,44 +112,39 @@ const Page = ({
 
   usePrevLocation(id, location);
 
+  if (!hasEntered) return null;
+  // I'll come back to this.
+
   return (
-    <PageChildren
-      hasEntered={hasEntered}
-      fetching={fetching}
-      fetchingError={fetchingError}
-      loadingComponent={loadingComponent}
-      id={id}
+    <Dispatcher.Provider
+      value={pick(state, [
+        'get',
+        'poll',
+        'remove',
+        'removeBulk',
+        'patch',
+        'put',
+        'post',
+        'replace',
+      ])}
     >
-      <Dispatcher.Provider
-        value={pick(state, [
-          'get',
-          'poll',
-          'remove',
-          'removeBulk',
-          'patch',
-          'put',
-          'post',
-          'replace',
-        ])}
+      <Store.Provider
+        value={{
+          data,
+          ...pick(state, [
+            'total',
+            'hasNextPage',
+            'hasPrevPage',
+          ]),
+        }}
       >
-        <Store.Provider
-          value={{
-            data,
-            ...pick(state, [
-              'total',
-              'hasNextPage',
-              'hasPrevPage',
-            ]),
-          }}
-        >
-          {executeOnChildren(children, {
-            ...state,
-            id,
-            data,
-          })}
-        </Store.Provider>
-      </Dispatcher.Provider>
-    </PageChildren>
+        {executeOnChildren(children, {
+          ...state,
+          id,
+          data,
+        })}
+      </Store.Provider>
+    </Dispatcher.Provider>
   );
 };
 
@@ -194,4 +188,4 @@ Page.defaultProps = {
   loadingComponent: null,
 };
 
-export default withActiveFilter(withSorting(Page));
+export default withSorting(Page);

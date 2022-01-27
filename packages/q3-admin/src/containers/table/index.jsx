@@ -117,23 +117,29 @@ const List = (props) => {
     return update({ sorting }, () => executeNavigation(q));
   };
 
+  // if loading
+
   return (
-    <Table
-      {...decorator.build()}
-      blacklistColumns={decorator.makeBlacklist(canSeeSub)}
-      className={table}
-      data={decorator.makeLinks(rootPath)}
-      id={collectionName}
-      onSort={updateSortPrefence}
-      style={{
-        height: '100%',
-      }}
-    >
-      <TableActions {...props} />
-      <Box py={0.5}>
-        <FilterChip />
-      </Box>
-    </Table>
+    <Box p={2}>
+      <Table
+        {...decorator.build()}
+        blacklistColumns={decorator.makeBlacklist(
+          canSeeSub,
+        )}
+        className={table}
+        data={decorator.makeLinks(rootPath)}
+        id={collectionName}
+        onSort={updateSortPrefence}
+        style={{
+          height: 850,
+          maxHeight: '80vh',
+        }}
+      >
+        <Box py={0.5}>
+          <FilterChip />
+        </Box>
+      </Table>
+    </Box>
   );
 };
 

@@ -1,81 +1,50 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import Confirm from 'q3-ui-confirm';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Alert } from '@material-ui/lab';
-import Box from '@material-ui/core/Box';
-import Graphic from 'q3-ui-assets';
-import { useAuth } from 'q3-ui-permissions';
-import { browser } from 'q3-ui-helpers';
-import connect from '../connect';
+import { useNavigate } from '@reach/router';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
+import { Definitions, Dispatcher } from '../state';
+import ButtonWithIcon from '../../components/ButtonWithIcon';
 
-export const Trash = ({
-  collectionName,
-  onDelete,
-  directoryPath,
-}) => {
-  const [loading, setLoading] = React.useState(false);
-  const [showError, setShowError] = React.useState(false);
-  const [showRedirect, setShowRedirect] =
-    React.useState(false);
-
-  const { t } = useTranslation();
-  const { canDelete } = useAuth(collectionName);
+export const Trash = () => {
+  const { t } = useTranslation('descriptions');
+  const { directoryPath } = React.useContext(Definitions);
+  const { remove } = React.useContext(Dispatcher);
+  const navigate = useNavigate();
 
   const navigateOnResolve = () =>
-    onDelete()
+    remove()()
       .then(() => {
-        setShowRedirect(true);
-        browser.redirectIn(directoryPath);
+        navigate(directoryPath);
       })
       .catch(() => {
-        setShowError(true);
-      })
-      .finally(() => {
-        setLoading(false);
+        const e = new Error();
+        e.message = t('trashFail');
+        throw e;
       });
 
+  const renderButton = React.useCallback(
+    (buttonProps) =>
+      React.createElement(ButtonWithIcon, {
+        ...buttonProps,
+        icon: DeleteIcon,
+        label: 'trash',
+      }),
+    [],
+  );
+
   return (
-    <>
-      {showError && (
-        <Alert severity="error">
-          {t('descriptions:trashFail')}
-        </Alert>
-      )}
-      {showRedirect && (
-        <Alert severity="success">
-          {t('descriptions:trashSuccess')}
-        </Alert>
-      )}
-      <Graphic
-        description="trashDescription"
-        icon="Throw"
-        renderBottom={() => (
-          <Box mt={2}>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <Confirm
-                title="confirm"
-                description="confirm"
-                service={navigateOnResolve}
-                disabled={!canDelete}
-                label="addToTrash"
-                phrase="DELETE"
-              />
-            )}
-          </Box>
-        )}
-      />
-    </>
+    <Confirm
+      title="confirm"
+      description="confirm"
+      service={navigateOnResolve}
+      label="addToTrash"
+      phrase="DELETE"
+      ButtonComponent={renderButton}
+    />
   );
 };
 
-Trash.propTypes = {
-  collectionName: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  directoryPath: PropTypes.string.isRequired,
-};
+Trash.propTypes = {};
 
-export default connect(Trash);
+export default React.memo(Trash);

@@ -4,7 +4,6 @@ import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
 import CollectionConfig from '../CollectionConfig';
-import CollectionHeader from '../CollectionHeader';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -38,13 +37,6 @@ export const Collection = ({
       }}
     >
       <CollectionConfig options={options}>
-        {!disableHeader && (
-          <CollectionHeader
-            {...rest}
-            collectionName={collectionName}
-            id={id}
-          />
-        )}
         {children}
       </CollectionConfig>
     </Definitions.Provider>

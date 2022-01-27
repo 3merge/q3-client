@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from '@material-ui/core';
 import { destroySession } from 'q3-ui-permissions';
 import { get } from 'lodash';
 import { AuthContext } from 'q3-ui-permissions';
@@ -12,30 +13,32 @@ const ProfileActionsDropdown = () => {
   const { state } = React.useContext(AuthContext);
 
   return (
-    <AppHeaderDropdown
-      src={get(state, 'profile.photo')}
-      items={[
-        {
-          label: 'profile',
-          to: PROFILE_PATH,
-        },
-        {
-          label: 'notifications',
-          to: NOTIFICATIONS_PATH,
-        },
-        {
-          divider: true,
-        },
-        {
-          label: 'changePassword',
-          to: PASSWORD_PATH,
-        },
-        {
-          label: 'logout',
-          onClick: () => destroySession(),
-        },
-      ]}
-    />
+    <Box>
+      <AppHeaderDropdown
+        src={get(state, 'profile.photo')}
+        items={[
+          {
+            label: 'profile',
+            to: PROFILE_PATH,
+          },
+          {
+            label: 'notifications',
+            to: NOTIFICATIONS_PATH,
+          },
+          {
+            divider: true,
+          },
+          {
+            label: 'changePassword',
+            to: PASSWORD_PATH,
+          },
+          {
+            label: 'logout',
+            onClick: () => destroySession(),
+          },
+        ]}
+      />
+    </Box>
   );
 };
 

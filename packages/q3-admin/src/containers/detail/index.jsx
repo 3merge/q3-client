@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
+import {
+  AppBar,
+  Box,
+  Divider,
+  Toolbar,
+} from '@material-ui/core';
+import Back from '../back';
 import Notes from '../notes';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
@@ -8,8 +14,9 @@ import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
 import ActivityLog from '../activityLog';
 import Trash from '../trash';
-import DetailSidePanel from '../DetailSidePanel';
-import DetailSidePanelContent from '../DetailSidePanelContent';
+import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
+import DetailHeader from '../DetailHeader';
+import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
 import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
@@ -20,31 +27,29 @@ const Detail = ({
   HeaderProps,
   history,
   children,
-  notes,
   picture,
-  files,
-  links,
   views,
   ...rest
 }) => (
-  <Article
-    asideComponent={
-      <DetailSidePanel
-        notes={notes && <Notes />}
-        files={files && <Upload />}
-      >
-        <DetailSidePanelContent {...rest} />
-      </DetailSidePanel>
-    }
-  >
-    <DetailNavigation
-      {...HeaderProps}
-      views={views}
-      picture={picture}
-    />
-    <DetailRelatedLinks links={links}>
+  <Article>
+    <AppBar color="inherit" position="static">
+      <Toolbar>
+        <Box>
+          <Back />
+          Bread, Actions.
+        </Box>
+        <DetailActions {...rest} />
+      </Toolbar>
+      <Toolbar>
+        <DetailFeaturedPhoto />
+      </Toolbar>
+      <DetailHeader {...HeaderProps} />
+      <Divider />
+      <DetailNavigation views={views} />
+    </AppBar>
+    <Box p={2}>
       <DetailViews views={views} />
-    </DetailRelatedLinks>
+    </Box>
   </Article>
 );
 
@@ -55,55 +60,25 @@ Detail.propTypes = {
   ]),
 
   /**
-   * Will auto-append comments to sidebar.
-   */
-  notes: PropTypes.bool,
-
-  /**
-   * Will auto-append history tab.
-   */
-  history: PropTypes.bool,
-
-  /**
    * Will auto-append featured image.
    */
   picture: PropTypes.bool,
 };
 
 Detail.defaultProps = {
-  notes: false,
-  history: false,
   picture: false,
   children: null,
 };
 
 const withDynamicViews =
   (Component) =>
-  ({ audit, children, ...props }) => {
-    const { can, check } = useAppContext({
-      audit:
-        audit && isObject(audit) ? (
-          <ActivityLog templates={audit} />
-        ) : null,
-    });
-
+  ({ children, ...props }) => {
+    const { check } = useAppContext();
     const { data } = React.useContext(Store);
 
-    const makeView = React.useCallback(
-      (label, el) => ({
-        to: `/${label}`,
-        component: () =>
-          React.createElement(el, {
-            name: label,
-          }),
-        label,
-      }),
-      [],
+    const views = mapToNestedRoute(children).filter((el) =>
+      check(el.label, el, data),
     );
-
-    const views = mapToNestedRoute(children)
-      .concat([makeView('trash', Trash)])
-      .filter((el) => check(el.label, el, data));
 
     return React.useMemo(
       () =>
@@ -111,10 +86,7 @@ const withDynamicViews =
         -1 ? (
           <ViewNotAllowed />
         ) : (
-          <>
-            {can('audit')}
-            <Component views={views} {...props} />
-          </>
+          <Component views={views} {...props} />
         ),
       [JSON.stringify(views)],
     );

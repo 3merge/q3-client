@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
-import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Header from '../../components/Header';
 import { useAppContext } from '../../hooks';
 import { useTitle } from '../../hooks';
@@ -16,13 +16,11 @@ export const DetailHeaderBackComponent = (props) => {
   return (
     <>
       {can('picture') ? (
-        <>
-          <FeaturedPhoto
-            component={Avatar}
-            src={data.photo}
-            update={fn}
-          />
-        </>
+        <FeaturedPhoto
+          component={Avatar}
+          src={data.photo}
+          update={fn}
+        />
       ) : (
         // offset missing avatar
         <div
@@ -38,19 +36,11 @@ export const DetailHeaderBackComponent = (props) => {
 
 const DetailHeader = (props) => {
   const { data } = React.useContext(Store);
-  // eslint-disable-next-line
-  if (props.disable) return null;
 
   return (
-    <Box my={{ xl: 0.75, lg: 0.75 }}>
-      <Header
-        {...props}
-        {...useTitle(data, props)}
-        backComponent={
-          <DetailHeaderBackComponent {...props} />
-        }
-      />
-    </Box>
+    <Typography component="h1" variant="h5">
+      {useTitle(data, props)}
+    </Typography>
   );
 };
 

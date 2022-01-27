@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  IconButton,
   Box,
   TextField,
   Drawer,
+  IconButton,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import { useLocation } from '@reach/router';
 import SearchIcon from '@material-ui/icons/Search';
 import { useToggle } from 'useful-state';
+import ButtonWithIcon from '../ButtonWithIcon';
 
 export const SearchMobile = ({
   handleReset,
@@ -21,12 +22,11 @@ export const SearchMobile = ({
 
   return (
     <Box textAlign="right">
-      <IconButton
-        aria-label="toggle search"
+      <ButtonWithIcon
+        label="search"
+        icon={SearchIcon}
         onClick={toggle}
-      >
-        <SearchIcon />
-      </IconButton>
+      />
       <Drawer anchor="top" open={state} onClose={toggle}>
         <Box p={2}>
           <TextField

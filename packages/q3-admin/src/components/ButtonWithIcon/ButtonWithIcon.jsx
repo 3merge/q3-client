@@ -4,62 +4,48 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import Badge from '@material-ui/core/Badge';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import MuiIconButton from '@material-ui/core/IconButton';
-import IconButton from 'q3-ui/lib/iconButton';
-import Hidden from '@material-ui/core/Hidden';
+import Fab from '@material-ui/core/Fab';
+import Tooltip from '@material-ui/core/Tooltip';
+import Fade from '@material-ui/core/Fade';
 import useStyle from './styles';
 
 const ButtonWithIcon = React.forwardRef(
-  ({ icon: Icon, label, count, ...rest }, ref) => {
+  ({ icon: Icon, label, count, on, ...rest }, ref) => {
     const { t } = useTranslation('labels');
-    const cls = useStyle();
+    const cls = useStyle({
+      on,
+    });
 
     return (
       <Box display="inline">
-        <Hidden smDown implementation="css">
-          <Button
-            ref={ref}
-            style={{ margin: '0 .25rem' }}
-            aria-label={t(label)}
-            variant="contained"
-            elevation={4}
-            {...rest}
-          >
-            <Badge
-              badgeContent={count}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              showZero={false}
-              className={cls.badge}
-            >
-              <Box
-                alignItems="center"
-                display="inline-flex"
-                ml={-1}
-                mr={0.15}
+        <Fade in>
+          <Box ml={0.5}>
+            <Tooltip title={label}>
+              <Fab
+                {...rest}
+                size="small"
+                elevation={0}
+                ref={ref}
+                className={cls.fab}
+                aria-label={t(label)}
+                variant="contained"
+                color="default"
               >
-                <MuiIconButton
-                  color="inherit"
-                  size="small"
-                  component={Box}
+                <Badge
+                  badgeContent={count}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  showZero={false}
+                  className={cls.badge}
                 >
                   <Icon />
-                </MuiIconButton>
-              </Box>
-            </Badge>
-            <span>{t(label)}</span>
-          </Button>
-        </Hidden>
-        <Hidden mdUp implementation="css">
-          <IconButton
-            label={label}
-            icon={Icon}
-            buttonProps={rest}
-          />
-        </Hidden>
+                </Badge>
+              </Fab>
+            </Tooltip>
+          </Box>
+        </Fade>
       </Box>
     );
   },
@@ -72,10 +58,12 @@ ButtonWithIcon.propTypes = {
   ]).isRequired,
   label: PropTypes.string.isRequired,
   count: PropTypes.number,
+  on: PropTypes.bool,
 };
 
 ButtonWithIcon.defaultProps = {
   count: 0,
+  on: false,
 };
 
 export default ButtonWithIcon;

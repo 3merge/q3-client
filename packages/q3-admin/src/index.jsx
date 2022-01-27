@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import { Box, Hidden } from '@material-ui/core';
 import { get } from 'lodash';
+import Dialog from 'q3-ui-dialog';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
-import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
@@ -17,6 +17,11 @@ import {
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
+import Appbar from './components/Appbar';
+import BottomActionSheet from './components/BottomActionSheet';
+import Logo from './components/Logo';
+import Navbar from './components/Navbar';
+import NavbarList from './components/NavbarList';
 
 export * from './containers';
 export * from './hooks';
@@ -31,6 +36,7 @@ const Admin = ({
 }) => {
   const pages = React.useRef(AppProps.pages);
   const cls = useStyle();
+  // this goes to logo
   const root = get(AppProps, 'directory', '/');
 
   useServerSideEvents();
@@ -42,15 +48,48 @@ const Admin = ({
     ),
   });
 
+  const menuItems = usePages(AppProps.pages);
+
+  const ProfileElement = React.useMemo(
+    () => <ProfileActions {...ProfileActionsProps} />,
+    [],
+  );
+
+  const NavbarListElement = React.useMemo(
+    () => <NavbarList items={menuItems} />,
+    [menuItems],
+  );
+
   return (
     <Viewport>
-      <Navigation
-        {...NavProps}
-        menuItems={usePages(AppProps.pages)}
-        root={root}
-      >
-        <ProfileActions {...ProfileActionsProps} />
-      </Navigation>
+      <Dialog
+        PaperProps={{
+          style: {
+            maxWidth: '320px',
+          },
+        }}
+        title="menu"
+        closeOnRouteChange
+        variant="drawer"
+        anchor="left"
+        renderContent={() => NavbarListElement}
+        // renderTrigger={(onClick) => (
+        //   <Appbar
+        //     onClick={onClick}
+        //     logo={<Logo src={NavProps.logoSrc} />}
+        //   >
+        //     {ProfileElement}
+        //   </Appbar>
+        // )}
+        renderTrigger={() => null}
+      />
+      <BottomActionSheet />
+      <Hidden mdDown>
+        <Navbar footer={ProfileElement}>
+          <Logo src={NavProps.logoSrc} />
+          {NavbarListElement}
+        </Navbar>
+      </Hidden>
       <Box className={cls.main}>
         <App {...AppProps}>
           <ProfileComponent path={PROFILE_PATH} />
