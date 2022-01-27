@@ -1,13 +1,10 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import FilterProvider from '../containers/FilterProvider';
 import Article from '../components/Article';
-import SidePanel from '../components/SidePanel';
-import TableSkeleton from '../components/TableSkeleton';
-import { useAppContext, useUnsavedChanges } from '../hooks';
+import { useUnsavedChanges } from '../hooks';
 
 export const getCollectionInformation = ({
   resourceName,

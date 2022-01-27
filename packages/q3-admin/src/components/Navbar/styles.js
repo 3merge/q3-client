@@ -23,8 +23,6 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    // backgroundColor: theme.palette.background.muted,
-
     borderRadius: 0,
     overflowX: 'auto',
     padding: theme.spacing(1),
