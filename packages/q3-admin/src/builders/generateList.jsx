@@ -4,9 +4,11 @@ import {
   Box,
   Toolbar,
   Typography,
+  Fade,
 } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
-import Exports, { Actionbar } from 'q3-ui-exports';
+// eslint-disable-next-line
+import Exports from 'q3-ui-exports';
 import { TableActions, Table } from '../containers';
 import { Definitions } from '../containers/state';
 
@@ -26,20 +28,27 @@ const CollectionName = () => {
 
 export default (forwardedProps) => (props) =>
   (
-    <Exports>
-      <AppBar color="inherit" position="static">
-        <Toolbar>
-          <Box
-            alignItems="center"
-            display="flex"
-            justifyContent="space-between"
-            width="100%"
-          >
-            <CollectionName />
-            <TableActions {...forwardedProps} {...props} />
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Table {...forwardedProps} {...props} />
-    </Exports>
+    <Fade in>
+      <Box>
+        <Exports>
+          <AppBar color="inherit" position="static">
+            <Toolbar>
+              <Box
+                alignItems="center"
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <CollectionName />
+                <TableActions
+                  {...forwardedProps}
+                  {...props}
+                />
+              </Box>
+            </Toolbar>
+          </AppBar>
+          <Table {...forwardedProps} {...props} />
+        </Exports>
+      </Box>
+    </Fade>
   );

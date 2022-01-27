@@ -10,7 +10,7 @@ import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh } from '../../hooks';
-import TableActions from '../TableActions';
+import withPageLoading from '../../helpers/withPageLoading';
 import TableLink from '../TableLink';
 import TableTrash from '../TableTrash';
 
@@ -143,4 +143,4 @@ const List = (props) => {
 List.propTypes = {};
 List.defaultProps = {};
 
-export default List;
+export default withPageLoading(List);

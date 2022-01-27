@@ -1,11 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
-import { browser, url } from 'q3-ui-helpers';
+import { url } from 'q3-ui-helpers';
 import { AuthContext } from 'q3-ui-permissions';
-
-const { isDefined, proxyLocalStorageApi } = browser;
-
-const useSorting = () => {};
 
 export default (Component) => (props) => {
   const { state } = React.useContext(AuthContext);

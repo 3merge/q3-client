@@ -11,6 +11,7 @@ import { Store } from '../state';
 import DetailAppbar from '../DetailAppbar';
 import DetailOptions from '../DetailOptions';
 import useStyle from './styles';
+import withPageLoading from '../../helpers/withPageLoading';
 
 const Detail = ({
   HeaderProps,
@@ -89,4 +90,4 @@ const withDynamicViews =
     );
   };
 
-export default withDynamicViews(Detail);
+export default withPageLoading(withDynamicViews(Detail));

@@ -2,55 +2,12 @@ import React from 'react';
 import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import Box from '@material-ui/core/Box';
-import Graphic from 'q3-ui-assets';
 import { browser } from 'q3-ui-helpers';
-import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
 import withSorting from './withSorting';
-
-const PageChildren = ({
-  children,
-  id,
-  hasEntered,
-  fetching,
-  fetchingError,
-  loadingComponent,
-}) => {
-  if (!hasEntered || fetching)
-    return loadingComponent || <Loading id={id} />;
-
-  if (fetchingError)
-    return (
-      <Box m={4}>
-        <Graphic title="error" icon="Error" />
-      </Box>
-    );
-
-  return children;
-};
-
-PageChildren.propTypes = {
-  children: PropTypes.node.isRequired,
-  id: PropTypes.string,
-  hasEntered: PropTypes.bool.isRequired,
-  fetching: PropTypes.bool,
-  fetchingError: PropTypes.bool,
-  loadingComponent: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.object,
-  ]),
-};
-
-PageChildren.defaultProps = {
-  id: undefined,
-  loadingComponent: null,
-  fetchingError: false,
-  fetching: true,
-};
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -76,7 +33,6 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
-  loadingComponent,
 }) => {
   const {
     id,
@@ -95,8 +51,6 @@ const Page = ({
     location,
     url,
   });
-
-  const { fetching, fetchingError } = state;
 
   const data = useDataStore({
     resourceNameSingular,
@@ -135,6 +89,8 @@ const Page = ({
             'total',
             'hasNextPage',
             'hasPrevPage',
+            'fetching',
+            'fetchingError',
           ]),
         }}
       >
