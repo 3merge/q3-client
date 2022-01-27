@@ -1,59 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  AppBar,
-  Box,
-  Divider,
-  Toolbar,
-} from '@material-ui/core';
-import Back from '../back';
-import Notes from '../notes';
+import { Box, Container, Grid } from '@material-ui/core';
 import Article from '../../components/Article';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
-import Upload from '../upload';
 import { mapToNestedRoute } from './helpers';
-import ActivityLog from '../activityLog';
-import Trash from '../trash';
-import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
-import DetailHeader from '../DetailHeader';
-import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
-import ActionBar from '../../components/ActionBar';
 import DetailNavigation from '../DetailNavigation';
 import { useAppContext } from '../../hooks';
 import { Store } from '../state';
+import DetailAppbar from '../DetailAppbar';
+import DetailOptions from '../DetailOptions';
+import useStyle from './styles';
 
 const Detail = ({
   HeaderProps,
-  history,
   children,
   picture,
   views,
   ...rest
-}) => (
-  <Article>
-    <AppBar color="inherit" position="static">
-      <Toolbar>
-        <Box>
-          <Back />
-          Bread, Actions.
-        </Box>
-        <ActionBar>
-          <DetailActions {...rest} />
-        </ActionBar>
-      </Toolbar>
-      <Toolbar>
-        <DetailFeaturedPhoto />
-      </Toolbar>
-      <DetailHeader {...HeaderProps} />
-      <Divider />
-      <DetailNavigation views={views} />
-    </AppBar>
-    <Box p={2}>
-      <DetailViews views={views} />
-    </Box>
-  </Article>
-);
+}) => {
+  const cls = useStyle();
+  const Summary = React.useMemo(
+    () => <DetailOptions {...rest} />,
+    [],
+  );
+
+  return (
+    <Article>
+      <DetailAppbar
+        summary={Summary}
+        {...HeaderProps}
+        {...rest}
+      >
+        <DetailNavigation views={views} />
+      </DetailAppbar>
+      <Box my={2}>
+        <Container maxWidth="xl">
+          <Grid className={cls.grid} container spacing={1}>
+            <Grid item className={cls.aside}>
+              {Summary}
+            </Grid>
+            <Grid item xs>
+              <DetailViews views={views} />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </Article>
+  );
+};
 
 Detail.propTypes = {
   children: PropTypes.oneOfType([

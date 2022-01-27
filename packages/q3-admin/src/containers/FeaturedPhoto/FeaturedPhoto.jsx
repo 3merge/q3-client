@@ -18,6 +18,10 @@ const FeaturedPhoto = ({
         [FEATURED_UPLOAD_KEY]: null,
       })
     }
+    style={{
+      height: 75,
+      width: 75,
+    }}
   />
 );
 

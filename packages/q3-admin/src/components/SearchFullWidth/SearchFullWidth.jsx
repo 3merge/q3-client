@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: 4,
     boxSizing: 'border-box',
     padding: `0 ${theme.spacing(1)}`,
-    width: 475,
+    width: 425,
     maxWidth: '40vw',
     transition: 'box-shadow 250ms',
     backgroundColor: theme.palette.background.muted,

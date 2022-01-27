@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
+import { isObject, size } from 'lodash';
 import Dialog from 'q3-ui-dialog';
 import { Box } from '@material-ui/core';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from 'q3-ui-permissions';
-import { Avatar } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Notes from '../notes';
 import Upload from '../upload';
 import Trash from '../trash';
 import ActivityLog from '../activityLog';
-import { useAppContext } from '../../hooks';
+import {
+  useAppContext,
+  useDetailRegisterFunction,
+} from '../../hooks';
+import DropdownMenu from '../../components/DropdownMenu';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import { Definitions } from '../state';
 import Search from '../../components/Search';
@@ -52,7 +56,12 @@ export const DetailActionsWrapper = (props) => (
   <Box alignItems="center" display="flex" {...props} />
 );
 
-const DetailActions = ({ audit, notes, files }) => {
+const DetailActions = ({
+  audit,
+  notes,
+  files,
+  registerActions,
+}) => {
   const { collectionName } = React.useContext(Definitions);
 
   const lhr = (condition, result) =>
@@ -93,6 +102,9 @@ const DetailActions = ({ audit, notes, files }) => {
     trash: lhr(canDelete, <Trash />),
   });
 
+  const actions =
+    useDetailRegisterFunction(registerActions);
+
   return (
     <Box alignItems="center" display="flex">
       {can('search')}
@@ -100,6 +112,17 @@ const DetailActions = ({ audit, notes, files }) => {
       {can('files')}
       {can('audit')}
       {can('trash')}
+
+      <DropdownMenu items={actions}>
+        {(onClick) => (
+          <ButtonWithIcon
+            icon={MoreVertIcon}
+            label="actions"
+            onClick={onClick}
+            disabled={!size(actions)}
+          />
+        )}
+      </DropdownMenu>
     </Box>
   );
 };
@@ -108,6 +131,7 @@ DetailActions.defaultProps = {
   audit: null,
   files: false,
   notes: false,
+  registerActions: null,
 };
 
 DetailActions.propTypes = {
@@ -115,6 +139,7 @@ DetailActions.propTypes = {
   audit: PropTypes.object,
   files: PropTypes.bool,
   notes: PropTypes.bool,
+  registerActions: PropTypes.func,
 };
 
 export default React.memo(DetailActions);

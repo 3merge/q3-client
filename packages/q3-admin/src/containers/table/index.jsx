@@ -130,10 +130,7 @@ const List = (props) => {
         data={decorator.makeLinks(rootPath)}
         id={collectionName}
         onSort={updateSortPrefence}
-        style={{
-          height: 850,
-          maxHeight: '80vh',
-        }}
+        disableExportsProvider
       >
         <Box py={0.5}>
           <FilterChip />

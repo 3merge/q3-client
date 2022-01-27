@@ -109,7 +109,7 @@ const ColoredAvatar = ({
         superscript={superscript}
         className={cls.badge}
       >
-        <Avatar {...getAvatarProps()}>
+        <Avatar {...getAvatarProps()} variant="rounded">
           {getChildren()}
         </Avatar>
       </WithBadge>

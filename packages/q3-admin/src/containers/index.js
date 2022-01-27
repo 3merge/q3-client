@@ -1,5 +1,4 @@
 export { default as Add } from './add';
-export { default as AddWrapper } from './AddWrapper';
 export { default as Detail } from './detail';
 export { default as Filters } from './filters';
 export { default as Gatekeeper } from './gatekeeper';

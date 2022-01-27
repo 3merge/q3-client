@@ -12,19 +12,22 @@ const Segments = () => {
     React.useContext(Definitions).collectionName,
   );
 
-  return (
-    <HideByField op="Create" path="filters">
-      <DropdownMenu items={items}>
-        {(onClick) => (
-          <ButtonWithIcon
-            icon={AccountTreeIcon}
-            label="segmentsSettings"
-            onClick={onClick}
-          />
-        )}
-      </DropdownMenu>
-    </HideByField>
+  return React.useMemo(
+    () => (
+      <HideByField op="Create" path="filters">
+        <DropdownMenu items={items}>
+          {(onClick) => (
+            <ButtonWithIcon
+              icon={AccountTreeIcon}
+              label="segmentsSettings"
+              onClick={onClick}
+            />
+          )}
+        </DropdownMenu>
+      </HideByField>
+    ),
+    [items],
   );
 };
 
-export default Segments;
+export default React.memo(Segments);

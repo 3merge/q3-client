@@ -22,12 +22,15 @@ import Pagination from './Pagination';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
 
-const filterByPossibleKeys = (payload, blacklist = []) => (
-  a = [],
-) =>
-  array.hasLength(blacklist) && array.hasLength(a)
-    ? a.filter((v) => !blacklist.includes(v))
-    : a;
+const ExportsStandIn = (props) =>
+  React.createElement(React.Fragment, props);
+
+const filterByPossibleKeys =
+  (payload, blacklist = []) =>
+  (a = []) =>
+    array.hasLength(blacklist) && array.hasLength(a)
+      ? a.filter((v) => !blacklist.includes(v))
+      : a;
 
 const TableView = ({
   allColumns,
@@ -37,6 +40,7 @@ const TableView = ({
   disableColumnReorder,
   disableMultiselect,
   disableAvatar,
+  disableExportsProvider,
   id,
   aliasForName,
   total,
@@ -60,15 +64,10 @@ const TableView = ({
     filterer(allColumns),
   );
 
-  const {
-    root,
-    flexRow,
-    grids,
-    cellWidth,
-    tableBody,
-  } = useStyles({
-    columns,
-  });
+  const { root, flexRow, grids, cellWidth, tableBody } =
+    useStyles({
+      columns,
+    });
 
   const processed = data.map((row) =>
     pick(
@@ -102,8 +101,12 @@ const TableView = ({
       : el;
   };
 
+  const ExportsProvider = disableExportsProvider
+    ? ExportsStandIn
+    : Exports;
+
   return (
-    <Exports>
+    <ExportsProvider>
       <Paper
         elevation={0}
         className={classNames(grids, className)}
@@ -197,7 +200,7 @@ const TableView = ({
         </Box>
       </Paper>
       <Actionbar data={data} />
-    </Exports>
+    </ExportsProvider>
   );
 };
 
@@ -213,6 +216,7 @@ TableView.propTypes = {
       id: PropTypes.string,
     }),
   ).isRequired,
+  disableExportsProvider: PropTypes.bool,
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
   disableAvatar: PropTypes.bool,
   disableColumnReorder: PropTypes.bool,
@@ -242,6 +246,7 @@ TableView.defaultProps = {
   style: {},
   total: 0,
   virtuals: [],
+  disableExportsProvider: false,
 };
 
 export default withEmpty(TableView);

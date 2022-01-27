@@ -14,24 +14,24 @@ const TableBulkDelete = () => {
   const len = size(checked);
 
   return React.useMemo(
-    () =>
-      len ? (
-        <AuthDelete>
-          <Confirm
-            phrase="DELETE"
-            title="deleteMany"
-            service={removeBulk(checked)}
-            ButtonComponent={(props) => (
-              <ButtonWithIcon
-                {...props}
-                label="deleteMany"
-                icon={DeleteSweepIcon}
-                count={len}
-              />
-            )}
-          />
-        </AuthDelete>
-      ) : null,
+    () => (
+      <AuthDelete>
+        <Confirm
+          phrase="DELETE"
+          title="deleteMany"
+          service={removeBulk(checked)}
+          ButtonComponent={(props) => (
+            <ButtonWithIcon
+              {...props}
+              disabled={!len}
+              label="deleteMany"
+              icon={DeleteSweepIcon}
+              count={len}
+            />
+          )}
+        />
+      </AuthDelete>
+    ),
     [len],
   );
 };

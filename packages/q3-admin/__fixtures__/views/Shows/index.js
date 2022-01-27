@@ -49,6 +49,7 @@ export default new AbstractCollectionBuilder({
   .genFilter(Filters)
   .genViews({
     General,
+    General2: General,
   })
   .genList({
     customRowActionsAnchor: 'start',
@@ -76,6 +77,14 @@ export default new AbstractCollectionBuilder({
     audit: {
       foo: 'foo,bar,quuz',
     },
+    registerActions: () => [
+      {
+        label: 'custom action',
+        onClick() {
+          alert('Action clicked');
+        },
+      },
+    ],
     registerOptions: () => [
       {
         id: 'id123',
