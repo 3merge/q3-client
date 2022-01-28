@@ -5,25 +5,22 @@ const mockState = {
   bar: 2,
 };
 
-describe('Admin>useTitle', () => {
-  it('should return the resourceName value by default', () =>
-    expect(
-      useTitle(
-        {},
-        {
-          resourceName: 'foo',
-        },
-      ),
-    ).toHaveProperty('title', 'foo'));
-
+describe('useTitle', () => {
   it('should return state values', () => {
     const v = useTitle(mockState, {
       titleProp: 'foo',
-      subtitleProp: 'bar',
     });
 
-    expect(v).toHaveProperty('title', '1');
-    expect(v).toHaveProperty('subtitle', '2');
+    expect(v).toEqual('1');
+  });
+
+  it('should add parentheses', () => {
+    const v = useTitle(mockState, {
+      titleProp: 'foo',
+      parenthesesProp: 'bar',
+    });
+
+    expect(v).toEqual('1 (2)');
   });
 
   it('should override props', () => {

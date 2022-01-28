@@ -36,3 +36,9 @@ export const wait = (interval = 0) =>
   new Promise((resolve) => {
     setTimeout(() => resolve(), interval);
   });
+
+export const exists = (el) =>
+  expect(el.exists()).toBeTruthy();
+
+export const doesNotExist = (el) =>
+  expect(el.exists()).toBeFalsy();

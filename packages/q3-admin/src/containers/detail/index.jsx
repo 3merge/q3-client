@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Container, Grid } from '@material-ui/core';
-import Article from '../../components/Article';
-import ViewNotAllowed from '../../components/ViewNotAllowed';
-import { mapToNestedRoute } from './helpers';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
-import { useAppContext } from '../../hooks';
-import { Store } from '../state';
 import DetailAppbar from '../DetailAppbar';
 import DetailOptions from '../DetailOptions';
-import useStyle from './styles';
+import Article from '../../components/Article';
+import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
+import useStyle from './styles';
 
 const Detail = ({
   HeaderProps,
@@ -52,15 +49,23 @@ const Detail = ({
 };
 
 Detail.propTypes = {
+  HeaderProps: PropTypes.shape({
+    parenthesesProp: PropTypes.string,
+    titleProp: PropTypes.string,
+    titleRenderer: PropTypes.func,
+  }).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
   ]),
-
-  /**
-   * Will auto-append featured image.
-   */
   picture: PropTypes.bool,
+  views: PropTypes.arrayOf(
+    PropTypes.shape({
+      href: PropTypes.string,
+      label: PropTypes.string,
+      disabled: PropTypes.bool,
+    }),
+  ).isRequired,
 };
 
 Detail.defaultProps = {
@@ -68,26 +73,4 @@ Detail.defaultProps = {
   children: null,
 };
 
-const withDynamicViews =
-  (Component) =>
-  ({ children, ...props }) => {
-    const { check } = useAppContext();
-    const { data } = React.useContext(Store);
-
-    const views = mapToNestedRoute(children).filter((el) =>
-      check(el.label, el, data),
-    );
-
-    return React.useMemo(
-      () =>
-        views.findIndex((view) => view.to === '/') ===
-        -1 ? (
-          <ViewNotAllowed />
-        ) : (
-          <Component views={views} {...props} />
-        ),
-      [JSON.stringify(views)],
-    );
-  };
-
-export default withPageLoading(withDynamicViews(Detail));
+export default withPageLoading(withDetailViews(Detail));

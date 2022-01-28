@@ -11,22 +11,23 @@ import {
 } from 'lodash';
 import { makePath } from '../components/app';
 
-const assignSegments = (xs) =>
-  compact(
-    flatten(
-      map(xs, (page) => {
-        if (!page?.index) return null;
-        return page;
-      }),
-    ),
-  );
-
 export default (pages = []) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('labels');
   const { state } = React.useContext(AuthContext);
+
+  const assignSegments = (xs) =>
+    compact(
+      flatten(
+        map(xs, (page) => {
+          if (!page?.index) return null;
+          return page;
+        }),
+      ),
+    );
 
   const makePage = (page) => ({
     ...page,
+    label: t(page.resourceName),
     segments: merge(
       {},
       page.segments,
@@ -34,9 +35,8 @@ export default (pages = []) => {
     ),
     to: makePath(page),
     visible: page.collectionName
-      ? useAuth(page.collectionName).inClient
+      ? useAuth(page.collectionName)?.inClient
       : true,
-    label: t(`labels:${page.resourceName}`),
   });
 
   return groupBy(

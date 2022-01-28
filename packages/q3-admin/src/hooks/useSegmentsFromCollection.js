@@ -1,16 +1,8 @@
+/* eslint-disable no-alert */
 import { get, filter, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import useSegments from './useSegments';
 import useSegmentsFromProfile from './useSegmentsFromProfile';
-
-const mapActive = (segmentContext, callback) =>
-  map(
-    filter(
-      get(segmentContext, 'active'),
-      (v) => v !== 'All',
-    ),
-    callback,
-  ).flat();
 
 const useSegmentsFromCollection = (collectionName) => {
   const { t } = useTranslation('labels');
@@ -21,37 +13,50 @@ const useSegmentsFromCollection = (collectionName) => {
     set,
   } = useSegmentsFromProfile(collectionName);
 
+  const profileSegmentsWithActiveStats =
+    useSegments(profileSegments);
+
+  const mapActive = (segmentContext, callback) =>
+    map(
+      filter(
+        get(segmentContext, 'active'),
+        (v) => v !== 'All',
+      ),
+      callback,
+    ).flat();
+
   return [
     {
       label: 'addSegment',
       onClick() {
-        // eslint-disable-next-line
         set(prompt('nameSegment'));
       },
     },
   ].concat(
-    mapActive(useSegments(profileSegments), (s) => {
-      const curryFunction = (fn) => () => fn(s);
+    mapActive(profileSegmentsWithActiveStats, (name) => {
+      const curryFunction = (fn) => () => fn(name);
 
       return [
         {
-          label: `${t('rename')} "${s}"`,
+          label: t('renameSegment', {
+            name,
+          }),
           onClick() {
-            // eslint-disable-next-line
-            rename(prompt(t('renameSegment')), s);
+            rename(prompt(t('renameSegment')), name);
           },
         },
         {
           label: t('replaceSegment', {
-            name: s,
+            name,
           }),
           onClick: curryFunction(set),
         },
         {
-          label: `${t('remove')} "${s}"`,
+          label: t('removeSegment', {
+            name,
+          }),
           onClick: curryFunction(remove),
         },
-        {},
       ];
     }),
   );

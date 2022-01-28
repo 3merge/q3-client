@@ -10,33 +10,29 @@ export default (collectionName) => {
   const filters = get(state, 'profile.filters', {});
 
   const data = omit(get(filters, collectionName, {}), [
+    // no longer need support for "favourited" segments
     'default',
   ]);
 
-  const replaceProfileFilters = (replacementData, done) =>
-    update(
-      {
-        filters: {
-          ...filters,
-          [collectionName]: replacementData,
-        },
+  const replaceProfileFilters = (replacementData) =>
+    update({
+      filters: {
+        ...filters,
+        [collectionName]: replacementData,
       },
-      done,
-    );
+    });
 
   return {
-    // operates as add and replace
     set: (name) =>
       replaceProfileFilters({
         ...data,
         [name]: search,
       }),
 
-    // operates as add and replace
     rename: (name, prevName) =>
       replaceProfileFilters({
         ...omit(data, [prevName]),
-        [name]: search,
+        [name]: data[prevName],
       }),
 
     remove: (name) =>
@@ -48,7 +44,5 @@ export default (collectionName) => {
       ...item,
       fromProfile: true,
     })),
-
-    asObject: data,
   };
 };
