@@ -10,12 +10,15 @@ import CloudUpload from '@material-ui/icons/CloudUpload';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { State } from 'q3-ui-exports';
 import { withLocation } from 'with-location';
+import { Store } from '../state';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import FileUpload from '../../components/FileUpload';
 import ActionList from '../../components/ActionList';
 import useIo from '../../hooks/useIo';
 
-const TableIo = ({ io, data, params }) => {
+const TableIo = ({ io, params }) => {
+  const { data } = React.useContext(Store);
+
   const exportState = React.useContext(State);
   const checked = get(exportState, 'checked', []);
 

@@ -17,24 +17,25 @@ export const Collection = ({
   location,
   segments,
   options,
-  ...rest
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
+  const definitionsState = React.useMemo(
+    () => ({
+      id,
+      collectionName,
+      resourceNameSingular,
+      resourceName,
+      rootPath,
+      directoryPath,
+      location,
+      segments,
+    }),
+    [location],
+  );
 
   return (
-    <Definitions.Provider
-      value={{
-        id,
-        collectionName,
-        resourceNameSingular,
-        resourceName,
-        rootPath,
-        directoryPath,
-        location,
-        segments,
-      }}
-    >
+    <Definitions.Provider value={definitionsState}>
       <CollectionConfig options={options}>
         {children}
       </CollectionConfig>

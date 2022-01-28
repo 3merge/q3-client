@@ -6,7 +6,11 @@ import { Definitions } from '../state';
 const AuthDelete = ({ children }) => {
   const { collectionName } = React.useContext(Definitions);
   const { Hide } = useAuth(collectionName);
-  return <Hide op="Delete">{children}</Hide>;
+
+  return React.useMemo(
+    () => <Hide op="Delete">{children}</Hide>,
+    [],
+  );
 };
 
 AuthDelete.defaultProps = { children: null };

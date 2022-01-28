@@ -42,8 +42,6 @@ export default class SchemaToFieldBuilder {
     return (
       {
         Date: [
-          EQUALS,
-          NOT_EQUALS,
           GREATER_THAN_OR_EQUALS,
           LESS_THAN_OR_EQUALS,
           BETWEEN,
@@ -271,16 +269,6 @@ export default class SchemaToFieldBuilder {
                     defs.type,
                   ),
                   type: 'select',
-                },
-                {
-                  options: [],
-                  type: 'date',
-                  ...genConditionalStatement(EQUALS),
-                },
-                {
-                  options: [],
-                  type: 'date',
-                  ...genConditionalStatement(NOT_EQUALS),
                 },
                 {
                   options: [],

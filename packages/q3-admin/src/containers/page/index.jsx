@@ -7,7 +7,7 @@ import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
-import withSorting from './withSorting';
+import useSortPreference from '../../hooks/useSortPreference';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -34,6 +34,7 @@ const Page = ({
   onExit,
   onInit,
   runOnInit,
+  defaultSortPreference,
 }) => {
   const {
     id,
@@ -43,13 +44,19 @@ const Page = ({
     location,
   } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
+  const clonedLocation = useSortPreference(
+    location,
+    collectionName,
+    defaultSortPreference,
+  );
 
   const state = useRest({
     key: resourceNameSingular,
+    // leave detail pages alone
+    location: id ? location : clonedLocation,
     pluralized: resourceName,
     select,
     runOnInit,
-    location,
     url,
   });
 
@@ -65,12 +72,23 @@ const Page = ({
     { ...state, url },
   );
 
+  const storeState = React.useMemo(
+    () => ({
+      data,
+      ...pick(state, [
+        'total',
+        'hasNextPage',
+        'hasPrevPage',
+        'fetching',
+        'fetchingError',
+      ]),
+    }),
+    [state],
+  );
+
   usePrevLocation(id, location);
 
-  if (!hasEntered) return null;
-  // I'll come back to this.
-
-  return (
+  return hasEntered ? (
     <Dispatcher.Provider
       value={pick(state, [
         'get',
@@ -83,18 +101,7 @@ const Page = ({
         'replace',
       ])}
     >
-      <Store.Provider
-        value={{
-          data,
-          ...pick(state, [
-            'total',
-            'hasNextPage',
-            'hasPrevPage',
-            'fetching',
-            'fetchingError',
-          ]),
-        }}
-      >
+      <Store.Provider value={storeState}>
         {executeOnChildren(children, {
           ...state,
           id,
@@ -102,7 +109,7 @@ const Page = ({
         })}
       </Store.Provider>
     </Dispatcher.Provider>
-  );
+  ) : null;
 };
 
 Page.propTypes = {
@@ -135,6 +142,7 @@ Page.propTypes = {
    */
   select: PropTypes.string,
   runOnInit: PropTypes.bool,
+  defaultSortPreference: PropTypes.string,
 };
 
 Page.defaultProps = {
@@ -143,6 +151,7 @@ Page.defaultProps = {
   onInit: null,
   select: null,
   runOnInit: true,
+  defaultSortPreference: '-updatedAt',
 };
 
-export default withSorting(Page);
+export default Page;

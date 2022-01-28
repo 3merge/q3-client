@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'q3-ui-dialog';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import { Fade } from '@material-ui/core';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
-import { Store } from '../state';
 import { useAppContext } from '../../hooks';
 import ActionBar from '../../components/ActionBar';
 import Search from '../../components/Search';
@@ -17,20 +14,17 @@ const TableActions = ({
   filterComponent: FilterComponent,
   io,
 }) => {
-  const { data } = React.useContext(Store);
-
   const ac = useAppContext({
-    io: <TableIo data={data} io={io} />,
-    bulkDelete: <TableBulkDelete />,
     add: AddForm ? (
       <Add>
         <AddForm />
       </Add>
     ) : null,
+    bulkDelete: <TableBulkDelete />,
     filter: FilterComponent ? <FilterComponent /> : null,
+    io: <TableIo io={io} />,
   });
 
-  // float bottom on mobile.
   return (
     <Fade in>
       <ActionBar>
@@ -60,4 +54,4 @@ TableActions.propTypes = {
   filterComponent: PropTypes.element,
 };
 
-export default TableActions;
+export default React.memo(TableActions);
