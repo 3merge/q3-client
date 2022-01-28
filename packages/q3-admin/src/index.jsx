@@ -1,4 +1,6 @@
 import React from 'react';
+import EmailEditor from 'q3-ui-emaileditor';
+import QueueLogs from 'q3-ui-queuelogs';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get } from 'lodash';
@@ -32,18 +34,18 @@ const Admin = ({
   ProfileComponent,
 }) => {
   const pages = React.useRef(AppProps.pages);
+  // these should not inherit addons
+  const menuItems = usePages(pages.current);
   const cls = useStyle();
 
   useServerSideEvents();
 
   Object.assign(AppProps, {
-    pages: mergeAddonsWithPages(
-      pages.current,
-      AppProps.addons,
-    ),
+    pages: mergeAddonsWithPages(pages.current, [
+      EmailEditor,
+      QueueLogs,
+    ]),
   });
-
-  const menuItems = usePages(AppProps.pages);
 
   return (
     <Viewport>
@@ -75,12 +77,6 @@ const Admin = ({
 
 Admin.propTypes = {
   AppProps: PropTypes.shape({
-    addons: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.func,
-      ]),
-    ),
     directory: PropTypes.string,
     pages: PropTypes.arrayOf(
       PropTypes.oneOfType([

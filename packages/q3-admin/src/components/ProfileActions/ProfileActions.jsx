@@ -3,11 +3,13 @@ import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import Notifications from '../../containers/Notifications';
 import Documentation from '../Documentation';
+import DeveloperTools from '../DeveloperTools';
 import ProfileActionsDropdown from '../ProfileActionsDropdown';
 import ThemeMode from '../ThemeMode';
 
 const ProfileActions = ({
   DocumentationProps,
+  includeDeveloperTools,
   includeDocumentation,
   includeNotifications,
   includeThemeMode,
@@ -24,12 +26,14 @@ const ProfileActions = ({
       <Documentation {...DocumentationProps} />
     )}
     {includeThemeMode && <ThemeMode />}
+    {includeDeveloperTools && <DeveloperTools />}
     {includeActionsDropdown && <ProfileActionsDropdown />}
   </Box>
 );
 
 ProfileActions.defaultProps = {
   DocumentationProps: {},
+  includeDeveloperTools: true,
   includeDocumentation: true,
   includeNotifications: true,
   includeThemeMode: true,
@@ -40,6 +44,7 @@ ProfileActions.propTypes = {
   DocumentationProps: PropTypes.shape({
     id: PropTypes.number,
   }),
+  includeDeveloperTools: PropTypes.bool,
   includeDocumentation: PropTypes.bool,
   includeNotifications: PropTypes.bool,
   includeThemeMode: PropTypes.bool,

@@ -16,7 +16,11 @@ const genPermission = (rest) => ({
 });
 
 const setupProfilePermissions = (coll) => [
-  genPermission({ op: 'Read', coll, inClient: true }),
+  genPermission({
+    op: 'Read',
+    coll,
+    inClient: true,
+  }),
   genPermission({ op: 'Update', coll }),
   genPermission({ op: 'Create', coll }),
   genPermission({ op: 'Delete', coll }),
@@ -29,6 +33,7 @@ const StoriesApiMockAuthentication = ({ children }) => {
   const shows = setupProfilePermissions('shows');
   const emails = setupProfilePermissions('emails');
   const audit = setupProfilePermissions('audit');
+  const tools = setupProfilePermissions('developer-tools');
 
   return (
     <AuthContext.Provider
@@ -36,7 +41,10 @@ const StoriesApiMockAuthentication = ({ children }) => {
         update: (data, done) => {
           setFilters(data.filters);
           return axios
-            .post('/profile', data)
+            .post('/profile', {
+              ...session,
+              ...data,
+            })
             .then((r) => {
               setSession(r.data.profile);
             })
@@ -50,6 +58,7 @@ const StoriesApiMockAuthentication = ({ children }) => {
             ...shows,
             ...emails,
             ...audit,
+            ...tools,
             {
               op: 'Create',
               coll: 'profile',

@@ -29,7 +29,7 @@ const useSegmentsFromCollection = (collectionName) => {
     {
       label: 'addSegment',
       onClick() {
-        set(prompt('nameSegment'));
+        set(prompt(t('nameSegment')));
       },
     },
   ].concat(
@@ -42,7 +42,7 @@ const useSegmentsFromCollection = (collectionName) => {
             name,
           }),
           onClick() {
-            rename(prompt(t('renameSegment')), name);
+            rename(prompt(t('renameSegmentPrompt')), name);
           },
         },
         {

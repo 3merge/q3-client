@@ -20,7 +20,7 @@ const ButtonWithIcon = React.forwardRef(
       <Box display="inline">
         <Fade in>
           <Box ml={0.5}>
-            <Tooltip title={label}>
+            <Tooltip title={t(label)}>
               <Fab
                 {...rest}
                 size="small"

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { Box, Fade, AppBar } from '@material-ui/core';
+import { Fade } from '@material-ui/core';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import { Store } from '../state';
@@ -13,7 +13,6 @@ import Add from '../add';
 import Segments from '../../components/Segments';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 
-/** @NOTE eventually bulk editting */
 const TableActions = ({
   addComponent: AddForm,
   filterComponent: FilterComponent,

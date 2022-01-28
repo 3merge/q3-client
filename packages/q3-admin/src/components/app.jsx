@@ -15,12 +15,12 @@ export const makePath = ({
   home,
   index,
 }) => {
+  if (home) return '/';
   if (!resourceName)
     throw new Error(
       'Cannot build path without a "resourceName" value',
     );
 
-  if (home) return '/';
   if (index) return `${resourceName}`;
   if (id) return `${resourceName}/:id/*`;
 
