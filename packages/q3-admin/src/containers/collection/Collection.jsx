@@ -4,7 +4,6 @@ import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
 import CollectionConfig from '../CollectionConfig';
-import CollectionHeader from '../CollectionHeader';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -16,35 +15,28 @@ export const Collection = ({
   resourceNameSingular,
   id,
   location,
-  disableHeader,
   segments,
   options,
-  ...rest
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
+  const definitionsState = React.useMemo(
+    () => ({
+      id,
+      collectionName,
+      resourceNameSingular,
+      resourceName,
+      rootPath,
+      directoryPath,
+      location,
+      segments,
+    }),
+    [location],
+  );
 
   return (
-    <Definitions.Provider
-      value={{
-        id,
-        collectionName,
-        resourceNameSingular,
-        resourceName,
-        rootPath,
-        directoryPath,
-        location,
-        segments,
-      }}
-    >
+    <Definitions.Provider value={definitionsState}>
       <CollectionConfig options={options}>
-        {!disableHeader && (
-          <CollectionHeader
-            {...rest}
-            collectionName={collectionName}
-            id={id}
-          />
-        )}
         {children}
       </CollectionConfig>
     </Definitions.Provider>
@@ -52,8 +44,6 @@ export const Collection = ({
 };
 
 Collection.propTypes = {
-  disableHeader: PropTypes.bool,
-
   /**
    * The page internals.
    */
@@ -91,7 +81,6 @@ Collection.propTypes = {
 };
 
 Collection.defaultProps = {
-  disableHeader: false,
   id: null,
 };
 

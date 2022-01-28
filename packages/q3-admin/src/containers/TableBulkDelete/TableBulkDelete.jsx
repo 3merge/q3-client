@@ -6,37 +6,57 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import { Dispatcher } from '../state';
 import AuthDelete from '../AuthDelete';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
+import { useTrashFail } from '../trash/Trash';
 
-const TableBulkDelete = () => {
-  const { removeBulk } = React.useContext(Dispatcher);
+export const TableBulkDeleteButton = (props) => {
   const exportState = React.useContext(State);
   const checked = get(exportState, 'checked');
   const len = size(checked);
 
-  return React.useMemo(
-    () =>
-      len ? (
-        <AuthDelete>
-          <Confirm
-            phrase="DELETE"
-            title="deleteMany"
-            service={removeBulk(checked)}
-            ButtonComponent={(props) => (
-              <ButtonWithIcon
-                {...props}
-                label="deleteMany"
-                icon={DeleteSweepIcon}
-                count={len}
-              />
-            )}
-          />
-        </AuthDelete>
-      ) : null,
-    [len],
+  return (
+    <ButtonWithIcon
+      {...props}
+      disabled={!len}
+      label="deleteMany"
+      icon={DeleteSweepIcon}
+      count={len}
+    />
+  );
+};
+
+export const TableBulkDelete = () => {
+  const catchHandler = useTrashFail();
+  const { removeBulk } = React.useContext(Dispatcher);
+  const exportState = React.useContext(State);
+  const checked = get(exportState, 'checked');
+
+  const ButtonRenderer = React.useCallback(
+    (props) => <TableBulkDeleteButton {...props} />,
+    [],
+  );
+
+  const handleService = (args) =>
+    removeBulk(checked)(args)
+      .then(() => {
+        // noop
+      })
+      .catch(catchHandler);
+
+  return (
+    <Confirm
+      phrase="DELETE"
+      title="deleteMany"
+      service={handleService}
+      ButtonComponent={ButtonRenderer}
+    />
   );
 };
 
 TableBulkDelete.defaultProps = {};
 TableBulkDelete.propTypes = {};
 
-export default TableBulkDelete;
+export default () => (
+  <AuthDelete>
+    <TableBulkDelete />
+  </AuthDelete>
+);

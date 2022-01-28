@@ -8,11 +8,11 @@ export const Search = () => {
   const textFieldProps = useSearchInput();
 
   return (
-    <Box id="q3-searchbar" width="100%">
-      <Hidden smDown>
+    <Box id="q3-searchbar">
+      <Hidden mdDown>
         <SearchFullWidth {...textFieldProps} />
       </Hidden>
-      <Hidden mdUp>
+      <Hidden lgUp>
         <SearchMobile {...textFieldProps} />
       </Hidden>
     </Box>

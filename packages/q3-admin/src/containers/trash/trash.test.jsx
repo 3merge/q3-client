@@ -1,99 +1,55 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { navigate } from '@reach/router';
-import Alert from '@material-ui/lab/Alert';
 import Confirm from 'q3-ui-confirm';
-import { Trash } from '.';
+import { invoke } from 'lodash';
+import Trash from './Trash';
 
-jest.useFakeTimers();
-jest.mock('../state');
+const makeThennable = (method) =>
+  jest.fn().mockReturnValue(invoke(jest.fn(), method));
 
 jest.mock('q3-ui-confirm', () => () => <div />);
-jest.mock('@reach/router', () => ({
-  navigate: jest.fn(),
-}));
+jest.mock('@reach/router', () => {
+  const fn = jest.fn();
 
-const makeThenable = () => {
-  const promise = {};
-
-  const thenable = (fn) => {
-    fn();
-    return promise;
+  return {
+    useNavigate: () => fn,
+    navigate: fn,
   };
-
-  return [promise, thenable];
-};
+});
 
 beforeEach(() => {
   navigate.mockReset();
 });
 
 describe('Trash', () => {
-  const renderAndClick = async (onDelete) => {
-    const el = global.mount(
-      <Trash
-        onDelete={onDelete}
-        directoryPath="/app/foo"
-        collectionName="foo"
-      />,
-    );
-
-    await act(async () => {
-      el.find(Confirm).props().service();
+  it('should redirect', (done) => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      remove: makeThennable('mockResolvedValue'),
     });
 
-    el.update();
-  };
-
-  it('should redirect on resolve', async () => {
-    const onClick = jest.fn().mockImplementation(() => {
-      const [promise, thenable] = makeThenable();
-      promise.then = thenable;
-      promise.catch = thenable;
-      promise.finally = thenable;
-      return promise;
-    });
-
-    await renderAndClick(onClick);
-    jest.runAllTimers();
-
-    expect(onClick).toHaveBeenCalled();
-    return expect(navigate).toHaveBeenCalledWith(
-      '/app/foo',
-    );
+    global
+      .shallow(<Trash />)
+      .find(Confirm)
+      .prop('service')()
+      .then(() => {
+        expect(navigate).toHaveBeenCalled();
+        done();
+      });
   });
 
-  it('should do nothing on reject', async () => {
-    const onClick = jest.fn().mockImplementation(() => {
-      const [promise, thenable] = makeThenable();
-      promise.then = () => promise;
-      promise.catch = thenable;
-      promise.finally = thenable;
-      return promise;
+  it('should not redirect', (done) => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      remove: makeThennable('mockRejectedValue'),
     });
 
-    await renderAndClick(onClick);
-    jest.runAllTimers();
-
-    expect(onClick).toHaveBeenCalled();
-    return expect(navigate).not.toHaveBeenCalledWith(
-      '/app/foo',
-    );
-  });
-
-  it('should render alerts', () => {
-    jest
-      .spyOn(React, 'useState')
-      .mockImplementation(() => [true, jest.fn()]);
-
-    const el = global.shallow(
-      <Trash
-        onDelete={jest.fn()}
-        directoryPath="/app/foo"
-        collectionName="foo"
-      />,
-    );
-
-    expect(el.find(Alert)).toHaveLength(2);
+    global
+      .shallow(<Trash />)
+      .find(Confirm)
+      .prop('service')()
+      .catch((e) => {
+        expect(e.message).toMatch('trashFail');
+        expect(navigate).not.toHaveBeenCalled();
+        done();
+      });
   });
 });

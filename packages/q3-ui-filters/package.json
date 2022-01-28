@@ -1,0 +1,23 @@
+{
+  "name": "q3-ui-filters",
+  "version": "2.3.6",
+  "main": "lib/index.js",
+  "devDependencies": {
+    "q3-ui-test-utils": "^2.2.0"
+  },
+  "dependencies": {
+    "flat": "^5.0.2",
+    "lodash": "^4.17.20",
+    "prop-types": "^15.7.2",
+    "q3-ui-forms": "^2.3.6",
+    "q3-ui-helpers": "^2.2.0",
+    "q3-ui-locale": "^2.3.2",
+    "q3-ui-permissions": "^2.3.6",
+    "q3-ui-rest": "^2.3.6"
+  },
+  "peerDependencies": {
+    "@material-ui/core": "^4.12.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

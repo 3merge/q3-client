@@ -1,10 +1,11 @@
 import React from 'react';
+import EmailEditor from 'q3-ui-emaileditor';
+import QueueLogs from 'q3-ui-queuelogs';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
-import Navigation from './components/Navigation';
 import Profile from './containers/Profile';
 import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
@@ -17,6 +18,9 @@ import {
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
+import Logo from './components/Logo';
+import Navbar from './components/Navbar';
+import NavbarList from './components/NavbarList';
 
 export * from './containers';
 export * from './hooks';
@@ -30,27 +34,32 @@ const Admin = ({
   ProfileComponent,
 }) => {
   const pages = React.useRef(AppProps.pages);
+  // these should not inherit addons
+  const menuItems = usePages(pages.current);
   const cls = useStyle();
-  const root = get(AppProps, 'directory', '/');
 
   useServerSideEvents();
 
   Object.assign(AppProps, {
-    pages: mergeAddonsWithPages(
-      pages.current,
-      AppProps.addons,
-    ),
+    pages: mergeAddonsWithPages(pages.current, [
+      EmailEditor,
+      QueueLogs,
+    ]),
   });
 
   return (
     <Viewport>
-      <Navigation
-        {...NavProps}
-        menuItems={usePages(AppProps.pages)}
-        root={root}
+      <Navbar
+        footer={<ProfileActions {...ProfileActionsProps} />}
+        header={
+          <Logo
+            src={NavProps.logoSrc}
+            to={get(AppProps, 'directory', '/')}
+          />
+        }
       >
-        <ProfileActions {...ProfileActionsProps} />
-      </Navigation>
+        <NavbarList items={menuItems} />
+      </Navbar>
       <Box className={cls.main}>
         <App {...AppProps}>
           <ProfileComponent path={PROFILE_PATH} />
@@ -68,12 +77,6 @@ const Admin = ({
 
 Admin.propTypes = {
   AppProps: PropTypes.shape({
-    addons: PropTypes.arrayOf(
-      PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.func,
-      ]),
-    ),
     directory: PropTypes.string,
     pages: PropTypes.arrayOf(
       PropTypes.oneOfType([

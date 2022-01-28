@@ -15,14 +15,13 @@ describe('"handleSubmit"', () => {
     });
   });
 
-  it('should not call second param on error', (done) => {
+  it('should not call second param on error', () => {
     const callback = jest.fn();
-    handleSubmit(
+    return handleSubmit(
       jest.fn().mockRejectedValue(),
       callback,
-    )().then(() => {
+    )().catch(() => {
       expect(callback).not.toHaveBeenCalled();
-      done();
     });
   });
 });

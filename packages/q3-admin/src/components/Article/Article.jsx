@@ -7,11 +7,9 @@ import Fade from '@material-ui/core/Fade';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
-const Article = ({ asideComponent, children }) => {
+const Article = ({ children }) => {
   const globalStyle = useGlobalStyle();
-  const { view, articleWrapper, section } = useStyle({
-    hasAside: Boolean(asideComponent),
-  });
+  const { view, articleWrapper, section } = useStyle({});
 
   return (
     <Grid
@@ -22,7 +20,6 @@ const Article = ({ asideComponent, children }) => {
       component="article"
     >
       <Grid container className={articleWrapper}>
-        {asideComponent}
         <Grid
           xs
           zeroMinWidth
@@ -51,11 +48,8 @@ Article.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]).isRequired,
-  asideComponent: PropTypes.node,
 };
 
-Article.defaultProps = {
-  asideComponent: null,
-};
+Article.defaultProps = {};
 
 export default Article;

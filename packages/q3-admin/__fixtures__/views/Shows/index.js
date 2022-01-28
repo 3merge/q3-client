@@ -7,12 +7,12 @@ import Group from '@material-ui/icons/Group';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
-import useIo from '../../../src/hooks/useIo';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
-  // parent: 'entertainment',
+  icon: CreditCard,
+  parent: 'entertainment',
   segments: {
     'Date Range': '?demo<=2021-08-01&demo>=2021-01-01',
     'Testing 1':
@@ -49,9 +49,10 @@ export default new AbstractCollectionBuilder({
   .genFilter(Filters)
   .genViews({
     General,
+    General2: General,
   })
   .genList({
-    customRowActionsAnchor: 'start',
+    //  customRowActionsAnchor: 'start',
     defaultColumns: ['createdAt', 'updatedAt'],
     io: {
       exports: ['orders'],
@@ -76,6 +77,14 @@ export default new AbstractCollectionBuilder({
     audit: {
       foo: 'foo,bar,quuz',
     },
+    registerActions: () => [
+      {
+        label: 'custom action',
+        onClick() {
+          alert('Action clicked');
+        },
+      },
+    ],
     registerOptions: () => [
       {
         id: 'id123',

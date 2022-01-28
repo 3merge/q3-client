@@ -13,19 +13,16 @@ export const addToDirectoryPath = (dir, id) =>
 export const getIdByKey = (doc, pathname) =>
   get(doc, `${pathname}.id`, null);
 
-export const handleSuccess = (
-  directoryPath,
-  resourceNameSingular,
-  next,
-) => (res) => {
-  if (next) next(res);
-  addToDirectoryPath(
-    directoryPath,
-    getIdByKey(res, resourceNameSingular),
-  );
+export const handleSuccess =
+  (directoryPath, resourceNameSingular, next) => (res) => {
+    if (next) next(res);
+    addToDirectoryPath(
+      directoryPath,
+      getIdByKey(res, resourceNameSingular),
+    );
 
-  return res;
-};
+    return res;
+  };
 
 const Add = ({ children, onComplete }) => {
   const {
@@ -36,28 +33,32 @@ const Add = ({ children, onComplete }) => {
   const { post } = React.useContext(Dispatcher);
   const { Hide } = useAuth(collectionName);
 
-  return children ? (
-    <Hide op="Create">
-      <CreateDialog title={`${collectionName}New`}>
-        {(done) =>
-          React.cloneElement(children, {
-            isNew: true,
-            collectionName,
-            onSubmit: (...args) =>
-              post(...args)
-                .then(
-                  handleSuccess(
-                    directoryPath,
-                    resourceNameSingular,
-                    onComplete,
-                  ),
-                )
-                .then(done),
-          })
-        }
-      </CreateDialog>
-    </Hide>
-  ) : null;
+  return React.useMemo(
+    () =>
+      children && post ? (
+        <Hide op="Create">
+          <CreateDialog title={`${collectionName}New`}>
+            {(done) =>
+              React.cloneElement(children, {
+                isNew: true,
+                collectionName,
+                onSubmit: (...args) =>
+                  post(...args)
+                    .then(
+                      handleSuccess(
+                        directoryPath,
+                        resourceNameSingular,
+                        onComplete,
+                      ),
+                    )
+                    .then(done),
+              })
+            }
+          </CreateDialog>
+        </Hide>
+      ) : null,
+    [],
+  );
 };
 
 Add.propTypes = {

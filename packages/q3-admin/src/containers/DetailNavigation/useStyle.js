@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(() => ({
-  root: {},
+export default makeStyles((theme) => ({
+  root: {
+    borderTop: `1px solid ${theme.palette.background.default}`,
+  },
 }));

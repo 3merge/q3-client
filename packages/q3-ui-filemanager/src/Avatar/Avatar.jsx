@@ -24,6 +24,7 @@ const Avatar = (props) => {
             <MuiAvatar
               {...omit(props, ['customizer', 'onDelete'])}
               alt={t('imagePreview')}
+              variant="rounded"
             >
               <PhotoCameraIcon />
             </MuiAvatar>

@@ -9,7 +9,11 @@ export const AccountMenu = ({ src, items }) =>
     <DropdownMenu id="profile-dropdown" items={items}>
       {(toggle) => (
         <IconButton onClick={toggle} color="inherit">
-          <Avatar alt="profile picture" src={src} />
+          <Avatar
+            alt="profile picture"
+            src={src}
+            variant="rounded"
+          />
         </IconButton>
       )}
     </DropdownMenu>

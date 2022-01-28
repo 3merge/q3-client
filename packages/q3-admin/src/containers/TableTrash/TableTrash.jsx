@@ -4,16 +4,20 @@ import Confirm from 'q3-ui-confirm';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import { Dispatcher } from '../state';
 import AuthDelete from '../AuthDelete';
+import { useTrashFail } from '../trash/Trash';
 
 const TableTrash = ({ id }) => {
   const { remove } = React.useContext(Dispatcher);
+  const catchHandler = useTrashFail();
 
   return (
     <AuthDelete>
       <Confirm
         icon={DeleteForever}
-        phrase="TRASH"
-        service={remove(id)}
+        phrase="DELETE"
+        service={(args) =>
+          remove(id)(args).catch(catchHandler)
+        }
       />
     </AuthDelete>
   );

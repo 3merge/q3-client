@@ -5,10 +5,6 @@ import {
   useLoading,
   useTimezoneInterceptor,
 } from 'q3-ui-rest';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import TvIcon from '@material-ui/icons/Tv';
-import EmailEditor from 'q3-ui-emaileditor';
-import QueueLogs from 'q3-ui-queuelogs';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
@@ -31,7 +27,6 @@ const ExampleApp = ({ initialPath }) => {
           <Datasource>
             <Admin
               AppProps={{
-                addons: [EmailEditor, QueueLogs],
                 pages,
               }}
               NavProps={{
@@ -47,10 +42,6 @@ const ExampleApp = ({ initialPath }) => {
                     component: Foo,
                   },
                 ],
-              }}
-              icons={{
-                entertainment: BeachAccessIcon,
-                shows: TvIcon,
               }}
             />
           </Datasource>

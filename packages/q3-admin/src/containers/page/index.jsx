@@ -2,56 +2,12 @@ import React from 'react';
 import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import Box from '@material-ui/core/Box';
-import Graphic from 'q3-ui-assets';
 import { browser } from 'q3-ui-helpers';
-import Loading from '../../components/loading';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
-import withSorting from './withSorting';
-import withActiveFilter from './withActiveFilter';
-
-const PageChildren = ({
-  children,
-  id,
-  hasEntered,
-  fetching,
-  fetchingError,
-  loadingComponent,
-}) => {
-  if (!hasEntered || fetching)
-    return loadingComponent || <Loading id={id} />;
-
-  if (fetchingError)
-    return (
-      <Box m={4}>
-        <Graphic title="error" icon="Error" />
-      </Box>
-    );
-
-  return children;
-};
-
-PageChildren.propTypes = {
-  children: PropTypes.node.isRequired,
-  id: PropTypes.string,
-  hasEntered: PropTypes.bool.isRequired,
-  fetching: PropTypes.bool,
-  fetchingError: PropTypes.bool,
-  loadingComponent: PropTypes.oneOfType([
-    PropTypes.node,
-    PropTypes.object,
-  ]),
-};
-
-PageChildren.defaultProps = {
-  id: undefined,
-  loadingComponent: null,
-  fetchingError: false,
-  fetching: true,
-};
+import useSortPreference from '../../hooks/useSortPreference';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -77,7 +33,8 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
-  loadingComponent,
+  runOnInit,
+  defaultSortPreference,
 }) => {
   const {
     id,
@@ -87,17 +44,21 @@ const Page = ({
     location,
   } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
+  const clonedLocation = useSortPreference(
+    location,
+    collectionName,
+    defaultSortPreference,
+  );
 
   const state = useRest({
     key: resourceNameSingular,
+    // leave detail pages alone
+    location: id ? location : clonedLocation,
     pluralized: resourceName,
     select,
-    runOnInit: true,
-    location,
+    runOnInit,
     url,
   });
-
-  const { fetching, fetchingError } = state;
 
   const data = useDataStore({
     resourceNameSingular,
@@ -111,47 +72,44 @@ const Page = ({
     { ...state, url },
   );
 
+  const storeState = React.useMemo(
+    () => ({
+      data,
+      ...pick(state, [
+        'total',
+        'hasNextPage',
+        'hasPrevPage',
+        'fetching',
+        'fetchingError',
+      ]),
+    }),
+    [state],
+  );
+
   usePrevLocation(id, location);
 
-  return (
-    <PageChildren
-      hasEntered={hasEntered}
-      fetching={fetching}
-      fetchingError={fetchingError}
-      loadingComponent={loadingComponent}
-      id={id}
+  return hasEntered ? (
+    <Dispatcher.Provider
+      value={pick(state, [
+        'get',
+        'poll',
+        'remove',
+        'removeBulk',
+        'patch',
+        'put',
+        'post',
+        'replace',
+      ])}
     >
-      <Dispatcher.Provider
-        value={pick(state, [
-          'get',
-          'poll',
-          'remove',
-          'removeBulk',
-          'patch',
-          'put',
-          'post',
-          'replace',
-        ])}
-      >
-        <Store.Provider
-          value={{
-            data,
-            ...pick(state, [
-              'total',
-              'hasNextPage',
-              'hasPrevPage',
-            ]),
-          }}
-        >
-          {executeOnChildren(children, {
-            ...state,
-            id,
-            data,
-          })}
-        </Store.Provider>
-      </Dispatcher.Provider>
-    </PageChildren>
-  );
+      <Store.Provider value={storeState}>
+        {executeOnChildren(children, {
+          ...state,
+          id,
+          data,
+        })}
+      </Store.Provider>
+    </Dispatcher.Provider>
+  ) : null;
 };
 
 Page.propTypes = {
@@ -183,7 +141,8 @@ Page.propTypes = {
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
-  loadingComponent: PropTypes.node,
+  runOnInit: PropTypes.bool,
+  defaultSortPreference: PropTypes.string,
 };
 
 Page.defaultProps = {
@@ -191,7 +150,8 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
-  loadingComponent: null,
+  runOnInit: true,
+  defaultSortPreference: '-updatedAt',
 };
 
-export default withActiveFilter(withSorting(Page));
+export default Page;

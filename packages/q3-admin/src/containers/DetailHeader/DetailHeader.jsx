@@ -1,57 +1,35 @@
 import React from 'react';
-import { Avatar } from 'q3-ui-filemanager';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Header from '../../components/Header';
-import { useAppContext } from '../../hooks';
+import Typography from '@material-ui/core/Typography';
 import { useTitle } from '../../hooks';
-import { Dispatcher, Store } from '../state';
-import FeaturedPhoto from '../FeaturedPhoto';
+import { Store } from '../state';
 
-export const DetailHeaderBackComponent = (props) => {
+const DetailHeader = ({ children, ...props }) => {
   const { data } = React.useContext(Store);
-  const { patch } = React.useContext(Dispatcher);
-  const { can } = useAppContext(props);
-  const fn = patch();
 
-  return (
-    <>
-      {can('picture') ? (
-        <>
-          <FeaturedPhoto
-            component={Avatar}
-            src={data.photo}
-            update={fn}
-          />
-        </>
-      ) : (
-        // offset missing avatar
-        <div
-          style={{
-            display: 'inline-block',
-            height: 50,
-          }}
-        />
-      )}
-    </>
+  const Title = (
+    <Typography component="h1" variant="h5">
+      {useTitle(data, props)}
+    </Typography>
+  );
+
+  return children ? (
+    <Box>
+      {Title}
+      {children}
+    </Box>
+  ) : (
+    Title
   );
 };
 
-const DetailHeader = (props) => {
-  const { data } = React.useContext(Store);
-  // eslint-disable-next-line
-  if (props.disable) return null;
+DetailHeader.defaultProps = {
+  children: null,
+};
 
-  return (
-    <Box my={{ xl: 0.75, lg: 0.75 }}>
-      <Header
-        {...props}
-        {...useTitle(data, props)}
-        backComponent={
-          <DetailHeaderBackComponent {...props} />
-        }
-      />
-    </Box>
-  );
+DetailHeader.propTypes = {
+  children: PropTypes.element,
 };
 
 export default DetailHeader;

@@ -3,7 +3,6 @@ import useRest from 'q3-ui-rest';
 import { useTranslation } from 'q3-ui-locale';
 import { useAuth } from 'q3-ui-permissions';
 import { orderBy } from 'lodash';
-import SidePanelContent from '../../components/SidePanelContent';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
@@ -45,24 +44,22 @@ const Notes = () => {
   if (auth.canDeleteSub(key)) args.onDelete = remove;
 
   return (
-    <SidePanelContent title={t('thread')} gutters>
-      <DisplayNotes
-        loading={fetching}
-        error={fetchingError}
-        errorLabel={t('notesError')}
-      >
-        <AddNote
-          show={auth.canCreateSub(key)}
-          onSubmit={post}
-        />
+    <DisplayNotes
+      loading={fetching}
+      error={fetchingError}
+      errorLabel={t('notesError')}
+    >
+      <AddNote
+        show={auth.canCreateSub(key)}
+        onSubmit={post}
+      />
 
-        {orderBy(thread, ['createdAt'], ['desc']).map(
-          (v, idx) => (
-            <Note key={`${v.id}${idx}`} {...args} {...v} />
-          ),
-        )}
-      </DisplayNotes>
-    </SidePanelContent>
+      {orderBy(thread, ['createdAt'], ['desc']).map(
+        (v, idx) => (
+          <Note key={`${v.id}${idx}`} {...args} {...v} />
+        ),
+      )}
+    </DisplayNotes>
   );
 };
 

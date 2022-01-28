@@ -1,12 +1,14 @@
-export { default as useActiveFilter } from './useActiveFilter';
 export { default as useAppContext } from './useAppContext';
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
+export { default as useDetailRegisterFunction } from './useDetailRegisterFunction';
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';
 export { default as useTitle } from './useTitle';
 export { default as useRefresh } from './useRefresh';
 export { default as useSegments } from './useSegments';
+export { default as useSegmentsFromCollection } from './useSegmentsFromCollection';
+export { default as useSegmentsFromProfile } from './useSegmentsFromProfile';
 export { default as useServerSideEvents } from './useServerSideEvents';
 export { default as useUnsavedChanges } from './useUnsavedChanges';

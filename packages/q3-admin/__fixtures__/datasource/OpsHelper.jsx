@@ -22,9 +22,9 @@ export default class OpsHelper {
   }
 
   findById(id) {
-    return this.$__store.find((item) => {
-      return compareIds(item, id);
-    });
+    return this.$__store.find((item) =>
+      compareIds(item, id),
+    );
   }
 
   findByNestedId(url) {
@@ -32,15 +32,15 @@ export default class OpsHelper {
   }
 
   filterBy(id) {
-    return this.$__store.filter((item) => {
-      return compareIds(item, id);
-    });
+    return this.$__store.filter((item) =>
+      compareIds(item, id),
+    );
   }
 
   mapById(id, data) {
-    return this.$__store.map((item) => {
-      return compareIds(item, id) ? data : item;
-    });
+    return this.$__store.map((item) =>
+      compareIds(item, id) ? data : item,
+    );
   }
 
   onCreate(d) {

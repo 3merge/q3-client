@@ -1,5 +1,11 @@
 import React from 'react';
-import useActiveFilter from './useActiveFilter';
+import useSegmentsFromProfile from './useSegmentsFromProfile';
+
+jest.mock('@reach/router', () => ({
+  useLocation: jest.fn().mockReturnValue({
+    search: '?search=Test',
+  }),
+}));
 
 const update = jest.fn();
 const spy = jest
@@ -12,7 +18,6 @@ const spy = jest
       profile: {
         filters: {
           test: {
-            default: 'Quotes',
             Quotes: '?status=Quote',
           },
         },
@@ -27,75 +32,41 @@ beforeEach(() => {
 });
 
 describe('useSegmentsFromProfile', () => {
-  it('should update profile and replace default', () => {
-    const { modify } = useActiveFilter();
-    modify(
-      'All Quotes',
-      'Quotes',
-    )('?status=Quote&partial=false');
+  it('should add', () => {
+    const { set } = useSegmentsFromProfile('test');
+    set('Testing');
 
-    expect(update).toHaveBeenCalledWith(
-      {
-        filters: {
-          test: {
-            'All Quotes': '?status=Quote&partial=false',
-            default: 'All Quotes',
-          },
+    expect(update).toHaveBeenCalledWith({
+      filters: {
+        test: {
+          'Quotes': '?status=Quote',
+          'Testing': '?search=Test',
         },
       },
-      expect.any(Function),
-    );
-  });
-
-  it('should update profile and leave default as-is', () => {
-    const { modify } = useActiveFilter();
-    modify('Testing', 'Other')('?search=Foo');
-
-    expect(update).toHaveBeenCalledWith(
-      {
-        filters: {
-          test: {
-            'Quotes': '?status=Quote',
-            'Testing': '?search=Foo',
-            default: 'Quotes',
-          },
-        },
-      },
-      expect.any(Function),
-    );
-  });
-
-  it('should add as current search', () => {
-    const { add } = useActiveFilter('?search=Test');
-    add('Testing');
-
-    expect(update).toHaveBeenCalledWith(
-      {
-        filters: {
-          test: {
-            'Quotes': '?status=Quote',
-            'Testing': '?search=Test',
-            default: 'Quotes',
-          },
-        },
-      },
-      undefined,
-    );
+    });
   });
 
   it('should remove', () => {
-    const { remove } = useActiveFilter();
+    const { remove } = useSegmentsFromProfile('test');
     remove('Quotes');
 
-    expect(update).toHaveBeenCalledWith(
-      {
-        filters: {
-          test: {
-            default: 'Quotes',
-          },
+    expect(update).toHaveBeenCalledWith({
+      filters: {
+        test: {},
+      },
+    });
+  });
+
+  it('should rename', () => {
+    const { rename } = useSegmentsFromProfile('test');
+    rename('Quotes1', 'Quotes');
+
+    expect(update).toHaveBeenCalledWith({
+      filters: {
+        test: {
+          'Quotes1': '?status=Quote',
         },
       },
-      undefined,
-    );
+    });
   });
 });

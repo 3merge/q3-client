@@ -1,123 +1,76 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
-import Notes from '../notes';
-import Article from '../../components/Article';
-import ViewNotAllowed from '../../components/ViewNotAllowed';
-import Upload from '../upload';
-import { mapToNestedRoute } from './helpers';
-import ActivityLog from '../activityLog';
-import Trash from '../trash';
-import DetailSidePanel from '../DetailSidePanel';
-import DetailSidePanelContent from '../DetailSidePanelContent';
+import { Box, Container, Grid } from '@material-ui/core';
 import DetailViews from '../DetailViews';
-import DetailRelatedLinks from '../DetailRelatedLinks';
 import DetailNavigation from '../DetailNavigation';
-import { useAppContext } from '../../hooks';
-import { Store } from '../state';
+import DetailAppbar from '../DetailAppbar';
+import DetailOptions from '../DetailOptions';
+import Article from '../../components/Article';
+import withDetailViews from '../../helpers/withDetailViews';
+import withPageLoading from '../../helpers/withPageLoading';
+import useStyle from './styles';
 
 const Detail = ({
   HeaderProps,
-  history,
   children,
-  notes,
   picture,
-  files,
-  links,
   views,
   ...rest
-}) => (
-  <Article
-    asideComponent={
-      <DetailSidePanel
-        notes={notes && <Notes />}
-        files={files && <Upload />}
+}) => {
+  const cls = useStyle();
+  const Summary = React.useMemo(
+    () => <DetailOptions {...rest} />,
+    [],
+  );
+
+  return (
+    <Article>
+      <DetailAppbar
+        summary={Summary}
+        {...HeaderProps}
+        {...rest}
       >
-        <DetailSidePanelContent {...rest} />
-      </DetailSidePanel>
-    }
-  >
-    <DetailNavigation
-      {...HeaderProps}
-      views={views}
-      picture={picture}
-    />
-    <DetailRelatedLinks links={links}>
-      <DetailViews views={views} />
-    </DetailRelatedLinks>
-  </Article>
-);
+        <DetailNavigation views={views} />
+      </DetailAppbar>
+      <Box my={2}>
+        <Container maxWidth="xl">
+          <Grid className={cls.grid} container spacing={1}>
+            <Grid item className={cls.aside}>
+              {Summary}
+            </Grid>
+            <Grid item xs>
+              <DetailViews views={views} />
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </Article>
+  );
+};
 
 Detail.propTypes = {
+  HeaderProps: PropTypes.shape({
+    parenthesesProp: PropTypes.string,
+    titleProp: PropTypes.string,
+    titleRenderer: PropTypes.func,
+  }).isRequired,
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
   ]),
-
-  /**
-   * Will auto-append comments to sidebar.
-   */
-  notes: PropTypes.bool,
-
-  /**
-   * Will auto-append history tab.
-   */
-  history: PropTypes.bool,
-
-  /**
-   * Will auto-append featured image.
-   */
   picture: PropTypes.bool,
+  views: PropTypes.arrayOf(
+    PropTypes.shape({
+      href: PropTypes.string,
+      label: PropTypes.string,
+      disabled: PropTypes.bool,
+    }),
+  ).isRequired,
 };
 
 Detail.defaultProps = {
-  notes: false,
-  history: false,
   picture: false,
   children: null,
 };
 
-const withDynamicViews =
-  (Component) =>
-  ({ audit, children, ...props }) => {
-    const { can, check } = useAppContext({
-      audit:
-        audit && isObject(audit) ? (
-          <ActivityLog templates={audit} />
-        ) : null,
-    });
-
-    const { data } = React.useContext(Store);
-
-    const makeView = React.useCallback(
-      (label, el) => ({
-        to: `/${label}`,
-        component: () =>
-          React.createElement(el, {
-            name: label,
-          }),
-        label,
-      }),
-      [],
-    );
-
-    const views = mapToNestedRoute(children)
-      .concat([makeView('trash', Trash)])
-      .filter((el) => check(el.label, el, data));
-
-    return React.useMemo(
-      () =>
-        views.findIndex((view) => view.to === '/') ===
-        -1 ? (
-          <ViewNotAllowed />
-        ) : (
-          <>
-            {can('audit')}
-            <Component views={views} {...props} />
-          </>
-        ),
-      [JSON.stringify(views)],
-    );
-  };
-
-export default withDynamicViews(Detail);
+export default withPageLoading(withDetailViews(Detail));

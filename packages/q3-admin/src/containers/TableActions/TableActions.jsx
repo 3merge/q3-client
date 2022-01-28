@@ -1,29 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Fade } from '@material-ui/core';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
-import { Store } from '../state';
 import { useAppContext } from '../../hooks';
-import withActionPortal from '../../components/withActionPortal';
+import ActionBar from '../../components/ActionBar';
+import Search from '../../components/Search';
+import Add from '../add';
+import Segments from '../../components/Segments';
 
-/** @NOTE eventually bulk editting */
-const TableActions = ({ io }) => {
-  const { data } = React.useContext(Store);
-
+const TableActions = ({
+  addComponent: AddForm,
+  filterComponent: FilterComponent,
+  io,
+}) => {
   const ac = useAppContext({
-    io: <TableIo data={data} io={io} />,
+    add: AddForm ? (
+      <Add>
+        <AddForm />
+      </Add>
+    ) : null,
     bulkDelete: <TableBulkDelete />,
+    filter: FilterComponent ? (
+      <>
+        {/** Can't modify segments without filters */}
+        <Segments />
+        <FilterComponent />
+      </>
+    ) : null,
+    io: <TableIo io={io} />,
   });
 
   return (
-    <>
-      {ac.can('bulkDelete')}
-      {ac.can('io')}
-    </>
+    <Fade in>
+      <ActionBar>
+        <Search />
+        {ac.can('filter')}
+        {ac.can('bulkDelete')}
+        {ac.can('io')}
+        {ac.can('add')}
+      </ActionBar>
+    </Fade>
   );
 };
 
 TableActions.defaultProps = {
+  addComponent: null,
+  filterComponent: null,
   io: null,
 };
 
@@ -32,8 +55,8 @@ TableActions.propTypes = {
     exports: PropTypes.arrayOf(PropTypes.string),
     imports: PropTypes.arrayOf(PropTypes.string),
   }),
+  addComponent: PropTypes.element,
+  filterComponent: PropTypes.element,
 };
 
-export default withActionPortal(TableActions, {
-  elementId: 'q3-collection-actions-top',
-});
+export default React.memo(TableActions);

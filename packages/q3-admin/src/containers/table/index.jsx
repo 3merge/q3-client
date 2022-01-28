@@ -1,16 +1,15 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { Box, useMediaQuery } from '@material-ui/core';
 import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke } from 'lodash';
 import { url } from 'q3-ui-helpers';
-import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh } from '../../hooks';
-import TableActions from '../TableActions';
+import withPageLoading from '../../helpers/withPageLoading';
 import TableLink from '../TableLink';
 import TableTrash from '../TableTrash';
 
@@ -92,6 +91,9 @@ const useStyle = makeStyles(() => ({
 const List = (props) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
+  const isMobile = useMediaQuery((theme) =>
+    theme.breakpoints.down('md'),
+  );
 
   const { collectionName, location, rootPath } =
     React.useContext(Definitions);
@@ -118,26 +120,26 @@ const List = (props) => {
   };
 
   return (
-    <Table
-      {...decorator.build()}
-      blacklistColumns={decorator.makeBlacklist(canSeeSub)}
-      className={table}
-      data={decorator.makeLinks(rootPath)}
-      id={collectionName}
-      onSort={updateSortPrefence}
-      style={{
-        height: '100%',
-      }}
-    >
-      <TableActions {...props} />
-      <Box py={0.5}>
-        <FilterChip />
-      </Box>
-    </Table>
+    <Box p={2}>
+      <Table
+        {...decorator.build()}
+        blacklistColumns={decorator.makeBlacklist(
+          canSeeSub,
+        )}
+        className={table}
+        data={decorator.makeLinks(rootPath)}
+        id={collectionName}
+        onSort={updateSortPrefence}
+        disableExportsProvider
+        style={{
+          height: isMobile ? 'auto' : '85vh',
+        }}
+      />
+    </Box>
   );
 };
 
 List.propTypes = {};
 List.defaultProps = {};
 
-export default List;
+export default withPageLoading(List);

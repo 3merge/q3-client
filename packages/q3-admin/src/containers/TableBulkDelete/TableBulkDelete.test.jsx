@@ -1,70 +1,78 @@
 import React from 'react';
-import { useAuth } from 'q3-ui-permissions';
-import Confirm from 'q3-ui-confirm';
-import TableBulkDelete from './TableBulkDelete';
+import AuthDelete from '../AuthDelete';
+import TableWithAuth, {
+  TableBulkDelete,
+  TableBulkDeleteButton,
+} from './TableBulkDelete';
+import ButtonWithIcon from '../../components/ButtonWithIcon';
 
 let spy;
 
-jest.mock('q3-ui-permissions', () => ({
-  useAuth: jest.fn(),
-}));
+jest.mock('../AuthDelete');
 
 beforeEach(() => {
   spy = jest.spyOn(React, 'useContext');
+
+  jest
+    .spyOn(React, 'useMemo')
+    .mockImplementation((fn) => fn());
 });
 
 describe('TableBulkDelete', () => {
   it('should not render without selection', () => {
     spy.mockReturnValue({
-      removeBulk: jest.fn(),
-    });
-
-    useAuth.mockReturnValue({
-      Hide: jest.fn(),
-    });
-
-    expect(
-      global
-        .shallow(<TableBulkDelete />)
-        .find(Confirm)
-        .exists(),
-    ).toBeFalsy();
-  });
-
-  it('should not render without permission', () => {
-    spy.mockReturnValue({
       checked: [],
-      removeBulk: jest.fn(),
-    });
-
-    useAuth.mockReturnValue({
-      Hide: jest.fn().mockReturnValue(null),
     });
 
     expect(
       global
-        .shallow(<TableBulkDelete />)
-        .find(Confirm)
-        .exists(),
+        .shallow(<TableBulkDeleteButton />)
+        .find(ButtonWithIcon)
+        .props().disabled,
+    ).toBeTruthy();
+  });
+
+  it('should not render without selection', () => {
+    spy.mockReturnValue({
+      checked: [2, 3, 4],
+      removeBulk: jest.fn(),
+    });
+
+    expect(
+      global
+        .shallow(<TableBulkDeleteButton />)
+        .find(ButtonWithIcon)
+        .props().disabled,
     ).toBeFalsy();
   });
 
   it('should not render without permission', () => {
-    spy.mockReturnValue({
-      checked: [1, 2, 3],
-      removeBulk: jest.fn(),
-    });
-
-    useAuth.mockReturnValue({
-      Hide: jest
-        .fn()
-        .mockImplementation(({ children }) => children),
+    // eslint-disable-next-line
+    AuthDelete.mockImplementation(({ children }) => {
+      return null;
     });
 
     expect(
       global
-        .shallow(<TableBulkDelete />)
-        .find(Confirm)
+        .mount(<TableWithAuth />)
+        .find(TableBulkDelete)
+        .exists(),
+    ).toBeFalsy();
+  });
+
+  it('should render permission', () => {
+    spy.mockReturnValue({
+      removeBulk: jest.fn(),
+    });
+
+    AuthDelete.mockImplementation(
+      ({ children }) => children,
+    );
+
+    expect(
+      global
+        .shallow(<TableWithAuth />)
+        .find(TableBulkDelete)
         .exists(),
     ).toBeTruthy();
   });
