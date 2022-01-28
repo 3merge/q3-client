@@ -17,9 +17,8 @@ const SubDetail = ({
   ...rest
 }) => {
   const { poll } = React.useContext(Dispatcher);
-  const { collectionName, id } = React.useContext(
-    Definitions,
-  );
+  const { collectionName, id } =
+    React.useContext(Definitions);
 
   const subdocumentState = useRest({
     key: root,

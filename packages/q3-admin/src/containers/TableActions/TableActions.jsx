@@ -60,6 +60,8 @@ const TableActions = ({
 };
 
 TableActions.defaultProps = {
+  addComponent: null,
+  filterComponent: null,
   io: null,
 };
 
@@ -68,6 +70,8 @@ TableActions.propTypes = {
     exports: PropTypes.arrayOf(PropTypes.string),
     imports: PropTypes.arrayOf(PropTypes.string),
   }),
+  addComponent: PropTypes.element,
+  filterComponent: PropTypes.element,
 };
 
 export default TableActions;

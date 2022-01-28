@@ -1,35 +1,31 @@
 import React from 'react';
-import { DetailHeaderBackComponent } from './DetailHeader';
-import FeaturedPhoto from '../FeaturedPhoto';
-import { useAppContext } from '../../hooks';
+import Box from '@material-ui/core/Box';
+import {
+  doesNotExist,
+  exists,
+} from 'q3-ui-test-utils/lib/enzymeUtils';
+import DetailHeader from './DetailHeader';
 
-let useContext;
-
-jest.mock('../../hooks/useAppContext', () => jest.fn());
-
-beforeEach(() => {
-  useContext = jest.spyOn(React, 'useContext');
+beforeAll(() => {
+  jest.spyOn(React, 'useContext').mockReturnValue({});
 });
 
 describe('DetailHeader', () => {
-  describe('"DetailHeaderBackComponent"', () => {
-    it('should render FeaturedPhoto', () => {
-      const fn = jest.fn();
+  it('should render title and subtitle', () => {
+    exists(
+      global
+        .shallow(
+          <DetailHeader>
+            <div />
+          </DetailHeader>,
+        )
+        .find(Box),
+    );
+  });
 
-      useAppContext.mockReturnValue({
-        can: jest.fn().mockReturnValue('true'),
-      });
-
-      useContext.mockReturnValue({
-        patch: jest.fn().mockReturnValue(fn),
-        data: {},
-      });
-
-      expect(
-        global
-          .shallow(<DetailHeaderBackComponent />)
-          .find(FeaturedPhoto),
-      ).toHaveLength(1);
-    });
+  it('should render title only', () => {
+    doesNotExist(
+      global.shallow(<DetailHeader />).find(Box),
+    );
   });
 });

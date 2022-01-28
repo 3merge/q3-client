@@ -19,6 +19,12 @@ jest.mock('@reach/router', () => ({
   navigate: jest.fn(),
 }));
 
+beforeAll(() => {
+  jest
+    .spyOn(React, 'useMemo')
+    .mockImplementation((fn) => fn());
+});
+
 describe('Add', () => {
   it('should block Dialog from rendering without children', () => {
     const el = global.shallow(<Add />);
@@ -47,6 +53,11 @@ describe('Add', () => {
 
   it('should pass properties to children', () => {
     const spy = jest.spyOn(React, 'cloneElement');
+
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      post: jest.fn(),
+      collectionName: null,
+    });
 
     global
       .shallow(
