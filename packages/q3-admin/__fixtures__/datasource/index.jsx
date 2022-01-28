@@ -226,8 +226,6 @@ export default ({ children }) => {
         Object.assign(profile, json);
       }
 
-      console.log(profile);
-
       return [
         200,
         {

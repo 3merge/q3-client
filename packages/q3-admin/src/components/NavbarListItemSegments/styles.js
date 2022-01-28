@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
   },
   segments: {
     margin: 0,
-    padding: '0 1rem',
+    padding: 0,
 
     '& ul': {
       width: '100%',
@@ -25,7 +25,9 @@ export default makeStyles((theme) => ({
     padding: 0,
 
     '& button, & a': {
-      justifyContent: 'space-between',
+      padding: theme.spacing(0.5),
+      paddingLeft: theme.spacing(1.5),
+      justifyContent: 'flex-start',
       textTransform: 'none',
       fontSize: '0.911rem',
     },

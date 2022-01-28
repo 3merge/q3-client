@@ -25,14 +25,18 @@ export default makeStyles((theme) => ({
     padding: 0,
 
     '& button, & a': {
-      justifyContent: 'space-between',
+      padding: `${theme.spacing(1)} ${theme.spacing(1.5)}`,
       textTransform: 'none',
       fontSize: '0.911rem',
+
+      '& span:nth-child(2)': {
+        display: 'flex',
+        flex: 1,
+        justifyContent: 'flex-end',
+      },
     },
   },
-  listItemSelected: {
-    // background: `${theme.palette.primary.dark} !Important`,
-  },
+  listItemSelected: {},
   hidden: {
     display: 'none',
   },

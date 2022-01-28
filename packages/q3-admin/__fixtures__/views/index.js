@@ -1,4 +1,4 @@
 import Characters from './Characters';
 import Shows from './Shows';
 
-export default [Characters, Shows].flat();
+export default [Shows, Characters].flat();

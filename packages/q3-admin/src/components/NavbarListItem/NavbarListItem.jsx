@@ -10,10 +10,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { object } from 'q3-ui-helpers';
 import { useToggle } from 'useful-state';
 import { useTranslation } from 'q3-ui-locale';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import PagesIcon from '@material-ui/icons/Pages';
 import useStyle from './styles';
 import NavbarListItemSegments from '../NavbarListItemSegments';
 
-const NavbarList = ({ segments, to, label }) => {
+const NavbarList = ({
+  segments,
+  to,
+  label,
+  icon: IconComponent,
+}) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
   const [current, setCurrent] = React.useState(false);
@@ -26,6 +33,12 @@ const NavbarList = ({ segments, to, label }) => {
     if (current) open();
     else close();
   }, [current]);
+
+  const Icon = React.useMemo(
+    () =>
+      IconComponent ? <IconComponent /> : <PagesIcon />,
+    [],
+  );
 
   const ListItemProps = {
     classes: {
@@ -43,6 +56,8 @@ const NavbarList = ({ segments, to, label }) => {
         fullWidth
         to={to}
         getProps={handleGetProps}
+        startIcon={Icon}
+        endIcon={<span />}
       >
         {label}
       </Button>
@@ -53,7 +68,10 @@ const NavbarList = ({ segments, to, label }) => {
         <Button
           className={cls.button}
           color="inherit"
-          endIcon={<ExpandMoreIcon />}
+          endIcon={
+            state ? <ExpandLessIcon /> : <ExpandMoreIcon />
+          }
+          startIcon={Icon}
           fullWidth
           onClick={toggle}
         >
@@ -78,10 +96,15 @@ const NavbarList = ({ segments, to, label }) => {
 };
 
 NavbarList.defaultProps = {
+  icon: null,
   segments: {},
 };
 
 NavbarList.propTypes = {
+  icon: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func,
+  ]),
   label: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
   // eslint-disable-next-line

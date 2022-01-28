@@ -12,7 +12,8 @@ import General from './General';
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
-  // parent: 'entertainment',
+  icon: CreditCard,
+  parent: 'entertainment',
   segments: {
     'Date Range': '?demo<=2021-08-01&demo>=2021-01-01',
     'Testing 1':
@@ -43,6 +44,8 @@ export default new AbstractCollectionBuilder({
       start: moment(createdAt).toDate(),
       end: moment(createdAt).add(3, 'hours').toDate(),
       title: [name, description].join(' - '),
+      editable: true,
+      durationEditable: false,
     }),
   )
   .genHeader({
@@ -69,7 +72,9 @@ export default new AbstractCollectionBuilder({
         <Group />
       </IconButton>
     ),
+
     runOnInit: false,
+    fromKey: 'createdAt',
   })
   .genListSettings({
     defaultSortPreference: 'name',

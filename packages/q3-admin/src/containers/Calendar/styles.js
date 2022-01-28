@@ -11,6 +11,12 @@ export default makeStyles((theme) => ({
       height: '100%',
     },
 
+    '& .fc': {
+      borderRadius: 4,
+      backgroundColor: theme.palette.background.paper,
+      padding: theme.spacing(1),
+    },
+
     '& .fc .fc-button-primary,&.fc .fc-button-primary:not(:disabled):active,& .fc .fc-button-primary:not(:disabled).fc-button-active':
       {
         backgroundColor: 'transparent',
@@ -66,13 +72,8 @@ export default makeStyles((theme) => ({
       overflowX: 'scroll',
     },
 
-    '& .fc-theme-standard td': {
-      borderColor: `${theme.palette.background.muted} !important`,
-    },
-
-    '& .fc-day': {
-      backgroundColor: theme.palette.background.paper,
-    },
+    '& .fc-theme-standard td': {},
+    '& .fc-day': {},
 
     '& .fc-day-today': {
       backgroundColor: `${yellow[50]} !important`,

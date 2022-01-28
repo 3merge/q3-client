@@ -368,5 +368,20 @@
   "notes": "Notes",
   "audit": "Audit logs",
   "trash": "Delete",
-  "actions": "Actions"
+  "actions": "Actions",
+  "searchFilters": "Search",
+  "searchByFieldName": "Search by filter name",
+  "gte": "Greater than or equals to",
+  "lte": "Less than or equals to",
+  "range": "Between",
+  "eq": "Equals",
+  "ne": "Not equals",
+  "in": "In",
+  "nin": "Not in",
+  "regex": "Matches",
+  "today": "Today",
+  "month": "Month",
+  "week": "Week",
+  "day": "Day",
+  "list": "List"
 }
