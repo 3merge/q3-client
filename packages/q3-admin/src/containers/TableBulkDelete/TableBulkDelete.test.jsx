@@ -1,7 +1,10 @@
 import React from 'react';
-import Confirm from 'q3-ui-confirm';
 import AuthDelete from '../AuthDelete';
-import TableBulkDelete from './TableBulkDelete';
+import TableWithAuth, {
+  TableBulkDelete,
+  TableBulkDeleteButton,
+} from './TableBulkDelete';
+import ButtonWithIcon from '../../components/ButtonWithIcon';
 
 let spy;
 
@@ -19,28 +22,31 @@ describe('TableBulkDelete', () => {
   it('should not render without selection', () => {
     spy.mockReturnValue({
       checked: [],
-      removeBulk: jest.fn(),
     });
-
-    AuthDelete.mockImplementation(
-      ({ children }) => children,
-    );
 
     expect(
       global
-        .shallow(<TableBulkDelete />)
-        .find(Confirm)
-        .props()
-        .ButtonComponent().props.disabled,
+        .shallow(<TableBulkDeleteButton />)
+        .find(ButtonWithIcon)
+        .props().disabled,
     ).toBeTruthy();
   });
 
-  it('should not render without permission', () => {
+  it('should not render without selection', () => {
     spy.mockReturnValue({
-      checked: [],
+      checked: [2, 3, 4],
       removeBulk: jest.fn(),
     });
 
+    expect(
+      global
+        .shallow(<TableBulkDeleteButton />)
+        .find(ButtonWithIcon)
+        .props().disabled,
+    ).toBeFalsy();
+  });
+
+  it('should not render without permission', () => {
     // eslint-disable-next-line
     AuthDelete.mockImplementation(({ children }) => {
       return null;
@@ -48,15 +54,14 @@ describe('TableBulkDelete', () => {
 
     expect(
       global
-        .mount(<TableBulkDelete />)
-        .find(Confirm)
+        .mount(<TableWithAuth />)
+        .find(TableBulkDelete)
         .exists(),
     ).toBeFalsy();
   });
 
-  it('should render with selection and permission', () => {
+  it('should render permission', () => {
     spy.mockReturnValue({
-      checked: [1, 2, 3],
       removeBulk: jest.fn(),
     });
 
@@ -66,8 +71,8 @@ describe('TableBulkDelete', () => {
 
     expect(
       global
-        .shallow(<TableBulkDelete />)
-        .find(Confirm)
+        .shallow(<TableWithAuth />)
+        .find(TableBulkDelete)
         .exists(),
     ).toBeTruthy();
   });

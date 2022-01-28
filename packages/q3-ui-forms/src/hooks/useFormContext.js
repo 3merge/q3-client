@@ -29,12 +29,11 @@ export default ({
   removeFieldError,
 }) => {
   const [message, setMessage] = React.useState();
-  const [isSubmitting, setIsSubmitting] = React.useState(
-    false,
-  );
+  const [isSubmitting, setIsSubmitting] =
+    React.useState(false);
 
-  const onValidate = (name, value) => {
-    return Yup.reach(validationSchema, name)
+  const onValidate = (name, value) =>
+    Yup.reach(validationSchema, name)
       .validate(value)
       .then(() => removeFieldError(name))
       .catch((e) =>
@@ -43,7 +42,6 @@ export default ({
           get(e, 'message', 'This input is invalid'),
         ),
       );
-  };
 
   const onChange = (key, value) => {
     onValidate(key, value).finally(() =>

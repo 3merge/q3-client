@@ -6,22 +6,29 @@ import DeleteIcon from '@material-ui/icons/DeleteForever';
 import { Definitions, Dispatcher } from '../state';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 
-const Trash = () => {
+export const useTrashFail = () => {
   const { t } = useTranslation('descriptions');
+
+  return () => {
+    const e = new Error();
+    e.message = t('trashFail');
+    return Promise.reject(e);
+  };
+};
+
+const Trash = () => {
   const { directoryPath } = React.useContext(Definitions);
   const { remove } = React.useContext(Dispatcher);
   const navigate = useNavigate();
+
+  const catchHandler = useTrashFail();
 
   const navigateOnResolve = () =>
     remove()()
       .then(() => {
         navigate(directoryPath);
       })
-      .catch(() => {
-        const e = new Error();
-        e.message = t('trashFail');
-        throw e;
-      });
+      .catch(catchHandler);
 
   const renderButton = React.useCallback(
     (buttonProps) =>

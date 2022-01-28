@@ -9,7 +9,13 @@ const ConfirmForm = ({ phrase, ...props }) => {
   const { t } = useTranslation('labels');
 
   return (
-    <Form restart {...props}>
+    <Form
+      restart
+      initialValues={{
+        confirmPhrase: '',
+      }}
+      {...props}
+    >
       <Field
         autoFocus
         validate={yup

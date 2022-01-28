@@ -1,8 +1,4 @@
 export const handleSubmit = (onSubmit, onSuccess) => () =>
-  onSubmit()
-    .then(onSuccess)
-    .catch(() => {
-      // noop
-    });
+  onSubmit().then(onSuccess);
 
 export const matchAgainstUppercase = (a) => (b) => a === b;

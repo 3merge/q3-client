@@ -33,6 +33,7 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
+  runOnInit,
 }) => {
   const {
     id,
@@ -47,7 +48,7 @@ const Page = ({
     key: resourceNameSingular,
     pluralized: resourceName,
     select,
-    runOnInit: true,
+    runOnInit,
     location,
     url,
   });
@@ -133,7 +134,7 @@ Page.propTypes = {
    * Reduce payload by projecting which fields to include.
    */
   select: PropTypes.string,
-  loadingComponent: PropTypes.node,
+  runOnInit: PropTypes.bool,
 };
 
 Page.defaultProps = {
@@ -141,7 +142,7 @@ Page.defaultProps = {
   onEnter: null,
   onInit: null,
   select: null,
-  loadingComponent: null,
+  runOnInit: true,
 };
 
 export default withSorting(Page);

@@ -6,34 +6,48 @@ import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
 import { Dispatcher } from '../state';
 import AuthDelete from '../AuthDelete';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
+import { useTrashFail } from '../trash/Trash';
 
-const TableBulkDelete = () => {
-  const { removeBulk } = React.useContext(Dispatcher);
+export const TableBulkDeleteButton = (props) => {
   const exportState = React.useContext(State);
   const checked = get(exportState, 'checked');
   const len = size(checked);
 
-  const TableButtonDeleteButton = React.useMemo(
-    (props) => (
-      <ButtonWithIcon
-        {...props}
-        disabled={!len}
-        label="deleteMany"
-        icon={DeleteSweepIcon}
-        count={len}
-      />
-    ),
-    [len],
+  return (
+    <ButtonWithIcon
+      {...props}
+      disabled={!len}
+      label="deleteMany"
+      icon={DeleteSweepIcon}
+      count={len}
+    />
   );
+};
+
+export const TableBulkDelete = () => {
+  const catchHandler = useTrashFail();
+  const { removeBulk } = React.useContext(Dispatcher);
+  const exportState = React.useContext(State);
+  const checked = get(exportState, 'checked');
+
+  const ButtonRenderer = React.useCallback(
+    (props) => <TableBulkDeleteButton {...props} />,
+    [],
+  );
+
+  const handleService = (args) =>
+    removeBulk(checked)(args)
+      .then(() => {
+        // noop
+      })
+      .catch(catchHandler);
 
   return (
     <Confirm
       phrase="DELETE"
       title="deleteMany"
-      service={removeBulk(checked)}
-      ButtonComponent={(args) =>
-        TableButtonDeleteButton(args)
-      }
+      service={handleService}
+      ButtonComponent={ButtonRenderer}
     />
   );
 };
