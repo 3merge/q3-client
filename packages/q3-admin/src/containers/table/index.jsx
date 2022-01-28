@@ -6,7 +6,6 @@ import Table from 'q3-ui-datatables';
 import { AuthContext, useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke } from 'lodash';
 import { url } from 'q3-ui-helpers';
-import { FilterChip } from 'q3-components';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh } from '../../hooks';
@@ -135,11 +134,7 @@ const List = (props) => {
         style={{
           height: isMobile ? 'auto' : '85vh',
         }}
-      >
-        <Box py={0.5}>
-          <FilterChip />
-        </Box>
-      </Table>
+      />
     </Box>
   );
 };

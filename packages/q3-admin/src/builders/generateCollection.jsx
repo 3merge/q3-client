@@ -2,7 +2,6 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
-import FilterProvider from '../containers/FilterProvider';
 import Article from '../components/Article';
 import { useUnsavedChanges } from '../hooks';
 
@@ -49,15 +48,13 @@ export default ({
     index: true,
     ...getCollectionInformation(etc),
     component: (props) => (
-      <FilterProvider {...props} {...PageListProps}>
-        <Collection index {...PageListProps} {...props}>
-          <Article>
-            <Page index {...props} {...PageListProps}>
-              <PageList />
-            </Page>
-          </Article>
-        </Collection>
-      </FilterProvider>
+      <Collection index {...PageListProps} {...props}>
+        <Article>
+          <Page index {...props} {...PageListProps}>
+            <PageList />
+          </Page>
+        </Article>
+      </Collection>
     ),
   },
 ];

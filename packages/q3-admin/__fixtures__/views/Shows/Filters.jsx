@@ -1,41 +1,20 @@
 import React from 'react';
-import Filters from '../../../src/containers/filters';
-import FilterEntry from '../../../src/components/FilterEntry';
+import Filter from '../../../src/components/Filter';
 
 const Add = () => (
-  <Filters>
-    {() => (
-      <>
-        <FilterEntry type="dateRange" name="demo" />
-        <FilterEntry
-          type="radio"
-          name="demo"
-          options={['Yes', 'No', 'Either']}
-        />
-        <FilterEntry
-          type="checkset"
-          name="example"
-          options={['One', 'Two', 'Three', 'Four']}
-          suppressLabel
-          collapsable={false}
-        />
-        <FilterEntry
-          type="checkset"
-          name="example"
-          options={['One', 'Two', 'Three', 'Four']}
-          suppressLabel
-          collapsable={false}
-        />
-        <FilterEntry
-          type="checkset"
-          name="example"
-          options={['One', 'Two', 'Three', 'Four']}
-          suppressLabel
-          collapsable={false}
-        />
-      </>
-    )}
-  </Filters>
+  <Filter
+    data={{
+      demo: {
+        type: 'Date',
+      },
+      createdAt: {
+        type: 'Date',
+      },
+      updatedAt: {
+        type: 'Date',
+      },
+    }}
+  />
 );
 
 export default Add;

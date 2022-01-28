@@ -11,7 +11,6 @@ import ActionBar from '../../components/ActionBar';
 import Search from '../../components/Search';
 import Add from '../add';
 import Segments from '../../components/Segments';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
 
 const TableActions = ({
   addComponent: AddForm,
@@ -28,20 +27,7 @@ const TableActions = ({
         <AddForm />
       </Add>
     ) : null,
-    filter: FilterComponent ? (
-      <Dialog
-        title="filter"
-        variant="drawer"
-        renderContent={() => <FilterComponent />}
-        renderTrigger={(onClick) => (
-          <ButtonWithIcon
-            icon={FilterListIcon}
-            label="filter"
-            onClick={onClick}
-          />
-        )}
-      />
-    ) : null,
+    filter: FilterComponent ? <FilterComponent /> : null,
   });
 
   // float bottom on mobile.

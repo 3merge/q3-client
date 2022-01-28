@@ -1,0 +1,41 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { Box } from '@material-ui/core';
+import Location from 'q3-ui-test-utils/lib/location';
+import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
+import {
+  Datasource,
+  schema,
+} from '../../../tests/fixtures';
+import Filters from './Filters';
+
+<Meta title="Filters" component={Filters} />
+
+<Preview>
+  <Story name="Default">
+    <Location>
+      <LocationDebugger>
+        <Box p={2} maxWidth={320}>
+          <Datasource>
+            <Filters />
+          </Datasource>
+        </Box>
+      </LocationDebugger>
+    </Location>
+  </Story>
+  <Story name="Populated">
+    <Location initialPath="?employment.company=in(Seagull%2COvation%2CGretsch%2CWashburn%2CFender%2CGibson)&employment.position=string(%2Fstartswith%2Fgi)&createdAt%3E=2021-12-14T05%3A00%3A00.000Z&createdAt%3C=2022-01-01T04%3A59%3A59.000Z&verified=exists(true)&associates=in(bffe30f8-6c1c-41f3-9f8a-0901a8f43c80,9095d570-5871-40b7-8b67-4eaa31231fe2)">
+      <LocationDebugger>
+        <Box p={2} maxWidth={320}>
+          <Datasource>
+            <Filters data={schema} />
+          </Datasource>
+        </Box>
+      </LocationDebugger>
+    </Location>
+  </Story>
+</Preview>

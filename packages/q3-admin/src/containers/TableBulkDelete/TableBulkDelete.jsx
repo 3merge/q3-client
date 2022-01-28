@@ -13,30 +13,36 @@ const TableBulkDelete = () => {
   const checked = get(exportState, 'checked');
   const len = size(checked);
 
-  return React.useMemo(
-    () => (
-      <AuthDelete>
-        <Confirm
-          phrase="DELETE"
-          title="deleteMany"
-          service={removeBulk(checked)}
-          ButtonComponent={(props) => (
-            <ButtonWithIcon
-              {...props}
-              disabled={!len}
-              label="deleteMany"
-              icon={DeleteSweepIcon}
-              count={len}
-            />
-          )}
-        />
-      </AuthDelete>
+  const TableButtonDeleteButton = React.useMemo(
+    (props) => (
+      <ButtonWithIcon
+        {...props}
+        disabled={!len}
+        label="deleteMany"
+        icon={DeleteSweepIcon}
+        count={len}
+      />
     ),
     [len],
+  );
+
+  return (
+    <Confirm
+      phrase="DELETE"
+      title="deleteMany"
+      service={removeBulk(checked)}
+      ButtonComponent={(args) =>
+        TableButtonDeleteButton(args)
+      }
+    />
   );
 };
 
 TableBulkDelete.defaultProps = {};
 TableBulkDelete.propTypes = {};
 
-export default TableBulkDelete;
+export default () => (
+  <AuthDelete>
+    <TableBulkDelete />
+  </AuthDelete>
+);
