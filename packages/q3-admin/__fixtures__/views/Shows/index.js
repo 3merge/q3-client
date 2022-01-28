@@ -4,7 +4,6 @@ import CreditCard from '@material-ui/icons/CreditCard';
 import { green } from '@material-ui/core/colors';
 import { IconButton } from '@material-ui/core';
 import Group from '@material-ui/icons/Group';
-import moment from 'moment';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
@@ -41,11 +40,6 @@ export default new AbstractCollectionBuilder({
         base: updatedAt,
         toDate: true,
       },
-      start: moment(createdAt).toDate(),
-      end: moment(createdAt).add(3, 'hours').toDate(),
-      title: [name, description].join(' - '),
-      editable: true,
-      durationEditable: false,
     }),
   )
   .genHeader({
@@ -72,9 +66,6 @@ export default new AbstractCollectionBuilder({
         <Group />
       </IconButton>
     ),
-
-    runOnInit: false,
-    fromKey: 'createdAt',
   })
   .genListSettings({
     defaultSortPreference: 'name',

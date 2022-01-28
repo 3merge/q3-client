@@ -5,8 +5,8 @@ import {
   Toolbar,
   Fade,
 } from '@material-ui/core';
-// eslint-disable-next-line
 import Exports from 'q3-ui-exports';
+import { isFunction } from 'lodash';
 import {
   Calendar,
   TableActions,
@@ -14,8 +14,27 @@ import {
 } from '../containers';
 import CollectionName from '../components/CollectionName';
 
-export default (forwardedProps) => (props) =>
-  (
+const UndefinedListElement = () => (
+  <div>Missing UI configuration</div>
+);
+
+export default (forwardedProps) => (props) => {
+  // eslint-disable-next-line
+  const { ui } = forwardedProps;
+
+  const ListElement = React.useMemo(() => {
+    if (!ui || ui === 'table') return Table;
+    if (ui === 'calendar') return Calendar;
+    if (isFunction(ui))
+      return ui({
+        ...forwardedProps,
+        ...props,
+      });
+
+    return UndefinedListElement;
+  }, [ui]);
+
+  return (
     <Fade in>
       <Box height="100%">
         <Exports>
@@ -35,9 +54,9 @@ export default (forwardedProps) => (props) =>
               </Box>
             </Toolbar>
           </AppBar>
-          <Calendar {...forwardedProps} {...props} />
-          {/* {<Table {...forwardedProps} {...props} />} */}
+          <ListElement {...forwardedProps} {...props} />
         </Exports>
       </Box>
     </Fade>
   );
+};

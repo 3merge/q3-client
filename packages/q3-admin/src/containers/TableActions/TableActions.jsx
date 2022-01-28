@@ -21,7 +21,13 @@ const TableActions = ({
       </Add>
     ) : null,
     bulkDelete: <TableBulkDelete />,
-    filter: FilterComponent ? <FilterComponent /> : null,
+    filter: FilterComponent ? (
+      <>
+        {/** Can't modify segments without filters */}
+        <Segments />
+        <FilterComponent />
+      </>
+    ) : null,
     io: <TableIo io={io} />,
   });
 
@@ -29,7 +35,6 @@ const TableActions = ({
     <Fade in>
       <ActionBar>
         <Search />
-        <Segments />
         {ac.can('filter')}
         {ac.can('bulkDelete')}
         {ac.can('io')}

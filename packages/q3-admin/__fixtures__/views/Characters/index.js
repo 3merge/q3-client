@@ -1,7 +1,6 @@
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
-import Add from './Add';
-import Filters from './Filters';
+import moment from 'moment';
 import General from './General';
 
 export default new AbstractCollectionBuilder({
@@ -28,21 +27,25 @@ export default new AbstractCollectionBuilder({
       base: updatedAt,
       toDate: true,
     },
+    start: moment(createdAt).toDate(),
+    end: moment(createdAt).add(3, 'hours').toDate(),
+    title: [name, description].join(' - '),
+    editable: true,
+    durationEditable: false,
   }),
 })
   .genHeader({
     titleProp: 'name',
   })
-  .genNew(Add)
   .genViews({
     General,
   })
   .genList({
-    defaultColumns: ['createdAt', 'updatedAt'],
+    ui: 'calendar',
+    runOnInit: false,
+    fromKey: 'createdAt',
   })
-  .genListSettings({
-    defaultSortPreference: 'name',
-  })
+  .genListSettings({})
   .genDetail({
     picture: true,
     disableUnsavedChanges: true,
