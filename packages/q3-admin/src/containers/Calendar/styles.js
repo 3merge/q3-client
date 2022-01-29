@@ -9,6 +9,10 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('md')]: {
       height: '100%',
+
+      '& .fc-today-button': {
+        display: 'none',
+      },
     },
 
     '& .fc': {
@@ -56,7 +60,7 @@ export default makeStyles((theme) => ({
     },
 
     '& .fc-toolbar-title': {
-      fontSize: theme.typography.h6.fontSize,
+      fontSize: '1rem !Important',
     },
 
     '& .fc-button-group button': {},

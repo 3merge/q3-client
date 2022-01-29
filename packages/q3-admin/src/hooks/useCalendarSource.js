@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { useNavigate } from '@reach/router';
-import { isFunction, debounce } from 'lodash';
+import { isFunction, isObject, debounce } from 'lodash';
 import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import { useLocation } from '@reach/router';
 import { useQueryParams } from 'q3-ui-queryparams';
@@ -17,6 +17,7 @@ const useCalendarSource = (options = {}) => {
     getBackgroundEvents,
   } = options;
 
+  const ref = React.useRef();
   const { poll: get, patch } = React.useContext(Dispatcher);
   const { directoryPath = '/' } =
     React.useContext(Definitions);
@@ -32,11 +33,20 @@ const useCalendarSource = (options = {}) => {
       [`${toKey || fromKey}<`]: castToUTC(info.endStr),
     })}&limit=500`;
 
+  const getEvents = debounce(
+    (info) => {
+      ref.current = info;
+      return get(makeQueryString(info));
+    },
+    [500],
+  );
+
+  React.useEffect(() => {
+    if (isObject(ref.current)) getEvents(ref.current);
+  }, [search]);
+
   return {
-    getEvents: debounce(
-      (info) => get(makeQueryString(info)),
-      [500],
-    ),
+    getEvents,
 
     getBackgroundEvents(info) {
       return isFunction(getBackgroundEvents)

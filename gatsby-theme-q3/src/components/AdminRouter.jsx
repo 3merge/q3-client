@@ -6,10 +6,8 @@ import AdminPrivateGateway from './AdminPrivateGateway';
 import useSiteMetaData from './useSiteMetaData';
 
 const AdminRouter = ({ AdminProps, GatekeepProps }) => {
-  const {
-    appDirectory: basepath,
-    favicon: logoSrc,
-  } = useSiteMetaData();
+  const { appDirectory: basepath, logo: logoSrc } =
+    useSiteMetaData();
 
   return (
     <AdminPrivateGateway GatekeepProps={GatekeepProps}>

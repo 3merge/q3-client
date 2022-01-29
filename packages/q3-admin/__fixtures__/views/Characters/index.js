@@ -1,7 +1,9 @@
+import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import moment from 'moment';
 import General from './General';
+import Filter from '../../../src/components/Filter';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'characters',
@@ -34,6 +36,15 @@ export default new AbstractCollectionBuilder({
     durationEditable: false,
   }),
 })
+  .genFilter(() => (
+    <Filter
+      data={{
+        createdAt: {
+          type: 'Date',
+        },
+      }}
+    />
+  ))
   .genHeader({
     titleProp: 'name',
   })
