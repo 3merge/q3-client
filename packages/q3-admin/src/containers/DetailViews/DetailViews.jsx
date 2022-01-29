@@ -5,7 +5,7 @@ import { Fade, Paper, Box } from '@material-ui/core';
 
 const WrappedRoute = ({ renderer: Renderer }) => (
   <Fade in>
-    <Paper elevation={0}>
+    <Paper elevation={1}>
       <Box p={2}>
         <Renderer />
       </Box>

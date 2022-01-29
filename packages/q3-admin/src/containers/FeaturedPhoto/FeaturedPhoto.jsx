@@ -19,8 +19,8 @@ const FeaturedPhoto = ({
       })
     }
     style={{
-      height: 75,
-      width: 75,
+      height: 125,
+      width: 125,
     }}
   />
 );
