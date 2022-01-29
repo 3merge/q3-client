@@ -383,5 +383,8 @@
   "month": "Month",
   "week": "Week",
   "day": "Day",
-  "list": "List"
+  "list": "List",
+  "removeAllFilters": "Remove all active filters",
+  "restartFilters": "Restart from last search",
+  "shareFilters": "Copy query to clipboard"
 }

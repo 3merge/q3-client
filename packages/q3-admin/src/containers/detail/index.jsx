@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
 import DetailAppbar from '../DetailAppbar';
@@ -8,7 +8,6 @@ import DetailOptions from '../DetailOptions';
 import Article from '../../components/Article';
 import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
-import useStyle from './styles';
 
 const Detail = ({
   HeaderProps,
@@ -16,37 +15,22 @@ const Detail = ({
   picture,
   views,
   ...rest
-}) => {
-  const cls = useStyle();
-  const Summary = React.useMemo(
-    () => <DetailOptions {...rest} />,
-    [],
-  );
-
-  return (
-    <Article>
-      <DetailAppbar
-        summary={Summary}
-        {...HeaderProps}
-        {...rest}
-      >
-        <DetailNavigation views={views} />
-      </DetailAppbar>
-      <Box my={2}>
-        <Container maxWidth="xl">
-          <Grid className={cls.grid} container spacing={1}>
-            <Grid item className={cls.aside}>
-              {Summary}
-            </Grid>
-            <Grid item xs>
-              <DetailViews views={views} />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-    </Article>
-  );
-};
+}) => (
+  <Article>
+    <DetailAppbar
+      summary={<DetailOptions {...rest} />}
+      {...HeaderProps}
+      {...rest}
+    >
+      <DetailNavigation views={views} />
+    </DetailAppbar>
+    <Box m={2}>
+      <Grid item xs>
+        <DetailViews views={views} />
+      </Grid>
+    </Box>
+  </Article>
+);
 
 Detail.propTypes = {
   HeaderProps: PropTypes.shape({

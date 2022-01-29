@@ -6,12 +6,17 @@ export default makeStyles((theme) => ({
     maxHeight: 120,
     height: '100%',
     width: 'auto',
+    textAlign: 'center',
 
     [theme.breakpoints.down('lg')]: {
       display: 'block',
       height: 65,
       maxHeight: 65,
       maxWidth: '30vw',
+    },
+
+    [theme.breakpoints.down('md')]: {
+      textAlign: 'left',
     },
   },
   img: {

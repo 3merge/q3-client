@@ -1,17 +1,17 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
-import Fade from '@material-ui/core/Fade';
+import { Fade, Paper, Box } from '@material-ui/core';
 
-const WrappedRoute = ({ renderer: Renderer }) => {
-  return (
-    <Fade in>
-      <div style={{ width: '100%' }}>
+const WrappedRoute = ({ renderer: Renderer }) => (
+  <Fade in>
+    <Paper elevation={1}>
+      <Box p={2}>
         <Renderer />
-      </div>
-    </Fade>
-  );
-};
+      </Box>
+    </Paper>
+  </Fade>
+);
 
 const TabsWithRouter = ({ views }) => (
   <Router primary={false}>

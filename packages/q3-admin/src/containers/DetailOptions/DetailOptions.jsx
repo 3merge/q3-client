@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { getMeta } from 'q3-ui/lib/timeline';
 import { useTranslation } from 'q3-ui-locale';
-import { Link } from '@reach/router';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListSubheader,
-} from '@material-ui/core';
+import { Link as ReachLink } from '@reach/router';
+import { Link, Tooltip } from '@material-ui/core';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 import { useDetailRegisterFunction } from '../../hooks';
 import { Store } from '../state';
+import useStyle from './styles';
 
 const getAuthorship = getMeta('createdBy', 'createdAt');
 const getLastModification = getMeta(
@@ -20,6 +19,7 @@ const getLastModification = getMeta(
 );
 
 const DetailOptions = ({ registerOptions }) => {
+  const cls = useStyle();
   const { data } = React.useContext(Store);
   const { t } = useTranslation('labels');
 
@@ -29,46 +29,47 @@ const DetailOptions = ({ registerOptions }) => {
   const createdBy = getAuthorship(data);
   const updatedBy = getLastModification(data);
 
+  const renderIcon = (Icon = ContactSupportIcon) => (
+    <Icon />
+  );
+
   if (createdBy)
     options.push({
       title: t('creator'),
       description: createdBy,
+      icon: EventAvailableIcon,
     });
 
   if (updatedBy)
     options.push({
       title: t('lastUpdated'),
       description: updatedBy,
+      icon: EventNoteIcon,
     });
 
   return (
-    <List
-      component="aside"
-      subheader={
-        <ListSubheader
-          disableGutters
-          disableSticky
-          component="span"
-        >
-          {t('summary')}
-        </ListSubheader>
-      }
-    >
+    <ul className={cls.list}>
       {map(options, (option) => (
-        <ListItem
-          button={!!option.href}
-          component={option.href ? Link : undefined}
-          dense
-          key={option.title}
-          to={option.href}
-        >
-          <ListItemText
-            primary={option.title}
-            secondary={option.description}
-          />
-        </ListItem>
+        <li className={cls.listItem} key={option.title}>
+          <Tooltip arrow title={option.title}>
+            <span className={cls.listItemText}>
+              {renderIcon(option.icon, option.title)}
+              {option.href ? (
+                <Link
+                  color="inherit"
+                  component={ReachLink}
+                  to={option.href}
+                >
+                  {option.description}
+                </Link>
+              ) : (
+                option.description
+              )}
+            </span>
+          </Tooltip>
+        </li>
       ))}
-    </List>
+    </ul>
   );
 };
 

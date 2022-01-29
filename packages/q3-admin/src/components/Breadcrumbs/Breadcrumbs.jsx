@@ -19,13 +19,8 @@ const Breadcrumbs = () => {
 
   return id ? (
     <MuiBreadcrumbs aria-label="breadcrumb">
-      <MuiLink
-        aria-label={t('home')}
-        color="inherit"
-        to="/"
-        component={Link}
-      >
-        <HomeIcon />
+      <MuiLink color="inherit" to="/" component={Link}>
+        {t('home')}
       </MuiLink>
       <MuiLink
         color="inherit"

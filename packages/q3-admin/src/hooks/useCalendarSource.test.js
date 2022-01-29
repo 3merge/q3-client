@@ -11,20 +11,34 @@ jest.mock('@reach/router', () => ({
   useNavigate: jest.fn(),
 }));
 
+let ref;
+
+beforeAll(() => {
+  ref = {
+    current: null,
+  };
+
+  jest.spyOn(React, 'useRef').mockReturnValue(ref);
+  jest.spyOn(React, 'useEffect').mockImplementation(() => {
+    // noop
+  });
+});
+
 describe('useCalendarSource', () => {
   it('should poll with start/end dates', (done) => {
     const poll = jest.fn().mockResolvedValue([]);
     const qp = useQueryParams();
+    const context = {
+      startStr: '2022-01-01',
+      endStr: '2022-02-01',
+    };
 
     jest.spyOn(React, 'useContext').mockReturnValue({
       poll,
     });
 
     // this is debounced
-    useCalendarSource({}).getEvents({
-      startStr: '2022-01-01',
-      endStr: '2022-02-01',
-    });
+    useCalendarSource({}).getEvents(context);
 
     setTimeout(() => {
       expect(poll).toHaveBeenCalledWith(
@@ -34,6 +48,9 @@ describe('useCalendarSource', () => {
           'date<': castToUTC('2022-02-01'),
         })}&limit=500`,
       );
+
+      // allows us to requery
+      expect(ref.current).toMatchObject(context);
       done();
     }, [500]);
   });

@@ -54,9 +54,11 @@ describe('usePages', () => {
 
   it('should add segments', () => {
     stubProfile({
-      filters: {
-        test: {
-          custom: '?',
+      profile: {
+        filters: {
+          test: {
+            custom: '?',
+          },
         },
       },
     });

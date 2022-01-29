@@ -10,12 +10,8 @@ const CollectionName = () => {
   const cls = useStyle();
 
   return (
-    <Box py={1}>
-      <Typography
-        className={cls.root}
-        component="h1"
-        variant="h5"
-      >
+    <Box className={cls.root} py={1}>
+      <Typography component="h1" variant="h5">
         {t(collectionName)}
       </Typography>
     </Box>

@@ -5,6 +5,8 @@ export { default as useDetailRegisterFunction } from './useDetailRegisterFunctio
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';
+export { default as useSort } from './useSort';
+export { default as useSortPreference } from './useSortPreference';
 export { default as useTitle } from './useTitle';
 export { default as useRefresh } from './useRefresh';
 export { default as useSegments } from './useSegments';

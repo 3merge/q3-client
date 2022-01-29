@@ -7,6 +7,7 @@ import Group from '@material-ui/icons/Group';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
+import SubDetail from './SubDetail';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
@@ -49,11 +50,9 @@ export default new AbstractCollectionBuilder({
   .genFilter(Filters)
   .genViews({
     General,
-    General2: General,
+    SubDetail,
   })
   .genList({
-    //  customRowActionsAnchor: 'start',
-    defaultColumns: ['createdAt', 'updatedAt'],
     io: {
       exports: ['orders'],
       imports: [],
@@ -68,6 +67,8 @@ export default new AbstractCollectionBuilder({
     ),
   })
   .genListSettings({
+    //  customRowActionsAnchor: 'start',
+    defaultColumns: ['createdAt', 'updatedAt'],
     defaultSortPreference: 'name',
   })
   .genDetail({

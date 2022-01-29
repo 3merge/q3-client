@@ -31,7 +31,7 @@ export default (pages = []) => {
     segments: merge(
       {},
       page.segments,
-      get(state, `filters.${page.collectionName}`),
+      get(state, `profile.filters.${page.collectionName}`),
     ),
     to: makePath(page),
     visible: page.collectionName
@@ -40,7 +40,7 @@ export default (pages = []) => {
   });
 
   return groupBy(
-    map(assignSegments(pages), makePage),
+    map(assignSegments(pages), makePage).flat(),
     (v) => v.parent,
   );
 };

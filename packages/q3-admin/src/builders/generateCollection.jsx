@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import Page from '../containers/page';
 import Collection from '../containers/collection';
 import Article from '../components/Article';
@@ -35,9 +34,7 @@ export default ({
       return (
         <Collection id {...props}>
           <Page id {...props} {...PageDetailProps}>
-            <Box position="relative">
-              <PageDetail />
-            </Box>
+            <PageDetail />
           </Page>
         </Collection>
       );
@@ -51,7 +48,7 @@ export default ({
       <Collection index {...PageListProps} {...props}>
         <Article>
           <Page index {...props} {...PageListProps}>
-            <PageList />
+            <PageList {...PageListProps} />
           </Page>
         </Article>
       </Collection>

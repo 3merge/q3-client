@@ -1,39 +1,29 @@
 import React from 'react';
-import { get, isString } from 'lodash';
+import { get, set } from 'lodash';
 import { AuthContext } from 'q3-ui-permissions';
 
 export default (
-  location = {},
   collectionName = 'profile',
   defaultSortPreference = '-updatedAt',
 ) => {
-  const clone = { ...location };
-  let search = clone?.search;
+  const { state, update } = React.useContext(AuthContext);
 
-  const sortPreference = `sort=${get(
-    React.useContext(AuthContext),
-    `state.profile.sorting.${collectionName}`,
-    defaultSortPreference,
-  )}`;
+  const updateSortPrefence = (sort) => {
+    const sorting = get(state, 'profile.sorting', {});
+    set(sorting, collectionName, sort);
 
-  if (isString(search) && sortPreference) {
-    if (search.includes('sort')) {
-      search = search.replace(
-        /sort=([^&]*)/,
-        sortPreference,
-      );
-    } else if (search === '?') {
-      search += sortPreference;
-    } else {
-      search += `&${sortPreference}`;
-    }
-  }
+    return update({
+      sorting,
+    });
+  };
 
-  return Object.assign(
-    clone,
-    {
-      search,
-    },
-    [],
-  );
+  return {
+    sort: get(
+      state,
+      `profile.sorting.${collectionName}`,
+      defaultSortPreference,
+    ),
+
+    update: updateSortPrefence,
+  };
 };

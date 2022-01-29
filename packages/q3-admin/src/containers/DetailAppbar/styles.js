@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   header: {
     marginBottom: theme.spacing(1),
+
     [theme.breakpoints.down('md')]: {
       marginTop: theme.spacing(0.5),
       display: 'block',
@@ -18,10 +19,7 @@ export default makeStyles((theme) => ({
   toolbar: {
     justifyContent: 'space-between',
 
-    [theme.breakpoints.down('md')]: {
-      position: 'absolute',
-      zIndex: 1,
-    },
+    [theme.breakpoints.down('md')]: {},
   },
   toggle: {
     marginTop: theme.spacing(1),

@@ -57,21 +57,21 @@ const Actions = ({ data }) => {
             className={cls.menuItem}
             onClick={clear}
           >
-            {t('removeAll')}
+            {t('removeAllFilters')}
           </MenuItem>
           <MenuItem
             dense
             className={cls.menuItem}
             onClick={reset}
           >
-            {t('restart')}
+            {t('restartFilters')}
           </MenuItem>
           <MenuItem
             dense
             className={cls.menuItem}
             onClick={copy}
           >
-            {t('share')}
+            {t('shareFilters')}
           </MenuItem>
         </Menu>
       </ButtonGroup>
