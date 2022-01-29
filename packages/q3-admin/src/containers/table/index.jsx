@@ -132,7 +132,7 @@ const List = (props) => {
         onSort={updateSortPrefence}
         disableExportsProvider
         style={{
-          height: isMobile ? 'auto' : '85vh',
+          maxHeight: isMobile ? 'auto' : '85vh',
         }}
       />
     </Box>
