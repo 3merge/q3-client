@@ -40,7 +40,7 @@ export default (pages = []) => {
   });
 
   return groupBy(
-    map(assignSegments(pages), makePage),
+    map(assignSegments(pages), makePage).flat(),
     (v) => v.parent,
   );
 };
