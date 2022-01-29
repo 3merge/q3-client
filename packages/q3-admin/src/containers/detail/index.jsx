@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Container, Grid } from '@material-ui/core';
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+} from '@material-ui/core';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
 import DetailAppbar from '../DetailAppbar';
@@ -35,9 +40,9 @@ const Detail = ({
       <Box my={2}>
         <Container maxWidth="xl">
           <Grid className={cls.grid} container spacing={1}>
-            <Grid item className={cls.aside}>
-              {Summary}
-            </Grid>
+            {/* <Grid item className={cls.aside}>
+            <Paper>{Summary}</Paper>
+          </Grid> */}
             <Grid item xs>
               <DetailViews views={views} />
             </Grid>

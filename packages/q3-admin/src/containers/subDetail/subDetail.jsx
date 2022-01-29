@@ -13,7 +13,6 @@ const SubDetail = ({
   runPoll,
   renderTop,
   renderBottom,
-
   ...rest
 }) => {
   const { poll } = React.useContext(Dispatcher);
@@ -21,12 +20,12 @@ const SubDetail = ({
     React.useContext(Definitions);
 
   const subdocumentState = useRest({
+    decorators,
     key: root,
+    poll: runPoll ? poll : null,
     pluralized: root,
     runOnInit: true,
     url: `/${collectionName}/${id}/${root}`,
-    decorators,
-    poll,
   });
 
   return subdocumentState.fetching ? (

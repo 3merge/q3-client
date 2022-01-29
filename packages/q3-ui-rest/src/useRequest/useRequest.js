@@ -68,7 +68,7 @@ const useRequest = ({
       );
 
     const handleNext = (xs) =>
-      isFunction(next)
+      !isGet && isFunction(next)
         ? next(xs).then(() => xs)
         : Promise.resolve(xs);
 

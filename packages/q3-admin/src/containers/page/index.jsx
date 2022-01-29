@@ -153,4 +153,4 @@ Page.defaultProps = {
   defaultSortPreference: '-updatedAt',
 };
 
-export default Page;
+export default React.memo(Page);
