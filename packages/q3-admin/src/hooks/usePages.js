@@ -31,7 +31,7 @@ export default (pages = []) => {
     segments: merge(
       {},
       page.segments,
-      get(state, `filters.${page.collectionName}`),
+      get(state, `profile.filters.${page.collectionName}`),
     ),
     to: makePath(page),
     visible: page.collectionName
