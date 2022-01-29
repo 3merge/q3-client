@@ -20,6 +20,7 @@ const SubDetail = ({
     React.useContext(Definitions);
 
   const subdocumentState = useRest({
+    ...rest,
     decorators,
     key: root,
     poll: runPoll ? poll : null,

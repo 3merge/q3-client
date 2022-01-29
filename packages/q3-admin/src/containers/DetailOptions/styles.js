@@ -8,25 +8,18 @@ export default makeStyles((theme) => ({
     padding: 0,
 
     [theme.breakpoints.down('md')]: {
-      margin: `${theme.spacing(1)} auto ${theme.spacing(
-        0.5,
-      )}}`,
-      maxWidth: '75vw',
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '100%',
+      maxWidth: '100% !important',
     },
   },
   listItem: {
-    display: 'inline-block',
+    display: 'inline',
     fontSize: 'small',
     marginRight: theme.spacing(1.5),
     cursor: 'help',
   },
   listItemText: {
-    alignItem: 'center',
-    display: 'flex',
+    alignItems: 'center',
+    display: 'inline-flex',
 
     '& svg': {
       marginRight: 4,

@@ -1,25 +1,17 @@
 import React from 'react';
 import Dialog from 'q3-ui-dialog';
-import { navigate, useLocation } from '@reach/router';
 import ItemActionsWrapper from './ItemActionsWrapper';
 import useNextPrev from '../useNextPrev';
 
 jest.mock('../useNextPrev');
 
-jest.mock('@reach/router', () => {
-  // eslint-disable-next-line
-  const navigate = jest.fn();
-
-  return {
-    navigate,
-    useLocation: jest.fn().mockReturnValue({}),
-    useNavigate: jest.fn().mockReturnValue(navigate),
-  };
-});
+const setState = jest.fn();
 
 beforeAll(() => {
   jest.spyOn(React, 'useContext').mockReturnValue({
     edit: jest.fn(),
+    // state: 1,
+    setState,
   });
 
   jest
@@ -28,8 +20,8 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  navigate.mockClear();
   useNextPrev.mockClear();
+  setState.mockClear();
 });
 
 describe('ItemActionsWrapper', () => {
@@ -49,52 +41,7 @@ describe('ItemActionsWrapper', () => {
         .props()
         .onNext();
 
-      expect(navigate).toHaveBeenCalledWith('', {
-        state: {
-          selectedSubDocument: 2,
-        },
-      });
+      expect(setState).toHaveBeenCalledWith(2);
     });
-  });
-
-  it('should not close dialog', () => {
-    const close = jest.fn();
-    useNextPrev.mockReturnValue({
-      data: {
-        id: 1,
-      },
-    });
-
-    global
-      .shallow(
-        <ItemActionsWrapper id="1" label="test">
-          <div />
-        </ItemActionsWrapper>,
-      )
-      .find(Dialog)
-      .props()
-      .renderContent(close, true);
-
-    expect(close).not.toHaveBeenCalled();
-  });
-
-  it('should close dialog', () => {
-    const close = jest.fn();
-
-    useNextPrev.mockReturnValue({
-      data: {},
-    });
-
-    global
-      .shallow(
-        <ItemActionsWrapper id="1" label="test">
-          <div />
-        </ItemActionsWrapper>,
-      )
-      .find(Dialog)
-      .props()
-      .renderContent(close, true);
-
-    expect(close).toHaveBeenCalled();
   });
 });

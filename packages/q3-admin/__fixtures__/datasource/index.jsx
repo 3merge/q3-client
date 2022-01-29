@@ -109,6 +109,27 @@ const makeApiEndpoints = (
     });
 
   mockInstance
+    .onGet(new RegExp(`${collectionName}\\/\\d+\\/uploads`))
+    .reply(200, {
+      uploads,
+    });
+
+  mockInstance
+    .onGet(new RegExp(`${collectionName}\\/\\d+\\/seasons`))
+    .reply(200, {
+      seasons: [
+        {
+          id: 1,
+          title: 'One',
+        },
+        {
+          id: 2,
+          title: 'Two',
+        },
+      ],
+    });
+
+  mockInstance
     .onPost(
       new RegExp(`${collectionName}\\/\\d+\\/uploads`),
     )

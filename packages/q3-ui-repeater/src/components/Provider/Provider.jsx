@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Exports from 'q3-ui-exports';
 import Repeater from '../Repeater';
-import Context from '../state';
+import Context, { ActionContext } from '../state';
 import useProviderAuth from '../useProviderAuth';
 
 const Provider = ({
@@ -15,24 +15,38 @@ const Provider = ({
   ...rest
 }) => {
   const auth = useProviderAuth(rest);
+  const [state, setState] = React.useState();
+
+  const contextProps = React.useMemo(
+    () => ({
+      ...auth,
+      name: rest.name,
+      edit,
+      editBulk,
+      remove,
+      removeBulk,
+      poll,
+      create,
+    }),
+    [auth],
+  );
+
+  const actionProps = React.useMemo(
+    () => ({
+      state,
+      setState,
+    }),
+    [state],
+  );
 
   return !auth.disable ? (
-    <Context.Provider
-      value={{
-        ...auth,
-        name: rest.name,
-        edit,
-        editBulk,
-        remove,
-        removeBulk,
-        poll,
-        create,
-      }}
-    >
-      <Exports>
-        <Repeater {...rest} />
-      </Exports>
-    </Context.Provider>
+    <ActionContext.Provider value={actionProps}>
+      <Context.Provider value={contextProps}>
+        <Exports>
+          <Repeater {...rest} />
+        </Exports>
+      </Context.Provider>
+    </ActionContext.Provider>
   ) : null;
 };
 
