@@ -52,8 +52,6 @@ export default new AbstractCollectionBuilder({
     General2: General,
   })
   .genList({
-    //  customRowActionsAnchor: 'start',
-    defaultColumns: ['createdAt', 'updatedAt'],
     io: {
       exports: ['orders'],
       imports: [],
@@ -68,6 +66,8 @@ export default new AbstractCollectionBuilder({
     ),
   })
   .genListSettings({
+    //  customRowActionsAnchor: 'start',
+    defaultColumns: ['createdAt', 'updatedAt'],
     defaultSortPreference: 'name',
   })
   .genDetail({

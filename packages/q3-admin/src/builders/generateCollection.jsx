@@ -51,7 +51,7 @@ export default ({
       <Collection index {...PageListProps} {...props}>
         <Article>
           <Page index {...props} {...PageListProps}>
-            <PageList />
+            <PageList {...PageListProps} />
           </Page>
         </Article>
       </Collection>

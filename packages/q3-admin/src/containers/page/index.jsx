@@ -7,7 +7,7 @@ import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
 import { useDataStore } from '../use';
-import useSortPreference from '../../hooks/useSortPreference';
+import { useSort } from '../../hooks';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';
@@ -44,8 +44,7 @@ const Page = ({
     location,
   } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
-  const clonedLocation = useSortPreference(
-    location,
+  const clonedLocation = useSort(
     collectionName,
     defaultSortPreference,
   );

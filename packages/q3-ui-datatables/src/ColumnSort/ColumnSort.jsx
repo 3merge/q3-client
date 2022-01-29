@@ -11,6 +11,7 @@ const ColumnSortText = withSort(({ label }) => label);
 const ColumnSort = ({
   className,
   title,
+  sort,
   onSort,
   ...props
 }) => {
@@ -28,6 +29,7 @@ const ColumnSort = ({
       <div id={title} data-q3-cell={title}>
         {onSort ? (
           <ColumnSortText
+            sort={sort}
             onSort={onSort}
             title={title}
             label={t(title)}
@@ -42,12 +44,15 @@ const ColumnSort = ({
 
 ColumnSort.defaultProps = {
   onSort: undefined,
+  sort: undefined,
+  title: undefined,
 };
 
 ColumnSort.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   className: PropTypes.string.isRequired,
   onSort: PropTypes.func,
+  sort: PropTypes.string,
 };
 
 export default ColumnSort;

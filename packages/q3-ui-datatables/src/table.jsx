@@ -47,6 +47,7 @@ const TableView = ({
   renderCustomRowActions,
   resolvers,
   data,
+  sort,
   onSort,
   virtuals,
   className,
@@ -129,6 +130,7 @@ const TableView = ({
                   ids={extractIds(data)}
                   title={aliasForName}
                   onSort={isNotVirtual(aliasForName)}
+                  sort={sort}
                 >
                   {!disableColumnReorder && (
                     <ColumnReorderDialog
@@ -149,6 +151,7 @@ const TableView = ({
                   activeColumns.map((column, idx) => (
                     <ColumnSort
                       title={column}
+                      sort={sort}
                       onSort={isNotVirtual(column)}
                       className={cellWidth}
                       key={`${column}-${idx}`}
@@ -229,6 +232,7 @@ TableView.propTypes = {
   style: PropTypes.object,
   total: PropTypes.number,
   virtuals: PropTypes.arrayOf(PropTypes.string),
+  sort: PropTypes.string,
 };
 
 TableView.defaultProps = {
@@ -247,6 +251,7 @@ TableView.defaultProps = {
   total: 0,
   virtuals: [],
   disableExportsProvider: false,
+  sort: undefined,
 };
 
 export default withEmpty(TableView);

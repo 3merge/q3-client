@@ -1,14 +1,12 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
 import { Box, useMediaQuery } from '@material-ui/core';
-import { navigate } from '@reach/router';
 import Table from 'q3-ui-datatables';
-import { AuthContext, useAuth } from 'q3-ui-permissions';
+import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke } from 'lodash';
-import { url } from 'q3-ui-helpers';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
-import { useRefresh } from '../../hooks';
+import { useRefresh, useSortPreference } from '../../hooks';
 import withPageLoading from '../../helpers/withPageLoading';
 import TableLink from '../TableLink';
 import TableTrash from '../TableTrash';
@@ -67,19 +65,6 @@ export const TableDecorator = (props) => ({
     get(props, 'data', []).map(assignUrlPath(root)),
 });
 
-const executeNavigation = (query) =>
-  navigate(
-    `?${url.toParamsString(query)}`,
-    {
-      state: {
-        init: true,
-      },
-    },
-    {
-      replace: true,
-    },
-  );
-
 const useStyle = makeStyles(() => ({
   table: {
     marginTop: 0,
@@ -95,29 +80,23 @@ const List = (props) => {
     theme.breakpoints.down('md'),
   );
 
-  const { collectionName, location, rootPath } =
+  const { collectionName, rootPath } =
     React.useContext(Definitions);
+
   const { poll } = React.useContext(Dispatcher);
   const { canSeeSub } = useAuth(collectionName);
   useRefresh(poll);
 
-  const { state, update } = React.useContext(AuthContext);
   const decorator = TableDecorator({
     ...props,
     ...tableProps,
   });
 
-  const updateSortPrefence = (sort) => {
-    const sorting = get(state, 'profile.sorting', {});
-    sorting[collectionName] = sort;
-
-    const q = new URLSearchParams(
-      get(location, 'search', ''),
-    );
-
-    q.set('sort', sort);
-    return update({ sorting }, () => executeNavigation(q));
-  };
+  const l = useSortPreference(
+    collectionName,
+    // eslint-disable-next-line
+    props?.defaultSortPreference,
+  );
 
   return (
     <Box p={2}>
@@ -129,7 +108,8 @@ const List = (props) => {
         className={table}
         data={decorator.makeLinks(rootPath)}
         id={collectionName}
-        onSort={updateSortPrefence}
+        onSort={l.update}
+        sort={l.sort}
         disableExportsProvider
         style={{
           maxHeight: isMobile ? 'auto' : '85vh',
