@@ -31,6 +31,7 @@ export const DialogWrapper = ({
   onPrev,
   initialValue,
   closeOnRouteChange,
+  closeOnSearchChange,
   ...rest
 }) => {
   const { isOpen, open, close } = useOpen(initialValue);
@@ -39,6 +40,10 @@ export const DialogWrapper = ({
   React.useEffect(() => {
     if (closeOnRouteChange) close();
   }, [get(rest, 'location.pathname')]);
+
+  React.useEffect(() => {
+    if (closeOnSearchChange) close();
+  }, [get(rest, 'location.search')]);
 
   return (
     <>
@@ -158,6 +163,11 @@ DialogWrapper.propTypes = {
   closeOnRouteChange: PropTypes.bool,
 
   /**
+   * Close the drawer if the page search query changes.
+   */
+  closeOnSearchChange: PropTypes.bool,
+
+  /**
    * Will enable react-draggable.
    */
   draggable: PropTypes.bool,
@@ -173,6 +183,7 @@ DialogWrapper.defaultProps = {
   onPrev: null,
   initialValue: false,
   closeOnRouteChange: false,
+  closeOnSearchChange: false,
   draggable: false,
 };
 

@@ -20,6 +20,7 @@ const Filter = ({ data }) => {
     <Dialog
       title="filter"
       variant="drawer"
+      closeOnSearchChange
       renderContent={() => <FilterComponent data={data} />}
       renderTrigger={(onClick) => (
         <ButtonWithIcon

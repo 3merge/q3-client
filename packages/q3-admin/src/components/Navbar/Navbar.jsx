@@ -41,6 +41,7 @@ const Navbar = ({ children, header, footer }) => {
           }}
           anchor="left"
           closeOnRouteChange
+          closeOnSearchChange
           renderContent={() => children}
           renderTrigger={(onClick) => (
             <AppBar
