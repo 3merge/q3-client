@@ -4,7 +4,7 @@ import { map } from 'lodash';
 import { getMeta } from 'q3-ui/lib/timeline';
 import { useTranslation } from 'q3-ui-locale';
 import { Link as ReachLink } from '@reach/router';
-import { Link, Tooltip } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -51,22 +51,18 @@ const DetailOptions = ({ registerOptions }) => {
     <ul className={cls.list}>
       {map(options, (option) => (
         <li className={cls.listItem} key={option.title}>
-          <Tooltip arrow title={option.title}>
-            <span className={cls.listItemText}>
-              {renderIcon(option.icon, option.title)}
-              {option.href ? (
-                <Link
-                  color="inherit"
-                  component={ReachLink}
-                  to={option.href}
-                >
-                  {option.description}
-                </Link>
-              ) : (
-                option.description
-              )}
-            </span>
-          </Tooltip>
+          {renderIcon(option.icon)} {option.title}{' '}
+          {option.href ? (
+            <Link
+              color="inherit"
+              component={ReachLink}
+              to={option.href}
+            >
+              {option.description}
+            </Link>
+          ) : (
+            option.description
+          )}
         </li>
       ))}
     </ul>
