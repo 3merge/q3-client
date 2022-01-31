@@ -30,6 +30,7 @@ const ExampleApp = ({ initialPath }) => {
                 pages,
               }}
               NavProps={{
+                className: 'testing',
                 title: 'Demo app',
                 logoSrc:
                   'https://uilogos.co/img/logomark/cod-lab.png',

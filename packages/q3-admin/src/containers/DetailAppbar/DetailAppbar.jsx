@@ -17,6 +17,7 @@ const DetailAppbar = ({ children, summary, ...rest }) => {
       <Toolbar className={cls.toolbar}>
         <Box alignItems="center" display="flex">
           <Back />
+          <Breadcrumbs />
         </Box>
         <ActionBar>
           <DetailActions {...rest} />
@@ -24,10 +25,7 @@ const DetailAppbar = ({ children, summary, ...rest }) => {
       </Toolbar>
       <Toolbar className={cls.header}>
         <DetailFeaturedPhoto />
-        <DetailHeader {...rest}>
-          <Breadcrumbs />
-          {summary}
-        </DetailHeader>
+        <DetailHeader {...rest}>{summary}</DetailHeader>
       </Toolbar>
       {children}
     </AppBar>

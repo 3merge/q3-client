@@ -27,14 +27,15 @@ export const makePath = ({
   throw new Error('Path type not defined');
 };
 
+// this used to automatically redirect
+// that's no longer desirable
 export const addRedirectWhenMissingHome = (xs) => {
   if (xs.findIndex((f) => f.home) === -1)
     return [
       {
         home: true,
-        component: () => (
-          <Redirect noThrow to={makePath(first(xs))} />
-        ),
+        component: () =>
+          'Dashboard missing. Please direct to another page.',
       },
     ].concat(xs);
 

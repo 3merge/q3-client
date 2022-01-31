@@ -24,6 +24,7 @@ export const formatCalendarEvents = (xs, fn) => {
         'start',
         'end',
         'backgroundColor',
+        'borderColor',
         'textColor',
         'editable',
         'durationEditable',

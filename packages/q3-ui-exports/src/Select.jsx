@@ -12,13 +12,17 @@ export const SelectAll = ({ ids }) => {
 
   if (!ctx) return null;
 
-  const { onCheckSome, hasChecked } = ctx;
+  const { setChecked, onCheckSome, hasChecked } = ctx;
 
   const checked = intersection(ctx.checked, ids);
   const len = size(checked);
   const label = len
     ? t('labels:clearAll')
     : t('labels:selectAll');
+
+  React.useEffect(() => {
+    setChecked([]);
+  }, [ids]);
 
   return (
     <Badge

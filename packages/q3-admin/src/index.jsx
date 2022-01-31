@@ -53,6 +53,7 @@ const Admin = ({
         footer={<ProfileActions {...ProfileActionsProps} />}
         header={
           <Logo
+            className={NavProps.className}
             src={NavProps.logoSrc}
             to={get(AppProps, 'directory', '/')}
           />
@@ -87,6 +88,7 @@ Admin.propTypes = {
   }).isRequired,
 
   NavProps: PropTypes.shape({
+    className: PropTypes.string,
     logoSrc: PropTypes.string,
   }),
 

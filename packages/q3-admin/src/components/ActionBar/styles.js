@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
       right: 0,
       height: 65,
       justifyContent: 'center',
+      zIndex: 1000,
     },
   },
 }));

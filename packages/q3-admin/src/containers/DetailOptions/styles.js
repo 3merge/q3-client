@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   list: {
     listStyle: 'none',
-    margin: `${theme.spacing(0.25)} 0`,
+    margin: `${theme.spacing(1)} 0`,
     maxWidth: '40vw',
     padding: 0,
 
@@ -13,9 +13,14 @@ export default makeStyles((theme) => ({
   },
   listItem: {
     display: 'inline',
-    fontSize: 'small',
+    fontSize: '0.911rem',
     marginRight: theme.spacing(1.5),
     cursor: 'help',
+
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+      textAlign: 'left',
+    },
   },
   listItemText: {
     alignItems: 'center',
