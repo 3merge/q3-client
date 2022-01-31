@@ -94,7 +94,8 @@ const RepeaterTable = ({
                           paddingRight: '6px',
                         }}
                       >
-                        <SelectAll ids={map(list, 'id')} />
+                        {/** SHOW ALL NOT JUST FILTERED OR PAGED */}
+                        <SelectAll ids={map(data, 'id')} />
                       </span>
                     )}
                     {t(rest?.th || 'identifier')}
