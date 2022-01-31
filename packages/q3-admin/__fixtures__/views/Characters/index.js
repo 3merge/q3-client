@@ -55,6 +55,16 @@ export default new AbstractCollectionBuilder({
     ui: 'calendar',
     runOnInit: false,
     fromKey: 'createdAt',
+    getBackgroundEvents() {
+      return Promise.resolve([
+        {
+          id: 1,
+          title: 'Stat holiday',
+          start: moment().startOf('day').toDate(),
+          end: moment().endOf('day').toDate(),
+        },
+      ]);
+    },
   })
   .genListSettings({})
   .genDetail({

@@ -75,12 +75,14 @@ export default new AbstractCollectionBuilder({
     picture: true,
     files: true,
     notes: true,
+    disablePaper: true,
     audit: {
       foo: 'foo,bar,quuz',
     },
     registerActions: () => [
       {
         label: 'custom action',
+        disabled: true,
         onClick() {
           alert('Action clicked');
         },
@@ -97,7 +99,5 @@ export default new AbstractCollectionBuilder({
       },
     ],
   })
-  .genDetailSettings({
-    // disableUnsavedChanges: true,
-  })
+
   .build();

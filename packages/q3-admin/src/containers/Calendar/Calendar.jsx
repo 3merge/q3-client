@@ -50,7 +50,14 @@ const Calendar = (props) => {
       <FullCalendar
         allDaySlot={false}
         lazyFetching
-        events={events}
+        events={[
+          ...map(calendarSource.backgroundEvents, (bg) => ({
+            ...bg,
+            id: `bg-${bg.id}`,
+            display: 'background',
+          })),
+          ...events,
+        ]}
         eventTimeFormat={{
           hour: 'numeric',
           minute: '2-digit',

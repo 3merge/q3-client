@@ -8,6 +8,7 @@ import {
   last,
   compact,
   omit,
+  isObject,
 } from 'lodash';
 
 const countDiff = (a, assertion) =>
@@ -44,11 +45,13 @@ const omitReservedWords = (xs) =>
   omit(xs, ['sort', 'page', 'limit', 'active']);
 
 export const mapSegmentsToListData = (xs) =>
-  Object.entries(xs).map(([key, value]) => ({
-    label: key,
-    searchValue: value,
-    value,
-  }));
+  isObject(xs)
+    ? Object.entries(xs).map(([key, value]) => ({
+        label: key,
+        searchValue: value,
+        value,
+      }))
+    : [];
 
 export default (segments = []) => {
   const qp = useQueryParams();
