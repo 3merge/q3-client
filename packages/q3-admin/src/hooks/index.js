@@ -1,4 +1,3 @@
-export { default as useAppContext } from './useAppContext';
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
 export { default as useDetailRegisterFunction } from './useDetailRegisterFunction';

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import { omit } from 'lodash';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // eslint-disable-next-line
 import Graphic from 'q3-ui-assets';
@@ -10,6 +11,17 @@ const withPageLoading = (Component) => {
   const PageLoading = (props) => {
     const { fetching, fetchingError } =
       React.useContext(Store);
+
+    // somehow getting injected
+    const componentProps = omit(props, [
+      'fetching',
+      'fetchingError',
+    ]);
+
+    const Renderer = React.useMemo(
+      () => <Component {...componentProps} />,
+      [componentProps],
+    );
 
     if (fetching)
       return (
@@ -32,7 +44,7 @@ const withPageLoading = (Component) => {
         </Box>
       );
 
-    return <Component {...props} />;
+    return Renderer;
   };
 
   PageLoading.propTypes = {

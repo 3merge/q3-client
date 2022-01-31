@@ -5,11 +5,15 @@ import Back from '../back';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
 import DetailHeader from '../DetailHeader';
-import DetailActions from '../DetailActions';
 import ActionBar from '../../components/ActionBar';
 import useStyle from './styles';
 
-const DetailAppbar = ({ children, summary, ...rest }) => {
+const DetailAppbar = ({
+  children,
+  actions,
+  summary,
+  ...rest
+}) => {
   const cls = useStyle();
 
   return (
@@ -23,9 +27,7 @@ const DetailAppbar = ({ children, summary, ...rest }) => {
           <Back />
           <Breadcrumbs />
         </Box>
-        <ActionBar>
-          <DetailActions {...rest} />
-        </ActionBar>
+        <ActionBar>{actions}</ActionBar>
       </Toolbar>
       <Toolbar className={cls.header}>
         <DetailFeaturedPhoto />
@@ -37,6 +39,10 @@ const DetailAppbar = ({ children, summary, ...rest }) => {
 };
 
 DetailAppbar.propTypes = {
+  actions: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.node,
+  ]),
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.node,
@@ -48,8 +54,9 @@ DetailAppbar.propTypes = {
 };
 
 DetailAppbar.defaultProps = {
+  actions: null,
   children: null,
   summary: null,
 };
 
-export default DetailAppbar;
+export default React.memo(DetailAppbar);

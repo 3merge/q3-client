@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { map, pick } from 'lodash';
 import { Box, Grid } from '@material-ui/core';
+import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
 import DetailAppbar from '../DetailAppbar';
@@ -12,25 +14,63 @@ import withPageLoading from '../../helpers/withPageLoading';
 const Detail = ({
   HeaderProps,
   children,
-  picture,
   views,
   ...rest
-}) => (
-  <Article>
-    <DetailAppbar
-      summary={<DetailOptions {...rest} />}
-      {...HeaderProps}
-      {...rest}
-    >
-      <DetailNavigation views={views} />
-    </DetailAppbar>
-    <Box m={2}>
-      <Grid item xs>
-        <DetailViews {...rest} views={views} />
-      </Grid>
-    </Box>
-  </Article>
-);
+}) => {
+  const viewDeps = [
+    JSON.stringify(
+      map(views, (v) => pick(v, ['label', 'to'])),
+    ),
+  ];
+
+  const Actions = React.useMemo(
+    () => <DetailActions {...rest} />,
+    [rest.audit, rest.registerActions],
+  );
+
+  const Navigation = React.useMemo(
+    () => <DetailNavigation views={views} />,
+    viewDeps,
+  );
+
+  const Views = React.useMemo(
+    () => <DetailViews {...rest} views={views} />,
+    viewDeps.concat(rest.disablePaper),
+  );
+
+  const Summary = React.useMemo(
+    () => <DetailOptions {...rest} />,
+    [rest.registerOptions],
+  );
+
+  const AppBar = React.useMemo(
+    () => (
+      <DetailAppbar
+        actions={Actions}
+        summary={Summary}
+        {...HeaderProps}
+        {...rest}
+      >
+        {Navigation}
+      </DetailAppbar>
+    ),
+    [HeaderProps, Actions, Summary, Navigation],
+  );
+
+  return React.useMemo(
+    () => (
+      <Article>
+        {AppBar}
+        <Box m={2}>
+          <Grid item xs>
+            {Views}
+          </Grid>
+        </Box>
+      </Article>
+    ),
+    [AppBar, Views],
+  );
+};
 
 Detail.propTypes = {
   HeaderProps: PropTypes.shape({
@@ -42,7 +82,6 @@ Detail.propTypes = {
     PropTypes.array,
     PropTypes.node,
   ]),
-  picture: PropTypes.bool,
   views: PropTypes.arrayOf(
     PropTypes.shape({
       href: PropTypes.string,
@@ -53,8 +92,9 @@ Detail.propTypes = {
 };
 
 Detail.defaultProps = {
-  picture: false,
   children: null,
 };
 
-export default withPageLoading(withDetailViews(Detail));
+export default withPageLoading(
+  withDetailViews(React.memo(Detail)),
+);
