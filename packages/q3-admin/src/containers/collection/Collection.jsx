@@ -16,7 +16,6 @@ export const Collection = ({
   id,
   location,
   segments,
-  options,
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
@@ -36,9 +35,7 @@ export const Collection = ({
 
   return (
     <Definitions.Provider value={definitionsState}>
-      <CollectionConfig options={options}>
-        {children}
-      </CollectionConfig>
+      {children}
     </Definitions.Provider>
   );
 };
@@ -78,10 +75,17 @@ Collection.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
+
+  /**
+   * Pre-defined filters
+   */
+  // eslint-disable-next-line
+  segments: PropTypes.object,
 };
 
 Collection.defaultProps = {
   id: null,
+  segments: {},
 };
 
 export default withPreRender(Collection);

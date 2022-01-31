@@ -1,16 +1,15 @@
 import React from 'react';
+import { AuthContext } from 'q3-ui-permissions';
+import { get, isFunction } from 'lodash';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
-import { useAppContext } from '../../hooks';
 import { Store } from '../../containers/state';
 import { getPath } from '../../components/utils';
 
 const withDetailViews =
   (Component) =>
-  ({ children, ...props }) => {
-    const { check } = useAppContext();
+  ({ children, protectView, ...props }) => {
     const { data = {} } = React.useContext(Store);
-
-    const checkByLabel = (el) => check(el.label, el, data);
+    const auth = React.useContext(AuthContext);
 
     const toLowerCase = (el) =>
       String(el?.props?.name).toLowerCase();
@@ -27,7 +26,15 @@ const withDetailViews =
             label: str,
             to: getPath(i, str),
           };
-        }).filter(checkByLabel)
+        }).filter((el) =>
+          isFunction(protectView)
+            ? protectView(
+                el.label,
+                data,
+                get(auth, 'state.profile'),
+              )
+            : true,
+        )
       : [];
 
     return React.useMemo(

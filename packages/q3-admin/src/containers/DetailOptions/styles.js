@@ -15,20 +15,10 @@ export default makeStyles((theme) => ({
     display: 'inline',
     fontSize: '0.911rem',
     marginRight: theme.spacing(1.5),
-    cursor: 'help',
-
-    [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      textAlign: 'left',
-    },
-  },
-  listItemText: {
-    alignItems: 'center',
-    display: 'inline-flex',
 
     '& svg': {
-      marginRight: 4,
-      height: '1rem',
+      height: '100%',
+      verticalAlign: 'middle',
     },
   },
 }));

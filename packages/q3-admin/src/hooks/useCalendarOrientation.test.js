@@ -1,40 +1,39 @@
 import React from 'react';
 import '@fullcalendar/react';
-import { useMediaQuery } from '@material-ui/core';
 import useCalendarOrientation from './useCalendarOrientation';
 
-jest.mock('@material-ui/core/useMediaQuery');
-
-let fn;
+let setState;
 
 beforeEach(() => {
-  fn = jest.fn();
+  setState = jest.fn();
 
   jest
-    .spyOn(React, 'useEffect')
+    .spyOn(React, 'useLayoutEffect')
     .mockImplementation((f) => f());
 
   jest.spyOn(React, 'useRef').mockReturnValue({
     current: {
       getApi: jest.fn().mockReturnValue({
-        changeView: fn,
+        changeView: jest.fn(),
       }),
     },
   });
+
+  jest
+    .spyOn(React, 'useState')
+    .mockReturnValue([null, setState]);
 });
 
 describe('useCalendarOrientation', () => {
   it('should change view on mobile', () => {
-    useMediaQuery.mockReturnValue(true);
-    const { headerToolbar } = useCalendarOrientation();
-    expect(fn).toHaveBeenCalled();
-    expect(headerToolbar).toEqual({});
+    window.innerWidth = 1000;
+    useCalendarOrientation();
+    expect(setState).toHaveBeenCalledWith('timeGridWeek');
   });
 
   it('should change view on mobile', () => {
-    useMediaQuery.mockReturnValue(false);
-    const { headerToolbar } = useCalendarOrientation();
-    expect(fn).not.toHaveBeenCalled();
-    expect(headerToolbar).toHaveProperty('center');
+    window.innerWidth = 300;
+    useCalendarOrientation();
+    expect(setState).toHaveBeenCalledWith('list');
   });
 });

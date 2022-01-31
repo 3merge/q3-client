@@ -3,44 +3,39 @@ import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
 import { Fade, Paper, Box } from '@material-ui/core';
 
-const WrappedRoute = ({
-  disablePaper,
-  renderer: Renderer,
-}) =>
+export const WrappedRoute = ({ children, disablePaper }) =>
   disablePaper ? (
     <Fade in>
-      <Box>
-        <Renderer />
-      </Box>
+      <Box>{children}</Box>
     </Fade>
   ) : (
     <Fade in>
       <Paper elevation={1}>
-        <Box p={2}>
-          <Renderer />
-        </Box>
+        <Box p={2}>{children}</Box>
       </Paper>
     </Fade>
   );
 
 WrappedRoute.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+    PropTypes.element,
+  ]),
   disablePaper: PropTypes.bool,
-  renderer: PropTypes.element.isRequired,
 };
 
 WrappedRoute.defaultProps = {
+  children: null,
   disablePaper: false,
 };
 
 const TabsWithRouter = ({ views, ...etc }) => (
   <Router primary={false}>
     {views.map(({ component: Comp, to }) => (
-      <WrappedRoute
-        {...etc}
-        renderer={Comp}
-        path={to}
-        key={to}
-      />
+      <WrappedRoute {...etc} path={to} key={to}>
+        <Comp default />
+      </WrappedRoute>
     ))}
   </Router>
 );

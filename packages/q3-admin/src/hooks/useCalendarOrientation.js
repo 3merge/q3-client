@@ -3,31 +3,41 @@ import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
 import list from '@fullcalendar/list';
 import interaction from '@fullcalendar/interaction';
-import { useMediaQuery } from '@material-ui/core';
+import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
 
 const useCalendarOrientation = () => {
-  const ref = React.useRef();
   const { t } = useTranslation('labels');
-  const isMobile = useMediaQuery((theme) =>
-    theme.breakpoints.down('sm'),
-  );
+  const [initialView, setInitialView] = React.useState();
+  const ref = React.useRef();
 
-  React.useEffect(() => {
-    try {
-      if (ref.current && isMobile)
-        ref.current.getApi().changeView('list');
-    } catch (e) {
-      // noop
+  React.useLayoutEffect(() => {
+    if (!browser.isBrowserReady()) return undefined;
+
+    function reportWindowSize() {
+      const v =
+        window.innerWidth < 960 ? 'list' : 'timeGridWeek';
+
+      if (initialView && ref.current)
+        ref.current.getApi().changeView(v);
+      else setInitialView(v);
     }
-  }, [isMobile]);
+
+    window.addEventListener('resize', reportWindowSize);
+    reportWindowSize.call(window);
+
+    return () => {
+      window.removeEventListener(
+        'resize',
+        reportWindowSize,
+      );
+    };
+  }, [initialView]);
 
   return {
-    headerToolbar: !isMobile
-      ? {
-          center: 'timeGridWeek,dayGridMonth,list',
-        }
-      : {},
+    headerToolbar: {
+      center: 'timeGridWeek,dayGridMonth,list',
+    },
     buttonText: {
       today: t('today'),
       month: t('month'),
@@ -35,7 +45,7 @@ const useCalendarOrientation = () => {
       day: t('day'),
       list: t('list'),
     },
-    initialView: 'timeGridWeek',
+    initialView,
     plugins: [daygrid, timegrid, list, interaction],
     ref,
   };

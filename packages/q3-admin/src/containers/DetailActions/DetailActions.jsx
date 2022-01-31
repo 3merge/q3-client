@@ -11,10 +11,7 @@ import Notes from '../notes';
 import Upload from '../upload';
 import Trash from '../trash';
 import ActivityLog from '../activityLog';
-import {
-  useAppContext,
-  useDetailRegisterFunction,
-} from '../../hooks';
+import { useDetailRegisterFunction } from '../../hooks';
 import DropdownMenu from '../../components/DropdownMenu';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ButtonWithIconDialog from '../../components/ButtonWithIconDialog';
@@ -23,53 +20,44 @@ import Search from '../../components/Search';
 
 const DetailActions = ({ audit, registerActions }) => {
   const { collectionName } = React.useContext(Definitions);
-
-  const lhr = (condition, result) =>
-    condition ? result : null;
-
   const { canDelete, canSeeSub } = useAuth(collectionName);
-
-  const { can } = useAppContext({
-    search: lhr(canSeeSub('grams'), <Search />),
-    audit: lhr(
-      size(audit),
-      <ButtonWithIconDialog
-        icon={TrackChangesIcon}
-        label="audit"
-        renderContent={() => (
-          <ActivityLog templates={audit} />
-        )}
-      />,
-    ),
-    notes: lhr(
-      canSeeSub('thread'),
-      <ButtonWithIconDialog
-        icon={ForumIcon}
-        label="notes"
-        renderContent={Notes}
-      />,
-    ),
-    files: lhr(
-      canSeeSub('uploads'),
-      <ButtonWithIconDialog
-        icon={AttachFileIcon}
-        label="files"
-        renderContent={Upload}
-      />,
-    ),
-    trash: lhr(canDelete, <Trash />),
-  });
 
   const actions =
     useDetailRegisterFunction(registerActions);
 
+  const lhr = (condition, result) =>
+    condition ? result : null;
+
   return (
     <Box alignItems="center" display="flex">
-      {can('search')}
-      {can('notes')}
-      {can('files')}
-      {can('audit')}
-      {can('trash')}
+      {lhr(canSeeSub('grams'), <Search />)}
+      {lhr(
+        canSeeSub('thread'),
+        <ButtonWithIconDialog
+          icon={ForumIcon}
+          label="notes"
+          renderContent={Notes}
+        />,
+      )}
+      {lhr(
+        canSeeSub('uploads'),
+        <ButtonWithIconDialog
+          icon={AttachFileIcon}
+          label="files"
+          renderContent={Upload}
+        />,
+      )}
+      {lhr(
+        size(audit),
+        <ButtonWithIconDialog
+          icon={TrackChangesIcon}
+          label="audit"
+          renderContent={() => (
+            <ActivityLog templates={audit} />
+          )}
+        />,
+      )}
+      {lhr(canDelete, <Trash />)}
       <DropdownMenu items={actions}>
         {(onClick) => (
           <ButtonWithIcon

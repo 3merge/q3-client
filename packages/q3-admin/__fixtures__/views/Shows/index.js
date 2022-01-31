@@ -25,9 +25,6 @@ export default new AbstractCollectionBuilder({
   },
   lookup: ['name'],
 })
-  .genUserOptions('Developer', {
-    all: true,
-  })
   .genResolver(
     ({ id, name, description, createdAt, updatedAt }) => ({
       id,
@@ -72,13 +69,11 @@ export default new AbstractCollectionBuilder({
     defaultSortPreference: 'name',
   })
   .genDetail({
-    picture: true,
-    files: true,
-    notes: true,
+    audit: ['foo', 'bar'],
     disablePaper: true,
-    audit: {
-      foo: 'foo,bar,quuz',
-    },
+    protectView: () =>
+      // if (name === 'subdetail') return data.name === 'foo';
+      true,
     registerActions: () => [
       {
         label: 'custom action',

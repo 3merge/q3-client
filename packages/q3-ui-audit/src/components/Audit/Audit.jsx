@@ -73,14 +73,11 @@ Audit.defaultProps = {
 
 Audit.propTypes = {
   collectionName: PropTypes.string.isRequired,
-
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-
-  // eslint-disable-next-line
-  templates: PropTypes.object.isRequired,
+  templates: PropTypes.arrayOf(PropTypes.string).isRequired,
   users: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
