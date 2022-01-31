@@ -33,9 +33,19 @@ const useCalendarSource = (options = {}) => {
       [`${toKey || fromKey}<`]: castToUTC(info.endStr),
     })}&limit=500`;
 
+  const [backgroundEvents, setBackgroundEvents] =
+    React.useState([]);
+
   const getEvents = debounce(
     (info) => {
       ref.current = info;
+      if (isFunction(getBackgroundEvents))
+        getBackgroundEvents(makeQueryString(info))
+          .then(setBackgroundEvents)
+          .catch(() => {
+            // noop
+          });
+
       return get(makeQueryString(info));
     },
     [500],
@@ -47,12 +57,7 @@ const useCalendarSource = (options = {}) => {
 
   return {
     getEvents,
-
-    getBackgroundEvents(info) {
-      return isFunction(getBackgroundEvents)
-        ? getBackgroundEvents(makeQueryString(info))
-        : [];
-    },
+    backgroundEvents,
 
     navigate(info) {
       info.jsEvent.preventDefault();
