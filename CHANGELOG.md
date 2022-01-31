@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/3merge/q/compare/v3.0.4...v3.1.0) (2022-01-31)
+
+
+### Features
+
+* display segments in header ([#373](https://github.com/3merge/q/issues/373)) ([f3df5f4](https://github.com/3merge/q/commit/f3df5f4c7144de28599b7ba5879d14f53fdbde66))
+
+
+
+
+
 ## [3.0.4](https://github.com/3merge/q/compare/v3.0.3...v3.0.4) (2022-01-29)
 
 
