@@ -15,6 +15,12 @@ export default makeStyles((theme) => ({
       },
     },
 
+    [theme.breakpoints.down('sm')]: {
+      '& .fc-toolbar-chunk:nth-child(2)': {
+        display: 'none',
+      },
+    },
+
     '& .fc': {
       borderRadius: 4,
       backgroundColor: theme.palette.background.paper,

@@ -47,29 +47,34 @@ const Calendar = (props) => {
 
   return (
     <Box className={cls.root}>
-      <FullCalendar
-        allDaySlot={false}
-        lazyFetching
-        events={[
-          ...map(calendarSource.backgroundEvents, (bg) => ({
-            ...bg,
-            id: `bg-${bg.id}`,
-            display: 'background',
-          })),
-          ...events,
-        ]}
-        eventTimeFormat={{
-          hour: 'numeric',
-          minute: '2-digit',
-          meridiem: 'short',
-        }}
-        height="100%"
-        eventClick={calendarSource.navigate}
-        eventChange={calendarSource.update}
-        eventContent={handleEventContent}
-        datesSet={calendarSource.getEvents}
-        {...calendarOrientation}
-      />
+      {calendarOrientation.initialView && (
+        <FullCalendar
+          allDaySlot={false}
+          lazyFetching
+          events={[
+            ...map(
+              calendarSource.backgroundEvents,
+              (bg) => ({
+                ...bg,
+                id: `bg-${bg.id}`,
+                display: 'background',
+              }),
+            ),
+            ...events,
+          ]}
+          eventTimeFormat={{
+            hour: 'numeric',
+            minute: '2-digit',
+            meridiem: 'short',
+          }}
+          height="100%"
+          eventClick={calendarSource.navigate}
+          eventChange={calendarSource.update}
+          eventContent={handleEventContent}
+          datesSet={calendarSource.getEvents}
+          {...calendarOrientation}
+        />
+      )}
     </Box>
   );
 };
