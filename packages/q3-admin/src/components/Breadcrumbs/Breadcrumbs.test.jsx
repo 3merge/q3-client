@@ -5,6 +5,8 @@ import Breadcrumbs from './Breadcrumbs';
 
 let spy;
 
+jest.mock('./styles', () => jest.fn().mockReturnValue({}));
+
 beforeEach(() => {
   spy = jest.spyOn(React, 'useContext');
 });

@@ -39,7 +39,7 @@ export default (forwardedProps) => (props) => {
       <Box height="100%">
         <Exports>
           <AppBar color="inherit" position="static">
-            <Toolbar>
+            <Toolbar style={{ minHeight: 95 }}>
               <Box
                 alignItems="center"
                 display="flex"

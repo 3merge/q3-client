@@ -10,7 +10,7 @@ import {
 
 jest.mock('./useSegments', () =>
   jest.fn().mockReturnValue({
-    active: ['Test'],
+    active: 'Test',
   }),
 );
 

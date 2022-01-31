@@ -29,12 +29,10 @@ const getButton = (props) =>
 
 describe('NavbarListItemSegments', () => {
   test.each([
-    [[], true, undefined],
-    [[], false, undefined],
-    [['All', 'Plus'], true, undefined],
-    [['All', 'Plus'], false, undefined],
-    [['All'], false, undefined],
-    [['All'], true, cls],
+    ['Plus', true, undefined],
+    ['Plus', false, undefined],
+    [undefined, false, undefined],
+    [undefined, true, cls],
   ])('all segment matches', (a, b, expected) => {
     useSegments.mockReturnValue({
       active: a,
@@ -51,7 +49,7 @@ describe('NavbarListItemSegments', () => {
 
   it('should match other segment', () => {
     useSegments.mockReturnValue({
-      active: ['bar'],
+      active: 'bar',
     });
 
     expect(getButton({}).last().prop('className')).toBe(

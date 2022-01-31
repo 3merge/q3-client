@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import { Link } from '@reach/router';
 import { useTranslation } from 'q3-ui-locale';
-import HomeIcon from '@material-ui/icons/Home';
 import { Definitions } from '../../containers/state';
+import useStyle from './styles';
 
 const Breadcrumbs = () => {
   const {
@@ -16,9 +16,13 @@ const Breadcrumbs = () => {
   } = React.useContext(Definitions);
 
   const { t } = useTranslation('labels');
+  const cls = useStyle();
 
   return id ? (
-    <MuiBreadcrumbs aria-label="breadcrumb">
+    <MuiBreadcrumbs
+      aria-label="breadcrumb"
+      className={cls.root}
+    >
       <MuiLink color="inherit" to="/" component={Link}>
         {t('home')}
       </MuiLink>
@@ -29,7 +33,7 @@ const Breadcrumbs = () => {
       >
         {t(collectionName)}
       </MuiLink>
-      <Typography color="textPrimary">
+      <Typography className={cls.font} color="textPrimary">
         {t(`${resourceName}Detail`)}
       </Typography>
     </MuiBreadcrumbs>

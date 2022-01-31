@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-import { get, filter, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import useSegments from './useSegments';
 import useSegmentsFromProfile from './useSegmentsFromProfile';
@@ -13,17 +12,8 @@ const useSegmentsFromCollection = (collectionName) => {
     set,
   } = useSegmentsFromProfile(collectionName);
 
-  const profileSegmentsWithActiveStats =
-    useSegments(profileSegments);
-
-  const mapActive = (segmentContext, callback) =>
-    map(
-      filter(
-        get(segmentContext, 'active'),
-        (v) => v !== 'All',
-      ),
-      callback,
-    ).flat();
+  const { active: name } = useSegments(profileSegments);
+  const curryFunction = (fn) => () => fn(name);
 
   return [
     {
@@ -33,32 +23,33 @@ const useSegmentsFromCollection = (collectionName) => {
       },
     },
   ].concat(
-    mapActive(profileSegmentsWithActiveStats, (name) => {
-      const curryFunction = (fn) => () => fn(name);
-
-      return [
-        {
-          label: t('renameSegment', {
-            name,
-          }),
-          onClick() {
-            rename(prompt(t('renameSegmentPrompt')), name);
+    name
+      ? [
+          {
+            label: t('renameSegment', {
+              name,
+            }),
+            onClick() {
+              rename(
+                prompt(t('renameSegmentPrompt')),
+                name,
+              );
+            },
           },
-        },
-        {
-          label: t('replaceSegment', {
-            name,
-          }),
-          onClick: curryFunction(set),
-        },
-        {
-          label: t('removeSegment', {
-            name,
-          }),
-          onClick: curryFunction(remove),
-        },
-      ];
-    }),
+          {
+            label: t('replaceSegment', {
+              name,
+            }),
+            onClick: curryFunction(set),
+          },
+          {
+            label: t('removeSegment', {
+              name,
+            }),
+            onClick: curryFunction(remove),
+          },
+        ]
+      : [],
   );
 };
 

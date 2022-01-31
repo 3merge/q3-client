@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import { Button, List, ListItem } from '@material-ui/core';
-import { first, includes, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import useSegments from '../../hooks/useSegments';
 import useStyle from './styles';
@@ -30,9 +29,7 @@ const NavbarListItemSegments = ({
         <ListItem className={cls.listItem}>
           <Button
             className={
-              isActive &&
-              size(active) === 1 &&
-              first(active) === 'All'
+              isActive && !active
                 ? cls.activeSegment
                 : undefined
             }
@@ -48,7 +45,7 @@ const NavbarListItemSegments = ({
           <ListItem className={cls.listItem}>
             <Button
               className={
-                includes(active, label)
+                active === label
                   ? cls.activeSegment
                   : undefined
               }

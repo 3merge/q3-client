@@ -5,7 +5,7 @@ import {
   get,
   isEqual,
   map,
-  size,
+  last,
   compact,
   omit,
 } from 'lodash';
@@ -22,7 +22,10 @@ const sortValue = (xs) =>
 const applyFunctionToKeyValuePair = (fn, xs) => (k, v) =>
   fn(sortValue(get(xs, k)), sortValue(v));
 
-const negate = (fn) => (...args) => !fn(...args);
+const negate =
+  (fn) =>
+  (...args) =>
+    !fn(...args);
 
 const contains = (a, b) =>
   countDiff(a, applyFunctionToKeyValuePair(isEqual, b), 0);
@@ -33,9 +36,6 @@ const containsNot = (a, b) =>
     applyFunctionToKeyValuePair(negate(isEqual), b),
     0,
   );
-
-const ensureActiveSegment = (xs) =>
-  size(compact(xs)) ? xs : ['All'];
 
 const hasMax = (maxValue) => (xs) =>
   xs.containsNot > 0 ? false : xs.contains === maxValue;
@@ -78,15 +78,17 @@ export default (segments = []) => {
     ...map(segmentsWithStats, 'contains'),
   );
 
-  const active = ensureActiveSegment(
-    map(filter(segmentsWithStats, hasMax(max)), 'label'),
+  const active = last(
+    compact(
+      map(filter(segmentsWithStats, hasMax(max)), 'label'),
+    ),
   );
 
   return {
     active,
     segments: map(segmentsWithStats, (item) => ({
+      isActive: active === item.label,
       ...item,
-      isActive: active.includes(item.label),
     })),
   };
 };

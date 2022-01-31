@@ -18,7 +18,7 @@ test.each([
         value: '?status=string(Quote)&total>1000',
       },
     ],
-    ['Cheap Quotes'],
+    'Cheap Quotes',
   ],
   [
     '?status=Quote&total<1000&deferred=false&search=Term',
@@ -32,7 +32,7 @@ test.each([
         value: '?status=string(Quote)&total>1000',
       },
     ],
-    ['Cheap Quotes'],
+    'Cheap Quotes',
   ],
   [
     '?status=Quote&total<2000',
@@ -46,7 +46,7 @@ test.each([
         value: '?status=string(Quote)&total>1000',
       },
     ],
-    ['All'],
+    undefined,
   ],
   [
     '?status=string(Quote)&payment=in(Visa,Mastercard)',
@@ -61,7 +61,7 @@ test.each([
         value: '?status=Quote&payment=Mastercard,Visa',
       },
     ],
-    ['With casting', 'Without casting'],
+    'Without casting',
   ],
 ])(
   '.useSegments() active',
