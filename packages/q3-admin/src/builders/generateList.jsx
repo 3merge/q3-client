@@ -7,12 +7,21 @@ import {
 } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
 import { isFunction } from 'lodash';
+import { makeStyles } from '@material-ui/core';
 import {
   Calendar,
   TableActions,
   Table,
 } from '../containers';
 import CollectionName from '../components/CollectionName';
+
+const useStyle = makeStyles((theme) => ({
+  toolbar: {
+    [theme.breakpoints.up('lg')]: {
+      minHeight: 95,
+    },
+  },
+}));
 
 const UndefinedListElement = () => (
   <div>Missing UI configuration</div>
@@ -21,6 +30,7 @@ const UndefinedListElement = () => (
 export default (forwardedProps) => (props) => {
   // eslint-disable-next-line
   const { ui } = forwardedProps;
+  const cls = useStyle();
 
   const ListElement = React.useMemo(() => {
     if (!ui || ui === 'table') return Table;
@@ -39,7 +49,7 @@ export default (forwardedProps) => (props) => {
       <Box height="100%">
         <Exports>
           <AppBar color="inherit" position="static">
-            <Toolbar style={{ minHeight: 95 }}>
+            <Toolbar className={cls.toolbar}>
               <Box
                 alignItems="center"
                 display="flex"

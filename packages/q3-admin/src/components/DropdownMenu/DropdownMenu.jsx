@@ -39,6 +39,7 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
                 className={cls.menuItem}
                 {...(isFunction(item.onClick)
                   ? {
+                      disabled: item.disabled,
                       component: 'button',
                       onClick: (e) => {
                         item.onClick(e);
@@ -46,6 +47,7 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
                       },
                     }
                   : {
+                      disabled: item.disabled,
                       component: Link,
                       onClick: close,
                       to: item.to || '/',

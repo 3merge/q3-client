@@ -15,7 +15,11 @@ const DetailAppbar = ({ children, summary, ...rest }) => {
   return (
     <AppBar color="inherit" position="static">
       <Toolbar className={cls.toolbar}>
-        <Box alignItems="center" display="flex">
+        <Box
+          alignItems="center"
+          display="flex"
+          className={cls.nav}
+        >
           <Back />
           <Breadcrumbs />
         </Box>

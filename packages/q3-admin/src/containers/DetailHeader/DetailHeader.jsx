@@ -15,7 +15,7 @@ const DetailHeader = ({ children, ...props }) => {
   );
 
   return children ? (
-    <Box>
+    <Box ml=".5rem">
       {Title}
       {children}
     </Box>

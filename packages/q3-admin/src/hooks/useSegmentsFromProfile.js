@@ -26,6 +26,10 @@ export default (collectionName) => {
 
   return {
     set: (name) => {
+      if (!name) {
+        return Promise.resolve(null);
+      }
+
       if (
         isObject(data) &&
         Object.values(data).findIndex(

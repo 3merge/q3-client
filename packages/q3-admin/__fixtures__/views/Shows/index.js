@@ -81,6 +81,7 @@ export default new AbstractCollectionBuilder({
     registerActions: () => [
       {
         label: 'custom action',
+        disabled: true,
         onClick() {
           alert('Action clicked');
         },
