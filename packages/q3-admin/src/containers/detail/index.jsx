@@ -26,7 +26,7 @@ const Detail = ({
     </DetailAppbar>
     <Box m={2}>
       <Grid item xs>
-        <DetailViews views={views} />
+        <DetailViews {...rest} views={views} />
       </Grid>
     </Box>
   </Article>
