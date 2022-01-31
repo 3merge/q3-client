@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/3merge/q/compare/v3.1.1...v3.1.2) (2022-01-31)
+
+
+### Bug Fixes
+
+* over rendering ([#375](https://github.com/3merge/q/issues/375)) ([d2dedac](https://github.com/3merge/q/commit/d2dedacd038779eb5cd5bded50812757b1979ada))
+
+
+
+
+
 ## [3.1.1](https://github.com/3merge/q/compare/v3.1.0...v3.1.1) (2022-01-31)
 
 **Note:** Version bump only for package q3-client
