@@ -18,6 +18,10 @@ beforeAll(() => {
     current: null,
   };
 
+  jest
+    .spyOn(React, 'useState')
+    .mockReturnValue([[], jest.fn()]);
+
   jest.spyOn(React, 'useRef').mockReturnValue(ref);
   jest.spyOn(React, 'useEffect').mockImplementation(() => {
     // noop
@@ -33,12 +37,18 @@ describe('useCalendarSource', () => {
       endStr: '2022-02-01',
     };
 
+    const getBackgroundEvents = jest
+      .fn()
+      .mockResolvedValue([]);
+
     jest.spyOn(React, 'useContext').mockReturnValue({
       poll,
     });
 
     // this is debounced
-    useCalendarSource({}).getEvents(context);
+    useCalendarSource({
+      getBackgroundEvents,
+    }).getEvents(context);
 
     setTimeout(() => {
       expect(poll).toHaveBeenCalledWith(
@@ -51,30 +61,9 @@ describe('useCalendarSource', () => {
 
       // allows us to requery
       expect(ref.current).toMatchObject(context);
+      expect(getBackgroundEvents).toHaveBeenCalled();
       done();
     }, [500]);
-  });
-
-  it('should use from/to keeps', () => {
-    const qp = useQueryParams();
-    const getBackgroundEvents = jest.fn();
-
-    useCalendarSource({
-      fromKey: 'f',
-      toKey: 't',
-      getBackgroundEvents,
-    }).getBackgroundEvents({
-      startStr: '2022-01-01',
-      endStr: '2022-02-01',
-    });
-
-    expect(getBackgroundEvents).toHaveBeenCalledWith(
-      `${qp.encode({
-        foo: 'bar',
-        'f>': castToUTC('2022-01-01'),
-        't<': castToUTC('2022-02-01'),
-      })}&limit=500`,
-    );
   });
 
   it('should navigate by ID', () => {
