@@ -75,6 +75,7 @@ export default new AbstractCollectionBuilder({
     picture: true,
     files: true,
     notes: true,
+    disablePaper: true,
     audit: {
       foo: 'foo,bar,quuz',
     },
@@ -98,7 +99,5 @@ export default new AbstractCollectionBuilder({
       },
     ],
   })
-  .genDetailSettings({
-    // disableUnsavedChanges: true,
-  })
+
   .build();
