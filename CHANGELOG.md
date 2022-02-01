@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.4](https://github.com/3merge/q/compare/v3.1.3...v3.1.4) (2022-02-01)
+
+
+### Bug Fixes
+
+* oversized text and double repeater rendering ([29b0d74](https://github.com/3merge/q/commit/29b0d7469272609fe5a66587f9fc110bb0033140))
+
+
+
+
+
 ## [3.1.3](https://github.com/3merge/q/compare/v3.1.2...v3.1.3) (2022-02-01)
 
 **Note:** Version bump only for package q3-client
