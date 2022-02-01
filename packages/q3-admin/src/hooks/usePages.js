@@ -8,6 +8,7 @@ import {
   flatten,
   groupBy,
   merge,
+  filter,
 } from 'lodash';
 import { makePath } from '../components/app';
 
@@ -40,7 +41,7 @@ export default (pages = []) => {
   });
 
   return groupBy(
-    map(assignSegments(pages), makePage).flat(),
+    filter(map(assignSegments(pages), makePage), 'visible'),
     (v) => v.parent,
   );
 };

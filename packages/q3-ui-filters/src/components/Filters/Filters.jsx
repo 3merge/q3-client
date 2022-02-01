@@ -19,18 +19,19 @@ import { useTranslation } from 'q3-ui-locale';
 import { useToggle } from 'useful-state';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { object } from 'q3-ui-helpers';
+import { useAuth } from 'q3-ui-permissions';
 import Actions from '../Actions';
 import Search from '../Search';
 import useLocation from '../useLocation';
 
-const Filters = ({ data }) => {
+const Filters = ({ collectionName, data }) => {
   const { t } = useTranslation('labels');
   const [search, setSearch] = React.useState();
   const loc = useLocation(data);
   const init = loc.initialValues;
 
   const { toggle, state } = useToggle();
+  const auth = useAuth(collectionName);
 
   return (
     <Box>
@@ -81,11 +82,14 @@ const Filters = ({ data }) => {
               {sortBy(
                 loc.map((name, fields) => {
                   const num = count(name);
-                  const group = t(
-                    String(name).replace(/~/g, '.'),
+                  const fieldName = String(name).replace(
+                    /~/g,
+                    '.',
                   );
 
-                  return (
+                  const group = t(fieldName);
+
+                  return auth.canSeeSub(fieldName) ? (
                     <Grid
                       key={group}
                       item
@@ -177,7 +181,7 @@ const Filters = ({ data }) => {
                         </Accordion>
                       </Collapse>
                     </Grid>
-                  );
+                  ) : null;
                 }),
                 'key',
               )}
@@ -203,6 +207,7 @@ Filters.defaultProps = {
 };
 
 Filters.propTypes = {
+  collectionName: PropTypes.string.isRequired,
   // eslint-disable-next-line
   data: PropTypes.object,
 };

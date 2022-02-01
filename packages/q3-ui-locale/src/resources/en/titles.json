@@ -111,5 +111,6 @@
   "audit": "Audit logs",
   "notes": "Notes",
   "uploads": "Uploads",
-  "files": "Files"
+  "files": "Files",
+  "menu": "Menu"
 }

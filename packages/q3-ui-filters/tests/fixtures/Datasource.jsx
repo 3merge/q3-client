@@ -1,4 +1,5 @@
 import React from 'react';
+import { AuthContext } from 'q3-ui-permissions';
 // eslint-disable-next-line
 import Rest from 'q3-ui-test-utils/lib/rest';
 import { last, lowerCase, uniq } from 'lodash';
@@ -52,7 +53,22 @@ export const defineMockRoutes =
 
 // eslint-disable-next-line
 export default ({ delay = 150, children, ...props }) => (
-  <Rest define={defineMockRoutes(props)} delay={delay}>
-    {children}
-  </Rest>
+  <AuthContext.Provider
+    value={{
+      state: {
+        init: true,
+        permissions: [
+          {
+            coll: 'test',
+            op: 'Read',
+            fields: ['*'],
+          },
+        ],
+      },
+    }}
+  >
+    <Rest define={defineMockRoutes(props)} delay={delay}>
+      {children}
+    </Rest>
+  </AuthContext.Provider>
 );

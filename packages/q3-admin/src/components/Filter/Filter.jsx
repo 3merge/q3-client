@@ -4,10 +4,12 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import FilterComponent from 'q3-ui-filters';
 import useLocation from 'q3-ui-filters/lib/components/useLocation';
 import ButtonWithIcon from '../ButtonWithIcon';
+import { Definitions } from '../../containers/state';
 
 // eslint-disable-next-line
 const Filter = ({ data }) => {
   const loc = useLocation(data);
+  const { collectionName } = React.useContext(Definitions);
   const count = loc.makeCounter(loc.initialValues);
   let acc = 0;
 
@@ -21,7 +23,12 @@ const Filter = ({ data }) => {
       title="filter"
       variant="drawer"
       closeOnSearchChange
-      renderContent={() => <FilterComponent data={data} />}
+      renderContent={() => (
+        <FilterComponent
+          collectionName={collectionName}
+          data={data}
+        />
+      )}
       renderTrigger={(onClick) => (
         <ButtonWithIcon
           icon={FilterListIcon}

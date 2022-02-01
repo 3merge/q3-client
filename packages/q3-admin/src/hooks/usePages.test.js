@@ -64,7 +64,7 @@ describe('usePages', () => {
     });
 
     useAuth.mockReturnValue({
-      inClient: false,
+      inClient: true,
     });
 
     expect(
@@ -83,7 +83,7 @@ describe('usePages', () => {
       test: [
         expect.objectContaining({
           to: 'test',
-          visible: false,
+          visible: true,
           segments: {
             system: '?',
             custom: '?',
@@ -91,5 +91,32 @@ describe('usePages', () => {
         }),
       ],
     });
+  });
+
+  it('should filter', () => {
+    stubProfile({
+      profile: {
+        filters: {
+          test: {
+            custom: '?',
+          },
+        },
+      },
+    });
+
+    useAuth.mockReturnValue({
+      inClient: false,
+    });
+
+    expect(
+      usePages([
+        {
+          collectionName: 'test',
+          resourceName: 'test',
+          index: true,
+          parent: 'test',
+        },
+      ]),
+    ).toMatchObject({});
   });
 });
