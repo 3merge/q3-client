@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.5](https://github.com/3merge/q/compare/v3.1.4...v3.1.5) (2022-02-01)
+
+
+### Bug Fixes
+
+* permissions in menu and filtering ([9699005](https://github.com/3merge/q/commit/9699005d54b49ebe65cba53e0d34f94553a1a302))
+
+
+
+
+
 ## [3.1.4](https://github.com/3merge/q/compare/v3.1.3...v3.1.4) (2022-02-01)
 
 
