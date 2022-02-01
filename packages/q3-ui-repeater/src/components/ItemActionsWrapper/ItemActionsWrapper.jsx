@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Pageview from '@material-ui/icons/Pageview';
 import Dialog from 'q3-ui-dialog';
+import { isNil } from 'lodash';
 import Context, { ActionContext } from '../state';
 import useNextPrev from '../useNextPrev';
 
@@ -23,7 +24,7 @@ const ItemActionsWrapper = ({
   const { data, next, prev } = useNextPrev(state);
 
   const renderChildren = (args = {}) =>
-    children
+    children && !isNil(data)
       ? React.cloneElement(children, {
           ...args,
           onSubmit: edit(state),

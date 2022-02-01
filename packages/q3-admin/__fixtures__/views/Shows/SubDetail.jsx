@@ -1,7 +1,12 @@
 import React from 'react';
 import { SubDetail } from 'q3-admin';
 import { Builders } from 'q3-ui-forms';
-import { compact, join } from 'lodash';
+
+const SubDetailForm = (props) => (
+  <Builders.Form {...props} keep={['title']}>
+    <Builders.Field name="title" />
+  </Builders.Form>
+);
 
 export default (props) => (
   <SubDetail
@@ -15,8 +20,6 @@ export default (props) => (
       title: '',
     }}
   >
-    <Builders.Form {...props} keep={['title']}>
-      <Builders.Field name="title" />
-    </Builders.Form>
+    <SubDetailForm />
   </SubDetail>
 );

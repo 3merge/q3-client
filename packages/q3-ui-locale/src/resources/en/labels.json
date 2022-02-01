@@ -387,5 +387,7 @@
   "removeAllFilters": "Remove all active filters",
   "restartFilters": "Restart from last search",
   "shareFilters": "Copy query to clipboard",
-  "all": "All"
+  "all": "All",
+  "createdBy": "Created by {{name}}",
+  "lastModifiedBy": "Updated by {{name}}"
 }
