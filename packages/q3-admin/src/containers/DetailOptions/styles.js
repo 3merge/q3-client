@@ -3,22 +3,17 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   list: {
     listStyle: 'none',
-    margin: `${theme.spacing(1)} 0`,
-    maxWidth: '40vw',
     padding: 0,
-
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '100% !important',
-    },
+    margin: 0,
+    marginLeft: '-.5rem',
+    marginTop: '.25rem',
   },
   listItem: {
-    display: 'inline',
-    fontSize: '0.911rem',
-    marginRight: theme.spacing(1.5),
-
-    '& svg': {
-      height: '100%',
-      verticalAlign: 'middle',
-    },
+    width: 'auto',
+  },
+  chip: {
+    borderRadius: 4,
+    backgroundColor: theme.palette.secondary.muted,
+    fontWeight: 'bold',
   },
 }));

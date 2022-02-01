@@ -1,20 +1,13 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import PropTypes from 'prop-types';
-import { Fade, Paper, Box } from '@material-ui/core';
+import { Fade, Box } from '@material-ui/core';
 
-export const WrappedRoute = ({ children, disablePaper }) =>
-  disablePaper ? (
-    <Fade in>
-      <Box>{children}</Box>
-    </Fade>
-  ) : (
-    <Fade in>
-      <Paper elevation={1}>
-        <Box p={2}>{children}</Box>
-      </Paper>
-    </Fade>
-  );
+export const WrappedRoute = ({ children }) => (
+  <Fade in>
+    <Box p={1.5}>{children}</Box>
+  </Fade>
+);
 
 WrappedRoute.propTypes = {
   children: PropTypes.oneOfType([
@@ -22,12 +15,10 @@ WrappedRoute.propTypes = {
     PropTypes.node,
     PropTypes.element,
   ]),
-  disablePaper: PropTypes.bool,
 };
 
 WrappedRoute.defaultProps = {
   children: null,
-  disablePaper: false,
 };
 
 const TabsWithRouter = ({ views, ...etc }) => (

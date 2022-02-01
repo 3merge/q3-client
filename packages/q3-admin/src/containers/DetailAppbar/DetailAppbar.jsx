@@ -5,6 +5,7 @@ import Back from '../back';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
 import DetailHeader from '../DetailHeader';
+import DetailMeta from '../DetailMeta';
 import ActionBar from '../../components/ActionBar';
 import useStyle from './styles';
 
@@ -17,7 +18,12 @@ const DetailAppbar = ({
   const cls = useStyle();
 
   return (
-    <AppBar color="inherit" position="static">
+    <AppBar
+      elevation={0}
+      color="inherit"
+      position="static"
+      className={cls.root}
+    >
       <Toolbar className={cls.toolbar}>
         <Box
           alignItems="center"
@@ -30,8 +36,13 @@ const DetailAppbar = ({
         <ActionBar>{actions}</ActionBar>
       </Toolbar>
       <Toolbar className={cls.header}>
-        <DetailFeaturedPhoto />
-        <DetailHeader {...rest}>{summary}</DetailHeader>
+        <Box alignItems="center" display="flex" flex="1">
+          <DetailFeaturedPhoto />
+          <DetailHeader {...rest}>{summary}</DetailHeader>
+        </Box>
+        <Box className={cls.meta}>
+          <DetailMeta />
+        </Box>
       </Toolbar>
       {children}
     </AppBar>

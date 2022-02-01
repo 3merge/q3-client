@@ -31,6 +31,7 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   footer: {
+    boxShadow: theme.shadows[0],
     backgroundColor: theme.palette.background.paper,
     borderTop: `1px solid ${theme.palette.background.muted}`,
     bottom: 0,

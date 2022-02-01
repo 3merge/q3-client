@@ -48,7 +48,11 @@ export default (forwardedProps) => (props) => {
     <Fade in>
       <Box height="100%">
         <Exports>
-          <AppBar color="inherit" position="static">
+          <AppBar
+            elevation={0}
+            color="inherit"
+            position="static"
+          >
             <Toolbar className={cls.toolbar}>
               <Box
                 alignItems="center"

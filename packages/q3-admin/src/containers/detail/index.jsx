@@ -59,14 +59,16 @@ const Detail = ({
 
   return React.useMemo(
     () => (
-      <Article>
-        {AppBar}
-        <Box m={2}>
-          <Grid item xs>
-            {Views}
-          </Grid>
-        </Box>
-      </Article>
+      <Box bgcolor="background.paper" height="100%">
+        <Article>
+          {AppBar}
+          <Box m={2}>
+            <Grid item xs>
+              {Views}
+            </Grid>
+          </Box>
+        </Article>
+      </Box>
     ),
     [AppBar, Views],
   );

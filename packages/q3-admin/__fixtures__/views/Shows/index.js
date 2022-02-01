@@ -85,12 +85,19 @@ export default new AbstractCollectionBuilder({
     ],
     registerOptions: () => [
       {
-        id: 'id123',
-        icon: CreditCard,
         href: 'https:google.com',
-        title: 'test',
-        description: 'test',
-        color: green[900],
+        title: 'Number of seasons',
+        description: '6 seasons',
+      },
+      {
+        href: '',
+        title: 'Type',
+        description: 'Cartoon',
+      },
+      {
+        href: 'https:google.com',
+        title: 'Genre',
+        description: 'Comedy',
       },
     ],
   })
