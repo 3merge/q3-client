@@ -16,8 +16,9 @@ const Providers = ({
   initialType,
   enableToggle,
   theme,
+  ...rest
 }) => (
-  <Locale>
+  <Locale {...rest}>
     <Mode
       enableToggle={enableToggle}
       initialType={initialType}

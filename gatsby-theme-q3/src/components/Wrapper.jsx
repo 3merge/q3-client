@@ -3,7 +3,6 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import AuthProvider from 'q3-ui-permissions';
-import LocaleBundles from './LocaleBundles';
 
 const setBaseUrlForRest = (
   baseURL = process.env.GATSBY_APP_BASE_URL ||
@@ -13,14 +12,9 @@ const setBaseUrlForRest = (
   return axios.defaults;
 };
 
-const Wrapper = ({ baseURL, children, locale }) => {
+const Wrapper = ({ baseURL, children }) => {
   setBaseUrlForRest(baseURL);
-
-  return (
-    <LocaleBundles locale={locale}>
-      <AuthProvider>{children}</AuthProvider>
-    </LocaleBundles>
-  );
+  return <AuthProvider>{children}</AuthProvider>;
 };
 
 Wrapper.defaultProps = {
