@@ -1,24 +1,31 @@
 import React from 'react';
-import { forEach, last, join, set, first } from 'lodash';
+import { forEach, join, set, groupBy, map } from 'lodash';
 import moment from 'moment';
 import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { browser } from 'q3-ui-helpers';
 
-const useDebounce = (callback, formater) => {
+const useDebounce = (
+  formater,
+  cb = (x) => Promise.resolve(x),
+) => {
   const accumulator = React.useRef([]);
   const timer = React.useRef();
 
   return (...args) => {
     if (timer.current) {
       accumulator.current.push(args);
-      clearTimeout(timer.current);
-    }
+    } else {
+      timer.current = setTimeout(() => {
+        const nextBatch = [args].concat([
+          ...accumulator.current,
+        ]);
 
-    timer.current = setTimeout(() => {
-      callback(formater([...accumulator.current]));
-      clearTimeout(timer.current);
-      accumulator.current = [];
-    }, 500);
+        cb(formater(nextBatch));
+
+        timer.current = clearTimeout(timer.current);
+        accumulator.current = [];
+      }, 200);
+    }
   };
 };
 
@@ -26,66 +33,60 @@ export default ({
   addLocaleHandler,
   loadLocaleHandler,
 }) => {
-  const create = useDebounce(addLocaleHandler, (data) =>
-    data.reduce((acc, current) => {
-      const [lang, namespace, key, value] = current;
+  const [language, setLanguage] = React.useState();
+  const ref = React.useRef();
 
-      forEach(lang, (l) => {
-        set(acc, `${l}.${namespace}.${key}`, value);
-      });
+  const create = useDebounce(
+    (data) =>
+      data.reduce((acc, current) => {
+        const [lang, namespace, key, value] = current;
 
-      return acc;
-    }, {}),
-  );
-
-  const read = useDebounce(
-    (x) => Promise.resolve(x),
-    (data) => {
-      const language = first(first(data));
-      return loadLocaleHandler({
-        lng: language,
-        ns: join(
-          data.map((item) => item[1]),
-          ',',
-        ),
-      })
-        .then((resp) => {
-          data.forEach(([, ns, fn]) => {
-            fn(null, resp[ns] || {});
-          });
-        })
-        .catch((e) => {
-          data.map(last).forEach((fn) => {
-            fn(e, {});
-          });
+        forEach(lang, (l) => {
+          set(acc, `${l}.${namespace}.${key}`, value);
         });
-    },
+
+        return acc;
+      }, {}),
+    addLocaleHandler,
   );
 
-  const i18n = i18next
-    .use({
-      type: 'backend',
-      init() {},
-      read,
-      create,
-    })
-    .use(initReactI18next);
+  const read = useDebounce((data) =>
+    Promise.all(
+      Object.entries(
+        groupBy(
+          data.map(([l, n, f]) => ({
+            l,
+            n,
+            f,
+          })),
+          'l',
+        ),
+      ).map(([lng, bundles = []]) =>
+        loadLocaleHandler({
+          lng,
+          ns: join(map(bundles, 'n'), ','),
+        })
+          .then((resp) =>
+            map(bundles, ({ n, f }) => {
+              f(null, resp[n] || {});
+            }),
+          )
+          .catch((e) =>
+            map(bundles, 'f').forEach((fn) => {
+              fn(e, {});
+            }),
+          ),
+      ),
+    ),
+  );
 
   React.useEffect(() => {
-    i18n.on('languageChanged', (lang) => {
-      moment.locale(lang);
-    });
-
-    return () => {
-      i18n.off('languageChanged');
-    };
-  }, []);
-
-  React.useEffect(() => {
-    i18n.init({
+    const i18n = i18next.createInstance({
+      initImmediate: false,
       fallbackLng: false,
       partialBundledLanguages: true,
       load: 'currentOnly',
+      nonExplicitSupportedLngs: true,
       ns: [
         'descriptions',
         'helpers',
@@ -93,16 +94,71 @@ export default ({
         'messages',
         'titles',
       ],
-      react: {
-        wait: false,
-        useSuspense: false,
-        bindI18n: 'languageChanged loaded initialized',
-        bindStore: 'added',
-      },
       saveMissing: true,
       supportedLngs: ['en', 'fr'],
     });
+
+    i18n
+      .use({
+        init() {},
+        cacheUserLanguage(lng) {
+          browser.proxyLocalStorageApi(
+            'setItem',
+            'q3-lang',
+            lng,
+          );
+
+          moment.locale(lng);
+        },
+        detect() {
+          return (
+            browser.proxyLocalStorageApi(
+              'getItem',
+              'q3-lang',
+            ) || 'en'
+          );
+        },
+        type: 'languageDetector',
+      })
+      .use({
+        create,
+        init() {},
+        read,
+        type: 'backend',
+      });
+
+    i18n.init({}, () => {
+      ref.current = i18n;
+      setLanguage(i18n.language);
+    });
   }, []);
 
-  return i18n;
+  React.useEffect(() => {
+    if (language) {
+      moment.locale(language);
+      browser.proxyLocalStorageApi(
+        'setItem',
+        'q3-lang',
+        language,
+      );
+    }
+  }, [language]);
+
+  return language
+    ? {
+        language,
+        translate(a, b, c) {
+          const k = [a, b].join(':');
+          return ref.current.exists(k)
+            ? ref.current.t(k, c)
+            : b;
+        },
+
+        changeLanguage(newLang) {
+          ref.current.changeLanguage(newLang, () => {
+            setLanguage(newLang);
+          });
+        },
+      }
+    : null;
 };

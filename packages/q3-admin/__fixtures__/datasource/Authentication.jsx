@@ -7,6 +7,7 @@ import users from './users';
 const profile = {
   ...users[0],
   role: 'Developer',
+  lang: 'en-CA',
 };
 
 const genPermission = (rest) => ({
@@ -48,7 +49,9 @@ const StoriesApiMockAuthentication = ({ children }) => {
             .then((r) => {
               setSession(r.data.profile);
             })
-            .then(() => done());
+            .then(() => {
+              if (done) return done();
+            });
         },
         state: {
           init: true,

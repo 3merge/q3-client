@@ -21,9 +21,12 @@ import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
+import useLocale from './hooks/useLocale';
 
 export * from './containers';
 export * from './hooks';
+
+const System = () => 'SYS';
 
 const Admin = ({
   AppProps,
@@ -38,6 +41,7 @@ const Admin = ({
   const menuItems = usePages(pages.current);
   const cls = useStyle();
 
+  useLocale();
   useServerSideEvents();
 
   Object.assign(AppProps, {
@@ -70,6 +74,7 @@ const Admin = ({
           <ProfileNotificationsComponent
             path={NOTIFICATIONS_PATH}
           />
+          <System path="system" />
         </App>
       </Box>
     </Viewport>

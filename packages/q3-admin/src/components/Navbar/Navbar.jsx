@@ -7,9 +7,12 @@ import {
   Paper,
   Hidden,
   IconButton,
+  Divider,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from '@reach/router';
 import useStyle from './styles';
+import NavbarList from '../NavbarList';
 
 const Navbar = ({ children, header, footer }) => {
   const cls = useStyle();
@@ -19,16 +22,41 @@ const Navbar = ({ children, header, footer }) => {
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            {header}
-            {children}
-            {footer && (
+            <div>
+              {header}
+              PROFILE / NOTIFICATIONS
+              <Divider />
+              {children}
+            </div>
+            <div>
+              <NavbarList
+                items={{
+                  undefined: [
+                    {
+                      label: 'help',
+                      to: '/help',
+                    },
+                    {
+                      label: 'system',
+                      to: '/system',
+                    },
+                    {
+                      label: 'Logoout',
+                      to: '/logout',
+                    },
+                  ],
+                }}
+              />
+            </div>
+
+            {/* {footer && (
               <Box
                 className={cls.footer}
                 component="footer"
               >
                 {footer}
               </Box>
-            )}
+            )} */}
           </Paper>
         </Box>
       </Hidden>

@@ -1,7 +1,8 @@
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import Context from '../context';
 
 const useTranslationPatch = (namespace) => {
-  const [t] = useTranslation();
+  const { translate } = React.useContext(Context);
 
   return {
     t(key, args = {}) {
@@ -11,10 +12,11 @@ const useTranslationPatch = (namespace) => {
       const lrhSingualr = (l, r) =>
         parts.length === 1 ? l : r;
 
-      return t(lrhSingualr(parts[0], parts[1]), {
-        ns: lrhSingualr(undefined, parts[0]) || namespace,
-        ...args,
-      });
+      return translate(
+        lrhSingualr(undefined, parts[0]) || namespace,
+        lrhSingualr(parts[0], parts[1]),
+        args,
+      );
     },
   };
 };
