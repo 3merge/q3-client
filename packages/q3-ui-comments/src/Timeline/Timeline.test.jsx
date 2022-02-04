@@ -38,20 +38,15 @@ const data = [
   },
 ];
 
-const getFirstTimelineEntry = (asc) =>
-  global
-    .mount(<Timeline {...services} asc={asc} data={data} />)
-    .find(TimelineEntry)
-    .first()
-    .prop('id');
-
 describe('Timeline', () => {
   it('should render by date ASC', () => {
-    expect(getFirstTimelineEntry(true)).toMatch('2');
-  });
-
-  it('should render by date DESC', () => {
-    expect(getFirstTimelineEntry(false)).toMatch('1');
+    expect(
+      global
+        .mount(<Timeline {...services} data={data} />)
+        .find(TimelineEntry)
+        .first()
+        .prop('id'),
+    ).toMatch('2');
   });
 
   it('should render confirmation on auth match', () => {
