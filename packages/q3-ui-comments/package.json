@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-comments",
-  "version": "2.3.11",
+  "version": "2.3.14",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
