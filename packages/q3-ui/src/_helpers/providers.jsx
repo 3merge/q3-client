@@ -6,8 +6,8 @@ import Locale from 'q3-ui-locale';
 import { ThemeProvider } from '@material-ui/core/styles';
 import {
   CssBaseline,
-  CircularProgress,
-  Box,
+  darken,
+  lighten,
 } from '@material-ui/core';
 import Mode from '../Mode';
 import baseQ3Theme from '../mui';
@@ -15,23 +15,11 @@ import baseQ3Theme from '../mui';
 import 'moment/locale/fr';
 import 'moment/locale/en-ca';
 
-const Loading = () => (
-  <Box
-    position="fixed"
-    top="50%"
-    left="50%"
-    style={{
-      transform: 'translate(-50%,-50%)',
-    }}
-  >
-    <CircularProgress />
-  </Box>
-);
-
 const Providers = ({
   children,
   initialType,
   enableToggle,
+  color,
   theme,
   ...rest
 }) => (
@@ -41,7 +29,22 @@ const Providers = ({
   >
     {(type) => (
       <ThemeProvider
-        theme={merge(baseQ3Theme(type), theme)}
+        theme={merge(baseQ3Theme(type), theme, {
+          palette: {
+            primary: {
+              main: darken(color, 0.9),
+              light: lighten(color, 0.85),
+              dark: darken(color, 0.95),
+              contrastText: lighten(color, 1),
+            },
+            secondary: {
+              main: color,
+              light: lighten(color, 0.5),
+              dark: darken(color, 0.5),
+              contrastText: lighten(color, 1),
+            },
+          },
+        })}
       >
         <CssBaseline />
         <Helmet>
@@ -50,9 +53,7 @@ const Providers = ({
             rel="stylesheet"
           />
         </Helmet>
-        <Locale fallback={<Loading />} {...rest}>
-          {children}
-        </Locale>
+        <Locale {...rest}>{children}</Locale>
       </ThemeProvider>
     )}
   </Mode>
@@ -60,6 +61,7 @@ const Providers = ({
 
 Providers.propTypes = {
   children: PropTypes.node.isRequired,
+  color: PropTypes.string,
   initialType: PropTypes.oneOf(['light', 'dark']),
   enableToggle: PropTypes.bool,
   theme: PropTypes.shape({
@@ -72,6 +74,7 @@ Providers.defaultProps = {
   theme: {},
   initialType: 'light',
   enableToggle: true,
+  color: '#49EC1C',
 };
 
 export default Providers;

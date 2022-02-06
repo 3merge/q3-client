@@ -16,8 +16,8 @@ const useLocale = () => {
 
   React.useEffect(() => {
     const root = first(String(lng).split('-'));
-    if (root && root !== i18n.language)
-      i18n.changeLanguage(root);
+    // if (root && root !== i18n.language)
+    //   i18n.changeLanguage(root);
   }, [i18n, lng]);
 };
 

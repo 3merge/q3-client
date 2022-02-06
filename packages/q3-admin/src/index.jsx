@@ -2,7 +2,7 @@ import React from 'react';
 import EmailEditor from 'q3-ui-emaileditor';
 import QueueLogs from 'q3-ui-queuelogs';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { Box, Button } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
@@ -23,10 +23,19 @@ import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
 import useLocale from './hooks/useLocale';
 
+export { default as Theme } from './theme';
 export * from './containers';
 export * from './hooks';
 
-const System = () => 'SYS';
+const System = () => (
+  <Box
+    p={8}
+    bgcolor="secondary.dark"
+    color="secondary.contrastText"
+  >
+    Test
+  </Box>
+);
 
 const Admin = ({
   AppProps,

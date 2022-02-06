@@ -15,6 +15,7 @@ import path from 'path';
 import Providers from 'q3-ui';
 import Snackbar from 'q3-ui-forms';
 import { makeDecorator } from '@storybook/addons';
+import { Theme } from 'q3-admin';
 import {
   DocsPage,
   DocsContainer,
@@ -58,41 +59,62 @@ const req = require.context(
 
 addDecorator(withRouter);
 
-addDecorator((story) => (
-  <Providers
-    addInterval={5000}
-    addLocaleHandler={(args) => {
-      console.log('Locale update: ', args);
-      return Promise.resolve({});
-    }}
-    loadLocaleHandler={(args) => {
-      console.log('Locale request: ', args);
-      return new Promise((res) => {
-        setTimeout(() => {
-          res(
-            args.lng === 'en'
-              ? {
-                  labels: {
-                    shows: 'Shows',
-                    all: 'All',
-                    entertainment: 'Entertainment',
-                  },
-                }
-              : {
-                  labels: {
-                    shows: 'Spectacles',
-                    all: 'Toute',
-                    entertainment: 'Divertissement',
-                  },
+addDecorator((story) => {
+  return (
+    <Theme
+      getTheme={() =>
+        new Promise((res) => {
+          setTimeout(() => {
+            res({
+              lng: 'en',
+              resources: {
+                labels: {
+                  shows: 'Shows',
                 },
-          );
-        }, 50);
-      });
-    }}
-  >
-    <Snackbar>{story()}</Snackbar>
-  </Providers>
-));
+              },
+            });
+          }, 500);
+        })
+      }
+    >
+      {(themeProps) => (
+        <Providers
+          {...themeProps}
+          addLocaleHandler={(args) => {
+            console.log('Locale update: ', args);
+            return Promise.resolve({});
+          }}
+          loadLocaleHandler={(args) => {
+            console.log('Locale request: ', args);
+            return new Promise((res) => {
+              setTimeout(() => {
+                res(
+                  args.lng === 'en'
+                    ? {
+                        labels: {
+                          shows: 'Shows',
+                          all: 'All',
+                          entertainment: 'Entertainment',
+                        },
+                      }
+                    : {
+                        labels: {
+                          shows: 'Spectacles',
+                          all: 'Toute',
+                          entertainment: 'Divertissement',
+                        },
+                      },
+                );
+              }, 50);
+            });
+          }}
+        >
+          <Snackbar>{story()}</Snackbar>
+        </Providers>
+      )}
+    </Theme>
+  );
+});
 
 addParameters({
   options: {

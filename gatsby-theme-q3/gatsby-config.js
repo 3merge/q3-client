@@ -73,19 +73,19 @@ module.exports = ({
       },
     });
 
-  if (title && brandingColor)
-    plugins.push({
-      resolve: 'gatsby-plugin-manifest',
-      options: {
-        short_name: title,
-        start_url: '/',
-        background_color: '#FFF',
-        theme_color: brandingColor,
-        display: 'standalone',
-        name: title,
-        icon,
-      },
-    });
+  // if (title && brandingColor)
+  //   plugins.push({
+  //     resolve: 'gatsby-plugin-manifest',
+  //     options: {
+  //       short_name: title,
+  //       start_url: '/',
+  //       background_color: '#FFF',
+  //       theme_color: brandingColor,
+  //       display: 'standalone',
+  //       name: title,
+  //       icon,
+  //     },
+  //   });
 
   if (siteUrl)
     plugins.push({

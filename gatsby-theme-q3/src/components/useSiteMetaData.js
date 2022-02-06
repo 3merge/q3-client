@@ -1,22 +1,23 @@
-import { get } from 'lodash';
+import { get, merge } from 'lodash';
 import { useStaticQuery, graphql } from 'gatsby';
+import useRunTime from 'gatsby-theme-q3-mui/src/components/useRunTime';
 
 export default () =>
-  get(
-    useStaticQuery(graphql`
-      query {
-        site {
-          siteMetadata {
-            appDirectory
-            brand
-            description
-            favicon
-            logo
-            title
+  merge(
+    get(
+      useStaticQuery(graphql`
+        query {
+          site {
+            siteMetadata {
+              appDirectory
+              description
+              title
+            }
           }
         }
-      }
-    `),
-    'site.siteMetadata',
-    {},
+      `),
+      'site.siteMetadata',
+      {},
+    ),
+    useRunTime(),
   );

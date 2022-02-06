@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as timezone from './timezone';
-import useLanguage from './useLanguage';
 import useServer from './useServer';
 import useTranslation from './useTranslation';
 import Context from './context';
 
-const Provider = ({ children, fallback, ...rest }) => {
+const Provider = ({ children, ...rest }) => {
   const i18next = useServer(rest);
 
-  return i18next ? (
+  return (
     <Context.Provider value={i18next}>
       {children}
     </Context.Provider>
-  ) : null;
+  );
 };
 
 Provider.defaultProps = {
-  fallback: '',
+  lng: 'en',
+  supportedLngs: ['en'],
+  resources: {},
 };
 
 Provider.propTypes = {
@@ -25,15 +26,19 @@ Provider.propTypes = {
     PropTypes.node,
     PropTypes.array,
   ]).isRequired,
-
-  // no longer using static resources
-  addLocaleHandler: PropTypes.func.isRequired,
-  loadLocaleHandler: PropTypes.func.isRequired,
-  fallback: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
-  ]),
+  lng: PropTypes.string,
+  resources: PropTypes.shape({
+    // eslint-disable-next-line
+    descriptions: PropTypes.object,
+    // eslint-disable-next-line
+    helpers: PropTypes.object,
+    // eslint-disable-next-line
+    labels: PropTypes.object,
+    // eslint-disable-next-line
+    titles: PropTypes.object,
+  }),
+  supportedLngs: PropTypes.arrayOf(PropTypes.string),
 };
 
-export { useLanguage, useTranslation, timezone };
 export default React.memo(Provider);
+export { useTranslation, timezone };
