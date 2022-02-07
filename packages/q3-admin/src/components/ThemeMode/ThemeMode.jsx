@@ -2,23 +2,18 @@ import React from 'react';
 import { ModeContext } from 'q3-ui/lib/Mode';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
-import IconButton from '@material-ui/core/IconButton';
+import ButtonWithIcon from '../ButtonWithIcon';
 
 const ThemeMode = () => {
   const { isLight, toggle } = React.useContext(ModeContext);
 
   return (
-    <IconButton
+    <ButtonWithIcon
       color="inherit"
       onClick={toggle}
       label="color mode"
-    >
-      {isLight ? (
-        <Brightness4Icon />
-      ) : (
-        <BrightnessHighIcon />
-      )}
-    </IconButton>
+      icon={isLight ? Brightness4Icon : BrightnessHighIcon}
+    />
   );
 };
 

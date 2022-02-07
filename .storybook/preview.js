@@ -20,6 +20,7 @@ import {
   DocsPage,
   DocsContainer,
 } from '@storybook/addon-docs/blocks';
+import json from './settings.json';
 
 let firstHistoryObject = null;
 
@@ -61,58 +62,15 @@ addDecorator(withRouter);
 
 addDecorator((story) => {
   return (
-    <Theme
-      getTheme={() =>
-        new Promise((res) => {
-          setTimeout(() => {
-            res({
-              lng: 'en',
-              resources: {
-                labels: {
-                  shows: 'Shows',
-                },
-              },
-            });
-          }, 500);
-        })
-      }
+    <Providers
+      {...json}
+      addLocaleHandler={(args) => {
+        console.log('Locale update: ', args);
+        return Promise.resolve({});
+      }}
     >
-      {(themeProps) => (
-        <Providers
-          {...themeProps}
-          addLocaleHandler={(args) => {
-            console.log('Locale update: ', args);
-            return Promise.resolve({});
-          }}
-          loadLocaleHandler={(args) => {
-            console.log('Locale request: ', args);
-            return new Promise((res) => {
-              setTimeout(() => {
-                res(
-                  args.lng === 'en'
-                    ? {
-                        labels: {
-                          shows: 'Shows',
-                          all: 'All',
-                          entertainment: 'Entertainment',
-                        },
-                      }
-                    : {
-                        labels: {
-                          shows: 'Spectacles',
-                          all: 'Toute',
-                          entertainment: 'Divertissement',
-                        },
-                      },
-                );
-              }, 50);
-            });
-          }}
-        >
-          <Snackbar>{story()}</Snackbar>
-        </Providers>
-      )}
-    </Theme>
+      <Snackbar>{story()}</Snackbar>
+    </Providers>
   );
 });
 

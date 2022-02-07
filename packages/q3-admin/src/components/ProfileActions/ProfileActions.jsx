@@ -1,54 +1,77 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
+import { Link } from '@reach/router';
+import { compact } from 'lodash';
+import {
+  Avatar,
+  Hidden,
+  ListItem,
+  List,
+  ListItemText,
+  ListItemAvatar,
+} from '@material-ui/core';
+import { AuthContext } from 'q3-ui-permissions';
+import { useTranslation } from 'q3-ui-locale';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import Notifications from '../../containers/Notifications';
-import Documentation from '../Documentation';
-import DeveloperTools from '../DeveloperTools';
-import ProfileActionsDropdown from '../ProfileActionsDropdown';
-import ThemeMode from '../ThemeMode';
+import useStyle from './styles';
+// import ThemeMode from '../ThemeMode';
 
-const ProfileActions = ({
-  DocumentationProps,
-  includeDeveloperTools,
-  includeDocumentation,
-  includeNotifications,
-  includeThemeMode,
-  includeActionsDropdown,
-}) => (
-  <Box
-    alignItems="center"
-    display="flex"
-    justifyContent="flex-end"
-    minWidth={127}
-  >
-    {includeNotifications && <Notifications />}
-    {includeDocumentation && (
-      <Documentation {...DocumentationProps} />
-    )}
-    {includeThemeMode && <ThemeMode />}
-    {includeDeveloperTools && <DeveloperTools />}
-    {includeActionsDropdown && <ProfileActionsDropdown />}
-  </Box>
-);
+const ProfileActions = ({ brand, faviconSrc }) => {
+  const { state } = React.useContext(AuthContext);
+  const { t } = useTranslation('labels');
+  const cls = useStyle();
+
+  return (
+    <List
+      component="div"
+      style={{ margin: '0', padding: 0 }}
+    >
+      <Hidden mdDown>
+        <Notifications />
+      </Hidden>
+      <ListItem button dense component={Link} to="account">
+        <ListItemAvatar>
+          <Avatar
+            src={state?.profile?.photo}
+            variant="rounded"
+          />
+        </ListItemAvatar>
+        <ListItemText
+          primary={compact([
+            state?.profile?.firstName,
+            state?.profile?.lastName,
+          ]).join(' ')}
+          secondary={state?.profile?.role}
+        />
+      </ListItem>
+      <ListItem button dense component={Link} to="system">
+        <ListItemAvatar>
+          <Avatar
+            src={faviconSrc}
+            variant="rounded"
+            className={cls.avatar}
+          >
+            <SettingsApplicationsIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primary={brand}
+          secondary={t('labels:systemSettings')}
+        />
+      </ListItem>
+    </List>
+  );
+};
 
 ProfileActions.defaultProps = {
-  DocumentationProps: {},
-  includeDeveloperTools: true,
-  includeDocumentation: true,
-  includeNotifications: true,
-  includeThemeMode: true,
-  includeActionsDropdown: true,
+  brand: 'Unassigned',
+  faviconSrc: '',
 };
 
 ProfileActions.propTypes = {
-  DocumentationProps: PropTypes.shape({
-    id: PropTypes.number,
-  }),
-  includeDeveloperTools: PropTypes.bool,
-  includeDocumentation: PropTypes.bool,
-  includeNotifications: PropTypes.bool,
-  includeThemeMode: PropTypes.bool,
-  includeActionsDropdown: PropTypes.bool,
+  brand: PropTypes.string,
+  faviconSrc: PropTypes.string,
 };
 
 export default ProfileActions;

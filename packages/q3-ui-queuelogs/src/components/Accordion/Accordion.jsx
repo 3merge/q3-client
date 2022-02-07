@@ -19,7 +19,7 @@ const Accordion = ({
   const { t } = useTranslation('titles');
   return (
     (size(data) > 0 || showEmpty) && (
-      <MuiAccordion variant="outlined" defaultExpanded>
+      <MuiAccordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{t(title)}</Typography>
         </AccordionSummary>

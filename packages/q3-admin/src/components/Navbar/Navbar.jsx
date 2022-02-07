@@ -7,56 +7,32 @@ import {
   Paper,
   Hidden,
   IconButton,
-  Divider,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from '@reach/router';
 import useStyle from './styles';
-import NavbarList from '../NavbarList';
 
 const Navbar = ({ children, header, footer }) => {
   const cls = useStyle();
+
+  const Interior = React.useMemo(
+    () => (
+      <>
+        <div>
+          {header}
+          <Box p={1.5}>{children}</Box>
+        </div>
+        <Box mb={1.5}>{footer}</Box>
+      </>
+    ),
+    [],
+  );
 
   return (
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            <div>
-              {header}
-              PROFILE / NOTIFICATIONS
-              <Divider />
-              {children}
-            </div>
-            <div>
-              <NavbarList
-                items={{
-                  undefined: [
-                    {
-                      label: 'help',
-                      to: '/help',
-                    },
-                    {
-                      label: 'system',
-                      to: '/system',
-                    },
-                    {
-                      label: 'Logoout',
-                      to: '/logout',
-                    },
-                  ],
-                }}
-              />
-            </div>
-
-            {/* {footer && (
-              <Box
-                className={cls.footer}
-                component="footer"
-              >
-                {footer}
-              </Box>
-            )} */}
+            {Interior}
           </Paper>
         </Box>
       </Hidden>
@@ -70,7 +46,7 @@ const Navbar = ({ children, header, footer }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => children}
+          renderContent={() => Interior}
           renderTrigger={(onClick) => (
             <AppBar
               color="primary"
@@ -88,7 +64,6 @@ const Navbar = ({ children, header, footer }) => {
                 </IconButton>
                 {header}
               </Box>
-              {footer}
             </AppBar>
           )}
           title="menu"

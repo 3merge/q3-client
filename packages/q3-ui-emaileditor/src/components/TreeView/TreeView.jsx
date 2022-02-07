@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -54,20 +53,6 @@ const CustomTreeView = () => {
       p={2}
       pr={6}
     >
-      <Box mb={1}>
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-        >
-          {t('titles:emailEditor')}
-        </Typography>
-        <Box mt={0.5}>
-          <Typography color="inherit">
-            {t('descriptions:emailTemplateLanguage')}
-          </Typography>
-        </Box>
-      </Box>
       <TreeView
         defaultExpanded={['0', '1']}
         defaultCollapseIcon={<ExpandMoreIcon />}

@@ -73,81 +73,75 @@ const QueueLogs = () => {
   return q.fetchingError ? (
     <Graphic icon="Code" title="queueLogsFailed" />
   ) : (
-    <Box my={2}>
-      <Container>
-        <Typography variant="h2" component="h1">
-          {t('titles:queues')}
-        </Typography>
-        <Typography>{t('descriptions:queues')}</Typography>
-        <Grid
-          spacing={1}
-          alignItems="center"
-          container
-          justifyContent="space-between"
-        >
-          <Grid item xs>
-            <Search handleInput={q.setFilter} />
-          </Grid>
-          <Grid item>
-            <Tooltip title={t('refresh')}>
-              <IconButton
-                color="primary"
-                onClick={handleRefresh}
-              >
-                <RefreshIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
+    <Box p={2}>
+      <Grid
+        spacing={1}
+        alignItems="center"
+        container
+        justifyContent="space-between"
+      >
+        <Grid item xs>
+          <Search handleInput={q.setFilter} />
         </Grid>
-        <Accordion
-          data={q.upcoming}
-          showEmpty={false}
-          title="upcoming"
-        >
-          <DataGrid
-            {...sharedDataGridProps}
-            rows={orderBy(
-              q.upcoming,
-              ['expectedCompletionDate'],
-              ['asc'],
-            )}
-            columns={withGlobalColumns([
-              {
-                field: 'priority',
-                headerName: t('priority'),
-                renderCell: renderers.renderCellPriority,
-                widith: 95,
-              },
-              {
-                field: 'expectedCompletionDate',
-                headerName: t('expectedCompletionDate'),
-                renderCell: renderers.renderDate,
-                width: 215,
-              },
-            ])}
-          />
-        </Accordion>
-        <Accordion data={q.past} showEmpty title="past">
-          <DataGrid
-            {...sharedDataGridProps}
-            rows={q.past}
-            columns={withGlobalColumns([
-              {
-                field: 'duration',
-                headerName: t('Time'),
-                renderCell: renderers.renderDuration,
-                width: 95,
-              },
-              {
-                field: 'completionDate',
-                headerName: t('completionDate'),
-                renderCell: renderers.renderDate,
-                width: 215,
-              },
-            ])}
-          />
-        </Accordion>
-      </Container>
+        <Grid item>
+          <Tooltip title={t('refresh')}>
+            <IconButton
+              color="primary"
+              onClick={handleRefresh}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+      </Grid>
+      <Accordion
+        data={q.upcoming}
+        showEmpty={false}
+        title="upcoming"
+      >
+        <DataGrid
+          {...sharedDataGridProps}
+          rows={orderBy(
+            q.upcoming,
+            ['expectedCompletionDate'],
+            ['asc'],
+          )}
+          columns={withGlobalColumns([
+            {
+              field: 'priority',
+              headerName: t('priority'),
+              renderCell: renderers.renderCellPriority,
+              widith: 95,
+            },
+            {
+              field: 'expectedCompletionDate',
+              headerName: t('expectedCompletionDate'),
+              renderCell: renderers.renderDate,
+              width: 215,
+            },
+          ])}
+        />
+      </Accordion>
+      <Accordion data={q.past} showEmpty title="past">
+        <DataGrid
+          {...sharedDataGridProps}
+          rows={q.past}
+          columns={withGlobalColumns([
+            {
+              field: 'duration',
+              headerName: t('Time'),
+              renderCell: renderers.renderDuration,
+              width: 95,
+            },
+            {
+              field: 'completionDate',
+              headerName: t('completionDate'),
+              renderCell: renderers.renderDate,
+              width: 215,
+            },
+          ])}
+        />
+      </Accordion>
     </Box>
   );
 };

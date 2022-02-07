@@ -26,31 +26,16 @@ export default makeStyles((theme) => ({
   paper: {
     borderRadius: 0,
     overflowX: 'auto',
-    padding: theme.spacing(1),
+    padding: 0,
     height: '100%',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
-  // footer: {
-  //   boxShadow: theme.shadows[0],
-  //   backgroundColor: theme.palette.background.paper,
-  //   borderTop: `1px solid ${theme.palette.background.muted}`,
-  //   bottom: 0,
-  //   left: 0,
-  //   position: 'absolute',
-  //   right: 0,
-
-  //   '& > div': {
-  //     alignItems: 'center',
-  //     flexDirection: 'row-reverse',
-  //     height: 65,
-  //     padding: `0 ${theme.spacing(1)}`,
-
-  //     '& div:last-of-type': {
-  //       flex: 1,
-  //     },
-  //   },
-  // },
+  buttonLink: {
+    '&.active': {
+      color: theme.palette.secondary.main,
+    },
+  },
 }));

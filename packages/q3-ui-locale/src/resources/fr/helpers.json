@@ -1,8 +1,0 @@
-{
-  "confirmPassword": "Must match above",
-  "lowercase": "Must contain at least one lowercase letter",
-  "uppercase": "Must contain at least one uppercase letter",
-  "numbers": "Must contain at least one number",
-  "special": "Must contain at least one special character",
-  "currentPassword": "Log out and request a temporary password if you do not know this"
-}

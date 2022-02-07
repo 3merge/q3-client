@@ -3,7 +3,9 @@ import i18next from 'i18next';
 
 export default (i18nProps = {}) => {
   const [i18n, setI18n] = React.useState();
-  const { lng, resources } = i18nProps;
+  const { lng, supportedLngs, resources } = i18nProps;
+
+  // UPDATE
 
   React.useEffect(() => {
     const i18nInstance = i18next.createInstance({
@@ -32,6 +34,9 @@ export default (i18nProps = {}) => {
   }, [lng]);
 
   return {
+    lng,
+    resources,
+    supportedLngs,
     translate(a, b, c) {
       const k = [a, b].join(':');
 

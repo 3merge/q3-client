@@ -2,7 +2,7 @@ import React from 'react';
 import EmailEditor from 'q3-ui-emaileditor';
 import QueueLogs from 'q3-ui-queuelogs';
 import PropTypes from 'prop-types';
-import { Box, Button } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
@@ -10,32 +10,18 @@ import Profile from './containers/Profile';
 import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
-import {
-  NOTIFICATIONS_PATH,
-  PASSWORD_PATH,
-  PROFILE_PATH,
-} from './components/ProfileActionsDropdown/ProfileActionsDropdown';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
-import useLocale from './hooks/useLocale';
+import SystemI18n from './components/SystemI18n';
+import SystemInfo from './components/SystemInfo';
+import SystemPage from './components/SystemPage';
 
-export { default as Theme } from './theme';
 export * from './containers';
 export * from './hooks';
-
-const System = () => (
-  <Box
-    p={8}
-    bgcolor="secondary.dark"
-    color="secondary.contrastText"
-  >
-    Test
-  </Box>
-);
 
 const Admin = ({
   AppProps,
@@ -50,7 +36,6 @@ const Admin = ({
   const menuItems = usePages(pages.current);
   const cls = useStyle();
 
-  useLocale();
   useServerSideEvents();
 
   Object.assign(AppProps, {
@@ -63,7 +48,12 @@ const Admin = ({
   return (
     <Viewport>
       <Navbar
-        footer={<ProfileActions {...ProfileActionsProps} />}
+        footer={
+          <ProfileActions
+            {...NavProps}
+            {...ProfileActionsProps}
+          />
+        }
         header={
           <Logo
             className={NavProps.className}
@@ -76,14 +66,55 @@ const Admin = ({
       </Navbar>
       <Box className={cls.main}>
         <App {...AppProps}>
-          <ProfileComponent path={PROFILE_PATH} />
-          <ProfileChangePasswordComponent
-            path={PASSWORD_PATH}
-          />
-          <ProfileNotificationsComponent
-            path={NOTIFICATIONS_PATH}
-          />
-          <System path="system" />
+          <SystemPage
+            path="account"
+            tabs={[
+              {
+                label: 'info',
+                to: '/account',
+              },
+              {
+                label: 'notifications',
+                to: '/account/notifications',
+              },
+              {
+                label: 'password',
+                to: '/account/password',
+              },
+            ]}
+            title="profile"
+          >
+            <ProfileNotificationsComponent path="notifications" />
+            <ProfileChangePasswordComponent path="password" />
+            <ProfileComponent default />
+          </SystemPage>
+          <SystemPage
+            path="system"
+            tabs={[
+              {
+                label: 'info',
+                to: '/system',
+              },
+              {
+                label: 'emails',
+                to: '/system/emails',
+              },
+              {
+                label: 'language',
+                to: '/system/i18n',
+              },
+              {
+                label: 'queues',
+                to: '/system/queues',
+              },
+            ]}
+            title="system"
+          >
+            <SystemI18n path="i18n" />
+            <EmailEditor path="emails" />
+            <QueueLogs path="queues" />
+            <SystemInfo default />
+          </SystemPage>
         </App>
       </Box>
     </Viewport>
@@ -102,19 +133,13 @@ Admin.propTypes = {
   }).isRequired,
 
   NavProps: PropTypes.shape({
+    brand: PropTypes.string,
     className: PropTypes.string,
+    faviconSrc: PropTypes.string,
     logoSrc: PropTypes.string,
   }),
 
-  ProfileActionsProps: PropTypes.shape({
-    // eslint-disable-next-line
-    DocumentationProps: PropTypes.object,
-    includeDocumentation: PropTypes.bool,
-    includeNotifications: PropTypes.bool,
-    includeThemeMode: PropTypes.bool,
-    includeActionsDropdown: PropTypes.bool,
-  }),
-
+  ProfileActionsProps: PropTypes.shape({}),
   ProfileComponent: PropTypes.func,
   ProfileChangePasswordComponent: PropTypes.func,
   ProfileNotificationsComponent: PropTypes.func,

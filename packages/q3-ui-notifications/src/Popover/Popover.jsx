@@ -13,7 +13,7 @@ const Popover = ({
   const { toggle, state, close } = useToggle(defaultValue);
 
   return (
-    <Box display="inline-block">
+    <Box display="inline-block" width="100%">
       {React.cloneElement(anchorComponent, {
         ref: anchorEl,
         onClick: toggle,
@@ -24,12 +24,12 @@ const Popover = ({
         anchorEl={anchorEl.current}
         onClose={close}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'center',
           horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: 'center',
+          horizontal: 'left',
         }}
       >
         {children}

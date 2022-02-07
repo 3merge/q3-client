@@ -32,8 +32,11 @@ const ExampleApp = ({ initialPath }) => {
               NavProps={{
                 className: 'testing',
                 title: 'Demo app',
+                brand: '3merge',
                 logoSrc:
                   'https://uploads-ssl.webflow.com/5f620c85bd4f6828cc8f637b/5f620cd411cb5e449a1db5cb_combined_logo_2-p-500.png',
+                faviconSrc:
+                  'https://avatars.githubusercontent.com/u/12897090?s=200&v=4',
               }}
               ProfileProps={{
                 fields: <p>Append custom form fields!</p>,
