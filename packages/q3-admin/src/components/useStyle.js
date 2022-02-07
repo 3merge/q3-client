@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     overflow: 'auto',
 
     [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 65px)',
+      height: 'calc((100 * var(--vh)) - 130px)',
     },
   },
 }));

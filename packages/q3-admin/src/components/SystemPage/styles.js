@@ -1,21 +1,21 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
+  app: {
+    backgroundColor: theme.palette.background.default,
+  },
   toolbar: {
-    borderBottom: `1px solid ${theme.palette.background.muted}`,
     [theme.breakpoints.up('lg')]: {
       minHeight: 95,
     },
   },
   view: {
     [theme.breakpoints.up('lg')]: {
-      height: 'calc(100% - 95px - 48px)',
+      padding: theme.spacing(2),
     },
 
-    height: 'calc(100% - 65px - 65px - 48px)',
-
-    '& > div': {
-      height: '100%',
+    '& #q3-email': {
+      height: '75vh',
     },
   },
 }));

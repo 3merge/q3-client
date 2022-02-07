@@ -4,7 +4,6 @@ import { Link } from '@reach/router';
 import { compact } from 'lodash';
 import {
   Avatar,
-  Hidden,
   ListItem,
   List,
   ListItemText,
@@ -13,7 +12,6 @@ import {
 import { AuthContext } from 'q3-ui-permissions';
 import { useTranslation } from 'q3-ui-locale';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
-import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
 // import ThemeMode from '../ThemeMode';
 
@@ -27,9 +25,6 @@ const ProfileActions = ({ brand, faviconSrc }) => {
       component="div"
       style={{ margin: '0', padding: 0 }}
     >
-      <Hidden mdDown>
-        <Notifications />
-      </Hidden>
       <ListItem button dense component={Link} to="account">
         <ListItemAvatar>
           <Avatar

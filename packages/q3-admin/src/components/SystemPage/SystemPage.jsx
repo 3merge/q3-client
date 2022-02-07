@@ -21,11 +21,15 @@ const SystemPage = ({ title, tabs, children }) => {
   const cls = useStyle();
 
   return (
-    <Box className={globalCls.fillViewportHeight}>
+    <Box
+      bgcolor="background.paper"
+      className={globalCls.fillViewportHeight}
+    >
       <AppBar
         elevation={0}
         color="inherit"
         position="static"
+        className={cls.app}
       >
         <Toolbar className={cls.toolbar}>
           <Typography component="h1" variant="h5">

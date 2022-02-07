@@ -99,7 +99,7 @@ const List = (props) => {
   );
 
   return (
-    <Box p={2}>
+    <Box p={2} pt={0}>
       <Table
         {...decorator.build()}
         blacklistColumns={decorator.makeBlacklist(
@@ -112,7 +112,7 @@ const List = (props) => {
         sort={l.sort}
         disableExportsProvider
         style={{
-          maxHeight: isMobile ? 'auto' : '85vh',
+          maxHeight: isMobile ? '100%' : '85vh',
         }}
       />
     </Box>

@@ -17,6 +17,21 @@ const makeApiEndpoints = (
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
 
+  mockInstance.onGet(/domains/).reply(200, {
+    domains: [
+      {
+        id: '1',
+        metaTitle: 'Sample App',
+        metaBrand: 'Q3',
+        metaDescription: 'This is a sample',
+        themeColor: '#EEEEEE',
+        logo: '/logo.png',
+        favicon: '/favicon.png',
+        privacy: '/privacy-policy.pdf',
+      },
+    ],
+  });
+
   mockInstance.onGet(/system-notifications/).reply(200, {
     notifications: [
       {

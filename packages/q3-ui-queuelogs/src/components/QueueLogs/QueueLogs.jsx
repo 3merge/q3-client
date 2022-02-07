@@ -73,7 +73,7 @@ const QueueLogs = () => {
   return q.fetchingError ? (
     <Graphic icon="Code" title="queueLogsFailed" />
   ) : (
-    <Box p={2}>
+    <Box>
       <Grid
         spacing={1}
         alignItems="center"

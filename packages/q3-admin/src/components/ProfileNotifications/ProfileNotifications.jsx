@@ -1,8 +1,8 @@
 import React from 'react';
+import { Container } from '@material-ui/core';
 import { Builders } from 'q3-ui-forms';
 import { useTranslation } from 'q3-ui-locale';
 import Typography from '@material-ui/core/Typography';
-import TemplateFullWidth from '../TemplateFullWidth';
 import useProfileForm from '../../hooks/useProfileForm';
 
 // eslint-disable-next-line
@@ -12,10 +12,7 @@ const ProfileNotifications = ({ children }) => {
   const listens = initialValues?.listens;
 
   return (
-    <TemplateFullWidth
-      title={t('titles:profileNotifications')}
-      subtitle={t('descriptions:profileNotifications')}
-    >
+    <Container>
       <Builders.Form
         showSuccessMessage
         disabled={!children}
@@ -44,7 +41,7 @@ const ProfileNotifications = ({ children }) => {
           </Typography>
         )}
       </Builders.Form>
-    </TemplateFullWidth>
+    </Container>
   );
 };
 

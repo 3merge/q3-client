@@ -27,7 +27,7 @@ const SystemI18n = () => {
     if (!isObject(initialValues[ns])) return null;
 
     return (
-      <Accordion defaultExpanded>
+      <Accordion variant="outlined" defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{t(`titles:${ns}`)}</Typography>
         </AccordionSummary>
@@ -56,7 +56,7 @@ const SystemI18n = () => {
   };
 
   return (
-    <Box p={2}>
+    <Box>
       {size(supportedLngs) < 1 && (
         <Alert severity="info">
           {t('descriptions:localeEditor', {

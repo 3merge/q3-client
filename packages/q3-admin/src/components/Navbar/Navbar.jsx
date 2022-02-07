@@ -9,30 +9,32 @@ import {
   IconButton,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
 
 const Navbar = ({ children, header, footer }) => {
   const cls = useStyle();
-
-  const Interior = React.useMemo(
-    () => (
-      <>
-        <div>
-          {header}
-          <Box p={1.5}>{children}</Box>
-        </div>
-        <Box mb={1.5}>{footer}</Box>
-      </>
-    ),
-    [],
-  );
 
   return (
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            {Interior}
+            <Box>
+              <Box
+                alignItems="center"
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
+              >
+                <Box minWidth="calc(100% - 46px - 1.5rem)">
+                  {header}
+                </Box>
+                <Notifications />
+              </Box>
+              <Box p={1.5}>{children}</Box>
+            </Box>
+            <Box mb={1.5}>{footer}</Box>
           </Paper>
         </Box>
       </Hidden>
@@ -46,23 +48,38 @@ const Navbar = ({ children, header, footer }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => Interior}
+          renderContent={() => (
+            <>
+              {children}
+              {footer}
+            </>
+          )}
           renderTrigger={(onClick) => (
             <AppBar
-              color="primary"
+              color="inherit"
               position="static"
               component="nav"
               className={cls.appbar}
             >
-              <Box alignItems="center" display="flex">
-                <IconButton
-                  aria-label="open menu"
-                  color="inherit"
-                  onClick={onClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                {header}
+              <Box
+                justifyContent="space-between"
+                alignItems="center"
+                display="flex"
+                width="100%"
+              >
+                <Box>
+                  <IconButton
+                    aria-label="open menu"
+                    color="inherit"
+                    onClick={onClick}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Box>
+                <Box>{header}</Box>
+                <Box>
+                  <Notifications />
+                </Box>
               </Box>
             </AppBar>
           )}

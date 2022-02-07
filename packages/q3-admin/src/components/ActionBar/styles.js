@@ -6,14 +6,15 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
       position: 'fixed',
-      top: 0,
-      right: theme.spacing(1),
+      bottom: 0,
+      right: 0,
+      left: 0,
       height: 65,
       justifyContent: 'center',
-      zIndex: 10000,
+      zIndex: 1000,
 
       '& *': {
-        color: theme.palette.primary.contrastText,
+        backgroundColor: 'transparent',
       },
     },
   },

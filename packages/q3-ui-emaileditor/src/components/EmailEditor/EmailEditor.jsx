@@ -55,6 +55,7 @@ const EmailEditor = () => {
           <Container
             maxWidth="xl"
             disableGutters
+            id="q3-email"
             className={cls.wrapper}
           >
             <MobileAlert />

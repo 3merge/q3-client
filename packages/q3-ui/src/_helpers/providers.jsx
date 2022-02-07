@@ -29,8 +29,8 @@ const generateTheme = (color) => {
         },
         secondary: {
           main: color,
-          light: lighten(color, 0.5),
-          dark: darken(color, 0.5),
+          light: lighten(color, 0.75),
+          dark: darken(color, 0.35),
           contrastText: lighten(color, 1),
         },
       },
@@ -55,10 +55,9 @@ const Providers = ({
     >
       {(type) => (
         <ThemeProvider
-          theme={merge(
-            baseQ3Theme(type),
-            theme,
-            generateTheme(color),
+          theme={baseQ3Theme(
+            merge(theme, generateTheme(color)),
+            type,
           )}
         >
           <CssBaseline />

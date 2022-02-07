@@ -6,7 +6,7 @@ import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
-import Profile from './containers/Profile';
+import ProfileGeneral from './containers/ProfileGeneral';
 import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileActions from './components/ProfileActions';
@@ -148,7 +148,7 @@ Admin.propTypes = {
 Admin.defaultProps = {
   NavProps: {},
   ProfileActionsProps: {},
-  ProfileComponent: Profile,
+  ProfileComponent: ProfileGeneral,
   ProfileChangePasswordComponent: ProfileChangePassword,
   ProfileNotificationsComponent: ProfileNotifications,
 };

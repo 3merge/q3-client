@@ -6,16 +6,17 @@ export const FEATURED_UPLOAD_KEY = 'featuredUpload';
 
 const FeaturedPhoto = ({
   component: Component,
+  field,
   update,
   src,
 }) => (
   <Component
     src={src}
-    customizer={() => FEATURED_UPLOAD_KEY}
+    customizer={() => field}
     onDrop={update}
     onDelete={() =>
       update({
-        [FEATURED_UPLOAD_KEY]: null,
+        [field]: null,
       })
     }
     style={{
@@ -27,11 +28,13 @@ const FeaturedPhoto = ({
 
 FeaturedPhoto.defaultProps = {
   component: PhotoUpload,
+  field: FEATURED_UPLOAD_KEY,
   src: '',
 };
 
 FeaturedPhoto.propTypes = {
   component: PropTypes.oneOf([Avatar, PhotoUpload]),
+  field: PropTypes.string,
   src: PropTypes.string,
   update: PropTypes.func.isRequired,
 };

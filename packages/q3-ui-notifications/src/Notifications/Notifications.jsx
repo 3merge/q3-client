@@ -16,6 +16,7 @@ export const isLink = (target) =>
   object.isIn(target, 'url');
 
 const Notifications = ({
+  buttonComponent,
   data,
   defaultValue,
   error,
@@ -26,10 +27,23 @@ const Notifications = ({
   const { t } = useTranslation();
   const count = useCount(data);
 
+  const buttonComponentProps = {
+    ...count,
+    error,
+  };
+
+  const icon = React.useCallback(
+    () => React.createElement(Bell, buttonComponentProps),
+    [buttonComponentProps],
+  );
+
   return (
     <Popover
       defaultValue={defaultValue}
-      anchorComponent={<Bell {...count} error={error} />}
+      anchorComponent={buttonComponent({
+        icon,
+        ...buttonComponentProps,
+      })}
     >
       <List className={cls.root}>
         {count.hasItems ? (
@@ -66,6 +80,7 @@ const Notifications = ({
 };
 
 Notifications.propTypes = {
+  buttonComponent: PropTypes.func.isRequired,
   defaultValue: PropTypes.bool,
   data: PropTypes.arrayOf(
     PropTypes.shape({
