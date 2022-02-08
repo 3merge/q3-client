@@ -26,7 +26,6 @@ import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
-import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
@@ -64,13 +63,6 @@ const Admin = ({
   useProfileTimezone();
   useProfileTheme();
   useServerSideEvents();
-
-  Object.assign(AppProps, {
-    pages: mergeAddonsWithPages(pages.current, [
-      EmailEditor,
-      QueueLogs,
-    ]),
-  });
 
   return (
     <DomainProvider>

@@ -2,7 +2,6 @@ import { get } from 'lodash';
 import config from '../gatsby-config';
 
 const CANONICAL = 'gatsby-plugin-canonical-urls';
-const MANIFEST = 'gatsby-plugin-manifest';
 const ROBOTS = 'gatsby-plugin-robots-txt';
 
 const ENV = {
@@ -40,7 +39,7 @@ describe('gatsby-config', () => {
     });
 
     it('should include conditional plugins', () =>
-      [CANONICAL, MANIFEST].forEach((name) =>
+      [CANONICAL].forEach((name) =>
         checkPlugins(
           {
             brandingColor: '#FFF',
@@ -52,7 +51,7 @@ describe('gatsby-config', () => {
       ));
 
     it('should exclude conditional plugins', () =>
-      [CANONICAL, MANIFEST].forEach((name) =>
+      [CANONICAL].forEach((name) =>
         checkPlugins({}, name).hasNot(),
       ));
 

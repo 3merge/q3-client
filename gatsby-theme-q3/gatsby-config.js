@@ -5,8 +5,6 @@ const genKey = (url) =>
   String(url).includes('netlify') ? 'disallow' : 'allow';
 
 module.exports = ({
-  contentfulSpaceID,
-  contentfulAccessToken,
   siteUrl,
   title,
   brandingColor,
@@ -52,19 +50,6 @@ module.exports = ({
     },
   ];
 
-  if (contentfulSpaceID) {
-    if (!contentfulAccessToken)
-      throw new Error('Contentful access token missing');
-
-    plugins.push({
-      resolve: 'gatsby-source-contentful',
-      options: {
-        spaceId: contentfulSpaceID,
-        accessToken: contentfulAccessToken,
-      },
-    });
-  }
-
   if (netlify)
     plugins.push({
       resolve: 'gatsby-plugin-netlify',
@@ -72,20 +57,6 @@ module.exports = ({
         generateMatchPathRewrites: true,
       },
     });
-
-  // if (title && brandingColor)
-  //   plugins.push({
-  //     resolve: 'gatsby-plugin-manifest',
-  //     options: {
-  //       short_name: title,
-  //       start_url: '/',
-  //       background_color: '#FFF',
-  //       theme_color: brandingColor,
-  //       display: 'standalone',
-  //       name: title,
-  //       icon,
-  //     },
-  //   });
 
   if (siteUrl)
     plugins.push({
