@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Box,
   CircularProgress,
   Container,
   Grid,
-  Hidden,
+  useMediaQuery,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'q3-ui-locale';
@@ -20,20 +19,6 @@ const CodeEditor = React.lazy(() =>
   // issues with codemirror package
   import('../CodeEditor'),
 );
-
-const MobileAlert = () => {
-  const { t } = useTranslation('descriptions');
-
-  return (
-    <Hidden mdUp>
-      <Box p={1}>
-        <Alert severity="warning">
-          {t('emailPreviewDisabledMobile')}
-        </Alert>
-      </Box>
-    </Hidden>
-  );
-};
 
 const EmailEditor = () => {
   const cls = useStyle();
@@ -58,7 +43,6 @@ const EmailEditor = () => {
             id="q3-email"
             className={cls.wrapper}
           >
-            <MobileAlert />
             <Grid className={cls.root} container>
               <Grid item className={cls.sidebar}>
                 <TreeView />
@@ -76,6 +60,20 @@ const EmailEditor = () => {
   );
 };
 
-EmailEditor.displayName = 'EmailEditor';
+const EmailEditorDeviceWrapper = () => {
+  const { t } = useTranslation('descriptions');
+  const isMobile = useMediaQuery((theme) =>
+    theme.breakpoints.down('md'),
+  );
 
-export default EmailEditor;
+  return isMobile ? (
+    <Alert severity="warning">
+      {t('cannotAccessFromMobileDevice')}
+    </Alert>
+  ) : (
+    <EmailEditor />
+  );
+};
+
+EmailEditorDeviceWrapper.displayName = 'EmailEditor';
+export default EmailEditorDeviceWrapper;

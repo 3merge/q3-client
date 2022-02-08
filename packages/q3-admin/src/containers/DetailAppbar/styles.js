@@ -2,22 +2,15 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   header: {
+    alignItems: 'center',
     marginBottom: theme.spacing(2),
+    flexWrap: 'wrap',
 
     [theme.breakpoints.down('md')]: {
       marginBottom: theme.spacing(1),
     },
 
     [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      marginBottom: theme.spacing(0),
-
-      '& > div': {
-        display: 'block',
-      },
-      '& h1': {
-        marginTop: theme.spacing(1),
-      },
       '& ol': {
         justifyContent: 'center',
       },
@@ -32,7 +25,7 @@ export default makeStyles((theme) => ({
   },
   nav: {
     [theme.breakpoints.down('md')]: {
-      justifyContent: 'space-between',
+      //   justifyContent: 'space-between',
       width: '100%',
     },
   },

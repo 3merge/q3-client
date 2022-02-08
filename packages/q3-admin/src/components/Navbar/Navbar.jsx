@@ -11,8 +11,9 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
+import NavbarFooter from '../NavbarFooter';
 
-const Navbar = ({ children, header, footer }) => {
+const Navbar = ({ children, header }) => {
   const cls = useStyle();
 
   return (
@@ -34,7 +35,7 @@ const Navbar = ({ children, header, footer }) => {
               </Box>
               <Box p={1.5}>{children}</Box>
             </Box>
-            <Box mb={1.5}>{footer}</Box>
+            <NavbarFooter />
           </Paper>
         </Box>
       </Hidden>
@@ -51,7 +52,7 @@ const Navbar = ({ children, header, footer }) => {
           renderContent={() => (
             <>
               {children}
-              {footer}
+              <NavbarFooter />
             </>
           )}
           renderTrigger={(onClick) => (
@@ -93,16 +94,11 @@ const Navbar = ({ children, header, footer }) => {
 
 Navbar.defaultProps = {
   children: null,
-  footer: null,
   header: null,
 };
 
 Navbar.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.node,
-  ]),
-  footer: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,
   ]),

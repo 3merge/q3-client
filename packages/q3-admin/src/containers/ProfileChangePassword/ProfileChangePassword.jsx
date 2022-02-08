@@ -3,9 +3,9 @@ import axios from 'axios';
 import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import { useTranslation } from 'q3-ui-locale';
-import { Container } from '@material-ui/core';
+import SystemPageSub from '../../components/SystemPageSub';
 
-export default () => {
+const ProfileChangePassword = () => {
   const { t } = useTranslation();
 
   const handleSubmit = React.useCallback(
@@ -19,7 +19,7 @@ export default () => {
   );
 
   return (
-    <Container>
+    <SystemPageSub title="password">
       <Form
         restart
         showSuccessMessage
@@ -38,6 +38,8 @@ export default () => {
           </>
         )}
       </Form>
-    </Container>
+    </SystemPageSub>
   );
 };
+
+export default ProfileChangePassword;

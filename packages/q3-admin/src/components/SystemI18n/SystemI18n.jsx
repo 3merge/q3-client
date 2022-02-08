@@ -8,16 +8,16 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'q3-ui-locale';
-import LocaleContext from 'q3-ui-locale/lib/context';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Builders } from 'q3-ui-forms';
 import { isObject, size } from 'lodash';
+import useDomainContext from '../../hooks/useDomainContext';
 
 const SystemI18n = () => {
-  const { lng, resources, supportedLngs, updateNamespace } =
-    React.useContext(LocaleContext);
-
+  const { domain = {}, update } = useDomainContext();
+  const { lng, resources, supportedLngs } = domain;
   const { t } = useTranslation();
+
   const initialValues =
     isObject(resources) && lng in resources
       ? resources[lng]
@@ -36,7 +36,11 @@ const SystemI18n = () => {
             <Builders.Form
               initialValues={initialValues[ns]}
               onSubmit={(values) =>
-                updateNamespace(ns, values)
+                update({
+                  resources: {
+                    [ns]: values,
+                  },
+                })
               }
             >
               {Object.keys(initialValues[ns]).map((k) => (

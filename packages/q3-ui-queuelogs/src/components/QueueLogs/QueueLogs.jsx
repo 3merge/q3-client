@@ -5,8 +5,6 @@ import {
   IconButton,
   Container,
   Grid,
-  Box,
-  Typography,
 } from '@material-ui/core';
 import Graphic from 'q3-ui-assets';
 import { orderBy } from 'lodash';
@@ -73,7 +71,7 @@ const QueueLogs = () => {
   return q.fetchingError ? (
     <Graphic icon="Code" title="queueLogsFailed" />
   ) : (
-    <Box>
+    <>
       <Grid
         spacing={1}
         alignItems="center"
@@ -142,7 +140,7 @@ const QueueLogs = () => {
           ])}
         />
       </Accordion>
-    </Box>
+    </>
   );
 };
 

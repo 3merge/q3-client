@@ -6,27 +6,45 @@ import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
 import { usePages, useServerSideEvents } from './hooks';
-import ProfileGeneral from './containers/ProfileGeneral';
+import Domain from './containers/Domain';
+import DomainI18n from './containers/DomainI18n';
+import DomainProvider from './containers/DomainProvider';
+import DomainChangeManifest from './containers/DomainChangeManifest';
+import DomainChangeBrowser from './containers/DomainChangeBrowser';
+import DomainChangePolicies from './containers/DomainChangePolicies';
+import Profile from './containers/Profile';
+import ProfileChangeContact from './containers/ProfileChangeContact';
+import ProfileChangeLocale from './containers/ProfileChangeLocale';
 import ProfileNotifications from './components/ProfileNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
-import ProfileActions from './components/ProfileActions';
+import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
-import SystemI18n from './components/SystemI18n';
-import SystemInfo from './components/SystemInfo';
 import SystemPage from './components/SystemPage';
+import SystemPageSub from './components/SystemPageSub';
 
+export { getDomain } from './hooks/useDomain';
 export * from './containers';
 export * from './hooks';
 
+const EmailModule = React.memo(() => (
+  <SystemPageSub title="emailEditor" maxWidth="xl">
+    <EmailEditor />
+  </SystemPageSub>
+));
+
+const QueueModule = React.memo(() => (
+  <SystemPageSub title="queuelogs" maxWidth="xl">
+    <QueueLogs />
+  </SystemPageSub>
+));
+
 const Admin = ({
   AppProps,
-  NavProps,
-  ProfileActionsProps,
   ProfileChangePasswordComponent,
   ProfileNotificationsComponent,
   ProfileComponent,
@@ -46,78 +64,38 @@ const Admin = ({
   });
 
   return (
-    <Viewport>
-      <Navbar
-        footer={
-          <ProfileActions
-            {...NavProps}
-            {...ProfileActionsProps}
-          />
-        }
-        header={
-          <Logo
-            className={NavProps.className}
-            src={NavProps.logoSrc}
-            to={get(AppProps, 'directory', '/')}
-          />
-        }
-      >
-        <NavbarList items={menuItems} />
-      </Navbar>
-      <Box className={cls.main}>
-        <App {...AppProps}>
-          <SystemPage
-            path="account"
-            tabs={[
-              {
-                label: 'info',
-                to: '/account',
-              },
-              {
-                label: 'notifications',
-                to: '/account/notifications',
-              },
-              {
-                label: 'password',
-                to: '/account/password',
-              },
-            ]}
-            title="profile"
-          >
-            <ProfileNotificationsComponent path="notifications" />
-            <ProfileChangePasswordComponent path="password" />
-            <ProfileComponent default />
-          </SystemPage>
-          <SystemPage
-            path="system"
-            tabs={[
-              {
-                label: 'info',
-                to: '/system',
-              },
-              {
-                label: 'emails',
-                to: '/system/emails',
-              },
-              {
-                label: 'language',
-                to: '/system/i18n',
-              },
-              {
-                label: 'queues',
-                to: '/system/queues',
-              },
-            ]}
-            title="system"
-          >
-            <SystemI18n path="i18n" />
-            <EmailEditor path="emails" />
-            <QueueLogs path="queues" />
-            <SystemInfo default />
-          </SystemPage>
-        </App>
-      </Box>
-    </Viewport>
+    <DomainProvider>
+      <Viewport>
+        <Navbar
+          header={
+            <Logo to={get(AppProps, 'directory', '/')} />
+          }
+        >
+          <NavbarList items={menuItems} />
+        </Navbar>
+        <Box className={cls.main}>
+          <App {...AppProps}>
+            <SystemPage path="account">
+              <ProfileChangeContact path="contact" />
+              <ProfileChangeLocale path="locale" />
+              <ProfileChangeTheme path="theme" />
+              <ProfileNotificationsComponent path="notifications" />
+              <ProfileChangePasswordComponent path="password" />
+              <ProfileComponent default />
+            </SystemPage>
+            <SystemPage path="system">
+              <DomainChangeBrowser path="browser" />
+              <DomainChangeManifest path="manifest" />
+              <DomainChangePolicies path="policies" />
+              <DomainI18n path="i18n" />
+              <EmailModule path="emails" />
+              <QueueModule path="queues" />
+              <Domain default />
+            </SystemPage>
+          </App>
+        </Box>
+      </Viewport>
+    </DomainProvider>
   );
 };
 
@@ -131,24 +109,13 @@ Admin.propTypes = {
       ]),
     ),
   }).isRequired,
-
-  NavProps: PropTypes.shape({
-    brand: PropTypes.string,
-    className: PropTypes.string,
-    faviconSrc: PropTypes.string,
-    logoSrc: PropTypes.string,
-  }),
-
-  ProfileActionsProps: PropTypes.shape({}),
   ProfileComponent: PropTypes.func,
   ProfileChangePasswordComponent: PropTypes.func,
   ProfileNotificationsComponent: PropTypes.func,
 };
 
 Admin.defaultProps = {
-  NavProps: {},
-  ProfileActionsProps: {},
-  ProfileComponent: ProfileGeneral,
+  ProfileComponent: Profile,
   ProfileChangePasswordComponent: ProfileChangePassword,
   ProfileNotificationsComponent: ProfileNotifications,
 };

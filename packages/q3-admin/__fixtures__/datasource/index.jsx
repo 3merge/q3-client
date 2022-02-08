@@ -8,6 +8,7 @@ import characters from './characters';
 import shows from './shows';
 import users from './users';
 import uploads from './files';
+import domain from './domain.json';
 
 const makeApiEndpoints = (
   mockInstance,
@@ -17,19 +18,8 @@ const makeApiEndpoints = (
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
 
-  mockInstance.onGet(/domains/).reply(200, {
-    domains: [
-      {
-        id: '1',
-        metaTitle: 'Sample App',
-        metaBrand: 'Q3',
-        metaDescription: 'This is a sample',
-        themeColor: '#EEEEEE',
-        logo: '/logo.png',
-        favicon: '/favicon.png',
-        privacy: '/privacy-policy.pdf',
-      },
-    ],
+  mockInstance.onGet(/domain/).reply(200, {
+    domain,
   });
 
   mockInstance.onGet(/system-notifications/).reply(200, {

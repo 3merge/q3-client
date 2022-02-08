@@ -9,6 +9,7 @@ import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
 import pages from './views';
+import domain from './datasource/domain.json';
 
 const Loading = ({ children }) => {
   useLoading();
@@ -19,6 +20,10 @@ const Foo = () => <p>Custom profile view</p>;
 
 const ExampleApp = ({ initialPath }) => {
   useTimezoneInterceptor();
+
+  // MUST SET THIS IN PRE CLIENT INIT
+  // GATSBY HAS A HOOK FOR THIS.
+  window.Q3_RUNTIME_CONFIG = domain;
 
   return (
     <Loading>

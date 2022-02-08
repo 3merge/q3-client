@@ -6,13 +6,28 @@ export default makeStyles(() => ({
     color: red[900],
   },
   previewContainer: {
-    height: 250,
+    height: 180,
+    margin: '-4vh',
+    borderRadius: 8,
+    overflow: 'hidden',
   },
   fit: {
     color: grey[200],
-    height: '100%',
     objectFit: 'contain',
     position: 'relative',
-    width: '100%',
+    height: 180,
+    width: 180,
+  },
+  icon: {
+    height: 180,
+    width: 180,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    '& svg': {
+      height: '25%',
+      width: '25%',
+    },
   },
 }));

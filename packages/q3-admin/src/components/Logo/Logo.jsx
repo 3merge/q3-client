@@ -1,30 +1,26 @@
 import React from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import useStyle from './styles';
+import useDomainContext from '../../hooks/useDomainContext';
 
-const Logo = ({ className, src, to }) => {
+const Logo = ({ to }) => {
   const cls = useStyle();
+  const { domain = {} } = useDomainContext();
+  const { brand, logo } = domain;
 
   return (
-    <Link
-      className={classnames(cls.link, className)}
-      to={to}
-    >
-      <img alt="App logo" className={cls.img} src={src} />
+    <Link className={cls.link} to={to}>
+      <img alt={brand} className={cls.img} src={logo} />
     </Link>
   );
 };
 
 Logo.defaultProps = {
-  className: undefined,
   to: '/',
 };
 
 Logo.propTypes = {
-  className: PropTypes.string,
-  src: PropTypes.string.isRequired,
   to: PropTypes.string,
 };
 

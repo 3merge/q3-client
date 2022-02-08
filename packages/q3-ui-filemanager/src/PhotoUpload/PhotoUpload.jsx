@@ -2,26 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Box from '@material-ui/core/Box';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import Drop from '../Drop';
 import useStyle from './useStyle';
 
 export const FileUploadPreview = ({ src }) => {
   const { t } = useTranslation('labels');
+  const [error, setError] = React.useState(false);
   const cls = useStyle();
 
   return (
     <Box className={cls.previewContainer}>
-      {src ? (
+      {src && !error ? (
         <img
           alt={t('imageThumbnailPreview')}
           className={cls.fit}
           src={src}
+          onError={() => {
+            setError('true');
+          }}
         />
       ) : (
-        <PhotoCameraIcon className={cls.fit} />
+        <Box className={cls.icon}>
+          {error ? (
+            <BrokenImageIcon />
+          ) : (
+            <PhotoCameraIcon />
+          )}
+        </Box>
       )}
     </Box>
   );
@@ -39,24 +51,26 @@ export const FileUploadStatus = ({ file, onDelete }) => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
-  if (!file) return t('clickToSetPhoto');
-  if (file.error) return t('photoFailedToUpload');
-  if (file.url)
+  React.useEffect(() => {
+    // eslint-disable-next-line
+    if (file?.error) alert(t('photoFailedToUpload'));
+  }, [file?.error]);
+
+  if (file?.url)
     return (
-      <Box mt={-1}>
-        <Button
-          id="q3-photo-remove"
-          type="button"
-          onClick={onDelete}
-          className={cls.danger}
-          fullWidth
-        >
-          {t('unsetPhoto')}
-        </Button>
-      </Box>
+      <IconButton
+        id="q3-photo-remove"
+        type="button"
+        onClick={onDelete}
+        className={cls.danger}
+        aria-label={t('unsetPhoto')}
+        fullWidth
+      >
+        <RemoveCircleIcon />
+      </IconButton>
     );
 
-  return t('uploadingPhoto');
+  return null;
 };
 
 FileUploadStatus.defaultProps = {
@@ -80,31 +94,35 @@ const PhotoUpload = ({ src, onDelete, ...etc }) => {
   }, [src]);
 
   return (
-    <Drop
-      {...etc}
-      multiple={false}
-      accept=".png,.jpg,.jpeg,.svg,.jfif"
-      previewComponent={
-        <FileUploadPreview src={previewUrl} />
-      }
-    >
-      {([file]) => {
-        browser.getFileThumbnail(
-          file,
-          (err, previewSrc) => {
-            if (src) setPreviewUrl(previewSrc);
-          },
-        );
+    <Box position="relative">
+      <Drop
+        {...etc}
+        multiple={false}
+        accept=".png,.jpg,.jpeg,.svg,.jfif"
+        previewComponent={
+          <FileUploadPreview src={previewUrl} />
+        }
+      >
+        {([file]) => {
+          browser.getFileThumbnail(
+            file,
+            (err, previewSrc) => {
+              if (src) setPreviewUrl(previewSrc);
+            },
+          );
 
-        // allows us to "fake" the existing file blob
-        return (
-          <FileUploadStatus
-            file={file || { url: src }}
-            onDelete={onDelete}
-          />
-        );
-      }}
-    </Drop>
+          // allows us to "fake" the existing file blob
+          return (
+            <Box position="absolute" top="0" right="0">
+              <FileUploadStatus
+                file={file || { url: src }}
+                onDelete={onDelete}
+              />
+            </Box>
+          );
+        }}
+      </Drop>
+    </Box>
   );
 };
 

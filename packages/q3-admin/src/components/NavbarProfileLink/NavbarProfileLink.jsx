@@ -1,0 +1,37 @@
+import React from 'react';
+import { Link } from '@reach/router';
+import { compact } from 'lodash';
+import {
+  Avatar,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+} from '@material-ui/core';
+import { AuthContext } from 'q3-ui-permissions';
+
+const NavbarProfileLink = () => {
+  const { state } = React.useContext(AuthContext);
+
+  return (
+    <ListItem button dense component={Link} to="account">
+      <ListItemAvatar>
+        <Avatar
+          src={state?.profile?.photo}
+          variant="rounded"
+        />
+      </ListItemAvatar>
+      <ListItemText
+        primary={compact([
+          state?.profile?.firstName,
+          state?.profile?.lastName,
+        ]).join(' ')}
+        secondary={state?.profile?.role}
+      />
+    </ListItem>
+  );
+};
+
+NavbarProfileLink.defaultProps = {};
+NavbarProfileLink.propTypes = {};
+
+export default NavbarProfileLink;

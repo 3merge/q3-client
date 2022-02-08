@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar, PhotoUpload } from 'q3-ui-filemanager';
+import { makeStyles } from '@material-ui/core';
+
+const useStyle = makeStyles(() => ({
+  picture: {
+    width: 95,
+    height: 95,
+  },
+}));
 
 export const FEATURED_UPLOAD_KEY = 'featuredUpload';
 
@@ -19,10 +27,7 @@ const FeaturedPhoto = ({
         [field]: null,
       })
     }
-    style={{
-      height: 125,
-      width: 125,
-    }}
+    className={useStyle().picture}
   />
 );
 

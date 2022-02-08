@@ -1,75 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from '@reach/router';
-import {
-  AppBar,
-  Tab,
-  Toolbar,
-  Typography,
-  Box,
-} from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
-import { map } from 'lodash';
+import { Box, Link as MuiLink } from '@material-ui/core';
+import { size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
-import useStyle from './styles';
 import useGlobalStyle from '../useStyle';
 
-const SystemPage = ({ title, tabs, children }) => {
-  const { pathname } = useLocation();
-  const { t } = useTranslation('labels');
+const SystemPage = ({ children, path }) => {
   const globalCls = useGlobalStyle();
-  const cls = useStyle();
+  const { t } = useTranslation('labels');
+  const p = useLocation();
+  const isRoot = String(p.pathname)
+    .substring(1)
+    .replace(path, '')
+    .trim();
 
   return (
     <Box
       bgcolor="background.paper"
-      className={globalCls.fillViewportHeight}
+      className={globalCls.fillViewportHeightWithoutAppbar}
+      py={2}
     >
-      <AppBar
-        elevation={0}
-        color="inherit"
-        position="static"
-        className={cls.app}
-      >
-        <Toolbar className={cls.toolbar}>
-          <Typography component="h1" variant="h5">
-            {t(`titles:${title}`)}
-          </Typography>
-        </Toolbar>
-        <Tabs value={pathname}>
-          {map(tabs, (tab) => (
-            <Tab
-              component={Link}
-              key={tab.label}
-              label={t(tab.label)}
-              style={{
-                minWidth: 'auto',
-                paddingLeft: '1.5rem',
-                paddingRight: '1.5rem',
-              }}
-              to={tab.to}
-              value={tab.to}
-            />
-          ))}
-        </Tabs>
-      </AppBar>
-      <Box className={cls.view}>{children}</Box>
+      {size(isRoot) < 0 && (
+        <MuiLink component={Link} to="..">
+          {t('labels:back')}
+        </MuiLink>
+      )}
+      {children}
     </Box>
   );
 };
 
+SystemPage.defaultProps = {
+  children: null,
+};
+
 SystemPage.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.node,
     PropTypes.element,
-  ]).isRequired,
-  title: PropTypes.string.isRequired,
-  tabs: PropTypes.arrayOf(
-    PropTypes.shape({
-      to: PropTypes.string,
-      label: PropTypes.string,
-    }),
-  ).isRequired,
+    PropTypes.node,
+  ]),
+  path: PropTypes.string.isRequired,
 };
 
 export default SystemPage;
