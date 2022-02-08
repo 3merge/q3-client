@@ -21,7 +21,7 @@ import DomainChangePolicies from './containers/DomainChangePolicies';
 import Profile from './containers/Profile';
 import ProfileChangeContact from './containers/ProfileChangeContact';
 import ProfileChangeLocale from './containers/ProfileChangeLocale';
-import ProfileNotifications from './components/ProfileNotifications';
+import ProfileChangeNotifications from './containers/ProfileChangeNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
@@ -48,16 +48,17 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
-const Admin = ({
-  AppProps,
-  ProfileChangePasswordComponent,
-  ProfileNotificationsComponent,
-  ProfileComponent,
-}) => {
+const Admin = ({ AppProps }) => {
   const pages = React.useRef(AppProps.pages);
   // these should not inherit addons
   const menuItems = usePages(pages.current);
   const cls = useStyle();
+  const dir = get(AppProps, 'directory', '/');
+
+  const header = React.useMemo(
+    () => <Logo to={dir} />,
+    dir,
+  );
 
   useProfileLocale();
   useProfileTimezone();
@@ -67,11 +68,7 @@ const Admin = ({
   return (
     <DomainProvider>
       <Viewport>
-        <Navbar
-          header={
-            <Logo to={get(AppProps, 'directory', '/')} />
-          }
-        >
+        <Navbar header={header}>
           <NavbarList items={menuItems} />
         </Navbar>
         <Box className={cls.main}>
@@ -80,9 +77,9 @@ const Admin = ({
               <ProfileChangeContact path="contact" />
               <ProfileChangeLocale path="locale" />
               <ProfileChangeTheme path="theme" />
-              <ProfileNotificationsComponent path="notifications" />
-              <ProfileChangePasswordComponent path="password" />
-              <ProfileComponent default />
+              <ProfileChangeNotifications path="notifications" />
+              <ProfileChangePassword path="password" />
+              <Profile default />
             </SystemPage>
             <SystemPage path="system">
               <DomainChangeBrowser path="browser" />
@@ -110,15 +107,8 @@ Admin.propTypes = {
       ]),
     ),
   }).isRequired,
-  ProfileComponent: PropTypes.func,
-  ProfileChangePasswordComponent: PropTypes.func,
-  ProfileNotificationsComponent: PropTypes.func,
 };
 
-Admin.defaultProps = {
-  ProfileComponent: Profile,
-  ProfileChangePasswordComponent: ProfileChangePassword,
-  ProfileNotificationsComponent: ProfileNotifications,
-};
+Admin.defaultProps = {};
 
 export default Admin;

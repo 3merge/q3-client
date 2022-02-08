@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'q3-ui-forms/lib/builders';
-import ProfileNotifications from './ProfileNotifications';
+import ProfileNotifications from './ProfileChangeNotifications';
 import useProfileForm from '../../hooks/useProfileForm';
 
 jest.mock('../../hooks/useProfileForm');
