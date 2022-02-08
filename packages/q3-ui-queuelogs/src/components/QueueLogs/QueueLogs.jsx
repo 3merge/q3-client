@@ -3,10 +3,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import {
   Tooltip,
   IconButton,
-  Container,
   Grid,
 } from '@material-ui/core';
 import Graphic from 'q3-ui-assets';
+import { useAuth } from 'q3-ui-permissions';
 import { orderBy } from 'lodash';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { useTranslation } from 'q3-ui-locale';
@@ -21,6 +21,7 @@ const QueueLogs = () => {
   const q = useQueues();
   const { t } = useTranslation('labels');
   const cls = useStyles();
+  const { canSee } = useAuth('queues');
 
   const sharedDataGridProps = {
     className: cls.root,
@@ -68,7 +69,7 @@ const QueueLogs = () => {
         },
       ]);
 
-  return q.fetchingError ? (
+  return !canSee || q.fetchingError ? (
     <Graphic icon="Code" title="queueLogsFailed" />
   ) : (
     <>

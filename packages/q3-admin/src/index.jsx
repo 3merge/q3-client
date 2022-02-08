@@ -5,7 +5,13 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
-import { usePages, useServerSideEvents } from './hooks';
+import {
+  usePages,
+  useServerSideEvents,
+  useProfileTimezone,
+  useProfileLocale,
+  useProfileTheme,
+} from './hooks';
 import Domain from './containers/Domain';
 import DomainI18n from './containers/DomainI18n';
 import DomainProvider from './containers/DomainProvider';
@@ -54,6 +60,9 @@ const Admin = ({
   const menuItems = usePages(pages.current);
   const cls = useStyle();
 
+  useProfileLocale();
+  useProfileTimezone();
+  useProfileTheme();
   useServerSideEvents();
 
   Object.assign(AppProps, {

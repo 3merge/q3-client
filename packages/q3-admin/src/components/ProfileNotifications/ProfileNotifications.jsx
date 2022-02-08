@@ -14,6 +14,8 @@ const ProfileNotifications = ({ children }) => {
   return (
     <SystemPageSub title="notifications">
       <Builders.Form
+        isNew
+        collectionName="profile"
         showSuccessMessage
         disabled={!children}
         initialValues={

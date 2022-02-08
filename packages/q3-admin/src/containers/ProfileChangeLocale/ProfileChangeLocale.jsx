@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import Context from 'q3-ui-locale/lib/context';
+import { compact, uniq } from 'lodash';
 import useProfileForm from '../../hooks/useProfileForm';
 import SystemPageSub from '../../components/SystemPageSub';
 
@@ -23,7 +24,12 @@ const ProfileChangeTheme = (props) => {
         <Field
           name="lang"
           type="select"
-          options={supportedLngs}
+          options={uniq(
+            compact([
+              initialValues?.lang,
+              ...supportedLngs,
+            ]),
+          )}
           xl={12}
           lg={12}
         />

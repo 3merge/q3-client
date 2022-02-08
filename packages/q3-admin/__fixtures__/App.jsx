@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
-import {
-  useLoading,
-  useTimezoneInterceptor,
-} from 'q3-ui-rest';
+import { useLoading } from 'q3-ui-rest';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
@@ -19,8 +16,6 @@ const Loading = ({ children }) => {
 const Foo = () => <p>Custom profile view</p>;
 
 const ExampleApp = ({ initialPath }) => {
-  useTimezoneInterceptor();
-
   // MUST SET THIS IN PRE CLIENT INIT
   // GATSBY HAS A HOOK FOR THIS.
   window.Q3_RUNTIME_CONFIG = domain;

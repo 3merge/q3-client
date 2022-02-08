@@ -20,6 +20,7 @@ const FeaturedPhoto = ({
 }) => (
   <Component
     src={src}
+    className={useStyle().picture}
     customizer={() => field}
     onDrop={update}
     onDelete={() =>
@@ -27,7 +28,6 @@ const FeaturedPhoto = ({
         [field]: null,
       })
     }
-    className={useStyle().picture}
   />
 );
 

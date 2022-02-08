@@ -14,15 +14,15 @@ const ProfileChangeTheme = (props) => {
         collectionName="profile"
         keep={['theme']}
         showSuccessMessage
-        initialValues={initialValues}
-        onSubmit={(values) => {
-          // CHANGE MODE...
-          onSubmit(values);
+        onSubmit={onSubmit}
+        initialValues={{
+          theme: initialValues || 'light',
         }}
       >
         <Field
           name="theme"
           type="select"
+          required
           options={['dark', 'light']}
           xl={12}
           lg={12}

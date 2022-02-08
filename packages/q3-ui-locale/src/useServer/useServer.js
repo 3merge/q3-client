@@ -5,8 +5,6 @@ export default (i18nProps = {}) => {
   const [i18n, setI18n] = React.useState();
   const { lng, supportedLngs, resources } = i18nProps;
 
-  // UPDATE
-
   React.useEffect(() => {
     const i18nInstance = i18next.createInstance({
       ...i18nProps,

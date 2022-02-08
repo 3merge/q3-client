@@ -1,5 +1,6 @@
 import React from 'react';
 import { Builders } from 'q3-ui-forms';
+import { handleFormData } from 'q3-ui-forms/lib/helpers';
 import SystemPageSub from '../../components/SystemPageSub';
 import useDomainContext from '../../hooks/useDomainContext';
 
@@ -12,13 +13,15 @@ const DomainChangePolicies = () => {
   return (
     <SystemPageSub title="domainPolicies">
       <Builders.Form
+        isNew
+        collectionName="domain"
         initialValues={domain}
         modify={{
           'terms': [isNull],
           'privacy': [isNull],
           'cancellation': [isNull],
         }}
-        onSubmit={update}
+        onSubmit={handleFormData(update)}
       >
         <Builders.Field
           folder="uploads"

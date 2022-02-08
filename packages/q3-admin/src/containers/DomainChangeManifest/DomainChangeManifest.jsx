@@ -9,6 +9,8 @@ const DomainChangeManifest = () => {
   return (
     <SystemPageSub title="domainManifest">
       <Builders.Form
+        isNew
+        collectionName="domain"
         initialValues={domain}
         keep={[
           'brand',

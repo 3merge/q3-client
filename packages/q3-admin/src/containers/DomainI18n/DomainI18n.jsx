@@ -11,6 +11,7 @@ import { useTranslation } from 'q3-ui-locale';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Builders } from 'q3-ui-forms';
 import { isObject, size } from 'lodash';
+import { useAuth } from 'q3-ui-permissions';
 import SystemPageSub from '../../components/SystemPageSub';
 import useDomainContext from '../../hooks/useDomainContext';
 
@@ -18,6 +19,7 @@ const DomainI18n = () => {
   const { domain = {}, update } = useDomainContext();
   const { lng, resources, supportedLngs } = domain;
   const { t } = useTranslation();
+  const { HideByField } = useAuth('domain');
 
   const initialValues =
     isObject(resources) && lng in resources
@@ -62,16 +64,18 @@ const DomainI18n = () => {
 
   return (
     <SystemPageSub maxWidth="xl" title="domainI18n">
-      {size(supportedLngs) < 1 && (
-        <Alert severity="info">
-          {t('descriptions:localeEditor', {
-            lng,
-          })}
-        </Alert>
-      )}
-      {isObject(initialValues)
-        ? Object.keys(initialValues).map(renderNamespace)
-        : 'N/A'}
+      <HideByField op="Create" path="resources">
+        {size(supportedLngs) < 1 && (
+          <Alert severity="info">
+            {t('descriptions:localeEditor', {
+              lng,
+            })}
+          </Alert>
+        )}
+        {isObject(initialValues)
+          ? Object.keys(initialValues).map(renderNamespace)
+          : 'N/A'}
+      </HideByField>
     </SystemPageSub>
   );
 };
