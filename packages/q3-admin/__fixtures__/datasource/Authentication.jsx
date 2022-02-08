@@ -4,11 +4,7 @@ import { AuthContext } from 'q3-ui-permissions';
 import axios from 'axios';
 import users from './users';
 
-const profile = {
-  ...users[0],
-  role: 'Developer',
-  lang: 'en-CA',
-};
+const profile = users[0];
 
 const genPermission = (rest) => ({
   ownership: 'Any',

@@ -62,13 +62,7 @@ addDecorator(withRouter);
 
 addDecorator((story) => {
   return (
-    <Providers
-      {...json}
-      addLocaleHandler={(args) => {
-        console.log('Locale update: ', args);
-        return Promise.resolve({});
-      }}
-    >
+    <Providers {...json}>
       <Snackbar>{story()}</Snackbar>
     </Providers>
   );

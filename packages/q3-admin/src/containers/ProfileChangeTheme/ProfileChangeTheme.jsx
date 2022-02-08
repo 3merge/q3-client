@@ -16,7 +16,7 @@ const ProfileChangeTheme = (props) => {
         showSuccessMessage
         onSubmit={onSubmit}
         initialValues={{
-          theme: initialValues || 'light',
+          theme: initialValues?.theme || 'light',
         }}
       >
         <Field

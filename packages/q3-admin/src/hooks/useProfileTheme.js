@@ -4,7 +4,7 @@ import { AuthContext } from 'q3-ui-permissions';
 
 const useProfileTheme = () => {
   const type =
-    React.useContext(AuthContext)?.state?.profile?.type ||
+    React.useContext(AuthContext)?.state?.profile?.theme ||
     'light';
 
   const { setType } = React.useContext(ModeContext);

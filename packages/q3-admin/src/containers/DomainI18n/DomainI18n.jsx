@@ -30,13 +30,22 @@ const DomainI18n = () => {
     if (!isObject(initialValues[ns])) return null;
 
     return (
-      <Accordion variant="outlined" defaultExpanded>
+      <Accordion variant="outlined" defaultExpanded={false}>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{t(`titles:${ns}`)}</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails
+          style={{
+            maxHeight: 450,
+            overflowY: 'scroll',
+            minWidth: '100%',
+            flex: 1,
+            width: '100%',
+          }}
+        >
           <Box width="100%">
             <Builders.Form
+              submitLabel="save"
               initialValues={initialValues[ns]}
               onSubmit={(values) =>
                 update({
@@ -48,6 +57,11 @@ const DomainI18n = () => {
             >
               {Object.keys(initialValues[ns]).map((k) => (
                 <Builders.Field
+                  multiline={[
+                    'descriptions',
+                    'helpers',
+                  ].includes(ns)}
+                  rows={3}
                   name={k}
                   label={k}
                   key={k}
@@ -65,16 +79,25 @@ const DomainI18n = () => {
   return (
     <SystemPageSub maxWidth="xl" title="domainI18n">
       <HideByField op="Create" path="resources">
+        <Alert severity="info">
+          {t('descriptions:localeEditorChangeEffect')}
+        </Alert>
         {size(supportedLngs) < 1 && (
-          <Alert severity="info">
-            {t('descriptions:localeEditor', {
-              lng,
-            })}
-          </Alert>
+          <Box mt={1}>
+            <Alert severity="info">
+              {t('descriptions:localeEditor', {
+                lng,
+              })}
+            </Alert>
+          </Box>
         )}
-        {isObject(initialValues)
-          ? Object.keys(initialValues).map(renderNamespace)
-          : 'N/A'}
+        <Box mt={1}>
+          {isObject(initialValues)
+            ? Object.keys(initialValues).map(
+                renderNamespace,
+              )
+            : 'N/A'}
+        </Box>
       </HideByField>
     </SystemPageSub>
   );

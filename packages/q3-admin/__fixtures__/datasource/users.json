@@ -7,6 +7,7 @@
     "photo": "https://randomuser.me/api/portraits/men/22.jpg",
     "role": "Developer",
     "lang": "en",
-    "timezone": "America/Toronto"
+    "timezone": "America/Toronto",
+    "theme": "light"
   }
 ]
