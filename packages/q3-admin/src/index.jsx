@@ -5,74 +5,95 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get } from 'lodash';
 import App from './components/app';
-import { usePages, useServerSideEvents } from './hooks';
-import Profile from './containers/Profile';
-import ProfileNotifications from './components/ProfileNotifications';
-import ProfileChangePassword from './containers/ProfileChangePassword';
-import ProfileActions from './components/ProfileActions';
 import {
-  NOTIFICATIONS_PATH,
-  PASSWORD_PATH,
-  PROFILE_PATH,
-} from './components/ProfileActionsDropdown/ProfileActionsDropdown';
+  usePages,
+  useServerSideEvents,
+  useProfileTimezone,
+  useProfileLocale,
+  useProfileTheme,
+} from './hooks';
+import Domain from './containers/Domain';
+import DomainI18n from './containers/DomainI18n';
+import DomainProvider from './containers/DomainProvider';
+import DomainChangeManifest from './containers/DomainChangeManifest';
+import DomainChangeBrowser from './containers/DomainChangeBrowser';
+import DomainChangePolicies from './containers/DomainChangePolicies';
+import Profile from './containers/Profile';
+import ProfileChangeContact from './containers/ProfileChangeContact';
+import ProfileChangeLocale from './containers/ProfileChangeLocale';
+import ProfileChangeNotifications from './containers/ProfileChangeNotifications';
+import ProfileChangePassword from './containers/ProfileChangePassword';
+import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
-import mergeAddonsWithPages from './helpers/mergeAddonsWithPages';
 import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
+import SystemPage from './components/SystemPage';
+import SystemPageSub from './components/SystemPageSub';
 
+export { getDomain } from './hooks/useDomain';
 export * from './containers';
 export * from './hooks';
 
-const Admin = ({
-  AppProps,
-  NavProps,
-  ProfileActionsProps,
-  ProfileChangePasswordComponent,
-  ProfileNotificationsComponent,
-  ProfileComponent,
-}) => {
+const EmailModule = React.memo(() => (
+  <SystemPageSub title="emailEditor" maxWidth="xl">
+    <EmailEditor />
+  </SystemPageSub>
+));
+
+const QueueModule = React.memo(() => (
+  <SystemPageSub title="queuelogs" maxWidth="xl">
+    <QueueLogs />
+  </SystemPageSub>
+));
+
+const Admin = ({ AppProps }) => {
   const pages = React.useRef(AppProps.pages);
   // these should not inherit addons
   const menuItems = usePages(pages.current);
   const cls = useStyle();
+  const dir = get(AppProps, 'directory', '/');
 
+  const header = React.useMemo(
+    () => <Logo to={dir} />,
+    dir,
+  );
+
+  useProfileLocale();
+  useProfileTimezone();
+  useProfileTheme();
   useServerSideEvents();
 
-  Object.assign(AppProps, {
-    pages: mergeAddonsWithPages(pages.current, [
-      EmailEditor,
-      QueueLogs,
-    ]),
-  });
-
   return (
-    <Viewport>
-      <Navbar
-        footer={<ProfileActions {...ProfileActionsProps} />}
-        header={
-          <Logo
-            className={NavProps.className}
-            src={NavProps.logoSrc}
-            to={get(AppProps, 'directory', '/')}
-          />
-        }
-      >
-        <NavbarList items={menuItems} />
-      </Navbar>
-      <Box className={cls.main}>
-        <App {...AppProps}>
-          <ProfileComponent path={PROFILE_PATH} />
-          <ProfileChangePasswordComponent
-            path={PASSWORD_PATH}
-          />
-          <ProfileNotificationsComponent
-            path={NOTIFICATIONS_PATH}
-          />
-        </App>
-      </Box>
-    </Viewport>
+    <DomainProvider>
+      <Viewport>
+        <Navbar header={header}>
+          <NavbarList items={menuItems} />
+        </Navbar>
+        <Box className={cls.main}>
+          <App {...AppProps}>
+            <SystemPage path="account">
+              <ProfileChangeContact path="contact" />
+              <ProfileChangeLocale path="locale" />
+              <ProfileChangeTheme path="theme" />
+              <ProfileChangeNotifications path="notifications" />
+              <ProfileChangePassword path="password" />
+              <Profile default />
+            </SystemPage>
+            <SystemPage path="system">
+              <DomainChangeBrowser path="browser" />
+              <DomainChangeManifest path="manifest" />
+              <DomainChangePolicies path="policies" />
+              <DomainI18n path="i18n" />
+              <EmailModule path="emails" />
+              <QueueModule path="queues" />
+              <Domain default />
+            </SystemPage>
+          </App>
+        </Box>
+      </Viewport>
+    </DomainProvider>
   );
 };
 
@@ -86,32 +107,8 @@ Admin.propTypes = {
       ]),
     ),
   }).isRequired,
-
-  NavProps: PropTypes.shape({
-    className: PropTypes.string,
-    logoSrc: PropTypes.string,
-  }),
-
-  ProfileActionsProps: PropTypes.shape({
-    // eslint-disable-next-line
-    DocumentationProps: PropTypes.object,
-    includeDocumentation: PropTypes.bool,
-    includeNotifications: PropTypes.bool,
-    includeThemeMode: PropTypes.bool,
-    includeActionsDropdown: PropTypes.bool,
-  }),
-
-  ProfileComponent: PropTypes.func,
-  ProfileChangePasswordComponent: PropTypes.func,
-  ProfileNotificationsComponent: PropTypes.func,
 };
 
-Admin.defaultProps = {
-  NavProps: {},
-  ProfileActionsProps: {},
-  ProfileComponent: Profile,
-  ProfileChangePasswordComponent: ProfileChangePassword,
-  ProfileNotificationsComponent: ProfileNotifications,
-};
+Admin.defaultProps = {};
 
 export default Admin;

@@ -3,9 +3,9 @@ import axios from 'axios';
 import { NewPasswordFields } from 'q3-ui-forms/lib/presets';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import { useTranslation } from 'q3-ui-locale';
-import TemplateFullWidth from '../../components/TemplateFullWidth';
+import SystemPageSub from '../../components/SystemPageSub';
 
-export default () => {
+const ProfileChangePassword = () => {
   const { t } = useTranslation();
 
   const handleSubmit = React.useCallback(
@@ -19,10 +19,7 @@ export default () => {
   );
 
   return (
-    <TemplateFullWidth
-      title={t('titles:changePassword')}
-      subtitle={t('descriptions:changePassword')}
-    >
+    <SystemPageSub title="password">
       <Form
         restart
         showSuccessMessage
@@ -41,6 +38,8 @@ export default () => {
           </>
         )}
       </Form>
-    </TemplateFullWidth>
+    </SystemPageSub>
   );
 };
+
+export default ProfileChangePassword;

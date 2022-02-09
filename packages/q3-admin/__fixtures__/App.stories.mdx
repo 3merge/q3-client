@@ -29,25 +29,43 @@ import App from './App';
 </Preview>
 
 <Preview>
-  <Story name="Password">
+  <Story name="Profile">
+    <App initialPath="/account" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Profile notifications">
+    <App initialPath="/account/notifications" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Profile password">
     <App initialPath="/account/change-password" />
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Profile">
-    <App initialPath="/account/profile" />
+  <Story name="System">
+    <App initialPath="/system" />
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Addons:Email">
-    <App initialPath="/emaileditor" />
+  <Story name="System I18n">
+    <App initialPath="/system/i18n" />
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Addons:Queues">
-    <App initialPath="/queues" />
+  <Story name="System Email">
+    <App initialPath="/system/emails" />
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="System Queues">
+    <App initialPath="/system/queues" />
   </Story>
 </Preview>

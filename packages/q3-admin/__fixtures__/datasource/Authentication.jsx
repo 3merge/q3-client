@@ -4,10 +4,7 @@ import { AuthContext } from 'q3-ui-permissions';
 import axios from 'axios';
 import users from './users';
 
-const profile = {
-  ...users[0],
-  role: 'Developer',
-};
+const profile = users[0];
 
 const genPermission = (rest) => ({
   ownership: 'Any',
@@ -33,22 +30,25 @@ const StoriesApiMockAuthentication = ({ children }) => {
   const shows = setupProfilePermissions('shows');
   const emails = setupProfilePermissions('emails');
   const audit = setupProfilePermissions('audit');
-  const tools = setupProfilePermissions('developer-tools');
 
   return (
     <AuthContext.Provider
+      // eslint-disable-next-line
       value={{
         update: (data, done) => {
-          setFilters(data.filters);
+          if (!(data instanceof FormData)) {
+            setFilters(data.filters);
+          }
+
           return axios
-            .post('/profile', {
-              ...session,
-              ...data,
-            })
+            .post('/profile', data)
             .then((r) => {
               setSession(r.data.profile);
             })
-            .then(() => done());
+            .then(() => {
+              if (done) return done();
+              return null;
+            });
         },
         state: {
           init: true,
@@ -58,11 +58,29 @@ const StoriesApiMockAuthentication = ({ children }) => {
             ...shows,
             ...emails,
             ...audit,
-            ...tools,
+            {
+              op: 'Read',
+              coll: 'profile',
+              fields: ['*'],
+            },
             {
               op: 'Create',
               coll: 'profile',
-              fields: ['filters*'],
+              fields: ['*'],
+            },
+            {
+              op: 'Read',
+              coll: 'queues',
+            },
+            {
+              op: 'Read',
+              coll: 'domain',
+              fields: ['*'],
+            },
+            {
+              op: 'Create',
+              coll: 'domain',
+              fields: ['*'],
             },
           ],
           filters,

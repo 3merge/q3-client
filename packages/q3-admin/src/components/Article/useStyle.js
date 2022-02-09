@@ -15,9 +15,7 @@ export default makeStyles((theme) => ({
   },
   section: {
     [theme.breakpoints.down('md')]: {
-      '& > div': {
-        height: 'calc((100 * var(--vh)) - 130px)',
-      },
+      '& > div': {},
     },
   },
 }));

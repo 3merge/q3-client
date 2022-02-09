@@ -8,4 +8,5 @@ export default (notifications) => ({
   ),
 
   hasItems: size(notifications) > 0,
+  numberOfNotifications: size(notifications),
 });

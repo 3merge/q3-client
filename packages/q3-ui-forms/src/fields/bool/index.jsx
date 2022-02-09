@@ -155,7 +155,7 @@ const Bool = ({
 
 Bool.propTypes = {
   /**
-   * The react-i18next label key.
+   * The i18n label key.
    */
 
   label: PropTypes.string.isRequired,

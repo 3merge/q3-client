@@ -2,7 +2,6 @@ import { get } from 'lodash';
 import config from '../gatsby-config';
 
 const CANONICAL = 'gatsby-plugin-canonical-urls';
-const MANIFEST = 'gatsby-plugin-manifest';
 const ROBOTS = 'gatsby-plugin-robots-txt';
 
 const ENV = {
@@ -29,18 +28,8 @@ const checkPlugins = (args = {}, plugin) => {
 
 describe('gatsby-config', () => {
   describe('plugins', () => {
-    it('should error without contentful access token', () => {
-      process.env.URL =
-        'https://development.netlify.3merge.com';
-      expect(() =>
-        config({
-          contentfulSpaceID: '1',
-        }),
-      ).toThrowError();
-    });
-
     it('should include conditional plugins', () =>
-      [CANONICAL, MANIFEST].forEach((name) =>
+      [CANONICAL].forEach((name) =>
         checkPlugins(
           {
             brandingColor: '#FFF',
@@ -52,7 +41,7 @@ describe('gatsby-config', () => {
       ));
 
     it('should exclude conditional plugins', () =>
-      [CANONICAL, MANIFEST].forEach((name) =>
+      [CANONICAL].forEach((name) =>
         checkPlugins({}, name).hasNot(),
       ));
 

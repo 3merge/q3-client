@@ -7,7 +7,8 @@ import { grey } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    height: '100%',
+    // nested inside q3 sub pages
+    height: '80vh',
     position: 'relative',
     margin: 0,
 

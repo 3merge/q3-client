@@ -1,6 +1,7 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { browser, object } from 'q3-ui-helpers';
+import { isObject } from 'lodash';
+import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
 import OpsHelper from './OpsHelper';
@@ -8,6 +9,45 @@ import characters from './characters';
 import shows from './shows';
 import users from './users';
 import uploads from './files';
+import domain from './domain.json';
+
+const applyFormData = async (src, data) => {
+  const target = { ...src };
+
+  if (data instanceof FormData) {
+    const resp = [];
+    // eslint-disable-next-line
+    for (const pair of data.entries()) {
+      resp.push([pair[0], pair[1]]);
+    }
+
+    await Promise.all(
+      resp.map(async ([k, v]) => {
+        if (isObject(v) && v.relativePath) {
+          await new Promise((r) => {
+            browser.getFileThumbnail(v, (err, photo) => {
+              target[k === 'featuredUpload' ? 'photo' : k] =
+                photo;
+              r();
+            });
+          });
+        } else target[k] = v;
+      }),
+    );
+  } else {
+    const raw =
+      typeof data === 'string' ? JSON.parse(data) : data;
+
+    if ('featuredUpload' in raw) {
+      // eslint-disable-next-line
+      raw.photo = raw.featuredUpload;
+    }
+
+    Object.assign(target, raw);
+  }
+
+  return target;
+};
 
 const makeApiEndpoints = (
   mockInstance,
@@ -16,6 +56,17 @@ const makeApiEndpoints = (
 ) => {
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
+
+  mockInstance.onGet(/domain/).reply(200, {
+    domain,
+  });
+
+  mockInstance.onPost(/domain/).reply(async ({ data }) => [
+    200,
+    {
+      domain: await applyFormData(domain, data),
+    },
+  ]);
 
   mockInstance.onGet(/system-notifications/).reply(200, {
     notifications: [
@@ -210,52 +261,25 @@ export default ({ children }) => {
       resourceName: 'users',
       resourceNameSingular: 'user',
     });
+
     makeApiEndpoints(m, characters, {
       collectionName: 'characters',
       resourceName: 'characters',
       resourceNameSingular: 'character',
     });
+
     makeApiEndpoints(m, shows, {
       collectionName: 'shows',
       resourceName: 'shows',
       resourceNameSingular: 'show',
     });
 
-    m.onPost(/profile/).reply(async ({ data }) => {
-      const [profile] = users;
-
-      if (
-        typeof data !== 'string' &&
-        object.isFn(data.get)
-      ) {
-        await new Promise((r) =>
-          browser.getFileThumbnail(
-            data.get('featuredUpload'),
-            (err, photo) => {
-              profile.photo = photo;
-              r();
-            },
-          ),
-        );
-      } else {
-        const json = JSON.parse(data);
-
-        // virtualized on the server
-        if (json.featuredPhoto === null)
-          json.photo = json.featuredPhoto;
-
-        Object.assign(profile, json);
-      }
-
-      return [
-        200,
-        {
-          profile: {
-            ...profile,
-          },
-        },
-      ];
-    });
+    m.onPost(/profile/).reply(async ({ data }) => [
+      200,
+      {
+        profile: await applyFormData(users[0], data),
+      },
+    ]);
 
     defineMockRoutesForEmailEditorAddOn({})(m);
     defineMockRoutesForQueueLogsAddOn({})(m);

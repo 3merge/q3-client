@@ -1,36 +1,28 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey, blue } from '@material-ui/core/colors';
 
-const genGradient = (
-  color = {},
-) => `repeating-linear-gradient(
-    -55deg,
-      ${grey[100]},
-      ${grey[100]} 1px,
-      ${color[50]} 1px,
-      ${color[50]} 5px
-    )`;
-
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   container: {
-    background: genGradient(grey),
-    border: `1px solid ${grey[300]}`,
-    borderRadius: 5,
+    background: theme.palette.background.default,
+    border: '1px solid transparent',
+    borderRadius: 8,
     cursor: 'pointer',
     padding: '4vh',
     outline: 0,
     textAlign: 'center',
+    transitionDuration: 500,
+    transformProperty: 'background,border,color',
+    position: 'relative',
 
     '&:hover': {
-      background: genGradient(blue),
-      border: `1px solid ${blue[200]}`,
-      color: blue[500],
+      background: theme.palette.secondary.light,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      color: theme.palette.secondary.main,
     },
 
     '&:focus,&:focus-within': {
-      background: genGradient(blue),
-      border: `1px solid ${blue[300]}`,
-      color: blue[900],
+      background: theme.palette.secondary.light,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      color: theme.palette.secondary.main,
     },
   },
   icon: {

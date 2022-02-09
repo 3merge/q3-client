@@ -2,6 +2,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles';
+import { merge } from 'lodash';
 
 const color = 'var(--color-default)';
 
@@ -20,80 +21,86 @@ const generateShadows = () => {
   return arr;
 };
 
-export default (type) => {
-  const theme = createMuiTheme({
-    palette: {
-      type,
-      background: {
-        default: type === 'light' ? '#f4f4f4' : '#303030',
-        muted: 'var(--background-muted)',
-      },
-      primary: {
-        main: '#2b2b2b',
-        dark: '#1F1F1F',
-        light: '#C2C2C2',
-      },
-      secondary: {
-        main: '#17cf97',
-      },
-    },
-    typography: {
-      h1: {
-        ...headingFont,
-        fontSize: '2.558rem',
-        fontWeight: 600,
-      },
-      h2: {
-        ...headingFont,
-        marginTop: 8,
-        fontSize: '2.076rem',
-      },
-      h3: {
-        ...headingFont,
-        fontSize: '1.87rem',
-      },
-      h4: {
-        ...headingFont,
-        fontSize: '1.685rem',
-      },
-      h5: {
-        ...headingFont,
-        fontSize: '1.518rem',
-        fontWeight: 'bold',
-      },
-      h6: {
-        ...headingFont,
-        fontSize: '1.368rem',
-      },
-      overline: {
-        fontSize: '0.731rem !important',
-        fontWeight: 800,
-        letterSpacing: '0.2px',
-      },
-      body1: {
-        color: 'var(--color-default)',
-        '&:not(:last-child)': {
-          marginBottom: '1rem',
+export default (customThemeDefs, type) => {
+  const theme = createMuiTheme(
+    merge(
+      {
+        palette: {
+          type,
+          background: {
+            default:
+              type === 'light' ? '#f4f4f4' : '#303030',
+            muted: 'var(--background-muted)',
+          },
+          primary: {
+            main: '#2b2b2b',
+            dark: '#1F1F1F',
+            light: '#C2C2C2',
+          },
+          secondary: {
+            main: '#17cf97',
+          },
         },
+        typography: {
+          h1: {
+            ...headingFont,
+            fontSize: '2.558rem',
+            fontWeight: 600,
+          },
+          h2: {
+            ...headingFont,
+            marginTop: 8,
+            fontSize: '2.076rem',
+          },
+          h3: {
+            ...headingFont,
+            fontSize: '1.87rem',
+          },
+          h4: {
+            ...headingFont,
+            fontSize: '1.685rem',
+          },
+          h5: {
+            ...headingFont,
+            fontSize: '1.518rem',
+            fontWeight: 'bold',
+          },
+          h6: {
+            ...headingFont,
+            fontSize: '1.368rem',
+          },
+          overline: {
+            fontSize: '0.731rem !important',
+            fontWeight: 800,
+            letterSpacing: '0.2px',
+          },
+          body1: {
+            color: 'var(--color-default)',
+            '&:not(:last-child)': {
+              marginBottom: '1rem',
+            },
+          },
+          body2: {
+            fontSize: '1.232rem',
+            fontWeight: 400,
+          },
+          subtitle2: {
+            color: 'var(--color-default)',
+            fontSize: '1.232rem',
+          },
+          subtitle1: {
+            color: 'var(--color-default)',
+            fontSize: '1.368rem',
+            fontWeight: 600,
+          },
+          fontFamily: '"Roboto", sans-serif',
+        },
+        shadows: generateShadows(),
+        spacing: (factor) => `${0.75 * factor}rem`,
       },
-      body2: {
-        fontSize: '1.232rem',
-        fontWeight: 400,
-      },
-      subtitle2: {
-        color: 'var(--color-default)',
-        fontSize: '1.232rem',
-      },
-      subtitle1: {
-        color: 'var(--color-default)',
-        fontSize: '1.368rem',
-        fontWeight: 600,
-      },
-      fontFamily: '"Roboto", sans-serif',
-    },
-    shadows: generateShadows(),
-    spacing: (factor) => `${0.75 * factor}rem`,
-  });
+      customThemeDefs,
+    ),
+  );
 
   Object.assign(theme, {
     overrides: {
@@ -322,7 +329,7 @@ export default (type) => {
           },
         },
         badge: {
-          background: '#fff',
+          background: theme.palette.secondary.main,
           height: 16,
           fontSize: 10,
           minWidth: 16,

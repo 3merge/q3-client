@@ -2,9 +2,10 @@ import React from 'react';
 import Provider from 'q3-ui';
 import PropTypes from 'prop-types';
 import FormProviders from 'q3-ui-forms';
+import useRunTime from './useRunTime';
 
-const Wrapper = ({ children, ...rest }) => (
-  <Provider {...rest}>
+const Wrapper = ({ children }) => (
+  <Provider {...useRunTime()}>
     <FormProviders preventDuplicate>
       {children}
     </FormProviders>
@@ -13,8 +14,6 @@ const Wrapper = ({ children, ...rest }) => (
 
 Wrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  // eslint-disable-next-line
-  theme: PropTypes.object.isRequired,
 };
 
 export default Wrapper;

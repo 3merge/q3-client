@@ -15,10 +15,12 @@ import path from 'path';
 import Providers from 'q3-ui';
 import Snackbar from 'q3-ui-forms';
 import { makeDecorator } from '@storybook/addons';
+import { Theme } from 'q3-admin';
 import {
   DocsPage,
   DocsContainer,
 } from '@storybook/addon-docs/blocks';
+import json from './settings.json';
 
 let firstHistoryObject = null;
 
@@ -58,11 +60,13 @@ const req = require.context(
 
 addDecorator(withRouter);
 
-addDecorator((story) => (
-  <Providers>
-    <Snackbar>{story()}</Snackbar>
-  </Providers>
-));
+addDecorator((story) => {
+  return (
+    <Providers {...json}>
+      <Snackbar>{story()}</Snackbar>
+    </Providers>
+  );
+});
 
 addParameters({
   options: {

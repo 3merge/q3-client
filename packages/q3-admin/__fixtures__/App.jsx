@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
-import {
-  useLoading,
-  useTimezoneInterceptor,
-} from 'q3-ui-rest';
+import { useLoading } from 'q3-ui-rest';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
 import pages from './views';
+import domain from './datasource/domain.json';
 
 const Loading = ({ children }) => {
   useLoading();
@@ -18,7 +16,9 @@ const Loading = ({ children }) => {
 const Foo = () => <p>Custom profile view</p>;
 
 const ExampleApp = ({ initialPath }) => {
-  useTimezoneInterceptor();
+  // MUST SET THIS IN PRE CLIENT INIT
+  // GATSBY HAS A HOOK FOR THIS.
+  window.Q3_RUNTIME_CONFIG = domain;
 
   return (
     <Loading>
@@ -32,8 +32,11 @@ const ExampleApp = ({ initialPath }) => {
               NavProps={{
                 className: 'testing',
                 title: 'Demo app',
+                brand: '3merge',
                 logoSrc:
-                  'https://uilogos.co/img/logomark/cod-lab.png',
+                  'https://uploads-ssl.webflow.com/5f620c85bd4f6828cc8f637b/5f620cd411cb5e449a1db5cb_combined_logo_2-p-500.png',
+                faviconSrc:
+                  'https://avatars.githubusercontent.com/u/12897090?s=200&v=4',
               }}
               ProfileProps={{
                 fields: <p>Append custom form fields!</p>,

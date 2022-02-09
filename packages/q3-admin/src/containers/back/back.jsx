@@ -1,14 +1,12 @@
 import React from 'react';
 import KeyboardBackspace from '@material-ui/icons/KeyboardBackspace';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
+import IconButton from '@material-ui/core/IconButton';
 import { useBack } from '../../hooks';
 
 const Back = () => (
-  <ButtonWithIcon
-    label="previous"
-    icon={KeyboardBackspace}
-    onClick={useBack()}
-  />
+  <IconButton label="previous" onClick={useBack()}>
+    <KeyboardBackspace />
+  </IconButton>
 );
 
 export default Back;

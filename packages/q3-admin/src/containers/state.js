@@ -2,6 +2,8 @@ import React from 'react';
 
 export default React.createContext();
 
+export const Domain = React.createContext({});
+
 export const Options = React.createContext({
   all: true,
 });
@@ -12,14 +14,13 @@ export const Definitions = React.createContext(
     resourceNamePlural: null,
     resourceName: null,
   },
-  (prevState, nextState) => {
-    return Number(
+  (prevState, nextState) =>
+    Number(
       !(
         JSON.stringify(prevState) ===
         JSON.stringify(nextState)
       ),
-    );
-  },
+    ),
 );
 
 export const Dispatcher = React.createContext(

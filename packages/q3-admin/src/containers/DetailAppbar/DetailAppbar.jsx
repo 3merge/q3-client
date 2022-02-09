@@ -1,6 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AppBar, Box, Toolbar } from '@material-ui/core';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Hidden,
+} from '@material-ui/core';
 import Back from '../back';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
@@ -31,17 +36,26 @@ const DetailAppbar = ({
           className={cls.nav}
         >
           <Back />
-          <Breadcrumbs />
+          <Hidden xsDown>
+            <Breadcrumbs />
+          </Hidden>
         </Box>
         <ActionBar>{actions}</ActionBar>
       </Toolbar>
       <Toolbar className={cls.header}>
-        <Box alignItems="center" display="flex" flex="1">
+        <Box
+          alignItems="center"
+          flexWrap="wrap"
+          display="flex"
+          flex="1"
+        >
           <DetailFeaturedPhoto />
           <DetailHeader {...rest}>{summary}</DetailHeader>
         </Box>
         <Box className={cls.meta}>
-          <DetailMeta />
+          <Hidden mdDown>
+            <DetailMeta />
+          </Hidden>
         </Box>
       </Toolbar>
       {children}

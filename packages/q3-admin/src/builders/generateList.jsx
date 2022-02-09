@@ -17,6 +17,7 @@ import CollectionName from '../components/CollectionName';
 
 const useStyle = makeStyles((theme) => ({
   toolbar: {
+    backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up('lg')]: {
       minHeight: 95,
     },

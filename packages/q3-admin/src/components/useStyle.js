@@ -17,6 +17,15 @@ export default makeStyles((theme) => ({
     overflow: 'auto',
 
     [theme.breakpoints.down('md')]: {
+      height: 'calc((100 * var(--vh)) - 130px)',
+    },
+  },
+
+  fillViewportHeightWithoutAppbar: {
+    height: 'calc(100 * var(--vh))',
+    overflow: 'auto',
+
+    [theme.breakpoints.down('md')]: {
       height: 'calc((100 * var(--vh)) - 65px)',
     },
   },

@@ -1,5 +1,7 @@
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
+export { default as useDomain } from './useDomain';
+export { default as useDomainAuth } from './useDomainAuth';
 export { default as useDetailRegisterFunction } from './useDetailRegisterFunction';
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
@@ -8,6 +10,9 @@ export { default as useSort } from './useSort';
 export { default as useSortPreference } from './useSortPreference';
 export { default as useTitle } from './useTitle';
 export { default as useRefresh } from './useRefresh';
+export { default as useProfileTimezone } from './useProfileTimezone';
+export { default as useProfileTheme } from './useProfileTheme';
+export { default as useProfileLocale } from './useProfileLocale';
 export { default as useSegments } from './useSegments';
 export { default as useSegmentsFromCollection } from './useSegmentsFromCollection';
 export { default as useSegmentsFromProfile } from './useSegmentsFromProfile';

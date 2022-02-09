@@ -2,21 +2,22 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   link: {
-    display: 'block',
-    maxHeight: 120,
-    height: '100%',
+    alignItems: 'center',
+    display: 'flex',
+    height: 95,
+    maxHeight: 95,
     width: 'auto',
-    textAlign: 'center',
+    padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
 
     [theme.breakpoints.down('lg')]: {
-      display: 'block',
-      height: 65,
-      maxHeight: 65,
+      alignItems: 'center',
+      display: 'flex',
       maxWidth: '30vw',
     },
 
     [theme.breakpoints.down('md')]: {
-      textAlign: 'left',
+      height: 65,
+      maxHeight: 65,
     },
   },
   img: {

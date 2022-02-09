@@ -9,9 +9,11 @@ import {
   IconButton,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
+import NavbarFooter from '../NavbarFooter';
 
-const Navbar = ({ children, header, footer }) => {
+const Navbar = ({ children, header }) => {
   const cls = useStyle();
 
   return (
@@ -19,16 +21,21 @@ const Navbar = ({ children, header, footer }) => {
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            {header}
-            {children}
-            {footer && (
+            <Box>
               <Box
-                className={cls.footer}
-                component="footer"
+                alignItems="center"
+                display="flex"
+                justifyContent="space-between"
+                width="100%"
               >
-                {footer}
+                <Box minWidth="calc(100% - 46px - 1.5rem)">
+                  {header}
+                </Box>
+                <Notifications />
               </Box>
-            )}
+              <Box p={1.5}>{children}</Box>
+            </Box>
+            <NavbarFooter />
           </Paper>
         </Box>
       </Hidden>
@@ -42,25 +49,39 @@ const Navbar = ({ children, header, footer }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => children}
+          renderContent={() => (
+            <>
+              {children}
+              <NavbarFooter />
+            </>
+          )}
           renderTrigger={(onClick) => (
             <AppBar
-              color="primary"
+              color="inherit"
               position="static"
               component="nav"
               className={cls.appbar}
             >
-              <Box alignItems="center" display="flex">
-                <IconButton
-                  aria-label="open menu"
-                  color="inherit"
-                  onClick={onClick}
-                >
-                  <MenuIcon />
-                </IconButton>
-                {header}
+              <Box
+                justifyContent="space-between"
+                alignItems="center"
+                display="flex"
+                width="100%"
+              >
+                <Box>
+                  <IconButton
+                    aria-label="open menu"
+                    color="inherit"
+                    onClick={onClick}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Box>
+                <Box>{header}</Box>
+                <Box>
+                  <Notifications />
+                </Box>
               </Box>
-              {footer}
             </AppBar>
           )}
           title="menu"
@@ -73,16 +94,11 @@ const Navbar = ({ children, header, footer }) => {
 
 Navbar.defaultProps = {
   children: null,
-  footer: null,
   header: null,
 };
 
 Navbar.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.node,
-  ]),
-  footer: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,
   ]),
