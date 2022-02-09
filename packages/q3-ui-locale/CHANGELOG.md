@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/3merge/q/compare/v3.2.0...v3.2.1) (2022-02-09)
+
+
+### Bug Fixes
+
+* misc domain issues ([17cb74b](https://github.com/3merge/q/commit/17cb74b927721f11b5fcd8f8a9a1a28a86867048))
+
+
+
+
+
 # [3.2.0](https://github.com/3merge/q/compare/v3.1.5...v3.2.0) (2022-02-09)
 
 
