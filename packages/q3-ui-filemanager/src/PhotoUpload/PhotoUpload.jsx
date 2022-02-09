@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browser } from 'q3-ui-helpers';
+import { isFunction } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
@@ -56,7 +57,7 @@ export const FileUploadStatus = ({ file, onDelete }) => {
     if (file?.error) alert(t('photoFailedToUpload'));
   }, [file?.error]);
 
-  if (file?.url)
+  if (file?.url && isFunction(onDelete))
     return (
       <IconButton
         id="q3-photo-remove"

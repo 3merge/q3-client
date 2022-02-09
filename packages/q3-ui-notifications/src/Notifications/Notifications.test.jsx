@@ -18,6 +18,9 @@ describe('Notifications', () => {
     it('should render messages and links', () => {
       const el = global.shallow(
         <Notifications
+          buttonComponent={jest
+            .fn()
+            .mockReturnValue(<div />)}
           data={[
             { hasSeen: true, label: 'foo' },
             {

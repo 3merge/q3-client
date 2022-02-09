@@ -28,16 +28,6 @@ const checkPlugins = (args = {}, plugin) => {
 
 describe('gatsby-config', () => {
   describe('plugins', () => {
-    it('should error without contentful access token', () => {
-      process.env.URL =
-        'https://development.netlify.3merge.com';
-      expect(() =>
-        config({
-          contentfulSpaceID: '1',
-        }),
-      ).toThrowError();
-    });
-
     it('should include conditional plugins', () =>
       [CANONICAL].forEach((name) =>
         checkPlugins(

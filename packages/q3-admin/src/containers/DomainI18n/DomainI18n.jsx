@@ -10,7 +10,7 @@ import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'q3-ui-locale';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Builders } from 'q3-ui-forms';
-import { isObject, size } from 'lodash';
+import { isObject } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
 import SystemPageSub from '../../components/SystemPageSub';
 import useDomainContext from '../../hooks/useDomainContext';
@@ -20,17 +20,23 @@ const DomainI18n = () => {
   const { lng, resources, supportedLngs } = domain;
   const { t } = useTranslation();
   const { HideByField } = useAuth('domain');
+  const hasMultipleLanguages = Array.isArray(supportedLngs)
+    ? supportedLngs.length && supportedLngs.length > 1
+    : false;
 
-  const initialValues =
-    isObject(resources) && lng in resources
-      ? resources[lng]
-      : resources || {};
+  const initialValues = isObject(resources)
+    ? resources[lng]
+    : resources || {};
 
   const renderNamespace = (ns) => {
     if (!isObject(initialValues[ns])) return null;
 
     return (
-      <Accordion variant="outlined" defaultExpanded={false}>
+      <Accordion
+        key={ns}
+        variant="outlined"
+        defaultExpanded={false}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>{t(`titles:${ns}`)}</Typography>
         </AccordionSummary>
@@ -82,7 +88,7 @@ const DomainI18n = () => {
         <Alert severity="info">
           {t('descriptions:localeEditorChangeEffect')}
         </Alert>
-        {size(supportedLngs) < 1 && (
+        {hasMultipleLanguages && (
           <Box mt={1}>
             <Alert severity="info">
               {t('descriptions:localeEditor', {
@@ -96,7 +102,7 @@ const DomainI18n = () => {
             ? Object.keys(initialValues).map(
                 renderNamespace,
               )
-            : 'N/A'}
+            : null}
         </Box>
       </HideByField>
     </SystemPageSub>

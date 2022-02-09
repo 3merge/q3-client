@@ -1,7 +1,7 @@
 import React from 'react';
 import i18next from 'i18next';
 import { set } from 'lodash';
-import { browser } from 'q3-ui-helpers';
+import { browser, object } from 'q3-ui-helpers';
 
 export default (i18nProps = {}) => {
   const [i18n, setI18n] = React.useState();
@@ -20,12 +20,7 @@ export default (i18nProps = {}) => {
         'messages',
         'titles',
       ],
-      resources:
-        lng in resources
-          ? resources
-          : {
-              [lng]: resources,
-            },
+      resources,
     });
 
     i18nInstance.init(() => {
@@ -34,21 +29,13 @@ export default (i18nProps = {}) => {
   }, [lng]);
 
   React.useEffect(() => {
-    let d;
-
-    try {
-      d = JSON.stringify(ref.current);
-    } catch (e) {
-      // noop
-    }
-
     // always save it
-    if (browser.isBrowserReady() && d)
+    if (browser.isBrowserReady())
       window.onbeforeunload = function () {
         browser.proxySessionStorageApi(
           'setItem',
           'missingKeys',
-          JSON.stringify(ref.current),
+          object.toJSON(ref.current),
         );
       };
   }, []);
