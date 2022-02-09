@@ -21,11 +21,11 @@ const SystemPage = ({ children, path }) => {
       className={globalCls.fillViewportHeightWithoutAppbar}
       py={2}
     >
-      {size(isRoot) < 0 && (
+      {size(isRoot) ? (
         <MuiLink component={Link} to="..">
           {t('labels:back')}
         </MuiLink>
-      )}
+      ) : null}
       {children}
     </Box>
   );

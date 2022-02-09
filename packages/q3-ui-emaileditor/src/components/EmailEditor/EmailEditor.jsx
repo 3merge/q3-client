@@ -20,7 +20,7 @@ const CodeEditor = React.lazy(() =>
   import('../CodeEditor'),
 );
 
-const EmailEditor = () => {
+export const EmailEditor = () => {
   const cls = useStyle();
   const { error, ready, ...rest } = useEmailTemplates();
 
@@ -60,7 +60,7 @@ const EmailEditor = () => {
   );
 };
 
-const EmailEditorDeviceWrapper = () => {
+export const EmailEditorDeviceWrapper = () => {
   const { t } = useTranslation('descriptions');
   const isMobile = useMediaQuery((theme) =>
     theme.breakpoints.down('md'),
