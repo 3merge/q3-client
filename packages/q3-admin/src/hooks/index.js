@@ -1,5 +1,7 @@
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
+export { default as useDomain } from './useDomain';
+export { default as useDomainAuth } from './useDomainAuth';
 export { default as useDetailRegisterFunction } from './useDetailRegisterFunction';
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';

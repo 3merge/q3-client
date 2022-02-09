@@ -1,4 +1,5 @@
 import micromatch from 'micromatch';
+import { compact } from 'lodash';
 import moment from 'moment';
 
 export const is = (v) => typeof v === 'string';
@@ -57,9 +58,10 @@ export const toYearMonthDay = (str) =>
 
 export const toPrice = (str) => {
   const num = Number(str);
-  return (num && !Number.isNaN(num)
-    ? `$${num.toFixed(2)}`
-    : '$0.00'
+  return (
+    num && !Number.isNaN(num)
+      ? `$${num.toFixed(2)}`
+      : '$0.00'
   ).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
@@ -83,3 +85,7 @@ export const encode = (xs) => {
     return xs;
   }
 };
+
+export const makeName = (xs = {}) =>
+  compact([xs?.firstName, xs?.lastName]).join(' ') ||
+  'Anonymous';

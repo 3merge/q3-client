@@ -15,8 +15,14 @@ export const getDomain = () =>
       console.log('Failed to load app locale:', e);
     });
 
+export const getDomainDataFromResponse = (resp) =>
+  get(resp, 'data.domain');
+
 const useDomain = () => {
   const [state, setState] = React.useState({});
+
+  const mergeWithState = (xs = {}) =>
+    setState((prevState) => merge({}, prevState, xs));
 
   const update = (values) =>
     axios
@@ -25,12 +31,8 @@ const useDomain = () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((resp) => {
-        setState((prevState) =>
-          // ensure new object
-          merge({}, prevState, get(resp, 'data.domain')),
-        );
-      });
+      .then(getDomainDataFromResponse)
+      .then(mergeWithState);
 
   React.useEffect(() => {
     setState(

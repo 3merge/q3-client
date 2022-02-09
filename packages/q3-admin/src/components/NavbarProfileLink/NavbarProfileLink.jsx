@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { compact } from 'lodash';
+import { string } from 'q3-ui-helpers';
 import {
   Avatar,
   ListItem,
@@ -21,10 +21,7 @@ const NavbarProfileLink = () => {
         />
       </ListItemAvatar>
       <ListItemText
-        primary={compact([
-          state?.profile?.firstName,
-          state?.profile?.lastName,
-        ]).join(' ')}
+        primary={string.makeName(state?.profile)}
         secondary={state?.profile?.role}
       />
     </ListItem>

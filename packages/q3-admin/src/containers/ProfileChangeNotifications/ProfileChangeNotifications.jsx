@@ -24,7 +24,7 @@ const ProfileNotifications = ({ children }) => {
         isNew
         collectionName="profile"
         showSuccessMessage
-        disabled={!children}
+        disabled={!size(listeners)}
         initialValues={
           Array.isArray(listens)
             ? listens.reduce((acc, curr) => {
