@@ -1,17 +1,17 @@
 import React from 'react';
-import Accordion from '@material-ui/core/Accordion';
 import { Builders } from 'q3-ui-forms';
 import Alert from '@material-ui/lab/Alert';
+import TabPanel from '@material-ui/lab/TabPanel';
 import DomainI18n from './DomainI18n';
 import useDomainContext from '../../hooks/useDomainContext';
 
-jest.mock('q3-ui-permissions', () => ({
-  useAuth: jest.fn().mockReturnValue({
-    HideByField: ({ children }) => children,
-  }),
-}));
-
 jest.mock('../../hooks/useDomainContext', () => jest.fn());
+jest.mock(
+  '@material-ui/lab/TabPanel',
+  () =>
+    ({ children }) =>
+      children,
+);
 
 describe('DomainI18n', () => {
   it('should let users know about locale change delay', () => {
@@ -44,13 +44,11 @@ describe('DomainI18n', () => {
       domain: {
         lng: 'en',
         resources: {
-          en: {
-            labels: {
-              foo: 1,
-            },
-            titles: {
-              foo: 1,
-            },
+          labels: {
+            foo: 1,
+          },
+          titles: {
+            foo: 1,
           },
         },
       },
@@ -59,17 +57,22 @@ describe('DomainI18n', () => {
 
     const el = global
       .shallow(<DomainI18n />)
-      .find(Accordion);
+      .find(TabPanel);
 
-    expect(el).toHaveLength(2);
+    // one for each expected namespace
+
+    expect(el).toHaveLength(4);
     el.first().find(Builders.Form).props().onSubmit({
-      foo: 1,
+      foo: 2,
     });
 
     expect(update).toHaveBeenCalledWith({
       resources: {
         labels: {
           foo: 1,
+        },
+        titles: {
+          foo: 2,
         },
       },
     });

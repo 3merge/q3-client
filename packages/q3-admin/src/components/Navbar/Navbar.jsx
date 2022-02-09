@@ -11,9 +11,10 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
+import Logo from '../Logo';
 import NavbarFooter from '../NavbarFooter';
 
-const Navbar = ({ children, header }) => {
+const Navbar = ({ children }) => {
   const cls = useStyle();
 
   return (
@@ -29,7 +30,7 @@ const Navbar = ({ children, header }) => {
                 width="100%"
               >
                 <Box minWidth="calc(100% - 46px - 1.5rem)">
-                  {header}
+                  <Logo />
                 </Box>
                 <Notifications />
               </Box>
@@ -77,7 +78,9 @@ const Navbar = ({ children, header }) => {
                     <MenuIcon />
                   </IconButton>
                 </Box>
-                <Box>{header}</Box>
+                <Box>
+                  <Logo />
+                </Box>
                 <Box>
                   <Notifications />
                 </Box>
@@ -94,15 +97,10 @@ const Navbar = ({ children, header }) => {
 
 Navbar.defaultProps = {
   children: null,
-  header: null,
 };
 
 Navbar.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.node,
-  ]),
-  header: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,
   ]),

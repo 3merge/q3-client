@@ -4,14 +4,7 @@ require('dotenv').config();
 const genKey = (url) =>
   String(url).includes('netlify') ? 'disallow' : 'allow';
 
-module.exports = ({
-  siteUrl,
-  title,
-  brandingColor,
-  icon,
-  netlify,
-  ...options
-}) => {
+module.exports = (options) => {
   const plugins = [
     {
       resolve: 'gatsby-theme-q3-mui',
@@ -48,24 +41,20 @@ module.exports = ({
         },
       },
     },
-  ];
-
-  if (netlify)
-    plugins.push({
+    {
       resolve: 'gatsby-plugin-netlify',
       options: {
         generateMatchPathRewrites: true,
       },
-    });
-
-  if (siteUrl)
-    plugins.push({
+    },
+    {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
         stripQueryString: true,
-        siteUrl,
+        siteUrl: process.env.URL,
       },
-    });
+    },
+  ];
 
   return {
     plugins,

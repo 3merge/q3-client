@@ -33,48 +33,48 @@ export default (props) => {
         transform="translate(-135.228 -53.465)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M620.462 239.321H779.443V256.402H620.462z"
         transform="rotate(7.184 1058.163 -855.898)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M584.312 280.006H799.79V288.546H584.312z"
         opacity="0.3"
         transform="rotate(7.184 1050.262 -819.483)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M580.862 307.381H796.3399999999999V315.921H580.862z"
         opacity="0.3"
         transform="rotate(7.184 1046.811 -792.108)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M577.411 334.756H792.8889999999999V343.296H577.411z"
         opacity="0.3"
         transform="rotate(7.184 1043.36 -764.733)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M573.96 362.131H789.4380000000001V370.671H573.96z"
         opacity="0.3"
         transform="rotate(7.184 1039.91 -737.358)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M570.509 389.506H785.9870000000001V398.046H570.509z"
         opacity="0.3"
         transform="rotate(7.184 1036.459 -709.983)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M567.059 416.881H782.537V425.421H567.059z"
         opacity="0.3"
         transform="rotate(7.184 1033.008 -682.608)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M563.608 444.257H779.086V452.797H563.608z"
         opacity="0.3"
         transform="rotate(7.184 1029.558 -655.233)"
@@ -85,48 +85,48 @@ export default (props) => {
         transform="translate(-135.228 -53.465)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M569.203 124.775H728.184V141.856H569.203z"
         transform="rotate(21.842 719.628 -243.843)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M524.096 162.276H739.5740000000001V170.816H524.096z"
         opacity="0.3"
         transform="rotate(21.842 702.77 -210.613)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M513.831 187.887H729.309V196.427H513.831z"
         opacity="0.3"
         transform="rotate(21.842 692.504 -185.002)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M503.565 213.498H719.043V222.03799999999998H503.565z"
         opacity="0.3"
         transform="rotate(21.842 682.239 -159.39)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M493.3 239.109H708.778V247.649H493.3z"
         opacity="0.3"
         transform="rotate(21.842 671.973 -133.78)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M483.035 264.72H698.513V273.26000000000005H483.035z"
         opacity="0.3"
         transform="rotate(21.842 661.708 -108.168)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M472.77 290.331H688.248V298.87100000000004H472.77z"
         opacity="0.3"
         transform="rotate(21.842 651.443 -82.557)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M462.504 315.942H677.982V324.482H462.504z"
         opacity="0.3"
         transform="rotate(21.842 641.178 -56.946)"
@@ -137,41 +137,41 @@ export default (props) => {
         transform="translate(-135.228 -53.465)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M270.8 128.91H429.781V145.99099999999999H270.8z"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 170.298H454.745V178.838H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 197.889H454.745V206.429H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 225.481H454.745V234.021H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 253.073H454.745V261.613H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 280.664H454.745V289.204H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 308.256H454.745V316.796H239.267z"
         opacity="0.3"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M239.267 335.848H454.745V344.38800000000003H239.267z"
         opacity="0.3"
       />
@@ -181,7 +181,7 @@ export default (props) => {
         transform="translate(-135.228 -53.465)"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M614.4 429.709H704.4689999999999V461.233H614.4z"
       />
       <path
@@ -234,7 +234,7 @@ export default (props) => {
         fill="#fbbebe"
       />
       <path
-        fill="#6c63ff"
+        fill={get(theme, 'palette.secondary.main')}
         d="M234.065 342.414v-3.095l-8.843-14.59s-8.842.885-10.168 4.864-16.359 35.811-16.359 35.811L182.78 508.21s43.77 10.61 50.402 3.094 31.832-171.1 31.832-171.1l3.537-19.895s-6.073-8.842-7.458-7.516-24.375 26.97-24.375 26.97l-.442 3.979z"
         transform="translate(-135.228 -53.465)"
       />

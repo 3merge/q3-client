@@ -17,6 +17,7 @@ import 'moment/locale/fr';
 import 'moment/locale/en-ca';
 
 const generateTheme = (color) => {
+  console.log(color);
   if (!isString(color) || !size(color)) return {};
   try {
     return {
@@ -63,7 +64,7 @@ const Providers = ({
           <CssBaseline />
           <Helmet>
             <link
-              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&Source+Sans+Pro:400&display=swap"
+              href="https://fonts.googleapis.com/css?family=Nunito:300,400,500,700&Source+Sans+Pro:400&display=swap"
               rel="stylesheet"
             />
           </Helmet>
@@ -89,7 +90,7 @@ Providers.defaultProps = {
   theme: {},
   initialType: 'light',
   enableToggle: true,
-  color: '#49EC1C',
+  color: '#4188ff',
 };
 
 export default Providers;

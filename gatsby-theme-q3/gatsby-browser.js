@@ -11,6 +11,11 @@ export {
 export const onClientEntry = async () => {
   if (!browser.isBrowserReady()) return;
 
+  // set api default root
+  axios.defaults.baseURL =
+    process.env.GATSBY_APP_BASE_URL ||
+    'http://localhost:9000';
+
   // set language default
   axios.defaults.headers['Content-Language'] =
     window.localStorage.getItem('q3-locale') || 'en';

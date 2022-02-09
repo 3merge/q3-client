@@ -53,12 +53,6 @@ const Admin = ({ AppProps }) => {
   // these should not inherit addons
   const menuItems = usePages(pages.current);
   const cls = useStyle();
-  const dir = get(AppProps, 'directory', '/');
-
-  const header = React.useMemo(
-    () => <Logo to={dir} />,
-    dir,
-  );
 
   useProfileLocale();
   useProfileTimezone();
@@ -66,9 +60,11 @@ const Admin = ({ AppProps }) => {
   useServerSideEvents();
 
   return (
-    <DomainProvider>
+    <DomainProvider
+      directory={get(AppProps, 'directory', '/')}
+    >
       <Viewport>
-        <Navbar header={header}>
+        <Navbar>
           <NavbarList items={menuItems} />
         </Navbar>
         <Box className={cls.main}>

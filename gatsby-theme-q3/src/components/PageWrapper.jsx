@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { Loader } from 'q3-admin/lib/components';
 import SearchEngine from './SearchEngine';
 
-const PageWrapper = ({
-  children,
-  includeLoader,
-  includeLocale,
-}) => (
+const PageWrapper = ({ children, includeLoader }) => (
   <>
     <SearchEngine />
     {includeLoader && <Loader />}

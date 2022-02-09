@@ -14,6 +14,7 @@ const DomainChangePolicies = () => {
     <SystemPageSub title="domainPolicies">
       <Builders.Form
         isNew
+        showSuccessMessage
         collectionName="domain"
         initialValues={domain}
         modify={{

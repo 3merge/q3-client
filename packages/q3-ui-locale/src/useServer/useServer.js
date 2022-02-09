@@ -20,7 +20,10 @@ export default (i18nProps = {}) => {
         'messages',
         'titles',
       ],
-      resources,
+      resources: {
+        // will only ever contain active language
+        [lng]: resources,
+      },
     });
 
     i18nInstance.init(() => {

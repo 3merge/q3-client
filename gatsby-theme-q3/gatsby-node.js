@@ -70,7 +70,6 @@ exports.onCreatePage = async ({ page, actions }) => {
     createPage({
       ...page,
       context: {
-        contentful_id: 'APP',
         to: '/app',
       },
     });

@@ -8,7 +8,7 @@ const color = 'var(--color-default)';
 
 const headingFont = {
   fontWeight: 400,
-  fontFamily: '"Source Sans Pro", sans-serif',
+  fontFamily: '"Nunito", sans-serif',
   lineHeight: 1.1,
 };
 
@@ -31,14 +31,6 @@ export default (customThemeDefs, type) => {
             default:
               type === 'light' ? '#f4f4f4' : '#303030',
             muted: 'var(--background-muted)',
-          },
-          primary: {
-            main: '#2b2b2b',
-            dark: '#1F1F1F',
-            light: '#C2C2C2',
-          },
-          secondary: {
-            main: '#17cf97',
           },
         },
         typography: {
@@ -93,7 +85,7 @@ export default (customThemeDefs, type) => {
             fontSize: '1.368rem',
             fontWeight: 600,
           },
-          fontFamily: '"Roboto", sans-serif',
+          fontFamily: '"Nunito", sans-serif',
         },
         shadows: generateShadows(),
         spacing: (factor) => `${0.75 * factor}rem`,

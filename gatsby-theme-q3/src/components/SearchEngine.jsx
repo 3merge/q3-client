@@ -68,20 +68,11 @@ export const generateManifest = (site = {}) => ({
   theme_color: site.color,
 });
 
-export const Manifest = (props) =>
-  isObject(props) ? (
-    <link
-      rel="manifest"
-      href={`data:application/manifest+json,${encodeURIComponent(
-        JSON.stringify(props),
-      )}`}
-    />
-  ) : null;
-
 const SEO = ({ description, lang, meta, title }) => {
   const site = useSiteMetaData();
   const metaDescription = description || site.description;
   const metaTitle = title || site.title;
+  const manifestData = generateManifest(site);
 
   return (
     <Helmet
@@ -89,9 +80,7 @@ const SEO = ({ description, lang, meta, title }) => {
         lang,
       }}
       title={metaTitle}
-      titleTemplate={generateBrand(
-        get(site, 'brand', 'Q3'),
-      )}
+      titleTemplate={generateBrand(site.brand)}
       meta={[
         ...generateMetaTitleOptions(metaTitle),
         ...generateMetaDescriptionOptions(metaDescription),
@@ -105,7 +94,14 @@ const SEO = ({ description, lang, meta, title }) => {
         },
       ].concat(meta)}
     >
-      <Manifest {...generateManifest(site)} />
+      {isObject(manifestData) ? (
+        <link
+          rel="manifest"
+          href={`data:application/manifest+json,${encodeURIComponent(
+            JSON.stringify(manifestData),
+          )}`}
+        />
+      ) : null}
       <link rel="icon" href={site.favicon} />
     </Helmet>
   );

@@ -3,6 +3,12 @@ import useAuthLinks from './useAuthLinks';
 
 const populated = [1, 2, 3];
 
+jest.mock('./useDomainContext', () =>
+  jest.fn().mockReturnValue({
+    directory: '/',
+  }),
+);
+
 jest.mock('q3-ui-permissions', () => {
   const fn = jest.fn();
 
