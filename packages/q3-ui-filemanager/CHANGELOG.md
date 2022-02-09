@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/3merge/q/compare/v3.1.5...v3.2.0) (2022-02-09)
+
+
+### Features
+
+* text locale editor ([#377](https://github.com/3merge/q/issues/377)) ([e827875](https://github.com/3merge/q/commit/e8278757be7505554376c1d1d78d9b8900fdf35e))
+
+
+
+
+
+
 ## [3.1.5](https://github.com/3merge/q/compare/v3.1.4...v3.1.5) (2022-02-01)
 
 **Note:** Version bump only for package q3-ui-filemanager
