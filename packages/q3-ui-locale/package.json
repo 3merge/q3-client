@@ -12,7 +12,6 @@
     "moment-timezone": "^0.5.34",
     "prop-types": "^15.7.2",
     "q3-ui-helpers": "^3.0.2",
-    "react-i18next": "11.14.3",
     "yup": "^0.32.11"
   },
   "peerDependencies": {
