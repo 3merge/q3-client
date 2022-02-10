@@ -23,11 +23,18 @@ const applyFormData = async (src, data) => {
 
     await Promise.all(
       resp.map(async ([k, v]) => {
-        if (isObject(v) && v.relativePath) {
+        if (v instanceof File) {
           await new Promise((r) => {
             browser.getFileThumbnail(v, (err, photo) => {
-              target[k === 'featuredUpload' ? 'photo' : k] =
-                photo;
+              // this is similar to how the photo stores on the server
+              const makeCdnPath = () =>
+                String(v.name).replace('FilePath', '');
+
+              target[
+                k === 'featuredUpload'
+                  ? 'photo'
+                  : makeCdnPath()
+              ] = photo;
               r();
             });
           });

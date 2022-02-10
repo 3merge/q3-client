@@ -17,19 +17,45 @@ const FeaturedPhoto = ({
   field,
   update,
   src,
-}) => (
-  <Component
-    src={src}
-    className={useStyle().picture}
-    customizer={() => field}
-    onDrop={update}
-    onDelete={() =>
-      update({
-        [field]: null,
-      })
-    }
-  />
-);
+}) => {
+  const isFeaturedPhotoImplementation =
+    field === FEATURED_UPLOAD_KEY;
+
+  const onDrop = React.useCallback(
+    (formData) => {
+      if (!isFeaturedPhotoImplementation) {
+        const f = formData.get(field);
+        const path = `uploads/${f.name}`;
+
+        // saves to file manager
+        formData.append(path, f, field);
+
+        // saves as reference to the path
+        formData.set(field, path);
+
+        // saves as public
+        formData.set('sensitive', false);
+      }
+
+      return update(formData);
+    },
+    [isFeaturedPhotoImplementation],
+  );
+
+  return (
+    <Component
+      src={src}
+      className={useStyle().picture}
+      customizer={() => field}
+      onDrop={onDrop}
+      onDelete={() =>
+        update({
+          [field]: null,
+        })
+      }
+    />
+  );
+};
 
 FeaturedPhoto.defaultProps = {
   component: PhotoUpload,

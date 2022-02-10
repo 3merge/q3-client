@@ -15,7 +15,7 @@ const DomainPhoto = () => {
         src={logo}
         update={update}
         component={PhotoUpload}
-        field="logo"
+        field="logoFilePath"
       />
     </HideByField>
   );

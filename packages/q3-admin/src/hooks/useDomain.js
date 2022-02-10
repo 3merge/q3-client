@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, merge } from 'lodash';
+import { get, merge, isObject } from 'lodash';
 import axios from 'axios';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
@@ -27,14 +27,23 @@ const useDomain = () => {
   const mergeWithState = (xs = {}) =>
     setState((prevState) => merge({}, prevState, xs));
 
-  const update = (values) =>
-    axios
+  const update = (values = {}) => {
+    if (values instanceof FormData) {
+      values.set('sensitive', false);
+    } else if (isObject(values)) {
+      Object.assign(values, {
+        sensitive: false,
+      });
+    }
+
+    return axios
       .post('/domain', values)
       .then(getDomainDataFromResponse)
       .then(mergeWithState)
       .then(() => ({
         message: t('domainUpdated'),
       }));
+  };
 
   React.useEffect(() => {
     setState(

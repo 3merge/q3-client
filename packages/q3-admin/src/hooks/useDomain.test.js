@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { isFunction } from 'lodash';
 import useDomain from './useDomain';
 
@@ -27,6 +28,8 @@ beforeEach(() => {
   jest
     .spyOn(React, 'useEffect')
     .mockImplementation((callback) => callback());
+
+  axios.post.mockClear();
 });
 
 describe('useDomain', () => {
@@ -62,6 +65,37 @@ describe('useDomain', () => {
           foo: 1,
         });
 
+        done();
+      });
+  });
+
+  it('should set sensitive prop on object', (done) => {
+    useDomain()
+      .update({ foo: 1 })
+      .then(() => {
+        expect(axios.post).toHaveBeenCalledWith(
+          expect.any(String),
+          {
+            foo: 1,
+            sensitive: false,
+          },
+        );
+        expect(fn).toHaveBeenCalled();
+        done();
+      });
+  });
+
+  it('should set sensitive prop on FormData', (done) => {
+    const f = new FormData();
+
+    useDomain()
+      .update(f)
+      .then(() => {
+        expect(
+          axios.post.mock.calls[0][1].get('sensitive'),
+        ).toMatch('false');
+
+        expect(fn).toHaveBeenCalled();
         done();
       });
   });

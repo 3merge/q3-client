@@ -18,25 +18,25 @@ const DomainChangePolicies = () => {
         collectionName="domain"
         initialValues={domain}
         modify={{
-          'terms': [isNull],
-          'privacy': [isNull],
-          'cancellation': [isNull],
+          'termsFilePath': [isNull],
+          'privacyFilePath': [isNull],
+          'cancellationFilePath': [isNull],
         }}
         onSubmit={handleFormData(update)}
       >
         <Builders.Field
           folder="uploads"
-          name="terms"
+          name="termsFilePath"
           type="file"
         />
         <Builders.Field
           folder="uploads"
-          name="privacy"
+          name="privacyFilePath"
           type="file"
         />
         <Builders.Field
           folder="uploads"
-          name="cancellation"
+          name="cancellationFilePath"
           type="file"
         />
       </Builders.Form>

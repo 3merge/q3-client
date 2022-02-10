@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { Link as ReachLink } from 'gatsby';
 import { useTranslation } from 'q3-ui-locale';
+import { isString } from 'lodash';
 import AdminPublicGateway from './AdminPublicGateway';
 import useSiteMetaData from './useSiteMetaData';
 
@@ -39,12 +40,16 @@ const useStyle = makeStyles((theme) => ({
   },
   photo: ({ photo }) => ({
     backgroundColor: theme.palette.secondary.light,
-    backgroundImage: `url(${photo})`,
+    backgroundImage: isString(photo)
+      ? `url("${String(photo).replace(/\s/gi, '%20')}")`
+      : undefined,
     backgroundSize: 'contain',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     width: '100%',
     height: '100%',
+    backgroundBlendMode: 'multiply',
+    minHeight: '55vh',
   }),
 }));
 
@@ -66,7 +71,7 @@ const TextLink = ({ href, text }) => {
     <Box display="inline-block" mx={1}>
       <Link href={href} target="_blank">
         {t(text)}
-      </Link>{' '}
+      </Link>
     </Box>
   ) : null;
 };
@@ -105,7 +110,7 @@ const PublicTemplate = ({ children, ...rest }) => {
           </ReachLink>
         </Box>
         <Paper className={cls.container}>
-          <Grid container spacing={1}>
+          <Grid alignItems="center" container spacing={1}>
             <Hidden smDown>
               <Grid item xs={6}>
                 <Box className={cls.photo} />

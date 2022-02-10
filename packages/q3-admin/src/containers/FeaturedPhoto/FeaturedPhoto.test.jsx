@@ -22,4 +22,26 @@ describe('FeaturedPhoto', () => {
       [FEATURED_UPLOAD_KEY]: null,
     });
   });
+
+  it('should modify form data', () => {
+    const update = jest.fn();
+    const f = new FormData();
+    f.set('custom', new File([''], 'testing'));
+
+    global
+      .shallow(
+        <FeaturedPhoto
+          component={Avatar}
+          update={update}
+          field="custom"
+        />,
+      )
+      .find(Avatar)
+      .props()
+      .onDrop(f);
+
+    expect(update).toHaveBeenCalled();
+    expect(f.get('custom')).toMatch('uploads/test');
+    expect(f.get('uploads/testing').name).toMatch('custom');
+  });
 });

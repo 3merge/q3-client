@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import useProfileForm from '../../hooks/useProfileForm';
 import SystemPageSub from '../../components/SystemPageSub';
 
@@ -12,10 +13,21 @@ const ProfileChangeContact = (props) => {
         {...props}
         isNew
         collectionName="profile"
-        keep={['firstName', 'lastName', 'tel', 'email']}
+        keep={[
+          'firstName',
+          'lastName',
+          'tel',
+          'email',
+          'occupation',
+          'birthday',
+        ]}
         showSuccessMessage
         initialValues={initialValues}
         onSubmit={onSubmit}
+        marshalSelectively
+        marshal={{
+          birthday: [castToUTC],
+        }}
       >
         <Field
           name="firstName"
@@ -39,6 +51,13 @@ const ProfileChangeContact = (props) => {
           lg={12}
         />
         <Field name="tel" type="tel" xl={12} lg={12} />
+        <Field name="occupation" xl={12} lg={12} />
+        <Field
+          name="birthday"
+          type="date"
+          xl={12}
+          lg={12}
+        />
       </Form>
     </SystemPageSub>
   );

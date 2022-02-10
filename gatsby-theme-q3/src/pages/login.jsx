@@ -52,7 +52,11 @@ const Login = withPublicTemplate(
           </>
         }
         renderTop={
-          <Typography variant="h1" gutterBottom>
+          <Typography
+            component="h1"
+            variant="h2"
+            gutterBottom
+          >
             {t('titles:login')}
           </Typography>
         }

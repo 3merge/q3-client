@@ -17,7 +17,6 @@ import 'moment/locale/fr';
 import 'moment/locale/en-ca';
 
 const generateTheme = (color) => {
-  console.log(color);
   if (!isString(color) || !size(color)) return {};
   try {
     return {

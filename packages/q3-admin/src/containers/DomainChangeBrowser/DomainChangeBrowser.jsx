@@ -16,21 +16,21 @@ const DomainChangeBrowser = () => {
   return (
     <SystemPageSub title="domainBrowserMedia">
       <HideByField path="favicon" op="Create">
-        <Typography>{t('favicon')}</Typography>
-        <Box width={180}>
-          <FeaturedPhoto
-            src={favicon}
-            update={update}
-            component={PhotoUpload}
-            field="favicon"
-          />
-        </Box>
         <Typography>{t('featuredPhoto')}</Typography>
         <Box width={180}>
           <FeaturedPhoto
             src={photo}
             update={update}
             component={PhotoUpload}
+          />
+        </Box>
+        <Typography>{t('favicon')}</Typography>
+        <Box width={180}>
+          <FeaturedPhoto
+            src={favicon}
+            update={update}
+            component={PhotoUpload}
+            field="faviconFilePath"
           />
         </Box>
       </HideByField>

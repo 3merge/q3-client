@@ -8,7 +8,7 @@ const FormBoxContent = ({ title, description }) => {
 
   return (
     <>
-      <Typography variant="h1" gutterBottom>
+      <Typography component="h1" variant="h2" gutterBottom>
         {t(`titles:${title}`)}
       </Typography>
       <Typography gutterBottom>
