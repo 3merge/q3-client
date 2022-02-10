@@ -21,7 +21,7 @@ export const AddButtonTrigger = ({ onClick }) => {
   return (
     <Box id="q3-repeater-add-button">
       <Button
-        color="primary"
+        color="secondary"
         onClick={onClick}
         variant="contained"
       >

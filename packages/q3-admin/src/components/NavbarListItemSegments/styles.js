@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
   activeSegment: {
     '& *': {
       color: `${theme.palette.secondary.main} !important`,
+      fontWeight: 'bold',
     },
   },
   segments: {

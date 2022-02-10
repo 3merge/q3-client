@@ -45,6 +45,7 @@ const Providers = ({
   children,
   initialType,
   enableToggle,
+  font,
   color,
   theme,
   ...rest
@@ -59,12 +60,13 @@ const Providers = ({
           theme={baseQ3Theme(
             merge(theme, generateTheme(color)),
             type,
+            font,
           )}
         >
           <CssBaseline />
           <Helmet>
             <link
-              href="https://fonts.googleapis.com/css?family=Nunito:300,400,500,700&Source+Sans+Pro:400&display=swap"
+              href={`https://fonts.googleapis.com/css?family=${font}:300,400,500,700&display=swap`}
               rel="stylesheet"
             />
           </Helmet>
@@ -84,6 +86,7 @@ Providers.propTypes = {
     // eslint-disable-next-line
     palette: PropTypes.object,
   }),
+  font: PropTypes.string,
 };
 
 Providers.defaultProps = {
@@ -91,6 +94,7 @@ Providers.defaultProps = {
   initialType: 'light',
   enableToggle: true,
   color: '#4188ff',
+  font: 'Nunito',
 };
 
 export default Providers;

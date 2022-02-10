@@ -20,7 +20,7 @@ const withSuccessOp = (Component, msg) => {
           component={Link}
           to="/login"
           variant="contained"
-          color="primary"
+          color="secondary"
         >
           {t('labels:login')}
         </Button>

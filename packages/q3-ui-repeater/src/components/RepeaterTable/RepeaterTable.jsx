@@ -133,7 +133,7 @@ const RepeaterTable = ({
             >
               <Pagination
                 page={page}
-                color="primary"
+                color="inherit"
                 count={totalPage}
                 onChange={onChange}
                 size="small"

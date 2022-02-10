@@ -7,7 +7,7 @@ const useDomainLinks = () =>
   collapse([
     useAuthLinks('domain', 'canCreate', [
       {
-        text: 'domainBrowser',
+        text: 'domainBrowserMedia',
         to: '/system/browser',
       },
       {

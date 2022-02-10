@@ -37,10 +37,10 @@ const renderCellActions = ({
     ...props
   }) =>
     disabled ? (
-      <IconButton color="primary" disabled {...props} />
+      <IconButton color="inherit" disabled {...props} />
     ) : (
       <Tooltip title={t(title)}>
-        <IconButton color="primary" {...props} />
+        <IconButton color="inherit" {...props} />
       </Tooltip>
     );
 

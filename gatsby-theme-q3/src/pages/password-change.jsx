@@ -8,6 +8,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBox from '../components/FormBox';
 import withSuccessOp from '../components/withSuccessOp';
+import withPublicTemplate from '../components/withPublicTemplate';
 
 const PasswordChange = ({ onSuccess, location }) => {
   const { passwordResetToken, email } = queryString.parse(
@@ -64,7 +65,8 @@ PasswordChange.propTypes = {
   }).isRequired,
 };
 
-export default withSuccessOp(
-  PasswordChange,
-  'passwordChangeNotice',
+const PasswordChangeWithTemplate = withPublicTemplate(
+  withSuccessOp(PasswordChange, 'passwordChangeNotice'),
 );
+
+export default PasswordChangeWithTemplate;

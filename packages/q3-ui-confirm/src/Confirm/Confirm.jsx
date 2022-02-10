@@ -39,7 +39,7 @@ const Confirm = ({
 
         return label ? (
           <Button
-            color="primary"
+            color="secondary"
             variant="contained"
             {...sharedButtonProps}
             {...ButtonProps}

@@ -18,7 +18,7 @@ const CodeEditorSave = ({ onClick }) => {
       >
         <Fab
           id="save-email-template"
-          color="primary"
+          color="secondary"
           onClick={onClick}
         >
           <SaveIcon />

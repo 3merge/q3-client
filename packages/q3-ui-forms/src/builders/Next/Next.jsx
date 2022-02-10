@@ -20,7 +20,7 @@ const Next = ({
   const isSubmittable = useAllowSubmit(disabled);
 
   const buttonProps = {
-    color: 'primary',
+    color: 'secondary',
     variant: 'contained',
     type: submit ? 'submit' : 'button',
     onClick: submit ? undefined : onClick,

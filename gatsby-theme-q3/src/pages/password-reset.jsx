@@ -5,6 +5,7 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FormBox from '../components/FormBox';
 import FormBoxContent from '../components/FormBoxContent';
 import withSuccessOp from '../components/withSuccessOp';
+import withPublicTemplate from '../components/withPublicTemplate';
 
 const PasswordReset = ({ onSuccess }) => (
   <FormBox
@@ -39,7 +40,8 @@ PasswordReset.propTypes = {
   onSuccess: PropTypes.func.isRequired,
 };
 
-export default withSuccessOp(
-  PasswordReset,
-  'passwordResetNotice',
+const PasswordResetWithTemplate = withPublicTemplate(
+  withSuccessOp(PasswordReset, 'passwordResetNotice'),
 );
+
+export default PasswordResetWithTemplate;
