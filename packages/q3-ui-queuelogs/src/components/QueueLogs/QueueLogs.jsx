@@ -85,7 +85,7 @@ const QueueLogs = () => {
         <Grid item>
           <Tooltip title={t('refresh')}>
             <IconButton
-              color="primary"
+              color="inherit"
               onClick={handleRefresh}
             >
               <RefreshIcon />

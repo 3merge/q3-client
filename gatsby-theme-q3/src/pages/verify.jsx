@@ -8,19 +8,14 @@ import { Form, Field } from 'q3-ui-forms/lib/builders';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBox from '../components/FormBox';
 import withAuthenticate from '../components/withAuthenticate';
+import withPublicTemplate from '../components/withPublicTemplate';
 
-export default withAuthenticate(
-  ({ authenticate, ...props }) => {
-    const {
-      verificationCode,
-      id,
-      email,
-    } = queryString.parse(
-      get(props, 'location.search', ''),
-      {
+const Verify = withPublicTemplate(
+  withAuthenticate(({ authenticate, ...props }) => {
+    const { verificationCode, id, email } =
+      queryString.parse(get(props, 'location.search', ''), {
         decode: false,
-      },
-    );
+      });
 
     return (
       <FormBox
@@ -69,5 +64,7 @@ export default withAuthenticate(
         }
       />
     );
-  },
+  }),
 );
+
+export default Verify;

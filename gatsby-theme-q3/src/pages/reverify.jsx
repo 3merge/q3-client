@@ -9,6 +9,7 @@ import FormBox from '../components/FormBox';
 import FormBoxContent from '../components/FormBoxContent';
 import FormBoxNotice from '../components/FormBoxNotice';
 import { hasOp, toOp } from '../components/utils';
+import withPublicTemplate from '../components/withPublicTemplate';
 
 const Reverify = ({ location: { search, pathname } }) => {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ const Reverify = ({ location: { search, pathname } }) => {
           component={Link}
           to="/reverify"
           variant="contained"
-          color="primary"
+          color="secondary"
         >
           {t('labels:tryAgain')}
         </Button>
@@ -67,4 +68,5 @@ Reverify.propTypes = {
   }).isRequired,
 };
 
-export default Reverify;
+const ReverifyWithTemplate = withPublicTemplate(Reverify);
+export default ReverifyWithTemplate;

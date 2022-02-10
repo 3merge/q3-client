@@ -6,12 +6,6 @@ import { merge } from 'lodash';
 
 const color = 'var(--color-default)';
 
-const headingFont = {
-  fontWeight: 400,
-  fontFamily: '"Nunito", sans-serif',
-  lineHeight: 1.1,
-};
-
 const generateShadows = () => {
   const arr = ['none'];
   for (let i = 0; i < 23; i += 1) {
@@ -21,7 +15,13 @@ const generateShadows = () => {
   return arr;
 };
 
-export default (customThemeDefs, type) => {
+export default (customThemeDefs, type, font = 'Nunito') => {
+  const headingFont = {
+    fontWeight: 400,
+    fontFamily: `"${font}", sans-serif`,
+    lineHeight: 1.1,
+  };
+
   const theme = createMuiTheme(
     merge(
       {
@@ -85,7 +85,7 @@ export default (customThemeDefs, type) => {
             fontSize: '1.368rem',
             fontWeight: 600,
           },
-          fontFamily: '"Nunito", sans-serif',
+          fontFamily: `"${font}", sans-serif`,
         },
         shadows: generateShadows(),
         spacing: (factor) => `${0.75 * factor}rem`,
