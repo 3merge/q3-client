@@ -25,15 +25,9 @@ const FeaturedPhoto = ({
     (formData) => {
       if (!isFeaturedPhotoImplementation) {
         const f = formData.get(field);
-        const path = `uploads/${f.name}`;
-
-        // saves to file manager
-        formData.append(path, f, field);
-
-        // saves as reference to the path
-        formData.set(field, path);
-
-        // saves as public
+        const path = `uploads/${f.name}`; // saves to file manager
+        formData.append(path, f); // saves as reference to the path
+        formData.set(field, f.name); // saves as public
         formData.set('sensitive', false);
       }
 

@@ -22,6 +22,11 @@ const DomainChangePolicies = () => {
           'privacyFilePath': [isNull],
           'cancellationFilePath': [isNull],
         }}
+        keep={[
+          'termsFilePath',
+          'privacyFilePath',
+          'cancellationFilePath',
+        ]}
         onSubmit={handleFormData(update)}
       >
         <Builders.Field

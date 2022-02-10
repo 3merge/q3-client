@@ -102,7 +102,7 @@ const PublicTemplate = ({ children, ...rest }) => {
         <Box
           component="header"
           mt="2vh"
-          mb={2}
+          mb={1}
           textAlign="center"
         >
           <ReachLink to="/" className={cls.logo}>
@@ -124,7 +124,7 @@ const PublicTemplate = ({ children, ...rest }) => {
         <Box
           maxWidth="75vw"
           component="footer"
-          mt={3}
+          mt={2}
           textAlign="center"
         >
           <small>

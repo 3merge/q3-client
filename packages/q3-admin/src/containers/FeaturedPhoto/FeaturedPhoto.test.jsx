@@ -41,7 +41,9 @@ describe('FeaturedPhoto', () => {
       .onDrop(f);
 
     expect(update).toHaveBeenCalled();
-    expect(f.get('custom')).toMatch('uploads/test');
-    expect(f.get('uploads/testing').name).toMatch('custom');
+    expect(f.get('custom')).toMatch('test');
+    expect(f.get('uploads/testing').name).toMatch(
+      'testing',
+    );
   });
 });
