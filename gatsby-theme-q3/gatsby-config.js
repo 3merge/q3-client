@@ -12,7 +12,7 @@ module.exports = (options) => {
     },
     'gatsby-plugin-material-ui',
     'gatsby-plugin-force-trailing-slashes',
-    'gatsby-plugin-sitemap',
+    //    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-transformer-sharp',
       options: {

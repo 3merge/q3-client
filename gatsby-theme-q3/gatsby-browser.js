@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { last, size } from 'lodash';
+import { size } from 'lodash';
 import { getDomain } from 'q3-admin';
 import { browser } from 'q3-ui-helpers';
 
@@ -22,11 +22,12 @@ export const onClientEntry = async () => {
 
   // set tenant default
   const { host } = window.location;
-  const parts = String(host).split('.').reverse();
+  const str = String(host);
+  const offset = str.includes('localhost') ? -1 : -2;
+  const parts = str.split('.').slice(0, offset).join('.');
 
-  if (size(parts) > 1)
-    axios.defaults.headers['X-Session-Tenant'] =
-      last(parts);
+  if (size(parts))
+    axios.defaults.headers['X-Session-Tenant'] = parts;
 
   // calls Q3 API
   await getDomain();
