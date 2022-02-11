@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.5](https://github.com/3merge/q/compare/v3.2.4...v3.2.5) (2022-02-11)
+
+
+### Bug Fixes
+
+* subdomain detection in production ([c7d91ca](https://github.com/3merge/q/commit/c7d91ca8a694335fc5fc13888a529755d718ce3c))
+
+
+
+
+
 ## [3.2.4](https://github.com/3merge/q/compare/v3.2.3...v3.2.4) (2022-02-10)
 
 
