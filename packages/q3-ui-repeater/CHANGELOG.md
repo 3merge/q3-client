@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/3merge/q/compare/v3.2.5...v3.3.0) (2022-02-14)
+
+
+### Features
+
+* tte video, audio and doc links ([#379](https://github.com/3merge/q/issues/379)) ([999cd9b](https://github.com/3merge/q/commit/999cd9b390b532aeda88d0a79899cd26fa8c6b7f))
+
+
+
+
+
 ## [3.2.3](https://github.com/3merge/q/compare/v3.2.2...v3.2.3) (2022-02-10)
 
 **Note:** Version bump only for package q3-ui-repeater
