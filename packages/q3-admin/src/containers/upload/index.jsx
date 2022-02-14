@@ -4,12 +4,16 @@ import useRest from 'q3-ui-rest';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Definitions } from '../state';
 
-const Upload = () => {
-  const { collectionName, id } = React.useContext(
-    Definitions,
-  );
+const Upload = (props) => {
+  const { collectionName, id } =
+    React.useContext(Definitions);
 
-  const { uploads = [], post, remove, fetching } = useRest({
+  const {
+    uploads = [],
+    post,
+    remove,
+    fetching,
+  } = useRest({
     runOnInit: true,
     url: `/${collectionName}/${id}/uploads`,
     key: 'uploads',
@@ -20,6 +24,7 @@ const Upload = () => {
 
   return !fetching ? (
     <FileList
+      {...props}
       collectionName={collectionName}
       files={uploads}
       onDelete={remove}

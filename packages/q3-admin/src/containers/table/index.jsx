@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, useMediaQuery } from '@material-ui/core';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
-import { compact, get, invoke } from 'lodash';
+import { compact, get, invoke, isFunction } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh, useSortPreference } from '../../hooks';
@@ -55,11 +55,22 @@ export const TableDecorator = (props) => ({
     },
   }),
 
-  makeBlacklist: (fn) =>
-    [
-      ...get(props, 'allColumns', []),
-      ...get(props, 'defaultColumns', []),
-    ].filter((v) => !fn(v)),
+  makeBlacklist: (fn) => {
+    const blacklist = get(props, 'backlistColumns', []);
+
+    return compact(
+      [
+        ...get(props, 'allColumns', []),
+        ...get(props, 'defaultColumns', []),
+      ]
+        .filter((v) => !fn(v))
+        .concat(
+          isFunction(blacklist)
+            ? blacklist(props?.data)
+            : blacklist,
+        ),
+    ).flat();
+  },
 
   makeLinks: (root) =>
     get(props, 'data', []).map(assignUrlPath(root)),

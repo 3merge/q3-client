@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { size } from 'lodash';
+import { get, size, isFunction } from 'lodash';
 import { Box } from '@material-ui/core';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
@@ -15,12 +15,26 @@ import { useDetailRegisterFunction } from '../../hooks';
 import DropdownMenu from '../../components/DropdownMenu';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ButtonWithIconDialog from '../../components/ButtonWithIconDialog';
-import { Definitions } from '../state';
+import { Definitions, Store } from '../state';
 import Search from '../../components/Search';
 
-const DetailActions = ({ audit, registerActions }) => {
+const DetailActions = ({
+  audit,
+  defineActionProps,
+  registerActions,
+}) => {
   const { collectionName } = React.useContext(Definitions);
-  const { canDelete, canSeeSub } = useAuth(collectionName);
+  const { data } = React.useContext(Store);
+
+  const {
+    canDelete,
+    canSeeSub,
+    state: authState,
+  } = useAuth(collectionName);
+
+  const actionProps = isFunction(defineActionProps)
+    ? defineActionProps(data, authState?.profile)
+    : {};
 
   const actions =
     useDetailRegisterFunction(registerActions);
@@ -36,7 +50,9 @@ const DetailActions = ({ audit, registerActions }) => {
         <ButtonWithIconDialog
           icon={ForumIcon}
           label="notes"
-          renderContent={Notes}
+          renderContent={() => (
+            <Notes {...get(actionProps, 'thread', {})} />
+          )}
         />,
       )}
       {lhr(
@@ -44,7 +60,9 @@ const DetailActions = ({ audit, registerActions }) => {
         <ButtonWithIconDialog
           icon={AttachFileIcon}
           label="files"
-          renderContent={Upload}
+          renderContent={() => (
+            <Upload {...get(actionProps, 'uploads', {})} />
+          )}
         />,
       )}
       {lhr(
@@ -53,7 +71,10 @@ const DetailActions = ({ audit, registerActions }) => {
           icon={TrackChangesIcon}
           label="audit"
           renderContent={() => (
-            <ActivityLog templates={audit} />
+            <ActivityLog
+              templates={audit}
+              {...get(actionProps, 'audit', {})}
+            />
           )}
         />,
       )}
@@ -76,10 +97,12 @@ const DetailActions = ({ audit, registerActions }) => {
 DetailActions.defaultProps = {
   audit: [],
   registerActions: null,
+  defineActionProps: null,
 };
 
 DetailActions.propTypes = {
   audit: PropTypes.arrayOf(PropTypes.string),
+  defineActionProps: PropTypes.func,
   registerActions: PropTypes.func,
 };
 
