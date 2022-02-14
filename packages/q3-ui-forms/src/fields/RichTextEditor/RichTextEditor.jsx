@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     '&:focus-within fieldset': {
       borderColor: theme.palette.primary.main,
     },
+
+    '& .ql-toolbar': {
+      boxShadow: 'none',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.23)',
+    },
   },
 }));
 
@@ -29,7 +34,7 @@ const RichTextEditor = withState(
               <Box
                 className="q3-forms-rte-wrapper"
                 bgcolor="background.paper"
-                overflow="hidden"
+                overflow="initial"
                 p={0.15}
                 width="100%"
               >

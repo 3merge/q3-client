@@ -58,16 +58,17 @@ const DetailActions = ({ audit, registerActions }) => {
         />,
       )}
       {lhr(canDelete, <Trash />)}
-      <DropdownMenu items={actions}>
-        {(onClick) => (
-          <ButtonWithIcon
-            icon={MoreVertIcon}
-            label="actions"
-            onClick={onClick}
-            disabled={!size(actions)}
-          />
-        )}
-      </DropdownMenu>
+      {size(actions) > 0 && (
+        <DropdownMenu items={actions}>
+          {(onClick) => (
+            <ButtonWithIcon
+              icon={MoreVertIcon}
+              label="actions"
+              onClick={onClick}
+            />
+          )}
+        </DropdownMenu>
+      )}
     </Box>
   );
 };
