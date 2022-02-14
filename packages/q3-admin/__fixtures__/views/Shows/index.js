@@ -74,15 +74,7 @@ export default new AbstractCollectionBuilder({
     protectView: () =>
       // if (name === 'subdetail') return data.name === 'foo';
       true,
-    registerActions: () => [
-      {
-        label: 'custom action',
-        disabled: true,
-        onClick() {
-          alert('Action clicked');
-        },
-      },
-    ],
+    registerActions: () => [],
     registerOptions: () => [
       {
         href: 'https:google.com',
