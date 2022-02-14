@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/3merge/q/compare/v3.3.0...v3.3.1) (2022-02-14)
+
+
+### Bug Fixes
+
+* filemanager permissions and video html tag ([4f09636](https://github.com/3merge/q/commit/4f0963614c6bf7e5479f658a0f804487a40c4eda))
+
+
+
+
+
 ## [3.2.3](https://github.com/3merge/q/compare/v3.2.2...v3.2.3) (2022-02-10)
 
 **Note:** Version bump only for package q3-ui-filemanager
