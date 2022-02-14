@@ -133,7 +133,10 @@ export const isSeq = (item) => Number(item.seq) === 211;
             },
             {
               disableDialog: true,
-              component: (props) => <button>Custom</button>,
+              component: (props) => {
+                console.log(props);
+                return <button>Custom</button>;
+              },
             },
           ],
           attributes: ['price', 'category'],

@@ -19,7 +19,11 @@ const setupProfilePermissions = (coll) => [
     inClient: true,
   }),
   genPermission({ op: 'Update', coll }),
-  genPermission({ op: 'Create', coll }),
+  genPermission({
+    op: 'Create',
+    coll,
+    fields: ['!uploads'],
+  }),
   genPermission({ op: 'Delete', coll }),
 ];
 

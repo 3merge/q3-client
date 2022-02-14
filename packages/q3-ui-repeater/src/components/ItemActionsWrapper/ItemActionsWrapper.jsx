@@ -22,6 +22,7 @@ const ItemActionsWrapper = ({
     React.useContext(Context);
 
   const { data, next, prev } = useNextPrev(state);
+  const { data: row } = useNextPrev(id);
 
   const renderChildren = (args = {}) =>
     children && (!isNil(data) || disableDialog)
@@ -30,6 +31,7 @@ const ItemActionsWrapper = ({
           onSubmit: edit(state),
           initialValues: data || {},
           collectionName,
+          row,
           id,
         })
       : null;

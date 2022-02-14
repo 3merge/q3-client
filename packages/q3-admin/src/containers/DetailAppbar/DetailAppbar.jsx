@@ -36,9 +36,7 @@ const DetailAppbar = ({
           className={cls.nav}
         >
           <Back />
-          <Hidden xsDown>
-            <Breadcrumbs />
-          </Hidden>
+          <Breadcrumbs />
         </Box>
         <ActionBar>{actions}</ActionBar>
       </Toolbar>

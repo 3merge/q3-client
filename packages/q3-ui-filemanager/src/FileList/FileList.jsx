@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeWith, setWith, get } from 'lodash';
+import { mergeWith, setWith, get, map } from 'lodash';
 import { array } from 'q3-ui-helpers';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
+import { useAuth } from 'q3-ui-permissions';
 import FileListBreadcrumbs from '../FileListBreadcrumbs';
 import FileListMake from '../FileListMake';
 import File from '../File';
@@ -33,21 +34,26 @@ const removeFileExtension = (filename) =>
 
 export const makeDirectories = (a = []) =>
   a
-    .map((next) => {
-      return setWith(
+    .map((next) =>
+      setWith(
         {},
         // cannot use regular set in case there are dirs with numbers
         // otherwise, it creates an array instead
         getPath(removeFileExtension(next.relativePath)),
         [next],
         Object,
-      );
-    })
-    .reduce((acc, next) => {
-      return mergeWith(acc, next, customizer);
-    }, {});
+      ),
+    )
+    .reduce(
+      (acc, next) => mergeWith(acc, next, customizer),
+      {},
+    );
 
 const FileList = ({ files, ...props }) => {
+  // eslint-disable-next-line
+  const { collectionName } = props;
+  const { HideByField, canCreateSub } =
+    useAuth(collectionName);
   const [dir, setDir] = React.useState({
     data: {},
     path: [],
@@ -88,16 +94,19 @@ const FileList = ({ files, ...props }) => {
   const renderDirectoryUploadSurface = (
     listItems = [],
     children,
-  ) => (
-    <Drop {...props} root={dir.path.join('/')}>
-      {(pending) => (
-        <>
-          {children}
-          {[...pending, ...listItems].map(renderFile)}
-        </>
-      )}
-    </Drop>
-  );
+  ) =>
+    canCreateSub('uploads') ? (
+      <Drop {...props} root={dir.path.join('/')}>
+        {(pending) => (
+          <>
+            {children}
+            {[...pending, ...listItems].map(renderFile)}
+          </>
+        )}
+      </Drop>
+    ) : (
+      <Box mt={1}>{map(listItems, renderFile)}</Box>
+    );
 
   return (
     <Box p={1}>
@@ -115,7 +124,9 @@ const FileList = ({ files, ...props }) => {
           />
         </Grid>
         <Grid item>
-          <FileListMake setState={setDir} state={dir} />
+          <HideByField op="Create" path="uploads">
+            <FileListMake setState={setDir} state={dir} />
+          </HideByField>
         </Grid>
       </Grid>
       {renderDirectoryUploadSurface(

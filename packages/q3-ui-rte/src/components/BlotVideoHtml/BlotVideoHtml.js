@@ -5,9 +5,7 @@ const BlockEmbed = Quill.import('blots/block/embed');
 class BlotVideoHtml extends BlockEmbed {
   static create(value) {
     const node = super.create(value);
-    const source = document.createElement('source');
-    source.setAttribute('src', value);
-    node.appendChild(source);
+    node.setAttribute('src', value);
     node.setAttribute('controls', true);
     return node;
   }

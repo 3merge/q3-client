@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     '& ol': {
       lineHeight: '1rem !important',
     },
+
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(1),
+    },
   },
   font: {
     fontSize: '.833rem',
