@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Files from 'react-butterfiles';
 import { first } from 'lodash';
 import Quill from 'quill';
@@ -32,7 +33,10 @@ const Upload = React.forwardRef(
         accept={accept}
         onError={handleError}
         onSuccess={(data) => {
-          const d = first(data);
+          const d = Array.isArray(data)
+            ? first(data)
+            : data;
+
           return upload(d)
             .then((url) => {
               const i = selection?.index || 0;
@@ -55,5 +59,28 @@ const Upload = React.forwardRef(
     );
   },
 );
+
+Upload.defaultProps = {
+  maxSize: '5mb',
+  selection: { index: 0 },
+  updateSelection: false,
+};
+
+Upload.propTypes = {
+  accept: PropTypes.arrayOf(PropTypes.string).isRequired,
+  blot: PropTypes.string.isRequired,
+  buttonComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.object,
+  ]).isRequired,
+  maxSize: PropTypes.string,
+  onSuccess: PropTypes.func.isRequired,
+  selection: PropTypes.shape({
+    index: PropTypes.number,
+  }),
+  updateSelection: PropTypes.bool,
+  upload: PropTypes.func.isRequired,
+};
 
 export default Upload;

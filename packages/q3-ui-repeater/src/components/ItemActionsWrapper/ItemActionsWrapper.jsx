@@ -24,7 +24,7 @@ const ItemActionsWrapper = ({
   const { data, next, prev } = useNextPrev(state);
 
   const renderChildren = (args = {}) =>
-    children && !isNil(data)
+    children && (!isNil(data) || disableDialog)
       ? React.cloneElement(children, {
           ...args,
           onSubmit: edit(state),
