@@ -9,6 +9,7 @@ import {
   groupBy,
   merge,
   filter,
+  isFunction,
 } from 'lodash';
 import { makePath } from '../components/app';
 
@@ -26,12 +27,15 @@ export default (pages = []) => {
       ),
     );
 
+  const processSegments = (xs) =>
+    isFunction(xs) ? xs(state?.profile) : xs;
+
   const makePage = (page) => ({
     ...page,
     label: t(page.resourceName),
     segments: merge(
       {},
-      page.segments,
+      processSegments(page.segments),
       get(state, `profile.filters.${page.collectionName}`),
     ),
     to: makePath(page),

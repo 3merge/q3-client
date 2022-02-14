@@ -11,6 +11,13 @@ export default new AbstractCollectionBuilder({
   parent: 'entertainment',
   lookup: ['name'],
   icon: AspectRatioIcon,
+  segments(user) {
+    return user.firstName === 'Dirk'
+      ? {
+          test: '?foo',
+        }
+      : {};
+  },
   resolvers: ({
     id,
     name,

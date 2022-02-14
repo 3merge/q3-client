@@ -26,7 +26,6 @@ import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
-import Logo from './components/Logo';
 import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
 import SystemPage from './components/SystemPage';
@@ -49,9 +48,7 @@ const QueueModule = React.memo(() => (
 ));
 
 const Admin = ({ AppProps }) => {
-  const pages = React.useRef(AppProps.pages);
-  // these should not inherit addons
-  const menuItems = usePages(pages.current);
+  const { pages } = AppProps;
   const cls = useStyle();
 
   useProfileLocale();
@@ -65,7 +62,7 @@ const Admin = ({ AppProps }) => {
     >
       <Viewport>
         <Navbar>
-          <NavbarList items={menuItems} />
+          <NavbarList items={usePages(pages)} />
         </Navbar>
         <Box className={cls.main}>
           <App {...AppProps}>
