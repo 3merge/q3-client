@@ -9,6 +9,7 @@ const makeFormData = async (f) => {
   if (!data) throw new Error('no file');
 
   const formData = new FormData();
+
   try {
     data = await compress(data, {
       maxSizeMB: 4.5,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { VideoLibrary } from '@material-ui/icons';
 import Quill from 'quill';
+import { VideoLibrary } from '@material-ui/icons';
 import Popover from '../Popover';
 import BlotVideo from '../BlotVideo';
 import withCurrentSelection, {
@@ -33,6 +33,6 @@ export const ModuleVideo = React.forwardRef(
 ModuleVideo.propTypes = propTypes;
 
 export default withCurrentSelection(ModuleVideo, {
-  label: 'video',
+  label: 'embed',
   icon: VideoLibrary,
 });

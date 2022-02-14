@@ -13,6 +13,7 @@ import {
   Typography,
   Dialog,
 } from '@material-ui/core';
+import Rest from 'q3-ui-test-utils/lib/rest';
 import RichTextEditor from './RichTextEditor';
 import { toQ3Api } from '../../adapters';
 
@@ -26,7 +27,38 @@ import { toQ3Api } from '../../adapters';
     <Box my={4}>
       <Container>
         <Paper>
-          <RichTextEditor upload={toQ3Api('/foo')} />
+          <Rest
+            define={(m) => {
+              m.onPost(/uploads/).reply(
+                async ({ data }) => {
+                  const uploads = [];
+                  for (var pair of data.entries()) {
+                    if (pair[0].includes('mp4'))
+                      uploads.push({
+                        url: 'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_30mb.mp4',
+                      });
+                    else if (pair[0].includes('mp3'))
+                      uploads.push({
+                        url: 'https://www.sample-videos.com/audio/mp3/crowd-cheering.mp3',
+                      });
+                    else
+                      uploads.push({
+                        url: 'https://images.unsplash.com/photo-1638913975386-d61f0ec6500d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
+                      });
+                  }
+                  return [
+                    200,
+                    {
+                      uploads,
+                    },
+                  ];
+                },
+              );
+            }}
+            delay={1000}
+          >
+            <RichTextEditor upload={toQ3Api('/foo')} />
+          </Rest>
         </Paper>
       </Container>
     </Box>

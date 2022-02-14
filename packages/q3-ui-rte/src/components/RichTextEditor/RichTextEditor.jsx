@@ -5,15 +5,17 @@ import {
   FormatListNumbered,
   FormatListBulleted,
 } from '@material-ui/icons';
-import { set } from 'lodash';
+import { set, isFunction } from 'lodash';
 import ImageOverlay from '../ImageOverlay';
 import ModuleDivider from '../ModuleDivider';
 import ModuleImage from '../ModuleImage';
 import ModuleLink from '../ModuleLink';
 import ModuleVideo from '../ModuleVideo';
+import ModuleVideoHtml from '../ModuleVideoHtml';
+import ModuleAudioHtml from '../ModuleAudioHtml';
+import ModuleDocument from '../ModuleDocument';
 import Toolbar from '../Toolbar';
 import ToolbarMobileDrawer from '../ToolbarMobileDrawer';
-import { toDataUri } from '../../adapters';
 import useLocalValue from '../useLocalValue';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
@@ -69,18 +71,44 @@ const RichTextEditor = React.forwardRef(
       },
       {
         ref,
-        component: ModuleImage,
-        label: 'image',
-        group: 'end',
-        upload,
-      },
-      {
-        ref,
         component: ModuleVideo,
-        label: 'video',
+        label: 'embed',
         group: 'end',
       },
-    ];
+    ].concat(
+      isFunction(upload)
+        ? [
+            {
+              ref,
+              component: ModuleImage,
+              label: 'image',
+              group: 'end',
+              upload,
+            },
+            {
+              ref,
+              component: ModuleVideoHtml,
+              label: 'video',
+              group: 'end',
+              upload,
+            },
+            {
+              ref,
+              component: ModuleAudioHtml,
+              label: 'audio',
+              group: 'end',
+              upload,
+            },
+            {
+              ref,
+              component: ModuleDocument,
+              label: 'document',
+              group: 'end',
+              upload,
+            },
+          ]
+        : [],
+    );
 
     return (
       <Box
@@ -121,13 +149,15 @@ RichTextEditor.propTypes = {
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
   upload: PropTypes.func,
+  id: PropTypes.string,
 };
 
 RichTextEditor.defaultProps = {
   children: null,
   defaultValue: '',
   onChange: undefined,
-  upload: toDataUri,
+  upload: undefined,
+  id: undefined,
 };
 
 export default RichTextEditor;
