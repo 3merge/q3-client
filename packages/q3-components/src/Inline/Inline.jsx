@@ -49,7 +49,7 @@ const Inline = ({
         elevation={15}
         disableRestoreFocus
         className={POPOVER_CLASS}
-        disablePortal
+        // disablePortal
       >
         <Box
           p={2}

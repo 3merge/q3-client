@@ -5,40 +5,37 @@ import Typography from '@material-ui/core/Typography';
 import { EditableTypography } from 'q3-components';
 import useRepeaterDecorator from '../../useRepeaterDecorator';
 
-export default ({ data, ...sharedProps }) => ({
-  name,
-  editable,
-  ...rest
-}) => {
-  const repeater = useRepeaterDecorator(name, editable);
+export default ({ data, ...sharedProps }) =>
+  ({ name, editable, ...rest }) => {
+    const repeater = useRepeaterDecorator(name, editable);
 
-  if (!repeater) return '--';
+    if (!repeater) return '--';
 
-  if (object.isFn(name))
+    if (object.isFn(name))
+      return React.createElement(
+        Typography,
+        rest,
+        name(data),
+      );
+
+    const { edit, isEditable, prefix } = repeater;
+
     return React.createElement(
-      Typography,
-      rest,
-      name(data),
-    );
-
-  const { edit, isEditable, prefix } = repeater;
-
-  return React.createElement(
-    EditableTypography,
-    {
-      ...editable,
-      isEditable,
-      renderer: editable.renderer,
-      initialValues: data,
-      fieldProps: {
-        name: prefix,
-        style: {},
+      EditableTypography,
+      {
         ...editable,
+        isEditable,
+        renderer: editable.renderer,
+        initialValues: data,
+        fieldProps: {
+          name: prefix,
+          style: {},
+          ...editable,
+        },
+        onSubmit: (...params) => edit(data.id)(...params),
+        ...sharedProps,
+        ...rest,
       },
-      onSubmit: (...params) => edit(data.id)(...params),
-      ...sharedProps,
-      ...rest,
-    },
-    get(data, name),
-  );
-};
+      get(data, name),
+    );
+  };

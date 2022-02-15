@@ -18,13 +18,18 @@ const setupProfilePermissions = (coll) => [
     coll,
     inClient: true,
   }),
-  genPermission({ op: 'Update', coll }),
+  genPermission({
+    op: 'Update',
+    coll,
+  }),
   genPermission({
     op: 'Create',
     coll,
-    fields: ['*'],
   }),
-  genPermission({ op: 'Delete', coll }),
+  genPermission({
+    op: 'Delete',
+    coll,
+  }),
 ];
 
 const StoriesApiMockAuthentication = ({ children }) => {

@@ -1,27 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import { array } from 'q3-ui-helpers';
+import { isFunction } from 'lodash';
+import { State } from 'q3-ui-exports';
+import {
+  Grid,
+  Tooltip,
+  IconButton,
+} from '@material-ui/core';
+import Edit from '@material-ui/icons/Edit';
+import { useTranslation } from 'q3-ui-locale';
 import Auth from '../Auth';
 import Context from '../state';
 
-const BulkEditorDrawer = ({ ids, children, ...rest }) => {
-  const { editBulk } = React.useContext(Context);
+const BulkEditorDrawer = ({ children }) => {
+  const { t } = useTranslation('labels');
+  const { checked } = React.useContext(State);
+  const { disableEditor, editBulk } =
+    React.useContext(Context);
 
-  return editBulk && array.hasLength(ids) ? (
+  return isFunction(editBulk) && !disableEditor ? (
     <Auth op="Update">
       <Dialog
         title="editMany"
         renderContent={(close) => {
           const args = {
-            onSubmit: editBulk(ids, close),
+            onSubmit: editBulk(checked, close),
           };
 
           return typeof children === 'function'
             ? children(args)
             : React.cloneElement(children, args);
         }}
-        {...rest}
+        renderTrigger={(onClick) => (
+          <Grid item>
+            <Tooltip title={t('bulkUpdate')}>
+              <span>
+                <IconButton
+                  className="q3-repeater-bulk-update"
+                  disabled={!checked.length}
+                  onClick={onClick}
+                >
+                  <Edit />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </Grid>
+        )}
       />
     </Auth>
   ) : null;
@@ -32,12 +57,6 @@ BulkEditorDrawer.propTypes = {
     PropTypes.func,
     PropTypes.object,
   ]).isRequired,
-  ids: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-  ).isRequired,
 };
 
 export default BulkEditorDrawer;
