@@ -6,20 +6,29 @@ import Context, { ActionContext } from '../state';
 import useProviderAuth from '../useProviderAuth';
 
 const Provider = ({
+  disableAdd,
+  disableEditor,
+  disableRemove,
+  create,
   edit,
   editBulk,
-  create,
+  poll,
   remove,
   removeBulk,
-  poll,
   ...rest
 }) => {
   const auth = useProviderAuth(rest);
   const [state, setState] = React.useState();
+  const serviceEnablementProps = {
+    disableAdd,
+    disableEditor,
+    disableRemove,
+  };
 
   const contextProps = React.useMemo(
     () => ({
       ...auth,
+      ...serviceEnablementProps,
       name: rest.name,
       edit,
       editBulk,
@@ -28,7 +37,7 @@ const Provider = ({
       poll,
       create,
     }),
-    [auth],
+    [auth, serviceEnablementProps],
   );
 
   const actionProps = React.useMemo(
@@ -59,6 +68,10 @@ Provider.defaultProps = {
   removeBulk: null,
   poll: null,
   name: null,
+
+  disableAdd: false,
+  disableEditor: false,
+  disableRemove: false,
 };
 
 Provider.propTypes = {
@@ -70,6 +83,10 @@ Provider.propTypes = {
   editBulk: PropTypes.func,
   removeBulk: PropTypes.func,
   poll: PropTypes.func,
+
+  disableAdd: PropTypes.bool,
+  disableEditor: PropTypes.bool,
+  disableRemove: PropTypes.bool,
 };
 
 export default Provider;

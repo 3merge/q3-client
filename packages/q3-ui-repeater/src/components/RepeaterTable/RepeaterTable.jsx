@@ -12,32 +12,23 @@ import {
 } from '@material-ui/core';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
-import { map, get, isEqual } from 'lodash';
+import { map, get } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import { SelectAll } from 'q3-ui-exports';
+import { object } from 'q3-ui-helpers';
 import List from '../List';
 import withMapRepeater from '../withMapRepeater';
 import { override } from '../../helpers';
 import usePagination from '../../usePagination';
 import RepeaterCollapse from '../RepeaterCollapse';
-import RepeaterTableContext from '../RepeaterTableContext';
+import RepeaterTableContext from '../RepeaterTableContext/RepeaterTableContext';
 import useStyle from '../useStyle';
 
 export const gt = (v, num = 0) => v > num;
 
-export const stringifyIds = (xs) =>
-  map(xs?.data, (item) => item?.id).join(',');
-
-export const hasDataPropChangedShape = (prev, curr) =>
-  isEqual(prev?.data, curr?.data) &&
-  stringifyIds(prev) === stringifyIds(curr);
-
 const RepeaterTable = ({
   data,
   children,
-  initialValues,
-  disableEditor,
-  disableRemove,
   disableMultiselect,
   renderNestedTableRow,
   perPage,
@@ -48,126 +39,140 @@ const RepeaterTable = ({
     usePagination(perPage, data);
   const cls = useStyle();
   const { t } = useTranslation('labels');
+  const tableState = React.useMemo(
+    () => ({
+      data: list,
+    }),
+    [list],
+  );
+
+  const PaginationHeader = React.useMemo(
+    () =>
+      gt(totalPage, 1) ? (
+        <Grid container>
+          <Grid item>
+            <IconButton
+              disabled={page === 1}
+              onClick={() => onChange({}, page - 1)}
+            >
+              <NavigateBeforeIcon />
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <IconButton
+              disabled={page === totalPage}
+              onClick={() => onChange({}, page + 1)}
+            >
+              <NavigateNextIcon />
+            </IconButton>
+          </Grid>
+        </Grid>
+      ) : null,
+    [page, totalPage],
+  );
+
+  const PaginationFooter = React.useMemo(
+    () =>
+      gt(totalPage, 1) && (
+        <Box display="flex" justifyContent="center" pb={1}>
+          <Pagination
+            page={page}
+            count={totalPage}
+            onChange={onChange}
+            size="small"
+          />
+        </Box>
+      ),
+    [page, totalPage],
+  );
+
+  const TableElement = React.useMemo(
+    () => (
+      <RepeaterTableContext.Provider value={tableState}>
+        <Table>
+          <TableHead>
+            <TableRow className={cls.tableHeader}>
+              <TableCell component="th">
+                {!disableMultiselect && (
+                  <span
+                    style={{
+                      marginLeft: '-5px',
+                      paddingRight: '6px',
+                    }}
+                  >
+                    <SelectAll ids={map(data, 'id')} />
+                  </span>
+                )}
+                {t(rest?.th || 'identifier')}
+              </TableCell>
+              {map(
+                get(rest, 'cardProps.attributes', []),
+                (attr) => (
+                  <TableCell key={attr} component="th">
+                    <span
+                      className={cls.tableHeaderSpan}
+                      title={t(attr)}
+                    >
+                      {t(attr)}
+                    </span>
+                  </TableCell>
+                ),
+              )}
+              <TableCell />
+            </TableRow>
+          </TableHead>
+          <List
+            {...rest}
+            renderNestedTableRow={renderNestedTableRow}
+          >
+            {children}
+          </List>
+        </Table>
+      </RepeaterTableContext.Provider>
+    ),
+    [
+      object.toJSON({
+        disableMultiselect,
+        list,
+        rest,
+      }),
+    ],
+  );
 
   return (
     gt(total, 0) && (
-      <RepeaterTableContext.Provider
-        value={{
-          data: list,
-        }}
+      <RepeaterCollapse
+        label={groupName}
+        toggles={PaginationHeader}
       >
-        <RepeaterCollapse
-          label={groupName}
-          toggles={
-            gt(totalPage, 1) ? (
-              <Grid container>
-                <Grid item>
-                  <IconButton
-                    disabled={page === 1}
-                    onClick={() => onChange({}, page - 1)}
-                  >
-                    <NavigateBeforeIcon />
-                  </IconButton>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    disabled={page === totalPage}
-                    onClick={() => onChange({}, page + 1)}
-                  >
-                    <NavigateNextIcon />
-                  </IconButton>
-                </Grid>
-              </Grid>
-            ) : null
-          }
-        >
-          <Box pb={1}>
-            {groupName && <Box className={cls.divide} />}
-            <Table>
-              <TableHead>
-                <TableRow className={cls.tableHeader}>
-                  <TableCell component="th">
-                    {!disableMultiselect && (
-                      <span
-                        style={{
-                          marginLeft: '-5px',
-                          paddingRight: '6px',
-                        }}
-                      >
-                        {/** SHOW ALL NOT JUST FILTERED OR PAGED */}
-                        <SelectAll ids={map(data, 'id')} />
-                      </span>
-                    )}
-                    {t(rest?.th || 'identifier')}
-                  </TableCell>
-                  {map(
-                    get(rest, 'cardProps.attributes', []),
-                    (attr) => (
-                      <TableCell key={attr} component="th">
-                        <span
-                          className={cls.tableHeaderSpan}
-                          title={t(attr)}
-                        >
-                          {t(attr)}
-                        </span>
-                      </TableCell>
-                    ),
-                  )}
-
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <List
-                {...rest}
-                renderNestedTableRow={renderNestedTableRow}
-              >
-                {children}
-              </List>
-            </Table>
-          </Box>
-          {gt(totalPage, 1) && (
-            <Box
-              display="flex"
-              justifyContent="center"
-              pb={1}
-            >
-              <Pagination
-                page={page}
-                color="inherit"
-                count={totalPage}
-                onChange={onChange}
-                size="small"
-              />
-            </Box>
-          )}
-        </RepeaterCollapse>
-      </RepeaterTableContext.Provider>
+        <Box pb={1}>
+          {groupName && <Box className={cls.divide} />}
+          {TableElement}
+        </Box>
+        {PaginationFooter}
+      </RepeaterCollapse>
     )
   );
 };
 
 RepeaterTable.propTypes = {
+  children: PropTypes.node,
   data: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node.isRequired,
-  initialValues: PropTypes.shape({}).isRequired,
-  renderNestedTableRow: PropTypes.func,
+  disableMultiselect: PropTypes.bool,
+  groupName: PropTypes.string,
   perPage: PropTypes.number,
+  renderNestedTableRow: PropTypes.func,
   ...override.propTypes,
 };
 
 RepeaterTable.defaultProps = {
+  children: null,
+  disableMultiselect: false,
   data: [],
-  edit: null,
-  renderNestedTableRow: null,
+  groupName: undefined,
   perPage: 15,
+  renderNestedTableRow: null,
   ...override.defaultProps,
 };
 
-export default withMapRepeater(
-  React.memo(
-    RepeaterTable,
-    (prev, curr) =>
-      hasDataPropChangedShape(prev, curr) &&
-      prev.perPage === curr.perPage,
-  ),
-);
+export default withMapRepeater(React.memo(RepeaterTable));

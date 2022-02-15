@@ -31,12 +31,12 @@ const Add = ({ children, onComplete }) => {
     resourceNameSingular,
   } = React.useContext(Definitions);
   const { post } = React.useContext(Dispatcher);
-  const { Hide } = useAuth(collectionName);
+  const { HideByField } = useAuth(collectionName);
 
   return React.useMemo(
     () =>
       children && post ? (
-        <Hide op="Create">
+        <HideByField path="id" op="Create">
           <CreateDialog title={`${collectionName}New`}>
             {(done) =>
               React.cloneElement(children, {
@@ -55,7 +55,7 @@ const Add = ({ children, onComplete }) => {
               })
             }
           </CreateDialog>
-        </Hide>
+        </HideByField>
       ) : null,
     [],
   );

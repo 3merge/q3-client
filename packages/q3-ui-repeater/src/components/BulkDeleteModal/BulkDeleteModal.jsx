@@ -1,26 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { array } from 'q3-ui-helpers';
+import { isFunction } from 'lodash';
 import Confirm from 'q3-ui-confirm';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import {
+  Grid,
+  Tooltip,
+  IconButton,
+} from '@material-ui/core';
+import { State } from 'q3-ui-exports';
+import { useTranslation } from 'q3-ui-locale';
 import Context from '../state';
 import Auth from '../Auth';
 
-const BulkDeleteModal = ({ ids, ...rest }) => {
-  const { removeBulk } = React.useContext(Context);
+const BulkDeleteModal = () => {
+  const { t } = useTranslation('labels');
+  const { checked } = React.useContext(State);
+  const { disableRemove, removeBulk } =
+    React.useContext(Context);
 
-  return removeBulk && array.hasLength(ids) ? (
+  const ButtonComponent = React.useCallback(
+    (props) => (
+      <Grid item>
+        <Tooltip title={t('bulkDelete')}>
+          <span>
+            <IconButton
+              {...props}
+              className="q3-repeater-bulk-delete"
+              // eslint-disable-next-line
+              disabled={!checked.length || props.disabled}
+            >
+              <DeleteSweepIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
+      </Grid>
+    ),
+    [checked],
+  );
+
+  return isFunction(removeBulk) && !disableRemove ? (
     <Auth op="Delete">
       <Confirm
-        icon={DeleteSweepIcon}
-        service={removeBulk(ids)}
-        title="delete"
+        ButtonComponent={ButtonComponent}
         description="delete"
+        icon={DeleteSweepIcon}
         phrase="DELETE"
-        {...rest}
+        service={removeBulk(checked)}
+        title="delete"
       />
     </Auth>
   ) : null;
+};
+BulkDeleteModal.defaultProps = {
+  ids: [],
 };
 
 BulkDeleteModal.propTypes = {
@@ -29,7 +62,7 @@ BulkDeleteModal.propTypes = {
       PropTypes.string,
       PropTypes.number,
     ]),
-  ).isRequired,
+  ),
 };
 
-export default BulkDeleteModal;
+export default React.memo(BulkDeleteModal);

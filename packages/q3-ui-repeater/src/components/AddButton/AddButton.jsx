@@ -4,6 +4,8 @@ import { useTranslation } from 'q3-ui-locale';
 import Dialog from 'q3-ui-dialog';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
 import Add from '@material-ui/icons/Add';
 
 const ForwardProps = ({ children, ...rest }) =>
@@ -20,14 +22,25 @@ export const AddButtonTrigger = ({ onClick }) => {
 
   return (
     <Box id="q3-repeater-add-button">
-      <Button
-        color="secondary"
-        onClick={onClick}
-        variant="contained"
-      >
-        <Add />
-        {t('labels:new')}
-      </Button>
+      <Hidden mdDown>
+        <Box ml={1}>
+          <Button
+            color="secondary"
+            onClick={onClick}
+            variant="contained"
+          >
+            {t('labels:addNew')}
+          </Button>
+        </Box>
+      </Hidden>
+      <Hidden lgUp>
+        <IconButton
+          onClick={onClick}
+          label={t('labels:addNew')}
+        >
+          <Add />
+        </IconButton>
+      </Hidden>
     </Box>
   );
 };

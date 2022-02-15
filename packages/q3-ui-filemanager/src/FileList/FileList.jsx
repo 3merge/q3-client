@@ -49,7 +49,12 @@ export const makeDirectories = (a = []) =>
       {},
     );
 
-const FileList = ({ files, ...props }) => {
+const FileList = ({
+  disableDrop,
+  disableDelete,
+  files,
+  ...props
+}) => {
   // eslint-disable-next-line
   const { collectionName } = props;
   const { HideByField, canCreateSub } =
@@ -88,6 +93,7 @@ const FileList = ({ files, ...props }) => {
       name={file.name}
       size={file.size}
       url={file.url}
+      disableDelete={disableDelete}
     />
   );
 
@@ -95,7 +101,7 @@ const FileList = ({ files, ...props }) => {
     listItems = [],
     children,
   ) =>
-    canCreateSub('uploads') ? (
+    canCreateSub('uploads') && !disableDrop ? (
       <Drop {...props} root={dir.path.join('/')}>
         {(pending) => (
           <>
@@ -123,11 +129,13 @@ const FileList = ({ files, ...props }) => {
             state={dir}
           />
         </Grid>
-        <Grid item>
-          <HideByField op="Create" path="uploads">
-            <FileListMake setState={setDir} state={dir} />
-          </HideByField>
-        </Grid>
+        {!disableDrop && (
+          <Grid item>
+            <HideByField op="Create" path="uploads">
+              <FileListMake setState={setDir} state={dir} />
+            </HideByField>
+          </Grid>
+        )}
       </Grid>
       {renderDirectoryUploadSurface(
         dir.data.default,
@@ -150,14 +158,19 @@ const FileList = ({ files, ...props }) => {
 };
 
 FileList.defaultProps = {
+  disableDrop: false,
+  disableDelete: false,
   files: [],
 };
 
 FileList.propTypes = {
+  disableDrop: PropTypes.bool,
+  disableDelete: PropTypes.bool,
   /**
    * Files will sort into directories automatically based on the file name.
    * For instance, "foo/bar.csv" will only be available for download in the child directory.
    */
+
   files: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

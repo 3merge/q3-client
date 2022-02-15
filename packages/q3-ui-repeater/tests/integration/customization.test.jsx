@@ -3,28 +3,7 @@ import data from '../fixtures/articles';
 import AuthContextProvider from '../fixtures/AuthContextProvider';
 import { genRepeaterProps } from '../helpers';
 import Repeater from '../../src';
-import {
-  AddItem,
-  Search,
-  SelectForm,
-  ItemHeader,
-} from '../../src/components';
-
-const sortOptions = [
-  { label: 'seq' },
-  { label: 'firstName' },
-];
-
-const filterOptions = [
-  {
-    label: 'SEQ 211',
-    fn: (x) => Number(x.seq) === 211,
-  },
-  {
-    label: 'Not SEQ 211',
-    fn: (x) => Number(x.seq) !== 211,
-  },
-];
+import { Search, ItemHeader } from '../../src/components';
 
 jest.unmock('useful-state');
 
@@ -37,10 +16,6 @@ const render = (props = {}) =>
     </AuthContextProvider>,
   );
 
-/**
- * Test cases
- */
-
 it.each([
   [true, false],
   [false, true],
@@ -49,53 +24,6 @@ it.each([
   (disableSearch, expected) => {
     const wrapper = render({ disableSearch });
     expect(wrapper.find(Search).exists()).toBe(expected);
-  },
-);
-
-it.each([
-  [{}, true],
-  [{ sortOptions }, false],
-])(
-  'should conditionally render sorting',
-  (props, expected) => {
-    const wrapper = render(props);
-
-    const el = wrapper
-      .find(SelectForm)
-      .findWhere((x) => x.prop('label') === 'sortBy')
-      .first()
-      .isEmptyRender();
-
-    expect(el).toBe(expected);
-  },
-);
-
-it.each([
-  [{}, true],
-  [{ filterOptions }, false],
-])(
-  'should conditionally render sorting',
-  (props, expected) => {
-    const wrapper = render(props);
-
-    const el = wrapper
-      .find(SelectForm)
-      .findWhere((x) => x.prop('label') === 'filterBy')
-      .first()
-      .isEmptyRender();
-
-    expect(el).toBe(expected);
-  },
-);
-
-it.each([
-  [true, false],
-  [false, true],
-])(
-  'should conditionally render create',
-  (addDisabled, expected) => {
-    const wrapper = render({ addDisabled });
-    expect(wrapper.find(AddItem).exists()).toBe(expected);
   },
 );
 

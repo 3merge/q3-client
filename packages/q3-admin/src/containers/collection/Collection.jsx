@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
-import CollectionConfig from '../CollectionConfig';
 
 export const getDirectoryPath = (root, id) =>
   typeof root === 'string' ? root.split(id)[0] : '/';

@@ -24,6 +24,7 @@ const FilePending = ({
   error,
   onDelete,
   collectionName,
+  disableDelete,
   ...etc
 }) => {
   const { HideByField } = useAuth(collectionName);
@@ -55,11 +56,13 @@ const FilePending = ({
       );
 
     return (
-      <HideByField path="uploads" op="Delete">
-        <IconButton onClick={onDelete(id)}>
-          <TrashIcon />
-        </IconButton>
-      </HideByField>
+      !disableDelete && (
+        <HideByField path="uploads" op="Delete">
+          <IconButton onClick={onDelete(id)}>
+            <TrashIcon />
+          </IconButton>
+        </HideByField>
+      )
     );
   };
 

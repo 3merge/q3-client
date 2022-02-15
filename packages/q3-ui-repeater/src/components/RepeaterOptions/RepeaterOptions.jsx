@@ -1,5 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import SelectForm from '../SelectForm';
 import Search from '../Search';
 
@@ -24,26 +26,28 @@ const RepeaterOptions = ({
       alignItems="center"
       container
       spacing={1}
-      justify="flex-end"
+      justifyContent="flex-end"
     >
+      <SelectForm
+        handleChange={handleChange('filterBy')}
+        icon={<FilterListIcon />}
+        label="filterBy"
+        options={filterOptions}
+        value={filterBy}
+      />
+      <SelectForm
+        handleChange={handleChange('sortBy')}
+        icon={<SortByAlphaIcon />}
+        label="sortBy"
+        options={sortOptions}
+        value={sortBy}
+      />
       {children}
       {!disableSearch && (
-        <Grid item xs>
+        <Grid item xs={12}>
           <Search handleInput={handleInput} />
         </Grid>
       )}
-      <SelectForm
-        options={filterOptions}
-        label="filterBy"
-        value={filterBy}
-        handleChange={handleChange('filterBy')}
-      />
-      <SelectForm
-        options={sortOptions}
-        label="sortBy"
-        value={sortBy}
-        handleChange={handleChange('sortBy')}
-      />
     </Grid>
   );
 };

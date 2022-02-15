@@ -31,13 +31,13 @@ export const SelectAll = ({ ids }) => {
         vertical: 'top',
         horizontal: 'left',
       }}
-      overlap="circle"
+      overlap="circular"
     >
       <Checkbox
         style={{ padding: 0 }}
         aria-label={label}
         onClick={onCheckSome(ids)}
-        checked={hasChecked() && len}
+        checked={Boolean(hasChecked() && len)}
         indeterminate={
           checked.length > 0 &&
           checked.length !== ids.length
@@ -67,7 +67,7 @@ export const SelectOne = ({ id }) => {
     <Checkbox
       aria-label={t('labels:check')}
       onClick={onCheck(id)}
-      checked={isChecked(id)}
+      checked={Boolean(isChecked(id))}
       style={{ padding: 0 }}
     />
   );

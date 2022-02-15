@@ -20,7 +20,7 @@ const List = ({
     <TableBody>
       {data.map((item, i) => (
         <NestedItem
-          key={`nestedItem${i}${i?.id}`}
+          key={`nestedItem${i?.id || i}`}
           renderNestedTableRow={renderNestedTableRow}
           showAttributes={showAttributes}
           item={item}
@@ -45,4 +45,4 @@ List.defaultProps = {
   renderNestedTableRow: null,
 };
 
-export default List;
+export default React.memo(List);

@@ -67,6 +67,9 @@ export default new AbstractCollectionBuilder({
     //  customRowActionsAnchor: 'start',
     defaultColumns: ['createdAt', 'updatedAt'],
     defaultSortPreference: 'name',
+    backlistColumns() {
+      return [];
+    },
   })
   .genDetail({
     audit: ['foo', 'bar'],
@@ -92,6 +95,17 @@ export default new AbstractCollectionBuilder({
         description: 'Comedy',
       },
     ],
+    defineActionProps(state) {
+      return {
+        uploads:
+          state?.name !== 'Rick and Morty'
+            ? {
+                disableDrop: true,
+                disableDelete: true,
+              }
+            : {},
+      };
+    },
   })
 
   .build();

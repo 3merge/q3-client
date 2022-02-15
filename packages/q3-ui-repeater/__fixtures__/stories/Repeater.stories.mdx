@@ -29,9 +29,10 @@ export const isSeq = (item) => Number(item.seq) === 211;
     <LocationProvider>
       <Repeater
         addComponent={<p>Custom form</p>}
-        addComponentPosition="top"
+        addComponentPosition="bottom"
+        renderOther={() => <p>Custom action</p>}
         bulkEditorComponent={<p>Bulk</p>}
-        disableSearch
+        //disableSearch
         cardProps={{
           title: 'sku',
           attributes: ['for.name', 'id', 'age'],
@@ -134,7 +135,7 @@ export const isSeq = (item) => Number(item.seq) === 211;
             {
               disableDialog: true,
               component: (props) => {
-                console.log(props);
+                // console.log(props);
                 return <button>Custom</button>;
               },
             },

@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Asset from 'q3-ui-assets';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { compose } from 'lodash/fp';
-import { size } from 'lodash';
+import { isFunction, size } from 'lodash';
 import ActionBar from '../ActionBar';
 import AddItem from '../AddItem';
 import RepeaterTable from '../RepeaterTable';
 import RepeaterOptions from '../RepeaterOptions';
 import {
-  checkValues,
   filter,
   sort,
   search,
   group,
   reducer,
 } from '../../helpers';
+import useStyle from './styles';
 
 const optionType = PropTypes.arrayOf(
   PropTypes.shape({
@@ -32,21 +32,20 @@ const init = {
 
 const Repeater = ({
   addComponent,
-  addComponentPosition,
   bulkEditorComponent,
   emptyComponent,
-  addDisabled,
   children,
   data,
   disableSearch,
-  disableSearchWhenEmpty,
   filterOptions,
   groupBy,
   initialValues,
   sortOptions,
+  renderOther,
   ...rest
 }) => {
   const [state, dispatch] = React.useReducer(reducer, init);
+  const cls = useStyle();
 
   const run = compose(
     group(groupBy),
@@ -55,104 +54,115 @@ const Repeater = ({
     search(state.input),
   );
 
+  const len = size(data);
   const newData = run(data);
+  const showSearch = !disableSearch && len;
 
-  const renderAddComponent = (pos) => {
-    if (addDisabled || addComponentPosition !== pos)
-      return null;
+  const Add = React.useMemo(
+    () => (
+      <AddItem
+        addComponent={addComponent}
+        initialValues={initialValues}
+      >
+        {children}
+      </AddItem>
+    ),
+    [initialValues],
+  );
 
-    return (
-      <Grid item xs={addComponent ? 12 : 'auto'}>
-        <AddItem
-          addComponent={addComponent}
-          initialValues={initialValues}
+  const CustomElements = React.useMemo(
+    () =>
+      isFunction(renderOther) ? renderOther(newData) : null,
+    [newData],
+  );
+
+  const Empty = React.useMemo(
+    () =>
+      emptyComponent || (
+        <Box>
+          <Asset icon="Empty" title="empty" />
+        </Box>
+      ),
+    [],
+  );
+
+  const Tools = React.useMemo(
+    () => (
+      <>
+        {addComponent && Add}
+        <RepeaterOptions
+          state={state}
+          dispatch={dispatch}
+          filterOptions={filterOptions}
+          sortOptions={sortOptions}
+          disableSearch={!showSearch}
         >
-          {children}
-        </AddItem>
-      </Grid>
-    );
-  };
-
-  const renderEmpty = () =>
-    emptyComponent || (
-      <Box>
-        <Asset icon="Empty" title="empty" />
-      </Box>
-    );
+          <ActionBar
+            renderSelected={bulkEditorComponent}
+            length={len}
+          />
+          {CustomElements}
+          {!addComponent && Add}
+        </RepeaterOptions>
+      </>
+    ),
+    [
+      Add,
+      CustomElements,
+      state,
+      filterOptions,
+      sortOptions,
+      showSearch,
+    ],
+  );
 
   return (
-    <>
-      <Box
-        bgcolor="background.paper"
-        mb={Array.isArray(newData) ? 1 : 0}
-      >
-        <Grid alignItems="center" container spacing={2}>
-          {renderAddComponent('top')}
-          <Grid item xs={12} sm>
-            <RepeaterOptions
-              state={state}
-              dispatch={dispatch}
-              filterOptions={filterOptions}
-              sortOptions={sortOptions}
-              disableSearch={
-                disableSearch ||
-                (disableSearchWhenEmpty && !size(data))
-              }
-            >
-              <ActionBar
-                renderSelected={bulkEditorComponent}
-                length={size(data)}
-              />
-            </RepeaterOptions>
-          </Grid>
-          {renderAddComponent('bottom')}
-        </Grid>
+    <Box className={cls.root}>
+      {Tools}
+      <Box my={1} className="q3-repeater-tables">
+        <RepeaterTable
+          data={newData}
+          initialValues={initialValues}
+          {...rest}
+        >
+          {children}
+        </RepeaterTable>
       </Box>
-      {checkValues(data, newData) ? (
-        <Box my={1}>
-          <RepeaterTable
-            data={newData}
-            initialValues={initialValues}
-            {...rest}
-          >
-            {children}
-          </RepeaterTable>
-        </Box>
-      ) : (
-        renderEmpty()
-      )}
-    </>
+      <Box className="q3-repeater-empty-graphic">
+        {Empty}
+      </Box>
+    </Box>
   );
 };
 
 Repeater.defaultProps = {
   addComponent: null,
   bulkEditorComponent: null,
-  addComponentPosition: 'bottom',
-  addDisabled: false,
   data: [],
   disableSearch: false,
-  disableSearchWhenEmpty: false,
   groupBy: null,
   sortOptions: [],
   filterOptions: [],
   emptyComponent: null,
+  renderOther: null,
 };
 
 Repeater.propTypes = {
-  addComponent: PropTypes.node,
+  addComponent: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.func,
+  ]),
   bulkEditorComponent: PropTypes.node,
-  addComponentPosition: PropTypes.oneOf(['top', 'bottom']),
   emptyComponent: PropTypes.node,
-  addDisabled: PropTypes.bool,
   initialValues: PropTypes.shape({}).isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   disableSearch: PropTypes.bool,
-  disableSearchWhenEmpty: PropTypes.bool,
   children: PropTypes.node.isRequired,
   sortOptions: optionType,
   filterOptions: optionType,
   groupBy: optionType,
+  renderOther: PropTypes.func,
 };
 
 export default Repeater;
