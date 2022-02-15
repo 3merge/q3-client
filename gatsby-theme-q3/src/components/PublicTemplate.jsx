@@ -110,14 +110,21 @@ const PublicTemplate = ({ children, ...rest }) => {
           </ReachLink>
         </Box>
         <Paper className={cls.container}>
-          <Grid alignItems="center" container spacing={1}>
+          <Grid container spacing={1}>
             <Hidden smDown>
               <Grid item xs={6}>
                 <Box className={cls.photo} />
               </Grid>
             </Hidden>
             <Grid item md={6} xs={12}>
-              <Box p={2}>{children}</Box>
+              <Box
+                alignItems="center"
+                height="100%"
+                display="flex"
+                p={2}
+              >
+                {children}
+              </Box>
             </Grid>
           </Grid>
         </Paper>
