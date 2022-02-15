@@ -25,9 +25,10 @@ const BulkDeleteModal = () => {
         <Tooltip title={t('bulkDelete')}>
           <span>
             <IconButton
-              className="q3-repeater-bulk-delete"
-              disabled={!checked.length}
               {...props}
+              className="q3-repeater-bulk-delete"
+              // eslint-disable-next-line
+              disabled={!checked.length || props.disabled}
             >
               <DeleteSweepIcon />
             </IconButton>
