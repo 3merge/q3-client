@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import { SelectOne, State } from 'q3-ui-exports';
@@ -47,12 +48,9 @@ const ItemHeader = ({
           </Grid>
         )}
         <Grid item xs zeroMinWidth>
-          <Title
-            component="h4"
-            name={title}
-            editable={isIn(title)}
-            className={titleCls}
-          />
+          <Box component="h4" className={titleCls}>
+            <Title name={title} editable={isIn(title)} />
+          </Box>
           {description && (
             <Typography
               style={{
