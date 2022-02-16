@@ -26,6 +26,7 @@ const BulkDeleteModal = () => {
           <span>
             <IconButton
               {...props}
+              color="inherit"
               className="q3-repeater-bulk-delete"
               // eslint-disable-next-line
               disabled={!checked.length || props.disabled}

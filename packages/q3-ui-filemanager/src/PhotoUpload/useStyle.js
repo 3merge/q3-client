@@ -10,6 +10,8 @@ export default makeStyles(() => ({
     margin: '-4vh',
     borderRadius: 8,
     overflow: 'hidden',
+    justifyContent: 'center',
+    display: 'flex',
   },
   fit: {
     color: grey[200],

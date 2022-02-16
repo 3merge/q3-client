@@ -67,7 +67,7 @@ export default new AbstractCollectionBuilder({
     //  customRowActionsAnchor: 'start',
     defaultColumns: ['createdAt', 'updatedAt'],
     defaultSortPreference: 'name',
-    backlistColumns() {
+    blacklistColumns() {
       return [];
     },
   })

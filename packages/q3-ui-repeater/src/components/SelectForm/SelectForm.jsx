@@ -28,6 +28,7 @@ const SortForm = ({
       >
         <span>
           <IconButton
+            color="inherit"
             disabled={!size(options)}
             onClick={open}
           >
