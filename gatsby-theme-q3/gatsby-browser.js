@@ -27,7 +27,8 @@ export const onClientEntry = async () => {
   const parts = str.split('.').slice(0, offset).join('.');
 
   if (size(parts))
-    axios.defaults.headers['X-Session-Tenant'] = parts;
+    axios.defaults.headers['X-Session-Tenant'] =
+      process.env.GATSBY_APP_TENANT || parts;
 
   // calls Q3 API
   await getDomain();
