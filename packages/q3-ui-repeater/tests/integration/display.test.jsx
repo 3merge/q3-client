@@ -25,7 +25,8 @@ const getFirstAuthor = (el, selector) =>
   el
     .find('[data-repeater-editable="author"]')
     .first()
-    .find(selector);
+    .find(selector)
+    .first();
 
 describe('Display', () => {
   describe('atrributes', () => {
@@ -79,7 +80,10 @@ describe('Display', () => {
 
       await perform(el)([
         async () => {
-          getFirstAuthor(el, 'button').simulate('click');
+          getFirstAuthor(
+            el,
+            '.q3-popover-trigger',
+          ).simulate('click');
         },
         async () => {
           input = el.find('input[name="author"]');
@@ -110,8 +114,8 @@ describe('Display', () => {
       );
 
       expect(
-        getFirstAuthor(el, 'p').props(),
-      ).not.toHaveProperty('aria-haspopup');
+        getFirstAuthor(el, '.q3-popover-trigger').exists(),
+      ).toBeFalsy();
     });
   });
 

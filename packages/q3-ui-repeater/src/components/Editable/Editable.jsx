@@ -31,16 +31,17 @@ const Editable = ({
   return (
     <>
       <Box
-        role="button"
+        className="q3-popover-trigger"
         component="span"
-        tabIndex={0}
         onClick={open}
         onKeyPress={open}
+        role="button"
         style={{
           cursor: 'pointer',
           textDecoration: 'underline',
           textDecorationStyle: 'dotted',
         }}
+        tabIndex={0}
       >
         {text}
       </Box>

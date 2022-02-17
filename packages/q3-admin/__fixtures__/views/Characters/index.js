@@ -62,6 +62,8 @@ export default new AbstractCollectionBuilder({
     ui: 'calendar',
     runOnInit: false,
     fromKey: 'createdAt',
+    slotMinTime: '06:00:00',
+
     getBackgroundEvents() {
       return Promise.resolve([
         {

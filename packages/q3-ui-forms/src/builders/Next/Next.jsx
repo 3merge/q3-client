@@ -24,7 +24,7 @@ const Next = ({
     variant: 'contained',
     type: submit ? 'submit' : 'button',
     onClick: submit ? undefined : onClick,
-    disabled: !isSubmittable,
+    disabled: submit ? !isSubmittable : false,
     size,
     ...rest,
   };

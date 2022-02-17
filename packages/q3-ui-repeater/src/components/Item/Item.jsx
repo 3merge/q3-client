@@ -46,6 +46,7 @@ export const interpretCardsProps = (
     attributes: get(cardProps, 'attributes', []),
     color: getValue('onColor', currentData),
     description: getValue('describe'),
+    title: getValue('title'),
 
     showEditor: negate(
       getValue('disableEditor', disableEditor),

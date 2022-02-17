@@ -5,7 +5,12 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import Provider from '../src';
-import { Form, Field } from '../src/builders';
+import {
+  Form,
+  Field,
+  Fieldset,
+  Multistep,
+} from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
 import Wrapper, {
   InnerForm,
@@ -55,9 +60,34 @@ Sometimes, we'll need something else.
 
 <Preview>
   <Story name="Multistep">
-    <Form>
-      <Field name="firstName" type="text" />
-    </Form>
+    <Multistep>
+      <Fieldset name="test">
+        <Field name="firstName" type="text" required />
+        <Field name="lastName" type="text" required />
+      </Fieldset>
+      <Fieldset name="test1">
+        <Field name="email" type="email" required />
+        <Field name="tel" type="tel" required />
+        <Field name="age" type="age" required />
+        <Field name="other" type="text" required />
+      </Fieldset>
+      <Fieldset name="test2">
+        <Field
+          name="job"
+          type="autocomplete"
+          options={[]}
+          required
+        />
+        <Field name="date" type="date" required />
+        <Field
+          name="description"
+          type="text"
+          required
+          multiline
+          rows={5}
+        />
+      </Fieldset>
+    </Multistep>
   </Story>
 </Preview>
 

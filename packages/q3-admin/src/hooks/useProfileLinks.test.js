@@ -6,10 +6,12 @@ jest.mock('./useAuthLinks');
 describe('useProfileLinks', () => {
   it('should return only defaults', () => {
     useAuthLinks.mockReturnValue([null]);
-    expect(useProfileLinks()).toEqual({
-      onClick: expect.any(Function),
-      text: 'logout',
-    });
+    expect(useProfileLinks()).toEqual([
+      {
+        onClick: expect.any(Function),
+        text: 'logout',
+      },
+    ]);
   });
 
   it('should return all', () => {

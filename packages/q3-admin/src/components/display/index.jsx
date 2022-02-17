@@ -18,6 +18,10 @@ const Display = ({
   return children;
 };
 
+Display.defaultProps = {
+  children: null,
+};
+
 Display.propTypes = {
   /**
    * Is the date loading?
@@ -37,7 +41,7 @@ Display.propTypes = {
     PropTypes.node,
     PropTypes.array,
     PropTypes.string,
-  ]).isRequired,
+  ]),
 
   /**
    * I18n label for error handling.
