@@ -27,6 +27,7 @@ export default (getData, { onConnect, onError }) => {
   React.useEffect(() => {
     const general = makeEventName();
     const noti = makeEventName('q3-api-notifications');
+    const noti2 = makeEventName('notifications');
 
     const handleGeneral = (event) => {
       const { action } = event.data;
@@ -43,12 +44,14 @@ export default (getData, { onConnect, onError }) => {
     };
 
     addDocumentListener(noti, handleNoti);
+    addDocumentListener(noti2, handleNoti);
     addDocumentListener(general, handleGeneral);
     getData();
 
     return () => {
       removeDocumentListener(general, handleGeneral);
       removeDocumentListener(noti, handleNoti);
+      removeDocumentListener(noti2, handleNoti);
     };
   }, []);
 };

@@ -322,6 +322,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         },
         badge: {
           background: theme.palette.secondary.main,
+          color: '#FFF',
           height: 16,
           fontSize: 10,
           minWidth: 16,

@@ -21,7 +21,7 @@ const useProfileLinks = () =>
       [
         {
           to: '/account/contact',
-          text: 'accoutContactInformation',
+          text: 'accountContactInformation',
         },
       ],
       'email',
