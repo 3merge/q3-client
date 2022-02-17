@@ -5,10 +5,14 @@ import { Definitions } from '../state';
 
 const AuthDelete = ({ children }) => {
   const { collectionName } = React.useContext(Definitions);
-  const { Hide } = useAuth(collectionName);
+  const { HideByField } = useAuth(collectionName);
 
   return React.useMemo(
-    () => <Hide op="Delete">{children}</Hide>,
+    () => (
+      <HideByField path="id" op="Delete">
+        {children}
+      </HideByField>
+    ),
     [],
   );
 };

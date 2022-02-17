@@ -35,15 +35,16 @@ describe('withEditableTypography', () => {
     const el = withEditableTypography({
       data: { foo: 'bar' },
     })({
+      name: 'foo',
       editable: {
-        foo: { type: 'text' },
+        type: 'text',
       },
     });
 
-    expect(el.props).toHaveProperty('isEditable', true);
-    expect(el.props.fieldProps).toHaveProperty(
-      'name',
-      'foo',
-    );
+    expect(el.props).toMatchObject({
+      onSubmit: expect.any(Function),
+      initialValues: { foo: 'bar' },
+      name: 'foo',
+    });
   });
 });

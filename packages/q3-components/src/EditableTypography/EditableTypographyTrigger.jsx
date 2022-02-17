@@ -73,7 +73,7 @@ const EditableTypographyTrigger = ({
     rest.className,
   );
 
-  return isEditable ? (
+  return isEditable || rest?.disableButton ? (
     <Button
       {...removeFormatters(rest)}
       className={classes}

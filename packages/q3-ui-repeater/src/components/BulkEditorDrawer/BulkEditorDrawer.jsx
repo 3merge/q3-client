@@ -37,6 +37,7 @@ const BulkEditorDrawer = ({ children }) => {
             <Tooltip title={t('bulkUpdate')}>
               <span>
                 <IconButton
+                  color="inherit"
                   className="q3-repeater-bulk-update"
                   disabled={!checked.length}
                   onClick={onClick}

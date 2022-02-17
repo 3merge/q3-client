@@ -35,6 +35,7 @@ export const AddButtonTrigger = ({ onClick }) => {
       </Hidden>
       <Hidden lgUp>
         <IconButton
+          color="inherit"
           onClick={onClick}
           label={t('labels:addNew')}
         >

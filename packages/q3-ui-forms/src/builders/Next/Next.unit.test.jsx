@@ -18,7 +18,7 @@ describe('Next', () => {
     useAllowSubmit.mockReturnValue(false);
     expect(
       global
-        .shallow(<Next />)
+        .shallow(<Next submit />)
         .find(Button)
         .props(),
     ).toHaveProperty('disabled', true);

@@ -56,7 +56,7 @@ export const TableDecorator = (props) => ({
   }),
 
   makeBlacklist: (fn) => {
-    const blacklist = get(props, 'backlistColumns', []);
+    const blacklist = get(props, 'blacklistColumns', []);
 
     return compact(
       [

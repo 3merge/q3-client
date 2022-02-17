@@ -1,14 +1,17 @@
 import useAuthLinks from './useAuthLinks';
-import useProfileLinks, {
-  defaultProfileLinks,
-} from './useProfileLinks';
+import useProfileLinks from './useProfileLinks';
 
 jest.mock('./useAuthLinks');
 
 describe('useProfileLinks', () => {
   it('should return only defaults', () => {
     useAuthLinks.mockReturnValue([null]);
-    expect(useProfileLinks()).toEqual(defaultProfileLinks);
+    expect(useProfileLinks()).toEqual([
+      {
+        onClick: expect.any(Function),
+        text: 'logout',
+      },
+    ]);
   });
 
   it('should return all', () => {
@@ -20,7 +23,8 @@ describe('useProfileLinks', () => {
       'foo',
       'foo',
       'foo',
-      ...defaultProfileLinks,
+      'foo',
+      expect.any(Object),
     ]);
   });
 });

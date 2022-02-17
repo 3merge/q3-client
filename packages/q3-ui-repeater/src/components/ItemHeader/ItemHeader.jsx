@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import TableCell from '@material-ui/core/TableCell';
 import { SelectOne, State } from 'q3-ui-exports';
 import useStyle from '../useStyle';
-import withEditableTypography from '../withEditableTypography';
 
 const ItemHeader = ({
   showMultiselect,
@@ -15,16 +15,11 @@ const ItemHeader = ({
   description,
   icon,
   photo,
-  isIn,
   title,
 }) => {
   const { id } = item;
   const multiselect = React.useContext(State);
   const selected = multiselect.isChecked(id);
-
-  const Title = withEditableTypography({
-    data: item,
-  });
 
   const { titleCls, tableCellHeader } = useStyle({
     selected,
@@ -47,12 +42,9 @@ const ItemHeader = ({
           </Grid>
         )}
         <Grid item xs zeroMinWidth>
-          <Title
-            component="h4"
-            name={title}
-            editable={isIn(title)}
-            className={titleCls}
-          />
+          <Box component="h4" className={titleCls}>
+            {title}
+          </Box>
           {description && (
             <Typography
               style={{
@@ -69,10 +61,7 @@ const ItemHeader = ({
 };
 
 ItemHeader.propTypes = {
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func,
-  ]).isRequired,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string,
   item: PropTypes.shape({
     id: PropTypes.oneOfType([
@@ -81,7 +70,6 @@ ItemHeader.propTypes = {
     ]).isRequired,
   }).isRequired,
   showMultiselect: PropTypes.bool,
-  isIn: PropTypes.func.isRequired,
   icon: PropTypes.func,
   photo: PropTypes.string,
 };

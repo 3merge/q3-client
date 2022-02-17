@@ -2,19 +2,6 @@ import { destroySession } from 'q3-ui-permissions';
 import useAuthLinks from './useAuthLinks';
 import { collapse } from './useDomainLinks';
 
-export const defaultProfileLinks = [
-  {
-    to: '/account/password',
-    text: 'accountPassword',
-  },
-  {
-    onClick: () => {
-      destroySession();
-    },
-    text: 'logout',
-  },
-];
-
 const useProfileLinks = () =>
   collapse([
     useAuthLinks(
@@ -61,6 +48,17 @@ const useProfileLinks = () =>
       ],
       'lang',
     ),
-  ]).concat(defaultProfileLinks);
+    useAuthLinks('profile', 'canCreate', [
+      {
+        to: '/account/password',
+        text: 'accountPassword',
+      },
+    ]),
+  ]).concat({
+    onClick: () => {
+      destroySession();
+    },
+    text: 'logout',
+  });
 
 export default useProfileLinks;

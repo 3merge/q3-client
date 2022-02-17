@@ -49,6 +49,7 @@ const Calendar = (props) => {
     <Box className={cls.root}>
       {calendarOrientation.initialView && (
         <FullCalendar
+          {...props}
           allDaySlot={false}
           lazyFetching
           events={[

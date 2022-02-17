@@ -1,1 +1,1 @@
-export { default } from './withEditableTypography'
+export { default } from './withEditableTypography';

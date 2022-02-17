@@ -27,9 +27,9 @@ const DetailActions = ({
   const { data } = React.useContext(Store);
 
   const {
-    canDelete,
     canSeeSub,
     state: authState,
+    canDeleteSub,
   } = useAuth(collectionName);
 
   const actionProps = isFunction(defineActionProps)
@@ -78,7 +78,7 @@ const DetailActions = ({
           )}
         />,
       )}
-      {lhr(canDelete, <Trash />)}
+      {lhr(canDeleteSub('id'), <Trash />)}
       {size(actions) > 0 && (
         <DropdownMenu items={actions}>
           {(onClick) => (
