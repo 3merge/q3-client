@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.4](https://github.com/3merge/q/compare/v3.3.3...v3.3.4) (2022-02-17)
+
+
+### Bug Fixes
+
+* notification collection name change ([71644b8](https://github.com/3merge/q/commit/71644b8191ebfafa1766ce9cf56909094696035f))
+
+
+
+
+
 ## [3.3.3](https://github.com/3merge/q/compare/v3.3.2...v3.3.3) (2022-02-17)
 
 **Note:** Version bump only for package q3-client
