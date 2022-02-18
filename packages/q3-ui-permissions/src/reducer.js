@@ -41,12 +41,16 @@ export const getSession = (dispatch) =>
         },
       });
     })
-    .catch(() =>
+    .catch(() => {
+      // otherwise it keeps trying
+      Cookies.remove(TOKEN);
+      Cookies.remove(NONCE);
+
       dispatch({
         type: INIT,
         data: null,
-      }),
-    );
+      });
+    });
 
 export default (state, action) => {
   const { type, data } = action;
