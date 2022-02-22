@@ -1,7 +1,6 @@
 import React from 'react';
 import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import CreditCard from '@material-ui/icons/CreditCard';
-import { green } from '@material-ui/core/colors';
 import { IconButton } from '@material-ui/core';
 import Group from '@material-ui/icons/Group';
 import Add from './Add';
@@ -14,6 +13,7 @@ export default new AbstractCollectionBuilder({
   resourceNameSingular: 'show',
   icon: CreditCard,
   parent: 'entertainment',
+  // disableSegmentAll: true,
   segments: {
     'Date Range': '?demo<=2021-08-01&demo>=2021-01-01',
     'Testing 1':

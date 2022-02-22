@@ -5,5 +5,6 @@ export default () => ({
     ...defaultState,
     ...decode(string),
   }),
-  encode: (state) => prepend(encode(state), '?'),
+  encode: (state, options = {}) =>
+    prepend(encode(state, options), '?'),
 });
