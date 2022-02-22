@@ -44,17 +44,21 @@ export const toTruthy = (str, trans) => {
   return strToBool(str) ? t('yes') : t('no');
 };
 
-export const toDate = (str, fallbackText = '') =>
-  moment(str, moment.ISO_8601).isValid()
-    ? moment
-        .parseZone(str, moment.HTML5_FMT.DATETIME_LOCAL_MS)
-        .format('MMM DD, Y[\r\n]LT')
-    : fallbackText;
+const makeDateFn =
+  (format) =>
+  (str, fallbackText = '') =>
+    moment(str, moment.ISO_8601).isValid()
+      ? moment
+          .parseZone(
+            str,
+            moment.HTML5_FMT.DATETIME_LOCAL_MS,
+          )
+          .format(format)
+      : fallbackText;
 
-export const toYearMonthDay = (str) =>
-  str !== undefined && str !== null
-    ? moment(str).format('YYYY-MM-DD')
-    : '';
+export const toDate = makeDateFn('MMM DD, Y[\r\n]LT');
+export const toSimpleDate = makeDateFn('MMM DD, Y');
+export const toYearMonthDay = makeDateFn('YYYY-MM-DD');
 
 export const toPrice = (str) => {
   const num = Number(str);

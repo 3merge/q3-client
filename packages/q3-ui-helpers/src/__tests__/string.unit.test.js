@@ -31,23 +31,14 @@ describe('string', () => {
   });
 
   describe('"strToBool"', () => {
-    test.each([
-      false,
-      'false',
-      null,
-      undefined,
-      0,
-    ])('should return true', (v) =>
-      expect(string.strToBool(v)).toBeFalsy(),
+    test.each([false, 'false', null, undefined, 0])(
+      'should return true',
+      (v) => expect(string.strToBool(v)).toBeFalsy(),
     );
 
-    test.each([
-      'FOO',
-      true,
-      'true',
-      12,
-    ])('should return false', (v) =>
-      expect(string.strToBool(v)).toBeTruthy(),
+    test.each(['FOO', true, 'true', 12])(
+      'should return false',
+      (v) => expect(string.strToBool(v)).toBeTruthy(),
     );
   });
 
