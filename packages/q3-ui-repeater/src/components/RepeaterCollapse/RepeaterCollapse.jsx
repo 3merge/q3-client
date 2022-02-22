@@ -18,13 +18,8 @@ const TransitionOverride = ({ in: show, children }) => (
 );
 
 const RepeaterCollapse = ({ children, label, toggles }) => {
-  const {
-    container,
-    content,
-    root,
-    pagination,
-    text,
-  } = useStyle();
+  const { container, content, root, pagination, text } =
+    useStyle();
 
   return label ? (
     <Accordion
@@ -57,7 +52,10 @@ const RepeaterCollapse = ({ children, label, toggles }) => {
           </Grid>
         </Grid>
       </AccordionSummary>
-      <AccordionDetails className={content}>
+      <AccordionDetails
+        data-group={label}
+        className={content}
+      >
         <Box width="100%">{children}</Box>
       </AccordionDetails>
     </Accordion>

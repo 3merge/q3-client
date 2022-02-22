@@ -173,6 +173,30 @@ const makeApiEndpoints = (
     });
 
   mockInstance
+    .onPost(
+      new RegExp(`${collectionName}\\/\\d+\\/seasons`),
+    )
+    .reply((a) => [
+      200,
+      {
+        seasons: [
+          {
+            id: 1,
+            title: 'One',
+          },
+          {
+            id: 2,
+            title: 'Two',
+          },
+          {
+            id: 3,
+            ...JSON.parse(a.data),
+          },
+        ],
+      },
+    ]);
+
+  mockInstance
     .onGet(new RegExp(`${collectionName}\\/\\d+\\/seasons`))
     .reply(200, {
       seasons: [

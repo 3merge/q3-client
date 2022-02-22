@@ -89,7 +89,7 @@ const RepeaterTable = ({
   const TableElement = React.useMemo(
     () => (
       <RepeaterTableContext.Provider value={tableState}>
-        <Table>
+        <Table className={cls.table}>
           <TableHead>
             <TableRow className={cls.tableHeader}>
               <TableCell component="th">

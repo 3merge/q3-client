@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Asset from 'q3-ui-assets';
-import { Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { compose } from 'lodash/fp';
 import { isFunction, size } from 'lodash';
 import ActionBar from '../ActionBar';
@@ -88,23 +88,31 @@ const Repeater = ({
 
   const Tools = React.useMemo(
     () => (
-      <>
-        {addComponent && Add}
-        <RepeaterOptions
-          state={state}
-          dispatch={dispatch}
-          filterOptions={filterOptions}
-          sortOptions={sortOptions}
-          disableSearch={!showSearch}
-        >
-          <ActionBar
-            renderSelected={bulkEditorComponent}
-            length={len}
-          />
-          {CustomElements}
-          {!addComponent && Add}
-        </RepeaterOptions>
-      </>
+      <Grid
+        container
+        alignItems="center"
+        justifyContent="space-between"
+        direction={addComponent ? 'row' : 'row-reverse'}
+      >
+        <Grid item xs={addComponent ? 12 : undefined}>
+          {Add}
+        </Grid>
+        <Grid item>
+          <RepeaterOptions
+            state={state}
+            dispatch={dispatch}
+            filterOptions={filterOptions}
+            sortOptions={sortOptions}
+            disableSearch={!showSearch}
+          >
+            <ActionBar
+              renderSelected={bulkEditorComponent}
+              length={len}
+            />
+            {CustomElements}
+          </RepeaterOptions>
+        </Grid>
+      </Grid>
     ),
     [
       Add,

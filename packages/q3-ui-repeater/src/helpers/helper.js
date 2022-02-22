@@ -1,4 +1,5 @@
 import { array } from 'q3-ui-helpers';
+import { orderBy, sortBy, isFunction } from 'lodash';
 
 export const checkValues = (original, transformed) =>
   original.length &&
@@ -19,18 +20,15 @@ export const filter = (obj) => (xs) => {
   return xs.filter(obj.fn);
 };
 
-const defaultSort = (label) => (a, b) => {
-  if (a[label] === b[label]) return 0;
-  if (a[label] == null) return 1;
-  if (b[label] == null) return -1;
-
-  return a[label] < b[label] ? -1 : 1;
-};
-
 export const sort = (obj) => (xs) => {
   if (!array.hasLength(xs) || !obj) return xs;
-  const { label, fn = null } = obj;
-  return xs.slice().sort(fn || defaultSort(label));
+  const { label, fn = null, direction = 'asc' } = obj;
+
+  return orderBy(
+    xs,
+    [isFunction(fn) ? fn : label],
+    [direction],
+  );
 };
 
 const OTHER = 'other';
