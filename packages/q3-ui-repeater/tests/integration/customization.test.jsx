@@ -6,6 +6,12 @@ import Repeater from '../../src';
 import { Search, ItemHeader } from '../../src/components';
 
 jest.unmock('useful-state');
+jest.mock(
+  '@material-ui/core/Hidden',
+  () =>
+    ({ children }) =>
+      children,
+);
 
 const render = (props = {}) =>
   global.mount(
