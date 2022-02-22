@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fade } from '@material-ui/core';
+import { useAuth } from 'q3-ui-permissions';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import ActionBar from '../../components/ActionBar';
 import Search from '../../components/Search';
 import Add from '../add';
 import Segments from '../../components/Segments';
+import { Definitions } from '../state';
+
+const SearchWithPermissions = () => {
+  const { collectionName } = React.useContext(Definitions);
+  const { canSeeSub } = useAuth(collectionName);
+  return canSeeSub('grams') ? <Search /> : null;
+};
 
 const TableActions = ({
   addComponent: AddForm,
@@ -15,7 +23,7 @@ const TableActions = ({
 }) => (
   <Fade in>
     <ActionBar>
-      <Search />
+      <SearchWithPermissions />
       {FilterComponent ? (
         <>
           <Segments />

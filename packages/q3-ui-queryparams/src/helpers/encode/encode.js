@@ -39,14 +39,9 @@ const wrapSingularValue = (xs) => {
     !xs ||
     isNumeric(xs) ||
     ['true', 'false'].includes(String(xs)) ||
-    [
-      'string',
-      'in',
-      'exists',
-      'has',
-      '{',
-      '/',
-    ].some((item) => String(xs).startsWith(item))
+    ['string', 'in', 'exists', 'has', '{', '/'].some(
+      (item) => String(xs).startsWith(item),
+    )
   )
     return xs;
 
@@ -60,21 +55,25 @@ export const extractValue = (val) =>
       : wrapSingularValue(val),
   );
 
-export default (o) =>
+export default (o, options = {}) =>
   Object.entries(flat.unflatten(o))
     .reduce((acc, [key, value]) => {
       if (value === null) return acc;
+      const { includePageParam = false } = options;
 
-      const normalized = ![
+      const blacklist = [
         'active',
         'limit',
-        'page',
         'search',
         'sort',
         'fields',
         'filter',
         'populate',
-      ].includes(key)
+      ];
+
+      if (!includePageParam) blacklist.push('page');
+
+      const normalized = !blacklist.includes(key)
         ? extractValue(value)
         : value;
 
