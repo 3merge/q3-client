@@ -44,8 +44,15 @@ const withEditableTypography = ({
 
     const formatText = (value) => {
       let formatted = value;
-      const { type, toDate, toPrice, toTruthy, trans } =
-        editable;
+      const {
+        type,
+        toDate,
+        toSimpleDate,
+        toYearMonthDay,
+        toPrice,
+        toTruthy,
+        trans,
+      } = editable;
 
       if (type === 'number')
         formatted = string.toNumber(
@@ -56,11 +63,23 @@ const withEditableTypography = ({
       if (type === 'checkbox' || toTruthy)
         formatted = string.toTruthy(value, t);
 
-      if (toDate || type === 'date')
-        formatted = string.toDate(
-          value,
-          defaultPlaceholder,
-        );
+      if (type === 'date' || toDate) {
+        if (toSimpleDate)
+          formatted = string.toSimpleDate(
+            value,
+            defaultPlaceholder,
+          );
+        else if (toYearMonthDay)
+          formatted = string.toYearMonthDay(
+            value,
+            defaultPlaceholder,
+          );
+        else
+          formatted = string.toDate(
+            value,
+            defaultPlaceholder,
+          );
+      }
 
       if (toPrice) formatted = string.toPrice(value);
       if (trans) formatted = t(value);
