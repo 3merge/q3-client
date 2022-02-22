@@ -10,27 +10,43 @@ import PhotoUpload from '../PhotoUpload';
 
 const Avatar = (props) => {
   const { t } = useTranslation('labels');
+  const avatarProps = omit(props, [
+    'customizer',
+    'onDelete',
+  ]);
+
+  const AvatarRenderer = React.useMemo(
+    () => (
+      <MuiAvatar
+        {...avatarProps}
+        alt={t('imagePreview')}
+        variant="rounded"
+      >
+        <PhotoCameraIcon />
+      </MuiAvatar>
+    ),
+    [avatarProps],
+  );
 
   return (
     <Dialog
       title="featuredPhoto"
       renderContent={() => <PhotoUpload {...props} />}
-      renderTrigger={(open) => (
-        <Tooltip arrow title={t('changeFeaturedPhoto')}>
-          <IconButton
-            aria-label={t('changeFeaturedPhoto')}
-            onClick={open}
-          >
-            <MuiAvatar
-              {...omit(props, ['customizer', 'onDelete'])}
-              alt={t('imagePreview')}
-              variant="rounded"
+      renderTrigger={(open) =>
+        // eslint-disable-next-line
+        props?.disabled ? (
+          AvatarRenderer
+        ) : (
+          <Tooltip arrow title={t('changeFeaturedPhoto')}>
+            <IconButton
+              aria-label={t('changeFeaturedPhoto')}
+              onClick={open}
             >
-              <PhotoCameraIcon />
-            </MuiAvatar>
-          </IconButton>
-        </Tooltip>
-      )}
+              {AvatarRenderer}
+            </IconButton>
+          </Tooltip>
+        )
+      }
     />
   );
 };
