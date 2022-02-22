@@ -96,11 +96,15 @@ export const isSeq = (item) => Number(item.seq) === 211;
           { label: 'sku' },
           {
             label: 'Price (Low to high)',
-            fn: (a, b) => a.price - b.price,
+            fn: (a, b) => {
+              return a.price;
+            },
+            direction: 'asc',
           },
           {
             label: 'Price (High to low)',
-            fn: (a, b) => b.price - a.price,
+            fn: (a) => a.price,
+            direction: 'desc',
           },
         ]}
         filterOptions={[

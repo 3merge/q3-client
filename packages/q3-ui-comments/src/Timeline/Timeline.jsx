@@ -23,8 +23,11 @@ const hasReplies = (id) => (xs) => xs?.replies === id;
 const descending = (xs) => sortBy(xs, 'createdAt');
 const ascending = (xs) => descending(xs).reverse();
 
-const sortData = (xs, asc) => {
-  const data = filter(xs, doesNotHaveReplies);
+const sortData = (xs, asc, options = {}) => {
+  const data = options?.skipFilter
+    ? xs
+    : filter(xs, doesNotHaveReplies);
+
   return asc ? ascending(data) : descending(data);
 };
 
@@ -35,7 +38,7 @@ export const NestedTimeline = ({ children, ...props }) => (
   </Box>
 );
 
-const Timeline = ({ asc, data, insertNode, ...rest }) => {
+const Timeline = ({ data, insertNode, ...rest }) => {
   const { collectionName } = rest;
   const auth = useAuth(collectionName);
   const cls = useStyle();
@@ -48,7 +51,7 @@ const Timeline = ({ asc, data, insertNode, ...rest }) => {
 
   return (
     <MuiTimeline className={cls.container}>
-      {map(sortData(data, asc), (t) => {
+      {map(sortData(data, true), (t) => {
         const replies = filter(data, hasReplies(t.id));
 
         return (
@@ -66,22 +69,27 @@ const Timeline = ({ asc, data, insertNode, ...rest }) => {
             {renderDynamic(t)}
             {size(replies) > 0 && (
               <NestedTimeline className={cls.root}>
-                {map(ascending(replies), (item) => (
-                  <TimelineEntry
-                    actions={
-                      <TimelineActions
-                        comment={item}
-                        field={path}
-                        {...rest}
-                      />
-                    }
-                    key={item.id}
-                    connector
-                    {...item}
-                  >
-                    {renderDynamic(item)}
-                  </TimelineEntry>
-                ))}
+                {map(
+                  sortData(replies, false, {
+                    skipFilter: true,
+                  }),
+                  (item) => (
+                    <TimelineEntry
+                      actions={
+                        <TimelineActions
+                          comment={item}
+                          field={path}
+                          {...rest}
+                        />
+                      }
+                      key={item.id}
+                      connector
+                      {...item}
+                    >
+                      {renderDynamic(item)}
+                    </TimelineEntry>
+                  ),
+                )}
               </NestedTimeline>
             )}
             {canCreateSub(path) && (
@@ -111,12 +119,10 @@ const Timeline = ({ asc, data, insertNode, ...rest }) => {
 };
 
 Timeline.defaultProps = {
-  asc: true,
   insertNode: null,
 };
 
 Timeline.propTypes = {
-  asc: PropTypes.bool,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       // eslint-disable-next-line

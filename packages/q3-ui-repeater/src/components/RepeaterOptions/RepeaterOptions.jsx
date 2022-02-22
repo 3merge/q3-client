@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Hidden } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import SelectForm from '../SelectForm';
@@ -26,8 +26,19 @@ const RepeaterOptions = ({
       alignItems="center"
       container
       spacing={1}
-      justifyContent="flex-end"
+      justifyContent="flex-start"
     >
+      {!disableSearch && (
+        <Hidden smDown>
+          <Grid
+            item
+            xs
+            style={{ width: 320, maxWidth: '100%' }}
+          >
+            <Search handleInput={handleInput} />
+          </Grid>
+        </Hidden>
+      )}
       <SelectForm
         handleChange={handleChange('filterBy')}
         icon={<FilterListIcon />}
@@ -43,11 +54,6 @@ const RepeaterOptions = ({
         value={sortBy}
       />
       {children}
-      {!disableSearch && (
-        <Grid item xs={12}>
-          <Search handleInput={handleInput} />
-        </Grid>
-      )}
     </Grid>
   );
 };

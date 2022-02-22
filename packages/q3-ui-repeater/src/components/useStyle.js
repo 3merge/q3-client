@@ -82,6 +82,12 @@ export default makeStyles((theme) => ({
     display: 'table-cell',
     padding: '.75rem',
 
+    '& [data-repeater-editable]': {
+      whiteSpace: 'nowrap !important',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+
     '& [data-repeater-editable] > span > button': {
       padding: 0,
       textAlign: 'left',
@@ -89,19 +95,17 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('sm')]: {
       width: '100%',
-      alignItems: 'flex-start',
-      display: 'grid',
-      gridTemplateColumns: '120px 1fr',
+      display: 'block',
       lineHeight: 2,
       border: '0 !important',
       padding: '0',
 
       '& >div': {
-        justifyContent: 'space-between !important',
+        display: 'block',
         '& > div': {
           padding: '0 !important',
           '&:last-of-type': {
-            textAlign: 'right',
+            textAlign: 'left',
           },
         },
       },
@@ -210,7 +214,7 @@ export default makeStyles((theme) => ({
         },
 
         '&:last-of-type': {
-          marginTop: theme.spacing(1),
+          marginTop: theme.spacing(2),
         },
       },
     },
@@ -225,6 +229,16 @@ export default makeStyles((theme) => ({
 
   divide: {
     borderTop: `1px solid ${theme.palette.background.muted}`,
+  },
+
+  table: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'block',
+
+      '& tbody': {
+        display: 'block',
+      },
+    },
   },
 
   tableHeader: {

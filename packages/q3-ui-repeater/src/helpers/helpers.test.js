@@ -89,9 +89,9 @@ test('should sort by number', () => {
 });
 
 test('should sort by number using customFun', () => {
-  const fn = (a, b) => b.id - a.id;
-
-  expect(sort({ label: 'id', fn })(list)).toEqual([
+  expect(
+    sort({ label: 'id', direction: 'desc' })(list),
+  ).toEqual([
     { id: 3, name: 'f' },
     { id: 2, name: 'e' },
     { id: 1, name: 'g' },
@@ -122,8 +122,8 @@ test('should falsy values come after truthy values', () => {
     { id: 1, name: 'g' },
     { id: 8, name: 'zz' },
     { id: 4, name: null },
-    { id: 5 },
     { id: 6, name: null },
+    { id: 5 },
     { id: 7, name: undefined },
   ]);
 });

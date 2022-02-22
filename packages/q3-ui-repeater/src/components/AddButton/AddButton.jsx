@@ -22,7 +22,7 @@ export const AddButtonTrigger = ({ onClick }) => {
 
   return (
     <Box id="q3-repeater-add-button">
-      <Hidden mdDown>
+      <Hidden smDown>
         <Box ml={1}>
           <Button
             color="secondary"
@@ -33,7 +33,7 @@ export const AddButtonTrigger = ({ onClick }) => {
           </Button>
         </Box>
       </Hidden>
-      <Hidden lgUp>
+      <Hidden mdUp>
         <IconButton
           color="inherit"
           onClick={onClick}
