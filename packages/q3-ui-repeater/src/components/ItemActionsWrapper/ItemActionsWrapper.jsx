@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from '@reach/router';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Tooltip } from '@material-ui/core';
 import Pageview from '@material-ui/icons/Pageview';
 import Dialog from 'q3-ui-dialog';
 import { object } from 'q3-ui-helpers';
 import { get } from 'lodash';
+import { useTranslation } from 'q3-ui-locale';
 import Context from '../state';
 import useNextPrev from '../useNextPrev';
 
@@ -18,11 +19,11 @@ const ItemActionsWrapper = ({
 }) => {
   const DOC_PARAM = 'selectedSubDocument';
   const ref = React.useRef();
+  const { t } = useTranslation('labels');
 
   const { state } = useLocation();
-  const { collectionName, edit } = React.useContext(
-    Context,
-  );
+  const { collectionName, edit } =
+    React.useContext(Context);
 
   const navigate = useNavigate();
   const stateId = get(state, DOC_PARAM);
@@ -61,15 +62,16 @@ const ItemActionsWrapper = ({
   };
 
   const renderTrigger = (toggle) => (
-    <IconButton
-      ref={ref}
-      aria-label={label}
-      className="q3-repeater-editor-button"
-      color="inherit"
-      onClick={toggle}
-    >
-      <Icon />
-    </IconButton>
+    <Tooltip arrow title={t(label)}>
+      <IconButton
+        ref={ref}
+        className="q3-repeater-editor-button"
+        color="inherit"
+        onClick={toggle}
+      >
+        <Icon />
+      </IconButton>
+    </Tooltip>
   );
 
   React.useEffect(() => {
