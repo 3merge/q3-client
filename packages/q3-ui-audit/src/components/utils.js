@@ -18,7 +18,7 @@ export const getIcon = (key) =>
 
 export const getColor = (key) =>
   ({
-    additions: blue[900],
-    deletions: red[900],
-    updates: purple[900],
+    additions: blue,
+    deletions: red,
+    updates: purple,
   }[key]);
