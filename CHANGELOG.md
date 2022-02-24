@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.16](https://github.com/3merge/q3-client/compare/v2.3.15...v2.3.16) (2022-02-24)
+
+**Note:** Version bump only for package q3-client
+
+
+
+
+
+
 ## [2.3.15](https://github.com/3merge/q/compare/v2.3.14...v2.3.15) (2022-02-18)
 
 **Note:** Version bump only for package q3-client

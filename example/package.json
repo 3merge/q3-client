@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "2.3.15",
+  "version": "2.3.16",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
@@ -11,12 +11,12 @@
     "gatsby": "^4.2.0",
     "gatsby-theme-q3": "^2.3.11",
     "prop-types": "^15.7.2",
-    "q3-admin": "^2.3.15",
+    "q3-admin": "^2.3.16",
     "q3-blocks": "^2.3.11",
     "q3-components": "^2.3.11",
     "q3-ui": "^2.3.11",
     "q3-ui-assets": "^2.3.11",
-    "q3-ui-audit": "^2.3.15",
+    "q3-ui-audit": "^2.3.16",
     "q3-ui-confirm": "^2.3.11",
     "q3-ui-datatables": "^2.3.11",
     "q3-ui-dialog": "^2.3.11",
