@@ -6,6 +6,10 @@ export default makeStyles(() => ({
     margin: 0,
     tableLayout: 'fixed',
     width: 'auto !important',
+
+    '& th': {
+      color: 'inherit',
+    },
   },
   cellHead: {
     border: 0,
@@ -13,10 +17,12 @@ export default makeStyles(() => ({
     textAlign: 'left',
     verticalAlign: 'text-top',
     paddingLeft: 0,
+    color: 'inherit',
   },
   cell: {
     border: 0,
     paddingLeft: 0,
+    color: 'inherit',
 
     '&:first-of-type': {
       paddingRight: '2rem',

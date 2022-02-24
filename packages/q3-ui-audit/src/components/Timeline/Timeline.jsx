@@ -3,7 +3,11 @@ import Alert from '@material-ui/lab/Alert';
 import { map, join, size } from 'lodash';
 import PropTypes from 'prop-types';
 import { lighten } from '@material-ui/core/styles';
-import { Box, CircularProgress } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  useTheme,
+} from '@material-ui/core';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -43,7 +47,9 @@ const TimelineCustom = ({
   changes,
 }) => {
   const cls = useStyle();
+  const theme = useTheme();
   const { t } = useTranslation('descriptions');
+  const isDark = theme?.palette?.type === 'dark';
 
   if (fetching) return <CircularProgress />;
 
@@ -69,28 +75,34 @@ const TimelineCustom = ({
         makeEntries(record).map(
           ({ action, data: entry, key }) => {
             const color = getColor(action);
-            const Icon = getIcon(action);
+            const hue = isDark ? 50 : 900;
+            const backgroundColor = color[hue];
 
             return (
               <TimelineItem className={cls.entry} key={key}>
                 <TimelineSeparator>
                   <TimelineDot
                     style={{
-                      backgroundColor: color,
+                      backgroundColor,
                     }}
                   />
                   <TimelineConnector
-                    style={{ backgroundColor: color }}
+                    style={{
+                      backgroundColor,
+                    }}
                   />
                 </TimelineSeparator>
                 <TimelineContent>
                   <Box
-                    bgcolor={lighten(color, 0.95)}
+                    bgcolor={
+                      isDark ? color[500] : color[50]
+                    }
+                    color="inherit"
                     p={1}
                     position="relative"
                   >
                     <Box
-                      color={color}
+                      color={backgroundColor}
                       display="flex"
                       mb={0.5}
                       justifyContent="space-between"
