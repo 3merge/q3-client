@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-comments",
-  "version": "2.3.15",
+  "version": "2.3.17",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
@@ -19,7 +19,7 @@
     "moment": "2.29.1",
     "prop-types": "^15.7.2",
     "q3-ui": "^2.3.11",
-    "q3-ui-confirm": "^2.3.11",
+    "q3-ui-confirm": "^2.3.17",
     "q3-ui-dialog": "^2.3.11",
     "q3-ui-forms": "^2.3.11",
     "q3-ui-helpers": "^2.2.0",

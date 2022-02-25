@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "2.3.16",
+  "version": "2.3.17",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^2.2.0"
@@ -19,7 +19,7 @@
     "q3-ui": "^2.3.11",
     "q3-ui-audit": "^2.3.16",
     "q3-ui-charts": "^2.3.11",
-    "q3-ui-confirm": "^2.3.11",
+    "q3-ui-confirm": "^2.3.17",
     "q3-ui-datatables": "^2.3.11",
     "q3-ui-dialog": "^2.3.11",
     "q3-ui-filemanager": "^2.3.11",
