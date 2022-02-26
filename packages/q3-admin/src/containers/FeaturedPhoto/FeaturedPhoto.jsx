@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useAuth } from 'q3-ui-permissions';
 import { Avatar, PhotoUpload } from 'q3-ui-filemanager';
 import { makeStyles } from '@material-ui/core';
-import { Definitions } from '../state';
+import { useCanEditField } from '../../hooks';
 
 const useStyle = makeStyles(() => ({
   picture: {
@@ -20,9 +19,6 @@ const FeaturedPhoto = ({
   update,
   src,
 }) => {
-  const { collectionName } = React.useContext(Definitions);
-  const { canEditSub } = useAuth(collectionName);
-
   const isFeaturedPhotoImplementation =
     field === FEATURED_UPLOAD_KEY;
 
@@ -44,7 +40,7 @@ const FeaturedPhoto = ({
   return (
     <Component
       src={src}
-      disabled={!canEditSub(field)}
+      disabled={!useCanEditField(field)}
       className={useStyle().picture}
       customizer={() => field}
       onDrop={onDrop}

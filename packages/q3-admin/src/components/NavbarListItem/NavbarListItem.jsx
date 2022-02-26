@@ -20,7 +20,6 @@ const NavbarList = ({
   to,
   label,
   icon: IconComponent,
-  disableSegmentAll,
 }) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
@@ -87,7 +86,6 @@ const NavbarList = ({
       </ListItem>
       <Collapse in={state}>
         <NavbarListItemSegments
-          disableSegmentAll={disableSegmentAll}
           isActive={current}
           segments={segments}
           to={to}
@@ -100,7 +98,6 @@ const NavbarList = ({
 NavbarList.defaultProps = {
   icon: null,
   segments: {},
-  disableSegmentAll: false,
 };
 
 NavbarList.propTypes = {
@@ -109,7 +106,6 @@ NavbarList.propTypes = {
     PropTypes.func,
   ]),
   label: PropTypes.string.isRequired,
-  disableSegmentAll: PropTypes.bool,
   to: PropTypes.string.isRequired,
   // eslint-disable-next-line
   segments: PropTypes.object,

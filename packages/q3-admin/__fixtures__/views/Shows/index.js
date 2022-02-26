@@ -13,7 +13,6 @@ export default new AbstractCollectionBuilder({
   resourceNameSingular: 'show',
   icon: CreditCard,
   parent: 'entertainment',
-  // disableSegmentAll: true,
   segments: {
     'Date Range': '?demo<=2021-08-01&demo>=2021-01-01',
     'Testing 1':

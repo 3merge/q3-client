@@ -1,20 +1,12 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
-import auth from 'q3-ui-permissions';
+import { useCanEditField } from '../../hooks';
+
 import FeaturedPhoto, {
   FEATURED_UPLOAD_KEY,
 } from './FeaturedPhoto';
 
-jest.mock('q3-ui-permissions', () => {
-  const canEditSub = jest.fn();
-
-  return {
-    canEditSub,
-    useAuth: jest.fn().mockReturnValue({
-      canEditSub,
-    }),
-  };
-});
+jest.mock('../../hooks/useCanEditField');
 
 describe('FeaturedPhoto', () => {
   it('should set FEATURED_UPLOAD_KEY to null', () => {
@@ -60,7 +52,7 @@ describe('FeaturedPhoto', () => {
   });
 
   it('should disable the component', () => {
-    auth.canEditSub.mockReturnValue(false);
+    useCanEditField.mockReturnValue(false);
 
     expect(
       global
@@ -77,7 +69,7 @@ describe('FeaturedPhoto', () => {
   });
 
   it('should enable the component', () => {
-    auth.canEditSub.mockReturnValue(true);
+    useCanEditField.mockReturnValue(true);
 
     expect(
       global
@@ -92,7 +84,7 @@ describe('FeaturedPhoto', () => {
         .props().disabled,
     ).toBeFalsy();
 
-    expect(auth.canEditSub).toHaveBeenLastCalledWith(
+    expect(useCanEditField).toHaveBeenLastCalledWith(
       'custom',
     );
   });

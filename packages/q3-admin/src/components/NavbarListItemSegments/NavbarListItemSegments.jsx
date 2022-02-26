@@ -7,7 +7,6 @@ import useSegments from '../../hooks/useSegments';
 import useStyle from './styles';
 
 const NavbarListItemSegments = ({
-  disableSegmentAll,
   isActive,
   to,
   segments,
@@ -27,23 +26,21 @@ const NavbarListItemSegments = ({
   return (
     <ListItem className={cls.segments}>
       <List className={cls.list}>
-        {!disableSegmentAll && (
-          <ListItem className={cls.listItem}>
-            <Button
-              className={
-                isActive && !active
-                  ? cls.activeSegment
-                  : undefined
-              }
-              color="inherit"
-              component={Link}
-              fullWidth
-              to={to}
-            >
-              {t('all')}
-            </Button>
-          </ListItem>
-        )}
+        <ListItem className={cls.listItem}>
+          <Button
+            className={
+              isActive && !active
+                ? cls.activeSegment
+                : undefined
+            }
+            color="inherit"
+            component={Link}
+            fullWidth
+            to={to}
+          >
+            {t('all')}
+          </Button>
+        </ListItem>
         {data.map(({ label, value }) => (
           <ListItem className={cls.listItem}>
             <Button
@@ -68,12 +65,10 @@ const NavbarListItemSegments = ({
 
 NavbarListItemSegments.defaultProps = {
   isActive: false,
-  disableSegmentAll: false,
 };
 
 NavbarListItemSegments.propTypes = {
   isActive: PropTypes.bool,
-  disableSegmentAll: PropTypes.bool,
   to: PropTypes.string.isRequired,
   // eslint-disable-next-line
   segments: PropTypes.object.isRequired,
