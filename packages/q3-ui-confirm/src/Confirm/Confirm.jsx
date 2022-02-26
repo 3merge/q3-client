@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LaunchIcon from '@material-ui/icons/Launch';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Tooltip } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from 'q3-ui-dialog';
 import { isFunction } from 'lodash';
@@ -47,14 +47,16 @@ const Confirm = ({
             {t(label)}
           </Button>
         ) : (
-          <IconButton
-            aria-label={t(title)}
-            color="inherit"
-            {...sharedButtonProps}
-            {...IconButtonProps}
-          >
-            <Icon />
-          </IconButton>
+          <Tooltip arrow title={t(title)}>
+            <IconButton
+              aria-label={t(title)}
+              color="inherit"
+              {...sharedButtonProps}
+              {...IconButtonProps}
+            >
+              <Icon />
+            </IconButton>
+          </Tooltip>
         );
       }}
       renderContent={(close) => (

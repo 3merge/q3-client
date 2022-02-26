@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import Confirm from 'q3-ui-confirm';
 import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
-import {
-  Grid,
-  Tooltip,
-  IconButton,
-} from '@material-ui/core';
+import { Tooltip, IconButton } from '@material-ui/core';
 import { State } from 'q3-ui-exports';
 import { useTranslation } from 'q3-ui-locale';
 import Context from '../state';
@@ -21,21 +17,19 @@ const BulkDeleteModal = () => {
 
   const ButtonComponent = React.useCallback(
     (props) => (
-      <Grid item>
-        <Tooltip title={t('bulkDelete')}>
-          <span>
-            <IconButton
-              {...props}
-              color="inherit"
-              className="q3-repeater-bulk-delete"
-              // eslint-disable-next-line
-              disabled={!checked.length || props.disabled}
-            >
-              <DeleteSweepIcon />
-            </IconButton>
-          </span>
-        </Tooltip>
-      </Grid>
+      <Tooltip arrow title={t('bulkDelete')}>
+        <span>
+          <IconButton
+            {...props}
+            color="inherit"
+            className="q3-repeater-bulk-delete"
+            // eslint-disable-next-line
+            disabled={!checked.length || props.disabled}
+          >
+            <DeleteSweepIcon />
+          </IconButton>
+        </span>
+      </Tooltip>
     ),
     [checked],
   );

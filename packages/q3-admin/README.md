@@ -11,20 +11,10 @@ and used in more advanced cases.
 
 #### API
 
-| Prop                                         | Description                                                                                                                                                                 | Type         |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| `AppProps.addons`                            | Components that register as new pages under the "Add-ons" (**display name required**).                                                                                      | `array*`     |
-| `AppProps.directory`                         | The relative path where Q3 will render (i.e. /app/)                                                                                                                         | `string`     |
-| `AppProps.pages`                             | Collections to render in the UI. See the `AbstractBuilder` for data structure. If a home component is not provided, it will redirect to the first collection in this array. | `array`      |
-| `NavProps.logoSrc`                           | The logo for inside the appbar                                                                                                                                              | `string`     |
-| `ProfileActionsProps.includeDocumentation`   | Load the documentation widget                                                                                                                                               | `boolean`    |
-| `ProfileActionsProps.includeNotifications`   | Load the notifications bell                                                                                                                                                 | `boolean`    |
-| `ProfileActionsProps.includeThemeMode`       | Load dark-mode                                                                                                                                                              | `boolean`    |
-| `ProfileActionsProps.includeActionsDropdown` | Load profile avatar and menu                                                                                                                                                | `boolean`    |
-| `children`                                   | Custom routes (**requires path prop on each**)                                                                                                                              | `array/node` |
-| `ProfileComponent`                           | Override the default profile form                                                                                                                                           | `func`       |
-| `ProfileChangePasswordComponent`             | Override the default change password form                                                                                                                                   | `func`       |
-| `ProfileNotificationsComponent`              | Override the default notifications form                                                                                                                                     | `func`       |
+| Prop                 | Description                                                      | Type     |
+| -------------------- | ---------------------------------------------------------------- | -------- |
+| `AppProps.directory` | The relative path where Q3 renders (i.e. /app/)                  | `string` |
+| `AppProps.pages`     | Collections to render. See `AbstractBuilder` for data structure. | `array`  |
 
 #### Example
 
@@ -35,10 +25,7 @@ import { Builders } from 'q3-ui-forms';
 import Tests from './components/Tests';
 
 export default () => (
-  <Admin
-    AppProps={{ pages }}
-    NavProps={{ logoSrc: '/logo.png' }}
-  >
+  <Admin AppProps={{ pages }}>
     <Tests path="/tests" />
   </Admin>
 );

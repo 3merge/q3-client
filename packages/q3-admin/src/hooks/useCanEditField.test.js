@@ -13,7 +13,7 @@ describe('useCanEditField', () => {
       canEditSub: jest.fn().mockReturnValue(true),
     });
 
-    expect(useCanEditField()).toBeTruthy();
+    expect(useCanEditField('fieldname')).toBeTruthy();
   });
 
   it('should return truthy when editable', () => {
@@ -25,7 +25,7 @@ describe('useCanEditField', () => {
       canEditSub: jest.fn().mockReturnValue(true),
     });
 
-    expect(useCanEditField()).toBeTruthy();
+    expect(useCanEditField('fieldname')).toBeTruthy();
   });
 
   it('should return falsy when not editable', () => {
@@ -37,6 +37,6 @@ describe('useCanEditField', () => {
       canEditSub: jest.fn().mockReturnValue(false),
     });
 
-    expect(useCanEditField()).toBeFalsy();
+    expect(useCanEditField('fieldname')).toBeFalsy();
   });
 });

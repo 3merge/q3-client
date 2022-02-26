@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import { isFunction } from 'lodash';
 import { State } from 'q3-ui-exports';
-import {
-  Grid,
-  Tooltip,
-  IconButton,
-} from '@material-ui/core';
+import { Tooltip, IconButton } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import { useTranslation } from 'q3-ui-locale';
 import Auth from '../Auth';
@@ -33,20 +29,18 @@ const BulkEditorDrawer = ({ children }) => {
             : React.cloneElement(children, args);
         }}
         renderTrigger={(onClick) => (
-          <Grid item>
-            <Tooltip title={t('bulkUpdate')}>
-              <span>
-                <IconButton
-                  color="inherit"
-                  className="q3-repeater-bulk-update"
-                  disabled={!checked.length}
-                  onClick={onClick}
-                >
-                  <Edit />
-                </IconButton>
-              </span>
-            </Tooltip>
-          </Grid>
+          <Tooltip arrow title={t('bulkUpdate')}>
+            <span>
+              <IconButton
+                color="inherit"
+                className="q3-repeater-bulk-update"
+                disabled={!checked.length}
+                onClick={onClick}
+              >
+                <Edit />
+              </IconButton>
+            </span>
+          </Tooltip>
         )}
       />
     </Auth>

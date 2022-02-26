@@ -1,9 +1,17 @@
 import React from 'react';
-import { Grid, Hidden } from '@material-ui/core';
+import { Box, Hidden, makeStyles } from '@material-ui/core';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import SelectForm from '../SelectForm';
 import Search from '../Search';
+
+const useStyle = makeStyles(() => ({
+  root: {
+    '& button:disabled': {
+      display: 'none',
+    },
+  },
+}));
 
 const RepeaterOptions = ({
   filterOptions,
@@ -13,6 +21,7 @@ const RepeaterOptions = ({
   disableSearch,
   children,
 }) => {
+  const cls = useStyle();
   const handleChange = (label) => (e) =>
     dispatch({ type: label, payload: e.target.value });
 
@@ -22,21 +31,17 @@ const RepeaterOptions = ({
   const { sortBy, filterBy } = state;
 
   return (
-    <Grid
+    <Box
+      display="flex"
       alignItems="center"
-      container
-      spacing={1}
       justifyContent="flex-start"
+      className={cls.root}
     >
       {!disableSearch && (
         <Hidden smDown>
-          <Grid
-            item
-            xs
-            style={{ width: 320, maxWidth: '100%' }}
-          >
+          <Box maxWidth="100%" width={320} mr={1}>
             <Search handleInput={handleInput} />
-          </Grid>
+          </Box>
         </Hidden>
       )}
       <SelectForm
@@ -54,7 +59,7 @@ const RepeaterOptions = ({
         value={sortBy}
       />
       {children}
-    </Grid>
+    </Box>
   );
 };
 

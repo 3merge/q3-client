@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import {
-  Grid,
   MenuItem,
   Tooltip,
   IconButton,
@@ -22,8 +21,9 @@ const SortForm = ({
   const { open, anchorEl, close, isOpen } = useOpen();
 
   return (
-    <Grid item style={{ width: 'auto' }}>
+    <>
       <Tooltip
+        arrow
         title={t(get(options, `${value}.label`, label))}
       >
         <span>
@@ -61,7 +61,7 @@ const SortForm = ({
           </MenuItem>
         ))}
       </Menu>
-    </Grid>
+    </>
   );
 };
 
