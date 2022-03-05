@@ -1,12 +1,11 @@
-import { size, some } from 'lodash';
+import { filter, size, some } from 'lodash';
+
+const isNew = (item) =>
+  !item.hasDownloaded && !item.hasSeen;
 
 export default (notifications) => ({
-  active: some(
-    notifications,
-    // neither of message nor download that has been reached
-    (item) => !item.hasDownloaded && !item.hasSeen,
-  ),
-
+  active: some(notifications, isNew),
   hasItems: size(notifications) > 0,
-  numberOfNotifications: size(notifications),
+  numberOfNotificationsTotal: size(notifications),
+  numberOfNotifications: size(filter(notifications, isNew)),
 });
