@@ -3,12 +3,8 @@ import { size } from 'lodash';
 import useNotificationsService from './useNotificationsService';
 
 export default (options) => {
-  const {
-    data,
-    error,
-    markAsSeen,
-    post,
-  } = useNotificationsService(options);
+  const { data, error, markAsSeen, post } =
+    useNotificationsService(options);
   const ref = React.useRef();
 
   const acknowledge = (eventInstance, id) => {

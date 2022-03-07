@@ -12,7 +12,13 @@ const NotificationsListItemMessage = ({
 }) => (
   <ListItem
     component="div"
-    ref={useSeen({ id, hasSeen }, acknowledge)}
+    ref={useSeen(
+      {
+        id,
+        hasSeen,
+      },
+      acknowledge,
+    )}
     {...props}
   >
     {children}

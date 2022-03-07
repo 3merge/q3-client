@@ -80,6 +80,7 @@ const makeApiEndpoints = (
     {
       notifications: [
         {
+          id: 1,
           label: 'bucket/file',
           url: 'https://google.ca',
           createdAt: moment()
@@ -88,6 +89,7 @@ const makeApiEndpoints = (
           messageType: 'download',
         },
         {
+          id: 2,
           label: 'New app created',
           url: '/app/1',
           createdAt: moment().toISOString(),
@@ -96,6 +98,7 @@ const makeApiEndpoints = (
           messageType: 'document',
         },
         {
+          id: 3,
           label: 'Notice!',
           excerpt: 'This is a description',
           createdAt: moment()

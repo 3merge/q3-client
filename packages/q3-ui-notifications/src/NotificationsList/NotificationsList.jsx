@@ -38,10 +38,10 @@ export const NotificationsList = ({ data: rawData }) => {
   const { t } = useTranslation('descriptions');
 
   return isObject(data) ? (
-    Object.entries(data).map(([key, values]) =>
+    Object.entries(data).map(([key, values, idx]) =>
       size(values) ? (
         <List
-          key={key}
+          key={key || idx}
           subheader={<ListSubheader>{key}</ListSubheader>}
         >
           {map(values, (item, i) => (

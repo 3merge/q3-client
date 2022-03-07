@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
-import { compact } from 'lodash';
+import { compact, isFunction } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import NotificationsListItemLink from '../NotificationsListItemLink';
 import NotificationsListItemMessage from '../NotificationsListItemMessage';
@@ -23,12 +23,10 @@ const NotificationsListItem = ({
   url,
   ...props
 }) => {
-  const El =
-    onClick || url
-      ? NotificationsListItemLink
-      : NotificationsListItemMessage;
-
   const { t } = useTranslation('labels');
+  const El = isFunction(onClick)
+    ? NotificationsListItemLink
+    : NotificationsListItemMessage;
 
   const getMessageType = () => {
     if (messageType) return messageType;
@@ -87,6 +85,7 @@ NotificationsListItem.defaultProps = {
   excerpt: undefined,
   hasSeen: false,
   url: undefined,
+  label: undefined,
 };
 
 NotificationsListItem.propTypes = {
@@ -94,7 +93,7 @@ NotificationsListItem.propTypes = {
   id: PropTypes.string.isRequired,
   messageType: PropTypes.string,
   hasSeen: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
   excerpt: PropTypes.string,
   url: PropTypes.string,
