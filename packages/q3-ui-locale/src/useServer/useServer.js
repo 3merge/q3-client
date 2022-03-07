@@ -13,6 +13,9 @@ export default (i18nProps = {}) => {
   React.useEffect(() => {
     const i18nInstance = i18next.createInstance({
       ...i18nProps,
+      interpolation: {
+        escapeValue: false,
+      },
       ns: [
         'descriptions',
         'helpers',

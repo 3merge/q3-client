@@ -3,7 +3,7 @@ import EmailEditor from 'q3-ui-emaileditor';
 import QueueLogs from 'q3-ui-queuelogs';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { get } from 'lodash';
+import { get, map } from 'lodash';
 import App from './components/app';
 import {
   usePages,
@@ -56,6 +56,12 @@ const Admin = ({ AppProps }) => {
   useProfileTheme();
   useServerSideEvents();
 
+  const customProfilePages = get(
+    AppProps,
+    'profilePages',
+    [],
+  );
+
   return (
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
@@ -72,7 +78,19 @@ const Admin = ({ AppProps }) => {
               <ProfileChangeTheme path="theme" />
               <ProfileChangeNotifications path="notifications" />
               <ProfileChangePassword path="password" />
-              <Profile default />
+              {map(
+                customProfilePages,
+                ({
+                  component: ProfilePageComponent,
+                  path,
+                }) => (
+                  <ProfilePageComponent
+                    key={path}
+                    path={path}
+                  />
+                ),
+              )}
+              <Profile items={customProfilePages} default />
             </SystemPage>
             <SystemPage path="system">
               <DomainChangeBrowser path="browser" />
@@ -98,6 +116,13 @@ Admin.propTypes = {
         PropTypes.array,
         PropTypes.object,
       ]),
+    ),
+    profilePages: PropTypes.arrayOf(
+      PropTypes.shape({
+        path: PropTypes.string,
+        text: PropTypes.string,
+        to: PropTypes.string,
+      }),
     ),
   }).isRequired,
 };
