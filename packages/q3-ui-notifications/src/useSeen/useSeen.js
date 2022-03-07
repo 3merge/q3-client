@@ -2,7 +2,7 @@ import React from 'react';
 import { browser, object } from 'q3-ui-helpers';
 import { get } from 'lodash';
 
-export default (notification = {}, callback) => {
+export default (notification, callback) => {
   const ref = React.createRef();
   const { id, hasSeen } = notification;
 

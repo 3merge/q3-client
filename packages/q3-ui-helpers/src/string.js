@@ -57,8 +57,17 @@ const makeDateFn =
       : fallbackText;
 
 export const toDate = makeDateFn('MMM DD, Y[\r\n]LT');
+export const toHoursMinutes = makeDateFn('h:mm a');
 export const toSimpleDate = makeDateFn('MMM DD, Y');
 export const toYearMonthDay = makeDateFn('YYYY-MM-DD');
+
+export const toDayOfWeek = (xs, fallbackText = '') =>
+  moment(xs, moment.ISO_8601).isValid()
+    ? moment(xs)
+        .parseZone(xs, moment.HTML5_FMT.DATETIME_LOCAL_MS)
+        .startOf('day')
+        .format('LL')
+    : fallbackText;
 
 export const toPrice = (str) => {
   const num = Number(str);

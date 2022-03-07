@@ -19,6 +19,8 @@ export default (options = {}) => {
     );
 
   const markAsSeen = (id) => {
+    if (!id) return null;
+
     const equals = (xs) =>
       Array.isArray(id) ? id.includes(xs.id) : xs.id === id;
 

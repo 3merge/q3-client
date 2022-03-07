@@ -55,6 +55,7 @@ const ProfileNotifications = ({ children }) => {
               name={listen}
               type="checkbox"
               variant="switch"
+              under="listens"
             />
           ))
         )}

@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
   root: {
-    maxHeight: 250,
-    width: 350,
+    color: 'inherit',
+    textDecoration: 'none !important',
   },
 }));

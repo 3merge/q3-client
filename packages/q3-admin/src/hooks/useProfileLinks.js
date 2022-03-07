@@ -9,17 +9,6 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/theme',
-          text: 'accountThemeSettings',
-        },
-      ],
-      'theme',
-    ),
-    useAuthLinks(
-      'profile',
-      'canCreateSub',
-      [
-        {
           to: '/account/contact',
           text: 'accountContactInformation',
         },
@@ -47,6 +36,17 @@ const useProfileLinks = () =>
         },
       ],
       'lang',
+    ),
+    useAuthLinks(
+      'profile',
+      'canCreateSub',
+      [
+        {
+          to: '/account/theme',
+          text: 'accountThemeSettings',
+        },
+      ],
+      'theme',
     ),
     useAuthLinks('profile', 'canCreate', [
       {

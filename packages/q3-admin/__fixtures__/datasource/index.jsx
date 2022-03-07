@@ -1,6 +1,6 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { isObject } from 'lodash';
+import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
@@ -75,14 +75,39 @@ const makeApiEndpoints = (
     },
   ]);
 
-  mockInstance.onGet(/system-notifications/).reply(200, {
-    notifications: [
-      {
-        label: 'bucket/file',
-        url: 'https://google.caca',
-      },
-    ],
-  });
+  mockInstance.onGet(/system-notifications/).reply(() => [
+    200,
+    {
+      notifications: [
+        {
+          id: 1,
+          label: 'bucket/file',
+          url: 'https://google.ca',
+          createdAt: moment()
+            .subtract(2, 'day')
+            .toISOString(),
+          messageType: 'download',
+        },
+        {
+          id: 2,
+          label: 'New app created',
+          url: '/app/1',
+          createdAt: moment().toISOString(),
+          hasSeen: true,
+          hasDownloaded: true,
+          messageType: 'document',
+        },
+        {
+          id: 3,
+          label: 'Notice!',
+          excerpt: 'This is a description',
+          createdAt: moment()
+            .subtract(3, 'minute')
+            .toISOString(),
+        },
+      ],
+    },
+  ]);
 
   // this will expire
   mockInstance.onGet(/documentation/).reply(200, {

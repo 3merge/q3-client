@@ -19,4 +19,20 @@ describe('"useCount"', () => {
       hasSeen: true,
       hasDownloaded: true,
     }).toBeFalsy());
+
+  it('should count all', () => {
+    expect(
+      useCount([{}, {}, {}]).numberOfNotificationsTotal,
+    ).toBe(3);
+  });
+
+  it('should count active', () => {
+    expect(
+      useCount([
+        { hasSeen: true, hasDownloaded: true },
+        { hasSeen: false, hasDownloaded: false },
+        { hasSeen: true, hasDownloaded: true },
+      ]).numberOfNotifications,
+    ).toBe(1);
+  });
 });

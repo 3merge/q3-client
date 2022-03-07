@@ -5,11 +5,13 @@ import { useNotifications } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 
 const NotificationsContainer = () => {
-  const { acknowledge, data, error } = useNotifications();
+  const { data, syncSeen, error } = useNotifications({
+    numberOfDays: 7,
+  });
 
   const ButtonComponent = React.useCallback(
     ({ icon, numberOfNotifications }) => (
-      <Box>
+      <Box display="inline-block" width="100%">
         <ButtonWithIcon
           icon={icon}
           label="notifications"
@@ -24,9 +26,7 @@ const NotificationsContainer = () => {
     <Notifications
       data={data}
       error={error}
-      // we'll handle both the same way for now
-      onClick={acknowledge}
-      onView={acknowledge}
+      syncSeen={syncSeen}
       buttonComponent={ButtonComponent}
     />
   );
