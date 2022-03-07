@@ -16,7 +16,9 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
+    "q3-ui-dialog": "^3.3.6",
     "q3-ui-helpers": "^3.3.6",
+    "q3-ui-locale": "^3.3.6",
     "useful-state": "^1.2.3"
   }
 }
