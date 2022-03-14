@@ -38,7 +38,7 @@ export const TableBulkDelete = () => {
   const handleService = (args) =>
     removeBulk(checked)(args)
       .then(() => {
-        // noop
+        exportState.setChecked([]);
       })
       .catch(catchHandler);
 
