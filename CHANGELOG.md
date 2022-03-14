@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.12](https://github.com/3merge/q/compare/v3.3.11...v3.3.12) (2022-03-14)
+
+
+### Bug Fixes
+
+* notification links ([ca1958f](https://github.com/3merge/q/commit/ca1958fba540c14c293301c1ca680001b42e3e9e))
+
+
+
+
+
 ## [3.3.11](https://github.com/3merge/q/compare/v3.3.10...v3.3.11) (2022-03-14)
 
 
