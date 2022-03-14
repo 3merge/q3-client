@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.11](https://github.com/3merge/q/compare/v3.3.10...v3.3.11) (2022-03-14)
+
+
+### Bug Fixes
+
+* notification local urls, date toolbar and checked state ([#390](https://github.com/3merge/q/issues/390)) ([ea95d4c](https://github.com/3merge/q/commit/ea95d4c35d2297044d12653a59c15ae36062eb55))
+
+
+
+
+
 ## [3.3.10](https://github.com/3merge/q/compare/v3.3.9...v3.3.10) (2022-03-07)
 
 **Note:** Version bump only for package q3-admin
