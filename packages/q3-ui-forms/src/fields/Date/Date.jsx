@@ -9,7 +9,6 @@ import withState from '../withState';
 const DateBase = (props) => (
   <DatePicker
     clearable
-    disableToolbar
     value={get(props, 'value')}
     {...merge({}, marshalProps(props), {
       InputLabelProps: {
