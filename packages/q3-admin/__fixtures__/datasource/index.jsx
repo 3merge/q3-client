@@ -89,6 +89,24 @@ const makeApiEndpoints = (
           messageType: 'download',
         },
         {
+          id: 5,
+          label: 'newApp',
+          localUrl: '/shows/1',
+          createdAt: moment()
+            .subtract(2, 'day')
+            .toISOString(),
+          hasSeen: true,
+          hasDownloaded: true,
+        },
+        {
+          id: 7,
+          label: 'newApp',
+          localUrl: '/shows/1',
+          createdAt: moment()
+            .subtract(2, 'day')
+            .toISOString(),
+        },
+        {
           id: 2,
           label: 'New app created',
           url: '/app/1',

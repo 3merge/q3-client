@@ -45,7 +45,7 @@ const NavbarListItemSegments = ({
           <ListItem className={cls.listItem}>
             <Button
               className={
-                active === label
+                active === label && isActive
                   ? cls.activeSegment
                   : undefined
               }

@@ -31,8 +31,11 @@ const useNotificationClickEvent = (data, callback) => {
     filter(data, has(['localUrl', 'url'])),
     (item) => {
       const { acknowledge, hasSeen, localUrl, url } = item;
+      // due to some api changes
+      const resolvedUrl = localUrl || url;
 
       Object.assign(item, {
+        url: resolvedUrl,
         onClick(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -40,8 +43,7 @@ const useNotificationClickEvent = (data, callback) => {
           if (!hasSeen && isFunction(acknowledge))
             acknowledge();
 
-          // due to some api changes
-          setLink(localUrl || url);
+          setLink(resolvedUrl);
         },
       });
     },
@@ -51,6 +53,8 @@ const useNotificationClickEvent = (data, callback) => {
     if (link && browser.isBrowserReady())
       callback()
         .then(() => {
+          setLink(null);
+
           if (isOutboundUrl(link)) {
             window.open(link, '_blank').focus();
           } else {
