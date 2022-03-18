@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.13](https://github.com/3merge/q/compare/v3.3.12...v3.3.13) (2022-03-18)
+
+
+### Bug Fixes
+
+* listeners reference ([063c1e1](https://github.com/3merge/q/commit/063c1e152bdfec8156e9ba885e1ebf8d330d3320))
+
+
+
+
+
 ## [3.3.12](https://github.com/3merge/q/compare/v3.3.11...v3.3.12) (2022-03-14)
 
 
