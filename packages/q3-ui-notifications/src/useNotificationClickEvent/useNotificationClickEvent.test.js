@@ -32,7 +32,7 @@ describe('useNotificationClickEvent', () => {
   it('should invoke window.open', () => {
     jest
       .spyOn(React, 'useState')
-      .mockReturnValue(['https://google.ca']);
+      .mockReturnValue(['https://google.ca', jest.fn()]);
 
     useNavigate.mockReturnValue(jest.fn());
 
@@ -43,7 +43,7 @@ describe('useNotificationClickEvent', () => {
   it('should invoke navigate', () => {
     jest
       .spyOn(React, 'useState')
-      .mockReturnValue(['/app/1']);
+      .mockReturnValue(['/app/1', jest.fn()]);
 
     const navigate = jest.fn();
     useNavigate.mockReturnValue(navigate);

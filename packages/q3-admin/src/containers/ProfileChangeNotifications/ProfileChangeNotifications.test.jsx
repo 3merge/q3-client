@@ -54,7 +54,7 @@ describe('ProfileNotifications', () => {
   it('should not disable', () => {
     useDomainContext.mockReturnValue({
       domain: {
-        listeners: {
+        listens: {
           Developer: ['foo', 'bar'],
         },
       },

@@ -14,7 +14,7 @@ const ProfileNotifications = ({ children }) => {
   const { initialValues, onSubmit } = useProfileForm();
   const listens = initialValues?.listens;
   const listeners = get(
-    domain?.domain?.listeners,
+    domain?.domain?.listens,
     initialValues?.role,
   );
 
