@@ -24,6 +24,7 @@ export default makeStyles((theme) => ({
     },
   },
   sidebar: {
+    height: '100%',
     width: 280,
 
     [theme.breakpoints.down('sm')]: {

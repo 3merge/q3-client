@@ -89,7 +89,10 @@ const StoriesApiMockAuthentication = ({ children }) => {
             {
               op: 'Create',
               coll: 'domain',
-              fields: ['!resources.titles*'],
+              fields: [
+                '!resources.titles*',
+                '!supportedLngs',
+              ],
             },
           ],
           filters,

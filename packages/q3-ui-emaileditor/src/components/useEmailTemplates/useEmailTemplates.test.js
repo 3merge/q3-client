@@ -13,6 +13,7 @@ jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn().mockReturnValue({
     canSee: true,
   }),
+  useProfileLang: jest.fn().mockReturnValue('en'),
 }));
 
 beforeEach(() => {

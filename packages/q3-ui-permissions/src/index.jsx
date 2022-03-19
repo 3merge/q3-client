@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios from 'axios';
 import PropTypes from 'prop-types';
+import { first } from 'lodash';
 import composeUseAuth, {
   asProtectedRoute,
 } from './useAuth';
@@ -24,6 +25,14 @@ export const isLoggedIn = () => {
   const a = React.useContext(AuthContext);
   return a && a.state && a.state.profile;
 };
+
+export const useProfileLang = () =>
+  first(
+    String(
+      React.useContext(AuthContext)?.state?.profile?.lang ||
+        'en',
+    ).split('-'),
+  );
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, {

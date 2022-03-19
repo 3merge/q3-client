@@ -18,44 +18,54 @@ const emails = [
   },
   {
     'id': 't3',
-    'name': 'welcome',
+    'name': 'en-welcome',
+    'mjml': mjml1,
+  },
+  {
+    'id': 't4',
+    'name': 'en-new-user',
+    'mjml': mjml1,
+  },
+  {
+    'id': 't5',
+    'name': 'en-verify',
     'mjml': mjml1,
   },
 ];
 
-export const defineMockRoutes = (options = {}) => (m) => {
-  const { causeError = false } = options;
+export const defineMockRoutes =
+  (options = {}) =>
+  (m) => {
+    const { causeError = false } = options;
 
-  m.onPost(/emails-preview/).reply(async (e) => {
-    return [
+    m.onPost(/emails-preview/).reply(async (e) => [
       200,
       {
         html: '<p>Preview</p>',
       },
-    ];
-  });
+    ]);
 
-  m.onGet(/emails/).reply(() => {
-    if (causeError) return [500];
-    return [200, { emails }];
-  });
+    m.onGet(/emails/).reply(() => {
+      if (causeError) return [500];
+      return [200, { emails }];
+    });
 
-  m.onPatch(/emails/).reply((data) => {
-    const id = last(data.url.split('/'));
-    const { mjml } = JSON.parse(data.data);
+    m.onPatch(/emails/).reply((data) => {
+      const id = last(data.url.split('/'));
+      const { mjml } = JSON.parse(data.data);
 
-    return [
-      200,
-      {
-        email: {
-          id,
-          ...emails.find((item) => item.id === id),
-          mjml,
+      return [
+        200,
+        {
+          email: {
+            id,
+            ...emails.find((item) => item.id === id),
+            mjml,
+          },
         },
-      },
-    ];
-  });
-};
+      ];
+    });
+  };
 
 export default ({ delay = 1000, children, ...props }) => (
   <Rest define={defineMockRoutes(props)} delay={delay}>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { get, find, size } from 'lodash';
 import useRest from 'q3-ui-rest';
-import { useAuth } from 'q3-ui-permissions';
+// eslint-disable-next-line
+import { useAuth, useProfileLang } from 'q3-ui-permissions';
 
 export const URL_NAME = 'emails';
 
@@ -13,6 +14,11 @@ export const findById = (xs, id) =>
 
 export const getFirstFullTemplateId = (xs) =>
   find(xs, (item) => !isPartial(item))?.id;
+
+export const useLangSearch = () => {
+  const lang = useProfileLang();
+  return `?sort=name&limit=500&name=in(/^${lang}/gi,/^__class/gi,/^__${lang}/gi)`;
+};
 
 const useEmailTemplates = () => {
   const {
@@ -26,7 +32,7 @@ const useEmailTemplates = () => {
     url: `/${URL_NAME}`,
     runOnInit: true,
     location: {
-      search: '?sort=name',
+      search: useLangSearch(),
     },
   });
 

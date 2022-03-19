@@ -5,6 +5,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { useTranslation } from 'q3-ui-locale';
+// eslint-disable-next-line
+import { useProfileLang } from 'q3-ui-permissions';
+import { capitalize, sortBy } from 'lodash';
 import EmailEditorContext from '../EmailEditorContext';
 import { isPartial } from '../useEmailTemplates/useEmailTemplates';
 import useStyle from './styles';
@@ -17,6 +20,7 @@ const CustomTreeView = () => {
     setById,
     templates = [],
   } = React.useContext(EmailEditorContext);
+  const lang = useProfileLang();
 
   const { partial, full } = templates.reduce(
     (acc, curr) => {
@@ -36,12 +40,23 @@ const CustomTreeView = () => {
   const handleNodeSelect = (e, value) =>
     hasTemplateId(value) ? setById(value) : null;
 
+  const translateTemplateName = (xs) =>
+    capitalize(
+      t(`labels:${String(xs).replace(`${lang}-`, '')}`),
+    );
+
   const renderTree = (xs) =>
-    xs.map((temp) => (
+    sortBy(
+      xs.map((temp) => ({
+        ...temp,
+        label: translateTemplateName(temp.name),
+      })),
+      ['label'],
+    ).map((temp) => (
       <TreeItem
         classes={cls}
         nodeId={temp.id}
-        label={temp.name}
+        label={temp.label}
         key={temp.id}
       />
     ));
