@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.1](https://github.com/3merge/q/compare/v3.4.0...v3.4.1) (2022-03-24)
+
+**Note:** Version bump only for package q3-ui-permissions
+
+
+
+
+
 ## [3.3.14](https://github.com/3merge/q/compare/v3.3.13...v3.3.14) (2022-03-19)
 
 **Note:** Version bump only for package q3-ui-permissions
