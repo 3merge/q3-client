@@ -23,7 +23,8 @@ const withPageLoading = (Component) => {
       [componentProps],
     );
 
-    if (fetching)
+    // eslint-disable-next-line
+    if (fetching && props?.runOnInit !== false)
       return (
         <Box
           p={6}

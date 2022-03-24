@@ -50,6 +50,7 @@ const Calendar = (props) => {
       {calendarOrientation.initialView && (
         <FullCalendar
           {...props}
+          initialDate={calendarSource.initialDate}
           allDaySlot={false}
           lazyFetching
           events={[

@@ -38,8 +38,8 @@ export default (forwardedProps) => (props) => {
   );
 
   const settledProps = {
-    ...find(uis, (uix) => uix.ui === setSettledUi),
     ...forwardedProps,
+    ...find(uis, (uix) => uix.ui === settledUi),
     ...props,
   };
 
