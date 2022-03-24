@@ -56,6 +56,12 @@ const Admin = ({ AppProps }) => {
   useProfileTheme();
   useServerSideEvents();
 
+  const customDomainPages = get(
+    AppProps,
+    'domainPages',
+    [],
+  );
+
   const customProfilePages = get(
     AppProps,
     'profilePages',
@@ -99,7 +105,19 @@ const Admin = ({ AppProps }) => {
               <DomainI18n path="i18n" />
               <EmailModule path="emails" />
               <QueueModule path="queues" />
-              <Domain default />
+              {map(
+                customDomainPages,
+                ({
+                  component: DomainPageComponent,
+                  path,
+                }) => (
+                  <DomainPageComponent
+                    key={path}
+                    path={path}
+                  />
+                ),
+              )}
+              <Domain items={customDomainPages} default />
             </SystemPage>
           </App>
         </Box>
