@@ -49,6 +49,10 @@ export default new AbstractCollectionBuilder({
     SubDetail,
   })
   .genList({
+    uis: [
+      { ui: 'table' },
+      { ui: 'calendar', runOnInit: false },
+    ],
     io: {
       exports: ['orders'],
       imports: [],

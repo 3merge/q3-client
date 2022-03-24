@@ -6,7 +6,7 @@ import {
   Fade,
 } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
-import { isFunction } from 'lodash';
+import { map, isFunction, size, find } from 'lodash';
 import { makeStyles } from '@material-ui/core';
 import {
   Calendar,
@@ -30,20 +30,27 @@ const UndefinedListElement = () => (
 
 export default (forwardedProps) => (props) => {
   // eslint-disable-next-line
-  const { ui } = forwardedProps;
+  const { ui, uis = [] } = forwardedProps;
   const cls = useStyle();
 
+  const [settledUi, setSettledUi] = React.useState(
+    size(uis) ? uis[0]?.ui : ui,
+  );
+
+  const settledProps = {
+    ...find(uis, (uix) => uix.ui === setSettledUi),
+    ...forwardedProps,
+    ...props,
+  };
+
   const ListElement = React.useMemo(() => {
-    if (!ui || ui === 'table') return Table;
-    if (ui === 'calendar') return Calendar;
-    if (isFunction(ui))
-      return ui({
-        ...forwardedProps,
-        ...props,
-      });
+    if (!settledUi || settledUi === 'table') return Table;
+    if (settledUi === 'calendar') return Calendar;
+    if (isFunction(settledUi))
+      return settledUi(settledProps);
 
     return UndefinedListElement;
-  }, [ui]);
+  }, [settledUi]);
 
   return (
     <Fade in>
@@ -63,13 +70,16 @@ export default (forwardedProps) => (props) => {
               >
                 <CollectionName />
                 <TableActions
-                  {...forwardedProps}
-                  {...props}
+                  {...settledProps}
+                  uis={map(uis, (item) => ({
+                    label: item.ui,
+                    onClick: () => setSettledUi(item.ui),
+                  }))}
                 />
               </Box>
             </Toolbar>
           </AppBar>
-          <ListElement {...forwardedProps} {...props} />
+          <ListElement {...settledProps} />
         </Exports>
       </Box>
     </Fade>

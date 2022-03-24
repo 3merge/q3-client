@@ -59,21 +59,29 @@ export default new AbstractCollectionBuilder({
     General,
   })
   .genList({
-    ui: 'calendar',
-    runOnInit: false,
-    fromKey: 'createdAt',
-    slotMinTime: '06:00:00',
+    uis: [
+      {
+        ui: 'calendar',
+        runOnInit: false,
+        fromKey: 'createdAt',
+        slotMinTime: '06:00:00',
 
-    getBackgroundEvents() {
-      return Promise.resolve([
-        {
-          id: 1,
-          title: 'Stat holiday',
-          start: moment().startOf('day').toDate(),
-          end: moment().endOf('day').toDate(),
+        getBackgroundEvents() {
+          return Promise.resolve([
+            {
+              id: 1,
+              title: 'Stat holiday',
+              start: moment().startOf('day').toDate(),
+              end: moment().endOf('day').toDate(),
+            },
+          ]);
         },
-      ]);
-    },
+      },
+      {
+        ui: 'table',
+        runOnInit: true,
+      },
+    ],
   })
   .genListSettings({})
   .genDetail({
