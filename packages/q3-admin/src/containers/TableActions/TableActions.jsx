@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Fade } from '@material-ui/core';
 import { useAuth } from 'q3-ui-permissions';
-import ViewQuiltIcon from '@material-ui/icons/ViewQuilt';
-import { size } from 'lodash';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import ActionBar from '../../components/ActionBar';
@@ -11,8 +9,7 @@ import Search from '../../components/Search';
 import Add from '../add';
 import Segments from '../../components/Segments';
 import { Definitions } from '../state';
-import DropdownMenu from '../../components/DropdownMenu';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
+import CollectionUiSelect from '../../components/CollectionUiSelect';
 
 const SearchWithPermissions = () => {
   const { collectionName } = React.useContext(Definitions);
@@ -29,17 +26,7 @@ const TableActions = ({
   <Fade in>
     <ActionBar>
       <SearchWithPermissions />
-      {size(uis) > 0 && (
-        <DropdownMenu items={uis}>
-          {(onClick) => (
-            <ButtonWithIcon
-              icon={ViewQuiltIcon}
-              label="uis"
-              onClick={onClick}
-            />
-          )}
-        </DropdownMenu>
-      )}
+      <CollectionUiSelect uis={uis} />
       {FilterComponent ? (
         <>
           <Segments />

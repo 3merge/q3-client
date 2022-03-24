@@ -39,6 +39,7 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
                 className={cls.menuItem}
                 {...(isFunction(item.onClick)
                   ? {
+                      selected: item.selected,
                       disabled: item.disabled,
                       component: 'button',
                       onClick: (e) => {
