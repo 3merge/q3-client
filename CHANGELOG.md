@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.4.0](https://github.com/3merge/q/compare/v3.3.14...v3.4.0) (2022-03-24)
+
+
+### Features
+
+* **wip:** multiple uis ([5af02d1](https://github.com/3merge/q/commit/5af02d13b13a462c923d76c7a8954ead91455451))
+
+
+
+
+
 ## [3.3.14](https://github.com/3merge/q/compare/v3.3.13...v3.3.14) (2022-03-19)
 
 **Note:** Version bump only for package q3-client
