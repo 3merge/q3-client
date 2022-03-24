@@ -1,7 +1,12 @@
 import React from 'react';
 import moment from 'moment';
 import { useNavigate } from '@reach/router';
-import { isFunction, isObject, debounce } from 'lodash';
+import {
+  isFunction,
+  isObject,
+  debounce,
+  omit,
+} from 'lodash';
 import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import { useLocation } from '@reach/router';
 import { useQueryParams } from 'q3-ui-queryparams';
@@ -18,45 +23,57 @@ const useCalendarSource = (options = {}) => {
   } = options;
 
   const ref = React.useRef();
-  const { poll: get, patch } = React.useContext(Dispatcher);
+  const { poll, patch } = React.useContext(Dispatcher);
   const { directoryPath = '/' } =
     React.useContext(Definitions);
 
   const qp = useQueryParams();
   const navigate = useNavigate();
-  const { search } = useLocation();
-
-  const makeQueryString = (info) =>
-    `${qp.encode({
-      ...qp.decode(search),
-      [`${fromKey}>`]: castToUTC(info.startStr),
-      [`${toKey || fromKey}<`]: castToUTC(info.endStr),
-    })}&limit=500`;
+  const { search, ...etc } = useLocation();
 
   const [backgroundEvents, setBackgroundEvents] =
     React.useState([]);
 
-  const getEvents = debounce(
-    (info) => {
-      ref.current = info;
+  const getDateFromSearch = () =>
+    moment(qp.decode(search)[`${fromKey}>`]).format(
+      'YYYY-MM-DD',
+    );
+
+  React.useEffect(() => {
+    if (isObject(ref.current)) {
       if (isFunction(getBackgroundEvents))
-        getBackgroundEvents(makeQueryString(info))
+        getBackgroundEvents(search)
           .then(setBackgroundEvents)
           .catch(() => {
             // noop
           });
 
-      return get(makeQueryString(info));
-    },
-    [500],
-  );
-
-  React.useEffect(() => {
-    if (isObject(ref.current)) getEvents(ref.current);
+      if (isFunction(poll))
+        poll().catch(() => {
+          // noop
+        });
+    }
   }, [search]);
 
   return {
-    getEvents,
+    initialDate: getDateFromSearch(),
+
+    getEvents: debounce(
+      (info) => {
+        ref.current = info;
+        navigate(
+          `${etc.pathname}${qp.encode({
+            // unformatted root key needs to leave
+            ...omit(qp.decode(search), [fromKey]),
+            [`${fromKey}>`]: castToUTC(info.startStr),
+            [`${toKey || fromKey}<`]: castToUTC(
+              info.endStr,
+            ),
+          })}&limit=500`,
+        );
+      },
+      [500],
+    ),
     backgroundEvents,
 
     navigate(info) {

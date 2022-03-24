@@ -2,7 +2,10 @@ import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // eslint-disable-next-line
 import Graphic from 'q3-ui-assets';
-import { exists } from 'q3-ui-test-utils/lib/enzymeUtils';
+import {
+  exists,
+  doesNotExist,
+} from 'q3-ui-test-utils/lib/enzymeUtils';
 import withPageLoading from './withPageLoading';
 
 const Component = () => <div />;
@@ -17,6 +20,18 @@ describe('withPageLoading', () => {
     exists(
       global
         .shallow(<DecoratedComponent />)
+        .find(CircularProgress),
+    );
+  });
+
+  it('should skip render loading', () => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      fetching: true,
+    });
+
+    doesNotExist(
+      global
+        .shallow(<DecoratedComponent runOnInit={false} />)
         .find(CircularProgress),
     );
   });

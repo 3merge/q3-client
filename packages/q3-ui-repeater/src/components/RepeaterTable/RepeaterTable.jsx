@@ -98,9 +98,10 @@ const RepeaterTable = ({
                     style={{
                       marginLeft: '-5px',
                       paddingRight: '6px',
+                      position: 'relative',
                     }}
                   >
-                    <SelectAll ids={map(data, 'id')} />
+                    <SelectAll ids={map(list, 'id')} />
                   </span>
                 )}
                 {t(rest?.th || 'identifier')}

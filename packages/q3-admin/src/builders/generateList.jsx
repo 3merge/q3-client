@@ -8,6 +8,7 @@ import {
 import Exports from 'q3-ui-exports';
 import { map, isFunction, size, find } from 'lodash';
 import { makeStyles } from '@material-ui/core';
+import useCollectionUiLocalStorage from '../hooks/useCollectionUiLocalStorage';
 import {
   Calendar,
   TableActions,
@@ -33,13 +34,16 @@ export default (forwardedProps) => (props) => {
   const { ui, uis = [] } = forwardedProps;
   const cls = useStyle();
 
-  const [settledUi, setSettledUi] = React.useState(
+  const { cached, change } = useCollectionUiLocalStorage(
     size(uis) ? uis[0]?.ui : ui,
+    [map(uis, 'ui'), ui],
   );
 
+  const [settledUi, setSettledUi] = React.useState(cached);
+
   const settledProps = {
-    ...find(uis, (uix) => uix.ui === setSettledUi),
     ...forwardedProps,
+    ...find(uis, (uix) => uix.ui === settledUi),
     ...props,
   };
 
@@ -50,6 +54,10 @@ export default (forwardedProps) => (props) => {
       return settledUi(settledProps);
 
     return UndefinedListElement;
+  }, [settledUi]);
+
+  React.useEffect(() => {
+    change(settledUi);
   }, [settledUi]);
 
   return (
@@ -74,6 +82,7 @@ export default (forwardedProps) => (props) => {
                   uis={map(uis, (item) => ({
                     label: item.ui,
                     onClick: () => setSettledUi(item.ui),
+                    selected: item.ui === settledUi,
                   }))}
                 />
               </Box>

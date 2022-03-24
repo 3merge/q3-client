@@ -244,7 +244,7 @@ export default makeStyles((theme) => ({
   tableHeader: {
     position: 'sticky',
     top: 0,
-    zIndex: 1,
+    zIndex: 2,
     '& th': {
       position: 'relative',
       padding: '.75rem',

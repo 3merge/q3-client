@@ -7,14 +7,16 @@ import { Definitions } from '../../containers/state';
 import { useSegmentsFromCollection } from '../../hooks';
 
 const Segments = () => {
-  const { HideByField } = useAuth('profile');
+  const { canCreateSub } = useAuth('profile');
   const items = useSegmentsFromCollection(
     React.useContext(Definitions).collectionName,
   );
 
+  const shouldRender = canCreateSub('filters');
+
   return React.useMemo(
-    () => (
-      <HideByField op="Create" path="filters">
+    () =>
+      shouldRender ? (
         <DropdownMenu items={items}>
           {(onClick) => (
             <ButtonWithIcon
@@ -24,9 +26,8 @@ const Segments = () => {
             />
           )}
         </DropdownMenu>
-      </HideByField>
-    ),
-    [items],
+      ) : null,
+    [shouldRender, items],
   );
 };
 

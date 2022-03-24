@@ -6,7 +6,7 @@ import useCalendarSource from './useCalendarSource';
 
 jest.mock('@reach/router', () => ({
   useLocation: jest.fn().mockReturnValue({
-    search: '?foo=bar',
+    search: '?foo=bar&date>=2021-01-01',
   }),
   useNavigate: jest.fn(),
 }));
@@ -29,9 +29,32 @@ beforeAll(() => {
 });
 
 describe('useCalendarSource', () => {
+  it('should get initial date', () => {
+    const poll = jest.fn().mockResolvedValue([]);
+    const navigate = jest.fn();
+
+    ref.current = {};
+    useNavigate.mockReturnValue(navigate);
+
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      poll,
+    });
+
+    const out = useCalendarSource({
+      fromKey: 'date',
+    });
+
+    expect(out.initialDate).toMatch('2021-01-01');
+  });
+
   it('should poll with start/end dates', (done) => {
     const poll = jest.fn().mockResolvedValue([]);
     const qp = useQueryParams();
+    const navigate = jest.fn();
+
+    ref.current = {};
+    useNavigate.mockReturnValue(navigate);
+
     const context = {
       startStr: '2022-01-01',
       endStr: '2022-02-01',
@@ -45,14 +68,23 @@ describe('useCalendarSource', () => {
       poll,
     });
 
+    jest
+      .spyOn(React, 'useEffect')
+      .mockImplementation((fn) => fn());
+
     // this is debounced
     useCalendarSource({
       getBackgroundEvents,
+      fromKey: 'date',
     }).getEvents(context);
 
+    expect(getBackgroundEvents).toHaveBeenCalled();
+    expect(poll).toHaveBeenCalled();
+
     setTimeout(() => {
-      expect(poll).toHaveBeenCalledWith(
-        `${qp.encode({
+      expect(navigate).toHaveBeenCalledWith(
+        // location not mocked
+        `undefined${qp.encode({
           foo: 'bar',
           'date>': castToUTC('2022-01-01'),
           'date<': castToUTC('2022-02-01'),
@@ -61,15 +93,17 @@ describe('useCalendarSource', () => {
 
       // allows us to requery
       expect(ref.current).toMatchObject(context);
-      expect(getBackgroundEvents).toHaveBeenCalled();
+
       done();
-    }, [500]);
+    }, [600]);
   });
 
   it('should navigate by ID', () => {
     const navigate = jest.fn();
     useNavigate.mockReturnValue(navigate);
-    const getBackgroundEvents = jest.fn();
+    const getBackgroundEvents = jest
+      .fn()
+      .mockResolvedValue([]);
 
     jest.spyOn(React, 'useContext').mockReturnValue({
       location: {},
