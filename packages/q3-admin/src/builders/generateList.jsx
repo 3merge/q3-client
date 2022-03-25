@@ -6,15 +6,10 @@ import {
   Fade,
 } from '@material-ui/core';
 import Exports from 'q3-ui-exports';
-import { map, isFunction, size, find } from 'lodash';
 import { makeStyles } from '@material-ui/core';
-import useCollectionUiLocalStorage from '../hooks/useCollectionUiLocalStorage';
-import {
-  Calendar,
-  TableActions,
-  Table,
-} from '../containers';
+import { TableActions } from '../containers';
 import CollectionName from '../components/CollectionName';
+import CollectionUiResolver from '../components/CollectionUiResolver';
 
 const useStyle = makeStyles((theme) => ({
   toolbar: {
@@ -25,40 +20,12 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-const UndefinedListElement = () => (
-  <div>Missing UI configuration</div>
-);
-
 export default (forwardedProps) => (props) => {
-  // eslint-disable-next-line
-  const { ui, uis = [] } = forwardedProps;
   const cls = useStyle();
-
-  const { cached, change } = useCollectionUiLocalStorage(
-    size(uis) ? uis[0]?.ui : ui,
-    [map(uis, 'ui'), ui],
-  );
-
-  const [settledUi, setSettledUi] = React.useState(cached);
-
   const settledProps = {
     ...forwardedProps,
-    ...find(uis, (uix) => uix.ui === settledUi),
     ...props,
   };
-
-  const ListElement = React.useMemo(() => {
-    if (!settledUi || settledUi === 'table') return Table;
-    if (settledUi === 'calendar') return Calendar;
-    if (isFunction(settledUi))
-      return settledUi(settledProps);
-
-    return UndefinedListElement;
-  }, [settledUi]);
-
-  React.useEffect(() => {
-    change(settledUi);
-  }, [settledUi]);
 
   return (
     <Fade in>
@@ -77,18 +44,11 @@ export default (forwardedProps) => (props) => {
                 width="100%"
               >
                 <CollectionName />
-                <TableActions
-                  {...settledProps}
-                  uis={map(uis, (item) => ({
-                    label: item.ui,
-                    onClick: () => setSettledUi(item.ui),
-                    selected: item.ui === settledUi,
-                  }))}
-                />
+                <TableActions {...settledProps} />
               </Box>
             </Toolbar>
           </AppBar>
-          <ListElement {...settledProps} />
+          <CollectionUiResolver {...settledProps} />
         </Exports>
       </Box>
     </Fade>

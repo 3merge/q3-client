@@ -40,16 +40,18 @@ const useCalendarSource = (options = {}) => {
     );
 
   React.useEffect(() => {
-    if (isObject(ref.current)) {
+    if (search && isObject(ref.current)) {
+      const s = `${search}&limit=500`;
+
       if (isFunction(getBackgroundEvents))
-        getBackgroundEvents(search)
+        getBackgroundEvents(s)
           .then(setBackgroundEvents)
           .catch(() => {
             // noop
           });
 
       if (isFunction(poll))
-        poll().catch(() => {
+        poll(s).catch(() => {
           // noop
         });
     }
@@ -69,7 +71,7 @@ const useCalendarSource = (options = {}) => {
             [`${toKey || fromKey}<`]: castToUTC(
               info.endStr,
             ),
-          })}&limit=500`,
+          })}&sort=-${fromKey}`,
         );
       },
       [500],

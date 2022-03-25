@@ -305,6 +305,7 @@ const makeApiEndpoints = (
     // collection
     .onGet(new RegExp(collectionName))
     .reply(({ url }) => {
+      console.log(url);
       if (url.includes('empty'))
         return [200, { [resourceName]: [] }];
 

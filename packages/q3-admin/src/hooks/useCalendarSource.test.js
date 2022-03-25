@@ -78,8 +78,13 @@ describe('useCalendarSource', () => {
       fromKey: 'date',
     }).getEvents(context);
 
-    expect(getBackgroundEvents).toHaveBeenCalled();
-    expect(poll).toHaveBeenCalled();
+    expect(getBackgroundEvents).toHaveBeenCalledWith(
+      '?foo=bar&date>=2021-01-01&limit=500',
+    );
+
+    expect(poll).toHaveBeenCalledWith(
+      '?foo=bar&date>=2021-01-01&limit=500',
+    );
 
     setTimeout(() => {
       expect(navigate).toHaveBeenCalledWith(
@@ -88,7 +93,7 @@ describe('useCalendarSource', () => {
           foo: 'bar',
           'date>': castToUTC('2022-01-01'),
           'date<': castToUTC('2022-02-01'),
-        })}&limit=500`,
+        })}&sort=-date`,
       );
 
       // allows us to requery

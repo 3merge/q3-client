@@ -3,6 +3,7 @@ import Page from '../containers/page';
 import Collection from '../containers/collection';
 import Article from '../components/Article';
 import { useUnsavedChanges } from '../hooks';
+import withCollectionUi from '../helpers/withCollectionUi';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -44,14 +45,21 @@ export default ({
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: (props) => (
-      <Collection index {...PageListProps} {...props}>
-        <Article>
-          <Page index {...props} {...PageListProps}>
-            <PageList {...PageListProps} />
-          </Page>
-        </Article>
-      </Collection>
+    component: withCollectionUi(
+      (props) => (
+        <Collection index {...PageListProps} {...props}>
+          <Article>
+            <Page index {...props} {...PageListProps}>
+              <PageList
+                {...PageListProps}
+                ui={props?.ui}
+                uis={props?.uis}
+              />
+            </Page>
+          </Article>
+        </Collection>
+      ),
+      PageListProps,
     ),
   },
 ];
