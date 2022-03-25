@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.5](https://github.com/3merge/q/compare/v3.4.4...v3.4.5) (2022-03-25)
+
+
+### Bug Fixes
+
+* segments for calendars ([807e5b0](https://github.com/3merge/q/commit/807e5b0082155f7e5899fc4d071e936695d15c62))
+
+
+
+
+
 ## [3.4.4](https://github.com/3merge/q/compare/v3.4.3...v3.4.4) (2022-03-25)
 
 
