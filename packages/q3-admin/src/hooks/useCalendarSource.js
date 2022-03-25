@@ -6,8 +6,6 @@ import {
   isObject,
   debounce,
   omit,
-  isString,
-  size,
 } from 'lodash';
 import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import { useLocation } from '@reach/router';
@@ -63,12 +61,8 @@ const useCalendarSource = (options = {}) => {
     );
 
   React.useEffect(() => {
-    if (
-      isString(search) &&
-      size(search) &&
-      isObject(ref.current)
-    ) {
-      if (search.includes(fromKey)) {
+    if (isObject(ref.current)) {
+      if (String(search).includes(fromKey)) {
         const s = `${search}&limit=500`;
 
         if (isFunction(getBackgroundEvents))
