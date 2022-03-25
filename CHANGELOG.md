@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.4](https://github.com/3merge/q/compare/v3.4.3...v3.4.4) (2022-03-25)
+
+
+### Bug Fixes
+
+* removing sort duplicates ([1f96c61](https://github.com/3merge/q/commit/1f96c6199aafa5279ea2fe4f043e55430c4bb9fd))
+
+
+
+
+
 ## [3.4.3](https://github.com/3merge/q/compare/v3.4.2...v3.4.3) (2022-03-25)
 
 
