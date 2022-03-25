@@ -21,6 +21,7 @@ const withCollectionUi =
     return React.useMemo(
       () => (
         <Component
+          {...args}
           {...find(uis, (uix) => uix?.ui === settledUi)}
           {...props}
           ui={settledUi}

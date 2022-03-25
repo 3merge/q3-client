@@ -47,11 +47,11 @@ export default ({
     ...getCollectionInformation(etc),
     component: withCollectionUi(
       (props) => (
-        <Collection index {...PageListProps} {...props}>
+        <Collection index {...props}>
           <Article>
-            <Page index {...props} {...PageListProps}>
+            <Page index {...props}>
               <PageList
-                {...PageListProps}
+                {...props}
                 ui={props?.ui}
                 uis={props?.uis}
               />
