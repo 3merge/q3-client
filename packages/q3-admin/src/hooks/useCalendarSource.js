@@ -14,6 +14,7 @@ import {
   Dispatcher,
   Definitions,
 } from '../containers/state';
+import { replaceSearchStringSort } from './useSort';
 
 const useCalendarSource = (options = {}) => {
   const {
@@ -64,14 +65,17 @@ const useCalendarSource = (options = {}) => {
       (info) => {
         ref.current = info;
         navigate(
-          `${etc.pathname}${qp.encode({
-            // unformatted root key needs to leave
-            ...omit(qp.decode(search), [fromKey]),
-            [`${fromKey}>`]: castToUTC(info.startStr),
-            [`${toKey || fromKey}<`]: castToUTC(
-              info.endStr,
-            ),
-          })}&sort=-${fromKey}`,
+          `${etc.pathname}${replaceSearchStringSort(
+            qp.encode({
+              // unformatted root key needs to leave
+              ...omit(qp.decode(search), [fromKey]),
+              [`${fromKey}>`]: castToUTC(info.startStr),
+              [`${toKey || fromKey}<`]: castToUTC(
+                info.endStr,
+              ),
+            }),
+            `-${fromKey}`,
+          )}`,
         );
       },
       [500],

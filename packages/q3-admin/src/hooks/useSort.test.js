@@ -1,6 +1,8 @@
 import { useLocation } from '@reach/router';
 import useSortPreference from './useSortPreference';
-import useSort from './useSort';
+import useSort, {
+  replaceSearchStringSort,
+} from './useSort';
 
 jest.mock('@reach/router', () => ({
   useLocation: jest.fn(),
@@ -30,5 +32,24 @@ test.each([
   expect(useSortPreference).toHaveBeenCalledWith(
     'test',
     'key',
+  );
+});
+
+test.each([
+  ['?foo=bar', 'quuz', '?foo=bar&sort=quuz'],
+  ['?foo=bar&sort=quak', 'quuz', '?foo=bar&sort=quuz'],
+  [
+    '?foo=bar&sort=quak&sort=quak',
+    'quuz',
+    '?foo=bar&sort=quuz',
+  ],
+  [
+    '?foo=bar&sort=quak&sort=-quak',
+    'quuz',
+    '?foo=bar&sort=quuz',
+  ],
+])('.useSort()', (search, sort, expectedOutput) => {
+  expect(replaceSearchStringSort(search, sort)).toEqual(
+    expectedOutput,
   );
 });
