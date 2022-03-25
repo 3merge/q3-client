@@ -6,10 +6,11 @@ import DropdownMenu from '../DropdownMenu';
 import { Definitions } from '../../containers/state';
 import { useSegmentsFromCollection } from '../../hooks';
 
-const Segments = () => {
+const Segments = (props) => {
   const { canCreateSub } = useAuth('profile');
   const items = useSegmentsFromCollection(
     React.useContext(Definitions).collectionName,
+    props,
   );
 
   const shouldRender = canCreateSub('filters');

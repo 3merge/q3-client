@@ -3,14 +3,17 @@ import { useTranslation } from 'q3-ui-locale';
 import useSegments from './useSegments';
 import useSegmentsFromProfile from './useSegmentsFromProfile';
 
-const useSegmentsFromCollection = (collectionName) => {
+const useSegmentsFromCollection = (
+  collectionName,
+  options = {},
+) => {
   const { t } = useTranslation('labels');
   const {
     asArray: profileSegments,
     rename,
     remove,
     set,
-  } = useSegmentsFromProfile(collectionName);
+  } = useSegmentsFromProfile(collectionName, options);
 
   const { active: name } = useSegments(profileSegments);
   const curryFunction = (fn) => () => fn(name);

@@ -6,6 +6,8 @@ import {
   isObject,
   debounce,
   omit,
+  isString,
+  size,
 } from 'lodash';
 import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import { useLocation } from '@reach/router';
@@ -35,51 +37,61 @@ const useCalendarSource = (options = {}) => {
   const [backgroundEvents, setBackgroundEvents] =
     React.useState([]);
 
+  const getEvents = debounce(
+    (info) => {
+      ref.current = info;
+      navigate(
+        `${etc.pathname}${replaceSearchStringSort(
+          qp.encode({
+            // unformatted root key needs to leave
+            ...omit(qp.decode(search), [fromKey]),
+            [`${fromKey}>`]: castToUTC(info.startStr),
+            [`${toKey || fromKey}<`]: castToUTC(
+              info.endStr,
+            ),
+          }),
+          `-${fromKey}`,
+        )}`,
+      );
+    },
+    [500],
+  );
+
   const getDateFromSearch = () =>
     moment(qp.decode(search)[`${fromKey}>`]).format(
       'YYYY-MM-DD',
     );
 
   React.useEffect(() => {
-    if (search && isObject(ref.current)) {
-      const s = `${search}&limit=500`;
+    if (
+      isString(search) &&
+      size(search) &&
+      isObject(ref.current)
+    ) {
+      if (search.includes(fromKey)) {
+        const s = `${search}&limit=500`;
 
-      if (isFunction(getBackgroundEvents))
-        getBackgroundEvents(s)
-          .then(setBackgroundEvents)
-          .catch(() => {
+        if (isFunction(getBackgroundEvents))
+          getBackgroundEvents(s)
+            .then(setBackgroundEvents)
+            .catch(() => {
+              // noop
+            });
+
+        if (isFunction(poll))
+          poll(s).catch(() => {
             // noop
           });
-
-      if (isFunction(poll))
-        poll(s).catch(() => {
-          // noop
-        });
+      } else {
+        getEvents(ref.current);
+      }
     }
   }, [search]);
 
   return {
     initialDate: getDateFromSearch(),
 
-    getEvents: debounce(
-      (info) => {
-        ref.current = info;
-        navigate(
-          `${etc.pathname}${replaceSearchStringSort(
-            qp.encode({
-              // unformatted root key needs to leave
-              ...omit(qp.decode(search), [fromKey]),
-              [`${fromKey}>`]: castToUTC(info.startStr),
-              [`${toKey || fromKey}<`]: castToUTC(
-                info.endStr,
-              ),
-            }),
-            `-${fromKey}`,
-          )}`,
-        );
-      },
-      [500],
-    ),
+    getEvents,
     backgroundEvents,
 
     navigate(info) {

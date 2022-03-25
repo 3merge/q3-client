@@ -3,13 +3,15 @@ import { omit, get, isObject } from 'lodash';
 import { useLocation } from '@reach/router';
 import { AuthContext } from 'q3-ui-permissions';
 import { useTranslation } from 'q3-ui-locale';
+import { useQueryParams } from 'q3-ui-queryparams';
 import { mapSegmentsToListData } from './useSegments';
 
-export default (collectionName) => {
+export default (collectionName, options = {}) => {
   const { search } = useLocation();
   const { t } = useTranslation('descriptions');
   const { state, update } = React.useContext(AuthContext);
   const filters = get(state, 'profile.filters', {});
+  const qp = useQueryParams();
 
   const data = omit(get(filters, collectionName, {}), [
     // no longer need support for "favourited" segments
@@ -41,9 +43,27 @@ export default (collectionName) => {
         return Promise.resolve(null);
       }
 
+      let currentSearch = search;
+
+      if (options?.ui === 'calendar') {
+        const { fromKey = 'date', toKey } = options;
+        const decoded = omit(qp.decode(search), [
+          `${fromKey}>`,
+          `${fromKey}<`,
+          `${toKey}>`,
+          `${toKey}<`,
+          'sort',
+          'limit',
+        ]);
+
+        // eslint-disable-next-line
+        alert(t('calendarSegments'));
+        currentSearch = qp.encode(decoded);
+      }
+
       return replaceProfileFilters({
         ...data,
-        [name]: search,
+        [name]: currentSearch,
       });
     },
 

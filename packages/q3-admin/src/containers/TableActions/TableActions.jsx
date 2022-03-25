@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Fade } from '@material-ui/core';
+import { pick } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
@@ -21,7 +22,9 @@ const TableActions = ({
   addComponent: AddForm,
   filterComponent: FilterComponent,
   io,
+  ui,
   uis,
+  ...rest
 }) => (
   <Fade in>
     <ActionBar>
@@ -29,7 +32,10 @@ const TableActions = ({
       <CollectionUiSelect uis={uis} />
       {FilterComponent ? (
         <>
-          <Segments />
+          <Segments
+            {...pick(rest, ['fromKey', 'toKey'])}
+            ui={ui}
+          />
           <FilterComponent />
         </>
       ) : null}
@@ -48,6 +54,7 @@ TableActions.defaultProps = {
   addComponent: null,
   filterComponent: null,
   io: null,
+  ui: 'table',
   uis: [],
 };
 
@@ -58,6 +65,7 @@ TableActions.propTypes = {
   }),
   addComponent: PropTypes.element,
   filterComponent: PropTypes.element,
+  ui: PropTypes.string,
   uis: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,

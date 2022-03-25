@@ -12,9 +12,10 @@ export default makeStyles((theme) => ({
       height: 65,
       justifyContent: 'center',
       zIndex: 1000,
+      overflowX: 'auto',
 
       '& *': {
-        backgroundColor: 'transparent',
+        //   backgroundColor: 'transparent',
       },
     },
   },
