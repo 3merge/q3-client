@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.6](https://github.com/3merge/q/compare/v3.4.5...v3.4.6) (2022-03-25)
+
+
+### Bug Fixes
+
+* run calendar on empty search after init ([3f26238](https://github.com/3merge/q/commit/3f26238e6c034d33b85a09785763b415b5fe166c))
+
+
+
+
+
 ## [3.4.5](https://github.com/3merge/q/compare/v3.4.4...v3.4.5) (2022-03-25)
 
 
