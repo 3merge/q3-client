@@ -1,9 +1,12 @@
 import React from 'react';
-import { map, size, find, isObject } from 'lodash';
+import { get, map, size, find, isObject } from 'lodash';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
 
 const getUiName = (item) =>
   isObject(item.ui) ? item.ui.label : item.ui;
+
+const getUiComponent = (item) =>
+  get(item, 'component', item);
 
 const withCollectionUi =
   (Component, args = {}) =>
@@ -27,8 +30,8 @@ const withCollectionUi =
     );
 
     const uiComponent = isObject(uiProps?.ui)
-      ? uiProps.ui.component
-      : settledUi;
+      ? getUiComponent(uiProps.ui)
+      : getUiComponent(settledUi);
 
     return React.useMemo(
       () => (

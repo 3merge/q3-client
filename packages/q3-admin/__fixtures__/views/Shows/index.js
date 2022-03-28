@@ -65,6 +65,11 @@ export default new AbstractCollectionBuilder({
         },
       },
     ],
+    // ui: {
+    //   label: 'custom',
+    //   // eslint-disable-next-line
+    //   component: () => <p>CUSTOM COMPONENT</p>,
+    // },
     io: {
       exports: ['orders'],
       imports: [],
