@@ -964,7 +964,7 @@ const ProfileChangeTheme = (props) => {
           lg={12}
         />
         <Field
-          name="countryOfResidence "
+          name="countryOfResidence"
           type="select"
           options={countryCodes.map((country) => ({
             value: country.code,

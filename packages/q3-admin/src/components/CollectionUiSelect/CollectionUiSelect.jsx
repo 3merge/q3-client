@@ -16,15 +16,18 @@ const getIcon = (ui) =>
 const CollectionUiSelect = ({ uis }) =>
   size(uis) > 0 && (
     <DropdownMenu items={uis}>
-      {(onClick) => (
-        <ButtonWithIcon
-          icon={getIcon(
-            find(uis, (ui) => ui.selected)?.label,
-          )}
-          label="uis"
-          onClick={onClick}
-        />
-      )}
+      {(onClick) => {
+        const active = find(uis, (ui) => ui.selected);
+        const icon = active?.icon || getIcon(active?.label);
+
+        return (
+          <ButtonWithIcon
+            icon={icon}
+            label="uis"
+            onClick={onClick}
+          />
+        );
+      }}
     </DropdownMenu>
   );
 

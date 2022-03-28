@@ -1,6 +1,9 @@
 import React from 'react';
-import { map, size, find } from 'lodash';
+import { map, size, find, isObject } from 'lodash';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
+
+const getUiName = (item) =>
+  isObject(item.ui) ? item.ui.label : item.ui;
 
 const withCollectionUi =
   (Component, args = {}) =>
@@ -8,7 +11,7 @@ const withCollectionUi =
     const { ui, uis = [] } = args;
     const { cached, change } = useCollectionUiLocalStorage(
       size(uis) ? uis[0]?.ui : ui,
-      [map(uis, 'ui'), ui],
+      [map(uis, getUiName), ui],
     );
 
     const [settledUi, setSettledUi] =
@@ -18,18 +21,32 @@ const withCollectionUi =
       change(settledUi);
     }, [settledUi]);
 
+    const uiProps = find(
+      uis,
+      (uix) => getUiName(uix) === settledUi,
+    );
+
+    const uiComponent = isObject(uiProps?.ui)
+      ? uiProps.ui.component
+      : settledUi;
+
     return React.useMemo(
       () => (
         <Component
           {...args}
-          {...find(uis, (uix) => uix?.ui === settledUi)}
+          {...uiProps}
           {...props}
-          ui={settledUi}
-          uis={map(uis, (item) => ({
-            label: item.ui,
-            onClick: () => setSettledUi(item.ui),
-            selected: item.ui === settledUi,
-          }))}
+          ui={uiComponent}
+          uis={map(uis, (item) => {
+            const label = getUiName(item);
+
+            return {
+              label,
+              onClick: () => setSettledUi(label),
+              selected: label === settledUi,
+              icon: item?.ui?.icon,
+            };
+          })}
         />
       ),
       [settledUi],

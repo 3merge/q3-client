@@ -1,5 +1,4 @@
 import React from 'react';
-import { isFunction } from 'lodash';
 import { Calendar, Table } from '../../containers';
 
 const UndefinedListElement = () => (
@@ -13,8 +12,7 @@ const CollectionUiResolver = (props) => {
   const ListElement = React.useMemo(() => {
     if (!ui || ui === 'table') return Table;
     if (ui === 'calendar') return Calendar;
-    if (isFunction(ui)) return ui(props);
-    return UndefinedListElement;
+    return ui || UndefinedListElement;
   }, [ui]);
 
   return <ListElement {...props} />;

@@ -56,6 +56,14 @@ export default new AbstractCollectionBuilder({
         runOnInit: false,
         fromKey: 'demo',
       },
+      {
+        ui: {
+          label: 'custom',
+          icon: CreditCard,
+          // eslint-disable-next-line
+          component: () => <p>CUSTOM COMPONENT</p>,
+        },
+      },
     ],
     io: {
       exports: ['orders'],
