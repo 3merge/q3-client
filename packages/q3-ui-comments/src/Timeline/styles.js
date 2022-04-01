@@ -13,6 +13,14 @@ export default makeStyles((theme) => ({
   menu: {
     display: 'inline-block',
 
+    [theme.breakpoints.down('xs')]: {
+      display: 'inline',
+    },
+
+    '& .menu': {
+      display: 'inline',
+    },
+
     '& .menu:empty ~ *': {
       display: 'none',
     },
