@@ -43,7 +43,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundImage: isString(photo)
       ? `url("${String(photo).replace(/\s/gi, '%20')}")`
       : undefined,
-    backgroundSize: 'contain',
+    backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     width: '100%',

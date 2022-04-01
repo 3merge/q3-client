@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, sortBy } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import { useNavigate } from '@reach/router';
-import { Grid, Tooltip, Chip } from '@material-ui/core';
+import { Grid, Link } from '@material-ui/core';
+import LinkIcon from '@material-ui/icons/Link';
+import CategoryIcon from '@material-ui/icons/Category';
 import { useDetailRegisterFunction } from '../../hooks';
 import useStyle from './styles';
 
@@ -23,29 +25,34 @@ const DetailOptions = ({ registerOptions }) => {
       className={cls.list}
       spacing={1}
     >
-      {map(options, (option) => (
+      {map(sortBy(options, 'href'), (option) => (
         <Grid
           item
           className={cls.listItem}
           component="li"
           key={option.title}
         >
-          <Tooltip arrow title={t(option.title)}>
-            {option.href ? (
-              <Chip
-                className={cls.chip}
-                label={t(option.description)}
-                onClick={() => {
-                  navigate(option.href);
-                }}
-              />
-            ) : (
-              <Chip
-                className={cls.chip}
-                label={t(option.description)}
-              />
-            )}
-          </Tooltip>
+          {option.href ? (
+            <Link
+              role="button"
+              title={t(option.title)}
+              className={cls.chip}
+              onClick={() => {
+                navigate(option.href);
+              }}
+            >
+              <LinkIcon /> {t(option.description)}
+            </Link>
+          ) : (
+            <Link
+              disabled
+              title={t(option.title)}
+              className={cls.chip}
+            >
+              <CategoryIcon />
+              {t(option.description)}
+            </Link>
+          )}
         </Grid>
       ))}
     </Grid>

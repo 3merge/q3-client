@@ -13,6 +13,7 @@ const TableTrash = ({ id }) => {
   return (
     <AuthDelete>
       <Confirm
+        title="delete"
         icon={DeleteForever}
         phrase="DELETE"
         service={(args) =>

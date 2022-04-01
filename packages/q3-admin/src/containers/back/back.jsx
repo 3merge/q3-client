@@ -4,7 +4,11 @@ import IconButton from '@material-ui/core/IconButton';
 import { useBack } from '../../hooks';
 
 const Back = () => (
-  <IconButton label="previous" onClick={useBack()}>
+  <IconButton
+    role="link"
+    label="previous"
+    onClick={useBack()}
+  >
     <KeyboardBackspace />
   </IconButton>
 );

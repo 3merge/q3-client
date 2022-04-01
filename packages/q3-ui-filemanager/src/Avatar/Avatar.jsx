@@ -41,6 +41,7 @@ const Avatar = (props) => {
             <IconButton
               aria-label={t('changeFeaturedPhoto')}
               onClick={open}
+              style={{ padding: 0 }}
             >
               {AvatarRenderer}
             </IconButton>

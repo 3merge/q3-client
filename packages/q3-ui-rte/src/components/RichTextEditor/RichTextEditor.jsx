@@ -72,7 +72,7 @@ const RichTextEditor = React.forwardRef(
       {
         ref,
         component: ModuleVideo,
-        label: 'embed',
+        label: 'embedVideo',
         group: 'end',
       },
     ].concat(

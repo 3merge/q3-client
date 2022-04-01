@@ -10,10 +10,23 @@ export default makeStyles((theme) => ({
   },
   listItem: {
     width: 'auto',
+
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: '0 !important',
+      paddingTop: '0 !important',
+    },
   },
   chip: {
-    borderRadius: 4,
-    backgroundColor: theme.palette.secondary.muted,
-    fontWeight: 'bold',
+    textDecoration: 'none !important',
+    display: 'inline-flex',
+    alignItems: 'center',
+    color: 'inherit',
+    cursor: 'pointer',
+    '& svg': {
+      marginRight: '.25rem',
+    },
+    '&[disabled]': {
+      cursor: 'help',
+    },
   },
 }));

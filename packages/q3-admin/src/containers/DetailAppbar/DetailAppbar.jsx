@@ -36,14 +36,16 @@ const DetailAppbar = ({
           className={cls.nav}
         >
           <Back />
-          <Breadcrumbs />
+          <Hidden smDown>
+            <Breadcrumbs />
+          </Hidden>
         </Box>
         <ActionBar>{actions}</ActionBar>
       </Toolbar>
       <Toolbar className={cls.header}>
         <Box
-          alignItems="center"
-          flexWrap="wrap"
+          className={cls.titleContainer}
+          flexWrap="nowrap"
           display="flex"
           flex="1"
         >

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
+import { lighten } from '@material-ui/core';
+import { isString } from 'lodash';
 import Tooltip from '../tooltip';
 import useStyle, { getColor } from './useStyle';
 
@@ -54,6 +56,7 @@ const ColoredAvatar = ({
   superscript,
   imgSrc,
   icon: Icon,
+  iconBg,
   large,
   onClick,
   tooltip,
@@ -109,7 +112,16 @@ const ColoredAvatar = ({
         superscript={superscript}
         className={cls.badge}
       >
-        <Avatar {...getAvatarProps()} variant="rounded">
+        <Avatar
+          {...getAvatarProps()}
+          style={{
+            backgroundColor: isString(iconBg)
+              ? lighten(iconBg, 0.8)
+              : undefined,
+            color: iconBg,
+          }}
+          variant="rounded"
+        >
           {getChildren()}
         </Avatar>
       </WithBadge>
@@ -133,6 +145,7 @@ ColoredAvatar.propTypes = {
   large: PropTypes.bool,
   onClick: PropTypes.func,
   tooltip: PropTypes.string,
+  iconBg: PropTypes.string,
 };
 
 ColoredAvatar.defaultProps = {
@@ -143,6 +156,7 @@ ColoredAvatar.defaultProps = {
   large: false,
   onClick: null,
   tooltip: null,
+  iconBg: undefined,
 };
 
 export default ColoredAvatar;

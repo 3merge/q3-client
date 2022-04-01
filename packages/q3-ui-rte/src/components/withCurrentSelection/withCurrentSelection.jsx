@@ -31,7 +31,8 @@ const withCurrentSelection = (Component, { icon, label }) =>
           cb.current = onClick;
 
           const captureSelection = () => {
-            const nextSelection = ref.current.getSelection();
+            const nextSelection =
+              ref.current.getSelection();
 
             if (!nextSelection) {
               ref.current.focus();

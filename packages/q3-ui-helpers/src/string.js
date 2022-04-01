@@ -48,12 +48,7 @@ const makeDateFn =
   (format) =>
   (str, fallbackText = '') =>
     moment(str, moment.ISO_8601).isValid()
-      ? moment
-          .parseZone(
-            str,
-            moment.HTML5_FMT.DATETIME_LOCAL_MS,
-          )
-          .format(format)
+      ? moment.parseZone(str).format(format)
       : fallbackText;
 
 export const toDate = makeDateFn('MMM DD, Y[\r\n]LT');
@@ -63,10 +58,7 @@ export const toYearMonthDay = makeDateFn('YYYY-MM-DD');
 
 export const toDayOfWeek = (xs, fallbackText = '') =>
   moment(xs, moment.ISO_8601).isValid()
-    ? moment(xs)
-        .parseZone(xs, moment.HTML5_FMT.DATETIME_LOCAL_MS)
-        .startOf('day')
-        .format('LL')
+    ? moment(xs).parseZone(xs).startOf('day').format('LL')
     : fallbackText;
 
 export const toPrice = (str) => {

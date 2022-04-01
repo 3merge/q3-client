@@ -5,5 +5,6 @@ export default makeStyles(() => ({
     display: 'inherit',
     fontSize: '.733rem',
     padding: 0,
+    minWidth: 'auto',
   },
 }));

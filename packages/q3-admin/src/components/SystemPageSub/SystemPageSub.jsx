@@ -16,7 +16,7 @@ export default ({ maxWidth = 'sm', title, children }) => {
   return (
     <Fade in>
       <Container maxWidth={maxWidth}>
-        <MuiLink component={Link} to="..">
+        <MuiLink color="inherit" component={Link} to="..">
           {t('labels:back')}
         </MuiLink>
         <Box mt={1}>

@@ -30,7 +30,7 @@ export const setTimezone = (timezone = '') => {
 };
 
 export const toLocal = (value, format) =>
-  moment.utc(value).tz(getTimezone()).format(format);
+  moment.tz(value, getTimezone()).format(format);
 
 export const toUtc = (value) =>
   moment.tz(value, getTimezone()).toISOString();

@@ -54,4 +54,11 @@ export default makeStyles((theme) => ({
   root: {
     background: theme.palette.background.default,
   },
+  titleContainer: {
+    alignItems: 'center',
+
+    [theme.breakpoints.down('sm')]: {
+      alignItems: 'flex-start',
+    },
+  },
 }));

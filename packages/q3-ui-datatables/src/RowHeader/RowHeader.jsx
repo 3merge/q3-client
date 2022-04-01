@@ -18,6 +18,8 @@ const CellHeader = ({
   url,
   disableMultiselect,
   disableAvatar,
+  icon,
+  iconBg,
 }) => {
   const { cellHeaderLink } = useStyles();
   const asLink = url ? { component: Link, to: url } : {};
@@ -33,7 +35,12 @@ const CellHeader = ({
         <>
           {!disableAvatar && (
             <Grid item>
-              <Avatar word={name} imgSrc={imgSrc} />
+              <Avatar
+                icon={icon}
+                iconBg={iconBg}
+                word={name}
+                imgSrc={imgSrc}
+              />
             </Grid>
           )}
           <Grid item {...asLink} className={cellHeaderLink}>

@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
       left: 0,
       height: 65,
       justifyContent: 'center',
-      zIndex: 1000,
+      zIndex: 1,
       overflowX: 'auto',
 
       '& *': {
