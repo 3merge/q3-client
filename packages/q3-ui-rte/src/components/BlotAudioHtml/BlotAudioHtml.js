@@ -1,13 +1,22 @@
 import Quill from 'quill';
 
-const BlockEmbed = Quill.import('blots/block/embed');
+const BlockEmbed = Quill.import('blots/embed');
+
+export const insertRichMediaBlock = (node) => {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('blockmedia');
+  wrapper.appendChild(node);
+  wrapper.insertAdjacentHTML('afterbegin', '&nbsp;');
+  wrapper.insertAdjacentHTML('beforeend', '&nbsp;');
+  return wrapper;
+};
 
 class BlotAudioHtml extends BlockEmbed {
   static create(value) {
     const node = super.create(value);
     node.setAttribute('src', value);
     node.setAttribute('controls', '');
-    return node;
+    return insertRichMediaBlock(node);
   }
 
   static value(node) {

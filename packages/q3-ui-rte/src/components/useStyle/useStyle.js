@@ -30,7 +30,7 @@ const useStyle = makeStyles((theme) => ({
         width: 650,
         height: 550,
         margin: '2rem 0 !important',
-        display: 'block',
+        display: 'inline-block',
 
         [theme.breakpoints.down('md')]: {
           height: 335,
@@ -46,16 +46,25 @@ const useStyle = makeStyles((theme) => ({
         borderColor: 'var(--background-muted)',
       },
 
+      '& .blockmedia': {
+        whiteSpace: 'normal !important',
+      },
+
       '& video': {
         maxHeight: 550,
         // padding seems to get in the way
         maxWidth: 'calc(100% - 1.5rem)',
+        display: 'inline-block',
+      },
+
+      '& audio': {
+        display: 'inline-block',
       },
 
       '& img': {
         cursor: 'pointer',
-        display: 'block',
-        margin: '2rem 0',
+        display: 'inline-block',
+        padding: '.15rem',
         width: '50%',
         maxWidth: '100%',
         maxHeight: 550,
