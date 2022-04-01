@@ -37,6 +37,8 @@ export default new AbstractCollectionBuilder({
         base: updatedAt,
         toDate: true,
       },
+      icon: name === 'Archer' ? CreditCard : undefined,
+      iconBg: name === 'Archer' ? '#FF4785' : undefined,
     }),
   )
   .genHeader({
