@@ -6,10 +6,20 @@ import {
 } from '@storybook/addon-docs/blocks';
 import { genPermission } from '../__fixtures__/permission';
 import MockThreadEndpoint from './__support__/rest';
-import { ReadOnly, FullEditing } from './__support__';
+import {
+  Empty,
+  ReadOnly,
+  FullEditing,
+} from './__support__';
 import Notes from '.';
 
 <Meta title="Admin/Notes" component={Notes} />
+
+<Preview>
+  <Story name="Empty">
+    <Empty />
+  </Story>
+</Preview>
 
 <Preview>
   <Story name="ReadOnly">

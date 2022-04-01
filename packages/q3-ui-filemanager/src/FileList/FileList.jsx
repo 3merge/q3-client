@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { mergeWith, setWith, get, map } from 'lodash';
+import { useTranslation } from 'q3-ui-locale';
+import { mergeWith, setWith, get, map, size } from 'lodash';
 import { array } from 'q3-ui-helpers';
 import alpha from 'alphabetize-object-keys';
 import Box from '@material-ui/core/Box';
@@ -59,6 +60,8 @@ const FileList = ({
   const { collectionName } = props;
   const { HideByField, canCreateSub } =
     useAuth(collectionName);
+
+  const { t } = useTranslation('descriptions');
   const [dir, setDir] = React.useState({
     data: {},
     path: [],
@@ -137,6 +140,7 @@ const FileList = ({
           </Grid>
         )}
       </Grid>
+
       {renderDirectoryUploadSurface(
         dir.data.default,
         Object.keys(alpha(dir.data)).map((name) =>
@@ -153,6 +157,7 @@ const FileList = ({
           ) : null,
         ),
       )}
+      {!size(files) && t('noFilesUploaded')}
     </Box>
   );
 };

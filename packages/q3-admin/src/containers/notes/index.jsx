@@ -2,7 +2,7 @@ import React from 'react';
 import useRest from 'q3-ui-rest';
 import { useTranslation } from 'q3-ui-locale';
 import { useAuth } from 'q3-ui-permissions';
-import { orderBy } from 'lodash';
+import { orderBy, size } from 'lodash';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
@@ -50,10 +50,10 @@ const Notes = () => {
       errorLabel={t('notesError')}
     >
       <AddNote
+        count={size(thread)}
         show={auth.canCreateSub(key)}
         onSubmit={post}
       />
-
       {orderBy(thread, ['createdAt'], ['desc']).map(
         (v, idx) => (
           <Note key={`${v.id}${idx}`} {...args} {...v} />

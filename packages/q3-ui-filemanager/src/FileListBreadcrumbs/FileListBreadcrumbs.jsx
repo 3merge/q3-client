@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import Button from '@material-ui/core/Button';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -32,6 +32,8 @@ const FilterListBreadcrumbs = ({
       path: [],
     });
 
+  if (!size(path)) return null;
+
   return (
     <Breadcrumbs aria-label={t('fileManagerBreadcrumbs')}>
       <Button
@@ -41,7 +43,7 @@ const FilterListBreadcrumbs = ({
         onClick={handleDirectoryReset}
         className={cls.link}
       >
-        {t('fileManager')}
+        {t('root')}
       </Button>
       {path.map((item, i) => (
         <Button
