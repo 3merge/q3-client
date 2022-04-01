@@ -5,5 +5,6 @@ import { connect } from '../../../src/containers';
 export default connect(({ data, ...rest }) => (
   <Form {...rest} initialValues={data}>
     <Field name="name" type="text" />
+    <Field name="name2" type="editor" />
   </Form>
 ));
