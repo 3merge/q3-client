@@ -15,21 +15,35 @@ beforeEach(() => {
 
 describe('useTranslation', () => {
   it('should use default namespace', () => {
-    useTranslation('foo').t('bar', {
+    useTranslation('labels').t('bar', {
       var: 1,
     });
 
-    expect(translate).toHaveBeenCalledWith('foo', 'bar', {
-      var: 1,
-    });
+    expect(translate).toHaveBeenCalledWith(
+      'labels',
+      'bar',
+      {
+        var: 1,
+      },
+    );
   });
 
   it('should use overwrite namespace', () => {
-    useTranslation('foo').t('quuz:bar');
+    useTranslation('labels').t('titles:bar');
 
     expect(translate).toHaveBeenCalledWith(
-      'quuz',
+      'titles',
       'bar',
+      {},
+    );
+  });
+
+  it('should ignore nested', () => {
+    useTranslation('helpers').t('descriptions:bar:thunk');
+
+    expect(translate).toHaveBeenCalledWith(
+      'descriptions',
+      'bar&colon;thunk',
       {},
     );
   });

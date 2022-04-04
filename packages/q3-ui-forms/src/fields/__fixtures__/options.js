@@ -14,7 +14,7 @@ export const options = [
 export const countries = [
   {
     value: 'CA',
-    label: 'Canada',
+    label: 'Canada :)',
     continent: 'North America',
   },
   {
@@ -33,14 +33,15 @@ export const autocomplete = (e) =>
   new Promise((resolve) =>
     setTimeout(() => {
       resolve(
-        countries.filter((item) => {
-          return e.split(' ').some((v) => {
-            return (
-              item.label.includes(v) ||
-              item.continent.includes(v)
-            );
-          });
-        }),
+        countries.filter((item) =>
+          e
+            .split(' ')
+            .some(
+              (v) =>
+                item.label.includes(v) ||
+                item.continent.includes(v),
+            ),
+        ),
       );
     }, 200),
   );
