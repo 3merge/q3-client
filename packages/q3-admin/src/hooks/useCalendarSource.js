@@ -61,24 +61,22 @@ const useCalendarSource = (options = {}) => {
     );
 
   React.useEffect(() => {
-    if (isObject(ref.current)) {
-      if (String(search).includes(fromKey)) {
-        const s = `${search}&limit=500`;
+    if (String(search).includes(fromKey)) {
+      const s = `${search}&limit=500`;
 
-        if (isFunction(getBackgroundEvents))
-          getBackgroundEvents(s)
-            .then(setBackgroundEvents)
-            .catch(() => {
-              // noop
-            });
-
-        if (isFunction(poll))
-          poll(s).catch(() => {
+      if (isFunction(getBackgroundEvents))
+        getBackgroundEvents(s)
+          .then(setBackgroundEvents)
+          .catch(() => {
             // noop
           });
-      } else {
-        getEvents(ref.current);
-      }
+
+      if (isFunction(poll))
+        poll(s).catch(() => {
+          // noop
+        });
+    } else if (isObject(ref.current)) {
+      getEvents(ref.current);
     }
   }, [search]);
 

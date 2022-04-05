@@ -1536,6 +1536,22 @@
     "@fullcalendar/common" "~5.10.1"
     tslib "^2.1.0"
 
+"@fullcalendar/moment-timezone@^5.10.1":
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment-timezone/-/moment-timezone-5.10.1.tgz#88a462af46304ec6044f744628763b18a03c955f"
+  integrity sha512-DqTmzSCW2ZMP4wGfJdxc5rO/J1loBLgxgLYlG2Y0Qup2qeD1C+UlCEdtWUhYNMjTY1jBomKGJnWrLVc5ZxvcFA==
+  dependencies:
+    "@fullcalendar/common" "~5.10.1"
+    tslib "^2.1.0"
+
+"@fullcalendar/moment@^5.10.1":
+  version "5.10.1"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/moment/-/moment-5.10.1.tgz#9c8a835c6008a164b18cf9bc6c09015d23c72c4e"
+  integrity sha512-Y0mYxa3sLUxwnGdyDfqqsMARMlZ+W43wSnofTQxMhIYketppfzJKz4zwTUXU/DFukM38DmjZvTV4j3xyGtb33A==
+  dependencies:
+    "@fullcalendar/common" "~5.10.1"
+    tslib "^2.1.0"
+
 "@fullcalendar/react@^5.10.1":
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/@fullcalendar/react/-/react-5.10.1.tgz#bb1652357f98b7dc01894a41e7204f1391999791"

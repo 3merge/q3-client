@@ -5,6 +5,8 @@ import list from '@fullcalendar/list';
 import interaction from '@fullcalendar/interaction';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
+import moment from '@fullcalendar/moment';
+import momentTimezone from '@fullcalendar/moment-timezone';
 
 const useCalendarOrientation = () => {
   const { t } = useTranslation('labels');
@@ -46,7 +48,14 @@ const useCalendarOrientation = () => {
       list: t('list'),
     },
     initialView,
-    plugins: [daygrid, timegrid, list, interaction],
+    plugins: [
+      moment,
+      momentTimezone,
+      daygrid,
+      timegrid,
+      list,
+      interaction,
+    ],
     ref,
   };
 };
