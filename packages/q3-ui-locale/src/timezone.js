@@ -7,6 +7,7 @@ export const TIMEZONE = 'timezone';
 export const guess = () => moment.tz.guess();
 
 export const getTimezone = () =>
+  moment.tz.defaultZone?.name ||
   browser.proxyLocalStorageApi('getItem', TIMEZONE) ||
   guess();
 
@@ -27,6 +28,7 @@ export const setTimezone = (timezone = '') => {
       : guess();
 
   browser.proxyLocalStorageApi('setItem', TIMEZONE, value);
+  moment.tz.setDefault(value);
 };
 
 export const toLocal = (value, format) =>

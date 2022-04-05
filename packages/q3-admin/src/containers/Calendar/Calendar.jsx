@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FullCalendar from '@fullcalendar/react';
 import { isFunction, map, pick } from 'lodash';
 import { Box } from '@material-ui/core';
+import { getTimezone } from 'q3-ui-locale/lib/timezone';
 import { Store } from '../state';
 import useStyle from './styles';
 import useCalendarSource from '../../hooks/useCalendarSource';
@@ -51,6 +52,7 @@ const Calendar = (props) => {
         <FullCalendar
           {...props}
           initialDate={calendarSource.initialDate}
+          timeZone={getTimezone()}
           allDaySlot={false}
           lazyFetching
           events={[
