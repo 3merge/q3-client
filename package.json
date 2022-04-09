@@ -101,7 +101,7 @@
     "lodash.get": "^4.4.2",
     "material-ui-chip-input": "^1.1.0",
     "micromatch": "^4.0.2",
-    "moment": "2.29.1",
+    "moment": "2.29.2",
     "moment-timezone": "^0.5.34",
     "notistack": "1.0.10",
     "qs": "^6.9.6",
