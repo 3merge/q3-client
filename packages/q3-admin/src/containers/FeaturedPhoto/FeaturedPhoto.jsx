@@ -4,15 +4,10 @@ import { Avatar, PhotoUpload } from 'q3-ui-filemanager';
 import { makeStyles } from '@material-ui/core';
 import { useCanEditField } from '../../hooks';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles(() => ({
   picture: {
     width: 95,
     height: 95,
-
-    [theme.breakpoints.down('sm')]: {
-      width: 65,
-      height: 65,
-    },
   },
 }));
 

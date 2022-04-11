@@ -13,6 +13,8 @@ export default makeStyles((theme) => ({
       justifyContent: 'center',
       zIndex: 1,
       overflowX: 'auto',
+      backgroundColor: theme.palette.secondary.main,
+      color: theme.palette.secondary.contrastText,
 
       '& *': {
         //   backgroundColor: 'transparent',

@@ -7,7 +7,12 @@ export default makeStyles((theme) => ({
     flexWrap: 'wrap',
 
     [theme.breakpoints.down('md')]: {
+      minHeight: 0,
       marginBottom: theme.spacing(1),
+
+      '& button:first-of-type': {
+        marginBottom: '1rem',
+      },
     },
 
     [theme.breakpoints.down('sm')]: {
@@ -18,6 +23,7 @@ export default makeStyles((theme) => ({
   },
   toolbar: {
     justifyContent: 'space-between',
+    minHeight: 0,
 
     [theme.breakpoints.up('lg')]: {
       minHeight: 95,
@@ -56,9 +62,24 @@ export default makeStyles((theme) => ({
   },
   titleContainer: {
     alignItems: 'center',
+    marginLeft: '.35rem',
 
     [theme.breakpoints.down('sm')]: {
       alignItems: 'flex-start',
+    },
+  },
+  mobileTitleContainer: {
+    maxWidth: '70vw',
+    // margin: '-2.5rem auto -1.5rem',
+  },
+  mobileSummaryContainer: {
+    '& ul': {
+      display: 'flex',
+      justifyContent: 'center',
+
+      '& li': {
+        fontSize: '0.833rem',
+      },
     },
   },
 }));

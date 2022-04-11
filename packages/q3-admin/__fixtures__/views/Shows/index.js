@@ -100,6 +100,14 @@ export default new AbstractCollectionBuilder({
       // if (name === 'subdetail') return data.name === 'foo';
       true,
     registerActions: () => [],
+    registerAlerts: () => [
+      {
+        id: '2',
+        title: 'info',
+        description: 'info',
+        severity: 'info',
+      },
+    ],
     registerOptions: () => [
       {
         href: 'https:google.com',

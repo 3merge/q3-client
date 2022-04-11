@@ -87,7 +87,7 @@ const ItemActionsWrapper = ({
         variant="drawer"
       />
     ),
-    [data],
+    [id, data],
   );
 
   return disableDialog ? renderChildren() : DialogRenderer;
