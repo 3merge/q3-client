@@ -68,7 +68,7 @@ const Detail = ({
       <Box bgcolor="background.paper" height="100%">
         <Article>
           {AppBar}
-          <Box m={2}>
+          <Box m={1}>
             <Grid item xs>
               {Views}
               <Hidden lgUp>

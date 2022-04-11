@@ -30,28 +30,37 @@ const DetailAppbar = ({
       className={cls.root}
     >
       <Toolbar className={cls.toolbar}>
-        <Box
-          alignItems="center"
-          display="flex"
-          className={cls.nav}
-        >
-          <Back />
-          <Hidden smDown>
+        <Hidden mdDown>
+          <Box
+            alignItems="center"
+            display="flex"
+            className={cls.nav}
+          >
+            <Back />
             <Breadcrumbs />
-          </Hidden>
-        </Box>
+          </Box>
+        </Hidden>
         <ActionBar>{actions}</ActionBar>
       </Toolbar>
       <Toolbar className={cls.header}>
-        <Box
-          className={cls.titleContainer}
-          flexWrap="nowrap"
-          display="flex"
-          flex="1"
-        >
-          <DetailFeaturedPhoto />
-          <DetailHeader {...rest}>{summary}</DetailHeader>
-        </Box>
+        <Hidden lgUp>
+          <Box mt={2} mb={1}>
+            <DetailFeaturedPhoto />
+            <DetailHeader {...rest} />
+            {summary}
+          </Box>
+        </Hidden>
+        <Hidden mdDown>
+          <Box
+            className={cls.titleContainer}
+            flexWrap="nowrap"
+            display="flex"
+            flex="1"
+          >
+            <DetailFeaturedPhoto />
+            <DetailHeader {...rest}>{summary}</DetailHeader>
+          </Box>
+        </Hidden>
         <Box className={cls.meta}>
           <Hidden mdDown>
             <DetailMeta />

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get, size, isFunction } from 'lodash';
-import { Box } from '@material-ui/core';
+import { Box, Hidden } from '@material-ui/core';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ForumIcon from '@material-ui/icons/Forum';
@@ -17,6 +17,7 @@ import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ButtonWithIconDialog from '../../components/ButtonWithIconDialog';
 import { Definitions, Store } from '../state';
 import Search from '../../components/Search';
+import Back from '../back';
 
 const DetailActions = ({
   audit,
@@ -44,6 +45,9 @@ const DetailActions = ({
 
   return (
     <Box alignItems="center" display="flex">
+      <Hidden lgUp>
+        <Back />
+      </Hidden>
       {lhr(canSeeSub('grams'), <Search />)}
       {lhr(
         canSeeSub('thread'),
