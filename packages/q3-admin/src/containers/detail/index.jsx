@@ -12,6 +12,7 @@ import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
 import DetailAppbar from '../DetailAppbar';
+import DetailAlerts from '../DetailAlerts';
 import DetailOptions from '../DetailOptions';
 import Article from '../../components/Article';
 import withDetailViews from '../../helpers/withDetailViews';
@@ -63,10 +64,18 @@ const Detail = ({
     [HeaderProps, Actions, Summary, Navigation],
   );
 
+  const Alerts = React.useMemo(
+    () => (
+      <DetailAlerts registerAlerts={rest.registerAlerts} />
+    ),
+    [rest.registerAlerts],
+  );
+
   return React.useMemo(
     () => (
       <Box bgcolor="background.paper" height="100%">
         <Article>
+          {Alerts}
           {AppBar}
           <Box m={1}>
             <Grid item xs>
