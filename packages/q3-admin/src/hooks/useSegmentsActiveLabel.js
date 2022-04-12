@@ -1,5 +1,6 @@
 import React from 'react';
-import { compact, get } from 'lodash';
+import { compact, get, isFunction } from 'lodash';
+import { AuthContext } from 'q3-ui-permissions';
 import { Definitions } from '../containers/state';
 import useSegments, {
   mapSegmentsToListData,
@@ -10,7 +11,13 @@ const useSegmentsActiveLabel = () => {
   const { collectionName, segments } =
     React.useContext(Definitions);
 
-  const fromCollection = mapSegmentsToListData(segments);
+  const { state } = React.useContext(AuthContext);
+
+  const fromCollection = mapSegmentsToListData(
+    isFunction(segments)
+      ? segments(state?.profile)
+      : segments,
+  );
   const fromProfile = get(
     useSegmentsFromProfile(collectionName),
     'asArray',

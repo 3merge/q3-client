@@ -28,7 +28,8 @@ export default new AbstractCollectionBuilder({
     ({ id, name, description, createdAt, updatedAt }) => ({
       id,
       name,
-      description,
+      description:
+        'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
       createdAt: {
         base: createdAt,
         toDate: true,

@@ -1,7 +1,6 @@
 import { get } from 'lodash';
-import { object, string } from 'q3-ui-helpers';
+import { object } from 'q3-ui-helpers';
 
-const { ellipsis } = string;
 const { isFn } = object;
 
 export default (
@@ -10,7 +9,7 @@ export default (
 ) => {
   let title = '';
 
-  if (titleProp) title += ellipsis(get(state, titleProp));
+  if (titleProp) title += get(state, titleProp);
   if (parenthesesProp)
     title += ` (${get(state, parenthesesProp)})`;
 

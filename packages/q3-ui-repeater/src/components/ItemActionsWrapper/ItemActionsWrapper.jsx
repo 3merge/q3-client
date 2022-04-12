@@ -58,15 +58,15 @@ const ItemActionsWrapper = ({
     </Tooltip>
   );
 
-  React.useEffect(() => {
-    try {
-      ref.current
-        .closest('tr')
-        .setAttribute('data-active-id', state);
-    } catch (e) {
-      // noop
-    }
-  }, [state]);
+  // React.useEffect(() => {
+  //   try {
+  //     ref.current
+  //       .closest('tr')
+  //       .setAttribute('data-active-id', state);
+  //   } catch (e) {
+  //     // noop
+  //   }
+  // }, [state]);
 
   const DialogRenderer = React.useMemo(
     () => (

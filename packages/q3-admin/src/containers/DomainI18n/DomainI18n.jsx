@@ -91,7 +91,7 @@ const DomainI18n = () => {
                 <Tab
                   disabled={!(l in initialValues)}
                   key={l}
-                  label={l}
+                  label={t(`labels:${l}`)}
                   value={v}
                 />
               ))}

@@ -26,7 +26,10 @@ export const onClientEntry = async () => {
   const offset = str.includes('localhost') ? -1 : -2;
   const parts = str.split('.').slice(0, offset).join('.');
 
-  if (size(parts))
+  if (process.env.GATSBY_APP_TENANT_FORCE) {
+    axios.defaults.headers['X-Session-Tenant'] =
+      process.env.GATSBY_APP_TENANT_FORCE;
+  } else if (size(parts))
     axios.defaults.headers['X-Session-Tenant'] =
       process.env.GATSBY_APP_TENANT || parts;
 
