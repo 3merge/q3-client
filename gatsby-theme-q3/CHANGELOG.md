@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.4.15](https://github.com/3merge/q/compare/v3.4.14...v3.4.15) (2022-04-12)
+
+
+### Bug Fixes
+
+* segments and forced tenancy ([#397](https://github.com/3merge/q/issues/397)) ([82e1802](https://github.com/3merge/q/commit/82e1802fe1cde096b442e294896e0ad2dd9530a7))
+
+
+
+
+
 ## [3.4.11](https://github.com/3merge/q/compare/v3.4.10...v3.4.11) (2022-04-05)
 
 **Note:** Version bump only for package gatsby-theme-q3
