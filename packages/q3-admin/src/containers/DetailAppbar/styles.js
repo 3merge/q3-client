@@ -33,6 +33,8 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       //   justifyContent: 'space-between',
       width: '100%',
+      marginLeft: '-.5rem',
+      marginTop: '1.5rem',
     },
   },
   toggle: {
@@ -68,9 +70,28 @@ export default makeStyles((theme) => ({
       alignItems: 'flex-start',
     },
   },
-  mobileTitleContainer: {
-    maxWidth: '70vw',
-    // margin: '-2.5rem auto -1.5rem',
+  mobile: {
+    textAlign: 'center',
+    margin: '0 auto',
+    width: '90vw',
+
+    '& h1': {
+      marginTop: '1.25rem',
+    },
+
+    '& .featured-photo': {
+      margin: '1.5rem 0 -.25rem 0',
+    },
+
+    '& ul': {
+      justifyContent: 'center',
+      marginBottom: '1rem',
+    },
+  },
+  mobileGrid: {
+    flexWrap: 'nowrap',
+    marginLeft: 0,
+    marginTop: '.5rem',
   },
   mobileSummaryContainer: {
     '& ul': {

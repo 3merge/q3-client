@@ -18,6 +18,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       height: 65,
       maxHeight: 65,
+      maxWidth: '35vw',
     },
   },
   img: {

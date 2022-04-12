@@ -23,7 +23,10 @@ const ColumnSort = ({
       component="th"
       variant="head"
       className={classnames(tableHead, className)}
-      style={{ borderBottom: 0 }}
+      style={{
+        borderBottom: 0,
+        whiteSpace: 'nowrap',
+      }}
       {...props}
     >
       <div id={title} data-q3-cell={title}>

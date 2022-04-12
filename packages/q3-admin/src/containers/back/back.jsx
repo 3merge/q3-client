@@ -9,6 +9,9 @@ const Back = () => (
     role="link"
     label="previous"
     onClick={useBack()}
+    style={{
+      background: 'transparent',
+    }}
   />
 );
 

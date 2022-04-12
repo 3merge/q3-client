@@ -10,6 +10,8 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('md')]: {
       height: '100%',
+      padding: theme.spacing(1),
+      paddingTop: 0,
 
       '& .fc-today-button': {
         display: 'none',

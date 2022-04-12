@@ -13,11 +13,12 @@ export default makeStyles((theme) => ({
       justifyContent: 'center',
       zIndex: 1,
       overflowX: 'auto',
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
       color: theme.palette.secondary.contrastText,
 
-      '& *': {
-        //   backgroundColor: 'transparent',
+      '& .Mui-disabled': {
+        color: theme.palette.secondary.contrastText,
+        opacity: 0.5,
       },
     },
   },

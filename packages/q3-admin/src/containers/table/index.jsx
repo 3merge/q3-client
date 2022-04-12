@@ -110,7 +110,16 @@ const List = (props) => {
   );
 
   return (
-    <Box p={2} pt={0}>
+    <Box
+      p={{
+        xs: 1,
+        sm: 1,
+        md: 2,
+      }}
+      style={{
+        paddingTop: 0,
+      }}
+    >
       <Table
         {...decorator.build()}
         blacklistColumns={decorator.makeBlacklist(

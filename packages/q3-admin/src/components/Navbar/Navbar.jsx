@@ -69,7 +69,7 @@ const Navbar = ({ children }) => {
                 display="flex"
                 width="100%"
               >
-                <Box>
+                <Box id="menu-trigger" position="relative">
                   <IconButton
                     aria-label="open menu"
                     color="inherit"

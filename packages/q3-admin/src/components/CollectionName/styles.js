@@ -4,6 +4,9 @@ export default makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down('md')]: {
       width: '100%',
+      '& h1': {
+        textAlign: 'center',
+      },
     },
   },
   seg: {
