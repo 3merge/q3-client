@@ -21,7 +21,8 @@ const CellHeader = ({
   icon,
   iconBg,
 }) => {
-  const { cellHeaderLink } = useStyles();
+  const { cellHeaderLink, cellHeadDescription } =
+    useStyles();
   const asLink = url ? { component: Link, to: url } : {};
 
   return (
@@ -56,12 +57,7 @@ const CellHeader = ({
                 String(description).length < 75
               }
             >
-              <Box
-                style={{
-                  maxWidth: 450,
-                  whiteSpace: 'break-spaces',
-                }}
-              >
+              <Box className={cellHeadDescription}>
                 <strong>{ellipsis(name, 45)}</strong>
                 <Box>{ellipsis(description, 75)}</Box>
               </Box>

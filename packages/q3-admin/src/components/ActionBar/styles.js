@@ -13,13 +13,13 @@ export default makeStyles((theme) => ({
       justifyContent: 'center',
       zIndex: 1,
       overflowX: 'auto',
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.secondary.contrastText,
+      backgroundColor: theme.palette.background.paper,
+      boxShadow: 'rgb(0 0 0 / 8%) 0px -3px 18px 3px',
 
-      '& .Mui-disabled': {
-        color: theme.palette.secondary.contrastText,
-        opacity: 0.5,
-      },
+      // '& .Mui-disabled': {
+      //   color: theme.palette.secondary.contrastText,
+      //   opacity: 0.5,
+      // },
     },
   },
 }));

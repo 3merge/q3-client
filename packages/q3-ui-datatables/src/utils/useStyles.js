@@ -39,6 +39,10 @@ export default makeStyles((theme) => ({
       borderBottom: 'none !important',
       padding: '0 !important',
       minWidth: 110,
+
+      [theme.breakpoints.down('sm')]: {
+        whiteSpace: 'nowrap',
+      },
     },
 
     '& td, & th': {
@@ -112,7 +116,14 @@ export default makeStyles((theme) => ({
       display: 'none',
     },
   },
+  cellHeadDescription: {
+    maxWidth: 450,
+    whiteSpace: 'break-spaces',
 
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '45vw',
+    },
+  },
   overflow: {
     maxWidth: '100%',
     position: 'relative',
