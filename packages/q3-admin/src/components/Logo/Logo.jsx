@@ -4,11 +4,11 @@ import useStyle from './styles';
 import useDomainContext from '../../hooks/useDomainContext';
 
 const Logo = () => {
-  const cls = useStyle();
   const { directory = '/', domain = {} } =
     useDomainContext();
 
   const { brand, logo } = domain;
+  const cls = useStyle(domain);
 
   return (
     <Link className={cls.link} to={directory}>

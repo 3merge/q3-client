@@ -15,16 +15,23 @@ import AdminPublicGateway from './AdminPublicGateway';
 import useSiteMetaData from './useSiteMetaData';
 
 const useStyle = makeStyles((theme) => ({
-  logo: {
-    height: 95,
-    width: 180,
-    display: 'block',
+  logo: ({ invertLogo = false }) => {
+    const output = {
+      height: 95,
+      width: 180,
+      display: 'block',
 
-    '& img': {
-      objectFit: 'contain',
-      height: '100%',
-      width: '100%',
-    },
+      '& img': {
+        objectFit: 'contain',
+        height: '100%',
+        width: '100%',
+      },
+    };
+
+    if (theme.palette.type === 'dark' && invertLogo)
+      output.filter = 'invert(1) grayscale(100%)';
+
+    return output;
   },
   container: {
     maxWidth: '85vw',
@@ -81,12 +88,15 @@ const PublicTemplate = ({ children, ...rest }) => {
     brand,
     cancellation,
     logo,
+    invertLogo,
     terms,
     privacy,
     photo,
   } = useSiteMetaData();
+
   const cls = useStyle({
     photo,
+    invertLogo,
   });
 
   return (
