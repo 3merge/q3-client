@@ -5,21 +5,18 @@ export default makeStyles((theme) => ({
     diplay: 'flex',
     alignItems: 'center',
     [theme.breakpoints.down('md')]: {
-      position: 'fixed',
-      bottom: 0,
+      position: 'absolute',
+      top: -65,
       right: 0,
       left: 0,
       height: 65,
       justifyContent: 'center',
-      zIndex: 1,
+      zIndex: 5,
       overflowX: 'auto',
       backgroundColor: theme.palette.background.paper,
-      boxShadow: 'rgb(0 0 0 / 8%) 0px -3px 18px 3px',
-
-      // '& .Mui-disabled': {
-      //   color: theme.palette.secondary.contrastText,
-      //   opacity: 0.5,
-      // },
+      borderTop: `1px solid ${theme.palette.background.default}`,
+      borderBottom: `1px solid ${theme.palette.background.default}`,
+      // boxShadow: 'rgb(0 0 0 / 8%) 0px -3px 18px 3px',
     },
   },
 }));

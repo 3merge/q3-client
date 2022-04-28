@@ -22,6 +22,10 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
     padding: `0 ${theme.spacing(1.5)}`,
     width: '100%',
+
+    [theme.breakpoints.down('md')]: {
+      boxShadow: 'none',
+    },
   },
   paper: {
     borderRadius: 0,

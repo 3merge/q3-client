@@ -72,7 +72,7 @@ export default makeStyles((theme) => ({
   },
   mobile: {
     textAlign: 'center',
-    margin: '0 auto',
+    margin: '1rem auto',
     width: '90vw',
 
     '& h1': {

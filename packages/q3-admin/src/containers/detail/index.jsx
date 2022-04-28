@@ -75,8 +75,8 @@ const Detail = ({
     () => (
       <Box bgcolor="background.paper" height="100%">
         <Article>
-          {Alerts}
           {AppBar}
+          {Alerts}
           <Box m={1}>
             <Grid item xs>
               {Views}

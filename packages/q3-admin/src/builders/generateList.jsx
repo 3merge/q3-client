@@ -17,6 +17,10 @@ const useStyle = makeStyles((theme) => ({
     [theme.breakpoints.up('lg')]: {
       minHeight: 95,
     },
+    [theme.breakpoints.down('md')]: {
+      paddingBottom: '1rem',
+      paddingTop: '1rem',
+    },
   },
 }));
 

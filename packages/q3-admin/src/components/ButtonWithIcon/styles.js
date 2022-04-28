@@ -14,5 +14,9 @@ export default makeStyles((theme) => ({
       ? theme.palette.secondary.main
       : theme.palette.background.muted,
     color: 'inherit',
+
+    [theme.breakpoints.down('md')]: {
+      background: 'transparent',
+    },
   }),
 }));
