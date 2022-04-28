@@ -1,5 +1,6 @@
 import React from 'react';
 import { Builders } from 'q3-ui-forms';
+import { castToBoolean } from 'q3-ui-forms/lib/helpers';
 import { compact, map } from 'lodash';
 import SystemPageSub from '../../components/SystemPageSub';
 import useDomainContext from '../../hooks/useDomainContext';
@@ -746,12 +747,14 @@ const DomainChangeManifest = () => {
           'supportedLngs',
           'description',
           'font',
+          'invertLogo',
         ]}
         onSubmit={update}
         showSuccessMessage
         marshalSelectively
         marshal={{
           supportedLngs: [(v) => compact(map(v, 'value'))],
+          invertLogo: [castToBoolean],
         }}
       >
         <Builders.Field
@@ -796,6 +799,13 @@ const DomainChangeManifest = () => {
           multiline
           rows={5}
           max="155"
+          xl={12}
+          lg={12}
+        />
+        <Builders.Field
+          type="checkbox"
+          name="invertLogo"
+          variant="switch"
           xl={12}
           lg={12}
         />

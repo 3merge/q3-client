@@ -21,8 +21,15 @@ export default makeStyles((theme) => ({
       maxWidth: '35vw',
     },
   },
-  img: {
-    maxHeight: '100%',
-    maxWidth: '100%',
+  img: ({ invertLogo }) => {
+    const output = {
+      maxHeight: '100%',
+      maxWidth: '100%',
+    };
+
+    if (theme.palette.type === 'dark' && invertLogo)
+      output.filter = 'invert(1) grayscale(100%)';
+
+    return output;
   },
 }));

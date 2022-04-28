@@ -83,84 +83,89 @@ const Editable = ({
             initialValues={initialValues}
             onSubmit={onSubmit}
           >
-            <Grid
-              item
-              xs={12}
-              style={{ marginBottom: '-.5rem' }}
-            >
-              <Grid
-                container
-                justifyContent="space-between"
-              >
-                <Grid item>
-                  <Typography variant="overline">
-                    {t(label || name)}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <IconButton
-                    aria-label="close"
-                    onClick={close}
+            {(_v, _e, { isModified }) => (
+              <>
+                <Grid
+                  item
+                  xs={12}
+                  style={{ marginBottom: '-.5rem' }}
+                >
+                  <Grid
+                    container
+                    justifyContent="space-between"
                   >
-                    <CloseIcon />
-                  </IconButton>
+                    <Grid item>
+                      <Typography variant="overline">
+                        {t(label || name)}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <IconButton
+                        aria-label="close"
+                        onClick={close}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Grid>
-            <Builders.Field
-              {...pick(rest, [
-                'name',
-                'type',
-                'override',
-                'under',
-                'options',
-                'loadOptions',
-                'min',
-                'max',
-                'step',
-                'validate',
-                'freeSolo',
-                'positive',
-                'variant',
-                'required',
-                'of',
-                'multiline',
-                'rows',
-                'runOnChange',
-                'preload',
-                'minimumCharacterCount',
-                'initialValue',
-                'disabled',
-                'label',
-                'onChange',
-                'getOptionDisabled',
-                'renderOption',
-                'readOnly',
-                'required',
-                'freeSolo',
-                'disabled',
-                'maxVisible',
-              ])}
-              name={name}
-              autoFocus
-              suppressLabel
-              suppressHelper
-              xl={12}
-              lg={12}
-            />
-            <Grid
-              item
-              xs={12}
-              style={{ marginTop: '-.5rem' }}
-            >
-              <Button
-                aria-label="save"
-                startIcon={<SaveIcon />}
-                type="submit"
-              >
-                {t('save')}
-              </Button>
-            </Grid>
+                <Builders.Field
+                  {...pick(rest, [
+                    'name',
+                    'type',
+                    'override',
+                    'under',
+                    'options',
+                    'loadOptions',
+                    'min',
+                    'max',
+                    'step',
+                    'validate',
+                    'freeSolo',
+                    'positive',
+                    'variant',
+                    'required',
+                    'of',
+                    'multiline',
+                    'rows',
+                    'runOnChange',
+                    'preload',
+                    'minimumCharacterCount',
+                    'initialValue',
+                    'disabled',
+                    'label',
+                    'onChange',
+                    'getOptionDisabled',
+                    'renderOption',
+                    'readOnly',
+                    'required',
+                    'freeSolo',
+                    'disabled',
+                    'maxVisible',
+                  ])}
+                  name={name}
+                  autoFocus
+                  suppressLabel
+                  suppressHelper
+                  xl={12}
+                  lg={12}
+                />
+                <Grid
+                  item
+                  xs={12}
+                  style={{ marginTop: '-.5rem' }}
+                >
+                  <Button
+                    disabled={!isModified}
+                    aria-label="save"
+                    startIcon={<SaveIcon />}
+                    type="submit"
+                  >
+                    {t('save')}
+                  </Button>
+                </Grid>
+              </>
+            )}
           </Builders.Form>
         </Box>
       </Popover>

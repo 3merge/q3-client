@@ -8,6 +8,7 @@ const useStyle = makeStyles(() => ({
   picture: {
     width: 95,
     height: 95,
+    margin: 'auto',
   },
 }));
 
