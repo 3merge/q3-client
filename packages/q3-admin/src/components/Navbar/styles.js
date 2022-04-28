@@ -24,6 +24,7 @@ export default makeStyles((theme) => ({
     width: '100%',
 
     [theme.breakpoints.down('md')]: {
+      borderBottom: `1px solid ${theme.palette.background.default}`,
       boxShadow: 'none',
     },
   },
