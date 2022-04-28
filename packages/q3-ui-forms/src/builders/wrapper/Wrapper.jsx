@@ -197,6 +197,7 @@ export const InnerForm = ({
               errors,
               onSubmit: execAllSubmitHandlers,
               onReset: handleReset || onReset,
+              isModified,
               ...etc,
             })}
             <Message {...message} />
@@ -322,7 +323,7 @@ export default (Component) => (props) =>
       {({ values, errors, ...rest }) => (
         <Component {...rest}>
           {typeof props.children === 'function'
-            ? props.children(values, errors)
+            ? props.children(values, errors, rest)
             : props.children}
         </Component>
       )}
