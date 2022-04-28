@@ -1,9 +1,9 @@
 {
   "name": "q3-ui-emaileditor",
-  "version": "3.4.11",
+  "version": "3.4.16",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^3.0.2"
+    "q3-ui-test-utils": "^3.4.16"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -11,10 +11,10 @@
     "js-beautify": "^1.14.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-assets": "^3.4.11",
-    "q3-ui-helpers": "^3.4.9",
-    "q3-ui-locale": "^3.4.11",
-    "q3-ui-rest": "^3.4.11"
+    "q3-ui-assets": "^3.4.16",
+    "q3-ui-helpers": "^3.4.16",
+    "q3-ui-locale": "^3.4.16",
+    "q3-ui-rest": "^3.4.16"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",
