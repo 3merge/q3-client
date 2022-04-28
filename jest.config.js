@@ -6,7 +6,7 @@ module.exports = {
   ...c,
   modulePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
-    '<rootDir>/cypress/',
+  
   ],
   testPathIgnorePatterns: [
     '<rootDir>/gatsby-theme-q3/lib/',

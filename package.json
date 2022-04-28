@@ -14,12 +14,10 @@
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
     "deploy": "yarn build && build-storybook --docs",
-    "test": "jest --collectCoverage --silent ",
+    "test": "jest --collectCoverage --silent --run-in-band",
     "deploy-storybook": "storybook-to-ghpages -- --out=.out --docs",
     "e2e:develop": "yarn workspace example develop",
-    "e2e:stage": "yarn workspace example serve -p 8000",
-    "e2e:watch": "yarn run cypress open",
-    "e2e:test": "yarn run cypress run"
+    "e2e:stage": "yarn workspace example serve -p 8000"
   },
   "workspaces": [
     "example",
@@ -40,8 +38,6 @@
     "@storybook/addon-knobs": "^6.3.1",
     "axios-mock-adapter": "^1.19.0",
     "babel-jest": "^27.4.0",
-    "cypress": "^9.1.0",
-    "cypress-file-upload": "^5.0.8",
     "dotenv": "^10.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.5",
