@@ -123,6 +123,7 @@ describe('Lifecycle', () => {
       {
         email: expect.any(String),
       },
+      expect.any(Object),
     );
 
     await act(async () => {
@@ -144,6 +145,7 @@ describe('Lifecycle', () => {
         email: '',
       },
       {},
+      expect.any(Object),
     );
   });
 });
