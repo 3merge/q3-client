@@ -6,7 +6,6 @@ module.exports = {
   ...c,
   modulePathIgnorePatterns: [
     '<rootDir>/packages/(?:.+?)/lib/',
-  
   ],
   testPathIgnorePatterns: [
     '<rootDir>/gatsby-theme-q3/lib/',
