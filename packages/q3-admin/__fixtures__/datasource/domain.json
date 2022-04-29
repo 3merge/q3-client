@@ -5,6 +5,7 @@
   "lng": "en",
   "logo": "https://uploads-ssl.webflow.com/5f620c85bd4f6828cc8f637b/5f620cd411cb5e449a1db5cb_combined_logo_2-p-500.png",
   "name": "Q3",
+  "invertLogo": true,
   "resources": {
     "descriptions": {
       "demo": "Welcome to your new component! Descriptions auto-populate from the locale file and will not display if they aren't set.",

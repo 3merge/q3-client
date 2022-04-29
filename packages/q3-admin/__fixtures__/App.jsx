@@ -13,8 +13,6 @@ const Loading = ({ children }) => {
   return children;
 };
 
-const Foo = () => <p>Custom profile view</p>;
-
 const ExampleApp = ({ initialPath }) => {
   // MUST SET THIS IN PRE CLIENT INIT
   // GATSBY HAS A HOOK FOR THIS.

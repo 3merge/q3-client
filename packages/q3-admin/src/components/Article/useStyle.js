@@ -15,7 +15,8 @@ export default makeStyles((theme) => ({
   },
   section: {
     [theme.breakpoints.down('md')]: {
-      '& > div': {
+      '& > div': {},
+      '& header': {
         paddingTop: 65,
       },
     },

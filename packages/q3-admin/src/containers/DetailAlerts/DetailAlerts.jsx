@@ -23,7 +23,7 @@ const DetailAlerts = (props) => {
       t,
     ),
     ({ description, id, title, ...rest }) => (
-      <Alert key={id} {...rest}>
+      <Alert key={id} style={{ borderRadius: 0 }} {...rest}>
         <strong>{title}</strong>
         {' — '}
         {description}

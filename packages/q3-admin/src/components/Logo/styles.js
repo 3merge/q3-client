@@ -22,14 +22,18 @@ export default makeStyles((theme) => ({
     },
   },
   img: ({ invertLogo }) => {
-    const output = {
+    const filter = 'invert(1) grayscale(100%)';
+
+    return {
+      filter:
+        invertLogo && theme.palette.type === 'dark'
+          ? filter
+          : undefined,
       maxHeight: '100%',
       maxWidth: '100%',
+      [theme.breakpoints.down('md')]: {
+        filter: invertLogo ? filter : undefined,
+      },
     };
-
-    if (theme.palette.type === 'dark' && invertLogo)
-      output.filter = 'invert(1) grayscale(100%)';
-
-    return output;
   },
 }));

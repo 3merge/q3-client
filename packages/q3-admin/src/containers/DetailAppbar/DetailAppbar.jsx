@@ -29,7 +29,8 @@ const BackMobile = () => {
         <Box
           position="absolute"
           left="-.75rem"
-          bgcolor="background.paper"
+          bgcolor="primary.main"
+          color="primary.contrastText"
           top="-.25rem"
         >
           <Back />
