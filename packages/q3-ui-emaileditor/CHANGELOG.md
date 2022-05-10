@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.5.0](https://github.com/3merge/q/compare/v3.4.17...v3.5.0) (2022-05-10)
+
+
+### Features
+
+* floating action button and email revert utility ([#401](https://github.com/3merge/q/issues/401)) ([8640818](https://github.com/3merge/q/commit/864081842aa96044886761af39c96c145c664d7f))
+
+
+
+
+
 ## [3.4.16](https://github.com/3merge/q/compare/v3.4.15...v3.4.16) (2022-04-28)
 
 **Note:** Version bump only for package q3-ui-emaileditor
