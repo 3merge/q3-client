@@ -33,7 +33,7 @@ const DialogVariant = ({
   const isDrawer = variant === 'drawer';
   const El = isDrawer ? Drawer : Dialog;
   const isLaptop = useMediaQuery((theme) =>
-    theme.breakpoints.up('lg'),
+    theme.breakpoints.up('md'),
   );
 
   const getMobileProps = () =>

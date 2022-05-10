@@ -8,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh, useSortPreference } from '../../hooks';
 import withPageLoading from '../../helpers/withPageLoading';
-import TableLink from '../TableLink';
 import TableTrash from '../TableTrash';
 
 const assignUrlPath = (base) => (item) => {
@@ -49,7 +48,6 @@ export const TableDecorator = (props) => ({
             {customEl}
           </React.Fragment>
         ) : null,
-        renderWhenTruthy(TableLink, 'includeLink'),
         renderWhenTruthy(TableTrash, 'includeTrash'),
       ]);
     },

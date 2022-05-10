@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Tooltip } from '@material-ui/core';
-import Pageview from '@material-ui/icons/Pageview';
 import Dialog from 'q3-ui-dialog';
 import { isNil } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
+import EditIcon from '@material-ui/icons/Edit';
 import Context, { ActionContext } from '../state';
 import useNextPrev from '../useNextPrev';
 
@@ -110,7 +110,7 @@ ItemActionsWrapper.propTypes = {
 
 ItemActionsWrapper.defaultProps = {
   disableDialog: false,
-  icon: Pageview,
+  icon: EditIcon,
   label: 'editor',
 };
 
