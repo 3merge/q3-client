@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isFunction } from 'lodash';
 import { useLocation } from '@reach/router';
-import { Fab, Box, Tooltip } from '@material-ui/core';
+import { Fab, Box, Tooltip, Grow } from '@material-ui/core';
 import AppsIcon from '@material-ui/icons/Apps';
 import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
@@ -19,14 +19,19 @@ const FloatingAction = ({
 
   return label &&
     onClick &&
-    (!isFunction(checkPage) || checkPage(pathname)) ? (
-    <Box className={cls.root}>
-      <Tooltip title={t(label)}>
-        <Fab color="secondary" onClick={onClick}>
-          <Icon />
-        </Fab>
-      </Tooltip>
-    </Box>
+    (!isFunction(checkPage) || checkPage(pathname)) &&
+    !['account', 'system'].some((item) =>
+      String(pathname).includes(item),
+    ) ? (
+    <Grow in>
+      <Box className={cls.root}>
+        <Tooltip title={t(label)}>
+          <Fab color="secondary" onClick={onClick}>
+            <Icon />
+          </Fab>
+        </Tooltip>
+      </Box>
+    </Grow>
   ) : null;
 };
 

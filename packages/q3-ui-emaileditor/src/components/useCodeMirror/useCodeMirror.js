@@ -28,6 +28,7 @@ import usePreview from '../usePreview';
 const useCodeMirror = () => {
   const {
     disablePreview,
+    onRevert,
     onSave,
     value,
     variables,
@@ -92,6 +93,7 @@ const useCodeMirror = () => {
   return {
     codeMirrorRef: cm,
     disablePreview,
+    revert: onRevert,
     save,
     loading,
     html,
