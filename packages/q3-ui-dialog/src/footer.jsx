@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Keyboard from '@material-ui/icons/Keyboard';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-const DialogFooter = ({ onClose, onNext, onPrev }) => {
+const DialogFooter = ({ onNext, onPrev }) => {
   const { t } = useTranslation();
 
   if (!onPrev || !onNext) return null;
 
   return (
-    <BottomNavigation showLabels>
+    <BottomNavigation
+      showLabels
+      style={{ justifyContent: 'space-between' }}
+    >
       {onPrev && (
         <BottomNavigationAction
           label={t('labels:previous')}
@@ -21,13 +23,7 @@ const DialogFooter = ({ onClose, onNext, onPrev }) => {
           onClick={onPrev}
         />
       )}
-      {onClose && (
-        <BottomNavigationAction
-          label={t('labels:escape')}
-          icon={<Keyboard />}
-          onClick={onClose}
-        />
-      )}
+
       {onNext && (
         <BottomNavigationAction
           label={t('labels:next')}
@@ -40,13 +36,11 @@ const DialogFooter = ({ onClose, onNext, onPrev }) => {
 };
 
 DialogFooter.propTypes = {
-  onClose: PropTypes.func,
   onNext: PropTypes.func,
   onPrev: PropTypes.func,
 };
 
 DialogFooter.defaultProps = {
-  onClose: undefined,
   onPrev: undefined,
   onNext: undefined,
 };

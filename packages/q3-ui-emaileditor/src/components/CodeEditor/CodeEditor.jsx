@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import CodeEditorPreview from '../CodeEditorPreview';
+import CodeEditorRevert from '../CodeEditorRevert';
 import CodeEditorSave from '../CodeEditorSave';
 import useCodeMirror from '../useCodeMirror';
 import useStyle from './styles';
@@ -13,6 +14,7 @@ const Emails = ({ children }) => {
     loading,
     html,
     ref,
+    revert,
     save,
     value,
   } = useCodeMirror();
@@ -28,6 +30,7 @@ const Emails = ({ children }) => {
           data-value={value}
           ref={ref}
         />
+        <CodeEditorRevert onClick={revert} />
         <CodeEditorSave onClick={save} />
       </Grid>
       <CodeEditorPreview

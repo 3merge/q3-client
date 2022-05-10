@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Fab } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+import HistoryIcon from '@material-ui/icons/History';
 import Tooltip from '@material-ui/core/Tooltip';
+// eslint-disable-next-line
 import { useAuth } from 'q3-ui-permissions';
 import { useTranslation } from 'q3-ui-locale';
 import { URL_NAME } from '../useEmailTemplates/useEmailTemplates';
 
-const CodeEditorSave = ({ onClick }) => {
+const CodeEditorRevert = ({ onClick }) => {
   const { Hide } = useAuth(URL_NAME);
   const { t } = useTranslation('labels');
 
@@ -16,16 +17,16 @@ const CodeEditorSave = ({ onClick }) => {
       <Box
         position="fixed"
         bottom="1rem"
-        right="1rem"
+        right="4.75rem"
         zIndex="100"
       >
-        <Tooltip title={t('save')}>
+        <Tooltip title={t('revert')}>
           <Fab
-            id="save-email-template"
+            id="revert-email-template"
             color="secondary"
             onClick={onClick}
           >
-            <SaveIcon />
+            <HistoryIcon />
           </Fab>
         </Tooltip>
       </Box>
@@ -33,8 +34,8 @@ const CodeEditorSave = ({ onClick }) => {
   );
 };
 
-CodeEditorSave.propTypes = {
+CodeEditorRevert.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default CodeEditorSave;
+export default CodeEditorRevert;

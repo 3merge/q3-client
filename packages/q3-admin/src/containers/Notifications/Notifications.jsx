@@ -1,39 +1,60 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import classnames from 'classnames';
+// eslint-disable-next-line
 import Notifications from 'q3-ui-notifications';
-import { makeStyles } from '@material-ui/core';
 import { useNotifications } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
+import useStyle from './styles';
 
-const useStyle = makeStyles((theme) => ({
-  button: {
-    [theme.breakpoints.down('md')]: {
-      '& button': {
-        background: 'transparent',
-      },
-    },
-  },
-}));
+export const ButtonComponentWithAnimation = ({
+  icon,
+  numberOfNotifications,
+  ...rest
+}) => {
+  const cls = useStyle();
+  const [amount, setAmount] = React.useState(0);
+  const [classlist, setClassList] = React.useState([]);
+
+  React.useEffect(() => {
+    if (numberOfNotifications > amount) {
+      setClassList([cls.button, cls.shake]);
+    } else {
+      setClassList([cls.button]);
+    }
+
+    setAmount(numberOfNotifications);
+  }, [numberOfNotifications]);
+
+  return React.useMemo(
+    () => (
+      <Box
+        className={classnames(...classlist)}
+        display="inline-block"
+        width="100%"
+      >
+        <ButtonWithIcon
+          {...rest}
+          count={amount}
+          icon={icon}
+          label="notifications"
+        />
+      </Box>
+    ),
+    [amount],
+  );
+};
 
 const NotificationsContainer = () => {
-  const cls = useStyle();
   const { data, syncSeen, error } = useNotifications({
     numberOfDays: 7,
   });
 
   const ButtonComponent = React.useCallback(
-    ({ icon, numberOfNotifications }) => (
-      <Box
-        className={cls.button}
-        display="inline-block"
-        width="100%"
-      >
-        <ButtonWithIcon
-          icon={icon}
-          label="notifications"
-          count={numberOfNotifications}
-        />
-      </Box>
+    (notificationProps) => (
+      <ButtonComponentWithAnimation
+        {...notificationProps}
+      />
     ),
     [],
   );

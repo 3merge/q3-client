@@ -30,14 +30,13 @@ describe('Table', () => {
       expect(out[0]).toHaveProperty('url');
     });
 
-    it('should include TableLink and TableDelete by default', () => {
-      const [a, b] = TableDecorator({})
+    it('should include TableDelete by default', () => {
+      const [b] = TableDecorator({})
         .build()
         .renderCustomRowActions({
           id: '1',
         });
 
-      expect(a.type.name).toMatch('TableLink');
       expect(b.type.name).toMatch('TableTrash');
     });
 
@@ -50,8 +49,7 @@ describe('Table', () => {
           id: '1',
         });
 
-      expect(el).toHaveLength(1);
-      expect(el[0].type.name).toMatch('TableLink');
+      expect(el).toHaveLength(0);
     });
 
     it('should combine row actions', () => {

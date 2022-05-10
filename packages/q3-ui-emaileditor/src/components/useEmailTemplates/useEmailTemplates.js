@@ -26,6 +26,8 @@ const useEmailTemplates = () => {
     fetchingError = false,
     fetching = true,
     patch,
+    poll,
+    remove,
   } = useRest({
     key: 'email',
     pluralized: URL_NAME,
@@ -39,6 +41,14 @@ const useEmailTemplates = () => {
   const { canSee } = useAuth(URL_NAME);
   const [active, setActive] = React.useState();
   const current = findById(emails, active);
+
+  const handleRevert = () =>
+    // eslint-disable-next-line
+    confirm(
+      'Please note that reverting will discard all changes made to this email template.',
+    )
+      ? remove(active)().then(poll).catch(poll)
+      : null;
 
   const handleSave = (mjml) =>
     patch(active)({
@@ -59,6 +69,7 @@ const useEmailTemplates = () => {
     disablePreview: isPartial(current),
     value: current?.mjml || '<mjml />',
     variables: get(current, 'variables', {}),
+    onRevert: handleRevert,
     onSave: handleSave,
     setById: setActive,
     id: active,
