@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get, map } from 'lodash';
 import App from './components/app';
+import FloatingAction from './components/FloatingAction';
 import {
   usePages,
   useServerSideEvents,
@@ -77,6 +78,9 @@ const Admin = ({ AppProps }) => {
           <NavbarList items={usePages(pages)} />
         </Navbar>
         <Box className={cls.main}>
+          <FloatingAction
+            {...get(AppProps, 'floatingActionProps', {})}
+          />
           <App {...AppProps}>
             <SystemPage path="account">
               <ProfileChangeContact path="contact" />
