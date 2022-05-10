@@ -20,7 +20,8 @@
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
     "deploy": "yarn build && build-storybook --docs",
-    "test": "jest --collectCoverage --silent --run-in-band"
+    "test": "jest --collectCoverage --silent --run-in-band",
+    "jest": "jest"
   },
   "workspaces": [
     "example",
