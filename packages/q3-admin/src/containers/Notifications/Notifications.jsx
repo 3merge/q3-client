@@ -26,22 +26,19 @@ export const ButtonComponentWithAnimation = ({
     setAmount(numberOfNotifications);
   }, [numberOfNotifications]);
 
-  return React.useMemo(
-    () => (
-      <Box
-        className={classnames(...classlist)}
-        display="inline-block"
-        width="100%"
-      >
-        <ButtonWithIcon
-          {...rest}
-          count={amount}
-          icon={icon}
-          label="notifications"
-        />
-      </Box>
-    ),
-    [amount],
+  return (
+    <Box
+      className={classnames(...classlist)}
+      display="inline-block"
+      width="100%"
+    >
+      <ButtonWithIcon
+        {...rest}
+        count={amount}
+        icon={icon}
+        label="notifications"
+      />
+    </Box>
   );
 };
 
