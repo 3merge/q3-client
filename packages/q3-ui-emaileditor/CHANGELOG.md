@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.2](https://github.com/3merge/q/compare/v3.5.1...v3.5.2) (2022-05-11)
+
+
+### Bug Fixes
+
+* add poll query params ([a0a4b8f](https://github.com/3merge/q/commit/a0a4b8fa413728682fbf9f57ade54cd2da24fa4f))
+
+
+
+
+
 ## [3.5.1](https://github.com/3merge/q/compare/v3.5.0...v3.5.1) (2022-05-11)
 
 
