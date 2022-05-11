@@ -23,6 +23,8 @@ export const useLangSearch = () => {
 };
 
 const useEmailTemplates = () => {
+  const search = useLangSearch();
+
   const {
     emails = [],
     fetchingError = false,
@@ -36,7 +38,7 @@ const useEmailTemplates = () => {
     url: `/${URL_NAME}`,
     runOnInit: true,
     location: {
-      search: useLangSearch(),
+      search,
     },
   });
 
@@ -57,7 +59,7 @@ const useEmailTemplates = () => {
         )
       ) {
         await remove(active)();
-        return poll();
+        return poll(search);
       }
 
       return noop();
