@@ -13,7 +13,7 @@ const CodeEditorRevert = ({ onClick }) => {
   const { t } = useTranslation('labels');
 
   return (
-    <Hide op="Update">
+    <Hide op="Delete">
       <Box
         position="fixed"
         bottom="1rem"

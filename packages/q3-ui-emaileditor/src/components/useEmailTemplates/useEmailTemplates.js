@@ -15,6 +15,8 @@ export const findById = (xs, id) =>
 export const getFirstFullTemplateId = (xs) =>
   find(xs, (item) => !isPartial(item))?.id;
 
+const noop = () => Promise.resolve(null);
+
 export const useLangSearch = () => {
   const lang = useProfileLang();
   return `?sort=name&limit=500&name=in(/^${lang}/gi,/^__class/gi,/^__${lang}/gi)`;
@@ -42,13 +44,27 @@ const useEmailTemplates = () => {
   const [active, setActive] = React.useState();
   const current = findById(emails, active);
 
-  const handleRevert = () =>
-    // eslint-disable-next-line
-    confirm(
-      'Please note that reverting will discard all changes made to this email template.',
-    )
-      ? remove(active)().then(poll).catch(poll)
-      : null;
+  /**
+   * Forcing async because try/catch logic
+   * Hadn't previously worked as a promise.
+   */
+  const handleRevert = async () => {
+    try {
+      if (
+        // eslint-disable-next-line
+        confirm(
+          'Reverting discards any and all changes made to this email template. This action is irreversible.',
+        )
+      ) {
+        await remove(active)();
+        return poll();
+      }
+
+      return noop();
+    } catch (e) {
+      return noop();
+    }
+  };
 
   const handleSave = (mjml) =>
     patch(active)({
