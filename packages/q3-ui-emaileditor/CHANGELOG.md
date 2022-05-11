@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.5.1](https://github.com/3merge/q/compare/v3.5.0...v3.5.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* change email revert auth ([35a85bc](https://github.com/3merge/q/commit/35a85bc232d63e2184468f31148e0cf5498e4ff5))
+
+
+
+
+
 # [3.5.0](https://github.com/3merge/q/compare/v3.4.17...v3.5.0) (2022-05-10)
 
 
