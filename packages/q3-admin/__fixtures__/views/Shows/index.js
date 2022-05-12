@@ -28,8 +28,10 @@ export default new AbstractCollectionBuilder({
     ({ id, name, description, createdAt, updatedAt }) => ({
       id,
       name,
-      description:
-        'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
+      description: {
+        base: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi posuere ante purus, a maximus lectus rutrum eu. Aliquam finibus vel massa in volutpat. Vivamus id sem vel est venenatis suscipit at ac dolor. Curabitur ut cursus tortor. Mauris faucibus ligula neque. Morbi porttitor varius dolor, non consequat libero laoreet vitae',
+        long: true,
+      },
       createdAt: {
         base: createdAt,
         toDate: true,
@@ -88,7 +90,11 @@ export default new AbstractCollectionBuilder({
   })
   .genListSettings({
     //  customRowActionsAnchor: 'start',
-    defaultColumns: ['createdAt', 'updatedAt'],
+    defaultColumns: [
+      'description',
+      'createdAt',
+      'updatedAt',
+    ],
     defaultSortPreference: 'name',
     blacklistColumns() {
       return [];

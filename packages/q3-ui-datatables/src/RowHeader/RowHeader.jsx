@@ -13,7 +13,6 @@ import CellWithCheckbox from '../CellWithCheckbox';
 const CellHeader = ({
   id,
   name,
-  description,
   imgSrc,
   url,
   disableMultiselect,
@@ -21,8 +20,7 @@ const CellHeader = ({
   icon,
   iconBg,
 }) => {
-  const { cellHeaderLink, cellHeadDescription } =
-    useStyles();
+  const { cellHeaderLink } = useStyles();
   const asLink = url ? { component: Link, to: url } : {};
 
   return (
@@ -45,23 +43,7 @@ const CellHeader = ({
             </Grid>
           )}
           <Grid item {...asLink} className={cellHeaderLink}>
-            <Popover
-              popoverChildren={
-                <>
-                  <strong>{name}</strong> <br />
-                  {description}
-                </>
-              }
-              disablePopover={
-                String(name).length < 45 &&
-                String(description).length < 75
-              }
-            >
-              <Box className={cellHeadDescription}>
-                <strong>{ellipsis(name, 45)}</strong>
-                <Box>{ellipsis(description, 75)}</Box>
-              </Box>
-            </Popover>
+            {name}
           </Grid>
         </>
       }

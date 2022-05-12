@@ -73,7 +73,19 @@ const Cell = ({ id, value, className, ...props }) => {
 
   return (
     <TableCell {...props} id={id} className={className}>
-      <div>{formatted}</div>
+      <div
+        style={
+          value.long
+            ? {
+                padding: '0.5rem',
+                whiteSpace: 'break-spaces',
+                minWidth: 675,
+              }
+            : {}
+        }
+      >
+        {formatted}
+      </div>
     </TableCell>
   );
 };

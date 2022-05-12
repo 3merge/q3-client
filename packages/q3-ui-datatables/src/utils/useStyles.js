@@ -22,23 +22,29 @@ export default makeStyles((theme) => ({
     '& tbody, & thead, & tfooter': {},
 
     '& tbody tr': {
-      borderTop: `1px solid ${theme.palette.background.muted}`,
+      borderTop: `3px solid ${theme.palette.background.default}`,
+      transitionDuration: '150ms',
+      transitionProperty: 'background-color,border',
 
       '&:hover': {
         backgroundColor: theme.palette.background.default,
-        transition: 'background-color 250ms',
+        borderTopColor: theme.palette.background.muted,
+
         '& td': {
+          borderTopColor: `${theme.palette.background.muted} !important`,
           backgroundColor: `${theme.palette.background.default} !important`,
         },
       },
     },
 
     '& td': {
-      borderTop: `1px solid ${theme.palette.background.muted}`,
+      borderTop: `3px solid ${theme.palette.background.default}`,
       fontSize: '0.833rem !important',
       borderBottom: 'none !important',
       padding: '0 !important',
       minWidth: 110,
+      transitionDuration: '150ms',
+      transitionProperty: 'background-color,border',
 
       [theme.breakpoints.down('sm')]: {
         whiteSpace: 'nowrap',
@@ -184,6 +190,7 @@ export default makeStyles((theme) => ({
     top: 0,
 
     [theme.breakpoints.down('sm')]: {
+      position: 'relative',
       display: 'flex',
       width: '100%',
     },
@@ -225,7 +232,7 @@ export default makeStyles((theme) => ({
   },
 
   cellHeader: {
-    position: 'var(--cell-position)',
+    position: 'sticky',
     backgroundColor: theme.palette.background.paper,
     left: 0,
     transition: 'box-shadow 250ms',
@@ -252,14 +259,8 @@ export default makeStyles((theme) => ({
   cellHeaderLink: {
     color: 'inherit',
     display: 'block',
-    '& small': {
-      maxWidth: 'max-content',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      paddingRight: '1rem',
-      wordBreak: 'normal',
-      whiteSpace: 'break-spaces',
-    },
+    textDecoration: 'none',
+    fontWeight: 800,
   },
 
   grids: () => ({
@@ -267,13 +268,28 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'baseline',
-
     '& table': {
       userSelect: 'none',
     },
     '& td.liftup': {
+      left: 0,
+      position: 'sticky',
       wordWrap: 'break-word',
       zIndex: 2,
+
+      [theme.breakpoints.down('sm')]: {
+        position: 'relative',
+      },
+
+      // '&::after': {
+      //   backgroundColor: theme.palette.background.muted,
+      //   content: '""',
+      //   position: 'absolute',
+      //   top: 0,
+      //   bottom: 0,
+      //   right: 1,
+      //   width: 1,
+      // },
     },
     [theme.breakpoints.down('sm')]: {
       width: '100%',
