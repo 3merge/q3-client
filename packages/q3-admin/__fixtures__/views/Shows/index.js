@@ -76,10 +76,15 @@ export default new AbstractCollectionBuilder({
     //   component: () => <p>CUSTOM COMPONENT</p>,
     // },
     io: {
-      exports: ['orders'],
-      imports: [],
-      // eslint-disable-next-line
-      renderer: () => <p>Look at me!</p>,
+      exports: ['customExportOne', 'customExportTwo'],
+      imports: ['customImportOne', 'customImportTwo'],
+      renderer: () => [
+        {
+          label: 'dsf',
+          onClick: 'EMAIL?',
+          dialog: true,
+        },
+      ],
     },
 
     renderCustomRowActions: () => (

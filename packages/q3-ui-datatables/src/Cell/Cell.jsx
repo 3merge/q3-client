@@ -77,9 +77,9 @@ const Cell = ({ id, value, className, ...props }) => {
         style={
           value.long
             ? {
-                padding: '0.5rem',
+                padding: '0.75rem',
                 whiteSpace: 'break-spaces',
-                minWidth: 675,
+                minWidth: 275,
               }
             : {}
         }

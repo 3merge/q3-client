@@ -6,7 +6,12 @@ import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dispatcher, Definitions, Store } from '../state';
-import { useRefresh, useSortPreference } from '../../hooks';
+import {
+  useRefresh,
+  useSortPreference,
+  useBulkDeleteFunction,
+  useDatatableActions,
+} from '../../hooks';
 import withPageLoading from '../../helpers/withPageLoading';
 import TableTrash from '../TableTrash';
 
@@ -96,6 +101,10 @@ const List = (props) => {
   const { canSeeSub } = useAuth(collectionName);
   useRefresh(poll);
 
+  const tableActions = useDatatableActions(
+    get(props, 'io', {}),
+  );
+
   const decorator = TableDecorator({
     ...props,
     ...tableProps,
@@ -120,12 +129,14 @@ const List = (props) => {
     >
       <Table
         {...decorator.build()}
+        {...tableActions}
         blacklistColumns={decorator.makeBlacklist(
           canSeeSub,
         )}
         className={table}
         data={decorator.makeLinks(rootPath)}
         id={collectionName}
+        onRemove={useBulkDeleteFunction()}
         onSort={l.update}
         sort={l.sort}
         disableExportsProvider

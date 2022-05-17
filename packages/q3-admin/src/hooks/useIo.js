@@ -44,8 +44,8 @@ export default (ids, ...rest) => {
       'exportFailed',
     );
 
-  const importCollection = (template) => (data) => {
-    return handleRequest(
+  const importCollection = (template) => (data) =>
+    handleRequest(
       new Promise((resolve, reject) => {
         try {
           const [f] = data;
@@ -73,7 +73,6 @@ export default (ids, ...rest) => {
       'importStarted',
       'importFailed',
     );
-  };
 
   return {
     exportCollection,

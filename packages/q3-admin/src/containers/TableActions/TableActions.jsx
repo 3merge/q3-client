@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Fade } from '@material-ui/core';
 import { pick } from 'lodash';
 import { useAuth } from 'q3-ui-permissions';
-import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import ActionBar from '../../components/ActionBar';
 import Search from '../../components/Search';
@@ -39,8 +38,7 @@ const TableActions = ({
           <FilterComponent />
         </>
       ) : null}
-      <TableBulkDelete />
-      <TableIo io={io} />
+      {/* <TableIo io={io} /> */}
       {AddForm ? (
         <Add>
           <AddForm />

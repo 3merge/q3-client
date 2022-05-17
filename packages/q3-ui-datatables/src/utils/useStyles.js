@@ -15,6 +15,9 @@ export default makeStyles((theme) => ({
       position: 'sticky',
       top: 0,
       zIndex: 3,
+      textTransform: 'none',
+      paddingTop: '.5rem',
+      paddingBottom: '.5rem',
     },
 
     '& thead tr': {},
@@ -22,25 +25,25 @@ export default makeStyles((theme) => ({
     '& tbody, & thead, & tfooter': {},
 
     '& tbody tr': {
-      borderTop: `3px solid ${theme.palette.background.default}`,
+      borderBottom: `3px solid ${theme.palette.background.default}`,
       transitionDuration: '150ms',
       transitionProperty: 'background-color,border',
 
       '&:hover': {
         backgroundColor: theme.palette.background.default,
-        borderTopColor: theme.palette.background.muted,
+        borderBottomColor: theme.palette.background.muted,
 
         '& td': {
-          borderTopColor: `${theme.palette.background.muted} !important`,
+          borderBottomColor: `${theme.palette.background.muted} !important`,
           backgroundColor: `${theme.palette.background.default} !important`,
         },
       },
     },
 
     '& td': {
-      borderTop: `3px solid ${theme.palette.background.default}`,
+      borderBottom: `3px solid ${theme.palette.background.default}`,
       fontSize: '0.833rem !important',
-      borderBottom: 'none !important',
+      borderTop: 'none !important',
       padding: '0 !important',
       minWidth: 110,
       transitionDuration: '150ms',

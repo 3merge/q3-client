@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import Exports, { Actionbar } from 'q3-ui-exports';
 import TableHead from '@material-ui/core/TableHead';
+import Grid from '@material-ui/core/Grid';
 import { array, object } from 'q3-ui-helpers';
 import classNames from 'classnames';
 import ColumnSelectAll from './ColumnSelectAll';
@@ -21,6 +22,9 @@ import RowHeader from './RowHeader';
 import Pagination from './Pagination';
 import useColumns from './useColumns';
 import withEmpty from './withEmpty';
+import TableActions from './TableActions';
+import TableActionsDeleteMany from './TableActionsDeleteMany';
+import useDataTable from './useDataTable';
 
 const ExportsStandIn = (props) =>
   React.createElement(React.Fragment, props);
@@ -32,28 +36,33 @@ const filterByPossibleKeys =
       ? a.filter((v) => !blacklist.includes(v))
       : a;
 
-const TableView = ({
-  allColumns,
-  defaultColumns,
-  blacklistColumns,
-  customRowActionsAnchor,
-  disableColumnReorder,
-  disableMultiselect,
-  disableAvatar,
-  disableExportsProvider,
-  id,
-  aliasForName,
-  total,
-  renderCustomRowActions,
-  resolvers,
-  data,
-  sort,
-  onSort,
-  virtuals,
-  className,
-  children,
-  style,
-}) => {
+const TableView = (props) => {
+  const {
+    allColumns,
+    defaultColumns,
+    blacklistColumns,
+    customRowActionsAnchor,
+    disableAvatar,
+    disableExportsProvider,
+    id,
+    aliasForName,
+    total,
+    renderCustomRowActions,
+    resolvers,
+    data,
+    sort,
+    onSort,
+    virtuals,
+    className,
+    children,
+    style,
+  } = props;
+
+  const { checkForMultiselectActions, shouldRenderTools } =
+    useDataTable(props);
+
+  const enableMultiselect = checkForMultiselectActions();
+
   const filterer = filterByPossibleKeys(
     data,
     blacklistColumns,
@@ -116,6 +125,37 @@ const TableView = ({
         style={style}
       >
         {children}
+        {shouldRenderTools() && (
+          <Box
+            bgcolor="background.muted"
+            p={1}
+            style={{
+              borderBottom:
+                '1px solid var(--background-muted)',
+            }}
+            width="100%"
+            mb={0.5}
+          >
+            <Grid
+              alignItems="center"
+              justifyContent="space-between"
+              container
+              spacing={1}
+            >
+              {enableMultiselect && (
+                <Grid item>
+                  <ColumnSelectAll ids={extractIds(data)} />
+                </Grid>
+              )}
+              <Grid item>
+                <Grid container spacing={1}>
+                  <TableActionsDeleteMany {...props} />
+                  <TableActions {...props} />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
         <Box
           style={{ flex: 1 }}
           position="relative"
@@ -124,81 +164,94 @@ const TableView = ({
           width="100%"
           height="100%"
         >
-          <Table className={root}>
-            <TableHead className={tableBody}>
-              <TableRow className={flexRow}>
-                <ColumnSelectAll
-                  disableMultiselect={disableMultiselect}
-                  ids={extractIds(data)}
-                  title={aliasForName}
-                  onSort={isNotVirtual(aliasForName)}
-                  sort={sort}
-                >
-                  {!disableColumnReorder && (
-                    <ColumnReorderDialog
-                      onDone={setColumns}
-                      defaultColumns={activeColumns}
-                      disabled={!columns.length}
-                      columns={columns}
-                    />
-                  )}
-                </ColumnSelectAll>
-                {renderCustomRowActionsAnchor(
-                  object.isFn(renderCustomRowActions) && (
-                    <CellAction
-                      key="custom-actions-header"
-                      component="th"
-                    />
-                  ),
-                  activeColumns.map((column, idx) => (
+          <ColumnReorderDialog
+            onDone={setColumns}
+            defaultColumns={activeColumns}
+            disabled={!columns.length}
+            columns={columns}
+          >
+            {(openColumnConfigurator) => (
+              <Table className={root}>
+                <TableHead className={tableBody}>
+                  <TableRow
+                    className={flexRow}
+                    onContextMenu={(e) => {
+                      e.preventDefault();
+                      openColumnConfigurator(e);
+                    }}
+                  >
                     <ColumnSort
-                      title={column}
+                      onSort={isNotVirtual(aliasForName)}
+                      title={aliasForName}
                       sort={sort}
-                      onSort={isNotVirtual(column)}
-                      className={cellWidth}
-                      key={`${column}-${idx}`}
+                      style={{
+                        textAlign: 'center',
+                      }}
                     />
-                  )),
-                )}
-              </TableRow>
-            </TableHead>
-            <TableBody className={tableBody}>
-              {processed.map((row, ind) => (
-                <TableRow
-                  key={`row-${row.id}-${ind}`}
-                  className={flexRow}
-                >
-                  <RowHeader
-                    disableAvatar={disableAvatar}
-                    disableMultiselect={disableMultiselect}
-                    {...row}
-                  />
-                  {renderCustomRowActionsAnchor(
-                    object.isFn(renderCustomRowActions) && (
-                      <CellAction
-                        key={`custom-actions-${ind}`}
-                      >
-                        {renderCustomRowActions(
-                          row,
-                          data[ind],
-                        )}
-                      </CellAction>
-                    ),
-                    activeColumns.map((column, idx) => (
-                      <Cell
-                        id={column}
-                        component="td"
-                        className={cellWidth}
-                        headers={`${column} ${row.name}`}
-                        key={`${row.id}-${column}-${idx}`}
-                        value={get(row, column)}
+                    {renderCustomRowActionsAnchor(
+                      object.isFn(
+                        renderCustomRowActions,
+                      ) && (
+                        <CellAction
+                          key="custom-actions-header"
+                          component="th"
+                        />
+                      ),
+                      activeColumns.map((column, idx) => (
+                        <ColumnSort
+                          title={column}
+                          sort={sort}
+                          onSort={isNotVirtual(column)}
+                          className={cellWidth}
+                          key={`${column}-${idx}`}
+                        />
+                      )),
+                    )}
+                  </TableRow>
+                </TableHead>
+                <TableBody className={tableBody}>
+                  {processed.map((row, ind) => (
+                    <TableRow
+                      key={`row-${row.id}-${ind}`}
+                      className={flexRow}
+                    >
+                      <RowHeader
+                        disableAvatar={disableAvatar}
+                        disableMultiselect={
+                          !enableMultiselect
+                        }
+                        {...row}
                       />
-                    )),
-                  )}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+                      {renderCustomRowActionsAnchor(
+                        object.isFn(
+                          renderCustomRowActions,
+                        ) && (
+                          <CellAction
+                            key={`custom-actions-${ind}`}
+                          >
+                            {renderCustomRowActions(
+                              row,
+                              data[ind],
+                            )}
+                          </CellAction>
+                        ),
+                        activeColumns.map((column, idx) => (
+                          <Cell
+                            id={column}
+                            component="td"
+                            className={cellWidth}
+                            headers={`${column} ${row.name}`}
+                            key={`${row.id}-${column}-${idx}`}
+                            value={get(row, column)}
+                          />
+                        )),
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </ColumnReorderDialog>
         </Box>
         <Box py={1} width="100%">
           <Pagination id={id} total={total} />
@@ -225,7 +278,6 @@ TableView.propTypes = {
   defaultColumns: PropTypes.arrayOf(PropTypes.string),
   disableAvatar: PropTypes.bool,
   disableColumnReorder: PropTypes.bool,
-  disableMultiselect: PropTypes.bool,
   id: PropTypes.string.isRequired,
   onSort: PropTypes.func.isRequired,
   renderCustomRowActions: PropTypes.func,
@@ -247,7 +299,6 @@ TableView.defaultProps = {
   defaultColumns: [],
   disableAvatar: false,
   disableColumnReorder: false,
-  disableMultiselect: false,
   renderCustomRowActions: null,
   style: {},
   total: 0,
