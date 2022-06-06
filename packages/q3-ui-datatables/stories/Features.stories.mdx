@@ -68,6 +68,7 @@ import TableView from '../src';
             currency: {
               base: v.currency,
               toChip: true,
+              renderProps: { severity: 2 },
             },
             draft: {
               base: v.draft,
@@ -84,10 +85,13 @@ import TableView from '../src';
                 <>
                   <p>
                     This is great. But what about super long
-                    and complex tool tips?
+                    and complex tool tips that overflow onto
+                    multiple lines?
                   </p>
                   <ul>
-                    <li>Rate = this</li>
+                    <li>Important item #1</li>
+                    <li>Important item #2</li>
+                    <li>Important item #3</li>
                   </ul>
                 </>
               ),
@@ -120,9 +124,8 @@ import TableView from '../src';
             },
             status: {
               base: v.status,
-              toString: true,
               toDot: true,
-              renderProps: {},
+              renderProps: { severity: 4 },
             },
           })}
           renderCustomRowActions={() => (

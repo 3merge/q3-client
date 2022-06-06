@@ -1,1 +1,0 @@
-export { simulateNetworkDelay } from './mockRequest';

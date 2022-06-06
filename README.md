@@ -199,6 +199,7 @@ segments out into the forefront on mobile.
 <ul>
   <li>Dropped <code>react-i18next</code> as a dependency</li>
   <li>In v3.3.2, <code>q3-blocks</code> left the repo</li>
+  <li>In v3.6.1, <code>q3-ui-cart</code> and <code>q3-components</code> left the repo</li>
   <li><em><code>Q3-api</code> v3+ is now required due to reliance on its domains feature for setting up locale and theme</em></li>
   <li><code>gatsby-theme-q3</code> no longer supports contentful out-of-the-box</li>
 </ul>

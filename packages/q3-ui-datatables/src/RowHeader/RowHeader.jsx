@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Avatar from 'q3-ui/lib/avatar';
+import Avatar from 'q3-designsystem/lib/Components/Avatar';
 import { SelectOne } from 'q3-ui-exports';
 import Popover from 'q3-ui/lib/popover';
 import { ellipsis } from '../utils/helpers';
@@ -18,8 +18,7 @@ const CellHeader = ({
   url,
   disableMultiselect,
   disableAvatar,
-  icon,
-  iconBg,
+  ...rest
 }) => {
   const { cellHeaderLink, cellHeadDescription } =
     useStyles();
@@ -36,12 +35,7 @@ const CellHeader = ({
         <>
           {!disableAvatar && (
             <Grid item>
-              <Avatar
-                icon={icon}
-                iconBg={iconBg}
-                word={name}
-                imgSrc={imgSrc}
-              />
+              <Avatar alt={name} src={imgSrc} {...rest} />
             </Grid>
           )}
           <Grid item {...asLink} className={cellHeaderLink}>

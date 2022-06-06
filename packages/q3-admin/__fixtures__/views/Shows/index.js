@@ -24,24 +24,23 @@ export default new AbstractCollectionBuilder({
   },
   lookup: ['name'],
 })
-  .genResolver(
-    ({ id, name, description, createdAt, updatedAt }) => ({
-      id,
-      name,
-      description:
-        'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
-      createdAt: {
-        base: createdAt,
-        toDate: true,
-      },
-      updatedAt: {
-        base: updatedAt,
-        toDate: true,
-      },
-      icon: name === 'Archer' ? CreditCard : undefined,
-      iconBg: name === 'Archer' ? '#FF4785' : undefined,
-    }),
-  )
+  .genResolver(({ id, name, createdAt, updatedAt }) => ({
+    id,
+    name,
+    description:
+      'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
+    createdAt: {
+      base: createdAt,
+      toDate: true,
+    },
+    updatedAt: {
+      base: updatedAt,
+      toDate: true,
+    },
+    // eslint-disable-next-line
+    icon: name === 'Archer' ? <CreditCard /> : undefined,
+    severity: Math.floor(Math.random() * 10),
+  }))
   .genHeader({
     titleProp: 'name',
   })

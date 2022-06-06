@@ -83,7 +83,7 @@ const TableView = ({
         'url',
         'id',
         'icon',
-        'iconBg',
+        'severity',
       ],
     ),
   );

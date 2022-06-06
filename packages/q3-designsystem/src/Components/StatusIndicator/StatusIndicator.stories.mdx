@@ -1,0 +1,25 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Box from '@material-ui/core/Box';
+import StatusIndicator from './StatusIndicator';
+
+<Meta
+  title="DesignSystem/Components/StatusIndicator"
+  component={StatusIndicator}
+/>
+
+# StatusIndicator
+
+<Preview>
+  <Story name="With all severities">
+    <Box p={1}>
+      {Array.from({ length: 9 }).map((_, idx) => (
+        <StatusIndicator key={idx} severity={idx} />
+      ))}
+    </Box>
+  </Story>
+</Preview>

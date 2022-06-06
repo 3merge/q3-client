@@ -1,0 +1,39 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import AccountBox from '@material-ui/icons/AccountBox';
+import Box from '@material-ui/core/Box';
+import StatusChip from './StatusChip';
+
+<Meta
+  title="DesignSystem/Components/StatusChip"
+  component={StatusChip}
+/>
+
+# StatusChip
+
+<Preview>
+  <Story name="With all severities">
+    <Box p={1}>
+      {[
+        'Unknown',
+        'Critical',
+        'Incident',
+        'Reported Incident',
+        'Nothing to report',
+        'Good',
+        'Excellent',
+        'Unbeatable',
+      ].map((label, idx) => (
+        <StatusChip
+          key={label}
+          label={label}
+          severity={idx}
+        />
+      ))}
+    </Box>
+  </Story>
+</Preview>

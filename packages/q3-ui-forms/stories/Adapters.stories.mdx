@@ -7,7 +7,6 @@ import {
 import Tile from 'q3-ui/lib/tile';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import LocationDebugger from 'q3-ui-test-utils/lib/locationDebugger';
-import { FilterChip } from 'q3-components';
 import { EncodedUrl } from '../src/adapters';
 import { Form, Field } from '../src/builders';
 import { FormBuilder } from '../src/builders/Form/Form';
@@ -17,11 +16,6 @@ import Wrapper, {
 import { Exists, Has } from '../src/presets';
 import { countries } from '../src/fields/__fixtures__/options';
 import { asOptions } from '../src/helpers';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
-import PublicIcon from '@material-ui/icons/Public';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 <Meta title="Forms/Adapters" component={EncodedUrl} />
 
@@ -31,15 +25,6 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
   <Story name="Types">
     <LocationProvider search='?paymentOption=Visa&approved=exists(true)&currency.commons=in(CAD/USD%2C"EUR,GEL,HUF")&total%3C=100&total%3E=1500&email=mibberson%2Bdemo%403merge.ca&!hasLength.0'>
       <LocationDebugger>
-        <FilterChip
-          iconMap={{
-            paymentOption: AccountBalanceWalletIcon,
-            email: MailOutlineIcon,
-            'currency~commons': PublicIcon,
-            'total>': AttachMoneyIcon,
-            'total<': AttachMoneyIcon,
-          }}
-        />
         <EncodedUrl debug>
           <Field
             name="paymentOption"

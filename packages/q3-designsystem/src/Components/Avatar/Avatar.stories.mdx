@@ -1,0 +1,40 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import AccountBox from '@material-ui/icons/AccountBox';
+import Box from '@material-ui/core/Box';
+import Avatar from './Avatar';
+
+<Meta
+  title="DesignSystem/Components/Avatar"
+  component={Avatar}
+/>
+
+# Avatar
+
+<Preview>
+  <Story name="With photo">
+    <Box p={1}>
+      <Avatar
+        alt="Richard Hendricks"
+        src="https://randomuser.me/api/portraits/men/32.jpg"
+      />
+    </Box>
+  </Story>
+  <Story name="With broken image">
+    <Box p={1}>
+      <Avatar
+        alt="Richard Hendricks"
+        src="https://randomuser.me/api/portraits/men/768123678.jpg"
+      />
+    </Box>
+  </Story>
+  <Story name="With icon">
+    <Box p={1}>
+      <Avatar icon={<AccountBox />} />
+    </Box>
+  </Story>
+</Preview>

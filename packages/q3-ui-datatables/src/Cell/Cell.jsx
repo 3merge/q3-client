@@ -5,9 +5,15 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'q3-ui-locale';
 import { string } from 'q3-ui-helpers';
-import { Dot, Helper, Status } from 'q3-components';
 import { green, red } from '@material-ui/core/colors';
-import CellExpansion from '../CellExpansion';
+import StatusChip from 'q3-designsystem/lib/Components/StatusChip';
+import StatusIndicator from 'q3-designsystem/lib/Components/StatusIndicator';
+import withTooltip from 'q3-designsystem/lib/Components/withTooltip';
+
+const Helper = withTooltip(
+  ({ children }) => children,
+  'label',
+);
 
 const Cell = ({ id, value, className, ...props }) => {
   const { t } = useTranslation('labels');
@@ -44,17 +50,20 @@ const Cell = ({ id, value, className, ...props }) => {
     }
 
     if (value.toChip)
-      formatted = <Status label={formatted} {...args} />;
+      formatted = (
+        <StatusChip label={formatted} {...args} />
+      );
 
     if (value.toDot)
-      formatted = <Dot label={formatted} {...args} />;
+      formatted = (
+        <StatusIndicator label={formatted} {...args} />
+      );
 
     if (value.helperText)
       formatted = (
-        <Helper
-          label={formatted}
-          helperText={value.helperText}
-        />
+        <Helper label={value.helperText}>
+          {formatted}
+        </Helper>
       );
 
     if (value.toAction)
