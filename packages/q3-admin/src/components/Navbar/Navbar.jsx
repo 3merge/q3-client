@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import {
-  AppBar,
-  Box,
-  Paper,
-  Hidden,
-  IconButton,
-} from '@material-ui/core';
+import { Box, Paper, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyle from './styles';
 import Logo from '../Logo';
-import NavbarFooter from '../NavbarFooter';
+import ButtonWithIcon from '../ButtonWithIcon';
 
 const Navbar = ({ children }) => {
   const cls = useStyle();
@@ -53,33 +47,21 @@ const Navbar = ({ children }) => {
           closeOnSearchChange
           renderContent={() => children}
           renderTrigger={(onClick) => (
-            <AppBar
-              color="inherit"
-              position="static"
+            <Box
               component="nav"
               className={cls.appbar}
               id="app-navbar"
             >
-              <Box
-                justifyContent="space-between"
-                alignItems="center"
-                display="flex"
-                width="100%"
-              >
-                <Box id="menu-trigger" position="relative">
-                  <IconButton
-                    aria-label="open menu"
-                    color="inherit"
-                    onClick={onClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                </Box>
-                <Box>
-                  <Logo />
-                </Box>
+              <Box id="menu-trigger" position="relative">
+                <ButtonWithIcon
+                  label="menu"
+                  color="inherit"
+                  onClick={onClick}
+                  icon={MenuIcon}
+                />
               </Box>
-            </AppBar>
+              <Logo />
+            </Box>
           )}
           title="menu"
           variant="drawer"

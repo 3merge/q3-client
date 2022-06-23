@@ -1,29 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from '@material-ui/core';
-import Breadcrumbs from '../../components/Breadcrumbs';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
 import DetailHeader from '../DetailHeader';
-import DetailMeta from '../DetailMeta';
 import ActionBar from '../../components/ActionBar';
-import useStyle from './styles';
+import Header from '../../components/Header';
 
 const DetailAppbar = ({
   children,
   actions,
   summary,
   ...rest
-}) => {
-  const cls = useStyle();
-
-  return (
-    <Container maxWidth="xl" component="header">
+}) => (
+  <Header>
+    <div>
       <DetailFeaturedPhoto />
-      <DetailHeader {...rest}>{actions}</DetailHeader>
+      <DetailHeader {...rest}>
+        <ActionBar>{actions}</ActionBar>
+      </DetailHeader>
       {summary}
-    </Container>
-  );
-};
+    </div>
+  </Header>
+);
 
 DetailAppbar.propTypes = {
   actions: PropTypes.oneOfType([

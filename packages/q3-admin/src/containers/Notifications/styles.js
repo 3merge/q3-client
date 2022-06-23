@@ -1,17 +1,10 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
   shake: {
     '& svg': {
       animation:
         '$bellshake .5s cubic-bezier(.36,.07,.19,.97) both',
-    },
-  },
-  button: {
-    [theme.breakpoints.down('md')]: {
-      '& button': {
-        background: 'transparent',
-      },
     },
   },
   '@keyframes bellshake': {

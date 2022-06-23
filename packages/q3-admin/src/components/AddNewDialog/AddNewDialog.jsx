@@ -5,7 +5,9 @@ import Dialog from 'q3-ui-dialog';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'q3-ui-locale';
+import ButtonWithIcon from '../ButtonWithIcon';
 import { Definitions } from '../../containers/state';
 
 const AddNewDialog = ({ children }) => {
@@ -17,14 +19,25 @@ const AddNewDialog = ({ children }) => {
       renderContent={children}
       renderTrigger={(onClick) => (
         <Box>
-          <Button
-            color="secondary"
-            onClick={onClick}
-            startIcon={<AddIcon />}
-            variant="contained"
-          >
-            {t('create')}
-          </Button>
+          <Hidden mdDown>
+            <Box mr={0.5}>
+              <Button
+                color="secondary"
+                onClick={onClick}
+                startIcon={<AddIcon />}
+                variant="contained"
+              >
+                {t('create')}
+              </Button>
+            </Box>
+          </Hidden>
+          <Hidden lgUp>
+            <ButtonWithIcon
+              onClick={onClick}
+              icon={AddIcon}
+              label="create"
+            />
+          </Hidden>
         </Box>
       )}
       title={`${collectionName}New`}

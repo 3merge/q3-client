@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { pick } from 'lodash';
+import ActionBar from '../../components/ActionBar';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import Segments from '../../components/Segments';
@@ -13,7 +14,7 @@ const TableActions = ({
   uis,
   ...rest
 }) => (
-  <>
+  <ActionBar>
     <CollectionUiSelect uis={uis} />
     {FilterComponent ? (
       <>
@@ -26,7 +27,7 @@ const TableActions = ({
     ) : null}
     <TableBulkDelete />
     <TableIo io={io} />
-  </>
+  </ActionBar>
 );
 
 TableActions.defaultProps = {

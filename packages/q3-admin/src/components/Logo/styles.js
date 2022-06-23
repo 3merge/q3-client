@@ -21,19 +21,12 @@ export default makeStyles((theme) => ({
       maxWidth: '35vw',
     },
   },
-  img: ({ invertLogo }) => {
-    const filter = 'invert(1) grayscale(100%)';
-
-    return {
-      filter:
-        invertLogo && theme.palette.type === 'dark'
-          ? filter
-          : undefined,
-      maxHeight: '100%',
-      maxWidth: '100%',
-      [theme.breakpoints.down('md')]: {
-        filter: invertLogo ? filter : undefined,
-      },
-    };
-  },
+  img: ({ invertLogo }) => ({
+    filter:
+      invertLogo && theme.palette.type === 'dark'
+        ? 'invert(1) grayscale(100%)'
+        : undefined,
+    maxHeight: '100%',
+    maxWidth: '100%',
+  }),
 }));

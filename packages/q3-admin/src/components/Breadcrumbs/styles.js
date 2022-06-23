@@ -17,6 +17,10 @@ export default makeStyles((theme) => ({
   font: {
     fontSize: '.833rem',
     fontWeight: 'bold',
+    maxWidth: 80,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: 'block',
   },
   separator: {
     fontSize: '1rem',
@@ -26,5 +30,11 @@ export default makeStyles((theme) => ({
     height: '1rem',
     textAlign: 'center',
     borderRadius: 4,
+  },
+  wrapper: {
+    [theme.breakpoints.down('md')]: {
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
   },
 }));

@@ -15,9 +15,12 @@ export default makeStyles((theme) => ({
         ? theme.palette.secondary.main
         : theme.palette.background.muted,
       color: 'inherit',
+      width: '36.5px',
+      height: '36.5px',
 
-      [theme.breakpoints.down('md')]: {
+      '&.Mui-disabled': {
         background: 'transparent',
+        cursor: 'not-allowed !important',
       },
     };
 

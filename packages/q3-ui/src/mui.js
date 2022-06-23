@@ -260,6 +260,9 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         contained: {
           boxShadow: 'none',
         },
+        label: {
+          textTransform: 'none',
+        },
       },
       MuiInputAdornment: {
         root: {

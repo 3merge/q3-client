@@ -12,9 +12,16 @@ import Back from '../../containers/back';
 // eslint-disable-next-line
 const BreadcrumbLink = ({ text, to }) => {
   const { t } = useTranslation('labels');
+  const cls = useStyle();
 
   return (
-    <MuiLink color="secondary" component={Link} to={to}>
+    <MuiLink
+      className={cls.font}
+      color="secondary"
+      component={Link}
+      to={to}
+      title={t(text)}
+    >
       {t(text)}
     </MuiLink>
   );
@@ -26,7 +33,11 @@ const BreadcrumbText = ({ text }) => {
   const cls = useStyle();
 
   return (
-    <Typography className={cls.font} color="secondary">
+    <Typography
+      className={cls.font}
+      color="secondary"
+      title={t(text)}
+    >
       {t(text)}
     </Typography>
   );
@@ -44,15 +55,25 @@ const Breadcrumbs = () => {
   const cls = useStyle();
 
   return (
-    <Box alignItems="center" display="flex" py={1}>
+    <Box
+      alignItems="center"
+      display="flex"
+      className={cls.wrapper}
+    >
       <Back />
       <MuiBreadcrumbs
         aria-label="breadcrumb"
         className={cls.root}
         separator={<span className={cls.separator}>›</span>}
       >
-        <MuiLink color="secondary" to="/" component={Link}>
-          {t('dashboard')}
+        <MuiLink
+          className={cls.font}
+          color="secondary"
+          to="/"
+          component={Link}
+          title={t('home')}
+        >
+          {t('home')}
         </MuiLink>
         {id ? (
           [

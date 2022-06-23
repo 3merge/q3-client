@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useTranslation } from 'q3-ui-locale';
 import { isFunction, map } from 'lodash';
 import { useOpen } from 'useful-state';
+import Drawer from '@material-ui/core/Drawer';
 import useStyle from './styles';
 
 const DropdownMenu = ({ id, children, items, ...etc }) => {
@@ -17,9 +18,10 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
   return (
     <>
       {children(open, isOpen)}
-      <Menu
+      <Drawer
         id={id}
-        anchorEl={anchorEl}
+        // anchorEl={anchorEl}
+        anchor="bottom"
         getContentAnchorEl={null}
         open={isOpen}
         onClose={close}
@@ -60,7 +62,7 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
             </li>
           ),
         )}
-      </Menu>
+      </Drawer>
     </>
   );
 };

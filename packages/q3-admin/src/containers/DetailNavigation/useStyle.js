@@ -7,7 +7,6 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('md')]: {
       paddingLeft: 0,
-      marginTop: '-1rem',
     },
   },
 }));

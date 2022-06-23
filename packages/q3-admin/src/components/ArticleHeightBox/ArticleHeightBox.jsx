@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Fade } from '@material-ui/core';
 import useHeightRef from '../../hooks/useHeightRef';
 
 // eslint-disable-next-line
 const ArticleHeightBox = ({ children }) => (
-  <Box ref={useHeightRef()}>{children}</Box>
+  <Fade in timeout={250}>
+    <Box ref={useHeightRef()}>{children}</Box>
+  </Fade>
 );
 
 ArticleHeightBox.propTypes = {};

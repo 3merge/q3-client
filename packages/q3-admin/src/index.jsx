@@ -82,9 +82,9 @@ const Admin = ({ AppProps }) => {
           </Navbar>
           <Box className={cls.main}>
             <Toolbar />
-            <FloatingAction
-              {...get(AppProps, 'floatingActionProps', {})}
-            />
+            {/* <FloatingAction
+            {...get(AppProps, 'floatingActionProps', {})}
+          /> */}
             <App {...AppProps}>
               <SystemPage path="account">
                 <ProfileChangeContact path="contact" />

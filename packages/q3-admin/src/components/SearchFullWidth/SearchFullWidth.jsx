@@ -15,10 +15,10 @@ const useStyle = makeStyles((theme) => ({
     boxSizing: 'border-box',
     padding: `0 ${theme.spacing(1)}`,
     width: 425,
-    maxWidth: '40vw',
+    maxWidth: '20vw',
     transition: 'box-shadow 250ms',
-    // backgroundColor: theme.palette.background.muted,
-    height: 40,
+    backgroundColor: theme.palette.background.muted,
+    height: 36.5,
     margin: 0,
 
     '&:focus-within': {

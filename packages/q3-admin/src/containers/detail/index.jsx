@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, pick } from 'lodash';
-import {
-  Box,
-  Grid,
-  Hidden,
-  Divider,
-} from '@material-ui/core';
+import { Box, Grid, Divider } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
 import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
@@ -79,14 +74,12 @@ const Detail = ({
           <Box m={1}>
             <Grid item xs>
               {Views}
-              <Hidden lgUp>
-                <Box my={2} px={1}>
-                  <Divider />
-                </Box>
-                <Box maxWidth="100%" width={450} px={2}>
-                  <DetailMeta />
-                </Box>
-              </Hidden>
+              <Box my={2} px={1}>
+                <Divider />
+              </Box>
+              <Box maxWidth="100%" width={450} px={2}>
+                <DetailMeta />
+              </Box>
             </Grid>
           </Box>
         </Article>

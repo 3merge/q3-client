@@ -1,17 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
 import SearchWithNgramAuth from '../SearchWithNgramAuth';
 import ToolbarCollectionPortal from '../ToolbarCollectionPortal';
 import Breadcrumbs from '../Breadcrumbs';
 
 const ToolbarCollection = ({ children }) => (
   <ToolbarCollectionPortal>
-    <Box display="flex" justifyContent="space-between">
-      <Breadcrumbs />
-      <Box display="flex" justifyContent="space-between">
-        <SearchWithNgramAuth />
+    <Box
+      alignItems="center"
+      display="flex"
+      justifyContent="space-between"
+    >
+      <Hidden mdDown>
+        <Breadcrumbs />
+      </Hidden>
+      <Box
+        alignItems="center"
+        display="flex"
+        justifyContent="space-between"
+      >
         {children}
+        <SearchWithNgramAuth />
       </Box>
     </Box>
   </ToolbarCollectionPortal>

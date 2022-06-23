@@ -22,7 +22,9 @@ const DialogHeader = ({ children, title, onClose }) => {
             component="h3"
             variant="h4"
           >
-            {t(`titles:${title}`)}
+            {typeof title === 'string'
+              ? t(`titles:${title}`)
+              : title}
           </Typography>
         )}
         <Box display="flex" alignItems="center">
