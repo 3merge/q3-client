@@ -1,6 +1,8 @@
 import generateList from './generateList';
 import generateDetail from './generateDetail';
 import generateCollection from './generateCollection';
+import generateToolbar from './generateToolbar';
+import AddNewFormUtils from '../components/AddNewFormUtils';
 
 export default class Collection {
   constructor({
@@ -29,6 +31,7 @@ export default class Collection {
     };
 
     this.$generateListProps = { resolvers };
+    this.$generateToolbarProps = {};
   }
 
   genResolver(resolvers) {
@@ -52,7 +55,20 @@ export default class Collection {
   }
 
   genNew(component) {
-    this.$generateList.addComponent = component;
+    this.$generateToolbarProps.addComponent = component;
+    this.$generateToolbarProps.addComponentWrapper =
+      AddNewFormUtils;
+
+    // eslint-disable-next-line
+    console.warn(
+      // eslint-disable-next-line
+      `You should use .genCreate instead of .genNew for the latest features`,
+    );
+    return this;
+  }
+
+  genCreate(component) {
+    this.$generateToolbarProps.addComponent = component;
     return this;
   }
 
@@ -100,6 +116,7 @@ export default class Collection {
       PageDetailProps: this.$generateDetailProps,
       PageList: generateList(this.$generateList),
       PageListProps: this.$generateListProps,
+      Toolbar: generateToolbar(this.$generateToolbarProps),
     });
   }
 }

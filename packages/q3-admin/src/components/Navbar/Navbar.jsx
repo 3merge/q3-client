@@ -9,7 +9,6 @@ import {
   IconButton,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
 import Logo from '../Logo';
 import NavbarFooter from '../NavbarFooter';
@@ -21,7 +20,11 @@ const Navbar = ({ children }) => {
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
-          <Paper className={cls.paper} color="primary">
+          <Paper
+            // elevation={0}
+            className={cls.paper}
+            color="primary"
+          >
             <Box>
               <Box
                 alignItems="center"
@@ -32,11 +35,9 @@ const Navbar = ({ children }) => {
                 <Box minWidth="calc(100% - 46px - 1.5rem)">
                   <Logo />
                 </Box>
-                <Notifications />
               </Box>
               <Box p={1.5}>{children}</Box>
             </Box>
-            <NavbarFooter />
           </Paper>
         </Box>
       </Hidden>
@@ -50,12 +51,7 @@ const Navbar = ({ children }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => (
-            <>
-              {children}
-              <NavbarFooter />
-            </>
-          )}
+          renderContent={() => children}
           renderTrigger={(onClick) => (
             <AppBar
               color="inherit"
@@ -80,9 +76,6 @@ const Navbar = ({ children }) => {
                 </Box>
                 <Box>
                   <Logo />
-                </Box>
-                <Box>
-                  <Notifications />
                 </Box>
               </Box>
             </AppBar>

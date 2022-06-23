@@ -16,17 +16,5 @@ export default makeStyles((theme) => ({
       paddingTop: '0 !important',
     },
   },
-  chip: {
-    textDecoration: 'none !important',
-    display: 'inline-flex',
-    alignItems: 'center',
-    color: 'inherit',
-    cursor: 'pointer',
-    '& svg': {
-      marginRight: '.25rem',
-    },
-    '&[disabled]': {
-      cursor: 'help',
-    },
-  },
+  chip: {},
 }));

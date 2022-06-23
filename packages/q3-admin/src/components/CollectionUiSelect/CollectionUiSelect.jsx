@@ -25,6 +25,7 @@ const CollectionUiSelect = ({ uis }) =>
             icon={icon}
             label="uis"
             onClick={onClick}
+            transparent
           />
         );
       }}

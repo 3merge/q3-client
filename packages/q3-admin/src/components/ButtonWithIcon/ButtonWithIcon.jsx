@@ -10,10 +10,14 @@ import Fade from '@material-ui/core/Fade';
 import useStyle from './styles';
 
 const ButtonWithIcon = React.forwardRef(
-  ({ icon: Icon, label, count, on, ...rest }, ref) => {
+  (
+    { icon: Icon, label, count, on, transparent, ...rest },
+    ref,
+  ) => {
     const { t } = useTranslation('labels');
     const cls = useStyle({
       on,
+      transparent,
     });
 
     return (
@@ -59,11 +63,13 @@ ButtonWithIcon.propTypes = {
   label: PropTypes.string.isRequired,
   count: PropTypes.number,
   on: PropTypes.bool,
+  transparent: PropTypes.bool,
 };
 
 ButtonWithIcon.defaultProps = {
   count: 0,
   on: false,
+  transparent: false,
 };
 
 export default ButtonWithIcon;

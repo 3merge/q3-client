@@ -36,6 +36,7 @@ const Trash = () => {
         ...buttonProps,
         icon: DeleteIcon,
         label: 'trash',
+        transparent: true,
       }),
     [],
   );

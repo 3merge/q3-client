@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
     flexWrap: 'nowrap',
     height: 65,
     justifyContent: 'space-between',
-    padding: `0 ${theme.spacing(1.5)}`,
+    padding: `0 ${theme.spacing(1)}`,
     width: '100%',
 
     [theme.breakpoints.down('md')]: {

@@ -267,6 +267,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'baseline',
+    width: '100%',
 
     '& table': {
       userSelect: 'none',

@@ -16,7 +16,6 @@ import DropdownMenu from '../../components/DropdownMenu';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ButtonWithIconDialog from '../../components/ButtonWithIconDialog';
 import { Definitions, Store } from '../state';
-import Search from '../../components/Search';
 
 const DetailActions = ({
   audit,
@@ -44,10 +43,10 @@ const DetailActions = ({
 
   return (
     <Box alignItems="center" display="flex">
-      {lhr(canSeeSub('grams'), <Search />)}
       {lhr(
         canSeeSub('thread'),
         <ButtonWithIconDialog
+          transparent
           icon={ForumIcon}
           label="notes"
           renderContent={() => (
@@ -58,6 +57,7 @@ const DetailActions = ({
       {lhr(
         canSeeSub('uploads'),
         <ButtonWithIconDialog
+          transparent
           icon={AttachFileIcon}
           label="files"
           renderContent={() => (
@@ -68,6 +68,7 @@ const DetailActions = ({
       {lhr(
         size(audit),
         <ButtonWithIconDialog
+          transparent
           icon={TrackChangesIcon}
           label="audit"
           renderContent={() => (
@@ -83,6 +84,7 @@ const DetailActions = ({
         <DropdownMenu items={actions}>
           {(onClick) => (
             <ButtonWithIcon
+              transparent
               icon={MoreVertIcon}
               label="actions"
               onClick={onClick}

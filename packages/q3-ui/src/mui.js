@@ -416,6 +416,13 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         },
       },
 
+      MuiMenuItem: {
+        dense: {
+          fontSize: '1rem !important',
+          margin: '0 !important',
+        },
+      },
+
       MuiCard: {
         root: {
           transitionDuration: '500ms',

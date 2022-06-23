@@ -84,6 +84,7 @@ const TableIo = ({ io, params }) => {
             icon={ImportExportIcon}
             label="i/o"
             count={checked.length}
+            transparent
           />
         ) : null
       }

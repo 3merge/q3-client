@@ -19,6 +19,7 @@ const NavbarList = ({ items }) => {
                 disableGutters
                 disableSticky
                 component="span"
+                color="secondary.main"
               >
                 {t(title)}
               </ListSubheader>

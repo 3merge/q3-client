@@ -13,6 +13,7 @@ import {
   useProfileLocale,
   useProfileTheme,
 } from './hooks';
+import BackProvider from './containers/BackProvider';
 import Domain from './containers/Domain';
 import DomainI18n from './containers/DomainI18n';
 import DomainProvider from './containers/DomainProvider';
@@ -31,6 +32,7 @@ import Navbar from './components/Navbar';
 import NavbarList from './components/NavbarList';
 import SystemPage from './components/SystemPage';
 import SystemPageSub from './components/SystemPageSub';
+import Toolbar from './components/Toolbar';
 
 export { getDomain } from './hooks/useDomain';
 export * from './containers';
@@ -73,59 +75,65 @@ const Admin = ({ AppProps }) => {
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
     >
-      <Viewport>
-        <Navbar>
-          <NavbarList items={usePages(pages)} />
-        </Navbar>
-        <Box className={cls.main}>
-          <FloatingAction
-            {...get(AppProps, 'floatingActionProps', {})}
-          />
-          <App {...AppProps}>
-            <SystemPage path="account">
-              <ProfileChangeContact path="contact" />
-              <ProfileChangeLocale path="locale" />
-              <ProfileChangeTheme path="theme" />
-              <ProfileChangeNotifications path="notifications" />
-              <ProfileChangePassword path="password" />
-              {map(
-                customProfilePages,
-                ({
-                  component: ProfilePageComponent,
-                  path,
-                }) => (
-                  <ProfilePageComponent
-                    key={path}
-                    path={path}
-                  />
-                ),
-              )}
-              <Profile items={customProfilePages} default />
-            </SystemPage>
-            <SystemPage path="system">
-              <DomainChangeBrowser path="browser" />
-              <DomainChangeManifest path="manifest" />
-              <DomainChangePolicies path="policies" />
-              <DomainI18n path="i18n" />
-              <EmailModule path="emails" />
-              <QueueModule path="queues" />
-              {map(
-                customDomainPages,
-                ({
-                  component: DomainPageComponent,
-                  path,
-                }) => (
-                  <DomainPageComponent
-                    key={path}
-                    path={path}
-                  />
-                ),
-              )}
-              <Domain items={customDomainPages} default />
-            </SystemPage>
-          </App>
-        </Box>
-      </Viewport>
+      <BackProvider>
+        <Viewport>
+          <Navbar>
+            <NavbarList items={usePages(pages)} />
+          </Navbar>
+          <Box className={cls.main}>
+            <Toolbar />
+            <FloatingAction
+              {...get(AppProps, 'floatingActionProps', {})}
+            />
+            <App {...AppProps}>
+              <SystemPage path="account">
+                <ProfileChangeContact path="contact" />
+                <ProfileChangeLocale path="locale" />
+                <ProfileChangeTheme path="theme" />
+                <ProfileChangeNotifications path="notifications" />
+                <ProfileChangePassword path="password" />
+                {map(
+                  customProfilePages,
+                  ({
+                    component: ProfilePageComponent,
+                    path,
+                  }) => (
+                    <ProfilePageComponent
+                      key={path}
+                      path={path}
+                    />
+                  ),
+                )}
+                <Profile
+                  items={customProfilePages}
+                  default
+                />
+              </SystemPage>
+              <SystemPage path="system">
+                <DomainChangeBrowser path="browser" />
+                <DomainChangeManifest path="manifest" />
+                <DomainChangePolicies path="policies" />
+                <DomainI18n path="i18n" />
+                <EmailModule path="emails" />
+                <QueueModule path="queues" />
+                {map(
+                  customDomainPages,
+                  ({
+                    component: DomainPageComponent,
+                    path,
+                  }) => (
+                    <DomainPageComponent
+                      key={path}
+                      path={path}
+                    />
+                  ),
+                )}
+                <Domain items={customDomainPages} default />
+              </SystemPage>
+            </App>
+          </Box>
+        </Viewport>
+      </BackProvider>
     </DomainProvider>
   );
 };

@@ -109,13 +109,22 @@ const List = (props) => {
 
   return (
     <Box
-      p={{
-        xs: 1,
-        sm: 1,
-        md: 2,
+      ref={(el) => {
+        const apbar =
+          document.getElementById('app-toolbar')
+            ?.clientHeight || 0;
+
+        const ch =
+          document.getElementById('collection-header')
+            ?.clientHeight || 0;
+
+        if (el) {
+          el.style.height = `calc(100vh - ${apbar}px - ${ch}px)`;
+        }
       }}
       style={{
-        paddingTop: 0,
+        height: '45vw',
+        paddingTop: '1rem',
       }}
     >
       <Table
@@ -129,9 +138,6 @@ const List = (props) => {
         onSort={l.update}
         sort={l.sort}
         disableExportsProvider
-        style={{
-          maxHeight: isMobile ? '100%' : '85vh',
-        }}
       />
     </Box>
   );

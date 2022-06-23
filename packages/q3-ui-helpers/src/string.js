@@ -94,3 +94,6 @@ export const encode = (xs) => {
 export const makeName = (xs = {}) =>
   compact([xs?.firstName, xs?.lastName]).join(' ') ||
   'Anonymous';
+
+export const removeTrailingSlash = (str) =>
+  String(str).replace(/\/$/, '');

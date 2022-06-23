@@ -27,11 +27,7 @@ export const ButtonComponentWithAnimation = ({
   }, [numberOfNotifications]);
 
   return (
-    <Box
-      className={classnames(...classlist)}
-      display="inline-block"
-      width="100%"
-    >
+    <Box className={classnames(...classlist)}>
       <ButtonWithIcon
         {...rest}
         count={amount}

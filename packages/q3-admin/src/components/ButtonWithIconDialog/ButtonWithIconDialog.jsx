@@ -7,6 +7,7 @@ export const ButtonWithIconDialog = ({
   renderContent,
   label,
   icon,
+  ...rest
 }) => (
   <Dialog
     renderContent={renderContent}
@@ -15,6 +16,7 @@ export const ButtonWithIconDialog = ({
         label={label}
         icon={icon}
         onClick={onClick}
+        {...rest}
       />
     )}
     title={label}

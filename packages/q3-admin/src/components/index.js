@@ -1,4 +1,5 @@
 export { default as App } from './app';
+export { default as AddNewForm } from './AddNewForm';
 export { default as Loader } from './loader';
 export { default as Public } from './public';
 
@@ -8,7 +9,6 @@ export { default as Public } from './public';
  * Thus, we must export all containers here for old projects.
  */
 export {
-  Add,
   Detail,
   Table,
   Page,

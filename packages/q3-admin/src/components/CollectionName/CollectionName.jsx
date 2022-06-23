@@ -12,10 +12,16 @@ const CollectionName = () => {
   const cls = useStyle();
 
   return (
-    <Box className={cls.root} py={1}>
-      <Typography component="h1" variant="h5">
-        {t(collectionName)}
-        <small className={cls.seg}>{t(s)}</small>
+    <Box className={cls.root}>
+      <Typography
+        component="h1"
+        variant="h2"
+        style={{
+          margin: 0,
+          marginRight: '1rem',
+        }}
+      >
+        {!s ? t(collectionName) : t(s)}
       </Typography>
     </Box>
   );

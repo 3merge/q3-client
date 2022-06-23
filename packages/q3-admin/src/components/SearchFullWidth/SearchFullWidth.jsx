@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
     width: 425,
     maxWidth: '40vw',
     transition: 'box-shadow 250ms',
-    backgroundColor: theme.palette.background.muted,
+    // backgroundColor: theme.palette.background.muted,
     height: 40,
     margin: 0,
 

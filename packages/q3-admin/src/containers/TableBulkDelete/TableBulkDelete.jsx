@@ -20,6 +20,7 @@ export const TableBulkDeleteButton = (props) => {
       label="deleteMany"
       icon={DeleteSweepIcon}
       count={len}
+      transparent
     />
   );
 };

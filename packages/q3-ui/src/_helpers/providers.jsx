@@ -29,7 +29,7 @@ const generateTheme = (color) => {
         },
         secondary: {
           main: color,
-          light: lighten(color, 0.75),
+          light: lighten(color, 0.85),
           dark: darken(color, 0.35),
           contrastText: lighten(color, 1),
         },

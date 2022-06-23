@@ -7,16 +7,24 @@ export default makeStyles((theme) => ({
       top: '-.5rem',
     },
   },
-  fab: ({ on }) => ({
-    borderRadius: 4,
-    boxShadow: 'none',
-    backgroundColor: on
-      ? theme.palette.secondary.main
-      : theme.palette.background.muted,
-    color: 'inherit',
+  fab: ({ on, transparent }) => {
+    const out = {
+      borderRadius: 4,
+      boxShadow: 'none',
+      backgroundColor: on
+        ? theme.palette.secondary.main
+        : theme.palette.background.muted,
+      color: 'inherit',
 
-    [theme.breakpoints.down('md')]: {
-      background: 'transparent',
-    },
-  }),
+      [theme.breakpoints.down('md')]: {
+        background: 'transparent',
+      },
+    };
+
+    if (transparent) {
+      out.backgroundColor = 'transparent';
+    }
+
+    return out;
+  },
 }));

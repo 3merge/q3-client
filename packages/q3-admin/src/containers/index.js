@@ -1,4 +1,3 @@
-export { default as Add } from './add';
 export { default as Calendar } from './Calendar';
 export { default as Detail } from './detail';
 export { default as Gatekeeper } from './gatekeeper';

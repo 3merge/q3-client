@@ -57,11 +57,9 @@ const Detail = ({
         summary={Summary}
         {...HeaderProps}
         {...rest}
-      >
-        {Navigation}
-      </DetailAppbar>
+      />
     ),
-    [HeaderProps, Actions, Summary, Navigation],
+    [HeaderProps, Actions, Summary],
   );
 
   const Alerts = React.useMemo(
@@ -75,8 +73,9 @@ const Detail = ({
     () => (
       <Box bgcolor="background.paper" height="100%">
         <Article>
-          {AppBar}
           {Alerts}
+          {AppBar}
+          {Navigation}
           <Box m={1}>
             <Grid item xs>
               {Views}

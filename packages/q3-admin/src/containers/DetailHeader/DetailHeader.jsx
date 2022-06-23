@@ -9,13 +9,20 @@ const DetailHeader = ({ children, ...props }) => {
   const { data } = React.useContext(Store);
 
   const Title = (
-    <Typography component="h1" variant="h5">
+    <Typography
+      component="h1"
+      variant="h2"
+      style={{
+        margin: 0,
+        marginRight: '1rem',
+      }}
+    >
       {useTitle(data, props)}
     </Typography>
   );
 
   return children ? (
-    <Box ml=".5rem">
+    <Box display="flex" alignItems="center">
       {Title}
       {children}
     </Box>
