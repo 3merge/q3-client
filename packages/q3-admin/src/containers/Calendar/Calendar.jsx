@@ -4,11 +4,12 @@ import FullCalendar from '@fullcalendar/react';
 import { isFunction, map, pick } from 'lodash';
 import { Box } from '@material-ui/core';
 import { getTimezone } from 'q3-ui-locale/lib/timezone';
-import { Store } from '../state';
-import useStyle from './styles';
+import ArticleHeightBox from '../../components/ArticleHeightBox';
 import useCalendarSource from '../../hooks/useCalendarSource';
 import useCalendarOrientation from '../../hooks/useCalendarOrientation';
 import withPageLoading from '../../helpers/withPageLoading';
+import { Store } from '../state';
+import useStyle from './styles';
 
 export const formatCalendarEvents = (xs, fn) => {
   const formatter = isFunction(fn) ? fn : (a) => a;
@@ -47,39 +48,41 @@ const Calendar = (props) => {
   );
 
   return (
-    <Box className={cls.root}>
-      {calendarOrientation.initialView && (
-        <FullCalendar
-          {...props}
-          initialDate={calendarSource.initialDate}
-          timeZone={getTimezone()}
-          allDaySlot={false}
-          lazyFetching
-          events={[
-            ...map(
-              calendarSource.backgroundEvents,
-              (bg) => ({
-                ...bg,
-                id: `bg-${bg.id}`,
-                display: 'background',
-              }),
-            ),
-            ...events,
-          ]}
-          eventTimeFormat={{
-            hour: 'numeric',
-            minute: '2-digit',
-            meridiem: 'short',
-          }}
-          height="100%"
-          eventClick={calendarSource.navigate}
-          eventChange={calendarSource.update}
-          eventContent={handleEventContent}
-          datesSet={calendarSource.getEvents}
-          {...calendarOrientation}
-        />
-      )}
-    </Box>
+    <ArticleHeightBox>
+      <Box className={cls.root}>
+        {calendarOrientation.initialView && (
+          <FullCalendar
+            {...props}
+            initialDate={calendarSource.initialDate}
+            timeZone={getTimezone()}
+            allDaySlot={false}
+            lazyFetching
+            events={[
+              ...map(
+                calendarSource.backgroundEvents,
+                (bg) => ({
+                  ...bg,
+                  id: `bg-${bg.id}`,
+                  display: 'background',
+                }),
+              ),
+              ...events,
+            ]}
+            eventTimeFormat={{
+              hour: 'numeric',
+              minute: '2-digit',
+              meridiem: 'short',
+            }}
+            height="100%"
+            eventClick={calendarSource.navigate}
+            eventChange={calendarSource.update}
+            eventContent={handleEventContent}
+            datesSet={calendarSource.getEvents}
+            {...calendarOrientation}
+          />
+        )}
+      </Box>
+    </ArticleHeightBox>
   );
 };
 

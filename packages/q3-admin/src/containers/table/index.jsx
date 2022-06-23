@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
-import { Box, useMediaQuery } from '@material-ui/core';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
-import { makeStyles } from '@material-ui/core/styles';
+import ArticleHeightBox from '../../components/ArticleHeightBox';
 import { Dispatcher, Definitions, Store } from '../state';
 import { useRefresh, useSortPreference } from '../../hooks';
 import withPageLoading from '../../helpers/withPageLoading';
 import TableTrash from '../TableTrash';
+import useStyle from './styles';
 
 const assignUrlPath = (base) => (item) => {
   // property changed in previous update
@@ -74,20 +74,9 @@ export const TableDecorator = (props) => ({
     get(props, 'data', []).map(assignUrlPath(root)),
 });
 
-const useStyle = makeStyles(() => ({
-  table: {
-    marginTop: 0,
-    height: '100%',
-    flex: 1,
-  },
-}));
-
 const List = (props) => {
   const { table } = useStyle();
   const tableProps = React.useContext(Store);
-  const isMobile = useMediaQuery((theme) =>
-    theme.breakpoints.down('md'),
-  );
 
   const { collectionName, rootPath } =
     React.useContext(Definitions);
@@ -108,25 +97,7 @@ const List = (props) => {
   );
 
   return (
-    <Box
-      ref={(el) => {
-        const apbar =
-          document.getElementById('app-toolbar')
-            ?.clientHeight || 0;
-
-        const ch =
-          document.getElementById('collection-header')
-            ?.clientHeight || 0;
-
-        if (el) {
-          el.style.height = `calc(100vh - ${apbar}px - ${ch}px)`;
-        }
-      }}
-      style={{
-        height: '45vw',
-        paddingTop: '1rem',
-      }}
-    >
+    <ArticleHeightBox>
       <Table
         {...decorator.build()}
         blacklistColumns={decorator.makeBlacklist(
@@ -139,7 +110,7 @@ const List = (props) => {
         sort={l.sort}
         disableExportsProvider
       />
-    </Box>
+    </ArticleHeightBox>
   );
 };
 

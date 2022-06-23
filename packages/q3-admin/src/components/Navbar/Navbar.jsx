@@ -58,6 +58,7 @@ const Navbar = ({ children }) => {
               position="static"
               component="nav"
               className={cls.appbar}
+              id="app-navbar"
             >
               <Box
                 justifyContent="space-between"

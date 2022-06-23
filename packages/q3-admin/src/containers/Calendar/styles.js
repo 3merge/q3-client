@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(2),
     paddingTop: 0,
     overflow: 'auto',
-    height: '85vh',
+    height: '100%',
 
     [theme.breakpoints.down('md')]: {
       height: '100%',
