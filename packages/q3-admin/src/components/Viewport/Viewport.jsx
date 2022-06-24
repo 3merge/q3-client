@@ -25,21 +25,19 @@ const AppViewport = ({ children }) => {
   }, []);
 
   return (
-    <Box bgcolor="background.default">
-      <Container
-        maxWidth="xl"
-        disableGutters
-        component="main"
-        style={{
-          overflow: 'hidden',
-          flexWrap: 'nowrap',
-          position: 'relative',
-          maxHeight: '100vh',
-        }}
-      >
-        <Grid container>{children}</Grid>
-      </Container>
-    </Box>
+    <Container
+      maxWidth="xl"
+      disableGutters
+      component="main"
+      style={{
+        overflow: 'hidden',
+        flexWrap: 'nowrap',
+        position: 'relative',
+        maxHeight: '100vh',
+      }}
+    >
+      <Grid container>{children}</Grid>
+    </Container>
   );
 };
 

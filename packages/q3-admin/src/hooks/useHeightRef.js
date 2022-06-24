@@ -16,6 +16,7 @@ const useHeightRef = () => {
       getClientHeightById('app-navbar'),
       getClientHeightById('app-toolbar'),
       getClientHeightById('collection-header'),
+      1,
     ]
       .map(toPixels)
       .join(' - ');

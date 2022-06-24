@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'q3-ui-locale';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ButtonWithIcon from '../ButtonWithIcon';
 import { Definitions } from '../../containers/state';
 
@@ -20,7 +21,7 @@ const AddNewDialog = ({ children }) => {
       renderTrigger={(onClick) => (
         <Box>
           <Hidden mdDown>
-            <Box mr={0.5}>
+            <Box ml={1} mr={3}>
               <Button
                 color="secondary"
                 onClick={onClick}
@@ -34,7 +35,7 @@ const AddNewDialog = ({ children }) => {
           <Hidden lgUp>
             <ButtonWithIcon
               onClick={onClick}
-              icon={AddIcon}
+              icon={AddCircleIcon}
               label="create"
             />
           </Hidden>

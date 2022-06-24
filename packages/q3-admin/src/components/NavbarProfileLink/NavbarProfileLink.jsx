@@ -12,6 +12,8 @@ import {
 import AccountBox from '@material-ui/icons/AccountBox';
 import { AuthContext } from 'q3-ui-permissions';
 import ButtonWithIcon from '../ButtonWithIcon';
+import DropdownMenu from '../DropdownMenu';
+import { logout } from '../NavbarFooterLinks/NavbarFooterLinks';
 
 const NavbarProfileLink = () => {
   const { state } = React.useContext(AuthContext);
@@ -21,30 +23,45 @@ const NavbarProfileLink = () => {
       <Hidden mdUp>
         <ButtonWithIcon
           component={Link}
-          to="account"
           label="profile"
           icon={AccountBox}
+          to="account"
         />
       </Hidden>
       <Hidden mdDown>
-        <ListItem
-          button
-          dense
-          component={Link}
-          to="account"
-          style={{ padding: 0 }}
+        <DropdownMenu
+          items={[
+            {
+              label: 'profile',
+              to: 'account',
+            },
+            // HOW TO INSERT CUSTOM???
+            {
+              label: 'logout',
+              onClick: logout,
+            },
+          ]}
         >
-          <ListItemAvatar>
-            <Avatar
-              src={state?.profile?.photo}
-              variant="rounded"
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={string.makeName(state?.profile)}
-            secondary={state?.profile?.role}
-          />
-        </ListItem>
+          {(toggle) => (
+            <ListItem
+              button
+              dense
+              style={{
+                padding: 0,
+                whiteSpace: 'nowrap',
+              }}
+              onClick={toggle}
+            >
+              <ListItemAvatar>
+                <Avatar src={state?.profile?.photo} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={string.makeName(state?.profile)}
+                secondary={state?.profile?.role}
+              />
+            </ListItem>
+          )}
+        </DropdownMenu>
       </Hidden>
     </Box>
   );

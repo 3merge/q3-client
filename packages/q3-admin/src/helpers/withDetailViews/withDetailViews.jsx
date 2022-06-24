@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthContext } from 'q3-ui-permissions';
 import { get, isFunction } from 'lodash';
+import { useLocation } from '@reach/router';
 import ViewNotAllowed from '../../components/ViewNotAllowed';
 import { Store } from '../../containers/state';
 import { getPath } from '../../components/utils';
@@ -16,6 +17,8 @@ const withDetailViews =
 
     const hasAnIndex = (a) =>
       a.findIndex((item) => item.to === '/') === -1;
+
+    console.log(useLocation());
 
     const views = children
       ? React.Children.map(children, (child, i) => {

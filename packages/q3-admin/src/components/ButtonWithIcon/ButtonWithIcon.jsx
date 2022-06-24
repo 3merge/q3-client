@@ -6,7 +6,6 @@ import Badge from '@material-ui/core/Badge';
 import Box from '@material-ui/core/Box';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
-import Fade from '@material-ui/core/Fade';
 import useStyle from './styles';
 
 const ButtonWithIcon = React.forwardRef(
@@ -22,34 +21,32 @@ const ButtonWithIcon = React.forwardRef(
 
     return (
       <Box display="inline">
-        <Fade in>
-          <Box ml={0.5}>
-            <Tooltip title={t(label)}>
-              <Fab
-                {...rest}
-                size="small"
-                elevation={0}
-                ref={ref}
-                className={cls.fab}
-                aria-label={t(label)}
-                variant="contained"
-                color="default"
+        <Box className={cls.wrapper}>
+          <Tooltip arrow title={t(label)}>
+            <Fab
+              {...rest}
+              size="small"
+              elevation={0}
+              ref={ref}
+              className={cls.fab}
+              aria-label={t(label)}
+              variant="contained"
+              color="default"
+            >
+              <Badge
+                badgeContent={count}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                showZero={false}
+                className={cls.badge}
               >
-                <Badge
-                  badgeContent={count}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
-                  }}
-                  showZero={false}
-                  className={cls.badge}
-                >
-                  <Icon />
-                </Badge>
-              </Fab>
-            </Tooltip>
-          </Box>
-        </Fade>
+                <Icon />
+              </Badge>
+            </Fab>
+          </Tooltip>
+        </Box>
       </Box>
     );
   },

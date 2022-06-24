@@ -28,7 +28,7 @@ const DetailOptions = ({ registerOptions }) => {
       container
       component="ul"
       className={cls.list}
-      spacing={1}
+      spacing={0}
     >
       {map(sortBy(options, 'href'), (option) => (
         <Grid
@@ -45,17 +45,15 @@ const DetailOptions = ({ registerOptions }) => {
               onClick={() => {
                 navigate(option.href);
               }}
-              variant="outlined"
-              color="secondary"
               size="small"
+              variant="outlined"
             />
           ) : (
             <Chip
               className={cls.chip}
               label={renderLabel(option)}
-              variant="outlined"
-              color="secondary"
               size="small"
+              variant="outlined"
             />
           )}
         </Grid>

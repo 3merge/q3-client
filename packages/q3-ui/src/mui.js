@@ -113,8 +113,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
                   '--color-default': 'rgba(0, 0, 0, 0.87)',
                 },
           body: {
-            backgroundColor:
-              theme.palette.background.default,
+            backgroundColor: theme.palette.background.paper,
             fontSize: 'initial !important',
           },
           html: {

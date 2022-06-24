@@ -120,7 +120,6 @@ const ColoredAvatar = ({
               : undefined,
             color: iconBg,
           }}
-          variant="rounded"
         >
           {getChildren()}
         </Avatar>

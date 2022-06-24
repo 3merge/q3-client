@@ -9,7 +9,6 @@ export default makeStyles((theme) => ({
   },
   fab: ({ on, transparent }) => {
     const out = {
-      borderRadius: 4,
       boxShadow: 'none',
       backgroundColor: on
         ? theme.palette.secondary.main
@@ -18,7 +17,7 @@ export default makeStyles((theme) => ({
       width: '36.5px',
       height: '36.5px',
 
-      '&.Mui-disabled': {
+      '&.Mui-disabled,&[disabled]': {
         background: 'transparent',
         cursor: 'not-allowed !important',
       },
@@ -26,8 +25,13 @@ export default makeStyles((theme) => ({
 
     if (transparent) {
       out.backgroundColor = 'transparent';
+      out.border = `1px solid ${theme.palette.background.default}`;
     }
 
     return out;
+  },
+  wrapper: {
+    marginLeft: theme.spacing(0.25),
+    marginRight: theme.spacing(0.25),
   },
 }));

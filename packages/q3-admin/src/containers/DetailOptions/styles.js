@@ -9,7 +9,10 @@ export default makeStyles(() => ({
     marginTop: '.25rem',
   },
   listItem: {
+    padding: '.125rem',
     width: 'auto',
   },
-  chip: {},
+  chip: {
+    border: 'none',
+  },
 }));

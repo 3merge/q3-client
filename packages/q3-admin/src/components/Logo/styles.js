@@ -18,7 +18,8 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       height: 65,
       maxHeight: 65,
-      maxWidth: '35vw',
+      maxWidth: '30vw',
+      padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
     },
   },
   img: ({ invertLogo }) => ({

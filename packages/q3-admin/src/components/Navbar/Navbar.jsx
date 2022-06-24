@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import { Box, Paper, Hidden } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import useStyle from './styles';
 import Logo from '../Logo';
-import ButtonWithIcon from '../ButtonWithIcon';
+import NavbarFooterLinks from '../NavbarFooterLinks';
 
 const Navbar = ({ children }) => {
   const cls = useStyle();
@@ -14,23 +13,31 @@ const Navbar = ({ children }) => {
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
-          <Paper
-            // elevation={0}
-            className={cls.paper}
-            color="primary"
-          >
-            <Box>
+          <Paper className={cls.paper} color="primary">
+            <Box
+              display="flex"
+              flexDirection="column"
+              height="100%"
+            >
               <Box
-                alignItems="center"
-                display="flex"
-                justifyContent="space-between"
-                width="100%"
+                bgcolor="background.paper"
+                position="sticky"
+                top="0"
+                zIndex={1}
               >
-                <Box minWidth="calc(100% - 46px - 1.5rem)">
-                  <Logo />
-                </Box>
+                <Logo />
               </Box>
-              <Box p={1.5}>{children}</Box>
+              <Box overflow="auto" flex="1" p={1.5}>
+                {children}
+              </Box>
+              <Box
+                bgcolor="background.paper"
+                position="sticky"
+                bottom="0"
+                p={1.5}
+              >
+                <NavbarFooterLinks />
+              </Box>
             </Box>
           </Paper>
         </Box>
@@ -52,14 +59,16 @@ const Navbar = ({ children }) => {
               className={cls.appbar}
               id="app-navbar"
             >
-              <Box id="menu-trigger" position="relative">
-                <ButtonWithIcon
-                  label="menu"
-                  color="inherit"
-                  onClick={onClick}
-                  icon={MenuIcon}
-                />
-              </Box>
+              <button
+                aria-label="hidden-menu"
+                id="app-menu"
+                onClick={onClick}
+                style={{
+                  display: 'none',
+                }}
+              >
+                menu
+              </button>
               <Logo />
             </Box>
           )}

@@ -8,23 +8,12 @@ import Breadcrumbs from '../Breadcrumbs';
 
 const ToolbarCollection = ({ children }) => (
   <ToolbarCollectionPortal>
-    <Box
-      alignItems="center"
-      display="flex"
-      justifyContent="space-between"
-    >
-      <Hidden mdDown>
-        <Breadcrumbs />
-      </Hidden>
-      <Box
-        alignItems="center"
-        display="flex"
-        justifyContent="space-between"
-      >
-        {children}
-        <SearchWithNgramAuth />
-      </Box>
-    </Box>
+    <Hidden mdDown>
+      <Breadcrumbs />
+      <Box flex="1" />
+    </Hidden>
+    <SearchWithNgramAuth />
+    {children}
   </ToolbarCollectionPortal>
 );
 

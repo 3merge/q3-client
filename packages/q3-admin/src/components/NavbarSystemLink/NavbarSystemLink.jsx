@@ -1,18 +1,23 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import {
+  Link as MuiLink,
+  ListItem,
+} from '@material-ui/core';
+import { useTranslation } from 'q3-ui-locale';
 import useDomainAuth from '../../hooks/useDomainAuth';
-import ButtonWithIcon from '../ButtonWithIcon';
 
-const NavbarSystemLink = () =>
-  useDomainAuth() ? (
-    <ButtonWithIcon
-      label="systemSettings"
-      component={Link}
-      to="system"
-      icon={SettingsApplicationsIcon}
-    />
+const NavbarSystemLink = () => {
+  const { t } = useTranslation('labels');
+
+  return useDomainAuth() ? (
+    <ListItem>
+      <MuiLink component={Link} to="system">
+        {t('systemSettings')}
+      </MuiLink>
+    </ListItem>
   ) : null;
+};
 
 NavbarSystemLink.defaultProps = {};
 NavbarSystemLink.propTypes = {};

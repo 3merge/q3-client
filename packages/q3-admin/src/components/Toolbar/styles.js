@@ -11,22 +11,28 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
 
     [theme.breakpoints.down('md')]: {
-      backgroundColor: theme.palette.secondary.main,
-      color: theme.palette.secondary.contrastText,
+      borderTop: `1px solid ${theme.palette.background.default}`,
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'space-evenly',
       bottom: 0,
       position: 'fixed',
       left: 0,
       right: 0,
+      padding: 0,
+      boxShadow: 'none',
+    },
+  },
+  actions: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
 
-      padding: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      maxWidth: 'calc(100vw / 3.5)',
+    },
 
-      '& > div': {
-        justifyContent: 'center',
-        width: 'auto',
-        flex: 0,
-      },
+    '&:empty': {
+      display: 'none',
     },
   },
 }));

@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
 
     '& ol': {
       lineHeight: '1rem !important',
+      flexWrap: 'nowrap',
     },
 
     [theme.breakpoints.down('sm')]: {
