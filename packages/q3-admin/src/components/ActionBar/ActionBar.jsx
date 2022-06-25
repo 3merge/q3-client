@@ -6,9 +6,11 @@ import {
   List,
   ListItem,
   Grow,
+  Divider,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useOpen } from 'useful-state';
+import CheckIcon from '@material-ui/icons/Check';
 import useStyle from './styles';
 import ButtonWithIcon from '../ButtonWithIcon';
 
@@ -23,8 +25,10 @@ const Actionbar = ({ children }) => {
     setLinks(
       ref.current
         ? Array.from(
-            ref.current.getElementsByTagName('button'),
+            ref.current.querySelectorAll('a,button'),
           ).map((el) => ({
+            type: el.tagName,
+            checked: el.getAttribute('data-on') === 'true',
             label: el.getAttribute('aria-label'),
             node: el,
           }))
@@ -38,18 +42,30 @@ const Actionbar = ({ children }) => {
     <>
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
         <List>
-          {links.map((item) => (
-            <ListItem
-              disabled={item.node.disabled}
-              button
-              keu={item.label}
-              onClick={(e) => {
-                item.node.click(e);
-                close(e);
-              }}
-            >
-              {item.label}
-            </ListItem>
+          {links.map((item, idx, items) => (
+            <React.Fragment key={item.label}>
+              {idx !== 0 &&
+                item.type !== items[idx - 1]?.type && (
+                  <Divider
+                    component="li"
+                    style={{
+                      margin: '1rem 0',
+                    }}
+                  />
+                )}
+              <ListItem
+                component="li"
+                disabled={item.node.disabled}
+                button
+                onClick={(e) => {
+                  item.node.click(e);
+                  close(e);
+                }}
+              >
+                {item.checked && <CheckIcon />}
+                {item.label}
+              </ListItem>
+            </React.Fragment>
           ))}
         </List>
       </Drawer>

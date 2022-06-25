@@ -3,6 +3,7 @@ import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import CreditCard from '@material-ui/icons/CreditCard';
 import { IconButton } from '@material-ui/core';
 import Group from '@material-ui/icons/Group';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
@@ -60,7 +61,7 @@ export default new AbstractCollectionBuilder({
       {
         ui: {
           label: 'custom',
-          icon: CreditCard,
+          icon: AcUnitIcon,
           // eslint-disable-next-line
           component: () => <p>CUSTOM COMPONENT</p>,
         },

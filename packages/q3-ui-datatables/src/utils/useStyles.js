@@ -252,6 +252,8 @@ export default makeStyles((theme) => ({
   cellHeaderLink: {
     color: 'inherit',
     display: 'block',
+    textDecoration: 'none',
+
     '& small': {
       maxWidth: 'max-content',
       overflow: 'hidden',

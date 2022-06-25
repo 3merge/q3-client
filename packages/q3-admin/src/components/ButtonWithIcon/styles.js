@@ -10,9 +10,7 @@ export default makeStyles((theme) => ({
   fab: ({ on, transparent }) => {
     const out = {
       boxShadow: 'none',
-      backgroundColor: on
-        ? theme.palette.secondary.main
-        : theme.palette.background.muted,
+      backgroundColor: theme.palette.background.muted,
       color: 'inherit',
       width: '36.5px',
       height: '36.5px',
@@ -26,6 +24,11 @@ export default makeStyles((theme) => ({
     if (transparent) {
       out.backgroundColor = 'transparent';
       out.border = `1px solid ${theme.palette.background.default}`;
+    }
+
+    if (on) {
+      out.backgroundColor = theme.palette.secondary.main;
+      out.color = theme.palette.secondary.contrastText;
     }
 
     return out;

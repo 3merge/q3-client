@@ -12,17 +12,11 @@ const withCollectionUi =
   (Component, args = {}) =>
   (props) => {
     const { ui, uis = [] } = args;
-    const { cached, change } = useCollectionUiLocalStorage(
-      size(uis) ? uis[0]?.ui : ui,
-      [map(uis, getUiName), ui],
-    );
-
-    const [settledUi, setSettledUi] =
-      React.useState(cached);
-
-    React.useEffect(() => {
-      change(settledUi);
-    }, [settledUi]);
+    const { cached: settledUi } =
+      useCollectionUiLocalStorage(
+        size(uis) ? uis[0]?.ui : ui,
+        [map(uis, getUiName), ui],
+      );
 
     const uiProps = find(
       uis,
@@ -45,9 +39,8 @@ const withCollectionUi =
 
             return {
               label,
-              onClick: () => setSettledUi(label),
-              selected: label === settledUi,
               icon: item?.ui?.icon,
+              selected: label === settledUi,
             };
           })}
         />

@@ -77,10 +77,6 @@ export default new AbstractCollectionBuilder({
           ]);
         },
       },
-      {
-        ui: 'table',
-        runOnInit: true,
-      },
     ],
   })
   .genListSettings({})

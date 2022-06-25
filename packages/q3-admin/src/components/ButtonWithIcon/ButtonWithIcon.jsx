@@ -32,6 +32,7 @@ const ButtonWithIcon = React.forwardRef(
               aria-label={t(label)}
               variant="contained"
               color="default"
+              data-on={on}
             >
               <Badge
                 badgeContent={count}
