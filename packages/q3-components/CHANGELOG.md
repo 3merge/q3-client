@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.6.0](https://github.com/3merge/q/compare/v3.5.3...v3.6.0) (2022-06-27)
+
+**Note:** Version bump only for package q3-components
+
+
+
+
+
+
 # [3.5.0](https://github.com/3merge/q/compare/v3.4.17...v3.5.0) (2022-05-10)
 
 **Note:** Version bump only for package q3-components
