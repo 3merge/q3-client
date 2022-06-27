@@ -11,15 +11,14 @@ import { useTrashFail } from '../trash/Trash';
 export const TableBulkDeleteButton = (props) => {
   const exportState = React.useContext(State);
   const checked = get(exportState, 'checked');
-  const len = size(checked);
 
   return (
     <ButtonWithIcon
       {...props}
-      disabled={!len}
+      disabled={!size(checked)}
       label="deleteMany"
       icon={DeleteSweepIcon}
-      count={len}
+      transparent
     />
   );
 };

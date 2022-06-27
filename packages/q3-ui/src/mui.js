@@ -113,8 +113,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
                   '--color-default': 'rgba(0, 0, 0, 0.87)',
                 },
           body: {
-            backgroundColor:
-              theme.palette.background.default,
+            backgroundColor: theme.palette.background.paper,
             fontSize: 'initial !important',
           },
           html: {
@@ -259,6 +258,9 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         },
         contained: {
           boxShadow: 'none',
+        },
+        label: {
+          textTransform: 'none',
         },
       },
       MuiInputAdornment: {
@@ -413,6 +415,13 @@ export default (customThemeDefs, type, font = 'Nunito') => {
       MuiTab: {
         root: {
           textTransform: 'none',
+        },
+      },
+
+      MuiMenuItem: {
+        dense: {
+          fontSize: '1rem !important',
+          margin: '0 !important',
         },
       },
 

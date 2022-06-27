@@ -1,9 +1,14 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  button: {
+  button: ({ state }) => ({
+    justifyContent: 'flex-start',
     textAlign: 'left',
-  },
+
+    '& svg': {
+      opacity: state ? 1 : 0.3,
+    },
+  }),
   activeSegment: {
     '& *': {
       color: `${theme.palette.secondary.main} !important`,
@@ -23,9 +28,10 @@ export default makeStyles((theme) => ({
   },
   listItem: {
     padding: 0,
+    borderRadius: 8,
 
     '& button, & a': {
-      padding: `${theme.spacing(1)} ${theme.spacing(1.5)}`,
+      padding: `${theme.spacing(0.75)} ${theme.spacing(1)}`,
       textTransform: 'none',
       fontSize: '0.911rem',
 
@@ -36,7 +42,10 @@ export default makeStyles((theme) => ({
       },
     },
   },
-  listItemSelected: {},
+  listItemSelected: {
+    backgroundColor: `${theme.palette.secondary.light} !important`,
+    color: `${theme.palette.secondary.main} !important`,
+  },
   hidden: {
     display: 'none',
   },

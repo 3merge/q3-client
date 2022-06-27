@@ -3,6 +3,7 @@ import AbstractCollectionBuilder from 'q3-admin/lib/builders';
 import CreditCard from '@material-ui/icons/CreditCard';
 import { IconButton } from '@material-ui/core';
 import Group from '@material-ui/icons/Group';
+import AcUnitIcon from '@material-ui/icons/AcUnit';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
@@ -24,28 +25,28 @@ export default new AbstractCollectionBuilder({
   },
   lookup: ['name'],
 })
-  .genResolver(
-    ({ id, name, description, createdAt, updatedAt }) => ({
-      id,
-      name,
-      description:
-        'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
-      createdAt: {
-        base: createdAt,
-        toDate: true,
-      },
-      updatedAt: {
-        base: updatedAt,
-        toDate: true,
-      },
-      icon: name === 'Archer' ? CreditCard : undefined,
-      iconBg: name === 'Archer' ? '#FF4785' : undefined,
-    }),
-  )
+  .genResolver(({ id, name, createdAt, updatedAt }) => ({
+    id,
+    name,
+    description: {
+      base: 'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
+      toLong: true,
+    },
+    createdAt: {
+      base: createdAt,
+      toDate: true,
+    },
+    updatedAt: {
+      base: updatedAt,
+      toDate: true,
+    },
+    icon: name === 'Archer' ? CreditCard : undefined,
+    iconBg: name === 'Archer' ? '#FF4785' : undefined,
+  }))
   .genHeader({
     titleProp: 'name',
   })
-  .genNew(Add)
+  .genCreate(Add)
   .genFilter(Filters)
   .genViews({
     General,
@@ -62,7 +63,7 @@ export default new AbstractCollectionBuilder({
       {
         ui: {
           label: 'custom',
-          icon: CreditCard,
+          icon: AcUnitIcon,
           // eslint-disable-next-line
           component: () => <p>CUSTOM COMPONENT</p>,
         },
@@ -74,11 +75,27 @@ export default new AbstractCollectionBuilder({
     //   component: () => <p>CUSTOM COMPONENT</p>,
     // },
     io: {
-      exports: ['orders'],
-      imports: [],
-      // eslint-disable-next-line
-      renderer: () => <p>Look at me!</p>,
+      exports: ['exportTemplateOne', 'exportTemplateTwo'],
+      imports: [
+        'importTemplateOne',
+        'importTemplateTwo',
+        'importTemplateThree',
+        'importTemplateFour',
+      ],
+      renderer: () => <p>Warn console</p>,
     },
+
+    registerActions: () => [
+      {
+        icon: CreditCard,
+        label: 'subscribe',
+        renderContent: () => (
+          // eslint-disable-next-line
+          <p>Look at what I can do.</p>
+        ),
+        requireCheckedState: true,
+      },
+    ],
 
     renderCustomRowActions: () => (
       <IconButton>
@@ -88,7 +105,11 @@ export default new AbstractCollectionBuilder({
   })
   .genListSettings({
     //  customRowActionsAnchor: 'start',
-    defaultColumns: ['createdAt', 'updatedAt'],
+    defaultColumns: [
+      'description',
+      'createdAt',
+      'updatedAt',
+    ],
     defaultSortPreference: 'name',
     blacklistColumns() {
       return [];
@@ -100,7 +121,16 @@ export default new AbstractCollectionBuilder({
     protectView: () =>
       // if (name === 'subdetail') return data.name === 'foo';
       true,
-    registerActions: () => [],
+    registerActions: () => [
+      {
+        icon: CreditCard,
+        label: 'subscribe',
+        renderContent: () => (
+          // eslint-disable-next-line
+          <p>Look at what I can do.</p>
+        ),
+      },
+    ],
     registerAlerts: () => [
       {
         id: '2',

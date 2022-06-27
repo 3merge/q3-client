@@ -21,10 +21,12 @@ const NavbarList = ({
   label,
   icon: IconComponent,
 }) => {
-  const cls = useStyle();
   const { t } = useTranslation('labels');
   const [current, setCurrent] = React.useState(false);
   const { open, close, toggle, state } = useToggle();
+  const cls = useStyle({
+    state,
+  });
 
   const handleGetProps = ({ isPartiallyCurrent }) =>
     setCurrent(isPartiallyCurrent);
@@ -68,9 +70,6 @@ const NavbarList = ({
         <Button
           className={cls.button}
           color="inherit"
-          endIcon={
-            state ? <ExpandLessIcon /> : <ExpandMoreIcon />
-          }
           startIcon={Icon}
           fullWidth
           onClick={toggle}

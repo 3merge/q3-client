@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LocationProvider from 'q3-ui-test-utils/lib/location';
 import { useLoading } from 'q3-ui-rest';
+import EditIcon from '@material-ui/icons/Edit';
+import BookIcon from '@material-ui/icons/Book';
 import Authentication from './datasource/Authentication';
 import Datasource from './datasource';
 import Admin from '../src';
@@ -26,13 +28,6 @@ const ExampleApp = ({ initialPath }) => {
             <Admin
               AppProps={{
                 pages,
-                floatingActionProps: {
-                  label: 'action',
-                  // eslint-disable-next-line
-                  onClick: () => alert('Heyo!'),
-                  checkPage: (path) =>
-                    !String(path).includes('characters'),
-                },
                 profilePages: [
                   {
                     component: () =>
@@ -42,6 +37,16 @@ const ExampleApp = ({ initialPath }) => {
                     text: 'accountCustom',
                   },
                 ],
+              }}
+              NavProps={{
+                callToAction: {
+                  icon: <BookIcon />,
+                  label: 'Write',
+                  onClick: () => null,
+                },
+              }}
+              ToolbarProps={{
+                profileOptions: [],
               }}
             />
           </Datasource>

@@ -1,23 +1,12 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  root: {
-    [theme.breakpoints.down('md')]: {
-      width: '100%',
-      '& h1': {
-        textAlign: 'center',
-      },
-    },
-  },
-  seg: {
-    marginLeft: '.5rem',
-    '&:empty': {
-      display: 'none',
-    },
+  h1: {
+    margin: 0,
+    marginRight: '1rem',
 
-    '&::before': {
-      content: '"/"',
-      paddingRight: '.5rem',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: 'calc(100% - 500px)',
     },
   },
 }));

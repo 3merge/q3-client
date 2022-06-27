@@ -1,5 +1,5 @@
 import React from 'react';
-import { Detail } from 'q3-admin/lib/components';
+import { Detail } from '../components';
 
 export default ({ views, HeaderProps, ...rest }) =>
   () =>

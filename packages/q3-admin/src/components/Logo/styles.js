@@ -4,8 +4,8 @@ export default makeStyles((theme) => ({
   link: {
     alignItems: 'center',
     display: 'flex',
-    height: 95,
-    maxHeight: 95,
+    height: 75,
+    maxHeight: 75,
     width: 'auto',
     padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
 
@@ -18,22 +18,16 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       height: 65,
       maxHeight: 65,
-      maxWidth: '35vw',
+      maxWidth: '30vw',
+      padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
     },
   },
-  img: ({ invertLogo }) => {
-    const filter = 'invert(1) grayscale(100%)';
-
-    return {
-      filter:
-        invertLogo && theme.palette.type === 'dark'
-          ? filter
-          : undefined,
-      maxHeight: '100%',
-      maxWidth: '100%',
-      [theme.breakpoints.down('md')]: {
-        filter: invertLogo ? filter : undefined,
-      },
-    };
-  },
+  img: ({ invertLogo }) => ({
+    filter:
+      invertLogo && theme.palette.type === 'dark'
+        ? 'invert(1) grayscale(100%)'
+        : undefined,
+    maxHeight: '100%',
+    maxWidth: '100%',
+  }),
 }));

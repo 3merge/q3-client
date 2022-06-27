@@ -1,5 +1,11 @@
 import React from 'react';
+import { Builders } from 'q3-ui-forms';
+import AddNewForm from '../../../src/components/AddNewForm';
 
-const Add = () => <div />;
+const CustomAdd = (props) => (
+  <AddNewForm {...props}>
+    <Builders.Field name="name" required />
+  </AddNewForm>
+);
 
-export default Add;
+export default CustomAdd;

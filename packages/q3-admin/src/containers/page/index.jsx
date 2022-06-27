@@ -2,7 +2,6 @@ import React from 'react';
 import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
-import { browser } from 'q3-ui-helpers';
 import { slugify } from './utils';
 import useOnRender from './useOnRender';
 import { Definitions, Dispatcher, Store } from '../state';
@@ -16,16 +15,6 @@ export const executeOnChildren = (children, args = {}) =>
   typeof children === 'function'
     ? children(args)
     : children;
-
-export const usePrevLocation = (id, location) =>
-  React.useEffect(() => {
-    if (!id)
-      browser.proxySessionStorageApi(
-        'setItem',
-        'prevState',
-        location?.pathname + location?.search,
-      );
-  }, [location]);
 
 const Page = ({
   children,
@@ -84,8 +73,6 @@ const Page = ({
     }),
     [state],
   );
-
-  usePrevLocation(id, location);
 
   return hasEntered ? (
     <Dispatcher.Provider

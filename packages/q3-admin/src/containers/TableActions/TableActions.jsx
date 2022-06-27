@@ -1,34 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fade } from '@material-ui/core';
 import { pick } from 'lodash';
-import { useAuth } from 'q3-ui-permissions';
+import { Box, Hidden } from '@material-ui/core';
+import ActionBar from '../../components/ActionBar';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
-import ActionBar from '../../components/ActionBar';
-import Search from '../../components/Search';
-import Add from '../add';
+import ActionBarTemplate from '../../components/ActionBarTemplate';
 import Segments from '../../components/Segments';
-import { Definitions } from '../state';
 import CollectionUiSelect from '../../components/CollectionUiSelect';
 
-const SearchWithPermissions = () => {
-  const { collectionName } = React.useContext(Definitions);
-  const { canSeeSub } = useAuth(collectionName);
-  return canSeeSub('grams') ? <Search /> : null;
-};
-
 const TableActions = ({
-  addComponent: AddForm,
   filterComponent: FilterComponent,
   io,
+  registerActions,
   ui,
   uis,
   ...rest
 }) => (
-  <Fade in>
+  <>
+    {FilterComponent && (
+      <Hidden lgUp>
+        <Box
+          alignItems="center"
+          display="flex"
+          height={65}
+          position="fixed"
+          right={60}
+          top={0}
+        >
+          <FilterComponent />
+        </Box>
+      </Hidden>
+    )}
     <ActionBar>
-      <SearchWithPermissions />
       <CollectionUiSelect uis={uis} />
       {FilterComponent ? (
         <>
@@ -36,35 +40,35 @@ const TableActions = ({
             {...pick(rest, ['fromKey', 'toKey'])}
             ui={ui}
           />
-          <FilterComponent />
+          <Hidden mdDown>
+            <FilterComponent />
+          </Hidden>
         </>
       ) : null}
-      <TableBulkDelete />
+      <ActionBarTemplate
+        registerActions={registerActions}
+      />
       <TableIo io={io} />
-      {AddForm ? (
-        <Add>
-          <AddForm />
-        </Add>
-      ) : null}
+      <TableBulkDelete />
     </ActionBar>
-  </Fade>
+  </>
 );
 
 TableActions.defaultProps = {
-  addComponent: null,
   filterComponent: null,
   io: null,
+  registerActions: null,
   ui: 'table',
   uis: [],
 };
 
 TableActions.propTypes = {
+  filterComponent: PropTypes.element,
   io: PropTypes.shape({
     exports: PropTypes.arrayOf(PropTypes.string),
     imports: PropTypes.arrayOf(PropTypes.string),
   }),
-  addComponent: PropTypes.element,
-  filterComponent: PropTypes.element,
+  registerActions: PropTypes.func,
   ui: PropTypes.string,
   uis: PropTypes.arrayOf(
     PropTypes.shape({

@@ -1,5 +1,14 @@
 import React from 'react';
-import { get, map, size, find, isObject } from 'lodash';
+import {
+  get,
+  map,
+  first,
+  find,
+  isObject,
+  uniq,
+  compact,
+  flatten,
+} from 'lodash';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
 
 const getUiName = (item) =>
@@ -8,52 +17,51 @@ const getUiName = (item) =>
 const getUiComponent = (item) =>
   get(item, 'component', item);
 
-const withCollectionUi =
-  (Component, args = {}) =>
-  (props) => {
-    const { ui, uis = [] } = args;
-    const { cached, change } = useCollectionUiLocalStorage(
-      size(uis) ? uis[0]?.ui : ui,
-      [map(uis, getUiName), ui],
+const withCollectionUi = (Component, args = {}) => {
+  const { ui, uis = [] } = args;
+  const uiOptions = uniq(
+    compact(flatten([map(uis, getUiName), ui])),
+  );
+
+  const ComponentDecoratedWithCachedUiPreference = (
+    props,
+  ) => {
+    const { cached } = useCollectionUiLocalStorage(
+      first(uiOptions),
+      uiOptions,
     );
 
-    const [settledUi, setSettledUi] =
-      React.useState(cached);
+    return React.useMemo(() => {
+      const uiProps = find(
+        uis,
+        (uix) => getUiName(uix) === cached,
+      );
 
-    React.useEffect(() => {
-      change(settledUi);
-    }, [settledUi]);
-
-    const uiProps = find(
-      uis,
-      (uix) => getUiName(uix) === settledUi,
-    );
-
-    const uiComponent = isObject(uiProps?.ui)
-      ? getUiComponent(uiProps.ui)
-      : getUiComponent(settledUi);
-
-    return React.useMemo(
-      () => (
+      return (
         <Component
           {...args}
           {...uiProps}
           {...props}
-          ui={uiComponent}
+          ui={
+            isObject(uiProps?.ui)
+              ? getUiComponent(uiProps.ui)
+              : getUiComponent(cached)
+          }
           uis={map(uis, (item) => {
             const label = getUiName(item);
 
             return {
               label,
-              onClick: () => setSettledUi(label),
-              selected: label === settledUi,
               icon: item?.ui?.icon,
+              selected: label === cached,
             };
           })}
         />
-      ),
-      [settledUi],
-    );
+      );
+    }, [cached]);
   };
+
+  return ComponentDecoratedWithCachedUiPreference;
+};
 
 export default withCollectionUi;

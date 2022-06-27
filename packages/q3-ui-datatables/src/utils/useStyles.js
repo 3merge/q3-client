@@ -15,6 +15,7 @@ export default makeStyles((theme) => ({
       position: 'sticky',
       top: 0,
       zIndex: 3,
+      textTransform: 'none',
     },
 
     '& thead tr': {},
@@ -252,6 +253,8 @@ export default makeStyles((theme) => ({
   cellHeaderLink: {
     color: 'inherit',
     display: 'block',
+    // textDecoration: 'none',
+
     '& small': {
       maxWidth: 'max-content',
       overflow: 'hidden',
@@ -267,6 +270,7 @@ export default makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'baseline',
+    width: '100%',
 
     '& table': {
       userSelect: 'none',

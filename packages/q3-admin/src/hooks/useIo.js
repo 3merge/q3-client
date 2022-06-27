@@ -1,11 +1,15 @@
 import axios from 'axios';
+import React from 'react';
+import { isNil, size } from 'lodash';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'q3-ui-locale';
 import { url } from 'q3-ui-helpers';
+import { Store } from '../containers/state';
 
 export default (ids, ...rest) => {
   const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation('descriptions');
+  const { total } = React.useContext(Store);
 
   const getQueryString = (template, urlParams) => {
     if (!(urlParams instanceof URLSearchParams))
@@ -37,15 +41,44 @@ export default (ids, ...rest) => {
         }),
       );
 
-  const exportCollection = (template) => () =>
-    handleRequest(
-      axios.post(`/io${getQueryString(template, ...rest)}`),
-      'exportStarted',
-      'exportFailed',
-    );
+  const exportCollection = (template) => () => {
+    let exit;
+    const requireConfirmation = Array.isArray(ids)
+      ? size(ids) < 1
+      : isNil(ids);
 
-  const importCollection = (template) => (data) => {
-    return handleRequest(
+    if (requireConfirmation) {
+      if (total > 3500) {
+        if (
+          // eslint-disable-next-line
+          !confirm(
+            'The number of rows in this export exceeds 3500. The server might limit the returned  results to reduce the file size. If you want to ensure all records export, apply (additional) filters or make a selection.',
+          )
+        )
+          exit = true;
+      } else if (
+        // eslint-disable-next-line
+        !confirm(
+          'No rows selected. Proceeding will export all or any records matching the applied filters.',
+        )
+      ) {
+        exit = true;
+      }
+    }
+
+    return exit
+      ? Promise.resolve()
+      : handleRequest(
+          axios.post(
+            `/io${getQueryString(template, ...rest)}`,
+          ),
+          'exportStarted',
+          'exportFailed',
+        );
+  };
+
+  const importCollection = (template) => (data) =>
+    handleRequest(
       new Promise((resolve, reject) => {
         try {
           const [f] = data;
@@ -73,7 +106,6 @@ export default (ids, ...rest) => {
       'importStarted',
       'importFailed',
     );
-  };
 
   return {
     exportCollection,

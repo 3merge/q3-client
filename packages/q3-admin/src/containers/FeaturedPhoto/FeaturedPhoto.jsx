@@ -6,8 +6,8 @@ import { useCanEditField } from '../../hooks';
 
 const useStyle = makeStyles(() => ({
   picture: {
-    width: 95,
-    height: 95,
+    width: 115,
+    height: 115,
     margin: 'auto',
   },
 }));

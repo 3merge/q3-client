@@ -7,16 +7,34 @@ export default makeStyles((theme) => ({
       top: '-.5rem',
     },
   },
-  fab: ({ on }) => ({
-    borderRadius: 4,
-    boxShadow: 'none',
-    backgroundColor: on
-      ? theme.palette.secondary.main
-      : theme.palette.background.muted,
-    color: 'inherit',
+  fab: ({ on, transparent }) => {
+    const out = {
+      boxShadow: 'none',
+      backgroundColor: theme.palette.background.muted,
+      color: 'inherit',
+      width: '36.5px',
+      height: '36.5px',
 
-    [theme.breakpoints.down('md')]: {
-      background: 'transparent',
-    },
-  }),
+      '&.Mui-disabled,&[disabled]': {
+        background: 'transparent',
+        cursor: 'not-allowed !important',
+      },
+    };
+
+    if (transparent) {
+      out.backgroundColor = 'transparent';
+      out.border = `1px solid ${theme.palette.background.default}`;
+    }
+
+    if (on) {
+      out.backgroundColor = theme.palette.secondary.main;
+      out.color = theme.palette.secondary.contrastText;
+    }
+
+    return out;
+  },
+  wrapper: {
+    marginLeft: theme.spacing(0.25),
+    marginRight: theme.spacing(0.25),
+  },
 }));

@@ -6,17 +6,13 @@ import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from 'q3-ui-permissions';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Notes from '../notes';
 import Upload from '../upload';
 import Trash from '../trash';
 import ActivityLog from '../activityLog';
-import { useDetailRegisterFunction } from '../../hooks';
-import DropdownMenu from '../../components/DropdownMenu';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
+import ActionBarTemplate from '../../components/ActionBarTemplate';
 import ButtonWithIconDialog from '../../components/ButtonWithIconDialog';
 import { Definitions, Store } from '../state';
-import Search from '../../components/Search';
 
 const DetailActions = ({
   audit,
@@ -36,18 +32,15 @@ const DetailActions = ({
     ? defineActionProps(data, authState?.profile)
     : {};
 
-  const actions =
-    useDetailRegisterFunction(registerActions);
-
   const lhr = (condition, result) =>
     condition ? result : null;
 
   return (
     <Box alignItems="center" display="flex">
-      {lhr(canSeeSub('grams'), <Search />)}
       {lhr(
         canSeeSub('thread'),
         <ButtonWithIconDialog
+          transparent
           icon={ForumIcon}
           label="notes"
           renderContent={() => (
@@ -58,6 +51,7 @@ const DetailActions = ({
       {lhr(
         canSeeSub('uploads'),
         <ButtonWithIconDialog
+          transparent
           icon={AttachFileIcon}
           label="files"
           renderContent={() => (
@@ -68,6 +62,7 @@ const DetailActions = ({
       {lhr(
         size(audit),
         <ButtonWithIconDialog
+          transparent
           icon={TrackChangesIcon}
           label="audit"
           renderContent={() => (
@@ -78,18 +73,10 @@ const DetailActions = ({
           )}
         />,
       )}
+      <ActionBarTemplate
+        registerActions={registerActions}
+      />
       {lhr(canDeleteSub('id'), <Trash />)}
-      {size(actions) > 0 && (
-        <DropdownMenu items={actions}>
-          {(onClick) => (
-            <ButtonWithIcon
-              icon={MoreVertIcon}
-              label="actions"
-              onClick={onClick}
-            />
-          )}
-        </DropdownMenu>
-      )}
     </Box>
   );
 };

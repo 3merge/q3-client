@@ -13,7 +13,7 @@ export const DetailFeaturedPhoto = () => {
 
   return (
     canSeeSub('photo') && (
-      <Box mr={1} className="featured-photo">
+      <Box mb={1} className="featured-photo">
         <FeaturedPhoto
           component={Avatar}
           src={data.photo}

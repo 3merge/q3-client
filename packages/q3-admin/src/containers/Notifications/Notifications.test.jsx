@@ -26,7 +26,6 @@ describe('ButtonComponentWithAnimation', () => {
 
     expect(setState).toHaveBeenCalledWith(
       expect.arrayContaining([
-        expect.stringMatching('button'),
         expect.stringMatching('shake'),
       ]),
     );
@@ -40,11 +39,7 @@ describe('ButtonComponentWithAnimation', () => {
       />,
     );
 
-    expect(setState).toHaveBeenCalledWith(
-      expect.arrayContaining([
-        expect.stringMatching('button'),
-      ]),
-    );
+    expect(setState).toHaveBeenCalledWith([]);
     expect(setState).toHaveBeenCalledWith(1);
   });
 });

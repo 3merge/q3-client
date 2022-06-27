@@ -11,28 +11,56 @@ jest.mock('@reach/router', () => {
   };
 });
 
-jest.spyOn(React, 'useContext').mockReturnValue({
-  directoryPath: '/app/',
-});
+jest.mock(
+  '../containers/BackProvider/BackProvider',
+  () => ({
+    getPageHistory: jest
+      .fn()
+      .mockReturnValue(['/app/', '/app/tests?sort=name']),
+  }),
+);
 
 describe('useBack', () => {
   it('should call directory', () => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      directoryPath: '/app/',
+      id: 1,
+    });
+
     useBack()();
     expect(nav).toHaveBeenCalledWith('/app/');
   });
 
   it('should call history', () => {
-    jest
-      .spyOn(browser, 'proxySessionStorageApi')
-      .mockReturnValue('/app?sort=123');
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      directoryPath: '/app/tests',
+      id: 1,
+    });
+
     useBack()();
-    expect(nav).toHaveBeenCalledWith('/app?sort=123');
+    expect(nav).toHaveBeenCalledWith(
+      '/app/tests?sort=name',
+    );
+  });
+
+  it('should call history with trailing slash', () => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      directoryPath: '/app/tests/',
+      id: 1,
+    });
+
+    useBack()();
+    expect(nav).toHaveBeenCalledWith(
+      '/app/tests?sort=name',
+    );
   });
 
   it('should call directory on mismatch', () => {
-    jest
-      .spyOn(browser, 'proxySessionStorageApi')
-      .mockReturnValue('/otherapp?sort=123');
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      directoryPath: '/app/tests-latest',
+      id: 1,
+    });
+
     useBack()();
     expect(nav).toHaveBeenCalledWith('/app/');
   });

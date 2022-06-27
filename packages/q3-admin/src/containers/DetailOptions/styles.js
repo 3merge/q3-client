@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles((theme) => ({
+export default makeStyles(() => ({
   list: {
     listStyle: 'none',
     padding: 0,
@@ -9,24 +9,10 @@ export default makeStyles((theme) => ({
     marginTop: '.25rem',
   },
   listItem: {
+    padding: '.125rem',
     width: 'auto',
-
-    [theme.breakpoints.down('sm')]: {
-      paddingBottom: '0 !important',
-      paddingTop: '0 !important',
-    },
   },
   chip: {
-    textDecoration: 'none !important',
-    display: 'inline-flex',
-    alignItems: 'center',
-    color: 'inherit',
-    cursor: 'pointer',
-    '& svg': {
-      marginRight: '.25rem',
-    },
-    '&[disabled]': {
-      cursor: 'help',
-    },
+    border: 'none',
   },
 }));

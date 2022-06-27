@@ -9,10 +9,33 @@ export default makeStyles((theme) => ({
       color: `${theme.palette.secondary.main} !important`,
       fontWeight: 'bold',
     },
+
+    '&::before': {
+      background: theme.palette.secondary.main,
+      content: '""',
+      height: '100%',
+      left: '-1.5rem',
+      position: 'absolute',
+      top: 0,
+      width: 2,
+    },
   },
   segments: {
     margin: 0,
     padding: 0,
+    paddingLeft: '3rem',
+    position: 'relative',
+
+    '&::before': {
+      background: theme.palette.primary.main,
+      content: '""',
+      height: '100%',
+      left: '1.5rem',
+      position: 'absolute',
+      top: 0,
+      width: 1,
+      opacity: 0.1,
+    },
 
     '& ul': {
       width: '100%',
@@ -26,15 +49,15 @@ export default makeStyles((theme) => ({
     padding: 0,
 
     '& button, & a': {
-      padding: theme.spacing(0.5),
-      paddingLeft: theme.spacing(1.5),
+      padding: theme.spacing(0.25),
+      paddingLeft: theme.spacing(0.25),
       justifyContent: 'flex-start',
       textTransform: 'none',
       fontSize: '0.911rem',
     },
   },
   listItemSelected: {
-    background: `${theme.palette.primary.dark} !Important`,
+    background: `${theme.palette.primary.main} !Important`,
   },
   hidden: {
     display: 'none',

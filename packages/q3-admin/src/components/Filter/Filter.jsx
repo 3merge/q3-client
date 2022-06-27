@@ -35,6 +35,7 @@ const Filter = ({ data }) => {
           label="filter"
           onClick={onClick}
           count={acc}
+          transparent
         />
       )}
     />

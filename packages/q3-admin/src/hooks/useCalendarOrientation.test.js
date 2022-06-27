@@ -25,15 +25,8 @@ beforeEach(() => {
 });
 
 describe('useCalendarOrientation', () => {
-  it('should change view on mobile', () => {
-    window.innerWidth = 1000;
+  it('should set view type', () => {
     useCalendarOrientation();
     expect(setState).toHaveBeenCalledWith('timeGridWeek');
-  });
-
-  it('should change view on mobile', () => {
-    window.innerWidth = 300;
-    useCalendarOrientation();
-    expect(setState).toHaveBeenCalledWith('list');
   });
 });

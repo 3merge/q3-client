@@ -19,21 +19,13 @@ export default makeStyles((theme) => ({
     flexDirection: 'row',
     flexWrap: 'nowrap',
     height: 65,
-    justifyContent: 'space-between',
-    padding: `0 ${theme.spacing(1.5)}`,
+    padding: `0 ${theme.spacing(1)}`,
     width: '100%',
-
-    [theme.breakpoints.down('md')]: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.primary.contrastText,
-      borderBottom: `1px solid ${theme.palette.background.default}`,
-      boxShadow: 'none',
-    },
   },
   paper: {
     borderRadius: 0,
     overflowX: 'auto',
-    padding: 0,
+    padding: theme.spacing(1.5),
     height: '100%',
     width: '100%',
     display: 'flex',
@@ -48,5 +40,14 @@ export default makeStyles((theme) => ({
     '&.active': {
       color: theme.palette.secondary.main,
     },
+  },
+  fab: {
+    boxShadow: 'none',
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+  },
+  fabText: {
+    fontSize: theme.typography.h6.fontSize,
+    textTransform: 'none',
   },
 }));

@@ -1,41 +1,7 @@
-import React from 'react';
-import { compact, get, isFunction } from 'lodash';
-import { AuthContext } from 'q3-ui-permissions';
-import { Definitions } from '../containers/state';
-import useSegments, {
-  mapSegmentsToListData,
-} from './useSegments';
-import useSegmentsFromProfile from './useSegmentsFromProfile';
+import { get } from 'lodash';
+import useSegmentsActive from './useSegmentsActive';
 
-const useSegmentsActiveLabel = () => {
-  const { collectionName, segments } =
-    React.useContext(Definitions);
-
-  const { state } = React.useContext(AuthContext);
-
-  const fromCollection = mapSegmentsToListData(
-    isFunction(segments)
-      ? segments(state?.profile)
-      : segments,
-  );
-  const fromProfile = get(
-    useSegmentsFromProfile(collectionName),
-    'asArray',
-    [],
-  );
-
-  const merge = (a, b) => {
-    try {
-      return compact(a.concat(b).flat());
-    } catch (e) {
-      return [];
-    }
-  };
-
-  return get(
-    useSegments(merge(fromCollection, fromProfile)),
-    'active',
-  );
-};
+const useSegmentsActiveLabel = () =>
+  get(useSegmentsActive(), 'active');
 
 export default useSegmentsActiveLabel;

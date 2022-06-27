@@ -1,9 +1,9 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'q3-ui-locale';
 import { Definitions } from '../../containers/state';
-import useStyle from './styles';
 import useSegmentsActiveLabel from '../../hooks/useSegmentsActiveLabel';
+import useStyle from './styles';
 
 const CollectionName = () => {
   const { collectionName } = React.useContext(Definitions);
@@ -12,12 +12,13 @@ const CollectionName = () => {
   const cls = useStyle();
 
   return (
-    <Box className={cls.root} py={1}>
-      <Typography component="h1" variant="h5">
-        {t(collectionName)}
-        <small className={cls.seg}>{t(s)}</small>
-      </Typography>
-    </Box>
+    <Typography
+      className={cls.h1}
+      component="h1"
+      variant="h2"
+    >
+      {!s ? t(collectionName) : t(s)}
+    </Typography>
   );
 };
 

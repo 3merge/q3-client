@@ -1,42 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import {
-  AppBar,
-  Box,
-  Paper,
-  Hidden,
-  IconButton,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import Notifications from '../../containers/Notifications';
+import { Box, Paper, Hidden, Fab } from '@material-ui/core';
 import useStyle from './styles';
 import Logo from '../Logo';
-import NavbarFooter from '../NavbarFooter';
+import NavbarFooterLinks from '../NavbarFooterLinks';
 
-const Navbar = ({ children }) => {
+const Navbar = ({ callToAction, children }) => {
   const cls = useStyle();
+
+  const NavigationContents = (
+    <Box
+      display="flex"
+      flexDirection="column"
+      height="100%"
+    >
+      <Hidden mdDown>
+        <Box
+          bgcolor="background.paper"
+          position="sticky"
+          top="0"
+          zIndex={1}
+        >
+          <Logo />
+        </Box>
+      </Hidden>
+      <Box overflow="auto" flex="1">
+        {callToAction?.label && (
+          <Fab
+            color="secondary"
+            className={cls.fab}
+            onClick={callToAction.onClick}
+            variant="extended"
+          >
+            {callToAction.icon}
+            <Box
+              className={cls.fabText}
+              component="span"
+              mx={0.5}
+            >
+              {callToAction.label}
+            </Box>
+          </Fab>
+        )}
+        {children}
+      </Box>
+      <Box
+        bgcolor="background.paper"
+        position="sticky"
+        bottom="0"
+      >
+        <NavbarFooterLinks />
+      </Box>
+    </Box>
+  );
 
   return (
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            <Box>
-              <Box
-                alignItems="center"
-                display="flex"
-                justifyContent="space-between"
-                width="100%"
-              >
-                <Box minWidth="calc(100% - 46px - 1.5rem)">
-                  <Logo />
-                </Box>
-                <Notifications />
-              </Box>
-              <Box p={1.5}>{children}</Box>
-            </Box>
-            <NavbarFooter />
+            {NavigationContents}
           </Paper>
         </Box>
       </Hidden>
@@ -50,42 +74,25 @@ const Navbar = ({ children }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => (
-            <>
-              {children}
-              <NavbarFooter />
-            </>
-          )}
+          renderContent={() => NavigationContents}
           renderTrigger={(onClick) => (
-            <AppBar
-              color="inherit"
-              position="static"
+            <Box
               component="nav"
               className={cls.appbar}
+              id="app-navbar"
             >
-              <Box
-                justifyContent="space-between"
-                alignItems="center"
-                display="flex"
-                width="100%"
-              >
-                <Box id="menu-trigger" position="relative">
-                  <IconButton
-                    aria-label="open menu"
-                    color="inherit"
-                    onClick={onClick}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                </Box>
-                <Box>
-                  <Logo />
-                </Box>
-                <Box>
-                  <Notifications />
-                </Box>
-              </Box>
-            </AppBar>
+              {/* eslint-disable-next-line */}
+              <span
+                aria-label="hidden-menu"
+                id="app-menu"
+                onClick={onClick}
+                role="button"
+                style={{
+                  display: 'none',
+                }}
+              />
+              <Logo />
+            </Box>
           )}
           title="menu"
           variant="drawer"
@@ -96,10 +103,16 @@ const Navbar = ({ children }) => {
 };
 
 Navbar.defaultProps = {
+  callToAction: null,
   children: null,
 };
 
 Navbar.propTypes = {
+  callToAction: PropTypes.shape({
+    icon: PropTypes.element,
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,

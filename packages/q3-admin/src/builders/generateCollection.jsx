@@ -23,6 +23,7 @@ export default ({
   PageDetailProps,
   PageList,
   PageListProps,
+  Toolbar,
   ...etc
 }) => [
   {
@@ -35,6 +36,7 @@ export default ({
       return (
         <Collection id {...props}>
           <Page id {...props} {...PageDetailProps}>
+            <Toolbar />
             <PageDetail />
           </Page>
         </Collection>
@@ -50,6 +52,7 @@ export default ({
         <Collection index {...props}>
           <Article>
             <Page index {...props}>
+              <Toolbar />
               <PageList
                 {...props}
                 ui={props?.ui}

@@ -44,7 +44,9 @@ export default class OpsHelper {
   }
 
   onCreate(d) {
-    return this.addDataMeta(JSON.parse(d));
+    const record = this.addDataMeta(JSON.parse(d));
+    this.$__store.push(record);
+    return record;
   }
 
   getData(keyName, { url }) {

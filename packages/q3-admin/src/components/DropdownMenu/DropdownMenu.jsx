@@ -1,25 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import Divider from '@material-ui/core/Divider';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import {
+  Menu,
+  MenuList,
+  MenuItem,
+  Drawer,
+  Divider,
+  useMediaQuery,
+} from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import { isFunction, map } from 'lodash';
 import { useOpen } from 'useful-state';
+import CheckIcon from '@material-ui/icons/Check';
 import useStyle from './styles';
+
+// eslint-disable-next-line
+const MobileMenu = ({ children, ...rest }) => (
+  <Drawer {...rest}>
+    <MenuList>{children}</MenuList>
+  </Drawer>
+);
 
 const DropdownMenu = ({ id, children, items, ...etc }) => {
   const { t } = useTranslation('labels');
   const { isOpen, anchorEl, close, open } = useOpen();
+  const isMobile = useMediaQuery((theme) =>
+    theme.breakpoints.down('md'),
+  );
+
   const cls = useStyle();
+  const Element = isMobile ? MobileMenu : Menu;
 
   return (
     <>
       {children(open, isOpen)}
-      <Menu
+      <Element
         id={id}
         anchorEl={anchorEl}
+        anchor="bottom"
         getContentAnchorEl={null}
         open={isOpen}
         onClose={close}
@@ -54,13 +73,14 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
                       to: item.to || '/',
                     })}
               >
+                {item.checked && <CheckIcon />}
                 {item.element}
                 {t(item.label)}
               </MenuItem>
             </li>
           ),
         )}
-      </Menu>
+      </Element>
     </>
   );
 };

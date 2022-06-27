@@ -326,6 +326,17 @@ const makeApiEndpoints = (
         },
       ];
     });
+
+  mockInstance
+    // collection
+    .onPost(new RegExp(collectionName))
+    .reply(({ data }) => [
+      201,
+      {
+        message: 'Done',
+        [resourceNameSingular]: ops.onCreate(data),
+      },
+    ]);
 };
 
 // eslint-disable-next-line

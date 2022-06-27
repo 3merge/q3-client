@@ -24,6 +24,7 @@ const Segments = (props) => {
               icon={AccountTreeIcon}
               label="segmentsSettings"
               onClick={onClick}
+              transparent
             />
           )}
         </DropdownMenu>
