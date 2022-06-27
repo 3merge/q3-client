@@ -45,9 +45,15 @@ export default makeStyles((theme) => ({
     boxShadow: 'none',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
+    padding: '0 8px',
+    width: '100%',
+
+    '& span, & svg': {
+      fontSize: theme.typography.body1.fontSize,
+    },
   },
   fabText: {
-    fontSize: theme.typography.h6.fontSize,
+    fontSize: theme.typography.body1.fontSize,
     textTransform: 'none',
   },
 }));

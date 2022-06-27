@@ -40,8 +40,8 @@ const ExampleApp = ({ initialPath }) => {
               }}
               NavProps={{
                 callToAction: {
-                  icon: <BookIcon />,
-                  label: 'Write',
+                  icon: <EditIcon />,
+                  label: 'New Journal',
                   onClick: () => null,
                 },
               }}
