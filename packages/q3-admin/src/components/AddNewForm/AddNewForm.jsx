@@ -6,7 +6,7 @@ import { Definitions } from '../../containers/state';
 import useAdd from '../../hooks/useAdd';
 import AddNewSubmitButton from '../AddNewSubmitButton';
 
-const AddNewForm = ({ children, close }) => {
+const AddNewForm = ({ children, close, ...props }) => {
   const { collectionName } = React.useContext(Definitions);
   const [options, setOptions] = React.useState({
     closeOnComplete: false,
@@ -33,6 +33,7 @@ const AddNewForm = ({ children, close }) => {
       onSubmit={handleSubmit}
       restart={options.resetOnComplete}
       showSuccessMessage={options.showSuccessMessage}
+      {...props}
     >
       {children}
       <AddNewSubmitButton

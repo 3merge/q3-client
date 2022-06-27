@@ -1,5 +1,5 @@
 import dot from 'dot-helpers';
-import { mergeWith } from 'lodash';
+import { isFunction, mergeWith } from 'lodash';
 import flat from 'flat';
 import InitialValuesTranslator from '../helpers/InitialValuesTranslator';
 
@@ -20,22 +20,20 @@ export default (
   },
   data,
 ) => {
-  const runMarshalOptions = (callback) => (
-    values,
-    ...rest
-  ) => {
-    const expanded = flat.unflatten(values);
-    const newValues = dot.translateAndModify(
-      expanded,
-      marshal,
-    );
+  const runMarshalOptions =
+    (callback) =>
+    (values, ...rest) => {
+      const expanded = flat.unflatten(values);
+      const newValues = isFunction(marshal)
+        ? marshal(expanded)
+        : dot.translateAndModify(expanded, marshal);
 
-    const output = marshalSelectively
-      ? mergeWith(expanded, newValues, replaceWithArray)
-      : newValues;
+      const output = marshalSelectively
+        ? mergeWith(expanded, newValues, replaceWithArray)
+        : newValues;
 
-    return callback ? callback(output, ...rest) : output;
-  };
+      return callback ? callback(output, ...rest) : output;
+    };
 
   return {
     executeMarshal: runMarshalOptions,
