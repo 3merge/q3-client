@@ -1,11 +1,8 @@
-import React from 'react';
-import { get, size } from 'lodash';
-import { State } from 'q3-ui-exports';
+import { size } from 'lodash';
 
-const useCheckedStateRequirement = () => {
-  const exportState = React.useContext(State);
-  const checked = get(exportState, 'checked');
-  return size(checked) > 0;
-};
+import useCheckedState from './useCheckedState';
+
+const useCheckedStateRequirement = () =>
+  size(useCheckedState()) > 0;
 
 export default useCheckedStateRequirement;
