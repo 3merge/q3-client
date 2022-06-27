@@ -41,4 +41,13 @@ export default makeStyles((theme) => ({
       color: theme.palette.secondary.main,
     },
   },
+  fab: {
+    boxShadow: 'none',
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+  },
+  fabText: {
+    fontSize: theme.typography.h6.fontSize,
+    textTransform: 'none',
+  },
 }));

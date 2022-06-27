@@ -49,7 +49,7 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
-const Admin = ({ AppProps, ToolbarProps }) => {
+const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
   const { pages } = AppProps;
   const cls = useStyle();
 
@@ -76,7 +76,7 @@ const Admin = ({ AppProps, ToolbarProps }) => {
     >
       <BackProvider>
         <Viewport>
-          <Navbar>
+          <Navbar {...NavProps}>
             <NavbarList items={usePages(pages)} />
           </Navbar>
           <Box className={cls.main}>
@@ -150,6 +150,13 @@ Admin.propTypes = {
         to: PropTypes.string,
       }),
     ),
+  }).isRequired,
+  NavProps: PropTypes.shape({
+    callToAction: PropTypes.shape({
+      icon: PropTypes.element,
+      label: PropTypes.string,
+      onClick: PropTypes.func,
+    }),
   }).isRequired,
   ToolbarProps: PropTypes.shape({
     profileOptions: PropTypes.arrayOf(

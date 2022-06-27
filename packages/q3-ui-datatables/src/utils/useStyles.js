@@ -15,6 +15,7 @@ export default makeStyles((theme) => ({
       position: 'sticky',
       top: 0,
       zIndex: 3,
+      textTransform: 'none',
     },
 
     '& thead tr': {},
@@ -252,7 +253,7 @@ export default makeStyles((theme) => ({
   cellHeaderLink: {
     color: 'inherit',
     display: 'block',
-    textDecoration: 'none',
+    // textDecoration: 'none',
 
     '& small': {
       maxWidth: 'max-content',

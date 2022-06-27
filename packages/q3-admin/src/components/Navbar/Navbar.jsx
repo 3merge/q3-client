@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import { Box, Paper, Hidden } from '@material-ui/core';
+import { Box, Paper, Hidden, Fab } from '@material-ui/core';
 import useStyle from './styles';
 import Logo from '../Logo';
 import NavbarFooterLinks from '../NavbarFooterLinks';
 
-const Navbar = ({ children }) => {
+const Navbar = ({ callToAction, children }) => {
   const cls = useStyle();
 
   const NavigationContents = (
@@ -26,6 +26,23 @@ const Navbar = ({ children }) => {
         </Box>
       </Hidden>
       <Box overflow="auto" flex="1">
+        {callToAction?.label && (
+          <Fab
+            color="secondary"
+            className={cls.fab}
+            onClick={callToAction.onClick}
+            variant="extended"
+          >
+            {callToAction.icon}
+            <Box
+              className={cls.fabText}
+              component="span"
+              mx={0.5}
+            >
+              {callToAction.label}
+            </Box>
+          </Fab>
+        )}
         {children}
       </Box>
       <Box
@@ -86,10 +103,16 @@ const Navbar = ({ children }) => {
 };
 
 Navbar.defaultProps = {
+  callToAction: null,
   children: null,
 };
 
 Navbar.propTypes = {
+  callToAction: PropTypes.shape({
+    icon: PropTypes.element,
+    label: PropTypes.string,
+    onClick: PropTypes.func,
+  }),
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,

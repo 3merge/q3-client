@@ -4,8 +4,8 @@ export default makeStyles((theme) => ({
   link: {
     alignItems: 'center',
     display: 'flex',
-    height: 95,
-    maxHeight: 95,
+    height: 75,
+    maxHeight: 75,
     width: 'auto',
     padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
 
