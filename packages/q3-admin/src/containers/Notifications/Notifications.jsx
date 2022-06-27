@@ -18,9 +18,9 @@ export const ButtonComponentWithAnimation = ({
 
   React.useEffect(() => {
     if (numberOfNotifications > amount) {
-      setClassList([cls.button, cls.shake]);
+      setClassList([cls.shake]);
     } else {
-      setClassList([cls.button]);
+      setClassList([]);
     }
 
     setAmount(numberOfNotifications);

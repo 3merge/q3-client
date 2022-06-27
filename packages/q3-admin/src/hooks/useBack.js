@@ -4,7 +4,7 @@ import { string } from 'q3-ui-helpers';
 import { getPageHistory } from '../containers/BackProvider/BackProvider';
 import { Definitions } from '../containers/state';
 
-export default () => {
+const useBack = () => {
   const navigate = useNavigate();
   const { directoryPath = '/', id } =
     React.useContext(Definitions);
@@ -22,3 +22,5 @@ export default () => {
         )
     : null;
 };
+
+export default useBack;

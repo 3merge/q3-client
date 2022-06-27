@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { size } from 'lodash';
+import { isNil, size } from 'lodash';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'q3-ui-locale';
 import { url } from 'q3-ui-helpers';
@@ -43,8 +43,11 @@ export default (ids, ...rest) => {
 
   const exportCollection = (template) => () => {
     let exit;
+    const requireConfirmation = Array.isArray(ids)
+      ? size(ids) < 1
+      : isNil(ids);
 
-    if (!ids || !size(ids)) {
+    if (requireConfirmation) {
       if (total > 3500) {
         if (
           // eslint-disable-next-line

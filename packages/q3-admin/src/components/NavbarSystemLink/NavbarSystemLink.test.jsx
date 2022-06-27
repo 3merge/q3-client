@@ -24,15 +24,11 @@ describe('NavbarSystemLink', () => {
     );
   });
 
-  it('should render list', () => {
+  it('should render list item', () => {
     useDomainAuth.mockReturnValue(true);
-    const el = global
-      .shallow(<NavbarSystemLink />)
-      .find(ListItem);
-    exists(el);
-    expect(el.find(ListItemText).props()).toHaveProperty(
-      'primary',
-      'q3',
+
+    exists(
+      global.shallow(<NavbarSystemLink />).find(ListItem),
     );
   });
 });

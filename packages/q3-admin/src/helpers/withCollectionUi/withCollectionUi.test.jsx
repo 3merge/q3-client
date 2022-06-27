@@ -16,29 +16,10 @@ jest.mock('../../hooks/useCollectionUiLocalStorage', () => {
 const Tester = () => <div />;
 
 describe('withCollectionUi', () => {
-  it('should change ui', () => {
-    jest
-      .spyOn(React, 'useEffect')
-      .mockImplementation((fn) => fn());
-
-    jest
-      .spyOn(React, 'useState')
-      .mockReturnValue(['foo', jest.fn()]);
-
-    const El = withCollectionUi(Tester, {});
-    global.shallow(<El />);
-
-    expect(
-      useCollectionUiLocalStorage.change,
-    ).toHaveBeenCalledWith('foo');
-  });
-
   it('should create ui menu items', () => {
-    const setState = jest.fn();
-
-    jest
-      .spyOn(React, 'useState')
-      .mockReturnValue(['foo', setState]);
+    useCollectionUiLocalStorage.mockReturnValue({
+      cached: 'foo',
+    });
 
     const El = withCollectionUi(Tester, {
       uis: [
@@ -57,8 +38,5 @@ describe('withCollectionUi', () => {
     expect(forwardMe).toBeTruthy();
     expect(uis[0]).toHaveProperty('selected', true);
     expect(uis[1]).toHaveProperty('selected', false);
-
-    uis[1].onClick();
-    expect(setState).toHaveBeenCalledWith('bar');
   });
 });

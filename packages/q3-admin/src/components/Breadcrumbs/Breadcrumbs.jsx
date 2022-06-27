@@ -10,7 +10,7 @@ import useStyle from './styles';
 import Back from '../../containers/back';
 
 // eslint-disable-next-line
-const BreadcrumbLink = ({ text, to }) => {
+export const BreadcrumbLink = ({ text, to }) => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
@@ -28,7 +28,7 @@ const BreadcrumbLink = ({ text, to }) => {
 };
 
 // eslint-disable-next-line
-const BreadcrumbText = ({ text }) => {
+export const BreadcrumbText = ({ text }) => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
