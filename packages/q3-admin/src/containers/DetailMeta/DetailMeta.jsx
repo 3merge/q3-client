@@ -29,7 +29,7 @@ const DetailMeta = () => {
     const author = formatUser(get(data, authorkey));
 
     return time ? (
-      <Grid item md={6} xs={12}>
+      <Grid item>
         <ListItem component="div" dense>
           <ListItemIcon>
             <Icon />
@@ -53,7 +53,7 @@ const DetailMeta = () => {
   };
 
   return (
-    <Grid container justifyContent="flex-end">
+    <Grid container justifyContent="flex-start">
       {renderListItem(
         'createdAt',
         'createdBy',

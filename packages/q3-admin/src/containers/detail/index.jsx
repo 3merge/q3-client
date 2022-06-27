@@ -77,9 +77,7 @@ const Detail = ({
               <Box my={2} px={1}>
                 <Divider />
               </Box>
-              <Box maxWidth="100%" width={450} px={2}>
-                <DetailMeta />
-              </Box>
+              <DetailMeta />
             </Grid>
           </Box>
         </Article>
