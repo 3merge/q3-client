@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get, map } from 'lodash';
 import App from './components/app';
-import FloatingAction from './components/FloatingAction';
 import {
   usePages,
   useServerSideEvents,
@@ -50,7 +49,7 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
-const Admin = ({ AppProps }) => {
+const Admin = ({ AppProps, ToolbarProps }) => {
   const { pages } = AppProps;
   const cls = useStyle();
 
@@ -81,10 +80,7 @@ const Admin = ({ AppProps }) => {
             <NavbarList items={usePages(pages)} />
           </Navbar>
           <Box className={cls.main}>
-            <Toolbar />
-            {/* <FloatingAction
-            {...get(AppProps, 'floatingActionProps', {})}
-          /> */}
+            <Toolbar {...ToolbarProps} />
             <App {...AppProps}>
               <SystemPage path="account">
                 <ProfileChangeContact path="contact" />
@@ -155,8 +151,19 @@ Admin.propTypes = {
       }),
     ),
   }).isRequired,
+  ToolbarProps: PropTypes.shape({
+    profileOptions: PropTypes.arrayOf(
+      PropTypes.shape({
+        divider: PropTypes.bool,
+        label: PropTypes.string,
+        onClick: PropTypes.func,
+      }),
+    ),
+  }),
 };
 
-Admin.defaultProps = {};
+Admin.defaultProps = {
+  ToolbarProps: {},
+};
 
 export default Admin;

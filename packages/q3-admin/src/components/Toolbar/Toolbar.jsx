@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
-import NavbarProfileLink from '../NavbarProfileLink';
+import ToolbarProfile from '../ToolbarProfile';
 import ButtonWithIcon from '../ButtonWithIcon';
 import Notifications from '../../containers/Notifications';
 import useStyle from './styles';
 
-const Toolbar = () => {
+const Toolbar = ({ profileOptions }) => {
   const cls = useStyle();
 
   return (
@@ -18,7 +19,7 @@ const Toolbar = () => {
       justifyContent="space-between"
       id="app-toolbar"
     >
-      <Hidden mdUp>
+      <Hidden lgUp>
         <ButtonWithIcon
           label="menu"
           icon={MenuIcon}
@@ -33,9 +34,23 @@ const Toolbar = () => {
         id="app-toolbar-collection-actions"
       />
       <Notifications />
-      <NavbarProfileLink />
+      <ToolbarProfile options={profileOptions} />
     </Box>
   );
+};
+
+Toolbar.defaultProps = {
+  profileOptions: {},
+};
+
+Toolbar.propTypes = {
+  profileOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      divider: PropTypes.bool,
+      label: PropTypes.string,
+      onClick: PropTypes.func,
+    }),
+  ),
 };
 
 export default Toolbar;

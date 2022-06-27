@@ -91,6 +91,14 @@ export default class Collection {
   genList(args = {}) {
     Object.assign(this.$generateList, args);
     Object.assign(this.$generateListProps, args);
+
+    if (args?.io?.renderer)
+      // eslint-disable-next-line
+      console.warn(
+        // eslint-disable-next-line
+        `You must now use .registerActions instead of the io renderer prop`,
+      );
+
     return this;
   }
 

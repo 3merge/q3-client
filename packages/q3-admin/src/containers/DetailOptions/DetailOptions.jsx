@@ -5,15 +5,13 @@ import { useTranslation } from 'q3-ui-locale';
 import { useNavigate } from '@reach/router';
 import { Grid, Chip } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
-import { useDetailRegisterFunction } from '../../hooks';
+import { useRegisterActions } from '../../hooks';
 import useStyle from './styles';
 
 const DetailOptions = ({ registerOptions }) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
-
-  const options =
-    useDetailRegisterFunction(registerOptions);
+  const options = useRegisterActions(registerOptions);
 
   const navigate = useNavigate();
   const renderLabel = (option) => (

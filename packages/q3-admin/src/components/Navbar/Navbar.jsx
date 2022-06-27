@@ -9,36 +9,41 @@ import NavbarFooterLinks from '../NavbarFooterLinks';
 const Navbar = ({ children }) => {
   const cls = useStyle();
 
+  const NavigationContents = (
+    <Box
+      display="flex"
+      flexDirection="column"
+      height="100%"
+    >
+      <Hidden mdDown>
+        <Box
+          bgcolor="background.paper"
+          position="sticky"
+          top="0"
+          zIndex={1}
+        >
+          <Logo />
+        </Box>
+      </Hidden>
+      <Box overflow="auto" flex="1">
+        {children}
+      </Box>
+      <Box
+        bgcolor="background.paper"
+        position="sticky"
+        bottom="0"
+      >
+        <NavbarFooterLinks />
+      </Box>
+    </Box>
+  );
+
   return (
     <>
       <Hidden mdDown>
         <Box className={cls.nav} component="nav">
           <Paper className={cls.paper} color="primary">
-            <Box
-              display="flex"
-              flexDirection="column"
-              height="100%"
-            >
-              <Box
-                bgcolor="background.paper"
-                position="sticky"
-                top="0"
-                zIndex={1}
-              >
-                <Logo />
-              </Box>
-              <Box overflow="auto" flex="1" p={1.5}>
-                {children}
-              </Box>
-              <Box
-                bgcolor="background.paper"
-                position="sticky"
-                bottom="0"
-                p={1.5}
-              >
-                <NavbarFooterLinks />
-              </Box>
-            </Box>
+            {NavigationContents}
           </Paper>
         </Box>
       </Hidden>
@@ -52,23 +57,23 @@ const Navbar = ({ children }) => {
           anchor="left"
           closeOnRouteChange
           closeOnSearchChange
-          renderContent={() => children}
+          renderContent={() => NavigationContents}
           renderTrigger={(onClick) => (
             <Box
               component="nav"
               className={cls.appbar}
               id="app-navbar"
             >
-              <button
+              {/* eslint-disable-next-line */}
+              <span
                 aria-label="hidden-menu"
                 id="app-menu"
                 onClick={onClick}
+                role="button"
                 style={{
                   display: 'none',
                 }}
-              >
-                menu
-              </button>
+              />
               <Logo />
             </Box>
           )}

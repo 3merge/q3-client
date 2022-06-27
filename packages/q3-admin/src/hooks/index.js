@@ -3,7 +3,7 @@ export { default as useIo } from './useIo';
 export { default as useCanEditField } from './useCanEditField';
 export { default as useDomain } from './useDomain';
 export { default as useDomainAuth } from './useDomainAuth';
-export { default as useDetailRegisterFunction } from './useDetailRegisterFunction';
+export { default as useRegisterActions } from './useRegisterActions';
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';

@@ -45,23 +45,9 @@ const CellHeader = ({
             </Grid>
           )}
           <Grid item {...asLink} className={cellHeaderLink}>
-            <Popover
-              popoverChildren={
-                <>
-                  <strong>{name}</strong> <br />
-                  {description}
-                </>
-              }
-              disablePopover={
-                String(name).length < 45 &&
-                String(description).length < 75
-              }
-            >
-              <Box className={cellHeadDescription}>
-                <strong>{ellipsis(name, 45)}</strong>
-                <Box>{ellipsis(description, 75)}</Box>
-              </Box>
-            </Popover>
+            <Box className={cellHeadDescription}>
+              <strong>{name}</strong>
+            </Box>
           </Grid>
         </>
       }

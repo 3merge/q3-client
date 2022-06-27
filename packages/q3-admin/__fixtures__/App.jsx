@@ -26,13 +26,6 @@ const ExampleApp = ({ initialPath }) => {
             <Admin
               AppProps={{
                 pages,
-                floatingActionProps: {
-                  label: 'action',
-                  // eslint-disable-next-line
-                  onClick: () => alert('Heyo!'),
-                  checkPage: (path) =>
-                    !String(path).includes('characters'),
-                },
                 profilePages: [
                   {
                     component: () =>
@@ -42,6 +35,9 @@ const ExampleApp = ({ initialPath }) => {
                     text: 'accountCustom',
                   },
                 ],
+              }}
+              ToolbarProps={{
+                profileOptions: [],
               }}
             />
           </Datasource>

@@ -68,6 +68,19 @@ const Cell = ({ id, value, className, ...props }) => {
         </IconButton>
       );
 
+    if (value.toLong)
+      formatted = (
+        <div
+          style={{
+            maxWidth: 320,
+            whiteSpace: 'break-spaces',
+            width: 'max-content',
+          }}
+        >
+          {value.base}
+        </div>
+      );
+
     if (!formatted) formatted = '--';
   }
 

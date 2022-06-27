@@ -3,7 +3,7 @@ import { object } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
 import { Dispatcher, Store } from '../containers/state';
 
-const useDetailRegisterFunction = (fn) => {
+const useRegisterActions = (fn) => {
   const { t } = useTranslation();
   const dispatchers = React.useContext(Dispatcher);
   const { data } = React.useContext(Store);
@@ -13,4 +13,4 @@ const useDetailRegisterFunction = (fn) => {
     : [];
 };
 
-export default useDetailRegisterFunction;
+export default useRegisterActions;

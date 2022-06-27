@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import { string } from 'q3-ui-helpers';
+import PropTypes from 'prop-types';
 import {
   Avatar,
   ListItem,
@@ -14,13 +15,15 @@ import { AuthContext } from 'q3-ui-permissions';
 import ButtonWithIcon from '../ButtonWithIcon';
 import DropdownMenu from '../DropdownMenu';
 import { logout } from '../NavbarFooterLinks/NavbarFooterLinks';
+import useStyle from './styles';
 
-const NavbarProfileLink = () => {
+const ToolbarProfile = ({ options }) => {
   const { state } = React.useContext(AuthContext);
+  const cls = useStyle();
 
   return (
     <Box display="inline-block">
-      <Hidden mdUp>
+      <Hidden lgUp>
         <ButtonWithIcon
           component={Link}
           label="profile"
@@ -35,7 +38,7 @@ const NavbarProfileLink = () => {
               label: 'profile',
               to: 'account',
             },
-            // HOW TO INSERT CUSTOM???
+            ...Array.from(options),
             {
               label: 'logout',
               onClick: logout,
@@ -45,11 +48,8 @@ const NavbarProfileLink = () => {
           {(toggle) => (
             <ListItem
               button
+              className={cls.listItem}
               dense
-              style={{
-                padding: 0,
-                whiteSpace: 'nowrap',
-              }}
               onClick={toggle}
             >
               <ListItemAvatar>
@@ -67,7 +67,19 @@ const NavbarProfileLink = () => {
   );
 };
 
-NavbarProfileLink.defaultProps = {};
-NavbarProfileLink.propTypes = {};
+ToolbarProfile.defaultProps = {
+  options: [],
+};
 
-export default NavbarProfileLink;
+ToolbarProfile.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      checked: PropTypes.bool,
+      divider: PropTypes.bool,
+      label: PropTypes.string,
+      onClick: PropTypes.func,
+    }),
+  ),
+};
+
+export default ToolbarProfile;

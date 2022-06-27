@@ -28,8 +28,10 @@ export default new AbstractCollectionBuilder({
   .genResolver(({ id, name, createdAt, updatedAt }) => ({
     id,
     name,
-    description:
-      'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
+    description: {
+      base: 'this is a stencen that gowes on for quite a bit ans dsiw wiosadasd josajojoiasd jjajdij',
+      toLong: true,
+    },
     createdAt: {
       base: createdAt,
       toDate: true,
@@ -73,11 +75,27 @@ export default new AbstractCollectionBuilder({
     //   component: () => <p>CUSTOM COMPONENT</p>,
     // },
     io: {
-      exports: ['orders'],
-      imports: [],
-      // eslint-disable-next-line
-      renderer: () => <p>Look at me!</p>,
+      exports: ['exportTemplateOne', 'exportTemplateTwo'],
+      imports: [
+        'importTemplateOne',
+        'importTemplateTwo',
+        'importTemplateThree',
+        'importTemplateFour',
+      ],
+      renderer: () => <p>Warn console</p>,
     },
+
+    registerActions: () => [
+      {
+        icon: CreditCard,
+        label: 'subscribe',
+        renderContent: () => (
+          // eslint-disable-next-line
+          <p>Look at what I can do.</p>
+        ),
+        requireCheckedState: true,
+      },
+    ],
 
     renderCustomRowActions: () => (
       <IconButton>
@@ -87,7 +105,11 @@ export default new AbstractCollectionBuilder({
   })
   .genListSettings({
     //  customRowActionsAnchor: 'start',
-    defaultColumns: ['createdAt', 'updatedAt'],
+    defaultColumns: [
+      'description',
+      'createdAt',
+      'updatedAt',
+    ],
     defaultSortPreference: 'name',
     blacklistColumns() {
       return [];
@@ -99,7 +121,16 @@ export default new AbstractCollectionBuilder({
     protectView: () =>
       // if (name === 'subdetail') return data.name === 'foo';
       true,
-    registerActions: () => [],
+    registerActions: () => [
+      {
+        icon: CreditCard,
+        label: 'subscribe',
+        renderContent: () => (
+          // eslint-disable-next-line
+          <p>Look at what I can do.</p>
+        ),
+      },
+    ],
     registerAlerts: () => [
       {
         id: '2',
