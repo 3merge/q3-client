@@ -54,6 +54,7 @@ const NavbarList = ({
     <ListItem {...ListItemProps}>
       <Button
         color="inherit"
+        className={cls.link}
         component={Link}
         fullWidth
         to={to}

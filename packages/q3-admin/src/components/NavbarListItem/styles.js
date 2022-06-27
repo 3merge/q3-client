@@ -9,6 +9,11 @@ export default makeStyles((theme) => ({
       opacity: state ? 1 : 0.3,
     },
   }),
+  link: ({ state }) => ({
+    '& svg': {
+      opacity: state ? 1 : 0.3,
+    },
+  }),
   activeSegment: {
     '& *': {
       color: `${theme.palette.secondary.main} !important`,

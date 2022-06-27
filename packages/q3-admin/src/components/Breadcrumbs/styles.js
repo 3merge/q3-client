@@ -18,10 +18,14 @@ export default makeStyles((theme) => ({
   font: {
     fontSize: '.833rem',
     fontWeight: 'bold',
-    maxWidth: 80,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: 'block',
+    whiteSpace: 'nowrap',
+
+    [theme.breakpoints.down('lg')]: {
+      maxWidth: 115,
+    },
   },
   separator: {
     fontSize: '1rem',

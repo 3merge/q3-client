@@ -34,14 +34,14 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('md')]: {
       maxWidth: 'calc(100vw / 4.5)',
+
+      '&:empty': {
+        display: 'none',
+      },
     },
 
     [theme.breakpoints.down('sm')]: {
       maxWidth: 'calc(100vw / 3.5)',
-    },
-
-    '&:empty': {
-      display: 'none',
     },
   },
 }));
