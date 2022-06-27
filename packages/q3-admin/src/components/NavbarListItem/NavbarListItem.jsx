@@ -84,7 +84,7 @@ const NavbarList = ({
           getProps={handleGetProps}
         />
       </ListItem>
-      <Collapse in={state}>
+      <Collapse component="li" in={state}>
         <NavbarListItemSegments
           isActive={current}
           segments={segments}

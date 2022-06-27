@@ -24,7 +24,7 @@ const NavbarListItemSegments = ({
   const { active } = useSegments(data);
 
   return (
-    <ListItem className={cls.segments}>
+    <ListItem component="div" className={cls.segments}>
       <List className={cls.list}>
         <ListItem className={cls.listItem}>
           <Button
