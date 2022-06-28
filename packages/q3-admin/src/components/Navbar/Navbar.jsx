@@ -25,7 +25,7 @@ const Navbar = ({ callToAction, children }) => {
           <Logo />
         </Box>
       </Hidden>
-      <Box overflow="auto" flex="1">
+      <Box overflow="auto" flex="1" px={1.5}>
         {callToAction?.label && (
           <Fab
             color="secondary"
@@ -47,8 +47,9 @@ const Navbar = ({ callToAction, children }) => {
       </Box>
       <Box
         bgcolor="background.paper"
-        position="sticky"
         bottom="0"
+        p={1.5}
+        position="sticky"
       >
         <NavbarFooterLinks />
       </Box>
