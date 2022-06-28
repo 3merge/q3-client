@@ -47,10 +47,17 @@ export const includesNavigationElement = (xs) => {
     '.q3-forms-rte-wrapper',
   );
 
+  const insideDialog = invoke(
+    xs,
+    'closest',
+    '[role="presentation"]',
+  );
+
   return (
     (['tab', 'link', 'menuitem'].includes(role) ||
       ['A'].includes(tag)) &&
-    !insideRte
+    !insideRte &&
+    !insideDialog
   );
 };
 
