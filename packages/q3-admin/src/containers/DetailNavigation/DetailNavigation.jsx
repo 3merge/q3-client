@@ -25,11 +25,12 @@ const StyledTabs = withStyles((theme) => ({
     justifyContent: 'center',
 
     '& > span': {
-      backgroundColor: theme.palette.secondary.light,
-      borderRadius: 500,
+      backgroundColor: theme.palette.secondary.main,
+      borderRadius: 5,
+      display: 'block',
       boxShadow: theme.shadows[2],
-      height: 5,
-      maxWidth: 5,
+      height: 2.5,
+      maxWidth: 31.5,
       width: '100%',
     },
   },
@@ -42,7 +43,7 @@ const StyledTabs = withStyles((theme) => ({
     TabIndicatorProps={{
       children: <span />,
       style: {
-        height: 5,
+        height: 3,
       },
     }}
   />

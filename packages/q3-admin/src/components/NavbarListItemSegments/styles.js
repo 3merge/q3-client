@@ -14,10 +14,11 @@ export default makeStyles((theme) => ({
       background: theme.palette.secondary.main,
       content: '""',
       height: '100%',
-      left: '-1.5rem',
+      left: '-1.55rem',
       position: 'absolute',
       top: 0,
-      width: 2,
+      width: 2.5,
+      borderRadius: 4,
     },
   },
   segments: {
@@ -27,14 +28,16 @@ export default makeStyles((theme) => ({
     position: 'relative',
 
     '&::before': {
-      background: theme.palette.primary.main,
+      background:
+        theme.palette.type === 'dark'
+          ? 'rgba(255, 255, 255, 0.12)'
+          : 'rgba(0, 0, 0, 0.12)',
       content: '""',
       height: '100%',
       left: '1.5rem',
       position: 'absolute',
       top: 0,
       width: 1,
-      opacity: 0.1,
     },
 
     '& ul': {

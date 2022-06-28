@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
   paper: {
     borderRadius: 0,
     overflowX: 'auto',
-    padding: theme.spacing(1.5),
+    padding: 0,
     height: '100%',
     width: '100%',
     display: 'flex',
