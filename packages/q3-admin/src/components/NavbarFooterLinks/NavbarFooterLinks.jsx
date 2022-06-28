@@ -22,7 +22,7 @@ const NavbarFooterLinks = () => {
   const cls = useStyle();
 
   return (
-    <Box>
+    <Box mb={2} mt={4}>
       <Box pb={1}>
         <Divider />
       </Box>

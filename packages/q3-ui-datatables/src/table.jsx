@@ -133,22 +133,22 @@ const TableView = ({
                   title={aliasForName}
                   onSort={isNotVirtual(aliasForName)}
                   sort={sort}
-                >
-                  {!disableColumnReorder && (
-                    <ColumnReorderDialog
-                      onDone={setColumns}
-                      defaultColumns={activeColumns}
-                      disabled={!columns.length}
-                      columns={columns}
-                    />
-                  )}
-                </ColumnSelectAll>
+                />
                 {renderCustomRowActionsAnchor(
                   object.isFn(renderCustomRowActions) && (
                     <CellAction
                       key="custom-actions-header"
                       component="th"
-                    />
+                    >
+                      {!disableColumnReorder && (
+                        <ColumnReorderDialog
+                          onDone={setColumns}
+                          defaultColumns={activeColumns}
+                          disabled={!columns.length}
+                          columns={columns}
+                        />
+                      )}
+                    </CellAction>
                   ),
                   activeColumns.map((column, idx) => (
                     <ColumnSort

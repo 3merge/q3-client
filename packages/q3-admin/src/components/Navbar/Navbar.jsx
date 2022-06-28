@@ -14,6 +14,7 @@ const Navbar = ({ callToAction, children }) => {
       display="flex"
       flexDirection="column"
       height="100%"
+      overflow="auto"
     >
       <Hidden mdDown>
         <Box
@@ -25,7 +26,7 @@ const Navbar = ({ callToAction, children }) => {
           <Logo />
         </Box>
       </Hidden>
-      <Box overflow="auto" flex="1" px={1.5}>
+      <Box flex="1" px={1.5}>
         {callToAction?.label && (
           <Fab
             color="secondary"
@@ -44,14 +45,6 @@ const Navbar = ({ callToAction, children }) => {
           </Fab>
         )}
         {children}
-      </Box>
-      <Box
-        bgcolor="background.paper"
-        bottom="0"
-        p={1.5}
-        position="sticky"
-        style={{ paddingTop: 0 }}
-      >
         <NavbarFooterLinks />
       </Box>
     </Box>

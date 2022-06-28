@@ -16,7 +16,7 @@ export default makeStyles((theme) => ({
     border: 'none',
     height: 'auto',
     minHeight: 32,
-    lineHeight: 1,
+    lineHeight: 1.3,
     maxWidth: 280,
 
     '& span': {
