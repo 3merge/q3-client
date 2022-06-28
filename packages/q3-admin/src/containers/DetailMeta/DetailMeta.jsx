@@ -4,10 +4,7 @@ import {
   Grid,
   ListItem,
   ListItemText,
-  ListItemIcon,
 } from '@material-ui/core';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import { string } from 'q3-ui-helpers';
 import { get } from 'lodash';
 import { Store } from '../state';
@@ -29,11 +26,8 @@ const DetailMeta = () => {
     const author = formatUser(get(data, authorkey));
 
     return time ? (
-      <Grid item md={6} xs={12}>
+      <Grid item>
         <ListItem component="div" dense>
-          <ListItemIcon>
-            <Icon />
-          </ListItemIcon>
           <ListItemText
             primary={string.toDate(time)}
             secondary={
@@ -53,17 +47,13 @@ const DetailMeta = () => {
   };
 
   return (
-    <Grid container justifyContent="flex-end">
-      {renderListItem(
-        'createdAt',
-        'createdBy',
-        EventAvailableIcon,
-      )}
-      {renderListItem(
-        'updatedAt',
-        'lastModifiedBy',
-        EventNoteIcon,
-      )}
+    <Grid
+      className={cls.meta}
+      container
+      justifyContent="flex-start"
+    >
+      {renderListItem('createdAt', 'createdBy')}
+      {renderListItem('updatedAt', 'lastModifiedBy')}
     </Grid>
   );
 };

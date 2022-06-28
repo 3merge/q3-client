@@ -9,6 +9,8 @@ import Filters from './Filters';
 import General from './General';
 import SubDetail from './SubDetail';
 
+const OptionalUi = () => null;
+
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
   resourceNameSingular: 'show',
@@ -133,10 +135,28 @@ export default new AbstractCollectionBuilder({
     ],
     registerAlerts: () => [
       {
-        id: '2',
+        id: '1',
         title: 'info',
         description: 'info',
         severity: 'info',
+      },
+      {
+        id: '2',
+        title: 'success',
+        description: 'success',
+        severity: 'success',
+      },
+      {
+        id: '3',
+        title: 'error',
+        description: 'error',
+        severity: 'error',
+      },
+      {
+        id: '4',
+        title: 'warning',
+        description: 'warning',
+        severity: 'warning',
       },
     ],
     registerOptions: () => [
@@ -156,6 +176,10 @@ export default new AbstractCollectionBuilder({
         description: 'Comedy',
       },
     ],
+    renderUi: OptionalUi,
+    renderSummaryComponent() {
+      return <div>Extra Extra</div>;
+    },
     defineActionProps(state) {
       return {
         uploads:

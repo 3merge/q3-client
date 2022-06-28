@@ -1,6 +1,5 @@
 import React from 'react';
 import { Avatar } from 'q3-ui-filemanager';
-import { Box } from '@material-ui/core';
 import { useAuth } from 'q3-ui-permissions';
 import { Definitions, Dispatcher, Store } from '../state';
 import FeaturedPhoto from '../FeaturedPhoto';
@@ -13,13 +12,11 @@ export const DetailFeaturedPhoto = () => {
 
   return (
     canSeeSub('photo') && (
-      <Box mb={1} className="featured-photo">
-        <FeaturedPhoto
-          component={Avatar}
-          src={data.photo}
-          update={patch()}
-        />
-      </Box>
+      <FeaturedPhoto
+        component={Avatar}
+        src={data.photo}
+        update={patch()}
+      />
     )
   );
 };

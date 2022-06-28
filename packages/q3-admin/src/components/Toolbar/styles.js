@@ -20,6 +20,11 @@ export default makeStyles((theme) => ({
       right: 0,
       padding: 0,
       boxShadow: 'none',
+
+      '& [aria-current="page"]': {
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.secondary.contrastText,
+      },
     },
   },
   actions: {
@@ -28,11 +33,17 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
 
     [theme.breakpoints.down('md')]: {
-      maxWidth: 'calc(100vw / 3.5)',
-    },
-
-    '&:empty': {
-      display: 'none',
+      flex: 0,
+      '& > div': {
+        textAlign: 'center',
+      },
+      '& > div:nth-child(2)': {
+        textAlign: 'right',
+        width: '18vw',
+      },
+      '&:empty': {
+        display: 'none',
+      },
     },
   },
 }));

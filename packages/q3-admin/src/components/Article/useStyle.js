@@ -6,6 +6,15 @@ export default makeStyles((theme) => ({
     maxWidth: '100%',
     width: '100%',
     zIndex: 1,
+
+    '& > div': {
+      background: theme.palette.background.default,
+      padding: '0 1.5rem',
+
+      [theme.breakpoints.down('sm')]: {
+        padding: 0,
+      },
+    },
   },
   articleWrapper: {
     position: 'relative',
@@ -13,10 +22,5 @@ export default makeStyles((theme) => ({
       display: 'block',
     },
   },
-  section: {
-    [theme.breakpoints.down('md')]: {
-      '& > div': {},
-      '& header': {},
-    },
-  },
+  section: {},
 }));

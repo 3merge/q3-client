@@ -3,7 +3,6 @@ import { yellow, red } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
     paddingTop: 0,
     overflow: 'auto',
     height: '100%',

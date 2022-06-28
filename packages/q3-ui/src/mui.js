@@ -2,6 +2,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
 } from '@material-ui/core/styles';
+import * as colors from '@material-ui/core/colors';
 import { merge } from 'lodash';
 
 const color = 'var(--color-default)';
@@ -31,6 +32,18 @@ export default (customThemeDefs, type, font = 'Nunito') => {
             default:
               type === 'light' ? '#f4f4f4' : '#303030',
             muted: 'var(--background-muted)',
+          },
+          info: {
+            main: colors.blue[900],
+          },
+          success: {
+            main: colors.green[900],
+          },
+          error: {
+            main: colors.red[900],
+          },
+          warning: {
+            main: colors.orange[900],
           },
         },
         typography: {

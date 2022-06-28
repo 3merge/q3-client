@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
     },
   },
   appbar: {
+    boxShadow: theme.shadows[1],
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
@@ -21,6 +22,7 @@ export default makeStyles((theme) => ({
     height: 65,
     padding: `0 ${theme.spacing(1)}`,
     width: '100%',
+    zIndex: 0,
   },
   paper: {
     borderRadius: 0,
@@ -31,10 +33,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor:
-      theme.palette.type === 'dark'
-        ? theme.palette.background.muted
-        : theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
   },
   buttonLink: {
     '&.active': {
@@ -45,9 +44,15 @@ export default makeStyles((theme) => ({
     boxShadow: 'none',
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
+    padding: '0 8px',
+    width: '100%',
+
+    '& span, & svg': {
+      fontSize: theme.typography.body1.fontSize,
+    },
   },
   fabText: {
-    fontSize: theme.typography.h6.fontSize,
+    fontSize: theme.typography.body1.fontSize,
     textTransform: 'none',
   },
 }));

@@ -1,18 +1,19 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   list: {
     listStyle: 'none',
     padding: 0,
-    margin: 0,
-    marginLeft: '-.5rem',
-    marginTop: '.25rem',
+    margin: `${theme.spacing(1)} 0 0 0`,
+    minWidth: 280,
+
+    [theme.breakpoints.down('md')]: {
+      minWidth: '100%',
+    },
   },
-  listItem: {
-    padding: '.125rem',
-    width: 'auto',
-  },
+
   chip: {
     border: 'none',
+    maxWidth: 250,
   },
 }));

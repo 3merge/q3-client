@@ -54,6 +54,7 @@ const NavbarList = ({
     <ListItem {...ListItemProps}>
       <Button
         color="inherit"
+        className={cls.link}
         component={Link}
         fullWidth
         to={to}
@@ -83,7 +84,7 @@ const NavbarList = ({
           getProps={handleGetProps}
         />
       </ListItem>
-      <Collapse in={state}>
+      <Collapse component="li" in={state}>
         <NavbarListItemSegments
           isActive={current}
           segments={segments}

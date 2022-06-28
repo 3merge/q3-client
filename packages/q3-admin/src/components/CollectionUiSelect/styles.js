@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     right: theme.spacing(2),
   },
   button: {
-    border: `1px solid ${theme.palette.background.default}`,
+    border: `1px solid ${theme.palette.background.muted}`,
     color: 'inherit',
 
     '&[data-on="true"]': {

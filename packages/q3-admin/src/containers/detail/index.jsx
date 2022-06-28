@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, pick } from 'lodash';
-import { Box, Grid, Divider } from '@material-ui/core';
+import { map, pick, invoke } from 'lodash';
+import { Box, Grid } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
 import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
@@ -10,15 +10,23 @@ import DetailAppbar from '../DetailAppbar';
 import DetailAlerts from '../DetailAlerts';
 import DetailOptions from '../DetailOptions';
 import Article from '../../components/Article';
+import Widget from '../../components/Widget';
 import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
+import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
+import useStyle from './styles';
 
-const Detail = ({
-  HeaderProps,
-  children,
-  views,
-  ...rest
-}) => {
+const Detail = (props) => {
+  const {
+    HeaderProps,
+    SummaryComponent,
+    children,
+    views,
+    ...rest
+  } = props;
+
+  const cls = useStyle();
+
   const viewDeps = [
     JSON.stringify(
       map(views, (v) => pick(v, ['label', 'to'])),
@@ -54,7 +62,7 @@ const Detail = ({
         {...rest}
       />
     ),
-    [HeaderProps, Actions, Summary],
+    [HeaderProps, Actions],
   );
 
   const Alerts = React.useMemo(
@@ -66,24 +74,38 @@ const Detail = ({
 
   return React.useMemo(
     () => (
-      <Box bgcolor="background.paper" height="100%">
-        <Article>
-          {Alerts}
+      <Article>
+        <Box height="auto" minHeight="100%">
           {AppBar}
-          {Navigation}
-          <Box m={1}>
-            <Grid item xs>
-              {Views}
-              <Box my={2} px={1}>
-                <Divider />
-              </Box>
-              <Box maxWidth="100%" width={450} px={2}>
+          {invoke(rest, 'renderUi', props) || (
+            <>
+              {Alerts}
+              <Grid
+                className={cls.grid}
+                container
+                spacing={1}
+              >
+                <Grid item>
+                  <Widget timeout={500} title="overview">
+                    <DetailFeaturedPhoto />
+                    {invoke(rest, 'renderSummaryComponent')}
+                    {Summary}
+                  </Widget>
+                </Grid>
+                <Grid item xs className={cls.details}>
+                  <Widget timeout={750} title="details">
+                    {Navigation}
+                    {Views}
+                  </Widget>
+                </Grid>
+              </Grid>
+              <Box py={1.5}>
                 <DetailMeta />
               </Box>
-            </Grid>
-          </Box>
-        </Article>
-      </Box>
+            </>
+          )}
+        </Box>
+      </Article>
     ),
     [AppBar, Views],
   );
