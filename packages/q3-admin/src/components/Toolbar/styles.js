@@ -33,15 +33,17 @@ export default makeStyles((theme) => ({
     justifyContent: 'space-between',
 
     [theme.breakpoints.down('md')]: {
-      maxWidth: 'calc(100vw / 4.5)',
-
+      flex: 0,
+      '& > div': {
+        textAlign: 'center',
+      },
+      '& > div:nth-child(2)': {
+        textAlign: 'right',
+        width: '18vw',
+      },
       '&:empty': {
         display: 'none',
       },
-    },
-
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: 'calc(100vw / 3.5)',
     },
   },
 }));

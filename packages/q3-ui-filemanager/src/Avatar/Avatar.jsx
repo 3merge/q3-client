@@ -17,7 +17,11 @@ const Avatar = (props) => {
 
   const AvatarRenderer = React.useMemo(
     () => (
-      <MuiAvatar {...avatarProps} alt={t('imagePreview')}>
+      <MuiAvatar
+        {...avatarProps}
+        alt={t('imagePreview')}
+        variant="rounded"
+      >
         <PhotoCameraIcon />
       </MuiAvatar>
     ),

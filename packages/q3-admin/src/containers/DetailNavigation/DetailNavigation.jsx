@@ -4,7 +4,49 @@ import { useTranslation } from 'q3-ui-locale';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import { withStyles } from '@material-ui/core';
 import useStyle from './useStyle';
+
+const StyledTab = withStyles((theme) => ({
+  textColorInherit: {
+    fontWeight: 'bold',
+    minHeight: 'auto',
+    minWidth: 'auto',
+    opacity: 0.5,
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+  },
+}))(Tab);
+
+const StyledTabs = withStyles((theme) => ({
+  indicator: {
+    backgroundColor: 'transparent',
+    display: 'flex',
+    justifyContent: 'center',
+
+    '& > span': {
+      backgroundColor: theme.palette.secondary.light,
+      borderRadius: 500,
+      boxShadow: theme.shadows[2],
+      height: 5,
+      maxWidth: 5,
+      width: '100%',
+    },
+  },
+  root: {
+    minHeight: 'auto',
+  },
+}))((props) => (
+  <Tabs
+    {...props}
+    TabIndicatorProps={{
+      children: <span />,
+      style: {
+        height: 5,
+      },
+    }}
+  />
+));
 
 export const LocationMatch = ({
   views,
@@ -37,25 +79,21 @@ const TabsWithRouter = ({ views }) => {
   return (
     <LocationMatch views={views} defaultIndex={0}>
       {(value) => (
-        <Tabs
+        <StyledTabs
           value={value}
           variant="scrollable"
           className={cls.root}
         >
           {views.map((view) => (
-            <Tab
+            <StyledTab
               key={view.to}
               to={`.${view.to}`}
               label={t(`labels:${view.label}`)}
+              className={cls.tab}
               component={Link}
-              style={{
-                minWidth: 'auto',
-                paddingLeft: '1.5rem',
-                paddingRight: '1.5rem',
-              }}
             />
           ))}
-        </Tabs>
+        </StyledTabs>
       )}
     </LocationMatch>
   );

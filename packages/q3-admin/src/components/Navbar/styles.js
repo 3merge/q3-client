@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
     },
   },
   appbar: {
+    boxShadow: theme.shadows[1],
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
@@ -21,6 +22,7 @@ export default makeStyles((theme) => ({
     height: 65,
     padding: `0 ${theme.spacing(1)}`,
     width: '100%',
+    zIndex: 1,
   },
   paper: {
     borderRadius: 0,

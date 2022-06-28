@@ -1,24 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
+import Box from '@material-ui/core/Box';
 import DetailHeader from '../DetailHeader';
 import ActionBar from '../../components/ActionBar';
 import Header from '../../components/Header';
 
-const DetailAppbar = ({
-  children,
-  actions,
-  summary,
-  ...rest
-}) => (
+const DetailAppbar = ({ children, actions, ...rest }) => (
   <Header>
-    <div>
-      <DetailFeaturedPhoto />
+    <Box width="100%">
       <DetailHeader {...rest}>
         <ActionBar>{actions}</ActionBar>
       </DetailHeader>
-      {summary}
-    </div>
+    </Box>
   </Header>
 );
 
@@ -31,16 +24,11 @@ DetailAppbar.propTypes = {
     PropTypes.array,
     PropTypes.node,
   ]),
-  summary: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.node,
-  ]),
 };
 
 DetailAppbar.defaultProps = {
   actions: null,
   children: null,
-  summary: null,
 };
 
 export default React.memo(DetailAppbar);

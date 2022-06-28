@@ -40,6 +40,7 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      justifyContent: 'space-between',
     },
   },
 }));

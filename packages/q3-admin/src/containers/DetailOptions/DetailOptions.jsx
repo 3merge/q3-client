@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, sortBy } from 'lodash';
+import { map, sortBy, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import { useNavigate } from '@reach/router';
-import { Grid, Chip } from '@material-ui/core';
+import { Chip } from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
 import { useRegisterActions } from '../../hooks';
 import useStyle from './styles';
@@ -11,9 +11,12 @@ import useStyle from './styles';
 const DetailOptions = ({ registerOptions }) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
-  const options = useRegisterActions(registerOptions);
-
+  const options = sortBy(
+    useRegisterActions(registerOptions),
+    'href',
+  ).reverse();
   const navigate = useNavigate();
+
   const renderLabel = (option) => (
     <span>
       <strong>{t(option.title)}</strong>{' '}
@@ -21,43 +24,40 @@ const DetailOptions = ({ registerOptions }) => {
     </span>
   );
 
-  return (
-    <Grid
-      container
-      component="ul"
-      className={cls.list}
-      spacing={0}
-    >
-      {map(sortBy(options, 'href'), (option) => (
-        <Grid
-          item
-          className={cls.listItem}
-          component="li"
-          key={option.title}
-        >
-          {option.href ? (
-            <Chip
-              className={cls.chip}
-              label={renderLabel(option)}
-              icon={<CallMadeIcon />}
-              onClick={() => {
-                navigate(option.href);
-              }}
-              size="small"
-              variant="outlined"
-            />
-          ) : (
-            <Chip
-              className={cls.chip}
-              label={renderLabel(option)}
-              size="small"
-              variant="outlined"
-            />
-          )}
-        </Grid>
-      ))}
-    </Grid>
-  );
+  return size(options) ? (
+    <ul className={cls.list}>
+      {map(options, (option) => {
+        const label = renderLabel(option);
+        const handleClick = () => {
+          navigate(option.href);
+        };
+
+        return (
+          <li
+            key={option.title}
+            title={t(option.description)}
+          >
+            {option.href ? (
+              <Chip
+                className={cls.chip}
+                label={label}
+                deleteIcon={<CallMadeIcon />}
+                onDelete={handleClick}
+                onClick={handleClick}
+                variant="outlined"
+              />
+            ) : (
+              <Chip
+                className={cls.chip}
+                label={label}
+                variant="outlined"
+              />
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  ) : null;
 };
 
 DetailOptions.defaultProps = {

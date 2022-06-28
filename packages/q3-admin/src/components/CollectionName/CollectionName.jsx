@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'q3-ui-locale';
+import { capitalize } from 'lodash';
 import { Definitions } from '../../containers/state';
 import useSegmentsActiveLabel from '../../hooks/useSegmentsActiveLabel';
 import useStyle from './styles';
@@ -15,9 +16,9 @@ const CollectionName = () => {
     <Typography
       className={cls.h1}
       component="h1"
-      variant="h2"
+      variant="h3"
     >
-      {!s ? t(collectionName) : t(s)}
+      {capitalize(!s ? t(collectionName) : t(s))}
     </Typography>
   );
 };

@@ -11,7 +11,7 @@ const DetailHeader = ({ children, ...props }) => {
   const Title = (
     <Typography
       component="h1"
-      variant="h2"
+      variant="h3"
       style={{
         margin: 0,
         marginRight: '1rem',

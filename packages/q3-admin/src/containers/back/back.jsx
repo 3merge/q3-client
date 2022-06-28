@@ -9,11 +9,7 @@ const Back = () => {
   const fn = useBack();
 
   return (
-    <div
-      style={{
-        marginLeft: '-0.75rem',
-      }}
-    >
+    <div>
       {fn ? (
         <ButtonWithIcon
           icon={KeyboardBackspace}
