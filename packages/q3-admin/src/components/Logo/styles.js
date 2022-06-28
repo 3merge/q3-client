@@ -8,6 +8,7 @@ export default makeStyles((theme) => ({
     maxHeight: 75,
     width: 'auto',
     padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    justifyContent: 'center',
 
     [theme.breakpoints.down('lg')]: {
       alignItems: 'center',
@@ -20,6 +21,7 @@ export default makeStyles((theme) => ({
       maxHeight: 65,
       maxWidth: '30vw',
       padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
+      justifyContent: 'flex-start',
     },
   },
   img: ({ invertLogo }) => ({

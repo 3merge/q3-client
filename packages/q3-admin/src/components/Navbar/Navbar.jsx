@@ -50,6 +50,7 @@ const Navbar = ({ callToAction, children }) => {
         bottom="0"
         p={1.5}
         position="sticky"
+        style={{ paddingTop: 0 }}
       >
         <NavbarFooterLinks />
       </Box>

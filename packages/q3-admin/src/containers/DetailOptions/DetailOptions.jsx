@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, sortBy, size } from 'lodash';
+import { map, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import { useNavigate } from '@reach/router';
 import { Chip } from '@material-ui/core';
@@ -11,10 +11,7 @@ import useStyle from './styles';
 const DetailOptions = ({ registerOptions }) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
-  const options = sortBy(
-    useRegisterActions(registerOptions),
-    'href',
-  ).reverse();
+  const options = useRegisterActions(registerOptions);
   const navigate = useNavigate();
 
   const renderLabel = (option) => (

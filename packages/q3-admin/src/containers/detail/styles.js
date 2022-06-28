@@ -2,9 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   grid: {
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row-reverse',
-    },
+    [theme.breakpoints.up('md')]: {},
     [theme.breakpoints.down('md')]: {
       margin: '0 !important',
       width: '100%',

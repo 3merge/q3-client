@@ -19,7 +19,10 @@ const Login = withPublicTemplate(
       <FormBox
         renderBottom={
           <>
-            <Form onSubmit={authenticate}>
+            <Form
+              submitLabel="login"
+              onSubmit={authenticate}
+            >
               <Field
                 name="email"
                 type="email"

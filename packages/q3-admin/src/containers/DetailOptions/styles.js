@@ -14,6 +14,17 @@ export default makeStyles((theme) => ({
 
   chip: {
     border: 'none',
-    maxWidth: 250,
+    height: 'auto',
+    minHeight: 32,
+    lineHeight: 1,
+    maxWidth: 280,
+
+    '& span': {
+      whiteSpace: 'break-spaces',
+    },
+
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '100%',
+    },
   },
 }));
