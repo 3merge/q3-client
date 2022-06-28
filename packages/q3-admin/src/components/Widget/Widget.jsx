@@ -18,6 +18,7 @@ const Widget = ({ children, title, timeout, ...rest }) => {
   return (
     <Fade in={show} timeout={timeout}>
       <Paper
+        elevation={0}
         style={{ display: show ? undefined : 'none' }}
         {...rest}
       >

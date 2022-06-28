@@ -24,7 +24,7 @@ const ArticleHeightBox = ({ children }) => {
   return (
     <Box ref={useHeightRef()} className={cls.root}>
       <Fade in timeout={500}>
-        <Paper className={cls.paper}>{children}</Paper>
+        <Box className={cls.paper}>{children}</Box>
       </Fade>
     </Box>
   );
