@@ -16,10 +16,10 @@ import baseQ3Theme from '../mui';
 import 'moment/locale/fr';
 import 'moment/locale/en-ca';
 
-const generateTheme = (color) => {
+const generateTheme = (color, type) => {
   if (!isString(color) || !size(color)) return {};
   try {
-    return {
+    const out = {
       palette: {
         primary: {
           main: darken(color, 0.9),
@@ -35,6 +35,10 @@ const generateTheme = (color) => {
         },
       },
     };
+
+    if (type === 'dark')
+      out.palette.secondary.light = darken(color, 0.85);
+    return out;
   } catch (e) {
     return {};
   }
@@ -57,7 +61,7 @@ const Providers = ({
       {(type) => (
         <ThemeProvider
           theme={baseQ3Theme(
-            merge(theme, generateTheme(color)),
+            merge(theme, generateTheme(color, type)),
             type,
             font,
           )}

@@ -22,7 +22,7 @@ export default makeStyles((theme) => ({
     height: 65,
     padding: `0 ${theme.spacing(1)}`,
     width: '100%',
-    zIndex: 1,
+    zIndex: 0,
   },
   paper: {
     borderRadius: 0,
@@ -33,10 +33,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    backgroundColor:
-      theme.palette.type === 'dark'
-        ? theme.palette.background.muted
-        : theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
   },
   buttonLink: {
     '&.active': {

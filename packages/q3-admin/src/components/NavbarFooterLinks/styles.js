@@ -7,6 +7,10 @@ export default makeStyles((theme) => ({
       padding: 0,
     },
 
+    '& a, & button': {
+      color: 'inherit',
+    },
+
     '& [aria-current="page"]': {
       color: theme.palette.secondary.main,
     },

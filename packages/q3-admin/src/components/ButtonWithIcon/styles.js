@@ -23,7 +23,10 @@ export default makeStyles((theme) => ({
 
     if (transparent) {
       out.backgroundColor = 'transparent';
-      out.border = `1px solid ${theme.palette.background.muted}`;
+      out.border =
+        theme.palette.type === 'dark'
+          ? undefined
+          : `1px solid ${theme.palette.background.muted}`;
 
       out[theme.breakpoints.down('md')] = {
         border: 'none',

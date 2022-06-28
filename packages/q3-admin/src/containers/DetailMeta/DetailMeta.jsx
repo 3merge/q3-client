@@ -47,7 +47,11 @@ const DetailMeta = () => {
   };
 
   return (
-    <Grid container justifyContent="flex-start">
+    <Grid
+      className={cls.meta}
+      container
+      justifyContent="flex-start"
+    >
       {renderListItem('createdAt', 'createdBy')}
       {renderListItem('updatedAt', 'lastModifiedBy')}
     </Grid>
