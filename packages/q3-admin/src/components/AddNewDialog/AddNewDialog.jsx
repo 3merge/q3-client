@@ -21,7 +21,7 @@ const AddNewDialog = ({ children }) => {
       renderTrigger={(onClick) => (
         <Box>
           <Hidden mdDown>
-            <Box ml={1} mr={3}>
+            <Box mr={3}>
               <Button
                 color="secondary"
                 onClick={onClick}

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map, pick, invoke } from 'lodash';
+import { map, pick, invoke, isFunction } from 'lodash';
 import { Box, Grid } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
-import DetailActions from '../DetailActions';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
 import DetailAppbar from '../DetailAppbar';
@@ -21,49 +20,17 @@ const Detail = (props) => {
     HeaderProps,
     SummaryComponent,
     children,
+    renderContent,
     views,
     ...rest
   } = props;
 
   const cls = useStyle();
-
   const viewDeps = [
     JSON.stringify(
       map(views, (v) => pick(v, ['label', 'to'])),
     ),
   ];
-
-  const Actions = React.useMemo(
-    () => <DetailActions {...rest} />,
-    [rest.audit, rest.registerActions],
-  );
-
-  const Navigation = React.useMemo(
-    () => <DetailNavigation views={views} />,
-    viewDeps,
-  );
-
-  const Views = React.useMemo(
-    () => <DetailViews {...rest} views={views} />,
-    viewDeps.concat(rest.disablePaper),
-  );
-
-  const Summary = React.useMemo(
-    () => <DetailOptions {...rest} />,
-    [rest.registerOptions],
-  );
-
-  const AppBar = React.useMemo(
-    () => (
-      <DetailAppbar
-        actions={Actions}
-        summary={Summary}
-        {...HeaderProps}
-        {...rest}
-      />
-    ),
-    [HeaderProps, Actions],
-  );
 
   const Alerts = React.useMemo(
     () => (
@@ -72,38 +39,79 @@ const Detail = (props) => {
     [rest.registerAlerts],
   );
 
+  const AppBar = React.useMemo(
+    () => <DetailAppbar {...HeaderProps} {...rest} />,
+    [HeaderProps, rest.audit, rest.registerActions],
+  );
+
+  const Navigation = React.useMemo(
+    () => <DetailNavigation views={views} />,
+    viewDeps,
+  );
+
+  const Summary = React.useMemo(
+    () => (
+      <Widget timeout={500} title="overview">
+        <DetailFeaturedPhoto />
+        {invoke(rest, 'renderSummaryComponent')}
+        <DetailOptions {...rest} />
+      </Widget>
+    ),
+    [rest.registerOptions, rest.renderSummaryComponent],
+  );
+
+  const Views = React.useMemo(
+    () => <DetailViews {...rest} views={views} />,
+    viewDeps.concat(rest.disablePaper),
+  );
+
+  const Details = React.useMemo(
+    () => (
+      <Widget timeout={750} title="details">
+        {Navigation}
+        {Views}
+      </Widget>
+    ),
+    [Navigation, Views],
+  );
+
+  const Meta = <DetailMeta />;
+  const Content = React.useMemo(
+    () => (
+      <>
+        {Alerts}
+        <Grid className={cls.grid} container spacing={1}>
+          <Grid item>{Summary}</Grid>
+          <Grid item xs className={cls.details}>
+            {Details}
+          </Grid>
+        </Grid>
+        <Box py={1.5}>{Meta}</Box>
+      </>
+    ),
+    [Alerts, Details, Meta, Summary],
+  );
+
   return React.useMemo(
     () => (
       <Article>
         <Box height="auto" minHeight="100%">
           {AppBar}
-          {invoke(rest, 'renderUi', props) || (
-            <>
-              {Alerts}
-              <Grid
-                className={cls.grid}
-                container
-                spacing={1}
-              >
-                <Grid item>
-                  <Widget timeout={500} title="overview">
-                    <DetailFeaturedPhoto />
-                    {invoke(rest, 'renderSummaryComponent')}
-                    {Summary}
-                  </Widget>
-                </Grid>
-                <Grid item xs className={cls.details}>
-                  <Widget timeout={750} title="details">
-                    {Navigation}
-                    {Views}
-                  </Widget>
-                </Grid>
-              </Grid>
-              <Box py={1.5}>
-                <DetailMeta />
-              </Box>
-            </>
-          )}
+          {isFunction(renderContent)
+            ? renderContent(
+                Content,
+                {
+                  Alerts,
+                  AppBar,
+                  Details,
+                  Meta,
+                  Navigation,
+                  Summary,
+                  Views,
+                },
+                props,
+              )
+            : Content}
         </Box>
       </Article>
     ),
@@ -121,6 +129,7 @@ Detail.propTypes = {
     PropTypes.array,
     PropTypes.node,
   ]),
+  renderContent: PropTypes.func,
   views: PropTypes.arrayOf(
     PropTypes.shape({
       href: PropTypes.string,
@@ -132,6 +141,7 @@ Detail.propTypes = {
 
 Detail.defaultProps = {
   children: null,
+  renderContent: null,
 };
 
 export default withPageLoading(

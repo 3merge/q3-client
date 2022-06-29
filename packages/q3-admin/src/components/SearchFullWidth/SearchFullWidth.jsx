@@ -20,6 +20,7 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.muted,
     height: 36.5,
     margin: 0,
+    marginRight: theme.spacing(1),
 
     '&:focus-within': {
       'outline-style': 'auto',

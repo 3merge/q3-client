@@ -176,7 +176,9 @@ export default new AbstractCollectionBuilder({
         description: 'Comedy',
       },
     ],
-    renderUi: OptionalUi,
+    renderContent(el) {
+      return el;
+    },
     renderSummaryComponent() {
       return <div>Extra Extra</div>;
     },
