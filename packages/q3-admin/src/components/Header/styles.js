@@ -11,11 +11,9 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-
       '& h1': {
-        textAlign: 'center',
+        paddingLeft: theme.spacing(1),
+        textAlign: 'left',
         width: '100%',
       },
     },

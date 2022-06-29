@@ -9,11 +9,7 @@ export default makeStyles((theme) => ({
 
     '& > div': {
       background: theme.palette.background.default,
-      padding: '0 1.5rem',
-
-      [theme.breakpoints.down('sm')]: {
-        padding: 0,
-      },
+      padding: '0 3vw',
     },
   },
   articleWrapper: {

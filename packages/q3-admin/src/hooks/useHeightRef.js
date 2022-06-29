@@ -25,7 +25,7 @@ const useHeightRef = () => {
     set(
       ref,
       'current.style.height',
-      `calc(100vh - ${parts})`,
+      `calc((100 * var(--vh)) - ${parts})`,
     );
   }, 1);
 

@@ -1,15 +1,12 @@
 import React from 'react';
-import {
-  Box,
-  Fade,
-  Paper,
-  makeStyles,
-} from '@material-ui/core';
+import { Box, Fade, makeStyles } from '@material-ui/core';
 import useHeightRef from '../../hooks/useHeightRef';
 
 const useStyle = makeStyles((theme) => ({
   root: {
-    [theme.breakpoints.up('md')]: {
+    paddingBottom: theme.spacing(2),
+
+    [theme.breakpoints.down('sm')]: {
       paddingBottom: theme.spacing(1),
     },
   },

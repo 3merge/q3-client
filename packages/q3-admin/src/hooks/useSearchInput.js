@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from '@reach/router';
 import { useTranslation } from 'q3-ui-locale';
 import { useValue } from 'useful-state';
-import { compact } from 'lodash';
+import { compact, size } from 'lodash';
 import { useQueryParams } from 'q3-ui-queryparams';
 import { Definitions } from '../containers/state';
 
@@ -86,5 +86,6 @@ export default () => {
     ),
     type: 'text',
     inputRef,
+    inEffect: size(currentSearchValue) > 0,
   };
 };

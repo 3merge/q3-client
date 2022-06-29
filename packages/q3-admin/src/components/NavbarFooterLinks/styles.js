@@ -10,6 +10,7 @@ export default makeStyles((theme) => ({
     '& a, & button': {
       color: 'inherit',
       fontSize: '0.875rem',
+      lineHeight: 1.7,
     },
 
     '& [aria-current="page"]': {

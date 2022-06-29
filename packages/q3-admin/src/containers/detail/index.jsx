@@ -80,8 +80,8 @@ const Detail = (props) => {
     () => (
       <>
         {Alerts}
-        <Grid className={cls.grid} container spacing={1}>
-          <Grid item>{Summary}</Grid>
+        <Grid className={cls.grid} container spacing={0}>
+          {Summary}
           <Grid item xs className={cls.details}>
             {Details}
           </Grid>

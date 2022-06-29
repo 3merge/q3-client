@@ -12,6 +12,7 @@ const Navbar = ({ callToAction, children }) => {
   const NavigationContents = (
     <Box
       display="flex"
+      className={cls.contents}
       flexDirection="column"
       height="100%"
       overflow="auto"

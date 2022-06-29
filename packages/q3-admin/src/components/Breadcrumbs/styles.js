@@ -39,8 +39,7 @@ export default makeStyles((theme) => ({
   wrapper: {
     [theme.breakpoints.down('md')]: {
       paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      justifyContent: 'space-between',
+      // paddingBottom: theme.spacing(1),
     },
   },
 }));

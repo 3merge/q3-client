@@ -179,9 +179,9 @@ export default new AbstractCollectionBuilder({
     renderContent(el) {
       return el;
     },
-    renderSummaryComponent() {
-      return <div>Extra Extra</div>;
-    },
+    // renderSummaryComponent() {
+    //   return <div>Extra Extra</div>;
+    // },
     defineActionProps(state) {
       return {
         uploads:

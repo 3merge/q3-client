@@ -15,6 +15,7 @@ import ButtonWithIcon from '../ButtonWithIcon';
 export const SearchMobile = ({
   handleReset,
   value,
+  inEffect,
   ...rest
 }) => {
   const { close, toggle, state } = useToggle();
@@ -23,6 +24,7 @@ export const SearchMobile = ({
   return (
     <Box textAlign="right">
       <ButtonWithIcon
+        on={inEffect}
         label="search"
         icon={SearchIcon}
         onClick={toggle}
@@ -49,9 +51,14 @@ export const SearchMobile = ({
   );
 };
 
+SearchMobile.defaultProps = {
+  inEffect: false,
+};
+
 SearchMobile.propTypes = {
   handleReset: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  inEffect: PropTypes.bool,
 };
 
 export default SearchMobile;

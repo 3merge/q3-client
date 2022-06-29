@@ -55,4 +55,9 @@ export default makeStyles((theme) => ({
     fontSize: theme.typography.body1.fontSize,
     textTransform: 'none',
   },
+  contents: {
+    [theme.breakpoints.down('md')]: {
+      margin: '-1.5rem',
+    },
+  },
 }));
