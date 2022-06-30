@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.9](https://github.com/3merge/q/compare/v3.6.8...v3.6.9) (2022-06-30)
+
+
+### Bug Fixes
+
+* translate ui selector ([4487cc0](https://github.com/3merge/q/commit/4487cc08be58fc98c5def3a58c57df1de189da9e))
+
+
+
+
+
 ## [3.6.8](https://github.com/3merge/q/compare/v3.6.7...v3.6.8) (2022-06-30)
 
 
