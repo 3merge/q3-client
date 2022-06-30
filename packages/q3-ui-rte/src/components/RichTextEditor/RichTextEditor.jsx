@@ -124,9 +124,7 @@ const RichTextEditor = React.forwardRef(
           component="div"
         >
           {children}
-          <Toolbar options={mobileOptions}>
-            <ToolbarMobileDrawer options={mobileOptions} />
-          </Toolbar>
+          <Toolbar options={mobileOptions} />
         </AppBar>
         <Box className={cls.root}>
           <Box id={ids.root} height="100%" width="100%">

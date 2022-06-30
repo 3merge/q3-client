@@ -11,6 +11,7 @@ import {
 import { Link as ReachLink } from 'gatsby';
 import { useTranslation } from 'q3-ui-locale';
 import { isString } from 'lodash';
+import BackgroundStyle from 'q3-admin/lib/components/BackgroundStyle';
 import AdminPublicGateway from './AdminPublicGateway';
 import useSiteMetaData from './useSiteMetaData';
 
@@ -101,6 +102,7 @@ const PublicTemplate = ({ children, ...rest }) => {
 
   return (
     <AdminPublicGateway {...rest}>
+      <BackgroundStyle />
       <Box
         alignItems="center"
         component="article"

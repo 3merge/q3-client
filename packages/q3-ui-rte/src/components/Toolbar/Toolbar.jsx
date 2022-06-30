@@ -3,7 +3,6 @@ import {
   ButtonGroup,
   Grid,
   Divider,
-  Hidden,
 } from '@material-ui/core';
 import { groupBy, map } from 'lodash';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
@@ -14,7 +13,13 @@ import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ToolbarButton from '../ToolbarButton';
 
 const RichTextEditor = ({ children, options }) => (
-  <Grid container>
+  <Grid
+    container
+    style={{
+      flexWrap: 'nowrap',
+      overflow: 'auto',
+    }}
+  >
     <Grid item>
       <ButtonGroup>
         <ToolbarButton quillKey="header" value="2">
@@ -37,33 +42,29 @@ const RichTextEditor = ({ children, options }) => (
     {Object.values(groupBy(options, 'group')).map(
       (buttons) => (
         <>
-          <Hidden smDown>
-            <Divider
-              orientation="vertical"
-              style={{ margin: '0 1rem' }}
-              flexItem
-            />
-          </Hidden>
+          <Divider
+            orientation="vertical"
+            style={{ margin: '0 1rem' }}
+            flexItem
+          />
           <Grid item>
-            <Hidden smDown implementation="css">
-              <ButtonGroup>
-                {map(
-                  buttons,
-                  ({
-                    component: Component,
-                    icon: Icon,
-                    ...button
-                  }) =>
-                    Component ? (
-                      <Component {...button} />
-                    ) : (
-                      <ToolbarButton {...button}>
-                        <Icon />
-                      </ToolbarButton>
-                    ),
-                )}
-              </ButtonGroup>
-            </Hidden>
+            <ButtonGroup>
+              {map(
+                buttons,
+                ({
+                  component: Component,
+                  icon: Icon,
+                  ...button
+                }) =>
+                  Component ? (
+                    <Component {...button} />
+                  ) : (
+                    <ToolbarButton {...button}>
+                      <Icon />
+                    </ToolbarButton>
+                  ),
+              )}
+            </ButtonGroup>
           </Grid>
         </>
       ),
