@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.8](https://github.com/3merge/q/compare/v3.6.7...v3.6.8) (2022-06-30)
+
+
+### Bug Fixes
+
+* rte overflow buttons ([3efdab9](https://github.com/3merge/q/commit/3efdab93af5e240663868475bf1ed7763b0cd216))
+
+
+
+
+
 ## [3.4.16](https://github.com/3merge/q/compare/v3.4.15...v3.4.16) (2022-04-28)
 
 **Note:** Version bump only for package q3-ui-rte

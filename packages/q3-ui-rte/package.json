@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-rte",
-  "version": "3.4.16",
+  "version": "3.6.8",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
