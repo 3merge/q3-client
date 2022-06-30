@@ -173,6 +173,9 @@
       "auditUser": "Although this field displays only user who've modified this resource, not all users have modified all fields. Therefore, this might commonly lead to no results."
     },
     "labels": {
+      "create": "Add new",
+      "table": "Table",
+      "calendar": "Cal",
       "onNewDevice": "On new device",
       "add": "Add",
       "delete": "Delete",
@@ -672,7 +675,9 @@
       "notes": "Notes",
       "uploads": "Uploads",
       "files": "Files",
-      "menu": "Menu"
+      "menu": "Menu",
+      "table": "Table",
+      "calendar": "Cal"
     }
   },
   "supportedLngs": ["en", "fr"],

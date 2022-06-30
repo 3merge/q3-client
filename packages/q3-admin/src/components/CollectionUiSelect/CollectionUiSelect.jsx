@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import { find, size } from 'lodash';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Tooltip from '@material-ui/core/Tooltip';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import Button from '@material-ui/core/Button';
+import { useTranslation } from 'q3-ui-locale';
 import useSegmentsActive from '../../hooks/useSegmentsActive';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
 import useStyle from './styles';
@@ -16,6 +16,7 @@ const CollectionUiSelect = ({ uis }) => {
   const s = useSegmentsActive();
   const { change } = useCollectionUiLocalStorage([]);
   const cls = useStyle();
+  const { t } = useTranslation('labels');
 
   const to =
     find(s.segments, (seg) => seg.label === s.active)
@@ -47,7 +48,7 @@ const CollectionUiSelect = ({ uis }) => {
 
             return (
               <Button
-                aria-label={ui.label}
+                aria-label={t(ui.label)}
                 className={cls.button}
                 component={Link}
                 key={ui.label}
@@ -56,7 +57,7 @@ const CollectionUiSelect = ({ uis }) => {
                 startIcon={<Icon />}
                 to={to}
               >
-                {ui.label}
+                {t(ui.label)}
               </Button>
             );
           })}
