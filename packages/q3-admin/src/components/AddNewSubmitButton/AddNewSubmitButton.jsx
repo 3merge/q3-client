@@ -10,10 +10,12 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { isEqual } from 'lodash';
 import { useOpen } from 'useful-state';
 import { useAllowSubmit } from 'q3-ui-forms/lib/hooks';
+import { useTranslation } from 'q3-ui-locale';
 
 const AddNewSubmitButton = ({ options, setOptions }) => {
   const { anchorEl, isOpen, open, close } = useOpen();
   const isSubmittable = useAllowSubmit();
+  const { t } = useTranslation('labels');
 
   const menuItems = [
     {
@@ -44,7 +46,7 @@ const AddNewSubmitButton = ({ options, setOptions }) => {
       },
     },
   ].map((item) => ({
-    label: item.label,
+    label: t(item.label),
     selected: isEqual(item.state, options),
     onClick(e) {
       e.preventDefault();

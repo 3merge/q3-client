@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: 0,
     paddingRight: 0,
+    position: 'relative',
 
     [theme.breakpoints.up('lg')]: {
       paddingTop: theme.spacing(3),

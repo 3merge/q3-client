@@ -18,5 +18,7 @@ export default makeStyles((theme) => ({
       display: 'block',
     },
   },
-  section: {},
+  section: {
+    background: theme.palette.background.default,
+  },
 }));

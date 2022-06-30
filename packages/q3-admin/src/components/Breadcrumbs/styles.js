@@ -11,8 +11,8 @@ export default makeStyles((theme) => ({
       flexWrap: 'nowrap',
     },
 
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 0,
     },
   },
   font: {
@@ -39,7 +39,7 @@ export default makeStyles((theme) => ({
   wrapper: {
     [theme.breakpoints.down('md')]: {
       paddingTop: theme.spacing(1),
-      // paddingBottom: theme.spacing(1),
+      paddingBottom: theme.spacing(0.5),
     },
   },
 }));

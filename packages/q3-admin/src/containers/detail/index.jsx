@@ -80,7 +80,12 @@ const Detail = (props) => {
     () => (
       <>
         {Alerts}
-        <Grid className={cls.grid} container spacing={0}>
+        <Grid
+          alignItems="flex-start"
+          className={cls.grid}
+          container
+          spacing={0}
+        >
           {Summary}
           <Grid item xs className={cls.details}>
             {Details}
