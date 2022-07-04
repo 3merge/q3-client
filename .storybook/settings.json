@@ -676,5 +676,6 @@
     }
   },
   "supportedLngs": ["en", "fr"],
-  "title": "Q3"
+  "title": "Q3",
+  "color": "#7e489a"
 }

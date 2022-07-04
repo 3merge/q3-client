@@ -6,22 +6,20 @@ export default makeStyles((theme) => ({
     display: 'flex',
     height: 75,
     maxHeight: 75,
-    width: 'auto',
-    padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
+    width: 290,
     justifyContent: 'center',
+    padding: theme.spacing(0.5),
 
     [theme.breakpoints.down('lg')]: {
       alignItems: 'center',
       display: 'flex',
-      maxWidth: '30vw',
     },
 
     [theme.breakpoints.down('md')]: {
       height: 65,
       maxHeight: 65,
-      maxWidth: '30vw',
-      padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
       justifyContent: 'flex-start',
+      width: 250,
     },
   },
   img: ({ invertLogo }) => ({
@@ -29,7 +27,13 @@ export default makeStyles((theme) => ({
       invertLogo && theme.palette.type === 'dark'
         ? 'invert(1) grayscale(100%)'
         : undefined,
-    maxHeight: '100%',
-    maxWidth: '100%',
+    objectFit: 'contain',
+    objectPosition: 'center',
+    height: '100%',
+    width: '100%',
+
+    [theme.breakpoints.down('md')]: {
+      objectPosition: 'left',
+    },
   }),
 }));

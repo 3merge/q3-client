@@ -3,7 +3,7 @@
   "description": "Sample Q3 setup json",
   "favicon": "https://avatars.githubusercontent.com/u/12897090?s=200&v=4",
   "lng": "en",
-  "logo": "https://uploads-ssl.webflow.com/5f620c85bd4f6828cc8f637b/5f620cd411cb5e449a1db5cb_combined_logo_2-p-500.png",
+  "logo": "https://uilogos.co/img/logomark/nira.png",
   "name": "Q3",
   "invertLogo": true,
   "resources": {
@@ -684,5 +684,6 @@
   "title": "Q3",
   "listeners": {
     "Developer": ["onNewDevice"]
-  }
+  },
+  "color": "#7e489a"
 }
