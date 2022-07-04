@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
     '& .ql-toolbar': {
       boxShadow: 'none',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.23)',
+      borderBottom: `1px solid ${theme.palette.background.muted}`,
     },
   },
 }));

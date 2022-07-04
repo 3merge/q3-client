@@ -6,6 +6,7 @@ export { default as useCheckedStateRequirement } from './useCheckedStateRequirem
 export { default as useDomain } from './useDomain';
 export { default as useDomainAuth } from './useDomainAuth';
 export { default as useRegisterActions } from './useRegisterActions';
+export { default as useMultiselect } from './useMultiselect';
 export { default as useNotifications } from './useNotifications';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';

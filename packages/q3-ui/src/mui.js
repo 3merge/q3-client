@@ -1,6 +1,8 @@
 import {
   createMuiTheme,
   responsiveFontSizes,
+  alpha,
+  darken,
 } from '@material-ui/core/styles';
 import * as colors from '@material-ui/core/colors';
 import { merge } from 'lodash';
@@ -121,8 +123,13 @@ export default (customThemeDefs, type, font = 'Nunito') => {
                   '--color-default': '#fff',
                 }
               : {
-                  '--background-muted':
-                    'rgba(30, 20, 52, 0.08)',
+                  '--background-muted': alpha(
+                    darken(
+                      theme.palette.secondary.main,
+                      0.65,
+                    ),
+                    0.09,
+                  ),
                   '--color-default': 'rgba(0, 0, 0, 0.87)',
                 },
           body: {
@@ -437,7 +444,11 @@ export default (customThemeDefs, type, font = 'Nunito') => {
           margin: '0 !important',
         },
       },
-
+      MuiOutlinedInput: {
+        notchedOutline: {
+          borderColor: 'var(--background-muted)',
+        },
+      },
       MuiCard: {
         root: {
           transitionDuration: '500ms',
