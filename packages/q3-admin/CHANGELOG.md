@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.6.11](https://github.com/3merge/q/compare/v3.6.10...v3.6.11) (2022-07-05)
+
+
+### Bug Fixes
+
+* file manager directories and errand console ([1935d22](https://github.com/3merge/q/commit/1935d22e0dc414d98273125b2904aa91214653e4))
+
+
+
+
+
 ## [3.6.10](https://github.com/3merge/q/compare/v3.6.9...v3.6.10) (2022-07-05)
 
 **Note:** Version bump only for package q3-admin
