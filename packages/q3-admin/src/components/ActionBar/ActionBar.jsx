@@ -8,6 +8,7 @@ import {
   Grow,
   Divider,
 } from '@material-ui/core';
+import { size } from 'lodash';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useOpen } from 'useful-state';
 import CheckIcon from '@material-ui/icons/Check';
@@ -21,7 +22,7 @@ const Actionbar = ({ children }) => {
   const { close, isOpen, open } = useOpen();
   const [links, setLinks] = React.useState([]);
 
-  const toggleLinks = (e) => {
+  const toggleLinks = () => {
     setLinks(
       ref.current
         ? Array.from(
@@ -34,9 +35,11 @@ const Actionbar = ({ children }) => {
           }))
         : [],
     );
-
-    open(e);
   };
+
+  React.useEffect(() => {
+    toggleLinks();
+  }, []);
 
   return (
     <>
@@ -69,7 +72,7 @@ const Actionbar = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      <Grow in>
+      <Grow in={size(links)}>
         <Box
           position="fixed"
           top={0}
@@ -80,7 +83,7 @@ const Actionbar = ({ children }) => {
           mr={1.5}
         >
           <ButtonWithIcon
-            onClick={toggleLinks}
+            onClick={open}
             transparent
             icon={MoreVertIcon}
             label="actions"

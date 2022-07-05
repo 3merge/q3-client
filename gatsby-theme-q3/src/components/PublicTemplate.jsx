@@ -18,9 +18,16 @@ import useSiteMetaData from './useSiteMetaData';
 const useStyle = makeStyles((theme) => ({
   logo: ({ invertLogo = false }) => {
     const output = {
-      height: 95,
-      width: 180,
+      height: 75,
+      maxHeight: 75,
+      width: 290,
       display: 'block',
+
+      [theme.breakpoints.down('md')]: {
+        height: 65,
+        maxHeight: 65,
+        width: 250,
+      },
 
       '& img': {
         objectFit: 'contain',

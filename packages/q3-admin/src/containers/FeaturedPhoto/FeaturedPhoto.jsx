@@ -7,7 +7,6 @@ import { useCanEditField } from '../../hooks';
 const useStyle = makeStyles((theme) => ({
   picture: {
     height: 250,
-    margin: 'auto',
     width: 250,
 
     [theme.breakpoints.down('sm')]: {
@@ -42,6 +41,8 @@ const FeaturedPhoto = ({
     },
     [isFeaturedPhotoImplementation],
   );
+
+  console.log(field, useCanEditField(field));
 
   return (
     <Component

@@ -4,6 +4,7 @@ import useHeightRef from '../../hooks/useHeightRef';
 
 const useStyle = makeStyles((theme) => ({
   root: {
+    minHeight: 400,
     paddingBottom: theme.spacing(2),
 
     [theme.breakpoints.down('sm')]: {

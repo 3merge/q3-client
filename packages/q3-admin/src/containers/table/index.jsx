@@ -5,7 +5,11 @@ import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
 import ArticleHeightBox from '../../components/ArticleHeightBox';
 import { Dispatcher, Definitions, Store } from '../state';
-import { useRefresh, useSortPreference } from '../../hooks';
+import {
+  useRefresh,
+  useSortPreference,
+  useMultiselect,
+} from '../../hooks';
 import withPageLoading from '../../helpers/withPageLoading';
 import TableTrash from '../TableTrash';
 import useStyle from './styles';
@@ -96,9 +100,12 @@ const List = (props) => {
     props?.defaultSortPreference,
   );
 
+  const multiselect = useMultiselect(props);
+
   return (
     <ArticleHeightBox>
       <Table
+        disableMultiselect={!multiselect}
         {...decorator.build()}
         blacklistColumns={decorator.makeBlacklist(
           canSeeSub,
