@@ -42,8 +42,6 @@ const FeaturedPhoto = ({
     [isFeaturedPhotoImplementation],
   );
 
-  console.log(field, useCanEditField(field));
-
   return (
     <Component
       src={src}

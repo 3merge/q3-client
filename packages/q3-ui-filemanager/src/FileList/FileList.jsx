@@ -114,7 +114,10 @@ const FileList = ({
         )}
       </Drop>
     ) : (
-      <Box mt={1}>{map(listItems, renderFile)}</Box>
+      <Box mt={1}>
+        {children}
+        {map(listItems, renderFile)}
+      </Box>
     );
 
   return (
