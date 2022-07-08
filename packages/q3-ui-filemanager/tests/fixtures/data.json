@@ -1,0 +1,22 @@
+{
+  "uploads": [
+    {
+      "name": "12897090 (3) (2).jpg",
+      "sensitive": true,
+      "relativePath": "pos/12897090 (3) (2).jpg",
+      "createdAt": "2022-07-07T19:02:58.281Z",
+      "updatedAt": "2022-07-07T19:02:58.281Z",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c72c1fc2af12ff9e4ce214/12897090%20%283%29%20%282%29.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220708%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220708T133219Z&X-Amz-Expires=86400&X-Amz-Signature=3396cb5f73856d5e7b81e53e213510d77466e716769efea371153a8e9b9e730e&X-Amz-SignedHeaders=host",
+      "id": "62c72de2c2af12ff9e4ce501"
+    },
+    {
+      "name": "UES Document Scanning (3).pdf",
+      "sensitive": true,
+      "relativePath": "scale/UES Document Scanning (3).pdf",
+      "createdAt": "2022-07-07T19:04:05.993Z",
+      "updatedAt": "2022-07-07T19:04:05.993Z",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c72c1fc2af12ff9e4ce214/UES%20Document%20Scanning%20%283%29.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220708%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220708T133219Z&X-Amz-Expires=86400&X-Amz-Signature=80ac0b016d24e44eec89c9c0157ae0e8aa3d26428b5540a5788238f2fd88d634&X-Amz-SignedHeaders=host",
+      "id": "62c72e25c2af12ff9e4ce52f"
+    }
+  ]
+}

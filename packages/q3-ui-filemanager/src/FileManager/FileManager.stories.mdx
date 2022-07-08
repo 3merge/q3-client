@@ -1,0 +1,42 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import FileManager from './FileManager';
+import Fixtures from '../../tests/fixtures';
+
+<Meta
+  title="File Manager/FileManager"
+  component={FileManager}
+/>
+
+# FileManager
+
+<Preview>
+  <Story name="Fetching">
+    <Fixtures delay={60000} ops={['Read']}>
+      <FileManager />
+    </Fixtures>
+  </Story>
+  <Story name="Fetching Error">
+    <Fixtures onGetError ops={['Read']}>
+      <FileManager />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error">
+    <Fixtures>
+      <FileManager />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error (via props)">
+    <Fixtures ops={['Read']}>
+      <FileManager canSee={false} />
+    </Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={FileManager} />
