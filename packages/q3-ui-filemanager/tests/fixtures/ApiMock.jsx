@@ -3,8 +3,6 @@ import Rest from 'q3-ui-test-utils/lib/rest';
 import data from './data.json';
 import { collectionName, id } from './meta.json';
 
-const BASE_API_PATH = `${collectionName}\\/${id}\\/uploads`;
-
 const useMockData =
   (args = {}) =>
   (mockApiInstance) => {
@@ -31,6 +29,36 @@ const useMockData =
         uploads: dataSource,
       });
 
+    mockApiInstance
+      .onPost(makeEndpoint())
+      .reply(async (req) => {
+        const currentState = [...dataSource];
+        // eslint-disable-next-line
+        for (const pair of req.data.entries()) {
+          const [relativePath, file] = pair;
+          currentState.push({
+            name: file.name,
+            relativePath,
+            updatedAt: new Date(
+              file.lastModifiedDate,
+            ).toISOString(),
+            size: file.size,
+          });
+        }
+
+        setDataSource(currentState);
+        return new Promise((r) => {
+          setTimeout(() => {
+            r([
+              201,
+              {
+                uploads: currentState,
+              },
+            ]);
+          }, 5000);
+        });
+      });
+
     // mockApiInstance
     //   .onDelete(new RegExp(`${BASE_API_PATH}\\/\\d+`))
     //   .reply(({ data: op }) => {
@@ -39,19 +67,6 @@ const useMockData =
 
     //     return [
     //       200,
-    //       {
-    //         uploads: dataSource,
-    //       },
-    //     ];
-    //   });
-
-    // mockApiInstance
-    //   .onPost(new RegExp(`${BASE_API_PATH}\\/uploads`))
-    //   .reply(({ data: payload }) => {
-    //     console.log(payload.entries());
-
-    //     return [
-    //       201,
     //       {
     //         uploads: dataSource,
     //       },

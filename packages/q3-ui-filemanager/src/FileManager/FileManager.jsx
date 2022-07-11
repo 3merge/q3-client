@@ -5,6 +5,7 @@ import { object } from 'q3-ui-helpers';
 import { delay } from 'lodash';
 import AlertAuthError from '../AlertAuthError';
 import AlertFetchingError from '../AlertFetchingError';
+import Directory from '../Directory';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 import FileManagerContext from '../FileManagerContext';
 import useUploads from '../useUploads';
@@ -29,11 +30,11 @@ const FileManager = ({ collectionName, id, ...rest }) => {
   if (fetchingError) return <AlertFetchingError />;
 
   return (
-    <FileManagerAuthContext value={auth}>
+    <FileManagerAuthContext.Provider value={auth}>
       <FileManagerContext.Provider value={uploadState}>
-        <div>Components</div>
+        <Directory />
       </FileManagerContext.Provider>
-    </FileManagerAuthContext>
+    </FileManagerAuthContext.Provider>
   );
 };
 
@@ -42,6 +43,7 @@ FileManager.defaultProps = {
   canDelete: true,
   canEdit: true,
   canSee: true,
+  initialView: 'list',
 };
 
 FileManager.propTypes = {
@@ -55,6 +57,7 @@ FileManager.propTypes = {
   canDelete: PropTypes.bool,
   canEdit: PropTypes.bool,
   canSee: PropTypes.bool,
+  initialView: PropTypes.string,
 };
 
 export default FileManager;

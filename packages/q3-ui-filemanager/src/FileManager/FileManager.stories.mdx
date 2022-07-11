@@ -35,6 +35,11 @@ import Fixtures from '../../tests/fixtures';
       <FileManager canSee={false} />
     </Fixtures>
   </Story>
+  <Story name="List">
+    <Fixtures ops={['Read', 'Create', 'Delete', 'Update']}>
+      <FileManager initialView="list" />
+    </Fixtures>
+  </Story>
 </Preview>
 
 ## API

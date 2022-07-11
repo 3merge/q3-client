@@ -1,0 +1,47 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Box from '@material-ui/core/Box';
+import GalleryItemMediaIcon from './GalleryItemMediaIcon';
+
+<Meta
+  title="File Manager/GalleryItemMediaIcon"
+  component={GalleryItemMediaIcon}
+/>
+
+# GalleryItemMediaIcon
+
+<Preview>
+  <Story name="All">
+    {[
+      'JPEG',
+      'JPG',
+      'PNG',
+      'GIF',
+      'TIFF',
+      'SVG',
+      'CSV',
+      'PDF',
+      'MD',
+    ].map((fileType) => (
+      <Box
+        display="inline-block"
+        key={fileType}
+        position="relative"
+        height={250}
+        width={250}
+      >
+        <GalleryItemMediaIcon
+          url={`https://hosted.me/placeholder.${fileType.toLowerCase()}`}
+        />
+      </Box>
+    ))}
+  </Story>
+</Preview>
+
+## API
+
+<Props of={GalleryItemMediaIcon} />
