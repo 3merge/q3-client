@@ -47,7 +47,7 @@ const DirectoryBreadcrumbs = ({ current, setCurrent }) => {
             <ArrowBackIosIcon />
           </IconButton>,
         )}
-        <h2>{t('files')}</h2>
+        <h2>{t('uploads')}</h2>
         {renderWhenHistoryHasSize(
           <Box alignItems="center" display="flex" ml={2}>
             <Breadcrumbs aria-label="breadcrumb">

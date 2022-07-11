@@ -11,7 +11,6 @@ import withFileIcon from '../withFileIcon';
 
 const GalleryItem = ({
   icon: Icon,
-  iconColor,
   name,
   onClick,
   onContextMenu,
@@ -33,7 +32,7 @@ const GalleryItem = ({
             whiteSpace: 'nowrap',
           }}
         >
-          <Icon style={{ color: iconColor }} /> {name}
+          <Icon /> {name}
         </Typography>
       </CardContent>
     </CardActionArea>
@@ -41,6 +40,11 @@ const GalleryItem = ({
 );
 
 GalleryItem.propTypes = {
+  icon: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+    PropTypes.func,
+  ]).isRequired,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

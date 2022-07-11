@@ -9,11 +9,9 @@ import {
 import withFileIcon from '../withFileIcon';
 import useStyle from './styles';
 
-const GalleryItemFolderIcon = React.memo(
+export const GalleryItemFolderIcon = React.memo(
   // eslint-disable-next-line
-  withFileIcon(({ icon: Icon, iconColor }) => (
-    <Icon style={{ color: iconColor }} />
-  )),
+  withFileIcon(({ icon: Icon }) => <Icon />),
 );
 
 const GalleryItemFolder = ({ name, onClick }) => {

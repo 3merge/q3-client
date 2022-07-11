@@ -1,5 +1,5 @@
 import React from 'react';
-import { compact, get, omit, last } from 'lodash';
+import { compact, get, omit, last, reduce } from 'lodash';
 import { map } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -17,6 +17,24 @@ import DropZoneWrapper from '../DropZoneWrapper';
 import DropZoneInputWrapper from '../DropZoneInputWrapper';
 import { makePrivateKey } from '../utils';
 import DocumentViewer from '../DocumentViewer';
+
+const maxUpdatedAtContents = (contents = []) =>
+  Math.max(
+    ...map(
+      compact(map(contents, 'updatedAt')),
+      (value) => new Date(value),
+    ),
+  );
+
+const sumContents = (contents = []) =>
+  reduce(
+    contents,
+    (acc, curr) => {
+      const n = Number(curr.size);
+      return acc + Number.isNaN(n) ? 0 : n;
+    },
+    0,
+  );
 
 const Directory = () => {
   const directories = useUploadsDirectories();
@@ -48,6 +66,11 @@ const Directory = () => {
     [current],
   );
 
+  const makeClickHandler = (func, nextValue) => (e) => {
+    e.preventDefault();
+    func(nextValue);
+  };
+
   const state = React.useMemo(() => {
     const folderId = makePrivateKey(
       current ? last(current.split('.')) : null,
@@ -60,19 +83,23 @@ const Directory = () => {
     return {
       files: map(get(a, folderId, []), (file) => ({
         ...file,
-        onClick: () => {
-          setViewer(file);
-        },
-        // on right click, delete or rename or move to
+        onClick: makeClickHandler(setViewer, file),
       })),
-      siblings: Object.keys(omit(a, [folderId])).map(
-        (item) => ({
-          name: item,
-          onClick: () => setCurrent(item),
-          // size (get sum)
-          // date (get max)
-          // on right click, renames ALL individual files...
-        }),
+      siblings: Object.entries(omit(a, [folderId])).map(
+        ([key, value]) => {
+          const contents = get(
+            value,
+            makePrivateKey(key),
+            [],
+          );
+
+          return {
+            name: key,
+            size: sumContents(contents),
+            updatedAt: maxUpdatedAtContents(contents),
+            onClick: makeClickHandler(setCurrent, key),
+          };
+        },
       ),
     };
   }, [directories, current]);

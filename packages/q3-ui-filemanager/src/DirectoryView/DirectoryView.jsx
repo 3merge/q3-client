@@ -4,15 +4,21 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import { browser } from 'q3-ui-helpers';
 import Gallery from '../Gallery';
 import List from '../List';
 
 const DirectoryView = ({ children, defaultView }) => {
-  const [view, setView] = React.useState(defaultView);
+  const key = 'q3-filemanager-view';
+  const [view, setView] = React.useState(
+    browser.proxyLocalStorageApi('getItem', key) ||
+      defaultView,
+  );
 
   const handleViewChange = (e, newView) => {
     e.preventDefault();
     e.stopPropagation();
+    browser.proxyLocalStorageApi('setItem', key, newView);
     setView(newView);
   };
 

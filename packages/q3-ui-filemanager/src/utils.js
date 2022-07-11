@@ -40,3 +40,6 @@ export const getFileType = (url) => {
 
 export const makePrivateKey = (str = undefined) =>
   `__${String(str || null)}__`;
+
+export const toMbs = (bytes = 0) =>
+  `${Number(bytes / 1024 ** 2).toFixed(2)}mbs`;

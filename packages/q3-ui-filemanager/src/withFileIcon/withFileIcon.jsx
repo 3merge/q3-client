@@ -68,8 +68,18 @@ const withFileIcon = (Component) => {
     );
 
     const El = React.useMemo(
-      () => get(iconMap, fileType, DescriptionIcon),
-      [fileType],
+      // eslint-disable-next-line
+      () => (elementProps) =>
+        React.createElement(
+          get(iconMap, fileType, DescriptionIcon),
+          {
+            style: {
+              color: iconColor,
+            },
+            ...elementProps,
+          },
+        ),
+      [iconColor, fileType],
     );
 
     return (

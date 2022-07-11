@@ -10,6 +10,7 @@ import {
 import { useTranslation } from 'q3-ui-locale';
 import GalleryItem from '../GalleryItem';
 import GalleryItemFolder from '../GalleryItemFolder';
+import withAlertNoFiles from '../withAlertNoFiles';
 
 const Gallery = ({ files, siblings }) => {
   const { t } = useTranslation('titles');
@@ -41,11 +42,6 @@ const Gallery = ({ files, siblings }) => {
     <Container>
       {renderGrid(siblings, 'folders', GalleryItemFolder)}
       {renderGrid(files, 'files', GalleryItem)}
-      {!size(files) && !size(siblings) && (
-        <Typography>
-          {t('descriptions:noFilesToDisplay')}
-        </Typography>
-      )}
     </Container>
   );
 };
@@ -56,8 +52,16 @@ Gallery.defaultProps = {
 };
 
 Gallery.propTypes = {
-  files: PropTypes.arrayOf(PropTypes.shape({})),
-  siblings: PropTypes.arrayOf(PropTypes.shape({})),
+  files: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+  ),
+  siblings: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+  ),
 };
 
-export default Gallery;
+export default withAlertNoFiles(Gallery);

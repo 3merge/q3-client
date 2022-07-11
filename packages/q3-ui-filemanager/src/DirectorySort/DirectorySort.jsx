@@ -13,14 +13,23 @@ import CheckIcon from '@material-ui/icons/Check';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import SortIcon from '@material-ui/icons/Sort';
+import { browser } from 'q3-ui-helpers';
 
 const DirectorySort = ({ files, siblings, children }) => {
   const { anchorEl, close, isOpen, open } = useOpen();
   const { t } = useTranslation();
 
+  const getKey = (k) => `q3-filemanager-sort-${k}`;
+  const getFromLocalStorage = (k, defaultValue) =>
+    browser.proxyLocalStorageApi('getItem', getKey(k)) ||
+    defaultValue;
+
   const [state, setState] = React.useState({
-    property: 'relativePath',
-    sort: 'asc',
+    property: getFromLocalStorage(
+      'property',
+      'relativePath',
+    ),
+    sort: getFromLocalStorage('sort', 'asc'),
   });
 
   const sort = (xs) =>
@@ -41,6 +50,12 @@ const DirectorySort = ({ files, siblings, children }) => {
           ...prevState,
           [stateKey]: value,
         }));
+
+        browser.proxyLocalStorageApi(
+          'setItem',
+          getKey(stateKey),
+          value,
+        );
 
         close(e);
       }}
