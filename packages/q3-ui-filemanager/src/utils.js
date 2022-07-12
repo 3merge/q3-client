@@ -43,3 +43,13 @@ export const makePrivateKey = (str = undefined) =>
 
 export const toMbs = (bytes = 0) =>
   `${Number(bytes / 1024 ** 2).toFixed(2)}mbs`;
+
+export const sanitize = (s) => {
+  if (!isString(s)) return undefined;
+  const punctuationless = s.replace(
+    /[.,/#!$%^&*;:{}=\-_`~()]/g,
+    '',
+  );
+
+  return punctuationless.replace(/\s{2,}/g, ' ');
+};

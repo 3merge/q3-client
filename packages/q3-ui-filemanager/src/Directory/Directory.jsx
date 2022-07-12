@@ -1,12 +1,14 @@
 import React from 'react';
 import { compact, get, omit, last, reduce } from 'lodash';
-import { map } from 'lodash';
+import { map, set, merge } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Container from '@material-ui/core/Container';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import { useTranslation } from 'q3-ui-locale';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
 import useDropZoneAcceptedFiles from '../useDropZoneAcceptedFiles';
 import useUploadsDirectories from '../useUploadsDirectories';
 import DirectoryBreadcrumbs from '../DirectoryBreadcrumbs';
@@ -17,6 +19,9 @@ import DropZoneWrapper from '../DropZoneWrapper';
 import DropZoneInputWrapper from '../DropZoneInputWrapper';
 import { makePrivateKey } from '../utils';
 import DocumentViewer from '../DocumentViewer';
+import DragHandlerPreview from '../DragHandlerPreview';
+import DragToSelect from '../DragToSelect';
+import { sanitize } from '../utils';
 
 const maxUpdatedAtContents = (contents = []) =>
   Math.max(
@@ -37,7 +42,10 @@ const sumContents = (contents = []) =>
   );
 
 const Directory = () => {
+  const [temporaryFolders, setTemporaryFolders] =
+    React.useState({});
   const directories = useUploadsDirectories();
+
   const [view, setViewer] = React.useState();
   const [current, setCurrentState] = React.useState(null);
   const { t } = useTranslation('labels');
@@ -48,17 +56,21 @@ const Directory = () => {
     );
 
   const addFolder = () => {
-    // eslint-disable-next-line
-    const name = prompt('Name');
+    const name = sanitize(
+      // eslint-disable-next-line
+      prompt(t('descriptions:enterFolderName')),
+    );
 
-    if (name.includes('.')) {
-      alert('Cannot contain punctionation');
-      return;
-    }
-
-    if (name) {
-      joinWithCurrentState(name);
-    }
+    if (name)
+      setTemporaryFolders((prevState) =>
+        set(
+          { ...prevState },
+          compact([current, `${name}.__${name}__`]).join(
+            '.',
+          ),
+          [],
+        ),
+      );
   };
 
   const setCurrent = React.useCallback(
@@ -68,6 +80,7 @@ const Directory = () => {
 
   const makeClickHandler = (func, nextValue) => (e) => {
     e.preventDefault();
+    e.stopPropagation();
     func(nextValue);
   };
 
@@ -76,9 +89,15 @@ const Directory = () => {
       current ? last(current.split('.')) : null,
     );
 
+    const modifiedDirectories = merge(
+      {},
+      temporaryFolders,
+      directories,
+    );
+
     const a = current
-      ? get(directories, current, {})
-      : directories;
+      ? get(modifiedDirectories, current, {})
+      : modifiedDirectories;
 
     return {
       files: map(get(a, folderId, []), (file) => ({
@@ -93,76 +112,94 @@ const Directory = () => {
             [],
           );
 
+          const path = current
+            ? `${current.replace(/\./g, '/')}/${key}`
+            : key;
+
           return {
+            id: map(contents, 'id'),
             name: key,
             size: sumContents(contents),
             updatedAt: maxUpdatedAtContents(contents),
             onClick: makeClickHandler(setCurrent, key),
+            path,
           };
         },
       ),
     };
-  }, [directories, current]);
+  }, [directories, temporaryFolders, current]);
 
   const { onDrop, pending } =
     useDropZoneAcceptedFiles(current);
 
   return (
-    <>
-      <DocumentViewer {...view} />
-      <DirectorySort {...state}>
-        {(
-          { files = [], siblings = [] },
-          SortingComponent,
-        ) => (
-          <DirectoryView>
-            {(Component, SwitcherComponent) => (
-              <>
-                <DropZoneWrapper onDrop={onDrop} />
-                <DirectoryBreadcrumbs
-                  current={current}
-                  setCurrent={setCurrentState}
-                />
-                <Container>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                  >
-                    <Box>
-                      <Button
-                        color="secondary"
-                        startIcon={<CreateNewFolderIcon />}
-                        onClick={addFolder}
-                        variant="contained"
+    <DragToSelect>
+      <DndProvider backend={HTML5Backend} key={1}>
+        <DocumentViewer
+          {...view}
+          onClose={() => setViewer(null)}
+        />
+        <DirectorySort {...state}>
+          {(
+            { files = [], siblings = [] },
+            SortingComponent,
+          ) => (
+            <DirectoryView>
+              {(Component, SwitcherComponent) => (
+                <>
+                  <DropZoneWrapper onDrop={onDrop} />
+                  <DirectoryBreadcrumbs
+                    current={current}
+                    setCurrent={setCurrentState}
+                  />
+                  <Container>
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                    >
+                      <Box>
+                        <Button
+                          color="secondary"
+                          startIcon={
+                            <CreateNewFolderIcon />
+                          }
+                          onClick={addFolder}
+                          variant="contained"
+                        >
+                          {t('newFolder')}
+                        </Button>
+                        <DropZoneInputWrapper
+                          onDrop={onDrop}
+                        />
+                      </Box>
+                      <Box
+                        alignItems="center"
+                        display="flex"
                       >
-                        {t('newFolder')}
-                      </Button>
-                      <DropZoneInputWrapper
-                        onDrop={onDrop}
-                      />
+                        <DirectoryPendingFiles
+                          pending={pending}
+                        />
+                        <SortingComponent />
+                        <SwitcherComponent />
+                      </Box>
                     </Box>
-                    <Box alignItems="center" display="flex">
-                      <DirectoryPendingFiles
-                        pending={pending}
-                      />
-                      <SortingComponent />
-                      <SwitcherComponent />
+                    <Box py={2}>
+                      <Divider />
                     </Box>
-                  </Box>
-                  <Box py={2}>
-                    <Divider />
-                  </Box>
-                </Container>
-                <Component
-                  files={files}
-                  siblings={siblings}
-                />
-              </>
-            )}
-          </DirectoryView>
-        )}
-      </DirectorySort>
-    </>
+                  </Container>
+
+                  <Component
+                    files={files}
+                    siblings={siblings}
+                  />
+                </>
+              )}
+            </DirectoryView>
+          )}
+        </DirectorySort>
+        <DragHandlerPreview />
+      </DndProvider>
+    </DragToSelect>
   );
 };
 

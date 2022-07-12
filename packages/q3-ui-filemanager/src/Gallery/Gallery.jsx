@@ -27,7 +27,7 @@ const Gallery = ({ files, siblings }) => {
               key={item.name}
               item
               style={{
-                maxWidth: 225,
+                maxWidth: 275,
                 width: '50%',
               }}
             >

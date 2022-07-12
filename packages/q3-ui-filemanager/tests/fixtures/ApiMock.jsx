@@ -1,5 +1,6 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
+import { last } from 'lodash';
 import data from './data.json';
 import { collectionName, id } from './meta.json';
 
@@ -27,6 +28,56 @@ const useMockData =
       .onGet(makeEndpoint())
       .reply(onGetError ? 500 : 200, {
         uploads: dataSource,
+      });
+
+    mockApiInstance
+      .onPatch(makeEndpoint(true))
+      .reply(({ data: requestData, url }) => {
+        const currentState = [...dataSource];
+        const obj = currentState.find(
+          (item) => item.id === last(url.split('/')),
+        );
+
+        Object.assign(obj, JSON.parse(requestData));
+        setDataSource(currentState);
+
+        return [
+          200,
+          {
+            uploads: currentState,
+          },
+        ];
+      });
+
+    mockApiInstance
+      .onPatch(makeEndpoint())
+      .reply(({ data: requestData, url }) => {
+        const ids = new URLSearchParams(url.split('?')[1])
+          .get('ids')
+          .split(',');
+
+        const { folder } = JSON.parse(requestData);
+        const currentState = [...dataSource].map((item) =>
+          ids.includes(item.id)
+            ? {
+                ...item,
+                // simulates backend functionality
+                relativePath: [
+                  folder,
+                  item.relativePath,
+                ].join('/'),
+              }
+            : item,
+        );
+
+        setDataSource(currentState);
+
+        return [
+          200,
+          {
+            uploads: currentState,
+          },
+        ];
       });
 
     mockApiInstance

@@ -9,4 +9,14 @@ export default makeStyles((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
+  card: ({ isHovering, isChecked }) => ({
+    borderColor:
+      isChecked || isHovering ? 'blue' : undefined,
+    zIndex: 1,
+    position: 'relative',
+    '&:hover': {
+      boxShadow: 'none',
+      transform: 'none',
+    },
+  }),
 }));

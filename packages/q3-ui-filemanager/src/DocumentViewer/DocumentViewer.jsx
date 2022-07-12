@@ -10,6 +10,7 @@ import { fetchUrlAsBlob } from '../utils';
 const DocumentViewer = (props) => {
   const { name, url } = props;
   const [data, setData] = React.useState(null);
+  const [init, setInit] = React.useState(false);
   const ref = React.useRef();
   const cls = useStyle({});
 
@@ -39,6 +40,7 @@ const DocumentViewer = (props) => {
           contentRef={ref}
           onClose={() => {
             setData(null);
+            props.onClose(null);
           }}
         />
       </AppBar>
