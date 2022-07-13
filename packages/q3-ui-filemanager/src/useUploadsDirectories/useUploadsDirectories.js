@@ -23,6 +23,7 @@ const useUploadsDirectories = () => {
     (acc, curr) => {
       const folders = explode(curr.relativePath);
       const privateKey = makePrivateKey(last(folders));
+
       return pushInto(
         acc,
         folders.concat(privateKey).join('.'),

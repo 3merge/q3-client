@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FileManagerCurrentContext from '../FileManagerCurrentContext';
 import FileManagerBatchContext from '../FileManagerBatchContext';
 import useMultiSelect from '../useMultiSelect';
 import useStyle from './styles';
 
-const DragToSelect = ({ current, children }) => {
+const DragToSelect = ({ children }) => {
+  const { current = null } = React.useContext(
+    FileManagerCurrentContext,
+  );
+
   const {
     clearSelected,
     container,
@@ -39,7 +44,6 @@ const DragToSelect = ({ current, children }) => {
 
 DragToSelect.defaultProps = {
   children: null,
-  current: PropTypes.null,
 };
 
 DragToSelect.propTypes = {
@@ -47,7 +51,6 @@ DragToSelect.propTypes = {
     PropTypes.node,
     PropTypes.element,
   ]),
-  current: PropTypes.string,
 };
 
 export default DragToSelect;

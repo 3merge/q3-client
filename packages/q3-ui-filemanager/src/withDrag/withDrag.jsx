@@ -10,7 +10,7 @@ import useDropEnd from '../useDropEnd';
 
 const withDrag = (Component, type = 'item') => {
   const Drag = (props) => {
-    const { id } = props;
+    const { id, path } = props;
     const onDropEnd = useDropEnd();
     const [, dragRef, previewRef] = useDrag(
       () => ({
@@ -18,6 +18,7 @@ const withDrag = (Component, type = 'item') => {
         type,
         item: {
           id,
+          path,
         },
       }),
       [],
@@ -43,7 +44,8 @@ const withDrag = (Component, type = 'item') => {
           if (
             !disabled &&
             !checkContains('.q3-file', e.target) &&
-            !checkContains('.q3-folder', e.target)
+            !checkContains('.q3-folder', e.target) &&
+            !checkContains('.q3-context-menu', e.target)
           ) {
             deselect(id);
           }
@@ -54,8 +56,13 @@ const withDrag = (Component, type = 'item') => {
     );
   };
 
+  Drag.defaultProps = {
+    path: undefined,
+  };
+
   Drag.propTypes = {
     id: PropTypes.string.isRequired,
+    path: PropTypes.string,
   };
 
   return Drag;

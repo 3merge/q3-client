@@ -1,44 +1,31 @@
 import React from 'react';
-import { join, isObject, size } from 'lodash';
-import { object } from 'q3-ui-helpers';
-import FileManagerContext from '../FileManagerContext';
-import FileManagerBatchContext from '../FileManagerBatchContext';
+import { isObject } from 'lodash';
+import useDirectoryFoldersChange from '../useDirectoryFoldersChange';
 
 const useDropEnd = () => {
-  const ctx = React.useContext(FileManagerContext);
   const [dropState, setDropState] = React.useState(null);
-  const { selected } = React.useContext(
-    FileManagerBatchContext,
-  );
+  const onChange = useDirectoryFoldersChange();
 
   const onDropEnd = (item, monitor) => {
     if (monitor.didDrop())
       setDropState({
-        ...monitor.getDropResult(),
         ...item,
+        ...monitor.getDropResult(),
       });
   };
 
-  const withQueryParamIds = (str) =>
-    String(str).includes(',') ? `?ids=${str}` : str;
-
   React.useEffect(() => {
     if (isObject(dropState)) {
-      const { id, path } = dropState;
-
-      object
-        .noop(
-          ctx.patch(
-            withQueryParamIds(
-              size(selected) ? join(selected, ',') : id,
-            ),
-          )({
-            folder: path,
-          }),
-        )
-        .finally(() => {
-          setDropState(null);
-        });
+      const { id, path, itemType } = dropState;
+      console.log(path);
+      onChange({
+        // keep folder structures intact
+        replace: itemType !== 'folder',
+        folder: path,
+        id,
+      }).finally(() => {
+        setDropState(null);
+      });
     }
   }, [dropState]);
 

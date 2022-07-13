@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import classnames from 'classnames';
 import CardHeader from '@material-ui/core/CardHeader';
-import GalleryItemContextMenu from '../GalleryItemContextMenu';
+import withContextMenu from '../withContextMenu';
 import GalleryItemMedia from '../GalleryItemMedia';
 import withFileIcon from '../withFileIcon';
 import useStyle from './styles';
@@ -22,6 +22,7 @@ const GalleryItem = React.forwardRef(
       icon: Icon,
       isItemSelected,
       name,
+      onContextMenu,
       onClick,
       onSelect,
       ...file
@@ -36,35 +37,31 @@ const GalleryItem = React.forwardRef(
     );
 
     return (
-      <GalleryItemContextMenu>
-        {(onContextMenu) => (
-          <Card
-            data-id={id}
-            className={cardClasses}
-            ref={ref}
-            variant="outlined"
-          >
-            <CardActionArea
-              className={cls.item}
-              onDoubleClick={onClick}
-              onContextMenu={onContextMenu}
-              onClick={onSelect}
-            >
-              <CardHeader
-                classes={cls}
-                avatar={
-                  <Avatar>
-                    <Icon />
-                  </Avatar>
-                }
-                title={name}
-              />
+      <Card
+        data-id={id}
+        className={cardClasses}
+        ref={ref}
+        variant="outlined"
+      >
+        <CardActionArea
+          className={cls.item}
+          onDoubleClick={onClick}
+          onContextMenu={onContextMenu}
+          onClick={onSelect}
+        >
+          <CardHeader
+            classes={cls}
+            avatar={
+              <Avatar>
+                <Icon />
+              </Avatar>
+            }
+            title={name}
+          />
 
-              <GalleryItemMedia {...file} />
-            </CardActionArea>
-          </Card>
-        )}
-      </GalleryItemContextMenu>
+          <GalleryItemMedia {...file} />
+        </CardActionArea>
+      </Card>
     );
   },
 );
@@ -77,8 +74,9 @@ GalleryItem.propTypes = {
   ]).isRequired,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
 };
 
-export default withSelected(
-  withFileIcon(withDrag(GalleryItem)),
+export default withContextMenu(
+  withSelected(withFileIcon(withDrag(GalleryItem))),
 );

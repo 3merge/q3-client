@@ -4,6 +4,7 @@ import { ListItem as MuiListItem } from '@material-ui/core';
 import ListItemContent from '../ListItemContent';
 import withFileIcon from '../withFileIcon';
 import withDrag from '../withDrag';
+import withContextMenu from '../withContextMenu';
 import withSelected from '../withSelected';
 
 export const ListItem = React.forwardRef(
@@ -59,6 +60,6 @@ ListItem.propTypes = {
   size: PropTypes.number,
 };
 
-export default withSelected(
-  withFileIcon(withDrag(ListItem)),
+export default withContextMenu(
+  withSelected(withFileIcon(withDrag(ListItem))),
 );

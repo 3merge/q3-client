@@ -14,8 +14,11 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import SortIcon from '@material-ui/icons/Sort';
 import { browser } from 'q3-ui-helpers';
+import useDirectoryFolders from '../useDirectoryFolders';
 
-const DirectorySort = ({ files, siblings, children }) => {
+const DirectorySort = ({ children }) => {
+  const { files = [], siblings = [] } =
+    useDirectoryFolders();
   const { anchorEl, close, isOpen, open } = useOpen();
   const { t } = useTranslation();
 

@@ -1,10 +1,13 @@
 import React from 'react';
 import { compact, forEach, map, replace } from 'lodash';
 import FileManagerContext from '../FileManagerContext';
+import FileManagerCurrentContext from '../FileManagerCurrentContext';
 
-const useDropZoneAcceptedFiles = (
-  currentDirectory = null,
-) => {
+const useDropZoneAcceptedFiles = () => {
+  const { current: currentDirectory } = React.useContext(
+    FileManagerCurrentContext,
+  );
+
   const { post } = React.useContext(FileManagerContext);
   const [pending, setPending] = React.useState([]);
 

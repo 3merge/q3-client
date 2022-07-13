@@ -5,6 +5,7 @@ import {
   get,
   map,
   replace,
+  isObject,
 } from 'lodash';
 
 export const IMAGE_EXT_LIST = [
@@ -45,29 +46,32 @@ export const getFileType = (url) => {
     : null;
 };
 
-const convertSlashIntoDotNotation = (str) =>
+export const getLastFolder = (str) =>
+  last(String(str).split('/'));
+
+export const convertSlashIntoDotNotation = (str) =>
   replace(str, /\//g, '.');
 
 export const makePrivateKey = (str = undefined) =>
-  isString(str)
-    ? `__${last(str.split('/'))}__`
-    : '__null__';
+  isString(str) ? `__${getLastFolder(str)}__` : '__null__';
 
-export const makeDirectoryId = (path = '', xs = {}) =>
-  map(
-    get(
-      xs,
-      [
-        convertSlashIntoDotNotation(path),
-        makePrivateKey(path),
-      ].join('.'),
-      [],
-    ),
-    'id',
+export const makeDirectoryId = (path = '', xs = {}) => {
+  const recursivelyGetIds = (ob) => {
+    if (Array.isArray(ob))
+      return ob.flatMap((v) => get(v, 'id'));
+
+    return isObject(ob)
+      ? Object.values(ob).flatMap(recursivelyGetIds)
+      : [];
+  };
+
+  return recursivelyGetIds(
+    get(xs, convertSlashIntoDotNotation(path), {}),
   )
+    .flat()
     .sort()
     .join(',');
-
+};
 export const toMbs = (bytes = 0) =>
   `${Number(bytes / 1024 ** 2).toFixed(2)}mbs`;
 

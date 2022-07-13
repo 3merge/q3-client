@@ -47,6 +47,8 @@ const useMultiSelect = () => {
   );
 
   const clearSelected = () => setSelected([]);
+  const enable = () => setDisabled(false);
+  const disable = () => setDisabled(true);
 
   React.useEffect(() => {
     selectoInstance.current = new Selecto({
@@ -74,10 +76,10 @@ const useMultiSelect = () => {
     });
 
     selectoInstance.current.on('dragEnd', () => {
-      setDisabled(true);
+      enable();
       // just enough time to not trigger other click actions
-      const fn = debounce(setDisabled, 10);
-      fn(false);
+      const fn = debounce(disable, 10);
+      fn();
     });
   }, []);
 
@@ -85,7 +87,9 @@ const useMultiSelect = () => {
     clearSelected,
     container,
     deselect,
+    disable,
     disabled,
+    enable,
     isSelected,
     select,
     selected,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -8,8 +7,13 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Link from '@material-ui/core/Link';
 import { isString, map, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
+import FileManagerCurrentContext from '../FileManagerCurrentContext';
 
-const DirectoryBreadcrumbs = ({ current, setCurrent }) => {
+const DirectoryBreadcrumbs = () => {
+  const { current, change: setCurrent } = React.useContext(
+    FileManagerCurrentContext,
+  );
+
   const { t } = useTranslation('labels');
   const history = React.useMemo(
     () => (isString(current) ? current.split('.') : []),
@@ -84,13 +88,7 @@ const DirectoryBreadcrumbs = ({ current, setCurrent }) => {
   );
 };
 
-DirectoryBreadcrumbs.defaultProps = {
-  current: null,
-};
-
-DirectoryBreadcrumbs.propTypes = {
-  current: PropTypes.string,
-  setCurrent: PropTypes.func.isRequired,
-};
+DirectoryBreadcrumbs.defaultProps = {};
+DirectoryBreadcrumbs.propTypes = {};
 
 export default DirectoryBreadcrumbs;

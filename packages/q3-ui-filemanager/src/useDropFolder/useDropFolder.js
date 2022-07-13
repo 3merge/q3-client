@@ -19,7 +19,8 @@ const useDropFolder = (path) => {
       }),
     }),
     canDrop: (item) => item.id !== dataId,
-    drop: () => ({
+    drop: (item, monitor) => ({
+      itemType: monitor.getItemType(),
       path,
     }),
   }));

@@ -8,12 +8,16 @@ import AlertFetchingError from '../AlertFetchingError';
 import Directory from '../Directory';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 import FileManagerContext from '../FileManagerContext';
+import FileManagerCurrentContext from '../FileManagerCurrentContext';
 import useUploads from '../useUploads';
 import useUploadsAuth from '../useUploadsAuth';
+import useCurrent from '../useCurrent';
 
 const FileManager = ({ collectionName, id, ...rest }) => {
   const [init, setInit] = React.useState(false);
   const auth = useUploadsAuth(collectionName, rest);
+  const currentState = useCurrent();
+
   const { get, fetching, fetchingError, ...uploadState } =
     useUploads(collectionName, id);
 
@@ -32,7 +36,11 @@ const FileManager = ({ collectionName, id, ...rest }) => {
   return (
     <FileManagerAuthContext.Provider value={auth}>
       <FileManagerContext.Provider value={uploadState}>
-        <Directory />
+        <FileManagerCurrentContext.Provider
+          value={currentState}
+        >
+          <Directory />
+        </FileManagerCurrentContext.Provider>
       </FileManagerContext.Provider>
     </FileManagerAuthContext.Provider>
   );
