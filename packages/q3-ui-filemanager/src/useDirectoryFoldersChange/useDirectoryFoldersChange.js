@@ -3,15 +3,13 @@ import { join, size } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import FileManagerContext from '../FileManagerContext';
 import FileManagerBatchContext from '../FileManagerBatchContext';
+import { withQueryParamIds } from '../utils';
 
 const useDirectoryFoldersChange = () => {
   const ctx = React.useContext(FileManagerContext);
   const { selected } = React.useContext(
     FileManagerBatchContext,
   );
-
-  const withQueryParamIds = (str) =>
-    String(str).includes(',') ? `?ids=${str}` : str;
 
   return React.useCallback(
     ({ id, folder }) =>

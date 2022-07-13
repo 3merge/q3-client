@@ -19,7 +19,9 @@ const withSelected = (Component) => {
       <Component
         classes={cls}
         isItemSelected={isItemSelected}
-        onSelect={() => select(id)}
+        onSelect={(e) => {
+          select(id, e?.shiftKey);
+        }}
         {...props}
       />
     );

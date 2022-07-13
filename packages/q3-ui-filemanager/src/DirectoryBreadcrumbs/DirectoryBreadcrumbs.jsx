@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -44,47 +43,45 @@ const DirectoryBreadcrumbs = () => {
   );
 
   return (
-    <Container>
-      <Box alignItems="center" display="flex">
-        {renderWhenHistoryHasSize(
-          <IconButton color="inherit" onClick={handleBack}>
-            <ArrowBackIosIcon />
-          </IconButton>,
-        )}
-        <h2>{t('uploads')}</h2>
-        {renderWhenHistoryHasSize(
-          <Box alignItems="center" display="flex" ml={2}>
-            <Breadcrumbs aria-label="breadcrumb">
-              {/* eslint-disable-next-line */}
-              <Link component="button" onClick={handleHome}>
-                {t('labels:root')}
-              </Link>
-              {map(history, (item, idx) =>
-                idx === history.length - 1 ? (
-                  <strong
-                    style={{
-                      fontSize: '0.877rem',
-                    }}
-                  >
-                    {item}
-                  </strong>
-                ) : (
+    <Box alignItems="center" display="flex">
+      {renderWhenHistoryHasSize(
+        <IconButton color="inherit" onClick={handleBack}>
+          <ArrowBackIosIcon />
+        </IconButton>,
+      )}
+      <h2>{t('uploads')}</h2>
+      {renderWhenHistoryHasSize(
+        <Box alignItems="center" display="flex" ml={2}>
+          <Breadcrumbs aria-label="breadcrumb">
+            {/* eslint-disable-next-line */}
+            <Link component="button" onClick={handleHome}>
+              {t('labels:root')}
+            </Link>
+            {map(history, (item, idx) =>
+              idx === history.length - 1 ? (
+                <strong
+                  style={{
+                    fontSize: '0.877rem',
+                  }}
+                >
+                  {item}
+                </strong>
+              ) : (
+                // eslint-disable-next-line
+                <Link
                   // eslint-disable-next-line
-                  <Link
-                    // eslint-disable-next-line
-                    component="button"
-                    key={item}
-                    onClick={handleClick(idx)}
-                  >
-                    {item}
-                  </Link>
-                ),
-              )}
-            </Breadcrumbs>
-          </Box>,
-        )}
-      </Box>
-    </Container>
+                  component="button"
+                  key={item}
+                  onClick={handleClick(idx)}
+                >
+                  {item}
+                </Link>
+              ),
+            )}
+          </Breadcrumbs>
+        </Box>,
+      )}
+    </Box>
   );
 };
 

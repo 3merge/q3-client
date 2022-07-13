@@ -3,10 +3,12 @@ import {
   last,
   size,
   get,
-  map,
+  some,
   replace,
   isObject,
 } from 'lodash';
+
+import { browser } from 'q3-ui-helpers';
 
 export const IMAGE_EXT_LIST = [
   'JPEG',
@@ -16,6 +18,13 @@ export const IMAGE_EXT_LIST = [
   'TIFF',
   'SVG',
 ];
+
+export const checkContains = (selector, target) =>
+  browser.isBrowserReady()
+    ? some(document.querySelectorAll(selector), (node) =>
+        node.contains(target),
+      )
+    : true;
 
 export const fetchUrlAsBlob = async (uri) => {
   const response = await fetch(uri);
@@ -84,3 +93,6 @@ export const sanitize = (s) => {
 
   return punctuationless.replace(/\s{2,}/g, ' ');
 };
+
+export const withQueryParamIds = (str) =>
+  String(str).includes(',') ? `?ids=${str}` : str;

@@ -10,6 +10,7 @@ import { useTranslation } from 'q3-ui-locale';
 import { map } from 'lodash';
 import useDirectoryFolders from '../useDirectoryFolders';
 import useDirectoryFoldersChange from '../useDirectoryFoldersChange';
+import FileManagerBatchContext from '../FileManagerBatchContext';
 
 const DialogMoveTo = ({ children }) => {
   const onChange = useDirectoryFoldersChange();
@@ -19,6 +20,10 @@ const DialogMoveTo = ({ children }) => {
 
   const [expanded, setExpanded] = React.useState([root]);
   const [selected, setSelected] = React.useState([root]);
+
+  const { enable, disable } = React.useContext(
+    FileManagerBatchContext,
+  );
 
   const handleToggle = (event, nodeIds) => {
     setExpanded(nodeIds);
@@ -87,6 +92,14 @@ const DialogMoveTo = ({ children }) => {
         })
       }
       title="moveTo"
+      TransitionProps={{
+        onEnter() {
+          disable();
+        },
+        onExit() {
+          enable();
+        },
+      }}
     />
   );
 };

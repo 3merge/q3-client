@@ -12,6 +12,7 @@ import withDrag from '../withDrag';
 import withFileIcon from '../withFileIcon';
 import withSelected from '../withSelected';
 import useStyle from './styles';
+import withContextMenuFolder from '../withContextMenuFolder';
 
 export const GalleryItemFolderIcon = React.memo(
   // eslint-disable-next-line
@@ -19,7 +20,17 @@ export const GalleryItemFolderIcon = React.memo(
 );
 
 const GalleryItemFolder = React.forwardRef(
-  ({ classes, path, name, onClick, onSelect }, ref) => {
+  (
+    {
+      onContextMenu,
+      classes,
+      path,
+      name,
+      onClick,
+      onSelect,
+    },
+    ref,
+  ) => {
     const {
       dataId,
       isHovering = false,
@@ -45,6 +56,7 @@ const GalleryItemFolder = React.forwardRef(
           ref={dropRef}
           onClick={onSelect}
           onDoubleClick={onClick}
+          onContextMenu={onContextMenu}
         >
           <CardContent>
             <Typography
@@ -68,6 +80,6 @@ GalleryItemFolder.propTypes = {
   path: PropTypes.string.isRequired,
 };
 
-export default withSelected(
-  withDrag(GalleryItemFolder, 'folder'),
+export default withContextMenuFolder(
+  withSelected(withDrag(GalleryItemFolder, 'folder')),
 );

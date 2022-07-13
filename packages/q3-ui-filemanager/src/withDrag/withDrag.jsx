@@ -46,9 +46,8 @@ const withDrag = (Component, type = 'item') => {
             !checkContains('.q3-file', e.target) &&
             !checkContains('.q3-folder', e.target) &&
             !checkContains('.q3-context-menu', e.target)
-          ) {
+          )
             deselect(id);
-          }
         }}
       >
         <Component ref={dragRef} {...props} />

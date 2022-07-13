@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, size } from 'lodash';
-import {
-  Box,
-  Container,
-  Grid,
-  Typography,
-} from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import GalleryItem from '../GalleryItem';
 import GalleryItemFolder from '../GalleryItemFolder';
@@ -39,10 +34,10 @@ const Gallery = ({ files, siblings }) => {
     );
 
   return (
-    <Container>
+    <>
       {renderGrid(siblings, 'folders', GalleryItemFolder)}
       {renderGrid(files, 'files', GalleryItem)}
-    </Container>
+    </>
   );
 };
 

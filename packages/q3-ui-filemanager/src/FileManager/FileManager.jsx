@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { object } from 'q3-ui-helpers';
 import { delay } from 'lodash';
+import Container from '@material-ui/core/Container';
 import AlertAuthError from '../AlertAuthError';
 import AlertFetchingError from '../AlertFetchingError';
 import Directory from '../Directory';
@@ -68,4 +69,8 @@ FileManager.propTypes = {
   initialView: PropTypes.string,
 };
 
-export default FileManager;
+export default (props) => (
+  <Container>
+    <FileManager {...props} />
+  </Container>
+);

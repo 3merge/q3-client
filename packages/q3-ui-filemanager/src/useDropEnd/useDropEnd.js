@@ -17,7 +17,7 @@ const useDropEnd = () => {
   React.useEffect(() => {
     if (isObject(dropState)) {
       const { id, path, itemType } = dropState;
-      console.log(path);
+
       onChange({
         // keep folder structures intact
         replace: itemType !== 'folder',

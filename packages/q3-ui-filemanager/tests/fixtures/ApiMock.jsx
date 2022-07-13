@@ -86,6 +86,21 @@ const useMockData =
       });
 
     mockApiInstance
+      .onDelete(makeEndpoint())
+      .reply(({ url }) => {
+        const ids = new URLSearchParams(url.split('?')[1])
+          .get('ids')
+          .split(',');
+
+        const currentState = [...dataSource].filter(
+          (item) => !ids.includes(item.id),
+        );
+
+        setDataSource(currentState);
+        return [204, {}];
+      });
+
+    mockApiInstance
       .onPatch(makeEndpoint())
       .reply(({ data: requestData, url }) => {
         const ids = new URLSearchParams(url.split('?')[1])
@@ -157,20 +172,6 @@ const useMockData =
           }, 5000);
         });
       });
-
-    // mockApiInstance
-    //   .onDelete(new RegExp(`${BASE_API_PATH}\\/\\d+`))
-    //   .reply(({ data: op }) => {
-    //     console.log(op);
-    //     handleDelete(1);
-
-    //     return [
-    //       200,
-    //       {
-    //         uploads: dataSource,
-    //       },
-    //     ];
-    //   });
   };
 
 const ApiMock = (props) => (
