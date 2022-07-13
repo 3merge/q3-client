@@ -17,10 +17,12 @@ const useMultiSelect = () => {
   const [selected, setSelected] = React.useState([]);
 
   const isSelected = React.useCallback(
-    (id) =>
-      Array.isArray(id)
+    (str) => {
+      const id = split(str, ',');
+      return Array.isArray(id)
         ? id.every(selected.includes.bind(selected))
-        : selected.includes(id),
+        : selected.includes(id);
+    },
     [selected],
   );
 

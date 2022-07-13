@@ -26,7 +26,7 @@ const ListItemFolder = React.forwardRef(
     return (
       <li
         data-id={dataId}
-        className="q3-file"
+        className="q3-folder"
         ref={dropRef}
       >
         <MuiListItem

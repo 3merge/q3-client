@@ -9,7 +9,6 @@ export default makeStyles(() => ({
     const out = {
       border: '1px solid',
       borderColor: 'transparent',
-      borderRadius: 4,
       position: 'relative',
       zIndex: 1,
     };

@@ -9,6 +9,7 @@ import withSelected from '../withSelected';
 export const ListItem = React.forwardRef(
   (
     {
+      id,
       icon: Icon,
       isItemSelected,
       name,
@@ -21,6 +22,7 @@ export const ListItem = React.forwardRef(
   ) => (
     <MuiListItem
       button
+      data-id={id}
       selected={isItemSelected}
       className="q3-file"
       component="li"

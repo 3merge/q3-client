@@ -129,6 +129,7 @@ const Directory = () => {
             size: sumContents(contents),
             updatedAt: maxUpdatedAtContents(contents),
             onClick: makeClickHandler(setCurrent, key),
+            relativePath: key,
             path,
           };
         },
