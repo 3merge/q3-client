@@ -6,14 +6,12 @@ import {
   CardActionArea,
   Typography,
 } from '@material-ui/core';
-import { map, get } from 'lodash';
 import classnames from 'classnames';
-import { useDrop } from 'react-dnd';
-import useUploadsDirectories from '../useUploadsDirectories';
+import useDropFolder from '../useDropFolder';
 import withDrag from '../withDrag';
 import withFileIcon from '../withFileIcon';
+import withSelected from '../withSelected';
 import useStyle from './styles';
-import FileManagerBatchContext from '../FileManagerBatchContext';
 
 export const GalleryItemFolderIcon = React.memo(
   // eslint-disable-next-line
@@ -21,58 +19,31 @@ export const GalleryItemFolderIcon = React.memo(
 );
 
 const GalleryItemFolder = React.forwardRef(
-  ({ id, path, name, onClick }, ref) => {
-    const fileIds = map(
-      get(
-        useUploadsDirectories(),
-        `${path}.__${path}__`,
-        [],
-      ),
-      'id',
-    );
-
-    const { checked = [], setChecked } = React.useContext(
-      FileManagerBatchContext,
-    );
-
-    const [collected, drop] = useDrop(() => ({
-      accept: ['item', 'folder'],
-      collect(monitor) {
-        return {
-          isHovering: monitor.isOver({
-            shallow: true,
-          }),
-        };
-      },
-      canDrop(item) {
-        return item.id !== id;
-      },
-      drop() {
-        return {
-          path,
-        };
-      },
-    }));
+  ({ classes, path, name, onClick, onSelect }, ref) => {
+    const {
+      dataId,
+      isHovering = false,
+      ref: dropRef,
+    } = useDropFolder(path);
 
     const cls = useStyle({
-      ...collected,
-      isChecked: fileIds.every((fileId) =>
-        checked.includes(fileId),
-      ),
+      isHovering,
     });
 
     return (
       <Card
         ref={ref}
-        className={classnames(cls.card, 'q3-folder')}
-        data-id={id}
+        className={classnames(
+          classes.item,
+          cls.card,
+          'q3-folder',
+        )}
+        data-id={dataId}
         variant="outlined"
       >
         <CardActionArea
-          ref={drop}
-          onClick={() => {
-            setChecked(fileIds);
-          }}
+          ref={dropRef}
+          onClick={onSelect}
           onDoubleClick={onClick}
         >
           <CardContent>
@@ -94,6 +65,9 @@ const GalleryItemFolder = React.forwardRef(
 GalleryItemFolder.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
-export default withDrag(GalleryItemFolder, 'folder');
+export default withSelected(
+  withDrag(GalleryItemFolder, 'folder'),
+);

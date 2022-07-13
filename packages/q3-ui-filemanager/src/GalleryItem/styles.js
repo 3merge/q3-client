@@ -1,13 +1,11 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles(() => ({
-  card: ({ selected }) => ({
+  card: () => ({
     '&:hover': {
       boxShadow: 'none',
       transform: 'none',
     },
-
-    borderColor: selected ? 'blue' : undefined,
   }),
   action: {
     alignSelf: 'center',

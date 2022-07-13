@@ -11,33 +11,44 @@ import GalleryItemContextMenu from '../GalleryItemContextMenu';
 import GalleryItemMedia from '../GalleryItemMedia';
 import withFileIcon from '../withFileIcon';
 import useStyle from './styles';
-import FileManagerBatchContext from '../FileManagerBatchContext';
 import withDrag from '../withDrag';
+import withSelected from '../withSelected';
 
 const GalleryItem = React.forwardRef(
-  ({ id, icon: Icon, name, onClick, ...file }, ref) => (
-    <GalleryItemContextMenu>
-      {(onContextMenu) => {
-        const { isChecked, setChecked } = React.useContext(
-          FileManagerBatchContext,
-        );
+  (
+    {
+      classes,
+      id,
+      icon: Icon,
+      isItemSelected,
+      name,
+      onClick,
+      onSelect,
+      ...file
+    },
+    ref,
+  ) => {
+    const cls = useStyle();
+    const cardClasses = classnames(
+      cls.card,
+      isItemSelected ? classes.item : undefined,
+      'q3-file',
+    );
 
-        const handleSelect = () => setChecked(id);
-        const cls = useStyle({
-          selected: isChecked(id),
-        });
-
-        return (
+    return (
+      <GalleryItemContextMenu>
+        {(onContextMenu) => (
           <Card
             data-id={id}
-            className={classnames(cls.card, 'q3-file')}
+            className={cardClasses}
             ref={ref}
             variant="outlined"
           >
             <CardActionArea
+              className={cls.item}
               onDoubleClick={onClick}
               onContextMenu={onContextMenu}
-              onClick={handleSelect}
+              onClick={onSelect}
             >
               <CardHeader
                 classes={cls}
@@ -52,10 +63,10 @@ const GalleryItem = React.forwardRef(
               <GalleryItemMedia {...file} />
             </CardActionArea>
           </Card>
-        );
-      }}
-    </GalleryItemContextMenu>
-  ),
+        )}
+      </GalleryItemContextMenu>
+    );
+  },
 );
 
 GalleryItem.propTypes = {
@@ -68,4 +79,6 @@ GalleryItem.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default withFileIcon(withDrag(GalleryItem));
+export default withSelected(
+  withFileIcon(withDrag(GalleryItem)),
+);

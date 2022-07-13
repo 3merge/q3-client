@@ -13,7 +13,7 @@ const DragHandlerPreview = () => {
   const monitor = dragDropManager.getMonitor();
   const cls = useStyle();
 
-  const { numberOfItemsChecked } = React.useContext(
+  const { sizeOfSelected } = React.useContext(
     FileManagerBatchContext,
   );
 
@@ -56,8 +56,8 @@ const DragHandlerPreview = () => {
           <FileCopyIcon />
           <Box ml={0.5}>
             <Typography>
-              {numberOfItemsChecked > 1
-                ? `Move ${numberOfItemsChecked} files`
+              {sizeOfSelected > 1
+                ? `Move ${sizeOfSelected} files`
                 : 'Move file'}
             </Typography>
           </Box>

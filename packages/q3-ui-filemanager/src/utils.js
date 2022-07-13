@@ -1,4 +1,11 @@
-import { isString, last, size } from 'lodash';
+import {
+  isString,
+  last,
+  size,
+  get,
+  map,
+  replace,
+} from 'lodash';
 
 export const IMAGE_EXT_LIST = [
   'JPEG',
@@ -38,8 +45,28 @@ export const getFileType = (url) => {
     : null;
 };
 
+const convertSlashIntoDotNotation = (str) =>
+  replace(str, /\//g, '.');
+
 export const makePrivateKey = (str = undefined) =>
-  `__${String(str || null)}__`;
+  isString(str)
+    ? `__${last(str.split('/'))}__`
+    : '__null__';
+
+export const makeDirectoryId = (path = '', xs = {}) =>
+  map(
+    get(
+      xs,
+      [
+        convertSlashIntoDotNotation(path),
+        makePrivateKey(path),
+      ].join('.'),
+      [],
+    ),
+    'id',
+  )
+    .sort()
+    .join(',');
 
 export const toMbs = (bytes = 0) =>
   `${Number(bytes / 1024 ** 2).toFixed(2)}mbs`;

@@ -1,84 +1,53 @@
 import React from 'react';
-import Selecto from 'selecto';
-import { debounce, size, uniq } from 'lodash';
+import PropTypes from 'prop-types';
 import FileManagerBatchContext from '../FileManagerBatchContext';
+import useMultiSelect from '../useMultiSelect';
 import useStyle from './styles';
 
-const DragToSelect = ({ children }) => {
-  const [checked, setChecked] = React.useState([]);
-  const [disable, setDisable] = React.useState(false);
+const DragToSelect = ({ current, children }) => {
+  const {
+    clearSelected,
+    container,
+    disabled,
+    selected,
+    ...rest
+  } = useMultiSelect();
 
-  const container = React.useRef();
-  const selectoInstance = React.useRef();
   const cls = useStyle();
-
-  const batchState = React.useMemo(
+  const stateValue = React.useMemo(
     () => ({
-      disable,
-      checked,
-      numberOfItemsChecked: size(checked),
-
-      isChecked(value) {
-        return checked.includes(value);
-      },
-
-      setChecked(newValue) {
-        setChecked((prevValue) =>
-          uniq(prevValue.concat(newValue)),
-        );
-      },
-
-      removeChecked(oldValue) {
-        setChecked((prevValue) =>
-          prevValue.filter((item) =>
-            Array.isArray(oldValue)
-              ? !oldValue.includes(item)
-              : item !== oldValue,
-          ),
-        );
-      },
+      disabled,
+      selected,
+      ...rest,
     }),
-    [disable, checked],
+    [disabled, selected],
   );
 
   React.useEffect(() => {
-    selectoInstance.current = new Selecto({
-      container: container.current,
-      continueSelect: false,
-      hitRate: 0.01,
-      selectableTargets: ['.q3-file', '.q3-folder'],
-      selectByClick: false,
-      selectFromInside: false,
-    });
-
-    selectoInstance.current.on('select', (e) => {
-      e.added.forEach((el) => {
-        batchState.setChecked(
-          el.getAttribute('data-id').split(','),
-        );
-      });
-
-      e.removed.forEach((el) => {
-        batchState.removeChecked(
-          el.getAttribute('data-id').split(','),
-        );
-      });
-    });
-
-    selectoInstance.current.on('dragEnd', () => {
-      setDisable(true);
-      const di = debounce(setDisable, 10);
-      di(false);
-    });
-  }, []);
+    // clears on directory change
+    clearSelected();
+  }, [current]);
 
   return (
-    <FileManagerBatchContext.Provider value={batchState}>
+    <FileManagerBatchContext.Provider value={stateValue}>
       <div className={cls.root} ref={container}>
         {children}
       </div>
     </FileManagerBatchContext.Provider>
   );
+};
+
+DragToSelect.defaultProps = {
+  children: null,
+  current: PropTypes.null,
+};
+
+DragToSelect.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+  ]),
+  current: PropTypes.string,
 };
 
 export default DragToSelect;

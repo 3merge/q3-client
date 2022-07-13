@@ -7,7 +7,7 @@ import FileManagerBatchContext from '../FileManagerBatchContext';
 const useDropEnd = () => {
   const ctx = React.useContext(FileManagerContext);
   const [dropState, setDropState] = React.useState(null);
-  const { checked } = React.useContext(
+  const { selected } = React.useContext(
     FileManagerBatchContext,
   );
 
@@ -19,6 +19,9 @@ const useDropEnd = () => {
       });
   };
 
+  const withQueryParamIds = (str) =>
+    String(str).includes(',') ? `?ids=${str}` : str;
+
   React.useEffect(() => {
     if (isObject(dropState)) {
       const { id, path } = dropState;
@@ -26,15 +29,15 @@ const useDropEnd = () => {
       object
         .noop(
           ctx.patch(
-            size(checked)
-              ? `?ids=${join(checked, ',')}`
-              : id,
+            withQueryParamIds(
+              size(selected) ? join(selected, ',') : id,
+            ),
           )({
             folder: path,
           }),
         )
         .finally(() => {
-          dropState(null);
+          setDropState(null);
         });
     }
   }, [dropState]);

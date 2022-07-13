@@ -1,24 +1,17 @@
 import { makeStyles } from '@material-ui/core';
 import { blue } from '@material-ui/core/colors';
 
-export default makeStyles((theme) => ({
-  title: {
-    alignItems: 'center',
-    display: 'flex',
-
-    '& svg': {
-      marginRight: theme.spacing(1),
-    },
+export default makeStyles(() => ({
+  avatar: {
+    backgroundColor: 'transparent',
   },
-  card: ({ isHovering }) => {
+  item: ({ isHovering }) => {
     const out = {
+      border: '1px solid',
+      borderColor: 'transparent',
+      borderRadius: 4,
       position: 'relative',
       zIndex: 1,
-
-      '&:hover': {
-        boxShadow: 'none',
-        transform: 'none',
-      },
     };
 
     if (isHovering)

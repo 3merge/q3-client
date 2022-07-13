@@ -1,46 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Avatar,
-  ListItem as MuiListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-} from '@material-ui/core';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import { ListItem as MuiListItem } from '@material-ui/core';
+import ListItemContent from '../ListItemContent';
 import withFileIcon from '../withFileIcon';
-import { toMbs } from '../utils';
+import withDrag from '../withDrag';
+import withSelected from '../withSelected';
 
-export const ListItem = ({
-  icon: Icon,
-  name,
-  onClick,
-  onContextMenu,
-  size,
-}) => (
-  <MuiListItem
-    button
-    component="li"
-    dense
-    onClick={onClick}
-    onContextMenu={onContextMenu}
-  >
-    <ListItemAvatar>
-      <Avatar style={{ background: 'transparent' }}>
-        <Icon />
-      </Avatar>
-    </ListItemAvatar>
-    <ListItemText primary={name} secondary={toMbs(size)} />
-    <ListItemSecondaryAction>
-      <IconButton
-        aria-label="file options"
+export const ListItem = React.forwardRef(
+  (
+    {
+      icon: Icon,
+      isItemSelected,
+      name,
+      onClick,
+      onContextMenu,
+      onSelect,
+      size,
+    },
+    ref,
+  ) => (
+    <MuiListItem
+      button
+      selected={isItemSelected}
+      className="q3-file"
+      component="li"
+      dense
+      onClick={onSelect}
+      onDoubleClick={onClick}
+      onContextMenu={onContextMenu}
+      ref={ref}
+    >
+      <ListItemContent
+        name={name}
         onClick={onContextMenu}
+        size={size}
       >
-        <MoreHorizIcon />
-      </IconButton>
-    </ListItemSecondaryAction>
-  </MuiListItem>
+        <Icon />
+      </ListItemContent>
+    </MuiListItem>
+  ),
 );
 
 ListItem.defaultProps = {
@@ -54,8 +52,11 @@ ListItem.propTypes = {
     PropTypes.func,
   ]).isRequired,
   name: PropTypes.string.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
   size: PropTypes.number,
 };
 
-export default withFileIcon(ListItem);
+export default withSelected(
+  withFileIcon(withDrag(ListItem)),
+);

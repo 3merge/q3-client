@@ -23,7 +23,7 @@ const withDrag = (Component, type = 'item') => {
       [],
     );
 
-    const { disable, removeChecked } = React.useContext(
+    const { disabled, deselect } = React.useContext(
       FileManagerBatchContext,
     );
 
@@ -41,12 +41,11 @@ const withDrag = (Component, type = 'item') => {
       <ClickAwayListener
         onClickAway={(e) => {
           if (
-            !disable &&
+            !disabled &&
             !checkContains('.q3-file', e.target) &&
             !checkContains('.q3-folder', e.target)
           ) {
-            console.log(id);
-            removeChecked(id);
+            deselect(id);
           }
         }}
       >

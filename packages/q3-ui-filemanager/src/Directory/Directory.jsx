@@ -1,5 +1,12 @@
 import React from 'react';
-import { compact, get, omit, last, reduce } from 'lodash';
+import {
+  compact,
+  get,
+  omit,
+  last,
+  reduce,
+  join,
+} from 'lodash';
 import { map, set, merge } from 'lodash';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -21,7 +28,7 @@ import { makePrivateKey } from '../utils';
 import DocumentViewer from '../DocumentViewer';
 import DragHandlerPreview from '../DragHandlerPreview';
 import DragToSelect from '../DragToSelect';
-import { sanitize } from '../utils';
+import { makeDirectoryId, sanitize } from '../utils';
 
 const maxUpdatedAtContents = (contents = []) =>
   Math.max(
@@ -117,8 +124,8 @@ const Directory = () => {
             : key;
 
           return {
-            id: map(contents, 'id'),
             name: key,
+            id: makeDirectoryId(path, directories),
             size: sumContents(contents),
             updatedAt: maxUpdatedAtContents(contents),
             onClick: makeClickHandler(setCurrent, key),
@@ -133,7 +140,7 @@ const Directory = () => {
     useDropZoneAcceptedFiles(current);
 
   return (
-    <DragToSelect>
+    <DragToSelect current={current}>
       <DndProvider backend={HTML5Backend} key={1}>
         <DocumentViewer
           {...view}

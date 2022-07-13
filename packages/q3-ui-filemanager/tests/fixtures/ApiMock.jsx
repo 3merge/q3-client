@@ -33,12 +33,18 @@ const useMockData =
     mockApiInstance
       .onPatch(makeEndpoint(true))
       .reply(({ data: requestData, url }) => {
+        const { folder } = JSON.parse(requestData);
         const currentState = [...dataSource];
         const obj = currentState.find(
           (item) => item.id === last(url.split('/')),
         );
 
-        Object.assign(obj, JSON.parse(requestData));
+        Object.assign(obj, {
+          relativePath: [folder, obj.relativePath].join(
+            '/',
+          ),
+        });
+
         setDataSource(currentState);
 
         return [
