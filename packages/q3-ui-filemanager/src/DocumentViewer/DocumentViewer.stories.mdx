@@ -5,7 +5,7 @@ import {
   Props,
 } from '@storybook/addon-docs/blocks';
 import DocumentViewer from './DocumentViewer';
-import { uploads } from '../../tests/fixtures/data';
+import DocumentViewerStorySetup from './DocumentViewerStorySetup';
 
 <Meta
   title="File Manager/DocumentViewer"
@@ -15,9 +15,20 @@ import { uploads } from '../../tests/fixtures/data';
 # DocumentViewer
 
 <Preview>
+  <Story name="Image">
+    <DocumentViewerStorySetup index={0} />
+  </Story>
+  <Story name="Docx">
+    <DocumentViewerStorySetup index={1} />
+  </Story>
   <Story name="PDF">
-    <p>Background content</p>
-    <DocumentViewer {...uploads[3]} />
+    <DocumentViewerStorySetup index={4} />
+  </Story>
+  <Story name="CSV">
+    <DocumentViewerStorySetup index={3} />
+  </Story>
+  <Story name="MD">
+    <DocumentViewerStorySetup index={6} />
   </Story>
 </Preview>
 

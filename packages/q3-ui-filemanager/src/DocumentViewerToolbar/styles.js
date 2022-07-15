@@ -1,8 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  icon: ({ color }) => ({
-    color,
+  icon: () => ({
     display: 'inline-block',
     height: theme.typography.h2.fontSize,
     marginLeft: theme.spacing(1),
@@ -12,6 +11,7 @@ export default makeStyles((theme) => ({
   title: {
     margin: 0,
     padding: 0,
+    marginLeft: theme.spacing(1),
   },
   toolbar: {
     display: 'flex',

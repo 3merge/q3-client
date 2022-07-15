@@ -1,23 +1,17 @@
 import {
   isString,
   last,
-  size,
   get,
   some,
   replace,
   isObject,
 } from 'lodash';
-
 import { browser } from 'q3-ui-helpers';
 
-export const IMAGE_EXT_LIST = [
-  'JPEG',
-  'JPG',
-  'PNG',
-  'GIF',
-  'TIFF',
-  'SVG',
-];
+export const checkSsr =
+  (fn) =>
+  (...params) =>
+    browser.isBrowserReady() ? fn(...params) : null;
 
 export const checkContains = (selector, target) =>
   browser.isBrowserReady()
@@ -26,33 +20,20 @@ export const checkContains = (selector, target) =>
       )
     : true;
 
-export const fetchUrlAsBlob = async (uri) => {
-  const response = await fetch(uri);
-  const blob = await response.blob();
-
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-
-    reader.addEventListener('load', () =>
-      resolve(reader.result),
-    );
-
-    reader.addEventListener('error', (e) => reject(e));
-    reader.readAsDataURL(blob);
-  });
-};
-
 export const getFileType = (url) => {
-  if (!url || !isString(url)) return null;
+  if (!url || !isString(url) || !String(url).includes('.'))
+    return null;
 
-  const u = new URL(url);
-  u.hash = '';
-  u.search = '';
-
-  const str = last(u.toString().split('.'));
-  return isString(str) && size(str) && str !== 'undefined'
-    ? str.toUpperCase()
-    : null;
+  // Extension starts after the first dot after the last slash
+  const extStart = url.indexOf(
+    '.',
+    url.lastIndexOf('/') + 1,
+  );
+  if (extStart === -1) return null;
+  const ext = url.substr(extStart + 1);
+  // end of extension must be one of: end-of-string or question-mark or hash-mark
+  const extEnd = ext.search(/$|[?#]/);
+  return ext.substring(0, extEnd).toLowerCase();
 };
 
 export const getLastFolder = (str) =>
@@ -83,6 +64,8 @@ export const makeDirectoryId = (path = '', xs = {}) => {
 };
 export const toMbs = (bytes = 0) =>
   `${Number(bytes / 1024 ** 2).toFixed(2)}mbs`;
+
+export const toPixels = (pixels) => `${pixels}px`;
 
 export const sanitize = (s) => {
   if (!isString(s)) return undefined;

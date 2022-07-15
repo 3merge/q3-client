@@ -1,36 +1,26 @@
 import { makeStyles } from '@material-ui/core';
-import { IMAGE_EXT_LIST } from '../utils';
 
 export default makeStyles(() => ({
-  mask: {
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    zIndex: 2,
+  icon: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    width: '100%',
+
+    '& svg': {
+      fontSize: '6.1rem',
+    },
   },
   media: {
     height: 175,
     overflow: 'hidden',
     position: 'relative',
   },
-  object: ({ fileType }) =>
-    IMAGE_EXT_LIST.includes(fileType)
-      ? {
-          height: '100%',
-          objectFit: 'cover',
-          width: '100%',
-        }
-      : {
-          left: 0,
-          height: 'auto',
-          minHeight: '100%',
-          position: 'absolute',
-          top: 0,
-          width:
-            fileType === 'PDF'
-              ? 'calc(100% + 16px)'
-              : '100%',
-        },
+  img: {
+    objectFit: 'cover',
+    objectPosition: 'center',
+    height: '100%',
+    width: '100%',
+  },
 }));

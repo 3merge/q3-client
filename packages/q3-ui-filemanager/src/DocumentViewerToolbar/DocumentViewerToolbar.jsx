@@ -7,44 +7,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PrintIcon from '@material-ui/icons/Print';
-import withFileIcon from '../withFileIcon';
+import print from 'print-js';
 import useStyle from './styles';
+import useSaveAs from '../useSaveAs';
 
-const DocumentViewerToolbar = ({
-  contentRef,
-  icon: Icon,
-  iconColor,
-  name,
-  onClose,
-  url,
-}) => {
-  const cls = useStyle({
-    color: iconColor,
-  });
-
-  const handlePrint = () => {
-    const w = window.open(
-      '',
-      '_blank',
-      `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=${window.screen.width},height=${window.screen.height}`,
-    );
-
-    let html = '<!DOCTYPE HTML>';
-    html += '<html lang="en-us">';
-    html += '<head><style></style></head>';
-    html += '<body>';
-
-    html += `${contentRef.current.innerHTML}<br/><br/>`;
-
-    html += '</body>';
-    w.document.write(html);
-    setTimeout(() => {
-      w.outerHeight = window.clientHeight;
-      w.outerWidth = window.clientWidth;
-      w.print();
-      // w.close();
-    }, 250);
-  };
+const DocumentViewerToolbar = (props) => {
+  const { name, onClose } = props;
+  const save = useSaveAs(props);
+  const cls = useStyle();
 
   return (
     <Toolbar className={cls.toolbar}>
@@ -56,7 +26,6 @@ const DocumentViewerToolbar = ({
         >
           <ArrowBackIosIcon />
         </IconButton>
-        <Icon className={cls.icon} />
         <Typography
           className={cls.title}
           component="h2"
@@ -66,15 +35,59 @@ const DocumentViewerToolbar = ({
         </Typography>
       </Box>
       <Box>
-        <IconButton color="inherit" onClick={handlePrint}>
+        <IconButton
+          aria-label="print"
+          color="inherit"
+          onClick={() => {
+            const el = document
+              .getElementById('previewer')
+              .querySelector('.pg-viewer-wrapper');
+
+            let top = 0;
+
+            const move = () =>
+              el.scrollTo({
+                behavior: 'auto',
+                left: 0,
+                top,
+              });
+
+            move();
+
+            let position = null;
+            const checkIfScrollIsStatic = setInterval(
+              () => {
+                if (
+                  position >=
+                  el.scrollHeight - el.clientHeight
+                ) {
+                  clearInterval(checkIfScrollIsStatic);
+                  el.scrollTo({
+                    behaviour: 'auto',
+                    left: 0,
+                    top: 0,
+                  });
+
+                  // now!
+                  print('pg-viewer', 'html');
+                  return;
+                }
+
+                position = el.scrollTop;
+                top += 100;
+                move();
+              },
+              20,
+            );
+          }}
+        >
           <PrintIcon />
         </IconButton>
+
         <IconButton
+          aria-label="save"
           color="inherit"
-          component="a"
-          download
-          href={url}
-          target="_blank"
+          onClick={save}
         >
           <CloudDownloadIcon />
         </IconButton>
@@ -83,8 +96,11 @@ const DocumentViewerToolbar = ({
   );
 };
 
-PropTypes.propTypes = {
-  url: PropTypes.string.isRequired,
+DocumentViewerToolbar.defaultProps = {};
+
+DocumentViewerToolbar.propTypes = {
+  name: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
-export default withFileIcon(DocumentViewerToolbar);
+export default React.forwardRef(DocumentViewerToolbar);

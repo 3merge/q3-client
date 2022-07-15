@@ -13,7 +13,6 @@ import DirectoryView from '../DirectoryView';
 import DropZoneWrapper from '../DropZoneWrapper';
 import DropZoneInputWrapper from '../DropZoneInputWrapper';
 import DocumentViewer from '../DocumentViewer';
-import DialogMoveTo from '../DialogMoveTo';
 import DragHandlerPreview from '../DragHandlerPreview';
 import DragToSelect from '../DragToSelect';
 
@@ -44,45 +43,35 @@ const Directory = () => {
                     <>
                       <DropZoneWrapper onDrop={onDrop} />
                       <DirectoryBreadcrumbs />
-                      <DialogMoveTo>
-                        {({ appendMoverToEach, open }) => (
-                          <>
-                            <Box
-                              display="flex"
-                              justifyContent="space-between"
-                            >
-                              <Box>
-                                <DirectoryAddFolder />
-                                <DropZoneInputWrapper
-                                  onDrop={onDrop}
-                                />
-                              </Box>
-                              <Box
-                                alignItems="center"
-                                display="flex"
-                              >
-                                <DirectoryPendingFiles
-                                  pending={pending}
-                                />
-                                <DirectoryToolbar
-                                  openMoveTo={open}
-                                />
-                                <SortingComponent />
-                                <SwitcherComponent />
-                              </Box>
-                            </Box>
-                            <Box py={2}>
-                              <Divider />
-                            </Box>
-                            <Component
-                              files={appendMoverToEach(
-                                appendViewerToEach(files),
-                              )}
-                              siblings={siblings}
-                            />
-                          </>
-                        )}
-                      </DialogMoveTo>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                      >
+                        <Box>
+                          <DirectoryAddFolder />
+                          <DropZoneInputWrapper
+                            onDrop={onDrop}
+                          />
+                        </Box>
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                        >
+                          <DirectoryPendingFiles
+                            pending={pending}
+                          />
+                          <DirectoryToolbar />
+                          <SortingComponent />
+                          <SwitcherComponent />
+                        </Box>
+                      </Box>
+                      <Box py={2}>
+                        <Divider />
+                      </Box>
+                      <Component
+                        files={appendViewerToEach(files)}
+                        siblings={siblings}
+                      />
                     </>
                   )}
                 </DirectoryView>

@@ -1,35 +1,26 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   card: () => ({
     '&:hover': {
       boxShadow: 'none',
       transform: 'none',
     },
   }),
-  action: {
-    alignSelf: 'center',
-    marginBottom: 0,
-    marginRight: 4,
-    marginTop: 0,
-  },
   avatar: {
-    marginRight: 0,
-
+    marginRight: theme.spacing(0.75),
     '& > *': {
-      background: 'transparent',
+      background: theme.palette.secondary.light,
     },
   },
   content: {
     overflow: 'hidden',
 
     '& span': {
-      // fontSize: '0.933rem',
+      fontSize: theme.typography.body1.fontSize,
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
   },
-  root: {
-    padding: 8,
-  },
+  root: {},
 }));

@@ -14,7 +14,8 @@
       "relativePath": "docs/Returns.docx",
       "createdAt": "2022-07-02T11:04:05.993Z",
       "updatedAt": "2022-07-06T06:04:05.993Z",
-      "id": "62c72e67c2af12ff9f4ce52p"
+      "id": "62c72e67c2af12ff9f4ce52p",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Best%20man%20speech%20ideas.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220714%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220714T184233Z&X-Amz-Expires=86400&X-Amz-Signature=807dc22f7c59b410dd711327f4e1a5f9580c28e78072caec74d3d9e4bde50243&X-Amz-SignedHeaders=host"
     },
     {
       "name": "AssemblyInstructions.pdf",
@@ -34,15 +35,16 @@
       "updatedAt": "2022-02-01T14:04:05.993Z",
       "url": "https://raw.githubusercontent.com/goodby/csv/master/example/user.csv",
       "id": "62c72e67c2af12ff9f4ck874",
-      "size": 874379
+      "size": 874379,
+      "thumbnail": "data:image/jpeg;base64,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"
     },
     {
-      "name": "Warranties.png",
+      "name": "Warranties.pdf",
       "sensitive": true,
-      "relativePath": "docs/archives/Warranties.png",
+      "relativePath": "docs/archives/Warranties.pdf",
       "createdAt": "2014-01-06T19:24:05.993Z",
       "updatedAt": "2017-04-034T08:00:05.993Z",
-      "url": "",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Estimations%20FlexStaf.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220714%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220714T184345Z&X-Amz-Expires=86400&X-Amz-Signature=dd9269f7902929c9b2c89649f5f46fe22c02e0b75ae658c83b28ebebe1597aa4&X-Amz-SignedHeaders=host",
       "id": "62c72e25c2af12ff9e4l974d"
     },
     {
@@ -60,7 +62,7 @@
       "relativePath": "README.md",
       "createdAt": "2022-05-01T05:04:05.993Z",
       "updatedAt": "2022-02-01T14:04:05.993Z",
-      "url": "",
+      "url": "https://raw.githubusercontent.com/3merge/q3-api/master/README.md",
       "id": "62c72e67c2af12ff9f4ck111",
       "size": 129330
     }

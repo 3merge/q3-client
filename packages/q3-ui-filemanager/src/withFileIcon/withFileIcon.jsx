@@ -2,106 +2,91 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { useTheme } from '@material-ui/core';
-import {
-  purple,
-  pink,
-  deepPurple,
-  indigo,
-  cyan,
-  teal,
-  green,
-  lime,
-  orange,
-  blueGrey,
-  blue,
-} from '@material-ui/core/colors';
-import { get } from 'lodash';
 import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import ImageIcon from '@material-ui/icons/Image';
 import GifIcon from '@material-ui/icons/Gif';
 import CodeIcon from '@material-ui/icons/Code';
-import FolderIcon from '@material-ui/icons/Folder';
+import FolderIcon from '@material-ui/icons/FolderOpen';
+import DataUsageIcon from '@material-ui/icons/DataUsage';
+import SlideshowIcon from '@material-ui/icons/Slideshow';
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import SubjectIcon from '@material-ui/icons/Subject';
 import { getFileType } from '../utils';
 
-const colorMap = {
-  JPEG: purple,
-  JPG: deepPurple,
-  PNG: cyan,
-  GIF: teal,
-  TIFF: lime,
-  SVG: indigo,
-  CSV: pink,
-  PDF: green,
-  XLSX: orange,
-  FOLDER: blue,
-};
-
 const iconMap = {
-  JPEG: ImageIcon,
-  JPG: ImageIcon,
-  PNG: ImageIcon,
-  GIF: GifIcon,
-  TIFF: ImageIcon,
-  SVG: CodeIcon,
-  MD: CodeIcon,
-  HTML: CodeIcon,
-  PDF: PictureAsPdfIcon,
-  FOLDER: FolderIcon,
+  jpeg: ImageIcon,
+  jpg: ImageIcon,
+  png: ImageIcon,
+  gif: GifIcon,
+  tiff: ImageIcon,
+  svg: CodeIcon,
+  md: CodeIcon,
+  html: CodeIcon,
+  pdf: PictureAsPdfIcon,
+  csv: DataUsageIcon,
+  xls: DataUsageIcon,
+  xlsx: DataUsageIcon,
+  ppt: SlideshowIcon,
+  mp3: AudiotrackIcon,
+  flac: AudiotrackIcon,
+  wav: AudiotrackIcon,
+  aif: AudiotrackIcon,
+  mp4: VideoLibraryIcon,
+  doc: SubjectIcon,
+  docx: SubjectIcon,
+  mobi: SubjectIcon,
+  epub: SubjectIcon,
+  mov: VideoLibraryIcon,
+  wmv: VideoLibraryIcon,
+  avi: VideoLibraryIcon,
+  webm: VideoLibraryIcon,
+  fvl: VideoLibraryIcon,
 };
 
 const withFileIcon = (Component) => {
-  const FileIcon = (props) => {
+  const FileIconSelector = (props) => {
     const { isFolder = false, url } = props;
-    const fileType = !isFolder
-      ? getFileType(url)
-      : 'FOLDER';
-
-    const theme = useTheme();
-    const iconColor = React.useMemo(
-      () =>
-        get(
-          get(colorMap, fileType, blueGrey),
-          theme?.palette?.type === 'dark' ? 100 : 700,
-          undefined,
-        ),
-      [fileType, theme],
-    );
+    const color = useTheme()?.palette?.secondary?.main;
+    const fileType = !isFolder ? getFileType(url) : null;
 
     const El = React.useMemo(
       // eslint-disable-next-line
-      () => (elementProps) =>
-        React.createElement(
-          get(iconMap, fileType, DescriptionIcon),
-          {
-            style: {
-              color: iconColor,
+      () => () =>
+        fileType ? (
+          React.createElement(
+            iconMap[fileType] || DescriptionIcon,
+            {
+              style: {
+                color,
+              },
             },
-            ...elementProps,
-          },
+          )
+        ) : (
+          <FolderIcon
+            style={{
+              color,
+            }}
+          />
         ),
-      [iconColor, fileType],
+      [color, fileType],
     );
 
     return (
-      <Component
-        {...props}
-        fileType={fileType}
-        icon={El}
-        iconColor={iconColor}
-      />
+      <Component {...props} fileType={fileType} icon={El} />
     );
   };
 
-  FileIcon.defaultProps = {
+  FileIconSelector.defaultProps = {
     isFolder: false,
   };
 
-  FileIcon.propTypes = {
+  FileIconSelector.propTypes = {
     isFolder: PropTypes.bool,
     url: PropTypes.string.isRequired,
   };
 
-  return FileIcon;
+  return FileIconSelector;
 };
 
 export default withFileIcon;

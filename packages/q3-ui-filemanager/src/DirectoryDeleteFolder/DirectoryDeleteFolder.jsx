@@ -1,35 +1,19 @@
 import React from 'react';
+import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Confirm from 'q3-ui-confirm';
-import FileManagerBatchContext from '../FileManagerBatchContext';
-import FileManagerContext from '../FileManagerContext';
-import { withQueryParamIds } from '../utils';
+import useDialog from '../useDialog';
 
 const DirectoryDeleteFolder = () => {
-  const { poll, remove } = React.useContext(
-    FileManagerContext,
-  );
-  const { enable, disable, selected } = React.useContext(
-    FileManagerBatchContext,
-  );
+  const { open } = useDialog('q3-file-dialog-delete');
 
   return (
-    <Confirm
-      title="delete"
-      icon={DeleteIcon}
-      phrase="DELETE"
-      service={() =>
-        remove(withQueryParamIds(selected))().then(poll)
-      }
-      TransitionProps={{
-        onEnter() {
-          disable();
-        },
-        onExit() {
-          enable();
-        },
-      }}
-    />
+    <IconButton
+      aria-label="delete"
+      color="inherit"
+      onClick={open}
+    >
+      <DeleteIcon />
+    </IconButton>
   );
 };
 

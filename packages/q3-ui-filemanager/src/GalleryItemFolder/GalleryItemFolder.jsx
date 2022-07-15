@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Avatar,
   Card,
   CardContent,
   CardActionArea,
@@ -59,12 +60,10 @@ const GalleryItemFolder = React.forwardRef(
           onContextMenu={onContextMenu}
         >
           <CardContent>
-            <Typography
-              className={cls.title}
-              component="p"
-              variant="body2"
-            >
-              <GalleryItemFolderIcon isFolder />
+            <Typography className={cls.title} component="p">
+              <Avatar className={cls.avatar}>
+                <GalleryItemFolderIcon isFolder />
+              </Avatar>
               {name}
             </Typography>
           </CardContent>

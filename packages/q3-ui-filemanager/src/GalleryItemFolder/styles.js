@@ -5,10 +5,6 @@ export default makeStyles((theme) => ({
   title: {
     alignItems: 'center',
     display: 'flex',
-
-    '& svg': {
-      marginRight: theme.spacing(1),
-    },
   },
   card: ({ isHovering }) => {
     const out = {
@@ -28,5 +24,9 @@ export default makeStyles((theme) => ({
       };
 
     return out;
+  },
+  avatar: {
+    background: theme.palette.secondary.light,
+    marginRight: theme.spacing(0.75),
   },
 }));

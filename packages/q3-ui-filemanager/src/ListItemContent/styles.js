@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   avatar: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.palette.secondary.light,
   },
 }));

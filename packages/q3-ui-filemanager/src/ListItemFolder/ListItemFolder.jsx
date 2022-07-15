@@ -6,11 +6,20 @@ import ListItemContent from '../ListItemContent';
 import useDropFolder from '../useDropFolder';
 import withDrag from '../withDrag';
 import useStyle from './styles';
+import withContextMenuFolder from '../withContextMenuFolder';
 import withSelected from '../withSelected';
 
 const ListItemFolder = React.forwardRef(
   (
-    { onClick, name, path, size, isItemSelected, onSelect },
+    {
+      isItemSelected,
+      name,
+      onClick,
+      onContextMenu,
+      onSelect,
+      path,
+      size,
+    },
     ref,
   ) => {
     const {
@@ -36,12 +45,12 @@ const ListItemFolder = React.forwardRef(
           className={cls.item}
           onClick={onSelect}
           onDoubleClick={onClick}
-          // onContextMenu={onContextMenu}
+          onContextMenu={onContextMenu}
           selected={isItemSelected}
           ref={ref}
         >
           <ListItemContent
-            // onClick={onContextMenu}
+            onClick={onContextMenu}
             name={name}
             size={size}
           >
@@ -54,13 +63,21 @@ const ListItemFolder = React.forwardRef(
 );
 
 ListItemFolder.defaultProps = {
+  isItemSelected: false,
+  path: null,
   size: 0,
 };
 
 ListItemFolder.propTypes = {
+  isItemSelected: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  path: PropTypes.string,
   size: PropTypes.number,
 };
 
-export default withSelected(withDrag(ListItemFolder));
+export default withContextMenuFolder(
+  withSelected(withDrag(ListItemFolder)),
+);

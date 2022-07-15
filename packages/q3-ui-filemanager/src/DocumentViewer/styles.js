@@ -14,13 +14,17 @@ export default makeStyles((theme) => ({
     top: 0,
   },
   content: {
-    alignItems: 'center',
-    bottom: 0,
-    display: 'flex',
-    justifyContent: 'center',
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 64,
+    marginTop: 65,
+    maxHeight: 'calc(100% - 65px)',
+    overflow: 'auto',
+
+    '& canvas': {
+      display: 'block',
+      margin: 'auto',
+    },
+
+    '& .unsupported-message': {
+      background: 'transparent',
+    },
   },
 }));

@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { isObject, map } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import useStyle from './styles';
 import DocumentViewerToolbar from '../DocumentViewerToolbar';
-import { fetchUrlAsBlob } from '../utils';
+import DocumentViewerObject from '../DocumentViewerObject';
 
 const DocumentViewer = ({ children }) => {
   const [file, setFile] = React.useState();
-  const [data, setData] = React.useState(null);
-
-  const ref = React.useRef();
   const cls = useStyle({});
 
   const appendViewerClickToEach = (xs) =>
@@ -27,21 +24,11 @@ const DocumentViewer = ({ children }) => {
 
   const handleClose = () => {
     setFile(null);
-    setData(null);
   };
-
-  React.useEffect(() => {
-    if (file?.url)
-      fetchUrlAsBlob(file?.url)
-        .then(setData)
-        .catch(() => {
-          // noop
-        });
-  }, [file]);
 
   return (
     <>
-      {data && (
+      {isObject(file) && (
         <Dialog
           PaperProps={{
             style: {
@@ -55,20 +42,12 @@ const DocumentViewer = ({ children }) => {
           <AppBar className={cls.appbar} color="inherit">
             <DocumentViewerToolbar
               {...file}
-              contentRef={ref}
               onClose={handleClose}
             />
           </AppBar>
-          <Box ref={ref} className={cls.content}>
-            <object
-              aria-label="doc viewer"
-              data={data}
-              style={{
-                height: '100%',
-                width: '100%',
-              }}
-            />
-          </Box>
+          <div id="previewer" className={cls.content}>
+            <DocumentViewerObject {...file} />
+          </div>
         </Dialog>
       )}
       {children(appendViewerClickToEach)}

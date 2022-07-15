@@ -17,7 +17,9 @@
     "alphabetize-object-keys": "^3.0.0",
     "classnames": "^2.2.6",
     "dragselect": "^2.3.1",
+    "file-type": "^17.1.2",
     "lodash": "^4.17.20",
+    "print-js": "^1.6.0",
     "prop-types": "^15.7.2",
     "q3-ui": "^3.6.10",
     "q3-ui-dialog": "^3.6.0",
@@ -27,6 +29,8 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dropzone": "^11.4.2",
+    "react-file-icon": "^1.1.0",
+    "react-file-viewer": "^1.2.1",
     "selecto": "^1.17.0"
   }
 }

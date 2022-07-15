@@ -1,54 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
-import { CardMedia, Fade } from '@material-ui/core';
-import GalleryItemMediaIcon from '../GalleryItemMediaIcon';
+import { Box, CardMedia, Fade } from '@material-ui/core';
 import useVisibility from '../useVisibility';
-import { getFileType, fetchUrlAsBlob } from '../utils';
+import { getFileType } from '../utils';
+import withFileIcon from '../withFileIcon';
 import useStyle from './styles';
 
-const GalleryItemMedia = ({ url }) => {
-  const [data, setData] = React.useState(null);
+const GalleryItemMedia = ({
+  // eslint-disable-next-line
+  icon: Icon,
+  thumbnail,
+  url,
+}) => {
+  const [showImage, setShowImage] = React.useState(true);
   const { isVisible, ref } = useVisibility();
-
+  const src = thumbnail || url;
   const fileType = getFileType(url);
   const cls = useStyle({
     fileType,
   });
 
-  React.useEffect(
-    debounce(() => {
-      if (isVisible && url)
-        fetchUrlAsBlob(url)
-          .then(setData)
-          .catch(() => {
-            // noop
-          });
-    }, [500]),
-    [isVisible, url],
-  );
+  const handleError = () => {
+    setShowImage(false);
+  };
 
   return (
     <CardMedia className={cls.media} ref={ref}>
-      {data ? (
-        <Fade in>
-          <object
-            aria-label="media preview"
-            className={cls.object}
-            data={data}
-            height="175px"
+      <Fade in={isVisible}>
+        {showImage ? (
+          <img
+            alt="thumbnail"
+            src={src}
+            onError={handleError}
+            className={cls.img}
           />
-        </Fade>
-      ) : (
-        <GalleryItemMediaIcon url={url} />
-      )}
-      <div className={cls.mask} />
+        ) : (
+          <Box className={cls.icon}>
+            <Icon />
+          </Box>
+        )}
+      </Fade>
     </CardMedia>
   );
 };
 
+GalleryItemMedia.defaultProps = {
+  thumbnail: null,
+};
+
 GalleryItemMedia.propTypes = {
+  thumbnail: PropTypes.string,
   url: PropTypes.string.isRequired,
 };
 
-export default GalleryItemMedia;
+export default withFileIcon(GalleryItemMedia);

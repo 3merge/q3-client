@@ -1,107 +1,65 @@
 import React from 'react';
-import {
-  Menu,
-  MenuItem,
-  ListItemIcon,
-} from '@material-ui/core';
-import { useOpen } from 'useful-state';
+import PropTypes from 'prop-types';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { object } from 'q3-ui-helpers';
-import FileManagerContext from '../FileManagerContext';
-import FileManagerBatchContext from '../FileManagerBatchContext';
-import { withQueryParamIds } from '../utils';
+import useDialog from '../useDialog';
+import ContextMenu from '../ContextMenu';
 
-const withContextMenu = (Component) => (props) => {
-  const { id, onClick, move, path } = props;
-  const { open, isOpen, close, anchorEl } = useOpen();
-  const ctx = React.useContext(FileManagerContext);
-  const { enable, disable, select } = React.useContext(
-    FileManagerBatchContext,
-  );
+const withContextMenuFolder = (Component) => {
+  const ContextMenuImplementation = (props) => {
+    const { id } = props;
+    const { open: openMoveTo } = useDialog(
+      'q3-file-dialog-move-to',
+      props,
+    );
 
-  const handleEventWithCallback = (e, fn) => {
-    e.preventDefault();
-    e.stopPropagation();
-    fn(e);
-  };
+    const { open: openDeleteDialog } = useDialog(
+      'q3-file-dialog-delete',
+      props,
+    );
 
-  const handleRename = (e) => {
-    const n = prompt('newName');
+    const { open: openRenameDialog } = useDialog(
+      'q3-file-dialog-rename-folder',
+      props,
+    );
 
-    if (n)
-      return object.noop(
-        ctx.patch(withQueryParamIds(id))({
-          folder: path
-            .split('/')
-            .splice(0, -1)
-            .concat(n)
-            .join('/'),
-          replace: true,
-        }),
-      );
-
-    close(e);
-  };
-
-  const handleRemove = () =>
-    object.noop(ctx.remove(withQueryParamIds(id))());
-
-  return (
-    <>
-      <Component
-        {...props}
-        onContextMenu={(e) => {
-          handleEventWithCallback(e, open);
-          select(id);
-          disable();
-        }}
-      />
-      <Menu
-        className="q3-context-menu"
-        BackdropProps={{
-          invisible: true,
-          onContextMenu: (e) => {
-            if (!isOpen) return;
-            handleEventWithCallback(e, close);
+    return (
+      <ContextMenu
+        id={id}
+        items={[
+          {
+            icon: <EditIcon />,
+            label: 'rename',
+            onClick: openRenameDialog,
           },
-        }}
-        id="folder"
-        anchorEl={anchorEl}
-        open={isOpen}
-        onClose={(e) => {
-          close(e);
-          enable();
-        }}
+          {
+            icon: <AccountTreeIcon />,
+            label: 'moveTo',
+            onClick: openMoveTo,
+          },
+          {
+            icon: <DeleteIcon />,
+            label: 'delete',
+            onClick: openDeleteDialog,
+          },
+        ]}
       >
-        <MenuItem dense onClick={handleRename}>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          Rename
-        </MenuItem>
-        <MenuItem
-          dense
-          onClick={(e) => {
-            move(e);
-            close(e);
-          }}
-        >
-          <ListItemIcon>
-            <AccountTreeIcon />
-          </ListItemIcon>
-          Move
-        </MenuItem>
-        <MenuItem dense onClick={handleRemove}>
-          <ListItemIcon>
-            <DeleteIcon />
-          </ListItemIcon>
-          Delete
-        </MenuItem>
-      </Menu>
-    </>
-  );
+        {(onContextMenu) => (
+          <Component
+            onContextMenu={onContextMenu}
+            {...props}
+          />
+        )}
+      </ContextMenu>
+    );
+  };
+
+  ContextMenuImplementation.propTypes = {
+    id: PropTypes.string.isRequired,
+  };
+
+  return ContextMenuImplementation;
 };
 
-export default withContextMenu;
+export default withContextMenuFolder;

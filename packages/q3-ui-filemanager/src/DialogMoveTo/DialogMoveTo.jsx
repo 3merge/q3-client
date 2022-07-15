@@ -1,29 +1,30 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TreeView from '@material-ui/lab/TreeView';
 import TreeItem from '@material-ui/lab/TreeItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useTranslation } from 'q3-ui-locale';
-import { map } from 'lodash';
 import useDirectoryFolders from '../useDirectoryFolders';
 import useDirectoryFoldersChange from '../useDirectoryFoldersChange';
-import FileManagerBatchContext from '../FileManagerBatchContext';
+import DialogTriggerButton from '../DialogTriggerButton';
+import useDialog from '../useDialog';
 
-const DialogMoveTo = ({ children }) => {
+const DialogMoveTo = () => {
+  const root = '__ROOT__';
+  const id = 'q3-file-dialog-move-to';
+
   const onChange = useDirectoryFoldersChange();
   const { tree = [] } = useDirectoryFolders();
   const { t } = useTranslation('labels');
-  const root = '__ROOT__';
+
+  const { close, handleOpen, isOpen, TransitionProps } =
+    useDialog(id);
 
   const [expanded, setExpanded] = React.useState([root]);
   const [selected, setSelected] = React.useState([root]);
-
-  const { enable, disable } = React.useContext(
-    FileManagerBatchContext,
-  );
 
   const handleToggle = (event, nodeIds) => {
     setExpanded(nodeIds);
@@ -45,9 +46,23 @@ const DialogMoveTo = ({ children }) => {
     </TreeItem>
   );
 
+  const ButtonComponent = React.useCallback(
+    (open) => (
+      <DialogTriggerButton
+        id={id}
+        onClick={(e) => {
+          handleOpen(e, open);
+        }}
+      />
+    ),
+    [],
+  );
+
   return (
     <Dialog
-      renderContent={(close) => (
+      isOpen={isOpen}
+      onClose={close}
+      renderContent={() => (
         <>
           <TreeView
             defaultCollapseIcon={<ExpandMoreIcon />}
@@ -63,49 +78,36 @@ const DialogMoveTo = ({ children }) => {
               children: tree,
             })}
           </TreeView>
-          <Button
-            onClick={() =>
-              onChange({
-                id: null,
-                folder:
-                  Array.isArray(selected) ||
-                  selected === root
-                    ? null
-                    : selected,
-              }).then(() => {
-                close();
-              })
-            }
-          >
-            Apply
-          </Button>
+          <Box mt={2}>
+            <Button
+              onClick={() =>
+                onChange({
+                  id: null,
+                  folder:
+                    Array.isArray(selected) ||
+                    selected === root
+                      ? null
+                      : selected,
+                }).then(() => {
+                  close();
+                })
+              }
+              color="secondary"
+              variant="contained"
+            >
+              {t('move')}
+            </Button>
+          </Box>
         </>
       )}
-      renderTrigger={(open) =>
-        children({
-          appendMoverToEach: (xs) =>
-            map(xs, (item) => ({
-              ...item,
-              move: open,
-            })),
-          open,
-        })
-      }
+      renderTrigger={ButtonComponent}
+      description="moveTo"
       title="moveTo"
-      TransitionProps={{
-        onEnter() {
-          disable();
-        },
-        onExit() {
-          enable();
-        },
-      }}
+      TransitionProps={TransitionProps}
     />
   );
 };
 
-DialogMoveTo.propTypes = {
-  children: PropTypes.func.isRequired,
-};
+DialogMoveTo.propTypes = {};
 
 export default DialogMoveTo;

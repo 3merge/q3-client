@@ -1,23 +1,33 @@
 import React from 'react';
-import { Box, IconButton, Fade } from '@material-ui/core';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import { Box, Fade } from '@material-ui/core';
+import DirectoryMoveTo from '../DirectoryMoveTo';
 import DirectoryDeleteFolder from '../DirectoryDeleteFolder';
 import FileManagerBatchContext from '../FileManagerBatchContext';
+import DialogAbout from '../DialogAbout';
+import DialogDelete from '../DialogDelete';
+import DialogMoveTo from '../DialogMoveTo';
+import DialogRenameFile from '../DialogRenameFile';
+import DialogRenameFolder from '../DialogRenameFolder';
 
-const DirectoryToolbar = ({ openMoveTo }) => {
+const DirectoryToolbar = () => {
   const { sizeOfSelected } = React.useContext(
     FileManagerBatchContext,
   );
 
   return (
-    <Fade in={sizeOfSelected > 0}>
-      <Box className="q3-context-menu" width="100%">
-        <IconButton color="inherit" onClick={openMoveTo}>
-          <AccountTreeIcon />
-        </IconButton>
-        <DirectoryDeleteFolder />
-      </Box>
-    </Fade>
+    <Box className="q3-context-menu" width="100%">
+      <Fade in={sizeOfSelected > 0}>
+        <Box>
+          <DirectoryMoveTo />
+          <DirectoryDeleteFolder />
+        </Box>
+      </Fade>
+      <DialogRenameFile />
+      <DialogRenameFolder />
+      <DialogMoveTo />
+      <DialogAbout />
+      <DialogDelete />
+    </Box>
   );
 };
 
