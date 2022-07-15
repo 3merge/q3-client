@@ -1,0 +1,49 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Thread from './Thread';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="Thread/Thread" component={Thread} />
+
+# Thread
+
+<Preview>
+  <Story name="Fetching">
+    <Fixtures delay={60000} ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Fetching Error">
+    <Fixtures onGetError ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error">
+    <Fixtures>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error (via props)">
+    <Fixtures ops={['Read']}>
+      <Thread canSee={false} />
+    </Fixtures>
+  </Story>
+  <Story name="Empty">
+    <Fixtures onGetEmpty ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Notes">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Thread} />
