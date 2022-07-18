@@ -25,6 +25,14 @@ const NoteEdit = ({ id, children }) => {
   const invokeWithId = (fn) =>
     isFunction(fn) ? fn(String(id)) : Promise.resolve(null);
 
+  const noNil = (xs) =>
+    xs === null ||
+    xs === undefined ||
+    xs === 'null' ||
+    xs === 'undefined'
+      ? ''
+      : xs;
+
   const IconComponent = React.useMemo(
     () => (isEditing ? CloseIcon : EditIcon),
     [isEditing],
@@ -39,7 +47,7 @@ const NoteEdit = ({ id, children }) => {
             message: get(initialValues, 'message', ''),
             pin: get(initialValues, 'pin', false),
             tags: compact(get(initialValues, 'tags', [])),
-            title: get(initialValues, 'title', ''),
+            title: noNil(get(initialValues, 'title', '')),
           }}
           onReset={invokeWithId(remove)}
           onSubmit={(values) =>

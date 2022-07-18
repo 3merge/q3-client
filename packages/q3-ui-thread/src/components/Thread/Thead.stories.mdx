@@ -37,9 +37,29 @@ import Fixtures from '../../tests/fixtures';
       <Thread />
     </Fixtures>
   </Story>
-  <Story name="Notes">
+  <Story name="With all permissions">
+    <Fixtures ops={['Read', 'Create', 'Update', 'Delete']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Read-only">
+    <Fixtures ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Read-only (no tags/pins)">
+    <Fixtures ops={['Read']}>
+      <Thread enableTags={false} />
+    </Fixtures>
+  </Story>
+  <Story name="With editing">
     <Fixtures ops={['Read', 'Create', 'Update']}>
       <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="With editing (no tags/pins via props)">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <Thread enableTags={false} enablePins={false} />
     </Fixtures>
   </Story>
 </Preview>

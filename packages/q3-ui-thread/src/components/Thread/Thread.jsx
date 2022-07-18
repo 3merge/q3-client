@@ -22,16 +22,17 @@ const Thread = (props) => (
         post,
       }) => (
         <Box
+          alignItems="center"
           bgcolor="background.paper"
           display="flex"
           justifyContent="space-between"
           position="sticky"
-          py={1}
+          py={0.5}
           top="0"
           zIndex={1}
         >
           <NoteAdd data={data} post={post} />
-          <Box>
+          <Box alignItems="center" display="flex">
             <Sort
               sortDirection={sortDirection}
               changeSortDirection={changeSortDirection}

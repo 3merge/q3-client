@@ -24,7 +24,7 @@ const Tags = ({ data, tags, selectTag }) => {
   };
 
   return canTag ? (
-    <Box display="inline-block" ml={0.5} mb={1}>
+    <Box display="inline-flex" ml={0.5}>
       <Button
         endIcon={
           <Badge badgeContent={size(tags)}>

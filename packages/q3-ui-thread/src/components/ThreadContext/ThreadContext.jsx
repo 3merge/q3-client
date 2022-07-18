@@ -43,7 +43,7 @@ export const ThreadContextProvider = ({
 
     return {
       canPin: checkTopLevelAuth('pin') && enablePins,
-      canTag: checkTopLevelAuth('tags') && enableTags,
+      canTag: auth.canSeeSub(`${key}.tags`) && enableTags,
       canTitle: checkTopLevelAuth('title') && enableTitles,
       ...topLevelAuthState,
     };

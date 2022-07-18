@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import { Chip, CardActions } from '@material-ui/core';
 import { map } from 'lodash';
 import useStyle from './styles';
+import ThreadContext from '../ThreadContext';
 
-const NoteTags = ({ tags, selectTag }) => (
-  <CardActions classes={useStyle()}>
-    {map(tags, (tag) => (
-      <Chip
-        key={tag}
-        label={tag}
-        onClick={() => selectTag(tag)}
-        size="small"
-      />
-    ))}
-  </CardActions>
-);
+const NoteTags = ({ tags, selectTag }) =>
+  React.useContext(ThreadContext)?.canTag && (
+    <CardActions classes={useStyle()}>
+      {map(tags, (tag) => (
+        <Chip
+          key={tag}
+          label={tag}
+          onClick={() => selectTag(tag)}
+          size="small"
+        />
+      ))}
+    </CardActions>
+  );
 NoteTags.defaultProps = {
   tags: [],
 };

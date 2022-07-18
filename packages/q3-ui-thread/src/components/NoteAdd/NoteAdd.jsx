@@ -5,16 +5,18 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'q3-ui-locale';
 import AddIcon from '@material-ui/icons/Add';
 import NoteForm from '../NoteForm';
+import ThreadContext from '../ThreadContext';
 import ThreadContextHttp from '../ThreadContextHttp';
 
 const NoteAdd = () => {
   const { post } = React.useContext(ThreadContextHttp);
+  const { canCreate } = React.useContext(ThreadContext);
   const { t } = useTranslation('titles');
 
   const handleSubmit = (next) => (values) =>
     post(values).then(next);
 
-  return (
+  return canCreate ? (
     <Dialog
       renderContent={(close) => (
         <NoteForm
@@ -31,13 +33,15 @@ const NoteAdd = () => {
             startIcon={<AddIcon />}
             variant="contained"
           >
-            {t('add')}
+            {t('addNote')}
           </Button>
         </Box>
       )}
       variant="drawer"
-      title="add"
+      title="addNote"
     />
+  ) : (
+    <div />
   );
 };
 

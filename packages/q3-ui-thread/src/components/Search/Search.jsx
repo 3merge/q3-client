@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'q3-ui-locale';
+import SearchIcon from '@material-ui/icons/Search';
 
 const Search = ({ handleInput }) => {
   const [state, setState] = React.useState('');
@@ -23,10 +24,15 @@ const Search = ({ handleInput }) => {
   }, [shouldRun]);
 
   return (
-    <Box mb={1}>
+    <Box mt={1} mb={0.5}>
       <TextField
         InputProps={{
-          endAdornment: (
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+          endAdornment: state ? (
             <InputAdornment position="end">
               <IconButton
                 aria-label="clear search"
@@ -35,12 +41,14 @@ const Search = ({ handleInput }) => {
                 <ClearIcon />
               </IconButton>
             </InputAdornment>
-          ),
+          ) : null,
         }}
         fullWidth
         label={t('searchNotes')}
         onChange={handleChange}
+        size="small"
         value={state}
+        variant="outlined"
       />
     </Box>
   );

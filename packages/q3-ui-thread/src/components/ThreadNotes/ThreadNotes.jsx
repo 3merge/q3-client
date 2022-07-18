@@ -6,6 +6,7 @@ import { map, orderBy, size, every, groupBy } from 'lodash';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ThreadContextHttp from '../ThreadContextHttp';
+import ThreadContext from '../ThreadContext';
 import AlertEmpty from '../AlertEmpty';
 import AlertFetchingError from '../AlertFetchingError';
 import Note from '../Note';
@@ -24,6 +25,7 @@ const ThreadNotes = ({ children, collectionName, id }) => {
   } = useThread(collectionName, id);
   const { t } = useTranslation('labels');
 
+  const { canPin } = React.useContext(ThreadContext);
   const [search, setSearch] = React.useState('');
   const [sort, setSort] = React.useState('asc');
   const [tags, setTags] = React.useState([]);
@@ -86,6 +88,21 @@ const ThreadNotes = ({ children, collectionName, id }) => {
         : prev.concat(xs);
     });
 
+  const renderNotes = (xs) => (
+    <Box display="flex" flexWrap="wrap">
+      {map(xs, (note, idx) => (
+        <Note
+          data={data}
+          key={note.id}
+          selectTag={selectTag}
+          timeout={idx * 150}
+          {...http}
+          {...note}
+        />
+      ))}
+    </Box>
+  );
+
   const renderGroup = (key, title) => {
     const grouped = groupBy(filteredData, 'pin');
     const xs = grouped[key];
@@ -98,21 +115,20 @@ const ThreadNotes = ({ children, collectionName, id }) => {
         >
           {t(`labels:${title}`)}
         </Typography>
-        <Box display="flex" flexWrap="wrap">
-          {map(xs, (note, idx) => (
-            <Note
-              data={data}
-              key={note.id}
-              selectTag={selectTag}
-              timeout={idx * 150}
-              {...http}
-              {...note}
-            />
-          ))}
-        </Box>
+        {renderNotes(xs)}
       </Box>
     ) : null;
   };
+
+  const execRenderOption = () =>
+    canPin ? (
+      <>
+        {renderGroup('true', 'pinned')}
+        {renderGroup('false', 'posts')}
+      </>
+    ) : (
+      renderNotes(filteredData)
+    );
 
   if (fetching) return <CircularProgress />;
   if (fetchingError) return <AlertFetchingError />;
@@ -129,10 +145,7 @@ const ThreadNotes = ({ children, collectionName, id }) => {
       })}
       {size(data) > 1 && <Search handleInput={setSearch} />}
       {size(filteredData) ? (
-        <>
-          {renderGroup('true', 'pinned')}
-          {renderGroup('false', 'posts')}
-        </>
+        execRenderOption()
       ) : (
         <AlertEmpty />
       )}

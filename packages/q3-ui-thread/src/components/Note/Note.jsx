@@ -7,12 +7,10 @@ import {
   CardHeader,
   Box,
 } from '@material-ui/core';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import { string } from 'q3-ui-helpers';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Grow from '@material-ui/core/Grow';
+import NotePin from '../NotePin';
 import { useCardStyle, useHeaderStyle } from './styles';
-import usePin from '../usePin';
 import NoteEdit from '../NoteEdit';
 import NoteTags from '../NoteTags';
 
@@ -20,7 +18,6 @@ const Note = (props) => {
   const { createdAt, title, message, pin, id, timeout } =
     props;
 
-  const { isPinned, toggle } = usePin(id, pin);
   const cardClasses = useCardStyle();
   const headerClasses = useHeaderStyle();
 
@@ -49,16 +46,7 @@ const Note = (props) => {
                         <IconComponent />
                       </IconButton>
                     )}
-                    <IconButton
-                      color="inherit"
-                      onClick={toggle}
-                    >
-                      {isPinned ? (
-                        <BookmarkIcon />
-                      ) : (
-                        <BookmarkBorderIcon />
-                      )}
-                    </IconButton>
+                    <NotePin id={id} pin={pin} />
                   </>
                 }
                 classes={headerClasses}
