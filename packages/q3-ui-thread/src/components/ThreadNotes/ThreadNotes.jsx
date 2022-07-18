@@ -12,7 +12,7 @@ import Note from '../Note';
 import Search from '../Search';
 import useThread from '../useThread';
 
-const hasSize = (arrayOrString) => size(arrayOrString) > 1;
+const hasSize = (arrayOrString) => size(arrayOrString) > 0;
 const lower = (str) => String(str).toLowerCase();
 
 const ThreadNotes = ({ children, collectionName, id }) => {
@@ -44,7 +44,6 @@ const ThreadNotes = ({ children, collectionName, id }) => {
 
     return searchLength || tagLength
       ? data.filter((item) => {
-          const tagList = map(item.tags, String);
           let passes = true;
 
           if (searchLength) {
@@ -57,10 +56,14 @@ const ThreadNotes = ({ children, collectionName, id }) => {
               title.includes(lowerCaseSearch);
           }
 
-          if (tagLength && passes && hasSize(tagList))
-            passes = every(tags, (tag) =>
-              tagList.includes(String(tag)),
-            );
+          if (tagLength && passes)
+            passes = hasSize(item.tags)
+              ? every(tags, (itemTag) =>
+                  map(item.tags, String).includes(
+                    String(itemTag),
+                  ),
+                )
+              : false;
 
           return passes;
         })
