@@ -26,7 +26,7 @@ const Note = (props) => {
   return (
     <Grow in timeout={timeout}>
       <Box width="100%">
-        <NoteEdit>
+        <NoteEdit id={id}>
           {({
             EditorComponent,
             IconComponent,
@@ -53,14 +53,16 @@ const Note = (props) => {
                 subheader={resolvedTitle}
                 title={string.toDate(createdAt)}
               />
-              <CardContent>
-                {isEditing ? (
+              {isEditing ? (
+                <CardContent>
                   <EditorComponent {...props} />
-                ) : (
-                  message
-                )}
-              </CardContent>
-              <NoteTags {...props} />
+                </CardContent>
+              ) : (
+                <>
+                  <CardContent>{message}</CardContent>
+                  <NoteTags {...props} />
+                </>
+              )}
             </Card>
           )}
         </NoteEdit>

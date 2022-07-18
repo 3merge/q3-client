@@ -1,22 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Grow from '@material-ui/core/Grow';
+import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import MenuList from '@material-ui/core/MenuList';
 import Popover from '@material-ui/core/Popover';
-import { map, includes, size } from 'lodash';
+import {
+  map,
+  includes,
+  size,
+  isEqual,
+  sortBy,
+} from 'lodash';
 import DoneIcon from '@material-ui/icons/Done';
 import ScatterPlotSharpIcon from '@material-ui/icons/ScatterPlotSharp';
 import { useOpen } from 'useful-state';
+import { useTranslation } from 'q3-ui-locale';
 import ThreadContext from '../ThreadContext';
 import useNoteTags from '../useNoteTags';
 
-const Tags = ({ data, tags, selectTag }) => {
+const Tags = ({ tags, selectTag }) => {
+  const { t } = useTranslation('labels');
   const { canTag } = React.useContext(ThreadContext);
-  const allTags = useNoteTags(data);
   const ref = React.useRef();
+
+  const allTags = useNoteTags();
   const { open, isOpen, close } = useOpen();
 
   const handleClick = (newTagValue) => () => {
@@ -34,7 +45,7 @@ const Tags = ({ data, tags, selectTag }) => {
         onClick={open}
         ref={ref}
       >
-        Tags
+        {t('tags')}
       </Button>
       <Popover
         anchorEl={ref.current}
@@ -55,24 +66,45 @@ const Tags = ({ data, tags, selectTag }) => {
         }}
       >
         <MenuList>
-          {map(allTags, (t) => {
-            const selected = includes(tags, t);
+          {!isEqual(sortBy(tags), sortBy(allTags)) && (
+            <ListItem
+              button
+              dense
+              onClick={handleClick(allTags)}
+              item
+            >
+              {t('selectAllTags')}
+            </ListItem>
+          )}
+          {size(tags) > 0 && (
+            <ListItem
+              button
+              dense
+              onClick={handleClick([])}
+              item
+            >
+              {t('clearTags')}
+            </ListItem>
+          )}
+          <Divider component="li" />
+          {map(allTags, (tag) => {
+            const selected = includes(tags, tag);
 
             return (
               <ListItem
                 button
                 dense
-                onClick={handleClick(t)}
+                onClick={handleClick(tag)}
                 selected={selected}
                 item
-                key={t}
+                key={tag}
               >
                 <Box
                   display="flex"
                   justifyContent="space-between"
                   width="100%"
                 >
-                  {t}
+                  {tag}
                   {selected && (
                     <Grow in>
                       <Box display="inline-block" ml={0.5}>
@@ -88,6 +120,15 @@ const Tags = ({ data, tags, selectTag }) => {
       </Popover>
     </Box>
   ) : null;
+};
+
+Tags.defaultProps = {
+  tags: [],
+};
+
+Tags.propTypes = {
+  selectTag: PropTypes.func.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default Tags;

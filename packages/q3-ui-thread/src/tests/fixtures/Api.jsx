@@ -1,6 +1,6 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { isNil, last, isString } from 'lodash';
+import { last } from 'lodash';
 import data from './data';
 import { collectionName, id } from './meta';
 
@@ -9,11 +9,13 @@ const useMockData =
   (mockApiInstance) => {
     const { onGetError = false, onGetEmpty = false } = args;
     const [dataSource, setDataSource] = React.useState(
-      onGetEmpty ? [] : data || [],
+      onGetEmpty
+        ? []
+        : data.map((item) => ({
+            ...item,
+            id: String(item.id),
+          })) || [],
     );
-
-    const removeTrailingSlash = (str) =>
-      isString(str) ? str.replace(/\/+$/, '') : str;
 
     const getRandomArbitrary = (min = 0, max = 50000) =>
       String(Math.random() * (max - min) + min).replace(
@@ -47,7 +49,7 @@ const useMockData =
 
         Object.assign(obj, {
           ...rest,
-          pin: isNil(pin) ? obj.pin : Boolean(pin),
+          pin: !!(pin === true || pin === 'true'),
         });
 
         setDataSource(currentState);
@@ -63,7 +65,9 @@ const useMockData =
       .onDelete(makeEndpoint(true))
       .reply(({ url }) => {
         const currentState = [...dataSource].filter(
-          (item) => item.id !== last(url.split('/')),
+          (item) =>
+            String(item.id) !==
+            String(last(url.split('/'))),
         );
 
         setDataSource(currentState);

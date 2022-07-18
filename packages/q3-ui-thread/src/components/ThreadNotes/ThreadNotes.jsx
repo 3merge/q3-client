@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'q3-ui-locale';
-import { map, orderBy, size, every, groupBy } from 'lodash';
+import {
+  map,
+  orderBy,
+  size,
+  every,
+  groupBy,
+  uniq,
+} from 'lodash';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ThreadContextHttp from '../ThreadContextHttp';
@@ -83,9 +90,13 @@ const ThreadNotes = ({ children, collectionName, id }) => {
     setTags((prev = []) => {
       if (!xs) return prev;
       if (!Array.isArray(prev)) return [xs];
-      return prev.includes(xs)
-        ? prev.filter((item) => item !== xs)
-        : prev.concat(xs);
+      if (!size(xs)) return [];
+
+      return uniq(
+        prev.includes(xs)
+          ? prev.filter((item) => item !== xs)
+          : prev.concat(xs),
+      );
     });
 
   const renderNotes = (xs) => (
@@ -134,7 +145,8 @@ const ThreadNotes = ({ children, collectionName, id }) => {
   if (fetchingError) return <AlertFetchingError />;
 
   return (
-    <ThreadContextHttp.Provider value={http}>
+    // eslint-disable-next-line
+    <ThreadContextHttp.Provider value={{ thread, ...http }}>
       {children({
         data,
         changeSortDirection,

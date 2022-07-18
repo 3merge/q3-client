@@ -1,14 +1,20 @@
 import React from 'react';
-import { uniq, compact, map, includes } from 'lodash';
+import { uniq, compact, map } from 'lodash';
+import ThreadContextHttp from '../ThreadContextHttp';
 
-const useNoteTags = (xs) =>
-  React.useMemo(
-    () =>
-      map(
-        uniq(compact(map(xs, 'tags').flat())),
-        String,
-      ).sort(),
-    [],
+const useNoteTags = () => {
+  const { thread } = React.useContext(ThreadContextHttp);
+  const data = map(thread, (item) =>
+    map(item.tags, String),
   );
+
+  return React.useMemo(
+    () =>
+      Array.isArray(data)
+        ? uniq(compact(data.flat())).sort()
+        : data,
+    [data],
+  );
+};
 
 export default useNoteTags;
