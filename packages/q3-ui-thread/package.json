@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
+    "q3-ui-helpers": "^3.6.0",
     "q3-ui-locale": "^3.6.0",
     "q3-ui-permissions": "^3.6.10",
     "q3-ui-rest": "^3.6.10"

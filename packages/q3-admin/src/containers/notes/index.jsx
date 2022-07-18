@@ -3,6 +3,7 @@ import useRest from 'q3-ui-rest';
 import { useTranslation } from 'q3-ui-locale';
 import { useAuth } from 'q3-ui-permissions';
 import { orderBy, size } from 'lodash';
+import Thread from 'q3-ui-thread';
 import AddNote from './add';
 import { Definitions } from '../state';
 import DisplayNotes from '../../components/display';
@@ -19,6 +20,8 @@ export const getAuthor = (v) => {
 const Notes = () => {
   const { collectionName, id } =
     React.useContext(Definitions);
+
+  return <Thread {...React.useContext(Definitions)} />;
 
   const {
     post,

@@ -1,4 +1,6 @@
 import React from 'react';
+// often rendered as dialog
+import Container from '@material-ui/core/Container';
 import ApiMock from './Api';
 import AuthMock from './Auth';
 import { collectionName, id } from './meta';
@@ -13,11 +15,13 @@ const Fixtures = ({ children, ...rest }) => {
     });
 
   return (
-    <AuthMock {...rest}>
-      <ApiMock {...rest}>
-        <StoryOrTest />
-      </ApiMock>
-    </AuthMock>
+    <Container maxWidth="sm">
+      <AuthMock {...rest}>
+        <ApiMock {...rest}>
+          <StoryOrTest />
+        </ApiMock>
+      </AuthMock>
+    </Container>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { compact, last, isString } from 'lodash';
+import { isNil, last, isString } from 'lodash';
 import data from './data';
 import { collectionName, id } from './meta';
 
@@ -37,39 +37,24 @@ const useMockData =
     mockApiInstance
       .onPatch(makeEndpoint(true))
       .reply(({ data: requestData, url }) => {
-        const { name, folder } = JSON.parse(requestData);
+        const { pin, ...rest } = JSON.parse(requestData);
         const currentState = [...dataSource];
         const obj = currentState.find(
-          (item) => item.id === last(url.split('/')),
+          (item) =>
+            String(item.id) ===
+            String(last(url.split('/'))),
         );
 
-        const ext = `.${last(obj.name.split('.'))}`;
-
-        if (folder || folder === null)
-          Object.assign(obj, {
-            relativePath: compact([
-              removeTrailingSlash(folder),
-              last(obj.relativePath.split('/')),
-            ]).join('/'),
-          });
-
-        if (name)
-          Object.assign(obj, {
-            name: name + ext,
-            relativePath:
-              obj.relativePath
-                .split('/')
-                .slice(0, -1)
-                .concat(name)
-                .join('/') + ext,
-          });
+        Object.assign(obj, {
+          ...rest,
+          pin: isNil(pin) ? obj.pin : Boolean(pin),
+        });
 
         setDataSource(currentState);
-
         return [
           200,
           {
-            uploads: currentState,
+            thread: currentState,
           },
         ];
       });

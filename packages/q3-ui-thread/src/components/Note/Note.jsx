@@ -1,85 +1,104 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
-  Box,
   Card,
   CardContent,
-  CardActions,
   IconButton,
   CardHeader,
-  CardActionArea,
-  Collapse,
-  Fade,
-  lighten,
+  Box,
 } from '@material-ui/core';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import { map, truncate } from 'lodash';
 import { string } from 'q3-ui-helpers';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import LabelIcon from '@material-ui/icons/Label';
+import Grow from '@material-ui/core/Grow';
+import { useCardStyle, useHeaderStyle } from './styles';
+import usePin from '../usePin';
+import NoteEdit from '../NoteEdit';
+import NoteTags from '../NoteTags';
 
-const Note = ({
-  color,
-  createdAt,
-  title,
-  tags,
-  message,
-  pin,
-}) => {
-  const [show, setShow] = React.useState(false);
+const Note = (props) => {
+  const { createdAt, title, message, pin, id, timeout } =
+    props;
 
-  // usePin.
-  // useColor
-  // use edit... OPEN DRAWER.
-  console.log(pin);
+  const { isPinned, toggle } = usePin(id, pin);
+  const cardClasses = useCardStyle();
+  const headerClasses = useHeaderStyle();
+
+  const resolvedTitle = title || 'Untitled';
 
   return (
-    <Box mb={1}>
-      <Card
-        style={{
-          backgroundColor: color
-            ? lighten(color, 0.91)
-            : undefined,
-        }}
-        variant="outlined"
-      >
-        <CardActionArea
-          onClick={() => setShow((prevState) => !prevState)}
-        >
-          <CardHeader
-            action={
-              <>
-                <Fade in={show}>
-                  <IconButton>S</IconButton>
-                </Fade>
-                <IconButton>
-                  {pin === true ? (
-                    <BookmarkIcon />
-                  ) : (
-                    <BookmarkBorderIcon />
-                  )}
-                </IconButton>
-              </>
-            }
-            subheader={title || truncate(message, 35)}
-          />
-          <Collapse in={show}>
-            <CardContent>{message}</CardContent>
-          </Collapse>
-          <CardActions>
-            {string.toDate(createdAt)}
-            {map(tags, (tag) => (
-              <>
-                <LabelIcon />
-                {tag}
-              </>
-            ))}
-          </CardActions>
-        </CardActionArea>
-      </Card>
-    </Box>
+    <Grow in timeout={timeout}>
+      <Box width="100%">
+        <NoteEdit>
+          {({
+            EditorComponent,
+            IconComponent,
+            canEdit,
+            isEditing,
+            edit,
+          }) => (
+            <Card classes={cardClasses}>
+              <CardHeader
+                action={
+                  <>
+                    {canEdit && (
+                      <IconButton
+                        color="inherit"
+                        onClick={edit}
+                      >
+                        <IconComponent />
+                      </IconButton>
+                    )}
+                    <IconButton
+                      color="inherit"
+                      onClick={toggle}
+                    >
+                      {isPinned ? (
+                        <BookmarkIcon />
+                      ) : (
+                        <BookmarkBorderIcon />
+                      )}
+                    </IconButton>
+                  </>
+                }
+                classes={headerClasses}
+                subheader={resolvedTitle}
+                title={string.toDate(createdAt)}
+              />
+              <CardContent>
+                {isEditing ? (
+                  <EditorComponent {...props} />
+                ) : (
+                  message
+                )}
+              </CardContent>
+              <NoteTags {...props} />
+            </Card>
+          )}
+        </NoteEdit>
+      </Box>
+    </Grow>
   );
 };
 
-Note.propTypes = {};
+Note.defaultProps = {
+  createdAt: new Date().toISOString(),
+  message: '',
+  pin: false,
+  timeout: 0,
+  title: '',
+};
+
+Note.propTypes = {
+  createdAt: PropTypes.string,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  message: PropTypes.string,
+  pin: PropTypes.bool,
+  timeout: PropTypes.number,
+  title: PropTypes.string,
+};
 
 export default Note;
