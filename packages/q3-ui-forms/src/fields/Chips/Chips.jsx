@@ -147,7 +147,7 @@ const AbstractedAutoComplete = ({
             />
           ))
       }
-      //  inputValue={inputValue}
+      inputValue={inputValue}
       onInputChange={(event, newInputValue) => {
         if (event) handleChange(newInputValue);
       }}
