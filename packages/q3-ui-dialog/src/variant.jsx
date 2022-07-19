@@ -78,7 +78,7 @@ const DialogVariant = ({
           'className',
           'keepMounted',
           'ModalProps',
-          'PaperComponent',
+          // 'PaperComponent',
           'PaperProps',
           'SlideProps',
           'TransitionProps',

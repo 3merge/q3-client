@@ -40,7 +40,7 @@ const NoteForm = (props) => {
         lg={12}
         multiline
         required
-        rows={10}
+        minRows={10}
       />
       <Builders.Field
         name="pin"

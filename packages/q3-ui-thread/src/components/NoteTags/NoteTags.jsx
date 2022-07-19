@@ -10,6 +10,7 @@ const NoteTags = ({ tags, selectTag }) =>
     <CardActions classes={useStyle()}>
       {map(tags, (tag) => (
         <Chip
+          className="q3-thread-tag"
           key={tag}
           label={tag}
           onClick={() => selectTag(tag)}
@@ -25,7 +26,12 @@ NoteTags.defaultProps = {
 
 NoteTags.propTypes = {
   selectTag: PropTypes.func.isRequired,
-  tags: PropTypes.arrayOf(PropTypes.string),
+  tags: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+  ),
 };
 
 export default NoteTags;

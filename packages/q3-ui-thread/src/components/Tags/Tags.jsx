@@ -37,8 +37,12 @@ const Tags = ({ tags, selectTag }) => {
   return canTag ? (
     <Box display="inline-flex" ml={0.5}>
       <Button
+        className="q3-thread-tag-select"
         endIcon={
-          <Badge badgeContent={size(tags)}>
+          <Badge
+            badgeContent={size(tags)}
+            overlap="rectangular"
+          >
             <ScatterPlotSharpIcon />
           </Badge>
         }
@@ -51,7 +55,8 @@ const Tags = ({ tags, selectTag }) => {
         anchorEl={ref.current}
         disablePortal
         keepMounted
-        open={isOpen}
+        id="q3-thread-tag-list"
+        open={Boolean(isOpen)}
         onClose={close}
         anchorOrigin={{
           vertical: 'bottom',
@@ -65,13 +70,13 @@ const Tags = ({ tags, selectTag }) => {
           maxHeight: 350,
         }}
       >
-        <MenuList>
+        <MenuList component="ul">
           {!isEqual(sortBy(tags), sortBy(allTags)) && (
             <ListItem
               button
+              component="li"
               dense
               onClick={handleClick(allTags)}
-              item
             >
               {t('selectAllTags')}
             </ListItem>
@@ -79,9 +84,9 @@ const Tags = ({ tags, selectTag }) => {
           {size(tags) > 0 && (
             <ListItem
               button
+              component="li"
               dense
               onClick={handleClick([])}
-              item
             >
               {t('clearTags')}
             </ListItem>
@@ -93,10 +98,10 @@ const Tags = ({ tags, selectTag }) => {
             return (
               <ListItem
                 button
+                component="li"
                 dense
                 onClick={handleClick(tag)}
                 selected={selected}
-                item
                 key={tag}
               >
                 <Box

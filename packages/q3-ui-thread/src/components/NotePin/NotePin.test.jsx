@@ -9,20 +9,6 @@ beforeAll(() => {
 });
 
 describe('NotePin', () => {
-  it('should disable button', () => {
-    spy.mockReturnValue({
-      canEdit: false,
-      canPin: true,
-    });
-
-    expect(
-      global
-        .shallow(<NotePin id="test" />)
-        .find(IconButton)
-        .prop('disabled'),
-    ).toBeTruthy();
-  });
-
   it('should hide button', () => {
     spy.mockReturnValue({
       canEdit: false,

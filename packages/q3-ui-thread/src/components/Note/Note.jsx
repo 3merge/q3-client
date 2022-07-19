@@ -40,6 +40,7 @@ const Note = (props) => {
                     {canEdit && (
                       <IconButton
                         aria-label="edit note"
+                        className="q3-thread-editor"
                         color="inherit"
                         onClick={edit}
                       >

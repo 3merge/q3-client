@@ -7,13 +7,15 @@ import Context from '../ThreadContext';
 import usePin from '../usePin';
 
 const NotePin = ({ id, pin }) => {
-  const { canEdit, canPin } = React.useContext(Context);
+  const { canPin } = React.useContext(Context);
   const { isPinned, toggle } = usePin(id, pin);
 
   return canPin ? (
     <IconButton
-      disabled={!canEdit}
+      className="q3-thread-pin"
       color="inherit"
+      data-pinned={isPinned}
+      data-pinned-for={id}
       onClick={toggle}
     >
       {isPinned ? <BookmarkIcon /> : <BookmarkBorderIcon />}

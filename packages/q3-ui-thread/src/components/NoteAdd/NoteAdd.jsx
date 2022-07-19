@@ -28,6 +28,7 @@ const NoteAdd = () => {
       renderTrigger={(onClick) => (
         <Box display="inline-block" mr={0.5}>
           <Button
+            className="q3-thread-new"
             color="secondary"
             onClick={onClick}
             startIcon={<AddIcon />}

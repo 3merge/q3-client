@@ -27,6 +27,7 @@ const Search = ({ handleInput }) => {
     <Box mt={1} mb={0.5}>
       <TextField
         InputProps={{
+          className: 'q3-thread-search',
           startAdornment: (
             <InputAdornment position="start">
               <SearchIcon />
