@@ -23,8 +23,8 @@ import ThreadContext from '../ThreadContext';
 import useNoteTags from '../useNoteTags';
 
 const Tags = ({ tags, selectTag }) => {
-  const { t } = useTranslation('labels');
   const { canTag } = React.useContext(ThreadContext);
+  const { t } = useTranslation('labels');
   const ref = React.useRef();
 
   const allTags = useNoteTags();

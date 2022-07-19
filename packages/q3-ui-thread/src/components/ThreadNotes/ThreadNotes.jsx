@@ -103,7 +103,6 @@ const ThreadNotes = ({ children, collectionName, id }) => {
     <Box display="flex" flexWrap="wrap">
       {map(xs, (note, idx) => (
         <Note
-          data={data}
           key={note.id}
           selectTag={selectTag}
           timeout={idx * 150}
@@ -148,7 +147,6 @@ const ThreadNotes = ({ children, collectionName, id }) => {
     // eslint-disable-next-line
     <ThreadContextHttp.Provider value={{ thread, ...http }}>
       {children({
-        data,
         changeSortDirection,
         sortDirection: sort,
         tags,

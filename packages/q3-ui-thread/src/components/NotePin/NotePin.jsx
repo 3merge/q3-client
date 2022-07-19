@@ -7,24 +7,18 @@ import Context from '../ThreadContext';
 import usePin from '../usePin';
 
 const NotePin = ({ id, pin }) => {
-  const { isPinned, toggle } = usePin(id, pin);
   const { canEdit, canPin } = React.useContext(Context);
+  const { isPinned, toggle } = usePin(id, pin);
 
-  return (
-    canPin && (
-      <IconButton
-        disabled={!canEdit}
-        color="inherit"
-        onClick={toggle}
-      >
-        {isPinned ? (
-          <BookmarkIcon />
-        ) : (
-          <BookmarkBorderIcon />
-        )}
-      </IconButton>
-    )
-  );
+  return canPin ? (
+    <IconButton
+      disabled={!canEdit}
+      color="inherit"
+      onClick={toggle}
+    >
+      {isPinned ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+    </IconButton>
+  ) : null;
 };
 
 NotePin.defaultProps = {

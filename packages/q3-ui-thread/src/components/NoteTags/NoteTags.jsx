@@ -6,7 +6,7 @@ import useStyle from './styles';
 import ThreadContext from '../ThreadContext';
 
 const NoteTags = ({ tags, selectTag }) =>
-  React.useContext(ThreadContext)?.canTag && (
+  React.useContext(ThreadContext)?.canTag ? (
     <CardActions classes={useStyle()}>
       {map(tags, (tag) => (
         <Chip
@@ -17,14 +17,15 @@ const NoteTags = ({ tags, selectTag }) =>
         />
       ))}
     </CardActions>
-  );
+  ) : null;
+
 NoteTags.defaultProps = {
   tags: [],
 };
 
 NoteTags.propTypes = {
   selectTag: PropTypes.func.isRequired,
-  tags: PropTypes.arrayOf([PropTypes.string]),
+  tags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default NoteTags;

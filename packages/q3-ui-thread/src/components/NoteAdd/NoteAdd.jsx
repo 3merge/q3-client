@@ -41,7 +41,7 @@ const NoteAdd = () => {
       title="addNote"
     />
   ) : (
-    <div />
+    <div className="empty-space" />
   );
 };
 

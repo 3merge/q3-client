@@ -4,7 +4,7 @@ const useThread = (collectionName, id) =>
   useRest({
     url: `/${collectionName}/${id}/thread`,
     // because plural and key are otherwise the same
-    key: 'thread_',
+    key: 'thread',
     pluralized: 'thread',
     runOnInit: true,
   });

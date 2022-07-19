@@ -6,6 +6,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import NoteForm from '../NoteForm';
 import ThreadContextHttp from '../ThreadContextHttp';
 import ThreadContext from '../ThreadContext';
+import useTitle from '../useTitle';
+
+export const invert = (xs) => !xs;
+
+export const invokeWithStaticParam = (param) => (fn) =>
+  isFunction(fn)
+    ? fn(String(param))
+    : Promise.resolve(null);
 
 const NoteEdit = ({ id, children }) => {
   const { canEdit, canDelete } =
@@ -15,23 +23,13 @@ const NoteEdit = ({ id, children }) => {
   );
 
   const [isEditing, setIsEditing] = React.useState(false);
+  const invokeWithId = invokeWithStaticParam(id);
 
   const edit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsEditing((prevState) => !prevState);
+    setIsEditing(invert);
   };
-
-  const invokeWithId = (fn) =>
-    isFunction(fn) ? fn(String(id)) : Promise.resolve(null);
-
-  const noNil = (xs) =>
-    xs === null ||
-    xs === undefined ||
-    xs === 'null' ||
-    xs === 'undefined'
-      ? ''
-      : xs;
 
   const IconComponent = React.useMemo(
     () => (isEditing ? CloseIcon : EditIcon),
@@ -39,15 +37,17 @@ const NoteEdit = ({ id, children }) => {
   );
 
   const EditorComponent = React.useMemo(
-    () => (initialValues) =>
-      canEdit ? (
+    () => (initialValues) => {
+      const title = useTitle(initialValues);
+
+      return canEdit ? (
         <NoteForm
           enableReset={canDelete}
           initialValues={{
             message: get(initialValues, 'message', ''),
             pin: get(initialValues, 'pin', false),
             tags: compact(get(initialValues, 'tags', [])),
-            title: noNil(get(initialValues, 'title', '')),
+            title,
           }}
           onReset={invokeWithId(remove)}
           onSubmit={(values) =>
@@ -57,7 +57,8 @@ const NoteEdit = ({ id, children }) => {
           }
           resetLabel="delete"
         />
-      ) : null,
+      ) : null;
+    },
     [canEdit, canEdit],
   );
 

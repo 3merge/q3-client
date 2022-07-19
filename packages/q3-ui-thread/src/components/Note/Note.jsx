@@ -13,15 +13,14 @@ import NotePin from '../NotePin';
 import { useCardStyle, useHeaderStyle } from './styles';
 import NoteEdit from '../NoteEdit';
 import NoteTags from '../NoteTags';
+import useTitle from '../useTitle';
 
 const Note = (props) => {
-  const { createdAt, title, message, pin, id, timeout } =
-    props;
+  const { createdAt, message, pin, id, timeout } = props;
 
   const cardClasses = useCardStyle();
   const headerClasses = useHeaderStyle();
-
-  const resolvedTitle = title || 'Untitled';
+  const title = useTitle(props);
 
   return (
     <Grow in timeout={timeout}>
@@ -40,6 +39,7 @@ const Note = (props) => {
                   <>
                     {canEdit && (
                       <IconButton
+                        aria-label="edit note"
                         color="inherit"
                         onClick={edit}
                       >
@@ -50,7 +50,7 @@ const Note = (props) => {
                   </>
                 }
                 classes={headerClasses}
-                subheader={resolvedTitle}
+                subheader={title}
                 title={string.toDate(createdAt)}
               />
               {isEditing ? (
