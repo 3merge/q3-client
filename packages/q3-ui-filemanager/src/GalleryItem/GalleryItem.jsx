@@ -59,7 +59,9 @@ const GalleryItem = React.forwardRef(
             title={name}
           />
 
-          <GalleryItemMedia {...file} />
+          <GalleryItemMedia {...file}>
+            <Icon />
+          </GalleryItemMedia>
         </CardActionArea>
       </Card>
     );

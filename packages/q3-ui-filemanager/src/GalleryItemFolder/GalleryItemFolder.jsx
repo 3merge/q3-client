@@ -52,7 +52,7 @@ const GalleryItemFolder = React.forwardRef(
           <CardContent>
             <Typography className={cls.title} component="p">
               <Avatar className={cls.avatar}>
-                <GalleryItemFolderIcon isFolder />
+                <GalleryItemFolderIcon folder />
               </Avatar>
               {name}
             </Typography>

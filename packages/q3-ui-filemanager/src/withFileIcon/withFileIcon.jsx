@@ -46,9 +46,11 @@ const iconMap = {
 
 const withFileIcon = (Component) => {
   const FileIconSelector = (props) => {
-    const { isFolder = false, url } = props;
+    const { folder = false, name, url } = props;
     const color = useTheme()?.palette?.secondary?.main;
-    const fileType = !isFolder ? getFileType(url) : null;
+    const fileType = !folder
+      ? getFileType(url) || getFileType(name)
+      : null;
 
     const El = React.useMemo(
       // eslint-disable-next-line
@@ -78,11 +80,13 @@ const withFileIcon = (Component) => {
   };
 
   FileIconSelector.defaultProps = {
-    isFolder: false,
+    folder: false,
+    name: undefined,
   };
 
   FileIconSelector.propTypes = {
-    isFolder: PropTypes.bool,
+    folder: PropTypes.bool,
+    name: PropTypes.string,
     url: PropTypes.string.isRequired,
   };
 

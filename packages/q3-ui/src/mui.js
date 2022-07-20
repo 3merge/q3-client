@@ -82,6 +82,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
             letterSpacing: '0.2px',
           },
           body1: {
+            fontSize: '1rem',
             color: 'var(--color-default)',
             '&:not(:last-child)': {
               marginBottom: '1rem',
@@ -244,7 +245,8 @@ export default (customThemeDefs, type, font = 'Nunito') => {
       },
       MuiListItemIcon: {
         root: {
-          minWidth: 38,
+          color: 'inherit',
+          minWidth: theme.spacing(2),
         },
       },
       MuiFormControl: {
@@ -425,22 +427,22 @@ export default (customThemeDefs, type, font = 'Nunito') => {
           },
         },
       },
-
       MuiChip: {
         labelSmall: {
           fontSize: '0.659rem',
         },
       },
-
       MuiTab: {
         root: {
           textTransform: 'none',
         },
       },
-
       MuiMenuItem: {
+        root: {
+          fontSize: '0.877rem !important',
+        },
         dense: {
-          fontSize: '1rem !important',
+          fontSize: '0.877rem !important',
           margin: '0 !important',
         },
       },

@@ -47,7 +47,7 @@ const ListItemFolder = React.forwardRef(
             name={name}
             size={size}
           >
-            <GalleryItemFolderIcon isFolder />
+            <GalleryItemFolderIcon folder />
           </ListItemContent>
         </MuiListItem>
       </li>
@@ -57,7 +57,6 @@ const ListItemFolder = React.forwardRef(
 
 ListItemFolder.defaultProps = {
   isItemSelected: false,
-
   size: 0,
 };
 

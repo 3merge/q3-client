@@ -67,7 +67,7 @@ const ContextMenu = ({ id, items, children }) => {
                 onClick={handleOnClick(onClick)}
               >
                 <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={t(label)} />
+                {t(label)}
               </MenuItem>
             ),
         )}

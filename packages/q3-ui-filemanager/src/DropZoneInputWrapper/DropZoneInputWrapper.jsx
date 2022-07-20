@@ -3,9 +3,11 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { useDropzone } from 'react-dropzone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useTranslation } from 'q3-ui-locale';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 
 const DropZoneInputWrapper = (props) => {
+  const { t } = useTranslation('labels');
   const { getInputProps } = useDropzone(props);
   const { canCreate } = React.useContext(
     FileManagerAuthContext,
@@ -19,7 +21,7 @@ const DropZoneInputWrapper = (props) => {
         component="span"
         startIcon={<CloudUploadIcon />}
       >
-        Upload file(s)
+        {t('uploadFiles')}
       </Button>
     </Box>
   ) : null;

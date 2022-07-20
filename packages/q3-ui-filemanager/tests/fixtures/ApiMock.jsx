@@ -1,8 +1,9 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { map, compact, last, isString, find } from 'lodash';
+import { map, compact, last, find } from 'lodash';
 import data from './data.json';
 import { collectionName, id } from './meta.json';
+import { normalize } from '../../src/utils';
 
 /**
  * Mimics server-side functionality in Q3.
@@ -38,6 +39,12 @@ const useMockData =
       generateRelativePaths(data.uploads || []),
     );
 
+    const setDataSourceWithRelativePaths = (xs) => {
+      const output = generateRelativePaths(xs);
+      setDataSource(output);
+      return output;
+    };
+
     const getRandomArbitrary = (min = 0, max = 50000) =>
       String(Math.random() * (max - min) + min).replace(
         /\./g,
@@ -61,7 +68,6 @@ const useMockData =
       .onPatch(makeEndpoint(true))
       .reply(({ data: requestData, url }) => {
         const { name, ...rest } = JSON.parse(requestData);
-
         const currentState = [...dataSource];
         const obj = currentState.find(
           (item) => item.id === last(url.split('/')),
@@ -76,12 +82,11 @@ const useMockData =
               : `${name}.${last(obj.name.split('.'))}`,
           });
 
-        setDataSource(currentState);
-
         return [
           200,
           {
-            uploads: generateRelativePaths(currentState),
+            uploads:
+              setDataSourceWithRelativePaths(currentState),
           },
         ];
       });
@@ -93,7 +98,7 @@ const useMockData =
           (item) => item.id !== last(url.split('/')),
         );
 
-        setDataSource(currentState);
+        setDataSourceWithRelativePaths(currentState);
         return [204, {}];
       });
 
@@ -108,7 +113,7 @@ const useMockData =
           (item) => !ids.includes(item.id),
         );
 
-        setDataSource(currentState);
+        setDataSourceWithRelativePaths(currentState);
         return [204, {}];
       });
 
@@ -129,12 +134,11 @@ const useMockData =
             : item,
         );
 
-        setDataSource(currentState);
-
         return [
           200,
           {
-            uploads: generateRelativePaths(currentState),
+            uploads:
+              setDataSourceWithRelativePaths(currentState),
           },
         ];
       });
@@ -147,15 +151,14 @@ const useMockData =
         try {
           // eslint-disable-next-line
           for (const pair of req.data.entries()) {
-            const [relativePath, file] = pair;
+            const [, file] = pair;
             currentState.push({
-              name: file.name,
-              relativePath,
-              updatedAt: new Date(
-                file.lastModifiedDate,
-              ).toISOString(),
-              size: file.size,
               id: getRandomArbitrary(1, 50000),
+              name: file.name,
+              updatedAt: new Date().toISOString(),
+              size: file.size,
+              folderId: normalize(file.folderId),
+              folder: false,
             });
           }
         } catch (e) {
@@ -165,17 +168,18 @@ const useMockData =
           });
         }
 
-        setDataSource(currentState);
         return new Promise((r) => {
           setTimeout(() => {
             r([
               201,
               {
                 uploads:
-                  generateRelativePaths(currentState),
+                  setDataSourceWithRelativePaths(
+                    currentState,
+                  ),
               },
             ]);
-          }, 5000);
+          }, 2000);
         });
       });
   };

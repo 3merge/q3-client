@@ -9,14 +9,9 @@ import {
 import { isObject } from 'lodash';
 import useVisibility from '../useVisibility';
 import { getFileType } from '../utils';
-import withFileIcon from '../withFileIcon';
 import useStyle from './styles';
 
-const GalleryItemMedia = ({
-  // eslint-disable-next-line
-  icon: Icon,
-  url,
-}) => {
+const GalleryItemMedia = ({ children, url }) => {
   const [imageSrc, setImageSrc] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
   const { isVisible, ref } = useVisibility();
@@ -69,19 +64,23 @@ const GalleryItemMedia = ({
             )}
           </>
         ) : (
-          <Box className={cls.icon}>
-            <Icon />
-          </Box>
+          <Box className={cls.icon}>{children}</Box>
         )}
       </Fade>
     </CardMedia>
   );
 };
 
-GalleryItemMedia.defaultProps = {};
+GalleryItemMedia.defaultProps = {
+  children: null,
+};
 
 GalleryItemMedia.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.element,
+  ]),
   url: PropTypes.string.isRequired,
 };
 
-export default withFileIcon(GalleryItemMedia);
+export default GalleryItemMedia;

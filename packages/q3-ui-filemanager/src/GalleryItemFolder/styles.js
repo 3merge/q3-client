@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
   title: {
     alignItems: 'center',
     display: 'flex',
+    fontSize: theme.typography.body1.fontSize,
   },
   card: ({ isHovering }) => {
     const out = {
@@ -28,5 +29,8 @@ export default makeStyles((theme) => ({
   avatar: {
     background: theme.palette.secondary.light,
     marginRight: theme.spacing(0.75),
+    fontSize: theme.typography.body1.fontSize,
+    width: theme.spacing(2),
+    height: theme.spacing(2),
   },
 }));

@@ -24,16 +24,16 @@ const useDropZoneAcceptedFiles = () => {
   const onDrop = async (acceptedFiles) => {
     setPending(acceptedFiles);
 
-    console.log(acceptedFiles);
-
     try {
       const f = new FormData();
-      forEach(acceptedFiles, (item) =>
-        f.append(item.name, {
-          folder: current,
-          ...item,
-        }),
-      );
+      forEach(acceptedFiles, (item) => {
+        Object.defineProperty(item, 'folderId', {
+          value: current,
+          writable: true,
+        });
+
+        f.append(item.name, item);
+      });
 
       await post(f);
       clearPending();
