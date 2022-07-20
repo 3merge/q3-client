@@ -7,20 +7,22 @@ import { withQueryParamIds } from '../utils';
 
 const useDirectoryFoldersChange = () => {
   const ctx = React.useContext(FileManagerContext);
-  const { selected } = React.useContext(
+  const { clearSelected, selected } = React.useContext(
     FileManagerBatchContext,
   );
 
   return React.useCallback(
     ({ id, folderId }) =>
       object.noop(
-        ctx.patch(
-          withQueryParamIds(
-            size(selected) ? join(selected, ',') : id,
-          ),
-        )({
-          folderId,
-        }),
+        ctx
+          .patch(
+            withQueryParamIds(
+              size(selected) ? join(selected, ',') : id,
+            ),
+          )({
+            folderId,
+          })
+          .then(clearSelected),
       ),
     [selected],
   );

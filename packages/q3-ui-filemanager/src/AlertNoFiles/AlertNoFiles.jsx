@@ -1,15 +1,11 @@
 import React from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { useTranslation } from 'q3-ui-locale';
+import AlertWithDescription from '../AlertWithDescription';
 
-const AlertNoFiles = () => {
-  const { t } = useTranslation('descriptions');
-
-  return (
-    <Alert severity="warning">
-      {t('fileManagerEmptyDirectory')}
-    </Alert>
-  );
-};
+const AlertNoFiles = () => (
+  <AlertWithDescription
+    text="fileManagerEmptyDirectory"
+    severity="warning"
+  />
+);
 
 export default AlertNoFiles;

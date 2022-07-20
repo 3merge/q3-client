@@ -1,15 +1,11 @@
 import React from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { useTranslation } from 'q3-ui-locale';
+import AlertWithDescription from '../AlertWithDescription';
 
-const AlertFetchingError = () => {
-  const { t } = useTranslation('descriptions');
-
-  return (
-    <Alert severity="error">
-      {t('fileManagerFetchingError')}
-    </Alert>
-  );
-};
+const AlertFetchingError = () => (
+  <AlertWithDescription
+    text="fileManagerFetchingError"
+    severity="error"
+  />
+);
 
 export default AlertFetchingError;

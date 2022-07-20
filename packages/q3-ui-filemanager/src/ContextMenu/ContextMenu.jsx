@@ -5,7 +5,6 @@ import {
   MenuItem,
   Divider,
   ListItemIcon,
-  ListItemText,
 } from '@material-ui/core';
 import { useOpen } from 'useful-state';
 import { map } from 'lodash';
@@ -81,6 +80,7 @@ ContextMenu.defaultProps = {
 };
 
 ContextMenu.propTypes = {
+  children: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
@@ -88,7 +88,6 @@ ContextMenu.propTypes = {
       onClick: PropTypes.func,
     }),
   ),
-  children: PropTypes.func.isRequired,
 };
 
 export default ContextMenu;

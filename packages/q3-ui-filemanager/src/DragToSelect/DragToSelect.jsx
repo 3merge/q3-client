@@ -21,6 +21,7 @@ const DragToSelect = ({ children }) => {
   const cls = useStyle();
   const stateValue = React.useMemo(
     () => ({
+      clearSelected,
       disabled,
       selected,
       ...rest,
