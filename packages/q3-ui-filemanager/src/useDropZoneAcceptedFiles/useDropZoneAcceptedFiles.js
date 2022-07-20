@@ -1,5 +1,6 @@
 import React from 'react';
-import { forEach, map } from 'lodash';
+import { map } from 'lodash';
+import compress from 'browser-image-compression';
 import FileManagerContext from '../FileManagerContext';
 import FileManagerCurrentContext from '../FileManagerCurrentContext';
 
@@ -26,14 +27,30 @@ const useDropZoneAcceptedFiles = () => {
 
     try {
       const f = new FormData();
-      forEach(acceptedFiles, (item) => {
-        Object.defineProperty(item, 'folderId', {
-          value: current,
-          writable: true,
-        });
+      await Promise.all(
+        map(acceptedFiles, async (item) => {
+          let data = item;
+          const originalName = item.name;
 
-        f.append(item.name, item);
-      });
+          try {
+            data = await compress(data, {
+              maxSizeMB: 4.5,
+              useWebWorker: true,
+              maxWidthOrHeight: 1920,
+            });
+          } catch (e) {
+            // noop
+          }
+
+          Object.defineProperty(data, 'folderId', {
+            value: current,
+            writable: true,
+          });
+
+          // renames the blob
+          f.append(item.name, data, originalName);
+        }),
+      );
 
       await post(f);
       clearPending();

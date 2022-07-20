@@ -46,7 +46,6 @@ const withDrag = (Component, type = 'item') => {
             !checkContains('.q3-folder', e.target) &&
             !checkContains('.q3-context-menu', e.target)
           ) {
-            console.log('or here?');
             deselect(id);
           }
         }}
