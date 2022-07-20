@@ -69,8 +69,4 @@ FileManager.propTypes = {
   initialView: PropTypes.string,
 };
 
-export default (props) => (
-  <Container>
-    <FileManager {...props} />
-  </Container>
-);
+export default FileManager;

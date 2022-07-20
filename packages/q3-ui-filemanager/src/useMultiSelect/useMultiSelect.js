@@ -54,37 +54,50 @@ const useMultiSelect = () => {
     setSelected([]);
   };
 
+  const preventWhenDisabled =
+    (fn) =>
+    (...params) =>
+      disabled ? null : fn(...params);
+
+  // off and on?
   const enable = () => setDisabled(false);
   const disable = () => setDisabled(true);
 
   React.useEffect(() => {
     selectoInstance.current = new Selecto({
-      // container: container.current,
+      container: container.current,
+      dragContainer: container.current,
       hitRate: 0.01,
       selectableTargets: ['.q3-file', '.q3-folder'],
       selectByClick: false,
       selectFromInside: false,
     });
 
-    selectoInstance.current.on('select', (e) => {
-      if (!size(e.selected)) return;
+    selectoInstance.current.on(
+      'select',
+      preventWhenDisabled((e) => {
+        if (!size(e.selected)) return;
 
-      const forEachNode = (key, action) =>
-        forEach(get(e, key), (node) => {
-          const id = node.getAttribute('data-id');
-          if (id) action(id, true);
-        });
+        const forEachNode = (key, action) =>
+          forEach(get(e, key), (node) => {
+            const id = node.getAttribute('data-id');
+            if (id) action(id, true);
+          });
 
-      forEachNode('added', select);
-      forEachNode('removed', deselect);
-    });
+        forEachNode('added', select);
+        forEachNode('removed', deselect);
+      }),
+    );
 
-    selectoInstance.current.on('dragEnd', () => {
-      disable();
-      // just enough time to not trigger other click actions
-      const fn = debounce(enable, 25);
-      fn();
-    });
+    selectoInstance.current.on(
+      'dragEnd',
+      preventWhenDisabled(() => {
+        disable();
+        // just enough time to not trigger other click actions
+        const fn = debounce(enable, 25);
+        fn();
+      }),
+    );
   }, []);
 
   return {

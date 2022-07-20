@@ -15,18 +15,11 @@ import DropZoneInputWrapper from '../DropZoneInputWrapper';
 import DocumentViewer from '../DocumentViewer';
 import DragHandlerPreview from '../DragHandlerPreview';
 import DragToSelect from '../DragToSelect';
-
-/**
- * 1. Individual and bulk actions
-2. Image compression
-3. Thumbnails
-4. API - folder function for replacing/compounding and having a stub
-5. Testing 
-
- */
+import useStyle from './styles';
 
 const Directory = () => {
   const { onDrop, pending } = useDropZoneAcceptedFiles();
+  const cls = useStyle();
 
   return (
     <DragToSelect>
@@ -42,24 +35,14 @@ const Directory = () => {
                   {(Component, SwitcherComponent) => (
                     <>
                       <DropZoneWrapper onDrop={onDrop} />
-                      <DirectoryBreadcrumbs />
-                      <Box
-                        display="flex"
-                        justifyContent="space-between"
-                      >
+                      <Box className={cls.toolbar}>
                         <Box>
                           <DirectoryAddFolder />
                           <DropZoneInputWrapper
                             onDrop={onDrop}
                           />
                         </Box>
-                        <Box
-                          alignItems="center"
-                          display="flex"
-                        >
-                          <DirectoryPendingFiles
-                            pending={pending}
-                          />
+                        <Box className={cls.mobileActions}>
                           <DirectoryToolbar />
                           <SortingComponent />
                           <SwitcherComponent />
@@ -68,6 +51,10 @@ const Directory = () => {
                       <Box py={2}>
                         <Divider />
                       </Box>
+                      <DirectoryBreadcrumbs />
+                      <DirectoryPendingFiles
+                        pending={pending}
+                      />
                       <Component
                         files={appendViewerToEach(files)}
                         siblings={siblings}

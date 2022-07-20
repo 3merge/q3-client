@@ -1,19 +1,42 @@
 import React from 'react';
 import Rest from 'q3-ui-test-utils/lib/rest';
-import { compact, last, isString } from 'lodash';
+import { map, compact, last, isString, find } from 'lodash';
 import data from './data.json';
 import { collectionName, id } from './meta.json';
+
+/**
+ * Mimics server-side functionality in Q3.
+ */
+export const generateRelativePaths = (a) =>
+  map(a, (xs) => {
+    const recursivelyBuildRelativePath = (folderId) => {
+      if (!folderId) return null;
+      const obj = find(a, (item) => item.id === folderId);
+      if (!obj) return null;
+      if (obj.folderId)
+        return compact([
+          recursivelyBuildRelativePath(obj.folderId),
+          obj.name,
+        ]).join('/');
+      return obj.name;
+    };
+
+    return {
+      ...xs,
+      relativePath: compact([
+        recursivelyBuildRelativePath(xs.folderId),
+        xs.name,
+      ]).join('/'),
+    };
+  });
 
 const useMockData =
   (args = {}) =>
   (mockApiInstance) => {
     const { onGetError = false } = args;
     const [dataSource, setDataSource] = React.useState(
-      data.uploads || [],
+      generateRelativePaths(data.uploads || []),
     );
-
-    const removeTrailingSlash = (str) =>
-      isString(str) ? str.replace(/\/+$/, '') : str;
 
     const getRandomArbitrary = (min = 0, max = 50000) =>
       String(Math.random() * (max - min) + min).replace(
@@ -31,37 +54,26 @@ const useMockData =
     mockApiInstance
       .onGet(makeEndpoint())
       .reply(onGetError ? 500 : 200, {
-        uploads: dataSource,
+        uploads: generateRelativePaths(dataSource),
       });
 
     mockApiInstance
       .onPatch(makeEndpoint(true))
       .reply(({ data: requestData, url }) => {
-        const { name, folder } = JSON.parse(requestData);
+        const { name, ...rest } = JSON.parse(requestData);
+
         const currentState = [...dataSource];
         const obj = currentState.find(
           (item) => item.id === last(url.split('/')),
         );
 
-        const ext = `.${last(obj.name.split('.'))}`;
-
-        if (folder || folder === null)
-          Object.assign(obj, {
-            relativePath: compact([
-              removeTrailingSlash(folder),
-              last(obj.relativePath.split('/')),
-            ]).join('/'),
-          });
+        Object.assign(obj, rest);
 
         if (name)
           Object.assign(obj, {
-            name: name + ext,
-            relativePath:
-              obj.relativePath
-                .split('/')
-                .slice(0, -1)
-                .concat(name)
-                .join('/') + ext,
+            name: obj.folder
+              ? name
+              : `${name}.${last(obj.name.split('.'))}`,
           });
 
         setDataSource(currentState);
@@ -69,7 +81,7 @@ const useMockData =
         return [
           200,
           {
-            uploads: currentState,
+            uploads: generateRelativePaths(currentState),
           },
         ];
       });
@@ -107,19 +119,12 @@ const useMockData =
           .get('ids')
           .split(',');
 
-        const { folder, replace } = JSON.parse(requestData);
-
+        const { folderId = null } = JSON.parse(requestData);
         const currentState = [...dataSource].map((item) =>
           ids.includes(item.id)
             ? {
                 ...item,
-                // simulates backend functionality
-                relativePath: [
-                  folder,
-                  replace
-                    ? last(item.relativePath.split('/'))
-                    : item.relativePath,
-                ].join('/'),
+                folderId,
               }
             : item,
         );
@@ -129,7 +134,7 @@ const useMockData =
         return [
           200,
           {
-            uploads: currentState,
+            uploads: generateRelativePaths(currentState),
           },
         ];
       });
@@ -166,7 +171,8 @@ const useMockData =
             r([
               201,
               {
-                uploads: currentState,
+                uploads:
+                  generateRelativePaths(currentState),
               },
             ]);
           }, 5000);

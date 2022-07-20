@@ -16,13 +16,11 @@ const useDropEnd = () => {
 
   React.useEffect(() => {
     if (isObject(dropState)) {
-      const { id, path, itemType } = dropState;
+      const { id, folderId = null } = dropState;
 
       onChange({
-        // keep folder structures intact
-        replace: itemType !== 'folder',
-        folder: path,
         id,
+        folderId,
       }).finally(() => {
         setDropState(null);
       });

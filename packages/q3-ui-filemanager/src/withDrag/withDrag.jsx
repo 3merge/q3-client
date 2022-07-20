@@ -10,7 +10,7 @@ import useDropEnd from '../useDropEnd';
 
 const withDrag = (Component, type = 'item') => {
   const Drag = (props) => {
-    const { id, path } = props;
+    const { id } = props;
     const onDropEnd = useDropEnd();
     const [, dragRef, previewRef] = useDrag(
       () => ({
@@ -18,7 +18,6 @@ const withDrag = (Component, type = 'item') => {
         type,
         item: {
           id,
-          path,
         },
       }),
       [],
@@ -46,8 +45,10 @@ const withDrag = (Component, type = 'item') => {
             !checkContains('.q3-file', e.target) &&
             !checkContains('.q3-folder', e.target) &&
             !checkContains('.q3-context-menu', e.target)
-          )
+          ) {
+            console.log('or here?');
             deselect(id);
+          }
         }}
       >
         <Component ref={dragRef} {...props} />

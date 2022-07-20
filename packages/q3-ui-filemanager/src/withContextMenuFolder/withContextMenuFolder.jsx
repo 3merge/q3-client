@@ -20,7 +20,7 @@ const withContextMenuFolder = (Component) => {
     );
 
     const { open: openRenameDialog } = useDialog(
-      'q3-file-dialog-rename-folder',
+      'q3-file-dialog-rename',
       props,
     );
 

@@ -4,18 +4,15 @@ import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
-import FileManagerBatchContext from '../FileManagerBatchContext';
 
 const DragHandlerPreview = () => {
   const ref = React.useRef();
   const dragDropManager = useDragDropManager();
   const monitor = dragDropManager.getMonitor();
   const cls = useStyle();
-
-  const { sizeOfSelected } = React.useContext(
-    FileManagerBatchContext,
-  );
+  const { t } = useTranslation('labels');
 
   React.useEffect(
     () =>
@@ -56,9 +53,7 @@ const DragHandlerPreview = () => {
           <FileCopyIcon />
           <Box ml={0.5}>
             <Typography>
-              {sizeOfSelected > 1
-                ? `Move ${sizeOfSelected} files`
-                : 'Move file'}
+              {t('dropFileToMoveOrUpload')}
             </Typography>
           </Box>
         </Box>

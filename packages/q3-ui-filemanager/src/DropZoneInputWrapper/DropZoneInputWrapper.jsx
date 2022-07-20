@@ -14,11 +14,12 @@ const DropZoneInputWrapper = (props) => {
   return canCreate ? (
     <Box component="label" ml={1} htmlFor="dropper-button">
       <input id="dropper-button" {...getInputProps()} />
+
       <Button
         component="span"
         startIcon={<CloudUploadIcon />}
       >
-        Upload
+        Upload file(s)
       </Button>
     </Box>
   ) : null;

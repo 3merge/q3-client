@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
-import Paper from '@material-ui/core/Paper';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 import useStyle from './styles';
 
@@ -20,12 +19,7 @@ const DropZoneWrapper = (props) => {
       className={cls.root}
       {...getRootProps()}
     >
-      {isDragActive && (
-        <>
-          <div className={cls.overlay} />
-          <Paper>DO SOMETHING</Paper>
-        </>
-      )}
+      <div className={cls.overlay} />
     </div>
   ) : null;
 };

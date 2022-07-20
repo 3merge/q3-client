@@ -22,21 +22,11 @@ export const GalleryItemFolderIcon = React.memo(
 
 const GalleryItemFolder = React.forwardRef(
   (
-    {
-      onContextMenu,
-      classes,
-      path,
-      name,
-      onClick,
-      onSelect,
-    },
+    { id, onContextMenu, classes, name, onClick, onSelect },
     ref,
   ) => {
-    const {
-      dataId,
-      isHovering = false,
-      ref: dropRef,
-    } = useDropFolder(path);
+    const { isHovering = false, ref: dropRef } =
+      useDropFolder(id);
 
     const cls = useStyle({
       isHovering,
@@ -50,7 +40,7 @@ const GalleryItemFolder = React.forwardRef(
           cls.card,
           'q3-folder',
         )}
-        data-id={dataId}
+        data-id={id}
         variant="outlined"
       >
         <CardActionArea
@@ -76,7 +66,6 @@ const GalleryItemFolder = React.forwardRef(
 GalleryItemFolder.propTypes = {
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired,
 };
 
 export default withContextMenuFolder(

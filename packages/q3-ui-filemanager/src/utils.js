@@ -36,6 +36,11 @@ export const getFileType = (url) => {
   return ext.substring(0, extEnd).toLowerCase();
 };
 
+export const normalize = (xs) =>
+  ['', 'null', 'undefined'].includes(String(xs))
+    ? null
+    : xs;
+
 export const getLastFolder = (str) =>
   last(String(str).split('/'));
 

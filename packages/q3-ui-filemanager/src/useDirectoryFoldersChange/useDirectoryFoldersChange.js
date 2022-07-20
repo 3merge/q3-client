@@ -12,14 +12,14 @@ const useDirectoryFoldersChange = () => {
   );
 
   return React.useCallback(
-    ({ id, folder }) =>
+    ({ id, folderId }) =>
       object.noop(
         ctx.patch(
           withQueryParamIds(
             size(selected) ? join(selected, ',') : id,
           ),
         )({
-          folder,
+          folderId,
         }),
       ),
     [selected],

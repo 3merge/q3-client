@@ -2,10 +2,12 @@ import React from 'react';
 import Dialog from 'q3-ui-dialog';
 import { Builders } from 'q3-ui-forms';
 import DialogTriggerButton from '../DialogTriggerButton';
+import FileManagerContext from '../FileManagerContext';
 import useDialog from '../useDialog';
 
-const DialogRename = ({ renameId, handleSubmit }) => {
-  const id = ['q3-file-dialog-rename', renameId].join('-');
+const DialogRename = () => {
+  const id = 'q3-file-dialog-rename';
+  const { patch } = React.useContext(FileManagerContext);
 
   const {
     close,
@@ -37,9 +39,8 @@ const DialogRename = ({ renameId, handleSubmit }) => {
             name: '',
           }}
           onSubmit={(values) =>
-            handleSubmit(values, data).then(close)
+            patch(data.id)(values).then(close)
           }
-          debug
         >
           <Builders.Field
             autoFocus

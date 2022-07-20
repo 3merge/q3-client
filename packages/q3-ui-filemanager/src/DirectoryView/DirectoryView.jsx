@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { browser } from 'q3-ui-helpers';
 import Gallery from '../Gallery';
 import List from '../List';
+import { StyledToggleButtonGroup } from './styles';
 
 const DirectoryView = ({ children, defaultView }) => {
   const key = 'q3-filemanager-view';
@@ -29,22 +29,27 @@ const DirectoryView = ({ children, defaultView }) => {
     ),
     React.useCallback(
       () => (
-        <ToggleButtonGroup
+        <StyledToggleButtonGroup
           value={view}
           exclusive
           onChange={handleViewChange}
-          aria-label="directory view"
+          aria-label="view picker"
         >
           <ToggleButton
+            color="inherit"
             value="gallery"
             aria-label="gallery"
           >
             <PhotoLibraryIcon />
           </ToggleButton>
-          <ToggleButton value="list" aria-label="list">
+          <ToggleButton
+            color="inherit"
+            value="list"
+            aria-label="list"
+          >
             <TableChartIcon />
           </ToggleButton>
-        </ToggleButtonGroup>
+        </StyledToggleButtonGroup>
       ),
       [view],
     ),

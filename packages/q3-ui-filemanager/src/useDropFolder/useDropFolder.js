@@ -1,16 +1,6 @@
-import React from 'react';
 import { useDrop } from 'react-dnd';
-import useUploadsDirectories from '../useUploadsDirectories';
-import { makeDirectoryId } from '../utils';
 
-const useDropFolder = (path) => {
-  const directories = useUploadsDirectories();
-  const dataId = React.useMemo(
-    () => makeDirectoryId(path, directories),
-    [directories, path],
-  );
-
-  const directoryContents = dataId.split(',');
+const useDropFolder = (id) => {
   const [collected, ref] = useDrop(() => ({
     accept: ['item', 'folder'],
     collect: (monitor) => ({
@@ -18,17 +8,16 @@ const useDropFolder = (path) => {
         shallow: true,
       }),
     }),
-    canDrop: (item) => item.id !== dataId,
+    canDrop: (item) => item.id !== id,
     drop: (item, monitor) => ({
       itemType: monitor.getItemType(),
-      path,
+      folderId: id,
     }),
   }));
 
   return {
     ...collected,
-    dataId,
-    directoryContents,
+    id,
     ref,
   };
 };

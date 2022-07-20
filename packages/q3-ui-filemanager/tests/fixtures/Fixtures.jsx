@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from '@material-ui/core/Container';
 import AuthMock from './AuthMock';
 import ApiMock from './ApiMock';
 import { collectionName, id } from './meta';
@@ -13,11 +14,13 @@ const Fixtures = ({ children, ...rest }) => {
     });
 
   return (
-    <AuthMock {...rest}>
-      <ApiMock {...rest}>
-        <StoryOrTest />
-      </ApiMock>
-    </AuthMock>
+    <Container style={{ paddingTop: '1rem' }}>
+      <AuthMock {...rest}>
+        <ApiMock {...rest}>
+          <StoryOrTest />
+        </ApiMock>
+      </AuthMock>
+    </Container>
   );
 };
 

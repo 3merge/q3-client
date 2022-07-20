@@ -17,27 +17,20 @@ const ListItemFolder = React.forwardRef(
       onClick,
       onContextMenu,
       onSelect,
-      path,
+      id,
       size,
     },
     ref,
   ) => {
-    const {
-      dataId,
-      isHovering = false,
-      ref: dropRef,
-    } = useDropFolder(path);
+    const { isHovering = false, ref: dropRef } =
+      useDropFolder(id);
 
     const cls = useStyle({
       isHovering,
     });
 
     return (
-      <li
-        data-id={dataId}
-        className="q3-folder"
-        ref={dropRef}
-      >
+      <li data-id={id} className="q3-folder" ref={dropRef}>
         <MuiListItem
           button
           component="button"
@@ -64,7 +57,7 @@ const ListItemFolder = React.forwardRef(
 
 ListItemFolder.defaultProps = {
   isItemSelected: false,
-  path: null,
+
   size: 0,
 };
 
@@ -74,7 +67,7 @@ ListItemFolder.propTypes = {
   onClick: PropTypes.func.isRequired,
   onContextMenu: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
-  path: PropTypes.string,
+  id: PropTypes.string.isRequired,
   size: PropTypes.number,
 };
 

@@ -83,7 +83,7 @@ const DialogMoveTo = () => {
               onClick={() =>
                 onChange({
                   id: null,
-                  folder:
+                  folderId:
                     Array.isArray(selected) ||
                     selected === root
                       ? null

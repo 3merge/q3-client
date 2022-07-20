@@ -58,7 +58,11 @@ export const DialogWrapper = ({
         {renderHeader ? (
           renderHeader({ open, close })
         ) : (
-          <DialogHeader onClose={close} title={title}>
+          <DialogHeader
+            // just in case this is controlled externally
+            onClose={get(rest, 'onClose', close)}
+            title={title}
+          >
             {draggable && (
               <Hidden mdDown>
                 <IconButton
@@ -76,6 +80,7 @@ export const DialogWrapper = ({
         <DialogContent
           className={contentClassName}
           style={{
+            position: 'relative',
             overflowY:
               rest.variant === 'drawer'
                 ? 'visible'

@@ -6,20 +6,53 @@ import {
   MenuItem,
   Divider,
   Box,
+  IconButton,
+  Hidden,
 } from '@material-ui/core';
 import { useOpen } from 'useful-state';
 import { useTranslation } from 'q3-ui-locale';
 import CheckIcon from '@material-ui/icons/Check';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import SortIcon from '@material-ui/icons/Sort';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import { browser } from 'q3-ui-helpers';
 import useDirectoryFolders from '../useDirectoryFolders';
+
+const DirectorySortButton = ({ children }) => {
+  const { anchorEl, close, isOpen, open } = useOpen();
+  const { t } = useTranslation('labels');
+
+  return (
+    <Box display="inline-block" mx={0.5}>
+      <Hidden smDown>
+        <Button
+          color="inherit"
+          startIcon={<SortByAlphaIcon />}
+          onClick={open}
+        >
+          {t('sort')}
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton
+          aria-label="sort"
+          color="inherit"
+          onClick={open}
+        >
+          <SortByAlphaIcon />
+        </IconButton>
+      </Hidden>
+      {children({
+        anchorEl,
+        close,
+        isOpen,
+      })}
+    </Box>
+  );
+};
 
 const DirectorySort = ({ children }) => {
   const { files = [], siblings = [] } =
     useDirectoryFolders();
-  const { anchorEl, close, isOpen, open } = useOpen();
+
   const { t } = useTranslation();
 
   const getKey = (k) => `q3-filemanager-sort-${k}`;
@@ -28,10 +61,7 @@ const DirectorySort = ({ children }) => {
     defaultValue;
 
   const [state, setState] = React.useState({
-    property: getFromLocalStorage(
-      'property',
-      'relativePath',
-    ),
+    property: getFromLocalStorage('property', 'name'),
     sort: getFromLocalStorage('sort', 'asc'),
   });
 
@@ -48,7 +78,7 @@ const DirectorySort = ({ children }) => {
   const makeMenuItem = (value, stateKey) => (
     <MenuItem
       dense
-      onClick={(e) => {
+      onClick={() => {
         setState((prevState) => ({
           ...prevState,
           [stateKey]: value,
@@ -59,8 +89,6 @@ const DirectorySort = ({ children }) => {
           getKey(stateKey),
           value,
         );
-
-        close(e);
       }}
     >
       {state[stateKey] === value && <CheckIcon />}
@@ -74,37 +102,25 @@ const DirectorySort = ({ children }) => {
       siblings: sort(siblings),
     },
     () => (
-      <Box mx={1}>
-        <Button
-          iconStart={<SortIcon />}
-          onClick={open}
-          variant="outlined"
-        >
-          {state.property}
-          {state.sort === 'desc' ? (
-            <ArrowUpwardIcon />
-          ) : (
-            <ArrowDownwardIcon />
-          )}
-        </Button>
-        <Menu
-          id="file-sorting"
-          anchorEl={anchorEl}
-          anchor="bottom"
-          getContentAnchorEl={null}
-          open={isOpen}
-          onClose={close}
-          elevation={5}
-        >
-          {['lastUpdated', 'relativePath', 'size'].map(
-            (item) => makeMenuItem(item, 'property'),
-          )}
-          <Divider component="li" />
-          {['asc', 'desc'].map((item) =>
-            makeMenuItem(item, 'sort'),
-          )}
-        </Menu>
-      </Box>
+      <DirectorySortButton>
+        {({ anchorEl, isOpen, close }) => (
+          <Menu
+            id="file-sorting"
+            anchorEl={anchorEl}
+            open={isOpen}
+            onClose={close}
+            elevation={5}
+          >
+            {['lastUpdated', 'name', 'size'].map((item) =>
+              makeMenuItem(item, 'property'),
+            )}
+            <Divider component="li" />
+            {['asc', 'desc'].map((item) =>
+              makeMenuItem(item, 'sort'),
+            )}
+          </Menu>
+        )}
+      </DirectorySortButton>
     ),
   );
 };

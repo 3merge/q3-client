@@ -1,10 +1,10 @@
 import React from 'react';
-import { compact, forEach, map, replace } from 'lodash';
+import { forEach, map } from 'lodash';
 import FileManagerContext from '../FileManagerContext';
 import FileManagerCurrentContext from '../FileManagerCurrentContext';
 
 const useDropZoneAcceptedFiles = () => {
-  const { current: currentDirectory } = React.useContext(
+  const { current } = React.useContext(
     FileManagerCurrentContext,
   );
 
@@ -12,11 +12,6 @@ const useDropZoneAcceptedFiles = () => {
   const [pending, setPending] = React.useState([]);
 
   const clearPending = () => setPending([]);
-
-  const joinFilePaths = (a = []) => {
-    const out = compact(a).join('/').replace(/\/+/g, '/');
-    return out.startsWith('/') ? out.substr(1) : out;
-  };
 
   const markPendingWithErrorProperty = () =>
     setPending((prevState) =>
@@ -29,17 +24,15 @@ const useDropZoneAcceptedFiles = () => {
   const onDrop = async (acceptedFiles) => {
     setPending(acceptedFiles);
 
+    console.log(acceptedFiles);
+
     try {
       const f = new FormData();
       forEach(acceptedFiles, (item) =>
-        f.append(
-          joinFilePaths([
-            // dot notation otherwise breaks path
-            replace(currentDirectory, /\./g, '/'),
-            item.name,
-          ]),
-          item,
-        ),
+        f.append(item.name, {
+          folder: current,
+          ...item,
+        }),
       );
 
       await post(f);

@@ -13,14 +13,20 @@ export default makeStyles(() => ({
     },
   },
   media: {
-    height: 175,
+    height: 145,
     overflow: 'hidden',
     position: 'relative',
   },
   img: {
     objectFit: 'cover',
-    objectPosition: 'center',
+    objectPosition: 'top',
     height: '100%',
     width: '100%',
+    userSelect: 'none',
+  },
+  loader: {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
   },
 }));

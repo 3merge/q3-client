@@ -1,5 +1,5 @@
 import Avatar from './Avatar';
-import FileList from './FileList';
+import FileManager from './FileManager';
 import PhotoUpload from './PhotoUpload';
 
-export { Avatar, FileList, PhotoUpload };
+export { Avatar, FileManager, PhotoUpload };

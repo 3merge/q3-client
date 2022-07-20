@@ -6,8 +6,7 @@ import FileManagerBatchContext from '../FileManagerBatchContext';
 import DialogAbout from '../DialogAbout';
 import DialogDelete from '../DialogDelete';
 import DialogMoveTo from '../DialogMoveTo';
-import DialogRenameFile from '../DialogRenameFile';
-import DialogRenameFolder from '../DialogRenameFolder';
+import DialogRename from '../DialogRename';
 
 const DirectoryToolbar = () => {
   const { sizeOfSelected } = React.useContext(
@@ -17,13 +16,20 @@ const DirectoryToolbar = () => {
   return (
     <Box className="q3-context-menu" width="100%">
       <Fade in={sizeOfSelected > 0}>
-        <Box>
+        <Box
+          display="flex"
+          flexWrap="nowrap"
+          mr={2}
+          pr={2}
+          style={{
+            borderRight: '1px solid rgba(0, 0, 0, 0.12)',
+          }}
+        >
           <DirectoryMoveTo />
           <DirectoryDeleteFolder />
         </Box>
       </Fade>
-      <DialogRenameFile />
-      <DialogRenameFolder />
+      <DialogRename />
       <DialogMoveTo />
       <DialogAbout />
       <DialogDelete />

@@ -1,16 +1,14 @@
 import React from 'react';
-import { compact } from 'lodash';
+import { normalize } from '../utils';
 
 const useCurrent = () => {
-  const [current, change] = React.useState(null);
-
-  const prependCurrent = (v) =>
-    compact([current, v]).join('/');
+  const [current, setCurrent] = React.useState(null);
 
   return {
-    change,
     current,
-    prependCurrent,
+    change(str) {
+      setCurrent(normalize(str));
+    },
   };
 };
 

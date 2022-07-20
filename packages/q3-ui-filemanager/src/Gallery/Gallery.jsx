@@ -6,9 +6,11 @@ import { useTranslation } from 'q3-ui-locale';
 import GalleryItem from '../GalleryItem';
 import GalleryItemFolder from '../GalleryItemFolder';
 import withAlertNoFiles from '../withAlertNoFiles';
+import useStyle from './styles';
 
 const Gallery = ({ files, siblings }) => {
   const { t } = useTranslation('titles');
+  const cls = useStyle();
 
   const renderGrid = (xs, title, Component) =>
     size(xs) > 0 && (
@@ -18,14 +20,7 @@ const Gallery = ({ files, siblings }) => {
         </Typography>
         <Grid container spacing={1}>
           {map(xs, (item) => (
-            <Grid
-              key={item.name}
-              item
-              style={{
-                maxWidth: 275,
-                width: '50%',
-              }}
-            >
+            <Grid className={cls.item} key={item.name} item>
               <Component {...item} />
             </Grid>
           ))}

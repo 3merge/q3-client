@@ -26,5 +26,10 @@ export default makeStyles((theme) => ({
     '& .unsupported-message': {
       background: 'transparent',
     },
+
+    '& img, & .photo-viewer-container': {
+      height: 'auto !important',
+      width: 'auto !important',
+    },
   },
 }));

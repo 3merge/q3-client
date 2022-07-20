@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Button from '@material-ui/core/Button';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import { useTranslation } from 'q3-ui-locale';
@@ -9,7 +8,7 @@ import FileManagerContext from '../FileManagerContext';
 
 const DirectoryAddFolder = () => {
   const ctx = React.useContext(FileManagerContext);
-  const { prependCurrent } = React.useContext(
+  const { current } = React.useContext(
     FileManagerCurrentContext,
   );
 
@@ -23,8 +22,8 @@ const DirectoryAddFolder = () => {
       object.noop(
         ctx.post({
           name,
-          stub: true,
-          relativePath: prependCurrent(`${name}/${name}`),
+          folder: true,
+          folderId: current,
         }),
       );
   };
@@ -36,7 +35,7 @@ const DirectoryAddFolder = () => {
       onClick={handleClick}
       variant="contained"
     >
-      {t('labels:newFolder')}
+      {t('labels:folder')}
     </Button>
   );
 };

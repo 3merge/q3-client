@@ -4,84 +4,64 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import Link from '@material-ui/core/Link';
-import { isString, map, size } from 'lodash';
+import { map, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
-import FileManagerCurrentContext from '../FileManagerCurrentContext';
+import useDirectoryFolders from '../useDirectoryFolders';
 
 const DirectoryBreadcrumbs = () => {
-  const { current, change: setCurrent } = React.useContext(
-    FileManagerCurrentContext,
-  );
-
+  const { breadcrumbs, change } = useDirectoryFolders();
   const { t } = useTranslation('labels');
-  const history = React.useMemo(
-    () => (isString(current) ? current.split('.') : []),
-    [current],
-  );
 
-  const rewriteHistory = (highestIndex = 0) =>
-    history.slice(0, highestIndex).join('.') || null;
-
-  const handleHome = () => {
-    setCurrent(0);
-  };
-
-  const handleBack = () => {
-    setCurrent(rewriteHistory(-1));
-  };
-
-  const handleClick =
-    (idx = 0) =>
-    (e) => {
-      e.preventDefault();
-      setCurrent(rewriteHistory(idx + 1));
-    };
-
-  const renderWhenHistoryHasSize = React.useCallback(
-    (children) => (size(history) ? children : null),
-    [history],
-  );
+  const handleChange = (v) => () => change(v);
 
   return (
-    <Box alignItems="center" display="flex">
-      {renderWhenHistoryHasSize(
-        <IconButton color="inherit" onClick={handleBack}>
+    size(breadcrumbs) > 0 && (
+      <Box
+        alignItems="center"
+        display="flex"
+        mt={-1}
+        mb={0.75}
+      >
+        <IconButton
+          color="inherit"
+          onClick={handleChange(
+            breadcrumbs[breadcrumbs.length - 2]?.id || null,
+          )}
+        >
           <ArrowBackIosIcon />
-        </IconButton>,
-      )}
-      <h2>{t('uploads')}</h2>
-      {renderWhenHistoryHasSize(
-        <Box alignItems="center" display="flex" ml={2}>
-          <Breadcrumbs aria-label="breadcrumb">
-            {/* eslint-disable-next-line */}
-            <Link component="button" onClick={handleHome}>
-              {t('labels:root')}
-            </Link>
-            {map(history, (item, idx) =>
-              idx === history.length - 1 ? (
-                <strong
-                  style={{
-                    fontSize: '0.877rem',
-                  }}
-                >
-                  {item}
-                </strong>
-              ) : (
+        </IconButton>
+        <Breadcrumbs aria-label="breadcrumb">
+          {/* eslint-disable-next-line */}
+          <Link
+            component="button"
+            onClick={handleChange(null)}
+          >
+            {t('labels:root')}
+          </Link>
+          {map(breadcrumbs, (item, idx) =>
+            idx === breadcrumbs.length - 1 ? (
+              <strong
+                style={{
+                  fontSize: '0.877rem',
+                }}
+              >
+                {item.name}
+              </strong>
+            ) : (
+              // eslint-disable-next-line
+              <Link
                 // eslint-disable-next-line
-                <Link
-                  // eslint-disable-next-line
-                  component="button"
-                  key={item}
-                  onClick={handleClick(idx)}
-                >
-                  {item}
-                </Link>
-              ),
-            )}
-          </Breadcrumbs>
-        </Box>,
-      )}
-    </Box>
+                component="button"
+                key={item}
+                onClick={handleChange(item.id)}
+              >
+                {item.name}
+              </Link>
+            ),
+          )}
+        </Breadcrumbs>
+      </Box>
+    )
   );
 };
 
