@@ -17,3 +17,4 @@ export { default as Signal } from './Signal';
 export { default as Search } from './Search';
 export { default as Throw } from './Throw';
 export { default as Unlock } from './Unlock';
+export { default as Upload } from './Upload';

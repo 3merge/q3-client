@@ -1,0 +1,105 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import Fab from '@material-ui/core/Fab';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { browser } from 'q3-ui-helpers';
+import { useTranslation } from 'q3-ui-locale';
+import { useOpen } from 'useful-state';
+import BackupIcon from '@material-ui/icons/Backup';
+import FileManagerContext from '../FileManagerContext';
+import FileManagerAuthContext from '../FileManagerAuthContext';
+import useStyle from './styles';
+import useSaveAs from '../useSaveAs';
+
+const triggerInput = () => {
+  try {
+    if (browser.isBrowserReady())
+      document.getElementById('dropper-button').click();
+  } catch (e) {
+    // noop
+  }
+};
+
+const PhotoUploadPreviewButton = ({ src }) => {
+  // not that this will not be curried like useAuth implementations
+  // see PhotoUpload component for how we adapted this context's use
+  const { remove } = React.useContext(FileManagerContext);
+  const { canCreate, canEdit, canDelete } =
+    React.useContext(FileManagerAuthContext);
+
+  const save = useSaveAs({
+    name: 'photo',
+    url: src,
+  });
+
+  const { t } = useTranslation('labels');
+  const { open, isOpen, close, anchorEl } = useOpen();
+  const cls = useStyle();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    open(e);
+  };
+
+  const exec = (func) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    func();
+    close(e);
+  };
+
+  return (
+    <>
+      <Fab
+        color="secondary"
+        className={cls.button}
+        onClick={handleClick}
+        fullWidth
+        type="button"
+      >
+        <BackupIcon />
+      </Fab>
+      <Menu
+        id="file-sorting"
+        anchorEl={anchorEl}
+        open={isOpen}
+        onClose={close}
+        elevation={5}
+      >
+        <MenuItem
+          disabled={!src}
+          dense
+          onClick={exec(save)}
+        >
+          {t('download')}
+        </MenuItem>
+        <MenuItem
+          dense
+          disabled={!canEdit || !canCreate}
+          onClick={exec(triggerInput)}
+        >
+          {t('uploadFile')}
+        </MenuItem>
+        <MenuItem
+          dense
+          disabled={!canEdit || !canDelete || !src}
+          onClick={exec(remove)}
+        >
+          {t('clearFile')}
+        </MenuItem>
+      </Menu>
+    </>
+  );
+};
+
+PhotoUploadPreviewButton.defaultProps = {
+  src: undefined,
+};
+
+PhotoUploadPreviewButton.propTypes = {
+  src: PropTypes.string,
+};
+
+export default PhotoUploadPreviewButton;

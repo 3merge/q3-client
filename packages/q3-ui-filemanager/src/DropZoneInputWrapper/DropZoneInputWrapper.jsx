@@ -21,10 +21,14 @@ const DropZoneInputWrapper = (props) => {
         component="span"
         startIcon={<CloudUploadIcon />}
       >
-        {t('uploadFiles')}
+        {t('uploadFile')}
       </Button>
     </Box>
   ) : null;
 };
+
+DropZoneInputWrapper.defaultProps = {};
+
+DropZoneInputWrapper.propTypes = {};
 
 export default DropZoneInputWrapper;

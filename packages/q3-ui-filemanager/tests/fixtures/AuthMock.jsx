@@ -11,7 +11,7 @@ const AuthMock = ({ ops, children }) => (
         state: {
           permissions: map(ops, (op) => ({
             coll: collectionName,
-            fields: ['uploads*'],
+            fields: ['{featuredUpload,uploads*}'],
             op,
           })),
         },

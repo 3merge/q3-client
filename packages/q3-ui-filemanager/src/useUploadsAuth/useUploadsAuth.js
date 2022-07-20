@@ -3,6 +3,7 @@ import { get, invoke } from 'lodash';
 
 const useUploadsAuth = (collectionName, options = {}) => {
   const auth = useAuth(collectionName);
+  const sub = get(options, 'field', 'uploads');
 
   return [
     'canCreate',
@@ -11,7 +12,7 @@ const useUploadsAuth = (collectionName, options = {}) => {
     'canSee',
   ].reduce((acc, curr) => {
     acc[curr] =
-      invoke(auth, `${curr}Sub`, 'uploads') === true &&
+      invoke(auth, `${curr}Sub`, sub) === true &&
       get(options, curr) !== false;
 
     return acc;

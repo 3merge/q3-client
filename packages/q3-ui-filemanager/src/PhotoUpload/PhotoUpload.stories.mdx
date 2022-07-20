@@ -6,26 +6,44 @@ import {
 } from '@storybook/addon-docs/blocks';
 import { action } from '@storybook/addon-actions';
 import PhotoUpload from './PhotoUpload';
-import files from '../../tests/fixtures/files.json';
-import support from '../../tests/support';
+import Fixtures from '../../tests/fixtures';
+import UploadMock from '../../tests/fixtures/UploadMock';
 
-<Meta title="Files/PhotoUpload" component={PhotoUpload} />
+<Meta
+  title="File Manager/PhotoUpload"
+  component={PhotoUpload}
+/>
 
 # PhotoUpload
 
 <Preview>
-  <Story name="With existing file">
-    <PhotoUpload
-      url="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80"
-      onDrop={support.onDrop.fail}
-      onDelete={action('on-delete')}
-    />
+  <Story name="With src">
+    <Fixtures ops={['Read', 'Create', 'Update', 'Delete']}>
+      <UploadMock>
+        <PhotoUpload src="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" />
+      </UploadMock>
+    </Fixtures>
   </Story>
-  <Story name="Will succeed">
-    <PhotoUpload onDrop={support.onDrop.succeed} />
+  <Story name="With src (read only)">
+    <Fixtures ops={['Read']}>
+      <UploadMock>
+        <PhotoUpload src="https://images.unsplash.com/photo-1593642702749-b7d2a804fbcf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" />
+      </UploadMock>
+    </Fixtures>
   </Story>
-  <Story name="Will Fail">
-    <PhotoUpload onDrop={support.onDrop.fail} />
+  <Story name="Without src (read only)">
+    <Fixtures ops={['Read']}>
+      <UploadMock>
+        <PhotoUpload />
+      </UploadMock>
+    </Fixtures>
+  </Story>
+  <Story name="With upload error">
+    <UploadMock causeError>
+      <Fixtures ops={['Read', 'Create', 'Update']}>
+        <PhotoUpload />
+      </Fixtures>
+    </UploadMock>
   </Story>
 </Preview>
 
