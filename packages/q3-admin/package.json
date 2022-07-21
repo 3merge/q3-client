@@ -21,7 +21,7 @@
     "flat": "^5.0.2",
     "lodash": "^4.17.20",
     "micromatch": "^4.0.2",
-    "moment": "2.29.2",
+    "moment": "2.29.4",
     "notistack": "1.0.10",
     "prop-types": "^15.7.2",
     "q3-ui": "^3.7.0",
