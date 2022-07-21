@@ -1,13 +1,17 @@
 import { act } from 'react-dom/test-utils';
 
 export const asyncAct = async (fn) =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     let el;
 
-    return act(async () => {
-      el = await fn();
+    act(async () => {
+      try {
+        el = await fn();
+      } catch (e) {
+        reject(e);
+      }
     }).then(() => {
-      el.update();
+      if (el) el.update();
       resolve(el);
     });
   });
@@ -42,3 +46,8 @@ export const exists = (el) =>
 
 export const doesNotExist = (el) =>
   expect(el.exists()).toBeFalsy();
+
+export const hasSomeOf = (el) =>
+  expect(el.length).toBeGreaterThan(0);
+
+export const hasNoneOf = (el) => expect(el.length).toBe(0);

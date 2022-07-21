@@ -133,7 +133,7 @@ const AbstractedAutoComplete = ({
         fullWidth: true,
         value: inputValue,
         required,
-        inputValue,
+        // inputValue,
       })}
       renderTags={(values, getTagProps) =>
         check

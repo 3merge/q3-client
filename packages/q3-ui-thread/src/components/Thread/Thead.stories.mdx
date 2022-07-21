@@ -1,0 +1,69 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Thread from './Thread';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="Thread/Thread" component={Thread} />
+
+# Thread
+
+<Preview>
+  <Story name="Fetching">
+    <Fixtures delay={60000} ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Fetching Error">
+    <Fixtures onGetError ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error">
+    <Fixtures>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error (via props)">
+    <Fixtures ops={['Read']}>
+      <Thread canSee={false} />
+    </Fixtures>
+  </Story>
+  <Story name="Empty">
+    <Fixtures onGetEmpty ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="With all permissions">
+    <Fixtures ops={['Read', 'Create', 'Update', 'Delete']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Read-only">
+    <Fixtures ops={['Read']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="Read-only (no tags/pins)">
+    <Fixtures ops={['Read']}>
+      <Thread enableTags={false} />
+    </Fixtures>
+  </Story>
+  <Story name="With editing">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <Thread />
+    </Fixtures>
+  </Story>
+  <Story name="With editing (no tags/pins via props)">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <Thread enableTags={false} enablePins={false} />
+    </Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Thread} />

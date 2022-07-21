@@ -35,9 +35,8 @@ export default ({
   minimumCharacterCount,
 }) => {
   const { values } = React.useContext(BuilderState);
-  const { value, onChange, setValue } = useValue(
-    initialValue,
-  );
+  const { value, onChange, setValue } =
+    useValue(initialValue);
   const shouldRun = useInputDebounce(value);
 
   const {
