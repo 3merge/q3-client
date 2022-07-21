@@ -9,6 +9,8 @@ import HelpIcon from '@material-ui/icons/Help';
 import ContextMenu from '../ContextMenu';
 import useDialog from '../useDialog';
 import useSaveAs from '../useSaveAs';
+import { DIALOG_ABOUT, DIALOG_DELETE } from '../constants';
+import { DIALOG_MOVE, DIALOG_RENAME } from '../constants';
 
 const withContextMenu = (Component) => {
   const ContextMenuImplementation = (props) => {
@@ -16,22 +18,22 @@ const withContextMenu = (Component) => {
     const save = useSaveAs(props);
 
     const { open: openDeleteDialog } = useDialog(
-      'q3-file-dialog-delete',
+      DIALOG_DELETE,
       props,
     );
 
     const { open: openAboutDialog } = useDialog(
-      'q3-file-dialog-about',
+      DIALOG_ABOUT,
       props,
     );
 
     const { open: openMoveTo } = useDialog(
-      'q3-file-dialog-move-to',
+      DIALOG_MOVE,
       props,
     );
 
     const { open: openRenameDialog } = useDialog(
-      'q3-file-dialog-rename',
+      DIALOG_RENAME,
       props,
     );
 

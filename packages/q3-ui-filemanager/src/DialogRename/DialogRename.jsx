@@ -1,61 +1,39 @@
 import React from 'react';
 import Dialog from 'q3-ui-dialog';
-import { Builders } from 'q3-ui-forms';
 import DialogTriggerButton from '../DialogTriggerButton';
-import FileManagerContext from '../FileManagerContext';
 import useDialog from '../useDialog';
+import DialogRenameForm from '../DialogRenameForm';
+import { DIALOG_RENAME } from '../constants';
 
 const DialogRename = () => {
-  const id = 'q3-file-dialog-rename';
-  const { patch } = React.useContext(FileManagerContext);
-
-  const {
-    close,
-    data,
-    handleOpen,
-    isOpen,
-    TransitionProps,
-  } = useDialog(id);
+  const { close, handleOpen, isOpen, TransitionProps } =
+    useDialog(DIALOG_RENAME);
 
   const ButtonComponent = React.useCallback(
     (onClick) => (
       <DialogTriggerButton
-        id={id}
+        id={DIALOG_RENAME}
         onClick={(e) => {
           handleOpen(e, onClick);
         }}
       />
     ),
-    [id],
+    [],
+  );
+
+  const ContentComponent = React.useCallback(
+    () => <DialogRenameForm />,
+    [],
   );
 
   return (
     <Dialog
-      onClose={close}
+      TransitionProps={TransitionProps}
       isOpen={isOpen}
-      renderContent={() => (
-        <Builders.Form
-          initialValues={{
-            name: '',
-          }}
-          onSubmit={(values) =>
-            patch(data.id)(values).then(close)
-          }
-        >
-          <Builders.Field
-            autoFocus
-            type="text"
-            name="name"
-            required
-            xl={12}
-            lg={12}
-            md={12}
-          />
-        </Builders.Form>
-      )}
+      onClose={close}
+      renderContent={ContentComponent}
       renderTrigger={ButtonComponent}
       title="rename"
-      TransitionProps={TransitionProps}
     />
   );
 };

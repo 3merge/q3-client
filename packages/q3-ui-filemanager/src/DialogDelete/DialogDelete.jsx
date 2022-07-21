@@ -6,14 +6,15 @@ import DialogTriggerButton from '../DialogTriggerButton';
 import FileManagerContext from '../FileManagerContext';
 import { withQueryParamIds } from '../utils';
 import useDialog from '../useDialog';
+import { DIALOG_DELETE } from '../constants';
 
 const DialogDelete = () => {
-  const id = 'q3-file-dialog-delete';
   const { remove, poll } = React.useContext(
     FileManagerContext,
   );
+
   const { close, handleOpen, isOpen, TransitionProps } =
-    useDialog(id);
+    useDialog(DIALOG_DELETE);
 
   const { selected } = React.useContext(
     FileManagerBatchContext,
@@ -22,13 +23,13 @@ const DialogDelete = () => {
   const ButtonComponent = React.useCallback(
     ({ onClick }) => (
       <DialogTriggerButton
-        id={id}
+        id={DIALOG_DELETE}
         onClick={(e) => {
           handleOpen(e, onClick);
         }}
       />
     ),
-    [id],
+    [],
   );
 
   return (

@@ -10,6 +10,7 @@ import { useOpen } from 'useful-state';
 import { map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import FileManagerBatchContext from '../FileManagerBatchContext';
+import { suppressEvent } from '../utils';
 
 const ContextMenu = ({ id, items, children }) => {
   const { t } = useTranslation('labels');
@@ -18,15 +19,9 @@ const ContextMenu = ({ id, items, children }) => {
     FileManagerBatchContext,
   );
 
-  const handleEventWithCallback = (e, fn) => {
-    e.preventDefault();
-    e.stopPropagation();
-    fn(e);
-  };
-
   const handleBackdropContextMenu = (e) => {
     if (!isOpen) return;
-    handleEventWithCallback(e, close);
+    suppressEvent(e, close);
   };
 
   const handleOnClick = (fn) => (e) => {
@@ -34,13 +29,20 @@ const ContextMenu = ({ id, items, children }) => {
     close(e);
   };
 
+  const handleOnContext = (e) => {
+    suppressEvent(e, open);
+    select(id);
+    disable();
+  };
+
+  const handleClose = (e) => {
+    close(e);
+    enable();
+  };
+
   return (
     <>
-      {children((e) => {
-        handleEventWithCallback(e, open);
-        select(id);
-        disable();
-      })}
+      {children(handleOnContext)}
       <Menu
         BackdropProps={{
           invisible: true,
@@ -49,10 +51,7 @@ const ContextMenu = ({ id, items, children }) => {
         anchorEl={anchorEl}
         className="q3-context-menu"
         open={isOpen}
-        onClose={(e) => {
-          close(e);
-          enable();
-        }}
+        onClose={handleClose}
       >
         {map(
           items,

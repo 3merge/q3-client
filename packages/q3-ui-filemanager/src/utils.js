@@ -44,6 +44,15 @@ export const normalize = (xs) =>
 export const getLastFolder = (str) =>
   last(String(str).split('/'));
 
+export const suppressEvent = (e, fn) => {
+  if (isObject(e)) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  fn(e);
+};
+
 export const convertSlashIntoDotNotation = (str) =>
   replace(str, /\//g, '.');
 

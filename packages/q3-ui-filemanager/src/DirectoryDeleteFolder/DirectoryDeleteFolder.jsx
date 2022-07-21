@@ -2,9 +2,10 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useDialog from '../useDialog';
+import { DIALOG_DELETE } from '../constants';
 
 const DirectoryDeleteFolder = () => {
-  const { open } = useDialog('q3-file-dialog-delete');
+  const { open } = useDialog(DIALOG_DELETE);
 
   return (
     <IconButton

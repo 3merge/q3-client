@@ -5,22 +5,27 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useDialog from '../useDialog';
 import ContextMenu from '../ContextMenu';
+import {
+  DIALOG_DELETE,
+  DIALOG_MOVE,
+  DIALOG_RENAME,
+} from '../constants';
 
 const withContextMenuFolder = (Component) => {
   const ContextMenuImplementation = (props) => {
     const { id } = props;
     const { open: openMoveTo } = useDialog(
-      'q3-file-dialog-move-to',
+      DIALOG_MOVE,
       props,
     );
 
     const { open: openDeleteDialog } = useDialog(
-      'q3-file-dialog-delete',
+      DIALOG_DELETE,
       props,
     );
 
     const { open: openRenameDialog } = useDialog(
-      'q3-file-dialog-rename',
+      DIALOG_RENAME,
       props,
     );
 
