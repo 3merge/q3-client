@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.7.0](https://github.com/3merge/q/compare/v3.6.11...v3.7.0) (2022-07-21)
+
+**Note:** Version bump only for package q3-ui-rte
+
+
+
+
+
 ## [3.6.8](https://github.com/3merge/q/compare/v3.6.7...v3.6.8) (2022-06-30)
 
 
