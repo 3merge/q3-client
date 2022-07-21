@@ -13,7 +13,7 @@
     "lodash": "^4.17.20",
     "material-ui-chip-input": "^1.1.0",
     "material-ui-dropzone": "^3.5.0",
-    "moment": "2.29.2",
+    "moment": "2.29.4",
     "prop-types": "^15.7.2",
     "q3-ui-assets": "^3.7.0",
     "q3-ui-helpers": "^3.7.0",
