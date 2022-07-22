@@ -11,9 +11,10 @@ const NoteTags = ({ tags, selectTag }) =>
       {map(tags, (tag) => (
         <Chip
           className="q3-thread-tag"
+          color="secondary"
           key={tag}
           label={tag}
-          onClick={() => selectTag(tag)}
+          onClick={() => selectTag(String(tag))}
           size="small"
         />
       ))}

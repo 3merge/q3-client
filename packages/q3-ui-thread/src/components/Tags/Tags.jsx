@@ -34,7 +34,7 @@ const Tags = ({ tags, selectTag }) => {
     selectTag(newTagValue);
   };
 
-  return canTag ? (
+  return canTag && size(allTags) > 0 ? (
     <Box display="inline-flex" ml={0.5}>
       <Button
         className="q3-thread-tag-select"

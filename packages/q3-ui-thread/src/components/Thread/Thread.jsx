@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import { size } from 'lodash';
 import Sort from '../Sort';
 import Tags from '../Tags';
 import { ThreadContextProvider } from '../ThreadContext';
@@ -15,7 +16,7 @@ const Thread = (props) => (
     <ProtectedThreadNotes {...props}>
       {({
         changeSortDirection,
-        data,
+        total,
         selectTag,
         sortDirection,
         tags,
@@ -31,18 +32,16 @@ const Thread = (props) => (
           top="0"
           zIndex={1}
         >
-          <NoteAdd data={data} post={post} />
-          <Box alignItems="center" display="flex">
-            <Sort
-              sortDirection={sortDirection}
-              changeSortDirection={changeSortDirection}
-            />
-            <Tags
-              data={data}
-              selectTag={selectTag}
-              tags={tags}
-            />
-          </Box>
+          <NoteAdd post={post} />
+          {total > 0 && (
+            <Box alignItems="center" display="flex">
+              <Sort
+                sortDirection={sortDirection}
+                changeSortDirection={changeSortDirection}
+              />
+              <Tags selectTag={selectTag} tags={tags} />
+            </Box>
+          )}
         </Box>
       )}
     </ProtectedThreadNotes>

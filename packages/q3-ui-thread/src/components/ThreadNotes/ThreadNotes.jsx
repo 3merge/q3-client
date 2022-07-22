@@ -8,6 +8,7 @@ import {
   size,
   every,
   groupBy,
+  get,
   uniq,
 } from 'lodash';
 import Box from '@material-ui/core/Box';
@@ -147,6 +148,7 @@ const ThreadNotes = ({ children, collectionName, id }) => {
     // eslint-disable-next-line
     <ThreadContextHttp.Provider value={{ thread, ...http }}>
       {children({
+        total: get(data, 'length', 0),
         changeSortDirection,
         sortDirection: sort,
         tags,

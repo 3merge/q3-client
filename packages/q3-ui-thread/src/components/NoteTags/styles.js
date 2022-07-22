@@ -10,10 +10,5 @@ export default makeStyles((theme) => ({
     '&:empty': {
       display: 'none',
     },
-
-    '& > div': {
-      backgroundColor: theme.palette.background.paper,
-      color: theme.palette.secondary.main,
-    },
   },
 }));

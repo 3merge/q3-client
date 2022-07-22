@@ -4,8 +4,8 @@ import { get, size, isFunction } from 'lodash';
 import { Box } from '@material-ui/core';
 import TrackChangesIcon from '@material-ui/icons/TrackChanges';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import ForumIcon from '@material-ui/icons/Forum';
 import { useAuth } from 'q3-ui-permissions';
+import DescriptionIcon from '@material-ui/icons/Description';
 import Notes from '../notes';
 import Upload from '../upload';
 import Trash from '../trash';
@@ -41,7 +41,7 @@ const DetailActions = ({
         canSeeSub('thread'),
         <ButtonWithIconDialog
           transparent
-          icon={ForumIcon}
+          icon={DescriptionIcon}
           label="notes"
           renderContent={() => (
             <Notes {...get(actionProps, 'thread', {})} />
