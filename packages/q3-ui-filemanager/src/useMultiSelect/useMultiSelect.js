@@ -59,7 +59,6 @@ const useMultiSelect = () => {
     (...params) =>
       disabled ? null : fn(...params);
 
-  // off and on?
   const enable = () => setDisabled(false);
   const disable = () => setDisabled(true);
 

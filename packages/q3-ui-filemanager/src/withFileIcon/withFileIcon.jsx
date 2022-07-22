@@ -12,6 +12,7 @@ import SlideshowIcon from '@material-ui/icons/Slideshow';
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import SubjectIcon from '@material-ui/icons/Subject';
+import { get } from 'lodash';
 import { getFileType } from '../utils';
 
 const iconMap = {
@@ -54,23 +55,23 @@ const withFileIcon = (Component) => {
 
     const El = React.useMemo(
       // eslint-disable-next-line
-      () => () =>
-        fileType ? (
-          React.createElement(
-            iconMap[fileType] || DescriptionIcon,
-            {
-              style: {
-                color,
-              },
-            },
-          )
-        ) : (
-          <FolderIcon
+      () => () => {
+        const IconComponent = fileType
+          ? iconMap[fileType] || DescriptionIcon
+          : FolderIcon;
+
+        return (
+          <IconComponent
+            data-icon={get(
+              IconComponent,
+              'type.render.displayName',
+            )}
             style={{
               color,
             }}
           />
-        ),
+        );
+      },
       [color, fileType],
     );
 

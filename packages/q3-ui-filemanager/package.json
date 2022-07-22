@@ -27,6 +27,7 @@
     "q3-ui-helpers": "^3.7.1",
     "q3-ui-forms": "^3.6.10",
     "q3-ui-locale": "^3.7.1",
+    "q3-ui-permissions": "^3.7.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dropzone": "^11.4.2",
