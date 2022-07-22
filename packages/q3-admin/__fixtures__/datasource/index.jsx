@@ -4,6 +4,7 @@ import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
+import thread from 'q3-ui-thread/lib/tests/fixtures/data.json';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
@@ -213,6 +214,12 @@ const makeApiEndpoints = (
     .onGet(new RegExp(`${collectionName}\\/\\d+\\/uploads`))
     .reply(200, {
       uploads,
+    });
+
+  mockInstance
+    .onGet(new RegExp(`${collectionName}\\/\\d+\\/thread`))
+    .reply(200, {
+      thread,
     });
 
   mockInstance

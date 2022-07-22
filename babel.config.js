@@ -36,6 +36,7 @@ const alias = [
   'q3-ui-rte',
   'q3-ui-test-utils',
   'q3-ui-rest',
+  'q3-ui-thread',
 ].reduce(
   (acc, curr) =>
     Object.assign(acc, {
