@@ -7,20 +7,28 @@ import { browser } from 'q3-ui-helpers';
 import Gallery from '../Gallery';
 import List from '../List';
 import { StyledToggleButtonGroup } from './styles';
+import {
+  getKey,
+  getFromLocalStorage,
+  suppressEvent,
+} from '../utils';
 
 const DirectoryView = ({ children, defaultView }) => {
-  const key = 'q3-filemanager-view';
+  const suffix = 'view';
   const [view, setView] = React.useState(
-    browser.proxyLocalStorageApi('getItem', key) ||
-      defaultView,
+    getFromLocalStorage(suffix, defaultView),
   );
 
-  const handleViewChange = (e, newView) => {
-    e.preventDefault();
-    e.stopPropagation();
-    browser.proxyLocalStorageApi('setItem', key, newView);
-    setView(newView);
-  };
+  const handleViewChange = (e, newView) =>
+    suppressEvent(e, () => {
+      browser.proxyLocalStorageApi(
+        'setItem',
+        getKey(suffix),
+        newView,
+      );
+
+      setView(newView);
+    });
 
   return children(
     React.useCallback(

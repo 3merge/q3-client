@@ -8,9 +8,14 @@ import { Box } from '@material-ui/core';
 const DirectoryPendingFiles = ({ pending }) => {
   const { t } = useTranslation('labels');
 
-  return size(pending) > 0 ? (
+  const hasSize = () => size(pending) > 0;
+
+  const containsError = () =>
+    some(pending, (item) => item.error);
+
+  return hasSize() ? (
     <Box mb={1}>
-      {!some(pending, (item) => item.error) ? (
+      {!containsError() ? (
         <Alert severity="info">{t('uploading')}...</Alert>
       ) : (
         <Alert severity="error">{t('uploadFailed')}</Alert>

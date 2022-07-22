@@ -5,6 +5,7 @@ import {
   some,
   replace,
   isObject,
+  isNil,
 } from 'lodash';
 import { browser } from 'q3-ui-helpers';
 
@@ -93,3 +94,14 @@ export const sanitize = (s) => {
 
 export const withQueryParamIds = (str) =>
   String(str).includes(',') ? `?ids=${str}` : str;
+
+export const getKey = (k) => `q3-filemanager-${k}`;
+
+export const getFromLocalStorage = (k, defaultValue) => {
+  const prev = browser.proxyLocalStorageApi(
+    'getItem',
+    getKey(k),
+  );
+
+  return isNil(normalize(prev)) ? defaultValue : prev;
+};

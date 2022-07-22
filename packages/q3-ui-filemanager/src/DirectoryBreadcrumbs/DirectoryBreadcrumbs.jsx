@@ -14,6 +14,10 @@ const DirectoryBreadcrumbs = () => {
 
   const handleChange = (v) => () => change(v);
 
+  const handleChangeBackHome = handleChange(
+    breadcrumbs[breadcrumbs.length - 2]?.id || null,
+  );
+
   return (
     size(breadcrumbs) > 0 && (
       <Box
@@ -24,9 +28,7 @@ const DirectoryBreadcrumbs = () => {
       >
         <IconButton
           color="inherit"
-          onClick={handleChange(
-            breadcrumbs[breadcrumbs.length - 2]?.id || null,
-          )}
+          onClick={handleChangeBackHome}
         >
           <ArrowBackIosIcon />
         </IconButton>
@@ -41,6 +43,7 @@ const DirectoryBreadcrumbs = () => {
           {map(breadcrumbs, (item, idx) =>
             idx === breadcrumbs.length - 1 ? (
               <strong
+                key={item.name}
                 style={{
                   fontSize: '0.877rem',
                 }}

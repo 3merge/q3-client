@@ -1,65 +1,24 @@
 import React from 'react';
-import { orderBy } from 'lodash';
-import {
-  Button,
-  Menu,
-  MenuItem,
-  Divider,
-  Box,
-  IconButton,
-  Hidden,
-} from '@material-ui/core';
-import { useOpen } from 'useful-state';
+import { get, orderBy } from 'lodash';
+import { Menu, MenuItem, Divider } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import CheckIcon from '@material-ui/icons/Check';
-import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
 import { browser } from 'q3-ui-helpers';
 import useDirectoryFolders from '../useDirectoryFolders';
+import DirectorySortButton from '../DirectorySortButton';
+import { getKey, getFromLocalStorage } from '../utils';
 
-const DirectorySortButton = ({ children }) => {
-  const { anchorEl, close, isOpen, open } = useOpen();
-  const { t } = useTranslation('labels');
+export { getKey, getFromLocalStorage };
 
-  return (
-    <Box display="inline-block" mx={0.5}>
-      <Hidden smDown>
-        <Button
-          color="inherit"
-          startIcon={<SortByAlphaIcon />}
-          onClick={open}
-        >
-          {t('sort')}
-        </Button>
-      </Hidden>
-      <Hidden mdUp>
-        <IconButton
-          aria-label="sort"
-          color="inherit"
-          onClick={open}
-        >
-          <SortByAlphaIcon />
-        </IconButton>
-      </Hidden>
-      {children({
-        anchorEl,
-        close,
-        isOpen,
-      })}
-    </Box>
-  );
-};
+export const castPropertyToLowerCase =
+  (propertyName) => (item) =>
+    String(get(item, propertyName)).toLowerCase();
 
 const DirectorySort = ({ children }) => {
   const { files = [], siblings = [] } =
     useDirectoryFolders();
 
   const { t } = useTranslation();
-
-  const getKey = (k) => `q3-filemanager-sort-${k}`;
-  const getFromLocalStorage = (k, defaultValue) =>
-    browser.proxyLocalStorageApi('getItem', getKey(k)) ||
-    defaultValue;
-
   const [state, setState] = React.useState({
     property: getFromLocalStorage('property', 'name'),
     sort: getFromLocalStorage('sort', 'asc'),
@@ -68,16 +27,14 @@ const DirectorySort = ({ children }) => {
   const sort = (xs) =>
     orderBy(
       xs,
-      [
-        (item) =>
-          String(item[state.property]).toLowerCase(),
-      ],
+      [castPropertyToLowerCase(state.property)],
       [state.sort],
     );
 
   const makeMenuItem = (value, stateKey) => (
     <MenuItem
       dense
+      key={stateKey}
       onClick={() => {
         setState((prevState) => ({
           ...prevState,
@@ -105,13 +62,13 @@ const DirectorySort = ({ children }) => {
       <DirectorySortButton>
         {({ anchorEl, isOpen, close }) => (
           <Menu
-            id="file-sorting"
             anchorEl={anchorEl}
+            id="file-sorting"
             open={isOpen}
             onClose={close}
             elevation={5}
           >
-            {['lastUpdated', 'name', 'size'].map((item) =>
+            {['updatedAt', 'name', 'size'].map((item) =>
               makeMenuItem(item, 'property'),
             )}
             <Divider component="li" />

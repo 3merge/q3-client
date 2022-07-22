@@ -54,4 +54,6 @@ Gallery.propTypes = {
   ),
 };
 
-export default withAlertNoFiles(Gallery);
+const GalleryComponent = withAlertNoFiles(Gallery);
+GalleryComponent.displayName = 'gallery';
+export default GalleryComponent;

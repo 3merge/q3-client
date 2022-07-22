@@ -39,4 +39,6 @@ List.propTypes = {
   ),
 };
 
-export default withAlertNoFiles(List);
+const ListComponent = withAlertNoFiles(List);
+ListComponent.displayName = 'list';
+export default ListComponent;
