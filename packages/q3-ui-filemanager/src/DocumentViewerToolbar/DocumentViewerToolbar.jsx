@@ -103,4 +103,4 @@ DocumentViewerToolbar.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default React.forwardRef(DocumentViewerToolbar);
+export default DocumentViewerToolbar;

@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject, map } from 'lodash';
+import { compact, isObject, map } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import useStyle from './styles';
 import DocumentViewerToolbar from '../DocumentViewerToolbar';
 import DocumentViewerObject from '../DocumentViewerObject';
+import { suppressEvent } from '../utils';
 
 const DocumentViewer = ({ children }) => {
   const [file, setFile] = React.useState();
   const cls = useStyle({});
 
   const appendViewerClickToEach = (xs) =>
-    map(xs, (item) => ({
+    map(compact(xs), (item) => ({
       ...item,
       onClick(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        setFile(item);
+        suppressEvent(e, () => {
+          setFile(item);
+        });
       },
     }));
 

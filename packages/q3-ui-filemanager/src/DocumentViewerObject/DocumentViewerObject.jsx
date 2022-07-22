@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 import DocumentViewerError from '../DocumentViewerError';
 import { getFileType } from '../utils';
 
-/**
- * @note
- * Had implemented HTML5 previously.
- */
 const DocumentViewerObject = (props) => {
   const { url } = props;
-
   const FallbackComponent = React.useCallback(
     () => <DocumentViewerError {...props} />,
     [],
