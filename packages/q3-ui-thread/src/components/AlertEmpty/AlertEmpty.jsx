@@ -1,12 +1,8 @@
 import React from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { useTranslation } from 'q3-ui-locale';
+import Graphic from 'q3-ui-assets';
 
-const AlertEmpty = () => {
-  const { t } = useTranslation('descriptions');
-  return (
-    <Alert severity="warning">{t('threadEmpty')}</Alert>
-  );
-};
+const AlertEmpty = () => (
+  <Graphic icon="Empty" title="empty" />
+);
 
 export default AlertEmpty;

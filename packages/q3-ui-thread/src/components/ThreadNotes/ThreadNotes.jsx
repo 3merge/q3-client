@@ -134,7 +134,7 @@ const ThreadNotes = ({ children, collectionName, id }) => {
     canPin ? (
       <>
         {renderGroup('true', 'pinned')}
-        {renderGroup('false', 'posts')}
+        {renderGroup('false', 'notes')}
       </>
     ) : (
       renderNotes(filteredData)
@@ -153,7 +153,7 @@ const ThreadNotes = ({ children, collectionName, id }) => {
         selectTag,
         ...http,
       })}
-      {size(data) > 1 && <Search handleInput={setSearch} />}
+      {size(data) > 0 && <Search handleInput={setSearch} />}
       {size(filteredData) ? (
         execRenderOption()
       ) : (
