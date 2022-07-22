@@ -1,18 +1,24 @@
 import React from 'react';
-import { get, orderBy } from 'lodash';
+import { orderBy } from 'lodash';
 import { Menu, MenuItem, Divider } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import CheckIcon from '@material-ui/icons/Check';
 import { browser } from 'q3-ui-helpers';
 import useDirectoryFolders from '../useDirectoryFolders';
 import DirectorySortButton from '../DirectorySortButton';
-import { getKey, getFromLocalStorage } from '../utils';
+import {
+  castPropertyToLowerCase,
+  getKey,
+  getFromLocalStorage,
+} from '../utils';
 
-export { getKey, getFromLocalStorage };
-
-export const castPropertyToLowerCase =
-  (propertyName) => (item) =>
-    String(get(item, propertyName)).toLowerCase();
+// had been located here for testing
+// then moved to utils
+export {
+  castPropertyToLowerCase,
+  getKey,
+  getFromLocalStorage,
+};
 
 const DirectorySort = ({ children }) => {
   const { files = [], siblings = [] } =

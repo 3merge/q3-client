@@ -14,6 +14,10 @@ export const checkSsr =
   (...params) =>
     browser.isBrowserReady() ? fn(...params) : null;
 
+export const castPropertyToLowerCase =
+  (propertyName) => (item) =>
+    String(get(item, propertyName)).toLowerCase();
+
 export const checkContains = (selector, target) =>
   browser.isBrowserReady()
     ? some(document.querySelectorAll(selector), (node) =>

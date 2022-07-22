@@ -1,5 +1,5 @@
 import React from 'react';
-import { reduce } from 'lodash';
+import { sortBy, reduce } from 'lodash';
 import { filter } from 'lodash';
 import FileManagerCurrentContext from '../FileManagerCurrentContext';
 import FileManagerContext from '../FileManagerContext';
@@ -27,18 +27,21 @@ const useDirectoryFolder = () => {
     );
 
   const buildFolderTree = (folderId = null) =>
-    reduce(
-      uploads,
-      (acc, curr) =>
-        curr.folder &&
-        normalize(curr.folderId) === normalize(folderId)
-          ? acc.concat({
-              children: buildFolderTree(curr.id),
-              id: curr.id,
-              name: curr.name,
-            })
-          : acc,
-      [],
+    sortBy(
+      reduce(
+        uploads,
+        (acc, curr) =>
+          curr.folder &&
+          normalize(curr.folderId) === normalize(folderId)
+            ? acc.concat({
+                children: buildFolderTree(curr.id),
+                id: curr.id,
+                name: curr.name,
+              })
+            : acc,
+        [],
+      ),
+      ['name'],
     );
 
   return React.useMemo(

@@ -8,18 +8,17 @@ const useDialog = (dialogId, args = {}) => {
     FileManagerBatchContext,
   );
 
+  const attr = 'data-props';
+
   const open = checkSsr(() => {
     const el = document.getElementById(dialogId);
-    el.setAttribute('data-props', JSON.stringify(args));
+    el.setAttribute(attr, JSON.stringify(args));
     el.click();
   });
 
   const handleOpen = (ev, next) => {
     try {
-      setData(
-        JSON.parse(ev.target.getAttribute('data-props')),
-      );
-
+      setData(JSON.parse(ev.target.getAttribute(attr)));
       next();
     } catch (e) {
       // noop
@@ -27,10 +26,7 @@ const useDialog = (dialogId, args = {}) => {
   };
 
   const close = checkSsr(() => {
-    document
-      .getElementById(dialogId)
-      .removeAttribute('data-props');
-
+    document.getElementById(dialogId).removeAttribute(attr);
     setData(null);
   });
 

@@ -14,8 +14,10 @@
     "react-dom": "^17.0.1"
   },
   "dependencies": {
+    "browser-image-compression": "^1.0.17",
     "classnames": "^2.2.6",
     "lodash": "^4.17.20",
+    "file-saver": "^2.0.5",
     "print-js": "^1.6.0",
     "prop-types": "^15.7.2",
     "q3-ui": "^3.7.3",
