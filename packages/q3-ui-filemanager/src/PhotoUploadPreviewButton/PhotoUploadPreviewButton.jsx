@@ -11,6 +11,7 @@ import FileManagerContext from '../FileManagerContext';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 import useStyle from './styles';
 import useSaveAs from '../useSaveAs';
+import { suppressEvent } from '../utils';
 
 const triggerInput = () => {
   try {
@@ -38,16 +39,12 @@ const PhotoUploadPreviewButton = ({ src }) => {
   const cls = useStyle();
 
   const handleClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    open(e);
+    suppressEvent(e, open);
   };
 
   const exec = (func) => (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    suppressEvent(e, close);
     func();
-    close(e);
   };
 
   return (

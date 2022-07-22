@@ -22,7 +22,7 @@ export const GalleryItemFolderIcon = React.memo(
 
 const GalleryItemFolder = React.forwardRef(
   (
-    { id, onContextMenu, classes, name, onClick, onSelect },
+    { classes, id, name, onClick, onContextMenu, onSelect },
     ref,
   ) => {
     const { isHovering = false, ref: dropRef } =
@@ -63,9 +63,20 @@ const GalleryItemFolder = React.forwardRef(
   },
 );
 
+GalleryItemFolder.defaultProps = {};
+
 GalleryItemFolder.propTypes = {
+  classes: PropTypes.shape({
+    item: PropTypes.string,
+  }).isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default withContextMenuFolder(

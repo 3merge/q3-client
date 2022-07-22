@@ -18,12 +18,12 @@ const GalleryItem = React.forwardRef(
   (
     {
       classes,
-      id,
       icon: Icon,
+      id,
       isItemSelected,
       name,
-      onContextMenu,
       onClick,
+      onContextMenu,
       onSelect,
       ...file
     },
@@ -68,15 +68,28 @@ const GalleryItem = React.forwardRef(
   },
 );
 
+GalleryItem.defaultProps = {
+  isItemSelected: false,
+};
+
 GalleryItem.propTypes = {
+  classes: PropTypes.shape({
+    item: PropTypes.string,
+  }).isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   icon: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.element,
     PropTypes.func,
   ]).isRequired,
+  isItemSelected: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   onContextMenu: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default withContextMenu(

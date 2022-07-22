@@ -28,11 +28,15 @@ const PhotoUpload = ({
               field !== FEATURED_UPLOAD_FIELD &&
               isFunction(formData?.get)
             ) {
-              const f = formData.get(field);
-              const path = `uploads/${f.name}`;
-              formData.append(path, f);
-              formData.set(field, f.name);
-              formData.set('sensitive', false);
+              try {
+                const f = formData.get(field);
+                const path = `uploads/${f.name}`;
+                formData.append(path, f);
+                formData.set(field, f.name);
+                formData.set('sensitive', false);
+              } catch (e) {
+                // noop
+              }
             }
 
             return upload(formData);
