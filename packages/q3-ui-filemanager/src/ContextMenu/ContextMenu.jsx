@@ -7,8 +7,9 @@ import {
   ListItemIcon,
 } from '@material-ui/core';
 import { useOpen } from 'useful-state';
-import { map } from 'lodash';
+import { get, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
+import FileManagerAuthContext from '../FileManagerAuthContext';
 import FileManagerBatchContext from '../FileManagerBatchContext';
 import { suppressEvent } from '../utils';
 
@@ -18,6 +19,13 @@ const ContextMenu = ({ id, items, children }) => {
   const { enable, disable, select } = React.useContext(
     FileManagerBatchContext,
   );
+
+  const authContext = React.useContext(
+    FileManagerAuthContext,
+  );
+
+  const checkAuth = (prop) =>
+    prop ? !get(authContext, prop, true) : false;
 
   const handleBackdropContextMenu = (e) => {
     if (!isOpen) return;
@@ -55,12 +63,20 @@ const ContextMenu = ({ id, items, children }) => {
       >
         {map(
           items,
-          ({ divider, icon, label, onClick }, idx) =>
+          ({ auth, divider, icon, label, onClick }, idx) =>
             divider ? (
-              <Divider key={idx} component="li" />
+              <Divider
+                key={idx}
+                component="li"
+                style={{
+                  marginBottom: '.5rem',
+                  marginTop: '.5rem',
+                }}
+              />
             ) : (
               <MenuItem
                 dense
+                disabled={checkAuth(auth)}
                 key={label}
                 onClick={handleOnClick(onClick)}
               >

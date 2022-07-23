@@ -94,4 +94,35 @@ describe('ContextMenu', () => {
     menuItem.props().onClick();
     expect(onClick).toHaveBeenCalled();
   });
+
+  it('should check auth', () => {
+    jest.spyOn(React, 'useContext').mockReturnValue({
+      canEdit: true,
+      canDelete: false,
+      disable: jest.fn(),
+      select: jest.fn(),
+    });
+
+    const { el } = renderWithEvent({
+      items: [
+        {
+          auth: 'canEdit',
+          label: 'testEdit',
+          icon: 'icon ',
+          onClick: jest.fn(),
+        },
+        {
+          auth: 'canDelete',
+          label: 'testDelete',
+          icon: 'icon ',
+          onClick: jest.fn(),
+        },
+      ],
+    });
+
+    const menuItem = el.find(MenuItem);
+    expect(menuItem.length).toBe(2);
+    expect(menuItem.first().prop('disabled')).toBeFalsy();
+    expect(menuItem.last().prop('disabled')).toBeTruthy();
+  });
 });

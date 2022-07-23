@@ -12,35 +12,35 @@ import useSaveAs from '../useSaveAs';
 import { DIALOG_ABOUT, DIALOG_DELETE } from '../constants';
 import { DIALOG_MOVE, DIALOG_RENAME } from '../constants';
 
+export const useCurriedDialog = (props) => (dialogId) =>
+  useDialog(dialogId, props);
+
 const withContextMenu = (Component) => {
   const ContextMenuImplementation = (props) => {
     const { id, onClick } = props;
     const save = useSaveAs(props);
 
-    const { open: openDeleteDialog } = useDialog(
-      DIALOG_DELETE,
-      props,
-    );
-
-    const { open: openAboutDialog } = useDialog(
+    const [
+      openAboutDialog,
+      openDeleteDialog,
+      openMoveTo,
+      openRenameDialog,
+    ] = [
       DIALOG_ABOUT,
-      props,
-    );
-
-    const { open: openMoveTo } = useDialog(
+      DIALOG_DELETE,
       DIALOG_MOVE,
-      props,
-    );
-
-    const { open: openRenameDialog } = useDialog(
       DIALOG_RENAME,
-      props,
-    );
+    ].map(useCurriedDialog(props));
 
     return (
       <ContextMenu
         id={id}
         items={[
+          {
+            icon: <HelpIcon />,
+            label: 'about',
+            onClick: openAboutDialog,
+          },
           {
             icon: <VisibilityIcon />,
             label: 'preview',
@@ -55,27 +55,25 @@ const withContextMenu = (Component) => {
             divider: true,
           },
           {
+            auth: 'canEdit',
             icon: <EditIcon />,
             label: 'rename',
             onClick: openRenameDialog,
           },
           {
+            auth: 'canEdit',
             icon: <AccountTreeIcon />,
             label: 'moveTo',
             onClick: openMoveTo,
           },
           {
-            icon: <DeleteIcon />,
-            label: 'delete',
-            onClick: openDeleteDialog,
-          },
-          {
             divider: true,
           },
           {
-            icon: <HelpIcon />,
-            label: 'about',
-            onClick: openAboutDialog,
+            auth: 'canDelete',
+            icon: <DeleteIcon />,
+            label: 'delete',
+            onClick: openDeleteDialog,
           },
         ]}
       >
