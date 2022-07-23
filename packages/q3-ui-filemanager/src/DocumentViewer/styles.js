@@ -31,5 +31,21 @@ export default makeStyles((theme) => ({
       height: 'auto !important',
       width: 'auto !important',
     },
+
+    '& .previewer-loader': {
+      display: 'none',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)',
+    },
+
+    '& [data-printing]': {
+      opacity: 0,
+
+      '& ~ .previewer-loader': {
+        display: 'block',
+      },
+    },
   },
 }));

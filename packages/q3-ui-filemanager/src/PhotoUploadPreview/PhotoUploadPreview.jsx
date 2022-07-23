@@ -72,8 +72,12 @@ const PhotoUploadPreview = ({ src }) => {
                 alignItems="center"
                 justifyContent="center"
                 display="flex"
+                position="absolute"
+                top="0"
+                left="0"
                 height="100%"
                 width="100%"
+                zIndex={3}
               >
                 <CircularProgress />
               </Box>

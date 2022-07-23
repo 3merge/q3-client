@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compact, isObject, map } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Box from '@material-ui/core/Box';
 import useStyle from './styles';
 import DocumentViewerToolbar from '../DocumentViewerToolbar';
@@ -48,6 +49,9 @@ const DocumentViewer = ({ children }) => {
           </AppBar>
           <div id="previewer" className={cls.content}>
             <DocumentViewerObject {...file} />
+            <div className="previewer-loader">
+              <CircularProgress />
+            </div>
           </div>
         </Dialog>
       )}

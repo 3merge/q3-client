@@ -7,14 +7,23 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import PrintIcon from '@material-ui/icons/Print';
-import print from 'print-js';
 import useStyle from './styles';
+import usePrint from '../usePrint';
 import useSaveAs from '../useSaveAs';
 
 const DocumentViewerToolbar = (props) => {
   const { name, onClose } = props;
+  const print = usePrint();
   const save = useSaveAs(props);
   const cls = useStyle();
+
+  const handlePrint = () =>
+    print({
+      printContainer: 'pg-viewer',
+      scrollContainer: document
+        .getElementById('previewer')
+        .querySelector('.pg-viewer-wrapper'),
+    });
 
   return (
     <Toolbar className={cls.toolbar}>
@@ -38,48 +47,7 @@ const DocumentViewerToolbar = (props) => {
         <IconButton
           aria-label="print"
           color="inherit"
-          onClick={() => {
-            const el = document
-              .getElementById('previewer')
-              .querySelector('.pg-viewer-wrapper');
-
-            let top = 0;
-
-            const move = () =>
-              el.scrollTo({
-                behavior: 'auto',
-                left: 0,
-                top,
-              });
-
-            move();
-
-            let position = null;
-            const checkIfScrollIsStatic = setInterval(
-              () => {
-                if (
-                  position >=
-                  el.scrollHeight - el.clientHeight
-                ) {
-                  clearInterval(checkIfScrollIsStatic);
-                  el.scrollTo({
-                    behaviour: 'auto',
-                    left: 0,
-                    top: 0,
-                  });
-
-                  // now!
-                  print('pg-viewer', 'html');
-                  return;
-                }
-
-                position = el.scrollTop;
-                top += 100;
-                move();
-              },
-              20,
-            );
-          }}
+          onClick={handlePrint}
         >
           <PrintIcon />
         </IconButton>
