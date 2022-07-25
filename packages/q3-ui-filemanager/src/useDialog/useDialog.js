@@ -1,4 +1,5 @@
 import React from 'react';
+import { browser } from 'q3-ui-helpers';
 import FileManagerBatchContext from '../FileManagerBatchContext';
 import { checkSsr } from '../utils';
 
@@ -10,27 +11,55 @@ const useDialog = (dialogId, args = {}) => {
 
   const attr = 'data-props';
 
+  const getElement = () =>
+    document.getElementById(dialogId);
+
+  const setAttribute = (value) => {
+    const el = getElement();
+    el.setAttribute(attr, value);
+    return el;
+  };
+
   const open = checkSsr(() => {
-    const el = document.getElementById(dialogId);
-    el.setAttribute(attr, JSON.stringify(args));
-    el.click({
-      target: el,
-    });
+    setAttribute(JSON.stringify(args)).click();
   });
 
-  const handleOpen = (ev, next) => {
+  const close = checkSsr(() => {
+    setAttribute('');
+  });
+
+  const handleAttribute = (el) => {
     try {
-      setData(JSON.parse(ev.target.getAttribute(attr)));
-      next();
+      setData(JSON.parse(el.getAttribute(attr)));
     } catch (e) {
-      // noop
+      setData(null);
     }
   };
 
-  const close = checkSsr(() => {
-    document.getElementById(dialogId).removeAttribute(attr);
-    setData(null);
-  });
+  const handleOpen = (ev, next) => {
+    handleAttribute(getElement());
+    next();
+  };
+
+  React.useEffect(() => {
+    if (!browser.isBrowserReady()) return undefined;
+    const observer = new MutationObserver(
+      ([{ target }]) => {
+        handleAttribute(target);
+      },
+    );
+
+    const el = document.getElementById(dialogId);
+    if (!el || !(el instanceof Node)) return undefined;
+
+    observer.observe(el, {
+      attributes: true,
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   return {
     close,

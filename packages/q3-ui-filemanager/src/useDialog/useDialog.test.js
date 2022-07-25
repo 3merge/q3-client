@@ -11,6 +11,10 @@ jest.mock('../utils', () => ({
 beforeEach(() => {
   context = jest.spyOn(React, 'useContext');
   state = jest.spyOn(React, 'useState');
+
+  jest
+    .spyOn(React, 'useEffect')
+    .mockImplementation((fn) => fn());
 });
 
 describe('useDialog', () => {
@@ -21,18 +25,14 @@ describe('useDialog', () => {
     context.mockReturnValue({});
     state.mockReturnValue([null, setState]);
 
-    useDialog().handleOpen(
-      {
-        target: {
-          getAttribute: () =>
-            JSON.stringify({
-              test: 1,
-            }),
-        },
-      },
-      fn,
-    );
+    jest.spyOn(document, 'getElementById').mockReturnValue({
+      getAttribute: () =>
+        JSON.stringify({
+          test: 1,
+        }),
+    });
 
+    useDialog().handleOpen(null, fn);
     expect(setState).toHaveBeenCalledWith({
       test: 1,
     });
@@ -65,22 +65,20 @@ describe('useDialog', () => {
   });
 
   it('should close dialog', () => {
-    const removeAttribute = jest.fn();
+    const setAttribute = jest.fn();
     const setState = jest.fn();
 
     context.mockReturnValue({});
     state.mockReturnValue([null, setState]);
 
     jest.spyOn(document, 'getElementById').mockReturnValue({
-      removeAttribute,
+      setAttribute,
     });
 
     useDialog('foo').close();
-
-    expect(removeAttribute).toHaveBeenCalledWith(
+    expect(setAttribute).toHaveBeenCalledWith(
       'data-props',
+      '',
     );
-
-    expect(setState).toHaveBeenCalledWith(null);
   });
 });
