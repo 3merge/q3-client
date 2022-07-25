@@ -75,8 +75,10 @@ const ContextMenu = ({ id, items, children }) => {
               />
             ) : (
               <MenuItem
+                button
                 dense
                 disabled={checkAuth(auth)}
+                component="li"
                 key={label}
                 onClick={handleOnClick(onClick)}
               >
@@ -105,4 +107,4 @@ ContextMenu.propTypes = {
   ),
 };
 
-export default ContextMenu;
+export default React.memo(ContextMenu);

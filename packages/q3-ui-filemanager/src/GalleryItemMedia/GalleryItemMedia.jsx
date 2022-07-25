@@ -73,6 +73,7 @@ const GalleryItemMedia = ({ children, url }) => {
 
 GalleryItemMedia.defaultProps = {
   children: null,
+  url: undefined,
 };
 
 GalleryItemMedia.propTypes = {
@@ -80,7 +81,7 @@ GalleryItemMedia.propTypes = {
     PropTypes.node,
     PropTypes.element,
   ]),
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 export default GalleryItemMedia;

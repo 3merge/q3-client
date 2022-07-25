@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import Dialog from 'q3-ui-dialog';
 import { useTranslation } from 'q3-ui-locale';
+import withAuthBoolean from '../withAuthBoolean';
 import DirectoryAddFolderForm from '../DirectoryAddFolderForm';
 
 const DirectoryAddFolder = () => {
@@ -12,6 +13,7 @@ const DirectoryAddFolder = () => {
     (open) => (
       <Button
         color="secondary"
+        id="q3-filemanager-add-folder"
         onClick={open}
         startIcon={<CreateNewFolderIcon />}
         variant="contained"
@@ -36,4 +38,6 @@ const DirectoryAddFolder = () => {
   );
 };
 
-export default DirectoryAddFolder;
+export default React.memo(
+  withAuthBoolean(DirectoryAddFolder, 'canCreate'),
+);

@@ -29,10 +29,10 @@ const Gallery = ({ files, siblings }) => {
     );
 
   return (
-    <>
+    <div id="q3-filemanager-gallery-view">
       {renderGrid(siblings, 'folders', GalleryItemFolder)}
       {renderGrid(files, 'files', GalleryItem)}
-    </>
+    </div>
   );
 };
 

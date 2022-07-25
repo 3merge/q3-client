@@ -16,9 +16,10 @@ const DirectorySortButton = ({ children }) => {
 
   return (
     <Box display="inline-block" mx={0.5}>
-      <Hidden smDown>
+      <Hidden implementation="css" smDown>
         <Button
           color="inherit"
+          id="q3-filemanager-sort-button"
           startIcon={<SortByAlphaIcon />}
           onClick={open}
         >

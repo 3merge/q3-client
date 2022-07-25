@@ -1,5 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
+import { isFunction } from 'lodash';
 import AuthMock from './AuthMock';
 import ApiMock from './ApiMock';
 import { collectionName, id } from './meta';
@@ -7,11 +8,17 @@ import { collectionName, id } from './meta';
 // eslint-disable-next-line
 const Fixtures = ({ children, ...rest }) => {
   const StoryOrTest = (injectedProps) =>
-    React.cloneElement(children, {
-      ...injectedProps,
-      collectionName,
-      id,
-    });
+    isFunction(children)
+      ? children({
+          ...injectedProps,
+          collectionName,
+          id,
+        })
+      : React.cloneElement(children, {
+          ...injectedProps,
+          collectionName,
+          id,
+        });
 
   return (
     <Container style={{ paddingTop: '1rem' }}>

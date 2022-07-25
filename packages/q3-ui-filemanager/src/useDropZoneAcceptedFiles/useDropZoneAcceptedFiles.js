@@ -12,20 +12,6 @@ const useDropZoneAcceptedFiles = () => {
 
   const [pending, setPending] = React.useState([]);
 
-  const assignFolderIdToFileBlob = (blob) => {
-    Object.defineProperty(blob, 'folderId', {
-      value: current,
-      writable: true,
-    });
-
-    if (blob.folderId !== current)
-      Object.assign(blob, {
-        folderId: current,
-      });
-
-    return blob;
-  };
-
   const clearPending = () => setPending([]);
 
   const markPendingWithErrorProperty = () =>
@@ -56,8 +42,13 @@ const useDropZoneAcceptedFiles = () => {
             // noop
           }
 
-          assignFolderIdToFileBlob(data);
-          f.append(item.name, data, originalName);
+          f.append(
+            item.name,
+            data,
+            current
+              ? `[${current}]${originalName}`
+              : originalName,
+          );
         }),
       );
 
@@ -69,7 +60,6 @@ const useDropZoneAcceptedFiles = () => {
   };
 
   return {
-    assignFolderIdToFileBlob,
     markPendingWithErrorProperty,
     onDrop,
     pending,

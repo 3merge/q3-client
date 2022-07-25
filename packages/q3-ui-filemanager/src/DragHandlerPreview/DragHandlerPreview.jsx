@@ -11,9 +11,12 @@ const DragHandlerPreview = () => {
   const ref = React.useRef();
   const cls = useStyle();
   const { t } = useTranslation('labels');
+  const track = useDragHandlerPreview();
 
-  // tracks cursor motion/position
-  useDragHandlerPreview(ref?.current);
+  React.useEffect(() => {
+    // tracks cursor motion/position
+    track(ref?.current);
+  }, []);
 
   return (
     <div className={cls.preview} ref={ref}>
@@ -21,7 +24,7 @@ const DragHandlerPreview = () => {
         <Box
           alignItems="center"
           display="flex"
-          justfyContent="center"
+          justifyContent="center"
           p={1}
         >
           <FileCopyIcon />

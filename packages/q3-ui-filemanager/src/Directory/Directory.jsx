@@ -17,7 +17,8 @@ import DragHandlerPreview from '../DragHandlerPreview';
 import DragToSelect from '../DragToSelect';
 import useStyle from './styles';
 
-const Directory = () => {
+// eslint-disable-next-line
+const Directory = ({ initialView }) => {
   const { onDrop, pending } = useDropZoneAcceptedFiles();
   const cls = useStyle();
 
@@ -31,7 +32,7 @@ const Directory = () => {
                 { files = [], siblings = [] },
                 SortingComponent,
               ) => (
-                <DirectoryView>
+                <DirectoryView defaultView={initialView}>
                   {(Component, SwitcherComponent) => (
                     <>
                       <DropZoneWrapper onDrop={onDrop} />

@@ -13,7 +13,7 @@ import { DIALOG_ABOUT, DIALOG_DELETE } from '../constants';
 import { DIALOG_MOVE, DIALOG_RENAME } from '../constants';
 
 export const useCurriedDialog = (props) => (dialogId) =>
-  useDialog(dialogId, props);
+  useDialog(dialogId, props).open;
 
 const withContextMenu = (Component) => {
   const ContextMenuImplementation = (props) => {

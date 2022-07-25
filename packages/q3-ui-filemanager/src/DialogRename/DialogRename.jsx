@@ -6,8 +6,13 @@ import DialogRenameForm from '../DialogRenameForm';
 import { DIALOG_RENAME } from '../constants';
 
 const DialogRename = () => {
-  const { close, handleOpen, isOpen, TransitionProps } =
-    useDialog(DIALOG_RENAME);
+  const {
+    close,
+    data,
+    handleOpen,
+    isOpen,
+    TransitionProps,
+  } = useDialog(DIALOG_RENAME);
 
   const ButtonComponent = React.useCallback(
     (onClick) => (
@@ -22,8 +27,9 @@ const DialogRename = () => {
   );
 
   const ContentComponent = React.useCallback(
-    () => <DialogRenameForm />,
-    [],
+    () =>
+      data?.id ? <DialogRenameForm id={data?.id} /> : null,
+    [data?.id],
   );
 
   return (

@@ -12,6 +12,7 @@ const DirectoryAddFolderForm = ({ onDone }) => {
 
   return (
     <Builders.Form
+      id="q3-filemanager-add-folder-form"
       initialValues={{
         name: '',
       }}

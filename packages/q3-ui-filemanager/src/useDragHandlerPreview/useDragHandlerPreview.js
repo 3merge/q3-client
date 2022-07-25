@@ -1,35 +1,31 @@
-import React from 'react';
 import { useDragDropManager } from 'react-dnd';
 import { get, invoke, isObject } from 'lodash';
 
-const useDragHandlerPreview = (element) => {
+const useDragHandlerPreview = () => {
   const dragDropManager = useDragDropManager();
   const monitor = dragDropManager.getMonitor();
 
-  React.useEffect(
-    () =>
-      monitor.subscribeToOffsetChange(() => {
-        if (!element) return;
-        const offset = monitor.getClientOffset();
+  return (element) =>
+    monitor.subscribeToOffsetChange(() => {
+      if (!element) return;
+      const offset = monitor.getClientOffset();
 
-        const convertOffsetToPixel = (offsetProperty) =>
-          `${get(offset, offsetProperty, 0) + 5}px`;
+      const convertOffsetToPixel = (offsetProperty) =>
+        `${get(offset, offsetProperty, 0) + 5}px`;
 
-        invoke(
-          element,
-          'setAttribute',
-          'data-dragging',
-          monitor.isDragging(),
-        );
+      invoke(
+        element,
+        'setAttribute',
+        'data-dragging',
+        monitor.isDragging() && !monitor.didDrop(),
+      );
 
-        if (isObject(element?.style))
-          Object.assign(element.style, {
-            left: convertOffsetToPixel('x'),
-            top: convertOffsetToPixel('y'),
-          });
-      }),
-    [monitor],
-  );
+      if (isObject(element?.style))
+        Object.assign(element.style, {
+          left: convertOffsetToPixel('x'),
+          top: convertOffsetToPixel('y'),
+        });
+    });
 };
 
 export default useDragHandlerPreview;

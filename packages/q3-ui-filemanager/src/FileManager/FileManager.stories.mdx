@@ -40,6 +40,21 @@ import Fixtures from '../../tests/fixtures';
       <FileManager initialView="list" />
     </Fixtures>
   </Story>
+  <Story name="Gallery/List (read-only)">
+    <Fixtures ops={['Read']}>
+      <FileManager initialView="list" />
+    </Fixtures>
+  </Story>
+  <Story name="Gallery/List (read and upload)">
+    <Fixtures ops={['Read', 'Create']}>
+      <FileManager initialView="list" />
+    </Fixtures>
+  </Story>
+  <Story name="Gallery/List (all but delete)">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <FileManager initialView="list" />
+    </Fixtures>
+  </Story>
 </Preview>
 
 ## API

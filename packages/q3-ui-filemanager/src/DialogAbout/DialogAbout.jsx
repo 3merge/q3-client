@@ -1,5 +1,6 @@
 import React from 'react';
 import Dialog from 'q3-ui-dialog';
+import { get } from 'lodash';
 import DialogTriggerButton from '../DialogTriggerButton';
 import useDialog from '../useDialog';
 import DialogAboutTable from '../DialogAboutTable';
@@ -38,7 +39,7 @@ const DialogAbout = () => {
       onClose={close}
       renderContent={ContentComponent}
       renderTrigger={ButtonComponent}
-      title={data?.name}
+      title={get(data, 'name', 'fileInformation')}
     />
   );
 };

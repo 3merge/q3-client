@@ -9,6 +9,10 @@ export const useFileManagerInit = (authInstance, next) => {
     if (authInstance.canSee)
       object.noop(next()).then(setInitTruthy);
     else setInitTruthy();
+
+    return () => {
+      setInit(false);
+    };
   }, []);
 
   return init;

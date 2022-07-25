@@ -29,7 +29,12 @@ const ListItemContent = ({
         secondary={toMbs(size)}
       />
       <ListItemSecondaryAction>
-        <IconButton aria-label="options" onClick={onClick}>
+        <IconButton
+          aria-label="options"
+          component="span"
+          onClick={onClick}
+          role="button"
+        >
           <MoreHorizIcon />
         </IconButton>
       </ListItemSecondaryAction>
@@ -48,7 +53,7 @@ ListItemContent.propTypes = {
     PropTypes.element,
   ]),
   name: PropTypes.string.isRequired,
-  onClick: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
   size: PropTypes.number,
 };
 

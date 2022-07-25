@@ -12,7 +12,12 @@ import useUploadsAuth from '../useUploadsAuth';
 import useCurrent from '../useCurrent';
 import useFileManagerInit from '../useFileManagerInit';
 
-const FileManager = ({ collectionName, id, ...rest }) => {
+const FileManager = ({
+  collectionName,
+  id,
+  initialView,
+  ...rest
+}) => {
   const currentState = useCurrent();
   const auth = useUploadsAuth(collectionName, rest);
 
@@ -31,7 +36,7 @@ const FileManager = ({ collectionName, id, ...rest }) => {
         <FileManagerCurrentContext.Provider
           value={currentState}
         >
-          <Directory />
+          <Directory initialView={initialView} />
         </FileManagerCurrentContext.Provider>
       </FileManagerContext.Provider>
     </FileManagerAuthContext.Provider>

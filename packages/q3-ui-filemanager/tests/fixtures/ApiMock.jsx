@@ -94,8 +94,12 @@ const useMockData =
     mockApiInstance
       .onDelete(makeEndpoint(true))
       .reply(({ url }) => {
+        const incomingId = last(url.split('/'));
         const currentState = [...dataSource].filter(
-          (item) => item.id !== last(url.split('/')),
+          (item) =>
+            item.id !== incomingId &&
+            (!item.folderId ||
+              item.folderId !== incomingId),
         );
 
         setDataSourceWithRelativePaths(currentState);
@@ -148,16 +152,43 @@ const useMockData =
       .reply(async (req) => {
         const currentState = [...dataSource];
 
+        const explodeName = (name) => {
+          const r = String(name).match(
+            /\[([a-zA-Z0-9])*\]/,
+          );
+
+          if (!r)
+            return {
+              folderId: null,
+              name,
+            };
+
+          const [folderInParenthesis] = r;
+          const folderId = normalize(
+            folderInParenthesis.slice(1, -1),
+          );
+
+          const isolatedName = name.replace(
+            folderInParenthesis,
+            '',
+          );
+
+          return {
+            folderId,
+            name: isolatedName,
+          };
+        };
+
         try {
           // eslint-disable-next-line
           for (const pair of req.data.entries()) {
             const [, file] = pair;
+
             currentState.push({
+              ...explodeName(file.name),
               id: getRandomArbitrary(1, 50000),
-              name: file.name,
               updatedAt: new Date().toISOString(),
               size: file.size,
-              folderId: normalize(file.folderId),
               folder: false,
             });
           }

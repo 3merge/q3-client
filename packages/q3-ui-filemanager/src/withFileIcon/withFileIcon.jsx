@@ -83,12 +83,13 @@ const withFileIcon = (Component) => {
   FileIconSelector.defaultProps = {
     folder: false,
     name: undefined,
+    url: undefined,
   };
 
   FileIconSelector.propTypes = {
     folder: PropTypes.bool,
     name: PropTypes.string,
-    url: PropTypes.string.isRequired,
+    url: PropTypes.string,
   };
 
   return FileIconSelector;

@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import useDialog from '../useDialog';
 import { DIALOG_DELETE } from '../constants';
+import withAuthBoolean from '../withAuthBoolean';
 
 const DirectoryDeleteFolder = () => {
   const { open } = useDialog(DIALOG_DELETE);
@@ -18,4 +19,7 @@ const DirectoryDeleteFolder = () => {
   );
 };
 
-export default DirectoryDeleteFolder;
+export default withAuthBoolean(
+  DirectoryDeleteFolder,
+  'canDelete',
+);

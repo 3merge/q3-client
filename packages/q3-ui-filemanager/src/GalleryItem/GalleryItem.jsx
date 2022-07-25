@@ -5,6 +5,7 @@ import {
   CardActionArea,
   Avatar,
 } from '@material-ui/core';
+import { omit } from 'lodash';
 import classnames from 'classnames';
 import CardHeader from '@material-ui/core/CardHeader';
 import withContextMenu from '../withContextMenu';
@@ -50,7 +51,7 @@ const GalleryItem = React.forwardRef(
           onClick={onSelect}
         >
           <CardHeader
-            classes={cls}
+            classes={omit(cls, ['card'])}
             avatar={
               <Avatar>
                 <Icon />

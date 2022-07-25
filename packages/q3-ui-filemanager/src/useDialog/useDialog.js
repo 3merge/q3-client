@@ -13,7 +13,9 @@ const useDialog = (dialogId, args = {}) => {
   const open = checkSsr(() => {
     const el = document.getElementById(dialogId);
     el.setAttribute(attr, JSON.stringify(args));
-    el.click();
+    el.click({
+      target: el,
+    });
   });
 
   const handleOpen = (ev, next) => {

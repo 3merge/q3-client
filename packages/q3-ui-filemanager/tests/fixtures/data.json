@@ -3,17 +3,20 @@
     {
       "name": "temp",
       "folder": true,
-      "id": "62c72de2c2af12ff9e4ce234459"
+      "id": "62c72de2c2af12ff9e4ce234459",
+      "size": 0
     },
     {
       "id": "62c72de2c2af12ff9e4ce509",
       "name": "media",
-      "folder": true
+      "folder": true,
+      "size": 1874379
     },
     {
       "id": "62c72de2c2af12ff9e4ce511",
       "name": "docs",
-      "folder": true
+      "folder": true,
+      "size": 53714
     },
     {
       "id": "62c72de2c2af12ff9e4ce514",
@@ -87,7 +90,7 @@
       "updatedAt": "2022-02-01T14:04:05.993Z",
       "url": "https://raw.githubusercontent.com/3merge/q3-api/master/README.md",
       "id": "62c72e67c2af12ff9f4ck111",
-      "size": 129330
+      "size": 1209330
     }
   ]
 }

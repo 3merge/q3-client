@@ -1,9 +1,9 @@
-import React from 'react';
 import useDragHandlerPreview from './useDragHandlerPreview';
 
 jest.mock('react-dnd', () => ({
   useDragDropManager: jest.fn().mockReturnValue({
     getMonitor: jest.fn().mockReturnValue({
+      didDrop: jest.fn().mockReturnValue(false),
       isDragging: jest.fn().mockReturnValue(true),
       getClientOffset: jest.fn().mockReturnValue({
         x: 95,
@@ -16,12 +16,6 @@ jest.mock('react-dnd', () => ({
   }),
 }));
 
-beforeAll(() => {
-  jest
-    .spyOn(React, 'useEffect')
-    .mockImplementation((fn) => fn());
-});
-
 describe('useDragHandlerPreview', () => {
   it('should map monitor offset to pixels', () => {
     const element = {
@@ -30,7 +24,7 @@ describe('useDragHandlerPreview', () => {
       style: {},
     };
 
-    useDragHandlerPreview(element);
+    useDragHandlerPreview()(element);
     expect(element.setAttribute).toHaveBeenCalledWith(
       'data-dragging',
       true,

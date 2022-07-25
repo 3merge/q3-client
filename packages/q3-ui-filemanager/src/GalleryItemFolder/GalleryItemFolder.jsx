@@ -50,7 +50,10 @@ const GalleryItemFolder = React.forwardRef(
           onContextMenu={onContextMenu}
         >
           <CardContent>
-            <Typography className={cls.title} component="p">
+            <Typography
+              className={cls.title}
+              component="div"
+            >
               <Avatar className={cls.avatar}>
                 <GalleryItemFolderIcon folder />
               </Avatar>

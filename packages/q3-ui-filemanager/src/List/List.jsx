@@ -8,6 +8,7 @@ import withAlertNoFiles from '../withAlertNoFiles';
 
 const List = ({ files, siblings }) => (
   <MuiList
+    id="q3-filemanager-list-view"
     style={{
       padding: 0,
     }}

@@ -20,9 +20,6 @@ describe('DialogRenameForm', () => {
 
     useDialog.mockReturnValue({
       close,
-      data: {
-        id: 1,
-      },
     });
 
     jest.spyOn(React, 'useContext').mockReturnValue({
@@ -30,14 +27,14 @@ describe('DialogRenameForm', () => {
     });
 
     global
-      .shallow(<DialogRenameForm />)
+      .shallow(<DialogRenameForm id="1" />)
       .find(Builders.Form)
       .props()
       .onSubmit({
         name: 'foo',
       });
 
-    expect(patch).toHaveBeenCalledWith(1);
+    expect(patch).toHaveBeenCalledWith('1');
     expect(patchReturnValue).toHaveBeenCalledWith({
       name: 'foo',
     });

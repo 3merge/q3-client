@@ -29,6 +29,7 @@ const DialogMoveToButton = ({ selected }) => {
       <Button
         onClick={handleChange}
         color="secondary"
+        id="q3-filemanager-move-to-submit"
         variant="contained"
       >
         {t('move')}

@@ -1,9 +1,16 @@
+import React from 'react';
 import { useAuth } from 'q3-ui-permissions';
 import useUploadsAuth from './useUploadsAuth';
 
 jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn(),
 }));
+
+beforeAll(() => {
+  jest
+    .spyOn(React, 'useMemo')
+    .mockImplementation((fn) => fn());
+});
 
 describe('useUploadsAuth', () => {
   it('should iterate through auth props', () => {

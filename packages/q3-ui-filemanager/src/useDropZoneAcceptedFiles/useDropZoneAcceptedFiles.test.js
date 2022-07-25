@@ -43,16 +43,8 @@ describe('useDropZoneAcceptedFiles', () => {
     const res = post.mock.lastCall[0].get('test');
 
     expect(res instanceof File).toBeTruthy();
+    expect(res.name).toMatch('[1]test');
     expect(setState).toHaveBeenCalledWith([]);
-  });
-
-  it('should assign folder id to blob', () => {
-    const output =
-      useDropZoneAcceptedFiles().assignFolderIdToFileBlob(
-        makeBlob(),
-      );
-
-    expect(output.folderId).toEqual(1);
   });
 
   it('should flag errors', async () => {

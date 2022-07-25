@@ -31,10 +31,9 @@ const DirectoryView = ({ children, defaultView }) => {
     });
 
   return children(
-    React.useCallback(
-      view === defaultView ? Gallery : List,
-      [view],
-    ),
+    React.useCallback(view === 'gallery' ? Gallery : List, [
+      view,
+    ]),
     React.useCallback(
       () => (
         <StyledToggleButtonGroup
@@ -65,7 +64,7 @@ const DirectoryView = ({ children, defaultView }) => {
 };
 
 DirectoryView.defaultProps = {
-  defaultView: 'gallery',
+  defaultView: 'list',
 };
 
 DirectoryView.propTypes = {

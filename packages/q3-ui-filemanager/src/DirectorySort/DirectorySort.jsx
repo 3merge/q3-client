@@ -33,14 +33,18 @@ const DirectorySort = ({ children }) => {
   const sort = (xs) =>
     orderBy(
       xs,
-      [castPropertyToLowerCase(state.property)],
+      [
+        state.property !== 'size'
+          ? castPropertyToLowerCase(state.property)
+          : (item) => Number(item.size),
+      ],
       [state.sort],
     );
 
   const makeMenuItem = (value, stateKey) => (
     <MenuItem
       dense
-      key={stateKey}
+      key={`${value}-${stateKey}`}
       onClick={() => {
         setState((prevState) => ({
           ...prevState,
