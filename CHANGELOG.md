@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.4](https://github.com/3merge/q/compare/v3.8.3...v3.8.4) (2022-07-26)
+
+
+### Bug Fixes
+
+* uploads ([e3844b2](https://github.com/3merge/q/commit/e3844b28bb8bc521871c178f9b51ba3c0a53fc80))
+
+
+
+
+
 ## [3.8.3](https://github.com/3merge/q/compare/v3.8.2...v3.8.3) (2022-07-26)
 
 
