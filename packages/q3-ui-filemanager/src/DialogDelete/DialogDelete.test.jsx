@@ -19,7 +19,7 @@ describe('DialogDelete', () => {
     const poll = jest.fn();
 
     jest.spyOn(React, 'useContext').mockReturnValue({
-      selected: ['foo', 'bar'],
+      selected: ['foo'],
       remove,
       poll,
     });
@@ -34,7 +34,7 @@ describe('DialogDelete', () => {
       .props()
       .service()
       .then(() => {
-        expect(remove).toHaveBeenCalledWith('?ids=foo,bar');
+        expect(remove).toHaveBeenCalledWith('foo');
         expect(close).toHaveBeenCalled();
         expect(poll).toHaveBeenCalled();
         done();
