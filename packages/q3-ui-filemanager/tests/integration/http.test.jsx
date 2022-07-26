@@ -251,11 +251,13 @@ describe('Filemanager HTTP', () => {
       const b = new Blob(['test']);
       const f = new File([b], 'test.txt');
 
-      el.find('#dropper-button').simulate('change', {
-        target: {
-          files: [f],
-        },
-      });
+      el.find('[name="dropper-button"]')
+        .first()
+        .simulate('change', {
+          target: {
+            files: [f],
+          },
+        });
 
       await wait(3000);
       return el;

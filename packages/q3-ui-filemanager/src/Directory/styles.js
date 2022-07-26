@@ -11,11 +11,11 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column-reverse',
+      flexDirection: 'column',
 
       '& > div:first-child': {
-        borderTop: '1px solid rgba(0, 0, 0, 0.12)',
-        paddingTop: theme.spacing(2),
+        justifyContent: 'space-between',
+        paddingBottom: theme.spacing(1),
       },
     },
   },

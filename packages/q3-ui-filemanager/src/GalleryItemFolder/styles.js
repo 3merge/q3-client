@@ -6,6 +6,12 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     fontSize: theme.typography.body1.fontSize,
+
+    '& span:last-of-type': {
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+    },
   },
   card: ({ isHovering }) => {
     const out = {

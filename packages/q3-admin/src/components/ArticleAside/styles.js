@@ -8,5 +8,9 @@ export default makeStyles((theme) => ({
     transition: 'width 250ms',
     width: isOpen ? 550 : 0,
     maxWidth: '33vw',
+
+    [theme.breakpoints.down('lg')]: {
+      display: 'none',
+    },
   }),
 }));

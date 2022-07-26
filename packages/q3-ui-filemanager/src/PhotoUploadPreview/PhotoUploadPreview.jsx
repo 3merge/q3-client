@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { isObject, first } from 'lodash';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'q3-ui-locale';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import useDropZoneAcceptedFiles from '../useDropZoneAcceptedFiles';
 import DropZoneWrapper from '../DropZoneWrapper';
 import DropZoneInputWrapper from '../DropZoneInputWrapper';
 import PhotoUploadPreviewButton from '../PhotoUploadPreviewButton';
 import FileManagerAuthContext from '../FileManagerAuthContext';
 import useStyle from './styles';
-import dataUri from './dataUri';
 
 const PhotoUploadPreview = ({ src }) => {
   const { t } = useTranslation('descriptions');
@@ -41,7 +42,12 @@ const PhotoUploadPreview = ({ src }) => {
           </Alert>
         </Box>
       )}
-      <Box className={cls.root}>
+      <Box
+        className={classnames(
+          cls.root,
+          'q3-photoupload-container',
+        )}
+      >
         {src ? (
           <img
             alt="preview"
@@ -49,12 +55,7 @@ const PhotoUploadPreview = ({ src }) => {
             src={src}
           />
         ) : (
-          <img
-            alt="placeholder"
-            className={cls.preview}
-            src={dataUri}
-            style={{ mixBlendMode: 'darken' }}
-          />
+          <PhotoCamera className={cls.icon} />
         )}
         {!readOnly && (
           <>

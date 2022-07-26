@@ -124,10 +124,9 @@ const useMockData =
     mockApiInstance
       .onPatch(makeEndpoint())
       .reply(({ data: requestData, url }) => {
-        const ids = new URLSearchParams(url.split('?')[1])
-          .get('ids')
-          .split(',');
-
+        const ids = new URLSearchParams(
+          url.split('?')[1],
+        ).getAll('ids[]');
         const { folderId = null } = JSON.parse(requestData);
         const currentState = [...dataSource].map((item) =>
           ids.includes(item.id)

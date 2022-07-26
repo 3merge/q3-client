@@ -57,7 +57,7 @@ const GalleryItemFolder = React.forwardRef(
               <Avatar className={cls.avatar}>
                 <GalleryItemFolderIcon folder />
               </Avatar>
-              {name}
+              <span>{name}</span>
             </Typography>
           </CardContent>
         </CardActionArea>

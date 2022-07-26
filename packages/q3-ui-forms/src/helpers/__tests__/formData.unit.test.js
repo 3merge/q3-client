@@ -10,9 +10,9 @@ describe('formData', () => {
     };
 
     const handler = jest.fn().mockImplementation((data) => {
-      expect(data.get('parent/sample.csv')).toHaveProperty(
+      expect(data.get('sample.csv')).toHaveProperty(
         'name',
-        'sample.csv',
+        '[parent]sample.csv',
       );
 
       done();
