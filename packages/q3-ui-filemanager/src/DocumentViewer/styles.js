@@ -27,6 +27,15 @@ export default makeStyles((theme) => ({
       background: 'transparent',
     },
 
+    '& .react-grid-Container': {
+      height: '60vh',
+      padding: theme.spacing(2),
+    },
+
+    '& .react-grid-Main,& .react-grid-Grid': {
+      height: '100%',
+    },
+
     '& img, & .photo-viewer-container': {
       height: 'auto !important',
       width: 'auto !important',

@@ -63,7 +63,7 @@
       "relativePath": "changlog.csv",
       "createdAt": "2022-05-01T05:04:05.993Z",
       "updatedAt": "2022-02-01T14:04:05.993Z",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/invoice_summary_csv_from_2022_06_01_to_2022_07_01.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161645Z&X-Amz-Expires=86400&X-Amz-Signature=24357014ef52dc4de559f6b17291459ea42e793ba115355e5134091a4352bbb8&X-Amz-SignedHeaders=host",
+      "url": "https://raw.githubusercontent.com/tototoshi/scala-csv/master/src/test/resources/backslash-content.csv",
       "id": "62c72e67c2af12ff9f4ck874",
       "size": 874379
     },

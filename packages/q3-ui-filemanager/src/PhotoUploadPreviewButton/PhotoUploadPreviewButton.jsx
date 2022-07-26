@@ -13,15 +13,6 @@ import useStyle from './styles';
 import useSaveAs from '../useSaveAs';
 import { suppressEvent } from '../utils';
 
-const triggerInput = () => {
-  try {
-    if (browser.isBrowserReady())
-      document.getElementById('dropper-button').click();
-  } catch (e) {
-    // noop
-  }
-};
-
 const PhotoUploadPreviewButton = ({ src }) => {
   // not that this will not be curried like useAuth implementations
   // see PhotoUpload component for how we adapted this context's use
@@ -34,6 +25,7 @@ const PhotoUploadPreviewButton = ({ src }) => {
     url: src,
   });
 
+  const ref = React.useRef();
   const { t } = useTranslation('labels');
   const { open, isOpen, close, anchorEl } = useOpen();
   const cls = useStyle();
@@ -47,9 +39,22 @@ const PhotoUploadPreviewButton = ({ src }) => {
     func();
   };
 
+  const triggerInput = () => {
+    try {
+      if (browser.isBrowserReady())
+        ref.current
+          .closest('.q3-photoupload-container')
+          .querySelector('input')
+          .click();
+    } catch (e) {
+      // noop
+    }
+  };
+
   return (
     <>
       <Fab
+        ref={ref}
         color="secondary"
         className={cls.button}
         onClick={handleClick}

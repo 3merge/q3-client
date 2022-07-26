@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { isObject, first } from 'lodash';
@@ -41,7 +42,12 @@ const PhotoUploadPreview = ({ src }) => {
           </Alert>
         </Box>
       )}
-      <Box className={cls.root}>
+      <Box
+        className={classnames(
+          cls.root,
+          'q3-photoupload-container',
+        )}
+      >
         {src ? (
           <img
             alt="preview"
