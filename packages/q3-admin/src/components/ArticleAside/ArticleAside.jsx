@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Grid from '@material-ui/core/Grid';
+import { Grid, useMediaQuery } from '@material-ui/core';
 import useStyle from './styles';
 import useGlobalStyle from '../useStyle';
 
@@ -15,6 +15,10 @@ const ArticleAside = ({ children }) => {
     id: null,
     content: null,
   });
+
+  const isTablet = useMediaQuery((theme) =>
+    theme.breakpoints.down('lg'),
+  );
 
   const { root } = useStyle({
     isOpen: Boolean(state?.content),
@@ -39,6 +43,10 @@ const ArticleAside = ({ children }) => {
     }),
     [state?.id],
   );
+
+  React.useEffect(() => {
+    if (isTablet) close();
+  }, [isTablet]);
 
   return (
     <ArticleAsideContext.Provider value={value}>
