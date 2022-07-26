@@ -78,6 +78,11 @@ const StoriesApiMockAuthentication = ({ children }) => {
               fields: ['*'],
             },
             {
+              op: 'Update',
+              coll: 'profile',
+              fields: ['*'],
+            },
+            {
               op: 'Read',
               coll: 'queues',
             },

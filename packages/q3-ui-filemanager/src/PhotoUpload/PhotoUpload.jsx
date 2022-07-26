@@ -24,21 +24,24 @@ const PhotoUpload = ({
       value={React.useMemo(
         () => ({
           post: (formData) => {
-            if (isFunction(formData?.get)) {
+            try {
+              // only ever a single file
+              const [[fileName, photo]] =
+                formData.entries();
+
               if (field !== FEATURED_UPLOAD_FIELD) {
-                try {
-                  const f = formData.get(field);
-                  const path = `uploads/${f.name}`;
-                  formData.append(path, f);
-                  formData.set(field, f.name);
-                  formData.set('sensitive', false);
-                } catch (e) {
-                  // noop
-                }
+                formData.append(
+                  `uploads/${fileName}`,
+                  photo,
+                );
+
+                formData.set(field, fileName);
+                formData.set('sensitive', false);
+              } else {
+                formData.append(field, photo, fileName);
               }
-            } else {
-              const f = formData.get(field);
-              formData.append(field, f.name, field);
+            } catch (e) {
+              // noop
             }
 
             return upload(formData);
