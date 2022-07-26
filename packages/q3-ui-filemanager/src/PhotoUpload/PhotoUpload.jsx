@@ -24,19 +24,21 @@ const PhotoUpload = ({
       value={React.useMemo(
         () => ({
           post: (formData) => {
-            if (
-              field !== FEATURED_UPLOAD_FIELD &&
-              isFunction(formData?.get)
-            ) {
-              try {
-                const f = formData.get(field);
-                const path = `uploads/${f.name}`;
-                formData.append(path, f);
-                formData.set(field, f.name);
-                formData.set('sensitive', false);
-              } catch (e) {
-                // noop
+            if (isFunction(formData?.get)) {
+              if (field !== FEATURED_UPLOAD_FIELD) {
+                try {
+                  const f = formData.get(field);
+                  const path = `uploads/${f.name}`;
+                  formData.append(path, f);
+                  formData.set(field, f.name);
+                  formData.set('sensitive', false);
+                } catch (e) {
+                  // noop
+                }
               }
+            } else {
+              const f = formData.get(field);
+              formData.append(field, f.name, field);
             }
 
             return upload(formData);

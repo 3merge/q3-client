@@ -9,13 +9,22 @@ import withAuthBoolean from '../withAuthBoolean';
 const DropZoneInputWrapper = (props) => {
   const { t } = useTranslation('labels');
   const { getInputProps } = useDropzone(props);
+  const ref = React.useRef();
 
   return (
-    <Box component="label" ml={1} htmlFor="dropper-button">
+    <Box
+      ref={ref}
+      component="label"
+      ml={1}
+      htmlFor="dropper-button"
+    >
       <input name="dropper-button" {...getInputProps()} />
       <Button
         component="span"
         startIcon={<CloudUploadIcon />}
+        onClick={() => {
+          ref.current.querySelector('input').click();
+        }}
       >
         {t('uploadFile')}
       </Button>
