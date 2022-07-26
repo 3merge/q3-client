@@ -21,18 +21,6 @@ export default makeStyles((theme) => ({
     color: theme.palette.primary.main,
     padding: theme.spacing(0.25),
 
-    '& > svg:first-of-type': {
-      objectFit: 'contain',
-      objectPosition: 'center',
-      height: '100%',
-      width: '100%',
-      position: 'absolute',
-      left: 0,
-      opacity: 0.45,
-      top: 0,
-      transition: 'opacity,transform 550ms',
-    },
-
     '& .hover': {
       opacity: 0,
       transition: 'opacity 350ms',
@@ -80,5 +68,13 @@ export default makeStyles((theme) => ({
     position: 'absolute',
     zIndex: 3,
     top: 0,
+  },
+  icon: {
+    color: theme.palette.secondary.main,
+    fontSize: theme.typography.h1.fontSize,
+    left: '50%',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translate(-50%,-50%) scale(3)',
   },
 }));

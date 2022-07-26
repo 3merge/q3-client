@@ -4,6 +4,7 @@ import {
   doesNotExist,
   exists,
 } from 'q3-ui-test-utils/lib/enzymeUtils';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import PhotoUploadPreview from './PhotoUploadPreview';
 import useDropZoneAcceptedFiles from '../useDropZoneAcceptedFiles';
 import DropZoneInputWrapper from '../DropZoneInputWrapper';
@@ -34,12 +35,11 @@ describe('PhotoUploadPreview', () => {
       canSee: true,
     });
 
-    expect(
+    exists(
       global
         .shallow(<PhotoUploadPreview />)
-        .find('img')
-        .prop('alt'),
-    ).toMatch('placeholder');
+        .find(PhotoCameraIcon),
+    );
   });
 
   it('should render error', () => {
