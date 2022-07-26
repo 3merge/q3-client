@@ -1,139 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browser } from 'q3-ui-helpers';
 import { isFunction } from 'lodash';
-import { useTranslation } from 'q3-ui-locale';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import Box from '@material-ui/core/Box';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import BrokenImageIcon from '@material-ui/icons/BrokenImage';
-import Drop from '../Drop';
-import useStyle from './useStyle';
+import FileManagerContext from '../FileManagerContext';
+import FileManagerAuthContext from '../FileManagerAuthContext';
+import FileManagerCurrentContext from '../FileManagerCurrentContext';
+import useUploadsAuth from '../useUploadsAuth';
+import PhotoUploadPreview from '../PhotoUploadPreview';
 
-export const FileUploadPreview = ({ src }) => {
-  const { t } = useTranslation('labels');
-  const [error, setError] = React.useState(false);
-  const cls = useStyle();
+const FEATURED_UPLOAD_FIELD = 'featuredUpload';
 
-  return (
-    <Box className={cls.previewContainer}>
-      {src && !error ? (
-        <img
-          alt={t('imageThumbnailPreview')}
-          className={cls.fit}
-          src={src}
-          onError={() => {
-            setError('true');
-          }}
-        />
-      ) : (
-        <Box className={cls.icon}>
-          {error ? (
-            <BrokenImageIcon />
-          ) : (
-            <PhotoCameraIcon />
-          )}
-        </Box>
+const PhotoUpload = ({
+  collectionName,
+  field,
+  upload,
+  ...props
+}) => (
+  <FileManagerAuthContext.Provider
+    value={useUploadsAuth(collectionName, {
+      field,
+    })}
+  >
+    <FileManagerContext.Provider
+      value={React.useMemo(
+        () => ({
+          post: (formData) => {
+            if (
+              field !== FEATURED_UPLOAD_FIELD &&
+              isFunction(formData?.get)
+            ) {
+              try {
+                const f = formData.get(field);
+                const path = `uploads/${f.name}`;
+                formData.append(path, f);
+                formData.set(field, f.name);
+                formData.set('sensitive', false);
+              } catch (e) {
+                // noop
+              }
+            }
+
+            return upload(formData);
+          },
+          remove: () =>
+            upload({
+              [field]: null,
+            }),
+        }),
+        [field],
       )}
-    </Box>
-  );
-};
-
-FileUploadPreview.defaultProps = {
-  src: '',
-};
-
-FileUploadPreview.propTypes = {
-  src: PropTypes.string,
-};
-
-export const FileUploadStatus = ({ file, onDelete }) => {
-  const { t } = useTranslation('labels');
-  const cls = useStyle();
-
-  React.useEffect(() => {
-    // eslint-disable-next-line
-    if (file?.error) alert(t('photoFailedToUpload'));
-  }, [file?.error]);
-
-  if (file?.url && isFunction(onDelete))
-    return (
-      <IconButton
-        id="q3-photo-remove"
-        type="button"
-        onClick={onDelete}
-        className={cls.danger}
-        aria-label={t('unsetPhoto')}
-        fullWidth
+    >
+      <FileManagerCurrentContext.Provider
+        // not going to bother with directories here
+        // but our dropzone hook requires it
+        // eslint-disable-next-line
+        value={{ current: null }}
       >
-        <RemoveCircleIcon />
-      </IconButton>
-    );
-
-  return null;
-};
-
-FileUploadStatus.defaultProps = {
-  file: null,
-};
-
-FileUploadStatus.propTypes = {
-  file: PropTypes.shape({
-    url: PropTypes.string,
-    error: PropTypes.bool,
-  }),
-
-  onDelete: PropTypes.func.isRequired,
-};
-
-const PhotoUpload = ({ src, onDelete, ...etc }) => {
-  const [previewUrl, setPreviewUrl] = React.useState();
-
-  React.useEffect(() => {
-    setPreviewUrl(src);
-  }, [src]);
-
-  return (
-    <Box position="relative">
-      <Drop
-        {...etc}
-        multiple={false}
-        accept=".png,.jpg,.jpeg,.svg,.jfif"
-        previewComponent={
-          <FileUploadPreview src={previewUrl} />
-        }
-      >
-        {([file]) => {
-          browser.getFileThumbnail(
-            file,
-            (err, previewSrc) => {
-              if (src) setPreviewUrl(previewSrc);
-            },
-          );
-
-          // allows us to "fake" the existing file blob
-          return (
-            <Box position="absolute" top="0" right="0">
-              <FileUploadStatus
-                file={file || { url: src }}
-                onDelete={onDelete}
-              />
-            </Box>
-          );
-        }}
-      </Drop>
-    </Box>
-  );
-};
+        <PhotoUploadPreview {...props} />
+      </FileManagerCurrentContext.Provider>
+    </FileManagerContext.Provider>
+  </FileManagerAuthContext.Provider>
+);
 
 PhotoUpload.defaultProps = {
-  src: '',
+  field: FEATURED_UPLOAD_FIELD,
 };
 
 PhotoUpload.propTypes = {
-  src: PropTypes.string,
-  onDelete: PropTypes.func.isRequired,
+  collectionName: PropTypes.string.isRequired,
+  field: PropTypes.string,
+  upload: PropTypes.func.isRequired,
 };
 
 export default PhotoUpload;

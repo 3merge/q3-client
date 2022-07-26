@@ -1,0 +1,28 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import DocumentViewer from './DocumentViewer';
+import DocumentViewerStorySetup from './DocumentViewerStorySetup';
+
+<Meta
+  title="File Manager/DocumentViewer"
+  component={DocumentViewer}
+/>
+
+# DocumentViewer
+
+<Preview>
+  <Story name="Image">
+    <DocumentViewerStorySetup index={4} />
+  </Story>
+  <Story name="PDF">
+    <DocumentViewerStorySetup index={7} />
+  </Story>
+</Preview>
+
+## API
+
+<Props of={DocumentViewer} />

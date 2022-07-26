@@ -26,9 +26,7 @@ const SystemPageSubArchive = ({
   return (
     <Container maxWidth="sm">
       <Box component="header" textAlign="center" mb={2}>
-        <Box display="inline-block" width={180}>
-          {photo}
-        </Box>
+        <Box display="inline-block">{photo}</Box>
         <Typography variant="h6" component="h1">
           {title}
         </Typography>

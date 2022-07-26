@@ -1,38 +1,16 @@
 import React from 'react';
-import { FileList } from 'q3-ui-filemanager';
-import useRest from 'q3-ui-rest';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { FileManager } from 'q3-ui-filemanager';
 import { Definitions } from '../state';
 
-const Upload = (props) => {
-  const { collectionName, id } =
-    React.useContext(Definitions);
-
-  const {
-    uploads = [],
-    post,
-    remove,
-    fetching,
-  } = useRest({
-    runOnInit: true,
-    url: `/${collectionName}/${id}/uploads`,
-    key: 'uploads',
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-
-  return !fetching ? (
-    <FileList
-      {...props}
-      collectionName={collectionName}
-      files={uploads}
-      onDelete={remove}
-      onDrop={post}
-    />
-  ) : (
-    <CircularProgress />
-  );
-};
+/**
+ * How to pass props into this?
+ */
+const Upload = (props) => (
+  <FileManager
+    {...props}
+    {...React.useContext(Definitions)}
+    initialView="gallery"
+  />
+);
 
 export default Upload;

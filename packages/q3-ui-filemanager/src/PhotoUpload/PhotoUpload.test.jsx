@@ -1,70 +1,87 @@
 import React from 'react';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import { IconButton } from '@material-ui/core';
-import {
-  doesNotExist,
-  exists,
-} from 'q3-ui-test-utils/lib/enzymeUtils';
-import {
-  FileUploadPreview,
-  FileUploadStatus,
-} from './PhotoUpload';
-
-beforeAll(() => {
-  jest
-    .spyOn(React, 'useEffect')
-    .mockImplementation((fn) => fn());
-});
-
-const expectVisual = (src, el) =>
-  expect(
-    global
-      .shallow(<FileUploadPreview src={src} />)
-      .find(el),
-  ).toHaveLength(1);
+import FileManagerContext from '../FileManagerContext';
+import PhotoUpload from './PhotoUpload';
 
 describe('PhotoUpload', () => {
-  it('should render nothing', () => {
-    doesNotExist(
-      global.shallow(<FileUploadStatus />).find(IconButton),
+  it('should set field to null', () => {
+    const upload = jest.fn().mockImplementation(() =>
+      // here.
+      Promise.resolve(),
     );
+
+    global
+      .shallow(
+        <PhotoUpload
+          collectionName="test"
+          upload={upload}
+        />,
+      )
+      .find(FileManagerContext.Provider)
+      .props()
+      .value.remove();
+
+    expect(upload).toHaveBeenCalledWith({
+      featuredUpload: null,
+    });
   });
 
-  it('should render button', () => {
-    exists(
-      global
-        .shallow(
-          <FileUploadStatus
-            onDelete={jest.fn()}
-            file={{
-              url: 'https://google.ca',
-            }}
-          />,
-        )
-        .find(IconButton),
+  it('should intercept formData on post', () => {
+    const upload = jest.fn().mockImplementation(() =>
+      // here.
+      Promise.resolve(),
     );
+
+    const f = new FormData();
+    f.append('other', {
+      name: 'customName',
+    });
+
+    global
+      .shallow(
+        <PhotoUpload
+          collectionName="test"
+          field="other"
+          upload={upload}
+        />,
+      )
+      .find(FileManagerContext.Provider)
+      .props()
+      .value.post(f);
+
+    expect(upload).toHaveBeenCalled();
+    const [finalFormData] = upload.mock.lastCall;
+    expect(
+      finalFormData.get(
+        'uploads/customName',
+        expect.any(Object),
+      ),
+    );
+
+    expect(finalFormData.get('other', 'customName'));
+    expect(finalFormData.get('sensitive', false));
   });
 
-  it('should call alert', () => {
-    global.alert = jest.fn();
-
-    global.shallow(
-      <FileUploadStatus
-        onDelete={jest.fn()}
-        file={{
-          error: 'Whoops!',
-        }}
-      />,
+  it('should foward form data', () => {
+    const upload = jest.fn().mockImplementation(() =>
+      // here.
+      Promise.resolve(),
     );
 
-    expect(global.alert).toHaveBeenCalledWith(
-      'photoFailedToUpload',
-    );
+    const f = new FormData();
+
+    global
+      .shallow(
+        <PhotoUpload
+          collectionName="test"
+          upload={upload}
+        />,
+      )
+      .find(FileManagerContext.Provider)
+      .props()
+      .value.post(f);
+
+    expect(upload).toHaveBeenCalled();
+    const [finalFormData] = upload.mock.lastCall;
+    expect(finalFormData.get('featuredUploads')).toBeNull();
   });
-
-  it('should render image', () =>
-    expectVisual('https://google.ca', 'img'));
-
-  it('should render icon', () =>
-    expectVisual(undefined, PhotoCameraIcon));
 });

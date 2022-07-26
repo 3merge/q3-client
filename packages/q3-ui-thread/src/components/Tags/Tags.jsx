@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Badge from '@material-ui/core/Badge';
 import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import Grow from '@material-ui/core/Grow';
 import Divider from '@material-ui/core/Divider';
@@ -30,27 +32,42 @@ const Tags = ({ tags, selectTag }) => {
   const allTags = useNoteTags();
   const { open, isOpen, close } = useOpen();
 
+  const label = t('tags');
+  const count = size(tags);
+
+  const endIcon = React.useMemo(
+    () => (
+      <Badge badgeContent={count} overlap="rectangular">
+        <ScatterPlotSharpIcon />
+      </Badge>
+    ),
+    [count],
+  );
+
   const handleClick = (newTagValue) => () => {
     selectTag(newTagValue);
   };
 
   return canTag && size(allTags) > 0 ? (
-    <Box display="inline-flex" ml={0.5}>
-      <Button
-        className="q3-thread-tag-select"
-        endIcon={
-          <Badge
-            badgeContent={size(tags)}
-            overlap="rectangular"
-          >
-            <ScatterPlotSharpIcon />
-          </Badge>
-        }
-        onClick={open}
-        ref={ref}
-      >
-        {t('tags')}
-      </Button>
+    <Box display="inline-flex" ml={0.5} ref={ref}>
+      <Hidden implementation="css" smDown>
+        <Button
+          className="q3-thread-tag-select"
+          endIcon={endIcon}
+          onClick={open}
+        >
+          {label}
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton
+          aria-label={label}
+          color="inherit"
+          onClick={open}
+        >
+          {endIcon}
+        </IconButton>
+      </Hidden>
       <Popover
         anchorEl={ref.current}
         disablePortal

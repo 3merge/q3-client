@@ -93,14 +93,14 @@ export default (props) => {
         transform="rotate(-81.96 533.447 490.407)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.secondary.main')}
         d="M389.72 127.54H916.6V597H389.72z"
         data-name="&lt;Rectangle&gt;"
         transform="rotate(8.04 1029.376 -718.968)"
       />
       <path
         fill="none"
-        stroke={get(theme, 'palette.primary.light')}
+        stroke={get(theme, 'palette.secondary.main')}
         strokeMiterlimit="10"
         strokeWidth="5"
         d="M389.72 127.54H916.6V597H389.72z"
@@ -145,21 +145,21 @@ export default (props) => {
         fill="#ff5252"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
-        stroke={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.secondary.main')}
+        stroke={get(theme, 'palette.secondary.main')}
         strokeMiterlimit="10"
         strokeWidth="5"
         d="M448.24 435.22H466.25V573.69H448.24z"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
-        stroke={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.secondary.main')}
+        stroke={get(theme, 'palette.secondary.main')}
         strokeMiterlimit="10"
         strokeWidth="5"
         d="M516.5 429.52L499.44 419.02 514.09 421.63 505.8 394.55 485.74 382.2 503.12 385.8 491.43 347.63 471.88 335.59 488.67 338.59 477.41 301.82 457.51 289.57 474.59 292.62 457.25 235.95 444.71 277.58 457.25 273.1 442.53 284.83 433.43 315.08 457.25 309.13 429.19 329.17 419.41 361.65 444.86 355.29 414.88 376.71 407.32 401.83 426.85 396.94 403.84 413.38 390.82 456.61 524.79 456.61 516.5 429.52z"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.secondary.main')}
         d="M73.91 671.08H655.76V755.52H73.91z"
       />
     </svg>

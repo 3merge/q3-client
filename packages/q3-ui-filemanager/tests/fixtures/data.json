@@ -1,0 +1,96 @@
+{
+  "uploads": [
+    {
+      "name": "temp",
+      "folder": true,
+      "id": "62c72de2c2af12ff9e4ce234459",
+      "size": 0
+    },
+    {
+      "id": "62c72de2c2af12ff9e4ce509",
+      "name": "media",
+      "folder": true,
+      "size": 1874379
+    },
+    {
+      "id": "62c72de2c2af12ff9e4ce511",
+      "name": "docs",
+      "folder": true,
+      "size": 53714
+    },
+    {
+      "id": "62c72de2c2af12ff9e4ce514",
+      "name": "archives",
+      "folder": true,
+      "folderId": "62c72de2c2af12ff9e4ce511"
+    },
+    {
+      "name": "FeaturedPhoto.png",
+      "createdAt": "2022-07-07T19:02:58.281Z",
+      "updatedAt": "2022-07-07T19:02:58.281Z",
+      "url": "https://uilogos.co/img/logomark/u-mark.png",
+      "id": "62c72de2c2af12ff9e4ce501",
+      "folderId": "62c72de2c2af12ff9e4ce509"
+    },
+    {
+      "createdAt": "2022-07-07T19:02:58.281Z",
+      "updatedAt": "2022-07-07T19:02:58.281Z",
+      "name": "clips.mp4",
+      "id": "62c72de2c2af12ff9e4ce504",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/20220518_090634%20%282%29.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=571ff0699df17cab09f1da94379c4383bee5d02cedcc0e707bb366339cd0da72&X-Amz-SignedHeaders=host",
+      "folderId": "62c72de2c2af12ff9e4ce509"
+    },
+    {
+      "name": "Returns.docx",
+      "folderId": "62c72de2c2af12ff9e4ce511",
+      "createdAt": "2022-07-02T11:04:05.993Z",
+      "updatedAt": "2022-07-06T06:04:05.993Z",
+      "id": "62c72e67c2af12ff9f4ce52p",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Best%20man%20speech%20ideas.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220714%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220714T184233Z&X-Amz-Expires=86400&X-Amz-Signature=807dc22f7c59b410dd711327f4e1a5f9580c28e78072caec74d3d9e4bde50243&X-Amz-SignedHeaders=host"
+    },
+    {
+      "folderId": "62c72de2c2af12ff9e4ce511",
+      "name": "AssemblyInstructions.pdf",
+      "createdAt": "2022-07-01T11:04:05.993Z",
+      "updatedAt": "2022-07-07T16:04:05.993Z",
+      "url": "https://secure.img1-fg.wfcdn.com/docresources/2902/52/526616.pdf",
+      "id": "62c72e25c2af12ff9e4ce52f",
+      "size": 347632468248
+    },
+    {
+      "name": "changlog.csv",
+      "sensitive": true,
+      "relativePath": "changlog.csv",
+      "createdAt": "2022-05-01T05:04:05.993Z",
+      "updatedAt": "2022-02-01T14:04:05.993Z",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/invoice_summary_csv_from_2022_06_01_to_2022_07_01.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161645Z&X-Amz-Expires=86400&X-Amz-Signature=24357014ef52dc4de559f6b17291459ea42e793ba115355e5134091a4352bbb8&X-Amz-SignedHeaders=host",
+      "id": "62c72e67c2af12ff9f4ck874",
+      "size": 874379
+    },
+    {
+      "name": "Warranties.pdf",
+      "folderId": "62c72de2c2af12ff9e4ce514",
+      "createdAt": "2014-01-06T19:24:05.993Z",
+      "updatedAt": "2017-04-034T08:00:05.993Z",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Estimations%20FlexStaf.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T160439Z&X-Amz-Expires=86400&X-Amz-Signature=3343f93fcf80bddafe86e54296021547ce94637ed3ea1573a461ec42f1df6e53&X-Amz-SignedHeaders=host",
+      "id": "62c72e25c2af12ff9e4l974d"
+    },
+    {
+      "name": "VacationPic.jpg",
+      "folderId": "62c72de2c2af12ff9e4ce509",
+      "createdAt": "2020-03-15T15:05:58.281Z",
+      "updatedAt": "2020-04-21T19:01:58.281Z",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/wasa-crispbread-k0_NZJf2Knw-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=faf77a582e8bb96bc56b1aeaeca6e7df9053ba56198ed6f44adccb9fc00d9f00&X-Amz-SignedHeaders=host",
+      "id": "62c72de2c2af12ff9e4ce999",
+      "size": 435332
+    },
+    {
+      "name": "README.md",
+      "createdAt": "2022-05-01T05:04:05.993Z",
+      "updatedAt": "2022-02-01T14:04:05.993Z",
+      "url": "https://raw.githubusercontent.com/3merge/q3-api/master/README.md",
+      "id": "62c72e67c2af12ff9f4ck111",
+      "size": 1209330
+    }
+  ]
+}

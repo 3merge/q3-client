@@ -1,39 +1,30 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { PhotoUpload } from 'q3-ui-filemanager';
-import { useAuth } from 'q3-ui-permissions';
 import { useTranslation } from 'q3-ui-locale';
 import SystemPageSub from '../../components/SystemPageSub';
-import FeaturedPhoto from '../FeaturedPhoto';
 import useDomainContext from '../../hooks/useDomainContext';
 
 const DomainChangeBrowser = () => {
-  const { HideByField } = useAuth('domain');
   const { t } = useTranslation('labels');
   const { domain = {}, update } = useDomainContext();
   const { favicon, photo } = domain;
 
   return (
     <SystemPageSub title="domainBrowserMedia">
-      <HideByField path="favicon" op="Create">
-        <Typography>{t('featuredPhoto')}</Typography>
-        <Box width={180}>
-          <FeaturedPhoto
-            src={photo}
-            update={update}
-            component={PhotoUpload}
-          />
-        </Box>
-        <Typography>{t('favicon')}</Typography>
-        <Box width={180}>
-          <FeaturedPhoto
-            src={favicon}
-            update={update}
-            component={PhotoUpload}
-            field="faviconFilePath"
-          />
-        </Box>
-      </HideByField>
+      <Typography>{t('featuredPhoto')}</Typography>
+      <PhotoUpload
+        collectionName="domain"
+        src={photo}
+        upload={update}
+      />
+      <Typography>{t('favicon')}</Typography>
+      <PhotoUpload
+        collectionName="domain"
+        field="faviconFilePath"
+        src={favicon}
+        upload={update}
+      />
     </SystemPageSub>
   );
 };

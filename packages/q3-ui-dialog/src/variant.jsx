@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, merge, pick } from 'lodash';
+import { isFunction, set, get, merge, pick } from 'lodash';
 import Dialog from '@material-ui/core/Dialog';
 import Drawer from '@material-ui/core/Drawer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const getPaperWidth = (isLaptop) =>
-  isLaptop ? '725px' : '100%';
+  isLaptop ? '748px' : '100%';
 
 const getPaperProps = (style) => ({
   anchor: 'right',
@@ -45,26 +45,30 @@ const DialogVariant = ({
           fullScreen: !isLaptop,
         });
 
-  const asModal = () =>
-    isDrawer
-      ? {
-          open: isOpen,
-          onClose: () => {
-            try {
-              onClose();
-              onExit();
-            } catch (e) {
-              // noop
-            }
-          },
-        }
-      : {
-          ...get(rest, 'ModalProps', {}),
-          onClose,
-          open: isOpen,
-          onExited: onExit,
-          maxWidth: 'sm',
-        };
+  const asModal = () => {
+    if (isDrawer)
+      return {
+        open: isOpen,
+        onClose: () => {
+          try {
+            onClose();
+            onExit();
+          } catch (e) {
+            // noop
+          }
+        },
+      };
+
+    if (isFunction(onExit))
+      set(rest, 'TransitionProps.onExit', onExit);
+
+    return {
+      ...get(rest, 'ModalProps', {}),
+      onClose,
+      open: isOpen,
+      maxWidth: 'sm',
+    };
+  };
 
   return (
     <El

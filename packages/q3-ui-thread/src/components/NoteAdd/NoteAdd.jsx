@@ -34,7 +34,7 @@ const NoteAdd = () => {
             startIcon={<AddIcon />}
             variant="contained"
           >
-            {t('addNote')}
+            {t('add')}
           </Button>
         </Box>
       )}

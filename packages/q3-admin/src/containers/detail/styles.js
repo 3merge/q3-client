@@ -2,6 +2,12 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   grid: {
+    '& > div': {
+      '&:first-child': {
+        marginBottom: theme.spacing(0.5),
+      },
+    },
+
     [theme.breakpoints.up('md')]: {
       '& > div:first-child': {
         marginRight: theme.spacing(0.5),
@@ -16,13 +22,12 @@ export default makeStyles((theme) => ({
 
         '&:first-child': {
           marginRight: 0,
-          marginBottom: theme.spacing(0.5),
         },
       },
     },
   },
   details: {
-    minWidth: 450,
+    minWidth: 400,
     [theme.breakpoints.down('md')]: {
       minWidth: '100%',
     },
