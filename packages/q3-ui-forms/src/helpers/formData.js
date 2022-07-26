@@ -41,15 +41,15 @@ export default (fn) => (values, attachments) => {
     );
 
   if (object.hasKeys(attachments))
-    iterateEntries(attachments, 'append', (name, item) => {
-      return item.$locals && item.$locals.folder
+    iterateEntries(attachments, 'append', (name, item) =>
+      item.$locals && item.$locals.folder
         ? [
-            `${item.$locals.folder}/${item.name}`,
-            item,
             item.name,
+            item,
+            `[${item.$locals.folder}]${item.name}`,
           ]
-        : [item.name, item, item.name];
-    });
+        : [item.name, item, item.name],
+    );
 
   return fn(formData);
 };

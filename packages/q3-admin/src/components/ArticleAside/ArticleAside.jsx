@@ -42,7 +42,7 @@ const ArticleAside = ({ children }) => {
 
   return (
     <ArticleAsideContext.Provider value={value}>
-      {React.useMemo(() => children, [])}
+      {children}
       <Grid
         className={classnames(root, fillViewportHeight)}
         component="aside"

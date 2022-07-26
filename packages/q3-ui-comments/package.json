@@ -26,7 +26,7 @@
     "q3-ui-locale": "^3.7.1",
     "q3-ui-permissions": "^3.8.0",
     "q3-ui-rest": "^3.8.0",
-    "q3-ui-rte": "^3.7.0",
+    "q3-ui-rte": "^3.6.8",
     "useful-state": "^1.2.3"
   }
 }
