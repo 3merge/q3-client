@@ -1,4 +1,3 @@
-import print from 'print-js';
 import { isString } from 'lodash';
 
 const usePrint = () => {
@@ -42,8 +41,17 @@ const usePrint = () => {
             scrollElement.clientHeight
         ) {
           clearInterval(checkIfScrollIsStatic);
-          print(printElement.id, 'html');
-          resetScrollElement();
+          import('print-js')
+            .then((mod) =>
+              mod.default(printElement.id, 'html'),
+            )
+            .catch(() => {
+              // noop
+            })
+            .finally(() => {
+              resetScrollElement();
+            });
+
           return;
         }
 
