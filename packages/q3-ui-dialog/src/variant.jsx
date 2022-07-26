@@ -6,7 +6,7 @@ import Drawer from '@material-ui/core/Drawer';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const getPaperWidth = (isLaptop) =>
-  isLaptop ? '725px' : '100%';
+  isLaptop ? '748px' : '100%';
 
 const getPaperProps = (style) => ({
   anchor: 'right',

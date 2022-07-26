@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
+import ArticleAside from '../ArticleAside';
 import useGlobalStyle from '../useStyle';
 import useStyle from './useStyle';
 
@@ -20,24 +21,26 @@ const Article = ({ children }) => {
       component="article"
     >
       <Grid container className={articleWrapper}>
-        <Grid
-          xs
-          zeroMinWidth
-          component="section"
-          className={section}
-          item
-        >
-          <Fade in>
-            <Box
-              className={classnames(
-                globalStyle.fillViewportHeight,
-                view,
-              )}
-            >
-              {children}
-            </Box>
-          </Fade>
-        </Grid>
+        <ArticleAside>
+          <Grid
+            xs
+            zeroMinWidth
+            component="section"
+            className={section}
+            item
+          >
+            <Fade in>
+              <Box
+                className={classnames(
+                  globalStyle.fillViewportHeight,
+                  view,
+                )}
+              >
+                {children}
+              </Box>
+            </Fade>
+          </Grid>
+        </ArticleAside>
       </Grid>
     </Grid>
   );

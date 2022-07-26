@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'q3-ui-locale';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const Sort = ({ changeSortDirection, sortDirection }) => {
   const { t } = useTranslation('labels');
+  const label = t('sortByDate');
 
   const state =
     sortDirection === 'asc'
@@ -19,16 +22,30 @@ const Sort = ({ changeSortDirection, sortDirection }) => {
           counterState: 'asc',
         };
 
+  const handleClick = () =>
+    changeSortDirection(state.counterState);
+
   return (
-    <Button
-      endIcon={state.icon}
-      color="inherit"
-      onClick={() =>
-        changeSortDirection(state.counterState)
-      }
-    >
-      {t('sortByDate')}
-    </Button>
+    <>
+      <Hidden smDown>
+        <Button
+          endIcon={state.icon}
+          color="inherit"
+          onClick={handleClick}
+        >
+          {label}
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton
+          aria-label={label}
+          color="inherit"
+          onClick={handleClick}
+        >
+          {state.icon}
+        </IconButton>
+      </Hidden>
+    </>
   );
 };
 

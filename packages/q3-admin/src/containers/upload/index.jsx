@@ -9,6 +9,7 @@ const Upload = (props) => (
   <FileManager
     {...props}
     {...React.useContext(Definitions)}
+    initialView="gallery"
   />
 );
 

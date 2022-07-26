@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   item: {
-    maxWidth: 226,
+    maxWidth: 178,
     width: 300,
 
     [theme.breakpoints.down('sm')]: {
