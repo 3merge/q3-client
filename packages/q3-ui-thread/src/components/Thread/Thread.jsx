@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { size } from 'lodash';
 import Sort from '../Sort';
 import Tags from '../Tags';
 import { ThreadContextProvider } from '../ThreadContext';
@@ -24,12 +23,9 @@ const Thread = (props) => (
       }) => (
         <Box
           alignItems="center"
-          bgcolor="background.paper"
           display="flex"
           justifyContent="space-between"
-          position="sticky"
           py={0.5}
-          top="0"
           zIndex={1}
         >
           <NoteAdd post={post} />
