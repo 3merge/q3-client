@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.2](https://github.com/3merge/q/compare/v3.8.1...v3.8.2) (2022-07-26)
+
+
+### Bug Fixes
+
+* react document viewer ssr ([3786542](https://github.com/3merge/q/commit/37865428a6840ffac87014f4c44065806e5746cf))
+
+
+
+
+
 ## [3.8.1](https://github.com/3merge/q/compare/v3.8.0...v3.8.1) (2022-07-26)
 
 
