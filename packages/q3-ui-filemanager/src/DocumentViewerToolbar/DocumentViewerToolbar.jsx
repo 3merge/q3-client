@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
@@ -35,13 +36,15 @@ const DocumentViewerToolbar = (props) => {
         >
           <ArrowBackIosIcon />
         </IconButton>
-        <Typography
-          className={cls.title}
-          component="h2"
-          variant="h6"
-        >
-          {name}
-        </Typography>
+        <Hidden smDown>
+          <Typography
+            className={cls.title}
+            component="h2"
+            variant="h6"
+          >
+            {name}
+          </Typography>
+        </Hidden>
       </Box>
       <Box>
         <IconButton
