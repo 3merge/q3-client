@@ -36,7 +36,7 @@ export const DetailSummaryPortal = (props) => {
   );
 };
 
-const DetailSummary = ({ children }) => {
+const DetailSummary = ({ autoOpenSummary, children }) => {
   const { id, setState, close } = React.useContext(
     ArticleAsideContext,
   );
@@ -58,7 +58,7 @@ const DetailSummary = ({ children }) => {
       : close();
 
   React.useEffect(() => {
-    toggle();
+    if (autoOpenSummary) toggle();
   }, []);
 
   return (
@@ -76,10 +76,12 @@ const DetailSummary = ({ children }) => {
 };
 
 DetailSummary.defaultProps = {
+  autoOpenSummary: true,
   children: null,
 };
 
 DetailSummary.propTypes = {
+  autoOpenSummary: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,

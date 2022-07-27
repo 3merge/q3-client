@@ -51,7 +51,7 @@ const Detail = (props) => {
 
   const Summary = React.useMemo(
     () => (
-      <DetailSummary>
+      <DetailSummary {...rest}>
         <DetailFeaturedPhoto />
         {invoke(rest, 'renderSummaryComponent')}
         <DetailOptions {...rest} />
