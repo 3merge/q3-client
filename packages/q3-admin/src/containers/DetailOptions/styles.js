@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   list: {
     listStyle: 'none',
     padding: 0,
-    margin: `${theme.spacing(1)} 0 0 0`,
+    margin: 0,
     minWidth: 280,
 
     [theme.breakpoints.down('md')]: {

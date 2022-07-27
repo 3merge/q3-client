@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   title: {
     fontWeight: 'bold',
-    marginBottom: theme.spacing(1),
+    marginBottom: 0,
     paddingLeft: theme.spacing(1.5),
     position: 'relative',
 

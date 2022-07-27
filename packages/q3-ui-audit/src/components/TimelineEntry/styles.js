@@ -17,9 +17,5 @@ export default makeStyles(() => ({
   cell: {
     border: 0,
     paddingLeft: 0,
-
-    '&:first-of-type': {
-      paddingRight: '2rem',
-    },
   },
 }));

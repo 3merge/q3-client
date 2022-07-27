@@ -38,20 +38,18 @@ const Directory = ({ initialView }) => {
                       <DropZoneWrapper onDrop={onDrop} />
                       <Box className={cls.toolbar}>
                         <Box>
-                          <DirectoryAddFolder />
                           <DropZoneInputWrapper
                             onDrop={onDrop}
                           />
+                          <DirectoryAddFolder />
                         </Box>
                         <Box className={cls.mobileActions}>
-                          <DirectoryToolbar />
-                          <SortingComponent />
                           <SwitcherComponent />
+                          <SortingComponent />
+                          <DirectoryToolbar />
                         </Box>
                       </Box>
-                      <Box py={2}>
-                        <Divider />
-                      </Box>
+
                       <DirectoryBreadcrumbs />
                       <DirectoryPendingFiles
                         pending={pending}

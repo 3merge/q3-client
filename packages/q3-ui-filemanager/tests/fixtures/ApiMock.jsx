@@ -58,6 +58,18 @@ const useMockData =
         }`,
       );
 
+    React.useEffect(() => {
+      setTimeout(() => {
+        setDataSource((currentState) =>
+          currentState.concat({
+            id: getRandomArbitrary(),
+            name: 'testing.jpg',
+            relativePath: 'testing.jpg',
+          }),
+        );
+      }, 10000);
+    }, []);
+
     mockApiInstance
       .onGet(makeEndpoint())
       .reply(onGetError ? 500 : 200, {

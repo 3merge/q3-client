@@ -21,10 +21,15 @@ const FileManager = ({
   const currentState = useCurrent();
   const auth = useUploadsAuth(collectionName, rest);
 
-  const { get, fetching, fetchingError, ...uploadState } =
-    useUploads(collectionName, id);
+  const {
+    get,
+    poll,
+    fetching,
+    fetchingError,
+    ...uploadState
+  } = useUploads(collectionName, id);
 
-  const init = useFileManagerInit(auth, get);
+  const init = useFileManagerInit(auth, get, poll);
 
   if (!init || fetching) return <CircularProgress />;
   if (!auth.canSee) return <AlertAuthError />;

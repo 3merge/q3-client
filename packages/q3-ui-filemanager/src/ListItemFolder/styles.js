@@ -11,6 +11,7 @@ export default makeStyles(() => ({
       borderColor: 'transparent',
       position: 'relative',
       zIndex: 1,
+      paddingLeft: 0,
     };
 
     if (isHovering)

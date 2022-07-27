@@ -45,7 +45,7 @@ describe('DirectoryView', () => {
     global.shallow(
       <DirectoryView>
         {(_, Component) => {
-          Component().props.onChange(null, 'gallery');
+          Component().props.onClick();
           return null;
         }}
       </DirectoryView>,

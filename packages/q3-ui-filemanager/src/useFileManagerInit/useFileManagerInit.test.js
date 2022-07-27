@@ -7,6 +7,10 @@ let setState;
 beforeAll(() => {
   setState = jest.fn();
 
+  jest.spyOn(React, 'useRef').mockReturnValue({
+    current: null,
+  });
+
   jest
     .spyOn(React, 'useState')
     .mockReturnValue([false, setState]);

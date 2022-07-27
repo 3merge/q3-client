@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, pick, invoke, isFunction } from 'lodash';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
@@ -13,7 +13,7 @@ import Widget from '../../components/Widget';
 import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
-import useStyle from './styles';
+import DetailSummary from '../DetailSummary';
 
 const Detail = (props) => {
   const {
@@ -25,7 +25,6 @@ const Detail = (props) => {
     ...rest
   } = props;
 
-  const cls = useStyle();
   const viewDeps = [
     JSON.stringify(
       map(views, (v) => pick(v, ['label', 'to'])),
@@ -48,16 +47,22 @@ const Detail = (props) => {
     () => <DetailNavigation views={views} />,
     viewDeps,
   );
+  const Meta = <DetailMeta />;
 
   const Summary = React.useMemo(
     () => (
-      <Widget timeout={500} title="overview">
+      <DetailSummary {...rest}>
         <DetailFeaturedPhoto />
         {invoke(rest, 'renderSummaryComponent')}
         <DetailOptions {...rest} />
-      </Widget>
+        {Meta}
+      </DetailSummary>
     ),
-    [rest.registerOptions, rest.renderSummaryComponent],
+    [
+      Meta,
+      rest.registerOptions,
+      rest.renderSummaryComponent,
+    ],
   );
 
   const Views = React.useMemo(
@@ -75,26 +80,15 @@ const Detail = (props) => {
     [Navigation, Views],
   );
 
-  const Meta = <DetailMeta />;
   const Content = React.useMemo(
     () => (
       <>
         {Alerts}
-        <Grid
-          alignItems="flex-start"
-          className={cls.grid}
-          container
-          spacing={0}
-        >
-          {Summary}
-          <Grid item xs className={cls.details}>
-            {Details}
-          </Grid>
-        </Grid>
-        <Box py={1.5}>{Meta}</Box>
+        {Summary}
+        {Details}
       </>
     ),
-    [Alerts, Details, Meta, Summary],
+    [Details, Summary],
   );
 
   return React.useMemo(

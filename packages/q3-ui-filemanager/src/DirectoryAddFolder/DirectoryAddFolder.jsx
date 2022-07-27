@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import CreateNewFolderIcon from '@material-ui/icons/CreateNewFolder';
 import Dialog from 'q3-ui-dialog';
 import { useTranslation } from 'q3-ui-locale';
@@ -11,15 +11,14 @@ const DirectoryAddFolder = () => {
 
   const ButtonComponent = React.useCallback(
     (open) => (
-      <Button
-        color="secondary"
+      <IconButton
+        color="inherit"
         id="q3-filemanager-add-folder"
         onClick={open}
-        startIcon={<CreateNewFolderIcon />}
-        variant="contained"
+        aria-label={t('folder')}
       >
-        {t('addFolder')}
-      </Button>
+        <CreateNewFolderIcon />
+      </IconButton>
     ),
     [],
   );

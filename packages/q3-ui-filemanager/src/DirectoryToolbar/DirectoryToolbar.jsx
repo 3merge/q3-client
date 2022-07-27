@@ -17,15 +17,7 @@ const DirectoryToolbar = () => {
     () => (
       <Box className="q3-context-menu" width="100%">
         <Fade in={sizeOfSelected > 0}>
-          <Box
-            display="flex"
-            flexWrap="nowrap"
-            mr={2}
-            pr={2}
-            style={{
-              borderRight: '1px solid rgba(0, 0, 0, 0.12)',
-            }}
-          >
+          <Box display="flex" flexWrap="nowrap">
             <DirectoryMoveTo />
             <DirectoryDeleteFolder />
           </Box>

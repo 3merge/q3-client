@@ -17,7 +17,7 @@ import useStyle from './styles';
 const PhotoUploadPreview = ({ src }) => {
   const { t } = useTranslation('descriptions');
   const { onDrop, pending } = useDropZoneAcceptedFiles();
-  const { canCreate, canEdit } = React.useContext(
+  const { canSee, canCreate, canEdit } = React.useContext(
     FileManagerAuthContext,
   );
 
@@ -32,6 +32,8 @@ const PhotoUploadPreview = ({ src }) => {
     multiple: false,
     onDrop,
   };
+
+  if (!canSee) return null;
 
   return (
     <Box className={cls.container}>

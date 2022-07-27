@@ -17,7 +17,7 @@ const ArticleAside = ({ children }) => {
   });
 
   const isTablet = useMediaQuery((theme) =>
-    theme.breakpoints.down('lg'),
+    theme.breakpoints.down('md'),
   );
 
   const { root } = useStyle({

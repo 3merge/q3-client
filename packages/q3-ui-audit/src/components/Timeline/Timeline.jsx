@@ -64,7 +64,12 @@ const TimelineCustom = ({
     );
 
   return (
-    <Timeline align="left">
+    <Timeline
+      align="left"
+      style={{
+        paddingLeft: 0,
+      }}
+    >
       {map(changes, (record) =>
         makeEntries(record).map(
           ({ action, data: entry, key }) => {
@@ -77,8 +82,11 @@ const TimelineCustom = ({
                   <TimelineDot
                     style={{
                       backgroundColor: color,
+                      transform: 'scale(.8)',
                     }}
-                  />
+                  >
+                    <Icon style={{ fontSize: '1rem' }} />
+                  </TimelineDot>
                   <TimelineConnector
                     style={{ backgroundColor: color }}
                   />
@@ -99,7 +107,6 @@ const TimelineCustom = ({
                         action={action}
                         {...record}
                       />
-                      <small>{t(`labels:${action}`)}</small>
                     </Box>
                     <TimelineEntry {...entry} />
                   </Box>

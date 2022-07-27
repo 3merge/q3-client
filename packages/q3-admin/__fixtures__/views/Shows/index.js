@@ -119,6 +119,7 @@ export default new AbstractCollectionBuilder({
   })
   .genDetail({
     audit: ['foo', 'bar'],
+    autoOpenSummary: false,
     disablePaper: true,
     protectView: () =>
       // if (name === 'subdetail') return data.name === 'foo';
