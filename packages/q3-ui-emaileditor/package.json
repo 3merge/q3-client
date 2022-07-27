@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-emaileditor",
-  "version": "3.8.3",
+  "version": "3.8.6",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^3.7.0"
@@ -14,7 +14,7 @@
     "q3-ui-assets": "^3.8.0",
     "q3-ui-helpers": "^3.7.1",
     "q3-ui-locale": "^3.7.1",
-    "q3-ui-rest": "^3.8.3"
+    "q3-ui-rest": "^3.8.6"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.6](https://github.com/3merge/q/compare/v3.8.5...v3.8.6) (2022-07-27)
+
+
+### Bug Fixes
+
+* responsive issues with article aside and file manager ([#415](https://github.com/3merge/q/issues/415)) ([21629ae](https://github.com/3merge/q/commit/21629ae53e075702affb60e8e801549ce9f81e33))
+
+
+
+
+
 ## [3.8.3](https://github.com/3merge/q/compare/v3.8.2...v3.8.3) (2022-07-26)
 
 
