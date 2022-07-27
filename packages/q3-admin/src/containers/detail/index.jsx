@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, pick, invoke, isFunction } from 'lodash';
-import { Box, Hidden } from '@material-ui/core';
-import ReactDOM from 'react-dom';
-import WidgetsIcon from '@material-ui/icons/Widgets';
+import { Box } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
@@ -15,64 +13,7 @@ import Widget from '../../components/Widget';
 import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
-import { ArticleAsideContext } from '../../components/ArticleAside/ArticleAside';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
-import ArticleAsideHeader from '../../components/ArticleAsideHeader';
-
-const DetailSummary = ({ children }) => {
-  const SUMMARY_ID = 'summary';
-  const [anchor, setAnchor] = React.useState(null);
-  const { id, setState, close } = React.useContext(
-    ArticleAsideContext,
-  );
-
-  const isOn = id === SUMMARY_ID;
-  const toggle = () =>
-    !isOn
-      ? setState({
-          id: SUMMARY_ID,
-          content: (
-            <>
-              <ArticleAsideHeader title="summary" />
-              {children}
-            </>
-          ),
-        })
-      : close();
-
-  React.useEffect(() => {
-    setAnchor(document.getElementById('q3-actions-portal'));
-    toggle();
-  }, []);
-
-  return (
-    <>
-      <Hidden lgUp>
-        <Box mb={1}>
-          <Widget title="summary">{children}</Widget>
-        </Box>
-      </Hidden>
-      <Hidden mdDown>
-        <Box>
-          {anchor
-            ? ReactDOM.createPortal(
-                <ButtonWithIcon
-                  icon={WidgetsIcon}
-                  on={isOn}
-                  onClick={toggle}
-                  label="summary"
-                  transparent
-                />,
-                anchor,
-              )
-            : null}
-        </Box>
-      </Hidden>
-    </>
-  );
-};
-
-/** <Widget timeout={500} title="overview"> */
+import DetailSummary from '../DetailSummary';
 
 const Detail = (props) => {
   const {

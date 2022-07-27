@@ -33,7 +33,13 @@ const ArticleAsideHeader = ({ onOpen, title }) => {
       </Box>
       {onOpen && (
         <Tooltip title={t('labels:expand')}>
-          <IconButton color="inherit" onClick={onOpen}>
+          <IconButton
+            color="inherit"
+            onClick={(e) => {
+              close();
+              onOpen(e);
+            }}
+          >
             <LaunchIcon />
           </IconButton>
         </Tooltip>

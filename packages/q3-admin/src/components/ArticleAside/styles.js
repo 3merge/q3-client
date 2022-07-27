@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     padding: isOpen ? theme.spacing(2) : 0,
     position: 'relative',
     transition: 'padding,width 250ms',
-    width: isOpen ? 550 : 0,
+    width: isOpen ? 375 : 0,
     maxWidth: '33vw',
     boxShadow: theme.shadows[2],
 

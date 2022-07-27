@@ -9,7 +9,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
 const Sort = ({ changeSortDirection, sortDirection }) => {
   const { t } = useTranslation('labels');
-  const label = t('sortByDate');
+  const label = t('date');
 
   const state =
     sortDirection === 'asc'

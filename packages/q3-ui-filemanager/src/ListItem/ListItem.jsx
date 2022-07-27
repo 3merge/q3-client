@@ -32,6 +32,9 @@ export const ListItem = React.forwardRef(
       onDoubleClick={onClick}
       onContextMenu={onContextMenu}
       ref={ref}
+      style={{
+        paddingLeft: 0,
+      }}
     >
       <ListItemContent
         name={name}

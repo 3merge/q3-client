@@ -44,14 +44,12 @@ const Directory = ({ initialView }) => {
                           <DirectoryAddFolder />
                         </Box>
                         <Box className={cls.mobileActions}>
-                          <DirectoryToolbar />
-                          <SortingComponent />
                           <SwitcherComponent />
+                          <SortingComponent />
+                          <DirectoryToolbar />
                         </Box>
                       </Box>
-                      <Box py={2}>
-                        <Divider />
-                      </Box>
+
                       <DirectoryBreadcrumbs />
                       <DirectoryPendingFiles
                         pending={pending}

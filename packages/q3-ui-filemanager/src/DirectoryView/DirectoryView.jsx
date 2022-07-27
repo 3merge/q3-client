@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ToggleButton from '@material-ui/lab/ToggleButton';
+import IconButton from '@material-ui/core/IconButton';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import { browser } from 'q3-ui-helpers';
 import Gallery from '../Gallery';
 import List from '../List';
-import { StyledToggleButtonGroup } from './styles';
 import {
   getKey,
   getFromLocalStorage,
@@ -19,8 +18,11 @@ const DirectoryView = ({ children, defaultView }) => {
     getFromLocalStorage(suffix, defaultView),
   );
 
-  const handleViewChange = (e, newView) =>
+  const isGallery = view === 'gallery';
+
+  const handleViewChange = (e) =>
     suppressEvent(e, () => {
+      const newView = isGallery ? 'list' : 'gallery';
       browser.proxyLocalStorageApi(
         'setItem',
         getKey(suffix),
@@ -31,32 +33,20 @@ const DirectoryView = ({ children, defaultView }) => {
     });
 
   return children(
-    React.useCallback(view === 'gallery' ? Gallery : List, [
-      view,
-    ]),
+    React.useCallback(isGallery ? Gallery : List, [view]),
     React.useCallback(
       () => (
-        <StyledToggleButtonGroup
-          value={view}
-          exclusive
-          onChange={handleViewChange}
-          aria-label="view picker"
+        <IconButton
+          aria-label="view"
+          color="inherit"
+          onClick={handleViewChange}
         >
-          <ToggleButton
-            color="inherit"
-            value="gallery"
-            aria-label="gallery"
-          >
-            <PhotoLibraryIcon />
-          </ToggleButton>
-          <ToggleButton
-            color="inherit"
-            value="list"
-            aria-label="list"
-          >
+          {isGallery ? (
             <TableChartIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
+          ) : (
+            <PhotoLibraryIcon />
+          )}
+        </IconButton>
       ),
       [view],
     ),

@@ -1,6 +1,6 @@
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import BlurCircularIcon from '@material-ui/icons/BlurCircular';
+import RemoveCircleOutlineIcon from '@material-ui/icons/Remove';
+import AddCircleOutlineIcon from '@material-ui/icons/Add';
+import ChangeHistoryIcon from '@material-ui/icons/ChangeHistory';
 import {
   blue,
   purple,
@@ -13,7 +13,7 @@ export const getIcon = (key) =>
   ({
     additions: AddCircleOutlineIcon,
     deletions: RemoveCircleOutlineIcon,
-    updates: BlurCircularIcon,
+    updates: ChangeHistoryIcon,
   }[key] || noop);
 
 export const getColor = (key) =>

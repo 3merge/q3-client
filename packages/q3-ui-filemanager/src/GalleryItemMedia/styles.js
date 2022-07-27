@@ -13,7 +13,7 @@ export default makeStyles(() => ({
     },
   },
   media: {
-    height: 145,
+    height: 125,
     overflow: 'hidden',
     position: 'relative',
   },

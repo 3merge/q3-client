@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     height: 'auto',
     minHeight: 32,
     lineHeight: 1.3,
-    maxWidth: 540,
+    maxWidth: 280,
 
     '& span': {
       whiteSpace: 'break-spaces',

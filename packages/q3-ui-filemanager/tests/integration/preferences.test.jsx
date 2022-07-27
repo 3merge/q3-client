@@ -92,7 +92,7 @@ describe('FileManager preferences', () => {
     hasSomeOf(el.find('#q3-filemanager-list-view'));
 
     await asyncAct(() => {
-      el.find('[aria-label="gallery"]')
+      el.find('[aria-label="view"]')
         .first()
         .simulate('click');
 

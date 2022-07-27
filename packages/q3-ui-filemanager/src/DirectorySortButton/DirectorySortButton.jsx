@@ -10,7 +10,7 @@ const DirectorySortButton = ({ children }) => {
   const { t } = useTranslation('labels');
 
   return (
-    <Box display="inline-block" mx={0.5}>
+    <Box display="inline-block">
       <IconButton
         id="q3-filemanager-sort-button"
         aria-label={t('sort')}

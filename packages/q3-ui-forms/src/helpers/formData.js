@@ -1,5 +1,5 @@
 import { object } from 'q3-ui-helpers';
-import { invoke } from 'lodash';
+import { invoke, last } from 'lodash';
 import flat from 'flat';
 
 export default (fn) => (values, attachments) => {
@@ -42,11 +42,14 @@ export default (fn) => (values, attachments) => {
 
   if (object.hasKeys(attachments))
     iterateEntries(attachments, 'append', (name, item) =>
-      item.$locals && item.$locals.folder
+      item.$locals && item.$locals.saveAs
         ? [
             item.name,
             item,
-            `[${item.$locals.folder}]${item.name}`,
+            // keep the extension
+            `${item.$locals.saveAs}.${last(
+              item.name.split('.'),
+            )}`,
           ]
         : [item.name, item, item.name],
     );

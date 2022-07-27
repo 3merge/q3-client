@@ -60,7 +60,13 @@ const Note = (props) => {
                 </CardContent>
               ) : (
                 <>
-                  <CardContent>{message}</CardContent>
+                  <CardContent
+                    style={{
+                      whiteSpace: 'break-spaces',
+                    }}
+                  >
+                    {message}
+                  </CardContent>
                   <NoteTags {...props} />
                 </>
               )}

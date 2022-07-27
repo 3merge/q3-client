@@ -10,7 +10,7 @@ const TimelineEntryMeta = ({ date, user }) => {
 
   return (
     <Typography component="em" className={cls.text}>
-      {compact([user, string.toDate(date)]).join(' @ ')}
+      {compact([user, string.toDate(date)]).join(', ')}
     </Typography>
   );
 };
