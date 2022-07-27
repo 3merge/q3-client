@@ -15,18 +15,20 @@ const DropZoneInputWrapper = (props) => {
     <Box
       ref={ref}
       component="label"
-      ml={1}
+      mr={1}
       htmlFor="dropper-button"
     >
       <input name="dropper-button" {...getInputProps()} />
       <Button
+        color="secondary"
         component="span"
         startIcon={<CloudUploadIcon />}
         onClick={() => {
           ref.current.querySelector('input').click();
         }}
+        variant="contained"
       >
-        {t('uploadFile')}
+        {t('uploadFiles')}
       </Button>
     </Box>
   );

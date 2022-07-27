@@ -7,6 +7,7 @@ import { ArticleAsideContext } from '../ArticleAside/ArticleAside';
 import ArticleAsideHeader from '../ArticleAsideHeader';
 
 export const ButtonWithIconDialog = ({
+  DialogProps,
   renderContent,
   label,
   icon,
@@ -17,7 +18,7 @@ export const ButtonWithIconDialog = ({
   );
 
   const isTablet = useMediaQuery((theme) =>
-    theme.breakpoints.down('lg'),
+    theme.breakpoints.down('md'),
   );
 
   const ButtonComponent = React.useCallback(
@@ -61,11 +62,17 @@ export const ButtonWithIconDialog = ({
       renderTrigger={ButtonComponent}
       title={label}
       variant="drawer"
+      {...DialogProps}
     />
   );
 };
 
+ButtonWithIconDialog.defaultProps = {
+  DialogProps: {},
+};
+
 ButtonWithIconDialog.propTypes = {
+  DialogProps: PropTypes.shape({}),
   icon: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.element,

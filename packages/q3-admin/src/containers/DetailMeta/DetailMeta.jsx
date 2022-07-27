@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'q3-ui-locale';
 import {
-  Grid,
+  List,
   ListItem,
   ListItemText,
 } from '@material-ui/core';
@@ -21,40 +21,34 @@ const DetailMeta = () => {
   const { t } = useTranslation('labels');
   const cls = useStyle();
 
-  const renderListItem = (timekey, authorkey, Icon) => {
+  const renderListItem = (timekey, authorkey) => {
     const time = get(data, timekey);
     const author = formatUser(get(data, authorkey));
 
     return time ? (
-      <Grid item>
-        <ListItem component="div" dense>
-          <ListItemText
-            primary={string.toDate(time)}
-            secondary={
-              author
-                ? t(authorkey, {
-                    name: author,
-                  })
-                : t(timekey)
-            }
-            primaryTypographyProps={{
-              className: cls.primary,
-            }}
-          />
-        </ListItem>
-      </Grid>
+      <ListItem dense>
+        <ListItemText
+          primary={string.toDate(time)}
+          secondary={
+            author
+              ? t(authorkey, {
+                  name: author,
+                })
+              : t(timekey)
+          }
+          primaryTypographyProps={{
+            className: cls.primary,
+          }}
+        />
+      </ListItem>
     ) : null;
   };
 
   return (
-    <Grid
-      className={cls.meta}
-      container
-      justifyContent="flex-start"
-    >
+    <List className={cls.meta}>
       {renderListItem('createdAt', 'createdBy')}
       {renderListItem('updatedAt', 'lastModifiedBy')}
-    </Grid>
+    </List>
   );
 };
 

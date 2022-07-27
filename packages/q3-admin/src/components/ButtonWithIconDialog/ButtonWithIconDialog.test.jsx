@@ -4,6 +4,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import ButtonWithIconDialog from './ButtonWithIconDialog';
 
 jest.mock('@material-ui/core', () => ({
+  makeStyles: jest.fn().mockReturnValue({}),
   useMediaQuery: jest.fn(),
 }));
 

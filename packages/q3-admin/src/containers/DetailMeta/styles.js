@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
   },
   meta: {
     borderTop: `1px solid ${theme.palette.background.muted}`,
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
     paddingTop: theme.spacing(1),
   },
 }));

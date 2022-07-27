@@ -1,9 +1,8 @@
 import React from 'react';
-import Dialog from 'q3-ui-dialog';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import FilterComponent from 'q3-ui-filters';
 import useLocation from 'q3-ui-filters/lib/components/useLocation';
-import ButtonWithIcon from '../ButtonWithIcon';
+import ButtonWithIconDialog from '../ButtonWithIconDialog';
 import { Definitions } from '../../containers/state';
 
 // eslint-disable-next-line
@@ -19,23 +18,18 @@ const Filter = ({ data }) => {
   });
 
   return (
-    <Dialog
-      title="filter"
-      variant="drawer"
-      closeOnSearchChange
+    <ButtonWithIconDialog
+      DialogProps={{
+        closeOnSearchChange: true,
+      }}
+      icon={FilterListIcon}
+      label="filter"
+      count={acc}
+      transparent
       renderContent={() => (
         <FilterComponent
           collectionName={collectionName}
           data={data}
-        />
-      )}
-      renderTrigger={(onClick) => (
-        <ButtonWithIcon
-          icon={FilterListIcon}
-          label="filter"
-          onClick={onClick}
-          count={acc}
-          transparent
         />
       )}
     />

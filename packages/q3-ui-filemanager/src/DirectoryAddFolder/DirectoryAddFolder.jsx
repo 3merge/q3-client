@@ -12,13 +12,12 @@ const DirectoryAddFolder = () => {
   const ButtonComponent = React.useCallback(
     (open) => (
       <Button
-        color="secondary"
+        color="inherit"
         id="q3-filemanager-add-folder"
         onClick={open}
         startIcon={<CreateNewFolderIcon />}
-        variant="contained"
       >
-        {t('addFolder')}
+        {t('folder')}
       </Button>
     ),
     [],

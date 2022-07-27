@@ -38,10 +38,10 @@ const Directory = ({ initialView }) => {
                       <DropZoneWrapper onDrop={onDrop} />
                       <Box className={cls.toolbar}>
                         <Box>
-                          <DirectoryAddFolder />
                           <DropZoneInputWrapper
                             onDrop={onDrop}
                           />
+                          <DirectoryAddFolder />
                         </Box>
                         <Box className={cls.mobileActions}>
                           <DirectoryToolbar />

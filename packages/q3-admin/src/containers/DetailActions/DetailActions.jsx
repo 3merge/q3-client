@@ -37,6 +37,7 @@ const DetailActions = ({
 
   return (
     <Box alignItems="center" display="flex">
+      <div id="q3-actions-portal" />
       {lhr(
         canSeeSub('thread'),
         <ButtonWithIconDialog

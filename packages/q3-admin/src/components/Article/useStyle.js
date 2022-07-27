@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
   },
   articleWrapper: {
     position: 'relative',
+
     [theme.breakpoints.down('md')]: {
       display: 'block',
     },
