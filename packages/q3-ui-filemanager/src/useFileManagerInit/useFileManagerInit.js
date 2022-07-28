@@ -17,14 +17,15 @@ export const useFileManagerInit = (
 
       if (isFunction(recurring))
         ref.current = setInterval(() => {
-          recurring();
+          object.noop(recurring());
         }, 15000);
     } else setInitTruthy();
 
     return () => {
       setInit(false);
+
       if (ref.current) {
-        clearInterval(recurring);
+        clearInterval(ref.current);
       }
     };
   }, []);
