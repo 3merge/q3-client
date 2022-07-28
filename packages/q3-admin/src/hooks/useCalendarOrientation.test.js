@@ -15,6 +15,7 @@ beforeEach(() => {
     current: {
       getApi: jest.fn().mockReturnValue({
         changeView: jest.fn(),
+        updateSize: jest.fn(),
       }),
     },
   });
@@ -22,6 +23,8 @@ beforeEach(() => {
   jest
     .spyOn(React, 'useState')
     .mockReturnValue([null, setState]);
+
+  jest.spyOn(React, 'useContext').mockReturnValue({});
 });
 
 describe('useCalendarOrientation', () => {

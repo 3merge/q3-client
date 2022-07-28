@@ -27,6 +27,11 @@ const ListItemContent = ({
       <ListItemText
         primary={name}
         secondary={toMbs(size)}
+        primaryTypographyProps={{
+          style: {
+            lineBreak: 'anywhere',
+          },
+        }}
       />
       <ListItemSecondaryAction>
         <IconButton

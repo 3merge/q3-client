@@ -6,6 +6,7 @@ import {
   CardContent,
   CardActionArea,
   Typography,
+  Tooltip,
 } from '@material-ui/core';
 import classnames from 'classnames';
 import useDropFolder from '../useDropFolder';
@@ -50,15 +51,17 @@ const GalleryItemFolder = React.forwardRef(
           onContextMenu={onContextMenu}
         >
           <CardContent>
-            <Typography
-              className={cls.title}
-              component="div"
-            >
-              <Avatar className={cls.avatar}>
-                <GalleryItemFolderIcon folder />
-              </Avatar>
-              <span>{name}</span>
-            </Typography>
+            <Tooltip title={name}>
+              <Typography
+                className={cls.title}
+                component="div"
+              >
+                <Avatar className={cls.avatar}>
+                  <GalleryItemFolderIcon folder />
+                </Avatar>
+                <span>{name}</span>
+              </Typography>
+            </Tooltip>
           </CardContent>
         </CardActionArea>
       </Card>

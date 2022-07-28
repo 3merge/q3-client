@@ -53,7 +53,7 @@ export const ButtonWithIconDialog = ({
         />
       );
     },
-    [id, isTablet],
+    [id, isTablet, rest],
   );
 
   return (

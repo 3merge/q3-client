@@ -27,7 +27,12 @@ const Navbar = ({ callToAction, children }) => {
           <Logo />
         </Box>
       </Hidden>
-      <Box flex="1" px={1.5}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        flex="1"
+        px={1.5}
+      >
         {callToAction?.label && (
           <Fab
             color="secondary"

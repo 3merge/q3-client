@@ -4,6 +4,7 @@ import {
   Card,
   CardActionArea,
   Avatar,
+  Tooltip,
 } from '@material-ui/core';
 import { omit } from 'lodash';
 import classnames from 'classnames';
@@ -50,15 +51,17 @@ const GalleryItem = React.forwardRef(
           onContextMenu={onContextMenu}
           onClick={onSelect}
         >
-          <CardHeader
-            classes={omit(cls, ['card'])}
-            avatar={
-              <Avatar>
-                <Icon />
-              </Avatar>
-            }
-            title={name}
-          />
+          <Tooltip title={name}>
+            <CardHeader
+              classes={omit(cls, ['card'])}
+              avatar={
+                <Avatar>
+                  <Icon />
+                </Avatar>
+              }
+              title={name}
+            />
+          </Tooltip>
 
           <GalleryItemMedia {...file}>
             <Icon />

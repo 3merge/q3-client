@@ -12,7 +12,13 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useToggle } from 'useful-state';
 import WidgetTitle from '../WidgetTitle';
 
-const Widget = ({ children, title, timeout, ...rest }) => {
+const Widget = ({
+  children,
+  expandable,
+  title,
+  timeout,
+  ...rest
+}) => {
   const [show, setShow] = React.useState(false);
   const { state: isOpen, toggle } = useToggle(true);
   const ref = React.useRef();
@@ -40,17 +46,19 @@ const Widget = ({ children, title, timeout, ...rest }) => {
             mb={1}
           >
             <WidgetTitle text={title} />
-            <IconButton
-              aria-label={isOpen ? 'collapse' : 'expand'}
-              color="inherit"
-              onClick={toggle}
-            >
-              {isOpen ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )}
-            </IconButton>
+            {expandable && (
+              <IconButton
+                aria-label={isOpen ? 'collapse' : 'expand'}
+                color="inherit"
+                onClick={toggle}
+              >
+                {isOpen ? (
+                  <ExpandLessIcon />
+                ) : (
+                  <ExpandMoreIcon />
+                )}
+              </IconButton>
+            )}
           </Box>
           <Collapse in={isOpen}>
             <Box ref={ref}>{children}</Box>
@@ -66,12 +74,14 @@ Widget.propTypes = {
     PropTypes.node,
     PropTypes.element,
   ]),
+  expandable: PropTypes.bool,
   title: PropTypes.string.isRequired,
   timeout: PropTypes.number,
 };
 
 Widget.defaultProps = {
   children: null,
+  expandable: true,
   timeout: 0,
 };
 

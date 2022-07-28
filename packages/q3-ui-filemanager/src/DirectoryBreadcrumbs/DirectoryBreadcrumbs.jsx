@@ -20,12 +20,7 @@ const DirectoryBreadcrumbs = () => {
 
   return (
     size(breadcrumbs) > 0 && (
-      <Box
-        alignItems="center"
-        display="flex"
-        mt={-1}
-        mb={0.75}
-      >
+      <Box alignItems="center" display="flex" mb={1}>
         <IconButton
           color="inherit"
           onClick={handleChangeBackHome}

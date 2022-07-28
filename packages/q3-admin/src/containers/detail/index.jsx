@@ -72,7 +72,11 @@ const Detail = (props) => {
 
   const Details = React.useMemo(
     () => (
-      <Widget timeout={750} title="details">
+      <Widget
+        expandable={false}
+        timeout={750}
+        title="details"
+      >
         {Navigation}
         {Views}
       </Widget>

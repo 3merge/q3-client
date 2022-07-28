@@ -23,19 +23,21 @@ export default makeStyles((theme) => ({
 
     if (transparent) {
       out.backgroundColor = 'transparent';
-      out.border =
-        theme.palette.type === 'dark'
-          ? undefined
-          : `1px solid ${theme.palette.background.muted}`;
-
+      out.border = '1px solid';
+      out.borderColor = theme.palette.background.muted;
       out[theme.breakpoints.down('md')] = {
         border: 'none',
       };
     }
 
     if (on) {
-      out.backgroundColor = theme.palette.secondary.main;
-      out.color = theme.palette.secondary.contrastText;
+      if (transparent) {
+        out.borderColor = theme.palette.secondary.main;
+        out.color = theme.palette.secondary.main;
+      } else {
+        out.backgroundColor = theme.palette.secondary.main;
+        out.color = theme.palette.secondary.contrastText;
+      }
     }
 
     return out;
