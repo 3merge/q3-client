@@ -56,6 +56,7 @@ export default makeStyles((theme) => ({
     textTransform: 'none',
   },
   contents: {
+    overflowX: 'hidden',
     [theme.breakpoints.down('md')]: {
       margin: '-1.5rem',
     },

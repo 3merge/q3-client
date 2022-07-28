@@ -22,10 +22,7 @@ const NavbarFooterLinks = () => {
   const cls = useStyle();
 
   return (
-    <Box mb={2} mt={4}>
-      <Box pb={1}>
-        <Divider />
-      </Box>
+    <Box my={2}>
       <List className={cls.root}>
         <ListItem>
           <MuiLink
