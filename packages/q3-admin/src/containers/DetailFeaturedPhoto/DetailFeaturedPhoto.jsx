@@ -11,7 +11,7 @@ export const DetailFeaturedPhoto = () => {
     <PhotoUpload
       collectionName={collectionName}
       src={data.photo}
-      update={patch()}
+      upload={patch()}
     />
   );
 };
