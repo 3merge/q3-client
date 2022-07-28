@@ -4,13 +4,16 @@ import timegrid from '@fullcalendar/timegrid';
 import interaction from '@fullcalendar/interaction';
 import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
+import { delay } from 'lodash';
 import moment from '@fullcalendar/moment';
 import momentTimezone from '@fullcalendar/moment-timezone';
+import { ArticleAsideContext } from '../components/ArticleAside/ArticleAside';
 
 const useCalendarOrientation = () => {
   const { t } = useTranslation('labels');
   const [initialView, setInitialView] = React.useState();
   const ref = React.useRef();
+  const { id } = React.useContext(ArticleAsideContext);
 
   React.useLayoutEffect(() => {
     if (browser.isBrowserReady()) {
@@ -21,6 +24,14 @@ const useCalendarOrientation = () => {
       else setInitialView(v);
     }
   }, [initialView]);
+
+  React.useEffect(() => {
+    delay(() => {
+      if (ref.current) {
+        ref.current.getApi().updateSize();
+      }
+    }, 500);
+  }, [id]);
 
   return {
     headerToolbar: {
