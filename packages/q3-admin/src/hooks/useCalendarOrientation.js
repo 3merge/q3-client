@@ -25,7 +25,7 @@ const useCalendarOrientation = () => {
     }
   }, [initialView]);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     delay(() => {
       if (ref.current) {
         ref.current.getApi().updateSize();
