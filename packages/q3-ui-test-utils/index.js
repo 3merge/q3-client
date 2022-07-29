@@ -38,5 +38,8 @@ module.exports = (prefix) => {
       '^.+\\.jsx?$':
         makeFilePathForActiveProjectDir('preprocess.js'),
     },
+    transformIgnorePatterns: [
+      '/node_modules/(?!react-dnd|core-dnd|@react-dnd|dnd-core|react-dnd-html5-backend|react-dnd-touch-backend)',
+    ],
   };
 };

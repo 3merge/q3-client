@@ -32,4 +32,4 @@ DirectorySortButton.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-export default DirectorySortButton;
+export default React.memo(DirectorySortButton);

@@ -1,8 +1,9 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 import { DndProvider } from 'react-dnd';
+import classnames from 'classnames';
 import useDropZoneAcceptedFiles from '../useDropZoneAcceptedFiles';
 import DirectoryToolbar from '../DirectoryToolbar';
 import DirectoryAddFolder from '../DirectoryAddFolder';
@@ -16,6 +17,7 @@ import DocumentViewer from '../DocumentViewer';
 import DragHandlerPreview from '../DragHandlerPreview';
 import DragToSelect from '../DragToSelect';
 import useStyle from './styles';
+import { isTouchDevice } from '../utils';
 
 // eslint-disable-next-line
 const Directory = ({ initialView }) => {
@@ -24,7 +26,12 @@ const Directory = ({ initialView }) => {
 
   return (
     <DragToSelect>
-      <DndProvider backend={HTML5Backend} key={1}>
+      <DndProvider
+        backend={
+          isTouchDevice() ? TouchBackend : HTML5Backend
+        }
+        key={1}
+      >
         <DocumentViewer>
           {(appendViewerToEach) => (
             <DirectorySort>
@@ -36,7 +43,12 @@ const Directory = ({ initialView }) => {
                   {(Component, SwitcherComponent) => (
                     <>
                       <DropZoneWrapper onDrop={onDrop} />
-                      <Box className={cls.toolbar}>
+                      <Box
+                        className={classnames(
+                          cls.toolbar,
+                          'q3-toolbar',
+                        )}
+                      >
                         <Box>
                           <DropZoneInputWrapper
                             onDrop={onDrop}
@@ -49,7 +61,6 @@ const Directory = ({ initialView }) => {
                           <DirectoryToolbar />
                         </Box>
                       </Box>
-
                       <DirectoryBreadcrumbs />
                       <DirectoryPendingFiles
                         pending={pending}

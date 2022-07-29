@@ -30,9 +30,11 @@
     "q3-ui-permissions": "^3.8.6",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
+    "react-dnd-touch-backend": "^16.0.1",
     "react-dropzone": "^11.4.2",
     "react-file-viewer": "^1.2.1",
     "selecto": "^1.17.0",
+    "use-long-press": "^2.0.2",
     "useful-state": "^1.2.3"
   }
 }

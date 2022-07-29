@@ -9,17 +9,27 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import classnames from 'classnames';
+import { useLongPress } from 'use-long-press';
 import useDropFolder from '../useDropFolder';
 import withDrag from '../withDrag';
 import withFileIcon from '../withFileIcon';
 import withSelected from '../withSelected';
 import useStyle from './styles';
 import withContextMenuFolder from '../withContextMenuFolder';
+import { isTouchDevice } from '../utils';
 
 export const GalleryItemFolderIcon = React.memo(
   // eslint-disable-next-line
   withFileIcon(({ icon: Icon }) => <Icon />),
 );
+
+// eslint-disable-next-line
+export const MobileTooltip = ({ children, ...props }) =>
+  !isTouchDevice() ? (
+    <Tooltip {...props}>{children}</Tooltip>
+  ) : (
+    children
+  );
 
 const GalleryItemFolder = React.forwardRef(
   (
@@ -29,6 +39,7 @@ const GalleryItemFolder = React.forwardRef(
     const { isHovering = false, ref: dropRef } =
       useDropFolder(id);
 
+    const bind = useLongPress(onContextMenu);
     const cls = useStyle({
       isHovering,
     });
@@ -50,8 +61,8 @@ const GalleryItemFolder = React.forwardRef(
           onDoubleClick={onClick}
           onContextMenu={onContextMenu}
         >
-          <CardContent>
-            <Tooltip title={name}>
+          <CardContent {...bind()}>
+            <MobileTooltip title={name}>
               <Typography
                 className={cls.title}
                 component="div"
@@ -61,7 +72,7 @@ const GalleryItemFolder = React.forwardRef(
                 </Avatar>
                 <span>{name}</span>
               </Typography>
-            </Tooltip>
+            </MobileTooltip>
           </CardContent>
         </CardActionArea>
       </Card>

@@ -6,6 +6,7 @@ import {
   replace,
   isObject,
   isNil,
+  isFunction,
 } from 'lodash';
 import { browser } from 'q3-ui-helpers';
 
@@ -109,3 +110,8 @@ export const getFromLocalStorage = (k, defaultValue) => {
 
   return isNil(normalize(prev)) ? defaultValue : prev;
 };
+
+export const isTouchDevice = () =>
+  browser.isBrowserReady() &&
+  isFunction(window.matchMedia) &&
+  window.matchMedia('(pointer: coarse)')?.matches;

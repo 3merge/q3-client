@@ -67,7 +67,11 @@ const useMultiSelect = () => {
       container: container.current,
       dragContainer: container.current,
       hitRate: 0.01,
-      selectableTargets: ['.q3-file', '.q3-folder'],
+      selectableTargets: [
+        '.q3-file',
+        '.q3-folder',
+        '.q3-toolbar',
+      ],
       selectByClick: false,
       selectFromInside: false,
     });
