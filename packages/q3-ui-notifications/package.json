@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-notifications",
-  "version": "3.8.0",
+  "version": "3.8.9",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -16,9 +16,9 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-dialog": "^3.8.0",
-    "q3-ui-helpers": "^3.7.1",
-    "q3-ui-locale": "^3.7.1",
+    "q3-ui-dialog": "^3.8.9",
+    "q3-ui-helpers": "^3.8.9",
+    "q3-ui-locale": "^3.8.9",
     "useful-state": "^1.2.3"
   }
 }

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.9](https://github.com/3merge/q/compare/v3.8.8...v3.8.9) (2022-07-29)
+
+**Note:** Version bump only for package example
+
+
+
+
+
 ## [3.8.8](https://github.com/3merge/q/compare/v3.8.7...v3.8.8) (2022-07-29)
 
 **Note:** Version bump only for package example
