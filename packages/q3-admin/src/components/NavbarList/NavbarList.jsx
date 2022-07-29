@@ -11,7 +11,6 @@ const NavbarList = ({ items }) => {
   return isObject(items)
     ? Object.entries(items).map(([title, listItems]) => (
         <List
-          style={{ flex: 1 }}
           key={`${title}-menu-items`}
           subheader={
             title &&

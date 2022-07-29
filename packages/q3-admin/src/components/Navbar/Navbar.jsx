@@ -50,7 +50,7 @@ const Navbar = ({ callToAction, children }) => {
             </Box>
           </Fab>
         )}
-        {children}
+        <Box flex="1">{children}</Box>
         <NavbarFooterLinks />
       </Box>
     </Box>

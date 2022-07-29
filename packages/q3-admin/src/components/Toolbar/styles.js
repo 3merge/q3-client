@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   root: {
-    boxShadow: theme.shadows[1],
+    // boxShadow: theme.shadows[],
     position: 'relative',
     zIndex: 1,
     height: 75,

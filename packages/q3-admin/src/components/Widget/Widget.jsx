@@ -35,7 +35,9 @@ const Widget = ({
     <Fade in={show} timeout={timeout}>
       <Paper
         elevation={0}
-        style={{ display: show ? undefined : 'none' }}
+        style={{
+          display: show ? undefined : 'none',
+        }}
         {...rest}
       >
         <Box p={1}>
