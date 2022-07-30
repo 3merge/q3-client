@@ -8,7 +8,6 @@ import {
 import { omit } from 'lodash';
 import classnames from 'classnames';
 import CardHeader from '@material-ui/core/CardHeader';
-import { useLongPress } from 'use-long-press';
 import withContextMenu from '../withContextMenu';
 import GalleryItemMedia from '../GalleryItemMedia';
 import withFileIcon from '../withFileIcon';
@@ -16,6 +15,7 @@ import useStyle from './styles';
 import withDrag from '../withDrag';
 import withSelected from '../withSelected';
 import { MobileTooltip } from '../GalleryItemFolder/GalleryItemFolder';
+import useLongPress from '../useLongPress';
 
 const GalleryItem = React.forwardRef(
   (
@@ -39,7 +39,7 @@ const GalleryItem = React.forwardRef(
       'q3-file',
     );
 
-    const bind = useLongPress(onContextMenu);
+    const eventHandlers = useLongPress(onContextMenu);
 
     return (
       <Card
@@ -47,6 +47,7 @@ const GalleryItem = React.forwardRef(
         className={cardClasses}
         ref={ref}
         variant="outlined"
+        {...eventHandlers}
       >
         <CardActionArea
           className={cls.item}
@@ -55,7 +56,7 @@ const GalleryItem = React.forwardRef(
           onClick={onSelect}
         >
           <MobileTooltip title={name}>
-            <div {...bind()}>
+            <div>
               <CardHeader
                 classes={omit(cls, ['card'])}
                 avatar={
