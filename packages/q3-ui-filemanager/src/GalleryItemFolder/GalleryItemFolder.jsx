@@ -9,7 +9,6 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import classnames from 'classnames';
-import { useLongPress } from 'use-long-press';
 import useDropFolder from '../useDropFolder';
 import withDrag from '../withDrag';
 import withFileIcon from '../withFileIcon';
@@ -17,6 +16,7 @@ import withSelected from '../withSelected';
 import useStyle from './styles';
 import withContextMenuFolder from '../withContextMenuFolder';
 import { isTouchDevice } from '../utils';
+import useLongPress from '../useLongPress';
 
 export const GalleryItemFolderIcon = React.memo(
   // eslint-disable-next-line
@@ -39,7 +39,7 @@ const GalleryItemFolder = React.forwardRef(
     const { isHovering = false, ref: dropRef } =
       useDropFolder(id);
 
-    const bind = useLongPress(onContextMenu);
+    const eventHandlers = useLongPress(onContextMenu);
     const cls = useStyle({
       isHovering,
     });
@@ -61,7 +61,7 @@ const GalleryItemFolder = React.forwardRef(
           onDoubleClick={onClick}
           onContextMenu={onContextMenu}
         >
-          <CardContent {...bind()}>
+          <CardContent {...eventHandlers}>
             <MobileTooltip title={name}>
               <Typography
                 className={cls.title}
