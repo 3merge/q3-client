@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.10](https://github.com/3merge/q/compare/v3.8.9...v3.8.10) (2022-07-30)
+
+
+### Bug Fixes
+
+* file manager media visibility and long press ([#417](https://github.com/3merge/q/issues/417)) ([dbe62c2](https://github.com/3merge/q/commit/dbe62c2ca0e0a17bfa820b74894645699238e7a9))
+
+
+
+
+
 ## [3.8.9](https://github.com/3merge/q/compare/v3.8.8...v3.8.9) (2022-07-29)
 
 
