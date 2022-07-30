@@ -9,7 +9,6 @@ const useLongPressImplementation = (callback) => {
     (event) => {
       if (!monitor.isDragging()) callback(event);
     },
-
     {
       cancelOnMovement: 10,
       threshold: 1000,
