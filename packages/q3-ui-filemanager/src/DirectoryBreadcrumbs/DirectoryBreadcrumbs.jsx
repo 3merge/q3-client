@@ -20,7 +20,12 @@ const DirectoryBreadcrumbs = () => {
 
   return (
     size(breadcrumbs) > 0 && (
-      <Box alignItems="center" display="flex" mb={1}>
+      <Box
+        className="q3-toolbar"
+        alignItems="center"
+        display="flex"
+        mb={1}
+      >
         <IconButton
           color="inherit"
           onClick={handleChangeBackHome}
