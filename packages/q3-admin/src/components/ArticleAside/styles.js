@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root: ({ isOpen }) => ({
+    backgroundColor: theme.palette.background.paper,
     overflow: 'auto',
     padding: isOpen ? theme.spacing(2) : 0,
     position: 'relative',

@@ -48,7 +48,7 @@ const withContextMenu = (Component) => {
           },
           {
             icon: <GetAppIcon />,
-            label: 'dowload',
+            label: 'download',
             onClick: save,
           },
           {

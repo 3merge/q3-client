@@ -6,7 +6,7 @@ import Alert from '@material-ui/lab/Alert';
 import { Box } from '@material-ui/core';
 
 const DirectoryPendingFiles = ({ pending }) => {
-  const { t } = useTranslation('labels');
+  const { t } = useTranslation('descriptions');
 
   const hasSize = () => size(pending) > 0;
 

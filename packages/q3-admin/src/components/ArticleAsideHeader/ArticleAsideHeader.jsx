@@ -14,7 +14,7 @@ import useStyle from './styles';
 
 const ArticleAsideHeader = ({ onOpen, title }) => {
   const { close } = React.useContext(ArticleAsideContext);
-  const { t } = useTranslation('titles');
+  const { t } = useTranslation('labels');
   const cls = useStyle();
 
   return (
@@ -32,7 +32,7 @@ const ArticleAsideHeader = ({ onOpen, title }) => {
         <WidgetTitle text={title} />
       </Box>
       {onOpen && (
-        <Tooltip title={t('labels:expand')}>
+        <Tooltip title={t('expand')}>
           <IconButton
             color="inherit"
             onClick={(e) => {
@@ -44,7 +44,7 @@ const ArticleAsideHeader = ({ onOpen, title }) => {
           </IconButton>
         </Tooltip>
       )}
-      <Tooltip title={t('labels:close')}>
+      <Tooltip title={t('close')}>
         <IconButton color="inherit" onClick={close}>
           <CloseIcon />
         </IconButton>
