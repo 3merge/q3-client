@@ -1,11 +1,8 @@
 import React from 'react';
-import AlertWithDescription from '../AlertWithDescription';
+import Graphic from 'q3-ui-assets';
 
 const AlertNoFiles = () => (
-  <AlertWithDescription
-    text="fileManagerEmptyDirectory"
-    severity="warning"
-  />
+  <Graphic icon="Files" title="fileManagerEmptyDirectory" />
 );
 
 export default AlertNoFiles;

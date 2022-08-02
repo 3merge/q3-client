@@ -100,7 +100,7 @@ export default (props) => {
         />
       </defs>
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M514.88 86.76C477.71 71.65 438.43 59 398.33 60.61c-59 2.32-115.51 37.78-143.27 89.85-23.52 44.11-26.42 95.82-36.55 144.77-12.48 60.32-36.38 117.64-61.92 173.7-13.72 30.07-28.19 60.87-30.44 93.88-3.13 45.82 18.78 91.49 53.13 122s80 46.56 125.77 50.07c24.37 1.87 49.83.14 71.48-11.2 22.9-12 39.59-33.69 62.58-45.51 21.31-11 46.23-12.5 70.15-11.07a314.14 314.14 0 0191.59 19.46c33.43 12.56 64.52 30.74 97.88 43.47s70.63 19.84 104.73 9.21c32-10 57.34-34.2 80.17-58.75a1028.14 1028.14 0 00102.2-129.3c20.59-30.84 39.75-63.38 48.86-99.33 17.4-68.72-6.55-146.26-59.69-193.2-44-38.88-103.09-55.76-160.92-66-52.73-9.34-113.7-9.92-162.24-34.26-46.3-23.25-88.42-51.9-136.96-71.64z"
         opacity="0.1"
         transform="translate(-33.54 -30.43)"
@@ -292,7 +292,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M312.07 800.87A13.75 13.75 0 01309 790.4l44.14-361.17 3.66-30a13.85 13.85 0 0113.64-12.16l129.29-.86A13.83 13.83 0 00513.47 372l-.05-1.37a13.84 13.84 0 0113.83-14.31h135.86a13.83 13.83 0 0113.83 13.8 14.76 14.76 0 01-.12 1.86 13.83 13.83 0 0013.36 15.66l130.48 3.33a13.82 13.82 0 0113.28 16.16l-65.23 381-1.23 7.2a13.53 13.53 0 01-2 5.16z"
         transform="translate(-33.54 -30.43)"
       />
@@ -392,18 +392,18 @@ export default (props) => {
         transform="rotate(-2.61 -110.472 1128.423)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M543.37 283.13H597.38V337.14H543.37z"
         transform="rotate(-2.61 -115.05 1030.597)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M546.33 348.27H600.34V402.28H546.33z"
         opacity="0.5"
         transform="translate(-50.01 -3.96)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M549.3 413.4H603.31V467.40999999999997H549.3z"
         opacity="0.3"
         transform="rotate(-2.61 -109.012 1160.738)"
@@ -419,7 +419,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.secondary.main')}
         d="M613.72 604.8s-105.45 62.38-262.89 48.27l-125.51-306 60.15-10.34 207.94-35.71 118 297.83z"
         transform="translate(-33.54 -30.43)"
       />
@@ -439,20 +439,20 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M338.2 304.4s105.08-5.94 134.42-28.59l4.45 14.3s-69.43 30.63-138.87 31zM338.2 375s101.74-5.57 178.61-42.7l2.6 5.94s-61 35.61-181.21 44.93zM346.39 402.51s101.74-5.57 178.6-42.7l2.6 5.94s-61 35.6-181.2 44.93zM354.57 430.06s101.74-5.57 178.61-42.7l2.59 5.94s-61 35.61-181.2 44.93zM362.76 457.61s101.74-5.57 178.6-42.7l2.6 5.94s-61 35.61-181.2 44.93zM370.94 485.17s101.74-5.57 178.61-42.7l2.59 5.94s-61 35.6-181.2 44.93z"
         opacity="0.3"
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1086.31 827.24s-42.28-2.55-37.3 27.08c0 0-1 5.23 3.76 7.61 0 0 .07-2.2 4.33-1.45a19.42 19.42 0 004.6.22 9.5 9.5 0 005.61-2.32s11.89-4.91 16.51-24.33c0 0 3.42-4.24 3.28-5.33l-7.13 3s2.44 5.15.52 9.42c0 0-.23-9.23-1.6-9-.28 0-3.71 1.78-3.71 1.78s4.19 9 1 15.48c0 0 1.2-11.05-2.34-14.83l-5 2.93s4.9 9.26 1.58 16.82c0 0 .85-11.59-2.64-16.11l-4.55 3.55s4.61 9.13 1.8 15.4c0 0-.37-13.5-2.79-14.52 0 0-4 3.51-4.58 5 0 0 3.15 6.62 1.19 10.12 0 0-1.2-9-2.18-9 0 0-4 6-4.38 10 0 0 .17-6.08 3.42-10.61a12 12 0 00-6.08 3.15s.62-4.22 7.06-4.58c0 0 3.28-4.52 4.15-4.8 0 0-6.4-.53-10.28 1.19 0 0 3.42-4 11.46-2.17l4.49-3.66s-8.43-1.16-12 .12c0 0 4.11-3.52 13.21-1l4.89-2.92s-7.18-1.55-11.46-1c0 0 4.51-2.44 12.9.2l3.49-1.57s-5.26-1-6.8-1.2-1.63-.58-1.63-.58a18.14 18.14 0 019.89 1.1s7.43-2.72 7.31-3.19z"
         transform="translate(-33.54 -30.43)"
       />
       <ellipse
         cx="1023.65"
         cy="834.08"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="29.92"
         ry="5.06"
@@ -460,33 +460,33 @@ export default (props) => {
       <ellipse
         cx="813.75"
         cy="815.19"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="102"
         ry="9.24"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1106 729.43s-23.83-1.44-21 15.27a4.07 4.07 0 002.11 4.29s.05-1.24 2.45-.82a11.11 11.11 0 002.59.12 5.34 5.34 0 003.16-1.3s6.7-2.77 9.31-13.72c0 0 1.93-2.39 1.85-3l-4 1.71s1.37 2.91.29 5.32c0 0-.13-5.21-.9-5.09-.16 0-2.09 1-2.09 1s2.36 5 .58 8.73c0 0 .68-6.23-1.32-8.37l-2.83 1.66s2.76 5.22.89 9.48c0 0 .48-6.54-1.49-9.08l-2.56 2s2.59 5.15 1 8.68c0 0-.21-7.61-1.57-8.18a16 16 0 00-2.59 2.79s1.78 3.74.68 5.71c0 0-.68-5.07-1.23-5.09 0 0-2.24 3.35-2.47 5.65a12.24 12.24 0 011.93-6 6.7 6.7 0 00-3.43 1.78s.35-2.38 4-2.58c0 0 1.85-2.55 2.34-2.71 0 0-3.61-.3-5.8.67 0 0 1.93-2.24 6.46-1.22l2.54-2.07s-4.76-.65-6.77.07c0 0 2.32-2 7.45-.54l2.76-1.65a24.91 24.91 0 00-6.47-.55s2.55-1.38 7.27.11l2-.88s-3-.59-3.84-.68-.92-.33-.92-.33a10.32 10.32 0 015.58.62s4.12-1.54 4.04-1.8z"
         transform="translate(-33.54 -30.43)"
       />
       <ellipse
         cx="1056.06"
         cy="720.01"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="16.87"
         ry="2.85"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M965.32 743.93s-28.78-1.74-25.38 18.43a4.91 4.91 0 002.55 5.18s0-1.5 3-1a13.14 13.14 0 003.13.15 6.46 6.46 0 003.82-1.58s8.09-3.34 11.24-16.56c0 0 2.33-2.88 2.23-3.63L961 747s1.66 3.5.35 6.41c0 0-.16-6.28-1.09-6.14-.19 0-2.52 1.22-2.52 1.22s2.85 6.1.7 10.54c0 0 .82-7.52-1.59-10.1l-3.42 2s3.33 6.31 1.07 11.45c0 0 .58-7.89-1.79-11l-3.1 2.42s3.14 6.21 1.22 10.48c0 0-.24-9.19-1.89-9.88 0 0-2.71 2.39-3.12 3.37 0 0 2.14 4.51.81 6.89 0 0-.82-6.12-1.49-6.15 0 0-2.69 4.06-3 6.83a14.77 14.77 0 012.33-7.22 8.1 8.1 0 00-4.13 2.15s.42-2.87 4.8-3.12c0 0 2.23-3.08 2.83-3.26 0 0-4.36-.37-7 .8 0 0 2.32-2.7 7.79-1.47l3.06-2.5s-5.73-.78-8.17.08c0 0 2.8-2.39 9-.64l3.33-2s-4.89-1.05-7.81-.67c0 0 3.08-1.66 8.78.14l2.38-1.07s-3.58-.7-4.63-.81-1.1-.4-1.1-.4a12.36 12.36 0 016.73.74s5.08-1.85 4.99-2.16z"
         transform="translate(-33.54 -30.43)"
       />
       <ellipse
         cx="911.96"
         cy="738.87"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="20.37"
         ry="3.44"
@@ -494,7 +494,7 @@ export default (props) => {
       <ellipse
         cx="54.65"
         cy="819"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="29.92"
         ry="5.06"
@@ -523,35 +523,35 @@ export default (props) => {
         cx="874.94"
         cy="90.37"
         r="31.36"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.2"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1045.5 63.87H1054.09V200.5H1045.5z"
         opacity="0.2"
         transform="rotate(-71.99 1012.09 140.051)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1006.86 107.86H1015.45V177.45999999999998H1006.86z"
         opacity="0.2"
         transform="rotate(-71.99 973.44 150.525)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1020.51 113.85H1029.1V226.42H1020.51z"
         opacity="0.2"
         transform="rotate(-71.99 987.096 178.005)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1025.18 126.38H1033.77V263.01H1025.18z"
         opacity="0.2"
         transform="rotate(-71.99 991.761 202.56)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M1057.14 224.95H1073.75V262.76H1057.14z"
         opacity="0.5"
         transform="rotate(-71.99 1027.74 251.725)"
@@ -572,27 +572,27 @@ export default (props) => {
         transform="rotate(-57.3 804.271 592.613)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M714.92 548.06H762.52V559.26H714.92z"
         transform="rotate(-57.57 694.298 568.97)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M731.54 532.39H836.0799999999999V542.66H731.54z"
         transform="rotate(-57.57 739.384 552.83)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M750.06 544.15H854.5999999999999V554.42H750.06z"
         transform="rotate(-57.57 757.898 564.59)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M768.57 555.91H873.11V566.18H768.57z"
         transform="rotate(-57.57 776.421 576.355)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M787.09 567.67H891.63V577.9399999999999H787.09z"
         transform="rotate(-57.3 800.185 590.292)"
       />
@@ -607,7 +607,7 @@ export default (props) => {
         transform="rotate(-57.57 831.959 611.642)"
       />
       <path
-        fill="#b7b6cc"
+        fill={theme.palette.secondary.light}
         d="M926.91 569.86H953.98V596.9300000000001H926.91z"
         transform="rotate(-57.57 896.03 598.707)"
       />
@@ -622,7 +622,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill="#5c5c8e"
+        fill={theme.palette.secondary.main}
         d="M935.82 819.74c-3.63 4.66-24.31 3.62-24.31 3.62s-6.21-6.21-8.8-19.65-24.83-56.38-24.83-56.38c-5.17-6.73-9.31-19.14-9.31-19.14l-8.79-56.38s-42.41 55.86-41.89 67.76-9.32 59-9.32 59c-3.62 6.21-3.62 29-3.62 29-13.44 14-24.82-2.59-24.82-2.59-2.59-10.86 1.55-46.55 1.55-46.55s6.21-30 6.72-48.62 6.73-23.27 6.73-23.27a165.87 165.87 0 0124.29-53.66c3.12-4.47 5.19-6.86 5.19-6.86l83.79 9.83a52.76 52.76 0 00-3.6 11.1c-5.45 23.4-7.26 65.45-7.26 65.45 19.14 12.41 24.83 46 24.83 46 0 8.75 13.45 41.34 13.45 41.34z"
         transform="translate(-33.54 -30.43)"
       />
@@ -715,7 +715,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill="#e6e8ee"
+        fill={theme.palette.background.default}
         d="M685.63 430.6l-153.08 1.65a10.46 10.46 0 00-10.35 10.45v12.65A10.46 10.46 0 01512 465.8l-110.46 2.65a10.45 10.45 0 01-10.35-7.72L386 441.66a10.45 10.45 0 00-10.21-7.72l-147.55 1.59a10.45 10.45 0 00-10.2 12.2l59.36 349.36a10.46 10.46 0 0010.27 8.71l466.14 2a10.46 10.46 0 0010.31-12.42L696 439.09a10.45 10.45 0 00-10.37-8.49z"
         transform="translate(-33.54 -30.43)"
       />
@@ -727,7 +727,7 @@ export default (props) => {
       <ellipse
         cx="151.43"
         cy="700.88"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="16.21"
         ry="2.23"
@@ -735,7 +735,7 @@ export default (props) => {
       <ellipse
         cx="89.34"
         cy="707.17"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="16.21"
         ry="2.23"
@@ -743,7 +743,7 @@ export default (props) => {
       <ellipse
         cx="16.21"
         cy="698.65"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="16.21"
         ry="2.23"
@@ -751,7 +751,7 @@ export default (props) => {
       <ellipse
         cx="114.19"
         cy="725.1"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="11.52"
         ry="1.58"
@@ -759,13 +759,13 @@ export default (props) => {
       <ellipse
         cx="49.75"
         cy="723.52"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
         rx="11.52"
         ry="1.58"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M122.53 737.11s22.73-74.52-3.56-104.37c-19.67-22.33-42-19.66-52-16.9a18.49 18.49 0 00-11.92 9.91c-3.5 7.54-2.87 19.78 21.81 34.07 41.31 23.92 43.88 56.73 43.88 56.73z"
         transform="translate(-33.54 -30.43)"
       />
@@ -777,7 +777,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M123.45 737.7s-26.63-54.16-33.94-53c-3.47.57-5.07 4-5.8 7.42a21.79 21.79 0 001.45 13.18c3.78 8.7 13.93 25.15 38.29 32.4z"
         transform="translate(-33.54 -30.43)"
       />
@@ -813,7 +813,7 @@ export default (props) => {
         d="M78.51 690.07L78.31 694.91"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M122.66 737.7s26.62-54.16 33.93-53c3.48.57 5.08 4 5.8 7.42a21.79 21.79 0 01-1.45 13.18c-3.78 8.7-13.94 25.15-38.28 32.4z"
         transform="translate(-33.54 -30.43)"
       />
@@ -849,7 +849,7 @@ export default (props) => {
         d="M100.52 690.07L100.72 694.91"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M76.94 750.35a4.6 4.6 0 01-1.51-2.29 2 2 0 011.06-2.33c1-.37 2 .3 2.8 1S81 748.17 82 748a4.14 4.14 0 01-1.28-3.88 1.58 1.58 0 01.35-.79c.54-.58 1.52-.33 2.17.13 2 1.44 2.63 4.23 2.64 6.75a12.9 12.9 0 000-2.78A2.85 2.85 0 0187 745a3.12 3.12 0 011.59-.38 3.3 3.3 0 012.59.74 2.57 2.57 0 01-.1 3.17 10.2 10.2 0 01-2.68 2.14 6 6 0 00-1.91 1.83 1.34 1.34 0 00-.14.32h-5.82a16.14 16.14 0 01-3.59-2.47zM178.39 728.53a4.53 4.53 0 01-1.51-2.28 2 2 0 011.05-2.33c1-.37 2 .3 2.8 1s1.7 1.46 2.73 1.31a4.14 4.14 0 01-1.29-3.87 1.59 1.59 0 01.36-.79c.54-.58 1.52-.33 2.17.12 2.05 1.45 2.63 4.24 2.64 6.76a13 13 0 000-2.79 2.86 2.86 0 011-2.46 3.19 3.19 0 011.59-.37 3.34 3.34 0 012.59.73 2.57 2.57 0 01-.11 3.18 10 10 0 01-2.67 2.14 5.94 5.94 0 00-1.91 1.82 1.64 1.64 0 00-.14.33H182a16 16 0 01-3.61-2.5zM144.58 750.35a4.69 4.69 0 01-1.52-2.29 2 2 0 011.06-2.33c1-.37 2 .3 2.8 1s1.69 1.46 2.73 1.32a4.17 4.17 0 01-1.29-3.88 1.59 1.59 0 01.36-.79c.54-.58 1.52-.33 2.17.13 2.05 1.44 2.62 4.23 2.64 6.75a12.91 12.91 0 000-2.78 2.86 2.86 0 011.05-2.46 3.09 3.09 0 011.59-.38 3.31 3.31 0 012.59.74 2.56 2.56 0 01-.11 3.17 10.15 10.15 0 01-2.67 2.14 6 6 0 00-1.91 1.83 1.34 1.34 0 00-.14.32h-5.8a16.31 16.31 0 01-3.55-2.49zM48.69 706.25s-2.17 2.84 1 7.13 5.79 7.91 4.73 10.58c0 0-4.79-8-8.69-8.07s-1.33-4.89 2.96-9.64z"
         transform="translate(-33.54 -30.43)"
       />
@@ -869,7 +869,7 @@ export default (props) => {
         transform="translate(-33.54 -30.43)"
       />
       <path
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         d="M60.16 706.25s2.18 2.84-1 7.13-5.79 7.91-4.73 10.58c0 0 4.79-8 8.69-8.07s1.33-4.89-2.96-9.64z"
         transform="translate(-33.54 -30.43)"
       />
@@ -902,28 +902,28 @@ export default (props) => {
         cx="33.94"
         cy="126.71"
         r="21.63"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
       />
       <circle
         cx="1074.03"
         cy="299.56"
         r="21.63"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
       />
       <circle
         cx="685.21"
         cy="58.02"
         r="21.63"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
       />
       <circle
         cx="77.2"
         cy="246.04"
         r="36.25"
-        fill={get(theme, 'palette.primary.light')}
+        fill={get(theme, 'palette.primary.main')}
         opacity="0.1"
       />
       <path

@@ -67,14 +67,15 @@ const GraphicWithMessage = ({
           >
             {title && (
               <Typography
-                variant={h1 ? 'h1' : 'h2'}
+                component={h1 ? 'h1' : 'h2'}
+                variant={h1 ? 'h3' : 'h4'}
                 gutterBottom
               >
                 {t(`titles:${title}`)}
               </Typography>
             )}
             {body && (
-              <Typography component="p" variant="body2">
+              <Typography component="p" variant="body1">
                 {t(`descriptions:${body}`)}
               </Typography>
             )}
