@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-filemanager",
-  "version": "3.8.11",
+  "version": "3.8.12",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^3.8.9"
@@ -20,9 +20,9 @@
     "lodash": "^4.17.20",
     "print-js": "^1.6.0",
     "prop-types": "^15.7.2",
-    "q3-ui": "^3.8.9",
-    "q3-ui-assets": "^3.8.9",
-    "q3-ui-confirm": "^3.8.9",
+    "q3-ui": "^3.8.12",
+    "q3-ui-assets": "^3.8.12",
+    "q3-ui-confirm": "^3.8.12",
     "q3-ui-dialog": "^3.8.9",
     "q3-ui-forms": "^3.8.9",
     "q3-ui-helpers": "^3.8.9",
