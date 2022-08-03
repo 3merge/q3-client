@@ -128,10 +128,20 @@ export default new AbstractCollectionBuilder({
       {
         icon: CreditCard,
         label: 'subscribe',
+        // autoOpen: true,
+        id: 'subscribe',
         renderContent: () => (
           // eslint-disable-next-line
           <p>Look at what I can do.</p>
         ),
+      },
+      {
+        icon: CreditCard,
+        label: 'subscribe2',
+        onClick() {
+          // eslint-disable-next-line
+          alert('SUBSCRIBE 2');
+        },
       },
     ],
     registerAlerts: () => [

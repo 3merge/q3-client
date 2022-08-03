@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import { useMediaQuery } from '@material-ui/core';
 import ButtonWithIcon from '../ButtonWithIcon';
-import { ArticleAsideContext } from '../ArticleAside/ArticleAside';
 import ArticleAsideHeader from '../ArticleAsideHeader';
+import useArticleAsideAction from '../../hooks/useArticleAsideAction';
 
 export const ButtonWithIconDialog = ({
   DialogProps,
@@ -13,47 +13,45 @@ export const ButtonWithIconDialog = ({
   icon,
   ...rest
 }) => {
-  const { id, setState } = React.useContext(
-    ArticleAsideContext,
-  );
-
   const isTablet = useMediaQuery((theme) =>
     theme.breakpoints.down('md'),
   );
 
   const ButtonComponent = React.useCallback(
     (open) => {
+      const { isOn, toggle } = useArticleAsideAction({
+        ...rest,
+        actionId: label,
+        content: (
+          <>
+            <ArticleAsideHeader
+              onOpen={open}
+              title={label}
+            />
+            {renderContent()}
+          </>
+        ),
+      });
+
       const handleClick = (e) => {
         if (isTablet) {
           open(e);
-          return;
+        } else {
+          toggle();
         }
-
-        setState({
-          id: label,
-          content: (
-            <>
-              <ArticleAsideHeader
-                onOpen={open}
-                title={label}
-              />
-              {renderContent()}
-            </>
-          ),
-        });
       };
 
       return (
         <ButtonWithIcon
           label={label}
           icon={icon}
-          on={id === label}
+          on={isOn}
           onClick={handleClick}
           {...rest}
         />
       );
     },
-    [id, isTablet, rest],
+    [isTablet, rest],
   );
 
   return (

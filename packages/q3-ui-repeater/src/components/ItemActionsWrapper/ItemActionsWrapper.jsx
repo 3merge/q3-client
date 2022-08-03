@@ -30,7 +30,7 @@ const ItemActionsWrapper = ({
     children && (!isNil(data) || disableDialog)
       ? React.cloneElement(children, {
           ...args,
-          onSubmit: edit(state),
+          onSubmit: edit(state || id),
           initialValues: data || {},
           collectionName,
           row,

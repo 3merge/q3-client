@@ -4,6 +4,7 @@ import useRest from 'q3-ui-rest';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Repeater from 'q3-ui-repeater';
+import { isFunction } from 'lodash';
 import { Definitions, Dispatcher } from '../state';
 
 const SubDetail = ({
@@ -13,6 +14,7 @@ const SubDetail = ({
   runPoll,
   renderTop,
   renderBottom,
+  marshal,
   ...rest
 }) => {
   const { poll } = React.useContext(Dispatcher);
@@ -38,7 +40,11 @@ const SubDetail = ({
       {renderTop}
       <Repeater
         collectionName={collectionName}
-        data={subdocumentState[root]}
+        data={
+          isFunction(marshal)
+            ? marshal(subdocumentState[root])
+            : subdocumentState[root]
+        }
         edit={subdocumentState.patch}
         editBulk={subdocumentState.patchBulk}
         create={subdocumentState.post}
@@ -59,6 +65,7 @@ const SubDetail = ({
 
 SubDetail.propTypes = {
   children: PropTypes.node.isRequired,
+  marshal: PropTypes.func,
   root: PropTypes.string.isRequired,
   decorators: PropTypes.shape({
     get: PropTypes.func,
@@ -72,6 +79,7 @@ SubDetail.propTypes = {
 
 SubDetail.defaultProps = {
   decorators: {},
+  marshal: null,
   runPoll: false,
 };
 
