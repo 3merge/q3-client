@@ -8,6 +8,7 @@ import Widget from '../../components/Widget';
 import { ArticleAsideContext } from '../../components/ArticleAside/ArticleAside';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ArticleAsideHeader from '../../components/ArticleAsideHeader';
+import useArticleAsideAction from '../../hooks/useArticleAsideAction';
 
 export const DetailSummaryPortal = (props) => {
   const [anchor, setAnchor] = React.useState(null);
@@ -37,29 +38,16 @@ export const DetailSummaryPortal = (props) => {
 };
 
 const DetailSummary = ({ autoOpenSummary, children }) => {
-  const { id, setState, close } = React.useContext(
-    ArticleAsideContext,
-  );
-
-  const SUMMARY_ID = 'summary';
-  const isOn = id === SUMMARY_ID;
-
-  const toggle = () =>
-    !isOn
-      ? setState({
-          id: SUMMARY_ID,
-          content: (
-            <>
-              <ArticleAsideHeader title="summary" />
-              {children}
-            </>
-          ),
-        })
-      : close();
-
-  React.useEffect(() => {
-    if (autoOpenSummary) toggle();
-  }, []);
+  const { isOn, toggle } = useArticleAsideAction({
+    actionId: 'summary',
+    autoOpen: autoOpenSummary,
+    content: (
+      <>
+        <ArticleAsideHeader title="summary" />
+        {children}
+      </>
+    ),
+  });
 
   return (
     <>

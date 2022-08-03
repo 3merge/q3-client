@@ -8,6 +8,14 @@ jest.mock('@material-ui/core', () => ({
   useMediaQuery: jest.fn(),
 }));
 
+beforeAll(() => {
+  jest
+    .spyOn(React, 'useEffect')
+    .mockImplementation((fn) => fn());
+
+  jest.spyOn(React, 'useContext').mockReturnValue({});
+});
+
 describe('ButtonWithIconDialog', () => {
   it('should call dialog open when mobile', () => {
     const open = jest.fn();
