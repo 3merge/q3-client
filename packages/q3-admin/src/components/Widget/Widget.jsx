@@ -29,7 +29,7 @@ const Widget = ({
     } catch (e) {
       // noop
     }
-  }, []);
+  }, [children]);
 
   return (
     <Fade in={show} timeout={timeout}>
