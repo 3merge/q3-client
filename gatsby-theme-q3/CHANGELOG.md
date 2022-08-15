@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.16](https://github.com/3merge/q/compare/v3.8.15...v3.8.16) (2022-08-15)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
 ## [3.8.15](https://github.com/3merge/q/compare/v3.8.14...v3.8.15) (2022-08-15)
 
 **Note:** Version bump only for package gatsby-theme-q3
