@@ -95,11 +95,11 @@ const PublicTemplate = ({ children, ...rest }) => {
   const {
     brand,
     cancellation,
-    logo,
     invertLogo,
     terms,
     privacy,
-    photo,
+    logo = '/logo.png',
+    photo = '/background.jpg',
   } = useSiteMetaData();
 
   const cls = useStyle({
