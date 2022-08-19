@@ -6,11 +6,10 @@ import {
   ListItem,
   Collapse,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { object } from 'q3-ui-helpers';
 import { useToggle } from 'useful-state';
 import { useTranslation } from 'q3-ui-locale';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+
 import PagesIcon from '@material-ui/icons/Pages';
 import useStyle from './styles';
 import NavbarListItemSegments from '../NavbarListItemSegments';
@@ -84,7 +83,7 @@ const NavbarList = ({
           getProps={handleGetProps}
         />
       </ListItem>
-      <Collapse component="li" in={state}>
+      <Collapse component="li" in>
         <NavbarListItemSegments
           isActive={current}
           segments={segments}

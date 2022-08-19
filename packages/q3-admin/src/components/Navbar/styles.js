@@ -2,16 +2,18 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   nav: {
+    display: 'flex',
     backgroundColor: theme.palette.background.paper,
     height: 'calc(100 * var(--vh))',
     position: 'relative',
-    width: 290,
+    width: 'min-content',
+    maxWidth: 360,
     zIndex: 10,
 
-    '& > div > a': {
-      maxHeight: 80,
-      marginBottom: theme.spacing(3),
-    },
+    // '& > div > a': {
+    //   maxHeight: 80,
+    //   marginBottom: theme.spacing(3),
+    // },
   },
   appbar: {
     boxShadow: theme.shadows[1],

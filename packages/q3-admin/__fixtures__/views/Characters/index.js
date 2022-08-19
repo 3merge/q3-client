@@ -8,7 +8,7 @@ import Filter from '../../../src/components/Filter';
 export default new AbstractCollectionBuilder({
   resourceName: 'characters',
   resourceNameSingular: 'character',
-  parent: 'entertainment',
+  parent: 'people',
   lookup: ['name'],
   icon: AspectRatioIcon,
   // segments(user) {

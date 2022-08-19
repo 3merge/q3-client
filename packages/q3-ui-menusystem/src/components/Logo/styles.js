@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     height: 75,
     maxHeight: 75,
-    width: 290 - 90,
+    width: 290,
     justifyContent: 'center',
     padding: theme.spacing(0.5),
 

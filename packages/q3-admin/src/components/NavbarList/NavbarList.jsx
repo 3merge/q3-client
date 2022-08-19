@@ -11,6 +11,7 @@ const NavbarList = ({ items }) => {
   return isObject(items)
     ? Object.entries(items).map(([title, listItems]) => (
         <List
+          data-group={title}
           key={`${title}-menu-items`}
           subheader={
             title &&
