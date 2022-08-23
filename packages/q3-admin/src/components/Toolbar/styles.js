@@ -21,7 +21,7 @@ export default makeStyles((theme) => ({
       padding: 0,
       boxShadow: 'none',
 
-      '& [aria-current="page"]': {
+      '& [aria-current="page"], & [data-state="active"]': {
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.secondary.contrastText,
       },

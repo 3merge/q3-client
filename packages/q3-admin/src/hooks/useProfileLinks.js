@@ -9,7 +9,7 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/contact',
+          to: 'account/contact',
           text: 'accountContactInformation',
         },
       ],
@@ -20,7 +20,7 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/notifications',
+          to: 'account/notifications',
           text: 'accountNotificationSettings',
         },
       ],
@@ -31,7 +31,7 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/locale',
+          to: 'account/locale',
           text: 'accountLocale',
         },
       ],
@@ -42,7 +42,7 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/theme',
+          to: 'account/theme',
           text: 'accountThemeSettings',
         },
       ],
@@ -50,7 +50,7 @@ const useProfileLinks = () =>
     ),
     useAuthLinks('profile', 'canCreate', [
       {
-        to: '/account/password',
+        to: 'account/password',
         text: 'accountPassword',
       },
     ]),

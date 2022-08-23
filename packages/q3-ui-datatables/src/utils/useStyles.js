@@ -141,7 +141,7 @@ export default makeStyles((theme) => ({
     width: '100%',
   },
   mobileCheckbox: {
-    paddingLeft: 290,
+    paddingLeft: 265,
     [theme.breakpoints.down('sm')]: {
       float: 'right',
     },

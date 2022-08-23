@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { first } from 'lodash';
-import { Router, Redirect } from '@reach/router';
+import { Router } from '@reach/router';
 import { Protected } from 'q3-ui-permissions';
 import Graphic from 'q3-ui-assets';
+import Logout from './Logout';
 
 const NotFound = () => (
   <Graphic icon="Missing" title="missing" />
@@ -69,6 +69,7 @@ const App = ({ pages, paths, children }) =>
       )}
       {paths}
       {children}
+      <Logout path="logout" />
       <NotFound noThrow default />
     </Router>
   ) : (

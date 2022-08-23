@@ -1,38 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, ListSubheader } from '@material-ui/core';
+import { List, Typography } from '@material-ui/core';
 import { isObject, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import NavbarListItem from '../NavbarListItem';
+import useStyle from './styles';
+import useAccountPages from '../../hooks/useAccountPages';
 
 const NavbarList = ({ items }) => {
   const { t } = useTranslation('labels');
+  const account = useAccountPages();
+  const cls = useStyle();
 
   return isObject(items)
-    ? Object.entries(items).map(([title, listItems]) => (
-        <List
-          key={`${title}-menu-items`}
-          subheader={
-            title &&
-            title !== 'undefined' && (
-              <ListSubheader
-                disableGutters
-                disableSticky
-                component="li"
-              >
-                {t(title)}
-              </ListSubheader>
-            )
-          }
-        >
-          {map(listItems, (listItem) => (
-            <NavbarListItem
-              {...listItem}
-              key={`${title}-${listItem.label}`}
-            />
-          ))}
-        </List>
-      ))
+    ? Object.entries({ ...items, account }).map(
+        ([title, listItems]) => (
+          <List
+            key={`${title}-menu-items`}
+            subheader={
+              title &&
+              title !== 'undefined' && (
+                <Typography
+                  className={cls.subheader}
+                  variant="overline"
+                  component="li"
+                >
+                  {t(title)}
+                </Typography>
+              )
+            }
+          >
+            {map(listItems, (listItem) => (
+              <NavbarListItem
+                {...listItem}
+                key={`${title}-${listItem.label}`}
+              />
+            ))}
+          </List>
+        ),
+      )
     : null;
 };
 
