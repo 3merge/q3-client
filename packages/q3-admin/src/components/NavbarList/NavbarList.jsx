@@ -14,12 +14,11 @@ const NavbarList = ({ items }) => {
 
   return isObject(items)
     ? Object.entries({ ...items, account }).map(
-        ([title, listItems]) => (
+        ([title, listItems], idx) => (
           <List
-            key={`${title}-menu-items`}
+            key={`${title}-${idx}-menu-items`}
             subheader={
-              title &&
-              title !== 'undefined' && (
+              title && title !== 'undefined' ? (
                 <Typography
                   className={cls.subheader}
                   variant="overline"
@@ -27,13 +26,13 @@ const NavbarList = ({ items }) => {
                 >
                   {t(title)}
                 </Typography>
-              )
+              ) : undefined
             }
           >
-            {map(listItems, (listItem) => (
+            {map(listItems, (listItem, subIdx) => (
               <NavbarListItem
                 {...listItem}
-                key={`${title}-${listItem.label}`}
+                key={`${title}-${idx}-${subIdx}-${listItem.label}`}
               />
             ))}
           </List>
