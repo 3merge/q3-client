@@ -6,7 +6,7 @@ const useHeightRef = () => {
   const ref = React.useRef();
 
   const getClientHeightById = (id) =>
-    get(document.getElementById(id), 'clientHeight', 0);
+    get(document.getElementById(id), 'offsetHeight', 0);
 
   const toPixels = (num) =>
     Number.isNaN(Number(num)) ? '0' : `${num}px`;

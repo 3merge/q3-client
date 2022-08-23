@@ -12,10 +12,23 @@ import {
 } from '@material-ui/core';
 import AccountBox from '@material-ui/icons/AccountBox';
 import { AuthContext } from 'q3-ui-permissions';
+import { destroySession } from 'q3-ui-permissions';
 import ButtonWithIcon from '../ButtonWithIcon';
 import DropdownMenu from '../DropdownMenu';
-import { logout } from '../NavbarFooterLinks/NavbarFooterLinks';
 import useStyle from './styles';
+
+export const getProps = ({
+  isCurrent,
+  isPartiallyCurrent,
+}) => ({
+  'data-state':
+    isCurrent || isPartiallyCurrent ? 'active' : 'inactive',
+});
+
+export const logout = (e) => {
+  e.preventDefault();
+  destroySession();
+};
 
 const ToolbarProfile = ({ options }) => {
   const { state } = React.useContext(AuthContext);
@@ -29,6 +42,7 @@ const ToolbarProfile = ({ options }) => {
           label="profile"
           icon={AccountBox}
           to="account"
+          getProps={getProps}
         />
       </Hidden>
       <Hidden mdDown>

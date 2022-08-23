@@ -8,15 +8,15 @@ const useDomainLinks = () =>
     useAuthLinks('domain', 'canCreate', [
       {
         text: 'domainBrowserMedia',
-        to: '/system/browser',
+        to: 'system/browser',
       },
       {
         text: 'domainManifest',
-        to: '/system/manifest',
+        to: 'system/manifest',
       },
       {
         text: 'domainPolicies',
-        to: '/system/policies',
+        to: 'system/policies',
       },
     ]),
     useAuthLinks(
@@ -25,7 +25,7 @@ const useDomainLinks = () =>
       [
         {
           text: 'domainI18n',
-          to: '/system/i18n',
+          to: 'system/i18n',
         },
       ],
       'resources',
@@ -33,13 +33,13 @@ const useDomainLinks = () =>
     useAuthLinks('emails', 'canSee', [
       {
         text: 'domainEmails',
-        to: '/system/emails',
+        to: 'system/emails',
       },
     ]),
     useAuthLinks('queues', 'canSee', [
       {
         text: 'domainQueues',
-        to: '/system/queues',
+        to: 'system/queues',
       },
     ]),
   ]);

@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
   main: {
     flex: 1,
     maxWidth: '100%',
-    width: 'calc(100% - 290px)',
+    width: 'calc(100% - 265px)',
 
     [theme.breakpoints.down('md')]: {
       width: '100%',

@@ -6,16 +6,14 @@ import {
   ListItem,
   Collapse,
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { object } from 'q3-ui-helpers';
 import { useToggle } from 'useful-state';
 import { useTranslation } from 'q3-ui-locale';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import PagesIcon from '@material-ui/icons/Pages';
 import useStyle from './styles';
 import NavbarListItemSegments from '../NavbarListItemSegments';
 
-const NavbarList = ({
+const NavbarListItem = ({
   segments,
   to,
   label,
@@ -95,12 +93,12 @@ const NavbarList = ({
   );
 };
 
-NavbarList.defaultProps = {
+NavbarListItem.defaultProps = {
   icon: null,
   segments: {},
 };
 
-NavbarList.propTypes = {
+NavbarListItem.propTypes = {
   icon: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func,
@@ -111,4 +109,4 @@ NavbarList.propTypes = {
   segments: PropTypes.object,
 };
 
-export default NavbarList;
+export default NavbarListItem;
