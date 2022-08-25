@@ -6,9 +6,9 @@ import { Protected } from 'q3-ui-permissions';
 import Graphic from 'q3-ui-assets';
 import Logout from './Logout';
 
-const Dashboard = () => () => {
+const Dashboard = () => {
   React.useEffect(() => {
-    navigate('/account');
+    navigate('account');
   }, []);
 
   return null;
