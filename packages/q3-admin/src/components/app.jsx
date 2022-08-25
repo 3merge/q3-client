@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from '@reach/router';
+import { Router, navigate } from '@reach/router';
 import { Protected } from 'q3-ui-permissions';
+// eslint-disable-next-line
 import Graphic from 'q3-ui-assets';
 import Logout from './Logout';
+
+const Dashboard = () => () => {
+  React.useEffect(() => {
+    navigate('/account');
+  }, []);
+
+  return null;
+};
 
 const NotFound = () => (
   <Graphic icon="Missing" title="missing" />
@@ -27,15 +36,12 @@ export const makePath = ({
   throw new Error('Path type not defined');
 };
 
-// this used to automatically redirect
-// that's no longer desirable
 export const addRedirectWhenMissingHome = (xs) => {
   if (xs.findIndex((f) => f.home) === -1)
     return [
       {
         home: true,
-        component: () =>
-          'Dashboard missing. Please direct to another page.',
+        component: Dashboard,
       },
     ].concat(xs);
 
