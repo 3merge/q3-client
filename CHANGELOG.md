@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.20](https://github.com/3merge/q/compare/v3.8.19...v3.8.20) (2022-08-25)
+
+
+### Bug Fixes
+
+* dashboard redirect ([de14590](https://github.com/3merge/q/commit/de1459003a1b4ed115d36124c779fb154373a0e5))
+
+
+
+
+
 ## [3.8.19](https://github.com/3merge/q/compare/v3.8.18...v3.8.19) (2022-08-25)
 
 **Note:** Version bump only for package q3-client
