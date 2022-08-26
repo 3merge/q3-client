@@ -1,18 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router, navigate } from '@reach/router';
+import { Router } from '@reach/router';
 import { Protected } from 'q3-ui-permissions';
 // eslint-disable-next-line
 import Graphic from 'q3-ui-assets';
 import Logout from './Logout';
-
-const Dashboard = () => {
-  React.useEffect(() => {
-    navigate('account');
-  }, []);
-
-  return null;
-};
+import RedirectToProfile from './RedirectToProfile';
 
 const NotFound = () => (
   <Graphic icon="Missing" title="missing" />
@@ -41,7 +34,7 @@ export const addRedirectWhenMissingHome = (xs) => {
     return [
       {
         home: true,
-        component: Dashboard,
+        component: RedirectToProfile,
       },
     ].concat(xs);
 
