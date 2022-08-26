@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.8.21](https://github.com/3merge/q/compare/v3.8.20...v3.8.21) (2022-08-26)
+
+
+### Bug Fixes
+
+* profile redirect ([f233025](https://github.com/3merge/q/commit/f2330250621364c430fbec8c43cbaa85eafc07c2))
+
+
+
+
+
 ## [3.8.20](https://github.com/3merge/q/compare/v3.8.19...v3.8.20) (2022-08-25)
 
 
