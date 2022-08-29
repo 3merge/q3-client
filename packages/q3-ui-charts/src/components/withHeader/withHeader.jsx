@@ -50,7 +50,9 @@ export default (Component) => {
       >
         <Box alignItems="center" display="flex">
           <HeaderTitle>{title}</HeaderTitle>
-          {enableDownload && <Download data={data} />}
+          {enableDownload && (
+            <Download data={data} title={title} />
+          )}
         </Box>
         {customControls}
         <Box
@@ -110,6 +112,10 @@ export default (Component) => {
   };
 
   Header.propTypes = {
+    customControls: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.node,
+    ]),
     data: PropTypes.arrayOf(PropTypes.shape({})),
     enableDownload: PropTypes.bool,
     title: PropTypes.string,

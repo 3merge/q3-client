@@ -15,6 +15,7 @@ const Download = ({ data, title }) => {
   return (
     <>
       <IconButton
+        aria-label="download"
         color="inherit"
         disabled={disabled}
         onClick={open}
@@ -40,16 +41,12 @@ const Download = ({ data, title }) => {
 Download.defaultProps = {
   data: [],
   title: 'export',
-  children: null,
 };
 
 Download.propTypes = {
+  // eslint-disable-next-line
   data: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]),
 };
 
 export default Download;

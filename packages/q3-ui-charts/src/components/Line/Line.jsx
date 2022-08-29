@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Area,
   ComposedChart,
   Line,
-  Area,
   ResponsiveContainer,
 } from 'recharts';
 import { useTheme } from '@material-ui/core/styles';
@@ -15,47 +15,45 @@ import withValues from '../withValues';
 const CustomLineChartWrapper =
   withChartUtils(ComposedChart);
 
-const CustomLineChart = ({ children, ...rest }) => {
-  const t = useTheme();
-  const isMulti = children?.length > 1;
+export const CustomLineChart = ({ children, ...rest }) => {
+  const nodes = React.Children.toArray(children);
+  const theme = useTheme();
 
   return (
     <ResponsiveContainer>
       <CustomLineChartWrapper {...rest}>
-        <defs>
-          <linearGradient
-            id="colorUv"
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop
-              offset="5%"
-              stopColor={t.palette.secondary.light}
-              stopOpacity={0.88}
-            />
-            <stop
-              offset="99%"
-              stopColor={t.palette.background.paper}
-              stopOpacity={0}
-            />
-          </linearGradient>
-        </defs>
         {children}
-        {!isMulti
-          ? React.Children.map(children, (item, idx) => (
-              <React.Fragment key={idx}>
-                <Area
-                  {...item.props}
-                  stroke={false}
-                  strokeWidth={12}
-                  fillOpacity={1}
-                  fill="url(#colorUv)"
+        {nodes.length === 1 && (
+          <>
+            <defs>
+              <linearGradient
+                id="colorUv"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="1"
+              >
+                <stop
+                  offset="5%"
+                  stopColor={theme.palette.secondary.light}
+                  stopOpacity={0.88}
                 />
-              </React.Fragment>
-            ))
-          : null}
+                <stop
+                  offset="99%"
+                  stopColor={theme.palette.background.paper}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <Area
+              {...nodes[0]?.props}
+              fill="url(#colorUv)"
+              fillOpacity={1}
+              stroke={false}
+              strokeWidth={12}
+            />
+          </>
+        )}
       </CustomLineChartWrapper>
     </ResponsiveContainer>
   );
