@@ -1,30 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Button } from '@material-ui/core';
+import { Menu, IconButton } from '@material-ui/core';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { array } from 'q3-ui-helpers';
 import { useOpen } from 'useful-state';
 import DownloadMenuItem from '../DownloadMenuItem';
 import useSaveAs from '../useSaveAs';
 
-const Download = ({ children, data, title }) => {
+const Download = ({ data, title }) => {
   const { isOpen, anchorEl, close, open } = useOpen();
   const { csv, xlsx } = useSaveAs(title, data);
   const disabled = !array.hasLength(data);
 
   return (
     <>
-      <Button
+      <IconButton
         color="inherit"
         disabled={disabled}
         onClick={open}
-        size="large"
       >
-        <CloudDownloadIcon
-          style={{ marginRight: '.5rem' }}
-        />
-        {children}
-      </Button>
+        <CloudDownloadIcon />
+      </IconButton>
       {!disabled && (
         <Menu
           id="chart-download-options"

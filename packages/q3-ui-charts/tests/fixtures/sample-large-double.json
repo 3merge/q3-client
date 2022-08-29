@@ -3,79 +3,94 @@
     {
       "Company": "Meezzy",
       "Revenue": 70,
-      "Returns": 51
+      "Returns": 51,
+      "Losses": 67
     },
     {
       "Company": "Skyndu",
       "Revenue": 73,
-      "Returns": 7
+      "Returns": 7,
+      "Losses": 0
     },
     {
       "Company": "Meedoo",
       "Revenue": 71,
-      "Returns": 48
+      "Returns": 48,
+      "Losses": 3
     },
     {
       "Company": "Dazzlesphere",
       "Revenue": 68,
-      "Returns": 17
+      "Returns": 17,
+      "Losses": 0
     },
     {
       "Company": "Dabtype",
       "Revenue": 39,
-      "Returns": 11
+      "Returns": 11,
+      "Losses": 0
     },
     {
       "Company": "Browsetype",
       "Revenue": 63,
-      "Returns": 75
+      "Returns": 75,
+      "Losses": 0
     },
     {
       "Company": "Tagfeed",
       "Revenue": 45,
-      "Returns": 94
+      "Returns": 94,
+      "Losses": 0
     },
     {
       "Company": "Twitterlist",
       "Revenue": 53,
-      "Returns": 30
+      "Returns": 30,
+      "Losses": 0
     },
     {
       "Company": "Linkbridge",
       "Revenue": 34,
-      "Returns": 22
+      "Returns": 22,
+      "Losses": 0
     },
     {
       "Company": "Browsetype",
       "Revenue": 43,
-      "Returns": 38
+      "Returns": 38,
+      "Losses": 0
     },
     {
       "Company": "Dynabox",
       "Revenue": 51,
-      "Returns": 61
+      "Returns": 61,
+      "Losses": 0
     },
     {
       "Company": "Skipfire",
       "Revenue": 23,
-      "Returns": 1
+      "Returns": 1,
+      "Losses": 0
     },
     {
       "Company": "Voolith",
       "Revenue": 71,
-      "Returns": 94
+      "Returns": 94,
+      "Losses": 32
     },
     {
       "Company": "Linkbridge",
       "Revenue": 42,
-      "Returns": 28
+      "Returns": 28,
+      "Losses": 32
     },
     {
       "Company": "Twinder",
       "Revenue": 41,
-      "Returns": 35
+      "Returns": 35,
+      "Losses": 3
     }
   ],
   "name": "Company",
-  "value": ["Revenue", "Returns"]
+  "value": ["Revenue", "Returns", "Losses"]
 }

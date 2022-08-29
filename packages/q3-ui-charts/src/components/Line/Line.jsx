@@ -17,6 +17,7 @@ const CustomLineChartWrapper =
 
 const CustomLineChart = ({ children, ...rest }) => {
   const t = useTheme();
+  const isMulti = children?.length > 1;
 
   return (
     <ResponsiveContainer>
@@ -32,7 +33,7 @@ const CustomLineChart = ({ children, ...rest }) => {
             <stop
               offset="5%"
               stopColor={t.palette.secondary.light}
-              stopOpacity={0.1}
+              stopOpacity={0.88}
             />
             <stop
               offset="99%"
@@ -42,15 +43,19 @@ const CustomLineChart = ({ children, ...rest }) => {
           </linearGradient>
         </defs>
         {children}
-        {React.Children.map(children, (item) => (
-          <Area
-            {...item.props}
-            stroke={false}
-            strokeWidth={2}
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
-        ))}
+        {!isMulti
+          ? React.Children.map(children, (item, idx) => (
+              <React.Fragment key={idx}>
+                <Area
+                  {...item.props}
+                  stroke={false}
+                  strokeWidth={12}
+                  fillOpacity={1}
+                  fill="url(#colorUv)"
+                />
+              </React.Fragment>
+            ))
+          : null}
       </CustomLineChartWrapper>
     </ResponsiveContainer>
   );

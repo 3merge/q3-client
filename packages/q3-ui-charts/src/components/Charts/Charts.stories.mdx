@@ -4,45 +4,156 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
+import { Box, Container } from '@material-ui/core';
+import {
+  green,
+  orange,
+  red,
+} from '@material-ui/core/colors';
 import Charts from './Charts';
 import data from '../../../tests/fixtures/sample-large';
 import data1 from '../../../tests/fixtures/sample-large-double';
 
-<Meta title="Charts" component={Charts} />
+export const SingleChart = (props) => (
+  <Charts {...props} {...data} />
+);
+export const DoubleChart = (props) => (
+  <Charts {...props} {...data1} />
+);
 
-# Charts
+export const makeChartTemplate = (Element) => (args) =>
+  (
+    <Box bgcolor="background.muted" py={4}>
+      <Container>
+        <Element
+          {...args}
+          activeDot={{
+            onClick() {
+              alert('Clicked!');
+            },
+          }}
+          colorMap={{
+            Revenue: green[900],
+            Returns: orange[900],
+            Loses: red[900],
+          }}
+          customControls={
+            <p>Custom spot for descriptions or filters</p>
+          }
+        />
+      </Container>
+    </Box>
+  );
+
+<Meta
+  argTypes={{
+    customControls: {
+      table: {
+        disable: true,
+      },
+    },
+    data: {
+      table: {
+        disable: true,
+      },
+    },
+    dots: {
+      defaultValue: false,
+    },
+    enableDownload: {
+      defaultValue: true,
+    },
+    enableGrid: {
+      defaultValue: true,
+    },
+    enableTooltip: {
+      defaultValue: true,
+    },
+    enableXAxis: {
+      defaultValue: true,
+    },
+    enableYAxis: {
+      defaultValue: true,
+    },
+    enableYAxisMobile: {
+      defaultValue: false,
+    },
+    name: {
+      table: {
+        disable: true,
+      },
+    },
+    style: {
+      defaultValue: {
+        height: 250,
+      },
+    },
+    title: {
+      defaultValue: 'Q3/Rechart',
+    },
+    value: {
+      table: {
+        disable: true,
+      },
+    },
+    variant: {
+      options: ['Bar', 'Line'],
+      control: { type: 'radio' },
+      defaultValue: 'Line',
+    },
+    xAxisTitle: {
+      defaultValue: 'x-axis',
+    },
+    yAxisTitle: {
+      defaultValue: 'y-axis',
+    },
+    yAxisProps: {
+      table: {
+        disable: true,
+      },
+    },
+  }}
+  title="Charts/Charts"
+  component={Charts}
+/>
+
+# 📊 Charts
+
+<code>yarn install q3-ui-charts</code>
+
+<p>
+  Many Q3 reports send a standardized data payload to the
+  client consisting of a data, name and value key. These
+  automatically map to an underlying instance of{' '}
+  <code>recharts</code> when provided as props. The prop
+  table below highlights the support customizations: not all
+  props forward. For more information,{' '}
+  <a href="https://recharts.org/en-US/" target="_blank">
+    {' '}
+    click here
+  </a>
+  .
+</p>
+
+## Single dataset
 
 <Preview>
-  <Story name="Single Bar">
-    <Charts variant="Bar" {...data} />
-  </Story>
-  <Story name="Single Line">
-    <Charts
-      enableYAxisMobile
-      variant="Line"
-      style={{
-        height: 155,
-      }}
-      {...data}
-    />
-  </Story>
-  <Story name="Double Bar">
-    <Charts
-      variant="Bar"
-      enableYAxisMobile
-      yAxisTitle="Testing (%)"
-      xAxisTitle="Companies"
-      disableGutters={false}
-      {...data1}
-    />
-  </Story>
-  <Story name="Double Line">
-    <Charts
-      variant="Line"
-      disableGutters={false}
-      {...data1}
-    />
+  <Story name="Single">
+    {makeChartTemplate(SingleChart).bind({})}
   </Story>
 </Preview>
+
+## Double dataset
+
+When value receives an array, it renders multiple lines/bars
+in the graph. Use this feature for comparative data-sets.
+
+<Preview>
+  <Story name="Double">
+    {makeChartTemplate(DoubleChart).bind({})}
+  </Story>
+</Preview>
+
+### Prop Table
 
 <Props of={Charts} />
