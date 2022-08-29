@@ -12,9 +12,8 @@ import withColours from '../withColours';
 import withHeader from '../withHeader';
 import withValues from '../withValues';
 
-const CustomLineChartWrapper = withChartUtils(
-  ComposedChart,
-);
+const CustomLineChartWrapper =
+  withChartUtils(ComposedChart);
 
 const CustomLineChart = ({ children, ...rest }) => {
   const t = useTheme();
@@ -67,6 +66,7 @@ CustomLineChart.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]),
+  // eslint-disable-next-line
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

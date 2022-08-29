@@ -9,8 +9,9 @@ import {
 } from 'recharts';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { first, size, map, omit } from 'lodash';
+import { get, first, size, map, omit } from 'lodash';
 import CustomTooltip from '../Tooltip';
+import { applyFormatter } from '../TooltipList/TooltipList';
 
 export const getDataLength = (data) => {
   try {
@@ -28,16 +29,16 @@ const shouldShowLegend = (xs) => {
   }
 };
 
-const getMaxWidth = (xs, xAxisKey) =>
+const getMaxWidth = (xs, xAxisKey, formatter) =>
   (Math.max(
     ...map(xs, (item) =>
       Object.values(omit(item, [xAxisKey])).map(
-        (v) => String(v).length,
+        (v) => applyFormatter(formatter, String(v)).length,
       ),
     ).flat(),
   ) +
     1) *
-  8;
+  8.25;
 
 export default (Component) => {
   const ChartUtils = (props) => {
@@ -61,7 +62,11 @@ export default (Component) => {
       theme.breakpoints.down('sm'),
     );
 
-    const w = getMaxWidth(rest?.data, name);
+    const w = getMaxWidth(
+      rest?.data,
+      name,
+      get(yAxisProps, 'tickFormatter'),
+    );
 
     return (
       <Component name={name} {...rest}>
@@ -88,7 +93,10 @@ export default (Component) => {
           />
         )}
         {enableTooltip && (
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={<CustomTooltip />}
+            formatter={get(yAxisProps, 'tickFormatter')}
+          />
         )}
         {shouldShowLegend(rest) && (
           <Legend

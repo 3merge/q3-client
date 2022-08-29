@@ -19,6 +19,24 @@ import data1 from '../../../tests/fixtures/sample-large-double';
   <Story name="Double">
     <Line {...data1} />
   </Story>
+  <Story name="Single with dots">
+    <Line
+      {...data}
+      dot
+      activeDot={{
+        style: {
+          cursor: 'pointer',
+        },
+        onClick(...args) {
+          alert('Clicked.');
+          console.log(...args);
+        },
+      }}
+      yAxisProps={{
+        tickFormatter: (n) => Number(n).toFixed(9),
+      }}
+    />
+  </Story>
 </Preview>
 
 <Props of={Line} />
