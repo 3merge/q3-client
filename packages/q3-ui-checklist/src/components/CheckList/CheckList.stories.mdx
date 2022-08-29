@@ -1,0 +1,49 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import CheckList from './CheckList';
+import Fixtures from '../../../tests/fixtures';
+
+<Meta title="CheckList/CheckList" component={CheckList} />
+
+# CheckList
+
+<Preview>
+  <Story name="Fetching">
+    <Fixtures delay={60000} ops={['Read']}>
+      <CheckList />
+    </Fixtures>
+  </Story>
+  <Story name="Fetching Error">
+    <Fixtures onGetError ops={['Read']}>
+      <CheckList />
+    </Fixtures>
+  </Story>
+  <Story name="Authorization Error">
+    <Fixtures>
+      <CheckList />
+    </Fixtures>
+  </Story>
+  <Story name="With all permissions">
+    <Fixtures ops={['Read', 'Create', 'Update', 'Delete']}>
+      <CheckList />
+    </Fixtures>
+  </Story>
+  <Story name="Read-only">
+    <Fixtures ops={['Read']}>
+      <CheckList />
+    </Fixtures>
+  </Story>
+  <Story name="With editing">
+    <Fixtures ops={['Read', 'Create', 'Update']}>
+      <CheckList />
+    </Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={CheckList} />
