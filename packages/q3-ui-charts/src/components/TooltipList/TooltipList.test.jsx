@@ -1,5 +1,5 @@
 import React from 'react';
-import TooltipList from './TooltipList';
+import TooltipList, { applyFormatter } from './TooltipList';
 
 describe('TooltipList', () => {
   it('should return list items', () => {
@@ -20,5 +20,13 @@ describe('TooltipList', () => {
         .find('li')
         .text(),
     ).toMatch('Testing: Component');
+  });
+
+  it('should invoke and return', () => {
+    expect(applyFormatter(() => 'HIT', 1)).toBe('HIT');
+  });
+
+  it('should return', () => {
+    expect(applyFormatter(null, 1)).toBe(1);
   });
 });

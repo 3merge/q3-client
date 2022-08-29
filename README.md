@@ -151,7 +151,7 @@ More coming soon.
     <a href="./packages/q3-ui-audit">🔒 Audit Docs</a>
   </li>
   <li>
-    <a href="./packages/q3-ui-charts">📊 Charts Docs</a>
+    <a href="https://3merge.github.io/q3-client/?path=/docs/charts-charts--single">📊 Charts Docs</a>
   </li>
   <li>
     <a href="./packages/q3-ui-comments">🙊 Comments Docs</a>

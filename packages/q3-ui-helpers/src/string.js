@@ -61,14 +61,22 @@ export const toDayOfWeek = (xs, fallbackText = '') =>
     ? moment(xs).parseZone(xs).startOf('day').format('LL')
     : fallbackText;
 
-export const toPrice = (str) => {
+export const formatNumber = (str, decimalPlaces) => {
   const num = Number(str);
+
   return (
     num && !Number.isNaN(num)
-      ? `$${num.toFixed(2)}`
-      : '$0.00'
+      ? `${num.toFixed(decimalPlaces)}`
+      : compact([
+          '0',
+          Array.from({ length: decimalPlaces })
+            .map(() => '0')
+            .join(''),
+        ]).join('.')
   ).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
+
+export const toPrice = (str) => `$${formatNumber(str, 2)}`;
 
 export const toNumber = (str, fallbackText = '') => {
   const num = Number(str);

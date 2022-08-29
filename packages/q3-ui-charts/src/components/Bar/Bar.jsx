@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import {
   BarChart,
   Bar,
-  XAxis,
-  YAxis,
-  Legend,
-  CartesianGrid,
   ResponsiveContainer,
-  Tooltip,
 } from 'recharts';
-import CustomTooltip from '../Tooltip';
 import withChartUtils from '../withChartUtils';
 import withColours from '../withColours';
 import withHeader from '../withHeader';
@@ -18,7 +12,7 @@ import withValues from '../withValues';
 
 const CustomBarChartWrapper = withChartUtils(BarChart);
 
-const CustomBarChart = ({ children, ...rest }) => (
+export const CustomBarChart = ({ children, ...rest }) => (
   <ResponsiveContainer>
     <CustomBarChartWrapper {...rest}>
       {children}
@@ -36,7 +30,6 @@ CustomBarChart.propTypes = {
     PropTypes.node,
     PropTypes.object,
   ]),
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default withHeader(

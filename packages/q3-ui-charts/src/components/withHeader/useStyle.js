@@ -8,16 +8,19 @@ export default makeStyles((theme) => {
 
   return {
     root: ({ legendSize = 0 }) => ({
-      [`& .recharts-legend-wrapper li:nth-child(n+${legendSize})`]: {
-        display: 'none !important',
-      },
-      '& .recharts-cartesian-axis-tick, & .recharts-legend-item': {
-        color,
-        fontSize: 12,
-      },
-      '& .recharts-cartesian-axis-tick-line[orientation="left"]': {
-        display: 'none',
-      },
+      [`& .recharts-legend-wrapper li:nth-child(n+${legendSize})`]:
+        {
+          display: 'none !important',
+        },
+      '& .recharts-cartesian-axis-tick, & .recharts-legend-item':
+        {
+          color,
+          fontSize: 12,
+        },
+      '& .recharts-cartesian-axis-tick-line[orientation="left"]':
+        {
+          display: 'none',
+        },
       '& .recharts-cartesian-axis-tick-value': {
         color,
         fill: color,
@@ -41,11 +44,23 @@ export default makeStyles((theme) => {
       textAlign: 'right',
     },
     title: {
-      color,
+      ...theme.typography.h6,
       fontWeight: 'bold',
-      lineHeight: 'initial',
-      margin: 0,
-      textTransform: 'none',
+      marginBottom: '0 !important',
+      paddingLeft: theme.spacing(1.5),
+      paddingRight: theme.spacing(0.5),
+      position: 'relative',
+
+      '&::before': {
+        backgroundColor: theme.palette.secondary.light,
+        borderRadius: 4,
+        content: '""',
+        display: 'block',
+        height: '100%',
+        left: 0,
+        position: 'absolute',
+        width: '.75rem',
+      },
     },
     yTitle: {
       transform: 'translateY(-50%) rotate(180deg)',

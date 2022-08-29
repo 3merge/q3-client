@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, map, uniqBy } from 'lodash';
+import { get, map, uniqBy, isFunction } from 'lodash';
 import { Box, Typography } from '@material-ui/core';
 import useStyle from './useStyle';
 
-const TooltipList = ({ data }) => {
+export const applyFormatter = (formatter, value) =>
+  isFunction(formatter) ? formatter(value) : value;
+
+const TooltipList = ({ data, formatter }) => {
   const cls = useStyle();
+
   return (
     <Box
       className={cls.root}
@@ -19,7 +23,8 @@ const TooltipList = ({ data }) => {
           component="li"
           key={`${name}-${i}`}
         >
-          <u>{name}</u>: {get(payload, name)}
+          <u>{name}</u>:{' '}
+          {applyFormatter(formatter, get(payload, name))}
         </Typography>
       ))}
     </Box>
@@ -28,15 +33,17 @@ const TooltipList = ({ data }) => {
 
 TooltipList.defaultProps = {
   data: [],
+  formatter: null,
 };
 
 TooltipList.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.String,
+      name: PropTypes.string,
       payload: PropTypes.shape({}),
     }),
   ),
+  formatter: PropTypes.func,
 };
 
 export default TooltipList;
