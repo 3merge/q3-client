@@ -17,18 +17,16 @@ const TooltipList = ({ data, formatter }) => {
       margin={0}
       padding={0}
     >
-      {map(uniqBy(data, 'name'), ({ name, payload }, i) => {
-        const v = get(payload, name);
-        return (
-          <Typography
-            className={cls.item}
-            component="li"
-            key={`${name}-${i}`}
-          >
-            <u>{name}</u>: {applyFormatter(formatter, v)}
-          </Typography>
-        );
-      })}
+      {map(uniqBy(data, 'name'), ({ name, payload }, i) => (
+        <Typography
+          className={cls.item}
+          component="li"
+          key={`${name}-${i}`}
+        >
+          <u>{name}</u>:{' '}
+          {applyFormatter(formatter, get(payload, name))}
+        </Typography>
+      ))}
     </Box>
   );
 };
@@ -41,7 +39,7 @@ TooltipList.defaultProps = {
 TooltipList.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.String,
+      name: PropTypes.string,
       payload: PropTypes.shape({}),
     }),
   ),

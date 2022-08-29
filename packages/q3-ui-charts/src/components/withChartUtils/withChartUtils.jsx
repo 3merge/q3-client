@@ -62,11 +62,8 @@ export default (Component) => {
       theme.breakpoints.down('sm'),
     );
 
-    const w = getMaxWidth(
-      rest?.data,
-      name,
-      get(yAxisProps, 'tickFormatter'),
-    );
+    const formatter = get(yAxisProps, 'tickFormatter');
+    const w = getMaxWidth(rest?.data, name, formatter);
 
     return (
       <Component name={name} {...rest}>
@@ -95,7 +92,7 @@ export default (Component) => {
         {enableTooltip && (
           <Tooltip
             content={<CustomTooltip />}
-            formatter={get(yAxisProps, 'tickFormatter')}
+            formatter={formatter}
           />
         )}
         {shouldShowLegend(rest) && (
