@@ -1,6 +1,6 @@
 {
   "name": "q3-components",
-  "version": "3.8.9",
+  "version": "3.8.22",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
@@ -14,8 +14,8 @@
     "lodash": "^4.17.20",
     "moment": "2.29.4",
     "prop-types": "^15.7.2",
-    "q3-ui-forms": "^3.8.9",
-    "q3-ui-locale": "^3.8.9",
+    "q3-ui-forms": "^3.8.22",
+    "q3-ui-locale": "^3.8.22",
     "react-diff-viewer": "^3.1.1",
     "useful-state": "^1.2.3",
     "with-location": "^1.3.8",
