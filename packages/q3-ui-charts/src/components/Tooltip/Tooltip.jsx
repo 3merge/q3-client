@@ -4,12 +4,12 @@ import { array } from 'q3-ui-helpers';
 import { Box, Paper, Typography } from '@material-ui/core';
 import TooltipList from '../TooltipList';
 
-const Tooltip = ({ active, payload, label }) =>
+const Tooltip = ({ active, payload, label, ...rest }) =>
   active && label && array.hasLength(payload) ? (
     <Paper elevation={5}>
       <Box p={1}>
         <Typography variant="overline">{label}</Typography>
-        <TooltipList data={payload} />
+        <TooltipList data={payload} {...rest} />
       </Box>
     </Paper>
   ) : null;

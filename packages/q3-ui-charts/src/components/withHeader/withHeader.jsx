@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
 import { isUndefined } from 'lodash';
 import { array } from 'q3-ui-helpers';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Download from '../Download';
 import useStyle from './useStyle';
 import { getDataLength } from '../withChartUtils/withChartUtils';
@@ -13,27 +12,24 @@ const HeaderTitle = ({ children }) => {
   const cls = useStyle();
 
   return (
-    <ListSubheader
-      disableGutters
-      disableSticky
+    <Typography
       component="figcaption"
       className={cls.title}
     >
       {children}
-    </ListSubheader>
+    </Typography>
   );
 };
 
 export default (Component) => {
   const Header = ({
-    children,
+    customControls,
     data,
     enableDownload,
     style,
     title,
     xAxisTitle,
     yAxisTitle,
-    disableGutters,
     ...rest
   }) => {
     const cleaned = array.hasLength(data) ? data : [];
@@ -49,22 +45,22 @@ export default (Component) => {
         bgcolor="background.paper"
         className={cls.root}
         component="figure"
-        p={0.75}
+        p={1}
         m={0}
       >
-        {enableDownload ? (
-          <Download title={title} data={cleaned}>
-            <HeaderTitle>{title}</HeaderTitle>
-          </Download>
-        ) : (
+        <Box alignItems="center" display="flex">
           <HeaderTitle>{title}</HeaderTitle>
-        )}
+          {enableDownload && (
+            <Download data={data} title={title} />
+          )}
+        </Box>
+        {customControls}
         <Box
           className="q3-charts-axis-container"
           position="relative"
           ml={getMarginValue(yAxisTitle)}
           mb={getMarginValue(xAxisTitle)}
-          pb={disableGutters ? 0 : 1}
+          pb={1}
         >
           <Box
             mt={0.5}
@@ -106,20 +102,19 @@ export default (Component) => {
   };
 
   Header.defaultProps = {
+    customControls: null,
     data: [],
-    children: null,
     enableDownload: true,
     title: 'Report',
     style: {},
     xAxisTitle: undefined,
     yAxisTitle: undefined,
-    disableGutters: true,
   };
 
   Header.propTypes = {
-    children: PropTypes.oneOfType([
+    customControls: PropTypes.oneOfType([
+      PropTypes.element,
       PropTypes.node,
-      PropTypes.object,
     ]),
     data: PropTypes.arrayOf(PropTypes.shape({})),
     enableDownload: PropTypes.bool,
@@ -130,7 +125,6 @@ export default (Component) => {
     }),
     xAxisTitle: PropTypes.string,
     yAxisTitle: PropTypes.string,
-    disableGutters: PropTypes.bool,
   };
 
   return Header;

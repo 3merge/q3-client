@@ -10,10 +10,10 @@ const DownloadMenuItem = React.forwardRef(
 
     return (
       <MenuItem
+        dense
         id={`chart-download-option-${label}`}
         onClick={onClick}
         ref={ref}
-        style={{ margin: 0 }}
       >
         {t(`downloadAs${capitalize(label)}`)}
       </MenuItem>

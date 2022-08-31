@@ -1,14 +1,23 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
+import { get } from 'lodash';
 
 export default (Component) => {
   const Chart = (props) => {
-    const color = useTheme()?.palette?.secondary;
+    const theme = useTheme();
+    const value = get(props, 'value');
+    const defaultColor = theme.palette.secondary.main;
 
     return (
       <Component
         {...props}
-        colours={[color?.main, color?.dark]}
+        colours={
+          Array.isArray(value)
+            ? value.map((v) =>
+                get(props, `colorMap.${v}`, defaultColor),
+              )
+            : [defaultColor]
+        }
       />
     );
   };
