@@ -25,9 +25,11 @@ const CheckList = ({ collectionName, id }) => {
 
   return (
     <CheckListContext.Provider value={checkListProps}>
+      <p> Clear completed tasks</p>
       <CheckListContainer
         onSortEnd={onSortEnd}
         tasks={tasks}
+        useDragHandle
       />
     </CheckListContext.Provider>
   );

@@ -14,6 +14,7 @@ const useMockData =
         : data.map((item) => ({
             ...item,
             id: String(item.id),
+            checked: false,
           })) || [],
     );
 
@@ -23,12 +24,8 @@ const useMockData =
         '',
       );
 
-    const makeEndpoint = (asSub = false) =>
-      new RegExp(
-        `${collectionName}/${id}/tasks${
-          asSub ? '/\\d+' : ''
-        }`,
-      );
+    const makeEndpoint = (includeId = false) =>
+      new RegExp(`tasks${includeId ? '/\\d+' : ''}`);
 
     mockApiInstance
       .onGet(makeEndpoint())
@@ -94,7 +91,7 @@ const useMockData =
 const ApiMock = (props) => (
   <Rest
     define={useMockData(props)}
-    delay={1000}
+    delay={180}
     {...props}
   />
 );

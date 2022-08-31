@@ -2,41 +2,41 @@
   {
     "id": 1,
     "description": "Inspection of Left Hip Joint, Percutaneous Approach",
-    "seq": 0
+    "seq": 1
   },
   {
     "id": 2,
     "description": "Removal of Nonaut Sub from R Hip Jt, Open Approach",
-    "seq": 1
+    "seq": 2
   },
   {
     "id": 3,
     "description": "Radiation Therapy, Hepatobil Pancreas, Brachytherapy",
-    "seq": 2
+    "seq": 3
   },
   {
     "id": 4,
     "description": "Insertion of Intralum Dev into L Foot Vein, Open Approach",
-    "seq": 3
+    "seq": 4
   },
   {
     "id": 5,
     "description": "Fragmentation in Duodenum, External Approach",
-    "seq": 4
+    "seq": 5
   },
   {
     "id": 6,
     "description": "Replacement of L Fem Art with Nonaut Sub, Perc Endo Approach",
-    "seq": 5
+    "seq": 6
   },
   {
     "id": 7,
     "description": "Indiv Psychotherapy for Substance Abuse, Psychodynamic",
-    "seq": 6
+    "seq": 7
   },
   {
     "id": 8,
     "description": "Drainage of Left Mastoid Sinus with Drain Dev, Perc Approach",
-    "seq": 7
+    "seq": 8
   }
 ]

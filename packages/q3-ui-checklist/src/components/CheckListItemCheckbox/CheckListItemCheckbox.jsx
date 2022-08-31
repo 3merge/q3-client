@@ -17,12 +17,16 @@ const CheckListItemCheckbox = ({
       }),
     );
 
+  // FORCE UPDATE.
+  // FOR EACH THING WE"RE DOING.
+
   return children(
     <Checkbox
-      edge="start"
       checked={checked}
       onChange={handleChange}
+      style={{ margin: 0 }}
     />,
+    checked,
   );
 };
 
