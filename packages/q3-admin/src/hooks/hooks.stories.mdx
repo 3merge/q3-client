@@ -14,6 +14,36 @@ import {
 
 # Hooks
 
+## useBrowserEffect
+
+<p>
+  Calling browser objects like <code>Window</code> and{' '}
+  <code>Document</code> inside of effects can break some SRR
+  and DSR codebases. For this reason, we've abstracted these
+  hooks so that you can do away with the{' '}
+  <code>if (typeof window !== 'undefined'){}</code>{' '}
+  workaround.
+</p>
+
+```javascript
+import React from 'react';
+import { useBrowserEffect } from 'q3-admin/lib/hooks';
+
+const useTestHook = () => {
+  useBrowserEffect(
+    () => {
+      const el = document.getElementById('#test');
+    },
+    [],
+    {
+      // determines if we invoke useEffect or useLayoutEffect
+      // when in the browser environment
+      useLayout: false,
+    },
+  );
+};
+```
+
 ## useLocalStorageStateProxy
 
 <p>

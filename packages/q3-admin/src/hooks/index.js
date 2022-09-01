@@ -1,5 +1,6 @@
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
+export { default as useBrowserEffect } from './useBrowserEffect';
 export { default as useCanEditField } from './useCanEditField';
 export { default as useCheckedState } from './useCheckedState';
 export { default as useCheckedStateRequirement } from './useCheckedStateRequirement';

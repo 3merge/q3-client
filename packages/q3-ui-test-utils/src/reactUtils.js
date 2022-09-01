@@ -1,5 +1,18 @@
 import React from 'react';
 
+const createEffectMock = (methodName) => () => {
+  const spy = jest
+    .spyOn(React, methodName)
+    .mockImplementation((fn) => fn());
+
+  return {
+    reset() {
+      spy.mockClear();
+    },
+    spy,
+  };
+};
+
 export const useStateMock = () => {
   const setState = jest.fn();
   const spy = jest
@@ -24,3 +37,8 @@ export const useStateMock = () => {
     spy,
   };
 };
+
+export const useEffectMock = createEffectMock('useEffect');
+export const useLayoutEffectMock = createEffectMock(
+  'useLayoutEffect',
+);

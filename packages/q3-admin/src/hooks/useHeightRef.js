@@ -1,6 +1,6 @@
 import React from 'react';
-import { browser } from 'q3-ui-helpers';
 import { debounce, get, set } from 'lodash';
+import useBrowserEffect from './useBrowserEffect';
 
 const useHeightRef = () => {
   const ref = React.useRef();
@@ -29,30 +29,34 @@ const useHeightRef = () => {
     );
   }, 1);
 
-  React.useLayoutEffect(() => {
-    if (!browser.isBrowserReady()) return undefined;
-
-    window.addEventListener('resize', reportWindowSize);
-    window.addEventListener(
-      'orientationchange',
-      reportWindowSize,
-      false,
-    );
-
-    reportWindowSize();
-
-    return () => {
-      window.removeEventListener(
-        'resize',
-        reportWindowSize,
-      );
-
-      window.removeEventListener(
+  useBrowserEffect(
+    () => {
+      window.addEventListener('resize', reportWindowSize);
+      window.addEventListener(
         'orientationchange',
         reportWindowSize,
+        false,
       );
-    };
-  }, []);
+
+      reportWindowSize();
+
+      return () => {
+        window.removeEventListener(
+          'resize',
+          reportWindowSize,
+        );
+
+        window.removeEventListener(
+          'orientationchange',
+          reportWindowSize,
+        );
+      };
+    },
+    [],
+    {
+      useLayout: true,
+    },
+  );
 
   return ref;
 };

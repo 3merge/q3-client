@@ -1,18 +1,23 @@
 import React from 'react';
-import { browser } from 'q3-ui-helpers';
 import ReactDOM from 'react-dom';
+import { useBrowserEffect } from '../../hooks';
 
 const ToolbarCollectionPortal = ({ children }) => {
   const [anchor, setAnchor] = React.useState();
 
-  React.useLayoutEffect(() => {
-    if (browser.isBrowserReady())
+  useBrowserEffect(
+    () => {
       setAnchor(
         document.getElementById(
           'app-toolbar-collection-actions',
         ),
       );
-  }, []);
+    },
+    [],
+    {
+      useLayout: true,
+    },
+  );
 
   return anchor
     ? ReactDOM.createPortal(children, anchor)

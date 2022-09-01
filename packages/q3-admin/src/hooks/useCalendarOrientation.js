@@ -2,12 +2,12 @@ import React from 'react';
 import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
 import interaction from '@fullcalendar/interaction';
-import { browser } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
 import { delay } from 'lodash';
 import moment from '@fullcalendar/moment';
 import momentTimezone from '@fullcalendar/moment-timezone';
 import { ArticleAsideContext } from '../components/ArticleAside/ArticleAside';
+import useBrowserEffect from './useBrowserEffect';
 
 const useCalendarOrientation = () => {
   const { t } = useTranslation('labels');
@@ -15,15 +15,18 @@ const useCalendarOrientation = () => {
   const ref = React.useRef();
   const { id } = React.useContext(ArticleAsideContext);
 
-  React.useLayoutEffect(() => {
-    if (browser.isBrowserReady()) {
+  useBrowserEffect(
+    () => {
       const v = 'timeGridWeek';
-
       if (initialView && ref.current)
         ref.current.getApi().changeView(v);
       else setInitialView(v);
-    }
-  }, [initialView]);
+    },
+    [initialView],
+    {
+      useLayout: true,
+    },
+  );
 
   React.useLayoutEffect(() => {
     delay(() => {
