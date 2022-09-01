@@ -1,17 +1,17 @@
 {
   "name": "q3-ui-datatables",
-  "version": "3.8.22",
+  "version": "3.9.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^3.8.9"
+    "q3-ui-test-utils": "^3.9.0"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui": "^3.8.22",
-    "q3-ui-exports": "^3.8.22",
-    "q3-ui-locale": "^3.8.22",
+    "q3-ui": "^3.9.0",
+    "q3-ui-exports": "^3.9.0",
+    "q3-ui-locale": "^3.9.0",
     "react-sortable-hoc": "^2.0.0",
     "useful-state": "^1.2.3",
     "with-location": "^1.3.8"

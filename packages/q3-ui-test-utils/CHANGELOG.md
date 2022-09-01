@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/3merge/q/compare/v3.8.22...v3.9.0) (2022-09-01)
+
+
+### Features
+
+* add local storage state proxy ([#423](https://github.com/3merge/q/issues/423)) ([a034316](https://github.com/3merge/q/commit/a034316cf0e31558ccacf8f2b5d7299f91d84905))
+
+
+
+
+
 ## [3.8.9](https://github.com/3merge/q/compare/v3.8.8...v3.8.9) (2022-07-29)
 
 
