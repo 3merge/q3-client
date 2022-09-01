@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Box, Hidden } from '@material-ui/core';
 import ReactDOM from 'react-dom';
 import WidgetsIcon from '@material-ui/icons/Widgets';
-import { browser } from 'q3-ui-helpers';
 import Widget from '../../components/Widget';
-import { ArticleAsideContext } from '../../components/ArticleAside/ArticleAside';
+import { useBrowserEffect } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import ArticleAsideHeader from '../../components/ArticleAsideHeader';
 import useArticleAsideAction from '../../hooks/useArticleAsideAction';
@@ -13,11 +12,8 @@ import useArticleAsideAction from '../../hooks/useArticleAsideAction';
 export const DetailSummaryPortal = (props) => {
   const [anchor, setAnchor] = React.useState(null);
 
-  React.useEffect(() => {
-    if (browser.isBrowserReady())
-      setAnchor(
-        document.getElementById('q3-actions-portal'),
-      );
+  useBrowserEffect(() => {
+    setAnchor(document.getElementById('q3-actions-portal'));
   }, []);
 
   return (

@@ -1,7 +1,7 @@
-import React from 'react';
 import { browser } from 'q3-ui-helpers';
 import { get, invoke } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
+import useBrowserEffect from './useBrowserEffect';
 
 const getAttribute = () =>
   browser.proxySessionStorageApi(
@@ -64,9 +64,7 @@ export const includesNavigationElement = (xs) => {
 const useUnsavedChanges = () => {
   const { t } = useTranslation('descriptions');
 
-  React.useEffect(() => {
-    if (!browser.isBrowserReady()) return undefined;
-
+  useBrowserEffect(() => {
     const dh = eventHandlerAdapter(
       document,
       'click',
