@@ -1,0 +1,55 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+
+<Meta
+  title="Admin/Hooks"
+  component={() => {
+    return null;
+  }}
+/>
+
+# Hooks
+
+## useLocalStorageStateProxy
+
+<p>
+  When you want the value of <code>React.useState</code> to
+  persist session-to-session, invoke{' '}
+  <code>useLocalStorageStateProxy</code>
+  instead. This hook proxies <code>
+    React.useState
+  </code> through
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage">
+    {' '}
+    Local Storage
+  </a>{' '}
+  so that it fetches and inserts to a cache first instead of
+  memory. To construct this hook yourself, look at the{' '}
+  <a href="/story/helpers-introduction--page">
+    Q3 helpers package's Browser
+  </a>{' '}
+  namespace methods.
+</p>
+
+```javascript
+import React from 'react';
+import { useLocalStorageStateProxy } from 'q3-admin/lib/hooks';
+
+const TestComponent = () => {
+  const defaultValueVar = 1;
+  const [state, setState] =
+    useLocalStorageStateProxy(defaultValueVar);
+
+  const handleClick = () => {
+    setState(2);
+  };
+
+  return (
+    <button onClick={handleClick}>Change state</button>
+  );
+};
+```
