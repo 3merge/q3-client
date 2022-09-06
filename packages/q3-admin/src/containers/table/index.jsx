@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
+import DataTable from 'q3-ui-datatablesv2';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
@@ -102,9 +103,82 @@ const List = (props) => {
 
   const multiselect = useMultiselect(props);
 
+  /**
+   * NEEDS TO HAVE CONFIGURATOR
+   * NEEDS TO HAVE PROJECTION MAKER?
+   */
+
   return (
     <ArticleHeightBox>
-      <Table
+      <DataTable
+        columns={[
+          {
+            component: 'avatar',
+            field: 'photo',
+            visible: true,
+            width: 55,
+            showLabel: false,
+          },
+          {
+            field: 'name',
+            visible: true,
+            width: 150,
+            sticky: true,
+          },
+          {
+            field: 'firstName,lastName',
+            format: 'object',
+            sortable: false,
+            visible: true,
+            toFullName: true,
+            width: 225,
+            sticky: true,
+          },
+          {
+            field: 'email',
+            visible: true,
+            sortable: true,
+            component: 'email',
+            width: 225,
+          },
+          {
+            field: 'phone',
+            visible: true,
+            sortable: false,
+            component: 'tel',
+            toTel: true,
+            width: 225,
+            sticky: true,
+          },
+          {
+            field: 'age',
+            sortable: true,
+            visible: false,
+            width: 50,
+          },
+          {
+            field: 'salary',
+            sortable: true,
+            toPrice: true,
+            visible: true,
+            width: 150,
+          },
+          {
+            field: 'verified',
+            visible: true,
+            toCheck: true,
+            width: 50,
+          },
+          {
+            field: 'verified',
+            visible: true,
+            toTruthy: true,
+            width: 50,
+          },
+        ]}
+        data={decorator.makeLinks(rootPath)}
+      />
+      {/* <Table
         disableMultiselect={!multiselect}
         {...decorator.build()}
         blacklistColumns={decorator.makeBlacklist(
@@ -116,7 +190,7 @@ const List = (props) => {
         onSort={l.update}
         sort={l.sort}
         disableExportsProvider
-      />
+      /> */}
     </ArticleHeightBox>
   );
 };

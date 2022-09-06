@@ -105,3 +105,19 @@ export const makeName = (xs = {}) =>
 
 export const removeTrailingSlash = (str) =>
   String(str).replace(/\/$/, '');
+
+// just an alias
+export const toFullName = makeName;
+
+export const toCheck = (str) =>
+  String(str) === 'true' ? '✓' : '✗';
+
+export const toTel = (str) => {
+  const cleaned = `${str}`.replace(/\D/g, '');
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    return `(${match[1]}) ${match[2]}-${match[3]}`;
+  }
+
+  return '';
+};

@@ -1,0 +1,111 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Datatable from './DataTable';
+import data from '../../tests/fixtures/data.json';
+
+<Meta title="Datatable" component={Datatable} />
+
+# DataTable
+
+<Preview>
+  <Story name="Populated">
+    <Datatable
+      columns={[
+        {
+          field: 'status',
+          component: 'avatar',
+          visible: true,
+          iconObject: {
+            'Paid': 'Payment',
+          },
+          colorObject: {
+            'Paid': 'lightgreen',
+          },
+          showLabel: false,
+        },
+        {
+          component: 'avatar',
+          field: 'photo',
+          visible: false,
+          width: 55,
+          showLabel: false,
+        },
+        {
+          field: 'nickname',
+          visible: true,
+          width: 150,
+          sticky: true,
+        },
+        {
+          field: 'firstName,lastName',
+          format: 'object',
+          sortable: false,
+          visible: true,
+          toFullName: true,
+          width: 225,
+          sticky: true,
+        },
+        {
+          field: 'email',
+          visible: true,
+          sortable: true,
+          component: 'email',
+          width: 225,
+        },
+        {
+          field: 'phone',
+          visible: true,
+          sortable: false,
+          component: 'tel',
+          toTel: true,
+          width: 225,
+          sticky: true,
+        },
+        {
+          field: 'age',
+          sortable: true,
+          visible: false,
+          width: 50,
+        },
+        {
+          field: 'salary',
+          sortable: true,
+          toPrice: true,
+          visible: true,
+          width: 150,
+        },
+        {
+          field: 'verified',
+          visible: true,
+          toCheck: true,
+          colorObject: {
+            '✓': 'green',
+            '✗': 'red',
+          },
+          width: 50,
+        },
+        {
+          field: 'verified',
+          visible: true,
+          toTruthy: true,
+          width: 50,
+        },
+        {
+          field: 'status',
+          sortable: true,
+          component: 'chip',
+          visible: true,
+          width: 150,
+          colorObject: {
+            'Paid': 'green',
+          },
+        },
+      ]}
+      data={data}
+    />
+  </Story>
+</Preview>
