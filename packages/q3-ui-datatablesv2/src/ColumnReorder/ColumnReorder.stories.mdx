@@ -1,0 +1,29 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import ColumnReorder from './ColumnReorder';
+import State from '../../tests/fixtures/State';
+
+<Meta
+  title="Datatables v2/Components"
+  component={ColumnReorder}
+/>
+
+# ColumnReorder
+
+<Preview>
+  <Story name="ColumnReorder">
+    <State>
+      {({ columns, onColumnChange, onColumnReorder }) => (
+        <ColumnReorder
+          columns={columns}
+          onColumnChange={onColumnChange}
+          onColumnReorder={onColumnReorder}
+        />
+      )}
+    </State>
+  </Story>
+</Preview>

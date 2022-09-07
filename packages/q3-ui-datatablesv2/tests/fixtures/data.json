@@ -10,7 +10,8 @@
     "salary": 183462,
     "nickname": "hbastable0",
     "status": "Paid",
-    "photo": "https://randomuser.me/api/portraits/men/1.jpg"
+    "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+    "visible": true
   },
   {
     "id": 2,

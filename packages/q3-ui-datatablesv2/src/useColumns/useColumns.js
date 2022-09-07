@@ -1,21 +1,14 @@
-import { first, pick, reduce, split } from 'lodash';
+import { pick, reduce, split, uniqBy } from 'lodash';
 
 const useColumns = (columns, data = []) =>
   reduce(
     columns,
     (acc, curr) => {
       const getValue = (row) => {
-        const { field, format } = curr;
-        const keys = split(field, ',');
-        const d = pick(row, keys);
-
-        return (
-          {
-            array: Object.values(d),
-            object: d,
-            undefined: d[first(Object.keys(d))],
-          }[String(format)] || ''
-        );
+        const keys = split(curr?.field, ',');
+        return keys.length > 1
+          ? pick(row, keys)
+          : row[keys[0]];
       };
 
       // should only look for null, undefined or empty string
@@ -23,10 +16,11 @@ const useColumns = (columns, data = []) =>
       if (curr.visible && data.some(getValue))
         acc.push({
           ...curr,
+
           getValue,
         });
 
-      return acc;
+      return uniqBy(acc, 'field');
     },
     [],
   );
