@@ -76,16 +76,6 @@ export default new AbstractCollectionBuilder({
     //   // eslint-disable-next-line
     //   component: () => <p>CUSTOM COMPONENT</p>,
     // },
-    io: {
-      exports: ['exportTemplateOne', 'exportTemplateTwo'],
-      imports: [
-        'importTemplateOne',
-        'importTemplateTwo',
-        'importTemplateThree',
-        'importTemplateFour',
-      ],
-      renderer: () => <p>Warn console</p>,
-    },
 
     registerActions: () => [
       {

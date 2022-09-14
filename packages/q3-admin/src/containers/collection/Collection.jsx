@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { pick } from 'lodash';
 import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
@@ -15,9 +16,21 @@ export const Collection = ({
   id,
   location,
   segments,
+
+  // largely going to contain
+  // server's settings response
+  ...rest
 }) => {
   const rootPath = useRootPath(location, id, resourceName);
   const directoryPath = getDirectoryPath(rootPath, id);
+  const serverSettings = pick(rest, [
+    'ui',
+    'uis',
+    'columns',
+    'io',
+    'updateSys',
+  ]);
+
   const definitionsState = React.useMemo(
     () => ({
       id,
@@ -28,8 +41,9 @@ export const Collection = ({
       directoryPath,
       location,
       segments,
+      ...serverSettings,
     }),
-    [location],
+    [location, serverSettings],
   );
 
   return (

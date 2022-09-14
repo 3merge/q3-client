@@ -32,38 +32,7 @@ const CollectionUiSelect = ({ uis }) => {
     change(nextUi);
   };
 
-  return (
-    size(uis) > 1 && (
-      <ButtonGroup
-        aria-label="ui select"
-        className={cls.group}
-        disableElevation
-      >
-        {size(uis) > 0 &&
-          uis.map((ui) => {
-            const Icon =
-              ui.icon ||
-              getIcon(ui.label) ||
-              BrokenImageIcon;
-
-            return (
-              <Button
-                aria-label={t(ui.label)}
-                className={cls.button}
-                component={Link}
-                key={ui.label}
-                data-on={ui.selected}
-                onClick={handleChange(ui.label)}
-                startIcon={<Icon />}
-                to={to}
-              >
-                {t(ui.label)}
-              </Button>
-            );
-          })}
-      </ButtonGroup>
-    )
-  );
+  return <Button>Change view</Button>;
 };
 
 CollectionUiSelect.defaultProps = {

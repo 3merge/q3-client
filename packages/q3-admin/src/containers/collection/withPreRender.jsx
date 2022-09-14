@@ -1,8 +1,8 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { object } from 'q3-ui-helpers';
 
 export default (Component) => (props) => {
+  // eslint-disable-next-line
   const { onMount } = props;
   const hasFn = object.isFn(onMount);
   const [hasFinished, setHasFinished] = React.useState(
@@ -16,9 +16,5 @@ export default (Component) => (props) => {
     }
   }, [hasFinished, onMount]);
 
-  return hasFinished ? (
-    <Component {...props} />
-  ) : (
-    <CircularProgress />
-  );
+  return hasFinished ? <Component {...props} /> : null;
 };

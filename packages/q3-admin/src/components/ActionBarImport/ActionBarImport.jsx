@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { get, map, size } from 'lodash';
 import CloudUpload from '@material-ui/icons/CloudUpload';
 import { State } from 'q3-ui-exports';
@@ -7,10 +6,10 @@ import { withLocation } from 'with-location';
 import ButtonWithIcon from '../ButtonWithIcon';
 import DropdownMenu from '../DropdownMenu';
 import FileUpload from '../FileUpload';
+import { Definitions } from '../../containers/state';
 import useIo from '../../hooks/useIo';
 
 const ActionBarImport = ({
-  imports: importOptions,
   // eslint-disable-next-line
   params,
 }) => {
@@ -20,6 +19,12 @@ const ActionBarImport = ({
   ] = React.useState();
   const exportState = React.useContext(State);
   const ref = React.useRef();
+
+  const importOptions = get(
+    React.useContext(Definitions),
+    'io.imports',
+    [],
+  );
 
   const { importCollection } = useIo(
     get(exportState, 'checked', []),
@@ -76,12 +81,7 @@ const ActionBarImport = ({
   ) : null;
 };
 
-ActionBarImport.defaultProps = {
-  imports: [],
-};
-
-ActionBarImport.propTypes = {
-  imports: PropTypes.arrayOf(PropTypes.string),
-};
+ActionBarImport.defaultProps = {};
+ActionBarImport.propTypes = {};
 
 export default withLocation(ActionBarImport);

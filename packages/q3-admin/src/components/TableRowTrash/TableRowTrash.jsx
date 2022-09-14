@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Confirm from 'q3-ui-confirm';
 import DeleteForever from '@material-ui/icons/DeleteForever';
-import { Dispatcher } from '../state';
-import AuthDelete from '../AuthDelete';
-import { useTrashFail } from '../trash/Trash';
+import { Dispatcher } from '../../containers/state';
+import AuthDelete from '../../containers/AuthDelete';
+import { useTrashFail } from '../../containers/trash/Trash';
 
-const TableTrash = ({ id }) => {
+const TableRowTrash = ({ id }) => {
   const { remove } = React.useContext(Dispatcher);
   const catchHandler = useTrashFail();
 
@@ -24,13 +24,13 @@ const TableTrash = ({ id }) => {
   );
 };
 
-TableTrash.propTypes = {
+TableRowTrash.propTypes = {
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
 };
 
-TableTrash.displayName = 'TableTrash';
+TableRowTrash.displayName = 'TableTrash';
 
-export default TableTrash;
+export default TableRowTrash;

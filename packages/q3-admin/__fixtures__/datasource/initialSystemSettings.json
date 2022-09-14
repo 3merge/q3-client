@@ -1,0 +1,20 @@
+{
+  "columns": [
+    {
+      "field": "name",
+      "sortable": true,
+      "visible": true
+    }
+  ],
+  "io": {
+    "exports": ["exportTemplateOne", "exportTemplateTwo"],
+    "imports": [
+      "importTemplateOne",
+      "importTemplateTwo",
+      "importTemplateThree",
+      "importTemplateFour"
+    ]
+  },
+  "ui": "oops",
+  "uis": []
+}

@@ -1,31 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ActionBarExport from '../../components/ActionBarExport';
 import ActionBarImport from '../../components/ActionBarImport';
 
-const TableIo = ({ io }) => (
+const TableIo = () => (
   <>
-    <ActionBarExport {...io} />
-    <ActionBarImport {...io} />
+    <ActionBarExport />
+    <ActionBarImport />
   </>
 );
 
-/**
- *  {renderer
-              ? renderer({
-                  data,
-                  checked,
-                })
-              : null}
- * 
- */
+TableIo.defaultProps = {};
 
-TableIo.defaultProps = {
-  io: null,
-};
-
-TableIo.propTypes = {
-  io: PropTypes.shape({}),
-};
+TableIo.propTypes = {};
 
 export default TableIo;

@@ -11,12 +11,18 @@ import useColumns from '../useColumns';
 import useStyle from './styles';
 
 const DataTable = ({
+  // components
   actionComponent: ActionComponent,
   checkboxComponent: CheckboxComponent,
+  paginationComponent: PaginationComponent,
+
+  // data
   columns,
   colorMap,
   iconMap,
   data,
+
+  // funcs & events
   onColumnAdd,
   onColumnChange,
   onColumnReorder,
@@ -115,21 +121,25 @@ const DataTable = ({
               )}
               {map(tableColumns, renderColumn(row))}
               <td className={cls.actions}>
-                {ActionComponent && <ActionComponent />}
+                {ActionComponent && (
+                  <ActionComponent {...row} />
+                )}
               </td>
             </tr>
           ))}
         </tbody>
-        <tfoot>
-          <tr>
-            <td
-              className={cls.foot}
-              colSpan={getColspanValue()}
-            >
-              Pagination.
-            </td>
-          </tr>
-        </tfoot>
+        {PaginationComponent && (
+          <tfoot>
+            <tr>
+              <td
+                className={cls.foot}
+                colSpan={getColspanValue()}
+              >
+                <PaginationComponent />
+              </td>
+            </tr>
+          </tfoot>
+        )}
       </table>
     </div>
   );

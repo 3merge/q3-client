@@ -31,9 +31,13 @@ const CustomPagination = () => {
 
   return (
     <Pagination
+      // no longer support for changing limit
       count={Math.ceil(total / 25)}
       onChange={onChange}
       page={Number(get(decoded, 'page', 1))}
+      shape="rounded"
+      showFirstButton
+      showLastButton
     />
   );
 };

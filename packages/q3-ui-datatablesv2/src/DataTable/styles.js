@@ -11,12 +11,18 @@ export default makeStyles((theme) => {
     },
     checkbox: {
       backgroundColor,
-      width: 'min-content',
+      textAlign: 'left',
+      width: 39,
     },
     foot: {
       backgroundColor,
       bottom: 0,
+      padding: `${theme.spacing(0.5)} 0`,
       position: 'sticky',
+
+      '& ul': {
+        justifyContent: 'center',
+      },
     },
     head: {
       position: 'sticky',

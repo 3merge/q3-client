@@ -5,12 +5,14 @@ import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
 import thread from 'q3-ui-thread/lib/tests/fixtures/data.json';
+import { merge } from 'lodash';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
 import users from './users';
 import uploads from './files';
 import domain from './domain.json';
+import initialSystemSettings from './initialSystemSettings';
 
 const applyFormData = async (src, data) => {
   const target = { ...src };
@@ -127,6 +129,17 @@ const makeApiEndpoints = (
       ],
     },
   ]);
+
+  mockInstance
+    .onGet(/sys/)
+    .reply(200, initialSystemSettings);
+
+  mockInstance
+    .onPost(/sys/)
+    .reply(({ data }) => [
+      200,
+      merge({}, initialSystemSettings, JSON.parse(data)),
+    ]);
 
   // this will expire
   mockInstance.onGet(/documentation/).reply(200, {

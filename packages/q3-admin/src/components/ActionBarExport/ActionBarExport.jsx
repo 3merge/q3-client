@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { get, map, size } from 'lodash';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import { State } from 'q3-ui-exports';
 import { withLocation } from 'with-location';
 import ButtonWithIcon from '../ButtonWithIcon';
 import DropdownMenu from '../DropdownMenu';
+import { Definitions } from '../../containers/state';
 import useIo from '../../hooks/useIo';
 
 const ActionBarExport = ({
-  exports: exportOptions,
   // eslint-disable-next-line
   params,
 }) => {
@@ -17,6 +16,12 @@ const ActionBarExport = ({
   const { exportCollection } = useIo(
     get(exportState, 'checked', []),
     params,
+  );
+
+  const exportOptions = get(
+    React.useContext(Definitions),
+    'io.exports',
+    [],
   );
 
   return size(exportOptions) ? (
@@ -38,12 +43,7 @@ const ActionBarExport = ({
   ) : null;
 };
 
-ActionBarExport.defaultProps = {
-  exports: [],
-};
-
-ActionBarExport.propTypes = {
-  exports: PropTypes.arrayOf(PropTypes.string),
-};
+ActionBarExport.defaultProps = {};
+ActionBarExport.propTypes = {};
 
 export default withLocation(ActionBarExport);

@@ -4,6 +4,7 @@ import Collection from '../containers/collection';
 import Article from '../components/Article';
 import { useUnsavedChanges } from '../hooks';
 import withCollectionUi from '../helpers/withCollectionUi';
+import withSystemSettings from '../helpers/withSystemSettings';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -47,22 +48,24 @@ export default ({
     icon,
     index: true,
     ...getCollectionInformation(etc),
-    component: withCollectionUi(
-      (props) => (
-        <Collection index {...props}>
-          <Article>
-            <Page index {...props}>
-              <Toolbar />
-              <PageList
-                {...props}
-                ui={props?.ui}
-                uis={props?.uis}
-              />
-            </Page>
-          </Article>
-        </Collection>
+    component: withSystemSettings(
+      withCollectionUi(
+        (props) => (
+          <Collection index {...props}>
+            <Article>
+              <Page index {...props}>
+                <Toolbar />
+                <PageList
+                  {...props}
+                  ui={props?.ui}
+                  uis={props?.uis}
+                />
+              </Page>
+            </Article>
+          </Collection>
+        ),
+        PageListProps,
       ),
-      PageListProps,
     ),
   },
 ];
