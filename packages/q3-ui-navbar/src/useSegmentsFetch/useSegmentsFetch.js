@@ -1,8 +1,8 @@
 import React from 'react';
-import { AuthContext } from 'q3-ui-permissions';
 import axios from 'axios';
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
+import { AuthContext } from 'q3-ui-permissions';
 
 const useSegmentsFetch = () => {
   const [data, setData] = React.useState({});
@@ -20,7 +20,7 @@ const useSegmentsFetch = () => {
       setInit(true);
     });
 
-  React.useState(() => {
+  React.useEffect(() => {
     if (!enabled && !init) setInit(true);
     else if (!init)
       handleRequest(

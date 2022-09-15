@@ -7,10 +7,13 @@
   },
   "dependencies": {
     "@reach/router": "^1.3.4",
+    "axios": "0.27.2",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "q3-ui": "^3.9.1",
     "q3-ui-locale": "^3.9.1",
+    "q3-ui-helpers": "^3.9.1",
+    "q3-ui-permissions": "^3.9.1",
     "react-sortable-hoc": "^2.0.0",
     "useful-state": "^1.2.3"
   },
