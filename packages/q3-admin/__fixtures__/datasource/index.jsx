@@ -134,6 +134,43 @@ const makeApiEndpoints = (
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjE2MTUwMTMsImVtYWlsIjoiZ2VudGVrQDNtZXJnZS5jYSIsIm5hbWUiOiJHZW50ZWsgQmFjayBPZmZpY2UiLCJpYXQiOjE2MjE2MDc4MTJ9.RZ_rBEwarGwspZ1qya68ShKVhpDxlM6QHX1A_OAgCX0',
   });
 
+  mockInstance.onGet(/sys\/segments/).reply(200, {
+    segments: [
+      {
+        label: 'Date Range',
+        value: '?demo<=2021-08-01&demo>=2021-01-01',
+        collectionName: 'shows',
+      },
+      {
+        id: 1,
+        folder: true,
+        label: 'Tests',
+        collectionName: 'shows',
+      },
+      {
+        folderId: 1,
+        label: 'One',
+        value:
+          '?demo<=2021-08-01&demo>=2021-01-01&search=Test',
+        collectionName: 'shows',
+      },
+      {
+        folderId: 1,
+        label: 'Two',
+        value:
+          '?demo<=2021-08-01&demo>=2021-01-01&search=Testing',
+        collectionName: 'shows',
+      },
+      {
+        folderId: 1,
+        label: 'Three',
+        value:
+          '?demo<=2021-08-01&demo>=2021-01-01&search=Testing3',
+        collectionName: 'shows',
+      },
+    ],
+  });
+
   mockInstance.onGet(/reports/).reply(200, {
     data: {
       data: [

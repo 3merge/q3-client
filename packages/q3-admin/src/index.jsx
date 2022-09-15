@@ -1,7 +1,10 @@
 import React from 'react';
 import EmailEditor from 'q3-ui-emaileditor';
 import QueueLogs from 'q3-ui-queuelogs';
-import { SegmentsProvider } from 'q3-ui-navbar';
+import {
+  Navbar as NavbarListComponent,
+  SegmentsProvider,
+} from 'q3-ui-navbar';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import { get, map } from 'lodash';
@@ -29,7 +32,6 @@ import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import Navbar from './components/Navbar';
-import NavbarList from './components/NavbarList';
 import SystemPage from './components/SystemPage';
 import SystemPageSub from './components/SystemPageSub';
 import Toolbar from './components/Toolbar';
@@ -79,7 +81,9 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
         <BackProvider>
           <Viewport>
             <Navbar {...NavProps}>
-              <NavbarList items={usePages(pages)} />
+              <NavbarListComponent
+                items={usePages(pages)}
+              />
             </Navbar>
             <Box className={cls.main}>
               <Toolbar {...ToolbarProps} />

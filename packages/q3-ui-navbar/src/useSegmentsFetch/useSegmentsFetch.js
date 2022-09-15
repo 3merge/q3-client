@@ -5,7 +5,7 @@ import { object } from 'q3-ui-helpers';
 import { AuthContext } from 'q3-ui-permissions';
 
 const useSegmentsFetch = () => {
-  const [data, setData] = React.useState({});
+  const [data, setData] = React.useState([]);
   const [init, setInit] = React.useState(false);
 
   const enabled = get(
@@ -21,16 +21,15 @@ const useSegmentsFetch = () => {
     });
 
   React.useEffect(() => {
-    if (!enabled && !init) setInit(true);
-    else if (!init)
+    if (!init)
       handleRequest(
         axios
           .get('/sys/segments')
           .then((response) =>
-            setData(get(response, 'data.segments', {})),
+            setData(get(response, 'data.segments', [])),
           ),
       );
-  }, [enabled]);
+  }, []);
 
   return {
     data,

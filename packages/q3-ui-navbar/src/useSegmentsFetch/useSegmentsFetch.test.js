@@ -43,19 +43,11 @@ describe('useSegmentsFetch', () => {
   });
 
   it('should call sys for segment data', async () => {
-    changeReturnValueOfContext(makeDeveloperObject(true));
+    changeReturnValueOfContext(makeDeveloperObject(false));
     useSegmentsFetch();
 
     await wait();
     expect(setState).toHaveBeenCalledWith(['test']);
     expect(setState).toHaveBeenCalledWith(true);
-  });
-
-  it('should bypass server call', async () => {
-    changeReturnValueOfContext(makeDeveloperObject(false));
-    useSegmentsFetch();
-
-    await wait();
-    expect(setState).toHaveBeenCalledTimes(1);
   });
 });

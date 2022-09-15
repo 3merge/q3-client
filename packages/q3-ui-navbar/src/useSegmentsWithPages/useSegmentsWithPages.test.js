@@ -47,7 +47,7 @@ useMemoMock();
 describe('useSegmentsWithPages', () => {
   it('should include segment tree per collection match', () => {
     expect(
-      useSegmentsWithPages([
+      useSegmentsWithPages()([
         {
           collectionName: 'foo',
         },

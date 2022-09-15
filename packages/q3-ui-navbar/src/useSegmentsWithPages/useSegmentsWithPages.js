@@ -7,7 +7,7 @@ import {
   mergeWithObjectArray,
 } from '../utils';
 
-const useSegmentsWithPages = (pages) => {
+const useSegmentsWithPages = () => {
   const { data } = React.useContext(SegmentsContext);
 
   /**
@@ -49,26 +49,28 @@ const useSegmentsWithPages = (pages) => {
     );
   };
 
-  return React.useMemo(() => {
-    const structured = Object.entries(
-      groupBy(data, 'collectionName'),
-    ).reduce(
-      (acc, [collectionName, segmentData]) =>
-        Object.assign(acc, {
-          [collectionName]: createFolderTree(segmentData),
-        }),
-      {},
-    );
+  const structured = React.useMemo(
+    () =>
+      Object.entries(
+        groupBy(data, 'collectionName'),
+      ).reduce(
+        (acc, [collectionName, segmentData]) =>
+          clean(collectionName)
+            ? Object.assign(acc, {
+                [collectionName]:
+                  createFolderTree(segmentData),
+              })
+            : acc,
+        {},
+      ),
+    [data],
+  );
 
-    return map(pages, (page) => {
-      const { collectionName } = page;
-
-      return {
-        ...page,
-        segments: get(structured, collectionName, []),
-      };
-    });
-  }, [data, pages]);
+  return (pages) =>
+    map(pages, (page) => ({
+      ...page,
+      segments: get(structured, page?.collectionName, []),
+    }));
 };
 
 export default useSegmentsWithPages;
