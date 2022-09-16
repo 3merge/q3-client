@@ -1,4 +1,4 @@
-import { compact } from 'lodash';
+import { compact, isEqual } from 'lodash';
 
 export const clean = (xs) => {
   const str = String(xs).trim();
@@ -18,3 +18,6 @@ export const mergeWithObjectArray = (xs, key, value) => {
       [key]: [value],
     });
 };
+
+export const isCleanAndEqual = (a, b) =>
+  isEqual(clean(a), clean(b));

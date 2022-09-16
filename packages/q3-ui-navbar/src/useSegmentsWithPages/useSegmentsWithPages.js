@@ -1,6 +1,7 @@
 import React from 'react';
 import { get, isEqual, map, groupBy, reduce } from 'lodash';
 import SegmentsContext from '../SegmentsContext';
+import useSegmentsLocationCheck from '../useSegmentsLocationCheck';
 import {
   clean,
   copyArray,
@@ -9,6 +10,8 @@ import {
 
 const useSegmentsWithPages = () => {
   const { data } = React.useContext(SegmentsContext);
+  const { check, state: locationState } =
+    useSegmentsLocationCheck();
 
   /**
    * @NOTE
@@ -57,13 +60,14 @@ const useSegmentsWithPages = () => {
         (acc, [collectionName, segmentData]) =>
           clean(collectionName)
             ? Object.assign(acc, {
-                [collectionName]:
-                  createFolderTree(segmentData),
+                [collectionName]: createFolderTree(
+                  check(segmentData),
+                ),
               })
             : acc,
         {},
       ),
-    [data],
+    [data, locationState],
   );
 
   return (pages) =>

@@ -8,6 +8,7 @@
     "role": "Developer",
     "lang": "en",
     "timezone": "America/Toronto",
-    "theme": "light"
+    "theme": "light",
+    "developer": true
   }
 ]

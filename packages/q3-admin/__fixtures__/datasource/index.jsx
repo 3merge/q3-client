@@ -162,11 +162,31 @@ const makeApiEndpoints = (
         collectionName: 'shows',
       },
       {
-        folderId: 1,
+        folderId: 2,
         label: 'Three',
         value:
           '?demo<=2021-08-01&demo>=2021-01-01&search=Testing3',
         collectionName: 'shows',
+      },
+      {
+        id: 2,
+        label: 'Tests v2',
+        folder: true,
+        collectionName: 'shows',
+      },
+      {
+        id: 3,
+        label: 'Sub sub',
+        folder: true,
+        collectionName: 'shows',
+        folderId: 2,
+      },
+      {
+        id: 4,
+        label: 'Last place',
+        value: '?value',
+        collectionName: 'shows',
+        folderId: 3,
       },
     ],
   });

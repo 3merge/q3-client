@@ -5,7 +5,7 @@ import { isFunction } from 'lodash';
 
 const NavbarCallToAction = ({ icon, label, onClick }) =>
   label && isFunction(onClick) ? (
-    <Box my={2}>
+    <Box px={1.5} my={2}>
       <Button
         color="secondary"
         onClick={onClick}
