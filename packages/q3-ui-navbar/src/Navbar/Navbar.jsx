@@ -4,6 +4,7 @@ import { size } from 'lodash';
 import useSegmentsWithPages from '../useSegmentsWithPages';
 import NavbarListItem from '../NavbarListItem';
 import SegmentList from '../SegmentList';
+import useDomTreeToSegments from '../useDomTreeToSegments';
 
 const getSegmentSortIdx = (xs, previousIndex = 0) =>
   size(xs) > 0
@@ -50,6 +51,7 @@ const Navbar = ({ items }) => {
 
         <List>
           {wp(menuItems).map((menuItem) => {
+            const { onEnd, ref } = useDomTreeToSegments();
             const segments = getSegmentSortIdx(
               menuItem.segments,
             );
@@ -59,7 +61,12 @@ const Navbar = ({ items }) => {
                 {...menuItem}
                 segments={segments}
               >
-                <SegmentList segments={segments} />
+                <div ref={ref}>
+                  <SegmentList
+                    onEnd={onEnd}
+                    segments={segments}
+                  />
+                </div>
               </NavbarListItem>
             );
           })}

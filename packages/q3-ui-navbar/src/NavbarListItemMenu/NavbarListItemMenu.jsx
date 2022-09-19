@@ -6,41 +6,17 @@ import SegmentsContext from '../SegmentsContext';
 
 const NavbarListItemMenu = ({ children, id }) => {
   const { enabled } = React.useContext(SegmentsContext);
-  const [useEditor, setUseEditor] = React.useState();
   const { t } = useTranslation('labels');
-
-  const closeEditor = () => {
-    useEditor(false);
-  };
 
   return (
     <Menu
       id={id}
       items={[
-        {
-          label: t('addSegment'),
-          description: t('descriptions:addSegment'),
-        },
-        {
-          label: t('addSegmentFolder'),
-          description: t('descriptions:addSegmentFolder'),
-        },
-        {
-          label: t('reorderSegments'),
-          description: t('descriptions:reorderSegments'),
-          onClick() {
-            setUseEditor((prevState) => !prevState);
-          },
-        },
+        { label: t('addSegment') },
+        { label: t('addSegmentFolder') },
       ]}
     >
-      {(menuProps) =>
-        children({
-          ...menuProps,
-          closeEditor,
-          useEditor,
-        })
-      }
+      {children}
     </Menu>
   );
 };

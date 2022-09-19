@@ -7,12 +7,12 @@ import SegmentListItem from '../SegmentListItem';
 import SegmentListItemLink from '../SegmentListItemLink';
 import useStyle from './styles';
 
-const SegmentList = ({ label, segments }) => {
+const SegmentList = ({ label, segments, onEnd }) => {
   const ref = React.useRef();
   const cls = useStyle();
 
   React.useEffect(() => {
-    if (ref.current)
+    if (ref.current) {
       // eslint-disable-next-line
       new Sortable(ref.current, {
         group: {
@@ -20,7 +20,9 @@ const SegmentList = ({ label, segments }) => {
           pull: true,
           put: true,
         },
+        onEnd,
       });
+    }
   }, []);
 
   return size(segments) ? (
@@ -28,15 +30,12 @@ const SegmentList = ({ label, segments }) => {
       {map(segments, (segment) =>
         size(segment?.segments) ? (
           <SegmentListItem {...segment}>
-            <SegmentList {...segment} />
+            <SegmentList onEnd={onEnd} {...segment} />
           </SegmentListItem>
         ) : (
           <SegmentListItemLink {...segment} />
         ),
       )}
-      {/* <ListItem component="li" button>
-        <small>More</small>
-      </ListItem> */}
     </List>
   ) : null;
 };

@@ -5,7 +5,13 @@ import { ListItem } from '@material-ui/core';
 import SegmentListItemLinkMenu from '../SegmentListItemLinkMenu';
 import useStyle from './styles';
 
-const SegmentListItemLink = ({ applied, label, value }) => {
+const SegmentListItemLink = ({
+  applied,
+  id,
+  label,
+  value,
+  folderId,
+}) => {
   const cls = useStyle({
     applied,
   });
@@ -13,7 +19,11 @@ const SegmentListItemLink = ({ applied, label, value }) => {
   return (
     <SegmentListItemLinkMenu>
       {({ open: onContextMenu }) => (
-        <li>
+        <li
+          data-segment
+          id={id}
+          data-segment-folderId={folderId}
+        >
           <ListItem
             onContextMenu={onContextMenu}
             className={cls.link}

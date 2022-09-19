@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Menu as MuiMenu,
   MenuItem,
-  ListItemText,
 } from '@material-ui/core';
 import { map } from 'lodash';
 import { useOpen } from 'useful-state';
@@ -53,11 +52,9 @@ const Menu = ({ children, id, items }) => {
             dense
             key={item.label}
             onClick={item.onClick}
+            onMouseDown={item.onMouseDown}
           >
-            <ListItemText
-              primary={item.label}
-              secondary={item.description}
-            />
+            {item.label}
           </MenuItem>
         ))}
       </MuiMenu>

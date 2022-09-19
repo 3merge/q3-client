@@ -8,19 +8,49 @@ const SegmentListItemMenu = ({ children, id }) => {
 
   return (
     <Menu
-      id={id}
+      id="sub-$id}"
       items={[
-        { label: t('addSegmentToFolder') },
-        { label: t('addFolderToFolder') },
-        { label: t('renameFolder') },
-        { label: t('deleteFolder') },
+        {
+          label: 'Administrator',
+        },
+        {
+          label: 'Something else',
+        },
+        {
+          label: 'Sales',
+        },
       ]}
     >
-      {(menuProps) =>
-        children({
-          ...menuProps,
-        })
-      }
+      {({ open }) => (
+        <Menu
+          id={id}
+          items={[
+            { label: t('addSegmentToFolder') },
+            { label: t('addFolderToFolder') },
+            { label: t('renameFolder') },
+            { label: t('deleteFolder') },
+            {
+              label: t('op'),
+              onMouseDown: (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              },
+              onClick: (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                open(e);
+              },
+              nest: true,
+            },
+          ]}
+        >
+          {(menuProps) =>
+            children({
+              ...menuProps,
+            })
+          }
+        </Menu>
+      )}
     </Menu>
   );
 };

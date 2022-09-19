@@ -6,7 +6,7 @@ import useToggleWithSegmentState from '../useToggleWithSegmentState';
 import useStyle from './styles';
 
 const SegmentListItem = (props) => {
-  const { applied, children, label } = props;
+  const { applied, children, label, id } = props;
   const { toggle, state } =
     useToggleWithSegmentState(props);
 
@@ -18,7 +18,7 @@ const SegmentListItem = (props) => {
   return (
     <SegmentListItemMenu id={label}>
       {({ open: onContextMenu }) => (
-        <li>
+        <li data-segment id={id}>
           <ListItem
             button
             onClick={toggle}

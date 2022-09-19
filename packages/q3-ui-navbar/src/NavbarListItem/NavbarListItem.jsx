@@ -71,7 +71,7 @@ const NavbarListItem = ({
 
   return (
     <NavbarListItemMenu id={menuId}>
-      {({ open: openContextMenu, useEditor }) => (
+      {({ open: openContextMenu }) => (
         <li>
           <ListItem
             button
@@ -96,13 +96,6 @@ const NavbarListItem = ({
             <Collapse id={segmentId} in={state}>
               <div style={{ padding: '0 0 0 24px' }}>
                 {children}
-
-                {useEditor && (
-                  <>
-                    <button>Save</button>
-                    <button>Cancel</button>
-                  </>
-                )}
               </div>
             </Collapse>
           )}

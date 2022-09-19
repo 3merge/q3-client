@@ -137,73 +137,78 @@ const makeApiEndpoints = (
   mockInstance.onGet(/sys\/segments/).reply(200, {
     segments: [
       {
+        id: 1,
         label: 'Date Range',
         value: '?demo<=2021-08-01&demo>=2021-01-01',
         collectionName: 'shows',
       },
       {
-        id: 1,
+        id: 2,
         folder: true,
         label: 'Tests',
         collectionName: 'shows',
       },
       {
-        folderId: 1,
+        id: 3,
+        folderId: 2,
         label: 'One',
         value:
           '?demo<=2021-08-01&demo>=2021-01-01&search=Test',
         collectionName: 'shows',
       },
       {
-        folderId: 1,
+        id: 4,
+        folderId: 2,
         label: 'Two',
         value:
           '?demo<=2021-08-01&demo>=2021-01-01&search=Testing',
         collectionName: 'shows',
       },
       {
-        folderId: 2,
+        id: 5,
+        folderId: 6,
         label: 'Three',
         value:
           '?demo<=2021-08-01&demo>=2021-01-01&search=Testing3',
         collectionName: 'shows',
       },
       {
-        id: 2,
+        id: 6,
         label: 'Tests v2',
         folder: true,
         collectionName: 'shows',
       },
       {
-        id: 3,
+        id: 7,
         label: 'Sub sub',
         folder: true,
-        collectionName: 'shows',
-        folderId: 2,
-      },
-      {
-        id: 4,
-        label: 'Last place',
-        value: '?value=other',
-        collectionName: 'shows',
-        folderId: 3,
-      },
-      {
-        id: 6,
-        label: 'Bottom of the barrel',
-        folder: true,
-        collectionName: 'shows',
-        folderId: 3,
-      },
-      {
-        id: 9,
-        label:
-          'This has no business being such a long name',
-        value: '?value=bar',
         collectionName: 'shows',
         folderId: 6,
       },
       {
+        id: 8,
+        label: 'Last place',
+        value: '?value=other',
+        collectionName: 'shows',
+        folderId: 7,
+      },
+      {
+        id: 9,
+        label: 'Bottom of the barrel',
+        folder: true,
+        collectionName: 'shows',
+        folderId: 7,
+      },
+      {
+        id: 10,
+        label:
+          'This has no business being such a long name',
+        value: '?value=bar',
+        collectionName: 'shows',
+        folderId: 9,
+      },
+      {
+        id: 11,
         label: 'First of',
         value: '?value=foo',
         collectionName: 'characters',
