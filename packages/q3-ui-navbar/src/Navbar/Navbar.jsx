@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Typography } from '@material-ui/core';
+import { Box, List, Typography } from '@material-ui/core';
 import { size } from 'lodash';
 import useSegmentsWithPages from '../useSegmentsWithPages';
 import NavbarListItem from '../NavbarListItem';
@@ -31,41 +31,41 @@ const getSegmentSortIdx = (xs, previousIndex = 0) =>
 const Navbar = ({ items }) => {
   const wp = useSegmentsWithPages();
 
-  return (
-    <>
-      {Object.entries(items).map(
-        ([parentTitle, menuItems]) => (
-          <>
-            <Typography
-              variant="overline"
-              style={{
-                textTransform: 'none',
-                padding: '0 1rem',
-              }}
-            >
-              {parentTitle}
-            </Typography>
+  return Object.entries(items).map(
+    ([parentTitle, menuItems]) => (
+      <Box position="relative" px={1.5}>
+        <Box mb={-0.5}>
+          <Typography
+            variant="overline"
+            style={{
+              color: 'inherit',
+              textTransform: 'none',
+              opacity: 0.8,
+              textAlign: 'center',
+            }}
+          >
+            {parentTitle}
+          </Typography>
+        </Box>
 
-            <List>
-              {wp(menuItems).map((menuItem) => {
-                const segments = getSegmentSortIdx(
-                  menuItem.segments,
-                );
+        <List>
+          {wp(menuItems).map((menuItem) => {
+            const segments = getSegmentSortIdx(
+              menuItem.segments,
+            );
 
-                return (
-                  <NavbarListItem
-                    {...menuItem}
-                    segments={segments}
-                  >
-                    <SegmentList segments={segments} />
-                  </NavbarListItem>
-                );
-              })}
-            </List>
-          </>
-        ),
-      )}
-    </>
+            return (
+              <NavbarListItem
+                {...menuItem}
+                segments={segments}
+              >
+                <SegmentList segments={segments} />
+              </NavbarListItem>
+            );
+          })}
+        </List>
+      </Box>
+    ),
   );
 };
 

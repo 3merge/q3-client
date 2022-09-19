@@ -388,11 +388,11 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         },
       },
       MuiListItem: {
-        root: {
-          '&$selected': {
-            backgroundColor: 'rgba(30, 20, 52, 0.08)',
-          },
-        },
+        // root: {
+        //   '&$selected': {
+        //     backgroundColor: 'rgba(30, 20, 52, 0.08)',
+        //   },
+        // },
         button: {
           '&:hover': {
             backgroundColor: 'rgba(30, 20, 52, 0.08)',

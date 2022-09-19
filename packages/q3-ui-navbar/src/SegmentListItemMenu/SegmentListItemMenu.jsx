@@ -10,6 +10,8 @@ const SegmentListItemMenu = ({ children, id }) => {
     <Menu
       id={id}
       items={[
+        { label: t('addSegmentToFolder') },
+        { label: t('addFolderToFolder') },
         { label: t('renameFolder') },
         { label: t('deleteFolder') },
       ]}

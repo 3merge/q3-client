@@ -1,17 +1,15 @@
 import { useLocation } from '@reach/router';
 import { useQueryParams } from 'q3-ui-queryparams';
 import {
-  filter,
   get,
   isEqual,
   map,
-  last,
-  compact,
   omit,
   isObject,
   find,
+  orderBy,
 } from 'lodash';
-import { clean, isCleanAndEqual } from '../utils';
+import { isCleanAndEqual } from '../utils';
 
 const countDiff = (a, assertion) =>
   Object.entries(a).reduce((acc, [key, value]) => {
@@ -40,9 +38,6 @@ const containsNot = (a, b) =>
     0,
   );
 
-const hasMax = (maxValue) => (xs) =>
-  xs.containsNot > 0 ? false : xs.contains === maxValue;
-
 const omitReservedWords = (xs) =>
   omit(xs, ['sort', 'page', 'limit', 'active']);
 
@@ -55,7 +50,18 @@ export const mapSegmentsToListData = (xs) =>
       }))
     : [];
 
-export default () => {
+export const findMostApplied = (xs) =>
+  find(
+    orderBy(
+      xs,
+      ['contains', 'containsNot'],
+      ['desc', 'asc'],
+    ),
+    (segment) =>
+      segment && segment.value && !segment.folder,
+  );
+
+const useSegmentsLocationCheck = () => {
   const qp = useQueryParams();
   const searchString = useLocation()?.search;
   const decodedSearchParams = qp.decode(searchString);
@@ -102,13 +108,7 @@ export default () => {
         };
       });
 
-      const max = Math.max(
-        ...map(segmentsWithStats, 'contains'),
-      );
-
-      const active = last(
-        compact(filter(segmentsWithStats, hasMax(max))),
-      );
+      const active = findMostApplied(segmentsWithStats);
 
       const containsAppliedFolderIds = reportFolderIds(
         segments,
@@ -118,7 +118,7 @@ export default () => {
       return map(segmentsWithStats, (item) => ({
         applied: item.folder
           ? containsAppliedFolderIds.includes(item.id)
-          : isCleanAndEqual(active.label, item.label),
+          : isCleanAndEqual(active?.label, item.label),
         ...item,
       }));
     },
@@ -127,3 +127,5 @@ export default () => {
     state: searchString,
   };
 };
+
+export default useSegmentsLocationCheck;

@@ -1,17 +1,17 @@
 import React from 'react';
-import {
-  ListItem,
-  ListItemSecondaryAction,
-} from '@material-ui/core';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { ListItem } from '@material-ui/core';
+import ListItemArrow from '../ListItemArrow';
 import SegmentListItemMenu from '../SegmentListItemMenu';
 import useToggleWithSegmentState from '../useToggleWithSegmentState';
-import useStyle from '../NavbarListItem/styles';
+import useStyle from './styles';
 
-const SegmentListItem = ({ label, children, ...props }) => {
+const SegmentListItem = (props) => {
+  const { applied, children, label } = props;
   const { toggle, state } =
     useToggleWithSegmentState(props);
+
   const cls = useStyle({
+    applied,
     state,
   });
 
@@ -22,15 +22,15 @@ const SegmentListItem = ({ label, children, ...props }) => {
           <ListItem
             button
             onClick={toggle}
-            selected={state}
             onContextMenu={onContextMenu}
+            selected={state}
+            classes={{
+              root: cls.listItem,
+              selected: cls.listItemSelected,
+            }}
           >
             {label}
-            <ListItemSecondaryAction
-              className={cls.secondaryAction}
-            >
-              <ArrowForwardIosIcon className={cls.icon} />
-            </ListItemSecondaryAction>{' '}
+            <ListItemArrow state={state} />
           </ListItem>
           <div
             style={{

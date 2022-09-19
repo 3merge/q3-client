@@ -19,8 +19,5 @@ export { default as useRefresh } from './useRefresh';
 export { default as useProfileTimezone } from './useProfileTimezone';
 export { default as useProfileTheme } from './useProfileTheme';
 export { default as useProfileLocale } from './useProfileLocale';
-export { default as useSegments } from './useSegments';
-export { default as useSegmentsFromCollection } from './useSegmentsFromCollection';
-export { default as useSegmentsFromProfile } from './useSegmentsFromProfile';
 export { default as useServerSideEvents } from './useServerSideEvents';
 export { default as useUnsavedChanges } from './useUnsavedChanges';

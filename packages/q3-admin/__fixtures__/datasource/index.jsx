@@ -184,9 +184,29 @@ const makeApiEndpoints = (
       {
         id: 4,
         label: 'Last place',
-        value: '?value',
+        value: '?value=other',
         collectionName: 'shows',
         folderId: 3,
+      },
+      {
+        id: 6,
+        label: 'Bottom of the barrel',
+        folder: true,
+        collectionName: 'shows',
+        folderId: 3,
+      },
+      {
+        id: 9,
+        label:
+          'This has no business being such a long name',
+        value: '?value=bar',
+        collectionName: 'shows',
+        folderId: 6,
+      },
+      {
+        label: 'First of',
+        value: '?value=foo',
+        collectionName: 'characters',
       },
     ],
   });

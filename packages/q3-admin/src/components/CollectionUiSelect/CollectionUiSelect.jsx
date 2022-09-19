@@ -1,26 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import { find, size } from 'lodash';
+import { get, size } from 'lodash';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'q3-ui-locale';
-import useSegmentsActive from '../../hooks/useSegmentsActive';
+import { useSegmentsAppliedByCollection } from 'q3-ui-navbar';
+import { Definitions } from '../../containers/state';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
 import useStyle from './styles';
 
 const CollectionUiSelect = ({ uis }) => {
-  const s = useSegmentsActive();
+  const { collectionName } = React.useContext(Definitions);
   const { change } = useCollectionUiLocalStorage([]);
   const cls = useStyle();
   const { t } = useTranslation('labels');
 
-  const to =
-    find(s.segments, (seg) => seg.label === s.active)
-      ?.value || '?';
+  const to = get(
+    useSegmentsAppliedByCollection(collectionName),
+    'value',
+    '?',
+  );
 
   const getIcon = (ui) =>
     ({

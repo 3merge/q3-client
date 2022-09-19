@@ -6,10 +6,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemSecondaryAction,
 } from '@material-ui/core';
 import { isFunction, lowerCase, size } from 'lodash';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ListItemArrow from '../ListItemArrow';
 import NavbarListItemMenu from '../NavbarListItemMenu';
 import useToggleWithLocationDefaults from '../useToggleWithLocationDefaults';
 import useStyle from './styles';
@@ -21,10 +20,11 @@ const NavbarListItem = ({
   to,
   icon: Icon,
 }) => {
-  const { open, state, toggle } =
+  const { open, state, toggle, matches } =
     useToggleWithLocationDefaults(to);
 
   const cls = useStyle({
+    matches,
     state,
   });
 
@@ -66,7 +66,7 @@ const NavbarListItem = ({
           }
         : getLinkProps();
     },
-    [enableChildControls, state],
+    [enableChildControls, matches, state],
   );
 
   return (
@@ -75,7 +75,10 @@ const NavbarListItem = ({
         <li>
           <ListItem
             button
-            className={cls.button}
+            classes={{
+              selected: cls.selected,
+              root: cls.button,
+            }}
             selected={state}
             {...getButtonProps(openContextMenu)}
           >
@@ -86,21 +89,14 @@ const NavbarListItem = ({
             )}
             <ListItemText primary={label} />
             {enableChildControls && (
-              <ListItemSecondaryAction
-                className={cls.secondaryAction}
-              >
-                <ArrowForwardIosIcon className={cls.icon} />
-              </ListItemSecondaryAction>
+              <ListItemArrow state={state} />
             )}
           </ListItem>
           {enableChildControls && (
-            <Collapse
-              component="li"
-              id={segmentId}
-              in={state}
-            >
-              <div>
+            <Collapse id={segmentId} in={state}>
+              <div style={{ padding: '0 0 0 24px' }}>
                 {children}
+
                 {useEditor && (
                   <>
                     <button>Save</button>
