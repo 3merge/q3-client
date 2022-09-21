@@ -64,7 +64,7 @@ const useSegmentsUpdate = () => {
       );
     },
     remove(id) {
-      return execUpdate('create', {
+      return execUpdate('remove', {
         id,
       });
     },

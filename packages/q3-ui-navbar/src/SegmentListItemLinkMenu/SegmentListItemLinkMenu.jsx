@@ -13,38 +13,30 @@ const SegmentListItemLinkMenu = ({
   const { t } = useTranslation('labels');
   const { remove, rename, replace } = useSegmentsUpdate();
 
+  const handleClick = (fn) => () => fn(id);
+
   return (
     <SegmentListItemLinkMenuVisibility
       {...rest}
       id={id}
       items={[
         {
-          label: t('renameSegment'),
-          onClick() {
-            rename(id);
-          },
+          label: t('rename'),
+          onClick: handleClick(rename),
         },
         {
-          label: t('replaceSegment'),
-          onClick() {
-            replace(id);
-          },
+          label: t('replace'),
+          onClick: handleClick(replace),
         },
         {
-          label: t('deleteSegment'),
-          onClick() {
-            remove(id);
-          },
+          label: t('delete'),
+          onClick: handleClick(remove),
         },
       ]}
     >
       {(items) => (
         <Menu id={id} items={items}>
-          {(menuProps) =>
-            children({
-              ...menuProps,
-            })
-          }
+          {children}
         </Menu>
       )}
     </SegmentListItemLinkMenuVisibility>

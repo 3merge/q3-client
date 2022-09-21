@@ -6,40 +6,41 @@ import useSegmentsUpdate from '../useSegmentsUpdate';
 
 const SegmentListItemMenu = ({ children, id }) => {
   const { t } = useTranslation('labels');
-  const { addSegment, addSegmentFolder } =
+  const { addSegment, addSegmentFolder, rename, remove } =
     useSegmentsUpdate();
+
+  const handleClick = (fn) => () => fn(id);
 
   return (
     <Menu
       id={id}
       items={[
         {
-          label: t('addSegmentToFolder'),
-          onClick() {
-            addSegment(id);
-          },
+          label: t('addSegment'),
+          onClick: handleClick(addSegment),
         },
         {
-          label: t('addFolderToFolder'),
-          onClick() {
-            addSegmentFolder(id);
-          },
+          label: t('addFolder'),
+          onClick: handleClick(addSegmentFolder),
         },
-        { label: t('renameFolder') },
-        { label: t('deleteFolder') },
+        {
+          label: t('rename'),
+          onClick: handleClick(rename),
+        },
+        {
+          label: t('delete'),
+          onClick: handleClick(remove),
+        },
       ]}
     >
-      {(menuProps) =>
-        children({
-          ...menuProps,
-        })
-      }
+      {children}
     </Menu>
   );
 };
 
 SegmentListItemMenu.propTypes = {
   children: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default SegmentListItemMenu;
