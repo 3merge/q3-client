@@ -10,7 +10,6 @@ export default makeStyles((theme) => {
       paddingBottom: 4,
       paddingRight: 16,
       paddingTop: 4,
-
       width: '100%',
 
       '&.Mui-selected': ss(props),

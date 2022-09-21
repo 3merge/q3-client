@@ -3,8 +3,9 @@ import { Box, List, Typography } from '@material-ui/core';
 import { size } from 'lodash';
 import useSegmentsWithPages from '../useSegmentsWithPages';
 import NavbarListItem from '../NavbarListItem';
+import NavbarListItemContext from '../NavbarListItemContext';
 import SegmentList from '../SegmentList';
-import useDomTreeToSegments from '../useDomTreeToSegments';
+import withDomTreeToSegments from '../withDomTreeToSegments';
 
 const getSegmentSortIdx = (xs, previousIndex = 0) =>
   size(xs) > 0
@@ -29,6 +30,9 @@ const getSegmentSortIdx = (xs, previousIndex = 0) =>
       })
     : [];
 
+const SegmentListWithDomTracking =
+  withDomTreeToSegments(SegmentList);
+
 const Navbar = ({ items }) => {
   const wp = useSegmentsWithPages();
 
@@ -51,23 +55,26 @@ const Navbar = ({ items }) => {
 
         <List>
           {wp(menuItems).map((menuItem) => {
-            const { onEnd, ref } = useDomTreeToSegments();
+            const { collectionName } = menuItem;
             const segments = getSegmentSortIdx(
               menuItem.segments,
             );
 
             return (
-              <NavbarListItem
-                {...menuItem}
-                segments={segments}
+              <NavbarListItemContext.Provider
+                // eslint-disable-next-line
+                value={{ collectionName }}
               >
-                <div ref={ref}>
-                  <SegmentList
-                    onEnd={onEnd}
+                <NavbarListItem
+                  {...menuItem}
+                  segments={segments}
+                >
+                  <SegmentListWithDomTracking
                     segments={segments}
+                    to={menuItem?.to}
                   />
-                </div>
-              </NavbarListItem>
+                </NavbarListItem>
+              </NavbarListItemContext.Provider>
             );
           })}
         </List>

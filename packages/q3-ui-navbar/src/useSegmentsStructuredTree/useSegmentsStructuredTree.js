@@ -21,12 +21,6 @@ const useSegmentsStructuredTree = () => {
   const createFolderTree = (collectionSegmentData) => {
     const copy = copyArray(collectionSegmentData);
 
-    const removeMetaData = (obj) => {
-      // eslint-disable-next-line
-      delete obj.collectionName;
-      return obj;
-    };
-
     const findByFolderId = (id) =>
       copy.find(
         (item) =>
@@ -36,16 +30,15 @@ const useSegmentsStructuredTree = () => {
     return reduce(
       copy,
       (acc, curr) => {
-        const outputObj = removeMetaData(curr);
         const { folderId } = curr;
 
         if (clean(folderId))
           mergeWithObjectArray(
             findByFolderId(folderId),
             'segments',
-            outputObj,
+            curr,
           );
-        else acc.push(outputObj);
+        else acc.push(curr);
         return acc;
       },
       [],

@@ -6,6 +6,12 @@ export default makeStyles((theme) => ({
     boxSizing: 'border-box',
     position: 'relative',
 
+    '& ul': {
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
+    },
+
     '&::before': {
       display: 'block',
       position: 'absolute',

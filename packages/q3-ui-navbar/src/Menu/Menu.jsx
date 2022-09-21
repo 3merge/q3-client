@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import {
   Menu as MuiMenu,
   MenuItem,
+  ListItemSecondaryAction,
 } from '@material-ui/core';
 import { map } from 'lodash';
 import { useOpen } from 'useful-state';
+import CheckIcon from '@material-ui/icons/Done';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import SegmentsContext from '../SegmentsContext';
 
 const Menu = ({ children, id, items }) => {
@@ -54,7 +57,13 @@ const Menu = ({ children, id, items }) => {
             onClick={item.onClick}
             onMouseDown={item.onMouseDown}
           >
+            {item.checked && <CheckIcon />}
             {item.label}
+            {item.nested && (
+              <ListItemSecondaryAction>
+                <ArrowForwardIosIcon />
+              </ListItemSecondaryAction>
+            )}
           </MenuItem>
         ))}
       </MuiMenu>

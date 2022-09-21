@@ -9,6 +9,10 @@ export default makeStyles((theme) => ({
     fontSize: '0.911rem',
     position: 'inherit',
 
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+
     ...makeSelectedStyleBorder(
       theme,
       'applied',

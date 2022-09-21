@@ -58,7 +58,11 @@ export const findMostApplied = (xs) =>
       ['desc', 'asc'],
     ),
     (segment) =>
-      segment && segment.value && !segment.folder,
+      segment &&
+      segment.contains > 0 &&
+      segment.containsNot === 0 &&
+      segment.value &&
+      !segment.folder,
   );
 
 const useSegmentsLocationCheck = () => {

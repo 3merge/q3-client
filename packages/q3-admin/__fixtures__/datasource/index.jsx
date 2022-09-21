@@ -5,6 +5,7 @@ import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
 import thread from 'q3-ui-thread/lib/tests/fixtures/data.json';
+import useFixtureData from 'q3-ui-navbar/tests/fixtures/useFixtureData';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
@@ -64,6 +65,8 @@ const makeApiEndpoints = (
 ) => {
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
+  const { data: segments, update: updateSegments } =
+    useFixtureData();
 
   mockInstance.onGet(/domain/).reply(200, {
     domain,
@@ -134,87 +137,16 @@ const makeApiEndpoints = (
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjE2MTUwMTMsImVtYWlsIjoiZ2VudGVrQDNtZXJnZS5jYSIsIm5hbWUiOiJHZW50ZWsgQmFjayBPZmZpY2UiLCJpYXQiOjE2MjE2MDc4MTJ9.RZ_rBEwarGwspZ1qya68ShKVhpDxlM6QHX1A_OAgCX0',
   });
 
-  mockInstance.onGet(/sys\/segments/).reply(200, {
-    segments: [
-      {
-        id: 1,
-        label: 'Date Range',
-        value: '?demo<=2021-08-01&demo>=2021-01-01',
-        collectionName: 'shows',
-      },
-      {
-        id: 2,
-        folder: true,
-        label: 'Tests',
-        collectionName: 'shows',
-      },
-      {
-        id: 3,
-        folderId: 2,
-        label: 'One',
-        value:
-          '?demo<=2021-08-01&demo>=2021-01-01&search=Test',
-        collectionName: 'shows',
-      },
-      {
-        id: 4,
-        folderId: 2,
-        label: 'Two',
-        value:
-          '?demo<=2021-08-01&demo>=2021-01-01&search=Testing',
-        collectionName: 'shows',
-      },
-      {
-        id: 5,
-        folderId: 6,
-        label: 'Three',
-        value:
-          '?demo<=2021-08-01&demo>=2021-01-01&search=Testing3',
-        collectionName: 'shows',
-      },
-      {
-        id: 6,
-        label: 'Tests v2',
-        folder: true,
-        collectionName: 'shows',
-      },
-      {
-        id: 7,
-        label: 'Sub sub',
-        folder: true,
-        collectionName: 'shows',
-        folderId: 6,
-      },
-      {
-        id: 8,
-        label: 'Last place',
-        value: '?value=other',
-        collectionName: 'shows',
-        folderId: 7,
-      },
-      {
-        id: 9,
-        label: 'Bottom of the barrel',
-        folder: true,
-        collectionName: 'shows',
-        folderId: 7,
-      },
-      {
-        id: 10,
-        label:
-          'This has no business being such a long name',
-        value: '?value=bar',
-        collectionName: 'shows',
-        folderId: 9,
-      },
-      {
-        id: 11,
-        label: 'First of',
-        value: '?value=foo',
-        collectionName: 'characters',
-      },
-    ],
+  mockInstance.onGet(/system-segments/).reply(200, {
+    segments,
   });
+
+  mockInstance.onPut(/system-segments/).reply((args) => [
+    200,
+    {
+      segments: updateSegments(JSON.parse(args.data)),
+    },
+  ]);
 
   mockInstance.onGet(/reports/).reply(200, {
     data: {

@@ -1,52 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from '@material-ui/core';
-import Sortable from 'sortablejs';
-import { map, size } from 'lodash';
+import { ReactSortable } from 'react-sortablejs';
+import { map } from 'lodash';
+import SegmentsContext from '../SegmentsContext';
 import SegmentListItem from '../SegmentListItem';
 import SegmentListItemLink from '../SegmentListItemLink';
+import SegmentListItemAll from '../SegmentListItemAll';
 import useStyle from './styles';
 
-const SegmentList = ({ label, segments, onEnd }) => {
-  const ref = React.useRef();
+const SegmentList = ({
+  label,
+  segments,
+  onEnd,
+  ...rest
+}) => {
+  const { enabled } = React.useContext(SegmentsContext);
+  const [state, setState] = React.useState(segments);
   const cls = useStyle();
 
   React.useEffect(() => {
-    if (ref.current) {
-      // eslint-disable-next-line
-      new Sortable(ref.current, {
-        group: {
+    setState(segments);
+  }, [segments]);
+
+  return (
+    <List
+      component="div"
+      className={cls.root}
+      style={{
+        // ensures all first items are flush
+        paddingLeft: label === 'init' ? 0 : undefined,
+      }}
+    >
+      {label === 'init' && (
+        <SegmentListItemAll {...rest} segments={segments} />
+      )}
+      <ReactSortable
+        tag="ul"
+        disabled={!enabled}
+        group={{
           name: label,
           pull: true,
           put: true,
-        },
-        onEnd,
-      });
-    }
-  }, []);
-
-  return size(segments) ? (
-    <List className={cls.root} ref={ref}>
-      {map(segments, (segment) =>
-        size(segment?.segments) ? (
-          <SegmentListItem {...segment}>
-            <SegmentList onEnd={onEnd} {...segment} />
-          </SegmentListItem>
-        ) : (
-          <SegmentListItemLink {...segment} />
-        ),
-      )}
+        }}
+        list={state}
+        onEnd={onEnd}
+        setList={setState}
+      >
+        {map(state, (segment) =>
+          segment.folder ? (
+            <SegmentListItem key={segment.id} {...segment}>
+              <SegmentList onEnd={onEnd} {...segment} />
+            </SegmentListItem>
+          ) : (
+            <SegmentListItemLink
+              key={segment.id}
+              {...segment}
+            />
+          ),
+        )}
+      </ReactSortable>
     </List>
-  ) : null;
+  );
 };
 
 SegmentList.defaultProps = {
-  label: 'top-tier',
+  label: 'init',
   segments: [],
 };
 
 SegmentList.propTypes = {
   label: PropTypes.string,
+  onEnd: PropTypes.func.isRequired,
   segments: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,

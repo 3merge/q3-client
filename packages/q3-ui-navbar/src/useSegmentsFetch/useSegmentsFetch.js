@@ -7,6 +7,7 @@ import { AuthContext } from 'q3-ui-permissions';
 const useSegmentsFetch = () => {
   const [data, setData] = React.useState([]);
   const [init, setInit] = React.useState(false);
+  const endpoint = '/system-segments';
 
   const enabled = get(
     React.useContext(AuthContext),
@@ -20,11 +21,32 @@ const useSegmentsFetch = () => {
       setInit(true);
     });
 
+  const update = (body) =>
+    handleRequest(
+      axios.put(endpoint, body).then((response) => {
+        const { collectionName } = body;
+        const updatedSegments = get(
+          response,
+          'data.segments',
+          [],
+        );
+
+        setData((prevState) => [
+          ...prevState.filter(
+            (item) =>
+              // will do a full swap
+              item.collectionName !== collectionName,
+          ),
+          ...updatedSegments,
+        ]);
+      }),
+    );
+
   React.useEffect(() => {
     if (!init)
       handleRequest(
         axios
-          .get('/sys/segments')
+          .get(endpoint)
           .then((response) =>
             setData(get(response, 'data.segments', [])),
           ),
@@ -33,6 +55,7 @@ const useSegmentsFetch = () => {
 
   return {
     data,
+    update,
     enabled,
     init,
   };

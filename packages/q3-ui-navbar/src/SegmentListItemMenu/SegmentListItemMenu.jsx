@@ -2,55 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import Menu from '../Menu';
+import useSegmentsUpdate from '../useSegmentsUpdate';
 
 const SegmentListItemMenu = ({ children, id }) => {
   const { t } = useTranslation('labels');
+  const { addSegment, addSegmentFolder } =
+    useSegmentsUpdate();
 
   return (
     <Menu
-      id="sub-$id}"
+      id={id}
       items={[
         {
-          label: 'Administrator',
+          label: t('addSegmentToFolder'),
+          onClick() {
+            addSegment(id);
+          },
         },
         {
-          label: 'Something else',
+          label: t('addFolderToFolder'),
+          onClick() {
+            addSegmentFolder(id);
+          },
         },
-        {
-          label: 'Sales',
-        },
+        { label: t('renameFolder') },
+        { label: t('deleteFolder') },
       ]}
     >
-      {({ open }) => (
-        <Menu
-          id={id}
-          items={[
-            { label: t('addSegmentToFolder') },
-            { label: t('addFolderToFolder') },
-            { label: t('renameFolder') },
-            { label: t('deleteFolder') },
-            {
-              label: t('op'),
-              onMouseDown: (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              },
-              onClick: (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                open(e);
-              },
-              nest: true,
-            },
-          ]}
-        >
-          {(menuProps) =>
-            children({
-              ...menuProps,
-            })
-          }
-        </Menu>
-      )}
+      {(menuProps) =>
+        children({
+          ...menuProps,
+        })
+      }
     </Menu>
   );
 };

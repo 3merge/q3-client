@@ -14,7 +14,8 @@
     "q3-ui-helpers": "^3.9.1",
     "q3-ui-locale": "^3.9.1",
     "q3-ui-permissions": "^3.9.1",
-    "react-sortable-hoc": "^2.0.0",
+    "q3-ui-queryparams": "^3.9.1",
+    "react-sortablejs": "6.1.1",
     "sortablejs": "^1.15.0",
     "useful-state": "^1.2.3"
   },

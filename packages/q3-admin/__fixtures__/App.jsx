@@ -36,6 +36,7 @@ const ExampleApp = ({ initialPath }) => {
                     text: 'accountCustom',
                   },
                 ],
+                roles: ['Administrator', 'Rep', 'Customer'],
               }}
               NavProps={{
                 callToAction: {

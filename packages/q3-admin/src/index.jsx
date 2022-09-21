@@ -77,7 +77,9 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
     >
-      <SegmentsProvider>
+      <SegmentsProvider
+        visibilityOptions={get(AppProps, 'roles', [])}
+      >
         <BackProvider>
           <Viewport>
             <Navbar {...NavProps}>

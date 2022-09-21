@@ -7,12 +7,17 @@ import useSegmentsFetch from '../useSegmentsFetch';
 const SegmentsProvider = ({
   children,
   fallback: Fallback,
+  visibilityOptions = [],
 }) => {
-  const { data, enabled, init } = useSegmentsFetch();
+  const { data, enabled, init, update } =
+    useSegmentsFetch();
+
   const storeValue = React.useMemo(
     () => ({
       data,
       enabled,
+      update,
+      visibilityOptions,
     }),
     [data],
   );
@@ -29,11 +34,13 @@ const SegmentsProvider = ({
 SegmentsProvider.defaultProps = {
   children: null,
   fallback: SegmentsLoadingScreen,
+  visibilityOptions: [],
 };
 
 SegmentsProvider.propTypes = {
   children: PropTypes.node,
   fallback: PropTypes.elementType,
+  visibilityOptions: PropTypes.arrayOf([PropTypes.string]),
 };
 
 export default SegmentsProvider;

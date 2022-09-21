@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { isFunction, lowerCase, size } from 'lodash';
+import { isFunction, lowerCase } from 'lodash';
 import ListItemArrow from '../ListItemArrow';
 import NavbarListItemMenu from '../NavbarListItemMenu';
 import useToggleWithLocationDefaults from '../useToggleWithLocationDefaults';
@@ -15,10 +15,11 @@ import useStyle from './styles';
 
 const NavbarListItem = ({
   children,
+  collectionName,
   label,
-  segments,
   to,
   icon: Icon,
+  enableSegments,
 }) => {
   const { open, state, toggle, matches } =
     useToggleWithLocationDefaults(to);
@@ -34,7 +35,7 @@ const NavbarListItem = ({
   const menuId = makeId('menu');
   const segmentId = makeId('segments');
 
-  const enableChildControls = size(segments) > 0;
+  const enableChildControls = enableSegments;
 
   const getLinkProps = React.useCallback(
     () => ({
@@ -48,11 +49,13 @@ const NavbarListItem = ({
   const getButtonProps = React.useCallback(
     (fn) => {
       const onContextMenu = (e) => {
-        e.preventDefault();
-        open(e);
+        if (matches) {
+          e.preventDefault();
+          open(e);
 
-        if (isFunction(fn)) {
-          fn(e);
+          if (isFunction(fn)) {
+            fn(e);
+          }
         }
       };
 
@@ -70,7 +73,10 @@ const NavbarListItem = ({
   );
 
   return (
-    <NavbarListItemMenu id={menuId}>
+    <NavbarListItemMenu
+      collectionName={collectionName}
+      id={menuId}
+    >
       {({ open: openContextMenu }) => (
         <li>
           <ListItem
