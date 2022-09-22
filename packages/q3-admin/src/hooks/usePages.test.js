@@ -6,6 +6,10 @@ jest.mock('q3-ui-permissions', () => ({
   useAuth: jest.fn(),
 }));
 
+jest.mock('./useAccountPages', () =>
+  jest.fn().mockReturnValue([]),
+);
+
 const stubProfile = (state = {}) =>
   jest.spyOn(React, 'useContext').mockReturnValue({
     state,
@@ -25,7 +29,9 @@ describe('usePages', () => {
           id: true,
         },
       ]),
-    ).toEqual({});
+    ).toEqual({
+      account: [],
+    });
   });
 
   it('should mark as visible', () => {
@@ -47,47 +53,6 @@ describe('usePages', () => {
         expect.objectContaining({
           label: 'foo',
           visible: true,
-        }),
-      ],
-    });
-  });
-
-  it('should add segments', () => {
-    stubProfile({
-      profile: {
-        filters: {
-          test: {
-            custom: '?',
-          },
-        },
-      },
-    });
-
-    useAuth.mockReturnValue({
-      inClient: true,
-    });
-
-    expect(
-      usePages([
-        {
-          collectionName: 'test',
-          resourceName: 'test',
-          index: true,
-          parent: 'test',
-          segments: {
-            system: '?',
-          },
-        },
-      ]),
-    ).toMatchObject({
-      test: [
-        expect.objectContaining({
-          to: 'test',
-          visible: true,
-          segments: {
-            system: '?',
-            custom: '?',
-          },
         }),
       ],
     });

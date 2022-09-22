@@ -1,0 +1,25 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { CircularProgress } from '@material-ui/core';
+import Navbar from './Navbar';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="Navbar/Navbar" component={Navbar} />
+
+# Navbar
+
+## Fetching
+
+<Preview>
+  <Story name="Fetching">
+    <Fixtures>{(menu) => <Navbar items={menu} />}</Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Navbar} />

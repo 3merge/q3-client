@@ -22,6 +22,9 @@ export const mergeWithObjectArray = (xs, key, value) => {
 export const isCleanAndEqual = (a, b) =>
   isEqual(clean(a), clean(b));
 
+export const isUndefined = (str) =>
+  typeof str === 'undefined' || str === 'undefined';
+
 /**
  * Some shared style functions.
  */

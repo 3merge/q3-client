@@ -4,7 +4,9 @@ import { Typography } from '@material-ui/core';
 
 const SegmentsLoadingScreen = () => (
   <Typography>
-    {useTranslation('descriptions').t('loadingSegments')}
+    {useTranslation('descriptions')
+      .t('loadingSegments')
+      .concat('...')}
   </Typography>
 );
 

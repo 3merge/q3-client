@@ -7,7 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { isFunction, lowerCase } from 'lodash';
+import { isFunction, lowerCase, size } from 'lodash';
 import ListItemArrow from '../ListItemArrow';
 import NavbarListItemMenu from '../NavbarListItemMenu';
 import useToggleWithLocationDefaults from '../useToggleWithLocationDefaults';
@@ -20,6 +20,7 @@ const NavbarListItem = ({
   to,
   icon: Icon,
   enableSegments,
+  segments,
 }) => {
   const { open, state, toggle, matches } =
     useToggleWithLocationDefaults(to);
@@ -34,8 +35,7 @@ const NavbarListItem = ({
 
   const menuId = makeId('menu');
   const segmentId = makeId('segments');
-
-  const enableChildControls = enableSegments;
+  const hasSegments = size(segments) > 0 && enableSegments;
 
   const getLinkProps = React.useCallback(
     () => ({
@@ -59,17 +59,25 @@ const NavbarListItem = ({
         }
       };
 
-      return enableChildControls
-        ? {
-            'aria-haspopup': 'true',
-            'aria-expanded': state,
-            'aria-controls': [menuId, segmentId].join(','),
-            onClick: toggle,
-            onContextMenu,
-          }
-        : getLinkProps();
+      if (hasSegments)
+        return {
+          'aria-haspopup': 'true',
+          'aria-expanded': state,
+          'aria-controls': [menuId, segmentId].join(','),
+          onClick: toggle,
+          onContextMenu,
+        };
+
+      return {
+        ...getLinkProps(),
+        ...(enableSegments
+          ? {
+              onContextMenu,
+            }
+          : {}),
+      };
     },
-    [enableChildControls, matches, state],
+    [hasSegments, matches, state],
   );
 
   return (
@@ -94,11 +102,9 @@ const NavbarListItem = ({
               </ListItemIcon>
             )}
             <ListItemText primary={label} />
-            {enableChildControls && (
-              <ListItemArrow state={state} />
-            )}
+            {hasSegments && <ListItemArrow state={state} />}
           </ListItem>
-          {enableChildControls && (
+          {hasSegments && (
             <Collapse id={segmentId} in={state}>
               <div style={{ padding: '0 0 0 24px' }}>
                 {children}
@@ -121,7 +127,7 @@ NavbarListItem.propTypes = {
   children: PropTypes.node,
   icon: PropTypes.elementType,
   label: PropTypes.string.isRequired,
-  segments: PropTypes.arrayOf([PropTypes.shape({})]),
+  segments: PropTypes.arrayOf(PropTypes.shape({})),
   to: PropTypes.string.isRequired,
 };
 

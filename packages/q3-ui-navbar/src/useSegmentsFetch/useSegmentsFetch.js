@@ -3,20 +3,17 @@ import axios from 'axios';
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { AuthContext } from 'q3-ui-permissions';
-import { useMediaQuery } from '@material-ui/core';
 
 const useSegmentsFetch = () => {
   const [data, setData] = React.useState([]);
   const [init, setInit] = React.useState(false);
   const endpoint = '/system-segments';
 
-  const enabled =
-    get(
-      React.useContext(AuthContext),
-      'state.profile.developer',
-      false,
-    ) &&
-    useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const enabled = get(
+    React.useContext(AuthContext),
+    'state.profile.developer',
+    false,
+  );
 
   // no matter what happens, let's move on
   const handleRequest = (pendingPromise) =>

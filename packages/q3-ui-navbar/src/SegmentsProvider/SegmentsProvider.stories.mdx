@@ -1,0 +1,64 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { CircularProgress } from '@material-ui/core';
+import MockApi from '../../tests/fixtures/MockApi';
+import SegmentsProvider from './SegmentsProvider';
+
+<Meta
+  title="Navbar/SegmentsProvider"
+  component={SegmentsProvider}
+/>
+
+# SegmentsProvider
+
+The `SegmentsProvider` handles the initial data fetching and
+state setup. You'll require this component in your tree to
+use `NavBar` or any of its hooks. When inspecting the
+`NavBar` story's code, this provider lives inside the
+`Fixtures` component, used exclusively for demonstration and
+testing.
+
+## Fallback
+
+Since segments load from the server, expect network delay
+when rendering the provider. The stories below simulate a
+delay of 100,000ms.
+
+### Default
+
+During the loading phase, the provider will indicate as
+much.
+
+<Preview>
+  <Story name="Default fallback">
+    <MockApi delay={100000}>
+      <SegmentsProvider>
+        <div />
+      </SegmentsProvider>
+    </MockApi>
+  </Story>
+</Preview>
+
+### Custom
+
+In case you want to display something else during the
+loading phase, you can pass a component to the `fallback`
+prop.
+
+<Preview>
+  <Story name="Custom fallback">
+    <MockApi delay={100000}>
+      <SegmentsProvider fallback={CircularProgress}>
+        <div />
+      </SegmentsProvider>
+    </MockApi>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={SegmentsProvider} />

@@ -13,6 +13,7 @@ const SegmentList = ({
   label,
   segments,
   onEnd,
+  isTopTier,
   ...rest
 }) => {
   const { enabled } = React.useContext(SegmentsContext);
@@ -29,10 +30,10 @@ const SegmentList = ({
       className={cls.root}
       style={{
         // ensures all first items are flush
-        paddingLeft: label === 'init' ? 0 : undefined,
+        paddingLeft: isTopTier ? 0 : undefined,
       }}
     >
-      {label === 'init' && (
+      {isTopTier && (
         <SegmentListItemAll {...rest} segments={segments} />
       )}
       <ReactSortable
@@ -65,11 +66,13 @@ const SegmentList = ({
 };
 
 SegmentList.defaultProps = {
-  label: 'init',
+  isTopTier: false,
+  label: undefined,
   segments: [],
 };
 
 SegmentList.propTypes = {
+  isTopTier: PropTypes.bool,
   label: PropTypes.string,
   onEnd: PropTypes.func.isRequired,
   segments: PropTypes.arrayOf(

@@ -1,86 +1,94 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, List, Typography } from '@material-ui/core';
-import { size } from 'lodash';
+import { isObject, size } from 'lodash';
 import useSegmentsWithPages from '../useSegmentsWithPages';
 import NavbarListItem from '../NavbarListItem';
 import NavbarListItemContext from '../NavbarListItemContext';
 import SegmentList from '../SegmentList';
 import withDomTreeToSegments from '../withDomTreeToSegments';
-
-const getSegmentSortIdx = (xs, previousIndex = 0) =>
-  size(xs) > 0
-    ? xs.map((item, idx) => {
-        const sortingIndex =
-          idx +
-          previousIndex +
-          xs
-            .slice(0, idx)
-            .reduce(
-              (acc, curr) => acc + size(curr.segments),
-              0,
-            );
-
-        return {
-          ...item,
-          segments: getSegmentSortIdx(
-            item.segments,
-            sortingIndex + 1,
-          ),
-        };
-      })
-    : [];
+import useStyle from './styles';
+import { isUndefined } from '../utils';
 
 const SegmentListWithDomTracking =
   withDomTreeToSegments(SegmentList);
 
 const Navbar = ({ items }) => {
   const wp = useSegmentsWithPages();
+  const cls = useStyle();
 
-  return Object.entries(items).map(
-    ([parentTitle, menuItems]) => (
-      <Box position="relative" px={1.5}>
-        <Box mb={-0.5}>
-          <Typography
-            variant="overline"
-            style={{
-              color: 'inherit',
-              textTransform: 'none',
-              opacity: 0.8,
-              textAlign: 'center',
-            }}
+  if (!isObject(items) || size(Object.keys(items)) === 0)
+    return null;
+
+  // leave the fragment in place
+  // otherwise storybook doesn't render props table ...
+  return (
+    <>
+      {Object.entries(items).map(
+        ([parentTitle, menuItems]) => (
+          <Box
+            key={parentTitle}
+            position="relative"
+            px={1.5}
           >
-            {parentTitle}
-          </Typography>
-        </Box>
-
-        <List>
-          {wp(menuItems).map((menuItem) => {
-            const { collectionName } = menuItem;
-            const segments = getSegmentSortIdx(
-              menuItem.segments,
-            );
-
-            return (
-              <NavbarListItemContext.Provider
-                // eslint-disable-next-line
-                value={{ collectionName }}
+            {!isUndefined(parentTitle) && (
+              <Typography
+                className={cls.subheader}
+                component="p"
+                variant="overline"
               >
-                <NavbarListItem
-                  {...menuItem}
-                  segments={segments}
-                >
-                  <SegmentListWithDomTracking
-                    segments={segments}
-                    to={menuItem?.to}
-                  />
-                </NavbarListItem>
-              </NavbarListItemContext.Provider>
-            );
-          })}
-        </List>
-      </Box>
-    ),
+                {parentTitle}
+              </Typography>
+            )}
+            <List>
+              {wp(menuItems).map((menuItem) => {
+                const { collectionName } = menuItem;
+
+                return (
+                  <NavbarListItemContext.Provider
+                    key={collectionName}
+                    // eslint-disable-next-line
+                    value={{ collectionName }}
+                  >
+                    <NavbarListItem {...menuItem}>
+                      <SegmentListWithDomTracking
+                        isTopTier
+                        {...menuItem}
+                      />
+                    </NavbarListItem>
+                  </NavbarListItemContext.Provider>
+                );
+              })}
+            </List>
+          </Box>
+        ),
+      )}
+    </>
   );
+};
+
+Navbar.defaultProps = {
+  items: {},
+};
+
+Navbar.propTypes = {
+  /**
+   * Each key in this object corresponds to a menu grouping.
+   * Each value expects an array of `NavbarListItem` props.
+   * When you don't wish to group your pages, simply leave the first key as `undefined` and put all your pages there.
+   */
+  items: PropTypes.shape({
+    undefined: PropTypes.arrayOf(
+      PropTypes.shape({
+        collectionName: PropTypes.string,
+        icon: PropTypes.elementType,
+        label: PropTypes.string,
+        // eslint-disable-next-line
+        segments: PropTypes.array,
+        to: PropTypes.string,
+      }),
+    ),
+  }),
 };
 
 export default Navbar;
