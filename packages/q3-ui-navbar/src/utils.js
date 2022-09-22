@@ -10,6 +10,11 @@ export const clean = (xs) => {
 export const copyArray = (a) =>
   compact(Array.isArray(a) ? [...a] : []);
 
+export const curry =
+  (fn, ...params) =>
+  () =>
+    fn(...params);
+
 export const mergeWithObjectArray = (xs, key, value) => {
   if (!xs) return;
   if (Array.isArray(xs[key])) xs[key].push(value);

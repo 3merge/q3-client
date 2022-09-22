@@ -54,6 +54,19 @@ export const useContextMock = () => {
   };
 };
 
+export const useCallbackMock = () => {
+  const spy = jest
+    .spyOn(React, 'useCallback')
+    .mockImplementation((fn) => fn);
+
+  return {
+    reset() {
+      spy.mockClear();
+    },
+    spy,
+  };
+};
+
 export const useMemoMock = () => {
   const spy = jest
     .spyOn(React, 'useMemo')

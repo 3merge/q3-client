@@ -18,7 +18,7 @@ export default makeStyles((theme) => {
         fontSize: '0.911rem',
       },
       '& svg': {
-        opacity: props.matches || props.state ? 1 : 0.3,
+        opacity: props.matches || props.selected ? 1 : 0.3,
         transition: 'opacity 250ms ease-in',
       },
 
@@ -29,8 +29,5 @@ export default makeStyles((theme) => {
       },
     }),
     selected: ss,
-    container: {
-      padding: '0 0 0 24px',
-    },
   };
 });

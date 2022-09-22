@@ -1,131 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
-import {
-  Collapse,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
-import { isFunction, lowerCase, size } from 'lodash';
-import ListItemArrow from '../ListItemArrow';
+import { Collapse } from '@material-ui/core';
+import NavbarListItemBase from '../NavbarListItemBase';
 import NavbarListItemMenu from '../NavbarListItemMenu';
-import useToggleWithLocationDefaults from '../useToggleWithLocationDefaults';
+import useHyphenatedId from '../useHyphenatedId';
+import useNavbarListItemProps from '../useNavbarListItemProps';
 import useStyle from './styles';
 
 const NavbarListItem = ({
   children,
-  collectionName,
-  label,
-  to,
-  icon: Icon,
   enableSegments,
+  label,
   segments,
+  to,
+  ...rest
 }) => {
-  const { open, state, toggle, matches } =
-    useToggleWithLocationDefaults(to);
-
-  const cls = useStyle({
-    matches,
-    state,
-  });
-
-  const makeId = (suffix) =>
-    [label, suffix].map(lowerCase).join('-');
-
+  const makeId = useHyphenatedId(label);
   const menuId = makeId('menu');
   const segmentId = makeId('segments');
-  const hasSegments = size(segments) > 0 && enableSegments;
 
-  const getLinkProps = React.useCallback(
-    () => ({
-      component: Link,
-      disabled: !to,
-      to: to || '/',
-    }),
-    [to],
-  );
+  const renderer = React.useCallback(
+    ({ open: openContextMenu }) => {
+      const {
+        hasSegments,
+        matches,
+        state,
+        ...remainingNavbarListProps
+      } = useNavbarListItemProps({
+        enableSegments,
+        menuId,
+        openContextMenu,
+        segmentId,
+        segments,
+        to,
+      });
 
-  const getButtonProps = React.useCallback(
-    (fn) => {
-      const onContextMenu = (e) => {
-        if (matches) {
-          e.preventDefault();
-          open(e);
+      const cls = useStyle({
+        matches,
+        state,
+      });
 
-          if (isFunction(fn)) {
-            fn(e);
-          }
-        }
-      };
-
-      if (hasSegments)
-        return {
-          'aria-haspopup': 'true',
-          'aria-expanded': state,
-          'aria-controls': [menuId, segmentId].join(','),
-          onClick: toggle,
-          onContextMenu,
-        };
-
-      return {
-        ...getLinkProps(),
-        ...(enableSegments
-          ? {
-              onContextMenu,
-            }
-          : {}),
-      };
-    },
-    [hasSegments, matches, state],
-  );
-
-  return (
-    <NavbarListItemMenu
-      collectionName={collectionName}
-      id={menuId}
-    >
-      {({ open: openContextMenu }) => (
-        <li>
-          <ListItem
-            button
-            classes={{
-              selected: cls.selected,
-              root: cls.button,
-            }}
-            selected={state}
-            {...getButtonProps(openContextMenu)}
-          >
-            {Icon && (
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-            )}
-            <ListItemText primary={label} />
-            {hasSegments && <ListItemArrow state={state} />}
-          </ListItem>
+      return (
+        <NavbarListItemBase
+          {...rest}
+          {...remainingNavbarListProps}
+          arrow={hasSegments}
+          label={label}
+          matches={matches}
+          selected={state}
+        >
           {hasSegments && (
             <Collapse id={segmentId} in={state}>
-              <div style={{ padding: '0 0 0 24px' }}>
+              <div className={cls.container}>
                 {children}
               </div>
             </Collapse>
           )}
-        </li>
-      )}
+        </NavbarListItemBase>
+      );
+    },
+    [enableSegments, label, segments, to],
+  );
+
+  return (
+    <NavbarListItemMenu id={menuId}>
+      {renderer}
     </NavbarListItemMenu>
   );
 };
 
 NavbarListItem.defaultProps = {
   children: null,
-  icon: null,
+  enableSegments: false,
   segments: [],
 };
 
 NavbarListItem.propTypes = {
   children: PropTypes.node,
-  icon: PropTypes.elementType,
+  enableSegments: PropTypes.bool,
   label: PropTypes.string.isRequired,
   segments: PropTypes.arrayOf(PropTypes.shape({})),
   to: PropTypes.string.isRequired,
