@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import Menu from '../Menu';
 import useSegmentsUpdate from '../useSegmentsUpdate';
+import { curry } from '../utils';
 
 const SegmentListItemMenu = ({ children, id }) => {
   const { t } = useTranslation('labels');
   const { addSegment, addSegmentFolder, rename, remove } =
     useSegmentsUpdate();
-
-  const handleClick = (fn) => () => fn(id);
 
   return (
     <Menu
@@ -17,19 +16,19 @@ const SegmentListItemMenu = ({ children, id }) => {
       items={[
         {
           label: t('addSegment'),
-          onClick: handleClick(addSegment),
+          onClick: curry(addSegment, id),
         },
         {
           label: t('addFolder'),
-          onClick: handleClick(addSegmentFolder),
+          onClick: curry(addSegmentFolder, id),
         },
         {
           label: t('rename'),
-          onClick: handleClick(rename),
+          onClick: curry(rename, id),
         },
         {
           label: t('delete'),
-          onClick: handleClick(remove),
+          onClick: curry(remove, id),
         },
       ]}
     >

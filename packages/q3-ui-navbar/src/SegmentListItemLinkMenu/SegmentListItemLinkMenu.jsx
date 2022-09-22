@@ -4,16 +4,15 @@ import { useTranslation } from 'q3-ui-locale';
 import useSegmentsUpdate from '../useSegmentsUpdate';
 import Menu from '../Menu';
 import SegmentListItemLinkMenuVisibility from '../SegmentListItemLinkMenuVisibility';
+import { curry } from '../utils';
 
 const SegmentListItemLinkMenu = ({
   children,
   id,
   ...rest
 }) => {
-  const { t } = useTranslation('labels');
   const { remove, rename, replace } = useSegmentsUpdate();
-
-  const handleClick = (fn) => () => fn(id);
+  const { t } = useTranslation('labels');
 
   return (
     <SegmentListItemLinkMenuVisibility
@@ -22,15 +21,15 @@ const SegmentListItemLinkMenu = ({
       items={[
         {
           label: t('rename'),
-          onClick: handleClick(rename),
+          onClick: curry(rename, id),
         },
         {
           label: t('replace'),
-          onClick: handleClick(replace),
+          onClick: curry(replace, id),
         },
         {
           label: t('delete'),
-          onClick: handleClick(remove),
+          onClick: curry(remove, id),
         },
       ]}
     >
@@ -45,7 +44,10 @@ const SegmentListItemLinkMenu = ({
 
 SegmentListItemLinkMenu.propTypes = {
   children: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default SegmentListItemLinkMenu;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ListItem } from '@material-ui/core';
 import ListItemArrow from '../ListItemArrow';
 import SegmentListItemMenu from '../SegmentListItemMenu';
@@ -6,10 +7,9 @@ import useToggleWithSegmentState from '../useToggleWithSegmentState';
 import useStyle from './styles';
 
 const SegmentListItem = (props) => {
-  const { applied, collectionName, children, label, id } =
-    props;
   const { toggle, state } =
     useToggleWithSegmentState(props);
+  const { applied, children, label, id } = props;
 
   const cls = useStyle({
     applied,
@@ -17,10 +17,7 @@ const SegmentListItem = (props) => {
   });
 
   return (
-    <SegmentListItemMenu
-      collectionName={collectionName}
-      id={id}
-    >
+    <SegmentListItemMenu id={id}>
       {({ open: onContextMenu }) => (
         <li data-segment id={id}>
           <ListItem
@@ -36,17 +33,26 @@ const SegmentListItem = (props) => {
             {label}
             <ListItemArrow state={state} />
           </ListItem>
-          <div
-            style={{
-              display: state ? 'block' : 'none',
-            }}
-          >
-            {children}
-          </div>
+          <div className={cls.container}>{children}</div>
         </li>
       )}
     </SegmentListItemMenu>
   );
+};
+
+SegmentListItem.defaultProps = {
+  applied: false,
+  children: null,
+};
+
+SegmentListItem.propTypes = {
+  applied: PropTypes.bool,
+  children: PropTypes.node,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 export default SegmentListItem;

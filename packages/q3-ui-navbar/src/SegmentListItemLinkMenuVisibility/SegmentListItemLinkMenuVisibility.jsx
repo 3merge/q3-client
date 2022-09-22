@@ -35,24 +35,23 @@ const SegmentListItemLinkMenu = ({
     );
   };
 
-  console.log(visibility);
-
-  return size(visibilityOptions) ? (
+  return size(visibilityOptions) > 0 ? (
     <Menu
       id={`visibility-options-${id}`}
       items={visibilityOptions.map((label) => ({
-        label,
         checked: includes(visibility, label),
-        onMouseDown: handleEvt(),
+        label,
         onClick: handleEvt(handleSelect(label)),
+        onMouseDown: handleEvt(),
       }))}
     >
       {({ open }) =>
         children(
           items.concat({
             label: t('visibility'),
+            // already suppresses default events
+            onClick: open,
             onMouseDown: handleEvt(),
-            onClick: handleEvt(open),
             nested: true,
           }),
         )
@@ -63,9 +62,16 @@ const SegmentListItemLinkMenu = ({
   );
 };
 
+SegmentListItemLinkMenu.defaultProps = {
+  items: [],
+  visibility: [],
+};
+
 SegmentListItemLinkMenu.propTypes = {
   children: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({})),
+  visibility: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default SegmentListItemLinkMenu;

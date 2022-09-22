@@ -54,7 +54,7 @@ SegmentsProvider.propTypes = {
    * Typically, this will be an array of unique user role types
    * and will match the access control file on the server.
    */
-  visibilityOptions: PropTypes.arrayOf([PropTypes.string]),
+  visibilityOptions: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default SegmentsProvider;

@@ -1,8 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  root: {
-    padding: '0 0 0 8px',
+  root: ({ isTopTier = false }) => ({
+    padding: isTopTier ? 0 : '0 0 0 8px',
     boxSizing: 'border-box',
     position: 'relative',
 
@@ -22,5 +22,5 @@ export default makeStyles((theme) => ({
       width: 1,
       height: '100%',
     },
-  },
+  }),
 }));

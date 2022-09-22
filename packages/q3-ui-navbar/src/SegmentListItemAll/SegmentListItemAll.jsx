@@ -2,19 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from '@material-ui/core';
 import { Link, useMatch } from '@reach/router';
-import { size, some } from 'lodash';
+import { some } from 'lodash';
+import { useTranslation } from 'q3-ui-locale';
 import useStyle from '../SegmentListItemLink/styles';
 
 const SegmentList = ({ segments, to }) => {
-  const matched = useMatch(to);
-  const hasAppliedSegments = React.useMemo(() => {
-    const check = (xs) => some(xs, (item) => item.applied);
-
-    return check(segments);
-  }, [segments]);
-
+  const { t } = useTranslation('labels');
   const cls = useStyle({
-    applied: matched && !hasAppliedSegments,
+    applied: useMatch(to) && !some(segments, 'applied'),
   });
 
   return (
@@ -25,7 +20,7 @@ const SegmentList = ({ segments, to }) => {
       component={Link}
       to={to}
     >
-      All
+      {t('all')}
     </ListItem>
   );
 };

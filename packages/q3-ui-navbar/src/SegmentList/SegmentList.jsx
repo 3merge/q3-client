@@ -11,28 +11,23 @@ import useStyle from './styles';
 
 const SegmentList = ({
   label,
+  isTopTier,
   segments,
   onEnd,
-  isTopTier,
   ...rest
 }) => {
   const { enabled } = React.useContext(SegmentsContext);
   const [state, setState] = React.useState(segments);
-  const cls = useStyle();
+  const cls = useStyle({
+    isTopTier,
+  });
 
   React.useEffect(() => {
     setState(segments);
   }, [segments]);
 
   return (
-    <List
-      component="div"
-      className={cls.root}
-      style={{
-        // ensures all first items are flush
-        paddingLeft: isTopTier ? 0 : undefined,
-      }}
-    >
+    <List component="div" className={cls.root}>
       {isTopTier && (
         <SegmentListItemAll {...rest} segments={segments} />
       )}

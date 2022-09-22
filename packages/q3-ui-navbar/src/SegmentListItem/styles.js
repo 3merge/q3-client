@@ -29,5 +29,8 @@ export default makeStyles((theme) => {
     }),
 
     listItemSelected: ss,
+    container: ({ state }) => ({
+      display: state ? 'block' : 'none',
+    }),
   };
 });

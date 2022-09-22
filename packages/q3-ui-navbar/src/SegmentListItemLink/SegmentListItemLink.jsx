@@ -7,7 +7,6 @@ import useStyle from './styles';
 
 const SegmentListItemLink = ({
   applied,
-  collectionName,
   id,
   label,
   value,
@@ -18,18 +17,13 @@ const SegmentListItemLink = ({
   });
 
   return value ? (
-    <SegmentListItemLinkMenu
-      {...rest}
-      collectionName={collectionName}
-      id={id}
-    >
+    <SegmentListItemLinkMenu {...rest} id={id}>
       {({ open: onContextMenu }) => (
         <li data-segment id={id}>
           <ListItem
-            onContextMenu={onContextMenu}
             className={cls.link}
             component={Link}
-            /** @TODO */
+            onContextMenu={onContextMenu}
             to={value}
           >
             {label}
@@ -46,8 +40,10 @@ SegmentListItemLink.defaultProps = {
 
 SegmentListItemLink.propTypes = {
   applied: PropTypes.bool,
-  collectionName: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
 };
