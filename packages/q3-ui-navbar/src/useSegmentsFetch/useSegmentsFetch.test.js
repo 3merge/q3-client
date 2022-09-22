@@ -11,7 +11,11 @@ const {
   changeReturnValue: changeReturnValueOfContext,
   reset: resetContext,
 } = useContextMock();
-const { reset: resetState, setState } = useStateMock();
+const {
+  changeReturnValue: changeReturnValueOfState,
+  reset: resetState,
+  setState,
+} = useStateMock();
 
 const makeDeveloperObject = (developer) => ({
   state: {
@@ -32,6 +36,7 @@ jest.spyOn(axios, 'get').mockResolvedValue({
 beforeEach(() => {
   resetContext();
   resetState();
+  setState.mockReset();
 });
 
 describe('useSegmentsFetch', () => {
@@ -49,5 +54,55 @@ describe('useSegmentsFetch', () => {
     await wait();
     expect(setState).toHaveBeenCalledWith(['test']);
     expect(setState).toHaveBeenCalledWith(true);
+  });
+
+  it('should replace collection state after put', async () => {
+    const initalState = [
+      {
+        id: 1,
+        collectionName: 'test',
+      },
+      {
+        id: 2,
+        collectionName: 'test',
+      },
+      {
+        id: 3,
+        collectionName: 'test2',
+      },
+    ];
+
+    jest.spyOn(axios, 'put').mockResolvedValue({
+      data: {
+        segments: [
+          {
+            id: 2,
+            collectionName: 'test',
+          },
+        ],
+      },
+    });
+
+    changeReturnValueOfState(initalState);
+
+    const { update } = useSegmentsFetch();
+    await update({
+      action: 'remove',
+      collectionName: 'test',
+      payload: {
+        id: 1,
+      },
+    });
+
+    expect(setState.mock.calls[0][0](initalState)).toEqual([
+      {
+        id: 3,
+        collectionName: 'test2',
+      },
+      {
+        id: 2,
+        collectionName: 'test',
+      },
+    ]);
   });
 });

@@ -7,7 +7,7 @@ import { curry } from '../utils';
 
 const SegmentListItemMenu = ({ children, id }) => {
   const { t } = useTranslation('labels');
-  const { addSegment, addSegmentFolder, rename, remove } =
+  const { add, addFolder, rename, remove } =
     useSegmentsUpdate();
 
   return (
@@ -16,11 +16,11 @@ const SegmentListItemMenu = ({ children, id }) => {
       items={[
         {
           label: t('addSegment'),
-          onClick: curry(addSegment, id),
+          onClick: curry(add, id),
         },
         {
           label: t('addFolder'),
-          onClick: curry(addSegmentFolder, id),
+          onClick: curry(addFolder, id),
         },
         {
           label: t('rename'),

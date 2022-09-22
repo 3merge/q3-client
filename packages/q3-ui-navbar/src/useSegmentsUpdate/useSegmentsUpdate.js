@@ -2,10 +2,12 @@ import React from 'react';
 import { omit } from 'lodash';
 import { useLocation } from '@reach/router';
 import { useQueryParams } from 'q3-ui-queryparams';
+import { useTranslation } from 'q3-ui-locale';
 import NavbarListItemContext from '../NavbarListItemContext';
 import SegmentsContext from '../SegmentsContext';
 
 const useSegmentsUpdate = () => {
+  const { t } = useTranslation('descriptions');
   const { update } = React.useContext(SegmentsContext);
   const { collectionName } = React.useContext(
     NavbarListItemContext,
@@ -34,15 +36,16 @@ const useSegmentsUpdate = () => {
 
   const withPromptEntry = (fn) => {
     // eslint-disable-next-line
-    const label = prompt('Please enter a name');
+    const label = prompt(t('enterNameSegment'));
     if (label) fn(label);
   };
 
   return {
-    addSegment(folderId = null) {
+    add(folderId = null) {
       const value = getCurrentValue();
       if (!value || value === '?') {
-        alert('Cannot');
+        // eslint-disable-next-line
+        alert(t('segmentRequiresFilterValue'));
         return null;
       }
 
@@ -54,7 +57,7 @@ const useSegmentsUpdate = () => {
         }),
       );
     },
-    addSegmentFolder(folderId = null) {
+    addFolder(folderId = null) {
       return withPromptEntry((label) =>
         execUpdate('create', {
           folder: true,

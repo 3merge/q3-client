@@ -7,8 +7,7 @@ import { curry } from '../utils';
 
 const NavbarListItemMenu = ({ children, id }) => {
   const { t } = useTranslation('labels');
-  const { addSegment, addSegmentFolder } =
-    useSegmentsUpdate();
+  const { add, addFolder } = useSegmentsUpdate();
 
   return (
     <Menu
@@ -16,11 +15,11 @@ const NavbarListItemMenu = ({ children, id }) => {
       items={[
         {
           label: t('addSegment'),
-          onClick: curry(addSegment, null),
+          onClick: curry(add, null),
         },
         {
           label: t('addSegmentFolder'),
-          onClick: curry(addSegmentFolder, null),
+          onClick: curry(addFolder, null),
         },
       ]}
     >
