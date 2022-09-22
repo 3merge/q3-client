@@ -1,19 +1,12 @@
-import React from 'react';
 import { useMatch } from '@reach/router';
-import { useToggle } from 'useful-state';
 import { isObject } from 'lodash';
+import useToggleEffect from '../useToggleEffect';
 
 const useToggleWithLocationDefaults = (path) => {
   const matches = isObject(useMatch(path));
-  const toggleProps = useToggle();
-
-  React.useEffect(() => {
-    if (matches) toggleProps.open();
-    else toggleProps.close();
-  }, [matches]);
 
   return {
-    ...toggleProps,
+    ...useToggleEffect(matches),
     matches,
   };
 };

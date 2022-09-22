@@ -1,15 +1,6 @@
-import React from 'react';
-import { useToggle } from 'useful-state';
+import useToggleEffect from '../useToggleEffect';
 
-const useToggleWithSegmentState = ({ applied = false }) => {
-  const toggleProps = useToggle();
-
-  React.useEffect(() => {
-    if (applied) toggleProps.open();
-    else toggleProps.close();
-  }, [applied]);
-
-  return toggleProps;
-};
+const useToggleWithSegmentState = ({ applied = false }) =>
+  useToggleEffect(applied);
 
 export default useToggleWithSegmentState;
