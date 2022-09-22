@@ -81,6 +81,7 @@ Navbar.propTypes = {
     undefined: PropTypes.arrayOf(
       PropTypes.shape({
         collectionName: PropTypes.string,
+        enableSegments: PropTypes.bool,
         icon: PropTypes.elementType,
         label: PropTypes.string,
         // eslint-disable-next-line

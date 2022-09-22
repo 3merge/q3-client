@@ -35,6 +35,8 @@ const SegmentListItemLinkMenu = ({
     );
   };
 
+  console.log(visibility);
+
   return size(visibilityOptions) ? (
     <Menu
       id={`visibility-options-${id}`}
