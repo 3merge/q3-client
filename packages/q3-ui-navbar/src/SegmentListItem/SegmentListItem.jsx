@@ -18,8 +18,8 @@ const SegmentListItem = (props) => {
 
   return (
     <SegmentListItemMenu id={id}>
-      {({ open: onContextMenu }) => (
-        <li data-segment id={id}>
+      {({ className, open: onContextMenu }) => (
+        <li className={className} data-segment id={id}>
           <ListItem
             button
             onClick={toggle}

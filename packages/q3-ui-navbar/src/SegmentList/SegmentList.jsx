@@ -43,8 +43,8 @@ const SegmentList = ({
         onEnd={onEnd}
         setList={setState}
       >
-        {map(state, (segment, idx) => {
-          const key = `${segment.id}-${idx}`;
+        {map(state, (segment) => {
+          const { id: key } = segment;
 
           return segment.folder ? (
             <SegmentListItem key={key} {...segment}>
@@ -61,7 +61,7 @@ const SegmentList = ({
 
 SegmentList.defaultProps = {
   isTopTier: false,
-  label: undefined,
+  label: 'init',
   segments: [],
 };
 

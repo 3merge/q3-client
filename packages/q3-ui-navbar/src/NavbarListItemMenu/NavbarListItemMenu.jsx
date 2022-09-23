@@ -11,7 +11,7 @@ const NavbarListItemMenu = ({ children, id }) => {
 
   return (
     <Menu
-      id={id}
+      id={`list-menu-${id}`}
       items={[
         {
           label: t('addSegment'),

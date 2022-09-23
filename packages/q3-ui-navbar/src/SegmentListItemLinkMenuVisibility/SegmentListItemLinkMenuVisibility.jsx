@@ -32,21 +32,22 @@ const SegmentListItemLinkMenu = ({
     );
   };
 
-  return size(visibilityOptions) > 0
-    ? children(
-        items.concat([
-          {
+  return children(
+    size(visibilityOptions) > 0
+      ? items
+          .concat({
             divider: true,
-          },
-          ...visibilityOptions.map((label) => ({
-            checked: includes(visibility, label),
-            label,
-            onClick: handleEvt(handleSelect(label)),
-            onMouseDown: handleEvt(),
-          })),
-        ]),
-      )
-    : children(items);
+          })
+          .concat(
+            visibilityOptions.map((label) => ({
+              checked: includes(visibility, label),
+              label,
+              onClick: handleEvt(handleSelect(label)),
+              onMouseDown: handleEvt(),
+            })),
+          )
+      : items,
+  );
 };
 
 SegmentListItemLinkMenu.defaultProps = {

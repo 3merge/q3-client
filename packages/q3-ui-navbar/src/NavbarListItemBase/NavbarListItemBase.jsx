@@ -11,6 +11,7 @@ import useStyle from './styles';
 
 const NavbarListItemBase = ({
   arrow,
+  className,
   children,
   icon: Icon,
   label,
@@ -24,7 +25,7 @@ const NavbarListItemBase = ({
   });
 
   return (
-    <li>
+    <li className={className}>
       <ListItem
         button
         classes={{
@@ -50,6 +51,7 @@ const NavbarListItemBase = ({
 NavbarListItemBase.defaultProps = {
   arrow: false,
   children: null,
+  className: undefined,
   icon: null,
   matches: false,
   selected: false,
@@ -58,6 +60,7 @@ NavbarListItemBase.defaultProps = {
 NavbarListItemBase.propTypes = {
   arrow: PropTypes.bool,
   children: PropTypes.node,
+  className: PropTypes.string,
   label: PropTypes.string.isRequired,
   icon: PropTypes.elementType,
   matches: PropTypes.bool,

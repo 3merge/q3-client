@@ -6,26 +6,26 @@ import {
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Done';
 
-const MenuItem = ({
-  divider,
-  checked,
-  label,
-  onClick,
-  onMouseDown,
-}) =>
-  divider ? (
-    <Divider component="li" />
-  ) : (
-    <MuiMenuItem
-      dense
-      key={label}
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-    >
-      {checked && <CheckIcon />}
-      {label}
-    </MuiMenuItem>
-  );
+const MenuItem = React.forwardRef(
+  (
+    { divider, checked, label, onClick, onMouseDown },
+    ref,
+  ) =>
+    divider ? (
+      <Divider component="li" ref={ref} />
+    ) : (
+      <MuiMenuItem
+        dense
+        key={label}
+        onClick={onClick}
+        onMouseDown={onMouseDown}
+        ref={ref}
+      >
+        {checked && <CheckIcon />}
+        {label}
+      </MuiMenuItem>
+    ),
+);
 
 MenuItem.defaultProps = {
   checked: false,

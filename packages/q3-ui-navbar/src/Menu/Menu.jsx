@@ -38,18 +38,13 @@ const Menu = ({ children, id, items }) => {
   };
 
   return [
-    <div className={cls.wrapper} key="wrapper">
-      {children({
-        open,
-      })}
-    </div>,
+    children({
+      className: cls.wrapper,
+      open,
+    }),
     size(items) > 0 && enabled && (
       <MuiMenu
         anchorEl={getLiRoot()}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
         id={id}
         open={isOpen}
         onClose={close}

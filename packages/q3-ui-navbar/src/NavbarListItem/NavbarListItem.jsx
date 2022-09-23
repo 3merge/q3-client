@@ -20,7 +20,7 @@ const NavbarListItem = ({
   const segmentId = makeId('segments');
 
   const renderer = React.useCallback(
-    ({ open: openContextMenu }) => {
+    ({ className, open: openContextMenu }) => {
       const {
         hasSegments,
         matches,
@@ -45,6 +45,7 @@ const NavbarListItem = ({
           {...rest}
           {...remainingNavbarListProps}
           arrow={hasSegments}
+          className={className}
           label={label}
           matches={matches}
           selected={state}

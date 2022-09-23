@@ -7,6 +7,8 @@ import { open } from 'useful-state';
 import Menu from './Menu';
 import MenuItem from '../MenuItem';
 
+jest.mock('./styles', () => jest.fn().mockReturnValue({}));
+
 useCallbackMock();
 const { changeReturnValue } = useContextMock();
 
