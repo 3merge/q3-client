@@ -20,10 +20,8 @@ const Navbar = ({ items }) => {
   if (!isObject(items) || size(Object.keys(items)) === 0)
     return null;
 
-  // leave the fragment in place
-  // otherwise storybook doesn't render props table ...
   return (
-    <>
+    <Box my={1.5}>
       {Object.entries(items).map(
         ([parentTitle, menuItems]) => (
           <Box
@@ -63,7 +61,7 @@ const Navbar = ({ items }) => {
           </Box>
         ),
       )}
-    </>
+    </Box>
   );
 };
 
