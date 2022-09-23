@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'q3-ui-locale';
 import { includes, size } from 'lodash';
 import useSegmentsUpdate from '../useSegmentsUpdate';
 import SegmentsContext from '../SegmentsContext';
-import Menu from '../Menu';
 
 const SegmentListItemLinkMenu = ({
   children,
@@ -12,7 +10,6 @@ const SegmentListItemLinkMenu = ({
   items,
   visibility,
 }) => {
-  const { t } = useTranslation('labels');
   const { visibilityOptions } =
     React.useContext(SegmentsContext);
   const { replaceVisibility } = useSegmentsUpdate();
@@ -35,31 +32,21 @@ const SegmentListItemLinkMenu = ({
     );
   };
 
-  return size(visibilityOptions) > 0 ? (
-    <Menu
-      id={`visibility-options-${id}`}
-      items={visibilityOptions.map((label) => ({
-        checked: includes(visibility, label),
-        label,
-        onClick: handleEvt(handleSelect(label)),
-        onMouseDown: handleEvt(),
-      }))}
-    >
-      {({ open }) =>
-        children(
-          items.concat({
-            label: t('visibility'),
-            // already suppresses default events
-            onClick: open,
+  return size(visibilityOptions) > 0
+    ? children(
+        items.concat([
+          {
+            divider: true,
+          },
+          ...visibilityOptions.map((label) => ({
+            checked: includes(visibility, label),
+            label,
+            onClick: handleEvt(handleSelect(label)),
             onMouseDown: handleEvt(),
-            nested: true,
-          }),
-        )
-      }
-    </Menu>
-  ) : (
-    children(items)
-  );
+          })),
+        ]),
+      )
+    : children(items);
 };
 
 SegmentListItemLinkMenu.defaultProps = {
@@ -69,7 +56,10 @@ SegmentListItemLinkMenu.defaultProps = {
 
 SegmentListItemLinkMenu.propTypes = {
   children: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})),
   visibility: PropTypes.arrayOf(PropTypes.string),
 };

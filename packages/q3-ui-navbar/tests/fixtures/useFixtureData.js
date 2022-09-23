@@ -1,10 +1,9 @@
 import React from 'react';
 import { map } from 'lodash';
 import { isCleanAndEqual } from '../../src/utils';
-import data from './data.json';
 
-const useFixtureData = () => {
-  const [state, setState] = React.useState(data);
+const useFixtureData = (initialState = []) => {
+  const [state, setState] = React.useState(initialState);
 
   const getLastId = () => Math.max(...map(state, 'id'));
 
@@ -32,6 +31,7 @@ const useFixtureData = () => {
             ...prevState.find((prevItem) =>
               isCleanAndEqual(prevItem.id, id),
             ),
+            collectionName,
             folderId,
             id,
           }),

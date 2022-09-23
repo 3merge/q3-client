@@ -5,6 +5,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+import { omit } from 'lodash';
 import ListItemArrow from '../ListItemArrow';
 import useStyle from './styles';
 
@@ -31,7 +32,7 @@ const NavbarListItemBase = ({
           root: cls.button,
         }}
         selected={selected}
-        {...props}
+        {...omit(props, ['collectionName'])}
       >
         {Icon && (
           <ListItemIcon>

@@ -5,6 +5,7 @@ import { map, size } from 'lodash';
 import { useOpen } from 'useful-state';
 import MenuItem from '../MenuItem';
 import SegmentsContext from '../SegmentsContext';
+import useStyle from './styles';
 
 const Menu = ({ children, id, items }) => {
   const {
@@ -13,6 +14,9 @@ const Menu = ({ children, id, items }) => {
     isOpen,
     open: handleOpen,
   } = useOpen();
+  const cls = useStyle({
+    isOpen,
+  });
 
   const { enabled } = React.useContext(SegmentsContext);
   const open = React.useCallback(
@@ -25,16 +29,26 @@ const Menu = ({ children, id, items }) => {
     [enabled],
   );
 
+  const getLiRoot = () => {
+    try {
+      return anchorEl?.parentNode.closest('li');
+    } catch (e) {
+      return anchorEl;
+    }
+  };
+
   return [
-    children({
-      open,
-    }),
+    <div className={cls.wrapper} key="wrapper">
+      {children({
+        open,
+      })}
+    </div>,
     size(items) > 0 && enabled && (
       <MuiMenu
-        anchorEl={anchorEl}
+        anchorEl={getLiRoot()}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         id={id}
         open={isOpen}
@@ -49,7 +63,10 @@ const Menu = ({ children, id, items }) => {
         }}
       >
         {map(items, (item, idx) => (
-          <MenuItem {...item} key={`menu-${idx}`} />
+          <MenuItem
+            {...item}
+            key={`menu-${idx}-${item.label}`}
+          />
         ))}
       </MuiMenu>
     ),

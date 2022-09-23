@@ -41,12 +41,12 @@ const Navbar = ({ items }) => {
               </Typography>
             )}
             <List>
-              {wp(menuItems).map((menuItem) => {
+              {wp(menuItems).map((menuItem, idx) => {
                 const { collectionName } = menuItem;
 
                 return (
                   <NavbarListItemContext.Provider
-                    key={collectionName}
+                    key={`${collectionName}-${idx}`}
                     // eslint-disable-next-line
                     value={{ collectionName }}
                   >

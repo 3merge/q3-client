@@ -1,5 +1,5 @@
 import {
-  createMuiTheme,
+  createTheme,
   responsiveFontSizes,
   alpha,
   darken,
@@ -25,7 +25,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
     lineHeight: 1.1,
   };
 
-  const theme = createMuiTheme(
+  const theme = createTheme(
     merge(
       {
         palette: {

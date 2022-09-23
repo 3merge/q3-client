@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line
 import Rest from 'q3-ui-test-utils/lib/rest';
 import useFixtureData from './useFixtureData';
+import data from './data.json';
 
 const ApiMock = ({ children, delay }) => {
   const { data: segments, update: updateSegments } =
-    useFixtureData();
+    useFixtureData(data);
 
   return (
     <Rest

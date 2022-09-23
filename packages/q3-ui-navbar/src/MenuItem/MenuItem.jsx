@@ -2,45 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   MenuItem as MuiMenuItem,
-  ListItemSecondaryAction,
+  Divider,
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Done';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const MenuItem = ({
+  divider,
   checked,
   label,
-  nested,
   onClick,
   onMouseDown,
-}) => (
-  <MuiMenuItem
-    dense
-    key={label}
-    onClick={onClick}
-    onMouseDown={onMouseDown}
-  >
-    {checked && <CheckIcon />}
-    {label}
-    {nested && (
-      <ListItemSecondaryAction>
-        <ArrowForwardIosIcon />
-      </ListItemSecondaryAction>
-    )}
-  </MuiMenuItem>
-);
+}) =>
+  divider ? (
+    <Divider component="li" />
+  ) : (
+    <MuiMenuItem
+      dense
+      key={label}
+      onClick={onClick}
+      onMouseDown={onMouseDown}
+    >
+      {checked && <CheckIcon />}
+      {label}
+    </MuiMenuItem>
+  );
 
 MenuItem.defaultProps = {
   checked: false,
-  nested: false,
+  divider: false,
+  label: undefined,
   onClick: undefined,
   onMouseDown: undefined,
 };
 
 MenuItem.propTypes = {
   checked: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  nested: PropTypes.bool,
+  divider: PropTypes.bool,
+  label: PropTypes.string,
   onClick: PropTypes.func,
   onMouseDown: PropTypes.func,
 };

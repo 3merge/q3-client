@@ -43,18 +43,17 @@ const SegmentList = ({
         onEnd={onEnd}
         setList={setState}
       >
-        {map(state, (segment) =>
-          segment.folder ? (
-            <SegmentListItem key={segment.id} {...segment}>
+        {map(state, (segment, idx) => {
+          const key = `${segment.id}-${idx}`;
+
+          return segment.folder ? (
+            <SegmentListItem key={key} {...segment}>
               <SegmentList onEnd={onEnd} {...segment} />
             </SegmentListItem>
           ) : (
-            <SegmentListItemLink
-              key={segment.id}
-              {...segment}
-            />
-          ),
-        )}
+            <SegmentListItemLink key={key} {...segment} />
+          );
+        })}
       </ReactSortable>
     </List>
   );

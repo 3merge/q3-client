@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from '@material-ui/core/styles';
 
 const DarkMode = ({ children }) => (
   <ThemeProvider
-    theme={createMuiTheme({
+    theme={createTheme({
       palette: {
         type: 'dark',
       },
