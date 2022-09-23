@@ -15,6 +15,7 @@ const MenuItem = React.forwardRef(
       <Divider component="li" ref={ref} />
     ) : (
       <MuiMenuItem
+        data-context-item
         dense
         key={label}
         onClick={onClick}

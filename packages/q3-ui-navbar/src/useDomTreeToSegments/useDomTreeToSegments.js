@@ -1,11 +1,14 @@
 import React from 'react';
-import { get } from 'lodash';
+import { invoke } from 'lodash';
 import useSegmentsUpdate from '../useSegmentsUpdate';
 
 const useDomTreeToSegments = () => {
   const ref = React.useRef();
   const { reorder } = useSegmentsUpdate();
   const selector = '[data-segment="true"]';
+
+  const getNodeId = (node) =>
+    invoke(node, 'getAttribute', 'data-id') || null;
 
   return {
     onEnd() {
@@ -14,12 +17,10 @@ const useDomTreeToSegments = () => {
           Array.from(
             ref.current.querySelectorAll(selector),
           ).map((node) => ({
-            folderId: get(
+            folderId: getNodeId(
               node.parentNode.closest(selector),
-              'id',
-              null,
             ),
-            id: node.id,
+            id: getNodeId(node),
           })),
         );
       } catch (e) {

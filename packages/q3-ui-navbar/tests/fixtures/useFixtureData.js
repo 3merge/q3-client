@@ -55,6 +55,18 @@ const useFixtureData = (initialState = []) => {
       });
     }
 
+    if (action === 'remove') {
+      const { id } = payload;
+
+      setState((prevState) => {
+        newState = prevState.filter(
+          (item) => !isCleanAndEqual(id, item.id),
+        );
+
+        return newState;
+      });
+    }
+
     if (action === 'replace') {
       const { id, value } = payload;
       setState((prevState) => {

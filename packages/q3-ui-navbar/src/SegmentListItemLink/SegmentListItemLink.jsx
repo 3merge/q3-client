@@ -20,12 +20,7 @@ const SegmentListItemLink = ({
   return value ? (
     <SegmentListItemLinkMenu {...rest} id={id}>
       {({ className, open: onContextMenu }) => (
-        <li
-          className={className}
-          data-id={get(rest, 'data-id')}
-          data-segment
-          id={id}
-        >
+        <li className={className} data-id={id} data-segment>
           <ListItem
             className={cls.link}
             component={Link}

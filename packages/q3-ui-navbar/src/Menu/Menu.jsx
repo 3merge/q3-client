@@ -37,35 +37,34 @@ const Menu = ({ children, id, items }) => {
     }
   };
 
-  return [
-    children({
-      className: cls.wrapper,
-      open,
-    }),
-    size(items) > 0 && enabled && (
-      <MuiMenu
-        anchorEl={getLiRoot()}
-        id={id}
-        open={isOpen}
-        onClose={close}
-        onContextMenu={(event) => {
-          event.preventDefault();
-        }}
-        onMouseDown={close}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        {map(items, (item, idx) => (
-          <MenuItem
-            {...item}
-            key={`menu-${idx}-${item.label}`}
-          />
-        ))}
-      </MuiMenu>
-    ),
-  ];
+  return (
+    <>
+      {children({
+        className: cls.wrapper,
+        open,
+      })}
+      {size(items) > 0 && enabled && (
+        <MuiMenu
+          anchorEl={getLiRoot()}
+          id={String(id)}
+          open={isOpen}
+          onClose={close}
+          onContextMenu={(event) => {
+            event.preventDefault();
+          }}
+          onMouseDown={close}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          {map(items, (item, idx) => (
+            <MenuItem {...item} key={item.label || idx} />
+          ))}
+        </MuiMenu>
+      )}
+    </>
+  );
 };
 
 Menu.defaultProps = {

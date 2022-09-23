@@ -13,23 +13,24 @@ const mockReorder = () => {
 };
 
 describe('useDomTreeToSegments', () => {
-  it('should', () => {
+  it('should get data ids', () => {
     jest.spyOn(React, 'useRef').mockReturnValue({
       current: {
         querySelectorAll: jest.fn().mockReturnValue([
           {
             parentNode: {
               closest: jest.fn().mockReturnValue({
-                id: 2,
+                getAttribute: jest.fn().mockReturnValue(2),
               }),
             },
-            id: 1,
+            getAttribute: jest.fn().mockReturnValue(1),
           },
           {
             parentNode: {
               closest: jest.fn().mockReturnValue(null),
             },
-            id: 3,
+
+            getAttribute: jest.fn().mockReturnValue(3),
           },
         ]),
       },

@@ -9,6 +9,7 @@ import useStyle from './styles';
 const SegmentListItem = (props) => {
   const { toggle, state } =
     useToggleWithSegmentState(props);
+
   const { applied, children, label, id } = props;
 
   const cls = useStyle({
@@ -19,7 +20,12 @@ const SegmentListItem = (props) => {
   return (
     <SegmentListItemMenu id={id}>
       {({ className, open: onContextMenu }) => (
-        <li className={className} data-segment id={id}>
+        <li
+          className={className}
+          data-segment
+          data-segment-folder
+          data-id={id}
+        >
           <ListItem
             button
             onClick={toggle}

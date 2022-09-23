@@ -5,7 +5,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-import { omit } from 'lodash';
+import { lowerCase, omit } from 'lodash';
 import ListItemArrow from '../ListItemArrow';
 import useStyle from './styles';
 
@@ -25,7 +25,10 @@ const NavbarListItemBase = ({
   });
 
   return (
-    <li className={className}>
+    <li
+      data-list-item={lowerCase(label)}
+      className={className}
+    >
       <ListItem
         button
         classes={{
