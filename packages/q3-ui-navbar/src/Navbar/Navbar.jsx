@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, List, Typography } from '@material-ui/core';
 import { isObject, size } from 'lodash';
+import { useTranslation } from 'q3-ui-locale';
 import useSegmentsWithPages from '../useSegmentsWithPages';
 import NavbarListItem from '../NavbarListItem';
 import NavbarListItemContext from '../NavbarListItemContext';
@@ -16,6 +17,7 @@ const SegmentListWithDomTracking =
 const Navbar = ({ items }) => {
   const wp = useSegmentsWithPages();
   const cls = useStyle();
+  const { t } = useTranslation('labels');
 
   if (!isObject(items) || size(Object.keys(items)) === 0)
     return null;
@@ -35,7 +37,7 @@ const Navbar = ({ items }) => {
                 component="p"
                 variant="overline"
               >
-                {parentTitle}
+                {t(parentTitle)}
               </Typography>
             )}
             <List>

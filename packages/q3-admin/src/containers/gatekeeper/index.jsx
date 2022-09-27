@@ -4,13 +4,12 @@ import {
   navigate as globalReachNavigate,
   useLocation,
 } from '@reach/router';
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {
   AuthContext,
   destroySession,
 } from 'q3-ui-permissions';
 import { object } from 'q3-ui-helpers';
+import DomainLoading from '../../components/DomainLoading';
 
 export const Gatekeeper = ({
   navigate,
@@ -22,12 +21,7 @@ export const Gatekeeper = ({
   const Auth = React.useContext(AuthContext);
   const l = useLocation();
 
-  if (!Auth.state.init)
-    return (
-      <Box align="center" p={6}>
-        <CircularProgress />
-      </Box>
-    );
+  if (!Auth.state.init) return <DomainLoading />;
 
   const redirectStr = object.invokeSafely(
     redirectCheck,
