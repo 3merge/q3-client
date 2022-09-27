@@ -6,7 +6,7 @@ export default makeStyles((theme) => {
 
   return {
     button: (props) => ({
-      borderRadius: 4,
+      borderRadius: 0,
       paddingBottom: 4,
       paddingRight: 16,
       paddingTop: 4,

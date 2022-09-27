@@ -6,7 +6,7 @@ export default makeStyles((theme) => {
 
   return {
     button: (props) => ({
-      borderRadius: 4,
+      borderRadius: 0,
       paddingBottom: 4,
       paddingRight: 16,
       paddingTop: 4,
@@ -30,7 +30,7 @@ export default makeStyles((theme) => {
     }),
     selected: ss,
     container: {
-      padding: '0 0 0 24px',
+      padding: '0 0 12px 24px',
     },
   };
 });
