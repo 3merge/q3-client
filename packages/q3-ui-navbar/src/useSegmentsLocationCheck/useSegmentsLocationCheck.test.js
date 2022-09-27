@@ -10,10 +10,12 @@ test.each([
     '?status=Quote&total<1000',
     [
       {
+        id: 1,
         label: 'Cheap Quotes',
         value: '?status=string(Quote)&total<1000',
       },
       {
+        id: 2,
         label: 'Expensive Quotes',
         value: '?status=string(Quote)&total>1000',
       },
@@ -24,10 +26,12 @@ test.each([
     '?status=Quote&total<1000&deferred=false&search=Term',
     [
       {
+        id: 1,
         label: 'Cheap Quotes',
         value: '?status=string(Quote)&total<1000',
       },
       {
+        id: 2,
         label: 'Expensive Quotes',
         value: '?status=string(Quote)&total>1000',
       },
@@ -38,10 +42,12 @@ test.each([
     '?status=Quote&total<2000',
     [
       {
+        id: 1,
         label: 'Cheap Quotes',
         value: '?status=string(Quote)&total<1000',
       },
       {
+        id: 2,
         label: 'Expensive Quotes',
         value: '?status=string(Quote)&total>1000',
       },
@@ -52,11 +58,13 @@ test.each([
     '?status=string(Quote)&payment=in(Visa,Mastercard)',
     [
       {
+        id: 1,
         label: 'Without casting',
         // duplicates always come first
         value: '?status=Quote&payment=Mastercard,Visa',
       },
       {
+        id: 2,
         label: 'With casting',
         value:
           '?status=string(Quote)&payment=in(Visa,Mastercard)',
