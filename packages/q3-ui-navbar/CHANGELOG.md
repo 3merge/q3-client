@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.1](https://github.com/3merge/q/compare/v3.10.0...v3.10.1) (2022-09-27)
+
+
+### Bug Fixes
+
+* active segment check condition ([#426](https://github.com/3merge/q/issues/426)) ([c9957c7](https://github.com/3merge/q/commit/c9957c7af8417fd1f1e880ee6db7cbaf279652c8))
+
+
+
+
+
 # [3.10.0](https://github.com/3merge/q/compare/v3.9.1...v3.10.0) (2022-09-27)
 
 
