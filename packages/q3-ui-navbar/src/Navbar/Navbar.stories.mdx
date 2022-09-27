@@ -1,0 +1,98 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { CircularProgress } from '@material-ui/core';
+import Navbar from './Navbar';
+import Fixtures from '../../tests/fixtures';
+
+<Meta title="Navbar/Navbar" component={Navbar} />
+
+# Navbar
+
+Although few in props, the `Navbar` component provides a lot
+of flexibility. For instance, it supports nesting, icons and
+more right out-of-the-box.
+
+# Basic
+
+Below shows a `Navbar` without any bells or whistles. It
+doesn't contain menu groups or icons, and it doesn't enable
+segments. In the very least, though, it will keep track of
+the active page for you.
+
+<Preview>
+  <Story name="Basic menu">
+    <Fixtures developer initialPath="/single">
+      {() => (
+        <Navbar
+          items={{
+            undefined: [
+              {
+                collectionName: 'test',
+                label: 'Single item',
+                to: '/single',
+              },
+              {
+                collectionName: 'test',
+                label: 'Single item #2',
+                to: '/single-2',
+              },
+            ],
+          }}
+        />
+      )}
+    </Fixtures>
+  </Story>
+</Preview>
+
+## Kitchen sink
+
+Here we have a `Navbar` with everthing enabled. Most segment
+functionality occurs through right-click interactions.
+However, these context menus are conditional and have two
+criteria.
+
+1. Only the active collection (the page we're on) uses
+   right-click handlers. When adding new segments and
+   replacing existing, we take the current location search
+   value.
+2. The active collection must have the `enableSegments` prop
+   enabled.
+
+To demonstrate the above, notice has only right-clicking
+"Shows" works. If you navigate to "Movies", then you'll
+observe that you can right click "Movies" and no longer
+"Shows." At no point does "Theatre" work.
+
+As well, inside of "Shows", right-clicking on folders and
+segments directly opens different context menus to explore.
+These menus contain all options to add, modify and delete
+what's rendered.
+
+<Preview>
+  <Story name="Kitchen sink">
+    <Fixtures developer>
+      {(menu) => <Navbar items={menu} />}
+    </Fixtures>
+  </Story>
+</Preview>
+
+Below, we have the same example but this time read-only. You
+cannot control this via props: it depends on the `developer`
+value inside the `q3-ui-permissions` `AuthContext`'s profile
+state.
+
+<Preview>
+  <Story name="Read-only">
+    <Fixtures developer={false}>
+      {(menu) => <Navbar items={menu} />}
+    </Fixtures>
+  </Story>
+</Preview>
+
+## API
+
+<Props of={Navbar} />

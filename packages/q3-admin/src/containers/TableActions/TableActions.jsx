@@ -6,7 +6,6 @@ import ActionBar from '../../components/ActionBar';
 import TableBulkDelete from '../TableBulkDelete';
 import TableIo from '../TableIo';
 import ActionBarTemplate from '../../components/ActionBarTemplate';
-import Segments from '../../components/Segments';
 import CollectionUiSelect from '../../components/CollectionUiSelect';
 
 const TableActions = ({
@@ -35,15 +34,9 @@ const TableActions = ({
     <ActionBar>
       <CollectionUiSelect uis={uis} />
       {FilterComponent ? (
-        <>
-          <Segments
-            {...pick(rest, ['fromKey', 'toKey'])}
-            ui={ui}
-          />
-          <Hidden mdDown>
-            <FilterComponent />
-          </Hidden>
-        </>
+        <Hidden mdDown>
+          <FilterComponent />
+        </Hidden>
       ) : null}
       <ActionBarTemplate
         registerActions={registerActions}

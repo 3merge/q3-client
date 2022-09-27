@@ -1,13 +1,14 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'q3-ui-locale';
+import { useSegmentsAppliedByCollection } from 'q3-ui-navbar';
 import { Definitions } from '../../containers/state';
-import useSegmentsActiveLabel from '../../hooks/useSegmentsActiveLabel';
 import useStyle from './styles';
 
 const CollectionName = () => {
   const { collectionName } = React.useContext(Definitions);
-  const s = useSegmentsActiveLabel();
+  const s =
+    useSegmentsAppliedByCollection(collectionName)?.label;
   const { t } = useTranslation('titles');
   const cls = useStyle();
 

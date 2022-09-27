@@ -23,12 +23,7 @@ const Navbar = ({ callToAction, children }) => {
           <Logo />
         </Box>
       </Hidden>
-      <Box
-        display="flex"
-        flexDirection="column"
-        flex="1"
-        px={1.5}
-      >
+      <Box display="flex" flexDirection="column" flex="1">
         <NavbarCallToAction {...callToAction} />
         <Box flex="1">{children}</Box>
       </Box>

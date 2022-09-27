@@ -108,15 +108,23 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
     Object.keys(values).map((item) =>
       first(item.split('__')),
     ),
-  ).reduce((acc, curr) => {
-    getInternalPropertiesOf(curr).forEach(
-      ({ name, value }) => {
-        if (size(value)) acc[name] = value;
-      },
-    );
+  ).reduce(
+    (acc, curr) => {
+      getInternalPropertiesOf(curr).forEach(
+        ({ name, value }) => {
+          if (size(value)) acc[name] = value;
+        },
+      );
 
-    return acc;
-  }, {});
+      return acc;
+    },
+    // otherwise search gets lost
+    values?.search__eq
+      ? {
+          search: values.search__eq,
+        }
+      : {},
+  );
 };
 
 export default FieldToQueryBuilder;

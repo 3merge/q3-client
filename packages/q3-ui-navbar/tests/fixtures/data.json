@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "label": "Newly created",
+    "value": "?createdAt<=2021-08-01&createdAt>=2021-01-01",
+    "collectionName": "shows",
+    "visibility": ["Administrator"]
+  },
+  {
+    "id": 2,
+    "folder": true,
+    "label": "🧪 Attributes",
+    "collectionName": "shows"
+  },
+  {
+    "id": 3,
+    "folderId": 2,
+    "label": "Has some",
+    "value": "?hasAttributes=true",
+    "collectionName": "shows",
+    "visibility": ["Administrator", "Customer"]
+  },
+  {
+    "id": 8,
+    "folderId": 2,
+    "label": "Has none",
+    "value": "?hasAttributes=false",
+    "collectionName": "shows",
+    "visibility": ["Administrator", "Sales Rep"]
+  },
+  {
+    "id": 4,
+    "folderId": 7,
+    "label": "🚀 A-list",
+    "value": "?alist=true",
+    "collectionName": "shows",
+    "visibility": ["Customer"]
+  },
+  {
+    "id": 5,
+    "folderId": 2,
+    "label": "Age brackets",
+    "folder": true,
+    "collectionName": "shows"
+  },
+  {
+    "id": 6,
+    "folderId": 5,
+    "label": "Adults",
+    "value": "?age>21",
+    "collectionName": "shows"
+  },
+  {
+    "id": 10,
+    "folderId": 5,
+    "label": "Youths",
+    "value": "?age<21",
+    "collectionName": "shows",
+    "visibility": ["Customer", "Sales Rep"]
+  },
+  {
+    "id": 7,
+    "folderId": 2,
+    "label": "Career",
+    "folder": true,
+    "collectionName": "shows",
+    "visibility": ["Customer", "Sales Rep"]
+  }
+]

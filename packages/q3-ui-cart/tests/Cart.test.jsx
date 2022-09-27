@@ -1,16 +1,12 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import {
-  POPOVER_CLASS,
-  TYPOGRAPHY_CLASS,
-} from 'q3-components/lib/EditableTypography/constants';
+import { POPOVER_CLASS } from 'q3-components/lib/EditableTypography/constants';
 import {
   ThemeProvider,
-  createMuiTheme,
+  createTheme,
 } from '@material-ui/core/styles';
 import { Drawer } from '../src';
 import {
-  DRAWER_TITLE_ID,
   ADD_TO_CART_CLASS,
   DRAWER_LAUNCHER,
   DRAWER_LINE_ITEM_CLASS,
@@ -26,12 +22,14 @@ jest.useFakeTimers();
 
 jest.mock(
   '@material-ui/core/Hidden',
-  () => ({ children }) => children,
+  () =>
+    ({ children }) =>
+      children,
 );
 
 beforeAll(() => {
   Stage = (props) => (
-    <ThemeProvider theme={createMuiTheme()}>
+    <ThemeProvider theme={createTheme()}>
       <Fixtures {...props} />
     </ThemeProvider>
   );

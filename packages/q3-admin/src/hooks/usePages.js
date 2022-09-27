@@ -1,51 +1,40 @@
-import React from 'react';
 import { useTranslation } from 'q3-ui-locale';
-import { AuthContext, useAuth } from 'q3-ui-permissions';
-import {
-  get,
-  compact,
-  map,
-  flatten,
-  groupBy,
-  merge,
-  filter,
-  isFunction,
-} from 'lodash';
+import { useAuth } from 'q3-ui-permissions';
+import { reduce } from 'lodash';
 import { makePath } from '../components/app';
+import useAccountPages from './useAccountPages';
 
 export default (pages = []) => {
   const { t } = useTranslation('labels');
-  const { state } = React.useContext(AuthContext);
-
-  const assignSegments = (xs) =>
-    compact(
-      flatten(
-        map(xs, (page) => {
-          if (!page?.index) return null;
-          return page;
-        }),
-      ),
-    );
-
-  const processSegments = (xs) =>
-    isFunction(xs) ? xs(state?.profile) : xs;
 
   const makePage = (page) => ({
     ...page,
     label: t(page.resourceName),
-    segments: merge(
-      {},
-      processSegments(page.segments),
-      get(state, `profile.filters.${page.collectionName}`),
-    ),
+    segments: [], // see q3-ui-navbar for implementation details
     to: makePath(page),
     visible: page.collectionName
       ? useAuth(page.collectionName)?.inClient
       : true,
   });
 
-  return groupBy(
-    filter(map(assignSegments(pages), makePage), 'visible'),
-    (v) => v.parent,
-  );
+  const makePageTree = () =>
+    reduce(
+      pages,
+      (acc, page) => {
+        if (page?.index) {
+          const newPage = makePage(page);
+          const { parent = 'undefined' } = page;
+          if (!Array.isArray(acc[parent])) acc[parent] = [];
+          acc[parent].push(newPage);
+        }
+
+        return acc;
+      },
+      {},
+    );
+
+  return {
+    ...makePageTree(),
+    account: useAccountPages(),
+  };
 };

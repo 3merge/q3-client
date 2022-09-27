@@ -28,6 +28,7 @@ const alias = [
   'q3-ui-filemanager',
   'q3-ui-forms',
   'q3-ui-helpers',
+  'q3-ui-navbar',
   'q3-ui-notifications',
   'q3-ui-queryparams',
   'q3-ui-permissions',

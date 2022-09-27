@@ -1,5 +1,5 @@
 import {
-  createMuiTheme,
+  createTheme,
   responsiveFontSizes,
   alpha,
   darken,
@@ -25,7 +25,7 @@ export default (customThemeDefs, type, font = 'Nunito') => {
     lineHeight: 1.1,
   };
 
-  const theme = createMuiTheme(
+  const theme = createTheme(
     merge(
       {
         palette: {
@@ -388,11 +388,11 @@ export default (customThemeDefs, type, font = 'Nunito') => {
         },
       },
       MuiListItem: {
-        root: {
-          '&$selected': {
-            backgroundColor: 'rgba(30, 20, 52, 0.08)',
-          },
-        },
+        // root: {
+        //   '&$selected': {
+        //     backgroundColor: 'rgba(30, 20, 52, 0.08)',
+        //   },
+        // },
         button: {
           '&:hover': {
             backgroundColor: 'rgba(30, 20, 52, 0.08)',

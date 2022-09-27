@@ -21,6 +21,7 @@ export default class Collection {
       resourceNameSingular,
       resourceName,
       collectionName,
+      enableSegments: true,
       ...rest,
     };
 

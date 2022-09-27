@@ -5,6 +5,7 @@ import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
 import thread from 'q3-ui-thread/lib/tests/fixtures/data.json';
+import useFixtureData from 'q3-ui-navbar/tests/fixtures/useFixtureData';
 import OpsHelper from './OpsHelper';
 import characters from './characters';
 import shows from './shows';
@@ -64,6 +65,8 @@ const makeApiEndpoints = (
 ) => {
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
+  const { data: segments, update: updateSegments } =
+    useFixtureData();
 
   mockInstance.onGet(/domain/).reply(200, {
     domain,
@@ -133,6 +136,17 @@ const makeApiEndpoints = (
     'token':
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjE2MTUwMTMsImVtYWlsIjoiZ2VudGVrQDNtZXJnZS5jYSIsIm5hbWUiOiJHZW50ZWsgQmFjayBPZmZpY2UiLCJpYXQiOjE2MjE2MDc4MTJ9.RZ_rBEwarGwspZ1qya68ShKVhpDxlM6QHX1A_OAgCX0',
   });
+
+  mockInstance.onGet(/system-segments/).reply(200, {
+    segments,
+  });
+
+  mockInstance.onPut(/system-segments/).reply((args) => [
+    200,
+    {
+      segments: updateSegments(JSON.parse(args.data)),
+    },
+  ]);
 
   mockInstance.onGet(/reports/).reply(200, {
     data: {
