@@ -37,6 +37,7 @@
     "q3-ui-forms": "^3.10.0",
     "q3-ui-helpers": "^3.10.0",
     "q3-ui-locale": "^3.10.0",
+    "q3-ui-navbar": "^3.10.0",
     "q3-ui-permissions": "^3.10.0",
     "q3-ui-queryparams": "^3.10.0",
     "q3-ui-queuelogs": "^3.10.0",

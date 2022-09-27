@@ -122,7 +122,7 @@ const useSegmentsLocationCheck = () => {
       return map(segmentsWithStats, (item) => ({
         applied: item.folder
           ? containsAppliedFolderIds.includes(item.id)
-          : isCleanAndEqual(active?.label, item.label),
+          : isCleanAndEqual(active?.id, item.id),
         ...item,
       }));
     },

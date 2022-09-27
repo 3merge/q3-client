@@ -35,6 +35,7 @@ import Navbar from './components/Navbar';
 import SystemPage from './components/SystemPage';
 import SystemPageSub from './components/SystemPageSub';
 import Toolbar from './components/Toolbar';
+import DomainLoading from './components/DomainLoading';
 
 export { getDomain } from './hooks/useDomain';
 export * from './containers';
@@ -78,6 +79,7 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
       directory={get(AppProps, 'directory', '/')}
     >
       <SegmentsProvider
+        fallback={DomainLoading}
         visibilityOptions={get(AppProps, 'roles', [])}
       >
         <BackProvider>
