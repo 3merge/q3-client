@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     height: 'calc(100 * var(--vh))',
     position: 'relative',
-    width: 265,
+    width: 245,
     zIndex: 10,
 
     '& > div > a': {

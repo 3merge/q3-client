@@ -6,10 +6,10 @@ export default makeStyles((theme) => {
 
   return {
     button: (props) => ({
-      borderRadius: 4,
-      paddingBottom: 4,
+      borderRadius: 0,
+      paddingBottom: 6,
       paddingRight: 16,
-      paddingTop: 4,
+      paddingTop: 6,
       width: '100%',
 
       '&.Mui-selected': ss(props),

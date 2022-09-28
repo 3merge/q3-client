@@ -23,14 +23,10 @@ const Navbar = ({ items }) => {
     return null;
 
   return (
-    <Box my={1.5}>
+    <Box my={2}>
       {Object.entries(items).map(
         ([parentTitle, menuItems]) => (
-          <Box
-            key={parentTitle}
-            position="relative"
-            px={1.5}
-          >
+          <Box key={parentTitle} position="relative" mb={1}>
             {!isUndefined(parentTitle) && (
               <Typography
                 className={cls.subheader}

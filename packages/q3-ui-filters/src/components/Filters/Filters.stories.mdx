@@ -38,4 +38,15 @@ import Filters from './Filters';
       </LocationDebugger>
     </Location>
   </Story>
+  <Story name="Populated (2)">
+    <Location initialPath="?employment.company=string(Seagull)">
+      <LocationDebugger>
+        <Box p={2} maxWidth={320}>
+          <Datasource>
+            <Filters collectionName="test" data={schema} />
+          </Datasource>
+        </Box>
+      </LocationDebugger>
+    </Location>
+  </Story>
 </Preview>

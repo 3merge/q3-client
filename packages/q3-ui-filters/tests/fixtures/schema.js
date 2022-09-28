@@ -44,4 +44,8 @@ export default {
     type: 'ObjectId',
     ref: 'users',
   },
+  __t: {
+    type: 'String',
+    enum: ['Acoustic', 'Electric'],
+  },
 };

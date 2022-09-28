@@ -380,8 +380,14 @@ export default class SchemaToFieldBuilder {
   }
 
   runResolver(name, rawValue) {
-    const fn = get(this.__$schema, `${name}.resolver`);
-    return isFunction(fn) ? fn(rawValue) : rawValue;
+    const schemaField = get(this.__$schema, name);
+    const fn = get(schemaField, 'resolver');
+    const out = isFunction(fn) ? fn(rawValue) : rawValue;
+
+    // ensures checklist always gets an array
+    return size(get(schemaField, 'enum'))
+      ? [out].flat().filter(Boolean)
+      : out;
   }
 
   getInitialValues(context) {
