@@ -70,6 +70,7 @@ const Filters = ({ collectionName, data }) => {
         </Paper>
       </Box>
       <Builders.Form
+        debug
         enableSubmit={false}
         initialValues={init}
         onSubmit={loc.apply}

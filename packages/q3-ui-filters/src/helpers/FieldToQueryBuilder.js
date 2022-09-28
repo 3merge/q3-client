@@ -1,4 +1,11 @@
-import { first, get, isObject, size, uniq } from 'lodash';
+import {
+  first,
+  get,
+  isObject,
+  size,
+  uniq,
+  compact,
+} from 'lodash';
 import { array } from 'q3-ui-helpers';
 import {
   castToRegex,
@@ -16,6 +23,19 @@ import {
   BETWEEN,
 } from './constants';
 
+const splitter = (xs) => {
+  const char = '__';
+  const str = String(xs);
+  const parts = compact(str.split(char));
+  if (str.startsWith(char))
+    parts[0] = char.concat(parts[0]);
+
+  return parts;
+};
+
+export const splitBeforeOperator = (xs) =>
+  first(splitter(xs));
+
 const FieldToQueryBuilder = (initialSchema) => (values) => {
   const normalize = (xs) =>
     array.is(xs).map((item) => {
@@ -26,7 +46,7 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
   const getInternalPropertiesOf = (key) => {
     const props = Object.entries(values).reduce(
       (acc, [k, v]) => {
-        const [id, prop] = k.split('__');
+        const [id, prop] = splitter(k);
 
         if (id === key) {
           acc[prop] = v;
@@ -105,9 +125,7 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
   };
 
   return uniq(
-    Object.keys(values).map((item) =>
-      first(item.split('__')),
-    ),
+    Object.keys(values).map(splitBeforeOperator),
   ).reduce(
     (acc, curr) => {
       getInternalPropertiesOf(curr).forEach(
