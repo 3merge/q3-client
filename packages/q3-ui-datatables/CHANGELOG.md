@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.2](https://github.com/3merge/q/compare/v3.10.1...v3.10.2) (2022-09-28)
+
+
+### Bug Fixes
+
+* filters with __ prefix ([#427](https://github.com/3merge/q/issues/427)) ([eeb6228](https://github.com/3merge/q/commit/eeb6228bf77b95e3bb11abf2b1ffdc7f047fa4cd))
+
+
+
+
+
 # [3.10.0](https://github.com/3merge/q/compare/v3.9.1...v3.10.0) (2022-09-27)
 
 **Note:** Version bump only for package q3-ui-datatables
