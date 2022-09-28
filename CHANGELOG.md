@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.3](https://github.com/3merge/q/compare/v3.10.2...v3.10.3) (2022-09-28)
+
+
+### Bug Fixes
+
+* partial match on navbar links ([e38285e](https://github.com/3merge/q/commit/e38285ee99228ac9069f63e2e4ba44bb12a4136e))
+
+
+
+
+
 ## [3.10.2](https://github.com/3merge/q/compare/v3.10.1...v3.10.2) (2022-09-28)
 
 
