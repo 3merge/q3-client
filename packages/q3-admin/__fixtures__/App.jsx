@@ -38,13 +38,13 @@ const ExampleApp = ({ initialPath }) => {
                 ],
                 roles: ['Administrator', 'Rep', 'Customer'],
               }}
-              NavProps={{
-                callToAction: {
-                  icon: <EditIcon />,
-                  label: 'New Journal',
-                  onClick: () => null,
-                },
-              }}
+              // NavProps={{
+              //   callToAction: {
+              //     icon: <EditIcon />,
+              //     label: 'New Journal',
+              //     onClick: () => null,
+              //   },
+              // }}
               ToolbarProps={{
                 profileOptions: [],
               }}
