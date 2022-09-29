@@ -73,7 +73,7 @@ export default ({
 
       setTimeout(() => {
         setMessage(null);
-      }, 2000);
+      }, 8000);
     } else {
       setMessage(null);
     }
