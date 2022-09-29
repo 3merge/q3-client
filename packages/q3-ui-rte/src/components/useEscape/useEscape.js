@@ -1,27 +1,48 @@
-import { isFunction } from 'lodash';
+import { isFunction, invoke } from 'lodash';
 
 const useEscape = () => {
   const FOCUS_LIST =
     'input, button, select, textarea, a[href], [tabindex="0"], [tabindex="-1"]';
-
-  const invokeFocus = (el) => {
-    if (el && isFunction(el.focus)) {
-      el.focus({ focusVisible: true });
-    }
-  };
 
   const contains = (el, node) =>
     el && node && isFunction(el.contains)
       ? el.contains(node)
       : false;
 
+  const checkDisplayText = (node) =>
+    !invoke(
+      node,
+      'style.cssText.includes',
+      'display: none',
+    );
+
+  const getAllFromFocusList = (el, check) =>
+    Array.from(el.querySelectorAll(FOCUS_LIST)).filter(
+      (node) => {
+        try {
+          const passesDomChecks =
+            checkDisplayText(node) && node.tabIndex >= '0';
+
+          if (!passesDomChecks) return false;
+          if (check) return check(node);
+          return true;
+        } catch (err) {
+          return true;
+        }
+      },
+    );
+
+  const invokeFocus = (el) => {
+    if (el && isFunction(el.focus))
+      el.focus({
+        focusVisible: true,
+      });
+  };
+
   const getTabStops = (el) =>
-    Array.from(
-      document.querySelectorAll(FOCUS_LIST),
-    ).filter(
-      (node) =>
-        node.tabIndex >= '0' &&
-        (!contains(el, node) || el === node),
+    getAllFromFocusList(
+      document,
+      (node) => el === node || !contains(el, node),
     );
 
   const shiftIndex = (nodes, element, increment) => {
@@ -56,53 +77,45 @@ const useEscape = () => {
         target,
       } = e;
 
-      if (
-        contains(
-          currentTarget.querySelector('.ql-toolbar'),
-          target,
-        )
-      ) {
-        const nodes = Array.from(
-          currentTarget
-            .querySelector('.ql-toolbar')
-            .querySelectorAll(FOCUS_LIST),
-        ).filter((node) => {
-          try {
-            return !node.style.cssText.includes(
-              'display: none',
-            );
-          } catch (err) {
-            return true;
-          }
-        });
+      const toolbar =
+        currentTarget.querySelector('.ql-toolbar');
 
-        if (code === 'ArrowRight') {
-          e.preventDefault();
-          invokeFocus(shiftIndex(nodes, target, 1));
-        } else if (code === 'ArrowLeft') {
-          e.preventDefault();
-          invokeFocus(shiftIndex(nodes, target, -1));
-        } else if (code === 'Tab') {
+      const preventDefaultAndInvokeFocus = (el) => {
+        e.preventDefault();
+        invokeFocus(el);
+      };
+
+      const shiftIndexForToolbarFocusNodes = (
+        increment,
+      ) => {
+        const nodes = getAllFromFocusList(toolbar);
+        preventDefaultAndInvokeFocus(
+          shiftIndex(nodes, target, increment),
+        );
+      };
+
+      if (contains(toolbar, target)) {
+        if (code === 'ArrowRight')
+          shiftIndexForToolbarFocusNodes(1);
+        else if (code === 'ArrowLeft')
+          shiftIndexForToolbarFocusNodes(-1);
+        else if (code === 'Tab') {
           e.preventDefault();
           currentTarget.focus();
         }
-      }
-
-      if (altKey && code === 'F10') {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const node =
-          currentTarget.querySelector('.ql-header');
-
-        invokeFocus(node);
-      } else if (shiftKey && code === 'Tab') {
-        e.preventDefault();
-        invokeFocus(findPreviousTabStop(currentTarget));
-      } else if (code === 'Escape' && currentTarget) {
-        e.preventDefault();
-        invokeFocus(findNextTabStop(currentTarget));
-      }
+      } else if (altKey && code === 'F10')
+        preventDefaultAndInvokeFocus(
+          // likely the "Bold" button
+          currentTarget.querySelector('.ql-header'),
+        );
+      else if (shiftKey && code === 'Tab')
+        preventDefaultAndInvokeFocus(
+          findPreviousTabStop(currentTarget),
+        );
+      else if (code === 'Escape' && currentTarget)
+        preventDefaultAndInvokeFocus(
+          findNextTabStop(currentTarget),
+        );
     },
   };
 };
