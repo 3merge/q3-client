@@ -11,15 +11,10 @@ import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import TitleIcon from '@material-ui/icons/Title';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import ToolbarButton from '../ToolbarButton';
+import useStyle from './styles';
 
 const RichTextEditor = ({ children, options }) => (
-  <Grid
-    container
-    style={{
-      flexWrap: 'nowrap',
-      overflow: 'auto',
-    }}
-  >
+  <Grid container className={useStyle().root}>
     <Grid item>
       <ButtonGroup>
         <ToolbarButton quillKey="header" value="2">
@@ -74,4 +69,4 @@ const RichTextEditor = ({ children, options }) => (
   </Grid>
 );
 
-export default RichTextEditor;
+export default React.memo(RichTextEditor);
