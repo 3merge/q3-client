@@ -15,10 +15,10 @@ import ModuleVideoHtml from '../ModuleVideoHtml';
 import ModuleAudioHtml from '../ModuleAudioHtml';
 import ModuleDocument from '../ModuleDocument';
 import Toolbar from '../Toolbar';
-import ToolbarMobileDrawer from '../ToolbarMobileDrawer';
 import useLocalValue from '../useLocalValue';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
+import useEscape from '../useEscape';
 
 const RichTextEditor = React.forwardRef(
   (
@@ -33,6 +33,7 @@ const RichTextEditor = React.forwardRef(
     externalRef,
   ) => {
     const cls = useStyle();
+    const keyboardUtils = useEscape();
 
     const { ids, ref } = useQuill(rest);
     const v = useLocalValue(ref, {
@@ -116,6 +117,8 @@ const RichTextEditor = React.forwardRef(
         height="100%"
         width="100%"
         position="relative"
+        tabIndex="0"
+        {...keyboardUtils}
       >
         <AppBar
           position="sticky"

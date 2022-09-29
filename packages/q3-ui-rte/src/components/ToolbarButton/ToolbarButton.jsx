@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line
 import IconButton from 'q3-ui/lib/iconButton';
 import useToolbarLabel from '../useToolbarLabel';
 

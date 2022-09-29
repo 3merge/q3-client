@@ -57,7 +57,10 @@ import { toQ3Api } from '../../adapters';
             }}
             delay={1000}
           >
+            <button>Focus first</button>
+            <button>Focus before</button>
             <RichTextEditor upload={toQ3Api('/foo')} />
+            <button>Focus after</button>
           </Rest>
         </Paper>
       </Container>
