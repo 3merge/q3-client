@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.4](https://github.com/3merge/q/compare/v3.10.3...v3.10.4) (2022-09-29)
+
+**Note:** Version bump only for package q3-ui-thread
+
+
+
+
+
 # [3.10.0](https://github.com/3merge/q/compare/v3.9.1...v3.10.0) (2022-09-27)
 
 **Note:** Version bump only for package q3-ui-thread
