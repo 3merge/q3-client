@@ -13,7 +13,7 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import { map, sortBy, size } from 'lodash';
+import { get, map, sortBy, size } from 'lodash';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useTranslation } from 'q3-ui-locale';
 import { useToggle } from 'useful-state';
@@ -87,7 +87,11 @@ const Filters = ({ collectionName, data }) => {
                     '.',
                   );
 
-                  const group = t(fieldName);
+                  // allows us to overwrite field names
+                  // for descriptive purposes
+                  const group = t(
+                    get(data, `${name}.label`, fieldName),
+                  );
 
                   return auth.canSeeSub(fieldName) ? (
                     <Grid

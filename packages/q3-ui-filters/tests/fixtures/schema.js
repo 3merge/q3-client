@@ -36,6 +36,11 @@ export default {
   verified: {
     type: 'Boolean',
   },
+  hasReceivedMarketingEmails: {
+    type: 'Boolean',
+    useHasParam: true,
+    label: 'Has received marketing before',
+  },
   age: {
     type: 'Number',
   },
@@ -47,5 +52,6 @@ export default {
   __t: {
     type: 'String',
     enum: ['Acoustic', 'Electric'],
+    label: 'Type',
   },
 };
