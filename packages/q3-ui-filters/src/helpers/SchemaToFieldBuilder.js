@@ -102,6 +102,11 @@ export default class SchemaToFieldBuilder {
                 )
               : undefined);
 
+          const wrapBooleanValue = (val) =>
+            !defs.useHasParam
+              ? `exists(${val})`
+              : `has(${val})`;
+
           const genFields = () => {
             if (defs.type === 'ObjectId') {
               return [
@@ -298,11 +303,11 @@ export default class SchemaToFieldBuilder {
                   options: [
                     {
                       label: 'yes',
-                      value: 'exists(true)',
+                      value: wrapBooleanValue('true'),
                     },
                     {
                       label: 'no',
-                      value: 'exists(false)',
+                      value: wrapBooleanValue('false'),
                     },
                     {
                       label: 'either',

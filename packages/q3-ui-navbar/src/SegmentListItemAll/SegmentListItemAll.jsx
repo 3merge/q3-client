@@ -19,6 +19,10 @@ const SegmentList = ({ segments, to }) => {
       className={cls.link}
       component={Link}
       to={to}
+      style={{
+        // just on this first link
+        paddingTop: '1rem',
+      }}
     >
       {t('all')}
     </ListItem>
