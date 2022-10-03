@@ -1,12 +1,12 @@
 import React from 'react';
 import { get, merge, isNull } from 'lodash';
-import { DateTimePicker } from '@material-ui/pickers';
+import { KeyboardDateTimePicker } from '@material-ui/pickers';
 import { getEndAdornment } from '../Text/Text';
 import withGrid from '../withGrid';
 import withState from '../withState';
 
 const Time = (props) => (
-  <DateTimePicker
+  <KeyboardDateTimePicker
     clearable
     value={get(props, 'value')}
     {...merge({}, props, {

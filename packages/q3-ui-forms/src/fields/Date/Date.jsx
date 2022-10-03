@@ -1,13 +1,13 @@
 import React from 'react';
 import { get, merge, isNull } from 'lodash';
-import { DatePicker } from '@material-ui/pickers';
+import { KeyboardDatePicker } from '@material-ui/pickers';
 import { getEndAdornment } from '../Text/Text';
 import { marshalProps } from '../TextBase/TextBase';
 import withGrid from '../withGrid';
 import withState from '../withState';
 
 const DateBase = (props) => (
-  <DatePicker
+  <KeyboardDatePicker
     clearable
     value={get(props, 'value')}
     {...merge({}, marshalProps(props), {
