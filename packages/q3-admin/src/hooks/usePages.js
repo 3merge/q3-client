@@ -24,8 +24,13 @@ export default (pages = []) => {
         if (page?.index) {
           const newPage = makePage(page);
           const { parent = 'undefined' } = page;
-          if (!Array.isArray(acc[parent])) acc[parent] = [];
-          acc[parent].push(newPage);
+
+          if (newPage.visible) {
+            if (!Array.isArray(acc[parent]))
+              acc[parent] = [];
+
+            acc[parent].push(newPage);
+          }
         }
 
         return acc;
