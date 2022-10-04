@@ -23,6 +23,7 @@ const AddNewDialog = ({ children }) => {
           <Hidden mdDown>
             <Box mr={3}>
               <Button
+                id="list-action--create"
                 color="secondary"
                 onClick={onClick}
                 startIcon={<AddIcon />}

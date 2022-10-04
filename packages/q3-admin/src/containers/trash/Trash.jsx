@@ -37,6 +37,7 @@ const Trash = () => {
         icon: DeleteIcon,
         label: 'trash',
         transparent: true,
+        id: 'detail-action--trash',
       }),
     [],
   );

@@ -27,12 +27,23 @@ const Actionbar = ({ children }) => {
       ref.current
         ? Array.from(
             ref.current.querySelectorAll('a,button'),
-          ).map((el) => ({
-            type: el.tagName,
-            checked: el.getAttribute('data-on') === 'true',
-            label: el.getAttribute('aria-label'),
-            node: el,
-          }))
+          )
+            .map((el) => {
+              if (
+                window.getComputedStyle(el)?.display ===
+                'none'
+              )
+                return null;
+
+              return {
+                type: el.tagName,
+                checked:
+                  el.getAttribute('data-on') === 'true',
+                label: el.getAttribute('aria-label'),
+                node: el,
+              };
+            })
+            .filter(Boolean)
         : [],
     );
   };
