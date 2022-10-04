@@ -1,9 +1,7 @@
 /* eslint-disable react/jsx-filename-extension,react/prop-types */
 import './helpers/validation';
 import React from 'react';
-import MomentUtils from '@date-io/moment';
 import { SnackbarProvider } from 'notistack';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 export { default as useNotification } from './providers/notistack';
 
@@ -22,8 +20,6 @@ export default ({ children, ...rest }) => (
     }}
     {...rest}
   >
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      {children}
-    </MuiPickersUtilsProvider>
+    {children}
   </SnackbarProvider>
 );

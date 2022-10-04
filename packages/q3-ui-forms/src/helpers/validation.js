@@ -1,6 +1,5 @@
 import * as yup from 'yup';
-import { get, isNull, isUndefined } from 'lodash';
-import moment from 'moment';
+import { get } from 'lodash';
 import { browser, string, object } from 'q3-ui-helpers';
 
 export const VALIDATION_OPTIONS = [
@@ -115,32 +114,27 @@ export class Validator {
 
     switch (this.type) {
       case 'email':
-        this.$base = this.$base.string().email();
+        this.$base = this.$base
+          .string()
+          .email('invalidEmail');
         break;
       case 'url':
-        this.$base = this.$base.string().url();
+        this.$base = this.$base.string().url('invalidUrl');
         break;
       case 'tel':
         this.$base = this.$base
           .string()
-          .test(
-            'is-tel',
-            'Must be a valid telephone number',
-            tel,
-          );
+          .test('is-tel', 'invalidTel', tel);
         break;
       case 'postal':
         this.$base = this.$base
           .string()
-          .test(
-            'is-postal',
-            'Must be a valid postal code',
-            postal,
-          );
+          .test('is-postal', 'invalidPostalCode', postal);
         break;
       case 'number':
         this.$base = this.$base
           .number()
+          .typeError('invalidNumber')
           .transform(emptyStringToNull)
           .nullable();
         break;
@@ -162,6 +156,7 @@ export class Validator {
         this.$base = makeSchemaArray(
           yup
             .number()
+            .typeError('invalidNumber')
             .min(this.min || 0)
             .max(this.max || 100),
         );
@@ -170,6 +165,7 @@ export class Validator {
       case 'time':
         this.$base = this.$base
           .date()
+          .typeError('invalidDateString')
           .nullable()
           .default(undefined);
         break;
@@ -189,7 +185,7 @@ export class Validator {
           .mixed()
           .test(
             'is-autocomplete',
-            'This input requires you to make a selection',
+            'invalidSelection',
             autocomplete,
           );
         break;
@@ -202,7 +198,7 @@ export class Validator {
           .mixed()
           .test(
             'is-required',
-            'This is a required field',
+            'isRequiredInput',
             hasMixedValue,
           );
         break;

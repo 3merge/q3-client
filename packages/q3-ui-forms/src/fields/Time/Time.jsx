@@ -1,37 +1,26 @@
 import React from 'react';
-import { get, merge, isNull } from 'lodash';
-import { DateTimePicker } from '@material-ui/pickers';
-import { getEndAdornment } from '../Text/Text';
+import { merge } from 'lodash';
+import TextBase from '../TextBase';
 import withGrid from '../withGrid';
 import withState from '../withState';
+import useDateLocale from '../../hooks/useDateLocale';
 
-const Time = (props) => (
-  <DateTimePicker
-    clearable
-    value={get(props, 'value')}
-    {...merge({}, props, {
-      InputLabelProps: {
-        shrink: true,
-      },
-      InputProps: {
-        type: 'text',
-        endAdornment: getEndAdornment(props),
-      },
-    })}
-    size="small"
-    fullWidth
-    inputVariant="outlined"
-    format="YYYY/MM/DD hh:mm a"
-    placeholder="yyyy/mm/dd hh:mm a"
-    onChange={(date) =>
-      // eslint-disable-next-line
-      props.onChange({
-        target: {
-          value: !isNull(date) ? date.toDate() : null,
+const Time = (props) => {
+  useDateLocale('YYYY-MM-DDTkk:mm', props);
+
+  return (
+    <TextBase
+      {...merge({}, props, {
+        InputLabelProps: {
+          shrink: true,
         },
-      })
-    }
-  />
-);
+      })}
+      type="datetime-local"
+      xl={12}
+      lg={12}
+      md={12}
+    />
+  );
+};
 
 export default withState(withGrid(Time));

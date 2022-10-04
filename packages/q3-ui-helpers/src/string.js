@@ -52,6 +52,7 @@ const makeDateFn =
       : fallbackText;
 
 export const toDate = makeDateFn('MMM DD, Y[\r\n]LT');
+export const toDateTime = makeDateFn('YYYY-MM-DDTkk:mm');
 export const toHoursMinutes = makeDateFn('h:mm a');
 export const toSimpleDate = makeDateFn('MMM DD, Y');
 export const toYearMonthDay = makeDateFn('YYYY-MM-DD');
