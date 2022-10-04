@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browser } from 'q3-ui-helpers';
 import { Definitions } from '../state';
 import { useRootPath } from '../use';
 import withPreRender from './withPreRender';
@@ -31,6 +32,20 @@ export const Collection = ({
     }),
     [location],
   );
+
+  const setId = (value) => {
+    if (browser.isBrowserReady()) {
+      const m = document.querySelector('main');
+      if (m) m.id = value;
+    }
+  };
+
+  React.useLayoutEffect(() => {
+    setId(collectionName);
+    return () => {
+      setId(null);
+    };
+  }, [collectionName]);
 
   return (
     <Definitions.Provider value={definitionsState}>

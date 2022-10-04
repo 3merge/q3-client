@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from '@material-ui/core';
-import { Link, useMatch } from '@reach/router';
+import { Link } from '@reach/router';
 import { some } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
+import { usePartialMatch } from '../useToggleWithLocationDefaults/useToggleWithLocationDefaults';
 import useStyle from '../SegmentListItemLink/styles';
 
 const SegmentList = ({ segments, to }) => {
   const { t } = useTranslation('labels');
   const cls = useStyle({
-    applied: useMatch(to) && !some(segments, 'applied'),
+    applied:
+      usePartialMatch(to) && !some(segments, 'applied'),
   });
 
   return (

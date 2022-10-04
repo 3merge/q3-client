@@ -33,6 +33,7 @@ export const ButtonComponentWithAnimation = ({
         count={amount}
         icon={icon}
         label="notifications"
+        id="app-notifications"
       />
     </Box>
   );

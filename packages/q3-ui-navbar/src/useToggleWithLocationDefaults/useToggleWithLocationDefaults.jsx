@@ -2,14 +2,18 @@ import { useMatch } from '@reach/router';
 import { isObject } from 'lodash';
 import useToggleEffect from '../useToggleEffect';
 
-const useToggleWithLocationDefaults = (path) => {
-  const completeMatch = useMatch(path);
-  const partialMatch = useMatch(
+export const usePartialMatch = (path) =>
+  useMatch(
     // ends up being the same
     path !== '/' ? [path, '*'].join('/') : '/',
   );
 
-  const matches = isObject(completeMatch) || partialMatch;
+const useToggleWithLocationDefaults = (path) => {
+  const completeMatch = useMatch(path);
+  const partialMatch = usePartialMatch(path);
+
+  const matches =
+    isObject(completeMatch) || isObject(partialMatch);
 
   return {
     ...useToggleEffect(matches),
