@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-forms",
-  "version": "3.10.7",
+  "version": "3.10.8",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
