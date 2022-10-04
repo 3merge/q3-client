@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.9](https://github.com/3merge/q/compare/v3.10.8...v3.10.9) (2022-10-04)
+
+
+### Bug Fixes
+
+* birthday modifier ([0f7778f](https://github.com/3merge/q/commit/0f7778f7adb715ea7360446e9aa35b623881413e))
+
+
+
+
+
 ## [3.10.8](https://github.com/3merge/q/compare/v3.10.7...v3.10.8) (2022-10-04)
 
 **Note:** Version bump only for package q3-admin
