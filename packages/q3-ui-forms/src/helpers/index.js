@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { uniq, get } from 'lodash';
 import { object, array, string } from 'q3-ui-helpers';
+import { timezone } from 'q3-ui-locale';
 
 export { default as handleFormData } from './formData';
 
@@ -17,6 +18,19 @@ export const asOptions = (a) =>
 
 // alias this method to match newer naming conventions
 export const castToOptions = asOptions;
+
+const makeCastToLocaleFn = (format) => (xs) => {
+  if (moment(xs, moment.ISO_8601).isValid()) {
+    return timezone.toLocal(xs, format) || null;
+  }
+  return null;
+};
+
+export const castToLocalDateTime = makeCastToLocaleFn(
+  'YYYY-MM-DDTkk:mm',
+);
+export const castToLocalDate =
+  makeCastToLocaleFn('YYYY-MM-DD');
 
 export const castToUTC = (v) =>
   !isUndefined(v)

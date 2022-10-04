@@ -18,6 +18,8 @@ import {
   castToBeginning,
   castToEnd,
   castToUTC,
+  castToLocalDate,
+  castToLocalDateTime,
 } from '../src/helpers';
 import {
   Exists,
@@ -54,6 +56,11 @@ import { Authorization } from '../__fixtures__';
             time: '2023-01-01T15:30:00-05:00',
             'dateRange>': '2026-01-14T05:00:00.000Z',
             'dateRange<': '2023-01-02T04:59:59.000Z',
+          }}
+          modify={{
+            time: [castToLocalDateTime],
+            'dateRange>': [castToLocalDate],
+            'dateRange<': [castToLocalDate],
           }}
           marshalSelectively
           marshal={{
