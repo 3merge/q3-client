@@ -16,9 +16,8 @@ export const convertIntoIndexNumber = (value) => {
 };
 
 const getPath = (value) => {
-  const [key, index, path] = splitNestedArrayNamesIntoParts(
-    value,
-  );
+  const [key, index, path] =
+    splitNestedArrayNamesIntoParts(value);
 
   const arrayIndex = convertIntoIndexNumber(index);
   return [key, arrayIndex, path]
@@ -38,42 +37,37 @@ export const deassignValidationKey = (k) => (prevState) => {
   return copy;
 };
 
-export const assignNewValidationKey = (k, args) => (
-  prevState,
-) => {
-  if (!k) return prevState;
+export const assignNewValidationKey =
+  (k, args) => (prevState) => {
+    if (!k) return prevState;
 
-  const copy = { ...prevState };
-  const validation = new Validator(args).build();
-  const path = getPath(k);
+    const copy = { ...prevState };
+    const validation = new Validator(args).build();
+    const path = getPath(k);
 
-  if (args && args.type && args.type.includes('range'))
+    if (args && args.type && args.type.includes('range'))
+      return copy;
+
+    set(copy, path, validation);
     return copy;
+  };
 
-  set(copy, path, validation);
-  return copy;
-};
+export const mapNestedArraysToShape = (schema) =>
+  Object.entries(schema).reduce((acc, [key, value]) => {
+    if (Array.isArray(value))
+      acc[key] = yup
+        .array()
+        .of(yup.object().shape(value[0]));
+    else if (
+      typeof value === 'object' &&
+      !('_type' in value) &&
+      !('_resolve' in value)
+    )
+      acc[key] = yup.object(value);
+    else Object.assign(acc, { [key]: value });
 
-export const mapNestedArraysToShape = (schema) => {
-  return Object.entries(schema).reduce(
-    (acc, [key, value]) => {
-      if (Array.isArray(value))
-        acc[key] = yup
-          .array()
-          .of(yup.object().shape(value[0]));
-      else if (
-        typeof value === 'object' &&
-        !('_type' in value) &&
-        !('_resolve' in value)
-      )
-        acc[key] = yup.object(value);
-      else Object.assign(acc, { [key]: value });
-
-      return acc;
-    },
-    {},
-  );
-};
+    return acc;
+  }, {});
 
 export default () => {
   const [chain, setChain] = React.useState({});

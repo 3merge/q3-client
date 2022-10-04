@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import flat from 'flat';
 import { get } from 'lodash';
 import { object } from 'q3-ui-helpers';
+import { useTranslation } from 'q3-ui-locale';
 import ErrorResponseAdapter from '../helpers/ErrorResponseAdapter';
 
 export const getValues = (value) =>
@@ -28,6 +29,7 @@ export default ({
   setFieldValue,
   removeFieldError,
 }) => {
+  const { t } = useTranslation('helpers');
   const [message, setMessage] = React.useState();
   const [isSubmitting, setIsSubmitting] =
     React.useState(false);
@@ -36,12 +38,13 @@ export default ({
     Yup.reach(validationSchema, name)
       .validate(value)
       .then(() => removeFieldError(name))
-      .catch((e) =>
-        setFieldError(
-          name,
-          get(e, 'message', 'This input is invalid'),
-        ),
-      );
+      .catch((e) => {
+        let msg = get(e, 'message', 'invalidInput');
+        if (msg === 'this is a required field')
+          msg = 'isRequiredInput';
+
+        return setFieldError(name, t(msg));
+      });
 
   const onChange = (key, value) => {
     onValidate(key, value).finally(() =>
