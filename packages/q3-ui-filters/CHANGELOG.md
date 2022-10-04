@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.7](https://github.com/3merge/q/compare/v3.10.6...v3.10.7) (2022-10-04)
+
+**Note:** Version bump only for package q3-ui-filters
+
+
+
+
+
 ## [3.10.5](https://github.com/3merge/q/compare/v3.10.4...v3.10.5) (2022-09-30)
 
 **Note:** Version bump only for package q3-ui-filters
