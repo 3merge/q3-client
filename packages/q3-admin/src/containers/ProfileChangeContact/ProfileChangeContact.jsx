@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import { castToUTC } from 'q3-ui-forms/lib/helpers';
+import {
+  castToUTC,
+  castToLocalDate,
+} from 'q3-ui-forms/lib/helpers';
 import useProfileForm from '../../hooks/useProfileForm';
 import SystemPageSub from '../../components/SystemPageSub';
 
@@ -27,6 +30,9 @@ const ProfileChangeContact = (props) => {
         marshalSelectively
         marshal={{
           birthday: [castToUTC],
+        }}
+        modify={{
+          birthday: [castToLocalDate],
         }}
       >
         <Field
