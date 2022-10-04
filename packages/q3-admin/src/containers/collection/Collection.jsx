@@ -42,7 +42,6 @@ export const Collection = ({
 
   React.useLayoutEffect(() => {
     setId(collectionName);
-
     return () => {
       setId(null);
     };

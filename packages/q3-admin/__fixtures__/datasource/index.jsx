@@ -66,7 +66,14 @@ const makeApiEndpoints = (
   const [dataSource] = React.useState(seedData);
   const ops = new OpsHelper(dataSource, collectionName);
   const { data: segments, update: updateSegments } =
-    useFixtureData();
+    useFixtureData([
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+    ]);
 
   mockInstance.onGet(/domain/).reply(200, {
     domain,
