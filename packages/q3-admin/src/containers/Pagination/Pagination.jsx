@@ -10,7 +10,9 @@ const CustomPagination = () => {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const { decode, encode } = useQueryParams();
+
   const decoded = decode(search);
+  const page = Number(get(decoded, 'page', 0)) + 1;
 
   const onChange = React.useCallback(
     (e, num) =>
@@ -19,7 +21,7 @@ const CustomPagination = () => {
           encode(
             {
               ...decoded,
-              page: num,
+              page: num - 1,
             },
             {
               includePageParam: true,
@@ -33,7 +35,7 @@ const CustomPagination = () => {
     <Pagination
       count={Math.ceil(total / 25)}
       onChange={onChange}
-      page={Number(get(decoded, 'page', 1))}
+      page={page}
     />
   );
 };
