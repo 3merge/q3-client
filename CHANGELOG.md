@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.10.10](https://github.com/3merge/q/compare/v3.10.9...v3.10.10) (2022-10-06)
+
+
+### Bug Fixes
+
+* pagination container ([a524d76](https://github.com/3merge/q/commit/a524d76c0a982a1c1008455017ffd8c69696c51e))
+
+
+
+
+
 ## [3.10.9](https://github.com/3merge/q/compare/v3.10.8...v3.10.9) (2022-10-04)
 
 
