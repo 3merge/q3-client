@@ -46,3 +46,45 @@ describe('URL', () => {
     });
   });
 });
+
+test.each([
+  ['??test', '?test'],
+  ['?test', '?test'],
+  ['test', 'test'],
+])(
+  '.ensureSingleQueryCharacter(%s)',
+  (input, expectedOutput) => {
+    expect(url.ensureSingleQueryCharacter(input)).toEqual(
+      expectedOutput,
+    );
+  },
+);
+
+test.each([
+  ['?foo=bar', 'quuz', '?foo=bar&sort=quuz'],
+  ['?foo=bar&sort=quak', 'quuz', '?foo=bar&sort=quuz'],
+  [
+    '?foo=bar&sort=quak&sort=quak',
+    'quuz',
+    '?foo=bar&sort=quuz',
+  ],
+  [
+    '?foo=bar&sort=quak&sort=-quak',
+    'quuz',
+    '?foo=bar&sort=quuz',
+  ],
+  ['?foo', undefined, '?foo'],
+  [undefined, undefined, undefined],
+  [undefined, '-quuz', '?sort=-quuz'],
+])(
+  '.replaceParamValueInSearchString(%s)',
+  (input, sortValue, expectedOutput) => {
+    expect(
+      url.replaceParamValueInSearchString(
+        input,
+        'sort',
+        sortValue,
+      ),
+    ).toEqual(expectedOutput);
+  },
+);

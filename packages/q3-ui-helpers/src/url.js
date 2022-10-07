@@ -1,6 +1,8 @@
-import { get } from 'lodash';
+import { get, uniq } from 'lodash';
+import * as string from './string';
 
-const YOUTUBE_REGEX = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+const YOUTUBE_REGEX =
+  /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 
 const isString = (v = '') =>
   typeof v === 'string' ? v : String(v);
@@ -85,4 +87,30 @@ export const toParamsString = (paramsInstance) => {
         : left;
     })
     .join('&');
+};
+
+export const ensureSingleQueryCharacter = (str) =>
+  str.replace(/^(\?\?|\?&|&)/, '?');
+
+export const replaceParamValueInSearchString = (
+  originalSearchString,
+  param,
+  value,
+) => {
+  if (!isString(value)) return originalSearchString;
+
+  const str = String(originalSearchString);
+  const part = `${param}=${value}`;
+
+  let output;
+
+  if (string.isStringEmpty(str)) output = `?${part}`;
+  else if (originalSearchString.includes(param))
+    output = uniq(
+      originalSearchString
+        .replace(new RegExp(`${param}=([^&]*)`, 'g'), part)
+        .split('&'),
+    ).join('&');
+  else output = `${originalSearchString}&${part}`;
+  return ensureSingleQueryCharacter(output);
 };

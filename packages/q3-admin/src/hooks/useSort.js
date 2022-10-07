@@ -1,27 +1,7 @@
 import { useLocation } from '@reach/router';
-import { isString, uniq } from 'lodash';
+import { isString } from 'lodash';
+import { url } from 'q3-ui-helpers';
 import useSortPreference from './useSortPreference';
-
-export const replaceSearchStringSort = (
-  search,
-  newValue,
-) => {
-  const str = String(search);
-
-  if (str.includes('sort'))
-    return uniq(
-      search
-        .replace(/sort=([^&]*)/g, `sort=${newValue}`)
-        .split('&'),
-    ).join('&');
-
-  return str === 'undefined'
-    ? str
-    : `${str}&sort=${newValue}`.replace(
-        /^(\?\?|\?&|&)/,
-        '?',
-      );
-};
 
 export default (...params) => {
   const location = useLocation();
@@ -32,8 +12,9 @@ export default (...params) => {
   let search = location?.search || '';
 
   if (isString(search) && isString(sortPreference))
-    search = replaceSearchStringSort(
+    search = url.replaceParamValueInSearchString(
       search,
+      'sort',
       sortPreference,
     );
 
