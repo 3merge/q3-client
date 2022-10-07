@@ -142,8 +142,8 @@ export default (customThemeDefs, type, font = 'Nunito') => {
             color,
 
             '& *::-webkit-scrollbar': {
-              height: 11,
-              width: 11,
+              height: 8,
+              width: 8,
             },
 
             '& *::-webkit-scrollbar-track': {

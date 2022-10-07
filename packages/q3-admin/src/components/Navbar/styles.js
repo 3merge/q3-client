@@ -46,4 +46,8 @@ export default makeStyles((theme) => ({
       margin: '-1.5rem',
     },
   },
+  scrollBar: {
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    borderRadius: 0,
+  },
 }));

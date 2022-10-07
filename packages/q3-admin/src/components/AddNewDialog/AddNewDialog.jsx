@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'q3-ui-locale';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ButtonWithIcon from '../ButtonWithIcon';
 import { Definitions } from '../../containers/state';
 
@@ -36,7 +35,7 @@ const AddNewDialog = ({ children }) => {
           <Hidden lgUp>
             <ButtonWithIcon
               onClick={onClick}
-              icon={AddCircleIcon}
+              icon={AddIcon}
               label="create"
             />
           </Hidden>

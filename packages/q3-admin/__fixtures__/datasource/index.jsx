@@ -73,6 +73,90 @@ const makeApiEndpoints = (
         label: 'Yes!',
         value: '?foo=string(bar)',
       },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
+      {
+        id: 1,
+        collectionName: 'shows',
+        label: 'Yes!',
+        value: '?foo=string(bar)',
+      },
     ]);
 
   mockInstance.onGet(/domain/).reply(200, {

@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import { Box, Paper, Hidden } from '@material-ui/core';
+import { Scrollbars } from 'react-custom-scrollbars';
 import useStyle from './styles';
 import Logo from '../Logo';
 import NavbarCallToAction from '../NavbarCallToAction';
 
 const Navbar = ({ callToAction, children }) => {
   const cls = useStyle();
+
+  const renderThumb = (thumbProps) => (
+    <div {...thumbProps} className={cls.scrollBar} />
+  );
 
   const NavigationContents = (
     <Box
@@ -18,15 +23,28 @@ const Navbar = ({ callToAction, children }) => {
       overflow="auto"
       flex="1"
     >
-      <Hidden mdDown>
-        <Box bgcolor="background.paper" top="0" zIndex={1}>
-          <Logo />
+      <Scrollbars
+        autoHide
+        autoHideTimeout={1000}
+        autoHideDuration={200}
+        renderThumbHorizontal={renderThumb}
+        renderThumbVertical={renderThumb}
+        universal
+      >
+        <Hidden mdDown>
+          <Box
+            bgcolor="background.paper"
+            top="0"
+            zIndex={1}
+          >
+            <Logo />
+          </Box>
+        </Hidden>
+        <Box display="flex" flexDirection="column" flex="1">
+          <NavbarCallToAction {...callToAction} />
+          <Box flex="1">{children}</Box>
         </Box>
-      </Hidden>
-      <Box display="flex" flexDirection="column" flex="1">
-        <NavbarCallToAction {...callToAction} />
-        <Box flex="1">{children}</Box>
-      </Box>
+      </Scrollbars>
     </Box>
   );
 

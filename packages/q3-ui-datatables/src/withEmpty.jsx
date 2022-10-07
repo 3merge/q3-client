@@ -6,7 +6,7 @@ import { withLocation } from 'with-location';
 const Empty = withLocation(({ children }) => (
   <>
     {children}
-    <Graphic icon="Empty" title="empty" />
+    <Graphic transparent icon="Empty" title="empty" />
   </>
 ));
 
