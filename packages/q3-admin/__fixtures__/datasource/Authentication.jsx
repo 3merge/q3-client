@@ -26,10 +26,10 @@ const setupProfilePermissions = (coll) => [
     op: 'Create',
     coll,
   }),
-  genPermission({
-    op: 'Delete',
-    coll,
-  }),
+  // genPermission({
+  //   op: 'Delete',
+  //   coll,
+  // }),
 ];
 
 const StoriesApiMockAuthentication = ({ children }) => {
