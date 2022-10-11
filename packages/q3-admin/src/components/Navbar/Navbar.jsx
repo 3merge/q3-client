@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
 import { Box, Paper, Hidden } from '@material-ui/core';
-import useStyle from './styles';
 import Logo from '../Logo';
 import NavbarCallToAction from '../NavbarCallToAction';
+import useStyle from './styles';
 
 const Navbar = ({ callToAction, children }) => {
   const cls = useStyle();

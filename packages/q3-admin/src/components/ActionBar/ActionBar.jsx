@@ -83,7 +83,7 @@ const Actionbar = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      <Grow in={size(links)}>
+      <Grow in>
         <Box
           position="fixed"
           top={0}
@@ -98,6 +98,7 @@ const Actionbar = ({ children }) => {
             transparent
             icon={MoreVertIcon}
             label="actions"
+            disabled={!size(links)}
           />
         </Box>
       </Grow>

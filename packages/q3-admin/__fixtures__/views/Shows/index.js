@@ -53,6 +53,7 @@ export default new AbstractCollectionBuilder({
         fromKey: 'demo',
       },
       {
+        defaultLimitPreference: 50,
         ui: {
           label: 'custom',
           icon: AcUnitIcon,

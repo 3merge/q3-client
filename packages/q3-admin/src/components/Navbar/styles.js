@@ -41,9 +41,13 @@ export default makeStyles((theme) => ({
     },
   },
   contents: {
+    height: 'auto',
+    minHeight: '100%',
     overflowX: 'hidden',
+    overflow: 'overlay',
     [theme.breakpoints.down('md')]: {
       margin: '-1.5rem',
+      overflow: 'auto',
     },
   },
 }));

@@ -170,7 +170,12 @@ minimum values, maximum values, and required values.
       <Field name="email" type="email" />
       <Field name="tel" type="tel" />
       <Field name="postal" type="postal" />
-      <Field name="required" type="text" required />
+      <Field name="required" type="text" required /> <Field
+        name="select"
+        type="select"
+        options={countries}
+        required
+      />
       <Field
         name="date"
         type="date"

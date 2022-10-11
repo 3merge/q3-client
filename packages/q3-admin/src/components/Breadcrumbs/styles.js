@@ -10,10 +10,6 @@ export default makeStyles((theme) => ({
       lineHeight: '1rem !important',
       flexWrap: 'nowrap',
     },
-
-    [theme.breakpoints.down('md')]: {
-      marginLeft: 0,
-    },
   },
   font: {
     fontSize: '.833rem',

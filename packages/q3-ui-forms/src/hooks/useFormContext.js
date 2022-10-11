@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from 'yup';
 import flat from 'flat';
-import { get } from 'lodash';
+import { get, isFunction } from 'lodash';
 import { object } from 'q3-ui-helpers';
 import { useTranslation } from 'q3-ui-locale';
 import ErrorResponseAdapter from '../helpers/ErrorResponseAdapter';
@@ -11,11 +11,14 @@ export const getValues = (value) =>
     ? value.map((o) => get(o, 'value', o)).filter(Boolean)
     : value;
 
-export const reduceErrorMessages = (errors = []) =>
+export const reduceErrorMessages = (
+  errors = [],
+  t = null,
+) =>
   errors.reduce((acc, next) => {
     acc[
       next.path.replace(/\[/gi, '.').replace(/\]/gi, '')
-    ] = next.message;
+    ] = isFunction(t) ? t(next.message) : next.message;
     return acc;
   }, {});
 
@@ -34,17 +37,26 @@ export default ({
   const [isSubmitting, setIsSubmitting] =
     React.useState(false);
 
+  const getRequiredInputErrorMessageVariety = (msg) => {
+    if (String(msg).includes('is a required field'))
+      return t('isRequiredInput');
+
+    return t(msg);
+  };
+
   const onValidate = (name, value) =>
     Yup.reach(validationSchema, name)
       .validate(value)
       .then(() => removeFieldError(name))
-      .catch((e) => {
-        let msg = get(e, 'message', 'invalidInput');
-        if (msg === 'this is a required field')
-          msg = 'isRequiredInput';
+      .catch((e) =>
+        setFieldError(
+          name,
 
-        return setFieldError(name, t(msg));
-      });
+          getRequiredInputErrorMessageVariety(
+            get(e, 'message', 'invalidInput'),
+          ),
+        ),
+      );
 
   const onChange = (key, value) => {
     onValidate(key, value).finally(() =>
@@ -100,7 +112,13 @@ export default ({
       .then(next)
       .catch((err) => {
         if (err && err.inner)
-          setErrors(reduceErrorMessages(err.inner));
+          setErrors(
+            reduceErrorMessages(
+              err.inner,
+              // format some automated yup messages
+              getRequiredInputErrorMessageVariety,
+            ),
+          );
 
         return null;
       })

@@ -33,6 +33,9 @@ export const hasMatch = (target, pattern) =>
       )
     : false;
 
+export const isStringEmpty = (xs) =>
+  !xs || ['', 'null', 'undefined'].includes(String(xs));
+
 export const strToBool = (str) =>
   (str === true ||
     str === 'true' ||

@@ -41,7 +41,7 @@ const withPageLoading = (Component) => {
     if (fetchingError)
       return (
         <Box m={4}>
-          <Graphic title="error" icon="Error" />
+          <Graphic transparent title="error" icon="Error" />
         </Box>
       );
 

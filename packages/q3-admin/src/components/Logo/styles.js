@@ -22,13 +22,14 @@ export default makeStyles((theme) => ({
       width: 250,
     },
   },
-  img: ({ invertLogo }) => ({
+  img: ({ invertLogo, padLogo }) => ({
     filter:
       invertLogo && theme.palette.type === 'dark'
         ? 'invert(1) grayscale(100%)'
         : undefined,
     objectFit: 'contain',
     objectPosition: 'center',
+    padding: padLogo ? '.75rem' : undefined,
     height: '100%',
     width: '100%',
 

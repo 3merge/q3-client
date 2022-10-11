@@ -748,6 +748,7 @@ const DomainChangeManifest = () => {
           'description',
           'font',
           'invertLogo',
+          'padLogo',
         ]}
         onSubmit={update}
         showSuccessMessage
@@ -755,6 +756,7 @@ const DomainChangeManifest = () => {
         marshal={{
           supportedLngs: [(v) => compact(map(v, 'value'))],
           invertLogo: [castToBoolean],
+          padLogo: [castToBoolean],
         }}
       >
         <Builders.Field
@@ -805,6 +807,13 @@ const DomainChangeManifest = () => {
         <Builders.Field
           type="checkbox"
           name="invertLogo"
+          variant="switch"
+          xl={12}
+          lg={12}
+        />
+        <Builders.Field
+          type="checkbox"
+          name="padLogo"
           variant="switch"
           xl={12}
           lg={12}

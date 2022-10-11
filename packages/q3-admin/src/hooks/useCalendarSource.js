@@ -10,11 +10,11 @@ import {
 import { castToUTC } from 'q3-ui-forms/lib/helpers';
 import { useLocation } from '@reach/router';
 import { useQueryParams } from 'q3-ui-queryparams';
+import { url } from 'q3-ui-helpers';
 import {
   Dispatcher,
   Definitions,
 } from '../containers/state';
-import { replaceSearchStringSort } from './useSort';
 
 const useCalendarSource = (options = {}) => {
   const {
@@ -39,7 +39,9 @@ const useCalendarSource = (options = {}) => {
     (info) => {
       ref.current = info;
       navigate(
-        `${etc.pathname}${replaceSearchStringSort(
+        `${
+          etc.pathname
+        }${url.replaceParamValueInSearchString(
           qp.encode({
             // unformatted root key needs to leave
             ...omit(qp.decode(search), [fromKey]),
@@ -48,6 +50,7 @@ const useCalendarSource = (options = {}) => {
               info.endStr,
             ),
           }),
+          'sort',
           `-${fromKey}`,
         )}`,
       );
