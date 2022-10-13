@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3",
-  "version": "3.10.11",
+  "version": "3.11.0",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -28,7 +28,7 @@
     "gatsby-plugin-robots-txt": "^1.6.14",
     "gatsby-plugin-sharp": "^4.2.0",
     "gatsby-plugin-sitemap": "^5.2.0",
-    "gatsby-theme-q3-mui": "^3.10.11",
+    "gatsby-theme-q3-mui": "^3.11.0",
     "gatsby-transformer-sharp": "^4.2.0",
     "lodash": "^4.17.20",
     "process": "^0.11.10",
