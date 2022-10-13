@@ -23,6 +23,7 @@ import DomainProvider from './containers/DomainProvider';
 import DomainChangeManifest from './containers/DomainChangeManifest';
 import DomainChangeBrowser from './containers/DomainChangeBrowser';
 import DomainChangePolicies from './containers/DomainChangePolicies';
+import DomainChangePublicNotice from './containers/DomainChangePublicNotice';
 import Profile from './containers/Profile';
 import ProfileChangeContact from './containers/ProfileChangeContact';
 import ProfileChangeLocale from './containers/ProfileChangeLocale';
@@ -119,6 +120,7 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
                   <DomainChangeBrowser path="browser" />
                   <DomainChangeManifest path="manifest" />
                   <DomainChangePolicies path="policies" />
+                  <DomainChangePublicNotice path="notice" />
                   <DomainI18n path="i18n" />
                   <EmailModule path="emails" />
                   <QueueModule path="queues" />

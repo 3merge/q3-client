@@ -18,6 +18,7 @@ describe('useDomainLinks', () => {
       'foo',
       'foo',
       'foo',
+      'foo',
     ]);
   });
 });

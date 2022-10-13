@@ -8,6 +8,7 @@ import {
   Hidden,
   makeStyles,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { Link as ReachLink } from 'gatsby';
 import { useTranslation } from 'q3-ui-locale';
 import { isString } from 'lodash';
@@ -100,6 +101,7 @@ const PublicTemplate = ({ children, ...rest }) => {
     privacy,
     logo,
     photo,
+    publicNotice = null,
   } = useSiteMetaData({
     logo: '/logo.png',
     photo: '/background.jpg',
@@ -131,6 +133,17 @@ const PublicTemplate = ({ children, ...rest }) => {
             <img alt={brand} src={logo} />
           </ReachLink>
         </Box>
+        {publicNotice && (
+          <Box className={cls.container} mb={1}>
+            <Alert severity="warning">
+              <Box
+                dangerouslySetInnerHTML={{
+                  __html: publicNotice,
+                }}
+              />
+            </Alert>
+          </Box>
+        )}
         <Paper className={cls.container}>
           <Grid container spacing={1}>
             <Hidden smDown>
