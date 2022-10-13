@@ -5,6 +5,11 @@ import { Builders } from 'q3-ui-forms';
 const SubDetailForm = (props) => (
   <Builders.Form {...props} keep={['title']}>
     <Builders.Field under="seasons" name="title" />
+    <Builders.Field
+      under="seasons"
+      name="rte"
+      type="editor"
+    />
   </Builders.Form>
 );
 
