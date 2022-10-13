@@ -18,6 +18,10 @@ const useDomainLinks = () =>
         text: 'domainPolicies',
         to: '/system/policies',
       },
+      {
+        text: 'domainPublicNotice',
+        to: '/system/notice',
+      },
     ]),
     useAuthLinks(
       'domain',

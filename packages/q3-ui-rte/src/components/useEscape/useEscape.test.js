@@ -71,6 +71,7 @@ describe('useEscape', () => {
 
         target: nodes[1],
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(nodes[4].focus).toHaveBeenCalled();
@@ -96,6 +97,7 @@ describe('useEscape', () => {
 
         target: nodes[1],
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(nodes[0].focus).toHaveBeenCalled();
@@ -112,6 +114,7 @@ describe('useEscape', () => {
         currentTarget: node,
         target: {},
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(node.focus).toHaveBeenCalled();
@@ -131,6 +134,7 @@ describe('useEscape', () => {
         currentTarget: node,
         target: {},
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(focus).toHaveBeenCalled();
@@ -165,6 +169,7 @@ describe('useEscape', () => {
         currentTarget: nodes[1],
         target: {},
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(nodes[0].focus).toHaveBeenCalled();
@@ -198,6 +203,7 @@ describe('useEscape', () => {
         currentTarget: nodes[1],
         target: {},
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       });
 
       expect(nodes[2].focus).toHaveBeenCalled();

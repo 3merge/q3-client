@@ -82,6 +82,7 @@ const useEscape = () => {
 
       const preventDefaultAndInvokeFocus = (el) => {
         e.preventDefault();
+        e.stopPropagation();
         invokeFocus(el);
       };
 
