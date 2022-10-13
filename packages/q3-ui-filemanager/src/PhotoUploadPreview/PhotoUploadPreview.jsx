@@ -52,7 +52,7 @@ const PhotoUploadPreview = ({ src }) => {
       >
         {src ? (
           <img
-            alt="preview"
+            alt={t('labels:imagePreview')}
             className={cls.preview}
             src={src}
           />
