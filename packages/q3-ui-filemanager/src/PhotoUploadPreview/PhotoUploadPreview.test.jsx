@@ -26,7 +26,7 @@ describe('PhotoUploadPreview', () => {
         )
         .find('img')
         .prop('alt'),
-    ).toMatch('preview');
+    ).toMatch('imagePreview');
   });
 
   it('should render placeholder', () => {
