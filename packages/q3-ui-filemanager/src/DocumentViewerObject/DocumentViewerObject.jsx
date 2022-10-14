@@ -48,7 +48,7 @@ const DocumentViewerObject = (props) => {
         <ReactFileViewer
           errorComponent={FallbackComponent}
           fileType={getFileType(url)}
-          filePath={url}
+          filePath={encodeURI(url)}
           unsupportedComponent={FallbackComponent}
         />
       </React.Suspense>
