@@ -33,18 +33,6 @@
       "folderId": "62c72de2c2af12ff9e4ce509"
     },
     {
-      "name": "Screen Shot 2022-06-07 at 10.25.44 AM.png",
-      "sensitive": true,
-      "size": 7939,
-      "folder": false,
-      "createdAt": "2022-10-12T14:56:49.880Z",
-      "updatedAt": "2022-10-12T14:56:49.880Z",
-      "bucketId": "Screen Shot 2022-06-07 at 10.25.44 AM.png",
-      "relativePath": "Screen Shot 2022-06-07 at 10.25.44 AM.png",
-      "url": "https://hub-production-private.s3.ca-central-1.amazonaws.com/6344745db9fddf203c8f885b/Screen%20Shot%202022-06-07%20at%2010.25.44%20AM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20221014%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Date=20221014T162826Z&X-Amz-Expires=86400&X-Amz-Signature=343a58594305291d58bf295a9f0c914e69654c34b6bcb0baf6de433ee6afe8e4&X-Amz-SignedHeaders=host",
-      "id": "6346d5b16722d7333f9f71ce"
-    },
-    {
       "createdAt": "2022-07-07T19:02:58.281Z",
       "updatedAt": "2022-07-07T19:02:58.281Z",
       "name": "clips.mp4",

@@ -27,19 +27,14 @@ export const checkContains = (selector, target) =>
     : true;
 
 export const getFileType = (url) => {
-  if (!url || !isString(url) || !String(url).includes('.'))
-    return null;
-
-  // Extension starts after the first dot after the last slash
-  const extStart = url.indexOf(
-    '.',
-    url.lastIndexOf('/') + 1,
-  );
-  if (extStart === -1) return null;
-  const ext = url.substr(extStart + 1);
-  // end of extension must be one of: end-of-string or question-mark or hash-mark
-  const extEnd = ext.search(/$|[?#]/);
-  return ext.substring(0, extEnd).toLowerCase();
+  const defaultValue = null;
+  try {
+    return (
+      last(new URL(url).pathname.split('.')) || defaultValue
+    );
+  } catch (e) {
+    return defaultValue;
+  }
 };
 
 export const normalize = (xs) =>
