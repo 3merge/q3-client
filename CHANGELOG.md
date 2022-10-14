@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.11.1](https://github.com/3merge/q/compare/v3.11.0...v3.11.1) (2022-10-14)
+
+
+### Bug Fixes
+
+* aws signed url thumbnail gen ([97dbf9a](https://github.com/3merge/q/commit/97dbf9accc22a60aea9b47b14e62097f170e8e6a))
+
+
+
+
+
 # [3.11.0](https://github.com/3merge/q/compare/v3.10.11...v3.11.0) (2022-10-13)
 
 
