@@ -7,6 +7,7 @@ import AcUnitIcon from '@material-ui/icons/AcUnit';
 import Add from './Add';
 import Filters from './Filters';
 import General from './General';
+import TableView from './TableView';
 import SubDetail from './SubDetail';
 
 export default new AbstractCollectionBuilder({
@@ -43,6 +44,7 @@ export default new AbstractCollectionBuilder({
   .genViews({
     General,
     SubDetail,
+    TableView,
   })
   .genList({
     uis: [
