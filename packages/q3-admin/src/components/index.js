@@ -2,6 +2,7 @@ export { default as App } from './app';
 export { default as AddNewForm } from './AddNewForm';
 export { default as Loader } from './loader';
 export { default as Public } from './public';
+export { default as TableVertical } from './TableVertical';
 
 /**
  * @NOTE
