@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.12.0](https://github.com/3merge/q/compare/v3.11.2...v3.12.0) (2022-10-18)
+
+
+### Features
+
+* vertical table component ([#434](https://github.com/3merge/q/issues/434)) ([4ea458b](https://github.com/3merge/q/commit/4ea458be91b2ec14e5a8621963a0bbc822a63739))
+
+
+
+
+
 ## [3.11.2](https://github.com/3merge/q/compare/v3.11.1...v3.11.2) (2022-10-14)
 
 **Note:** Version bump only for package q3-admin
