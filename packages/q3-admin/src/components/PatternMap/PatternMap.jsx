@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Map, Marker } from 'pigeon-maps';
 import Box from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import {
   compact,
@@ -13,6 +12,7 @@ import {
   isObject,
 } from 'lodash';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import Pattern from '../Pattern';
 import useStyle from './styles';
 
 const printValues = (xs) => {
@@ -81,14 +81,36 @@ const PageHeaderMap = ({ address }) => {
   const cls = useStyle();
 
   return size(coordinates) > 0 ? (
-    <Fade in>
+    <Pattern
+      action={
+        <IconButton
+          aria="google maps"
+          color="inherit"
+          component="a"
+          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+            printValues(address),
+          )}`}
+          rel="noreferrer"
+          target="_blank"
+          size="small"
+        >
+          <AspectRatioIcon />
+        </IconButton>
+      }
+      title="map"
+      size="md"
+    >
       <Box
-        color="secondary.main"
-        position="relative"
-        height={300}
+        position="absolute"
+        height={350}
+        top={0}
+        left={0}
+        bottom={0}
+        right={0}
+        overflow="hidden"
       >
         <Map
-          height={300}
+          height={350}
           defaultCenter={coordinates}
           defaultZoom={15}
           attribution={false}
@@ -97,28 +119,9 @@ const PageHeaderMap = ({ address }) => {
             <div className={cls.heat} />
           </Marker>
         </Map>
-        <Box
-          position="absolute"
-          top={0}
-          right={0}
-          zIndex="1"
-          p={0.5}
-        >
-          <IconButton
-            aria="google maps"
-            color="inherit"
-            component="a"
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              printValues(address),
-            )}`}
-            rel="noreferrer"
-            target="_blank"
-          >
-            <AspectRatioIcon />
-          </IconButton>
-        </Box>
       </Box>
-    </Fade>
+      <Box height={350} width="100%" />
+    </Pattern>
   ) : null;
 };
 

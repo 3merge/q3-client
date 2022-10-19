@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, pick, invoke, isFunction } from 'lodash';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import DetailMeta from '../DetailMeta';
 import DetailViews from '../DetailViews';
 import DetailNavigation from '../DetailNavigation';
@@ -14,8 +14,6 @@ import withDetailViews from '../../helpers/withDetailViews';
 import withPageLoading from '../../helpers/withPageLoading';
 import DetailFeaturedPhoto from '../DetailFeaturedPhoto';
 import DetailSummary from '../DetailSummary';
-
-import PageHeaderMap from '../../components/PageHeaderMap';
 
 const Detail = (props) => {
   const {
@@ -101,18 +99,6 @@ const Detail = (props) => {
     () => (
       <Article>
         <Box height="auto" minHeight="100%">
-          {/* <PageHeaderMap
-            address={{
-              name: '3merge',
-              streetNumber: 104,
-              streetLine1: 'Crockford Blvd',
-              streetLine2: 'Suite 211',
-              city: 'Scarborough',
-              region: 'ON',
-              country: 'CA',
-              postal: 'M1R 3C3',
-            }}
-          /> */}
           {AppBar}
           {isFunction(renderContent)
             ? renderContent(

@@ -155,25 +155,48 @@ const makeApiEndpoints = (
     },
   ]);
 
-  mockInstance.onGet(/reports/).reply(200, {
-    data: {
-      data: [
+  mockInstance.onGet(/reports/).reply((args) => {
+    if (args.url.includes('template=appearances'))
+      return [
+        200,
         {
-          Shows: 'Rick and Morty',
-          Streams: 1000000,
+          data: [
+            {
+              episode: 1,
+              numberOfTimes: 12,
+              numberOfLines: 1249,
+              compensation: 3400,
+              quote: 'Testing testing testing!',
+              date: new Date().toISOString(),
+              id: 10,
+            },
+          ],
         },
-        {
-          Shows: "Bob's Burgers",
-          Streams: 345000,
+      ];
+
+    return [
+      200,
+      {
+        data: {
+          data: [
+            {
+              Shows: 'Rick and Morty',
+              Streams: 1000000,
+            },
+            {
+              Shows: "Bob's Burgers",
+              Streams: 345000,
+            },
+            {
+              Shows: 'Simpsons',
+              Streams: 9972346,
+            },
+          ],
+          name: 'Shows',
+          value: 'Streams',
         },
-        {
-          Shows: 'Simpsons',
-          Streams: 9972346,
-        },
-      ],
-      name: 'Shows',
-      value: 'Streams',
-    },
+      },
+    ];
   });
 
   mockInstance.onGet(/audit/).reply(200, {

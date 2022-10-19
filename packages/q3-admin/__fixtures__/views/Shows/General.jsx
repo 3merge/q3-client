@@ -8,9 +8,12 @@ import {
   Button,
 } from '@material-ui/core';
 import Dialog from 'q3-ui-dialog';
+import { string } from 'q3-ui-helpers';
 import { connect } from '../../../src/containers';
 import { TableVertical } from '../../../src/components';
-import PageHeaderMap from '../../../src/components/PageHeaderMap';
+import PatternMap from '../../../src/components/PatternMap';
+import PatternDataGrid from '../../../src/components/PatternDataGrid';
+import PatternList from '../../../src/components/PatternList';
 
 const PageWidget = ({ action, children, title }) => (
   <Grid item md={6} xs={12}>
@@ -72,24 +75,11 @@ const PagePatternEditableTable = ({
 
 export default connect(() => (
   <Grid container spacing={2}>
-    <Grid item xs={12}>
+    {/* <Grid item xs={12}>
       Some sort of chart?
     </Grid>
     <Grid item xs={12} md={12}>
-      <PageHeaderMap
-        address={{
-          name: '3merge',
-          streetNumber: 104,
-          streetLine1: 'Crockford Blvd',
-          streetLine2: 'Suite 211',
-          city: 'Scarborough',
-          region: 'ON',
-          country: 'CA',
-          postal: 'M1R 3C3',
-        }}
-      />
-    </Grid>
-    <PagePatternEditableTable
+     <PagePatternEditableTable
       formProps={{}}
       columns={[
         {
@@ -114,17 +104,37 @@ export default connect(() => (
         },
       ]}
       title="Bio"
-    />{' '}
-    <Grid item xs={6}>
-      <ul>
-        <li>List item #1</li>
-      </ul>
-    </Grid>
-    <Grid item xs={12}>
-      Multistepper.
-    </Grid>
-    <Grid item xs={12}>
-      Preconfigured data-table.
-    </Grid>
+    />
+    </Grid> */}
+
+    <PatternMap
+      address={{
+        name: '3merge',
+        streetNumber: 104,
+        streetLine1: 'Crockford Blvd',
+        streetLine2: 'Suite 211',
+        city: 'Scarborough',
+        region: 'ON',
+        country: 'CA',
+        postal: 'M1R 3C3',
+      }}
+    />
+    <PatternList
+      apiParams={() => ({
+        key: 'show',
+        pluralized: 'shows',
+        url: '/shows',
+      })}
+      renderListItem={({ id, name, boxOffice }) => ({
+        title: name,
+        description: string.toPrice(boxOffice),
+        href: `/shows/${id}`,
+      })}
+      title="Related"
+    />
+    <PatternDataGrid
+      title="Recent appearances"
+      report="appearances"
+    />
   </Grid>
 ));
