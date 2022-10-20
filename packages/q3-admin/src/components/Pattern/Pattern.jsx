@@ -14,12 +14,15 @@ const Pattern = ({
   action,
   children,
   error,
+  height,
   loading,
   size,
   title,
 }) => {
-  const { t } = useTranslation('description');
-  const cls = useStyle();
+  const { t } = useTranslation();
+  const cls = useStyle({
+    height,
+  });
 
   const getGridItemDimensions = React.useCallback(() => {
     const output = {
@@ -51,7 +54,9 @@ const Pattern = ({
   const ErrorComponent = React.useMemo(
     () => (
       <Box px={1.25}>
-        <Typography>{t('couldNotLoadData')}</Typography>
+        <Typography>
+          {t('descriptions:couldNotLoadData')}
+        </Typography>
       </Box>
     ),
     [],
@@ -78,7 +83,7 @@ const Pattern = ({
               className={cls.label}
               variant="body1"
             >
-              {title}
+              {t(`titles:${title}`)}
             </Typography>
           </Box>
           <Box>{action}</Box>
@@ -93,6 +98,7 @@ Pattern.defaultProps = {
   action: null,
   children: null,
   error: false,
+  height: undefined,
   loading: false,
   size: 'xl',
 };
@@ -100,6 +106,10 @@ Pattern.defaultProps = {
 Pattern.propTypes = {
   action: PropTypes.node,
   children: PropTypes.node,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   error: PropTypes.bool,
   loading: PropTypes.bool,
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),

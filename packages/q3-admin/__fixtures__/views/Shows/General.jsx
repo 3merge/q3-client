@@ -10,16 +10,20 @@ import {
   PatternDataGrid,
   PatternChart,
   PatternStatistic,
+  PatternMultistepper,
 } from '../../../src/components';
 
 export default connect(() => (
   <PatternContainer>
-    {/* <PatternStatistic report="stat" />
+    <PatternStatistic report="stat" />
     <PatternChart report="chartexample" />
+    <PatternDataGrid
+      title="Recent appearances"
+      report="appearances"
+    />
     <PatternMap />
     <PatternFormDialog
       FormProps={{
-        debug: true,
         modify: {
           createdAt: [castToLocalDateTime],
         },
@@ -59,10 +63,19 @@ export default connect(() => (
       ]}
       title="Billing"
     />
-
-    <PatternDataGrid
-      title="Recent appearances"
-      report="appearances"
+    <PatternMultistepper
+      title="workflow"
+      getCurrentStep={() => 1}
+      steps={[
+        {
+          label: 'testing',
+          component: () => 'Step one',
+        },
+        {
+          label: 'testing',
+          component: () => 'Step two',
+        },
+      ]}
     />
     <PatternList
       apiParams={() => ({
@@ -76,6 +89,7 @@ export default connect(() => (
         href: `/shows/${id}`,
       })}
       title="Related"
-    /> */}
+      action={() => 'CHANGE'}
+    />
   </PatternContainer>
 ));

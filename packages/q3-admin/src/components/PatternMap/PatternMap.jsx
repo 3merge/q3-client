@@ -94,7 +94,11 @@ const usePositionStack = (addressObj) => {
   return coordinates;
 };
 
-const PageHeaderMap = ({ data, field }) => {
+const PageHeaderMap = ({
+  data,
+  field,
+  size: patternSize,
+}) => {
   const address = get(data, field, data);
   const coordinates = usePositionStack(address);
   const cls = useStyle();
@@ -117,7 +121,7 @@ const PageHeaderMap = ({ data, field }) => {
         </IconButton>
       }
       title="map"
-      size="md"
+      size={patternSize}
     >
       <Box
         position="absolute"
@@ -147,11 +151,13 @@ const PageHeaderMap = ({ data, field }) => {
 PageHeaderMap.defaultProps = {
   data: {},
   field: undefined,
+  size: 'md',
 };
 
 PageHeaderMap.propTypes = {
   data: PropTypes.shape({}),
   field: PropTypes.string,
+  size: PropTypes.string,
 };
 
 export default connect(PageHeaderMap);

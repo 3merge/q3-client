@@ -5,8 +5,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemAvatar,
-  Avatar,
 } from '@material-ui/core';
 import { isFunction, map } from 'lodash';
 import Pattern from '../Pattern';
@@ -14,7 +12,7 @@ import { usePatternData } from '../../hooks';
 
 const PatternList = (props) => {
   const { data, ...patternProps } = usePatternData(props);
-  const { renderListItem } = props;
+  const { renderListItem, size } = props;
 
   const getListItemProps = (str) =>
     str
@@ -26,7 +24,7 @@ const PatternList = (props) => {
       : {};
 
   return (
-    <Pattern {...patternProps} {...props} size="sm">
+    <Pattern {...patternProps} {...props} size={size}>
       <List style={{ margin: 0, padding: 0 }}>
         {map(data, (item, idx) => {
           const {
@@ -57,8 +55,13 @@ const PatternList = (props) => {
   );
 };
 
+PatternList.defaultProps = {
+  size: 'sm',
+};
+
 PatternList.propTypes = {
   renderListItem: PropTypes.func.isRequired,
+  size: PropTypes.string,
 };
 
 export default PatternList;

@@ -21,6 +21,7 @@ const PatternFormDialog = ({
   data,
   fields,
   onSubmit,
+  size,
   ...props
 }) => {
   const initialValues = React.useMemo(
@@ -76,13 +77,17 @@ const PatternFormDialog = ({
           )}
         />
       }
-      size="sm"
+      size={size}
     >
       <ListWithColumns
         fields={filter(fields, (field) => !field.formOnly)}
       />
     </Pattern>
   );
+};
+
+PatternFormDialog.defaultProps = {
+  size: 'sm',
 };
 
 PatternFormDialog.propTypes = {
@@ -93,6 +98,7 @@ PatternFormDialog.propTypes = {
       field: PropTypes.string,
     }),
   ).isRequired,
+  size: PropTypes.string,
 };
 
 export default connect(PatternFormDialog);

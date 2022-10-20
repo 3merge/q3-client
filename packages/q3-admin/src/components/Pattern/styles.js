@@ -6,12 +6,12 @@ export default makeStyles((theme) => ({
     borderColor: theme.palette.background.muted,
     position: 'relative',
   },
-  box: {
-    maxHeight: 350,
+  box: ({ height = 350 }) => ({
+    maxHeight: height,
     overflow: 'overlay',
     zIndex: 1,
     position: 'relative',
-  },
+  }),
   label: {
     color: theme.palette.secondary.main,
     textTransform: 'none',

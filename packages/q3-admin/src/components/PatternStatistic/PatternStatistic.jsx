@@ -9,7 +9,7 @@ import Pattern from '../Pattern';
 import { useReportById } from '../../hooks';
 import useStyle from './styles';
 
-const PatternStatistic = ({ report }) => {
+const PatternStatistic = ({ report, size }) => {
   const { data, error, loading } = useReportById(report);
   const { t } = useTranslation('labels');
   const cls = useStyle();
@@ -47,7 +47,7 @@ const PatternStatistic = ({ report }) => {
       <Pattern
         error={error}
         loading={loading}
-        size="xs"
+        size={size}
         title={label}
       >
         <Box px={1.5}>
@@ -74,11 +74,13 @@ const PatternStatistic = ({ report }) => {
 PatternStatistic.defaultProps = {
   ChartProps: {},
   title: undefined,
+  size: 'xs',
 };
 
 PatternStatistic.propTypes = {
   ChartProps: PropTypes.shape({}),
   report: PropTypes.string.isRequired,
+  size: PropTypes.string,
   title: PropTypes.string,
 };
 
