@@ -1,5 +1,5 @@
 import micromatch from 'micromatch';
-import { compact } from 'lodash';
+import { compact, isObject } from 'lodash';
 import moment from 'moment';
 
 export const is = (v) => typeof v === 'string';
@@ -55,6 +55,7 @@ const makeDateFn =
       : fallbackText;
 
 export const toDate = makeDateFn('MMM DD, Y[\r\n]LT');
+export const toDateSingleLine = makeDateFn('MMM DD, Y LT');
 export const toDateTime = makeDateFn('YYYY-MM-DDTkk:mm');
 export const toHoursMinutes = makeDateFn('h:mm a');
 export const toSimpleDate = makeDateFn('MMM DD, Y');
@@ -109,3 +110,24 @@ export const makeName = (xs = {}) =>
 
 export const removeTrailingSlash = (str) =>
   String(str).replace(/\/$/, '');
+
+export const makeAddress = (obj) => {
+  if (!isObject(obj)) return '';
+  const {
+    streetNumber,
+    streetLine1,
+    streetLine2,
+    city,
+    region,
+    country,
+    postal,
+  } = obj;
+
+  return compact([
+    compact([streetNumber, streetLine1, streetLine2]).join(
+      ' ',
+    ),
+    compact([city, region]).join(', '),
+    compact([country, postal]).join(' '),
+  ]).join(' \n');
+};

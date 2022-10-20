@@ -7,11 +7,13 @@ import {
   compact,
   first,
   size,
-  omit,
   isString,
+  get,
   isObject,
+  pick,
 } from 'lodash';
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import { connect } from '../../containers';
 import Pattern from '../Pattern';
 import useStyle from './styles';
 
@@ -45,18 +47,34 @@ const usePositionStack = (addressObj) => {
     let query = [];
 
     if (format === 'full')
-      query = Object.values(omit(addressObj, ['name']));
+      query = Object.values(
+        pick(addressObj, [
+          'streetNumber',
+          'streetLine1',
+          'streetLine2',
+          'city',
+          'region',
+          'country',
+          'postal',
+        ]),
+      );
     else if (format === 'truncated')
       query = Object.values(
-        omit(addressObj, ['name', 'streetLine2', 'postal']),
+        pick(addressObj, [
+          'streetNumber',
+          'streetLine1',
+          'city',
+          'region',
+          'country',
+        ]),
       );
     else if (format === 'simple')
       query = Object.values(
-        omit(addressObj, [
-          'name',
-          'streetNumber',
-          'streetLine2',
-          'postal',
+        pick(addressObj, [
+          'streetLine1',
+          'city',
+          'region',
+          'country',
         ]),
       );
 
@@ -76,7 +94,8 @@ const usePositionStack = (addressObj) => {
   return coordinates;
 };
 
-const PageHeaderMap = ({ address }) => {
+const PageHeaderMap = ({ data, field }) => {
+  const address = get(data, field, data);
   const coordinates = usePositionStack(address);
   const cls = useStyle();
 
@@ -125,10 +144,14 @@ const PageHeaderMap = ({ address }) => {
   ) : null;
 };
 
-PageHeaderMap.defaultProps = {};
-
-PageHeaderMap.propTypes = {
-  address: PropTypes.string.isRequired,
+PageHeaderMap.defaultProps = {
+  data: {},
+  field: undefined,
 };
 
-export default PageHeaderMap;
+PageHeaderMap.propTypes = {
+  data: PropTypes.shape({}),
+  field: PropTypes.string,
+};
+
+export default connect(PageHeaderMap);

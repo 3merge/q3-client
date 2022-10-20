@@ -21,6 +21,10 @@ export default () => (
         field: 'boxOffice',
         formatter: 'price',
       },
+      {
+        label: 'Address',
+        formatter: 'address',
+      },
     ]}
   />
 );

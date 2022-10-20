@@ -7,6 +7,7 @@ import {
   Paper,
   Typography,
 } from '@material-ui/core';
+import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
 
 const Pattern = ({
@@ -17,6 +18,7 @@ const Pattern = ({
   size,
   title,
 }) => {
+  const { t } = useTranslation('description');
   const cls = useStyle();
 
   const getGridItemDimensions = React.useCallback(() => {
@@ -29,11 +31,36 @@ const Pattern = ({
         md,
       });
 
-    if (size === 'md') addMd(6);
+    if (size === 'lg') addMd(8);
+    else if (size === 'md') addMd(6);
     else if (size === 'sm') addMd(4);
     else addMd(12);
     return output;
   }, [size]);
+
+  const LoadingComponent = React.useMemo(
+    () => (
+      <Box p={2} textAlign="center">
+        <CircularProgress />
+      </Box>
+    ),
+    [],
+  );
+
+  const ErrorComponent = React.useMemo(
+    () => (
+      <Box px={1.25}>
+        <Typography>{t('couldNotLoadData')}</Typography>
+      </Box>
+    ),
+    [],
+  );
+
+  const render = () => {
+    if (loading) return LoadingComponent;
+    if (error) return ErrorComponent;
+    return children;
+  };
 
   return (
     <Grid item {...getGridItemDimensions()}>
@@ -44,22 +71,18 @@ const Pattern = ({
           justifyContent="space-between"
           px={1.25}
         >
-          <Box>
+          <Box py={0.75}>
             <Typography
               component="h4"
               className={cls.label}
-              variant="overline"
+              variant="body1"
             >
               {title}
             </Typography>
           </Box>
           <Box>{action}</Box>
         </Box>
-        <Box className={cls.box}>
-          {loading && <CircularProgress />}
-          {error && <Typography>Error</Typography>}
-          {!loading && !error ? children : null}
-        </Box>
+        <Box className={cls.box}>{render()}</Box>
       </Paper>
     </Grid>
   );
@@ -68,13 +91,17 @@ const Pattern = ({
 Pattern.defaultProps = {
   action: null,
   children: null,
-  size: 'lg',
+  error: false,
+  loading: false,
+  size: 'xl',
 };
 
 Pattern.propTypes = {
   action: PropTypes.node,
   children: PropTypes.node,
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  error: PropTypes.bool,
+  loading: PropTypes.bool,
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
   title: PropTypes.string.isRequired,
 };
 

@@ -15,20 +15,20 @@ export default makeStyles((theme) => ({
 
     '& td,& th': {
       borderBottom: 'none',
-      padding: 6,
+      padding: '.5rem 1rem',
       whiteSpace: 'nowrap',
     },
 
     '& td': {
+      whiteSpace: 'break-spaces',
       width: '100%',
     },
 
     '& th': {
-      color: theme.palette.secondary.dark,
+      color: 'inherit',
       fontWeight: 'bold',
       minWidth: 0,
       width: 0,
-      paddingRight: 12,
     },
   },
 }));

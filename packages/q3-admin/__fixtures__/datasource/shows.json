@@ -28,7 +28,14 @@
         "id": "3",
         "title": "Completed Season 3"
       }
-    ]
+    ],
+    "streetNumber": 104,
+    "streetLine1": "Crockford Blvd",
+    "streetLine2": "Suite 211",
+    "city": "Scarborough",
+    "region": "ON",
+    "country": "CA",
+    "postal": "M1R 3C3"
   },
   {
     "id": "2",
