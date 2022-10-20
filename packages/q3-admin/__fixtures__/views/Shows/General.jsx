@@ -2,17 +2,20 @@ import React from 'react';
 import { string } from 'q3-ui-helpers';
 import { castToLocalDateTime } from 'q3-ui-forms/lib/helpers';
 import { connect } from '../../../src/containers';
-
 import {
   PatternContainer,
   PatternFormDialog,
   PatternList,
   PatternMap,
   PatternDataGrid,
+  PatternChart,
+  PatternStatistic,
 } from '../../../src/components';
 
 export default connect(() => (
   <PatternContainer>
+    {/* <PatternStatistic report="stat" />
+    <PatternChart report="chartexample" />
     <PatternMap />
     <PatternFormDialog
       FormProps={{
@@ -73,6 +76,6 @@ export default connect(() => (
         href: `/shows/${id}`,
       })}
       title="Related"
-    />
+    /> */}
   </PatternContainer>
 ));

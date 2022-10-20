@@ -34,6 +34,7 @@ const Pattern = ({
     if (size === 'lg') addMd(8);
     else if (size === 'md') addMd(6);
     else if (size === 'sm') addMd(4);
+    else if (size === 'xs') addMd(3);
     else addMd(12);
     return output;
   }, [size]);

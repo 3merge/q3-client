@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { object } from 'q3-ui-helpers';
 
 export default (Component, SubComponent) => {
   const ChartValue = ({
@@ -10,7 +11,9 @@ export default (Component, SubComponent) => {
     ...rest
   }) => {
     const sharedSubComponentProps = {
-      activeDot,
+      activeDot: object.hasKeys(activeDot)
+        ? activeDot
+        : undefined,
       dot,
       radius: [4, 4, 0, 0],
       type: 'monotone',

@@ -82,6 +82,8 @@ export const formatNumber = (str, decimalPlaces) => {
 };
 
 export const toPrice = (str) => `$${formatNumber(str, 2)}`;
+export const toPercent = (str) =>
+  `${formatNumber(Math.round(str))}%`;
 
 export const toNumber = (str, fallbackText = '') => {
   const num = Number(str);

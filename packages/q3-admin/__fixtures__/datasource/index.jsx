@@ -174,6 +174,33 @@ const makeApiEndpoints = (
         },
       ];
 
+    if (args.url.includes('template=stat'))
+      return [
+        200,
+        {
+          data: [
+            {
+              unit: 'percent',
+              value: 983,
+              label: 'Profitability',
+              deviation: -21,
+            },
+            {
+              unit: 'dollar',
+              value: 56000,
+              label: 'Revenue',
+              deviation: 765,
+            },
+            {
+              unit: 'customers',
+              value: 67,
+              label: 'Acquisition',
+              deviation: 12,
+            },
+          ],
+        },
+      ];
+
     return [
       200,
       {
