@@ -20,6 +20,10 @@ export default connect(() => (
     <PatternDataGrid
       title="Recent appearances"
       report="appearances"
+      formatters={{
+        id: (value) => <a href="test">{value}</a>,
+        date: 'datetime',
+      }}
     />
     <PatternMap />
     <PatternFormDialog
@@ -59,6 +63,11 @@ export default connect(() => (
           type: 'text',
           formOnly: true,
           required: true,
+        },
+        {
+          preset: 'NorthAmericaRegionalSelect',
+          fieldReferences: ['region', 'country'],
+          formOnly: true,
         },
       ]}
       title="Billing"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import Grid from '@material-ui/core/Grid';
+import PropTypes from 'prop-types';
 import { Field } from '../../builders';
 import { asOptions } from '../../helpers';
 
@@ -76,35 +77,45 @@ export const STATES = [
   'WY',
 ];
 
-export const getRegions = (values) => {
-  const c = get(values, 'country');
+export const getRegions = (
+  values,
+  countryFieldName = 'country',
+) => {
+  const c = get(values, countryFieldName);
   if (!c) return [];
   return c === US
     ? asOptions(STATES)
     : asOptions(PROVINCES);
 };
 
-const NorthAmericaRegionalSelect = (props) => (
+const NorthAmericaRegionalSelect = ({
+  // so that it doesn't forward in
+  // eslint-disable-next-line
+  name,
+  nameRegionSelect,
+  nameCountrySelect,
+  ...props
+}) => (
   <Grid item xs={12}>
     <Grid container spacing={1}>
       <Grid item sm={6} xs={12}>
         <Field
-          name="region"
+          name={nameRegionSelect}
           type="select"
-          listen="country"
+          listen={nameCountrySelect}
           required
           xl={12}
           lg={12}
-          runOnChange={['country']}
+          runOnChange={[nameCountrySelect]}
           override={({ values }) => ({
-            options: getRegions(values),
+            options: getRegions(values, nameCountrySelect),
           })}
           {...props}
         />
       </Grid>
       <Grid item sm={6} xs={12}>
         <Field
-          name="country"
+          name={nameCountrySelect}
           type="select"
           required
           xl={12}
@@ -119,5 +130,15 @@ const NorthAmericaRegionalSelect = (props) => (
     </Grid>
   </Grid>
 );
+
+NorthAmericaRegionalSelect.defaultProps = {
+  nameRegionSelect: 'region',
+  nameCountrySelect: 'country',
+};
+
+NorthAmericaRegionalSelect.propTypes = {
+  nameRegionSelect: PropTypes.string,
+  nameCountrySelect: PropTypes.string,
+};
 
 export default NorthAmericaRegionalSelect;

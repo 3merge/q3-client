@@ -21,7 +21,7 @@ const PatternDataGrid = ({
   const generateColumns = () => {
     if (!Array.isArray(data)) return [];
     const obj = data[0];
-    const format = useHelperFormats(data);
+    const format = useHelperFormats();
 
     if (!isObject(obj)) return [];
 

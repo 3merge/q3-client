@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import * as FormPresets from 'q3-ui-forms/lib/presets';
 import Dialog from 'q3-ui-dialog';
 import { IconButton } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
@@ -25,23 +26,51 @@ const PatternFormDialog = ({
   ...props
 }) => {
   const initialValues = React.useMemo(
-    () => pick(data, uniq(compact(map(fields, 'field')))),
+    () =>
+      pick(
+        data,
+        uniq(
+          compact(
+            map(fields, (item) =>
+              // allows for extensions in cases like presets
+              [item.field].concat(item.fieldReferences),
+            ).flat(),
+          ),
+        ),
+      ),
     [fields],
   );
 
   const FormFieldsRenderer = React.useMemo(
     () =>
-      map(fields, ({ field, type = undefined, ...rest }) =>
-        type ? (
-          <Field
-            {...omit(rest, ['formatter', 'formOnly'])}
-            key={field}
-            name={field}
-            type={type}
-            xl={12}
-            lg={12}
-          />
-        ) : null,
+      map(
+        fields,
+        ({ field, preset, type = undefined, ...rest }) => {
+          if (preset) {
+            const Component = FormPresets[preset];
+            if (Component)
+              return (
+                <Component
+                  key={field}
+                  name={field}
+                  xl={12}
+                  lg={12}
+                  {...rest}
+                />
+              );
+          }
+
+          return type ? (
+            <Field
+              {...omit(rest, ['formatter', 'formOnly'])}
+              key={field}
+              name={field}
+              type={type}
+              xl={12}
+              lg={12}
+            />
+          ) : null;
+        },
       ),
     [fields],
   );
