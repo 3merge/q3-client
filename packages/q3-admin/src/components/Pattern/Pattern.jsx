@@ -10,6 +10,22 @@ import {
 import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
 
+export const PatternError = () => {
+  const { t } = useTranslation('descriptions');
+
+  return (
+    <Box px={1.25}>
+      <Typography>{t('couldNotLoadData')}</Typography>
+    </Box>
+  );
+};
+
+export const PatternLoading = () => (
+  <Box p={2} textAlign="center">
+    <CircularProgress />
+  </Box>
+);
+
 const Pattern = ({
   action,
   children,
@@ -42,29 +58,9 @@ const Pattern = ({
     return output;
   }, [size]);
 
-  const LoadingComponent = React.useMemo(
-    () => (
-      <Box p={2} textAlign="center">
-        <CircularProgress />
-      </Box>
-    ),
-    [],
-  );
-
-  const ErrorComponent = React.useMemo(
-    () => (
-      <Box px={1.25}>
-        <Typography>
-          {t('descriptions:couldNotLoadData')}
-        </Typography>
-      </Box>
-    ),
-    [],
-  );
-
   const render = () => {
-    if (loading) return LoadingComponent;
-    if (error) return ErrorComponent;
+    if (loading) return <PatternLoading />;
+    if (error) return <PatternError />;
     return children;
   };
 
@@ -112,7 +108,7 @@ Pattern.propTypes = {
   ]),
   error: PropTypes.bool,
   loading: PropTypes.bool,
-  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
   title: PropTypes.string.isRequired,
 };
 

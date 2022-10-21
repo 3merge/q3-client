@@ -11,7 +11,7 @@ import { useHelperFormats } from 'q3-ui-helpers';
 import { connect } from '../../containers';
 import useStyle from './styles';
 
-const ListFormatted = ({ data, fields }) => {
+export const ListFormatted = ({ data, fields }) => {
   const { t } = useTranslation('labels');
   const format = useHelperFormats(data);
   const cls = useStyle();
