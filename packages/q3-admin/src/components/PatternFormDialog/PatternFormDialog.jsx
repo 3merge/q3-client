@@ -18,82 +18,104 @@ import { connect } from '../../containers';
 import ListFormatted from '../ListFormatted';
 import Pattern from '../Pattern';
 
-const PatternFormDialog = ({
-  data,
+export const PatternFormDialogContent = connect(
+  ({ data, fields, onClose, onSubmit, ...props }) => {
+    const initialValues = React.useMemo(
+      () =>
+        pick(
+          data,
+          uniq(
+            compact(
+              map(fields, (item) =>
+                // allows for extensions in cases like presets
+                [item.field].concat(item.fieldReferences),
+              ).flat(),
+            ),
+          ),
+        ),
+      [fields],
+    );
+
+    const FormFieldsRenderer = React.useMemo(
+      () =>
+        map(
+          fields,
+          ({
+            field,
+            preset,
+            type = undefined,
+            ...rest
+          }) => {
+            if (preset) {
+              const Component = FormPresets[preset];
+              if (Component)
+                return (
+                  <React.Fragment key={field}>
+                    <Component
+                      name={field}
+                      xl={12}
+                      lg={12}
+                      {...rest}
+                    />
+                  </React.Fragment>
+                );
+            }
+
+            return type ? (
+              <Field
+                {...omit(rest, ['formatter', 'formOnly'])}
+                key={field}
+                name={field}
+                type={type}
+                xl={12}
+                lg={12}
+              />
+            ) : null;
+          },
+        ),
+      [fields],
+    );
+
+    return (
+      <Form
+        initialValues={initialValues}
+        onSubmit={(...params) =>
+          onSubmit(...params).then((resp) => {
+            onClose();
+            return resp;
+          })
+        }
+        {...get(props, 'FormProps', {})}
+      >
+        {FormFieldsRenderer}
+      </Form>
+    );
+  },
+);
+
+export const PatternFormDialog = ({
   fields,
-  onSubmit,
   size,
   ...props
 }) => {
-  const initialValues = React.useMemo(
-    () =>
-      pick(
-        data,
-        uniq(
-          compact(
-            map(fields, (item) =>
-              // allows for extensions in cases like presets
-              [item.field].concat(item.fieldReferences),
-            ).flat(),
-          ),
-        ),
-      ),
-    [fields],
-  );
-
-  const FormFieldsRenderer = React.useMemo(
-    () =>
-      map(
-        fields,
-        ({ field, preset, type = undefined, ...rest }) => {
-          if (preset) {
-            const Component = FormPresets[preset];
-            if (Component)
-              return (
-                <Component
-                  key={field}
-                  name={field}
-                  xl={12}
-                  lg={12}
-                  {...rest}
-                />
-              );
-          }
-
-          return type ? (
-            <Field
-              {...omit(rest, ['formatter', 'formOnly'])}
-              key={field}
-              name={field}
-              type={type}
-              xl={12}
-              lg={12}
-            />
-          ) : null;
-        },
-      ),
+  const visibleFields = React.useMemo(
+    () => filter(fields, (field) => !field.formOnly),
     [fields],
   );
 
   return (
     <Pattern
       {...props}
+      size={size}
       action={
         <Dialog
           {...props}
           renderContent={(close) => (
-            <Form
-              initialValues={initialValues}
-              onSubmit={(...params) =>
-                onSubmit(...params).then((resp) => {
-                  close();
-                  return resp;
-                })
-              }
-              {...get(props, 'FormProps', {})}
-            >
-              {FormFieldsRenderer}
-            </Form>
+            <PatternFormDialogContent
+              fields={fields}
+              onClose={close}
+              {...props}
+            />
           )}
           renderTrigger={(onClick) => (
             <IconButton
@@ -106,11 +128,8 @@ const PatternFormDialog = ({
           )}
         />
       }
-      size={size}
     >
-      <ListFormatted
-        fields={filter(fields, (field) => !field.formOnly)}
-      />
+      <ListFormatted fields={visibleFields} />
     </Pattern>
   );
 };
@@ -120,8 +139,6 @@ PatternFormDialog.defaultProps = {
 };
 
 PatternFormDialog.propTypes = {
-  data: PropTypes.shape({}).isRequired,
-  onSubmit: PropTypes.func.isRequired,
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       field: PropTypes.string,
@@ -130,4 +147,4 @@ PatternFormDialog.propTypes = {
   size: PropTypes.string,
 };
 
-export default connect(PatternFormDialog);
+export default PatternFormDialog;
