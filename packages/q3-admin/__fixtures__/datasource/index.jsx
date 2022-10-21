@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line
 import Rest from 'q3-ui-test-utils/lib/rest';
 import moment from 'moment';
 import { browser } from 'q3-ui-helpers';
@@ -12,6 +13,7 @@ import shows from './shows';
 import users from './users';
 import uploads from './files';
 import domain from './domain.json';
+import makeReportFixtures from './reports';
 
 const applyFormData = async (src, data) => {
   const target = { ...src };
@@ -155,76 +157,7 @@ const makeApiEndpoints = (
     },
   ]);
 
-  mockInstance.onGet(/reports/).reply((args) => {
-    if (args.url.includes('template=appearances'))
-      return [
-        200,
-        {
-          data: [
-            {
-              episode: 1,
-              numberOfTimes: 12,
-              numberOfLines: 1249,
-              compensation: 3400,
-              quote: 'Testing testing testing!',
-              date: new Date().toISOString(),
-              id: 10,
-            },
-          ],
-        },
-      ];
-
-    if (args.url.includes('template=stat'))
-      return [
-        200,
-        {
-          data: [
-            {
-              unit: 'percent',
-              value: 983,
-              label: 'Profitability',
-              deviation: -21,
-            },
-            {
-              unit: 'dollar',
-              value: 56000,
-              label: 'Revenue',
-              deviation: 765,
-            },
-            {
-              unit: 'customers',
-              value: 67,
-              label: 'Acquisition',
-              deviation: 12,
-            },
-          ],
-        },
-      ];
-
-    return [
-      200,
-      {
-        data: {
-          data: [
-            {
-              Shows: 'Rick and Morty',
-              Streams: 1000000,
-            },
-            {
-              Shows: "Bob's Burgers",
-              Streams: 345000,
-            },
-            {
-              Shows: 'Simpsons',
-              Streams: 9972346,
-            },
-          ],
-          name: 'Shows',
-          value: 'Streams',
-        },
-      },
-    ];
-  });
+  mockInstance.onGet(/reports/).reply(makeReportFixtures);
 
   mockInstance.onGet(/audit/).reply(200, {
     changes: [

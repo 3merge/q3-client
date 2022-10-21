@@ -13,6 +13,7 @@ const PatternDataGrid = ({
   report,
   title,
   size,
+  width,
 }) => {
   const { t } = useTranslation('labels');
   const { data, error, loading } = useReportById(report);
@@ -29,7 +30,10 @@ const PatternDataGrid = ({
       field: key,
       headerName: t(key),
       flex: 1,
-      minWidth: 115,
+      minWidth:
+        isObject(width) && key in width
+          ? width[key]
+          : undefined,
       renderCell: ({ value }) =>
         isObject(formatters) && key in formatters
           ? format(value, formatters[key])
@@ -64,6 +68,7 @@ PatternDataGrid.defaultProps = {
   formatters: {},
   title: undefined,
   size: 'xl',
+  width: {},
 };
 
 PatternDataGrid.propTypes = {
@@ -71,6 +76,7 @@ PatternDataGrid.propTypes = {
   report: PropTypes.string.isRequired,
   title: PropTypes.string,
   size: PropTypes.string,
+  width: PropTypes.shape({}),
 };
 
 export default PatternDataGrid;

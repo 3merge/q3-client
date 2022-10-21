@@ -43,8 +43,8 @@ export default new AbstractCollectionBuilder({
   .genFilter(Filters)
   .genViews({
     General,
-    // SubDetail,
-    // TableView,
+    SubDetail,
+    TableView,
   })
   .genList({
     uis: [
@@ -137,32 +137,32 @@ export default new AbstractCollectionBuilder({
         },
       },
     ],
-    // registerAlerts: () => [
-    //   {
-    //     id: '1',
-    //     title: 'info',
-    //     description: 'info',
-    //     severity: 'info',
-    //   },
-    //   {
-    //     id: '2',
-    //     title: 'success',
-    //     description: 'success',
-    //     severity: 'success',
-    //   },
-    //   {
-    //     id: '3',
-    //     title: 'error',
-    //     description: 'error',
-    //     severity: 'error',
-    //   },
-    //   {
-    //     id: '4',
-    //     title: 'warning',
-    //     description: 'warning',
-    //     severity: 'warning',
-    //   },
-    // ],
+    registerAlerts: () => [
+      {
+        id: '1',
+        title: 'info',
+        description: 'info',
+        severity: 'info',
+      },
+      {
+        id: '2',
+        title: 'success',
+        description: 'success',
+        severity: 'success',
+      },
+      {
+        id: '3',
+        title: 'error',
+        description: 'error',
+        severity: 'error',
+      },
+      {
+        id: '4',
+        title: 'warning',
+        description: 'warning',
+        severity: 'warning',
+      },
+    ],
     registerOptions: () => [
       {
         href: 'https:google.com',

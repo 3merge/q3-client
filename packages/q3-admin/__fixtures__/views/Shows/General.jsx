@@ -23,6 +23,12 @@ export default connect(() => (
       formatters={{
         id: (value) => <a href="test">{value}</a>,
         date: 'datetime',
+        compensation: 'price',
+      }}
+      width={{
+        quote: 230,
+        date: 195,
+        compensation: 165,
       }}
     />
     <PatternMap />
