@@ -4,8 +4,10 @@ import { get, size } from 'lodash';
 import { Store } from '../containers/state';
 
 export const checkError = (xs, restState = {}) =>
-  !restState.fetching &&
-  (!size(xs) || restState.fetchingError);
+  Boolean(
+    !restState.fetching &&
+      (!size(xs) || restState.fetchingError),
+  );
 
 const useRestWithStore = (callback) => {
   const store = React.useContext(Store);

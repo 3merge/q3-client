@@ -63,3 +63,6 @@ export const copyToClipboard = (str) => {
     document.body.removeChild(el);
   }
 };
+
+export const fetchJson = (uri) =>
+  fetch(uri).then((resp) => resp.json());
