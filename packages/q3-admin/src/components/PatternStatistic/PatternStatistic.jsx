@@ -9,7 +9,7 @@ import Pattern from '../Pattern';
 import { useReportById } from '../../hooks';
 import useStyle from './styles';
 
-const PatternStatistic = ({ report, size }) => {
+export const PatternStatistic = ({ report, size }) => {
   const { data, error, loading } = useReportById(report);
   const { t } = useTranslation('labels');
   const cls = useStyle();
@@ -51,8 +51,9 @@ const PatternStatistic = ({ report, size }) => {
         title={label}
       >
         <Box px={1.5}>
-          <Box className={cls.value}>{renderValue()}</Box>
-
+          <Box className={classnames(cls.value, 'stat')}>
+            {renderValue()}
+          </Box>
           <Box
             className={classnames(
               cls.deviation,
