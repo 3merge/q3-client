@@ -15,7 +15,7 @@ import {
   omit,
 } from 'lodash';
 import { connect } from '../../containers';
-import ListWithColumns from '../ListWithColumns';
+import ListFormatted from '../ListFormatted';
 import Pattern from '../Pattern';
 
 const PatternFormDialog = ({
@@ -108,7 +108,7 @@ const PatternFormDialog = ({
       }
       size={size}
     >
-      <ListWithColumns
+      <ListFormatted
         fields={filter(fields, (field) => !field.formOnly)}
       />
     </Pattern>

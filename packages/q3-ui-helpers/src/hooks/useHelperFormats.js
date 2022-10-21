@@ -1,28 +1,39 @@
 import { isObject, join, size, isFunction } from 'lodash';
-import * as string from '../string';
+import { useTranslation } from 'q3-ui-locale';
+import {
+  toPrice,
+  toNumber,
+  toSimpleDate,
+  toDateSingleLine,
+  ellipsis,
+  makeName,
+  makeAddress,
+} from '../string';
 
 const useHelperFormats = (data) => (field, formatter) => {
   const rawValue = isObject(data) ? data[field] : field;
+  const { t } = useTranslation('labels');
 
   const is = (str) => str === formatter;
 
   const getObj = () =>
     isObject(rawValue) ? rawValue : data;
 
-  if (is('price')) return string.toPrice(rawValue);
-  if (is('number')) return string.toNumber(rawValue);
+  if (is('price')) return toPrice(rawValue);
+  if (is('number')) return toNumber(rawValue);
   if (is('comma')) return join(rawValue, ', ');
   if (is('multiline')) return join(rawValue, '\n');
-  if (is('date')) return string.toSimpleDate(rawValue);
-  if (is('datetime'))
-    return string.toDateSingleLine(rawValue);
+  if (is('date')) return toSimpleDate(rawValue);
+  if (is('datetime')) return toDateSingleLine(rawValue);
   if (is('count')) return size(rawValue);
-  if (is('truncate')) return string.ellipsis(rawValue, 55);
-  if (is('fullname')) return string.makeName(getObj());
-  if (is('address')) return string.makeAddress(getObj());
+  if (is('truncate')) return ellipsis(rawValue, 55);
+  if (is('fullname')) return makeName(getObj());
+  if (is('address')) return makeAddress(getObj());
+
   if (isFunction(formatter))
-    return formatter(rawValue, data);
-  return rawValue || '--';
+    return formatter(rawValue, data, t);
+
+  return t(rawValue || '--');
 };
 
 export default useHelperFormats;

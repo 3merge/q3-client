@@ -11,7 +11,7 @@ import { useHelperFormats } from 'q3-ui-helpers';
 import { connect } from '../../containers';
 import useStyle from './styles';
 
-const ListWithColumns = ({ data, fields }) => {
+const ListFormatted = ({ data, fields }) => {
   const { t } = useTranslation('labels');
   const format = useHelperFormats(data);
   const cls = useStyle();
@@ -35,7 +35,7 @@ const ListWithColumns = ({ data, fields }) => {
   ) : null;
 };
 
-ListWithColumns.propTypes = {
+ListFormatted.propTypes = {
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       field: PropTypes.string,
@@ -46,4 +46,4 @@ ListWithColumns.propTypes = {
   data: PropTypes.shape({}).isRequired,
 };
 
-export default connect(ListWithColumns);
+export default connect(ListFormatted);
