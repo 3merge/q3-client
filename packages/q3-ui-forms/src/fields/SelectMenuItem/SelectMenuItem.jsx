@@ -2,7 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 
-const SelectMenuItem = ({ loading, items, required }) => {
+const SelectMenuItem = ({
+  loading,
+  items,
+  required,
+  loadingLabel,
+  chooseOptionLabel,
+}) => {
   const { t } = useTranslation('labels');
 
   return (
@@ -12,7 +18,7 @@ const SelectMenuItem = ({ loading, items, required }) => {
         aria-label={t('unselected')}
         disabled={required}
       >
-        {loading ? 'Loading ...' : 'Choose option(s)'}
+        {t(loading ? loadingLabel : chooseOptionLabel)}
       </option>
       {items.map((obj, i) => (
         <option key={i} value={obj.value}>
@@ -27,6 +33,8 @@ SelectMenuItem.defaultProps = {
   loading: false,
   items: [],
   required: false,
+  loadingLabel: 'Loading ...',
+  chooseOptionLabel: 'Choose option(s)',
 };
 
 SelectMenuItem.propTypes = {
@@ -38,6 +46,8 @@ SelectMenuItem.propTypes = {
     }),
   ),
   required: PropTypes.bool,
+  loadingLabel: PropTypes.string,
+  chooseOptionLabel: PropTypes.string,
 };
 
 export default SelectMenuItem;
