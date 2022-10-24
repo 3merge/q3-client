@@ -6,7 +6,7 @@ import { useInputDebounce } from 'q3-ui-helpers/lib/hooks';
 
 export const SearchContext = React.createContext();
 
-const SearchBar = ({ handleInput }) => {
+const SearchBar = ({ handleInput, ...rest }) => {
   const [state, setState] = React.useState('');
   const { t } = useTranslation('labels');
   const shouldRun = useInputDebounce(state);
@@ -27,6 +27,7 @@ const SearchBar = ({ handleInput }) => {
       label={t('search')}
       variant="outlined"
       size="small"
+      {...rest}
     />
   );
 };
