@@ -6,6 +6,7 @@ import { Store } from '../containers/state';
 const useMultistepper = (getCurrentStep) => {
   const user =
     React.useContext(AuthContext)?.state?.profile;
+
   const { data } = React.useContext(Store);
 
   const generateDefaultValue = () =>
