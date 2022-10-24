@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
+// eslint-disable-next-line
 import SearchBar from 'q3-ui-repeater/lib/components/Search';
 import useDomainContext from '../../hooks/useDomainContext';
 import SystemPageSub from '../../components/SystemPageSub';

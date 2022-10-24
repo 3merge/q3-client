@@ -59,12 +59,8 @@ export default () => {
   const combineWithDirectoryPath = (xs) =>
     compact([directoryPath, xs]).join('');
 
-  const handleSearch = (xs) => {
-    console.log(xs);
-    return navigate(
-      combineWithDirectoryPath(setSearchValue(xs)),
-    );
-  };
+  const handleSearch = (xs) =>
+    navigate(combineWithDirectoryPath(setSearchValue(xs)));
 
   React.useEffect(() => {
     if (currentSearchValue !== value)
