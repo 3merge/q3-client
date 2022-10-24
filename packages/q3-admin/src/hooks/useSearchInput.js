@@ -59,6 +59,9 @@ export default () => {
   const combineWithDirectoryPath = (xs) =>
     compact([directoryPath, xs]).join('');
 
+  const handleSearch = (xs) =>
+    navigate(combineWithDirectoryPath(setSearchValue(xs)));
+
   React.useEffect(() => {
     if (currentSearchValue !== value)
       setValue(currentSearchValue);
@@ -73,17 +76,14 @@ export default () => {
     value,
     onChange,
     handleReset,
+    handleSearch,
     placeholder: t(
       collectionName
         ? `${collectionName}SearchPlaceholder`
         : 'searchPlaceholder',
     ),
     fullWidth: true,
-    onKeyPress: handleEnter((xs) =>
-      navigate(
-        combineWithDirectoryPath(setSearchValue(xs)),
-      ),
-    ),
+    onKeyPress: handleEnter(handleSearch),
     type: 'text',
     inputRef,
     inEffect: size(currentSearchValue) > 0,

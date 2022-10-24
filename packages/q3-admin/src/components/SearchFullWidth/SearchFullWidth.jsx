@@ -7,61 +7,51 @@ import {
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyle = makeStyles((theme) => ({
-  root: {
-    borderRadius: 4,
-    boxSizing: 'border-box',
-    padding: `0 ${theme.spacing(1)}`,
-    width: 425,
-    maxWidth: '20vw',
-    transition: 'box-shadow 250ms',
-    backgroundColor: theme.palette.background.muted,
-    height: 36.5,
-    margin: 0,
-    marginRight: theme.spacing(1),
-
-    '&:focus-within': {
-      'outline-style': 'auto',
-      'outline-width': 'medium',
-    },
-
-    '& > *': {
-      height: '100%',
-    },
-
-    '& input': {
-      outline: '0 !important',
-    },
-  },
-}));
+import useStyle from './styles';
 
 export const SearchFullWidth = ({
   handleReset,
   value,
   ...rest
 }) => {
-  const { root } = useStyle();
+  const cls = useStyle();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    rest.handleSearch(rest?.inputRef?.current?.value);
+  };
 
   return (
     <TextField
       {...rest}
       value={value}
-      className={root}
+      className={cls.root}
       fullWidth
       InputProps={{
         disableUnderline: true,
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon />
+        endAdornment: (
+          <InputAdornment
+            className={cls.adornment}
+            position="end"
+          >
+            {value ? (
+              <IconButton
+                className={cls.clear}
+                onClick={handleReset}
+              >
+                <Close />
+              </IconButton>
+            ) : null}
+            <IconButton
+              onClick={handleSubmit}
+              onKeyPress={handleSubmit}
+            >
+              <SearchIcon />
+            </IconButton>
           </InputAdornment>
         ),
-        endAdornment: value ? (
-          <IconButton onClick={handleReset}>
-            <Close />
-          </IconButton>
-        ) : undefined,
       }}
     />
   );
@@ -69,6 +59,7 @@ export const SearchFullWidth = ({
 
 SearchFullWidth.propTypes = {
   handleReset: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
 
