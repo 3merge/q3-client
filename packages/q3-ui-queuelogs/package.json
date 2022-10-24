@@ -1,19 +1,19 @@
 {
   "name": "q3-ui-queuelogs",
-  "version": "3.11.0",
+  "version": "3.13.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^3.10.0"
+    "q3-ui-test-utils": "^3.13.0"
   },
   "dependencies": {
     "axios": "^0.24.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-assets": "^3.10.11",
-    "q3-ui-helpers": "^3.10.11",
-    "q3-ui-locale": "^3.10.11",
-    "q3-ui-permissions": "^3.11.0",
-    "q3-ui-rest": "^3.11.0"
+    "q3-ui-assets": "^3.13.0",
+    "q3-ui-helpers": "^3.13.0",
+    "q3-ui-locale": "^3.13.0",
+    "q3-ui-permissions": "^3.13.0",
+    "q3-ui-rest": "^3.13.0"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",

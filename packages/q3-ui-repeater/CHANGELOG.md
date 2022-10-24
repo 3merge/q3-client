@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.13.0](https://github.com/3merge/q/compare/v3.12.0...v3.13.0) (2022-10-24)
+
+
+### Features
+
+* locale search and reorder ([#436](https://github.com/3merge/q/issues/436)) ([2381232](https://github.com/3merge/q/commit/23812323963f41f42a0975fd655c2b5f2a3898d7))
+
+
+
+
+
 # [3.11.0](https://github.com/3merge/q/compare/v3.10.11...v3.11.0) (2022-10-13)
 
 **Note:** Version bump only for package q3-ui-repeater
