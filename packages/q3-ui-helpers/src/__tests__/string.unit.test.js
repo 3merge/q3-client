@@ -94,4 +94,33 @@ describe('string', () => {
         string.toDate('2020-09-10T13:18:51+01:00'),
       ).toMatch('Sep 10, 2020 6:18 PM'));
   });
+
+  describe('"makeAddress"', () => {
+    it('should assemble full address', () => {
+      expect(
+        string.makeAddress({
+          'streetNumber': 104,
+          'streetLine1': 'Crockford Blvd',
+          'streetLine2': 'Suite 211',
+          'city': 'Scarborough',
+          'region': 'ON',
+          'country': 'CA',
+          'postal': 'M1R 3C3',
+        }),
+      ).toMatch(
+        '104 Crockford Blvd Suite 211 \nScarborough, ON \nCA M1R 3C3',
+      );
+    });
+
+    it('should remove undefined bits', () => {
+      expect(
+        string.makeAddress({
+          'streetLine1': 'Crockford Blvd',
+          'city': 'Scarborough',
+          'region': 'ON',
+          'country': 'CA',
+        }),
+      ).toMatch('Crockford Blvd \nScarborough, ON \nCA');
+    });
+  });
 });

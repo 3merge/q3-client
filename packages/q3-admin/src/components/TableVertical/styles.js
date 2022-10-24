@@ -15,7 +15,8 @@ export default makeStyles((theme) => ({
 
     '& td,& th': {
       borderBottom: 'none',
-      padding: 8,
+      padding: '.5rem 1rem',
+      whiteSpace: 'nowrap',
     },
 
     '& td': {
@@ -24,9 +25,8 @@ export default makeStyles((theme) => ({
     },
 
     '& th': {
-      backgroundColor: theme.palette.background.muted,
+      color: 'inherit',
       fontWeight: 'bold',
-      whiteSpace: 'nowrap',
       minWidth: 0,
       width: 0,
     },

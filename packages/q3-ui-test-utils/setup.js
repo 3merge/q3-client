@@ -1,11 +1,6 @@
 jest.setTimeout(30000);
 
 jest.mock('@material-ui/core/useMediaQuery');
-jest.mock('q3-ui-locale', () => ({
-  useTranslation: jest.fn().mockReturnValue({
-    t: jest.fn().mockImplementation((v) => v),
-  }),
-}));
 
 jest.mock('q3-ui-locale', () => ({
   __esModule: true,

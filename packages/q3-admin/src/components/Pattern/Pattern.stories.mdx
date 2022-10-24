@@ -1,0 +1,79 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import Pattern from './Pattern';
+import PatternContainer from '../PatternContainer';
+
+<Meta title="_Q3/Components/Pattern" component={Pattern} />
+
+# Pattern
+
+<p>The <code>Pattern</code> component should be used for
+building
+
+<a href="?path=/story/q3-demo--detail">
+  <code>Detail</code>
+</a>
+dashboards. See components like <code>PatternChart</code> and
+<code>PatternList</code> for example implementations.</p>
+
+<Preview>
+  <Story name="Basic">
+    <Pattern title="Testing">
+      <p
+        style={{
+          padding: '1rem',
+          paddingTop: 0,
+          marginBottom: 0,
+          marginTop: 0,
+        }}
+      >
+        Children
+      </p>
+    </Pattern>
+  </Story>
+</Preview>
+
+<p>
+  When nested inside <code>PatternContainer</code>, you can
+  control the width of each Pattern.
+</p>
+
+<Preview>
+  <Story name="Sizing">
+    <PatternContainer>
+      {['xs', 'sm', 'md', 'lg', 'xl']
+        .reverse()
+        .map((size) => (
+          <Pattern key={size} title={size} size={size}>
+            <div />
+          </Pattern>
+        ))}
+    </PatternContainer>
+  </Story>
+</Preview>
+
+<p>
+  When dealing with externally fetched data, you can also
+  specify loading and error states.
+</p>
+
+<Preview>
+  <Story name="States">
+    <PatternContainer>
+      <Pattern loading title="While loading" size="md">
+        <div />
+      </Pattern>
+      <Pattern error title="Errored" size="md">
+        <div />
+      </Pattern>
+    </PatternContainer>
+  </Story>
+</Preview>
+
+### Prop Table
+
+<Props of={Pattern} />
