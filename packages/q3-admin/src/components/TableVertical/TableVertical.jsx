@@ -8,7 +8,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
-import { useHelperFormats } from 'q3-ui-helpers';
+import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { merge, map } from 'lodash';
 import { connect } from '../../containers';
 import useStyle from './styles';

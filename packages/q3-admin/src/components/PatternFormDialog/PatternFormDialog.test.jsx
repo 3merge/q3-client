@@ -1,4 +1,3 @@
-import 'q3-ui-test-utils/lib/localeUtils';
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
 import { NorthAmericaRegionalSelect } from 'q3-ui-forms/lib/presets';

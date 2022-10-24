@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isObject, map } from 'lodash';
 import { DataGrid } from '@mui/x-data-grid';
-import { useHelperFormats } from 'q3-ui-helpers';
+import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'q3-ui-locale';
 import Pattern from '../Pattern';
 import { useReportById } from '../../hooks';

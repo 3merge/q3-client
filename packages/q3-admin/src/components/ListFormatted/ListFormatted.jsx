@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { size, map } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
-import { useHelperFormats } from 'q3-ui-helpers';
+import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { connect } from '../../containers';
 import useStyle from './styles';
 

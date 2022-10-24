@@ -1,4 +1,3 @@
-import 'q3-ui-test-utils/lib/localeUtils';
 import { exists } from 'q3-ui-test-utils/lib/enzymeUtils';
 import React from 'react';
 import { Grid } from '@material-ui/core';

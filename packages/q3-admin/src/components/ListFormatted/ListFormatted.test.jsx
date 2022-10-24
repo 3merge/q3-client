@@ -1,4 +1,3 @@
-import 'q3-ui-test-utils/lib/localeUtils';
 import React from 'react';
 import { ListItemText } from '@material-ui/core';
 import { ListFormatted } from './ListFormatted';

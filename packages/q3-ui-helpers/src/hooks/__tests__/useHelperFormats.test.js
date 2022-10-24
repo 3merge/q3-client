@@ -1,8 +1,5 @@
 import useHelperFormats from '../useHelperFormats';
 
-// eslint-disable-next-line
-import 'q3-ui-test-utils/lib/localeUtils';
-
 test.each([
   [{ num: 2300 }, 'num', 'price', '$2,300.00'],
   [
