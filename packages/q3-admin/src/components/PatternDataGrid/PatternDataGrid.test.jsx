@@ -46,7 +46,6 @@ describe('PatternDataGrid', () => {
       {
         field: 'name',
         headerName: 'name',
-        flex: 1,
         minWidth: 185,
         renderCell: expect.any(Function),
       },
@@ -54,14 +53,12 @@ describe('PatternDataGrid', () => {
         field: 'age',
         headerName: 'age',
         flex: 1,
-        minWidth: undefined,
         renderCell: expect.any(Function),
       },
       {
         field: 'balance',
         headerName: 'balance',
         flex: 1,
-        minWidth: undefined,
         renderCell: expect.any(Function),
       },
     ]);

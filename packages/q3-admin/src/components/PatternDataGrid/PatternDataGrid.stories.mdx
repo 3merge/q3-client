@@ -1,0 +1,47 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import PatternDataGrid from './PatternDataGrid';
+import Datasource from '../../../__fixtures__/datasource';
+
+<Meta title="_Q3/Components" component={PatternDataGrid} />
+
+# PatternDataGrid
+
+<p>
+  The only thing this Pattern requires is a report name.
+  That report's response needs a <code>data</code> key,
+  housing an array of objects to populate the table. Since
+  API data lacks style, you can combine formatters and
+  widths via props to control the display of each cell.
+</p>
+
+<Preview>
+  <Story name="PatternDataGrid">
+    <Datasource>
+      <PatternDataGrid
+        formatters={{
+          compensation: 'price',
+          date: 'datetime',
+          quote: 'ellipsis',
+        }}
+        width={{
+          id: 45,
+          compensation: 95,
+          episode: 95,
+          numberOfTimes: 95,
+          numberOfLines: 95,
+          quote: 330,
+        }}
+        report="appearances"
+      />
+    </Datasource>
+  </Story>
+</Preview>
+
+### Prop Table
+
+<Props of={PatternDataGrid} />

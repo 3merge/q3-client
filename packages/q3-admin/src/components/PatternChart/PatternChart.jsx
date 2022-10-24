@@ -40,9 +40,21 @@ PatternDataGrid.defaultProps = {
 };
 
 PatternDataGrid.propTypes = {
+  /**
+   * Forwarded to internal Chart component
+   */
   ChartProps: PropTypes.shape({}),
+  /**
+   * The name of the report to fetch data
+   */
   report: PropTypes.string.isRequired,
+  /**
+   * When undefined, the component takes the report value
+   */
   title: PropTypes.string,
+  /**
+   * Controls the Pattern's width
+   */
   size: PropTypes.string,
 };
 

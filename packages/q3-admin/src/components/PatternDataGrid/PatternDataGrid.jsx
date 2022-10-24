@@ -29,11 +29,9 @@ const PatternDataGrid = ({
     return Object.entries(obj).map(([key]) => ({
       field: key,
       headerName: t(key),
-      flex: 1,
-      minWidth:
-        isObject(width) && key in width
-          ? width[key]
-          : undefined,
+      ...(isObject(width) && key in width
+        ? { minWidth: width[key] }
+        : { flex: 1 }),
       renderCell: ({ value }) =>
         isObject(formatters) && key in formatters
           ? format(value, formatters[key])
@@ -72,10 +70,25 @@ PatternDataGrid.defaultProps = {
 };
 
 PatternDataGrid.propTypes = {
+  /**
+   * Keys of this object should correspond to field names; values of this object should correspond to func names in the useHelperFormats hook
+   */
   formatters: PropTypes.shape({}),
+  /**
+   * The name of the report to fetch data
+   */
   report: PropTypes.string.isRequired,
+  /**
+   * When undefined, the component takes the report value.
+   */
   title: PropTypes.string,
+  /**
+   * Controls the Pattern's width.
+   */
   size: PropTypes.string,
+  /**
+   * Keys of this object should correspond to field names; values of this object should specify column width in pixels
+   */
   width: PropTypes.shape({}),
 };
 

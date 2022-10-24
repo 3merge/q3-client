@@ -1,6 +1,6 @@
 export default (args) => {
   const isTemplate = (templateName) =>
-    args.url.includes(`template=${templateName}`);
+    args.url.includes(`template=string(${templateName})`);
 
   const sendData = (data) => [
     200,

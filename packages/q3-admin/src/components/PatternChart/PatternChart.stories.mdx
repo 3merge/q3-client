@@ -1,0 +1,58 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import PatternChart from './PatternChart';
+import Datasource from '../../../__fixtures__/datasource';
+
+<Meta
+  title="_Q3/Components/PatternChart"
+  component={PatternChart}
+/>
+
+# PatternChart
+
+<p>
+  The only thing this Pattern requires is a report name. The
+  report's response needs <code>data</code>,{' '}
+  <code>name</code> and <code>value</code> keys, which
+  populate the{' '}
+  <a href="?path=/docs/charts-charts--single">
+    <code>Chart</code>
+  </a>{' '}
+  component.
+</p>
+
+<Preview>
+  <Story name="Basic">
+    <Datasource>
+      <PatternChart report="demo" />
+    </Datasource>
+  </Story>
+</Preview>
+
+<p>
+  Depending on the data this report fetches, you may also
+  wish to customize the chart. You can do this easily by
+  adding a few additional props.
+</p>
+
+<Preview>
+  <Story name="Customized">
+    <Datasource>
+      <PatternChart
+        report="demo"
+        title="custom"
+        ChartProps={{
+          variant: 'Bar',
+        }}
+      />
+    </Datasource>
+  </Story>
+</Preview>
+
+### Prop Table
+
+<Props of={PatternChart} />

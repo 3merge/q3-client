@@ -14,7 +14,7 @@ export const PatternError = () => {
   const { t } = useTranslation('descriptions');
 
   return (
-    <Box px={1.25}>
+    <Box px={1.25} pb={1.25}>
       <Typography>{t('couldNotLoadData')}</Typography>
     </Box>
   );
@@ -100,15 +100,36 @@ Pattern.defaultProps = {
 };
 
 Pattern.propTypes = {
+  /**
+   * Display custom action button beside the component title
+   */
   action: PropTypes.node,
+  /**
+   * The content to display after loading
+   */
   children: PropTypes.node,
+  /**
+   * The maximum height of the component,defaulting to 350px
+   */
   height: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
+  /**
+   * Display an error message
+   */
   error: PropTypes.bool,
+  /*
+   * Show loading indicator
+   */
   loading: PropTypes.bool,
+  /**
+   * Control the max-width of the component
+   */
   size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
+  /**
+   * Heading value
+   */
   title: PropTypes.string.isRequired,
 };
 
