@@ -13,7 +13,10 @@ import { Definitions } from '../../containers/state';
 import useCollectionUiLocalStorage from '../../hooks/useCollectionUiLocalStorage';
 import useStyle from './styles';
 
-const CollectionUiSelect = ({ uis }) => {
+const CollectionUiSelect = ({
+  defaultSegmentValue,
+  uis,
+}) => {
   const { collectionName } = React.useContext(Definitions);
   const { change } = useCollectionUiLocalStorage([]);
   const cls = useStyle();
@@ -22,7 +25,7 @@ const CollectionUiSelect = ({ uis }) => {
   const to = get(
     useSegmentsAppliedByCollection(collectionName),
     'value',
-    '?',
+    defaultSegmentValue,
   );
 
   const getIcon = (ui) =>
@@ -70,10 +73,12 @@ const CollectionUiSelect = ({ uis }) => {
 };
 
 CollectionUiSelect.defaultProps = {
+  defaultSegmentValue: '?',
   uis: [],
 };
 
 CollectionUiSelect.propTypes = {
+  defaultSegmentValue: PropTypes.string,
   uis: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
