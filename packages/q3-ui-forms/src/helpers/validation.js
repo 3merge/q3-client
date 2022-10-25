@@ -167,6 +167,9 @@ export class Validator {
           .date()
           .typeError('invalidDateString')
           .nullable()
+          .transform((curr, orig) =>
+            orig === '' ? null : curr,
+          )
           .default(undefined);
         break;
       case 'chips':
