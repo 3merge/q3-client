@@ -1,6 +1,6 @@
 {
   "name": "gatsby-theme-q3-mui",
-  "version": "3.13.0",
+  "version": "3.13.1",
   "main": "index.js",
   "license": "MIT",
   "peerDependencies": {
@@ -12,7 +12,7 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "q3-ui": "^3.13.0",
-    "q3-ui-forms": "^3.13.0",
+    "q3-ui-forms": "^3.13.1",
     "q3-ui-locale": "^3.13.0"
   }
 }

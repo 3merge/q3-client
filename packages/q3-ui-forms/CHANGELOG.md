@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.13.1](https://github.com/3merge/q/compare/v3.13.0...v3.13.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* clearing dates ([8ae178b](https://github.com/3merge/q/commit/8ae178bd9353af68556f1b8d40e21d8e1ef28124))
+
+
+
+
+
 # [3.13.0](https://github.com/3merge/q/compare/v3.12.0...v3.13.0) (2022-10-24)
 
 
