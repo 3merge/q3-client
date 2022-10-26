@@ -12,31 +12,26 @@ import { useToggle } from 'useful-state';
 const STORAGE_KEY = 'q3-notification-unseen-pref';
 
 const withUnseenNotifications = (Component) => (props) => {
-  const shouldOnlyShowUnseenNotifications = () =>
+  const { t } = useTranslation('labels');
+  const defaultState =
     String(
       browser.proxyLocalStorageApi('getItem', STORAGE_KEY),
     ) === 'true';
 
-  const { t } = useTranslation('labels');
-  const { state, toggle } = useToggle(
-    shouldOnlyShowUnseenNotifications(),
-  );
-
-  const [showUnseenOnly, setShowUnseenOnly] =
-    React.useState();
+  const { state, toggle } = useToggle(defaultState);
 
   React.useEffect(() => {
-    setShowUnseenOnly(state);
-    browser.proxyLocalStorageApi(
-      'setItem',
-      STORAGE_KEY,
-      state,
-    );
-  }, [state]);
+    if (state !== defaultState)
+      browser.proxyLocalStorageApi(
+        'setItem',
+        STORAGE_KEY,
+        state,
+      );
+  }, [defaultState, state]);
 
   // eslint-disable-next-line
-  const data = filter(props.data, (item) => {
-    if (showUnseenOnly) return !item.hasSeen;
+  const data = filter(props?.data, (item) => {
+    if (state) return !item.hasSeen;
     return true;
   });
 

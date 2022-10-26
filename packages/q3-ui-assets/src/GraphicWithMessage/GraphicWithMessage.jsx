@@ -26,6 +26,7 @@ export const ICON_NAMES = {
   'Placeholder': SvgIcon.Placeholder,
   'Search': SvgIcon.Search,
   'Signal': SvgIcon.Signal,
+  'Text': SvgIcon.Text,
   'Throw': SvgIcon.Throw,
   'Unlock': SvgIcon.Unlock,
 };

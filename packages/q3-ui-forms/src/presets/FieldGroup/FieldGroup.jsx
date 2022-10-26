@@ -11,7 +11,12 @@ import { size } from 'lodash';
 import useStyle from './useStyle';
 import { BuilderState } from '../../FormsContext';
 
-const FieldGroup = ({ children, conditional, label }) => {
+const FieldGroup = ({
+  children,
+  description,
+  conditional,
+  label,
+}) => {
   const { values } = React.useContext(BuilderState);
   const { t } = useTranslation('labels');
   const cls = useStyle();
@@ -25,11 +30,19 @@ const FieldGroup = ({ children, conditional, label }) => {
     show && (
       <Container>
         <Box my={2}>
-          <Grid container>
+          <Grid container spacing={2}>
             <Grid item className={cls.root}>
               <Typography variant="body2">
                 <strong>{t(label)}</strong>
               </Typography>
+              {description && (
+                <Typography
+                  variant="caption"
+                  component="small"
+                >
+                  {t(`descriptions:${description}`)}
+                </Typography>
+              )}
             </Grid>
             <Grid item xs>
               <Grid container spacing={1}>
@@ -48,6 +61,7 @@ const FieldGroup = ({ children, conditional, label }) => {
 
 FieldGroup.defaultProps = {
   conditional: [],
+  description: undefined,
 };
 
 FieldGroup.propTypes = {
@@ -56,6 +70,7 @@ FieldGroup.propTypes = {
     PropTypes.node,
   ]).isRequired,
   label: PropTypes.string.isRequired,
+  description: PropTypes.string,
   conditional: PropTypes.arrayOf(PropTypes.string),
 };
 
