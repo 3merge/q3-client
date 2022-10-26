@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from '@reach/router';
 import useRelativePath from './useRelativePath';
 
 const useNotificationsPage = () => {
-  const rel = '/notifications';
+  const rel = 'notifications';
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
