@@ -3,8 +3,6 @@ import {
   List,
   ListSubheader,
   Divider,
-  Typography,
-  Box,
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import {
@@ -14,9 +12,11 @@ import {
   isObject,
   orderBy,
 } from 'lodash';
-import { useTranslation } from 'q3-ui-locale';
+import NotificationsDescription from '../NotificationsDescription';
 import NotificationsListItem from '../NotificationsListItem';
 import withUnseenNotifications from '../withUnseenNotificationsOnly';
+import withLoadingState from '../withLoadingState';
+import withClearAll from '../withClearAll';
 
 export const mapDataByCreatedDate = (xs) => {
   if (!size(xs)) return null;
@@ -32,17 +32,22 @@ export const mapDataByCreatedDate = (xs) => {
   );
 };
 
-// eslint-disable-next-line
-export const NotificationsList = ({ data: rawData }) => {
+export const NotificationsList = ({
+  // eslint-disable-next-line
+  data: rawData,
+}) => {
   const data = mapDataByCreatedDate(rawData);
-  const { t } = useTranslation('descriptions');
 
   return isObject(data) ? (
     Object.entries(data).map(([key, values, idx]) =>
       size(values) ? (
         <List
           key={key || idx}
-          subheader={<ListSubheader>{key}</ListSubheader>}
+          subheader={
+            <ListSubheader disableSticky>
+              {key}
+            </ListSubheader>
+          }
         >
           {map(values, (item, i) => (
             <>
@@ -59,10 +64,10 @@ export const NotificationsList = ({ data: rawData }) => {
       ) : null,
     )
   ) : (
-    <Box py={1} px={2}>
-      <Typography>{t('notificationSettings')}</Typography>
-    </Box>
+    <NotificationsDescription text="notificationsEmpty" />
   );
 };
 
-export default withUnseenNotifications(NotificationsList);
+export default withLoadingState(
+  withUnseenNotifications(withClearAll(NotificationsList)),
+);

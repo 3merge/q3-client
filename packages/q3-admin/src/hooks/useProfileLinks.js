@@ -20,7 +20,7 @@ const useProfileLinks = () =>
       'canCreateSub',
       [
         {
-          to: '/account/notifications',
+          to: '/account/notification-settings',
           text: 'accountNotificationSettings',
         },
       ],

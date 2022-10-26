@@ -7,6 +7,7 @@ import useNotificationsEvent from './useNotificationsEvent';
 export default (options = {}) => {
   const [data, setData] = React.useState([]);
   const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   const getSeen = () =>
     map(
@@ -50,6 +51,9 @@ export default (options = {}) => {
         )
         .catch(() => {
           setError(true);
+        })
+        .finally(() => {
+          setLoading(false);
         }),
 
     post: () =>
@@ -58,6 +62,19 @@ export default (options = {}) => {
           ids: getSeen(),
         }),
       ),
+
+    clear: () => {
+      setData((prev) =>
+        prev.map((item) => ({
+          ...item,
+          hasDownloaded: true,
+          hasSeen: true,
+        })),
+      );
+
+      // gives it a second to catchup
+      setTimeout(() => object.noop(services.post()));
+    },
   };
 
   useNotificationsEvent(services.get, {
@@ -68,6 +85,7 @@ export default (options = {}) => {
   return {
     data,
     error,
+    loading,
     getSeen,
     markAsSeen,
     ...services,

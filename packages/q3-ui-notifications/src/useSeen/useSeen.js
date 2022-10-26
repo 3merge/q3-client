@@ -35,7 +35,7 @@ export default (notification, callback) => {
             timer = setTimeout(() => {
               callback(entry, id);
               detach(observer);
-            }, 1500);
+            }, 750);
           } catch (e) {
             // noop
           }
