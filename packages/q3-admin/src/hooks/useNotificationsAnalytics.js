@@ -16,7 +16,7 @@ const useNotificationsAnalytics = (getSubDocumentIds) => {
     const timer = setTimeout(() => {
       object.noop(
         axios.post(
-          '/analytics',
+          '/system-notifications-analytics',
           {
             documentId,
             subDocumentId: isFunction(getSubDocumentIds)
