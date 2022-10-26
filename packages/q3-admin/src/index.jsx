@@ -16,6 +16,7 @@ import {
   useProfileLocale,
   useProfileTheme,
 } from './hooks';
+import NotificationsPage from './containers/NotificationsPage';
 import BackProvider from './containers/BackProvider';
 import Domain from './containers/Domain';
 import DomainI18n from './containers/DomainI18n';
@@ -93,11 +94,12 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
             <Box className={cls.main}>
               <Toolbar {...ToolbarProps} />
               <App {...AppProps}>
+                <NotificationsPage path="notifications" />
                 <SystemPage path="account">
                   <ProfileChangeContact path="contact" />
                   <ProfileChangeLocale path="locale" />
                   <ProfileChangeTheme path="theme" />
-                  <ProfileChangeNotifications path="notifications" />
+                  <ProfileChangeNotifications path="notification-settings" />
                   <ProfileChangePassword path="password" />
                   {map(
                     customProfilePages,

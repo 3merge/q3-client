@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 import classnames from 'classnames';
-// eslint-disable-next-line
 import Notifications from 'q3-ui-notifications';
 import { useNotifications } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
 import useStyle from './styles';
+import useNotificationsPage from '../../hooks/useNotificationsPage';
 
 export const ButtonComponentWithAnimation = ({
   icon,
@@ -15,6 +16,7 @@ export const ButtonComponentWithAnimation = ({
   const cls = useStyle();
   const [amount, setAmount] = React.useState(0);
   const [classlist, setClassList] = React.useState([]);
+  const { isOn } = useNotificationsPage();
 
   React.useEffect(() => {
     if (numberOfNotifications > amount) {
@@ -30,19 +32,33 @@ export const ButtonComponentWithAnimation = ({
     <Box className={classnames(...classlist)}>
       <ButtonWithIcon
         {...rest}
-        count={amount}
         icon={icon}
         label="notifications"
         id="app-notifications"
+        {...(isOn()
+          ? { disabled: true }
+          : { count: amount })}
       />
     </Box>
   );
 };
 
+ButtonComponentWithAnimation.defaultProps = {
+  icon: null,
+  numberOfNotifications: 0,
+};
+
+ButtonComponentWithAnimation.propTypes = {
+  icon: PropTypes.element,
+  numberOfNotifications: PropTypes.number,
+};
+
 const NotificationsContainer = () => {
-  const { data, syncSeen, error } = useNotifications({
-    numberOfDays: 7,
-  });
+  const { visit } = useNotificationsPage();
+  const { data, clear, error, loading, syncSeen } =
+    useNotifications({
+      numberOfDays: 7,
+    });
 
   const ButtonComponent = React.useCallback(
     (notificationProps) => (
@@ -55,10 +71,13 @@ const NotificationsContainer = () => {
 
   return (
     <Notifications
+      buttonComponent={ButtonComponent}
       data={data}
       error={error}
+      clear={clear}
+      loading={loading}
+      more={visit}
       syncSeen={syncSeen}
-      buttonComponent={ButtonComponent}
     />
   );
 };

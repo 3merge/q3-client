@@ -10,14 +10,17 @@ const Notifications = ({
   buttonComponent,
   data,
   error,
+  loading,
   syncSeen,
+  ...rest
 }) => {
   useNotificationClickEvent(data, syncSeen);
-  const count = useCount(data);
 
+  const count = useCount(data);
   const buttonComponentProps = {
     ...count,
     error,
+    loading,
   };
 
   const icon = React.useCallback(
@@ -28,7 +31,12 @@ const Notifications = ({
   return (
     <NotificationsDrawer
       renderContent={() => (
-        <NotificationsList data={data} />
+        <NotificationsList
+          {...rest}
+          data={data}
+          error={error}
+          loading={loading}
+        />
       )}
       SlideProps={{
         onExit: syncSeen,
@@ -60,11 +68,13 @@ Notifications.propTypes = {
     }),
   ),
   error: PropTypes.bool,
+  loading: PropTypes.bool,
   syncSeen: PropTypes.func.isRequired,
 };
 
 Notifications.defaultProps = {
   data: [],
+  loading: false,
   error: false,
 };
 

@@ -4,46 +4,64 @@ import {
   Preview,
   Props,
 } from '@storybook/addon-docs/blocks';
-import { action } from '@storybook/addon-actions';
-import { withA11y } from '@storybook/addon-a11y';
+import Location from 'q3-ui-test-utils/lib/location';
 import Notifications from '../src/Notifications';
 import data from './fixture';
 
 <Meta
   title="Notifications/List"
   component={Notifications}
-  decorators={[withA11y]}
 />
 
 # Notifications
 
 <Preview>
-  <Story name="With event handlers">
-    <Notifications
-      data={data}
-      onClick={(e) => {
-        e.preventDefault();
-        action('link-clicked')(e);
-      }}
-      onView={(e) => {
-        action('message-viewed')(e);
-      }}
-    />
+  <Story name="Event handlers">
+    <Location>
+      <Notifications
+        data={data.map((item) => ({
+          ...item,
+          acknowledge: () => {
+            //alert('ACKNOWLEDGE');
+            return Promise.resolve();
+          },
+        }))}
+        buttonComponent={(props) => (
+          <button {...props}>Click to open</button>
+        )}
+        syncSeen={() => {
+          //alert('SYNCED/CLICKED');
+          return Promise.resolve();
+        }}
+      />
+    </Location>
   </Story>
 </Preview>
 
 <Preview>
-  <Story name="Default to opened">
-    <Notifications
-      data={data}
-      defaultValue
-      onClick={(e) => {
-        e.preventDefault();
-        action('link-clicked')(e);
-      }}
-      onView={(e) => {
-        action('message-viewed')(e);
-      }}
-    />
+  <Story name="Loading">
+    <Location>
+      <Notifications
+        buttonComponent={(props) => (
+          <button {...props}>Click to open</button>
+        )}
+        data={data}
+        loading
+      />
+    </Location>
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Error">
+    <Location>
+      <Notifications
+        buttonComponent={(props) => (
+          <button {...props}>Click to open</button>
+        )}
+        data={data}
+        error
+      />
+    </Location>
   </Story>
 </Preview>

@@ -12,6 +12,8 @@ export { default as useLocalStorageStateProxy } from './useLocalStorageStateProx
 export { default as useMultiselect } from './useMultiselect';
 export { default as useMultistepper } from './useMultistepper';
 export { default as useNotifications } from './useNotifications';
+export { default as useNotificationsPage } from './useNotificationsPage';
+export { default as useNotificationsAnalytics } from './useNotificationsAnalytics';
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';
 export { default as usePatternData } from './usePatternData';

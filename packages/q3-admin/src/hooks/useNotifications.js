@@ -3,7 +3,7 @@ import { size } from 'lodash';
 import useNotificationsService from './useNotificationsService';
 
 export default (options) => {
-  const { data, error, markAsSeen, post } =
+  const { clear, data, error, loading, markAsSeen, post } =
     useNotificationsService(options);
   const ref = React.useRef();
 
@@ -37,5 +37,7 @@ export default (options) => {
       ...item,
     })),
     error,
+    loading,
+    clear,
   };
 };

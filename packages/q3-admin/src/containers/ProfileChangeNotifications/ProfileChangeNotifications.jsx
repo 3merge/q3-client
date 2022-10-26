@@ -2,7 +2,7 @@ import React from 'react';
 import { Builders } from 'q3-ui-forms';
 import { useTranslation } from 'q3-ui-locale';
 import Typography from '@material-ui/core/Typography';
-import { get, size, map } from 'lodash';
+import { get, size, map, includes } from 'lodash';
 import useDomainContext from '../../hooks/useDomainContext';
 import useProfileForm from '../../hooks/useProfileForm';
 import SystemPageSub from '../../components/SystemPageSub';
@@ -20,36 +20,31 @@ const ProfileNotifications = ({ children }) => {
 
   return (
     <SystemPageSub title="notifications">
-      <Builders.Form
-        isNew
-        collectionName="profile"
-        showSuccessMessage
-        disabled={!size(listeners)}
-        initialValues={
-          Array.isArray(listens)
-            ? listens.reduce((acc, curr) => {
-                acc[curr] = true;
-                return acc;
-              }, {})
-            : {}
-        }
-        onSubmit={(values) =>
-          onSubmit({
-            listens: Object.entries(values)
-              .reduce((acc, [key, value]) => {
-                if (value) acc.push(key);
-                return acc;
-              }, [])
-              .sort(),
-          })
-        }
-      >
-        {!size(listeners) ? (
-          <Typography>
-            {t('noNotificationsToSubscribeTo')}
-          </Typography>
-        ) : (
-          map(listeners, (listen) => (
+      {!size(listeners) ? (
+        <Typography>
+          {t('noNotificationsToSubscribeTo')}
+        </Typography>
+      ) : (
+        <Builders.Form
+          isNew
+          collectionName="profile"
+          showSuccessMessage
+          initialValues={listeners.reduce((acc, curr) => {
+            acc[curr] = includes(listens, curr);
+            return acc;
+          }, {})}
+          onSubmit={(values) =>
+            onSubmit({
+              listens: Object.entries(values)
+                .reduce((acc, [key, value]) => {
+                  if (value) acc.push(key);
+                  return acc;
+                }, [])
+                .sort(),
+            })
+          }
+        >
+          {map(listeners, (listen) => (
             <Builders.Field
               key={listen}
               name={listen}
@@ -57,9 +52,9 @@ const ProfileNotifications = ({ children }) => {
               variant="switch"
               under="listens"
             />
-          ))
-        )}
-      </Builders.Form>
+          ))}
+        </Builders.Form>
+      )}
     </SystemPageSub>
   );
 };
