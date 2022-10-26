@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.14.0](https://github.com/3merge/q/compare/v3.13.2...v3.14.0) (2022-10-26)
+
+
+### Features
+
+* notifications page and analytics ([#437](https://github.com/3merge/q/issues/437)) ([3161e3d](https://github.com/3merge/q/commit/3161e3d11ddf06ab964b412212b3f716b9c91b8d))
+
+
+
+
+
 # [3.13.0](https://github.com/3merge/q/compare/v3.12.0...v3.13.0) (2022-10-24)
 
 **Note:** Version bump only for package q3-ui-notifications
