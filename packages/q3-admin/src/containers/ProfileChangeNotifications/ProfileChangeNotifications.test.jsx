@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
+import { doesNotExist } from 'q3-ui-test-utils/lib/enzymeUtils';
 import ProfileNotifications from './ProfileChangeNotifications';
 import useProfileForm from '../../hooks/useProfileForm';
 import useDomainContext from '../../hooks/useDomainContext';
@@ -9,9 +10,18 @@ jest.mock('../../hooks/useDomainContext');
 
 describe('ProfileNotifications', () => {
   it('should reduce listeners', () => {
+    useDomainContext.mockReturnValue({
+      domain: {
+        listens: {
+          Developer: ['one', 'two'],
+        },
+      },
+    });
+
     useProfileForm.mockReturnValue({
       initialValues: {
-        listens: ['one'],
+        role: 'Developer',
+        listens: ['one', 'three'],
       },
     });
 
@@ -22,20 +32,8 @@ describe('ProfileNotifications', () => {
         .prop('initialValues'),
     ).toMatchObject({
       one: true,
+      two: false,
     });
-  });
-
-  it('should render empty', () => {
-    useProfileForm.mockReturnValue({
-      initialValues: {},
-    });
-
-    expect(
-      global
-        .shallow(<ProfileNotifications />)
-        .find(Form)
-        .prop('initialValues'),
-    ).toEqual({});
   });
 
   it('should disable', () => {
@@ -43,39 +41,27 @@ describe('ProfileNotifications', () => {
       initialValues: {},
     });
 
-    expect(
-      global
-        .shallow(<ProfileNotifications />)
-        .find(Form)
-        .prop('disabled'),
-    ).toBeTruthy();
-  });
-
-  it('should not disable', () => {
-    useDomainContext.mockReturnValue({
-      domain: {
-        listens: {
-          Developer: ['foo', 'bar'],
-        },
-      },
-    });
-    useProfileForm.mockReturnValue({
-      initialValues: {
-        role: 'Developer',
-      },
-    });
-
-    const el = global.shallow(<ProfileNotifications />);
-
-    expect(el.find(Form).prop('disabled')).toBeFalsy();
-    expect(el.find(Field)).toHaveLength(2);
+    doesNotExist(
+      global.shallow(<ProfileNotifications />).find(Form),
+    );
   });
 
   it('should retain truthy values', () => {
     const onSubmit = jest.fn();
 
+    useDomainContext.mockReturnValue({
+      domain: {
+        listens: {
+          Developer: ['foo'],
+        },
+      },
+    });
+
     useProfileForm.mockReturnValue({
       onSubmit,
+      initialValues: {
+        role: 'Developer',
+      },
     });
 
     global
