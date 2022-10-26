@@ -15,6 +15,7 @@ export { default as Photo } from './Photo';
 export { default as Puzzle } from './Puzzle';
 export { default as Signal } from './Signal';
 export { default as Search } from './Search';
+export { default as Text } from './Text';
 export { default as Throw } from './Throw';
 export { default as Unlock } from './Unlock';
 export { default as Upload } from './Upload';

@@ -1,146 +1,134 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import { useTranslation } from 'q3-ui-locale';
 import { Builders } from 'q3-ui-forms';
-import { isObject, sortBy } from 'lodash';
-import Tab from '@material-ui/core/Tab';
-import TabContext from '@material-ui/lab/TabContext';
-import TabList from '@material-ui/lab/TabList';
-import TabPanel from '@material-ui/lab/TabPanel';
+import FieldGroup from 'q3-ui-forms/lib/presets/FieldGroup';
+import {
+  isObject,
+  sortBy,
+  groupBy,
+  map,
+  merge,
+  get,
+} from 'lodash';
+import { Container } from '@material-ui/core';
+import flat from 'flat';
+import { object } from 'q3-ui-helpers';
 // eslint-disable-next-line
-import SearchBar from 'q3-ui-repeater/lib/components/Search';
+import Asset from 'q3-ui-assets';
 import useDomainContext from '../../hooks/useDomainContext';
 import SystemPageSub from '../../components/SystemPageSub';
-import useStyle from './styles';
+import DomainI18nSearch from '../DomainI18nSearch';
 
 const DomainI18n = () => {
-  const cls = useStyle();
-  const [value, setValue] = React.useState(0);
   const { domain = {}, update } = useDomainContext();
-  const { lng, resources = {}, supportedLngs } = domain;
   const { t } = useTranslation();
-  const hasMultipleLanguages = Array.isArray(supportedLngs)
-    ? supportedLngs.length && supportedLngs.length > 1
-    : false;
+  const { resources = {} } = domain;
 
-  const initialValues = resources;
-  const expectedNamespaces = [
-    'titles',
-    'descriptions',
-    'labels',
-    'helpers',
-  ];
+  const flattenResourcesWith = (fn) =>
+    isObject(resources)
+      ? Object.entries(flat(resources)).reduce(
+          (acc, curr) => {
+            const [key, value] = curr;
+            if (fn(key) || fn(value)) acc[key] = value;
+            return acc;
+          },
+          {},
+        )
+      : {};
 
-  const [search, setSearch] = React.useState('');
-  const handleChange = (_, newValue) => setValue(newValue);
+  const groupByFlattenedResources = (xs) =>
+    groupBy(Object.entries(xs), ([k]) => k.split('.')[0]);
 
-  const matchesSearchTerm = React.useCallback(
-    (str) =>
-      String(str)
-        .toLowerCase()
-        .includes(String(search).toLowerCase()),
-    [search],
+  const isMultiLine = (str) =>
+    ['descriptions', 'helpers'].includes(str);
+
+  const mergeData = React.useCallback(
+    (values) =>
+      update({
+        resources: merge({}, resources, values),
+      }).then((resp) => {
+        // eslint-disable-next-line
+        alert(t('descriptions:localeEditorChangeEffect'));
+        return resp;
+      }),
+    [resources],
   );
 
-  const shouldDisplayField = (ns, field) =>
-    !search ||
-    matchesSearchTerm(field) ||
-    matchesSearchTerm(initialValues[ns]?.[field]);
+  const sortByValueIndex = (xs) => sortBy(xs, ([, v]) => v);
 
-  const renderNamespace = React.useCallback(
-    (ns) =>
-      isObject(initialValues[ns]) ? (
-        <Builders.Form
-          isNew
-          key={ns}
-          collectionName="domain"
-          submitLabel="save"
-          showSuccessMessage
-          initialValues={initialValues[ns]}
-          onSubmit={(values) =>
-            update({
-              resources: {
-                ...initialValues,
-                [ns]: values,
-              },
-            })
-          }
-        >
-          {sortBy(
-            Object.entries(initialValues[ns]),
-            ([, v]) => v,
-          ).map(([k]) => (
-            <div
-              key={k}
-              style={{
-                display: shouldDisplayField(ns, k)
-                  ? 'block'
-                  : 'none',
-                width: '100%',
-              }}
+  const renderForm = React.useCallback(
+    (doesMatch) => {
+      const data = flattenResourcesWith(doesMatch);
+      const ns = groupByFlattenedResources(data);
+
+      const fieldGroups = [
+        'titles',
+        'labels',
+        'descriptions',
+        'helpers',
+      ].reduce((acc, targetNs) => {
+        const fieldData = get(ns, targetNs);
+        if (object.hasKeys(fieldData))
+          acc.push(
+            <FieldGroup
+              key={targetNs}
+              label={targetNs}
+              description={targetNs}
             >
-              <Builders.Field
-                under={`resources.${ns}`}
-                multiline={[
-                  'descriptions',
-                  'helpers',
-                ].includes(ns)}
-                rows={3}
-                name={k}
-                xl={12}
-                lg={12}
-                suppressLabel
-                helper={`Translates "${k}"`}
-              />
-            </div>
-          ))}
-        </Builders.Form>
-      ) : null,
-    [initialValues, search],
+              {map(
+                sortByValueIndex(fieldData),
+                ([fieldName]) => (
+                  <Builders.Field
+                    multiline={isMultiLine(fieldName)}
+                    name={fieldName}
+                    helper={`"${fieldName}"`}
+                    key={fieldName}
+                    lg={12}
+                    rows={3}
+                    suppressLabel
+                    type="text"
+                    xl={12}
+                  />
+                ),
+              )}
+            </FieldGroup>,
+          );
+
+        return acc;
+      }, []);
+
+      return fieldGroups.length ? (
+        <Box mt={2}>
+          <Builders.Form
+            collectionName="domain"
+            enableSubmit={false}
+            initialValues={data}
+            isNew
+            onSubmit={mergeData}
+            showSuccessMessage
+            submitLabel="save"
+          >
+            {fieldGroups}
+            <Container style={{ textAlign: 'right' }}>
+              <Builders.Next submit label="save" />
+            </Container>
+          </Builders.Form>
+        </Box>
+      ) : (
+        <Asset
+          icon="Text"
+          title="searchLocale"
+          description="searchLocale"
+        />
+      );
+    },
+    [resources],
   );
 
   return (
     <SystemPageSub maxWidth="xl" title="domainI18n">
-      <Box className={cls.search} mb={1}>
-        <SearchBar
-          handleInput={setSearch}
-          variant="filled"
-        />
-      </Box>
-      <Alert severity="info">
-        {t('descriptions:localeEditorChangeEffect')}
-      </Alert>
-      {hasMultipleLanguages && (
-        <Box mt={1}>
-          <Alert severity="info">
-            {t('descriptions:localeEditor', {
-              lng,
-            })}
-          </Alert>
-        </Box>
-      )}
-      <Box mt={1}>
-        {isObject(initialValues) ? (
-          <TabContext value={value}>
-            <TabList onChange={handleChange}>
-              {expectedNamespaces.map((l, v) => (
-                <Tab
-                  disabled={!(l in initialValues)}
-                  key={l}
-                  label={t(`labels:${l}`)}
-                  value={v}
-                />
-              ))}
-            </TabList>
-            {expectedNamespaces.map((l, v) => (
-              <TabPanel value={v} key={v}>
-                {renderNamespace(l)}
-              </TabPanel>
-            ))}
-          </TabContext>
-        ) : null}
-      </Box>
+      <DomainI18nSearch>{renderForm}</DomainI18nSearch>
     </SystemPageSub>
   );
 };
