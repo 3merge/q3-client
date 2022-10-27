@@ -5,47 +5,45 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'q3-ui-locale';
 import Pattern from '../Pattern';
-import { useReportById } from '../../hooks';
+import { usePatternData } from '../../hooks';
 import useStyle from './styles';
 
-const PatternDataGrid = ({
-  formatters,
-  report,
-  title,
-  size,
-  width,
-}) => {
+const PatternDataGrid = (props) => {
+  const { formatters, size, width } = props;
   const { t } = useTranslation('labels');
-  const { data, error, loading } = useReportById(report);
+  const { data, ...patternProps } = usePatternData(props);
   const cls = useStyle();
 
   const generateColumns = () => {
     if (!Array.isArray(data)) return [];
     const obj = data[0];
-    const format = useHelperFormats();
 
     if (!isObject(obj)) return [];
 
-    return Object.entries(obj).map(([key]) => ({
-      field: key,
-      headerName: t(key),
-      ...(isObject(width) && key in width
-        ? { minWidth: width[key] }
-        : { flex: 1 }),
-      renderCell: ({ value }) =>
-        isObject(formatters) && key in formatters
-          ? format(value, formatters[key])
-          : value,
-    }));
+    return Object.entries(obj)
+      .filter(([key]) => !['_id', 'id'].includes(key))
+      .map(([key]) => ({
+        field: key,
+        headerName: t(key),
+        ...(isObject(width) && key in width
+          ? { minWidth: width[key] }
+          : { flex: 1 }),
+        renderCell: ({ row, value }) => {
+          const format = useHelperFormats(row);
+
+          return isObject(formatters) && key in formatters
+            ? format(key, formatters[key])
+            : value;
+        },
+      }));
   };
 
   return (
     <Pattern
+      {...props}
+      {...patternProps}
       height="auto"
-      error={error}
-      loading={loading}
       size={size}
-      title={title || report}
     >
       <DataGrid
         autoHeight

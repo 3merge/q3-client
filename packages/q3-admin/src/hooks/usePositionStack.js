@@ -7,7 +7,7 @@ import {
   isObject,
   pick,
 } from 'lodash';
-import { browser } from 'q3-ui-helpers';
+import { browser, object } from 'q3-ui-helpers';
 
 export const printValues = (xs) => {
   let output = [];
@@ -88,7 +88,12 @@ const usePositionStack = (addressObj) => {
       .then(reattempt('truncated'))
       .then(reattempt('simple'))
       .then(setCoordinates);
-  }, [addressObj]);
+  }, [
+    object.toJSON(
+      // ensures that we don't call the api too often
+      shapeAddressQueryString(addressObj, 'full'),
+    ),
+  ]);
 
   return coordinates;
 };

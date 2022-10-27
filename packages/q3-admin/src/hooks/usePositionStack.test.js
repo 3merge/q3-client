@@ -25,6 +25,9 @@ jest.mock('q3-ui-helpers', () => ({
   browser: {
     fetchJson: jest.fn(),
   },
+  object: {
+    toJSON: jest.fn().mockReturnValue(''),
+  },
 }));
 
 describe('printValues', () => {

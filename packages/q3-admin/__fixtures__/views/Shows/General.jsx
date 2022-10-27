@@ -18,10 +18,15 @@ export default connect(() => (
     <PatternStatistic report="stat" />
     <PatternChart report="chartexample" />
     <PatternDataGrid
+      refresh={['name', 'streetLine1']}
       title="Recent appearances"
       report="appearances"
       formatters={{
-        id: (value) => <a href="test">{value}</a>,
+        episode: (value, { id }) => (
+          <a href="test">
+            #{id}-{value}
+          </a>
+        ),
         date: 'datetime',
         compensation: 'price',
       }}
@@ -44,8 +49,17 @@ export default connect(() => (
           type: 'text',
         },
         {
+          field: 'createdBy.firstName',
+          type: 'text',
+        },
+        {
           label: 'Address',
           formatter: 'address',
+        },
+        {
+          label: 'Address 2',
+          formatter: 'address',
+          field: 'createdBy',
         },
         {
           field: 'streetNumber',

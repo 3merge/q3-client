@@ -1,10 +1,10 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import PatternDataGrid from './PatternDataGrid';
-import { useReportById } from '../../hooks';
+import { usePatternData } from '../../hooks';
 
 jest.mock('../../hooks', () => ({
-  useReportById: jest.fn(),
+  usePatternData: jest.fn(),
 }));
 
 const getColumns = (props) =>
@@ -15,7 +15,7 @@ const getColumns = (props) =>
 
 describe('PatternDataGrid', () => {
   it('should return empty array', () => {
-    useReportById.mockReturnValue({
+    usePatternData.mockReturnValue({
       data: null,
     });
 
@@ -23,14 +23,13 @@ describe('PatternDataGrid', () => {
   });
 
   it('should return keys from first response', () => {
-    useReportById.mockReturnValue({
-      data: [
-        {
-          name: 'john',
-          age: 21,
-          balance: 30021,
-        },
-      ],
+    const row = {
+      name: 'john',
+      age: 21,
+      balance: 30021,
+    };
+    usePatternData.mockReturnValue({
+      data: [row],
     });
 
     const columns = getColumns({
@@ -65,9 +64,8 @@ describe('PatternDataGrid', () => {
 
     expect(
       columns[2].renderCell({
-        // we're stubbing out what should have been 30021
-        value: 10000,
+        row,
       }),
-    ).toBe('$10,000.00');
+    ).toBe('$30,021.00');
   });
 });

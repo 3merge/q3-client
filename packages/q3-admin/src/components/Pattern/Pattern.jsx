@@ -34,6 +34,7 @@ const Pattern = ({
   loading,
   size,
   title,
+  report,
 }) => {
   const { t } = useTranslation();
   const cls = useStyle({
@@ -79,7 +80,7 @@ const Pattern = ({
               className={cls.label}
               variant="body1"
             >
-              {t(`titles:${title}`)}
+              {t(`titles:${title || report}`)}
             </Typography>
           </Box>
           <Box>{action}</Box>
@@ -96,7 +97,9 @@ Pattern.defaultProps = {
   error: false,
   height: undefined,
   loading: false,
+  report: undefined,
   size: 'xl',
+  title: undefined,
 };
 
 Pattern.propTypes = {
@@ -130,7 +133,11 @@ Pattern.propTypes = {
   /**
    * Heading value
    */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  /**
+   * Sometimes defined when title is not
+   */
+  report: PropTypes.string,
 };
 
 export default Pattern;
