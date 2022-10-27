@@ -3,8 +3,16 @@ import { size } from 'lodash';
 import useNotificationsService from './useNotificationsService';
 
 export default (options) => {
-  const { clear, data, error, loading, markAsSeen, post } =
-    useNotificationsService(options);
+  const {
+    clear,
+    data,
+    error,
+    loading,
+    getSeen,
+    markAsSeen,
+    post,
+  } = useNotificationsService(options);
+
   const ref = React.useRef();
 
   const acknowledge = (eventInstance, id) => {
@@ -31,6 +39,7 @@ export default (options) => {
   return {
     acknowledge,
     syncSeen: post,
+    getSeen,
     data: data.map((item) => ({
       acknowledge: () => markAsSeen(item.id),
       label: item.path,

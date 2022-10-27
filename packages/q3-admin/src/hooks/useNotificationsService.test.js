@@ -85,6 +85,7 @@ describe('useNotificationsService', () => {
 
     expect(useNotificationsService().getSeen()).toEqual([
       '1',
+      '3',
     ]);
   });
 });

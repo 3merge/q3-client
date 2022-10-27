@@ -3,11 +3,12 @@ import NotificationsList from 'q3-ui-notifications/lib/NotificationsList';
 import useNotificationClickEvent from 'q3-ui-notifications/lib/useNotificationClickEvent';
 import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
+import withPageLeave from '../../helpers/withPageLeave';
 import Article from '../../components/Article';
 import { useNotifications } from '../../hooks';
 import useStyle from './styles';
 
-const Notifications = () => {
+const Notifications = React.forwardRef((props, ref) => {
   const cls = useStyle();
   const { data, clear, error, loading, syncSeen } =
     useNotifications({
@@ -16,6 +17,9 @@ const Notifications = () => {
 
   const { t } = useTranslation('labels');
   useNotificationClickEvent(data, syncSeen);
+
+  // eslint-disable-next-line
+  ref.current = syncSeen;
 
   return (
     <Article>
@@ -34,6 +38,6 @@ const Notifications = () => {
       </Box>
     </Article>
   );
-};
+});
 
-export default Notifications;
+export default withPageLeave(Notifications);

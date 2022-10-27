@@ -11,11 +11,7 @@ export default (options = {}) => {
 
   const getSeen = () =>
     map(
-      filter(
-        data,
-        (xs) =>
-          xs.hasSeen && xs.hasDownloaded && !xs.dismissedOn,
-      ),
+      filter(data, (xs) => xs.hasSeen && xs.hasDownloaded),
       'id',
     );
 
