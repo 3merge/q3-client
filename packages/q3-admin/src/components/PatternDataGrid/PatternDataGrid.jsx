@@ -5,18 +5,13 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'q3-ui-locale';
 import Pattern from '../Pattern';
-import { useReportById } from '../../hooks';
+import { usePatternData } from '../../hooks';
 import useStyle from './styles';
 
-const PatternDataGrid = ({
-  formatters,
-  report,
-  title,
-  size,
-  width,
-}) => {
+const PatternDataGrid = (props) => {
+  const { formatters, size, width } = props;
   const { t } = useTranslation('labels');
-  const { data, error, loading } = useReportById(report);
+  const { data, ...patternProps } = usePatternData(props);
   const cls = useStyle();
 
   const generateColumns = () => {
@@ -45,11 +40,10 @@ const PatternDataGrid = ({
 
   return (
     <Pattern
+      {...props}
+      {...patternProps}
       height="auto"
-      error={error}
-      loading={loading}
       size={size}
-      title={title || report}
     >
       <DataGrid
         autoHeight

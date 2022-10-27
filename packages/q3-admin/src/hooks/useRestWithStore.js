@@ -19,11 +19,13 @@ const useRestWithStore = (callback) => {
   });
 
   const data = get(restState, restProps.pluralized, []);
+  const { fetching = false, poll } = restState;
 
   return {
     data,
     error: checkError(data, restState),
-    loading: get(restState, 'fetching', false),
+    loading: fetching,
+    poll,
   };
 };
 

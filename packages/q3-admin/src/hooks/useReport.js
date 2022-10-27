@@ -14,12 +14,13 @@ const useReport = (template, query = {}) => {
     })}`,
   });
 
-  const { data, fetching: loading } = restState;
+  const { data, fetching: loading, poll } = restState;
 
   return {
     data,
     error: checkError(data, restState),
     loading,
+    poll,
   };
 };
 

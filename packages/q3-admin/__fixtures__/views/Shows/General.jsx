@@ -18,6 +18,7 @@ export default connect(() => (
     <PatternStatistic report="stat" />
     <PatternChart report="chartexample" />
     <PatternDataGrid
+      refresh={['name', 'streetLine1']}
       title="Recent appearances"
       report="appearances"
       formatters={{
