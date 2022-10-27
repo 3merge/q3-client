@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.14.2](https://github.com/3merge/q/compare/v3.14.1...v3.14.2) (2022-10-27)
+
+
+### Bug Fixes
+
+* sync ids on page exit ([#439](https://github.com/3merge/q/issues/439)) ([c52a684](https://github.com/3merge/q/commit/c52a6844b7590030d813069716ac5fcef9023377))
+
+
+
+
+
 ## [3.14.1](https://github.com/3merge/q/compare/v3.14.0...v3.14.1) (2022-10-26)
 
 **Note:** Version bump only for package q3-client
