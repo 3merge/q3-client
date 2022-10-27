@@ -23,7 +23,7 @@ const usePatternData = ({ apiParams, report, refresh }) => {
       !ref?.current?.loading &&
       isFunction(ref?.current?.poll)
     )
-      ref.current.poll();
+      object.noop(ref.current.poll());
   }, effectDeps);
 
   if (isString(report))

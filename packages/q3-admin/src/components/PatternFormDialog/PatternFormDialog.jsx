@@ -94,6 +94,7 @@ export const PatternFormDialogContent = connect(
 );
 
 export const PatternFormDialog = ({
+  disableDialog,
   fields,
   size,
   ...props
@@ -117,15 +118,17 @@ export const PatternFormDialog = ({
               {...props}
             />
           )}
-          renderTrigger={(onClick) => (
-            <IconButton
-              onClick={onClick}
-              color="inherit"
-              size="small"
-            >
-              <EditIcon />
-            </IconButton>
-          )}
+          renderTrigger={(onClick) =>
+            !disableDialog ? (
+              <IconButton
+                onClick={onClick}
+                color="inherit"
+                size="small"
+              >
+                <EditIcon />
+              </IconButton>
+            ) : null
+          }
         />
       }
     >
@@ -135,10 +138,12 @@ export const PatternFormDialog = ({
 };
 
 PatternFormDialog.defaultProps = {
+  disableDialog: false,
   size: 'sm',
 };
 
 PatternFormDialog.propTypes = {
+  disableDialog: PropTypes.bool,
   fields: PropTypes.arrayOf(
     PropTypes.shape({
       field: PropTypes.string,
