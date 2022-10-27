@@ -52,14 +52,12 @@ export default (options = {}) => {
           setLoading(false);
         }),
 
-    post: () => {
-      console.log('POST', getSeen());
-      return object.noop(
+    post: () =>
+      object.noop(
         axios.post('/system-notifications', {
           ids: getSeen(),
         }),
-      );
-    },
+      ),
 
     clear: () => {
       setData((prev) =>
