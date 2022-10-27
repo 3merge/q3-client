@@ -21,7 +21,11 @@ export default connect(() => (
       title="Recent appearances"
       report="appearances"
       formatters={{
-        id: (value) => <a href="test">{value}</a>,
+        episode: (value, { id }) => (
+          <a href="test">
+            #{id}-{value}
+          </a>
+        ),
         date: 'datetime',
         compensation: 'price',
       }}

@@ -22,21 +22,25 @@ const PatternDataGrid = ({
   const generateColumns = () => {
     if (!Array.isArray(data)) return [];
     const obj = data[0];
-    const format = useHelperFormats();
 
     if (!isObject(obj)) return [];
 
-    return Object.entries(obj).map(([key]) => ({
-      field: key,
-      headerName: t(key),
-      ...(isObject(width) && key in width
-        ? { minWidth: width[key] }
-        : { flex: 1 }),
-      renderCell: ({ value }) =>
-        isObject(formatters) && key in formatters
-          ? format(value, formatters[key])
-          : value,
-    }));
+    return Object.entries(obj)
+      .filter(([key]) => !['_id', 'id'].includes(key))
+      .map(([key]) => ({
+        field: key,
+        headerName: t(key),
+        ...(isObject(width) && key in width
+          ? { minWidth: width[key] }
+          : { flex: 1 }),
+        renderCell: ({ row, value }) => {
+          const format = useHelperFormats(row);
+
+          return isObject(formatters) && key in formatters
+            ? format(key, formatters[key])
+            : value;
+        },
+      }));
   };
 
   return (
