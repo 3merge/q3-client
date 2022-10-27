@@ -20,6 +20,7 @@ const useHelperFormats = (data) => (field, formatter) => {
   const rawValue = isObject(data)
     ? get(data, field)
     : field;
+
   const { t } = useTranslation('labels');
 
   const is = (str) => str === formatter;
