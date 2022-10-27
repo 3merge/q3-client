@@ -1,4 +1,10 @@
-import { isObject, join, size, isFunction } from 'lodash';
+import {
+  get,
+  isObject,
+  join,
+  size,
+  isFunction,
+} from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import {
   toPrice,
@@ -11,7 +17,9 @@ import {
 } from '../string';
 
 const useHelperFormats = (data) => (field, formatter) => {
-  const rawValue = isObject(data) ? data[field] : field;
+  const rawValue = isObject(data)
+    ? get(data, field)
+    : field;
   const { t } = useTranslation('labels');
 
   const is = (str) => str === formatter;

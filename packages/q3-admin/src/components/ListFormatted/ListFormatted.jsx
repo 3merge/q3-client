@@ -27,7 +27,10 @@ export const ListFormatted = ({ data, fields }) => {
         >
           <ListItemText
             primary={t(item.label || item.field)}
-            secondary={format(item.field, item.formatter)}
+            secondary={
+              // some formatters return empty
+              format(item.field, item.formatter) || '--'
+            }
           />
         </ListItem>
       ))}

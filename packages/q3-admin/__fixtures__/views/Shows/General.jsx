@@ -44,8 +44,17 @@ export default connect(() => (
           type: 'text',
         },
         {
+          field: 'createdBy.firstName',
+          type: 'text',
+        },
+        {
           label: 'Address',
           formatter: 'address',
+        },
+        {
+          label: 'Address 2',
+          formatter: 'address',
+          field: 'createdBy',
         },
         {
           field: 'streetNumber',
