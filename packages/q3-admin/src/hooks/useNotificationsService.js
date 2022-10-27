@@ -11,11 +11,7 @@ export default (options = {}) => {
 
   const getSeen = () =>
     map(
-      filter(
-        data,
-        (xs) =>
-          xs.hasSeen && xs.hasDownloaded && !xs.dismissedOn,
-      ),
+      filter(data, (xs) => xs.hasSeen && xs.hasDownloaded),
       'id',
     );
 
@@ -56,12 +52,14 @@ export default (options = {}) => {
           setLoading(false);
         }),
 
-    post: () =>
-      object.noop(
+    post: () => {
+      console.log('POST', getSeen());
+      return object.noop(
         axios.post('/system-notifications', {
           ids: getSeen(),
         }),
-      ),
+      );
+    },
 
     clear: () => {
       setData((prev) =>
