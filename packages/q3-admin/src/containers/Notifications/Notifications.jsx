@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box } from '@material-ui/core';
+import { Fab, Box, Hidden } from '@material-ui/core';
 import classnames from 'classnames';
 import Notifications from 'q3-ui-notifications';
+import NotificationIcon from '@material-ui/icons/Notifications';
 import { useNotifications } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
+import useButtonStyle from '../../components/ButtonWithIcon/styles';
 import useStyle from './styles';
 import useNotificationsPage from '../../hooks/useNotificationsPage';
 
@@ -16,7 +18,6 @@ export const ButtonComponentWithAnimation = ({
   const cls = useStyle();
   const [amount, setAmount] = React.useState(0);
   const [classlist, setClassList] = React.useState([]);
-  const { isOn } = useNotificationsPage();
 
   React.useEffect(() => {
     if (numberOfNotifications > amount) {
@@ -32,12 +33,10 @@ export const ButtonComponentWithAnimation = ({
     <Box className={classnames(...classlist)}>
       <ButtonWithIcon
         {...rest}
+        count={amount}
         icon={icon}
         label="notifications"
         id="app-notifications"
-        {...(isOn()
-          ? { disabled: true }
-          : { count: amount })}
       />
     </Box>
   );
@@ -82,4 +81,31 @@ const NotificationsContainer = () => {
   );
 };
 
-export default React.memo(NotificationsContainer);
+const withPlaceholderButton = (Component) => (props) => {
+  const { isOn, visit } = useNotificationsPage();
+  const cls = useButtonStyle({
+    on: true,
+  });
+
+  return isOn() ? (
+    <Hidden lgUp>
+      <Fab
+        aria-current="page"
+        onClick={visit}
+        className={cls.fab}
+      >
+        <NotificationIcon />
+      </Fab>
+    </Hidden>
+  ) : (
+    <Component {...props} />
+  );
+};
+
+export default React.memo(
+  /**
+   * This prevents the notification service from running
+   * while on the notifications page
+   */
+  withPlaceholderButton(NotificationsContainer),
+);

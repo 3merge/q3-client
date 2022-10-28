@@ -78,7 +78,7 @@ const DomainI18n = ({ children }) => {
           </Grid>
         </Grid>
       </Box>
-      {children(doesStringMatchSearch)}
+      {children(doesStringMatchSearch, search)}
     </>
   );
 };

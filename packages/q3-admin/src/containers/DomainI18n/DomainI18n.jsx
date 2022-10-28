@@ -10,6 +10,7 @@ import {
   map,
   merge,
   get,
+  size,
 } from 'lodash';
 import { Container } from '@material-ui/core';
 import flat from 'flat';
@@ -58,9 +59,12 @@ const DomainI18n = () => {
   const sortByValueIndex = (xs) => sortBy(xs, ([, v]) => v);
 
   const renderForm = React.useCallback(
-    (doesMatch) => {
+    (doesMatch, searchValue) => {
       const data = flattenResourcesWith(doesMatch);
       const ns = groupByFlattenedResources(data);
+      const text = size(searchValue)
+        ? 'noResults'
+        : 'searchLocale';
 
       const fieldGroups = [
         'titles',
@@ -118,8 +122,8 @@ const DomainI18n = () => {
       ) : (
         <Asset
           icon="Text"
-          title="searchLocale"
-          description="searchLocale"
+          title={text}
+          description={text}
         />
       );
     },
