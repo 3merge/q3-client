@@ -42,10 +42,17 @@ export default connect(() => (
         modify: {
           createdAt: [castToLocalDateTime],
         },
+        initialValues: {
+          custom: 'DEFAULT VAL',
+        },
       }}
       fields={[
         {
           field: 'name',
+          type: 'text',
+        },
+        {
+          field: 'custom',
           type: 'text',
         },
         {

@@ -13,6 +13,7 @@ import {
   uniq,
   filter,
   omit,
+  merge,
 } from 'lodash';
 import { connect } from '../../containers';
 import ListFormatted from '../ListFormatted';
@@ -78,14 +79,18 @@ export const PatternFormDialogContent = connect(
 
     return (
       <Form
-        initialValues={initialValues}
+        {...get(props, 'FormProps', {})}
+        initialValues={merge(
+          {},
+          get(props, 'FormProps.initialValues', {}),
+          initialValues,
+        )}
         onSubmit={(...params) =>
           onSubmit(...params).then((resp) => {
             onClose();
             return resp;
           })
         }
-        {...get(props, 'FormProps', {})}
       >
         {FormFieldsRenderer}
       </Form>
