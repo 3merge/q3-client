@@ -41,12 +41,12 @@
       "folderId": "62c72de2c2af12ff9e4ce509"
     },
     {
-      "name": "Returns.docx",
+      "name": "Returns.pdf",
       "folderId": "62c72de2c2af12ff9e4ce511",
       "createdAt": "2022-07-02T11:04:05.993Z",
       "updatedAt": "2022-07-06T06:04:05.993Z",
       "id": "62c72e67c2af12ff9f4ce52p",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Best%20man%20speech%20ideas.docx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220714%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220714T184233Z&X-Amz-Expires=86400&X-Amz-Signature=807dc22f7c59b410dd711327f4e1a5f9580c28e78072caec74d3d9e4bde50243&X-Amz-SignedHeaders=host"
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/scale%20ticket%20sample.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160432Z&X-Amz-Expires=86400&X-Amz-Signature=621aa2a49e36fdafd06185ccb56ade001a1e444900e0e4f7d80b2b3a499d157d&X-Amz-SignedHeaders=host"
     },
     {
       "folderId": "62c72de2c2af12ff9e4ce511",
@@ -68,11 +68,11 @@
       "size": 874379
     },
     {
-      "name": "Warranties.pdf",
+      "name": "Invoice.xlsx",
       "folderId": "62c72de2c2af12ff9e4ce514",
       "createdAt": "2014-01-06T19:24:05.993Z",
       "updatedAt": "2017-04-034T08:00:05.993Z",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/Estimations%20FlexStaf.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T160439Z&X-Amz-Expires=86400&X-Amz-Signature=3343f93fcf80bddafe86e54296021547ce94637ed3ea1573a461ec42f1df6e53&X-Amz-SignedHeaders=host",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/commercial-invoice.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160331Z&X-Amz-Expires=86400&X-Amz-Signature=a6a82b1900ce87ac435d5ab8893c7ab6eb3df0a1f34e929e97e2736ae508aa09&X-Amz-SignedHeaders=host",
       "id": "62c72e25c2af12ff9e4l974d"
     },
     {

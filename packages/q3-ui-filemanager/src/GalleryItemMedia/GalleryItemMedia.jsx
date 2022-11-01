@@ -29,7 +29,7 @@ const GalleryItemMedia = ({ children, url }) => {
       setImageSrc(
         // the only way to get AWS signed URLs to work is by escaping
         // and not encoding...
-        `https://thumbnails.cloud/v1/jpg?token=${apiKey}&url=${escape(
+        `https://thumbnails.cloud/v3/jpg?token=${apiKey}&url=${escape(
           url,
         )}`,
       );
