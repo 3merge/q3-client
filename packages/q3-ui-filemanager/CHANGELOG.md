@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.3](https://github.com/3merge/q/compare/v3.15.2...v3.15.3) (2022-11-01)
+
+**Note:** Version bump only for package q3-ui-filemanager
+
+
+
+
+
 ## [3.14.3](https://github.com/3merge/q/compare/v3.14.2...v3.14.3) (2022-10-27)
 
 **Note:** Version bump only for package q3-ui-filemanager
