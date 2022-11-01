@@ -27,7 +27,7 @@ const makeCastToLocaleFn = (format) => (xs) => {
 };
 
 export const castToLocalDateTime = makeCastToLocaleFn(
-  'YYYY-MM-DDTkk:mm',
+  'YYYY-MM-DDTHH:mm',
 );
 export const castToLocalDate =
   makeCastToLocaleFn('YYYY-MM-DD');
