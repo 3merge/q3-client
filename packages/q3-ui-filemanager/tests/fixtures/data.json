@@ -37,7 +37,7 @@
       "updatedAt": "2022-07-07T19:02:58.281Z",
       "name": "clips.mp4",
       "id": "62c72de2c2af12ff9e4ce504",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/20220518_090634%20%282%29.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=571ff0699df17cab09f1da94379c4383bee5d02cedcc0e707bb366339cd0da72&X-Amz-SignedHeaders=host",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/20220518_090634%20%282%29.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=1%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=571ff0699df17cab09f1da94379c4383bee5d02cedcc0e707bb366339cd0da72&X-Amz-SignedHeaders=host",
       "folderId": "62c72de2c2af12ff9e4ce509"
     },
     {
@@ -46,7 +46,7 @@
       "createdAt": "2022-07-02T11:04:05.993Z",
       "updatedAt": "2022-07-06T06:04:05.993Z",
       "id": "62c72e67c2af12ff9f4ce52p",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/scale%20ticket%20sample.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160432Z&X-Amz-Expires=86400&X-Amz-Signature=621aa2a49e36fdafd06185ccb56ade001a1e444900e0e4f7d80b2b3a499d157d&X-Amz-SignedHeaders=host"
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/scale%20ticket%20sample.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=1%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160432Z&X-Amz-Expires=86400&X-Amz-Signature=621aa2a49e36fdafd06185ccb56ade001a1e444900e0e4f7d80b2b3a499d157d&X-Amz-SignedHeaders=host"
     },
     {
       "folderId": "62c72de2c2af12ff9e4ce511",
@@ -72,7 +72,7 @@
       "folderId": "62c72de2c2af12ff9e4ce514",
       "createdAt": "2014-01-06T19:24:05.993Z",
       "updatedAt": "2017-04-034T08:00:05.993Z",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/commercial-invoice.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160331Z&X-Amz-Expires=86400&X-Amz-Signature=a6a82b1900ce87ac435d5ab8893c7ab6eb3df0a1f34e929e97e2736ae508aa09&X-Amz-SignedHeaders=host",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/632b22d4ad2b91f06c1a02c3/commercial-invoice.xlsx?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=1%2F20221101%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20221101T160331Z&X-Amz-Expires=86400&X-Amz-Signature=a6a82b1900ce87ac435d5ab8893c7ab6eb3df0a1f34e929e97e2736ae508aa09&X-Amz-SignedHeaders=host",
       "id": "62c72e25c2af12ff9e4l974d"
     },
     {
@@ -80,7 +80,7 @@
       "folderId": "62c72de2c2af12ff9e4ce509",
       "createdAt": "2020-03-15T15:05:58.281Z",
       "updatedAt": "2020-04-21T19:01:58.281Z",
-      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/wasa-crispbread-k0_NZJf2Knw-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIFFGHKUY4Q2LYAIA%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=faf77a582e8bb96bc56b1aeaeca6e7df9053ba56198ed6f44adccb9fc00d9f00&X-Amz-SignedHeaders=host",
+      "url": "https://3merge-sandbox-private.s3.us-east-2.amazonaws.com/62c2f894a44eb725292350f0/wasa-crispbread-k0_NZJf2Knw-unsplash.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=1%2F20220719%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20220719T161753Z&X-Amz-Expires=86400&X-Amz-Signature=faf77a582e8bb96bc56b1aeaeca6e7df9053ba56198ed6f44adccb9fc00d9f00&X-Amz-SignedHeaders=host",
       "id": "62c72de2c2af12ff9e4ce999",
       "size": 435332
     },
