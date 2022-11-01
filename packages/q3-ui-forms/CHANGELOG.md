@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.15.4](https://github.com/3merge/q/compare/v3.15.3...v3.15.4) (2022-11-01)
+
+
+### Bug Fixes
+
+* hour format command ([85038ff](https://github.com/3merge/q/commit/85038ff65914700bb1c3b490ead813156f5652f5))
+
+
+
+
+
 ## [3.14.1](https://github.com/3merge/q/compare/v3.14.0...v3.14.1) (2022-10-26)
 
 **Note:** Version bump only for package q3-ui-forms
