@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import MenuIcon from '@material-ui/icons/Menu';
 import Back from '../../containers/back';
+import ToolbarDarkMode from '../ToolbarDarkMode';
 import ToolbarProfile from '../ToolbarProfile';
 import ButtonWithIcon from '../ButtonWithIcon';
 import Notifications from '../../containers/Notifications';
@@ -45,6 +46,7 @@ const Toolbar = ({ profileOptions }) => {
         <Box id="appbar-search" />
         <Box id="appbar-create" />
         <Notifications />
+        <ToolbarDarkMode />
         <ToolbarProfile options={profileOptions} />
       </Box>
     </Box>

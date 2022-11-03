@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form, Field } from 'q3-ui-forms/lib/builders';
-import useProfileForm from '../../hooks/useProfileForm';
+import useProfileThemeForm from '../../hooks/useProfileThemeForm';
 import SystemPageSub from '../../components/SystemPageSub';
 
 const ProfileChangeTheme = (props) => {
-  const { initialValues, onSubmit } = useProfileForm();
+  const { onSubmit, theme, themeOptions } =
+    useProfileThemeForm();
 
   return (
     <SystemPageSub title="appSettings">
@@ -16,14 +17,14 @@ const ProfileChangeTheme = (props) => {
         showSuccessMessage
         onSubmit={onSubmit}
         initialValues={{
-          theme: initialValues?.theme || 'light',
+          theme,
         }}
       >
         <Field
           name="theme"
           type="select"
           required
-          options={['dark', 'light']}
+          options={themeOptions}
           xl={12}
           lg={12}
         />
