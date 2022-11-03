@@ -7,7 +7,7 @@ import {
 } from 'q3-ui-navbar';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { get, map } from 'lodash';
+import { get, map, isFunction } from 'lodash';
 import App from './components/app';
 import {
   usePages,
@@ -76,6 +76,11 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
     [],
   );
 
+  const reorderNavBarPages = (xs) => {
+    const fn = get(NavProps, 'reorder');
+    return isFunction(fn) ? fn(xs) : xs;
+  };
+
   return (
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
@@ -89,7 +94,7 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
           <Viewport>
             <Navbar {...NavProps}>
               <NavbarListComponent
-                items={usePages(pages)}
+                items={reorderNavBarPages(usePages(pages))}
               />
             </Navbar>
             <Box className={cls.main}>
