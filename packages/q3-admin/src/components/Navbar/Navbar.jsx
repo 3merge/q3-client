@@ -1,93 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Dialog from 'q3-ui-dialog';
-import { Box, Paper, Hidden } from '@material-ui/core';
-import Logo from '../Logo';
-import NavbarCallToAction from '../NavbarCallToAction';
+import {
+  Box,
+  Paper,
+  useMediaQuery,
+} from '@material-ui/core';
 import useStyle from './styles';
+import useLocalStorageStateProxy from '../../hooks/useLocalStorageStateProxy';
 
-const Navbar = ({ callToAction, children }) => {
-  const cls = useStyle();
+const Navbar = ({ children }) => {
+  const isMobile = useMediaQuery((theme) =>
+    theme.breakpoints.down('md'),
+  );
 
-  const NavigationContents = (
-    <Box
-      display="flex"
-      className={cls.contents}
-      flexDirection="column"
-      height="100%"
-      overflow="auto"
-      flex="1"
-    >
-      <Hidden mdDown>
-        <Box bgcolor="background.paper" top="0" zIndex={1}>
-          <Logo />
-        </Box>
-      </Hidden>
-      <Box display="flex" flexDirection="column" flex="1">
-        <NavbarCallToAction {...callToAction} />
-        <Box flex="1">{children}</Box>
-      </Box>
-    </Box>
+  // will sometimes come back as a string from storage
+  const [stateValue, setState] = useLocalStorageStateProxy(
+    'q3-appbar-menu',
+    true,
+  );
+
+  const state = String(stateValue) === 'true';
+  const cls = useStyle({
+    state,
+  });
+
+  const toggle = () => setState(!state);
+
+  const renderMenuTrigger = React.useCallback(
+    (onClick) => (
+      <span
+        aria-hidden
+        aria-label="hidden-menu"
+        id="app-menu"
+        onClick={isMobile ? onClick : toggle}
+        style={{ display: 'none' }}
+      />
+    ),
+    [isMobile, state],
   );
 
   return (
     <>
-      <Hidden mdDown>
-        <Box className={cls.nav} component="nav">
-          <Paper className={cls.paper} color="primary">
-            {NavigationContents}
-          </Paper>
-        </Box>
-      </Hidden>
-      <Hidden lgUp>
-        <Dialog
-          PaperProps={{
-            style: {
-              maxWidth: '320px',
-            },
-          }}
-          anchor="left"
-          closeOnRouteChange
-          closeOnSearchChange
-          renderContent={() => NavigationContents}
-          renderTrigger={(onClick) => (
-            <Box
-              component="nav"
-              className={cls.appbar}
-              id="app-navbar"
-            >
-              {/* eslint-disable-next-line */}
-              <span
-                aria-label="hidden-menu"
-                id="app-menu"
-                onClick={onClick}
-                role="button"
-                style={{
-                  display: 'none',
-                }}
-              />
-              <Logo />
-            </Box>
-          )}
-          title="menu"
-          variant="drawer"
-        />
-      </Hidden>
+      <Box className={cls.nav} component="nav">
+        <Paper
+          className={cls.paper}
+          color="primary"
+          elevation={0}
+        >
+          {children}
+        </Paper>
+      </Box>
+      <Dialog
+        PaperProps={{
+          className: cls.dialog,
+        }}
+        anchor="left"
+        closeOnRouteChange
+        closeOnSearchChange
+        renderContent={() => children}
+        renderTrigger={renderMenuTrigger}
+        title="menu"
+        variant="drawer"
+      />
     </>
   );
 };
 
 Navbar.defaultProps = {
-  callToAction: null,
   children: null,
 };
 
 Navbar.propTypes = {
-  callToAction: PropTypes.shape({
-    icon: PropTypes.element,
-    label: PropTypes.string,
-    onClick: PropTypes.func,
-  }),
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.node,

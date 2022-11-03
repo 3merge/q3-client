@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
+import Back from '../../containers/back';
 import ToolbarProfile from '../ToolbarProfile';
 import ButtonWithIcon from '../ButtonWithIcon';
 import Notifications from '../../containers/Notifications';
+import Logo from '../Logo';
 import useStyle from './styles';
 
 const Toolbar = ({ profileOptions }) => {
@@ -17,24 +18,35 @@ const Toolbar = ({ profileOptions }) => {
       bgcolor="background.paper"
       display="flex"
       justifyContent="space-between"
-      id="app-toolbar"
+      id="appbar"
     >
-      <Hidden lgUp>
+      <Box alignItems="center" display="flex">
         <ButtonWithIcon
           label="menu"
           icon={MenuIcon}
-          onClick={() => {
-            document.getElementById('app-menu').click();
-          }}
+          onClick={() =>
+            document.getElementById('app-menu').click()
+          }
         />
-      </Hidden>
+        <Logo />
+      </Box>
       <Box
-        className={cls.actions}
-        flex={1}
-        id="app-toolbar-collection-actions"
-      />
-      <Notifications />
-      <ToolbarProfile options={profileOptions} />
+        id="appbar-mobile-top"
+        className={cls.actionsTop}
+      >
+        <Box id="appbar-filter" />
+        <Box id="appbar-settings" />
+      </Box>
+      <Box id="appbar-mobile" className={cls.actions}>
+        {/** sets default home button */}
+        <Box className={cls.back} id="appbar-back">
+          <Back />
+        </Box>
+        <Box id="appbar-search" />
+        <Box id="appbar-create" />
+        <Notifications />
+        <ToolbarProfile options={profileOptions} />
+      </Box>
     </Box>
   );
 };

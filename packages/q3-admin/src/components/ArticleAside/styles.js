@@ -9,7 +9,6 @@ export default makeStyles((theme) => ({
     transition: 'padding,width 250ms',
     width: isOpen ? 375 : 0,
     maxWidth: '33vw',
-    borderTop: `1px solid ${theme.palette.background.muted}`,
 
     [theme.breakpoints.down('md')]: {
       display: 'none',

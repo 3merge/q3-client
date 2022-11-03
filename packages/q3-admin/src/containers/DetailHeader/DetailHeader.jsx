@@ -2,29 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import { useTitle } from '../../hooks';
 import { Store } from '../state';
+import Back from '../back';
 
 const DetailHeader = ({ children, ...props }) => {
   const { data } = React.useContext(Store);
 
   const Title = (
-    <Typography
-      component="h1"
-      variant="h3"
-      style={{
-        margin: 0,
-        marginRight: '1rem',
-      }}
-    >
-      {useTitle(data, props)}
-    </Typography>
+    <div>
+      <Typography
+        contentEditable
+        component="h1"
+        variant="h3"
+      >
+        {useTitle(data, props)}
+      </Typography>
+    </div>
   );
 
   return children ? (
-    <Box display="flex" alignItems="center">
+    <Box>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={1}
+      >
+        <Box>
+          <Hidden mdDown>
+            <Back />
+          </Hidden>
+        </Box>
+        <Box display="flex">{children}</Box>
+      </Box>
       {Title}
-      {children}
     </Box>
   ) : (
     Title

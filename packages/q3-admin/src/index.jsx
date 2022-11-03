@@ -85,6 +85,7 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
         visibilityOptions={get(AppProps, 'roles', [])}
       >
         <BackProvider>
+          <Toolbar {...ToolbarProps} />
           <Viewport>
             <Navbar {...NavProps}>
               <NavbarListComponent
@@ -92,7 +93,6 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
               />
             </Navbar>
             <Box className={cls.main}>
-              <Toolbar {...ToolbarProps} />
               <App {...AppProps}>
                 <NotificationsPage path="notifications" />
                 <SystemPage path="account">

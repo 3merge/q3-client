@@ -3,13 +3,10 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   root: {
     paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     paddingLeft: 0,
     paddingRight: 0,
     position: 'relative',
-
-    [theme.breakpoints.up('lg')]: {
-      paddingTop: theme.spacing(3),
-    },
 
     [theme.breakpoints.down('md')]: {
       '& h1': {
