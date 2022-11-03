@@ -1,83 +1,67 @@
-import React from 'react';
 import { first } from 'lodash';
+import {
+  useContextMock,
+  useEffectMock,
+  useRefMock,
+} from 'q3-ui-test-utils/lib/reactUtils';
 import useNotifications from './useNotifications';
-import useNotificationsService from './useNotificationsService';
 
-jest.mock('./useNotificationsService', () => {
-  const markAsSeen = jest.fn();
-  const post = jest.fn().mockReturnValue({
+const ctx = useContextMock();
+const effect = useEffectMock();
+const ref = useRefMock();
+
+let markAsSeen;
+let post;
+
+beforeEach(() => {
+  markAsSeen = jest.fn();
+  post = jest.fn().mockReturnValue({
     then: jest
       .fn()
       .mockImplementation((callback) => callback()),
   });
 
-  const fn = jest.fn().mockReturnValue({
+  ctx.changeReturnValue({
     data: [{ id: 1 }],
     error: false,
     markAsSeen,
     post,
   });
-
-  fn.post = post;
-  fn.markAsSeen = markAsSeen;
-
-  return fn;
-});
-
-const refContext = {
-  current: undefined,
-};
-
-beforeAll(() => {
-  jest.spyOn(React, 'useRef').mockReturnValue(refContext);
-
-  jest
-    .spyOn(React, 'useEffect')
-    .mockImplementation((fn) => fn());
 });
 
 beforeEach(() => {
-  useNotificationsService.post.mockClear();
-  useNotificationsService.markAsSeen.mockClear();
+  ctx.reset();
+  effect.reset();
 });
 
 describe('useNotifications', () => {
   it('should run on change', () => {
-    refContext.current = true;
+    ref.current = true;
 
     useNotifications();
-    expect(useNotificationsService.post).toHaveBeenCalled();
-    expect(refContext.current).toBeFalsy();
+    expect(post).toHaveBeenCalled();
+    expect(ref.current).toBeFalsy();
   });
 
   it('should not run on change', () => {
-    refContext.current = false;
+    ref.current = false;
 
     useNotifications();
-    expect(
-      useNotificationsService.post,
-    ).not.toHaveBeenCalled();
+    expect(post).not.toHaveBeenCalled();
   });
 
   it('should call markAsSeen with ID', () => {
-    refContext.current = false;
+    ref.current = false;
 
     const data = first(useNotifications().data);
     data.acknowledge();
-
-    expect(
-      useNotificationsService.markAsSeen,
-    ).toHaveBeenCalledWith(data.id);
+    expect(markAsSeen).toHaveBeenCalledWith(data.id);
   });
 
   it('should call markAsSeen with ID', () => {
     const id = '123';
     useNotifications().acknowledge(null, id);
-
-    expect(
-      useNotificationsService.markAsSeen,
-    ).toHaveBeenCalledWith(id);
-
-    expect(refContext.current).toBeTruthy();
+    expect(markAsSeen).toHaveBeenCalledWith(id);
+    expect(ref.current).toBeTruthy();
   });
 });
