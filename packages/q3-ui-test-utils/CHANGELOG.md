@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.16.0](https://github.com/3merge/q/compare/v3.15.4...v3.16.0) (2022-11-03)
+
+
+### Features
+
+* editable titles, context notifications, dismissible menu and dark-mode toggle ([#441](https://github.com/3merge/q/issues/441)) ([8cb22ec](https://github.com/3merge/q/commit/8cb22ec3d7cd81e737f3c3eb5fe1ec90ae824dc4))
+
+
+
+
+
 # [3.13.0](https://github.com/3merge/q/compare/v3.12.0...v3.13.0) (2022-10-24)
 
 
