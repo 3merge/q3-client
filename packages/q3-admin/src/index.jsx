@@ -16,6 +16,7 @@ import {
   useProfileLocale,
   useProfileTheme,
 } from './hooks';
+import NotificationsContextProvider from './containers/NotificationsContextProvider';
 import NotificationsPage from './containers/NotificationsPage';
 import BackProvider from './containers/BackProvider';
 import Domain from './containers/Domain';
@@ -54,6 +55,18 @@ const QueueModule = React.memo(() => (
     <QueueLogs />
   </SystemPageSub>
 ));
+
+const withNotificationProvider = (Component) => (props) =>
+  (
+    <NotificationsContextProvider>
+      {React.useMemo(
+        () => (
+          <Component {...props} />
+        ),
+        [JSON.stringify(props)],
+      )}
+    </NotificationsContextProvider>
+  );
 
 const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
   const { pages } = AppProps;
@@ -196,4 +209,4 @@ Admin.defaultProps = {
   ToolbarProps: {},
 };
 
-export default Admin;
+export default withNotificationProvider(Admin);

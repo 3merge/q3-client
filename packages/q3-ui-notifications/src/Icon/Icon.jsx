@@ -8,12 +8,18 @@ import CloudIcon from '@material-ui/icons/Cloud';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import CommentIcon from '@material-ui/icons/Comment';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
+import useStyle from './styles';
 
 const Icon = ({ hasSeen, messageType }) => (
   <Badge
     invisible={hasSeen}
     variant="dot"
     color="secondary"
+    className={useStyle().badge}
+    anchorOrigin={{
+      vertical: 'top',
+      horizontal: 'left',
+    }}
   >
     <Avatar
       style={{

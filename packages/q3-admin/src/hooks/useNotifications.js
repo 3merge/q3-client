@@ -1,17 +1,18 @@
 import React from 'react';
 import { size } from 'lodash';
-import useNotificationsService from './useNotificationsService';
+import NotificationsContext from '../containers/NotificationsContext';
 
-export default (options) => {
+export default () => {
   const {
     clear,
     data,
     error,
     loading,
     getSeen,
+    getUnseen,
     markAsSeen,
     post,
-  } = useNotificationsService(options);
+  } = React.useContext(NotificationsContext) || {};
 
   const ref = React.useRef();
 
@@ -40,6 +41,7 @@ export default (options) => {
     acknowledge,
     syncSeen: post,
     getSeen,
+    getUnseen,
     data: data.map((item) => ({
       acknowledge: () => markAsSeen(item.id),
       label: item.path,

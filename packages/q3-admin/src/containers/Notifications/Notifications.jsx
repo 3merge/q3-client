@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { first, chunk } from 'lodash';
 import { Fab, Box, Hidden } from '@material-ui/core';
 import classnames from 'classnames';
 import Notifications from 'q3-ui-notifications';
@@ -55,9 +56,7 @@ ButtonComponentWithAnimation.propTypes = {
 const NotificationsContainer = () => {
   const { visit } = useNotificationsPage();
   const { data, clear, error, loading, syncSeen } =
-    useNotifications({
-      numberOfDays: 7,
-    });
+    useNotifications();
 
   const ButtonComponent = React.useCallback(
     (notificationProps) => (
@@ -71,7 +70,7 @@ const NotificationsContainer = () => {
   return (
     <Notifications
       buttonComponent={ButtonComponent}
-      data={data}
+      data={first(chunk(data, 50))}
       error={error}
       clear={clear}
       loading={loading}

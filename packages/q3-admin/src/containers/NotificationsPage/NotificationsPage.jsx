@@ -11,9 +11,7 @@ import useStyle from './styles';
 const Notifications = React.forwardRef((props, ref) => {
   const cls = useStyle();
   const { data, clear, error, loading, syncSeen } =
-    useNotifications({
-      numberOfDays: 365,
-    });
+    useNotifications();
 
   const { t } = useTranslation('labels');
   useNotificationClickEvent(data, syncSeen);
@@ -30,6 +28,7 @@ const Notifications = React.forwardRef((props, ref) => {
           </Typography>
         </Box>
         <NotificationsList
+          showConnectivityError
           loading={loading}
           error={error}
           clear={clear}

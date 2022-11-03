@@ -42,6 +42,7 @@ const ButtonWithIcon = React.forwardRef(
                 }}
                 showZero={false}
                 className={cls.badge}
+                variant="dot"
               >
                 <Icon />
               </Badge>
