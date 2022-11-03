@@ -9,22 +9,13 @@ import Back from '../back';
 
 const DetailAppbar = (props) => (
   <Header>
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      mb={1}
-    >
-      <Box>
-        <Hidden mdDown>
-          <Back />
-        </Hidden>
-      </Box>
-      <Box display="flex">
-        <ActionBar>
-          <DetailActions {...props} />
-        </ActionBar>
-      </Box>
+    <Box display="flex" alignItems="center" mb={1}>
+      <Hidden mdDown>
+        <Back />
+      </Hidden>
+      <ActionBar>
+        <DetailActions {...props} />
+      </ActionBar>
     </Box>
     <DetailHeader {...props} />
   </Header>

@@ -7,14 +7,8 @@ import Header from '../../components/Header';
 // eslint-disable-next-line
 const CollectionHeader = ({ children, ...props }) => (
   <Header>
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      width="100%"
-    >
-      <Box flex="1">
-        <CollectionName />
-      </Box>
+    <Box alignItems="center" display="flex" width="100%">
+      <CollectionName />
       <TableActions {...props} />
     </Box>
     {children}
