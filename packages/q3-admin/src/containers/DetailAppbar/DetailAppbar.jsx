@@ -1,19 +1,32 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Hidden from '@material-ui/core/Hidden';
 import DetailActions from '../DetailActions';
 import DetailHeader from '../DetailHeader';
 import ActionBar from '../../components/ActionBar';
 import Header from '../../components/Header';
+import Back from '../back';
 
 const DetailAppbar = (props) => (
   <Header>
-    <Box width="100%">
-      <DetailHeader {...props}>
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent="space-between"
+      mb={1}
+    >
+      <Box>
+        <Hidden mdDown>
+          <Back />
+        </Hidden>
+      </Box>
+      <Box display="flex">
         <ActionBar>
           <DetailActions {...props} />
         </ActionBar>
-      </DetailHeader>
+      </Box>
     </Box>
+    <DetailHeader {...props} />
   </Header>
 );
 

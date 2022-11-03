@@ -4,8 +4,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Box,
 } from '@material-ui/core';
-import { lowerCase, omit } from 'lodash';
+import { lowerCase, omit, isNumber } from 'lodash';
 import ListItemArrow from '../ListItemArrow';
 import useStyle from './styles';
 
@@ -17,12 +18,20 @@ const NavbarListItemBase = ({
   label,
   matches,
   selected,
+  badge,
   ...props
 }) => {
   const cls = useStyle({
     matches,
     selected,
   });
+
+  const renderArrow = () =>
+    arrow ? <ListItemArrow state={selected} /> : null;
+
+  const renderBadge = () => (
+    <Box className={cls.badge}>{String(badge)}</Box>
+  );
 
   return (
     <li
@@ -44,7 +53,9 @@ const NavbarListItemBase = ({
           </ListItemIcon>
         )}
         <ListItemText primary={label} />
-        {arrow && <ListItemArrow state={selected} />}
+        {badge && isNumber(badge)
+          ? renderBadge()
+          : renderArrow()}
       </ListItem>
       {children}
     </li>
@@ -53,6 +64,7 @@ const NavbarListItemBase = ({
 
 NavbarListItemBase.defaultProps = {
   arrow: false,
+  badge: 0,
   children: null,
   className: undefined,
   icon: null,
@@ -62,6 +74,7 @@ NavbarListItemBase.defaultProps = {
 
 NavbarListItemBase.propTypes = {
   arrow: PropTypes.bool,
+  badge: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.string,
   label: PropTypes.string.isRequired,

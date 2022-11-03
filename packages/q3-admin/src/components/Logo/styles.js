@@ -6,9 +6,9 @@ export default makeStyles((theme) => ({
     display: 'flex',
     height: 75,
     maxHeight: 75,
-    width: 245,
-    justifyContent: 'center',
+    width: 310,
     padding: theme.spacing(0.5),
+    justifyContent: 'flex-start',
 
     [theme.breakpoints.down('lg')]: {
       alignItems: 'center',
@@ -18,7 +18,6 @@ export default makeStyles((theme) => ({
     [theme.breakpoints.down('md')]: {
       height: 65,
       maxHeight: 65,
-      justifyContent: 'flex-start',
       width: 250,
     },
   },
@@ -28,7 +27,7 @@ export default makeStyles((theme) => ({
         ? 'invert(1) grayscale(100%)'
         : undefined,
     objectFit: 'contain',
-    objectPosition: 'center',
+    objectPosition: 'left',
     padding: padLogo ? '.75rem' : undefined,
     height: '100%',
     width: '100%',

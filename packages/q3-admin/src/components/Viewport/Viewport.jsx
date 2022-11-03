@@ -1,40 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { browser } from 'q3-ui-helpers';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-
-const setViewportUnit = () => {
-  const vh = window.innerHeight;
-  document
-    .querySelector(':root')
-    .style.setProperty('--vh', `${vh / 100}px`);
-  return vh;
-};
+import useStyles from './styles';
+import useGlobalStyle from '../useStyle';
 
 const AppViewport = ({ children }) => {
+  const cls = useStyles();
+  const globalCls = useGlobalStyle();
+
   React.useLayoutEffect(() => {
     if (!browser.isBrowserReady()) return undefined;
-    window.addEventListener('resize', setViewportUnit);
-    setViewportUnit();
+
+    const setViewport = () =>
+      browser.setCustomCssVariable(
+        '--vh',
+        `${100 * (window.innerHeight / 100)}px`,
+      );
+
+    window.addEventListener('resize', setViewport);
+    setViewport();
 
     return () => {
-      window.removeEventListener('resize', setViewportUnit);
+      window.removeEventListener('resize', setViewport);
     };
   }, []);
 
   return (
     <Container
-      maxWidth="xl"
-      disableGutters
+      className={classnames(
+        // maintain this order
+        globalCls.fillViewportHeight,
+        cls.container,
+      )}
       component="main"
-      style={{
-        overflow: 'hidden',
-        flexWrap: 'nowrap',
-        position: 'relative',
-        maxHeight: '100vh',
-      }}
+      disableGutters
+      maxWidth="xl"
     >
       <Grid container>{children}</Grid>
     </Container>

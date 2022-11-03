@@ -4,10 +4,12 @@ import {
   InputAdornment,
   TextField,
   IconButton,
+  Button,
+  Box,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
-
+import { useTranslation } from 'q3-ui-locale';
 import useStyle from './styles';
 
 export const SearchFullWidth = ({
@@ -15,6 +17,7 @@ export const SearchFullWidth = ({
   value,
   ...rest
 }) => {
+  const { t } = useTranslation('labels');
   const cls = useStyle();
 
   const handleSubmit = (e) => {
@@ -31,6 +34,11 @@ export const SearchFullWidth = ({
       fullWidth
       InputProps={{
         disableUnderline: true,
+        startAdornment: (
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        ),
         endAdornment: (
           <InputAdornment
             className={cls.adornment}
@@ -44,12 +52,17 @@ export const SearchFullWidth = ({
                 <Close />
               </IconButton>
             ) : null}
-            <IconButton
-              onClick={handleSubmit}
-              onKeyPress={handleSubmit}
-            >
-              <SearchIcon />
-            </IconButton>
+            <Box p={0.25}>
+              <Button
+                onClick={handleSubmit}
+                onKeyPress={handleSubmit}
+                variant="contained"
+                size="small"
+                startIcon="⌘"
+              >
+                {t('enterSearch')}
+              </Button>
+            </Box>
           </InputAdornment>
         ),
       }}

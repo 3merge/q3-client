@@ -1,42 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+// eslint-disable-next-line
+import { EditableTypography } from 'q3-components';
 import Typography from '@material-ui/core/Typography';
+import { useAuth } from 'q3-ui-permissions';
 import { useTitle } from '../../hooks';
-import { Store } from '../state';
+import { Dispatcher, Store, Definitions } from '../state';
+import useStyle from './styles';
 
-const DetailHeader = ({ children, ...props }) => {
+const DetailHeader = (props) => {
+  const { collectionName } = React.useContext(Definitions);
   const { data } = React.useContext(Store);
+  const { patch } = React.useContext(Dispatcher);
+  const { canEditSub } = useAuth(collectionName);
+  const text = useTitle(data, props);
+  const cls = useStyle();
 
-  const Title = (
-    <Typography
-      component="h1"
-      variant="h3"
-      style={{
-        margin: 0,
-        marginRight: '1rem',
-      }}
-    >
-      {useTitle(data, props)}
+  const { editable, titleProp: name } = props;
+  const typographyProps = {
+    component: 'h1',
+    id: 'detail-title',
+    variant: 'h3',
+  };
+
+  return name && canEditSub(name) && editable ? (
+    <Typography {...typographyProps} className={cls.h1}>
+      <EditableTypography
+        component="span"
+        fieldProps={{
+          name,
+          required: true,
+          type: 'text',
+        }}
+        isEditable
+        initialValues={{
+          [name]: text,
+        }}
+        onSubmit={patch()}
+      >
+        {text}
+      </EditableTypography>
     </Typography>
-  );
-
-  return children ? (
-    <Box display="flex" alignItems="center">
-      {Title}
-      {children}
-    </Box>
   ) : (
-    Title
+    <Typography {...typographyProps}>{text}</Typography>
   );
 };
 
 DetailHeader.defaultProps = {
-  children: null,
+  editable: false,
+  titleProp: undefined,
 };
 
 DetailHeader.propTypes = {
-  children: PropTypes.element,
+  editable: PropTypes.bool,
+  titleProp: PropTypes.string,
 };
 
 export default DetailHeader;

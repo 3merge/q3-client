@@ -13,8 +13,8 @@ const useHeightRef = () => {
 
   const reportWindowSize = debounce(() => {
     const parts = [
-      getClientHeightById('app-navbar'),
-      getClientHeightById('app-toolbar'),
+      getClientHeightById('appbar'),
+      getClientHeightById('appbar-mobile'),
       getClientHeightById('collection-header'),
       1,
     ]
@@ -25,7 +25,7 @@ const useHeightRef = () => {
     set(
       ref,
       'current.style.height',
-      `calc((100 * var(--vh)) - ${parts})`,
+      `calc(var(--vh, 100vh) - ${parts})`,
     );
   }, 1);
 

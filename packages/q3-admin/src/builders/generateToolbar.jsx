@@ -1,33 +1,47 @@
 import React from 'react';
-import ToolbarCollection from '../components/ToolbarCollection';
+import { Hidden } from '@material-ui/core';
+import ToolbarPortal from '../components/ToolbarPortal';
 import AddNewDialog from '../components/AddNewDialog';
 import AddNewIdAuth from '../components/AddNewIdAuth';
+import SearchWithNgramAuth from '../components/SearchWithNgramAuth';
+import Back from '../containers/back';
 
 export default (forwardedProps = {}) =>
-  (props) => {
+  () => {
     const {
       addComponent: AddComponent,
       addComponentWrapper: AddComponentWrapper,
-      ...rest
     } = forwardedProps;
 
     return (
-      <ToolbarCollection {...rest} {...props}>
+      <>
+        <Hidden lgUp>
+          <ToolbarPortal id="appbar-back">
+            <Back />
+          </ToolbarPortal>
+        </Hidden>
+        <ToolbarPortal id="appbar-search">
+          <SearchWithNgramAuth />
+        </ToolbarPortal>
         {AddComponent ? (
-          <AddNewIdAuth>
-            <AddNewDialog>
-              {(closeDialog) =>
-                AddComponentWrapper ? (
-                  <AddComponentWrapper close={closeDialog}>
-                    <AddComponent />
-                  </AddComponentWrapper>
-                ) : (
-                  <AddComponent close={closeDialog} />
-                )
-              }
-            </AddNewDialog>
-          </AddNewIdAuth>
+          <ToolbarPortal id="appbar-create">
+            <AddNewIdAuth>
+              <AddNewDialog>
+                {(closeDialog) =>
+                  AddComponentWrapper ? (
+                    <AddComponentWrapper
+                      close={closeDialog}
+                    >
+                      <AddComponent />
+                    </AddComponentWrapper>
+                  ) : (
+                    <AddComponent close={closeDialog} />
+                  )
+                }
+              </AddNewDialog>
+            </AddNewIdAuth>
+          </ToolbarPortal>
         ) : null}
-      </ToolbarCollection>
+      </>
     );
   };

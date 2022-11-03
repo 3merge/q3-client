@@ -565,7 +565,8 @@
       "shareFilters": "Copy query to clipboard",
       "all": "All",
       "createdBy": "Created by {{name}}",
-      "lastModifiedBy": "Updated by {{name}}"
+      "lastModifiedBy": "Updated by {{name}}",
+      "createShows": "Create show"
     },
     "titles": {
       "delete": "Delete confirmation",

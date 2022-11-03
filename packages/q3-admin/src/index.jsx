@@ -7,7 +7,7 @@ import {
 } from 'q3-ui-navbar';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { get, map } from 'lodash';
+import { get, map, isFunction } from 'lodash';
 import App from './components/app';
 import {
   usePages,
@@ -16,6 +16,7 @@ import {
   useProfileLocale,
   useProfileTheme,
 } from './hooks';
+import NotificationsContextProvider from './containers/NotificationsContextProvider';
 import NotificationsPage from './containers/NotificationsPage';
 import BackProvider from './containers/BackProvider';
 import Domain from './containers/Domain';
@@ -55,6 +56,18 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
+const withNotificationProvider = (Component) => (props) =>
+  (
+    <NotificationsContextProvider>
+      {React.useMemo(
+        () => (
+          <Component {...props} />
+        ),
+        [JSON.stringify(props)],
+      )}
+    </NotificationsContextProvider>
+  );
+
 const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
   const { pages } = AppProps;
   const cls = useStyle();
@@ -76,6 +89,11 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
     [],
   );
 
+  const reorderNavBarPages = (xs) => {
+    const fn = get(NavProps, 'reorder');
+    return isFunction(fn) ? fn(xs) : xs;
+  };
+
   return (
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
@@ -85,14 +103,14 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
         visibilityOptions={get(AppProps, 'roles', [])}
       >
         <BackProvider>
+          <Toolbar {...ToolbarProps} />
           <Viewport>
             <Navbar {...NavProps}>
               <NavbarListComponent
-                items={usePages(pages)}
+                items={reorderNavBarPages(usePages(pages))}
               />
             </Navbar>
             <Box className={cls.main}>
-              <Toolbar {...ToolbarProps} />
               <App {...AppProps}>
                 <NotificationsPage path="notifications" />
                 <SystemPage path="account">
@@ -191,4 +209,4 @@ Admin.defaultProps = {
   ToolbarProps: {},
 };
 
-export default Admin;
+export default withNotificationProvider(Admin);

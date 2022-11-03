@@ -66,3 +66,13 @@ export const copyToClipboard = (str) => {
 
 export const fetchJson = (uri) =>
   fetch(uri).then((resp) => resp.json());
+
+export const setCustomCssVariable = (
+  variableName,
+  variableValue,
+) => {
+  if (isBrowserReady())
+    document
+      .querySelector(':root')
+      .style.setProperty(variableName, variableValue);
+};

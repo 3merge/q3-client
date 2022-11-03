@@ -744,6 +744,7 @@ const DomainChangeManifest = () => {
           'brand',
           'title',
           'color',
+          'colorDarkMode',
           'supportedLngs',
           'description',
           'font',
@@ -774,6 +775,12 @@ const DomainChangeManifest = () => {
         <Builders.Field
           type="color"
           name="color"
+          xl={12}
+          lg={12}
+        />
+        <Builders.Field
+          type="color"
+          name="colorDarkMode"
           xl={12}
           lg={12}
         />

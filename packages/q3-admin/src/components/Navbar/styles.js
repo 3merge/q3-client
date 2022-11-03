@@ -1,53 +1,37 @@
 import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
-  nav: {
+  nav: ({ state }) => ({
     backgroundColor: theme.palette.background.paper,
-    height: 'calc(100 * var(--vh))',
+    height: 'var(--vh, 100vh)',
     position: 'relative',
-    width: 245,
+    transition: 'width 250ms ease-in',
     zIndex: 10,
+    width: state ? 225 : 0,
 
-    '& > div > a': {
-      maxHeight: 80,
-      marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
     },
-  },
-  appbar: {
-    boxShadow: theme.shadows[1],
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    height: 65,
-    padding: `0 ${theme.spacing(1)}`,
-    width: '100%',
-    zIndex: 0,
-  },
+  }),
+
   paper: {
     borderRadius: 0,
     overflowX: 'auto',
-    padding: 0,
+    padding: `${theme.spacing(1)} 0`,
     height: '100%',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     backgroundColor: theme.palette.background.paper,
+    borderRight: `1px solid ${theme.palette.background.muted}`,
   },
-  buttonLink: {
-    '&.active': {
-      color: theme.palette.secondary.main,
-    },
-  },
-  contents: {
-    height: 'auto',
-    minHeight: '100%',
-    overflowX: 'hidden',
-    overflow: 'overlay',
-    [theme.breakpoints.down('md')]: {
-      margin: '-1.5rem',
-      overflow: 'auto',
+
+  dialog: {
+    maxWidth: '245px',
+
+    '& > div > div': {
+      padding: 0,
     },
   },
 }));

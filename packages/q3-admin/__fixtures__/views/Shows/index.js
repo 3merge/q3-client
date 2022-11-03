@@ -37,6 +37,7 @@ export default new AbstractCollectionBuilder({
     iconBg: name === 'Archer' ? '#FF4785' : undefined,
   }))
   .genHeader({
+    editable: true,
     titleProp: 'name',
   })
   .genCreate(Add)

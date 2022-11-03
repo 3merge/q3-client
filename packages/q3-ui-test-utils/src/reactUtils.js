@@ -84,3 +84,12 @@ export const useEffectMock = createEffectMock('useEffect');
 export const useLayoutEffectMock = createEffectMock(
   'useLayoutEffect',
 );
+
+export const useRefMock = () => {
+  const ref = {
+    current: null,
+  };
+
+  jest.spyOn(React, 'useRef').mockReturnValue(ref);
+  return ref;
+};

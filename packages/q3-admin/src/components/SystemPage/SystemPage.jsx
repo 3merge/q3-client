@@ -9,7 +9,7 @@ const SystemPage = ({ children }) => {
   return (
     <Box
       bgcolor="background.paper"
-      className={globalCls.fillViewportHeightWithoutAppbar}
+      className={globalCls.fillViewportHeight}
       py={2}
     >
       {children}

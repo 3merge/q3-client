@@ -39,6 +39,7 @@ const useSegmentsWithPages = () => {
           'icon',
           'parent',
           'to',
+          'badge',
         ]),
         segments: addPagePath(
           get(structured, page?.collectionName, []),

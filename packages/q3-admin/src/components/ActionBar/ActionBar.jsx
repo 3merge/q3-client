@@ -5,7 +5,6 @@ import {
   Drawer,
   List,
   ListItem,
-  Grow,
   Divider,
 } from '@material-ui/core';
 import { size } from 'lodash';
@@ -14,6 +13,7 @@ import { useOpen } from 'useful-state';
 import CheckIcon from '@material-ui/icons/Check';
 import useStyle from './styles';
 import ButtonWithIcon from '../ButtonWithIcon';
+import ToolbarPortal from '../ToolbarPortal';
 
 // eslint-disable-next-line
 const Actionbar = ({ children }) => {
@@ -83,25 +83,15 @@ const Actionbar = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      <Grow in>
-        <Box
-          position="fixed"
-          top={0}
-          right={0}
-          height={65}
-          display="flex"
-          alignItems="center"
-          mr={1.5}
-        >
-          <ButtonWithIcon
-            onClick={open}
-            transparent
-            icon={MoreVertIcon}
-            label="actions"
-            disabled={!size(links)}
-          />
-        </Box>
-      </Grow>
+      <ToolbarPortal id="appbar-settings">
+        <ButtonWithIcon
+          onClick={open}
+          transparent
+          icon={MoreVertIcon}
+          label="actions"
+          disabled={!size(links)}
+        />
+      </ToolbarPortal>
       <Fade in>
         <Box ref={ref} display="flex" className={cls.root}>
           {children}

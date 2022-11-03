@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
+import { isFunction, capitalize } from 'lodash';
 import Dialog from 'q3-ui-dialog';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,11 @@ import { Definitions } from '../../containers/state';
 const AddNewDialog = ({ children }) => {
   const { collectionName } = React.useContext(Definitions);
   const { t } = useTranslation('labels');
+  const specializedKey = `create${capitalize(
+    collectionName,
+  )}`;
+
+  const label = t(specializedKey);
 
   return isFunction(children) ? (
     <Dialog
@@ -28,7 +33,9 @@ const AddNewDialog = ({ children }) => {
                 startIcon={<AddIcon />}
                 variant="contained"
               >
-                {t('create')}
+                {label !== specializedKey
+                  ? label
+                  : t('create')}
               </Button>
             </Box>
           </Hidden>

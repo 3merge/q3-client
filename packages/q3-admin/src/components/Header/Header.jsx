@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Container,
-  Fade,
-  Hidden,
-} from '@material-ui/core';
-import Breadcrumbs from '../Breadcrumbs';
+import { Container, Fade } from '@material-ui/core';
 import useStyle from './styles';
 
 // eslint-disable-next-line
@@ -17,12 +11,7 @@ const Header = ({ children }) => (
       id="collection-header"
       maxWidth="xl"
     >
-      <Hidden lgUp>
-        <Breadcrumbs />
-      </Hidden>
-      <Box alignItems="center" display="flex" width="100%">
-        {children}
-      </Box>
+      {children}
     </Container>
   </Fade>
 );

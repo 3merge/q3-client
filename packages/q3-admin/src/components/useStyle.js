@@ -13,20 +13,11 @@ export default makeStyles((theme) => ({
   },
 
   fillViewportHeight: {
-    height: 'calc(100 * var(--vh) - 75px)',
+    height: 'calc(var(--vh, 100vh) - 75px)',
     overflow: 'auto',
 
     [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 65px - 75px)',
-    },
-  },
-
-  fillViewportHeightWithoutAppbar: {
-    height: 'calc(100 * var(--vh) - 75px)',
-    overflow: 'auto',
-
-    [theme.breakpoints.down('md')]: {
-      height: 'calc((100 * var(--vh)) - 65px - 75px)',
+      height: 'calc(var(--vh, 100vh) - 150px)',
     },
   },
 }));

@@ -3,8 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
   badge: {
     '& > span:last-of-type': {
-      left: '-.5rem',
-      top: '-.5rem',
+      left: '-.25rem',
+      top: '-.25rem',
+      width: 4,
     },
   },
   fab: ({ on, transparent }) => {
