@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 export default makeStyles((theme) => ({
   nav: ({ state }) => ({
     backgroundColor: theme.palette.background.paper,
-    height: 'var(--vh, 100vh)',
+    height: 'calc(var(--vh,100vh) - 75px)',
     position: 'relative',
     transition: 'width 250ms ease-in',
     zIndex: 10,

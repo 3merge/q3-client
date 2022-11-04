@@ -39,7 +39,8 @@ const useTitle = ({
     return Boolean(
       isFn(editable) ? editable(data, auth) : editable,
     );
-  }, [editable, name, text]);
+    // turns out we need the full data object here and not just text
+  }, [editable, name, data]);
 
   return {
     FieldProps: {

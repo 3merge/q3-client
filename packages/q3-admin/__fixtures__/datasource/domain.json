@@ -7,6 +7,9 @@
   "name": "Q3",
   "invertLogo": true,
   "padLogo": true,
+  "listens": {
+    "Developer": ["onTest"]
+  },
   "resources": {
     "descriptions": {
       "demo": "Welcome to your new component! Descriptions auto-populate from the locale file and will not display if they aren't set.",

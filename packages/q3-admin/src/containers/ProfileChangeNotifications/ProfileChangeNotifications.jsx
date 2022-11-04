@@ -37,7 +37,8 @@ const ProfileNotifications = ({ children }) => {
             onSubmit({
               listens: Object.entries(values)
                 .reduce((acc, [key, value]) => {
-                  if (value) acc.push(key);
+                  if (String(value) === 'true')
+                    acc.push(key);
                   return acc;
                 }, [])
                 .sort(),
