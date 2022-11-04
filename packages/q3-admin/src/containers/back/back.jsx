@@ -5,8 +5,10 @@ import HomeIcon from '@material-ui/icons/Home';
 import { useMediaQuery } from '@material-ui/core';
 import { useBack } from '../../hooks';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
+import { Domain } from '../state';
 
 const Back = () => {
+  const { directory = '/' } = React.useContext(Domain);
   const fn = useBack();
   const isDesktop = useMediaQuery((theme) =>
     theme.breakpoints.up('lg'),
@@ -28,7 +30,7 @@ const Back = () => {
           role="link"
           label="home"
           component={Link}
-          to="/"
+          to={directory}
         />
       )}
     </div>

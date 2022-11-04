@@ -16,9 +16,15 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
-      height: 65,
-      maxHeight: 65,
       width: 250,
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: 175,
+    },
+
+    [theme.breakpoints.down('xs')]: {
+      width: 120,
     },
   },
   img: ({ invertLogo, padLogo }) => ({

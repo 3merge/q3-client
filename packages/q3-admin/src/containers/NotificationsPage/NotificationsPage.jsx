@@ -5,6 +5,8 @@ import { Box, Typography } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import withPageLeave from '../../helpers/withPageLeave';
 import Article from '../../components/Article';
+import Header from '../../components/Header';
+import Title from '../../components/Title';
 import { useNotifications } from '../../hooks';
 import useStyle from './styles';
 
@@ -22,11 +24,9 @@ const Notifications = React.forwardRef((props, ref) => {
   return (
     <Article>
       <Box className={cls.root} py={2} mb={4}>
-        <Box mt={2} mb={1}>
-          <Typography variant="h1">
-            {t('notifications')}
-          </Typography>
-        </Box>
+        <Header>
+          <Title>{t('notifications')}</Title>
+        </Header>
         <NotificationsList
           showConnectivityError
           loading={loading}

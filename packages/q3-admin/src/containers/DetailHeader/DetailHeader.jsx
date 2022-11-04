@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line
 import { EditableTypography } from 'q3-components';
-import Typography from '@material-ui/core/Typography';
+import Title from '../../components/Title';
 import { useTitle } from '../../hooks';
 import useStyle from './styles';
 
@@ -10,14 +10,9 @@ const DetailHeader = (props) => {
     useTitle(props);
 
   const cls = useStyle();
-  const typographyProps = {
-    component: 'h1',
-    id: 'detail-title',
-    variant: 'h3',
-  };
 
   return editable ? (
-    <Typography {...typographyProps} className={cls.h1}>
+    <Title className={cls.h1}>
       <EditableTypography
         {...FormProps}
         component="span"
@@ -27,9 +22,9 @@ const DetailHeader = (props) => {
       >
         {text}
       </EditableTypography>
-    </Typography>
+    </Title>
   ) : (
-    <Typography {...typographyProps}>{text}</Typography>
+    <Title>{text}</Title>
   );
 };
 
