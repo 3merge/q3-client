@@ -39,12 +39,12 @@ const Inline = ({
         onClose={close}
         anchorEl={ref.current}
         anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
+          vertical: 'top',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: 'center',
-          horizontal: 'center',
+          vertical: 'top',
+          horizontal: 'left',
         }}
         elevation={15}
         disableRestoreFocus
