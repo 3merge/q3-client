@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.16.3](https://github.com/3merge/q/compare/v3.16.2...v3.16.3) (2022-11-04)
+
+
+### Bug Fixes
+
+* notification toggle and navbar height ([c0302ba](https://github.com/3merge/q/commit/c0302ba64ee753a5d6a49ab474f6e3bea0ca7e78))
+
+
+
+
+
 ## [3.16.2](https://github.com/3merge/q/compare/v3.16.1...v3.16.2) (2022-11-04)
 
 **Note:** Version bump only for package q3-admin
