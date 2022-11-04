@@ -141,6 +141,17 @@ export default (customThemeDefs, type, font = 'Nunito') => {
             fontSize: 'initial !important',
             color,
 
+            '& .fix-min-width': {
+              maxWidth: 320,
+              minWidth: 'min-content',
+              fontSize: '0.812rem',
+
+              [theme.breakpoints.down('md')]: {
+                marginBottom: 75,
+                maxWidth: '100%',
+              },
+            },
+
             '& *::-webkit-scrollbar': {
               height: 8,
               width: 8,
