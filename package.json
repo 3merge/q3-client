@@ -106,7 +106,7 @@
     "micromatch": "^4.0.2",
     "moment": "2.29.4",
     "moment-timezone": "^0.5.34",
-    "notistack": "1.0.10",
+    "notistack": "3.0.0-alpha.11",
     "qs": "^6.9.6",
     "query-string": "^7.0.1",
     "react": "^17.0.1",

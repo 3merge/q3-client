@@ -23,7 +23,7 @@
     "lodash": "^4.17.20",
     "micromatch": "^4.0.2",
     "moment": "2.29.4",
-    "notistack": "1.0.10",
+    "notistack": "3.0.0-alpha.11",
     "pigeon-maps": "^0.21.3",
     "prop-types": "^15.7.2",
     "q3-ui": "^3.16.0",

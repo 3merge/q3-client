@@ -39,6 +39,7 @@ import SystemPage from './components/SystemPage';
 import SystemPageSub from './components/SystemPageSub';
 import Toolbar from './components/Toolbar';
 import DomainLoading from './components/DomainLoading';
+import Loader from './components/loader';
 
 export { getDomain } from './hooks/useDomain';
 export * from './containers';
@@ -61,7 +62,10 @@ const withNotificationProvider = (Component) => (props) =>
     <NotificationsContextProvider>
       {React.useMemo(
         () => (
-          <Component {...props} />
+          <>
+            <Loader />
+            <Component {...props} />
+          </>
         ),
         [JSON.stringify(props)],
       )}

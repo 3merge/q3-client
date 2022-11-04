@@ -18,7 +18,7 @@
     "material-ui-chip-input": "^1.1.0",
     "moment": "2.29.4",
     "moment-timezone": "^0.5.34",
-    "notistack": "1.0.10",
+    "notistack": "3.0.0-alpha.11",
     "prop-types": "^15.7.2",
     "q3-ui-dialog": "^3.16.0",
     "q3-ui-locale": "^3.16.0",

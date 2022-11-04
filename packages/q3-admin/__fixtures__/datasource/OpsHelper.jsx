@@ -64,6 +64,8 @@ export default class OpsHelper {
 
     return {
       [keyName]: doc,
+      message:
+        'This is a long success message that needs to wrap onto multiple lines.',
     };
   }
 
