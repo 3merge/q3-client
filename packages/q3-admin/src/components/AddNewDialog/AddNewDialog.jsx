@@ -9,6 +9,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { useTranslation } from 'q3-ui-locale';
 import ButtonWithIcon from '../ButtonWithIcon';
 import { Definitions } from '../../containers/state';
+import useStyle from './styles';
 
 const AddNewDialog = ({ children }) => {
   const { collectionName } = React.useContext(Definitions);
@@ -18,6 +19,7 @@ const AddNewDialog = ({ children }) => {
   )}`;
 
   const label = t(specializedKey);
+  const cls = useStyle();
 
   return isFunction(children) ? (
     <Dialog
@@ -44,6 +46,7 @@ const AddNewDialog = ({ children }) => {
               onClick={onClick}
               icon={AddIcon}
               label="create"
+              className={cls.button}
             />
           </Hidden>
         </Box>
