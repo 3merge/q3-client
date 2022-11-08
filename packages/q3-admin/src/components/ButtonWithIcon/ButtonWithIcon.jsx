@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import React from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'q3-ui-locale';
 import Badge from '@material-ui/core/Badge';
@@ -10,7 +11,15 @@ import useStyle from './styles';
 
 const ButtonWithIcon = React.forwardRef(
   (
-    { icon: Icon, label, count, on, transparent, ...rest },
+    {
+      icon: Icon,
+      label,
+      count,
+      on,
+      transparent,
+      className,
+      ...rest
+    },
     ref,
   ) => {
     const { t } = useTranslation('labels');
@@ -28,7 +37,11 @@ const ButtonWithIcon = React.forwardRef(
               size="small"
               elevation={0}
               ref={ref}
-              className={cls.fab}
+              className={classnames(
+                ...[cls.fab, className]
+                  .flat()
+                  .filter(Boolean),
+              )}
               aria-label={t(label)}
               variant="contained"
               color="default"
@@ -63,12 +76,14 @@ ButtonWithIcon.propTypes = {
   count: PropTypes.number,
   on: PropTypes.bool,
   transparent: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 ButtonWithIcon.defaultProps = {
   count: 0,
   on: false,
   transparent: false,
+  className: undefined,
 };
 
 export default ButtonWithIcon;

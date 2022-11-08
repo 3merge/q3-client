@@ -36,8 +36,8 @@ export default makeStyles((theme) => ({
         out.borderColor = theme.palette.secondary.main;
         out.color = theme.palette.secondary.main;
       } else {
-        out.backgroundColor = theme.palette.secondary.main;
-        out.color = theme.palette.secondary.contrastText;
+        out.backgroundColor = theme.palette.secondary.light;
+        out.color = theme.palette.secondary.main;
       }
     }
 

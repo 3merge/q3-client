@@ -13,8 +13,9 @@ export default makeStyles((theme) => ({
     width: '100%',
 
     [theme.breakpoints.down('md')]: {
-      zIndex: 0,
+      zIndex: 1,
       padding: `${theme.spacing(0.25)} ${theme.spacing(1)}`,
+      borderBottom: 'none',
 
       '& > div > div > div > button': {
         background: 'transparent',
@@ -40,7 +41,6 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('md')]: {
-      borderTop: `1px solid ${theme.palette.background.default}`,
       display: 'flex',
       justifyContent: 'space-evenly',
       bottom: 0,
@@ -48,12 +48,12 @@ export default makeStyles((theme) => ({
       left: 0,
       right: 0,
       padding: 0,
-      boxShadow: 'none',
       height: 75,
+      boxShadow: theme.shadows[2],
 
       '& [aria-current="page"], & [data-state="active"]': {
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.secondary.light,
+        color: theme.palette.secondary.main,
       },
     },
   },
