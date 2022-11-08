@@ -54,11 +54,11 @@ export const SearchFullWidth = ({
             ) : null}
             <Box p={0.25}>
               <Button
+                id="appbar-search-trigger"
                 onClick={handleSubmit}
                 onKeyPress={handleSubmit}
                 variant="contained"
                 size="small"
-                startIcon="⌘"
               >
                 {t('enterSearch')}
               </Button>
