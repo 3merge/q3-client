@@ -20,11 +20,11 @@ export default makeStyles((theme) => ({
     },
 
     [theme.breakpoints.down('sm')]: {
-      width: 175,
+      width: 195,
     },
 
     [theme.breakpoints.down('xs')]: {
-      width: 120,
+      width: '50vw',
     },
   },
   img: ({ invertLogo, padLogo }) => ({

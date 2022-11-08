@@ -14,6 +14,7 @@ export default makeStyles((theme) => ({
 
     [theme.breakpoints.down('md')]: {
       zIndex: 0,
+      padding: `${theme.spacing(0.25)} ${theme.spacing(1)}`,
 
       '& > div > div > div > button': {
         background: 'transparent',
