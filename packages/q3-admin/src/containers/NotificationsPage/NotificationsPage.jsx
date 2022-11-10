@@ -1,25 +1,15 @@
 import React from 'react';
-import NotificationsList from 'q3-ui-notifications/lib/NotificationsList';
-import useNotificationClickEvent from 'q3-ui-notifications/lib/useNotificationClickEvent';
-import { Box, Typography } from '@material-ui/core';
+import Notifications from 'q3-ui-notifications';
+import { Box } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
-import withPageLeave from '../../helpers/withPageLeave';
 import Article from '../../components/Article';
 import Header from '../../components/Header';
 import Title from '../../components/Title';
-import { useNotifications } from '../../hooks';
 import useStyle from './styles';
 
-const Notifications = React.forwardRef((props, ref) => {
+const NotificationsPage = () => {
   const cls = useStyle();
-  const { data, clear, error, loading, syncSeen } =
-    useNotifications();
-
   const { t } = useTranslation('labels');
-  useNotificationClickEvent(data, syncSeen);
-
-  // eslint-disable-next-line
-  ref.current = syncSeen;
 
   return (
     <Article>
@@ -27,16 +17,10 @@ const Notifications = React.forwardRef((props, ref) => {
         <Header>
           <Title>{t('notifications')}</Title>
         </Header>
-        <NotificationsList
-          showConnectivityError
-          loading={loading}
-          error={error}
-          clear={clear}
-          data={data}
-        />
+        {/* {<Notifications showConnectivityError data={[]} />} */}
       </Box>
     </Article>
   );
-});
+};
 
-export default withPageLeave(Notifications);
+export default NotificationsPage;

@@ -88,6 +88,15 @@ const makeApiEndpoints = (
     },
   ]);
 
+  mockInstance.onGet(/system-counters/).reply(() => [
+    200,
+    {
+      counters: {
+        notifications: 9,
+      },
+    },
+  ]);
+
   mockInstance.onGet(/system-notifications/).reply(() => [
     200,
     {

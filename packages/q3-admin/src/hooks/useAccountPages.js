@@ -1,22 +1,25 @@
+import React from 'react';
 import { useTranslation } from 'q3-ui-locale';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { invoke, size } from 'lodash';
+import { get } from 'lodash';
 import useDomainAuth from './useDomainAuth';
-import useNotifications from './useNotifications';
+import ServerSideEventsContext from '../containers/ServerSideEventsContext';
 
 const useAccountPages = () => {
   const { t } = useTranslation('labels');
-  const noti = useNotifications();
+  const { counters } = React.useContext(
+    ServerSideEventsContext,
+  );
 
   const output = [
     {
       label: t('notifications'),
       to: 'notifications',
       icon: NotificationsIcon,
-      badge: size(invoke(noti, 'getUnseen')),
+      badge: get(counters, 'notifications', 0),
     },
     {
       label: t('profile'),

@@ -11,12 +11,10 @@ import { get, map, isFunction } from 'lodash';
 import App from './components/app';
 import {
   usePages,
-  useServerSideEvents,
   useProfileTimezone,
   useProfileLocale,
   useProfileTheme,
 } from './hooks';
-import NotificationsContextProvider from './containers/NotificationsContextProvider';
 import NotificationsPage from './containers/NotificationsPage';
 import BackProvider from './containers/BackProvider';
 import Domain from './containers/Domain';
@@ -32,6 +30,7 @@ import ProfileChangeLocale from './containers/ProfileChangeLocale';
 import ProfileChangeNotifications from './containers/ProfileChangeNotifications';
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileChangeTheme from './containers/ProfileChangeTheme';
+import ServerSideEventsProvider from './containers/ServerSideEventsProvider';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import Navbar from './components/Navbar';
@@ -39,7 +38,6 @@ import SystemPage from './components/SystemPage';
 import SystemPageSub from './components/SystemPageSub';
 import Toolbar from './components/Toolbar';
 import DomainLoading from './components/DomainLoading';
-import Loader from './components/loader';
 
 export { getDomain } from './hooks/useDomain';
 export * from './containers';
@@ -57,21 +55,6 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
-const withNotificationProvider = (Component) => (props) =>
-  (
-    <NotificationsContextProvider>
-      {React.useMemo(
-        () => (
-          <>
-            <Loader />
-            <Component {...props} />
-          </>
-        ),
-        [JSON.stringify(props)],
-      )}
-    </NotificationsContextProvider>
-  );
-
 const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
   const { pages } = AppProps;
   const cls = useStyle();
@@ -79,7 +62,6 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
   useProfileLocale();
   useProfileTimezone();
   useProfileTheme();
-  useServerSideEvents();
 
   const customDomainPages = get(
     AppProps,
@@ -213,4 +195,8 @@ Admin.defaultProps = {
   ToolbarProps: {},
 };
 
-export default withNotificationProvider(Admin);
+export default (props) => (
+  <ServerSideEventsProvider>
+    <Admin {...props} />
+  </ServerSideEventsProvider>
+);

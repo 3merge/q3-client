@@ -1,5 +1,6 @@
 import React from 'react';
 
 export default React.createContext({
-  data: [],
+  connected: false,
+  error: false,
 });
