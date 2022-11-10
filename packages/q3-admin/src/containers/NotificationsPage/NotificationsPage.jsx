@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import Article from '../../components/Article';
 import Header from '../../components/Header';
+import ConnectivityError from '../../components/ConnectivityError';
 import Title from '../../components/Title';
 import useStyle from './styles';
 
@@ -17,7 +18,8 @@ const NotificationsPage = () => {
         <Header>
           <Title>{t('notifications')}</Title>
         </Header>
-        {/* {<Notifications showConnectivityError data={[]} />} */}
+        <ConnectivityError />
+        <Notifications />
       </Box>
     </Article>
   );

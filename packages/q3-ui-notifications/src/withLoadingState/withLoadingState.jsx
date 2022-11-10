@@ -23,18 +23,7 @@ const withLoadingState = (Component) => (props) => {
       <NotificationsDescription text="notificationsLoading" />
     );
 
-  return (
-    <>
-      {error && showConnectivityError && (
-        <Box mb={1.5}>
-          <Alert severity="error">
-            {t('notificationsConnectivityError')}
-          </Alert>
-        </Box>
-      )}
-      <Component {...props} />
-    </>
-  );
+  return <Component {...props} />;
 };
 
 export default withLoadingState;

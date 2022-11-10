@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import ClearAllIcon from '@material-ui/icons/ClearAll';
 import { useTranslation } from 'q3-ui-locale';
 import { isFunction } from 'lodash';
@@ -20,18 +20,6 @@ const withClearAll = (Component) => (props) => {
         </Button>
       )}
       <Component {...props} />
-      {isFunction(more) && (
-        <Box py={1} px={2}>
-          <Button
-            color="secondary"
-            onClick={more}
-            fullWidth
-            variant="contained"
-          >
-            {t('seeAllNotifications')}
-          </Button>
-        </Box>
-      )}
     </>
   );
 };
