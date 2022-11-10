@@ -20,7 +20,6 @@ export { default as usePatternData } from './usePatternData';
 export { default as usePositionStack } from './usePositionStack';
 export { default as useSortPreference } from './useSortPreference';
 export { default as useTitle } from './useTitle';
-export { default as useRefresh } from './useRefresh';
 export { default as useReport } from './useReport';
 export { default as useReportById } from './useReportById';
 export { default as useRestWithStore } from './useRestWithStore';

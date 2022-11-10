@@ -45,6 +45,7 @@
     "q3-ui-queryparams": "^3.16.0",
     "q3-ui-queuelogs": "^3.16.4",
     "q3-ui-rest": "^3.16.4",
+    "q3-ui-sse": "^1.0.0",
     "q3-ui-thread": "^3.16.4",
     "react-butterfiles": "^1.3.3",
     "react-helmet": "^6.1.0",
