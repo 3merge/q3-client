@@ -14,7 +14,6 @@ import {
 } from 'lodash';
 import NotificationsDescription from '../NotificationsDescription';
 import NotificationsListItem from '../NotificationsListItem';
-import withUnseenNotifications from '../withUnseenNotificationsOnly';
 import withLoadingState from '../withLoadingState';
 import withClearAll from '../withClearAll';
 
@@ -69,5 +68,7 @@ export const NotificationsList = ({
 };
 
 export default withLoadingState(
-  withUnseenNotifications(withClearAll(NotificationsList)),
+  withClearAll(NotificationsList),
 );
+
+// withUnseenNotifications

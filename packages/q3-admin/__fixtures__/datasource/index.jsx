@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line
 import Rest from 'q3-ui-test-utils/lib/rest';
-import moment from 'moment';
+import { useNotificationsFixture } from 'q3-ui-notifications';
 import { browser } from 'q3-ui-helpers';
 import { defineMockRoutes as defineMockRoutesForEmailEditorAddOn } from 'q3-ui-emaileditor/lib/tests/fixtures/RestSource';
 import { defineMockRoutes as defineMockRoutesForQueueLogsAddOn } from 'q3-ui-queuelogs/lib/tests/fixtures/RestSource';
@@ -77,6 +77,8 @@ const makeApiEndpoints = (
       },
     ]);
 
+  useNotificationsFixture(mockInstance);
+
   mockInstance.onGet(/domain/).reply(200, {
     domain,
   });
@@ -94,58 +96,6 @@ const makeApiEndpoints = (
       counters: {
         notifications: 9,
       },
-    },
-  ]);
-
-  mockInstance.onGet(/system-notifications/).reply(() => [
-    200,
-    {
-      notifications: [
-        {
-          id: 1,
-          label: 'bucket/file',
-          url: 'https://google.ca',
-          createdAt: moment()
-            .subtract(2, 'day')
-            .toISOString(),
-          messageType: 'download',
-        },
-        {
-          id: 5,
-          label: 'newApp',
-          localUrl: '/shows/1',
-          createdAt: moment()
-            .subtract(2, 'day')
-            .toISOString(),
-          hasSeen: true,
-          hasDownloaded: true,
-        },
-        {
-          id: 7,
-          label: 'newApp',
-          localUrl: '/shows/1',
-          createdAt: moment()
-            .subtract(2, 'day')
-            .toISOString(),
-        },
-        {
-          id: 2,
-          label: 'New app created',
-          url: '/app/1',
-          createdAt: moment().toISOString(),
-          hasSeen: true,
-          hasDownloaded: true,
-          messageType: 'document',
-        },
-        {
-          id: 3,
-          label: 'Notice!',
-          excerpt: 'This is a description',
-          createdAt: moment()
-            .subtract(3, 'minute')
-            .toISOString(),
-        },
-      ],
     },
   ]);
 
