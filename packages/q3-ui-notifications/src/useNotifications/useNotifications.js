@@ -1,10 +1,13 @@
 import React from 'react';
 import useRest, { useInfiniteScroll } from 'q3-ui-rest';
 import { useQueryParams } from 'q3-ui-queryparams';
-import { get } from 'lodash';
+import { compact, get } from 'lodash';
 import moment from 'moment';
+import axios from 'axios';
+import { object } from 'q3-ui-helpers';
 
 const useNotifications = (spec) => {
+  const [refreshed, setRefreshed] = React.useState([]);
   const { encode } = useQueryParams();
 
   const lastWeek = React.useMemo(
@@ -32,20 +35,31 @@ const useNotifications = (spec) => {
               'createdAt>': lastWeek,
             },
             unread: {
-              read: 'exists(true)',
+              archived: 'exists(false)',
+              read: 'exists(false)',
             },
           },
           spec,
           {},
         ),
-      }).concat('&sort=-createdAt&limit=50'),
+      }),
     [lastWeek, spec],
   );
 
   const search = getSearchParams();
-  const location = { search };
 
-  const r = useRest({
+  const location = {
+    search: search.concat('&sort=-createdAt&limit=50'),
+  };
+
+  const {
+    fetching,
+    fetchingError,
+    hasNextPage,
+    notifications,
+    patch,
+    poll,
+  } = useRest({
     key: 'notification',
     location,
     pluralized: 'notifications',
@@ -53,15 +67,55 @@ const useNotifications = (spec) => {
     url: '/notifications',
   });
 
+  React.useEffect(() => {
+    setInterval(() => {
+      object.noop(
+        axios
+          .get(
+            '/notifications'
+              .concat(search)
+              .concat('&sort=-updatedAt&limit=10'),
+          )
+          .then((resp) => {
+            setRefreshed((prev = []) =>
+              prev.concat(
+                get(resp, 'data.notifications', []),
+              ),
+            );
+          }),
+      );
+    }, 15000);
+  }, []);
+
+  const data = React.useMemo(
+    () => compact([refreshed, notifications].flat()),
+    [notifications, refreshed],
+  );
+
   return {
-    fetching: r.fetching,
-    fetchingError: r.fetchingError,
+    fetching,
+    fetchingError,
+
     ...useInfiniteScroll({
-      data: r.notifications,
-      hasNextPage: r.hasNextPage,
+      data,
+      hasNextPage,
       location,
-      poll: r.poll,
+      poll,
     }),
+
+    updateToArchived(id) {
+      const action = patch(id);
+      return action({
+        archived: true,
+      });
+    },
+
+    updateToRead(id) {
+      const action = patch(id);
+      return action({
+        read: true,
+      });
+    },
   };
 };
 

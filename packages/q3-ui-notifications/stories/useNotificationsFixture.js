@@ -1,11 +1,35 @@
 import React from 'react';
 import moment from 'moment';
 import { useQueryParams } from 'q3-ui-queryparams';
-import { chunk, nth, orderBy, map } from 'lodash';
+import { chunk, nth, orderBy, filter, last } from 'lodash';
 import data from './fixture';
 
 const useNotificationsFixture = (mockAxiosInstance) => {
-  const [state, setState] = React.useState(data);
+  const updatedAt = new Date().toISOString();
+  const [state, setState] = React.useState(
+    data.map((item) => ({
+      ...item,
+      updatedAt,
+    })),
+  );
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setState((prevState) => [
+        ...prevState,
+        {
+          id: Math.random() * (10000 - 1000) + 1000,
+          updatedAt: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
+          label: 'Test',
+          excerpt: 'Auto-generated from the server',
+          messageType: 'notice',
+          read: false,
+          archived: false,
+        },
+      ]);
+    }, 30000);
+  }, []);
 
   mockAxiosInstance.onGet(/notifications/).reply((args) => {
     const { decode } = useQueryParams();
@@ -16,16 +40,30 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       ...filters
     } = decode(args.url.split('?')[1]);
 
-    const toQueryParamFunc = (bool) =>
-      bool ? 'exists(true)' : 'exists(false)';
-
     const notifications = chunk(
       orderBy(
-        map(state, (item) => ({
-          ...item,
-          archived: toQueryParamFunc(item.archived),
-          read: toQueryParamFunc(item.read),
-        })),
+        filter(state, (item) =>
+          /**
+           * Clumbsy replication of server logic
+           */
+          Object.entries(filters).every(([key, value]) => {
+            if (value === 'exists(false)') {
+              return item[key] === false;
+            }
+
+            if (value === 'exists(true)') {
+              return item[key] === true;
+            }
+
+            if (key === 'createdAt>') {
+              return moment(item.createdAt).isSameOrAfter(
+                value,
+              );
+            }
+
+            return item[key] === value;
+          }),
+        ),
         [String(sort).replace(/-/g, '')],
         [String(sort).startsWith('-') ? 'desc' : 'asc'],
       ),
@@ -40,5 +78,36 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       },
     ];
   });
+
+  mockAxiosInstance
+    .onPatch(/notifications/)
+    .reply((args) => {
+      const { data: op, url } = args;
+      const id = Number(last(url.split('/')));
+
+      let notification = {};
+      const newState = state.map((item) => {
+        if (item.id === id) {
+          notification = {
+            ...item,
+            ...JSON.parse(op),
+            updatedAt: new Date().toISOString(),
+          };
+
+          return notification;
+        }
+
+        return item;
+      });
+
+      setState(newState);
+
+      return [
+        200,
+        {
+          notification,
+        },
+      ];
+    });
 };
 export default useNotificationsFixture;

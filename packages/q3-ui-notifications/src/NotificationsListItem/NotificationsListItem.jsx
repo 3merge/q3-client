@@ -3,6 +3,7 @@ import {
   ListItemText,
   ListItemAvatar,
   Box,
+  ListItem,
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
@@ -21,12 +22,11 @@ const NotificationsListItem = ({
   id,
   onClick,
   url,
+  read,
+  updateToRead,
   ...props
 }) => {
   const { t } = useTranslation('labels');
-  const El = isFunction(onClick)
-    ? NotificationsListItemLink
-    : NotificationsListItemMessage;
 
   const getMessageType = () => {
     if (messageType) return messageType;
@@ -42,19 +42,16 @@ const NotificationsListItem = ({
 
   return (
     <Box component="li">
-      <El
+      <ListItem
         {...props}
-        url={url}
-        onClick={onClick}
-        alignItems="flex-start"
-        selected={!hasSeen}
-        hasSeen={hasSeen}
-        id={id}
+        button
         dense
+        onClick={updateToRead}
+        selected={!read}
       >
         <ListItemAvatar>
           <Icon
-            hasSeen={hasSeen}
+            hasSeen={read}
             messageType={getMessageType()}
           />
         </ListItemAvatar>
@@ -74,7 +71,7 @@ const NotificationsListItem = ({
             />
           }
         />
-      </El>
+      </ListItem>
     </Box>
   );
 };

@@ -23,12 +23,21 @@ const useInfiniteScroll = ({
   location = {},
 }) => {
   const ref = React.useRef();
-  const [page, setPage] = React.useState(1);
+
+  // assumes useRest already ran for 0
+  const initialPageValue = 1;
+  const [page, setPage] = React.useState(initialPageValue);
   const [cache, setCache] = React.useState([]);
+  const q = enforceQueryString(location?.search);
 
   React.useLayoutEffect(() => {
     setCache(mergeUniq(data, cache));
   }, [data]);
+
+  React.useLayoutEffect(() => {
+    setCache([]); // different data set altogether
+    setPage(initialPageValue);
+  }, [q]);
 
   React.useEffect(() => {
     let observer;
@@ -54,12 +63,7 @@ const useInfiniteScroll = ({
           disconnect();
 
           object.noop(
-            poll(
-              compact([
-                enforceQueryString(location?.search),
-                `page=${page}`,
-              ]).join('&'),
-            ),
+            poll(compact([q, `page=${page}`]).join('&')),
           );
 
           setPage(page + 1);
@@ -73,7 +77,7 @@ const useInfiniteScroll = ({
     }, 2500);
 
     return disconnect;
-  }, [page]);
+  }, [page, q]);
 
   return {
     data: cache,
