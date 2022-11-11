@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
+import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { map } from 'lodash';
+import { reduce } from 'lodash';
+import saveAs from 'file-saver';
+import { useNavigate } from '@reach/router';
 import NotificationsList from '../NotificationsList';
 import useNotifications from '../useNotifications';
 
@@ -19,17 +22,15 @@ const Notifications = ({ defaultView }) => {
     updateToRead,
     updateToArchived,
   } = useNotifications(view);
+  const navigate = useNavigate();
+  const [messageType, setMessageType] = React.useState();
 
+  const handleMessageTypeChange = (newState) => () =>
+    setMessageType(newState);
+  const isSelected = (state) =>
+    messageType === state ? 'secondary' : undefined;
   return (
     <>
-      <div>
-        <div>
-          Mark all as read
-          <br />
-          Archive everything
-        </div>
-        FILTER
-      </div>
       {defaultView !== 'latest' && (
         <Tabs
           value={view}
@@ -43,22 +44,47 @@ const Notifications = ({ defaultView }) => {
           <Tab label="archived" value="archived" />
         </Tabs>
       )}
-      <div>
-        Mark as read
-        <br /> Mark as unread
-        <br />
-        Archive
-        <br />
-        Rtore
-        <br />
-        Delete
-      </div>
+      <Box mt={1}>
+        <Chip
+          onClick={handleMessageTypeChange()}
+          color={isSelected()}
+          label="all"
+        />
+        <Chip
+          color={isSelected('Male')}
+          onClick={handleMessageTypeChange('Male')}
+          label="Male"
+        />
+        <Chip
+          color={isSelected('Female')}
+          onClick={handleMessageTypeChange('Female')}
+          label="Female"
+        />
+      </Box>
       <NotificationsList
-        data={map(data, (item) => ({
-          ...item,
-          updateToRead: () => updateToRead(item.id),
-          updateToArchived: () => updateToArchived(item.id),
-        }))}
+        data={reduce(
+          data,
+          (acc, curr) => {
+            if (
+              !messageType ||
+              messageType === curr.messageType
+            )
+              acc.push({
+                ...curr,
+                updateToRead: () =>
+                  updateToRead(curr.id).then(() => {
+                    if (curr.url) saveAs(curr.url);
+                    else if (curr.localUrl)
+                      navigate(curr.localUrl);
+                  }),
+                updateToArchived: () =>
+                  updateToArchived(curr.id),
+              });
+
+            return acc;
+          },
+          [],
+        )}
         error={fetchingError}
         loading={fetching}
       />

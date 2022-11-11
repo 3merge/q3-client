@@ -112,6 +112,7 @@ const useNotifications = (spec) => {
 
     updateToRead(id) {
       const action = patch(id);
+
       return action({
         read: true,
       });
