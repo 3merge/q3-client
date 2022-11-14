@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { reduce } from 'lodash';
 import saveAs from 'file-saver';
 import { useNavigate } from '@reach/router';
+import MessageTypes from '../MessageTypes';
 import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
 import useNotifications from '../useNotifications';
+import useStyles from './styles';
 
-const Notifications = ({ defaultView }) => {
+const Notifications = ({ defaultView, ...rest }) => {
   const [view, setView] = React.useState(defaultView);
   const {
     data,
@@ -29,88 +30,69 @@ const Notifications = ({ defaultView }) => {
     bulkUnreadByIds,
   } = useNotifications(view);
   const navigate = useNavigate();
-  const [messageType, setMessageType] = React.useState();
-
-  const handleMessageTypeChange = (newState) => () =>
-    setMessageType(newState);
-  const isSelected = (state) =>
-    messageType === state ? 'secondary' : undefined;
+  const cls = useStyles(rest);
 
   return (
-    <>
-      {defaultView !== 'latest' && (
-        <Tabs
-          value={view}
-          onChange={(_, newView) => {
-            setView(newView);
-          }}
-        >
-          <Tab label="unread" value="unread" />
-          <Tab label="all" value="all" />
-          <div style={{ flex: 1 }} />
-          <Tab label="archived" value="archived" />
-        </Tabs>
-      )}
-      <Box mt={1}>
-        <Chip
-          onClick={handleMessageTypeChange()}
-          color={isSelected()}
-          label="all"
-        />
-        <Chip
-          color={isSelected('Male')}
-          onClick={handleMessageTypeChange('Male')}
-          label="Male"
-        />
-        <Chip
-          color={isSelected('Female')}
-          onClick={handleMessageTypeChange('Female')}
-          label="Female"
-        />
-      </Box>
-      <BulkProvider
-        bulkArchiveByIds={bulkArchiveByIds}
-        bulkReadByIds={bulkReadByIds}
-        bulkRemoveByIds={bulkRemoveByIds}
-        bulkUnarchiveByIds={bulkUnarchiveByIds}
-        bulkUnreadByIds={bulkUnreadByIds}
-        messageType={messageType}
-        view={view}
+    <Box className={cls.view}>
+      <Tabs
+        className="notification-views"
+        value={view}
+        onChange={(_, newView) => {
+          setView(newView);
+        }}
       >
-        <NotificationsList
-          data={reduce(
-            data,
-            (acc, curr) => {
-              if (
-                !messageType ||
-                messageType === curr.messageType
-              )
-                acc.push({
-                  ...curr,
-                  updateToRead: () =>
-                    updateToRead(curr.id).then(() => {
-                      if (curr.url) saveAs(curr.url);
-                      else if (curr.localUrl)
-                        navigate(curr.localUrl);
-                    }),
-                  updateToArchived: () =>
-                    updateToArchived(curr.id),
-                });
+        <Tab label="unread" value="unread" />
+        <Tab label="all" value="all" />
+        <div style={{ flex: 1 }} />
+        <Tab label="archived" value="archived" />
+      </Tabs>
+      <MessageTypes>
+        {(messageType) => (
+          <BulkProvider
+            bulkArchiveByIds={bulkArchiveByIds}
+            bulkReadByIds={bulkReadByIds}
+            bulkRemoveByIds={bulkRemoveByIds}
+            bulkUnarchiveByIds={bulkUnarchiveByIds}
+            bulkUnreadByIds={bulkUnreadByIds}
+            messageType={messageType}
+            view={view}
+          >
+            <NotificationsList
+              data={reduce(
+                data,
+                (acc, curr) => {
+                  if (
+                    !messageType ||
+                    messageType === curr.messageType
+                  )
+                    acc.push({
+                      ...curr,
+                      updateToRead: () =>
+                        updateToRead(curr.id).then(() => {
+                          if (curr.url) saveAs(curr.url);
+                          else if (curr.localUrl)
+                            navigate(curr.localUrl);
+                        }),
+                      updateToArchived: () =>
+                        updateToArchived(curr.id),
+                    });
 
-              return acc;
-            },
-            [],
-          )}
-          error={fetchingError}
-          loading={fetching}
-        />
-      </BulkProvider>
+                  return acc;
+                },
+                [],
+              )}
+              error={fetchingError}
+              loading={fetching}
+            />
+          </BulkProvider>
+        )}
+      </MessageTypes>
       {showScrollWatch && (
         <Box p={2} ref={scrollWatchRef}>
           <CircularProgress />
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 
@@ -121,10 +103,16 @@ Notifications.propTypes = {
     'latest',
     'unread',
   ]),
+  enableBulk: PropTypes.bool,
+  enableMessageTypeFiltering: PropTypes.bool,
+  enableViews: PropTypes.bool,
 };
 
 Notifications.defaultProps = {
   defaultView: 'unread',
+  enableBulk: true,
+  enableMessageTypeFiltering: true,
+  enableViews: true,
 };
 
 export default Notifications;

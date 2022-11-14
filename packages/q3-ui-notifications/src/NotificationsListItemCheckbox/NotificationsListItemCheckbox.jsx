@@ -14,7 +14,7 @@ const NotificationsListItemCheckbox = ({ id }) => {
   };
 
   return (
-    <ListItemIcon>
+    <ListItemIcon className="notification-checkbox">
       <Checkbox
         checked={isActive(id)}
         onClick={handleClick}

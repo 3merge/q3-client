@@ -20,15 +20,26 @@ const Notifications = () => {
       closeOnRouteChange
       renderContent={() => (
         <>
-          <NotificationsUi />
-          <Box py={1} px={2}>
+          <NotificationsUi
+            enableBulk={false}
+            enableMessageTypeFiltering={false}
+            enableViews={false}
+          />
+          <Box
+            bgcolor="background.paper"
+            position="sticky"
+            bottom={0}
+            py={1}
+            px={2}
+            pb={2}
+          >
             <Button
               color="secondary"
               onClick={visit}
               fullWidth
               variant="contained"
             >
-              {t('seeAllNotifications')}
+              {t('manageAllNotifications')}
             </Button>
           </Box>
         </>

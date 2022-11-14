@@ -43,7 +43,10 @@ export const NotificationsList = ({
         <List
           key={key || idx}
           subheader={
-            <ListSubheader disableSticky>
+            <ListSubheader
+              disableSticky
+              style={{ paddingLeft: 24, paddingRight: 24 }}
+            >
               {key}
             </ListSubheader>
           }
@@ -70,5 +73,3 @@ export const NotificationsList = ({
 export default withLoadingState(
   withClearAll(NotificationsList),
 );
-
-// withUnseenNotifications
