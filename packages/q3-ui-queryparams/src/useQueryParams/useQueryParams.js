@@ -1,9 +1,9 @@
 import { decode, encode, prepend } from '../helpers';
 
 export default () => ({
-  decode: (string, defaultState) => ({
+  decode: (string, defaultState, options) => ({
     ...defaultState,
-    ...decode(string),
+    ...decode(string, options),
   }),
   encode: (state, options = {}) =>
     prepend(encode(state, options), '?'),

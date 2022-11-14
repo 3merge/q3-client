@@ -84,7 +84,7 @@ const BulkProvider = ({
                       color="inherit"
                       onClick={handleClick(bulkReadByIds)}
                     >
-                      <MarkunreadIcon />
+                      <DraftsIcon />
                     </IconButton>
                   </Grid>
                 )}
@@ -94,7 +94,7 @@ const BulkProvider = ({
                       color="inherit"
                       onClick={handleClick(bulkUnreadByIds)}
                     >
-                      <DraftsIcon />
+                      <MarkunreadIcon />
                     </IconButton>
                   </Grid>
                 )}

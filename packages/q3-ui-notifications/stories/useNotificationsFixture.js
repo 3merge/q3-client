@@ -46,7 +46,13 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       sort,
       page = 0,
       ...filters
-    } = decode(args.url.split('?')[1]);
+    } = decode(
+      args.url.split('?')[1],
+      {},
+      {
+        dateformat: moment.ISO_8601,
+      },
+    );
 
     const notifications = chunk(
       orderBy(
@@ -65,6 +71,12 @@ const useNotificationsFixture = (mockAxiosInstance) => {
 
             if (key === 'createdAt>') {
               return moment(item.createdAt).isSameOrAfter(
+                value,
+              );
+            }
+
+            if (key === 'updatedAt>') {
+              return moment(item.updatedAt).isSameOrAfter(
                 value,
               );
             }
@@ -97,12 +109,17 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       ).getAll('ids[]');
 
       let notification = {};
+      const newUpdatedAt = new Date().toISOString();
+
       const newState = state.map((item) => {
-        if (includes(ids, item.id) || item.id === id) {
+        if (
+          includes(ids, String(item.id)) ||
+          item.id === id
+        ) {
           notification = {
             ...item,
             ...JSON.parse(op),
-            updatedAt: new Date().toISOString(),
+            updatedAt: newUpdatedAt,
           };
 
           return notification;

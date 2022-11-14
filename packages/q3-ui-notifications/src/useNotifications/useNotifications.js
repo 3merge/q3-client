@@ -1,56 +1,10 @@
-import React from 'react';
-import useRest, { useInfiniteScroll } from 'q3-ui-rest';
-import { useQueryParams } from 'q3-ui-queryparams';
-import { compact, get } from 'lodash';
-import moment from 'moment';
-import axios from 'axios';
-import { object } from 'q3-ui-helpers';
+import { useInfiniteScroll } from 'q3-ui-rest';
+import useNotificationsPolling from '../useNotificationsPolling';
+import useNotificationsRefresh from '../useNotificationsRefresh';
+import useViews from '../useViews';
 
-const useNotifications = (spec) => {
-  const [refreshed, setRefreshed] = React.useState([]);
-  const { encode } = useQueryParams();
-
-  const lastWeek = React.useMemo(
-    () =>
-      moment()
-        .subtract('1', 'week')
-        .startOf('day')
-        .toISOString(),
-    [],
-  );
-
-  const getSearchParams = React.useCallback(
-    (xs) =>
-      encode({
-        ...xs,
-        ...get(
-          {
-            all: {
-              archived: 'exists(false)',
-            },
-            archived: {
-              archived: 'exists(true)',
-            },
-            latest: {
-              'createdAt>': lastWeek,
-            },
-            unread: {
-              archived: 'exists(false)',
-              read: 'exists(false)',
-            },
-          },
-          spec,
-          {},
-        ),
-      }),
-    [lastWeek, spec],
-  );
-
-  const search = getSearchParams();
-
-  const location = {
-    search: search.concat('&sort=-createdAt&limit=50'),
-  };
+const useNotifications = (view) => {
+  const location = useViews(view);
 
   const {
     fetching,
@@ -61,75 +15,67 @@ const useNotifications = (spec) => {
     poll,
     patchBulk,
     removeBulk,
-  } = useRest({
-    key: 'notification',
-    location,
-    pluralized: 'notifications',
-    runOnInit: true,
-    url: '/notifications',
-  });
+  } = useNotificationsPolling(location);
 
-  React.useEffect(() => {
-    setInterval(() => {
-      object.noop(
-        axios
-          .get(
-            '/notifications'
-              .concat(search)
-              .concat('&sort=-updatedAt&limit=10'),
-          )
-          .then((resp) => {
-            setRefreshed((prev = []) =>
-              prev.concat(
-                get(resp, 'data.notifications', []),
-              ),
-            );
-          }),
-      );
-    }, 15000);
-  }, []);
-
-  const data = React.useMemo(
-    () => compact([refreshed, notifications].flat()),
-    [notifications, refreshed],
-  );
-
-  return {
-    fetching,
-    fetchingError,
-
-    ...useInfiniteScroll({
-      data,
+  const { data: infiniteData, ...infiniteScroll } =
+    useInfiniteScroll({
+      data: notifications,
       hasNextPage,
       location,
       poll,
-    }),
+    });
+
+  const { refresh, ...refreshedData } =
+    useNotificationsRefresh(infiniteData);
+
+  return {
+    ...infiniteScroll,
+    ...refreshedData,
+
+    fetching,
+    fetchingError,
 
     bulkArchiveByIds(ids) {
-      return patchBulk(ids)({
+      return patchBulk(
+        ids,
+        refresh,
+      )({
         archived: true,
       });
     },
+
     bulkUnarchiveByIds(ids) {
-      return patchBulk(ids)({
+      return patchBulk(
+        ids,
+        refresh,
+      )({
         archived: false,
       });
     },
 
     bulkReadByIds(ids) {
-      return patchBulk(ids)({
+      return patchBulk(
+        ids,
+        refresh,
+      )({
         read: true,
       });
     },
 
     bulkRemoveByIds(ids) {
-      return removeBulk(ids)({
+      return removeBulk(
+        ids,
+        refresh,
+      )({
         archived: true,
       });
     },
 
     bulkUnreadByIds(ids) {
-      return patchBulk(ids)({
+      return patchBulk(
+        ids,
+        refresh,
+      )({
         read: false,
       });
     },

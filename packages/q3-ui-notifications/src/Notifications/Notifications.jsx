@@ -4,14 +4,12 @@ import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { map, reduce } from 'lodash';
-// eslint-disable-next-line
-import saveAs from 'file-saver';
-import { useNavigate } from '@reach/router';
+import { map } from 'lodash';
 import MessageTypes from '../MessageTypes';
 import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
 import useNotifications from '../useNotifications';
+import useNotificationHandlers from '../useNotificationHandlers';
 import useStyles from './styles';
 
 const Notifications = ({
@@ -21,21 +19,18 @@ const Notifications = ({
 }) => {
   const [view, setView] = React.useState(defaultView);
   const {
-    data,
-    fetching,
-    fetchingError,
-    scrollWatchRef,
-    showScrollWatch,
-    updateToRead,
-    updateToArchived,
     bulkArchiveByIds,
     bulkReadByIds,
     bulkRemoveByIds,
     bulkUnarchiveByIds,
     bulkUnreadByIds,
+    data,
+    fetching,
+    fetchingError,
+    scrollWatchRef,
+    showScrollWatch,
+    ...restServices
   } = useNotifications(view);
-
-  const navigate = useNavigate();
   const cls = useStyles(rest);
 
   return (
@@ -54,28 +49,10 @@ const Notifications = ({
       </Tabs>
       <MessageTypes messageTypes={messageTypes}>
         {(messageType) => {
-          const filteredData = reduce(
+          const filteredData = useNotificationHandlers(
             data,
-            (acc, curr) => {
-              if (
-                !messageType ||
-                messageType === curr.messageType
-              )
-                acc.push({
-                  ...curr,
-                  updateToRead: () =>
-                    updateToRead(curr.id).then(() => {
-                      if (curr.url) saveAs(curr.url);
-                      else if (curr.localUrl)
-                        navigate(curr.localUrl);
-                    }),
-                  updateToArchived: () =>
-                    updateToArchived(curr.id),
-                });
-
-              return acc;
-            },
-            [],
+            restServices,
+            messageType,
           );
 
           return (

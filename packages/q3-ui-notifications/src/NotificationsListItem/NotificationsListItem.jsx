@@ -43,8 +43,9 @@ const NotificationsListItem = ({
   onClick,
   url,
   read,
-  updateToRead,
+  archived,
   localUrl,
+  handlers,
   ...props
 }) => {
   const { t } = useTranslation('labels');
@@ -93,13 +94,16 @@ const NotificationsListItem = ({
         {...props}
         button
         dense
-        onClick={updateToRead}
+        onClick={handlers.click}
         selected={!read}
         disableRipple
       >
         <NotificationsListItemCheckbox id={id} />
         <ListItemAvatar>
-          <Icon hasSeen={read} />
+          <Icon
+            archived={Boolean(archived)}
+            read={Boolean(read)}
+          />
         </ListItemAvatar>
         <ListItemText
           primary={getPrimary()}
