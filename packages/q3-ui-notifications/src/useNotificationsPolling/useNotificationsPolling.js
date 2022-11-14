@@ -3,6 +3,7 @@ import { object } from 'q3-ui-helpers';
 import useRest from 'q3-ui-rest';
 
 const useNotificationsPolling = (location = {}) => {
+  const { search = '?' } = location;
   const r = useRest({
     key: 'notification',
     pluralized: 'notifications',
@@ -13,7 +14,7 @@ const useNotificationsPolling = (location = {}) => {
 
   React.useEffect(() => {
     const timer = setInterval(
-      () => object.noop(r.poll(location.search)),
+      () => object.noop(r.poll(search)),
       15000,
     );
 
@@ -22,7 +23,7 @@ const useNotificationsPolling = (location = {}) => {
         clearInterval(timer);
       }
     };
-  }, []);
+  }, [search]);
 
   return r;
 };

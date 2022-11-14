@@ -112,3 +112,8 @@ export const noop = (promise) =>
     .catch(() => {
       // noop
     });
+
+export const cancelEvents = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+};

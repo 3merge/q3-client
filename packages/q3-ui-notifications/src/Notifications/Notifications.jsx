@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import { map } from 'lodash';
+import Tabs from 'q3-components/lib/Tabs';
+import Tab from 'q3-components/lib/Tab';
 import MessageTypes from '../MessageTypes';
 import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
@@ -42,10 +42,14 @@ const Notifications = ({
           setView(newView);
         }}
       >
-        <Tab label="unread" value="unread" />
-        <Tab label="all" value="all" />
-        <div style={{ flex: 1 }} />
-        <Tab label="archived" value="archived" />
+        {['unread', 'all', 'archived'].map((item) => (
+          <Tab
+            disabled={fetching}
+            label={item}
+            value={item}
+            key={item}
+          />
+        ))}
       </Tabs>
       <MessageTypes messageTypes={messageTypes}>
         {(messageType) => {

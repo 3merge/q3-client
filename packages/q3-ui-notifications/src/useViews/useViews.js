@@ -32,7 +32,7 @@ const useViews = (view) => {
           view,
           {},
         ),
-      }).concat('&sort=-createdAt&limit=50'),
+      }).concat('&sort=-createdAt&limit=500'),
     }),
     [view],
   );

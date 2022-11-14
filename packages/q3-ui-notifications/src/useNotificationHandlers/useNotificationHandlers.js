@@ -22,9 +22,9 @@ const useNotificationHandlers = (
       const handlers = {};
       const { archived, id, localUrl, read, url } = curr;
 
-      const appendHandler = (name, func) => () =>
+      const appendHandler = (name, func) =>
         Object.assign(handlers, {
-          [name]: restServices[func](id),
+          [name]: () => restServices[func](id),
         });
 
       handlers.click = () =>

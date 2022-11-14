@@ -80,30 +80,26 @@ const useNotifications = (view) => {
       });
     },
 
-    update(id, args) {
-      return patch(id)(args);
-    },
-
     updateToArchived(id) {
-      return this.update(id, {
+      return patch(id)({
         archived: true,
       });
     },
 
     updateToRead(id) {
-      return this.update(id, {
+      return patch(id)({
         read: true,
       });
     },
 
     updateToUnarchived(id) {
-      return this.update(id, {
+      return patch(id)({
         archived: false,
       });
     },
 
     updateToUnread(id) {
-      return this.update(id, {
+      return patch(id)({
         read: false,
       });
     },

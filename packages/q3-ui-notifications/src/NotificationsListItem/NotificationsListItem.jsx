@@ -14,6 +14,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import Icon from '../Icon';
 import NotificationsListItemCheckbox from '../NotificationsListItemCheckbox';
+import NotificationsListItemActions from '../NotificationsListItemActions';
 
 const getFileName = (url) => {
   const filename = first(String(url).split('?')).substring(
@@ -33,21 +34,20 @@ const FauxLink = ({ children }) => (
   </span>
 );
 
-const NotificationsListItem = ({
-  hasSeen,
-  label,
-  createdAt,
-  messageType,
-  excerpt,
-  id,
-  onClick,
-  url,
-  read,
-  archived,
-  localUrl,
-  handlers,
-  ...props
-}) => {
+const NotificationsListItem = (props) => {
+  const {
+    archived,
+    createdAt,
+    excerpt,
+    handlers,
+    id,
+    label,
+    localUrl,
+    messageType,
+    read,
+    url,
+  } = props;
+
   const { t } = useTranslation('labels');
 
   const getMessageType = () => {
@@ -125,6 +125,7 @@ const NotificationsListItem = ({
             </>
           }
         />
+        <NotificationsListItemActions handlers={handlers} />
       </ListItem>
     </Box>
   );
