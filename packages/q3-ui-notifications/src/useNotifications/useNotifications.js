@@ -59,6 +59,8 @@ const useNotifications = (spec) => {
     notifications,
     patch,
     poll,
+    patchBulk,
+    removeBulk,
   } = useRest({
     key: 'notification',
     location,
@@ -103,18 +105,68 @@ const useNotifications = (spec) => {
       poll,
     }),
 
+    bulkArchive() {
+      // api endpoint needed
+    },
+
+    bulkRead() {
+      // api endpoint needed
+    },
+
+    bulkArchiveByIds(ids) {
+      return patchBulk(ids)({
+        archived: true,
+      });
+    },
+    bulkUnarchiveByIds(ids) {
+      return patchBulk(ids)({
+        archived: false,
+      });
+    },
+
+    bulkReadByIds(ids) {
+      return patchBulk(ids)({
+        read: true,
+      });
+    },
+
+    bulkRemoveByIds(ids) {
+      return removeBulk(ids)({
+        archived: true,
+      });
+    },
+
+    bulkUnreadByIds(ids) {
+      return patchBulk(ids)({
+        read: false,
+      });
+    },
+
+    update(id, args) {
+      return patch(id)(args);
+    },
+
     updateToArchived(id) {
-      const action = patch(id);
-      return action({
+      return this.update(id, {
         archived: true,
       });
     },
 
     updateToRead(id) {
-      const action = patch(id);
-
-      return action({
+      return this.update(id, {
         read: true,
+      });
+    },
+
+    updateToUnarchived(id) {
+      return this.update(id, {
+        archived: false,
+      });
+    },
+
+    updateToUnread(id) {
+      return this.update(id, {
+        read: false,
       });
     },
   };

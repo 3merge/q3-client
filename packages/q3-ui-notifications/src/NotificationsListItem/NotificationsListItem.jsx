@@ -5,8 +5,6 @@ import {
   Box,
   ListItem,
   Chip,
-  ListItemIcon,
-  Checkbox,
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
@@ -15,6 +13,7 @@ import { useTranslation } from 'q3-ui-locale';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import Icon from '../Icon';
+import NotificationsListItemCheckbox from '../NotificationsListItemCheckbox';
 
 const getFileName = (url) => {
   const filename = first(String(url).split('?')).substring(
@@ -96,15 +95,9 @@ const NotificationsListItem = ({
         dense
         onClick={updateToRead}
         selected={!read}
+        disableRipple
       >
-        <ListItemIcon>
-          <Checkbox
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-          />
-        </ListItemIcon>
+        <NotificationsListItemCheckbox id={id} />
         <ListItemAvatar>
           <Icon hasSeen={read} />
         </ListItemAvatar>

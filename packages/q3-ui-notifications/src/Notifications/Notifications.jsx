@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import { reduce } from 'lodash';
 import saveAs from 'file-saver';
 import { useNavigate } from '@reach/router';
+import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
 import useNotifications from '../useNotifications';
 
@@ -21,6 +22,11 @@ const Notifications = ({ defaultView }) => {
     showScrollWatch,
     updateToRead,
     updateToArchived,
+    bulkArchiveByIds,
+    bulkReadByIds,
+    bulkRemoveByIds,
+    bulkUnarchiveByIds,
+    bulkUnreadByIds,
   } = useNotifications(view);
   const navigate = useNavigate();
   const [messageType, setMessageType] = React.useState();
@@ -29,6 +35,7 @@ const Notifications = ({ defaultView }) => {
     setMessageType(newState);
   const isSelected = (state) =>
     messageType === state ? 'secondary' : undefined;
+
   return (
     <>
       {defaultView !== 'latest' && (
@@ -61,33 +68,43 @@ const Notifications = ({ defaultView }) => {
           label="Female"
         />
       </Box>
-      <NotificationsList
-        data={reduce(
-          data,
-          (acc, curr) => {
-            if (
-              !messageType ||
-              messageType === curr.messageType
-            )
-              acc.push({
-                ...curr,
-                updateToRead: () =>
-                  updateToRead(curr.id).then(() => {
-                    if (curr.url) saveAs(curr.url);
-                    else if (curr.localUrl)
-                      navigate(curr.localUrl);
-                  }),
-                updateToArchived: () =>
-                  updateToArchived(curr.id),
-              });
+      <BulkProvider
+        bulkArchiveByIds={bulkArchiveByIds}
+        bulkReadByIds={bulkReadByIds}
+        bulkRemoveByIds={bulkRemoveByIds}
+        bulkUnarchiveByIds={bulkUnarchiveByIds}
+        bulkUnreadByIds={bulkUnreadByIds}
+        messageType={messageType}
+        view={view}
+      >
+        <NotificationsList
+          data={reduce(
+            data,
+            (acc, curr) => {
+              if (
+                !messageType ||
+                messageType === curr.messageType
+              )
+                acc.push({
+                  ...curr,
+                  updateToRead: () =>
+                    updateToRead(curr.id).then(() => {
+                      if (curr.url) saveAs(curr.url);
+                      else if (curr.localUrl)
+                        navigate(curr.localUrl);
+                    }),
+                  updateToArchived: () =>
+                    updateToArchived(curr.id),
+                });
 
-            return acc;
-          },
-          [],
-        )}
-        error={fetchingError}
-        loading={fetching}
-      />
+              return acc;
+            },
+            [],
+          )}
+          error={fetchingError}
+          loading={fetching}
+        />
+      </BulkProvider>
       {showScrollWatch && (
         <Box p={2} ref={scrollWatchRef}>
           <CircularProgress />
