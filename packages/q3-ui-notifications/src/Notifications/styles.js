@@ -8,20 +8,21 @@ export default makeStyles(() => ({
   }) => {
     const output = {};
 
-    if (!enableBulk)
-      output['& .notification-checkbox'] = {
+    const addDisplayNoneProperty = (selector) => {
+      output[`& ${selector}`] = {
         display: 'none',
       };
+    };
+
+    if (!enableBulk) {
+      addDisplayNoneProperty('.notification-checkbox');
+      addDisplayNoneProperty('.notifications-bulk-buttons');
+    }
 
     if (!enableMessageTypeFiltering)
-      output['& .notification-message-types'] = {
-        display: 'none',
-      };
-
+      addDisplayNoneProperty('.notification-message-types');
     if (!enableViews)
-      output['& .notification-views'] = {
-        display: 'none',
-      };
+      addDisplayNoneProperty('.notification-views');
 
     return output;
   },

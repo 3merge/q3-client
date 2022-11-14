@@ -1,5 +1,11 @@
 import React from 'react';
-import { includes, filter, size } from 'lodash';
+import {
+  compact,
+  includes,
+  filter,
+  size,
+  map,
+} from 'lodash';
 
 const useBulk = () => {
   const [state, setState] = React.useState([]);
@@ -7,6 +13,10 @@ const useBulk = () => {
   return {
     count: size(state),
     state,
+
+    all(ids = []) {
+      setState(map(compact(ids), String));
+    },
 
     isActive(id) {
       return includes(state, String(id));

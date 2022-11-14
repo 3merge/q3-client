@@ -105,14 +105,6 @@ const useNotifications = (spec) => {
       poll,
     }),
 
-    bulkArchive() {
-      // api endpoint needed
-    },
-
-    bulkRead() {
-      // api endpoint needed
-    },
-
     bulkArchiveByIds(ids) {
       return patchBulk(ids)({
         archived: true,

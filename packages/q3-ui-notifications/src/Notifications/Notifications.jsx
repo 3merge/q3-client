@@ -4,7 +4,8 @@ import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { reduce } from 'lodash';
+import { map, reduce } from 'lodash';
+// eslint-disable-next-line
 import saveAs from 'file-saver';
 import { useNavigate } from '@reach/router';
 import MessageTypes from '../MessageTypes';
@@ -13,7 +14,11 @@ import NotificationsList from '../NotificationsList';
 import useNotifications from '../useNotifications';
 import useStyles from './styles';
 
-const Notifications = ({ defaultView, ...rest }) => {
+const Notifications = ({
+  defaultView,
+  messageTypes,
+  ...rest
+}) => {
   const [view, setView] = React.useState(defaultView);
   const {
     data,
@@ -29,6 +34,7 @@ const Notifications = ({ defaultView, ...rest }) => {
     bulkUnarchiveByIds,
     bulkUnreadByIds,
   } = useNotifications(view);
+
   const navigate = useNavigate();
   const cls = useStyles(rest);
 
@@ -46,46 +52,51 @@ const Notifications = ({ defaultView, ...rest }) => {
         <div style={{ flex: 1 }} />
         <Tab label="archived" value="archived" />
       </Tabs>
-      <MessageTypes>
-        {(messageType) => (
-          <BulkProvider
-            bulkArchiveByIds={bulkArchiveByIds}
-            bulkReadByIds={bulkReadByIds}
-            bulkRemoveByIds={bulkRemoveByIds}
-            bulkUnarchiveByIds={bulkUnarchiveByIds}
-            bulkUnreadByIds={bulkUnreadByIds}
-            messageType={messageType}
-            view={view}
-          >
-            <NotificationsList
-              data={reduce(
-                data,
-                (acc, curr) => {
-                  if (
-                    !messageType ||
-                    messageType === curr.messageType
-                  )
-                    acc.push({
-                      ...curr,
-                      updateToRead: () =>
-                        updateToRead(curr.id).then(() => {
-                          if (curr.url) saveAs(curr.url);
-                          else if (curr.localUrl)
-                            navigate(curr.localUrl);
-                        }),
-                      updateToArchived: () =>
-                        updateToArchived(curr.id),
-                    });
+      <MessageTypes messageTypes={messageTypes}>
+        {(messageType) => {
+          const filteredData = reduce(
+            data,
+            (acc, curr) => {
+              if (
+                !messageType ||
+                messageType === curr.messageType
+              )
+                acc.push({
+                  ...curr,
+                  updateToRead: () =>
+                    updateToRead(curr.id).then(() => {
+                      if (curr.url) saveAs(curr.url);
+                      else if (curr.localUrl)
+                        navigate(curr.localUrl);
+                    }),
+                  updateToArchived: () =>
+                    updateToArchived(curr.id),
+                });
 
-                  return acc;
-                },
-                [],
-              )}
-              error={fetchingError}
-              loading={fetching}
-            />
-          </BulkProvider>
-        )}
+              return acc;
+            },
+            [],
+          );
+
+          return (
+            <BulkProvider
+              ids={map(filteredData, 'id')}
+              bulkArchiveByIds={bulkArchiveByIds}
+              bulkReadByIds={bulkReadByIds}
+              bulkRemoveByIds={bulkRemoveByIds}
+              bulkUnarchiveByIds={bulkUnarchiveByIds}
+              bulkUnreadByIds={bulkUnreadByIds}
+              messageType={messageType}
+              view={view}
+            >
+              <NotificationsList
+                data={filteredData}
+                error={fetchingError}
+                loading={fetching}
+              />
+            </BulkProvider>
+          );
+        }}
       </MessageTypes>
       {showScrollWatch && (
         <Box p={2} ref={scrollWatchRef}>
@@ -106,6 +117,7 @@ Notifications.propTypes = {
   enableBulk: PropTypes.bool,
   enableMessageTypeFiltering: PropTypes.bool,
   enableViews: PropTypes.bool,
+  messageTypes: PropTypes.arrayOf(PropTypes.string),
 };
 
 Notifications.defaultProps = {
@@ -113,6 +125,7 @@ Notifications.defaultProps = {
   enableBulk: true,
   enableMessageTypeFiltering: true,
   enableViews: true,
+  messageTypes: ['Male', 'Female'],
 };
 
 export default Notifications;

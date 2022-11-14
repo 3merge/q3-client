@@ -19,18 +19,22 @@ const MessageTypes = ({ children, messageTypes }) => {
     <>
       {size(messageTypes) > 0 && (
         <Box className="notification-message-types" mt={1}>
-          <Chip
-            onClick={handleMessageTypeChange()}
-            color={isSelected()}
-            label={t('all')}
-          />
-          {map(messageTypes, (type) => (
+          <Box display="inline-block" p={0.15}>
             <Chip
-              key={type}
-              onClick={handleMessageTypeChange(type)}
-              color={isSelected(type)}
-              label={t(type)}
+              onClick={handleMessageTypeChange()}
+              color={isSelected()}
+              label={t('all')}
             />
+          </Box>
+          {map(messageTypes, (type) => (
+            <Box display="inline-block" p={0.15}>
+              <Chip
+                key={type}
+                onClick={handleMessageTypeChange(type)}
+                color={isSelected(type)}
+                label={t(type)}
+              />
+            </Box>
           ))}
         </Box>
       )}

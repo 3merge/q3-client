@@ -3,6 +3,7 @@ import {
   Box,
   Paper,
   Grid,
+  Button,
   IconButton,
 } from '@material-ui/core';
 import ArchiveIcon from '@material-ui/icons/Archive';
@@ -10,8 +11,11 @@ import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import useBulk from '../useBulk';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import ClearIcon from '@material-ui/icons/Clear';
+import { size } from 'lodash';
 import BulkContext from '../BulkContext';
+import useBulk from '../useBulk';
 
 const BulkProvider = ({
   children,
@@ -20,10 +24,11 @@ const BulkProvider = ({
   //  bulkRemoveByIds,
   bulkUnarchiveByIds,
   bulkUnreadByIds,
+  ids,
   messageType,
   view,
 }) => {
-  const { count, state, reset, ...rest } = useBulk();
+  const { all, count, state, reset, ...rest } = useBulk();
   const handleClick = (fn) => () => fn(state);
 
   React.useEffect(() => {
@@ -32,6 +37,33 @@ const BulkProvider = ({
 
   return (
     <BulkContext.Provider value={rest}>
+      {size(ids) > 0 && (
+        <Box
+          className="notifications-bulk-buttons"
+          mb={-0.5}
+          mt={1}
+        >
+          {count ? (
+            <Button
+              color="inherit"
+              onClick={reset}
+              startIcon={<ClearIcon />}
+            >
+              Unselect all
+            </Button>
+          ) : (
+            <Button
+              color="inherit"
+              onClick={() => {
+                all(ids);
+              }}
+              startIcon={<DoneAllIcon />}
+            >
+              Select all
+            </Button>
+          )}
+        </Box>
+      )}
       {count > 0 && (
         <Box position="sticky" top="1rem" zIndex={2} mt={1}>
           <Paper>

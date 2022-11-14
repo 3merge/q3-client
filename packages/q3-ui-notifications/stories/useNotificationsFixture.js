@@ -1,7 +1,15 @@
 import React from 'react';
 import moment from 'moment';
 import { useQueryParams } from 'q3-ui-queryparams';
-import { chunk, nth, orderBy, filter, last } from 'lodash';
+import {
+  chunk,
+  nth,
+  orderBy,
+  filter,
+  last,
+  includes,
+  size,
+} from 'lodash';
 import data from './fixture';
 
 const useNotificationsFixture = (mockAxiosInstance) => {
@@ -84,10 +92,13 @@ const useNotificationsFixture = (mockAxiosInstance) => {
     .reply((args) => {
       const { data: op, url } = args;
       const id = Number(last(url.split('/')));
+      const ids = new URLSearchParams(
+        `?${last(url.split('?'))}`,
+      ).getAll('ids[]');
 
       let notification = {};
       const newState = state.map((item) => {
-        if (item.id === id) {
+        if (includes(ids, item.id) || item.id === id) {
           notification = {
             ...item,
             ...JSON.parse(op),
@@ -102,12 +113,14 @@ const useNotificationsFixture = (mockAxiosInstance) => {
 
       setState(newState);
 
-      return [
-        200,
-        {
-          notification,
-        },
-      ];
+      return !size(ids)
+        ? [
+            200,
+            {
+              notification,
+            },
+          ]
+        : [204];
     });
 };
 export default useNotificationsFixture;
