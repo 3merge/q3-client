@@ -1,19 +1,19 @@
 {
   "name": "q3-ui-thread",
-  "version": "3.16.4",
+  "version": "4.0.0",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^3.16.0"
+    "q3-ui-test-utils": "^4.0.0"
   },
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-dialog": "^3.16.0",
-    "q3-ui-forms": "^3.16.4",
-    "q3-ui-helpers": "^3.16.0",
-    "q3-ui-locale": "^3.16.0",
-    "q3-ui-permissions": "^3.16.4",
-    "q3-ui-rest": "^3.16.4",
+    "q3-ui-dialog": "^4.0.0",
+    "q3-ui-forms": "^4.0.0",
+    "q3-ui-helpers": "^4.0.0",
+    "q3-ui-locale": "^4.0.0",
+    "q3-ui-permissions": "^4.0.0",
+    "q3-ui-rest": "^4.0.0",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {
