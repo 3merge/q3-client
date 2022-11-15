@@ -1,4 +1,4 @@
-import { merge, get } from 'lodash';
+import { merge, get, reduce, find } from 'lodash';
 import {
   FETCHING,
   FETCHED,
@@ -44,8 +44,23 @@ export default (
       }
 
       if (resources in prev) {
-        prev[resources] = get(prev, resources, []).map(
-          (item) => (next.id === item.id ? next : item),
+        prev[resources] = reduce(
+          get(prev, resources, []),
+          (acc, curr, cache) => {
+            if (
+              // adds it in the case where we've edited via
+              // useInfiniteScroll
+              !find(cache, (item) => item.id === next.id) ||
+              next.id === curr.id
+            ) {
+              acc.push(next);
+            } else {
+              acc.push(curr);
+            }
+
+            return acc;
+          },
+          [],
         );
       }
 

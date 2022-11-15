@@ -28,6 +28,7 @@ const useInfiniteScroll = ({
   const initialPageValue = 1;
   const [page, setPage] = React.useState(initialPageValue);
   const [cache, setCache] = React.useState([]);
+  const [stop, setStop] = React.useState(false);
   const q = enforceQueryString(location?.search);
 
   React.useLayoutEffect(() => {
@@ -63,7 +64,13 @@ const useInfiniteScroll = ({
           disconnect();
 
           object.noop(
-            poll(compact([q, `page=${page}`]).join('&')),
+            poll(
+              compact([q, `page=${page}`]).join('&'),
+            ).then((r) => {
+              if (r?.hasNextPage === false) {
+                setStop(true);
+              }
+            }),
           );
 
           setPage(page + 1);
@@ -82,7 +89,7 @@ const useInfiniteScroll = ({
   return {
     data: cache,
     scrollWatchRef: ref,
-    showScrollWatch: hasNextPage,
+    showScrollWatch: !stop && hasNextPage,
   };
 };
 

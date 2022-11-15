@@ -4,35 +4,15 @@ import {
   ListItemAvatar,
   Box,
   ListItem,
-  Chip,
 } from '@material-ui/core';
-import { string } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
-import { compact, first } from 'lodash';
-import { useTranslation } from 'q3-ui-locale';
-import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-import AttachmentIcon from '@material-ui/icons/Attachment';
+import { object } from 'q3-ui-helpers';
+import { pick } from 'lodash';
 import Icon from '../Icon';
+import NotificationsItemContent from '../NotificationsItemContent';
+import NotificationsItemTitle from '../NotificationsItemTitle';
 import NotificationsListItemCheckbox from '../NotificationsListItemCheckbox';
 import NotificationsListItemActions from '../NotificationsListItemActions';
-
-const getFileName = (url) => {
-  const filename = first(String(url).split('?')).substring(
-    url.lastIndexOf('/') + 1,
-  );
-  return filename;
-};
-
-// eslint-disable-next-line
-const FauxLink = ({ children }) => (
-  <span
-    style={{
-      textDecoration: 'underline',
-    }}
-  >
-    {children}
-  </span>
-);
 
 const NotificationsListItem = (props) => {
   const {
@@ -47,46 +27,6 @@ const NotificationsListItem = (props) => {
     read,
     url,
   } = props;
-
-  const { t } = useTranslation('labels');
-
-  const getMessageType = () => {
-    if (messageType)
-      return (
-        <Box display="inline-block" mr={1}>
-          <Chip
-            className={`notifications-${messageType}`}
-            label={messageType}
-            size="small"
-          />
-        </Box>
-      );
-    return null;
-  };
-
-  const getPrimary = () => {
-    if (label) return label;
-    if ((url && !messageType) || messageType === 'download')
-      return t('newDownloadAvailable');
-
-    return '';
-  };
-
-  const renderFauxLink = () => {
-    if (url)
-      return (
-        <FauxLink>
-          {getFileName(url)} <AttachmentIcon />
-        </FauxLink>
-      );
-    if (localUrl)
-      return (
-        <FauxLink>
-          readmore <OpenInNewIcon />
-        </FauxLink>
-      );
-    return null;
-  };
 
   return (
     <Box component="li">
@@ -106,23 +46,21 @@ const NotificationsListItem = (props) => {
           />
         </ListItemAvatar>
         <ListItemText
-          primary={getPrimary()}
+          primary={
+            <NotificationsItemTitle
+              label={label}
+              messageType={messageType}
+              url={url}
+            />
+          }
           secondary={
-            <>
-              {getMessageType()}
-              <span
-                // eslint-disable-next-line
-                dangerouslySetInnerHTML={{
-                  __html: compact([
-                    excerpt,
-                    string.toHoursMinutes(createdAt),
-                  ])
-                    .join(' ∙ ')
-                    .trim(),
-                }}
-              />
-              <Box mt={0.5}>{renderFauxLink()}</Box>
-            </>
+            <NotificationsItemContent
+              createdAt={createdAt}
+              excerpt={excerpt}
+              localUrl={localUrl}
+              messageType={messageType}
+              url={url}
+            />
           }
         />
         <NotificationsListItemActions handlers={handlers} />
@@ -131,24 +69,38 @@ const NotificationsListItem = (props) => {
   );
 };
 
-NotificationsListItem.defaultProps = {
-  onClick: null,
-  messageType: undefined,
-  excerpt: undefined,
-  hasSeen: false,
-  url: undefined,
-  label: undefined,
-};
-
-NotificationsListItem.propTypes = {
-  onClick: PropTypes.func,
-  id: PropTypes.string.isRequired,
-  messageType: PropTypes.string,
-  hasSeen: PropTypes.bool,
-  label: PropTypes.string,
+const propsTypes = {
+  archived: PropTypes.bool,
   createdAt: PropTypes.string.isRequired,
   excerpt: PropTypes.string,
+  handlers: PropTypes.shape({
+    click: PropTypes.func,
+  }).isRequired,
+  label: PropTypes.string,
+  localUrl: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  messageType: PropTypes.string,
+  read: PropTypes.bool,
   url: PropTypes.string,
 };
 
-export default NotificationsListItem;
+NotificationsListItem.defaultProps = {
+  archived: false,
+  excerpt: undefined,
+  label: undefined,
+  localUrl: undefined,
+  messageType: undefined,
+  read: false,
+  url: undefined,
+};
+
+NotificationsListItem.propTypes = propsTypes;
+
+export default React.memo(NotificationsListItem, (a, b) => {
+  const props = Object.keys(propsTypes);
+
+  return (
+    object.toJSON(pick(a, props)) ===
+    object.toJSON(pick(b, props))
+  );
+});

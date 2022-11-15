@@ -41,6 +41,7 @@ const useNotificationsRefresh = (incomingData = []) => {
             ),
           );
 
+          console.log('here,,,');
           logTimestamp();
         }),
     );

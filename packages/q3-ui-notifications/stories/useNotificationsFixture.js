@@ -93,7 +93,7 @@ const useNotificationsFixture = (mockAxiosInstance) => {
     return [
       200,
       {
-        hasNextPage: page < notifications.length / limit,
+        hasNextPage: page < notifications.length,
         notifications: nth(notifications, page),
       },
     ];
