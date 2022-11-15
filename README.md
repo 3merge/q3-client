@@ -178,6 +178,20 @@ More coming soon.
 
 ## Upgrade guides
 
+### V3. to V4.
+
+Q3 v3 underwent a massive design overhaul. A few components
+then underwent further functional changes, which lead to an
+early release of v4 to try and contain breaking changes.
+
+[Click here for v3. code branch](https://github.com/3merge/q3-client/tree/v3.x)
+
+#### Breaking changes
+
+<ul>
+<li>Notifications package requires v4 on the API server as well</li>
+</ul>
+
 ### V2. to V3.
 
 Q3 V3. aims to cleanup the repository of unused packages and
