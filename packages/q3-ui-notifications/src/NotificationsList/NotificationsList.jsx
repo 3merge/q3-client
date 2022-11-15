@@ -15,7 +15,6 @@ import {
 import NotificationsDescription from '../NotificationsDescription';
 import NotificationsListItem from '../NotificationsListItem';
 import withLoadingState from '../withLoadingState';
-import withClearAll from '../withClearAll';
 
 export const mapDataByCreatedDate = (xs) => {
   if (!size(xs)) return null;
@@ -70,6 +69,4 @@ export const NotificationsList = ({
   );
 };
 
-export default withLoadingState(
-  withClearAll(NotificationsList),
-);
+export default withLoadingState(NotificationsList);

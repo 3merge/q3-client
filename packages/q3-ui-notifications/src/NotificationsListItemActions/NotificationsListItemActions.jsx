@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DropdownMenu from 'q3-ui-dropdownmenu';
 import {
   IconButton,
@@ -50,6 +51,12 @@ const NotificationsListItemActions = ({ handlers }) => {
       />
     </ListItemSecondaryAction>
   );
+};
+
+NotificationsListItemActions.propTypes = {
+  handlers: PropTypes.shape({
+    delete: PropTypes.func,
+  }).isRequired,
 };
 
 export default NotificationsListItemActions;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box, Chip } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import PropTypes from 'prop-types';
 import { compact, first } from 'lodash';
