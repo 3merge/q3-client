@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, map, find } from 'lodash';
+import { get, map, find, compact, uniqBy } from 'lodash';
 import axios from 'axios';
 import moment from 'moment';
 import { object } from 'q3-ui-helpers';
@@ -36,12 +36,15 @@ const useNotificationsRefresh = (incomingData = []) => {
         )
         .then((resp) => {
           setRefreshed((prev = []) =>
-            prev.concat(
-              get(resp, 'data.notifications', []),
+            uniqBy(
+              compact([
+                ...get(resp, 'data.notifications', []),
+                prev,
+              ]),
+              'id',
             ),
           );
 
-          console.log('here,,,');
           logTimestamp();
         }),
     );

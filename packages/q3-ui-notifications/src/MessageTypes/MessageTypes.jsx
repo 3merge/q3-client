@@ -15,9 +15,9 @@ const MessageTypes = ({ children, messageTypes }) => {
   const isSelected = (state) =>
     messageType === state ? 'secondary' : undefined;
 
-  return (
-    <>
-      {size(messageTypes) > 0 && (
+  const MessageTypeChips = React.useMemo(
+    () =>
+      size(messageTypes) > 0 && (
         <Box className="notification-message-types" mt={1}>
           <Box display="inline-block" p={0.15}>
             <Chip
@@ -27,17 +27,22 @@ const MessageTypes = ({ children, messageTypes }) => {
             />
           </Box>
           {map(messageTypes, (type) => (
-            <Box display="inline-block" p={0.15}>
+            <Box display="inline-block" key={type} p={0.15}>
               <Chip
-                key={type}
-                onClick={handleMessageTypeChange(type)}
                 color={isSelected(type)}
                 label={t(type)}
+                onClick={handleMessageTypeChange(type)}
               />
             </Box>
           ))}
         </Box>
-      )}
+      ),
+    [messageType],
+  );
+
+  return (
+    <>
+      {MessageTypeChips}
       {children(messageType)}
     </>
   );

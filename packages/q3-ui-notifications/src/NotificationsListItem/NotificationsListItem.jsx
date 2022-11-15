@@ -31,7 +31,7 @@ const NotificationsListItem = (props) => {
   const ref = React.useRef();
   const handleClick = (e) => {
     if (ref.current && ref.current.contains(e.target)) {
-      handleClick.click(e);
+      handlers.click(e);
     }
   };
 
@@ -105,7 +105,7 @@ NotificationsListItem.defaultProps = {
 NotificationsListItem.propTypes = propsTypes;
 
 export default React.memo(NotificationsListItem, (a, b) => {
-  const props = Object.keys(propsTypes);
+  const props = Object.keys(propsTypes).concat('updatedAt');
 
   return (
     object.toJSON(pick(a, props)) ===

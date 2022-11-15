@@ -12,20 +12,23 @@ import {
 } from 'lodash';
 import data from './fixture';
 
+// to workaround integer vs. string ids
+const makeId = (num) => `#${num}`;
+
 const useNotificationsFixture = (mockAxiosInstance) => {
   const updatedAt = new Date().toISOString();
   const [state, setState] = React.useState(
     data.map((item) => ({
       ...item,
       // no numbers!
-      id: `${item.id}T`,
+      id: makeId(item.id),
       updatedAt,
     })),
   );
 
   const getIdsFromUrl = (args = {}) => {
     const { url } = args;
-    const id = Number(last(url.split('/')));
+    const id = last(url.split('/'));
     const ids = new URLSearchParams(
       `?${last(url.split('?'))}`,
     ).getAll('ids[]');
@@ -41,7 +44,7 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       setState((prevState) => [
         ...prevState,
         {
-          id: `${Math.random() * (10000 - 1000) + 1000}T`,
+          id: makeId(Math.random() * (10000 - 1000) + 1000),
           updatedAt: new Date().toISOString(),
           createdAt: new Date().toISOString(),
           label: 'Test',

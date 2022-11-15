@@ -19,7 +19,11 @@ const NotificationsItemContent = ({
 
   const getHtml = React.useCallback(
     () =>
-      compact([excerpt, string.toHoursMinutes(createdAt)])
+      compact([
+        messageType,
+        excerpt,
+        string.toHoursMinutes(createdAt),
+      ])
         .join(' ∙ ')
         .trim(),
     [createdAt, excerpt],
@@ -29,41 +33,28 @@ const NotificationsItemContent = ({
     if (url)
       return (
         <FauxLink>
+          <AttachmentIcon />
           {first(String(url).split('?')).substring(
             url.lastIndexOf('/') + 1,
           )}{' '}
-          <AttachmentIcon />
         </FauxLink>
       );
 
     if (localUrl)
       return (
         <FauxLink>
-          {t('readMore')} <OpenInNewIcon />
+          <OpenInNewIcon />
+          {t('readMore')}
         </FauxLink>
       );
 
     return null;
   }, [localUrl, url]);
 
-  const MessageTypeChip = React.useMemo(
-    () =>
-      messageType ? (
-        <Box display="inline-block" mr={1}>
-          <Chip
-            className={`notifications-${messageType}`}
-            label={messageType}
-            size="small"
-          />
-        </Box>
-      ) : null,
-    [messageType],
-  );
-
   return (
     <>
-      {MessageTypeChip}
-      <span
+      <div
+        style={{ marginRight: 64 }}
         // eslint-disable-next-line
         dangerouslySetInnerHTML={{
           __html: getHtml(),
