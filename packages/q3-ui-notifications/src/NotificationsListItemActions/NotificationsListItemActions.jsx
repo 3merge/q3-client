@@ -7,6 +7,7 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { object } from 'q3-ui-helpers';
 import { omit } from 'lodash';
+import Confirm from 'q3-ui-confirm';
 
 const NotificationsListItemActions = ({ handlers }) => {
   const withEventSuppression = (fn) => (e) => {
@@ -14,25 +15,39 @@ const NotificationsListItemActions = ({ handlers }) => {
     return object.noop(fn(e));
   };
 
-  const getItems = () =>
+  const getItems = (fn) =>
     Object.entries(omit(handlers, ['click'])).map(
       ([key, value]) => ({
         label: key,
-        onClick: withEventSuppression(value),
+        onClick: withEventSuppression(
+          key === 'delete' ? fn : value,
+        ),
       }),
     );
 
   return (
     <ListItemSecondaryAction>
-      <DropdownMenu items={getItems()}>
-        {(onClick) => (
-          <IconButton
-            onClick={withEventSuppression(onClick)}
-          >
-            <MoreVertIcon />
-          </IconButton>
+      <Confirm
+        title="confirm"
+        description="confirm"
+        service={handlers.delete}
+        label="addToTrash"
+        phrase="DELETE"
+        // eslint-disable-next-line
+        ButtonComponent={({
+          onClick: openConfirmation,
+        }) => (
+          <DropdownMenu items={getItems(openConfirmation)}>
+            {(onClick) => (
+              <IconButton
+                onClick={withEventSuppression(onClick)}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            )}
+          </DropdownMenu>
         )}
-      </DropdownMenu>
+      />
     </ListItemSecondaryAction>
   );
 };

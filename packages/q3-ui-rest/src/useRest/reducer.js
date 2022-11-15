@@ -46,14 +46,21 @@ export default (
       if (resources in prev) {
         prev[resources] = reduce(
           get(prev, resources, []),
-          (acc, curr, cache) => {
+          (acc, curr, _, cache) => {
             if (
               // adds it in the case where we've edited via
               // useInfiniteScroll
-              !find(cache, (item) => item.id === next.id) ||
-              next.id === curr.id
+              (!find(
+                cache,
+                (item) => item.id === next.id,
+              ) ||
+                next.id === curr.id) &&
+              next.id
             ) {
-              acc.push(next);
+              acc.push({
+                ...curr,
+                ...next,
+              });
             } else {
               acc.push(curr);
             }

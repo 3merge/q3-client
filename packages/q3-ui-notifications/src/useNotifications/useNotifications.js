@@ -1,3 +1,5 @@
+import React from 'react';
+import { split, uniq, concat } from 'lodash';
 import { useInfiniteScroll } from 'q3-ui-rest';
 import useNotificationsPolling from '../useNotificationsPolling';
 import useNotificationsRefresh from '../useNotificationsRefresh';
@@ -5,6 +7,7 @@ import useViews from '../useViews';
 
 const useNotifications = (view) => {
   const location = useViews(view);
+  const [deleted, setDeleted] = React.useState([]);
 
   const {
     fetching,
@@ -14,12 +17,18 @@ const useNotifications = (view) => {
     patch,
     poll,
     patchBulk,
+    remove,
     removeBulk,
   } = useNotificationsPolling(location);
 
+  const reconciledData = React.useMemo(
+    () => concat(notifications, deleted),
+    [notifications, deleted],
+  );
+
   const { data: infiniteData, ...infiniteScroll } =
     useInfiniteScroll({
-      data: notifications,
+      data: reconciledData,
       hasNextPage,
       location,
       poll,
@@ -63,11 +72,22 @@ const useNotifications = (view) => {
     },
 
     bulkRemoveByIds(ids) {
-      return removeBulk(
-        ids,
-        refresh,
-      )({
-        archived: true,
+      return removeBulk(ids, refresh)().then((resp) => {
+        setDeleted((prev) =>
+          uniq(
+            prev.concat(
+              (Array.isArray(ids)
+                ? ids
+                : split(ids, ',')
+              ).map((id) => ({
+                id,
+                active: false,
+              })),
+            ),
+          ),
+        );
+
+        return resp;
       });
     },
 
@@ -77,6 +97,19 @@ const useNotifications = (view) => {
         refresh,
       )({
         read: false,
+      });
+    },
+
+    delete(id) {
+      return remove(id)().then((resp) => {
+        setDeleted((prev) =>
+          prev.concat({
+            id,
+            active: false,
+          }),
+        );
+
+        return resp;
       });
     },
 

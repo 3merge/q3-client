@@ -28,15 +28,23 @@ const NotificationsListItem = (props) => {
     url,
   } = props;
 
+  const ref = React.useRef();
+  const handleClick = (e) => {
+    if (ref.current && ref.current.contains(e.target)) {
+      handleClick.click(e);
+    }
+  };
+
   return (
     <Box component="li">
       <ListItem
         {...props}
         button
         dense
-        onClick={handlers.click}
+        onClick={handleClick}
         selected={!read}
         disableRipple
+        ref={ref}
       >
         <NotificationsListItemCheckbox id={id} />
         <ListItemAvatar>

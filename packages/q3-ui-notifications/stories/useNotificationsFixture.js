@@ -17,16 +17,31 @@ const useNotificationsFixture = (mockAxiosInstance) => {
   const [state, setState] = React.useState(
     data.map((item) => ({
       ...item,
+      // no numbers!
+      id: `${item.id}T`,
       updatedAt,
     })),
   );
+
+  const getIdsFromUrl = (args = {}) => {
+    const { url } = args;
+    const id = Number(last(url.split('/')));
+    const ids = new URLSearchParams(
+      `?${last(url.split('?'))}`,
+    ).getAll('ids[]');
+
+    return {
+      id,
+      ids,
+    };
+  };
 
   React.useEffect(() => {
     setTimeout(() => {
       setState((prevState) => [
         ...prevState,
         {
-          id: Math.random() * (10000 - 1000) + 1000,
+          id: `${Math.random() * (10000 - 1000) + 1000}T`,
           updatedAt: new Date().toISOString(),
           createdAt: new Date().toISOString(),
           label: 'Test',
@@ -102,11 +117,8 @@ const useNotificationsFixture = (mockAxiosInstance) => {
   mockAxiosInstance
     .onPatch(/notifications/)
     .reply((args) => {
-      const { data: op, url } = args;
-      const id = Number(last(url.split('/')));
-      const ids = new URLSearchParams(
-        `?${last(url.split('?'))}`,
-      ).getAll('ids[]');
+      const { data: op } = args;
+      const { id, ids } = getIdsFromUrl(args);
 
       let notification = {};
       const newUpdatedAt = new Date().toISOString();
@@ -138,6 +150,26 @@ const useNotificationsFixture = (mockAxiosInstance) => {
             },
           ]
         : [204];
+    });
+
+  mockAxiosInstance
+    .onDelete(/notifications/)
+    .reply((args) => {
+      const { id, ids } = getIdsFromUrl(args);
+
+      const newState = state.filter((item) => {
+        if (
+          includes(ids, String(item.id)) ||
+          item.id === id
+        ) {
+          return false;
+        }
+
+        return true;
+      });
+
+      setState(newState);
+      return [204];
     });
 };
 export default useNotificationsFixture;

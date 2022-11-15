@@ -15,6 +15,7 @@ import DraftsIcon from '@material-ui/icons/Drafts';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import ClearIcon from '@material-ui/icons/Clear';
 import { size } from 'lodash';
+import Confirm from 'q3-ui-confirm';
 import BulkContext from '../BulkContext';
 import useBulk from '../useBulk';
 
@@ -28,6 +29,7 @@ const BulkProvider = ({
   ids,
   messageType,
   view,
+  bulkRemoveByIds,
 }) => {
   const { all, count, state, reset, ...rest } = useBulk();
   const handleClick = (fn) => () => fn(state);
@@ -128,9 +130,22 @@ const BulkProvider = ({
                 )}
                 {view === 'archived' && (
                   <Grid item>
-                    <IconButton color="inherit">
-                      <DeleteOutlineIcon />
-                    </IconButton>
+                    <Confirm
+                      title="confirm"
+                      description="confirm"
+                      service={handleClick(bulkRemoveByIds)}
+                      label="addToTrash"
+                      phrase="DELETE"
+                      // eslint-disable-next-line
+                      ButtonComponent={({ onClick }) => (
+                        <IconButton
+                          onClick={onClick}
+                          color="inherit"
+                        >
+                          <DeleteOutlineIcon />
+                        </IconButton>
+                      )}
+                    />
                   </Grid>
                 )}
               </Grid>

@@ -32,7 +32,7 @@ export const handleResponse = (d) => {
       if (
         method !== 'get' &&
         startsWith(2) &&
-        data.message
+        data?.message
       ) {
         noti.onSuccess(data.message);
       } else if (startsWith(4) || startsWith(5)) {

@@ -14,8 +14,9 @@ const useNotificationHandlers = (
     data,
     (acc, curr) => {
       if (
-        !isNil(messageType) &&
-        messageType !== curr.messageType
+        (!isNil(messageType) &&
+          messageType !== curr.messageType) ||
+        curr.active === false
       )
         return acc;
 
@@ -39,9 +40,10 @@ const useNotificationHandlers = (
       if (read) appendHandler('unread', 'updateToUnread');
       else appendHandler('read', 'updateToRead');
 
-      if (archived)
+      if (archived) {
         appendHandler('unarchive', 'updateToUnarchived');
-      else appendHandler('archive', 'updateToArchived');
+        appendHandler('delete', 'delete');
+      } else appendHandler('archive', 'updateToArchived');
 
       return acc.concat({
         ...curr,
