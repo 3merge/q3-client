@@ -18,6 +18,7 @@
     "lodash": "^4.17.20",
     "moment-timezone": "^0.5.34",
     "q3-ui-forms": "^3.16.4",
+    "q3-ui-helpers": "^3.16.0",
     "qs": "^6.9.6"
   }
 }

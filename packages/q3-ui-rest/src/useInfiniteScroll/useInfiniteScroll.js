@@ -70,10 +70,10 @@ const useInfiniteScroll = ({
               if (r?.hasNextPage === false) {
                 setStop(true);
               }
+
+              setPage(page + 1);
             }),
           );
-
-          setPage(page + 1);
         }
       },
       { threshold: [0] },
