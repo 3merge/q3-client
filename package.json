@@ -17,6 +17,7 @@
   "scripts": {
     "postinstall": "yarnw-sync-deps && yarn-deduplicate",
     "bootstrap": "lerna bootstrap --use-workspaces",
+    "version-workspace": "lerna version",
     "build": "set NODE_ENV=publish&& lerna exec \"babel --root-mode upward src -d lib --ignore **/*.stories.js,**/*.spec.js,**/*.stories.mdx,**/*.test.js --copy-files --delete-dir-on-start\"",
     "storybook": "set NODE_ENV=development&& start-storybook",
     "upload": "yarn build && lerna publish",
