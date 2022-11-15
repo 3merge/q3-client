@@ -1,21 +1,22 @@
-import { makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(() => ({
-  shake: {
-    '& svg': {
-      animation:
-        '$bellshake .5s cubic-bezier(.36,.07,.19,.97) both',
+  root: {
+    '& [tabIndex="-1"]': {
+      maxWidth: '100%',
+      width: '400px !important',
+
+      '& > div > div': {
+        padding: 0,
+
+        '& > div': {
+          paddingTop: '1rem',
+        },
+      },
+
+      '& [role="tabpanel"]': {
+        padding: '0.5rem 0',
+      },
     },
-  },
-  '@keyframes bellshake': {
-    '0%': { transform: 'rotate(0)' },
-    '15%': { transform: 'rotate(5deg)' },
-    '30%': { transform: 'rotate(-5deg)' },
-    '45%': { transform: 'rotate(4deg)' },
-    '60%': { transform: 'rotate(-4deg)' },
-    '75%': { transform: 'rotate(2deg)' },
-    '85%': { transform: 'rotate(-2deg)' },
-    '92%': { transform: 'rotate(1deg)' },
-    '100%': { transform: 'rotate(0)' },
   },
 }));

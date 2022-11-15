@@ -3,10 +3,10 @@ import React from 'react';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
+import { useChangeEventListener } from 'q3-ui-sse';
 import ArticleHeightBox from '../../components/ArticleHeightBox';
 import { Dispatcher, Definitions, Store } from '../state';
 import {
-  useRefresh,
   useSortPreference,
   useMultiselect,
 } from '../../hooks';
@@ -87,7 +87,7 @@ const List = (props) => {
 
   const { poll } = React.useContext(Dispatcher);
   const { canSeeSub } = useAuth(collectionName);
-  useRefresh(poll);
+  useChangeEventListener(collectionName, poll);
 
   const decorator = TableDecorator({
     ...props,

@@ -1,5 +1,6 @@
 export { default } from './useRest';
 export { default as useFilters } from './useFilters';
+export { default as useInfiniteScroll } from './useInfiniteScroll';
 export { default as useLoading } from './useLoading';
 export {
   default as getForAutocomplete,

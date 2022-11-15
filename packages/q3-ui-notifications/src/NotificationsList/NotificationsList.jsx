@@ -14,9 +14,7 @@ import {
 } from 'lodash';
 import NotificationsDescription from '../NotificationsDescription';
 import NotificationsListItem from '../NotificationsListItem';
-import withUnseenNotifications from '../withUnseenNotificationsOnly';
 import withLoadingState from '../withLoadingState';
-import withClearAll from '../withClearAll';
 
 export const mapDataByCreatedDate = (xs) => {
   if (!size(xs)) return null;
@@ -44,7 +42,10 @@ export const NotificationsList = ({
         <List
           key={key || idx}
           subheader={
-            <ListSubheader disableSticky>
+            <ListSubheader
+              disableSticky
+              style={{ paddingLeft: 24, paddingRight: 24 }}
+            >
               {key}
             </ListSubheader>
           }
@@ -68,6 +69,4 @@ export const NotificationsList = ({
   );
 };
 
-export default withLoadingState(
-  withUnseenNotifications(withClearAll(NotificationsList)),
-);
+export default withLoadingState(NotificationsList);

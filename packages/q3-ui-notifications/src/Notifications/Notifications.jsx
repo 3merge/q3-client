@@ -1,81 +1,112 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Bell from '../Bell';
-import NotificationsDrawer from '../NotificationsDrawer';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { map } from 'lodash';
+import Tabs from 'q3-components/lib/Tabs';
+import Tab from 'q3-components/lib/Tab';
+import MessageTypes from '../MessageTypes';
+import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
-import useNotificationClickEvent from '../useNotificationClickEvent';
-import useCount from '../useCount';
+import useNotifications from '../useNotifications';
+import useNotificationHandlers from '../useNotificationHandlers';
+import useStyles from './styles';
 
 const Notifications = ({
-  buttonComponent,
-  data,
-  error,
-  loading,
-  syncSeen,
+  defaultView,
+  messageTypes,
   ...rest
 }) => {
-  useNotificationClickEvent(data, syncSeen);
-
-  const count = useCount(data);
-  const buttonComponentProps = {
-    ...count,
-    error,
-    loading,
-  };
-
-  const icon = React.useCallback(
-    () => React.createElement(Bell, buttonComponentProps),
-    [buttonComponentProps],
-  );
+  const [view, setView] = React.useState(defaultView);
+  const {
+    bulkArchiveByIds,
+    bulkReadByIds,
+    bulkRemoveByIds,
+    bulkUnarchiveByIds,
+    bulkUnreadByIds,
+    data,
+    fetching,
+    fetchingError,
+    scrollWatchRef,
+    showScrollWatch,
+    ...restServices
+  } = useNotifications(view);
+  const cls = useStyles(rest);
 
   return (
-    <NotificationsDrawer
-      renderContent={() => (
-        <NotificationsList
-          {...rest}
-          data={data}
-          error={error}
-          loading={loading}
-        />
+    <Box className={cls.view}>
+      <Tabs
+        className="notification-views"
+        value={view}
+        onChange={(_, newView) => {
+          setView(newView);
+        }}
+      >
+        {['unread', 'all', 'archived'].map((item) => (
+          <Tab
+            disabled={fetching}
+            label={item}
+            value={item}
+            key={item}
+          />
+        ))}
+      </Tabs>
+      <MessageTypes messageTypes={messageTypes}>
+        {(messageType) => {
+          const filteredData = useNotificationHandlers(
+            data,
+            restServices,
+            messageType,
+          );
+
+          return (
+            <BulkProvider
+              ids={map(filteredData, 'id')}
+              bulkArchiveByIds={bulkArchiveByIds}
+              bulkReadByIds={bulkReadByIds}
+              bulkRemoveByIds={bulkRemoveByIds}
+              bulkUnarchiveByIds={bulkUnarchiveByIds}
+              bulkUnreadByIds={bulkUnreadByIds}
+              messageType={messageType}
+              view={view}
+            >
+              <NotificationsList
+                data={filteredData}
+                error={fetchingError}
+                loading={fetching}
+              />
+            </BulkProvider>
+          );
+        }}
+      </MessageTypes>
+      {showScrollWatch && (
+        <Box p={2} ref={scrollWatchRef}>
+          <CircularProgress />
+        </Box>
       )}
-      SlideProps={{
-        onExit: syncSeen,
-      }}
-      renderTrigger={(open) =>
-        React.cloneElement(
-          buttonComponent({
-            icon,
-            ...buttonComponentProps,
-          }),
-          {
-            onClick: open,
-          },
-        )
-      }
-    />
+    </Box>
   );
 };
 
 Notifications.propTypes = {
-  buttonComponent: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string,
-      hasBeenDownloaded: PropTypes.bool,
-      hasSeen: PropTypes.bool,
-      acknowledge: PropTypes.func,
-      url: PropTypes.string,
-    }),
-  ),
-  error: PropTypes.bool,
-  loading: PropTypes.bool,
-  syncSeen: PropTypes.func.isRequired,
+  defaultView: PropTypes.oneOf([
+    'all',
+    'archived',
+    'latest',
+    'unread',
+  ]),
+  enableBulk: PropTypes.bool,
+  enableMessageTypeFiltering: PropTypes.bool,
+  enableViews: PropTypes.bool,
+  messageTypes: PropTypes.arrayOf(PropTypes.string),
 };
 
 Notifications.defaultProps = {
-  data: [],
-  loading: false,
-  error: false,
+  defaultView: 'unread',
+  enableBulk: true,
+  enableMessageTypeFiltering: true,
+  enableViews: true,
+  messageTypes: [],
 };
 
 export default Notifications;

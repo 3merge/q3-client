@@ -39,6 +39,14 @@ const ExampleApp = ({ initialPath }) => {
                 roles: ['Administrator', 'Rep', 'Customer'],
               }}
               NavProps={{}}
+              NotificationProps={{
+                messageTypes: [
+                  'Male',
+                  'Female',
+                  'Non-Binary',
+                  'Genderfluid',
+                ],
+              }}
               ToolbarProps={{
                 profileOptions: [],
               }}

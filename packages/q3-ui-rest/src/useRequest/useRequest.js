@@ -61,6 +61,7 @@ const useRequest = ({
     const isGet = method === 'get';
 
     const handleError = (err) =>
+      // console.log(err);
       Promise.reject(
         isFunction(callback)
           ? callback(err)

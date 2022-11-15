@@ -1,110 +1,57 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { first, chunk } from 'lodash';
-import { Fab, Box, Hidden } from '@material-ui/core';
-import classnames from 'classnames';
-import Notifications from 'q3-ui-notifications';
-import NotificationIcon from '@material-ui/icons/Notifications';
-import { useNotifications } from '../../hooks';
-import ButtonWithIcon from '../../components/ButtonWithIcon';
-import useButtonStyle from '../../components/ButtonWithIcon/styles';
-import useStyle from './styles';
+import NotificationsUi from 'q3-ui-notifications';
+import Dialog from 'q3-ui-dialog';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { useTranslation } from 'q3-ui-locale';
+import NotificationsButton from '../NotificationsButton';
 import useNotificationsPage from '../../hooks/useNotificationsPage';
+import useStyle from './styles';
 
-export const ButtonComponentWithAnimation = ({
-  icon,
-  numberOfNotifications,
-  ...rest
-}) => {
-  const cls = useStyle();
-  const [amount, setAmount] = React.useState(0);
-  const [classlist, setClassList] = React.useState([]);
-
-  React.useEffect(() => {
-    if (numberOfNotifications > amount) {
-      setClassList([cls.shake]);
-    } else {
-      setClassList([]);
-    }
-
-    setAmount(numberOfNotifications);
-  }, [numberOfNotifications]);
-
-  return (
-    <Box className={classnames(...classlist)}>
-      <ButtonWithIcon
-        {...rest}
-        count={amount}
-        icon={icon}
-        label="notifications"
-        id="app-notifications"
-      />
-    </Box>
-  );
-};
-
-ButtonComponentWithAnimation.defaultProps = {
-  icon: null,
-  numberOfNotifications: 0,
-};
-
-ButtonComponentWithAnimation.propTypes = {
-  icon: PropTypes.element,
-  numberOfNotifications: PropTypes.number,
-};
-
-const NotificationsContainer = () => {
+const Notifications = () => {
   const { visit } = useNotificationsPage();
-  const { data, clear, error, loading, syncSeen } =
-    useNotifications();
-
-  const ButtonComponent = React.useCallback(
-    (notificationProps) => (
-      <ButtonComponentWithAnimation
-        {...notificationProps}
-      />
-    ),
-    [],
-  );
+  const { t } = useTranslation('labels');
+  const cls = useStyle();
 
   return (
-    <Notifications
-      buttonComponent={ButtonComponent}
-      data={first(chunk(data, 50))}
-      error={error}
-      clear={clear}
-      loading={loading}
-      more={visit}
-      syncSeen={syncSeen}
+    <Dialog
+      anchor="right"
+      className={cls.root}
+      closeOnRouteChange
+      renderContent={() => (
+        <>
+          <NotificationsUi
+            enableBulk={false}
+            enableMessageTypeFiltering={false}
+            enableViews={false}
+          />
+          <Box
+            bgcolor="background.paper"
+            position="sticky"
+            bottom={0}
+            py={1}
+            px={2}
+            pb={2}
+            zIndex={2}
+          >
+            <Button
+              color="secondary"
+              onClick={visit}
+              fullWidth
+              variant="contained"
+            >
+              {t('manageAllNotifications')}
+            </Button>
+          </Box>
+        </>
+      )}
+      renderTrigger={(onClick) => (
+        <NotificationsButton onClick={onClick} />
+      )}
+      title="notifications"
+      variant="drawer"
     />
   );
 };
 
-const withPlaceholderButton = (Component) => (props) => {
-  const { isOn, visit } = useNotificationsPage();
-  const cls = useButtonStyle({
-    on: true,
-  });
-
-  return isOn() ? (
-    <Hidden lgUp>
-      <Fab
-        aria-current="page"
-        onClick={visit}
-        className={cls.fab}
-      >
-        <NotificationIcon />
-      </Fab>
-    </Hidden>
-  ) : (
-    <Component {...props} />
-  );
-};
-
-export default React.memo(
-  /**
-   * This prevents the notification service from running
-   * while on the notifications page
-   */
-  withPlaceholderButton(NotificationsContainer),
-);
+export default Notifications;

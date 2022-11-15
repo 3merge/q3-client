@@ -1,5 +1,6 @@
 import { url } from 'q3-ui-helpers';
 import { timezone } from 'q3-ui-locale';
+import { get } from 'lodash';
 import {
   clean,
   ensureBoolean,
@@ -7,7 +8,7 @@ import {
   unquote,
 } from '../utils';
 
-export default (v) => {
+export default (v, options = {}) => {
   if (!v) return {};
 
   return url
@@ -21,7 +22,7 @@ export default (v) => {
         if (timezone.isUtc(decodeURIComponent(value)))
           value = timezone.toLocal(
             decodeURIComponent(value),
-            timezone.YMD,
+            get(options, 'dateformat', timezone.YMD),
           );
       } catch (e) {
         // noop
@@ -38,11 +39,10 @@ export default (v) => {
             .match(/(".*?"|[^",]+)/g)
             .map(unquote);
 
-        acc[
-          decodeURIComponent(key).replace(/\./g, '~')
-        ] = Array.isArray(value)
-          ? value.map(ensureBoolean).map(ensureNumber)
-          : ensureNumber(ensureBoolean(unquote(value)));
+        acc[decodeURIComponent(key).replace(/\./g, '~')] =
+          Array.isArray(value)
+            ? value.map(ensureBoolean).map(ensureNumber)
+            : ensureNumber(ensureBoolean(unquote(value)));
       } catch (e) {
         // noop
         // protect against malformed URI errors

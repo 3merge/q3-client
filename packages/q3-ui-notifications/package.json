@@ -14,11 +14,19 @@
     "react-dom": "^17.0.1"
   },
   "dependencies": {
+    "axios": "^0.24.0",
+    "file-saver": "^2.0.5",
     "lodash": "^4.17.20",
+    "moment": "2.29.4",
     "prop-types": "^15.7.2",
+    "q3-components": "^3.16.4",
+    "q3-ui-confirm": "^3.16.4",
     "q3-ui-dialog": "^3.16.0",
+    "q3-ui-dropdownmenu": "^1.0.0",
     "q3-ui-helpers": "^3.16.0",
     "q3-ui-locale": "^3.16.0",
+    "q3-ui-queryparams": "^3.16.0",
+    "q3-ui-rest": "^3.16.4",
     "useful-state": "^1.2.3"
   }
 }

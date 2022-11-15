@@ -1,18 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import { Badge, Avatar } from '@material-ui/core';
 import Drafts from '@material-ui/icons/Drafts';
 import Mail from '@material-ui/icons/Mail';
-import CloudIcon from '@material-ui/icons/Cloud';
-import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import CommentIcon from '@material-ui/icons/Comment';
-import ModeCommentIcon from '@material-ui/icons/ModeComment';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import useStyle from './styles';
 
-const Icon = ({ hasSeen, messageType }) => (
+const Icon = ({ archived, read }) => (
   <Badge
-    invisible={hasSeen}
+    invisible={read}
     variant="dot"
     color="secondary"
     className={useStyle().badge}
@@ -27,34 +23,27 @@ const Icon = ({ hasSeen, messageType }) => (
         color: 'inherit',
       }}
     >
-      {hasSeen
-        ? get(
-            {
-              document: <ModeCommentIcon />,
-              download: <CloudQueueIcon />,
-            },
-            messageType,
-            <Drafts />,
-          )
-        : get(
-            {
-              document: <CommentIcon />,
-              download: <CloudIcon />,
-            },
-            messageType,
-            <Mail />,
-          )}
+      {
+        // eslint-disable-next-line
+        archived ? (
+          <FolderSpecialIcon />
+        ) : read ? (
+          <Drafts />
+        ) : (
+          <Mail />
+        )
+      }
     </Avatar>
   </Badge>
 );
 Icon.defaultProps = {
-  hasSeen: false,
-  messageType: '',
+  archived: false,
+  read: false,
 };
 
 Icon.propTypes = {
-  hasSeen: PropTypes.bool,
-  messageType: PropTypes.string,
+  archived: PropTypes.bool,
+  read: PropTypes.string,
 };
 
 export default Icon;
