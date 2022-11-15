@@ -55,7 +55,12 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
-const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
+const Admin = ({
+  AppProps,
+  NavProps,
+  NotificationProps,
+  ToolbarProps,
+}) => {
   const { pages } = AppProps;
   const cls = useStyle();
 
@@ -98,7 +103,10 @@ const Admin = ({ AppProps, NavProps, ToolbarProps }) => {
             </Navbar>
             <Box className={cls.main}>
               <App {...AppProps}>
-                <NotificationsPage path="notifications" />
+                <NotificationsPage
+                  {...NotificationProps}
+                  path="notifications"
+                />
                 <SystemPage path="account">
                   <ProfileChangeContact path="contact" />
                   <ProfileChangeLocale path="locale" />
@@ -173,13 +181,10 @@ Admin.propTypes = {
       }),
     ),
   }).isRequired,
-  NavProps: PropTypes.shape({
-    callToAction: PropTypes.shape({
-      icon: PropTypes.element,
-      label: PropTypes.string,
-      onClick: PropTypes.func,
-    }),
-  }).isRequired,
+  NavProps: PropTypes.shape({}),
+  NotificationProps: PropTypes.shape({
+    messageTypes: PropTypes.arrayOf(PropTypes.string),
+  }),
   ToolbarProps: PropTypes.shape({
     profileOptions: PropTypes.arrayOf(
       PropTypes.shape({
@@ -192,6 +197,8 @@ Admin.propTypes = {
 };
 
 Admin.defaultProps = {
+  NavProps: {},
+  NotificationProps: {},
   ToolbarProps: {},
 };
 

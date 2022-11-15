@@ -6,7 +6,9 @@ export default makeStyles(() => ({
     enableMessageTypeFiltering,
     enableViews,
   }) => {
-    const output = {};
+    const output = {
+      position: 'relative',
+    };
 
     const addDisplayNoneProperty = (selector) => {
       output[`& ${selector}`] = {

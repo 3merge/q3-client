@@ -106,7 +106,7 @@ Notifications.defaultProps = {
   enableBulk: true,
   enableMessageTypeFiltering: true,
   enableViews: true,
-  messageTypes: ['Male', 'Female'],
+  messageTypes: [],
 };
 
 export default Notifications;

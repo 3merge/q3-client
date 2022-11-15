@@ -32,6 +32,7 @@ const Notifications = () => {
             py={1}
             px={2}
             pb={2}
+            zIndex={2}
           >
             <Button
               color="secondary"

@@ -5,6 +5,7 @@ import {
   Grid,
   Button,
   IconButton,
+  Hidden,
 } from '@material-ui/core';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
@@ -38,31 +39,34 @@ const BulkProvider = ({
   return (
     <BulkContext.Provider value={rest}>
       {size(ids) > 0 && (
-        <Box
-          className="notifications-bulk-buttons"
-          mb={-0.5}
-          mt={1}
-        >
-          {count ? (
-            <Button
-              color="inherit"
-              onClick={reset}
-              startIcon={<ClearIcon />}
-            >
-              Unselect all
-            </Button>
-          ) : (
-            <Button
-              color="inherit"
-              onClick={() => {
-                all(ids);
-              }}
-              startIcon={<DoneAllIcon />}
-            >
-              Select all
-            </Button>
-          )}
-        </Box>
+        <Hidden smDown>
+          <Box
+            position="absolute"
+            top={0}
+            right={0}
+            className="notifications-bulk-buttons"
+          >
+            {count ? (
+              <Button
+                color="inherit"
+                onClick={reset}
+                startIcon={<ClearIcon />}
+              >
+                Unselect all
+              </Button>
+            ) : (
+              <Button
+                color="inherit"
+                onClick={() => {
+                  all(ids);
+                }}
+                startIcon={<DoneAllIcon />}
+              >
+                Select all
+              </Button>
+            )}
+          </Box>
+        </Hidden>
       )}
       {count > 0 && (
         <Box position="sticky" top="1rem" zIndex={2} mt={1}>

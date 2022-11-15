@@ -8,7 +8,7 @@ import ConnectivityError from '../../components/ConnectivityError';
 import Title from '../../components/Title';
 import useStyle from './styles';
 
-const NotificationsPage = () => {
+const NotificationsPage = (props) => {
   const cls = useStyle();
   const { t } = useTranslation('labels');
 
@@ -19,7 +19,7 @@ const NotificationsPage = () => {
           <Title>{t('notifications')}</Title>
         </Header>
         <ConnectivityError />
-        <Notifications />
+        <Notifications {...props} />
       </Box>
     </Article>
   );
