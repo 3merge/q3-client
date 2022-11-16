@@ -70,6 +70,7 @@ const Page = ({
         'hasPrevPage',
         'fetching',
         'fetchingError',
+        'location.search',
       ]),
     }),
     [state],

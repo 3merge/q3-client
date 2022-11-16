@@ -27,6 +27,7 @@
     "q3-ui-locale": "^4.0.1",
     "q3-ui-queryparams": "^4.0.1",
     "q3-ui-rest": "^4.0.1",
+    "q3-ui-sse": "^4.0.1",
     "useful-state": "^1.2.3"
   }
 }

@@ -1,6 +1,6 @@
-import React from 'react';
 import { object } from 'q3-ui-helpers';
 import useRest from 'q3-ui-rest';
+import { useChangeEventListener } from 'q3-ui-sse';
 
 const useNotificationsPolling = (location = {}) => {
   const { search = '?' } = location;
@@ -12,18 +12,9 @@ const useNotificationsPolling = (location = {}) => {
     location,
   });
 
-  React.useEffect(() => {
-    const timer = setInterval(
-      () => object.noop(r.poll(search)),
-      15000,
-    );
-
-    return () => {
-      if (timer) {
-        clearInterval(timer);
-      }
-    };
-  }, [search]);
+  useChangeEventListener('notifications', () =>
+    object.noop(r.poll(search)),
+  );
 
   return r;
 };

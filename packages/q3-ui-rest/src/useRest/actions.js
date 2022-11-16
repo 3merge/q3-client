@@ -1,5 +1,5 @@
 import React from 'react';
-import { isString } from 'lodash';
+import { isString, pick } from 'lodash';
 import { formatUrlPath } from '../helpers';
 import reducer from './reducer';
 import {
@@ -51,20 +51,17 @@ const useRest = ({
 }) => {
   if (!url) throw new Error('Requires a valid URL');
 
-  const {
-    state,
-    call,
-    passthrough,
-  } = decorateDispatchReducerFn(
-    React.useReducer(reducer, {
-      fetching: runOnInit,
-      progress: 0,
-    }),
-    {
-      key,
-      pluralized,
-    },
-  );
+  const { state, call, passthrough } =
+    decorateDispatchReducerFn(
+      React.useReducer(reducer, {
+        fetching: runOnInit,
+        progress: 0,
+      }),
+      {
+        key,
+        pluralized,
+      },
+    );
 
   const { assembleUrl, curry, exec } = useRequest({
     namespace: pluralized,
@@ -166,6 +163,7 @@ const useRest = ({
   });
 
   return {
+    ...pick(options, ['location']),
     ...state,
     ...methods,
   };

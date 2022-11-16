@@ -87,7 +87,10 @@ const List = (props) => {
 
   const { poll } = React.useContext(Dispatcher);
   const { canSeeSub } = useAuth(collectionName);
-  useChangeEventListener(collectionName, poll);
+
+  useChangeEventListener(collectionName, () =>
+    poll(tableProps?.location?.search),
+  );
 
   const decorator = TableDecorator({
     ...props,
