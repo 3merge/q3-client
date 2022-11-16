@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/3merge/q/compare/v4.0.2...v4.0.3) (2022-11-16)
+
+
+### Bug Fixes
+
+* click handers ([c908a21](https://github.com/3merge/q/commit/c908a21904c362bd34994eb3be948d2b336f3928))
+
+
+
+
+
 ## [4.0.2](https://github.com/3merge/q/compare/v4.0.1...v4.0.2) (2022-11-16)
 
 
