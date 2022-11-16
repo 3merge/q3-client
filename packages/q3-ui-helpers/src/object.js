@@ -105,7 +105,7 @@ export const toJSON = (xs) => {
 };
 
 export const noop = (promise) =>
-  promise
+  Promise.resolve(promise)
     .then(() => {
       // noop
     })

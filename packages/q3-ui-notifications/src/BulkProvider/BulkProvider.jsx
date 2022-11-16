@@ -58,7 +58,10 @@ const BulkProvider = ({
         onSelectAll={() => {
           all(ids);
         }}
-        show={number.greaterThan(size(ids))}
+        show={
+          number.greaterThan(size(ids)) ||
+          number.greaterThan(count)
+        }
       />
       {number.greaterThan(count) && (
         <Box position="sticky" top="1rem" zIndex={2} mt={1}>

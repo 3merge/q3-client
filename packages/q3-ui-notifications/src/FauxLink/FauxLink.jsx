@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import useStyle from './styles';
 
 const FauxLink = ({ children }) => (
-  <span className={useStyle().link}>{children}</span>
+  <span className={useStyle().link}>
+    <span>{children}</span>
+  </span>
 );
 
 FauxLink.propTypes = {
