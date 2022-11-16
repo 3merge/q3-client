@@ -19,6 +19,7 @@ const useViews = (view) => {
               archived: 'exists(true)',
             },
             latest: {
+              archived: 'exists(false)',
               'createdAt>': moment()
                 .subtract('1', 'week')
                 .startOf('day')

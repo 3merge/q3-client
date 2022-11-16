@@ -29,6 +29,7 @@ export const ICON_NAMES = {
   'Text': SvgIcon.Text,
   'Throw': SvgIcon.Throw,
   'Unlock': SvgIcon.Unlock,
+  'Inbox': SvgIcon.Inbox,
 };
 
 const getGraphicByName = (name, children = null) => {

@@ -6,9 +6,17 @@ export default makeStyles((theme) => ({
     display: 'flex',
     marginTop: theme.spacing(0.5),
     textDecoration: 'underline',
-    maxWidth: 180,
+    maxWidth: 500,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
+
+    [theme.breakpoints.down('md')]: {
+      width: 230,
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      width: 180,
+    },
 
     '& > span': {
       overflow: 'hidden',

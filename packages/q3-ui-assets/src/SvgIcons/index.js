@@ -8,6 +8,7 @@ export { default as Error } from './Error';
 export { default as Missing } from './Missing';
 export { default as Files } from './Files';
 export { default as Lock } from './Lock';
+export { default as Inbox } from './Inbox';
 export { default as Note } from './Note';
 export { default as NoResults } from './NoResults';
 export { default as Placeholder } from './Placeholder';

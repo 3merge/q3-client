@@ -12,7 +12,8 @@ import {
   isObject,
   orderBy,
 } from 'lodash';
-import NotificationsDescription from '../NotificationsDescription';
+// eslint-disable-next-line
+import Graphic from 'q3-ui-assets';
 import NotificationsListItem from '../NotificationsListItem';
 import withLoadingState from '../withLoadingState';
 
@@ -65,7 +66,12 @@ export const NotificationsList = ({
       ) : null,
     )
   ) : (
-    <NotificationsDescription text="notificationsEmpty" />
+    <Graphic
+      title="notificationsEmpty"
+      description="notificationsEmpty"
+      icon="Inbox"
+      transparent
+    />
   );
 };
 

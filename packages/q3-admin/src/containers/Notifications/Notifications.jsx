@@ -21,6 +21,7 @@ const Notifications = () => {
       renderContent={() => (
         <>
           <NotificationsUi
+            defaultView="latest"
             enableBulk={false}
             enableMessageTypeFiltering={false}
             enableViews={false}

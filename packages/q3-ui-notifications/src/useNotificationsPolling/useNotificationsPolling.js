@@ -22,19 +22,20 @@ const useNotificationsPolling = (location = {}) => {
     );
   };
 
-  useChangeEventListener('notifications', () =>
-    object.noop(
-      axios
-        .get(
-          `/notifications?sort=-updatedAt&limit=100&updatedAt>=${ref.current}`,
-        )
-        .then((resp) => {
-          // will take over
-          r.replace(get(resp, 'data', {}));
-          logTimestamp();
-        }),
-    ),
-  );
+  useChangeEventListener('notifications', () => {
+    // ensures we're refreshing the right view
+    const s = String(location?.search)
+      .replace('sort=-createdAt', 'sort=-updatedAt')
+      .concat(`&updatedAt>=${ref.current}`);
+
+    return object.noop(
+      axios.get(`/notifications${s}`).then((resp) => {
+        // will take over
+        r.replace(get(resp, 'data', {}));
+        logTimestamp();
+      }),
+    );
+  });
 
   React.useEffect(() => {
     logTimestamp();

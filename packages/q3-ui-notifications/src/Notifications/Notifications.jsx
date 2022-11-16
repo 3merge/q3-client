@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { map } from 'lodash';
 import Tabs from 'q3-components/lib/Tabs';
 import Tab from 'q3-components/lib/Tab';
+import { useTranslation } from 'q3-ui-locale';
 import MessageTypes from '../MessageTypes';
 import BulkProvider from '../BulkProvider';
 import NotificationsList from '../NotificationsList';
@@ -17,6 +18,7 @@ const Notifications = ({
   messageTypes,
   ...rest
 }) => {
+  const { t } = useTranslation('labels');
   const [view, setView] = React.useState(defaultView);
   const {
     bulkArchiveByIds,
@@ -45,7 +47,7 @@ const Notifications = ({
         {['unread', 'all', 'archived'].map((item) => (
           <Tab
             disabled={fetching}
-            label={item}
+            label={t(item)}
             value={item}
             key={item}
           />
