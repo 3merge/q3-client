@@ -123,14 +123,24 @@ const useNotificationsFixture = (mockAxiosInstance) => {
       const { data: op } = args;
       const { id, ids } = getIdsFromUrl(args);
 
+      const notifications = [];
       let notification = {};
+
       const newUpdatedAt = new Date().toISOString();
 
       const newState = state.map((item) => {
-        if (
-          includes(ids, String(item.id)) ||
-          item.id === id
-        ) {
+        if (includes(ids, String(item.id))) {
+          notification = {
+            ...item,
+            ...JSON.parse(op),
+            updatedAt: newUpdatedAt,
+          };
+
+          notifications.push(notification);
+          return notification;
+        }
+
+        if (item.id === id) {
           notification = {
             ...item,
             ...JSON.parse(op),
@@ -152,7 +162,12 @@ const useNotificationsFixture = (mockAxiosInstance) => {
               notification,
             },
           ]
-        : [204];
+        : [
+            200,
+            {
+              notifications,
+            },
+          ];
     });
 
   mockAxiosInstance

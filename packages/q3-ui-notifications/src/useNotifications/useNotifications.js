@@ -1,13 +1,10 @@
-import React from 'react';
-import { split, uniq, concat } from 'lodash';
+import { split } from 'lodash';
 import { useInfiniteScroll } from 'q3-ui-rest';
 import useNotificationsPolling from '../useNotificationsPolling';
-import useNotificationsRefresh from '../useNotificationsRefresh';
 import useViews from '../useViews';
 
 const useNotifications = (view) => {
   const location = useViews(view);
-  const [deleted, setDeleted] = React.useState([]);
 
   const {
     fetching,
@@ -19,96 +16,65 @@ const useNotifications = (view) => {
     patchBulk,
     remove,
     removeBulk,
+    replace,
   } = useNotificationsPolling(location);
 
-  const reconciledData = React.useMemo(
-    () => concat(notifications, deleted),
-    [notifications, deleted],
-  );
+  const markAsInactiveInsideState = (ids) =>
+    replace({
+      notifications: (Array.isArray(ids)
+        ? ids
+        : split(ids, ',')
+      ).map((id) => ({
+        id,
+        active: false,
+      })),
+    });
 
-  const { data: infiniteData, ...infiniteScroll } =
-    useInfiniteScroll({
-      data: reconciledData,
+  return {
+    ...useInfiniteScroll({
+      data: notifications,
       hasNextPage,
       location,
       poll,
-    });
-
-  const { refresh, ...refreshedData } =
-    useNotificationsRefresh(infiniteData);
-
-  return {
-    ...infiniteScroll,
-    ...refreshedData,
+    }),
 
     fetching,
     fetchingError,
 
     bulkArchiveByIds(ids) {
-      return patchBulk(
-        ids,
-        refresh,
-      )({
+      return patchBulk(ids)({
         archived: true,
       });
     },
 
     bulkUnarchiveByIds(ids) {
-      return patchBulk(
-        ids,
-        refresh,
-      )({
+      return patchBulk(ids)({
         archived: false,
       });
     },
 
     bulkReadByIds(ids) {
-      return patchBulk(
-        ids,
-        refresh,
-      )({
+      return patchBulk(ids)({
         read: true,
       });
     },
 
     bulkRemoveByIds(ids) {
-      return removeBulk(ids, refresh)().then((resp) => {
-        setDeleted((prev) =>
-          uniq(
-            prev.concat(
-              (Array.isArray(ids)
-                ? ids
-                : split(ids, ',')
-              ).map((id) => ({
-                id,
-                active: false,
-              })),
-            ),
-          ),
-        );
-
+      return removeBulk(ids)().then((resp) => {
+        markAsInactiveInsideState(ids);
         return resp;
       });
     },
 
     bulkUnreadByIds(ids) {
-      return patchBulk(
-        ids,
-        refresh,
-      )({
+      return patchBulk(ids)({
         read: false,
       });
     },
 
     delete(id) {
       return remove(id)().then((resp) => {
-        setDeleted((prev) =>
-          prev.concat({
-            id,
-            active: false,
-          }),
-        );
-
+        markAsInactiveInsideState(id);
         return resp;
       });
     },
