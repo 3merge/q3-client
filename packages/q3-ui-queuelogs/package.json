@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-queuelogs",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -13,7 +13,7 @@
     "q3-ui-helpers": "^4.0.1",
     "q3-ui-locale": "^4.0.1",
     "q3-ui-permissions": "^4.0.1",
-    "q3-ui-rest": "^4.0.1"
+    "q3-ui-rest": "^4.0.2"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",
