@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-queuelogs",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -9,7 +9,7 @@
     "axios": "^0.24.0",
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-assets": "^4.0.1",
+    "q3-ui-assets": "^4.0.5",
     "q3-ui-helpers": "^4.0.3",
     "q3-ui-locale": "^4.0.3",
     "q3-ui-permissions": "^4.0.1",
