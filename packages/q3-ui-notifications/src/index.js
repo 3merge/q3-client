@@ -1,4 +1,2 @@
 export { default } from './Notifications';
-
-// mainly, just for testing and demo
-export { default as useNotificationsFixture } from '../stories/useNotificationsFixture';
+export { default as useNotificationsFixture } from './__stories__/useNotificationsFixture';
