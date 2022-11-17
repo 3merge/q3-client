@@ -3,10 +3,10 @@ import React from 'react';
 import Table from 'q3-ui-datatables';
 import { useAuth } from 'q3-ui-permissions';
 import { compact, get, invoke, isFunction } from 'lodash';
-import { useChangeEventListener } from 'q3-ui-sse';
 import ArticleHeightBox from '../../components/ArticleHeightBox';
-import { Dispatcher, Definitions, Store } from '../state';
+import { Definitions, Store } from '../state';
 import {
+  useCollectionSseRefresh,
   useSortPreference,
   useMultiselect,
 } from '../../hooks';
@@ -85,12 +85,9 @@ const List = (props) => {
   const { collectionName, rootPath } =
     React.useContext(Definitions);
 
-  const { poll } = React.useContext(Dispatcher);
   const { canSeeSub } = useAuth(collectionName);
 
-  useChangeEventListener(collectionName, () =>
-    poll(tableProps?.location?.search),
-  );
+  useCollectionSseRefresh();
 
   const decorator = TableDecorator({
     ...props,

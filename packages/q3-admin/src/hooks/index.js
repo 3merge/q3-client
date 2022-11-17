@@ -4,6 +4,7 @@ export { default as useBrowserEffect } from './useBrowserEffect';
 export { default as useCanEditField } from './useCanEditField';
 export { default as useCheckedState } from './useCheckedState';
 export { default as useCheckedStateRequirement } from './useCheckedStateRequirement';
+export { default as useCollectionSseRefresh } from './useCollectionSseRefresh';
 export { default as useDomain } from './useDomain';
 export { default as useDomainAuth } from './useDomainAuth';
 export { default as useGoogleMapLink } from './useGoogleMapLink';
