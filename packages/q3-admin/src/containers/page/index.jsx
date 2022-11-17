@@ -84,6 +84,7 @@ const Page = ({
         'remove',
         'removeBulk',
         'patch',
+        'patchBulk',
         'put',
         'post',
         'replace',
