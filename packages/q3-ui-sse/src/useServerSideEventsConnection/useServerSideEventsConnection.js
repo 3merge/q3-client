@@ -21,6 +21,7 @@ const useServerSideEventsConnection = () => {
     if (action === CONNECT)
       updateState({
         connected: true,
+        error: false,
       });
     if (action === ERROR)
       updateState({

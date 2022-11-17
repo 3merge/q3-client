@@ -2,7 +2,7 @@ import React from 'react';
 import { get, size } from 'lodash';
 import Confirm from 'q3-ui-confirm';
 import { State } from 'q3-ui-exports';
-import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+import DeleteIcon from '@material-ui/icons/DeleteForever';
 import { Dispatcher } from '../state';
 import AuthDelete from '../AuthDelete';
 import ButtonWithIcon from '../../components/ButtonWithIcon';
@@ -17,7 +17,7 @@ export const TableBulkDeleteButton = (props) => {
       {...props}
       disabled={!size(checked)}
       label="deleteMany"
-      icon={DeleteSweepIcon}
+      icon={DeleteIcon}
       transparent
     />
   );
