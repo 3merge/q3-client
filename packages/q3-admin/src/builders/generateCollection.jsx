@@ -4,6 +4,7 @@ import Collection from '../containers/collection';
 import Article from '../components/Article';
 import { useUnsavedChanges } from '../hooks';
 import withCollectionUi from '../helpers/withCollectionUi';
+import withExportsProvider from '../helpers/withExportsProvider';
 
 export const getCollectionInformation = ({
   resourceName,
@@ -48,7 +49,7 @@ export default ({
     index: true,
     ...getCollectionInformation(etc),
     component: withCollectionUi(
-      (props) => (
+      withExportsProvider((props) => (
         <Collection index {...props}>
           <Article>
             <Page index {...props}>
@@ -61,7 +62,7 @@ export default ({
             </Page>
           </Article>
         </Collection>
-      ),
+      )),
       PageListProps,
     ),
   },

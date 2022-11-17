@@ -18,4 +18,4 @@ const CollectionUiResolver = (props) => {
   return <ListElement {...props} />;
 };
 
-export default CollectionUiResolver;
+export default React.memo(CollectionUiResolver);
