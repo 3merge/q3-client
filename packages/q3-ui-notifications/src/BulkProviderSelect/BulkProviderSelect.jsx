@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Button, Hidden } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Hidden,
+  IconButton,
+} from '@material-ui/core';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
-import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'q3-ui-locale';
+import ClearAllIcon from '@material-ui/icons/ClearAll';
 
 const BulkProviderSelect = ({
   count,
@@ -12,35 +17,51 @@ const BulkProviderSelect = ({
   show,
 }) => {
   const { t } = useTranslation('labels');
+  const renderButton = ({ icon, label, onClick }) => (
+    <>
+      <Hidden smDown>
+        <Button
+          color="inherit"
+          onClick={onClick}
+          startIcon={icon}
+        >
+          {t(label)}
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton
+          aria-label={t(label)}
+          color="inherit"
+          onClick={onClick}
+        >
+          {icon}
+        </IconButton>
+      </Hidden>
+    </>
+  );
 
-  return show ? (
-    <Hidden smDown>
-      <Box
-        position="absolute"
-        top={0}
-        right={0}
-        className="notifications-bulk-buttons"
-      >
-        {count ? (
-          <Button
-            color="inherit"
-            onClick={onDeselectAll}
-            startIcon={<ClearIcon />}
-          >
-            {t('unselectAll')}
-          </Button>
-        ) : (
-          <Button
-            color="inherit"
-            onClick={onSelectAll}
-            startIcon={<DoneAllIcon />}
-          >
-            {t('selectAll')}
-          </Button>
-        )}
-      </Box>
-    </Hidden>
-  ) : null;
+  if (!show) return null;
+
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      right={0}
+      className="notifications-bulk-buttons"
+    >
+      {count
+        ? renderButton({
+            icon: <ClearAllIcon />,
+            label: 'unselectAll',
+            onClick: onDeselectAll,
+          })
+        : renderButton({
+            icon: <DoneAllIcon />,
+            label: 'selectAll',
+            onClick: onSelectAll,
+          })}
+    </Box>
+  );
 };
 
 BulkProviderSelect.defaultProps = {

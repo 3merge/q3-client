@@ -19,7 +19,7 @@ const NotificationsItemContent = ({
   const getHtml = React.useCallback(
     () =>
       compact([
-        messageType,
+        t(messageType),
         excerpt,
         string.toHoursMinutes(createdAt),
       ])

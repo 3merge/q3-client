@@ -19,7 +19,10 @@ const useChangeEventListener = (
 
   React.useEffect(() => {
     attach(handleWatch);
-    return () => detach(handleWatch);
+    return () => {
+      detach(handleWatch);
+      handleWatch.cancel();
+    };
   }, [name]);
 };
 

@@ -16,7 +16,7 @@ const useCounters = () => {
     );
 
   // small delay
-  useChangeEventListener(collectionName, init, 5000);
+  useChangeEventListener(collectionName, init, 2500);
 
   React.useEffect(() => {
     init();
