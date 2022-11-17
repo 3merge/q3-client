@@ -7,7 +7,6 @@ import {
   ListItem,
   Divider,
 } from '@material-ui/core';
-import { size } from 'lodash';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useOpen } from 'useful-state';
 import CheckIcon from '@material-ui/icons/Check';
@@ -48,10 +47,6 @@ const Actionbar = ({ children }) => {
     );
   };
 
-  React.useEffect(() => {
-    toggleLinks();
-  }, []);
-
   return (
     <>
       <Drawer anchor="bottom" open={isOpen} onClose={close}>
@@ -85,11 +80,13 @@ const Actionbar = ({ children }) => {
       </Drawer>
       <ToolbarPortal id="appbar-settings">
         <ButtonWithIcon
-          onClick={open}
+          onClick={(e) => {
+            toggleLinks();
+            open(e);
+          }}
           transparent
           icon={MoreVertIcon}
           label="actions"
-          disabled={!size(links)}
         />
       </ToolbarPortal>
       <Fade in>
