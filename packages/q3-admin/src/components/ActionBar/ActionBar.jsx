@@ -10,6 +10,7 @@ import {
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useOpen } from 'useful-state';
 import CheckIcon from '@material-ui/icons/Check';
+
 import useStyle from './styles';
 import ButtonWithIcon from '../ButtonWithIcon';
 import ToolbarPortal from '../ToolbarPortal';
