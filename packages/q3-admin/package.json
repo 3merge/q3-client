@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "4.0.10",
+  "version": "4.0.11",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -30,11 +30,11 @@
     "q3-ui-audit": "^4.0.5",
     "q3-ui-charts": "^4.0.3",
     "q3-ui-confirm": "^4.0.5",
-    "q3-ui-datatables": "^4.0.10",
+    "q3-ui-datatables": "^4.0.11",
     "q3-ui-dialog": "^4.0.1",
     "q3-ui-dropdownmenu": "^4.0.3",
     "q3-ui-emaileditor": "^4.0.5",
-    "q3-ui-exports": "^4.0.10",
+    "q3-ui-exports": "^4.0.11",
     "q3-ui-filemanager": "^4.0.5",
     "q3-ui-filters": "^4.0.3",
     "q3-ui-forms": "^4.0.1",

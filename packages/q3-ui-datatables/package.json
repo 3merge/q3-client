@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-datatables",
-  "version": "4.0.10",
+  "version": "4.0.11",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -10,7 +10,7 @@
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "q3-ui": "^4.0.5",
-    "q3-ui-exports": "^4.0.10",
+    "q3-ui-exports": "^4.0.11",
     "q3-ui-locale": "^4.0.1",
     "react-sortable-hoc": "^2.0.0",
     "useful-state": "^1.2.3",

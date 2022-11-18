@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.11](https://github.com/3merge/q/compare/v4.0.10...v4.0.11) (2022-11-18)
+
+
+### Bug Fixes
+
+* sse rerendering ([5f658a9](https://github.com/3merge/q/commit/5f658a97c9dd1f98e51d2ed9429b6b9d0cc3b23f))
+
+
+
+
+
 ## [4.0.10](https://github.com/3merge/q/compare/v4.0.9...v4.0.10) (2022-11-17)
 
 
