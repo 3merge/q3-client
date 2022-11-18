@@ -22,15 +22,8 @@ const ServerSideEventsProvider = ({ children }) => {
         counters,
       }}
     >
-      {React.useMemo(
-        () => (
-          <>
-            <Loader />
-            {children}
-          </>
-        ),
-        [],
-      )}
+      <Loader />
+      {children}
     </ServerSideEventsContext.Provider>
   );
 };

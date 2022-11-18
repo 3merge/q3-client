@@ -9,7 +9,6 @@ const ContextWrapper = ({ children, deps }) => {
   const v = useChecked();
 
   React.useEffect(() => {
-    console.log('RESET');
     v.clear();
   }, deps);
 

@@ -202,8 +202,10 @@ Admin.defaultProps = {
   ToolbarProps: {},
 };
 
+const AdminMemo = React.memo(Admin);
+
 export default (props) => (
   <ServerSideEventsProvider>
-    <Admin {...props} />
+    <AdminMemo {...props} />
   </ServerSideEventsProvider>
 );

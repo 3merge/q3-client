@@ -22,6 +22,21 @@ const useCounters = () => {
     init();
   }, []);
 
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      if (state.notifications) {
+        setState((prev) => ({
+          ...prev,
+          notifications: prev.notifications + 1,
+        }));
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [state]);
+
   return state;
 };
 
