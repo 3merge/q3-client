@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.12](https://github.com/3merge/q/compare/v4.0.11...v4.0.12) (2022-11-18)
+
+
+### Bug Fixes
+
+* memoized navlist ([af672b3](https://github.com/3merge/q/commit/af672b3d1ffa24ac3801303bfd25ba1cfe1315fd))
+
+
+
+
+
 ## [4.0.11](https://github.com/3merge/q/compare/v4.0.10...v4.0.11) (2022-11-18)
 
 
