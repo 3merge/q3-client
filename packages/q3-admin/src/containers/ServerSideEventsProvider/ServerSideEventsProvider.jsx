@@ -14,6 +14,8 @@ const ServerSideEventsProvider = ({ children }) => {
   const state = useServerSideEventsConnection();
   const counters = useCounters();
 
+  const InnerComponents = React.useMemo(() => children, []);
+
   return (
     <ServerSideEventsContext.Provider
       // eslint-disable-next-line
@@ -23,7 +25,7 @@ const ServerSideEventsProvider = ({ children }) => {
       }}
     >
       <Loader />
-      {children}
+      {InnerComponents}
     </ServerSideEventsContext.Provider>
   );
 };

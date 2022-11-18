@@ -16,26 +16,11 @@ const useCounters = () => {
     );
 
   // small delay
-  useChangeEventListener(collectionName, init, 2500);
+  useChangeEventListener(collectionName, init, 2000);
 
   React.useEffect(() => {
     init();
   }, []);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      if (state.notifications) {
-        setState((prev) => ({
-          ...prev,
-          notifications: prev.notifications + 1,
-        }));
-      }
-    }, 5000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, [state]);
 
   return state;
 };

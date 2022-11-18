@@ -55,6 +55,20 @@ const QueueModule = React.memo(() => (
   </SystemPageSub>
 ));
 
+const NavBarListComponentMemoized = React.memo(
+  // eslint-disable-next-line
+  ({ pages, reorder }) => {
+    const reorderNavBarPages = (xs) =>
+      isFunction(reorder) ? reorder(xs) : xs;
+
+    return (
+      <NavbarListComponent
+        items={reorderNavBarPages(usePages(pages))}
+      />
+    );
+  },
+);
+
 const Admin = ({
   AppProps,
   NavProps,
@@ -80,11 +94,6 @@ const Admin = ({
     [],
   );
 
-  const reorderNavBarPages = (xs) => {
-    const fn = get(NavProps, 'reorder');
-    return isFunction(fn) ? fn(xs) : xs;
-  };
-
   return (
     <DomainProvider
       directory={get(AppProps, 'directory', '/')}
@@ -97,8 +106,9 @@ const Admin = ({
           <Toolbar {...ToolbarProps} />
           <Viewport>
             <Navbar {...NavProps}>
-              <NavbarListComponent
-                items={reorderNavBarPages(usePages(pages))}
+              <NavBarListComponentMemoized
+                {...NavProps}
+                pages={pages}
               />
             </Navbar>
             <Box className={cls.main}>
@@ -202,10 +212,13 @@ Admin.defaultProps = {
   ToolbarProps: {},
 };
 
-const AdminMemo = React.memo(Admin);
-
 export default (props) => (
   <ServerSideEventsProvider>
-    <AdminMemo {...props} />
+    {React.useMemo(
+      () => (
+        <Admin {...props} />
+      ),
+      [props],
+    )}
   </ServerSideEventsProvider>
 );
