@@ -38,9 +38,9 @@ const DialogDelete = () => {
       onClose={close}
       ButtonComponent={ButtonComponent}
       TransitionProps={TransitionProps}
-      title="delete"
+      title="confirmDelete"
+      description="confirmDelete"
       icon={DeleteIcon}
-      phrase="DELETE"
       service={() =>
         (size(selected) > 1
           ? removeBulk(selected)

@@ -13,9 +13,8 @@ const DeleteModal = ({ id, ...rest }) => {
       <Confirm
         icon={DeleteIcon}
         service={remove(id)}
-        title="delete"
-        description="delete"
-        phrase="DELETE"
+        title="confirmDelete"
+        description="confirmDelete"
         {...rest}
       />
     </Auth>

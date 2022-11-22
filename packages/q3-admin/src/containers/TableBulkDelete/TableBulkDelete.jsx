@@ -43,8 +43,8 @@ export const TableBulkDelete = () => {
 
   return (
     <Confirm
-      phrase="DELETE"
-      title="deleteMany"
+      title="confirmDeleteMany"
+      description="confirmDeleteMany"
       service={handleService}
       ButtonComponent={ButtonRenderer}
     />

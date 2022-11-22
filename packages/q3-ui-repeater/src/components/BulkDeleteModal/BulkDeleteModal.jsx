@@ -38,11 +38,10 @@ const BulkDeleteModal = () => {
     <Auth op="Delete">
       <Confirm
         ButtonComponent={ButtonComponent}
-        description="delete"
+        description="confirmDelete"
         icon={DeleteSweepIcon}
-        phrase="DELETE"
         service={removeBulk(checked)}
-        title="delete"
+        title="confirmDelete"
       />
     </Auth>
   ) : null;

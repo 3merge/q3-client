@@ -66,8 +66,9 @@ const TimelineActions = ({
         </HideByField>
         <HideByField path={field} op="Delete">
           <Confirm
-            phrase={DELETE_LABEL.toUpperCase()}
             label={DELETE_LABEL}
+            title="confirmDelete"
+            description="confirmDelete"
             service={remove(id)}
             ButtonComponent={(buttonProps) => (
               <button
