@@ -6,10 +6,27 @@ import { useTitle } from '../../hooks';
 import useStyle from './styles';
 
 const DetailHeader = (props) => {
-  const { FieldProps, FormProps, editable, text, update } =
-    useTitle(props);
+  const {
+    FieldProps,
+    FormProps,
+    editable,
+    editableComponent,
+    text,
+    update,
+  } = useTitle(props);
 
   const cls = useStyle();
+
+  if (editable && editableComponent)
+    return editableComponent(
+      FieldProps,
+      FormProps,
+      update,
+      {
+        className: cls.h1,
+        text,
+      },
+    );
 
   return editable ? (
     <Title className={cls.h1}>

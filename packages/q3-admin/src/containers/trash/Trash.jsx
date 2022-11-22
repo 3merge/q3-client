@@ -47,7 +47,7 @@ const Trash = () => {
       title="confirmDelete"
       description="confirmDelete"
       service={navigateOnResolve}
-      label="addToTrash"
+      label="delete"
       ButtonComponent={renderButton}
     />
   );

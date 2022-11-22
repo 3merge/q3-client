@@ -15,6 +15,7 @@ const DeleteModal = ({ id, ...rest }) => {
         service={remove(id)}
         title="confirmDelete"
         description="confirmDelete"
+        label="delete"
         {...rest}
       />
     </Auth>

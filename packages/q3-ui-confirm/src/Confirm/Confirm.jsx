@@ -70,7 +70,7 @@ const Confirm = ({
           <Grid item>
             <Button
               startIcon={<PanToolIcon />}
-              onClick={handleSubmit(service, close)}
+              onClick={close}
               variant="contained"
             >
               {t('cancel')}

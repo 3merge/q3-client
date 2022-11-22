@@ -40,6 +40,7 @@ const DialogDelete = () => {
       TransitionProps={TransitionProps}
       title="confirmDelete"
       description="confirmDelete"
+      label="delete"
       icon={DeleteIcon}
       service={() =>
         (size(selected) > 1

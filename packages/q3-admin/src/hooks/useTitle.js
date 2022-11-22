@@ -12,6 +12,7 @@ const { isFn } = object;
 
 const useTitle = ({
   editable,
+  editableComponent,
   parenthesesProp,
   titleProp: name,
   titleRenderer,
@@ -55,6 +56,7 @@ const useTitle = ({
     },
 
     editable: isEditable(),
+    editableComponent,
     text,
     update: patch(),
   };
