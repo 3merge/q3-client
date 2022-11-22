@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.16](https://github.com/3merge/q/compare/v4.0.15...v4.0.16) (2022-11-22)
+
+
+### Bug Fixes
+
+* delete buttons ([02f91c0](https://github.com/3merge/q/commit/02f91c05f57bab8f8761e399f04a3f5840c6d84c))
+
+
+
+
+
 ## [4.0.15](https://github.com/3merge/q/compare/v4.0.14...v4.0.15) (2022-11-22)
 
 

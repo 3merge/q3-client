@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-repeater",
-  "version": "4.0.15",
+  "version": "4.0.16",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -13,7 +13,7 @@
     "prop-types": "^15.7.2",
     "q3-components": "^4.0.1",
     "q3-ui": "^4.0.5",
-    "q3-ui-confirm": "^4.0.15",
+    "q3-ui-confirm": "^4.0.16",
     "q3-ui-dialog": "^4.0.1",
     "q3-ui-exports": "^4.0.11",
     "q3-ui-forms": "^4.0.1",
