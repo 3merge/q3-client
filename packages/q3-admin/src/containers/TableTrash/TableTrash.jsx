@@ -13,9 +13,9 @@ const TableTrash = ({ id }) => {
   return (
     <AuthDelete>
       <Confirm
-        title="delete"
+        title="confirmDelete"
+        description="confirmDelete"
         icon={DeleteForever}
-        phrase="DELETE"
         service={(args) =>
           remove(id)(args).catch(catchHandler)
         }

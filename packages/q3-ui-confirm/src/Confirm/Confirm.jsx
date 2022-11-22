@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LaunchIcon from '@material-ui/icons/Launch';
-import { IconButton, Tooltip } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import {
+  IconButton,
+  Tooltip,
+  Grid,
+  Button,
+  useTheme,
+} from '@material-ui/core';
 import Dialog from 'q3-ui-dialog';
 import { isFunction } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
-import ConfirmForm from '../ConfirmForm';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import PanToolIcon from '@material-ui/icons/PanTool';
 import { handleSubmit } from '../helpers';
 
 const Confirm = ({
@@ -14,7 +20,6 @@ const Confirm = ({
   disabled,
   label,
   service,
-  phrase,
   title,
   ButtonComponent,
   ButtonProps,
@@ -22,6 +27,7 @@ const Confirm = ({
   ...props
 }) => {
   const { t } = useTranslation('labels');
+  const theme = useTheme();
 
   return (
     <Dialog
@@ -60,10 +66,31 @@ const Confirm = ({
         );
       }}
       renderContent={(close) => (
-        <ConfirmForm
-          onSubmit={handleSubmit(service, close)}
-          phrase={phrase}
-        />
+        <Grid container spacing={1}>
+          <Grid item>
+            <Button
+              startIcon={<PanToolIcon />}
+              onClick={handleSubmit(service, close)}
+              variant="contained"
+            >
+              {t('cancel')}
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              endIcon={<VerifiedUserIcon />}
+              style={{
+                backgroundColor:
+                  theme?.palette?.error?.main,
+                color: theme?.palette?.error?.contrastText,
+              }}
+              onClick={handleSubmit(service, close)}
+              variant="contained"
+            >
+              {t('proceed')}
+            </Button>
+          </Grid>
+        </Grid>
       )}
     />
   );
@@ -75,7 +102,6 @@ Confirm.defaultProps = {
   description: 'confirm',
   disabled: false,
   label: undefined,
-  phrase: 'confirm',
   ButtonProps: {},
   IconButtonProps: {},
   ButtonComponent: null,
@@ -91,7 +117,7 @@ Confirm.propTypes = {
   service: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   label: PropTypes.string,
-  phrase: PropTypes.string,
+
   // eslint-disable-next-line
   ButtonProps: PropTypes.object,
   // eslint-disable-next-line

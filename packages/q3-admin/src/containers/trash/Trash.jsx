@@ -44,11 +44,10 @@ const Trash = () => {
 
   return (
     <Confirm
-      title="confirm"
-      description="confirm"
+      title="confirmDelete"
+      description="confirmDelete"
       service={navigateOnResolve}
       label="addToTrash"
-      phrase="DELETE"
       ButtonComponent={renderButton}
     />
   );

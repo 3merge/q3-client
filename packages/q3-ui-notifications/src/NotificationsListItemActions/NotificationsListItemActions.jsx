@@ -29,11 +29,9 @@ const NotificationsListItemActions = ({ handlers }) => {
   return (
     <ListItemSecondaryAction>
       <Confirm
-        title="confirm"
-        description="confirm"
+        title="confirmDelete"
+        description="confirmDelete"
         service={handlers.delete}
-        label="addToTrash"
-        phrase="DELETE"
         // eslint-disable-next-line
         ButtonComponent={({
           onClick: openConfirmation,

@@ -22,6 +22,7 @@ const Filter = ({ data }) => {
       DialogProps={{
         closeOnSearchChange: true,
       }}
+      id="filter-button"
       icon={FilterListIcon}
       label="filter"
       count={acc}

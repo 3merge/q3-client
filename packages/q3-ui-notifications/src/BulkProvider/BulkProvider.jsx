@@ -101,11 +101,9 @@ const BulkProvider = ({
                       ),
                     })}
                     <Confirm
-                      title="confirm"
-                      description="confirm"
+                      title="confirmDelete"
+                      description="confirmDelete"
                       service={handleClick(bulkRemoveByIds)}
-                      label="addToTrash"
-                      phrase="DELETE"
                       // eslint-disable-next-line
                       ButtonComponent={({ onClick }) =>
                         renderAction({
