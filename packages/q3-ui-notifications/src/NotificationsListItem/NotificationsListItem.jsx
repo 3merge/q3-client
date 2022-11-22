@@ -13,6 +13,7 @@ import NotificationsItemContent from '../NotificationsItemContent';
 import NotificationsItemTitle from '../NotificationsItemTitle';
 import NotificationsListItemCheckbox from '../NotificationsListItemCheckbox';
 import NotificationsListItemActions from '../NotificationsListItemActions';
+import useStyle from './styles';
 
 const NotificationsListItem = (props) => {
   const {
@@ -28,6 +29,7 @@ const NotificationsListItem = (props) => {
     url,
   } = props;
 
+  const cls = useStyle(props);
   const ref = React.useRef();
   const handleClick = (e) => {
     if (ref.current && ref.current.contains(e.target)) {
@@ -40,10 +42,10 @@ const NotificationsListItem = (props) => {
       <ListItem
         {...props}
         button
+        className={cls.listItem}
         dense
-        onClick={handleClick}
-        selected={!read}
         disableRipple
+        onClick={handleClick}
         ref={ref}
       >
         <NotificationsListItemCheckbox id={id} />
