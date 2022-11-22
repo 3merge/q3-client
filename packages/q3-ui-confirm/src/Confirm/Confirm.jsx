@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LaunchIcon from '@material-ui/icons/Launch';
 import {
   IconButton,
   Tooltip,
@@ -34,6 +33,7 @@ const Confirm = ({
       {...props}
       title={title}
       renderTrigger={(onClick) => {
+        const buttonLabel = label || title;
         const sharedButtonProps = {
           className: 'q3-confirm',
           disabled,
@@ -43,26 +43,29 @@ const Confirm = ({
         if (isFunction(ButtonComponent))
           return <ButtonComponent {...sharedButtonProps} />;
 
-        return label ? (
+        if (Icon)
+          return (
+            <Tooltip arrow title={t(buttonLabel)}>
+              <IconButton
+                aria-label={t(buttonLabel)}
+                color="inherit"
+                {...sharedButtonProps}
+                {...IconButtonProps}
+              >
+                <Icon />
+              </IconButton>
+            </Tooltip>
+          );
+
+        return (
           <Button
             color="secondary"
             variant="contained"
             {...sharedButtonProps}
             {...ButtonProps}
           >
-            {t(label)}
+            {t(buttonLabel)}
           </Button>
-        ) : (
-          <Tooltip arrow title={t(title)}>
-            <IconButton
-              aria-label={t(title)}
-              color="inherit"
-              {...sharedButtonProps}
-              {...IconButtonProps}
-            >
-              <Icon />
-            </IconButton>
-          </Tooltip>
         );
       }}
       renderContent={(close) => (
@@ -70,7 +73,8 @@ const Confirm = ({
           <Grid item>
             <Button
               startIcon={<PanToolIcon />}
-              onClick={close}
+              // eslint-disable-next-line
+              onClick={props?.onClose || close}
               variant="contained"
             >
               {t('cancel')}
@@ -97,7 +101,7 @@ const Confirm = ({
 };
 
 Confirm.defaultProps = {
-  icon: LaunchIcon,
+  icon: null,
   title: 'confirm',
   description: 'confirm',
   disabled: false,
