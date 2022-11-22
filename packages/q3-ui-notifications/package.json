@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-notifications",
-  "version": "4.0.14",
+  "version": "4.0.15",
   "main": "lib/index.js",
   "author": "Mike <mibberson@3merge.ca>",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "moment": "2.29.4",
     "prop-types": "^15.7.2",
     "q3-components": "^4.0.1",
-    "q3-ui-confirm": "^4.0.14",
+    "q3-ui-confirm": "^4.0.15",
     "q3-ui-dialog": "^4.0.1",
     "q3-ui-dropdownmenu": "^4.0.3",
     "q3-ui-helpers": "^4.0.3",

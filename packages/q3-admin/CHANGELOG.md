@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.15](https://github.com/3merge/q/compare/v4.0.14...v4.0.15) (2022-11-22)
+
+
+### Bug Fixes
+
+* editable title renderer and confirm cancel ([5421b01](https://github.com/3merge/q/commit/5421b013e408d829ac5553d7ef855b3ec3b3aeea))
+
+
+
+
+
 ## [4.0.14](https://github.com/3merge/q/compare/v4.0.13...v4.0.14) (2022-11-22)
 
 **Note:** Version bump only for package q3-admin
