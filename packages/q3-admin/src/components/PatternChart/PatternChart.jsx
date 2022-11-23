@@ -10,12 +10,14 @@ const PatternDataGrid = ({
   report,
   title,
   size,
+  ...props
 }) => {
   const cls = useStyle();
   const { data, error, loading } = useReportById(report);
 
   return (
     <Pattern
+      {...props}
       error={error}
       loading={loading}
       size={size}

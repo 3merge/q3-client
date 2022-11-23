@@ -19,7 +19,7 @@ export default connect(() => {
   return (
     <PatternContainer>
       <PatternStatistic report="stat" />
-      <PatternChart report="chartexample" />
+      <PatternChart height={850} report="chartexample" />
       <PatternDataGrid
         refresh={['name', 'streetLine1']}
         title="Recent appearances"

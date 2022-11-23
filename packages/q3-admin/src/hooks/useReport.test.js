@@ -13,7 +13,10 @@ describe('useReport', () => {
 
     expect(useRest).toHaveBeenCalledWith(
       expect.objectContaining({
-        url: '/reports?bar=1&template=string(foo)',
+        url: '/reports',
+        location: {
+          search: '?bar=1&template=string(foo)',
+        },
       }),
     );
   });

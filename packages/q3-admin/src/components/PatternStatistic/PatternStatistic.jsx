@@ -21,6 +21,13 @@ export const PatternStatistic = ({ report, size }) => {
 
     const isUnit = (xs) => unit === xs;
 
+    const countDecimals = (v) => {
+      if (Math.floor(v) === v) return 0;
+      return (
+        Number(v).toString().split('.')[1]?.length || 0
+      );
+    };
+
     const getClassName = () => {
       if (deviation > 0) return 'positive';
       if (deviation < 0) return 'negative';
@@ -35,7 +42,10 @@ export const PatternStatistic = ({ report, size }) => {
       if (isString(unit))
         return (
           <>
-            {string.formatNumber(value)}
+            {string.formatNumber(
+              value,
+              Math.min(countDecimals(value), 2),
+            )}
             <span className={cls.unit}> {unit}</span>
           </>
         );

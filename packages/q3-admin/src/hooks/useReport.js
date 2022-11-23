@@ -8,10 +8,13 @@ const useReport = (template, query = {}) => {
     key: 'data',
     pluralized: 'data',
     runOnInit: true,
-    url: `/reports${encode({
-      ...query,
-      template,
-    })}`,
+    url: '/reports',
+    location: {
+      search: encode({
+        ...query,
+        template,
+      }),
+    },
   });
 
   const { data, fetching: loading, poll } = restState;
