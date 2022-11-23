@@ -254,7 +254,7 @@ export default (args) => {
       },
       {
         unit: 'customers',
-        value: 67,
+        value: 6237.92349,
         label: 'Acquisition',
         deviation: 12,
       },

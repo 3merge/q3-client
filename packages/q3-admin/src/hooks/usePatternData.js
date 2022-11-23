@@ -5,7 +5,12 @@ import useReportById from './useReportById';
 import useRestWithStore from './useRestWithStore';
 import { Store } from '../containers/state';
 
-const usePatternData = ({ apiParams, report, refresh }) => {
+const usePatternData = ({
+  apiParams,
+  queryParams = {},
+  report,
+  refresh,
+}) => {
   const { data } = React.useContext(Store);
   const ref = React.useRef();
 
@@ -27,7 +32,9 @@ const usePatternData = ({ apiParams, report, refresh }) => {
   }, effectDeps);
 
   if (isString(report))
-    return returnAndAssignToRef(useReportById(report));
+    return returnAndAssignToRef(
+      useReportById(report, queryParams),
+    );
 
   if (isFunction(apiParams))
     return returnAndAssignToRef(
