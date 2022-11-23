@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.17](https://github.com/3merge/q/compare/v4.0.16...v4.0.17) (2022-11-23)
+
+
+### Bug Fixes
+
+* minor pattern fixes ([#452](https://github.com/3merge/q/issues/452)) ([18d96fb](https://github.com/3merge/q/commit/18d96fb3038d9f6f02cf221f427bce2d8eecbea4))
+
+
+
+
+
 ## [4.0.16](https://github.com/3merge/q/compare/v4.0.15...v4.0.16) (2022-11-22)
 
 
