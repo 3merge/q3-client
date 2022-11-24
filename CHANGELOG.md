@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.19](https://github.com/3merge/q/compare/v4.0.18...v4.0.19) (2022-11-24)
+
+
+### Bug Fixes
+
+* query projection field ([8c517f6](https://github.com/3merge/q/commit/8c517f6e6662aa43d498dba2efb65657c5b72bda))
+
+
+
+
+
 ## [4.0.18](https://github.com/3merge/q/compare/v4.0.17...v4.0.18) (2022-11-24)
 
 **Note:** Version bump only for package q3-client
