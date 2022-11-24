@@ -19,7 +19,7 @@ const Actions = ({ data }) => {
   const cls = useStyle();
 
   return (
-    <Box position="sticky" bottom="0" p={1} width="100%">
+    <Box bgcolor="background.paper" p={1} width="100%">
       <ButtonGroup
         color="secondary"
         variant="contained"

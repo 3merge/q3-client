@@ -9,9 +9,9 @@ const useLocationWithQueryParams = (schema) => {
   const { decode, encode } = useQueryParams();
   const sf = SchemaToFieldBuilder.init(schema);
 
-  sf.forEachObjectId(({ ref, alias, field }) =>
+  sf.forEachObjectId(({ ref, alias, field, projection }) =>
     useObjectIdLabels(
-      `/${ref}?fields=id,${field}`,
+      `/${ref}?fields=id,${projection || field}`,
       ref || alias,
       field,
     ),

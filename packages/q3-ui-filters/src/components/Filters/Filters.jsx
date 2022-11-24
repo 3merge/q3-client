@@ -156,8 +156,16 @@ const Filters = ({ collectionName, data }) => {
                               )}
                             </Grid>
                           </AccordionSummary>
-                          <AccordionDetails style={{}}>
-                            <Grid container spacing={0}>
+                          <AccordionDetails
+                            style={{
+                              padding: '0 1rem 1rem',
+                            }}
+                          >
+                            <Grid
+                              container
+                              spacing={0}
+                              style={{ marginTop: '-1rem' }}
+                            >
                               {map(fields, (field) => (
                                 <Builders.Field
                                   xl={12}

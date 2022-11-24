@@ -115,7 +115,9 @@ export default class SchemaToFieldBuilder {
                   options: this.constructor.generateOptions(
                     defs.type,
                   ),
-                  type: 'select',
+                  type: 'radio',
+                  label: null,
+                  collapse: false,
                 },
                 {
                   loadOptions,
@@ -153,7 +155,9 @@ export default class SchemaToFieldBuilder {
                       this.constructor.generateOptions(
                         defs.type,
                       ),
-                    type: 'select',
+                    type: 'radio',
+                    label: null,
+                    collapse: false,
                   },
                   {
                     loadOptions,
@@ -204,7 +208,9 @@ export default class SchemaToFieldBuilder {
                           item,
                         ),
                     ),
-                  type: 'select',
+                  type: 'radio',
+                  label: null,
+                  collapse: false,
                 },
                 {
                   name: `${name}__${MATCHES}`,
@@ -236,7 +242,9 @@ export default class SchemaToFieldBuilder {
                   options: this.constructor.generateOptions(
                     defs.type,
                   ),
-                  type: 'select',
+                  type: 'radio',
+                  label: null,
+                  collapse: false,
                 },
                 {
                   options: [],
@@ -273,7 +281,9 @@ export default class SchemaToFieldBuilder {
                   options: this.constructor.generateOptions(
                     defs.type,
                   ),
-                  type: 'select',
+                  type: 'radio',
+                  label: null,
+                  collapse: false,
                 },
                 {
                   options: [],
