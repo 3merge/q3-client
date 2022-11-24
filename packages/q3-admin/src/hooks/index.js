@@ -1,3 +1,4 @@
+export { default as useActiveSearchQuery } from './useActiveSearchQuery';
 export { default as useBack } from './useBack';
 export { default as useIo } from './useIo';
 export { default as useBrowserEffect } from './useBrowserEffect';

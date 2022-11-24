@@ -35,7 +35,7 @@ const Filters = ({ collectionName, data }) => {
 
   return (
     <Box>
-      <Box mx={-0.5}>
+      <Box id="q3-filter-utils" mx={-0.5}>
         <Paper
           elevation={0}
           style={{
@@ -157,14 +157,7 @@ const Filters = ({ collectionName, data }) => {
                             </Grid>
                           </AccordionSummary>
                           <AccordionDetails style={{}}>
-                            <Grid
-                              container
-                              spacing={0}
-                              style={{
-                                overflow: 'auto',
-                                maxHeight: 250,
-                              }}
-                            >
+                            <Grid container spacing={0}>
                               {map(fields, (field) => (
                                 <Builders.Field
                                   xl={12}
