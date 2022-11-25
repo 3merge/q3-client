@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/3merge/q/compare/v4.0.20...v4.1.0) (2022-11-25)
+
+
+### Features
+
+* onsearch page prop ([bf6905f](https://github.com/3merge/q/commit/bf6905feb9154eb300e2180b32e1a4a7c9e08860))
+
+
+
+
+
 ## [4.0.20](https://github.com/3merge/q/compare/v4.0.19...v4.0.20) (2022-11-25)
 
 **Note:** Version bump only for package q3-admin
