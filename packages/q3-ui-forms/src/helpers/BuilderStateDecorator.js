@@ -73,6 +73,7 @@ export default class BuilderStateDecorator {
         'value',
         'multiline',
         'rows',
+        'style',
       ]),
     };
   }

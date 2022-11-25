@@ -124,7 +124,7 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
     return out;
   };
 
-  return uniq(
+  const output = uniq(
     Object.keys(values).map(splitBeforeOperator),
   ).reduce(
     (acc, curr) => {
@@ -143,6 +143,8 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
         }
       : {},
   );
+
+  return output;
 };
 
 export default FieldToQueryBuilder;

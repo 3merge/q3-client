@@ -179,6 +179,20 @@ export default class FieldBuilder {
 
     delete this.originalType;
     delete this.type;
-    return this.show() ? this : null;
+
+    const isVisible = this.show();
+    if (!isVisible) {
+      if (this.conditionalImplementation === 'css') {
+        this.style = {
+          display: 'none',
+        };
+
+        return this;
+      }
+
+      return null;
+    }
+
+    return this;
   }
 }

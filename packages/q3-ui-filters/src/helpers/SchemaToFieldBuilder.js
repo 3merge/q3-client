@@ -88,6 +88,7 @@ export default class SchemaToFieldBuilder {
             conditional: [
               `${name}__operation=${op.join(',')}`,
             ],
+            conditionalImplementation: 'css',
             name: `${name}__${first(op)}`,
           });
 
