@@ -1,5 +1,5 @@
 import React from 'react';
-import { pick } from 'lodash';
+import { pick, isFunction } from 'lodash';
 import PropTypes from 'prop-types';
 import useRest from 'q3-ui-rest';
 import { slugify } from './utils';
@@ -22,6 +22,7 @@ const Page = ({
   onEnter,
   onExit,
   onInit,
+  onSearch,
   runOnInit,
   defaultLimitPreference,
   defaultSortPreference,
@@ -34,15 +35,21 @@ const Page = ({
     location,
   } = React.useContext(Definitions);
   const url = slugify(collectionName, id);
+
   const clonedLocation = useLocationClone()
     .limit(defaultLimitPreference)
     .sort(defaultSortPreference)
     .build();
 
+  const getLocation = () => {
+    const output = id ? location : clonedLocation;
+    return isFunction(onSearch) ? onSearch(output) : output;
+  };
+
   const state = useRest({
     key: resourceNameSingular,
     // leave detail pages alone
-    location: id ? location : clonedLocation,
+    location: getLocation(),
     pluralized: resourceName,
     select,
     runOnInit,
@@ -117,6 +124,10 @@ Page.propTypes = {
    * A hook fired on first paint.
    */
   onInit: PropTypes.func,
+  /**
+   * A hook first to overwrite search location.
+   */
+  onSearch: PropTypes.func,
 
   /**
    * The page internals.
@@ -139,6 +150,7 @@ Page.defaultProps = {
   onExit: null,
   onEnter: null,
   onInit: null,
+  onSearch: null,
   select: null,
   runOnInit: true,
   defaultLimitPreference: 25,
