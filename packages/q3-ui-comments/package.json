@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-comments",
-  "version": "4.0.16",
+  "version": "4.0.20",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -19,13 +19,13 @@
     "moment": "2.29.4",
     "prop-types": "^15.7.2",
     "q3-ui": "^4.0.5",
-    "q3-ui-confirm": "^4.0.16",
+    "q3-ui-confirm": "^4.0.20",
     "q3-ui-dialog": "^4.0.1",
-    "q3-ui-forms": "^4.0.1",
+    "q3-ui-forms": "^4.0.20",
     "q3-ui-helpers": "^4.0.3",
     "q3-ui-locale": "^4.0.3",
-    "q3-ui-permissions": "^4.0.1",
-    "q3-ui-rest": "^4.0.3",
+    "q3-ui-permissions": "^4.0.20",
+    "q3-ui-rest": "^4.0.20",
     "q3-ui-rte": "^4.0.1",
     "useful-state": "^1.2.3"
   }
