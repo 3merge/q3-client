@@ -23,6 +23,8 @@ import useEscape from '../useEscape';
 const RichTextEditor = React.forwardRef(
   (
     {
+      autosave,
+      autosaveInterval,
       id,
       children,
       defaultValue,
@@ -37,6 +39,8 @@ const RichTextEditor = React.forwardRef(
 
     const { ids, ref } = useQuill(rest);
     const v = useLocalValue(ref, {
+      autosave,
+      autosaveInterval,
       onChange,
       defaultValue,
       id,
@@ -151,6 +155,8 @@ RichTextEditor.propTypes = {
   onChange: PropTypes.func,
   upload: PropTypes.func,
   id: PropTypes.string,
+  autosave: PropTypes.bool,
+  autosaveInterval: PropTypes.number,
 };
 
 RichTextEditor.defaultProps = {
@@ -159,6 +165,8 @@ RichTextEditor.defaultProps = {
   onChange: undefined,
   upload: undefined,
   id: undefined,
+  autosave: false,
+  autosaveInterval: undefined,
 };
 
 export default RichTextEditor;

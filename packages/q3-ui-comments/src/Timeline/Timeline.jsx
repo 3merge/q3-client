@@ -94,6 +94,9 @@ const Timeline = ({ data, insertNode, ...rest }) => {
             )}
             {canCreateSub(path) && (
               <Dialog
+                initialValues={{
+                  replies: t?.id,
+                }}
                 renderTrigger={(onClick) => (
                   <InlineButton
                     icon={ForumIcon}

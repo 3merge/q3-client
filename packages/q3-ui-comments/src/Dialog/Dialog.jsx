@@ -4,6 +4,7 @@ import { Builders } from 'q3-ui-forms';
 import { useToggle } from 'useful-state';
 import { makeStyles } from '@material-ui/core/styles';
 import FieldMessage from '../FieldMessage';
+import useDrafts from '../useDrafts';
 
 const useStyle = makeStyles(() => ({
   root: {
@@ -34,7 +35,13 @@ const TimelineDialog = ({
   ...rest
 }) => {
   const { open, state, close } = useToggle();
+  const { fieldId, remove } = useDrafts(rest);
   const cls = useStyle();
+
+  const handleClose = (e) => {
+    close(e);
+    remove();
+  };
 
   const handleOpen = () => {
     findAndClosePreviouslyOpenedEditors();
@@ -46,11 +53,14 @@ const TimelineDialog = ({
       <Builders.Form
         {...rest}
         enableReset
-        onReset={close}
-        onSubmit={(args) => onSubmit(args).then(close)}
+        onReset={handleClose}
+        onSubmit={(args) =>
+          onSubmit(args).then(handleClose)
+        }
         resetLabel="cancel"
+        debug
       >
-        <FieldMessage {...rest} />
+        <FieldMessage fieldId={fieldId} {...rest} />
         {additionalFields}
       </Builders.Form>
       <button
