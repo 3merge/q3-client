@@ -17,7 +17,7 @@ const TimelineActions = ({
   ...rest
 }) => {
   const { collectionName } = rest;
-  const { id, createdBy } = comment;
+  const { id, createdBy, removed } = comment;
   const [options, setOptions] = React.useState([]);
   const { state, HideByField } = useAuth(collectionName);
   const cls = useStyle();
@@ -38,10 +38,29 @@ const TimelineActions = ({
       : [];
 
   React.useEffect(() => {
-    setOptions([
-      ...addRef(edit, 'edit'),
-      ...addRef(del, 'delete'),
-    ]);
+    setOptions(
+      removed
+        ? [
+            {
+              label: 'restore',
+              onClick() {
+                return patch(id)({
+                  removed: false,
+                  id, // only necessary for testing
+                });
+              },
+            },
+          ].concat(addRef(del, 'delete'))
+        : addRef(edit, 'edit').concat({
+            label: 'remove',
+            onClick() {
+              return patch(id)({
+                removed: true,
+                id, // only necessary for testing
+              });
+            },
+          }),
+    );
   }, []);
 
   return (
@@ -96,6 +115,7 @@ TimelineActions.propTypes = {
     // eslint-disable-next-line
     createdBy: PropTypes.object,
     id: PropTypes.string,
+    removed: PropTypes.bool,
   }).isRequired,
 };
 
