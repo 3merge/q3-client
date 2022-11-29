@@ -1,14 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isObject, map } from 'lodash';
-import { DataGrid } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarColumnsButton,
+} from '@mui/x-data-grid';
 import { useHelperFormats } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'q3-ui-locale';
 import Pattern from '../Pattern';
 import { usePatternData } from '../../hooks';
 import useStyle from './styles';
 
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+}
+
 const PatternDataGrid = (props) => {
+  const ref = React.useRef();
   const { formatters, size, width } = props;
   const { t } = useTranslation('labels');
   const { data, ...patternProps } = usePatternData(props);
@@ -51,10 +66,14 @@ const PatternDataGrid = (props) => {
         columns={generateColumns()}
         disableSelectionOnClick
         disableColumnMenu
+        apiRef={ref}
         rows={map(data, (item, idx) => ({
           id: idx,
           ...item,
         }))}
+        components={{
+          Toolbar: CustomToolbar,
+        }}
       />
     </Pattern>
   );

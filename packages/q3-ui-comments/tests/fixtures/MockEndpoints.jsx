@@ -7,8 +7,11 @@ import MockUserState from './MockUserState';
 
 // eslint-disable-next-line
 export default ({ children, delay, error }) => {
-  const [dataSource, setDataSource] =
-    React.useState(comments);
+  let dataSource = comments;
+
+  const setDataSource = (newDataSource) => {
+    dataSource = newDataSource;
+  };
 
   const defineMockRoutes = (m) => {
     if (error) return;

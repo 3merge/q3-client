@@ -40,7 +40,7 @@ export const reportMissingIds = (xs = [], trans = null) => {
       ? trans(textKey)
       : textKey;
 
-    return text;
+    return `<p><em>${text}</em></p>`;
   };
 
   return reduce(

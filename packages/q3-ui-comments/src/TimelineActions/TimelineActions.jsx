@@ -40,7 +40,7 @@ const TimelineActions = ({
       : [];
 
   const addRemovedAction = (label, value) =>
-    canEditSub('removed')
+    canEditSub('comments.removed')
       ? [
           {
             label,
@@ -64,7 +64,7 @@ const TimelineActions = ({
             addRemovedAction('remove', true),
           ),
     );
-  }, []);
+  }, [removed]);
 
   return (
     createdBy?.id === state?.profile?.id && (
