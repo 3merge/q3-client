@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.2.0](https://github.com/3merge/q/compare/v4.1.0...v4.2.0) (2022-11-29)
+
+
+### Features
+
+* drafting/trashing comments ([#453](https://github.com/3merge/q/issues/453)) ([c5a0856](https://github.com/3merge/q/commit/c5a085651dfff3db01135c9907bdf1e603db4db5))
+
+
+
+
+
 ## [4.0.1](https://github.com/3merge/q/compare/v4.0.0...v4.0.1) (2022-11-15)
 
 **Note:** Version bump only for package q3-ui-rte
