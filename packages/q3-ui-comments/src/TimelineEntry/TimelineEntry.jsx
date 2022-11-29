@@ -51,7 +51,10 @@ const TimelineEntry = ({
             display="flex"
             className={cls.wrap}
           >
-            <Typography className={cls.title}>
+            <Typography
+              className={cls.title}
+              component="div"
+            >
               <strong>{makeName(createdBy)}</strong>
               <small>{string.toDate(createdAt)}</small>
               {actions}

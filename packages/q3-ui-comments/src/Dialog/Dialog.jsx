@@ -2,21 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { useToggle } from 'useful-state';
-import { makeStyles } from '@material-ui/core/styles';
 import FieldMessage from '../FieldMessage';
 import useDrafts from '../useDrafts';
-
-const useStyle = makeStyles(() => ({
-  root: {
-    '& .q3-forms-rte-wrapper': {
-      overflow: 'initial !important',
-    },
-
-    '& .cancel': {
-      display: 'none !important',
-    },
-  },
-}));
+import useStyle from './styles';
 
 const findAndClosePreviouslyOpenedEditors = () => {
   try {
@@ -30,7 +18,6 @@ const findAndClosePreviouslyOpenedEditors = () => {
 const TimelineDialog = ({
   additionalFields,
   renderTrigger,
-  label,
   onSubmit,
   ...rest
 }) => {
@@ -55,10 +42,12 @@ const TimelineDialog = ({
         enableReset
         onReset={handleClose}
         onSubmit={(args) =>
-          onSubmit(args).then(handleClose)
+          // workaround from test props
+          onSubmit
+            ? onSubmit(args).then(handleClose)
+            : Promise.resolve()
         }
         resetLabel="cancel"
-        debug
       >
         <FieldMessage fieldId={fieldId} {...rest} />
         {additionalFields}
@@ -77,12 +66,12 @@ const TimelineDialog = ({
 
 TimelineDialog.defaultProps = {
   additionalFields: null,
+  onSubmit: null,
 };
 
 TimelineDialog.propTypes = {
   additionalFields: PropTypes.node,
-  label: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   renderTrigger: PropTypes.func.isRequired,
 };
 

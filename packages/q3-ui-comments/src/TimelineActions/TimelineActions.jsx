@@ -19,7 +19,9 @@ const TimelineActions = ({
   const { collectionName } = rest;
   const { id, createdBy, removed } = comment;
   const [options, setOptions] = React.useState([]);
-  const { state, HideByField } = useAuth(collectionName);
+  const { HideByField, canEditSub, state } =
+    useAuth(collectionName);
+
   const cls = useStyle();
 
   const edit = React.useRef();
@@ -37,29 +39,30 @@ const TimelineActions = ({
         ]
       : [];
 
-  React.useEffect(() => {
-    setOptions(
-      removed
-        ? [
-            {
-              label: 'restore',
-              onClick() {
-                return patch(id)({
-                  removed: false,
-                  id, // only necessary for testing
-                });
-              },
-            },
-          ].concat(addRef(del, 'delete'))
-        : addRef(edit, 'edit').concat({
-            label: 'remove',
+  const addRemovedAction = (label, value) =>
+    canEditSub('removed')
+      ? [
+          {
+            label,
             onClick() {
               return patch(id)({
-                removed: true,
+                removed: value,
                 id, // only necessary for testing
               });
             },
-          }),
+          },
+        ]
+      : [];
+
+  React.useEffect(() => {
+    setOptions(
+      removed
+        ? addRemovedAction('restore', false).concat(
+            addRef(del, 'delete'),
+          )
+        : addRef(edit, 'edit').concat(
+            addRemovedAction('remove', true),
+          ),
     );
   }, []);
 
@@ -89,6 +92,7 @@ const TimelineActions = ({
             title="confirmDelete"
             description="confirmDelete"
             service={remove(id)}
+            // eslint-disable-next-line
             ButtonComponent={(buttonProps) => (
               <button
                 {...buttonProps}
@@ -106,15 +110,22 @@ const TimelineActions = ({
   );
 };
 
+TimelineActions.defaultProps = {
+  collectionName: undefined,
+};
+
 TimelineActions.propTypes = {
-  collectionName: PropTypes.string.isRequired,
+  collectionName: PropTypes.string,
   field: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
   patch: PropTypes.func.isRequired,
   comment: PropTypes.shape({
     // eslint-disable-next-line
     createdBy: PropTypes.object,
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     removed: PropTypes.bool,
   }).isRequired,
 };

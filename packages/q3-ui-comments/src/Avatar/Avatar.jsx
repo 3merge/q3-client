@@ -9,8 +9,12 @@ const Avatar = ({ photo, ...props }) => (
   <Q3Avatar imgSrc={photo} word={makeName(props)} />
 );
 
+Avatar.defaultProps = {
+  photo: null,
+};
+
 Avatar.propTypes = {
-  photo: PropTypes.string.isRequired,
+  photo: PropTypes.string,
 };
 
 export default Avatar;

@@ -17,7 +17,7 @@ export const clearHtml = () => {
   }
 };
 
-const Create = ({ children, onSubmit, ...rest }) => {
+const Create = ({ children, ...rest }) => {
   const { collectionName } = rest;
   const auth = useAuth(collectionName);
   const { HideByField } = auth;
@@ -36,8 +36,6 @@ const Create = ({ children, onSubmit, ...rest }) => {
           <Dialog
             {...rest}
             isNew
-            restart
-            onSubmit={onSubmit}
             renderTrigger={(onClick) => (
               <Button
                 disableRipple
@@ -52,6 +50,7 @@ const Create = ({ children, onSubmit, ...rest }) => {
                 {t('leaveAComment')}
               </Button>
             )}
+            restart
           />
         </Grid>
       </HideByField>
@@ -67,7 +66,6 @@ Create.defaultProps = {
 Create.propTypes = {
   additionalFields: PropTypes.node,
   children: PropTypes.node,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 export default Create;

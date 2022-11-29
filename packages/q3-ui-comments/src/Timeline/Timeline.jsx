@@ -7,6 +7,7 @@ import {
   filter,
   size,
   sortBy,
+  reduce,
 } from 'lodash';
 import MuiTimeline from '@material-ui/lab/Timeline';
 import { useAuth } from 'q3-ui-permissions';
@@ -32,6 +33,38 @@ const sortData = (xs, asc, options = {}) => {
   return asc ? ascending(data) : descending(data);
 };
 
+export const reportMissingIds = (xs = [], trans = null) => {
+  const makeMessage = () => {
+    const textKey = 'missingFirstCommentInThread';
+    const text = isFunction(trans)
+      ? trans(textKey)
+      : textKey;
+
+    return text;
+  };
+
+  return reduce(
+    xs,
+    (acc, curr, _, arr) => {
+      if (
+        curr.replies &&
+        arr.findIndex(
+          (item) => item.id === curr.replies,
+        ) === -1
+      )
+        acc.push({
+          createdBy: null,
+          deleted: true,
+          id: curr.replies,
+          message: makeMessage(),
+        });
+
+      return acc;
+    },
+    xs,
+  );
+};
+
 // eslint-disable-next-line
 export const NestedTimeline = ({ children, ...props }) => (
   <Box mt={1}>
@@ -51,28 +84,10 @@ const Timeline = ({ data, insertNode, ...rest }) => {
   const renderDynamic = (args) =>
     isFunction(insertNode) ? insertNode(args, data) : null;
 
-  const missingIds = data.reduce((acc, curr) => {
-    if (
-      curr.replies &&
-      data.findIndex((item) => item.id === curr.replies) ===
-        -1
-    )
-      acc.push({
-        deleted: true,
-        id: curr.replies,
-        createdBy: null,
-        message: `<p><em>${trans(
-          'missingFirstCommentInThread',
-        )}</em></p>`,
-      });
-
-    return acc;
-  }, []);
-
   return (
     <MuiTimeline className={cls.container}>
       {map(
-        sortData([...data, ...missingIds], true),
+        sortData(reportMissingIds(data, trans), true),
         (t) => {
           const replies = filter(data, hasReplies(t.id));
 
