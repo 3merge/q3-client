@@ -5,7 +5,11 @@ import { Alert } from '@material-ui/lab';
 import Comments from './Comments';
 import Timeline from '../Timeline';
 
-jest.mock('q3-ui-rest');
+jest.mock('q3-ui-rest', () =>
+  jest.fn().mockReturnValue({
+    post: jest.fn(),
+  }),
+);
 
 const renderComments = () =>
   global.mount(<Comments collectionName="foo" id="1" />);

@@ -2,7 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { AuthContext } from 'q3-ui-permissions';
 import Confirm from 'q3-ui-confirm';
-import Timeline from './Timeline';
+import { last } from 'lodash';
+import Timeline, { reportMissingIds } from './Timeline';
 import TimelineEntry from '../TimelineEntry';
 import d from '../../tests/fixtures/data';
 import Dialog from '../Dialog';
@@ -13,9 +14,9 @@ const makeIsoString = (offset) =>
 const { createdBy } = d[0];
 
 const services = {
-  patch: jest.fn(),
   post: jest.fn(),
-  remove: jest.fn(),
+  patch: jest.fn().mockReturnValue(jest.fn()),
+  remove: jest.fn().mockReturnValue(jest.fn()),
   id: '1',
   collectionName: 'test',
 };
@@ -102,5 +103,32 @@ describe('Timeline', () => {
         .find(Dialog)
         .exists(),
     ).toBeFalsy();
+  });
+
+  it('should include deleted top-level data', () => {
+    const out = reportMissingIds([
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+      },
+      {
+        id: 3,
+        replies: 1,
+      },
+      {
+        id: 5,
+        replies: 4,
+      },
+    ]);
+
+    expect(out).toHaveLength(5);
+    expect(last(out)).toMatchObject({
+      createdBy: null,
+      deleted: true,
+      id: 4,
+      message: 'missingFirstCommentInThread',
+    });
   });
 });

@@ -7,10 +7,12 @@ import {
   filter,
   size,
   sortBy,
+  reduce,
 } from 'lodash';
 import MuiTimeline from '@material-ui/lab/Timeline';
 import { useAuth } from 'q3-ui-permissions';
 import ForumIcon from '@material-ui/icons/Forum';
+import { useTranslation } from 'q3-ui-locale';
 import Dialog from '../Dialog';
 import TimelineEntry from '../TimelineEntry';
 import TimelineActions from '../TimelineActions';
@@ -31,6 +33,38 @@ const sortData = (xs, asc, options = {}) => {
   return asc ? ascending(data) : descending(data);
 };
 
+export const reportMissingIds = (xs = [], trans = null) => {
+  const makeMessage = () => {
+    const textKey = 'missingFirstCommentInThread';
+    const text = isFunction(trans)
+      ? trans(textKey)
+      : textKey;
+
+    return text;
+  };
+
+  return reduce(
+    xs,
+    (acc, curr, _, arr) => {
+      if (
+        curr.replies &&
+        arr.findIndex(
+          (item) => item.id === curr.replies,
+        ) === -1
+      )
+        acc.push({
+          createdBy: null,
+          deleted: true,
+          id: curr.replies,
+          message: makeMessage(),
+        });
+
+      return acc;
+    },
+    xs,
+  );
+};
+
 // eslint-disable-next-line
 export const NestedTimeline = ({ children, ...props }) => (
   <Box mt={1}>
@@ -40,6 +74,7 @@ export const NestedTimeline = ({ children, ...props }) => (
 
 const Timeline = ({ data, insertNode, ...rest }) => {
   const { collectionName } = rest;
+  const { t: trans } = useTranslation('descriptions');
   const auth = useAuth(collectionName);
   const cls = useStyle();
 
@@ -51,69 +86,75 @@ const Timeline = ({ data, insertNode, ...rest }) => {
 
   return (
     <MuiTimeline className={cls.container}>
-      {map(sortData(data, true), (t) => {
-        const replies = filter(data, hasReplies(t.id));
+      {map(
+        sortData(reportMissingIds(data, trans), true),
+        (t) => {
+          const replies = filter(data, hasReplies(t.id));
 
-        return (
-          <TimelineEntry
-            key={t.id}
-            {...t}
-            actions={
-              <TimelineActions
-                comment={t}
-                field={path}
-                {...rest}
-              />
-            }
-          >
-            {renderDynamic(t)}
-            {size(replies) > 0 && (
-              <NestedTimeline className={cls.root}>
-                {map(
-                  sortData(replies, false, {
-                    skipFilter: true,
-                  }),
-                  (item) => (
-                    <TimelineEntry
-                      actions={
-                        <TimelineActions
-                          comment={item}
-                          field={path}
-                          {...rest}
-                        />
-                      }
-                      key={item.id}
-                      connector
-                      {...item}
-                    >
-                      {renderDynamic(item)}
-                    </TimelineEntry>
-                  ),
-                )}
-              </NestedTimeline>
-            )}
-            {canCreateSub(path) && (
-              <Dialog
-                renderTrigger={(onClick) => (
-                  <InlineButton
-                    icon={ForumIcon}
-                    onClick={onClick}
-                    label="reply"
-                  />
-                )}
-                label="reply"
-                onSubmit={(args) =>
-                  rest.post({
-                    ...args,
+          return (
+            <TimelineEntry
+              key={t.id}
+              {...t}
+              actions={
+                <TimelineActions
+                  comment={t}
+                  field={path}
+                  {...rest}
+                />
+              }
+            >
+              {renderDynamic(t)}
+              {size(replies) > 0 && (
+                <NestedTimeline className={cls.root}>
+                  {map(
+                    sortData(replies, false, {
+                      skipFilter: true,
+                    }),
+                    (item) => (
+                      <TimelineEntry
+                        actions={
+                          <TimelineActions
+                            comment={item}
+                            field={path}
+                            {...rest}
+                          />
+                        }
+                        key={item.id}
+                        connector
+                        {...item}
+                      >
+                        {renderDynamic(item)}
+                      </TimelineEntry>
+                    ),
+                  )}
+                </NestedTimeline>
+              )}
+              {canCreateSub(path) && (
+                <Dialog
+                  initialValues={{
                     replies: t?.id,
-                  })
-                }
-                {...rest}
-              />
-            )}
-          </TimelineEntry>
-        );
-      })}
+                  }}
+                  renderTrigger={(onClick) => (
+                    <InlineButton
+                      icon={ForumIcon}
+                      onClick={onClick}
+                      label="reply"
+                    />
+                  )}
+                  label="reply"
+                  onSubmit={(args) =>
+                    rest.post({
+                      ...args,
+                      replies: t?.id,
+                    })
+                  }
+                  {...rest}
+                />
+              )}
+            </TimelineEntry>
+          );
+        },
+      )}
     </MuiTimeline>
   );
 };

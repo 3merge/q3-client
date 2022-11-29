@@ -13,7 +13,12 @@ import { useTranslation } from 'q3-ui-locale';
 import useStyle from '../Timeline/styles';
 
 const TimelineMenu = ({ options }) => {
-  const { open, close, isOpen, anchorEl } = useOpen();
+  const {
+    anchorEl,
+    close,
+    isOpen = false,
+    open,
+  } = useOpen();
   const { t } = useTranslation('labels');
   const cls = useStyle();
 

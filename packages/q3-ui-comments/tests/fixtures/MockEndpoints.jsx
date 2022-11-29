@@ -7,24 +7,32 @@ import MockUserState from './MockUserState';
 
 // eslint-disable-next-line
 export default ({ children, delay, error }) => {
-  const [dataSource, setDataSource] = React.useState(
-    comments,
-  );
+  const [dataSource, setDataSource] =
+    React.useState(comments);
 
   const defineMockRoutes = (m) => {
     if (error) return;
 
-    m.onGet(/\/test\/\d+\/comments/).reply(() => {
-      return [200, { comments: dataSource }];
-    });
+    m.onGet(/\/test\/\d+\/comments/).reply(() => [
+      200,
+      { comments: dataSource },
+    ]);
 
     m.onPost(/\/test\/\d+\/comments/).reply(({ data }) => {
       const args = JSON.parse(data);
       const newItem = {
         ...last(dataSource),
         createdAt: new Date(),
+        'createdBy': {
+          'id': '6091989dfc13ae035500000e',
+          'firstName': 'Christine',
+          'lastName': 'Allom',
+          'photo':
+            'https://robohash.org/itaqueomnisexplicabo.png?size=50x50&set=set1',
+        },
         message: args.message,
         replies: args.replies,
+        id: Date.now(),
       };
 
       const newState = dataSource.concat(newItem);
@@ -37,13 +45,15 @@ export default ({ children, delay, error }) => {
         const args = JSON.parse(data);
         const newState = dataSource.map((item) =>
           item.id === args.id
-            ? Object.assign(args, {
-                message: args.message,
-              })
+            ? {
+                ...item,
+                ...args,
+              }
             : item,
         );
 
         setDataSource(newState);
+
         return [
           200,
           {
@@ -53,9 +63,9 @@ export default ({ children, delay, error }) => {
       },
     );
 
-    m.onDelete(/\/test\/\d+\/comments\/\d+/).reply(() => {
-      return [204];
-    });
+    m.onDelete(/\/test\/\d+\/comments\/\d+/).reply(() => [
+      204,
+    ]);
   };
 
   const Clone = (p) =>

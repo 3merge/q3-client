@@ -11,7 +11,7 @@ jest.mock('../TimelineMenu', () => () => <div />);
 
 const timelineStub = {
   patch: jest.fn(),
-  remove: jest.fn(),
+  remove: jest.fn().mockReturnValue(jest.fn()),
   comment: {
     id: 1,
     createdBy: {
@@ -33,6 +33,7 @@ describe('TimelineActions', () => {
   it('should register all options', () => {
     useAuth.mockReturnValue({
       HideByField: ({ children }) => children,
+      canEditSub: jest.fn().mockReturnValue(true),
       state: {
         profile: {
           id: 1,
@@ -47,6 +48,7 @@ describe('TimelineActions', () => {
     useAuth.mockReturnValue({
       HideByField: ({ children, op }) =>
         op === 'Update' ? children : null,
+      canEditSub: jest.fn().mockReturnValue(false),
       state: {
         profile: {
           id: 1,
@@ -60,6 +62,7 @@ describe('TimelineActions', () => {
   it('should not register options', () => {
     useAuth.mockReturnValue({
       HideByField: () => null,
+      canEditSub: jest.fn().mockReturnValue(false),
       state: {
         profile: {
           id: 1,
@@ -73,6 +76,7 @@ describe('TimelineActions', () => {
   it('should hide block altogether', () => {
     useAuth.mockReturnValue({
       HideByField: () => null,
+      canEditSub: jest.fn().mockReturnValue(false),
       state: {
         profile: {
           id: 2,

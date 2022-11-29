@@ -20,12 +20,32 @@ const getFromLocalStorage = (id) => () =>
       )
     : undefined;
 
-export default (ref, { id, defaultValue, onChange }) => {
+export default (
+  ref,
+  {
+    autosave,
+    autosaveInterval = 10000,
+    id,
+    defaultValue,
+    onChange,
+  },
+) => {
   const editor = ref?.current?.root;
   const timer = React.useRef();
 
+  const get = getFromLocalStorage(id);
+  const value = autosave ? get() : defaultValue || get();
+
+  const isNotEmptyHtml = (html) =>
+    html && html !== '<p><br></p>';
+
   const getCurrentState = () =>
-    ref?.current?.root?.innerHTML;
+    ref?.current?.root?.innerHTML || value;
+
+  const callOnChange = () => {
+    const html = getCurrentState();
+    onChange(isNotEmptyHtml(html) ? html : '');
+  };
 
   const stopAutoSave = () => {
     if (timer.current) clearInterval(timer.current);
@@ -34,31 +54,32 @@ export default (ref, { id, defaultValue, onChange }) => {
   const saveChangesToLocalStorage = () => {
     const html = getCurrentState();
 
-    if (html && html !== '<p><br></p>')
+    if (isNotEmptyHtml(html))
       browser.proxyLocalStorageApi(
         'setItem',
         makeLocalStorageKey(id),
         html,
       );
+    else removeFromLocalStorage(id);
   };
 
   React.useEffect(() => {
-    if (!isFunction(onChange))
+    if (!isFunction(onChange) || autosave)
       timer.current = setInterval(() => {
         saveChangesToLocalStorage();
-      }, 10000);
+      }, autosaveInterval);
 
     return stopAutoSave;
-  }, [editor]);
+  }, [editor, autosaveInterval]);
 
   React.useEffect(() => {
     if (!ref?.current?.root || !isFunction(onChange))
       return undefined;
 
+    callOnChange();
+
     const observer = new MutationObserver(
-      debounce(() => {
-        onChange(getCurrentState());
-      }, 150),
+      debounce(callOnChange, 150),
     );
 
     observer.observe(ref.current.root, {
@@ -73,8 +94,6 @@ export default (ref, { id, defaultValue, onChange }) => {
     };
   }, []);
 
-  const get = getFromLocalStorage(id);
-
   return {
     get,
     getCurrentState,
@@ -82,7 +101,7 @@ export default (ref, { id, defaultValue, onChange }) => {
       removeFromLocalStorage(id);
       stopAutoSave();
     },
-    value: defaultValue || get(),
+    value,
     stopAutoSave,
   };
 };

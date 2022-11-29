@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { string } from 'q3-ui-helpers';
+import Alert from '@material-ui/lab/Alert';
 import { Box, Typography } from '@material-ui/core';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
+import { useTranslation } from 'q3-ui-locale';
 import useStyles from './styles';
 import Avatar, { makeName } from '../Avatar';
 
@@ -18,7 +20,9 @@ const TimelineEntry = ({
   message,
   children,
   id,
+  removed,
 }) => {
+  const { t } = useTranslation('descriptions');
   const cls = useStyles({
     connector,
   });
@@ -47,21 +51,31 @@ const TimelineEntry = ({
             display="flex"
             className={cls.wrap}
           >
-            <Typography className={cls.title}>
+            <Typography
+              className={cls.title}
+              component="div"
+            >
               <strong>{makeName(createdBy)}</strong>
               <small>{string.toDate(createdAt)}</small>
               {actions}
             </Typography>
           </Box>
-          {message && (
-            <div
-              className={cls.rich}
-              // eslint-disable-next-line
-              dangerouslySetInnerHTML={{
-                __html: message,
-              }}
-            />
-          )}
+          {
+            // eslint-disable-next-line
+            removed ? (
+              <Alert severity="error">
+                {t('commentRemoved')}
+              </Alert>
+            ) : message ? (
+              <div
+                className={cls.rich}
+                // eslint-disable-next-line
+                dangerouslySetInnerHTML={{
+                  __html: message,
+                }}
+              />
+            ) : null
+          }
           {children}
         </Box>
       </TimelineContent>
@@ -77,6 +91,7 @@ TimelineEntry.defaultProps = {
   message: '',
   children: null,
   id: undefined,
+  removed: false,
 };
 
 TimelineEntry.propTypes = {
@@ -93,6 +108,7 @@ TimelineEntry.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  removed: PropTypes.bool,
 };
 
 export default TimelineEntry;

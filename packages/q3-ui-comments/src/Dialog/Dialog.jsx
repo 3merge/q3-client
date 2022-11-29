@@ -2,20 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { useToggle } from 'useful-state';
-import { makeStyles } from '@material-ui/core/styles';
 import FieldMessage from '../FieldMessage';
-
-const useStyle = makeStyles(() => ({
-  root: {
-    '& .q3-forms-rte-wrapper': {
-      overflow: 'initial !important',
-    },
-
-    '& .cancel': {
-      display: 'none !important',
-    },
-  },
-}));
+import useDrafts from '../useDrafts';
+import useStyle from './styles';
 
 const findAndClosePreviouslyOpenedEditors = () => {
   try {
@@ -29,12 +18,17 @@ const findAndClosePreviouslyOpenedEditors = () => {
 const TimelineDialog = ({
   additionalFields,
   renderTrigger,
-  label,
   onSubmit,
   ...rest
 }) => {
   const { open, state, close } = useToggle();
+  const { fieldId, remove } = useDrafts(rest);
   const cls = useStyle();
+
+  const handleClose = (e) => {
+    close(e);
+    remove();
+  };
 
   const handleOpen = () => {
     findAndClosePreviouslyOpenedEditors();
@@ -46,11 +40,16 @@ const TimelineDialog = ({
       <Builders.Form
         {...rest}
         enableReset
-        onReset={close}
-        onSubmit={(args) => onSubmit(args).then(close)}
+        onReset={handleClose}
+        onSubmit={(args) =>
+          // workaround from test props
+          onSubmit
+            ? onSubmit(args).then(handleClose)
+            : Promise.resolve()
+        }
         resetLabel="cancel"
       >
-        <FieldMessage {...rest} />
+        <FieldMessage fieldId={fieldId} {...rest} />
         {additionalFields}
       </Builders.Form>
       <button
@@ -67,12 +66,12 @@ const TimelineDialog = ({
 
 TimelineDialog.defaultProps = {
   additionalFields: null,
+  onSubmit: null,
 };
 
 TimelineDialog.propTypes = {
   additionalFields: PropTypes.node,
-  label: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
   renderTrigger: PropTypes.func.isRequired,
 };
 
