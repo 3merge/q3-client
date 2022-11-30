@@ -128,7 +128,8 @@ describe('Timeline', () => {
       createdBy: null,
       deleted: true,
       id: 4,
-      message: 'missingFirstCommentInThread',
+      message:
+        '<p><em>missingFirstCommentInThread</em></p>',
     });
   });
 });
