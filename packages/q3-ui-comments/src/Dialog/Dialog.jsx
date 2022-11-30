@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { useToggle } from 'useful-state';
+import { get } from 'lodash';
+import { browser } from 'q3-ui-helpers';
 import FieldMessage from '../FieldMessage';
 import useDrafts from '../useDrafts';
 import useStyle from './styles';
@@ -25,6 +27,20 @@ const TimelineDialog = ({
   const { fieldId, remove } = useDrafts(rest);
   const cls = useStyle();
 
+  const handleClassNames = () => {
+    const id = get(rest, 'initialValues.id', null);
+    const className = 'opened';
+    const node =
+      id && browser.isBrowserReady()
+        ? document.getElementById(`comment-${id}`)
+        : null;
+
+    if (node) {
+      if (state) node.classList.add(className);
+      else node.classList.remove(className);
+    }
+  };
+
   const handleClose = (e) => {
     close(e);
     remove();
@@ -34,6 +50,8 @@ const TimelineDialog = ({
     findAndClosePreviouslyOpenedEditors();
     open();
   };
+
+  React.useEffect(handleClassNames, [state]);
 
   return state ? (
     <div className={cls.root} id="comments-rte">

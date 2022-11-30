@@ -10,6 +10,7 @@ const useDrafts = ({
     collectionName,
     id,
     initialValues?.replies,
+    initialValues?.id,
   ]).join('-');
 
   return {

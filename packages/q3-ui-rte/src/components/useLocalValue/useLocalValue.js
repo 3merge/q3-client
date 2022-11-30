@@ -34,7 +34,9 @@ export default (
   const timer = React.useRef();
 
   const get = getFromLocalStorage(id);
-  const value = autosave ? get() : defaultValue || get();
+  const value = autosave
+    ? get() || defaultValue
+    : defaultValue || get();
 
   const isNotEmptyHtml = (html) =>
     html && html !== '<p><br></p>';
