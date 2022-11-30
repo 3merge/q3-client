@@ -38,6 +38,7 @@ const useInfiniteScroll = ({
   React.useLayoutEffect(() => {
     setCache([]); // different data set altogether
     setPage(initialPageValue);
+    setStop(false);
   }, [q]);
 
   React.useEffect(() => {

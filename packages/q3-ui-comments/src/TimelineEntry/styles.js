@@ -5,6 +5,12 @@ export default makeStyles((theme) => ({
     '&::before': {
       display: 'none',
     },
+
+    '&.opened': {
+      '& .actions .menu-trigger, & .message': {
+        display: 'none',
+      },
+    },
   },
   dot: {
     background: 'transparent',

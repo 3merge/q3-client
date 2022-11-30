@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { string } from 'q3-ui-helpers';
+import classnames from 'classnames';
 import Alert from '@material-ui/lab/Alert';
 import { Box, Typography } from '@material-ui/core';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -57,7 +58,7 @@ const TimelineEntry = ({
             >
               <strong>{makeName(createdBy)}</strong>
               <small>{string.toDate(createdAt)}</small>
-              {actions}
+              <span className="actions">{actions}</span>
             </Typography>
           </Box>
           {
@@ -68,7 +69,7 @@ const TimelineEntry = ({
               </Alert>
             ) : message ? (
               <div
-                className={cls.rich}
+                className={classnames(cls.rich, 'message')}
                 // eslint-disable-next-line
                 dangerouslySetInnerHTML={{
                   __html: message,
