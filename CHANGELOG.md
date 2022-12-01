@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.3.0](https://github.com/3merge/q/compare/v4.2.2...v4.3.0) (2022-12-01)
+
+
+### Features
+
+* use user login actions hook ([c623d26](https://github.com/3merge/q/commit/c623d26d2f5050bbd26fe0e98e55b03b210bbeb2))
+
+
+
+
+
 ## [4.2.2](https://github.com/3merge/q/compare/v4.2.1...v4.2.2) (2022-11-30)
 
 
