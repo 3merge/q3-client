@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.1](https://github.com/3merge/q/compare/v4.3.0...v4.3.1) (2022-12-07)
+
+
+### Bug Fixes
+
+* search and rte decoded values ([#456](https://github.com/3merge/q/issues/456)) ([fb86f78](https://github.com/3merge/q/commit/fb86f78895f28c21c4477afa67ab7f5651eec05e))
+
+
+
+
+
 # [4.3.0](https://github.com/3merge/q/compare/v4.2.2...v4.3.0) (2022-12-01)
 
 
