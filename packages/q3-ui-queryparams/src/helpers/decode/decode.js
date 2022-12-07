@@ -29,7 +29,9 @@ export default (v, options = {}) => {
       }
 
       try {
-        if (typeof value === 'string') value = clean(value);
+        if (typeof value === 'string')
+          value = key !== 'search' ? clean(value) : value;
+
         if (value === undefined) value = true;
 
         value = decodeURIComponent(String(value));

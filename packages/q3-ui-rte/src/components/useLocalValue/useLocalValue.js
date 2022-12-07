@@ -78,8 +78,6 @@ export default (
     if (!ref?.current?.root || !isFunction(onChange))
       return undefined;
 
-    callOnChange();
-
     const observer = new MutationObserver(
       debounce(callOnChange, 150),
     );
