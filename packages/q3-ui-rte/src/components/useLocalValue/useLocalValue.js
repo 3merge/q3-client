@@ -78,6 +78,9 @@ export default (
     if (!ref?.current?.root || !isFunction(onChange))
       return undefined;
 
+    // this ensures local version takes effect
+    if (autosave) callOnChange();
+
     const observer = new MutationObserver(
       debounce(callOnChange, 150),
     );
