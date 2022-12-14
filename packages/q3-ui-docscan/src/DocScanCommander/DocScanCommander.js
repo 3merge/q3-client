@@ -68,12 +68,13 @@ const DocScanCommander = (cv) => {
 
     initSrcVideo(video) {
       const src = new cv.Mat(
-        video.height,
-        video.width,
+        video.clientHeight,
+        video.clientWidth,
         cv.CV_8UC4,
       );
 
-      new cv.VideoCapture(video).read(src);
+      this.videoStream = new cv.VideoCapture(video);
+      this.videoStream.read(src);
       return this.initSrc(src);
     }
 
@@ -112,8 +113,8 @@ const DocScanCommander = (cv) => {
     edge() {
       const dst = new cv.Mat();
       cv.cvtColor(this.src, dst, cv.COLOR_BGR2GRAY);
-      cv.blur(dst, dst, new cv.Size(2, 2));
-      cv.Canny(dst, dst, 2, 20, 5, true);
+      cv.blur(dst, dst, new cv.Size(3, 3));
+      cv.Canny(dst, dst, 0, 255, 3, true);
       this.src = dst;
       return this;
     }
@@ -143,7 +144,7 @@ const DocScanCommander = (cv) => {
           0,
           // change colour?
           new cv.Scalar(255, 0, 0, 255),
-          2,
+          1,
         );
 
       this.src = dst;

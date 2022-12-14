@@ -1,27 +1,23 @@
 import React from 'react';
-import { isFunction } from 'lodash';
+import { invoke } from 'lodash';
+import { FPS } from '../constants';
 
-const useStreaming = ({ onStream, onExit }) => {
+const useStreaming = (handlers) => {
   const begin = Date.now();
-  const ref = React.useRef();
 
   React.useEffect(() => {
-    // fps
-    const delay = 1000 / 30 - (Date.now() - begin);
+    const delay = 1000 / FPS - (Date.now() - begin);
 
-    const execFn = (fn) =>
-      isFunction(fn) ? fn() : undefined;
+    const processVideo = () => {
+      invoke(handlers, 'onExit'); // kills previous frames
+      invoke(handlers, 'onStream'); // starts again
 
-    execFn(onStream);
-    ref.current = setInterval(() => {
-      execFn(onExit);
-      execFn(onStream);
-    }, delay);
-
-    return () => {
-      if (ref.current) clearInterval(ref.current);
-      execFn(onExit);
+      setTimeout(() => {
+        requestAnimationFrame(processVideo);
+      }, delay);
     };
+
+    processVideo();
   }, []);
 };
 

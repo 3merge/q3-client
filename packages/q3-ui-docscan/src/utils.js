@@ -71,13 +71,17 @@ export const calculateDimensions = (coords = []) => {
 
   return {
     height: mean([
-      calculateDistanceOfLineOn2DPlane(br, tr),
       calculateDistanceOfLineOn2DPlane(bl, tl),
+      calculateDistanceOfLineOn2DPlane(br, tr),
     ]),
     width: mean([
       calculateDistanceOfLineOn2DPlane(br, bl),
       calculateDistanceOfLineOn2DPlane(tr, tl),
     ]),
+
+    // helps to identify shape
+    diagonallr: calculateDistanceOfLineOn2DPlane(tl, br),
+    diagonalrl: calculateDistanceOfLineOn2DPlane(bl, tr),
   };
 };
 
@@ -97,22 +101,16 @@ export const calculateFourCornersOfRectangle = (
   return [tl, tr, br, bl].map(pickAxisValues);
 };
 
+const hasRealBorders = (xs) =>
+  xs.every((item) =>
+    Object.values(item).every((value) => value > 0),
+  );
+
 export const isApproximatelyTheLargestRectangle = (
   current,
   previous,
   determineSizeFn = size,
 ) => {
-  const hasArea = () => {
-    try {
-      const { height, width } = calculateDimensions(
-        convertData32SIntoArrayPair(current?.data32S),
-      );
-      return height * width > 400;
-    } catch (e) {
-      return false;
-    }
-  };
-
   const runSizer = (v) =>
     isFunction(determineSizeFn)
       ? determineSizeFn(v) || 0
@@ -127,8 +125,7 @@ export const isApproximatelyTheLargestRectangle = (
       // ensures we're matching against a comparable object
       (previous?.rows === 4 ? previousSize : 0) &&
     // this is an arbitrary value
-    currentSize > 1 &&
-    hasArea()
+    currentSize > 1
   );
 };
 
