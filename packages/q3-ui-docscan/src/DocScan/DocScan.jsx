@@ -38,6 +38,7 @@ export const Scanner = ({ upload }) => {
       <Box className={cls.root}>
         <Camera
           audio={false}
+          forceScreenshotSourceSize
           ref={(webcam) => {
             if (webcam?.video) {
               webcam?.video.addEventListener(
