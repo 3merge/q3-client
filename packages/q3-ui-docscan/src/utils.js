@@ -131,3 +131,11 @@ export const isApproximatelyTheLargestRectangle = (
 
 export const getRefNode = (xs) =>
   xs && 'current' in xs ? xs.current || null : xs;
+
+export const execRefFunction = (ref) => {
+  try {
+    ref.current();
+  } catch (e) {
+    // noop
+  }
+};

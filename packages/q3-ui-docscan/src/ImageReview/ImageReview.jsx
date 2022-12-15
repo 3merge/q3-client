@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Box, Fab } from '@material-ui/core';
 import RedoIcon from '@material-ui/icons/Redo';
 import SaveIcon from '@material-ui/icons/Save';
@@ -56,6 +57,12 @@ const ImageReview = ({ clear, src, upload }) => {
       </Box>
     </Box>
   );
+};
+
+ImageReview.propTypes = {
+  clear: PropTypes.func.isRequired,
+  src: PropTypes.string.isRequired,
+  upload: PropTypes.func.isRequired,
 };
 
 export default ImageReview;

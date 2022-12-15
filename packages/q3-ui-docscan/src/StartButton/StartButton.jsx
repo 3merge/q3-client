@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Card,
@@ -8,9 +9,11 @@ import {
 } from '@material-ui/core';
 import ScannerIcon from '@material-ui/icons/Scanner';
 import { useTranslation } from 'q3-ui-locale';
+import useStyle from './styles';
 
 const StartButton = ({ onClick }) => {
   const { t } = useTranslation();
+  const cls = useStyle();
 
   return (
     <Card>
@@ -21,17 +24,7 @@ const StartButton = ({ onClick }) => {
           p={2}
           textAlign="center"
         >
-          <Avatar
-            style={{
-              background: 'transparent',
-              color: 'inherit',
-              margin: '0 auto',
-              border: '1px dotted',
-              width: 48,
-              height: 48,
-              marginBottom: '1rem',
-            }}
-          >
+          <Avatar className={cls.avatar}>
             <ScannerIcon />
           </Avatar>
           <Typography
@@ -48,6 +41,10 @@ const StartButton = ({ onClick }) => {
       </CardActionArea>
     </Card>
   );
+};
+
+StartButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default StartButton;

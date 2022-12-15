@@ -1,7 +1,7 @@
 import React from 'react';
 import useStreaming from '../useStreaming';
 import useOpenCv from '../useOpenCv';
-import { getRefNode } from '../utils';
+import { getRefNode, execRefFunction } from '../utils';
 
 const DocScanPreview = React.forwardRef((props, ref) => {
   const output = React.useRef();
@@ -9,20 +9,14 @@ const DocScanPreview = React.forwardRef((props, ref) => {
   const run = useOpenCv(output);
 
   useStreaming({
+    onExit: () => execRefFunction(openCvInstance),
+
     onStream: () => {
       openCvInstance.current = run(getRefNode(ref)?.video, {
         contour: true,
         crop: false,
         srcType: 'video',
       });
-    },
-    onExit: () => {
-      try {
-        // should stream
-        openCvInstance.current();
-      } catch (e) {
-        // noop
-      }
     },
   });
 

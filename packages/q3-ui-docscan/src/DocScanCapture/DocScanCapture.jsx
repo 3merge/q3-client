@@ -4,6 +4,7 @@ import ScannerIcon from '@material-ui/icons/Scanner';
 import PropTypes from 'prop-types';
 import useOpenCv from '../useOpenCv';
 import useStyle from './styles';
+import { execRefFunction } from '../utils';
 
 const DocScanCapture = ({
   getScreenshot,
@@ -29,22 +30,15 @@ const DocScanCapture = ({
           srcType: 'image',
         });
 
-        const myImage =
-          output.current.toDataURL('image/png');
-
-        setScreenshot(myImage);
+        setScreenshot(
+          output.current.toDataURL('image/png'),
+        );
       },
     );
   };
 
   React.useEffect(
-    () => () => {
-      try {
-        openCvInstance.current();
-      } catch (e) {
-        // noop
-      }
-    },
+    () => () => execRefFunction(openCvInstance),
     [],
   );
 
@@ -67,6 +61,7 @@ const DocScanCapture = ({
 
 DocScanCapture.propTypes = {
   getScreenshot: PropTypes.func.isRequired,
+  setScreenshot: PropTypes.func.isRequired,
 };
 
 export default DocScanCapture;
