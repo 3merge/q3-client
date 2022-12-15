@@ -1,0 +1,27 @@
+import {
+  Meta,
+  Story,
+  Preview,
+  Props,
+} from '@storybook/addon-docs/blocks';
+import { Container, Box } from '@material-ui/core';
+import DocScan from './DocScan';
+
+<Meta title="DocScan" component={DocScan} />
+
+# DocScan
+
+<Preview>
+  <Story name="Using webcam">
+    <Container>
+      <Box maxWidth={320} p={2}>
+        <DocScan
+          upload={(f) => {
+            console.log(f);
+            return Promise.resolve();
+          }}
+        />
+      </Box>
+    </Container>
+  </Story>
+</Preview>

@@ -40,6 +40,7 @@ const alias = [
   'q3-ui-thread',
   'q3-ui-sse',
   'q3-ui-dropdownmenu',
+  'q3-ui-docscan',
 ].reduce(
   (acc, curr) =>
     Object.assign(acc, {
