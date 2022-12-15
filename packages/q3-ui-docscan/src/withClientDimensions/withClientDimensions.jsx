@@ -6,15 +6,7 @@ const withClientDimensions = (Component) =>
     const dimensions = useClientDimensions();
 
     return (
-      <Component
-        {...props}
-        {...dimensions}
-        ref={ref}
-        videoConstraints={{
-          ...dimensions,
-          facingMode: 'environment',
-        }}
-      />
+      <Component {...props} {...dimensions} ref={ref} />
     );
   });
 

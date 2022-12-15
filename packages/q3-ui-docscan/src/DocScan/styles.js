@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   root: {
+    backgroundColor: theme.palette.primary.main,
     height: '100%',
     width: '100%',
     position: 'relative',
@@ -9,9 +10,10 @@ export default makeStyles((theme) => ({
 
     '& video,& canvas': {
       backgroundColor: theme.palette.primary.main,
-      left: 0,
+      left: '50%',
       position: 'absolute',
-      top: 0,
+      top: '50%',
+      transform: 'translate(-50%,-50%)',
     },
 
     '& canvas': {

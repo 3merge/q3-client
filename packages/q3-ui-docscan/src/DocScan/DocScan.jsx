@@ -12,6 +12,13 @@ import useStyle from './styles';
 
 const Camera = withClientDimensions(ReactWebcam);
 
+function handleVideoResize() {
+  const w = this.videoWidth;
+  const h = this.videoHeight;
+  this.width = w;
+  this.height = h;
+}
+
 export const Scanner = ({ upload }) => {
   const [img, setImg] = React.useState(null);
   const videoEl = React.useRef();
@@ -31,8 +38,25 @@ export const Scanner = ({ upload }) => {
       <Box className={cls.root}>
         <Camera
           audio={false}
-          forceScreenshotSourceSize
-          ref={videoEl}
+          ref={(webcam) => {
+            if (webcam?.video) {
+              webcam?.video.addEventListener(
+                'resize',
+                handleVideoResize,
+                false,
+              );
+            }
+
+            setTimeout(() => {
+              // keep refs in sync
+              videoEl.current = webcam;
+            }, 25);
+          }}
+          videoConstraints={{
+            facingMode: 'environment',
+          }}
+          screenshotFormat="image/png"
+          screenshotQuality={1}
         >
           {({ getScreenshot }) => (
             <DocScanCapture
