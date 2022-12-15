@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/3merge/q/compare/v4.3.2...v4.4.0) (2022-12-15)
+
+**Note:** Version bump only for package q3-admin
+
+
+
+
+
 ## [4.3.2](https://github.com/3merge/q/compare/v4.3.1...v4.3.2) (2022-12-07)
 
 **Note:** Version bump only for package q3-admin

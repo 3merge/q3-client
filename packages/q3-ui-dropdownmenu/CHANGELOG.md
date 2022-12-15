@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.4.0](https://github.com/3merge/q/compare/v4.3.2...v4.4.0) (2022-12-15)
+
+**Note:** Version bump only for package q3-ui-dropdownmenu
+
+
+
+
+
 ## [4.0.3](https://github.com/3merge/q/compare/v4.0.2...v4.0.3) (2022-11-16)
 
 **Note:** Version bump only for package q3-ui-dropdownmenu

@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-docscan",
-  "version": "4.3.2",
+  "version": "4.4.0",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
@@ -9,8 +9,8 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
-    "q3-ui-helpers": "^4.0.3",
-    "q3-ui-locale": "^4.0.3",
+    "q3-ui-helpers": "^4.4.0",
+    "q3-ui-locale": "^4.4.0",
     "react-webcam": "^7.0.1",
     "useful-state": "^1.2.3"
   },
