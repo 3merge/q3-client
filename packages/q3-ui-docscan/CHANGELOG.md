@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.2](https://github.com/3merge/q/compare/v4.4.1...v4.4.2) (2022-12-15)
+
+
+### Bug Fixes
+
+* screen resolution for scanning ([67b5bdb](https://github.com/3merge/q/commit/67b5bdbee4e517c2b6daf5d1a9b7e50219fdd307))
+
+
+
+
+
 ## [4.4.1](https://github.com/3merge/q/compare/v4.4.0...v4.4.1) (2022-12-15)
 
 
