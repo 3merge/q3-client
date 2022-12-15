@@ -5,47 +5,16 @@ import {
   CardActionArea,
   Typography,
   Avatar,
-  Dialog,
-  Fab,
 } from '@material-ui/core';
 import ScannerIcon from '@material-ui/icons/Scanner';
 import { useTranslation } from 'q3-ui-locale';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import ErrorBoundary from '../ErrorBoundary';
 
-const withStartButton = (Component) => (props) => {
-  const [start, setStart] = React.useState(false);
+const StartButton = ({ onClick }) => {
   const { t } = useTranslation();
 
-  return start ? (
-    <ErrorBoundary
-      onError={() => {
-        alert('SOMETHING WENT WRONG');
-        setStart(null);
-      }}
-    >
-      <Dialog fullScreen open>
-        <Component {...props} />
-        <Fab
-          size="small"
-          color="primary"
-          onClick={() => {
-            setStart(false);
-          }}
-          style={{
-            position: 'fixed',
-            top: '1rem',
-            left: '1rem',
-            zIndex: 10,
-          }}
-        >
-          <KeyboardBackspaceIcon />
-        </Fab>
-      </Dialog>
-    </ErrorBoundary>
-  ) : (
+  return (
     <Card>
-      <CardActionArea onClick={() => setStart(true)}>
+      <CardActionArea onClick={onClick}>
         <Box
           bgcolor="secondary.main"
           color="secondary.contrastText"
@@ -81,4 +50,4 @@ const withStartButton = (Component) => (props) => {
   );
 };
 
-export default withStartButton;
+export default StartButton;

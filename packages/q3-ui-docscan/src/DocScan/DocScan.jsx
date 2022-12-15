@@ -1,17 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactWebcam from 'react-webcam';
 import { Box } from '@material-ui/core';
+import Dialog from '../Dialog';
 import DocScanCapture from '../DocScanCapture';
 import ContextProvider from '../ContextProvider';
 import DocScanPreview from '../DocScanPreview';
 import ImageReview from '../ImageReview';
 import withClientDimensions from '../withClientDimensions';
-import withStartButton from '../withStartButton';
 import useStyle from './styles';
 
 const Camera = withClientDimensions(ReactWebcam);
 
-const Scanner = ({ upload }) => {
+export const Scanner = ({ upload }) => {
   const [img, setImg] = React.useState(null);
   const videoEl = React.useRef();
   const cls = useStyle();
@@ -46,4 +47,12 @@ const Scanner = ({ upload }) => {
   );
 };
 
-export default withStartButton(Scanner);
+Scanner.propTypes = {
+  upload: PropTypes.func.isRequired,
+};
+
+export default (props) => (
+  <Dialog>
+    <Scanner {...props} />
+  </Dialog>
+);

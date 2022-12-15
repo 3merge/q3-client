@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Alert from '@material-ui/lab/Alert';
-import { CircularProgress } from '@material-ui/core';
+import { Box, CircularProgress } from '@material-ui/core';
 import { useBrowserLayoutEffect } from 'q3-ui-helpers/lib/hooks';
 import { useTranslation } from 'q3-ui-locale';
 import Context from '../Context';
@@ -38,8 +39,20 @@ const ContextProvider = ({ children }) => {
       {children}
     </Context.Provider>
   ) : (
-    <CircularProgress />
+    <Box
+      height="100%"
+      width="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <CircularProgress />
+    </Box>
   );
+};
+
+ContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ContextProvider;

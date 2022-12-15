@@ -142,9 +142,8 @@ const DocScanCommander = (cv) => {
           dst,
           makeMatVectorFromSingleMat(this.frame),
           0,
-          // change colour?
-          new cv.Scalar(255, 0, 0, 255),
-          1,
+          new cv.Scalar(0, 0, 0, 0),
+          3,
         );
 
       this.src = dst;
@@ -190,6 +189,9 @@ const DocScanCommander = (cv) => {
 
   return (inputNode, outputNode, options = {}) => {
     const cmd = new InternalEngine();
+
+    // noop
+    if (!inputNode || !outputNode) return () => undefined;
 
     if (options?.srcType === 'video')
       cmd.initSrcVideo(inputNode);
