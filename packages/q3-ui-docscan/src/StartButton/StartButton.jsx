@@ -6,6 +6,7 @@ import {
   CardActionArea,
   Typography,
   Avatar,
+  Button,
 } from '@material-ui/core';
 import ScannerIcon from '@material-ui/icons/Scanner';
 import { useTranslation } from 'q3-ui-locale';
@@ -19,24 +20,24 @@ const StartButton = ({ onClick }) => {
     <Card>
       <CardActionArea onClick={onClick}>
         <Box
-          bgcolor="secondary.main"
-          color="secondary.contrastText"
+          bgcolor="background.muted"
           p={2}
           textAlign="center"
         >
           <Avatar className={cls.avatar}>
             <ScannerIcon />
           </Avatar>
-          <Typography
-            color="inherit"
-            variant="h6"
-            component="p"
-          >
+          <Typography color="inherit" component="p">
             {t('titles:scanDocument')}
           </Typography>
-          <Typography color="inherit" component="p">
+          <Typography
+            color="inherit"
+            component="p"
+            className={cls.p}
+          >
             {t('descriptions:scanDocument')}
           </Typography>
+          <Button>{t('labels:scan')}</Button>
         </Box>
       </CardActionArea>
     </Card>
