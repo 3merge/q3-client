@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export default makeStyles((theme) => ({
   button: {
-    bottom: theme.spacing(1),
+    bottom: theme.spacing(2),
     left: '50%',
     transform: 'translateX(-50%)',
     position: 'absolute',

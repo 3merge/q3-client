@@ -68,8 +68,8 @@ const DocScanCommander = (cv) => {
 
     initSrcVideo(video) {
       const src = new cv.Mat(
-        video.clientHeight,
-        video.clientWidth,
+        video.height,
+        video.width,
         cv.CV_8UC4,
       );
 

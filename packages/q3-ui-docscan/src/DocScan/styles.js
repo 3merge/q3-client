@@ -1,22 +1,20 @@
 import { makeStyles } from '@material-ui/core';
-import { CLIENT_HEIGHT, CLIENT_WIDTH } from '../constants';
 
-export default makeStyles(() => ({
+export default makeStyles((theme) => ({
   root: {
-    height: CLIENT_HEIGHT,
-    width: CLIENT_WIDTH,
+    height: '100%',
+    width: '100%',
     position: 'relative',
     overflow: 'hidden',
 
     '& video,& canvas': {
+      backgroundColor: theme.palette.primary.main,
       left: 0,
       position: 'absolute',
       top: 0,
     },
 
     '& canvas': {
-      height: CLIENT_HEIGHT,
-      width: CLIENT_WIDTH,
       zIndex: 1,
     },
   },

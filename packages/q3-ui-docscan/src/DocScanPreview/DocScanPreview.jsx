@@ -2,7 +2,6 @@ import React from 'react';
 import useStreaming from '../useStreaming';
 import useOpenCv from '../useOpenCv';
 import { getRefNode } from '../utils';
-import { CLIENT_HEIGHT, CLIENT_WIDTH } from '../constants';
 
 const DocScanPreview = React.forwardRef((props, ref) => {
   const output = React.useRef();

@@ -57,6 +57,7 @@ const DocScanCapture = ({
         className={cls.button}
         color="secondary"
         onClick={handleClick}
+        size="large"
       >
         <ScannerIcon />
       </Fab>
