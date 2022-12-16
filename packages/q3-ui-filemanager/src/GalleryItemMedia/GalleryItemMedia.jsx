@@ -50,6 +50,7 @@ const GalleryItemMedia = ({ children, url }) => {
       ) : (
         <Box className={cls.icon}>{children}</Box>
       )}
+      <Box className={cls.iphonefix} />
     </CardMedia>
   );
 };

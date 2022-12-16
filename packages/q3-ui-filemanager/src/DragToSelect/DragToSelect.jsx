@@ -36,7 +36,11 @@ const DragToSelect = ({ children }) => {
 
   return (
     <FileManagerBatchContext.Provider value={stateValue}>
-      <div className={cls.root} ref={container}>
+      <div
+        id="file-multiselect-container"
+        className={cls.root}
+        ref={container}
+      >
         {children}
       </div>
     </FileManagerBatchContext.Provider>
