@@ -17,14 +17,12 @@ const CALENDAR_CONSTANTS = {
 
 const useCalendarOrientation = (options) => {
   const { t } = useTranslation('labels');
-  const [initialView] = React.useState(
-    get(
-      CALENDAR_CONSTANTS,
-      String(
-        get(options, 'defaultGridView', 'week'),
-      ).toUpperCase(),
-      CALENDAR_CONSTANTS.WEEK,
-    ),
+  const initialView = get(
+    CALENDAR_CONSTANTS,
+    String(
+      get(options, 'defaultGridView', 'week'),
+    ).toUpperCase(),
+    CALENDAR_CONSTANTS.WEEK,
   );
 
   const ref = React.useRef();
