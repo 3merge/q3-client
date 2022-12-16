@@ -1,13 +1,13 @@
 import React from 'react';
 import Quill from 'quill';
-import { invoke } from 'lodash';
+import { get, invoke } from 'lodash';
 
 import 'quill-paste-smart';
 
 const hash = (xs) => `#${xs}`;
 
 export default (options = {}) => {
-  const ID = 'q3-editor';
+  const ID = get(options, 'editorId', 'q3-editor');
   const TOOLBAR_ID = `${ID}-toolbar`;
   const ref = React.useRef();
 
