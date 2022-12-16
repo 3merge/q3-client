@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from '@reach/router';
+import { useNavigate } from '@reach/router';
 import { MenuItem, Divider } from '@material-ui/core';
 import { useTranslation } from 'q3-ui-locale';
 import { isFunction, map } from 'lodash';
@@ -11,6 +11,7 @@ import DropdownMenuList from '../DropdownMenuList';
 import useStyle from './styles';
 
 const DropdownMenu = ({ id, children, items, ...etc }) => {
+  const navigate = useNavigate();
   const { t } = useTranslation('labels');
   const { isOpen, anchorEl, close, open } = useOpen();
   const cls = useStyle();
@@ -29,6 +30,7 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
           close(e);
         }}
         elevation={5}
+        variant="menu"
         {...etc}
       >
         {map(items, (item, i) =>
@@ -39,31 +41,27 @@ const DropdownMenu = ({ id, children, items, ...etc }) => {
               key={i}
             />
           ) : (
-            <li key={item.label}>
-              <MenuItem
-                className={cls.menuItem}
-                {...(isFunction(item.onClick)
-                  ? {
-                      selected: item.selected,
-                      disabled: item.disabled,
-                      component: 'button',
-                      onClick: (e) => {
-                        item.onClick(e);
-                        close();
-                      },
+            <MenuItem
+              {...item}
+              dense
+              className={cls.menuItem}
+              key={item.label}
+              onClick={
+                isFunction(item.onClick)
+                  ? (e) => {
+                      item.onClick(e);
+                      close(e);
                     }
-                  : {
-                      disabled: item.disabled,
-                      component: Link,
-                      onClick: close,
-                      to: item.to || '/',
-                    })}
-              >
-                {item.checked && <CheckIcon />}
-                {item.element}
-                {t(item.label)}
-              </MenuItem>
-            </li>
+                  : (e) => {
+                      navigate(item.to || '/');
+                      close(e);
+                    }
+              }
+            >
+              {item.checked && <CheckIcon />}
+              {item.element}
+              {t(item.label)}
+            </MenuItem>
           ),
         )}
       </DropdownMenuList>
