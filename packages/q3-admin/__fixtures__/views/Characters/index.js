@@ -65,6 +65,9 @@ export default new AbstractCollectionBuilder({
         runOnInit: false,
         fromKey: 'createdAt',
         slotMinTime: '06:00:00',
+        defaultGridView: 'month',
+        enableDay: false,
+        enableWeek: false,
 
         getBackgroundEvents() {
           return Promise.resolve([

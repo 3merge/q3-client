@@ -7,18 +7,24 @@ import {
   useMediaQuery,
 } from '@material-ui/core';
 
-const DropdownMenuList = ({ children, ...rest }) => {
+const DropdownMenuList = ({ children, ...rest }, ref) => {
   const Element = useMediaQuery((theme) =>
     theme.breakpoints.down('md'),
   )
     ? (props) => (
         <Drawer {...props}>
-          <MenuList>{children}</MenuList>
+          <MenuList autoFocusItem variant="selectedMenu">
+            {children}
+          </MenuList>
         </Drawer>
       )
     : Menu;
 
-  return <Element {...rest}>{children}</Element>;
+  return (
+    <Element ref={ref} {...rest}>
+      {children}
+    </Element>
+  );
 };
 
 DropdownMenuList.defaultProps = {
@@ -32,4 +38,4 @@ DropdownMenuList.propTypes = {
   ]),
 };
 
-export default DropdownMenuList;
+export default React.forwardRef(DropdownMenuList);

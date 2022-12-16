@@ -3,24 +3,50 @@ import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
 import interaction from '@fullcalendar/interaction';
 import { useTranslation } from 'q3-ui-locale';
-import { delay } from 'lodash';
+import { delay, get } from 'lodash';
 import moment from '@fullcalendar/moment';
 import momentTimezone from '@fullcalendar/moment-timezone';
 import { ArticleAsideContext } from '../components/ArticleAside/ArticleAside';
 import useBrowserEffect from './useBrowserEffect';
 
-const useCalendarOrientation = () => {
+const CALENDAR_CONSTANTS = {
+  DAY: 'timeGridDay',
+  MONTH: 'dayGridMonth',
+  WEEK: 'timeGridWeek',
+};
+
+const useCalendarOrientation = (options) => {
   const { t } = useTranslation('labels');
-  const [initialView, setInitialView] = React.useState();
+  const initialView = get(
+    CALENDAR_CONSTANTS,
+    String(
+      get(options, 'defaultGridView', 'week'),
+    ).toUpperCase(),
+    CALENDAR_CONSTANTS.WEEK,
+  );
+
   const ref = React.useRef();
   const { id } = React.useContext(ArticleAsideContext);
 
+  const makeCenterValue = React.useCallback(() => {
+    const values = [];
+
+    if (get(options, 'enableDay', true))
+      values.push(CALENDAR_CONSTANTS.DAY);
+
+    if (get(options, 'enableWeek', true))
+      values.push(CALENDAR_CONSTANTS.WEEK);
+
+    if (get(options, 'enableMonth', true))
+      values.push(CALENDAR_CONSTANTS.MONTH);
+
+    return values.length > 1 ? values.join(',') : '';
+  }, [options]);
+
   useBrowserEffect(
     () => {
-      const v = 'timeGridWeek';
       if (initialView && ref.current)
-        ref.current.getApi().changeView(v);
-      else setInitialView(v);
+        ref.current.getApi().changeView(initialView);
     },
     [initialView],
     {
@@ -38,7 +64,7 @@ const useCalendarOrientation = () => {
 
   return {
     headerToolbar: {
-      center: 'timeGridWeek,dayGridMonth',
+      center: makeCenterValue(),
     },
     buttonText: {
       today: t('today'),

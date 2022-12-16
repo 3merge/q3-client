@@ -1,8 +1,12 @@
 import React from 'react';
+import { useCallbackMock } from 'q3-ui-test-utils/lib/reactUtils';
 import '@fullcalendar/react';
 import useCalendarOrientation from './useCalendarOrientation';
 
 let setState;
+const changeView = jest.fn();
+
+useCallbackMock();
 
 beforeEach(() => {
   setState = jest.fn();
@@ -14,7 +18,7 @@ beforeEach(() => {
   jest.spyOn(React, 'useRef').mockReturnValue({
     current: {
       getApi: jest.fn().mockReturnValue({
-        changeView: jest.fn(),
+        changeView,
         updateSize: jest.fn(),
       }),
     },
@@ -30,6 +34,6 @@ beforeEach(() => {
 describe('useCalendarOrientation', () => {
   it('should set view type', () => {
     useCalendarOrientation();
-    expect(setState).toHaveBeenCalledWith('timeGridWeek');
+    expect(changeView).toHaveBeenCalledWith('timeGridWeek');
   });
 });

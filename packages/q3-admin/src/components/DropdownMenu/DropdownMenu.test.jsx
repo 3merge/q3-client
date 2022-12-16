@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link } from '@reach/router';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
 import DropdownMenu from './DropdownMenu';
+
+jest.mock('@reach/router', () => ({
+  useNavigate: jest.fn(),
+}));
 
 describe('DropdownMenu', () => {
   it('should render dividers', () => {
@@ -22,7 +25,7 @@ describe('DropdownMenu', () => {
     expect(el.find(MenuItem)).toHaveLength(0);
   });
 
-  it('should render links and buttons', () => {
+  it('should change click handlers for links', () => {
     const el = global
       .shallow(
         <DropdownMenu
@@ -32,7 +35,7 @@ describe('DropdownMenu', () => {
               label: 'link',
             },
             {
-              onClick: jest.fn(),
+              onClick: 1,
               label: 'button',
             },
           ]}
@@ -43,9 +46,10 @@ describe('DropdownMenu', () => {
       .find(MenuItem);
 
     const getComponentValueAt = (index) =>
-      el.at(index).props().component;
+      el.at(index).props().onClick;
 
-    expect(getComponentValueAt(0)).toEqual(Link);
-    expect(getComponentValueAt(1)).toMatch('button');
+    expect(getComponentValueAt(0)).toEqual(
+      expect.any(Function),
+    );
   });
 });
