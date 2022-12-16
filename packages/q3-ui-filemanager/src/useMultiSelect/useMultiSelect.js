@@ -10,6 +10,7 @@ import {
   uniq,
 } from 'lodash';
 import { array } from 'q3-ui-helpers';
+import { isTouchDevice } from '../utils';
 
 const useMultiSelect = () => {
   const container = React.useRef();
@@ -63,6 +64,8 @@ const useMultiSelect = () => {
   const disable = () => setDisabled(true);
 
   React.useEffect(() => {
+    if (isTouchDevice()) return;
+
     selectoInstance.current = new Selecto({
       container: container.current,
       dragContainer: container.current,
