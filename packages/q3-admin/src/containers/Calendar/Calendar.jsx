@@ -39,8 +39,8 @@ const Calendar = (props) => {
   const { handleEventContent, resolvers } = props;
   const { data } = React.useContext(Store);
   const calendarSource = useCalendarSource(props);
+  const calendarOrientation = useCalendarOrientation(props);
   const cls = useStyle();
-  const calendarOrientation = useCalendarOrientation();
 
   const events = React.useMemo(
     () => formatCalendarEvents(data, resolvers),
