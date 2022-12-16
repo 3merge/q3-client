@@ -49,6 +49,7 @@ export default ({ children, ...rest }) => (
     }}
     classes={{
       anchorOriginBottomRight: 'fix-min-width',
+      containerRoot: 'snackbar-mobile-bump',
     }}
     Components={{
       default: Node,

@@ -141,13 +141,18 @@ export default (customThemeDefs, type, font = 'Nunito') => {
             fontSize: 'initial !important',
             color,
 
+            '& .snackbar-mobile-bump': {
+              [theme.breakpoints.down('md')]: {
+                bottom: 80,
+              },
+            },
+
             '& .fix-min-width': {
               maxWidth: 320,
               minWidth: 'min-content',
               fontSize: '0.812rem',
 
               [theme.breakpoints.down('md')]: {
-                marginBottom: 75,
                 maxWidth: '100%',
               },
             },
