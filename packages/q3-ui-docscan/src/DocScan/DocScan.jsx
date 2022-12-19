@@ -54,6 +54,8 @@ export const Scanner = ({ upload }) => {
             }, 25);
           }}
           videoConstraints={{
+            width: 1080,
+            height: 1920,
             facingMode: 'environment',
           }}
           screenshotFormat="image/png"
