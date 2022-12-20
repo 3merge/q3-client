@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-docscan",
-  "version": "4.4.5",
+  "version": "4.4.6",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",
