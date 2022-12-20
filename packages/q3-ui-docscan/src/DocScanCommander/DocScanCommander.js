@@ -56,26 +56,43 @@ const DocScanCommander = (cv) => {
     );
 
   class InternalEngine {
-    initSrc(src) {
-      this.original = src;
-      this.src = src;
+    constructor(options = {}) {
+      const { image, video } = options;
+      this.canvas = document.createElement('canvas');
+      this.ctx = this.canvas.getContext('2d', {
+        willReadFrequently: true,
+      });
+
+      this.image = image;
+      this.video = video;
+    }
+
+    set defaultSrcValues(value) {
+      this.original = value;
+      this.src = value;
+    }
+
+    calibrate() {
+      // frees up mem
+      this.destroy();
+
+      if (this.image) {
+        this.defaultSrcValues = cv.imread(this.image);
+      } else if (this.video) {
+        const w = this.video.width;
+        const h = this.video.height;
+
+        this.canvas.width = w;
+        this.canvas.height = h;
+        this.ctx.clearRect(0, 0, w, h);
+        this.ctx.drawImage(this.video, 0, 0, w, h);
+
+        this.defaultSrcValues = cv.imread(this.canvas);
+      } else {
+        this.defaultSrcValues = new cv.Mat();
+      }
+
       return this;
-    }
-
-    initSrcImage(img) {
-      return this.initSrc(cv.imread(img));
-    }
-
-    initSrcVideo(video) {
-      const src = new cv.Mat(
-        video.height,
-        video.width,
-        cv.CV_8UC4,
-      );
-
-      this.videoStream = new cv.VideoCapture(video);
-      this.videoStream.read(src);
-      return this.initSrc(src);
     }
 
     crop() {
@@ -124,7 +141,7 @@ const DocScanCommander = (cv) => {
       const { src } = this;
 
       cv.findContours(
-        src.clone(),
+        src,
         vect,
         new cv.Mat(),
         cv.RETR_LIST,
@@ -175,34 +192,35 @@ const DocScanCommander = (cv) => {
         console.log(cv.getBuildInformation());
       }
 
-      this.edge();
-      this.contour();
+      if (outputNode) {
+        this.calibrate();
+        this.edge();
+        this.contour();
 
-      if (options?.crop) {
-        this.crop();
+        if (options?.crop) {
+          this.crop();
+        }
+
+        cv.imshow(outputNode, this.src);
       }
 
-      cv.imshow(outputNode, this.src);
-      return this.destroy.bind(this);
+      return this;
     }
   }
 
   return (inputNode, outputNode, options = {}) => {
-    const cmd = new InternalEngine();
+    const cmd = new InternalEngine({
+      [options.srcType]: inputNode,
+    });
 
-    // noop
-    if (!inputNode || !outputNode) return () => undefined;
-
-    if (options?.srcType === 'video')
-      cmd.initSrcVideo(inputNode);
-    else if (options.srcType === 'image')
-      cmd.initSrcImage(inputNode);
-    else
-      throw new Error(
-        'Requires srcType of `image` or `video` to run',
-      );
-
-    return cmd.run(outputNode, options);
+    return {
+      run() {
+        cmd.run(outputNode, options);
+      },
+      destroy() {
+        cmd.destroy();
+      },
+    };
   };
 };
 

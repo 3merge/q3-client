@@ -8,6 +8,10 @@ export default makeStyles((theme) => ({
     position: 'relative',
     overflow: 'hidden',
 
+    '& video': {
+      visibility: 'hidden',
+    },
+
     '& video,& canvas': {
       backgroundColor: theme.palette.primary.main,
       left: '50%',

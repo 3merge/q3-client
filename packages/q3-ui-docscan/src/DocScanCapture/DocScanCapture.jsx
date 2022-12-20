@@ -12,8 +12,7 @@ const DocScanCapture = ({
 }) => {
   const cls = useStyle();
   const output = React.useRef();
-  const openCvInstance = React.useRef();
-  const run = useOpenCv(output);
+  const opencv = useOpenCv(output);
 
   const handleClick = () => {
     const img = document.createElement('img');
@@ -25,22 +24,22 @@ const DocScanCapture = ({
         this.height = this.naturalHeight;
         // eslint-disable-next-line
         this.width = this.naturalWidth;
-        openCvInstance.current = run(this, {
+
+        console.log(this);
+        const { run, destroy } = opencv(this, {
           crop: true,
           srcType: 'image',
         });
 
+        run();
         setScreenshot(
           output.current.toDataURL('image/png'),
         );
+
+        destroy();
       },
     );
   };
-
-  React.useEffect(
-    () => () => execRefFunction(openCvInstance),
-    [],
-  );
 
   return (
     <>
