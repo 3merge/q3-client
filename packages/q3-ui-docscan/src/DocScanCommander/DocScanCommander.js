@@ -36,21 +36,22 @@ const DocScanCommander = (cv) => {
       (acc, _, idx) => {
         const approx = new cv.Mat();
         const contour = xs.get(idx);
+        const ep = 0.04 * cv.arcLength(contour, true);
 
-        cv.approxPolyDP(
-          contour,
-          approx,
-          0.05 * cv.arcLength(contour, true),
-          true,
-        );
+        cv.approxPolyDP(contour, approx, ep, true);
 
-        return isApproximatelyTheLargestRectangle(
-          approx,
-          acc,
-          getArea,
+        if (
+          ep > 50 &&
+          isApproximatelyTheLargestRectangle(
+            approx,
+            acc,
+            getArea,
+          )
         )
-          ? approx
-          : acc;
+          return approx;
+
+        approx.delete();
+        return acc;
       },
       null,
     );
@@ -122,7 +123,6 @@ const DocScanCommander = (cv) => {
         cv.INTER_LINEAR,
       );
 
-      cv.cvtColor(dst, dst, cv.COLOR_BGR2GRAY);
       this.src = dst;
       return this;
     }
@@ -130,8 +130,8 @@ const DocScanCommander = (cv) => {
     edge() {
       const dst = new cv.Mat();
       cv.cvtColor(this.src, dst, cv.COLOR_BGR2GRAY);
-      cv.blur(dst, dst, new cv.Size(3, 3));
-      cv.Canny(dst, dst, 0, 255, 3, true);
+      cv.blur(dst, dst, new cv.Size(1, 1));
+      cv.Canny(dst, dst, 0, 200, 3, true);
       this.src = dst;
       return this;
     }
@@ -215,10 +215,10 @@ const DocScanCommander = (cv) => {
 
     return {
       run() {
-        cmd.run(outputNode, options);
+        return cmd.run(outputNode, options);
       },
       destroy() {
-        cmd.destroy();
+        return cmd.destroy();
       },
     };
   };

@@ -21,6 +21,17 @@ export const calculateDistanceOfLineOn2DPlane = (
     ),
   );
 
+export const calculatePixelScore = (xs = [], index = 0) => {
+  try {
+    const r = xs[index] / 3;
+    const g = xs[index + 1] / 3;
+    const b = xs[index + 2] / 3;
+    return r + g + b;
+  } catch (e) {
+    return 0;
+  }
+};
+
 export const convertArrayPairIntoCoordinates = ([
   x,
   y,
@@ -101,11 +112,6 @@ export const calculateFourCornersOfRectangle = (
   return [tl, tr, br, bl].map(pickAxisValues);
 };
 
-const hasRealBorders = (xs) =>
-  xs.every((item) =>
-    Object.values(item).every((value) => value > 0),
-  );
-
 export const isApproximatelyTheLargestRectangle = (
   current,
   previous,
@@ -131,11 +137,3 @@ export const isApproximatelyTheLargestRectangle = (
 
 export const getRefNode = (xs) =>
   xs && 'current' in xs ? xs.current || null : xs;
-
-export const execRefFunction = (ref) => {
-  try {
-    ref.current();
-  } catch (e) {
-    // noop
-  }
-};

@@ -4,7 +4,6 @@ import ScannerIcon from '@material-ui/icons/Scanner';
 import PropTypes from 'prop-types';
 import useOpenCv from '../useOpenCv';
 import useStyle from './styles';
-import { execRefFunction } from '../utils';
 
 const DocScanCapture = ({
   getScreenshot,
@@ -25,7 +24,6 @@ const DocScanCapture = ({
         // eslint-disable-next-line
         this.width = this.naturalWidth;
 
-        console.log(this);
         const { run, destroy } = opencv(this, {
           crop: true,
           srcType: 'image',
@@ -46,6 +44,7 @@ const DocScanCapture = ({
       <canvas ref={output} title="image output" />
       <Box className={cls.overlap} />
       <Fab
+        id="capture"
         aria-label="capture"
         className={cls.button}
         color="secondary"
