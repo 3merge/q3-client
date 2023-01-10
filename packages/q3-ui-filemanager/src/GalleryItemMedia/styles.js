@@ -9,7 +9,7 @@ export default makeStyles(() => ({
     width: '100%',
 
     '& svg': {
-      fontSize: '6.1rem',
+      fontSize: '5rem',
     },
   },
   media: {

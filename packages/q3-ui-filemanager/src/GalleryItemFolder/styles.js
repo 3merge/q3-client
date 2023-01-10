@@ -5,12 +5,19 @@ export default makeStyles((theme) => ({
   title: {
     alignItems: 'center',
     display: 'flex',
-    fontSize: theme.typography.body1.fontSize,
+    fontSize: '0.812rem',
+    wordBreak: 'break-all',
 
     '& span:last-of-type': {
       textOverflow: 'ellipsis',
       overflow: 'hidden',
-      whiteSpace: 'nowrap',
+      fontSize: '0.812rem',
+      display: '-webkit-box',
+      lineClamp: 2,
+      boxOrient: 'vertical',
+      wordBreak: 'break-all',
+      lineHeight: '0.9',
+      hyphens: 'auto',
     },
   },
   card: ({ isHovering }) => {
@@ -39,4 +46,5 @@ export default makeStyles((theme) => ({
     width: theme.spacing(2),
     height: theme.spacing(2),
   },
+  item: {},
 }));
