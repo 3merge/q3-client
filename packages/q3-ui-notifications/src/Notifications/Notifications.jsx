@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { map } from 'lodash';
+import { map, filter } from 'lodash';
 import Tabs from 'q3-components/lib/Tabs';
 import Tab from 'q3-components/lib/Tab';
 import { useTranslation } from 'q3-ui-locale';
@@ -35,6 +35,11 @@ const Notifications = ({
   } = useNotifications(view);
   const cls = useStyles(rest);
 
+  const filterNotificationsThatHaveBeenArchived = (xs) =>
+    view === 'archived'
+      ? xs
+      : filter(xs, (item) => !item.archived);
+
   return (
     <Box className={cls.view}>
       <Tabs
@@ -55,11 +60,14 @@ const Notifications = ({
       </Tabs>
       <MessageTypes messageTypes={messageTypes}>
         {(messageType) => {
-          const filteredData = useNotificationHandlers(
-            data,
-            restServices,
-            messageType,
-          );
+          const filteredData =
+            filterNotificationsThatHaveBeenArchived(
+              useNotificationHandlers(
+                data,
+                restServices,
+                messageType,
+              ),
+            );
 
           return (
             <BulkProvider

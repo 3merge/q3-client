@@ -13,7 +13,13 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { number } from 'q3-ui-helpers';
-import { size } from 'lodash';
+import {
+  filter,
+  includes,
+  isEqual,
+  size,
+  join,
+} from 'lodash';
 import Confirm from 'q3-ui-confirm';
 import { useTranslation } from 'q3-ui-locale';
 import BulkContext from '../BulkContext';
@@ -38,6 +44,14 @@ const BulkProvider = ({
   React.useEffect(() => {
     reset();
   }, [messageType, view]);
+
+  React.useEffect(() => {
+    const changed = filter(state, (id) =>
+      includes(ids, id),
+    );
+
+    if (!isEqual(state, changed)) all(changed);
+  }, [join(ids, ',')]);
 
   // can't memoize it
   const renderAction = ({ icon: Icon, label, onClick }) => (
