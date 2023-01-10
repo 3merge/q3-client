@@ -24,7 +24,7 @@ const DirectorySort = ({ children }) => {
   const { files = [], siblings = [] } =
     useDirectoryFolders();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('labels');
   const [state, setState] = React.useState({
     property: getFromLocalStorage('property', 'name'),
     sort: getFromLocalStorage('sort', 'asc'),
