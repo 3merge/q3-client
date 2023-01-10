@@ -19,12 +19,17 @@ export default makeStyles((theme) => ({
   },
   content: {
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
 
     '& span': {
-      fontSize: theme.typography.body1.fontSize,
+      fontSize: '0.812rem',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      lineClamp: 2,
+      boxOrient: 'vertical',
+      wordBreak: 'break-all',
+      lineHeight: '0.9',
+      hyphens: 'auto',
     },
   },
   root: {},
