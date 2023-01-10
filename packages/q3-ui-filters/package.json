@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-filters",
-  "version": "4.4.4",
+  "version": "4.4.8",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -10,10 +10,10 @@
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "q3-ui-forms": "^4.4.4",
-    "q3-ui-helpers": "^4.4.0",
-    "q3-ui-locale": "^4.4.0",
+    "q3-ui-helpers": "^4.4.8",
+    "q3-ui-locale": "^4.4.8",
     "q3-ui-permissions": "^4.4.4",
-    "q3-ui-rest": "^4.4.4"
+    "q3-ui-rest": "^4.4.8"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.12.3",
