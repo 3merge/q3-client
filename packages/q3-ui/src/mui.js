@@ -11,7 +11,7 @@ const color = 'var(--color-default)';
 
 const generateShadows = () => {
   const arr = ['none'];
-  for (let i = 0; i < 23; i += 1) {
+  for (let i = 0; i < 24; i += 1) {
     arr.push(`rgb(0 0 0 / 8%) 0px -3px 18px ${i}px`);
   }
 

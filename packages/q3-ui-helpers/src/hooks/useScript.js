@@ -1,5 +1,5 @@
 import React from 'react';
-import { get, isFunction } from 'lodash';
+import { get, isFunction, isNil } from 'lodash';
 import * as browser from '../browser';
 
 const useScript = (src, namespace, getInstanceCallback) => {
@@ -11,17 +11,21 @@ const useScript = (src, namespace, getInstanceCallback) => {
       error: true,
       init: true,
       instance: null,
+      isReady: false,
     });
   }
 
   function handleLoad() {
+    const instance = isFunction(getInstanceCallback)
+      ? getInstanceCallback()
+      : get(window, namespace, null);
+
     return setScriptState({
       el: this,
       error: false,
       init: true,
-      instance: isFunction(getInstanceCallback)
-        ? getInstanceCallback()
-        : get(window, namespace, null),
+      instance,
+      isReady: !isNil(instance),
     });
   }
 
