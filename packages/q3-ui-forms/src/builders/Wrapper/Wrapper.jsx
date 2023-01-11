@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isFunction } from 'lodash';
+import { isObject, isFunction } from 'lodash';
 import {
   useAuthorization,
   useDispatcher,
@@ -124,7 +124,8 @@ export const InnerForm = ({
   useModified(isModified, disableChangeDetection);
 
   const onReset = () => {
-    setValues(seed);
+    // otherwise, we see state bleed into new form
+    setValues(isObject(seed) ? { ...seed } : {});
     setErrors(initialErrors);
   };
 

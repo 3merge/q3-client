@@ -28,6 +28,8 @@ export const marshalProps = (v) =>
     'onArrayPull',
     'collapse',
     'icon',
+    'runOnChange',
+    'chooseOptionLabel',
   ]);
 
 export const chosenTextFieldDisplayAttributes = {
@@ -37,13 +39,8 @@ export const chosenTextFieldDisplayAttributes = {
 };
 
 export const TextBase = (props) => {
-  const {
-    children,
-    readOnly,
-    disabled,
-    type,
-    error,
-  } = props;
+  const { children, readOnly, disabled, type, error } =
+    props;
 
   const allProps = merge(
     removeDecoratedProps(omit(props, isUndefined)),

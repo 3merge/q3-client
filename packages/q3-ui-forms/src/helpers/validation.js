@@ -168,7 +168,7 @@ export class Validator {
           .typeError('invalidDateString')
           .nullable()
           .transform((curr, orig) =>
-            orig === '' ? null : curr,
+            orig === '' || orig === 'null' ? null : curr,
           )
           .default(undefined);
         break;
