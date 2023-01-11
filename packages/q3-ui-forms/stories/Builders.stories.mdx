@@ -91,6 +91,20 @@ Sometimes, we'll need something else.
   </Story>
 </Preview>
 
+### Reset
+
+If you want to reset the form afterwards.
+
+<Preview>
+  <Story name="Reset">
+    <Form restart debug onSubmit={() => Promise.resolve()}>
+      <Field name="title" type="text" />
+      <Field name="date" type="date" />
+      <Field name="editor" type="editor" />
+    </Form>
+  </Story>
+</Preview>
+
 ## API
 
 <Props of={InnerForm} />
