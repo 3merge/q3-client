@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.9](https://github.com/3merge/q/compare/v4.4.8...v4.4.9) (2023-01-11)
+
+
+### Bug Fixes
+
+* clone seed values on restart ([#463](https://github.com/3merge/q/issues/463)) ([a83ce8b](https://github.com/3merge/q/commit/a83ce8b5cbfa93a44b00ce7e4e0b6274d93fe145))
+
+
+
+
+
 ## [4.4.4](https://github.com/3merge/q/compare/v4.4.3...v4.4.4) (2022-12-16)
 
 **Note:** Version bump only for package q3-ui-forms

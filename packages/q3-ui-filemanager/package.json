@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-filemanager",
-  "version": "4.4.8",
+  "version": "4.4.9",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -22,12 +22,12 @@
     "prop-types": "^15.7.2",
     "q3-ui": "^4.4.8",
     "q3-ui-assets": "^4.0.5",
-    "q3-ui-confirm": "^4.4.8",
+    "q3-ui-confirm": "^4.4.9",
     "q3-ui-dialog": "^4.0.1",
-    "q3-ui-forms": "^4.4.4",
+    "q3-ui-forms": "^4.4.9",
     "q3-ui-helpers": "^4.4.8",
     "q3-ui-locale": "^4.4.8",
-    "q3-ui-permissions": "^4.4.4",
+    "q3-ui-permissions": "^4.4.9",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dnd-touch-backend": "^16.0.1",
