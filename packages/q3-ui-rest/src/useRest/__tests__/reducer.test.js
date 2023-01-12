@@ -75,6 +75,7 @@ describe('reducer', () => {
         },
       ],
     };
+
     expect(
       reducer(prev, {
         key: 'resource',
@@ -91,6 +92,56 @@ describe('reducer', () => {
         },
       ],
     });
+  });
+
+  it('should add/update array', () => {
+    const data = {
+      resource: {
+        id: 4,
+        name: 'garp',
+      },
+      resources: [
+        { id: 1, name: 'bar' },
+        { id: 3, name: 'quuz' },
+      ],
+    };
+
+    const prev = {
+      resources: [
+        {
+          id: 1,
+          name: 'foo',
+        },
+        {
+          id: 2,
+          name: 'thunk',
+        },
+      ],
+    };
+
+    const out = reducer(prev, {
+      key: 'resource',
+      pluralized: 'resources',
+      type: UPDATED,
+      data,
+    });
+
+    expect(out.resources).toHaveLength(4);
+    expect(out.resources).toEqual([
+      { id: 1, name: 'bar' },
+      {
+        id: 2,
+        name: 'thunk',
+      },
+      {
+        id: 3,
+        name: 'quuz',
+      },
+      {
+        id: 4,
+        name: 'garp',
+      },
+    ]);
   });
 
   it('should push into the state', () => {

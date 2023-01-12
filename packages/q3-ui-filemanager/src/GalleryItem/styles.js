@@ -27,10 +27,12 @@ export default makeStyles((theme) => ({
       display: '-webkit-box',
       lineClamp: 2,
       boxOrient: 'vertical',
-      wordBreak: 'break-all',
-      lineHeight: '0.9',
+      wordBreak: 'break-word',
+      lineHeight: 1.2,
       hyphens: 'auto',
     },
   },
-  root: {},
+  root: {
+    height: 56,
+  },
 }));

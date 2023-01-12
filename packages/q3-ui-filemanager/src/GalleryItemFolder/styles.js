@@ -15,8 +15,8 @@ export default makeStyles((theme) => ({
       display: '-webkit-box',
       lineClamp: 2,
       boxOrient: 'vertical',
-      wordBreak: 'break-all',
-      lineHeight: '0.9',
+      wordBreak: 'break-word',
+      lineHeight: 1.2,
       hyphens: 'auto',
     },
   },
@@ -24,6 +24,7 @@ export default makeStyles((theme) => ({
     const out = {
       position: 'relative',
       zIndex: 1,
+      height: 70,
 
       '&:hover': {
         boxShadow: 'none',
