@@ -49,6 +49,9 @@ export default (
           copiedState[resources] = [];
 
         const updateCopiedStateResources = (xs) => {
+          // ensures each is a document
+          if (!hasId(xs)) return;
+
           const match = copiedState[resources].find(
             (item) => hasId(item) && item.id === xs.id,
           );
