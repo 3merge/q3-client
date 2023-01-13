@@ -60,6 +60,7 @@ const GalleryItemFolder = React.forwardRef(
           onClick={onSelect}
           onDoubleClick={onClick}
           onContextMenu={onContextMenu}
+          style={{ height: '100%' }}
         >
           <CardContent {...eventHandlers}>
             <MobileTooltip title={name}>

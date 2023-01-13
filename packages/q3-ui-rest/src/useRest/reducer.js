@@ -1,4 +1,4 @@
-import { merge, get, reduce, find } from 'lodash';
+import { get, forEach } from 'lodash';
 import {
   FETCHING,
   FETCHED,
@@ -7,9 +7,10 @@ import {
   DELETED,
   DELETED_MANY,
 } from './constants';
-import { isEmpty, getFn } from '../helpers';
+import { isEmpty, getFn, hasId } from '../helpers';
 
 export default (
+  // eslint-disable-next-line
   state = {},
   { type, data, err, key, pluralized },
 ) => {
@@ -36,42 +37,40 @@ export default (
     }),
 
     [UPDATED]() {
-      const next = get(data, resource, {});
-      const prev = { ...state };
+      const copiedState = { ...state };
+      const multiOp = get(data, resources, []);
+      const singleOp = get(data, resource, {});
 
-      if (resource in prev) {
-        prev[resource] = next;
+      if (resource in copiedState)
+        copiedState[resource] = singleOp;
+
+      if (resources in copiedState) {
+        if (!Array.isArray(copiedState[resources]))
+          copiedState[resources] = [];
+
+        const updateCopiedStateResources = (xs) => {
+          // ensures each is a document
+          if (!hasId(xs)) return;
+
+          const match = copiedState[resources].find(
+            (item) => hasId(item) && item.id === xs.id,
+          );
+
+          if (match) {
+            Object.assign(match, xs);
+          } else {
+            copiedState[resources].push(xs);
+          }
+        };
+
+        forEach(multiOp, updateCopiedStateResources);
+        updateCopiedStateResources(singleOp);
       }
 
-      if (resources in prev) {
-        prev[resources] = reduce(
-          get(prev, resources, []),
-          (acc, curr, _, cache) => {
-            if (
-              // adds it in the case where we've edited via
-              // useInfiniteScroll
-              (!find(
-                cache,
-                (item) => item.id === next.id,
-              ) ||
-                next.id === curr.id) &&
-              next.id
-            ) {
-              acc.push({
-                ...curr,
-                ...next,
-              });
-            } else {
-              acc.push(curr);
-            }
-
-            return acc;
-          },
-          [],
-        );
-      }
-
-      return merge({}, prev, data);
+      return {
+        ...data,
+        ...copiedState,
+      };
     },
 
     [CREATED]() {

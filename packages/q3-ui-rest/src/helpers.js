@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isObject } from 'lodash';
 import FileDownload from 'js-file-download';
 
 export const isNotForwardSlash = (v) => v && v !== '/';
@@ -45,15 +46,14 @@ export const addSearchQuery = (v, term) =>
     ? `${v}&search=${term}`
     : `${v}?search=${term}`;
 
-export const acceptCsvFiletype = (params = {}) => (
-  data,
-  headers,
-) => {
-  Object.assign(headers, params, {
-    'Accept': 'text/csv',
-  });
-  return data;
-};
+export const acceptCsvFiletype =
+  (params = {}) =>
+  (data, headers) => {
+    Object.assign(headers, params, {
+      'Accept': 'text/csv',
+    });
+    return data;
+  };
 
 export const getWithContentTypeCsv = (url, params) =>
   axios({
@@ -94,3 +94,5 @@ export const formatUrlPath = (url, query, select) => {
 
   return endpoint;
 };
+
+export const hasId = (xs) => isObject(xs) && xs.id;
