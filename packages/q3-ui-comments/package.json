@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-comments",
-  "version": "4.4.9",
+  "version": "4.4.10",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -25,7 +25,7 @@
     "q3-ui-helpers": "^4.4.8",
     "q3-ui-locale": "^4.4.8",
     "q3-ui-permissions": "^4.4.9",
-    "q3-ui-rest": "^4.4.9",
+    "q3-ui-rest": "^4.4.10",
     "q3-ui-rte": "^4.4.4",
     "useful-state": "^1.2.3"
   }
