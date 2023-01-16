@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.4.11](https://github.com/3merge/q/compare/v4.4.10...v4.4.11) (2023-01-16)
+
+
+### Bug Fixes
+
+* report polling without query parameters ([fa84f25](https://github.com/3merge/q/commit/fa84f250be65030d8e8b4370935269594ebe83c6))
+
+
+
+
+
 ## [4.4.10](https://github.com/3merge/q/compare/v4.4.9...v4.4.10) (2023-01-13)
 
 **Note:** Version bump only for package q3-admin
