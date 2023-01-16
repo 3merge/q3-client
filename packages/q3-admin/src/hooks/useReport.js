@@ -4,17 +4,19 @@ import { checkError } from './useRestWithStore';
 
 const useReport = (template, query = {}) => {
   const { encode } = useQueryParams();
+  const location = {
+    search: encode({
+      ...query,
+      template,
+    }),
+  };
+
   const restState = useRest({
     key: 'data',
     pluralized: 'data',
     runOnInit: true,
     url: '/reports',
-    location: {
-      search: encode({
-        ...query,
-        template,
-      }),
-    },
+    location,
   });
 
   const { data, fetching: loading, poll } = restState;
@@ -23,7 +25,10 @@ const useReport = (template, query = {}) => {
     data,
     error: checkError(data, restState),
     loading,
-    poll,
+    poll() {
+      // make sure we have the query string
+      return poll(location?.search);
+    },
   };
 };
 
