@@ -5,8 +5,10 @@ import {
   uniqBy,
   invoke,
   size,
+  map,
 } from 'lodash';
-import { object } from 'q3-ui-helpers';
+import { object, array } from 'q3-ui-helpers';
+import alpha from 'alphabetize-object-keys';
 
 export const mergeUniq = (a, b) =>
   uniqBy(compact([a, b].flat(2)), 'id');
@@ -15,6 +17,9 @@ export const enforceQueryString = (str) =>
   !String(str).startsWith('?') && size(str)
     ? `?${str}`
     : str;
+
+const convertArrayToSomethingPredictable = (xs) =>
+  object.toJSON(array.is(map(xs, alpha)));
 
 const useInfiniteScroll = ({
   data,
@@ -33,7 +38,7 @@ const useInfiniteScroll = ({
 
   React.useLayoutEffect(() => {
     setCache(mergeUniq(data, cache));
-  }, [data]);
+  }, [convertArrayToSomethingPredictable(data)]);
 
   React.useLayoutEffect(() => {
     setCache([]); // different data set altogether
