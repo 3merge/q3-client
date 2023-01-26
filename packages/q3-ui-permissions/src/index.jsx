@@ -1,6 +1,8 @@
 import React from 'react';
 import Axios from 'axios';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line
+import { browser } from 'q3-ui-helpers';
 import { first } from 'lodash';
 import composeUseAuth, {
   asProtectedRoute,
@@ -67,6 +69,14 @@ export const Provider = ({ children }) => {
 
     getSession(dispatch);
   }, []);
+
+  React.useEffect(() => {
+    browser.proxyLocalStorageApi(
+      'setItem',
+      'q3-userId',
+      state?.profile?.id,
+    );
+  }, [state]);
 
   return (
     <AuthContext.Provider

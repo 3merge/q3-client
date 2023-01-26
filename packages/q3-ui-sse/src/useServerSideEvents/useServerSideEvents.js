@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { browser } from 'q3-ui-helpers';
 import { CHANGE, CONNECT, ERROR } from '../constants';
 import useChangeEvent from '../useChangeEvent';
 
@@ -13,7 +14,12 @@ const useServerSideEvents = (Source = EventSource) => {
   ].join('');
 
   React.useEffect(() => {
-    const eventSource = new Source(connectionString);
+    const eventSource = new Source(
+      `${connectionString}?userId=${browser.proxyLocalStorageApi(
+        'getItem',
+        'q3-userId',
+      )}`,
+    );
 
     eventSource.onerror = () =>
       dispatch({
