@@ -2,12 +2,15 @@ import React from 'react';
 import { includes, forEach, size, some } from 'lodash';
 import useProfileNotifications from './useProfileNotifications';
 
-const useProfileNotificationsLegacySync = (channels) => {
+const useProfileNotificationsLegacySync = (
+  channels,
+  options,
+) => {
   const {
     listens = [],
     listensOptions = [],
     onSubmit,
-  } = useProfileNotifications();
+  } = useProfileNotifications(null, options);
 
   const [init, setInit] = React.useState(
     size(channels) > 0 && size(listens) > 0

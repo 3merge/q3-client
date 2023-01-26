@@ -1,10 +1,12 @@
 import { includes } from 'lodash';
 import { array } from 'q3-ui-helpers';
-import useProfileForm from './useProfileForm';
 import useNotificationsPreferenceOptions from './useNotificationsPreferenceOptions';
+import useProfileNotificationsInternalStore from './useProfileNotificationsInternalStore';
 
-const useProfileNotifications = (variant) => {
-  const { initialValues, onSubmit } = useProfileForm();
+const useProfileNotifications = (variant, options) => {
+  const { initialValues, onSubmit } =
+    useProfileNotificationsInternalStore(options);
+
   const listens = array.is(initialValues?.listens);
 
   const listensOptions =
