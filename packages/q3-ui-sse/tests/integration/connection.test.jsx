@@ -1,4 +1,5 @@
 import React from 'react';
+import { useContextMock } from 'q3-ui-test-utils/lib/reactUtils';
 import { act } from 'react-dom/test-utils';
 import {
   useServerSideEvents,
@@ -7,6 +8,15 @@ import {
 } from '../../src';
 import { EventSourceBuilder } from '../fixtures';
 import { CHANGE } from '../../src/constants';
+
+useContextMock().changeReturnValue({
+  state: {
+    init: true,
+    profile: {
+      id: 1,
+    },
+  },
+});
 
 describe('SSE connection utils', () => {
   it('should register source listeners', () => {

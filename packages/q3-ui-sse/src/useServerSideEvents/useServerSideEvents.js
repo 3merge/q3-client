@@ -1,12 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { browser } from 'q3-ui-helpers';
+import { AuthContext } from 'q3-ui-permissions';
+import { get } from 'lodash';
 import { CHANGE, CONNECT, ERROR } from '../constants';
 import useChangeEvent from '../useChangeEvent';
 
 const useServerSideEvents = (Source = EventSource) => {
+  const state = React.useContext(AuthContext)?.state;
   const { dispatch } = useChangeEvent();
   const url = axios?.defaults?.baseURL;
+  const init = get(state, 'init', false);
+  const userId = get(state, 'profile.id', null);
 
   const connectionString = [
     String(url).endsWith('/') ? url : `${url}/`,
@@ -14,11 +18,11 @@ const useServerSideEvents = (Source = EventSource) => {
   ].join('');
 
   React.useEffect(() => {
+    // can't run without these defined upstream
+    if (!connectionString || !init) return null;
+
     const eventSource = new Source(
-      `${connectionString}?userId=${browser.proxyLocalStorageApi(
-        'getItem',
-        'q3-userId',
-      )}`,
+      `${connectionString}?userId=${userId}`,
     );
 
     eventSource.onerror = () =>
@@ -40,7 +44,7 @@ const useServerSideEvents = (Source = EventSource) => {
     return () => {
       eventSource.close();
     };
-  }, [connectionString]);
+  }, [connectionString, init, userId]);
 };
 
 export default useServerSideEvents;
