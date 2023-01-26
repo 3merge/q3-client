@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.5.0](https://github.com/3merge/q/compare/v4.4.11...v4.5.0) (2023-01-26)
+
+
+### Features
+
+* notification channel tabs ([#465](https://github.com/3merge/q/issues/465)) ([dacbe31](https://github.com/3merge/q/commit/dacbe31379fb924d65999da51ba003d2fce4d54c))
+
+
+
+
+
 ## [4.4.11](https://github.com/3merge/q/compare/v4.4.10...v4.4.11) (2023-01-16)
 
 

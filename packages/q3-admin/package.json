@@ -1,6 +1,6 @@
 {
   "name": "q3-admin",
-  "version": "4.4.11",
+  "version": "4.5.0",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -41,7 +41,7 @@
     "q3-ui-helpers": "^4.4.8",
     "q3-ui-locale": "^4.4.8",
     "q3-ui-navbar": "^4.4.9",
-    "q3-ui-notifications": "^4.4.10",
+    "q3-ui-notifications": "^4.5.0",
     "q3-ui-permissions": "^4.4.9",
     "q3-ui-queryparams": "^4.4.8",
     "q3-ui-queuelogs": "^4.4.10",
