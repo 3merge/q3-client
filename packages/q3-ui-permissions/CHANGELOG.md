@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.1](https://github.com/3merge/q/compare/v4.5.0...v4.5.1) (2023-01-26)
+
+
+### Bug Fixes
+
+* userId in stream and analytics ([41a58db](https://github.com/3merge/q/commit/41a58db8e74702c282165d2009e1bc92ccf1836c))
+
+
+
+
+
 ## [4.4.9](https://github.com/3merge/q/compare/v4.4.8...v4.4.9) (2023-01-11)
 
 **Note:** Version bump only for package q3-ui-permissions
