@@ -1,63 +1,97 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Builders } from 'q3-ui-forms';
 import { useTranslation } from 'q3-ui-locale';
-import Typography from '@material-ui/core/Typography';
-import { get, size, map, includes } from 'lodash';
-import useDomainContext from '../../hooks/useDomainContext';
-import useProfileForm from '../../hooks/useProfileForm';
+import {
+  CircularProgress,
+  Box,
+  Typography,
+} from '@material-ui/core';
+import { size, map, first } from 'lodash';
 import SystemPageSub from '../../components/SystemPageSub';
+import useProfileNotifications from '../../hooks/useProfileNotifications';
+import useProfileNotificationsLegacySync from '../../hooks/useProfileNotificationsLegacySync';
+import Tab from '../../components/Tab';
+import Tabs from '../../components/Tabs';
 
-// eslint-disable-next-line
-const ProfileNotifications = ({ children }) => {
+const ProfileNotifications = ({ channels }) => {
   const { t } = useTranslation('descriptions');
-  const domain = useDomainContext();
-  const { initialValues, onSubmit } = useProfileForm();
-  const listens = initialValues?.listens;
-  const listeners = get(
-    domain?.domain?.listens,
-    initialValues?.role,
+  const init = useProfileNotificationsLegacySync(channels);
+
+  const [state, setState] = React.useState(
+    size(channels) ? first(channels) : undefined,
   );
 
-  return (
+  const handleChange = (_, nextValue) =>
+    setState(nextValue);
+
+  const { listensOptions, initialValues, onSubmit } =
+    useProfileNotifications(state);
+
+  return init ? (
     <SystemPageSub title="notifications">
-      {!size(listeners) ? (
+      {state && (
+        <Box mb={2}>
+          <Tabs onChange={handleChange} value={state}>
+            {channels.map((item) => (
+              <Tab
+                key={item}
+                label={`labels:${item}Notifications`}
+                value={item}
+              />
+            ))}
+          </Tabs>
+        </Box>
+      )}
+
+      {!size(listensOptions) ? (
         <Typography>
           {t('noNotificationsToSubscribeTo')}
         </Typography>
       ) : (
         <Builders.Form
-          isNew
           collectionName="profile"
+          initialValues={initialValues}
+          isNew
+          onSubmit={onSubmit}
           showSuccessMessage
-          initialValues={listeners.reduce((acc, curr) => {
-            acc[curr] = includes(listens, curr);
-            return acc;
-          }, {})}
-          onSubmit={(values) =>
-            onSubmit({
-              listens: Object.entries(values)
-                .reduce((acc, [key, value]) => {
-                  if (String(value) === 'true')
-                    acc.push(key);
-                  return acc;
-                }, [])
-                .sort(),
-            })
-          }
+          submitLabel="update"
         >
-          {map(listeners, (listen) => (
-            <Builders.Field
-              key={listen}
-              name={listen}
-              type="checkbox"
-              variant="switch"
-              under="listens"
-            />
-          ))}
+          {map(listensOptions, (listen) => {
+            const label = first(listen.split('__'));
+            return (
+              <Builders.Field
+                key={listen}
+                name={listen}
+                label={t(`labels:${label}`)}
+                helper={t(`helpers:${label}`)}
+                type="checkbox"
+                variant="switch"
+                under="listens"
+              />
+            );
+          })}
         </Builders.Form>
       )}
     </SystemPageSub>
+  ) : (
+    <Box
+      alignItems="center"
+      display="flex"
+      justifyContent="center"
+      p={4}
+    >
+      <CircularProgress />
+    </Box>
   );
+};
+
+ProfileNotifications.propTypes = {
+  channels: PropTypes.arrayOf(PropTypes.string),
+};
+
+ProfileNotifications.defaultProps = {
+  channels: [],
 };
 
 export default ProfileNotifications;

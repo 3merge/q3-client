@@ -36,6 +36,11 @@ const ExampleApp = ({ initialPath }) => {
                     text: 'accountCustom',
                   },
                 ],
+                notificationChannels: [
+                  'native',
+                  'email',
+                  'text',
+                ],
                 roles: ['Administrator', 'Rep', 'Customer'],
               }}
               NavProps={{}}
