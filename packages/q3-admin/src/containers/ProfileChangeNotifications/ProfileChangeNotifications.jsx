@@ -1,63 +1,14 @@
 import React from 'react';
-import { Builders } from 'q3-ui-forms';
-import { useTranslation } from 'q3-ui-locale';
-import Typography from '@material-ui/core/Typography';
-import { get, size, map, includes } from 'lodash';
-import useDomainContext from '../../hooks/useDomainContext';
-import useProfileForm from '../../hooks/useProfileForm';
 import SystemPageSub from '../../components/SystemPageSub';
+import NotificationsPreferences from '../NotificationsPreferences';
 
-// eslint-disable-next-line
-const ProfileNotifications = ({ children }) => {
-  const { t } = useTranslation('descriptions');
-  const domain = useDomainContext();
-  const { initialValues, onSubmit } = useProfileForm();
-  const listens = initialValues?.listens;
-  const listeners = get(
-    domain?.domain?.listens,
-    initialValues?.role,
-  );
+const ProfileNotifications = (props) => (
+  <SystemPageSub title="notifications">
+    <NotificationsPreferences {...props} mine />
+  </SystemPageSub>
+);
 
-  return (
-    <SystemPageSub title="notifications">
-      {!size(listeners) ? (
-        <Typography>
-          {t('noNotificationsToSubscribeTo')}
-        </Typography>
-      ) : (
-        <Builders.Form
-          isNew
-          collectionName="profile"
-          showSuccessMessage
-          initialValues={listeners.reduce((acc, curr) => {
-            acc[curr] = includes(listens, curr);
-            return acc;
-          }, {})}
-          onSubmit={(values) =>
-            onSubmit({
-              listens: Object.entries(values)
-                .reduce((acc, [key, value]) => {
-                  if (String(value) === 'true')
-                    acc.push(key);
-                  return acc;
-                }, [])
-                .sort(),
-            })
-          }
-        >
-          {map(listeners, (listen) => (
-            <Builders.Field
-              key={listen}
-              name={listen}
-              type="checkbox"
-              variant="switch"
-              under="listens"
-            />
-          ))}
-        </Builders.Form>
-      )}
-    </SystemPageSub>
-  );
-};
+ProfileNotifications.propTypes = {};
+ProfileNotifications.defaultProps = {};
 
 export default ProfileNotifications;

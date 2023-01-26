@@ -8,7 +8,11 @@
   "invertLogo": true,
   "padLogo": true,
   "listens": {
-    "Developer": ["onTest"]
+    "Developer": [
+      "onTest",
+      "on2fa__email",
+      "onBirthday__native"
+    ]
   },
   "resources": {
     "descriptions": {

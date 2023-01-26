@@ -121,7 +121,14 @@ const Admin = ({
                   <ProfileChangeContact path="contact" />
                   <ProfileChangeLocale path="locale" />
                   <ProfileChangeTheme path="theme" />
-                  <ProfileChangeNotifications path="notification-settings" />
+                  <ProfileChangeNotifications
+                    channels={get(
+                      AppProps,
+                      'notificationChannels',
+                      [],
+                    )}
+                    path="notification-settings"
+                  />
                   <ProfileChangePassword path="password" />
                   {map(
                     customProfilePages,

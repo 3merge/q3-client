@@ -9,6 +9,7 @@ import Filters from './Filters';
 import General from './General';
 import TableView from './TableView';
 import SubDetail from './SubDetail';
+import NotificationsPreferences from './NotificationPreference';
 
 export default new AbstractCollectionBuilder({
   resourceName: 'shows',
@@ -46,6 +47,7 @@ export default new AbstractCollectionBuilder({
     General,
     SubDetail,
     TableView,
+    NotificationsPreferences,
   })
   .genList({
     uis: [

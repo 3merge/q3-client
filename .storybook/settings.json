@@ -178,7 +178,8 @@
       "invalidDateString": "Enter valid date",
       "isRequiredInput": "This is a required field",
       "this is a required field": "This is a required field",
-      "invalidSelection": "Choose an option"
+      "invalidSelection": "Choose an option",
+      "onTest": "Subscribe to test notifications"
     },
     "labels": {
       "table": "Table",
@@ -566,7 +567,8 @@
       "all": "All",
       "createdBy": "Created by {{name}}",
       "lastModifiedBy": "Updated by {{name}}",
-      "createShows": "Create show"
+      "createShows": "Create show",
+      "onTest": "Testing"
     },
     "titles": {
       "delete": "Delete confirmation",
@@ -682,7 +684,8 @@
       "notes": "Notes",
       "uploads": "Uploads",
       "files": "Files",
-      "menu": "Menu"
+      "menu": "Menu",
+      "onTest": "Testing"
     }
   },
   "supportedLngs": ["en", "fr"],

@@ -9,6 +9,7 @@
     "lang": "en",
     "timezone": "America/Toronto",
     "theme": "light",
-    "developer": true
+    "developer": true,
+    "listens": ["onTest", "on2fa"]
   }
 ]

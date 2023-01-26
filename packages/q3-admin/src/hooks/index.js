@@ -18,6 +18,8 @@ export { default as useNotificationsAnalytics } from './useNotificationsAnalytic
 export { default as useObjectIdLabels } from './useObjectIdLabels';
 export { default as usePages } from './usePages';
 export { default as usePatternData } from './usePatternData';
+export { default as useProfileNotifications } from './useProfileNotifications';
+export { default as useProfileNotificationsLegacySync } from './useProfileNotificationsLegacySync';
 export { default as usePositionStack } from './usePositionStack';
 export { default as useSortPreference } from './useSortPreference';
 export { default as useTitle } from './useTitle';
