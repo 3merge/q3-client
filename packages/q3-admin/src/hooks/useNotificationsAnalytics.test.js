@@ -25,8 +25,8 @@ describe('useNotificationsAnalytics', () => {
 
   describe('checkLocalStorage', () => {
     it('should push into storage', () => {
-      const storage = [{ document: 1 }];
-      const item = { document: 2 };
+      const storage = [{ documentId: 1 }];
+      const item = { documentId: 2 };
 
       spy.mockReturnValue(object.toJSON(storage));
       expect(checkLocalStorage(item)).toBeFalsy();
@@ -43,7 +43,10 @@ describe('useNotificationsAnalytics', () => {
       );
     });
     it('should skip storage', () => {
-      const storage = [{ document: 1 }, { document: 2 }];
+      const storage = [
+        { documentId: 1 },
+        { documentId: 2 },
+      ];
       const item = storage[1];
 
       spy.mockReturnValue(object.toJSON(storage));
@@ -53,14 +56,14 @@ describe('useNotificationsAnalytics', () => {
 
     it('should replace first in array', () => {
       const storage = [
-        { document: 1 },
-        { document: 2 },
-        { document: 3 },
-        { document: 4 },
-        { document: 5 },
+        { documentId: 1 },
+        { documentId: 2 },
+        { documentId: 3 },
+        { documentId: 4 },
+        { documentId: 5 },
       ];
 
-      const item = { document: 6 };
+      const item = { documentId: 6 };
       spy.mockReturnValue(object.toJSON(storage));
       expect(checkLocalStorage(item, 4)).toBeFalsy();
       expect(spy).toHaveBeenCalledTimes(2);

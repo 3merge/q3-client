@@ -28,7 +28,6 @@ export const checkLocalStorage = (
 
   if (
     resp.find(
-      // key order will always be the same
       (item) =>
         String(item.documentId) ===
           String(body.documentId) &&
