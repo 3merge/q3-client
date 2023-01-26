@@ -18,7 +18,7 @@ const useNotificationsPolling = (location = {}) => {
 
   const logTimestamp = () => {
     ref.current = encodeURIComponent(
-      moment().toISOString(),
+      moment().subtract(2, 'minutes').toISOString(),
     );
   };
 
