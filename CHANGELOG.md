@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.5](https://github.com/3merge/q/compare/v4.5.4...v4.5.5) (2023-02-06)
+
+
+### Bug Fixes
+
+* not ID query ([890839a](https://github.com/3merge/q/commit/890839a5f6b647fea46aae57f97f87c4bce2201b))
+
+
+
+
+
 ## [4.5.4](https://github.com/3merge/q/compare/v4.5.3...v4.5.4) (2023-02-06)
 
 **Note:** Version bump only for package q3-client
