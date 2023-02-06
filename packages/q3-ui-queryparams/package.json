@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-queryparams",
-  "version": "4.4.8",
+  "version": "4.5.4",
   "main": "lib/index.js",
   "devDependencies": {
     "jest-localstorage-mock": "^2.4.18",

@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-navbar",
-  "version": "4.5.2",
+  "version": "4.5.4",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -13,8 +13,8 @@
     "q3-ui": "^4.4.8",
     "q3-ui-helpers": "^4.4.8",
     "q3-ui-locale": "^4.4.8",
-    "q3-ui-permissions": "^4.5.2",
-    "q3-ui-queryparams": "^4.4.8",
+    "q3-ui-permissions": "^4.5.4",
+    "q3-ui-queryparams": "^4.5.4",
     "react-sortablejs": "6.1.1",
     "sortablejs": "^1.15.0",
     "useful-state": "^1.2.3"
