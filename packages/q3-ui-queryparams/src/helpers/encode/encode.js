@@ -6,6 +6,7 @@ import {
   wrap,
   prepend,
   isNumeric,
+  isMongoId,
 } from '../utils';
 
 const getParamName = (v) => {
@@ -34,6 +35,8 @@ const getValueArray = (a) => {
     : '';
 };
 
+const wrapObjectId = (xs) => prepend(wrap(xs, '()'), 'id');
+
 const wrapSingularValue = (xs) => {
   if (
     !xs ||
@@ -48,12 +51,21 @@ const wrapSingularValue = (xs) => {
   return prepend(wrap(getValue(xs), '()'), 'string');
 };
 
-export const extractValue = (val) =>
-  encodeURIComponent(
-    Array.isArray(val)
-      ? getValueArray(val)
-      : wrapSingularValue(val),
-  );
+export const extractValue = (val) => {
+  const genString = () => {
+    if (Array.isArray(val)) {
+      if (val.every(isMongoId))
+        return wrapObjectId(val.join(','));
+
+      return getValueArray(val);
+    }
+
+    if (isMongoId(val)) return wrapObjectId(val);
+    return wrapSingularValue(val);
+  };
+
+  return encodeURIComponent(genString());
+};
 
 export default (o, options = {}) =>
   Object.entries(flat.unflatten(o))

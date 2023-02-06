@@ -20,6 +20,21 @@ test.each([
       ],
     },
   ],
+  [
+    'id=id(63e1594c3503c8976afc2dde)',
+    {
+      id: '63e1594c3503c8976afc2dde',
+    },
+  ],
+  [
+    'ids=id(63e1594c3503c8976afc2dde%2C63dd241dad4e61249f0f3cd3)',
+    {
+      ids: [
+        '63e1594c3503c8976afc2dde',
+        '63dd241dad4e61249f0f3cd3',
+      ],
+    },
+  ],
 ])(
   '.decode(%s) should return %o',
   (queryString, expectObject) =>
