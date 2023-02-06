@@ -64,6 +64,16 @@ test.each([
     },
     'complexArray=in(First%20Person%20(Shooter)%2CFirst%20Person%20(Adventure)%2C%22Puzzles%2C%20Mystery%2C%20and%20more%22)',
   ],
+  [
+    {
+      test: '63e1594c3503c8976afc2dde',
+      test2: [
+        '63e1594c3503c8976afc2dde',
+        '63dd241dad4e61249f0f3cd3',
+      ],
+    },
+    'test=id(63e1594c3503c8976afc2dde)&test2=id(63e1594c3503c8976afc2dde%2C63dd241dad4e61249f0f3cd3)',
+  ],
 ])(
   '.encode(%o) should return %s',
   (args, expectedQueryString) =>

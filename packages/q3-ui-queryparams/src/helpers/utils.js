@@ -60,6 +60,8 @@ export const clean = (v) => {
     out = v.substring(3, v.length - 1);
   else if (v.startsWith('string'))
     out = v.substring(7, v.length - 1);
+  else if (v.startsWith('id'))
+    out = v.substring(3, v.length - 1);
   return out.replace(/%20/g, ' ');
 };
 
@@ -68,5 +70,16 @@ export const isNumeric = (str) => {
   if (typeof str !== 'string') return false;
   return (
     !Number.isNaN(str) && !Number.isNaN(parseFloat(str))
+  );
+};
+
+export const isMongoId = (str) => {
+  const id = String(str);
+  const d = new Date(parseInt(id.substr(0, 8), 16) * 1000);
+
+  return (
+    /^[a-f\d]{24}$/i.test(id) &&
+    d instanceof Date &&
+    !Number.isNaN(d)
   );
 };
