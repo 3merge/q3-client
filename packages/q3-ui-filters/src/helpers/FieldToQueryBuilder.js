@@ -88,7 +88,14 @@ const FieldToQueryBuilder = (initialSchema) => (values) => {
       if (isOperation(MATCHES))
         return normalize(value).map(castToRegex);
 
-      if (isOperation([EQUALS, ONE_OF, NOT_ONE_OF]))
+      if (
+        isOperation([
+          EQUALS,
+          ONE_OF,
+          NOT_EQUALS,
+          NOT_ONE_OF,
+        ])
+      )
         return normalize(value);
 
       if (
