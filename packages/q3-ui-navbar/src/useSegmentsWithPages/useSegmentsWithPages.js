@@ -1,8 +1,14 @@
 import { useMatch } from '@reach/router';
-import { compact, get, map, pick } from 'lodash';
+import {
+  compact,
+  get,
+  map,
+  pick,
+  isFunction,
+} from 'lodash';
 import useSegmentsStructuredTree from '../useSegmentsStructuredTree';
 
-const useSegmentsWithPages = () => {
+const useSegmentsWithPages = (customizer) => {
   const structured = useSegmentsStructuredTree();
 
   return (pages) =>
@@ -31,8 +37,9 @@ const useSegmentsWithPages = () => {
         return addPagePathExec(segments);
       };
 
-      return {
+      const output = {
         ...pick(page, [
+          'id',
           'collectionName',
           'enableSegments',
           'label',
@@ -45,6 +52,10 @@ const useSegmentsWithPages = () => {
           get(structured, page?.collectionName, []),
         ),
       };
+
+      return isFunction(customizer)
+        ? customizer(output)
+        : output;
     });
 };
 

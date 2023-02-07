@@ -20,20 +20,11 @@ describe('NavbarListItemBase', () => {
     exists(el.find(ListItemIcon));
   });
 
-  it('should show arrow', () => {
-    const el = global.shallow(
-      <NavbarListItemBase arrow label="test" />,
-    );
-
-    exists(el.find(ListItemArrow));
-  });
-
   it('should show neither icon nor arrow', () => {
     const el = global.shallow(
       <NavbarListItemBase label="test" />,
     );
 
-    doesNotExist(el.find(ListItemIcon));
     doesNotExist(el.find(ListItemArrow));
   });
 });

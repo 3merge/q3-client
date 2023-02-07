@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import { get } from 'lodash';
-import { ListItem } from '@material-ui/core';
+import { Box, ListItem } from '@material-ui/core';
+import ListItemSecondaryActionPosition from '../ListItemSecondaryActionPosition';
 import SegmentListItemLinkMenu from '../SegmentListItemLinkMenu';
 import useStyle from './styles';
 
 const SegmentListItemLink = ({
   applied,
+  badge,
   id,
   label,
   value,
@@ -27,7 +28,11 @@ const SegmentListItemLink = ({
             onContextMenu={onContextMenu}
             to={value}
           >
-            {label}
+            <Box flex="1">{label}</Box>
+            <ListItemSecondaryActionPosition
+              arrow={false}
+              badge={badge}
+            />
           </ListItem>
         </li>
       )}
@@ -37,10 +42,12 @@ const SegmentListItemLink = ({
 
 SegmentListItemLink.defaultProps = {
   applied: false,
+  badge: 0,
 };
 
 SegmentListItemLink.propTypes = {
   applied: PropTypes.bool,
+  badge: PropTypes.number,
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

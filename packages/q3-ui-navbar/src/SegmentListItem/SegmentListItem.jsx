@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from '@material-ui/core';
+import { Box, ListItem } from '@material-ui/core';
 import ListItemArrow from '../ListItemArrow';
 import SegmentListItemMenu from '../SegmentListItemMenu';
+import ListItemSecondaryActionPosition from '../ListItemSecondaryActionPosition';
 import useToggleWithSegmentState from '../useToggleWithSegmentState';
 import useStyle from './styles';
 
@@ -10,7 +11,7 @@ const SegmentListItem = (props) => {
   const { toggle, state } =
     useToggleWithSegmentState(props);
 
-  const { applied, children, label, id } = props;
+  const { applied, badge, children, label, id } = props;
 
   const cls = useStyle({
     applied,
@@ -36,8 +37,12 @@ const SegmentListItem = (props) => {
               selected: cls.listItemSelected,
             }}
           >
-            {label}
-            <ListItemArrow state={state} />
+            <Box flex="1">{label}</Box>
+            <ListItemSecondaryActionPosition
+              arrow
+              badge={badge}
+              state={state}
+            />
           </ListItem>
           <div className={cls.container}>{children}</div>
         </li>

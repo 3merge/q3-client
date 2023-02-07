@@ -10,7 +10,8 @@
     "id": 2,
     "folder": true,
     "label": "🧪 Attributes",
-    "collectionName": "shows"
+    "collectionName": "shows",
+    "badge": 43
   },
   {
     "id": 3,
@@ -34,7 +35,8 @@
     "label": "🚀 A-list",
     "value": "?alist=true",
     "collectionName": "shows",
-    "visibility": ["Customer"]
+    "visibility": ["Customer"],
+    "badge": 18
   },
   {
     "id": 5,

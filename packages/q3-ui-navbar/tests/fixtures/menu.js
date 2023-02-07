@@ -26,6 +26,7 @@ export default {
       'label': 'Shows',
       'to': '/shows',
       'icon': TvIcon,
+      badge: 93,
     },
     {
       'collectionName': 'theatre',

@@ -14,8 +14,8 @@ import { isUndefined } from '../utils';
 const SegmentListWithDomTracking =
   withDomTreeToSegments(SegmentList);
 
-const Navbar = ({ items }) => {
-  const wp = useSegmentsWithPages();
+const Navbar = ({ customizer, items }) => {
+  const wp = useSegmentsWithPages(customizer);
   const cls = useStyle();
   const { t } = useTranslation('labels');
 
@@ -64,10 +64,12 @@ const Navbar = ({ items }) => {
 };
 
 Navbar.defaultProps = {
+  customizer: null,
   items: {},
 };
 
 Navbar.propTypes = {
+  customizer: PropTypes.func,
   /**
    * Each key in this object corresponds to a menu grouping.
    * Each value expects an array of `NavbarListItem` props.
