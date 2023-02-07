@@ -6,7 +6,7 @@
     "gatsby-theme-q3-mui",
     "packages/*"
   ],
-  "version": "4.5.5",
+  "version": "4.5.6",
   "command": {
     "publish": {
       "conventionalCommits": true,
