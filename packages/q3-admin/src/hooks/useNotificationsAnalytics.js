@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import { array, browser, object } from 'q3-ui-helpers';
-import { join, isFunction, compact, isEqual } from 'lodash';
+import { join, isFunction, compact } from 'lodash';
 import { Store } from '../containers/state';
 
-const NOTIFICATION_ANALYTICS_ENDPOINT =
+export const NOTIFICATION_ANALYTICS_ENDPOINT =
   'system-notifications-analytics';
 
 export const parseArray = (xs) => {
