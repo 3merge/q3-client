@@ -191,7 +191,9 @@ describe('contextMenus', () => {
       return el;
     });
 
-    expect(getFirstSegment().text()).toBe(newSegmentName);
+    expect(getFirstSegment().text()).toMatch(
+      newSegmentName,
+    );
   });
 
   it('should rename folder', async () => {
@@ -229,7 +231,7 @@ describe('contextMenus', () => {
       return el;
     });
 
-    expect(getFirstSegmentFolder().text()).toBe(
+    expect(getFirstSegmentFolder().text()).toMatch(
       newSegmentName,
     );
   });

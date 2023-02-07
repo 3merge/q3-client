@@ -1,16 +1,12 @@
 import React from 'react';
 import EmailEditor from 'q3-ui-emaileditor';
 import QueueLogs from 'q3-ui-queuelogs';
-import {
-  Navbar as NavbarListComponent,
-  SegmentsProvider,
-} from 'q3-ui-navbar';
+import { SegmentsProvider } from 'q3-ui-navbar';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
-import { get, map, isFunction } from 'lodash';
+import { get, map } from 'lodash';
 import App from './components/app';
 import {
-  usePages,
   useProfileTimezone,
   useProfileLocale,
   useProfileTheme,
@@ -31,6 +27,7 @@ import ProfileChangeNotifications from './containers/ProfileChangeNotifications'
 import ProfileChangePassword from './containers/ProfileChangePassword';
 import ProfileChangeTheme from './containers/ProfileChangeTheme';
 import ServerSideEventsProvider from './containers/ServerSideEventsProvider';
+import NavbarWithCounters from './components/NavbarWithCounters';
 import Viewport from './components/Viewport';
 import useStyle from './components/useStyle';
 import Navbar from './components/Navbar';
@@ -54,20 +51,6 @@ const QueueModule = React.memo(() => (
     <QueueLogs />
   </SystemPageSub>
 ));
-
-const NavBarListComponentMemoized = React.memo(
-  // eslint-disable-next-line
-  ({ pages, reorder }) => {
-    const reorderNavBarPages = (xs) =>
-      isFunction(reorder) ? reorder(xs) : xs;
-
-    return (
-      <NavbarListComponent
-        items={reorderNavBarPages(usePages(pages))}
-      />
-    );
-  },
-);
 
 const Admin = ({
   AppProps,
@@ -106,7 +89,7 @@ const Admin = ({
           <Toolbar {...ToolbarProps} />
           <Viewport>
             <Navbar {...NavProps}>
-              <NavBarListComponentMemoized
+              <NavbarWithCounters
                 {...NavProps}
                 pages={pages}
               />

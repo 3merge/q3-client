@@ -9,6 +9,7 @@ export default (pages = []) => {
 
   const makePage = (page) => ({
     ...page,
+    id: page.collectionName,
     label: t(page.resourceName),
     segments: [], // see q3-ui-navbar for implementation details
     to: makePath(page),

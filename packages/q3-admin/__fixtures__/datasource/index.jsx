@@ -70,10 +70,17 @@ const makeApiEndpoints = (
   const { data: segments, update: updateSegments } =
     useFixtureData([
       {
-        id: 1,
+        id: 123421,
         collectionName: 'shows',
         label: 'Yes!',
+        folder: true,
+      },
+      {
+        id: 123422341,
+        collectionName: 'shows',
+        label: 'Subsub',
         value: '?foo=string(bar)',
+        folderId: 123421,
       },
     ]);
 
@@ -95,6 +102,9 @@ const makeApiEndpoints = (
     {
       counters: {
         notifications: 9,
+        shows: 3,
+        123421: 2,
+        123422341: 1,
       },
     },
   ]);

@@ -4,10 +4,9 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Box,
 } from '@material-ui/core';
-import { lowerCase, omit, isNumber } from 'lodash';
-import ListItemArrow from '../ListItemArrow';
+import { lowerCase, omit } from 'lodash';
+import ListItemSecondaryActionPosition from '../ListItemSecondaryActionPosition';
 import useStyle from './styles';
 
 const NavbarListItemBase = ({
@@ -25,13 +24,6 @@ const NavbarListItemBase = ({
     matches,
     selected,
   });
-
-  const renderArrow = () =>
-    arrow ? <ListItemArrow state={selected} /> : null;
-
-  const renderBadge = () => (
-    <Box className={cls.badge}>{String(badge)}</Box>
-  );
 
   return (
     <li
@@ -53,9 +45,11 @@ const NavbarListItemBase = ({
           </ListItemIcon>
         )}
         <ListItemText primary={label} />
-        {badge && isNumber(badge)
-          ? renderBadge()
-          : renderArrow()}
+        <ListItemSecondaryActionPosition
+          arrow={arrow}
+          badge={badge}
+          state={selected}
+        />
       </ListItem>
       {children}
     </li>
