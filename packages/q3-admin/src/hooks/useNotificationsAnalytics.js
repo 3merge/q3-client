@@ -56,6 +56,9 @@ const useNotificationsAnalytics = (getSubDocumentIds) => {
   const { data } = React.useContext(Store);
   const documentId = data?.id;
 
+  // in cases where it becomes unread, read and back to unread
+  const read = data?.read;
+
   React.useLayoutEffect(() => {
     // usually in an error or loading state
     if (!documentId) return undefined;
@@ -69,7 +72,7 @@ const useNotificationsAnalytics = (getSubDocumentIds) => {
           : undefined,
       };
 
-      if (!checkLocalStorage(body))
+      if (!checkLocalStorage(body) || read === false)
         object.noop(
           axios.post(
             `/${NOTIFICATION_ANALYTICS_ENDPOINT}`,
@@ -83,7 +86,7 @@ const useNotificationsAnalytics = (getSubDocumentIds) => {
       if (timer) window.clearTimeout(timer);
       controller.abort();
     };
-  }, [documentId]);
+  }, [documentId, read]);
 };
 
 export default useNotificationsAnalytics;
