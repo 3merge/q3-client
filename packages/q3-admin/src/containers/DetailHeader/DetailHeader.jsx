@@ -1,6 +1,5 @@
 import React from 'react';
-// eslint-disable-next-line
-import { EditableTypography } from 'q3-components';
+import { Editable } from 'q3-ui-forms/lib/adapters';
 import Title from '../../components/Title';
 import { useTitle } from '../../hooks';
 import useStyle from './styles';
@@ -30,15 +29,12 @@ const DetailHeader = (props) => {
 
   return editable ? (
     <Title className={cls.h1}>
-      <EditableTypography
+      <Editable
         {...FormProps}
-        component="span"
-        fieldProps={FieldProps}
-        isEditable
+        {...FieldProps}
         onSubmit={update}
-      >
-        {text}
-      </EditableTypography>
+        text={text}
+      />
     </Title>
   ) : (
     <Title>{text}</Title>

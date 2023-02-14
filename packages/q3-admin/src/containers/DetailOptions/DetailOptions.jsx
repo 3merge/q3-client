@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import { map, size } from 'lodash';
 import { useTranslation } from 'q3-ui-locale';
 import { useNavigate } from '@reach/router';
-import { Chip } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from '@material-ui/core';
 import CallMadeIcon from '@material-ui/icons/CallMade';
+import DetailOpptionsInlineEditor from '../DetailOptionsInlineEditor';
 import { useRegisterActions } from '../../hooks';
-import useStyle from './styles';
+import useStyle from '../DetailMeta/styles';
 
 const DetailOptions = ({ registerOptions }) => {
   const cls = useStyle();
@@ -14,46 +20,67 @@ const DetailOptions = ({ registerOptions }) => {
   const options = useRegisterActions(registerOptions);
   const navigate = useNavigate();
 
-  const renderLabel = (option) => (
-    <span>
-      <strong>{t(option.title)}</strong>{' '}
-      {t(option.description)}
-    </span>
-  );
-
   return size(options) ? (
-    <ul className={cls.list}>
+    <List
+      className={cls.meta}
+      style={{ marginBottom: -16 }}
+    >
       {map(options, (option) => {
-        const label = renderLabel(option);
-        const handleClick = () => {
-          navigate(option.href);
+        const title = t(option.title);
+        const description = t(option.description);
+
+        const hasClickEvent =
+          option.editable || option.href;
+
+        const handleClickEvent = (evt) => {
+          try {
+            evt.currentTarget
+              .querySelector("[role='button']")
+              .click();
+          } catch (e) {
+            if (option.href) {
+              navigate(option.href);
+            }
+          }
         };
 
         return (
-          <li
+          <ListItem
+            button
+            component="li"
+            dense
+            className={cls.listItem}
             key={option.title}
-            title={t(option.description)}
+            onClick={handleClickEvent}
+            style={{
+              cursor: hasClickEvent ? 'pointer' : 'initial',
+            }}
+            tabIndex={hasClickEvent ? undefined : -1}
           >
-            {option.href ? (
-              <Chip
-                className={cls.chip}
-                label={label}
-                deleteIcon={<CallMadeIcon />}
-                onDelete={handleClick}
-                onClick={handleClick}
-                variant="outlined"
-              />
-            ) : (
-              <Chip
-                className={cls.chip}
-                label={label}
-                variant="outlined"
-              />
-            )}
-          </li>
+            <ListItemIcon>
+              {option.href ? (
+                <CallMadeIcon />
+              ) : (
+                <DetailOpptionsInlineEditor
+                  {...option}
+                  title={title}
+                />
+              )}
+            </ListItemIcon>
+            <ListItemText
+              primary={title}
+              primaryTypographyProps={{
+                className: cls.primary,
+              }}
+              secondary={description}
+              secondaryTypographyProps={{
+                className: cls.secondary,
+              }}
+            />
+          </ListItem>
         );
       })}
-    </ul>
+    </List>
   ) : null;
 };
 

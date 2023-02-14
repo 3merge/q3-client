@@ -31,6 +31,12 @@ export const ListFormatted = ({ data, fields }) => {
               // some formatters return empty
               format(item.field, item.formatter) || '--'
             }
+            primaryTypographyProps={{
+              style: {
+                fontSize: '0.812rem',
+                fontWeight: 'bold',
+              },
+            }}
           />
         </ListItem>
       ))}

@@ -4,9 +4,11 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemIcon,
 } from '@material-ui/core';
 import { string } from 'q3-ui-helpers';
 import { get } from 'lodash';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 import { Store } from '../state';
 import useStyle from './styles';
 
@@ -26,7 +28,18 @@ const DetailMeta = () => {
     const author = formatUser(get(data, authorkey));
 
     return time ? (
-      <ListItem dense>
+      <ListItem
+        button
+        component="li"
+        dense
+        tabIndex={-1}
+        style={{
+          cursor: 'initial',
+        }}
+      >
+        <ListItemIcon>
+          <DoubleArrowIcon />
+        </ListItemIcon>
         <ListItemText
           primary={string.toDate(time)}
           secondary={
