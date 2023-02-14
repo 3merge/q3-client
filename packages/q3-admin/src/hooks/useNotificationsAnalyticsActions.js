@@ -5,8 +5,12 @@ import { object } from 'q3-ui-helpers';
 import axios from 'axios';
 import { NOTIFICATION_ANALYTICS_ENDPOINT } from './useNotificationsAnalytics';
 
-export default (doc = {}) => {
-  const initialValue = doc?.read;
+export default (doc = {}, options = {}) => {
+  const initialValue =
+    typeof options?.initialValue === 'boolean'
+      ? options.initialValue
+      : doc?.read;
+
   const [state, setState] = React.useState(initialValue);
 
   const sendToServer = (read) => () =>
