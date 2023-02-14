@@ -28,7 +28,7 @@ const DetailOptionsInlineEditor = ({
     <Editable
       {...rest}
       {...editable}
-      // title={title}
+      title={title}
       initialValues={data}
       onSubmit={onSubmit}
       buttonRenderer={buttonComponent}
