@@ -114,6 +114,8 @@ export default new AbstractCollectionBuilder({
     },
   })
   .genDetail({
+    // containerComponent: ({ children }) => children,
+
     audit: ['foo', 'bar'],
     // autoOpenSummary: false,
     disablePaper: true,
@@ -166,7 +168,7 @@ export default new AbstractCollectionBuilder({
         severity: 'warning',
       },
     ],
-    registerOptions: () => [
+    registerOptions: ({ type }) => [
       {
         href: 'https:google.com',
         title: 'Number of seasons',
@@ -175,7 +177,11 @@ export default new AbstractCollectionBuilder({
       {
         href: '',
         title: 'Type',
-        description: 'Cartoon',
+        description: type,
+        editable: {
+          keep: ['type'],
+          name: 'type',
+        },
       },
       {
         href: 'https:google.com',

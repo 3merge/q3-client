@@ -46,6 +46,12 @@ const PatternList = (props) => {
               <ListItemText
                 primary={primary}
                 secondary={secondary}
+                primaryTypographyProps={{
+                  style: {
+                    fontSize: '0.812rem',
+                    fontWeight: 'bold',
+                  },
+                }}
               />
             </ListItem>
           );

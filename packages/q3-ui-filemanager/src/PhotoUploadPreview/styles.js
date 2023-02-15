@@ -6,7 +6,7 @@ export default makeStyles((theme) => ({
     height: 'auto',
     marginBottom: theme.spacing(2),
     maxWidth: '100%',
-    width: 220,
+    width: '100%',
   },
   root: ({ readOnly }) => ({
     backgroundColor: theme.palette.background.default,

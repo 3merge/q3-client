@@ -19,6 +19,7 @@ const Detail = (props) => {
   const {
     HeaderProps,
     SummaryComponent,
+    containerComponent: ContainerComponent,
     children,
     renderContent,
     views,
@@ -72,14 +73,14 @@ const Detail = (props) => {
 
   const Details = React.useMemo(
     () => (
-      <Widget
+      <ContainerComponent
         expandable={false}
         timeout={750}
         title="details"
       >
         {Navigation}
         {Views}
-      </Widget>
+      </ContainerComponent>
     ),
     [Navigation, Views],
   );
@@ -132,6 +133,7 @@ Detail.propTypes = {
     PropTypes.array,
     PropTypes.node,
   ]),
+  containerComponent: PropTypes.node,
   renderContent: PropTypes.func,
   views: PropTypes.arrayOf(
     PropTypes.shape({
@@ -144,6 +146,7 @@ Detail.propTypes = {
 
 Detail.defaultProps = {
   children: null,
+  containerComponent: Widget,
   renderContent: null,
 };
 
