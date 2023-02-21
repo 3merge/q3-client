@@ -2,9 +2,12 @@ import React from 'react';
 import { invoke } from 'lodash';
 // eslint-disable-next-line
 import { useEventListener } from 'q3-ui-helpers/lib/hooks';
+// eslint-disable-next-line
+import { useTranslation } from 'q3-ui-locale';
 
 const useTable = (ref) => {
   const [anchor, setAnchor] = React.useState();
+  const { t } = useTranslation('labels');
   const containerEl = ref.current?.container;
 
   const setAnchorAsClosestTable = (el) => {
@@ -61,7 +64,7 @@ const useTable = (ref) => {
       'deleteColumn',
       'deleteTable',
     ].map((method) => ({
-      label: method,
+      label: t(method),
       onClick() {
         exec(method);
       },
