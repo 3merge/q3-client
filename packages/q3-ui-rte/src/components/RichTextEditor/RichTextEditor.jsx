@@ -4,6 +4,8 @@ import { AppBar, Box } from '@material-ui/core';
 import {
   FormatListNumbered,
   FormatListBulleted,
+  FormatQuote,
+  Code,
 } from '@material-ui/icons';
 import { set, isFunction } from 'lodash';
 import ImageOverlay from '../ImageOverlay';
@@ -19,6 +21,7 @@ import useLocalValue from '../useLocalValue';
 import useQuill from '../useQuill';
 import useStyle from '../useStyle';
 import useEscape from '../useEscape';
+import ModuleTable from '../ModuleTable';
 
 const RichTextEditor = React.forwardRef(
   (
@@ -63,6 +66,18 @@ const RichTextEditor = React.forwardRef(
         group: 'middle',
       },
       {
+        quillKey: 'code-block',
+        value: 'javascript',
+        group: 'middle',
+        icon: Code,
+      },
+      {
+        ref,
+        component: ModuleTable,
+        label: 'table',
+        group: 'middle',
+      },
+      {
         ref,
         component: ModuleDivider,
         label: 'divider',
@@ -79,6 +94,12 @@ const RichTextEditor = React.forwardRef(
         component: ModuleVideo,
         label: 'embedVideo',
         group: 'end',
+      },
+      {
+        quillKey: 'blockquote',
+        value: 'blockquote',
+        icon: FormatQuote,
+        group: 'middle',
       },
     ].concat(
       isFunction(upload)

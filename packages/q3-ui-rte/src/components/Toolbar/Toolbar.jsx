@@ -1,22 +1,18 @@
 import React from 'react';
-import {
-  ButtonGroup,
-  Grid,
-  Divider,
-} from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 import { groupBy, map } from 'lodash';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import TitleIcon from '@material-ui/icons/Title';
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
+import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
 import ToolbarButton from '../ToolbarButton';
 import useStyle from './styles';
 
 const RichTextEditor = ({ children, options }) => (
   <Grid container className={useStyle().root}>
     <Grid item>
-      <ButtonGroup>
+      <>
         <ToolbarButton quillKey="header" value="2">
           <TitleIcon />
         </ToolbarButton>
@@ -29,37 +25,35 @@ const RichTextEditor = ({ children, options }) => (
         <ToolbarButton quillKey="underline">
           <FormatUnderlinedIcon />
         </ToolbarButton>
-        <ToolbarButton quillKey="blockquote">
-          <FormatQuoteIcon />
+        <ToolbarButton quillKey="strike">
+          <StrikethroughSIcon />
         </ToolbarButton>
-      </ButtonGroup>
+      </>
     </Grid>
     {Object.values(groupBy(options, 'group')).map(
       (buttons) => (
         <>
           <Divider
             orientation="vertical"
-            style={{ margin: '0 1rem' }}
+            style={{ margin: '0 1.5rem' }}
             flexItem
           />
-          <Grid item>
-            <ButtonGroup>
-              {map(
-                buttons,
-                ({
-                  component: Component,
-                  icon: Icon,
-                  ...button
-                }) =>
-                  Component ? (
-                    <Component {...button} />
-                  ) : (
-                    <ToolbarButton {...button}>
-                      <Icon />
-                    </ToolbarButton>
-                  ),
-              )}
-            </ButtonGroup>
+          <Grid item style={{ display: 'flex' }}>
+            {map(
+              buttons,
+              ({
+                component: Component,
+                icon: Icon,
+                ...button
+              }) =>
+                Component ? (
+                  <Component {...button} />
+                ) : (
+                  <ToolbarButton {...button}>
+                    <Icon />
+                  </ToolbarButton>
+                ),
+            )}
           </Grid>
         </>
       ),

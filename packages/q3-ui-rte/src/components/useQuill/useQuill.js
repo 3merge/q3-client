@@ -1,8 +1,10 @@
 import React from 'react';
 import Quill from 'quill';
 import { get, invoke } from 'lodash';
-
-import 'quill-paste-smart';
+// eslint-disable-next-line
+import hljs from 'highlight.js';
+// eslint-disable-next-line
+import 'highlight.js/styles/atom-one-dark.css';
 
 const hash = (xs) => `#${xs}`;
 
@@ -14,6 +16,8 @@ export default (options = {}) => {
   React.useLayoutEffect(() => {
     ref.current = new Quill(hash(ID), {
       modules: {
+        syntax: { hljs },
+        table: true,
         toolbar: hash(TOOLBAR_ID),
       },
     });
