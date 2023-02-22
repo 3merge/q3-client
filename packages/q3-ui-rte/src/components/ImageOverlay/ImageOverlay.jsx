@@ -42,7 +42,7 @@ const ImageOverlay = React.forwardRef((props, ref) => {
     const Parchment = Quill.import('parchment');
     const ImageBlot = Quill.import('formats/image');
 
-    const el = Parchment.Registry.find(e.target);
+    const el = Parchment.find(e.target);
 
     if (el instanceof ImageBlot) {
       ref.current.setSelection(

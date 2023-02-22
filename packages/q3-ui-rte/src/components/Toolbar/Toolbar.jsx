@@ -90,11 +90,13 @@ const Toolbar = React.forwardRef(
                   ref={ref}
                   upload={upload}
                 />
-                <ModuleDocument
-                  label="document"
-                  ref={ref}
-                  upload={upload}
-                />
+                <div>
+                  <ModuleDocument
+                    label="document"
+                    ref={ref}
+                    upload={upload}
+                  />
+                </div>
               </>
             )}
           </ButtonGroup>

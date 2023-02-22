@@ -4,6 +4,13 @@ export default makeStyles((theme) => ({
   root: {
     flexWrap: 'nowrap',
     overflow: 'auto',
+    padding: theme.spacing(1),
+    cursor: 'initial',
+
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0.5),
+    },
+
     '& *:focus': {
       background: `${theme.palette.background.default} !important`,
     },

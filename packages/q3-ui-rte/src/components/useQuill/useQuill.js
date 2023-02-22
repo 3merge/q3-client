@@ -2,7 +2,9 @@ import React from 'react';
 import Quill from 'quill';
 import { get, invoke } from 'lodash';
 import hljs from 'highlight.js';
+
 import 'quill-paste-smart';
+import 'highlight.js/styles/tomorrow-night-blue.css';
 
 const hash = (xs) => `#${xs}`;
 

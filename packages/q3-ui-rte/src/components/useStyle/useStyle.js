@@ -139,12 +139,8 @@ const useStyle = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.secondary,
     zIndex: 1,
-    padding: theme.spacing(1),
+    padding: 0,
     width: '100%',
-
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(0.25),
-    },
 
     '& .ql-active': {
       backgroundColor: 'var(--background-muted)',
