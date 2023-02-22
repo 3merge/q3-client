@@ -1,6 +1,6 @@
 {
   "name": "q3-ui-sse",
-  "version": "4.5.13",
+  "version": "4.5.14",
   "main": "lib/index.js",
   "devDependencies": {
     "q3-ui-test-utils": "^4.0.1"
@@ -10,11 +10,11 @@
     "lodash": "^4.17.20",
     "prop-types": "^15.7.2",
     "q3-ui-dialog": "^4.0.1",
-    "q3-ui-forms": "^4.5.13",
+    "q3-ui-forms": "^4.5.14",
     "q3-ui-helpers": "^4.5.11",
     "q3-ui-locale": "^4.5.11",
-    "q3-ui-permissions": "^4.5.13",
-    "q3-ui-rest": "^4.5.13",
+    "q3-ui-permissions": "^4.5.14",
+    "q3-ui-rest": "^4.5.14",
     "useful-state": "^1.2.3"
   },
   "peerDependencies": {
