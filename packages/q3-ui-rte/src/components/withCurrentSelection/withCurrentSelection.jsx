@@ -56,6 +56,10 @@ const withCurrentSelection = (Component, { icon, label }) =>
               buttonProps={{
                 onClick: captureSelection,
                 type: 'button',
+                style: {
+                  borderRadius: 0,
+                  minWidth: 40,
+                },
               }}
             />
           );

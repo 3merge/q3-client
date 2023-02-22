@@ -97,6 +97,12 @@ const useStyle = makeStyles((theme) => ({
         display: 'inline-block',
       },
 
+      '& pre': {
+        background: theme.palette.primary.dark,
+        color: theme.palette.primary.contrastText,
+        padding: theme.spacing(1),
+      },
+
       '& img': {
         cursor: 'pointer',
         display: 'inline-block',
