@@ -1,7 +1,7 @@
 import React from 'react';
 import Quill from 'quill';
 import { get, invoke } from 'lodash';
-
+import hljs from 'highlight.js';
 import 'quill-paste-smart';
 
 const hash = (xs) => `#${xs}`;
@@ -14,6 +14,9 @@ export default (options = {}) => {
   React.useLayoutEffect(() => {
     ref.current = new Quill(hash(ID), {
       modules: {
+        syntax: {
+          highlight: (v) => hljs.highlightAuto(v).value,
+        },
         toolbar: hash(TOOLBAR_ID),
       },
     });

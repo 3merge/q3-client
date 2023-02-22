@@ -1,19 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Box } from '@material-ui/core';
-import {
-  FormatListNumbered,
-  FormatListBulleted,
-} from '@material-ui/icons';
-import { set, isFunction } from 'lodash';
+import { set } from 'lodash';
 import ImageOverlay from '../ImageOverlay';
-import ModuleDivider from '../ModuleDivider';
-import ModuleImage from '../ModuleImage';
-import ModuleLink from '../ModuleLink';
-import ModuleVideo from '../ModuleVideo';
-import ModuleVideoHtml from '../ModuleVideoHtml';
-import ModuleAudioHtml from '../ModuleAudioHtml';
-import ModuleDocument from '../ModuleDocument';
 import Toolbar from '../Toolbar';
 import useLocalValue from '../useLocalValue';
 import useQuill from '../useQuill';
@@ -49,72 +38,6 @@ const RichTextEditor = React.forwardRef(
     // ensure that external APIs can clear and get state
     set(externalRef, 'current', v);
 
-    const mobileOptions = [
-      {
-        quillKey: 'list',
-        value: 'unordered',
-        icon: FormatListBulleted,
-        group: 'middle',
-      },
-      {
-        quillKey: 'list',
-        value: 'ordered',
-        icon: FormatListNumbered,
-        group: 'middle',
-      },
-      {
-        ref,
-        component: ModuleDivider,
-        label: 'divider',
-        group: 'middle',
-      },
-      {
-        ref,
-        component: ModuleLink,
-        label: 'hyperlink',
-        group: 'end',
-      },
-      {
-        ref,
-        component: ModuleVideo,
-        label: 'embedVideo',
-        group: 'end',
-      },
-    ].concat(
-      isFunction(upload)
-        ? [
-            {
-              ref,
-              component: ModuleImage,
-              label: 'image',
-              group: 'end',
-              upload,
-            },
-            {
-              ref,
-              component: ModuleVideoHtml,
-              label: 'video',
-              group: 'end',
-              upload,
-            },
-            {
-              ref,
-              component: ModuleAudioHtml,
-              label: 'audio',
-              group: 'end',
-              upload,
-            },
-            {
-              ref,
-              component: ModuleDocument,
-              label: 'document',
-              group: 'end',
-              upload,
-            },
-          ]
-        : [],
-    );
-
     return (
       <Box
         overflow="inherit"
@@ -131,7 +54,7 @@ const RichTextEditor = React.forwardRef(
           component="div"
         >
           {children}
-          <Toolbar options={mobileOptions} />
+          <Toolbar ref={ref} upload={upload} />
         </AppBar>
         <Box className={cls.root}>
           <Box id={ids.root} height="100%" width="100%">
