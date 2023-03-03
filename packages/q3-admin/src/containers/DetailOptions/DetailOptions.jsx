@@ -47,6 +47,7 @@ const DetailOptions = ({ registerOptions }) => {
         return (
           <ListItem
             button
+            disableRipple
             component="li"
             dense
             className={cls.listItem}

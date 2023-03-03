@@ -30,6 +30,7 @@ const DetailMeta = () => {
     return time ? (
       <ListItem
         button
+        disableRipple
         component="li"
         dense
         tabIndex={-1}

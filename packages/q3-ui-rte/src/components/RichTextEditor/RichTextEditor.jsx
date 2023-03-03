@@ -24,9 +24,9 @@ const RichTextEditor = React.forwardRef(
     externalRef,
   ) => {
     const cls = useStyle();
-    const keyboardUtils = useEscape();
-
     const { ids, ref } = useQuill(rest);
+    const keyboardUtils = useEscape(ref);
+
     const v = useLocalValue(ref, {
       autosave,
       autosaveInterval,
