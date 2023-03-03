@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.15](https://github.com/3merge/q/compare/v4.5.14...v4.5.15) (2023-03-03)
+
+
+### Bug Fixes
+
+* rte esc blur ([#474](https://github.com/3merge/q/issues/474)) ([6a23f35](https://github.com/3merge/q/commit/6a23f358f6cd850e5c4016487db218d4e878c331))
+
+
+
+
+
 ## [4.5.14](https://github.com/3merge/q/compare/v4.5.13...v4.5.14) (2023-02-22)
 
 **Note:** Version bump only for package q3-client
