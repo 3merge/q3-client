@@ -1,6 +1,6 @@
 import { isFunction, invoke } from 'lodash';
 
-const useEscape = () => {
+const useEscape = (ref) => {
   const FOCUS_LIST =
     'input, button, select, textarea, a[href], [tabindex="0"], [tabindex="-1"]';
 
@@ -113,10 +113,12 @@ const useEscape = () => {
         preventDefaultAndInvokeFocus(
           findPreviousTabStop(currentTarget),
         );
-      else if (code === 'Escape' && currentTarget)
+      else if (code === 'Escape' && currentTarget) {
+        invoke(ref, 'current.blur');
         preventDefaultAndInvokeFocus(
           findNextTabStop(currentTarget),
         );
+      }
     },
   };
 };
