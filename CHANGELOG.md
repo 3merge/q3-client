@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.16](https://github.com/3merge/q/compare/v4.5.15...v4.5.16) (2024-02-24)
+
+
+### Bug Fixes
+
+* pin polyfill ([edf4e92](https://github.com/3merge/q/commit/edf4e925779548443fbed3f16b488a801a1b8dbc))
+
+
+
+
+
 ## [4.5.15](https://github.com/3merge/q/compare/v4.5.14...v4.5.15) (2023-03-03)
 
 
