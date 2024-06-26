@@ -9,12 +9,3 @@ export const wrapPageElement = ({ element }, plugin) => (
 export const wrapRootElement = ({ element }, plugin) => (
   <Wrapper {...plugin}>{element}</Wrapper>
 );
-
-export const onRenderBody = ({ setPostBodyComponents }) => {
-  setPostBodyComponents([
-    <script
-      key="polyfill-io"
-      src="https://cdn.polyfill.io/v3/polyfill.min.js?version=3.110.1"
-    />,
-  ]);
-};
