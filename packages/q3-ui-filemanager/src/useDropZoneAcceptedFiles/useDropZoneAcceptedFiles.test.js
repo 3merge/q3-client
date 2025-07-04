@@ -2,7 +2,7 @@ import React from 'react';
 import { isFunction } from 'lodash';
 import useDropZoneAcceptedFiles from './useDropZoneAcceptedFiles';
 
-let post;
+let uploadS3;
 let setState;
 
 const makeBlob = () => {
@@ -15,7 +15,7 @@ const makeBlob = () => {
 };
 
 beforeEach(() => {
-  post = jest.fn();
+  uploadS3 = jest.fn();
   setState = jest.fn().mockImplementation((fn) =>
     isFunction(fn)
       ? fn([
@@ -32,18 +32,18 @@ beforeEach(() => {
 
   jest.spyOn(React, 'useContext').mockReturnValue({
     current: 1,
-    post,
+    uploadS3,
   });
 });
 
 describe('useDropZoneAcceptedFiles', () => {
-  it('should post files', async () => {
+  it('should upload files', async () => {
     await useDropZoneAcceptedFiles().onDrop([makeBlob()]);
-    expect(post).toHaveBeenCalled();
-    const res = post.mock.lastCall[0].get('test');
+    expect(uploadS3).toHaveBeenCalled();
 
-    expect(res instanceof File).toBeTruthy();
-    expect(res.name).toMatch('[1]test');
+    const res = uploadS3.mock.lastCall[0].at(0);
+
+    expect(res.name).toMatch('test');
     expect(setState).toHaveBeenCalledWith([]);
   });
 
