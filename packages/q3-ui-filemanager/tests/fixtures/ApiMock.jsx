@@ -5,6 +5,33 @@ import data from './data.json';
 import { collectionName, id } from './meta.json';
 import { normalize } from '../../src/utils';
 
+const explodeName = (name) => {
+  const r = String(name).match(
+    /\[([a-zA-Z0-9])*\]/,
+  );
+
+  if (!r)
+    return {
+      folderId: null,
+      name,
+    };
+
+  const [folderInParenthesis] = r;
+  const folderId = normalize(
+    folderInParenthesis.slice(1, -1),
+  );
+
+  const isolatedName = name.replace(
+    folderInParenthesis,
+    '',
+  );
+
+  return {
+    folderId,
+    name: isolatedName,
+  };
+};
+
 /**
  * Mimics server-side functionality in Q3.
  */
@@ -69,6 +96,30 @@ const useMockData =
         );
       }, 10000);
     }, []);
+
+    mockApiInstance
+      .onPost('/s3-upload')
+      .reply(201, {
+        url: 'https://example.com/s3-upload',
+      });
+
+    mockApiInstance
+      .onPost('/s3-upload-transfer')
+      .reply((req) => {
+          const { name, size } = JSON.parse(req.data);
+          const { folderId, name: isolatedName } = explodeName(name);
+
+          dataSource.push({
+            id: getRandomArbitrary(),
+            folderId,
+            name: isolatedName,
+            size,
+          })
+
+        return [201, {
+          uploads: generateRelativePaths(dataSource),
+        }]
+      });
 
     mockApiInstance
       .onGet(makeEndpoint())
@@ -162,33 +213,6 @@ const useMockData =
       .onPost(makeEndpoint())
       .reply(async (req) => {
         const currentState = [...dataSource];
-
-        const explodeName = (name) => {
-          const r = String(name).match(
-            /\[([a-zA-Z0-9])*\]/,
-          );
-
-          if (!r)
-            return {
-              folderId: null,
-              name,
-            };
-
-          const [folderInParenthesis] = r;
-          const folderId = normalize(
-            folderInParenthesis.slice(1, -1),
-          );
-
-          const isolatedName = name.replace(
-            folderInParenthesis,
-            '',
-          );
-
-          return {
-            folderId,
-            name: isolatedName,
-          };
-        };
 
         try {
           // eslint-disable-next-line

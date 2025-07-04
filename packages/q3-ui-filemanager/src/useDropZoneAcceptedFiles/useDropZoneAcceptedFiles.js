@@ -1,11 +1,10 @@
 import React from 'react';
 import { map } from 'lodash';
-import compress from 'browser-image-compression';
 import FileManagerContext from '../FileManagerContext';
 import FileManagerCurrentContext from '../FileManagerCurrentContext';
 
 const useDropZoneAcceptedFiles = () => {
-  const { post } = React.useContext(FileManagerContext);
+  const { uploadS3 } = React.useContext(FileManagerContext);
   const { current } = React.useContext(
     FileManagerCurrentContext,
   );
@@ -26,35 +25,10 @@ const useDropZoneAcceptedFiles = () => {
     setPending(acceptedFiles);
 
     try {
-      const f = new FormData();
-      await Promise.all(
-        map(acceptedFiles, async (item) => {
-          let data = item;
-          const originalName = item.name;
-
-          try {
-            data = await compress(data, {
-              maxSizeMB: 4.5,
-              useWebWorker: true,
-              maxWidthOrHeight: 1920,
-            });
-          } catch (e) {
-            // noop
-          }
-
-          f.append(
-            item.name,
-            data,
-            current
-              ? `[${current}]${originalName}`
-              : originalName,
-          );
-        }),
-      );
-
-      await post(f);
+      await uploadS3(acceptedFiles, current);
       clearPending();
     } catch (e) {
+      console.log(e)
       markPendingWithErrorProperty();
     }
   };
