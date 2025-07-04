@@ -1,13 +1,13 @@
 {
   "name": "q3-ui-dialog",
-  "version": "4.0.1",
+  "version": "4.5.19",
   "main": "lib/index.js",
   "devDependencies": {
-    "q3-ui-test-utils": "^4.0.1"
+    "q3-ui-test-utils": "^4.5.19"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "q3-ui-locale": "^4.0.1",
+    "q3-ui-locale": "^4.5.19",
     "react-draggable": "^4.4.4",
     "useful-state": "^1.2.3"
   },

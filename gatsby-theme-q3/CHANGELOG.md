@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.19](https://github.com/3merge/q3-client/compare/v4.5.18...v4.5.19) (2025-07-04)
+
+**Note:** Version bump only for package gatsby-theme-q3
+
+
+
+
+
 ## [4.5.17](https://github.com/3merge/q/compare/v4.5.16...v4.5.17) (2024-06-26)
 
 **Note:** Version bump only for package gatsby-theme-q3
