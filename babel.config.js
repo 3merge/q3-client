@@ -39,7 +39,7 @@ const alias = [
     Object.assign(acc, {
       [withBundledDir(curr)]: withPackageOpts(curr),
       [withTests(curr)]: withPackageTests(curr),
-      [curr]: withPackageOpts(curr), // default exports
+      // Removed default exports mapping to preserve workspace linking
     }),
   {},
 );
@@ -76,8 +76,9 @@ const config = {
   ],
   env: {
     test: withAlias,
-    development: withAlias,
-    production: withAlias,
+    // Only apply aliases in test environment to preserve workspace linking
+    development: {},
+    production: {},
   },
 };
 
