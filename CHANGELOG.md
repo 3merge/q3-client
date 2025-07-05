@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.20](https://github.com/3merge/q3-client/compare/v4.5.19...v4.5.20) (2025-07-05)
+
+
+### Bug Fixes
+
+* s3 call with new axios instance ([#479](https://github.com/3merge/q3-client/issues/479)) ([b57f1a5](https://github.com/3merge/q3-client/commit/b57f1a58b2e5e351272ebbb7601c7315fbacc5b8))
+
+
+
+
+
 ## [4.5.19](https://github.com/3merge/q3-client/compare/v4.5.18...v4.5.19) (2025-07-04)
 
 

@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "4.5.19",
+  "version": "4.5.20",
   "dependencies": {
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
@@ -11,7 +11,7 @@
     "gatsby": "^4.25.7",
     "gatsby-theme-q3": "^4.5.19",
     "prop-types": "^15.7.2",
-    "q3-admin": "^4.5.19",
+    "q3-admin": "^4.5.20",
     "q3-blocks": "^3.2.1",
     "q3-components": "^4.5.19",
     "q3-ui": "^4.5.19",
