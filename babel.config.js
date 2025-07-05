@@ -1,4 +1,6 @@
-const withPackageOpts = (s) =>  `./packages/${s}/src` 
+const os = require('os');
+
+const withPackageOpts = (s) => `./packages/${s}/src`
 const withPackageTests = (s) => `./packages/${s}/tests`;
 
 const withTests = (s) => `${s}/tests`;
@@ -35,12 +37,18 @@ const alias = [
   'q3-ui-sse',
   'q3-ui-dropdownmenu',
 ].reduce(
-  (acc, curr) =>
-    Object.assign(acc, {
+  (acc, curr) => {
+    const exportDefinitions = {
       [withBundledDir(curr)]: withPackageOpts(curr),
       [withTests(curr)]: withPackageTests(curr),
-      // Removed default exports mapping to preserve workspace linking
-    }),
+    }
+
+    if (os.type() !== 'Darwin') {
+      exportDefinitions[curr] = withPackageOpts(curr);
+    }
+
+    return Object.assign(acc, exportDefinitions)
+  },
   {},
 );
 

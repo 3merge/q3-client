@@ -35,19 +35,19 @@ const useUploads = (collectionName, id) => {
         const compressed = await compressFile(file);
         const originalName = file.name;
         const { data: { url } } = await axios.post('/s3-upload', {
-          collectionName,
+          collection:collectionName,
           id,
-          mimeType: compressed.mimeType,
+          mimetype: compressed.type,
           name: originalName,
         })
 
         // note: this is to skip put request in our local integration tests
         if (url !== 'https://example.com/s3-upload') {
-          await axios.put(url, compressed)
+          await axios.create().put(url, compressed)
         }
 
         const { data: { uploads = [] } } = await axios.post('/s3-upload-transfer', {
-          collectionName,
+          collection: collectionName,
           id,
           name: folder
             ? `[${folder}]${originalName}`
