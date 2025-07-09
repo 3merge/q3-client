@@ -15,14 +15,61 @@ module.exports = (prefix) => {
           'fixtures/mockFile.js',
         ),
 
+      // Workspace package mappings - try both .js and .jsx files
+      '^q3-ui-locale$': [
+        '<rootDir>/packages/q3-ui-locale/src/index.jsx',
+        '<rootDir>/packages/q3-ui-locale/src/index.js'
+      ],
+      '^q3-ui-forms$': [
+        '<rootDir>/packages/q3-ui-forms/src/index.js',
+        '<rootDir>/packages/q3-ui-forms/src/index.jsx'
+      ],
+      '^q3-ui-rest$': [
+        '<rootDir>/packages/q3-ui-rest/src/index.js',
+        '<rootDir>/packages/q3-ui-rest/src/index.jsx'
+      ],
+      '^q3-ui-helpers$': [
+        '<rootDir>/packages/q3-ui-helpers/src/index.js',
+        '<rootDir>/packages/q3-ui-helpers/src/index.jsx'
+      ],
+      '^q3-ui-test-utils$': '<rootDir>/packages/q3-ui-test-utils/index.js',
+      '^q3-ui-filemanager$': [
+        '<rootDir>/packages/q3-ui-filemanager/src/index.js',
+        '<rootDir>/packages/q3-ui-filemanager/src/index.jsx'
+      ],
+      '^q3-ui-confirm$': [
+        '<rootDir>/packages/q3-ui-confirm/src/index.js',
+        '<rootDir>/packages/q3-ui-confirm/src/index.jsx'
+      ],
+      '^q3-ui-dialog$': [
+        '<rootDir>/packages/q3-ui-dialog/src/index.jsx',
+        '<rootDir>/packages/q3-ui-dialog/src/index.js'
+      ],
+      '^q3-ui-assets$': [
+        '<rootDir>/packages/q3-ui-assets/src/index.js',
+        '<rootDir>/packages/q3-ui-assets/src/index.jsx'
+      ],
+      '^q3-ui-permissions$': [
+        '<rootDir>/packages/q3-ui-permissions/src/index.jsx',
+        '<rootDir>/packages/q3-ui-permissions/src/index.js'
+      ],
+      '^q3-admin$': [
+        '<rootDir>/packages/q3-admin/src/index.js',
+        '<rootDir>/packages/q3-admin/src/index.jsx'
+      ],
+      '^q3-components$': [
+        '<rootDir>/packages/q3-components/src/index.js',
+        '<rootDir>/packages/q3-components/src/index.jsx'
+      ],
+
       '^gatsby-page-utils/(.*)$':
-        'gatsby-page-utils/dist/$1', // Workaround for https://github.com/facebook/jest/issues/9771
+        'gatsby-page-utils/dist/$1',
       '^gatsby-core-utils/(.*)$':
-        'gatsby-core-utils/dist/$1', // Workaround for https://github.com/facebook/jest/issues/9771
+        'gatsby-core-utils/dist/$1',
       '^gatsby-plugin-utils/(.*)$': [
         'gatsby-plugin-utils/dist/$1',
         'gatsby-plugin-utils/$1',
-      ], // Workaround for https://github.com/facebook/jest/issues/9771
+      ],
     },
     setupFilesAfterEnv: [
       makeFilePathForActiveProjectDir('setup.js'),

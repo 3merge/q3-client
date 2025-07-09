@@ -130,10 +130,10 @@ export const InnerForm = ({
   };
 
   const execAllSubmitHandlers = onSubmit(() =>
-    forwardProcessStateValuesIntoOnSubmitHandler(
+    Promise.resolve(forwardProcessStateValuesIntoOnSubmitHandler(
       values,
       attachments,
-    )
+    ))
       .then((res) => {
         clearPreviousState();
         if (restart) onReset();
