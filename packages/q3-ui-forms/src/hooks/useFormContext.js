@@ -44,19 +44,26 @@ export default ({
     return t(msg);
   };
 
-  const onValidate = (name, value) =>
-    Yup.reach(validationSchema, name)
-      .validate(value)
-      .then(() => removeFieldError(name))
-      .catch((e) =>
-        setFieldError(
-          name,
+  const onValidate = (name, value) =>{
+    try {
+      return Yup
+        .reach(validationSchema, name)
+        .validate(value)
+        .then(() => removeFieldError(name))
+        .catch((e) =>
+          setFieldError(
+            name,
 
-          getRequiredInputErrorMessageVariety(
-            get(e, 'message', 'invalidInput'),
+            getRequiredInputErrorMessageVariety(
+              get(e, 'message', 'invalidInput'),
+            ),
           ),
-        ),
-      );
+        );
+    } catch (error) {
+      console.warn(`Client field validation error:`, error);
+      return Promise.resolve(removeFieldError(name));
+    }
+  };
 
   const onChange = (key, value) => {
     onValidate(key, value).finally(() =>
@@ -111,7 +118,7 @@ export default ({
       )
       .then(next)
       .catch((err) => {
-        if (err && err.inner)
+        if (err && err.inner) {
           setErrors(
             reduceErrorMessages(
               err.inner,
@@ -119,10 +126,14 @@ export default ({
               getRequiredInputErrorMessageVariety,
             ),
           );
-
-        return null;
+  
+          return null;
+        } else {
+          console.log(`Client form validation error:`, err);
+          // e.g. error schema issue
+          return next();
+        }
       })
-
       .finally(() => {
         setIsSubmitting(false);
       });

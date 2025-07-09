@@ -197,7 +197,7 @@
       "currentPassword": "Current password",
       "reverify": "Re-verify",
       "login": "Login",
-      "recaptcha": "Must pass this test before proceeding",
+      "recaptcha.test": "Must pass this test before proceeding",
       "id": "Account ID",
       "code": "Account code",
       "confirmPassword": "Confirm password",
