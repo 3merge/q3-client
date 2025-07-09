@@ -1,11 +1,11 @@
 {
   "name": "q3-ui-rest",
-  "version": "4.5.19",
+  "version": "4.5.21",
   "main": "lib/index.js",
   "gitHead": "a88ebfcc87d52502d1c8fc865b0d371549d3ab1a",
   "devDependencies": {
     "jest-mock-axios": "^4.4.1",
-    "q3-ui-test-utils": "^4.5.19"
+    "q3-ui-test-utils": "^4.5.21"
   },
   "peerDependencies": {
     "react": "^17.0.1",
@@ -18,8 +18,8 @@
     "js-file-download": "^0.4.12",
     "lodash": "^4.17.20",
     "moment-timezone": "^0.5.34",
-    "q3-ui-forms": "^4.5.19",
-    "q3-ui-helpers": "^4.5.19",
+    "q3-ui-forms": "^4.5.21",
+    "q3-ui-helpers": "^4.5.21",
     "qs": "^6.9.6"
   }
 }

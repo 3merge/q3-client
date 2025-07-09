@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.21](https://github.com/3merge/q3-client/compare/v4.5.20...v4.5.21) (2025-07-09)
+
+
+### Bug Fixes
+
+* validation on dot notated fields ([#481](https://github.com/3merge/q3-client/issues/481)) ([1ff5002](https://github.com/3merge/q3-client/commit/1ff50020c88c93c90fb2d241b1e03f4bdb6ce2c0))
+
+
+
+
+
 ## [4.5.19](https://github.com/3merge/q3-client/compare/v4.5.18...v4.5.19) (2025-07-04)
 
 **Note:** Version bump only for package q3-ui-forms
