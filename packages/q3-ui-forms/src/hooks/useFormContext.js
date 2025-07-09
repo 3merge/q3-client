@@ -44,19 +44,25 @@ export default ({
     return t(msg);
   };
 
-  const onValidate = (name, value) =>
-    Yup.reach(validationSchema, name)
-      .validate(value)
-      .then(() => removeFieldError(name))
-      .catch((e) =>
-        setFieldError(
-          name,
+  const onValidate = (name, value) => {
+    try {
+      return Yup.reach(validationSchema, name)
+        .validate(value)
+        .then(() => removeFieldError(name))
+        .catch((e) =>
+          setFieldError(
+            name,
 
-          getRequiredInputErrorMessageVariety(
-            get(e, 'message', 'invalidInput'),
+            getRequiredInputErrorMessageVariety(
+              get(e, 'message', 'invalidInput'),
+            ),
           ),
-        ),
-      );
+        );
+    } catch (e) {
+      console.warn(`Error validating field ${name}`, e);
+      return Promise.resolve(removeFieldError(name));
+    }
+  }
 
   const onChange = (key, value) => {
     onValidate(key, value).finally(() =>
@@ -100,18 +106,20 @@ export default ({
     if (e) e.preventDefault();
     setIsSubmitting(true);
 
+    const submitableValues = object.removeUndefinedValuesFromAllArrays(
+      flat.unflatten(values),
+    );
+
     return validationSchema
       .validate(
-        object.removeUndefinedValuesFromAllArrays(
-          flat.unflatten(values),
-        ),
+        submitableValues,
         {
           abortEarly: false,
         },
       )
       .then(next)
       .catch((err) => {
-        if (err && err.inner)
+        if (err && err.inner) {
           setErrors(
             reduceErrorMessages(
               err.inner,
@@ -119,10 +127,13 @@ export default ({
               getRequiredInputErrorMessageVariety,
             ),
           );
+        
+          return null;
+        }
 
-        return null;
+        console.warn('Error validating form', err)
+        return next(submitableValues)
       })
-
       .finally(() => {
         setIsSubmitting(false);
       });

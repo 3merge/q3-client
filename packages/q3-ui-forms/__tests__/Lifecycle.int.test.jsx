@@ -148,4 +148,49 @@ describe('Lifecycle', () => {
       expect.any(Object),
     );
   });
+
+  it('should support deeply nested dot notation in field names', async () => {
+    const address = {
+      street: '123 Fake St',
+      city: 'Fake City',
+      state: 'Fake State',
+      zip: '12345',
+      country: 'Fake Country',
+      phone: '123-456-7890',
+    }
+
+    const onSubmit = jest.fn();
+
+    const el = global.mount(
+      <Form
+        initialValues={{
+          user: {
+            address,
+          },
+        }}
+        onSubmit={onSubmit}
+      >
+        <Field name="user.address.street" type="text" />
+        <Field name="user.address.city" type="text" />
+        <Field name="user.address.state" type="text" />
+        <Field name="user.address.zip" type="text" />
+        <Field name="user.address.country" type="text" />
+        <Field name="user.address.phone" type="text" />
+      </Form>,
+    );
+
+    await act(async () => {
+      el.find('form').props().onSubmit({
+        preventDefault: jest.fn(),
+      });
+    });
+
+    el.update();
+
+    expect(onSubmit).toHaveBeenCalledWith({
+      user: {
+        address,
+      },
+    },[]);
+  });
 });
