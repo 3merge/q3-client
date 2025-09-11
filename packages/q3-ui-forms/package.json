@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@date-io/moment": "1.x",
-    "axios": "^0.24.0",
+    "axios": "^1.12.0",
     "class-names": "^1.0.0",
     "comparisons": "^2.2.10",
     "dot-helpers": "^1.1.5",

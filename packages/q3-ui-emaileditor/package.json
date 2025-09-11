@@ -6,7 +6,7 @@
     "q3-ui-test-utils": "^4.5.21"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^1.12.0",
     "codemirror": "^5.64.0",
     "js-beautify": "^1.14.0",
     "lodash": "^4.17.20",

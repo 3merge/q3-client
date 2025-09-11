@@ -3,7 +3,7 @@
   "version": "4.5.21",
   "main": "lib/index.js",
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^1.12.0",
     "comparisons": "^2.2.10",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.20",
