@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.5.22](https://github.com/3merge/q3-client/compare/v4.5.21...v4.5.22) (2025-10-03)
+
+
+### Bug Fixes
+
+* fallback to post method ([#487](https://github.com/3merge/q3-client/issues/487)) ([0d7df67](https://github.com/3merge/q3-client/commit/0d7df675adc5203ed93ed8e2019b04bd2b682677))
+
+
+
+
+
 ## [4.5.21](https://github.com/3merge/q3-client/compare/v4.5.20...v4.5.21) (2025-07-09)
 
 **Note:** Version bump only for package q3-ui-filemanager
