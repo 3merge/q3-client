@@ -48,11 +48,11 @@ const useDropZoneAcceptedFiles = () => {
         );
 
         await post(f);
-      } catch (error) {
-        console.log(error);
+        clearPending();
+      } catch (e2) {
+        console.log(e2);
         markPendingWithErrorProperty();
       }
-
     }
   };
 
